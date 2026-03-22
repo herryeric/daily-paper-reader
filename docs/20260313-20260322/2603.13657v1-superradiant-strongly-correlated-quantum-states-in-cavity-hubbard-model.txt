@@ -1,0 +1,985 @@
+Title: Superradiant strongly correlated quantum states in cavity Hubbard model
+
+URL Source: https://arxiv.org/pdf/2603.13657v1
+
+Published Time: Tue, 17 Mar 2026 00:38:59 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+## Superradiant strongly correlated quantum states in cavity Hubbard model 
+
+Kang Wang, 1, 2 Wei-Xuan Chang, 1, 3 Cheng-Yu Bi, 1, 4 Zi Cai, 5, 6, ∗ and Zi-Xiang Li 1, 7, †
+
+> 1
+
+Beijing National Laboratory for Condensed Matter Physics & Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China 
+
+> 2
+
+Department of Physics and Astronomy, University of Pittsburgh, PA 15213, USA 
+
+> 3
+
+Institute for Advanced Study, Tsinghua University, Beijing 100084, China 
+
+> 4
+
+College of Science, Northeast Forestry University, Harbin 150040, China 
+
+> 5
+
+Wilczek Quantum Center and Shanghai Research Center for Quantum Sciences, School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200240, China 
+
+> 6
+
+Key Laboratory of Artificial Structures and Quantum Control, School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200240, China 
+
+> 7
+
+University of Chinese Academy of Sciences, Beijing 100049, China 
+
+In cavity quantum materials, entangling strongly correlated electrons with quantum light provides a unique opportunity to explore novel quantum phases and phase transitions absent in conventional solid-state materials. In this study, we develop a sign-problem-free fermion-photon hybrid Quan-tum Monte Carlo (QMC) algorithm, and use it to systematically investigate the ground-state phase diagram of a two-dimensional cavity Hubbard model. It is shown that the interplay between the electron correlation and photon condensation gives rise to intriguing quantum phases ( e.g. super-radiant antiferromagnetic and chiral/ π-flux states), and different quantum phase transitions, such as a first-order superradiant phase transition and a continuous phase transition with Gross-Neveu universality class. The methodology can be readily generalized to more complicated cavity strongly correlated models. 
+
+The integration of quantum matter with cavity quan-tum electrodynamics (QED) has given rise to an emerg-ing field at the intersection of condensed matter physics and quantum optics, now termed “cavity quantum ma-terials” [1], which enables access to the ultrastrong and deep-strong light-matter coupling regimes where the properties of quantum materials can be drastically mod-ified [2–5]. Typical examples in this regard include the cavity-enhanced/altered superconductor [6–11] and topo-logical phases mediated by vacuum fluctuations [12–15]. The situation becomes particularly intriguing when the cavity quantum material itself is a strongly correlated system, where the interplay between strong electronic correlations and vacuum fluctuations of the cavity mode can give rise to phenomena beyond those anticipated from either effect alone. The Hubbard model, a cornerstone of strongly cor-related electron physics, captures the competition be-tween kinetic energy of electrons and local Coulomb re-pulsion to explain emergent phenomena ranging from Mott insulator to high-temperature superconductivity within a minimal framework [16, 17]. In a cavity sys-tem, this naturally leads to the consideration of its ex-tension—the Hubbard model coupled to a single photon mode—as the fundamental starting point for investigat-ing strongly correlated physics within a cavity environ-ment. However, a theoretical understanding of such a cavity Hubbard model poses a formidable many-body nu-merical challenge, which calls for an equal footing treat-ment of the non-perturbative light-matter coupling and strong Coulomb repulsion. Despite pioneering theoreti-cal efforts [18–23], to date, an unbiased non-perturbative study of a strongly correlated cavity Hubbard model in dimensions higher than one has remained fundamentally lacking. x
+
+z
+
+y
+
+i j
+
+## (a) 0 2 4 6 8 10 ∞
+
+> g
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 12
+> ∞
+> U/t
+> ∞Superradiant  π-flux state
+> Metal
+> Superradiant AFM
+> Superradiant Chiral State
+> AFM
+> Photon Condensation (1st order)
+> AFM Transition (2nd order)
+> AFM Transition (1st order)
+
+GNU 
+
+## (b) 
+
+FIG. 1. (a) Schematic illustration of a two-dimensional Hub-bard model embedded in a gyrotropic cavity. (b)Ground-state phase diagram of the cavity Hubbard model in terms of light-matter coupling g and Hubbard interaction U/t . Dashed and solid denote first-order and second-order AFM transitions, respectively. The label GNU marks the second-order phase transition with Gross-Neveu universality class. 
+
+> arXiv:2603.13657v1 [cond-mat.str-el] 13 Mar 2026
+
+2To address this issue, in this study, we develop a Quantum Monte Carlo (QMC) algorithm for photon-fermion hybrid systems, and apply it to investigate a half-filled two-dimensional Hubbard model embedded in a gyrotropic cavity, as shown in Fig.1 (a). This method treats fermions and photons on an equal footing, and is free of the negative sign problem, thereby enabling an unbiased and well-controlled investigation of the ground state phase diagram of this cavity Hubbard model. It is shown that the interplay between the electron corre-lation and the photon condensation leads to rich quan-tum phases and phase transitions (see Fig.1 (b)). In the absence of repulsive interaction, the system undergoes a first-order superradiant phase transition, manifesting as photon condensation that induces a spatially uniform magnetic field and gives rise to an emergent chiral or 
+
+π-flux fermionic state. With Coulomb repulsion, a su-perradiant antiferromagnetic (AFM) phase emerges in a regime bounded by a first-order superradiant transition and a continuous transition with the Gross-Neveu univer-sality class. Such a superradiant AFM phase is character-ized by the coexistence of an emergent magnetic flux and antiferromagnetic order- a phenomenon rarely observed in conventional solid-state materials. 
+
+Model and method— We consider a two-dimensional model of interacting electrons coupled to a single-mode photon field inside a gyrotropic cavity defined in a L × L
+
+square lattice. The Hamiltonian is given by: ˆH = ˆHe + ˆHph (1) where ˆHe and ˆHph depict the Hamiltonian of fermions and the cavity mode respectively, which reads: ˆHe = −t X
+
+> ⟨ij ⟩,σ
+
+(e−i ˆAij ˆc† 
+
+> iσ
+
+ˆcjσ + h.c. )+ U X
+
+> i
+
+ˆni↑ ˆni↓ − μ X
+
+> iσ
+
+ˆniσ ,
+
+ˆHph = ˆP 2
+
+2m + 12 mω 2 
+
+> c
+
+ˆX2. (2) where the summation ⟨ij ⟩ is over the adjacent sites on the square lattice, ˆ c† 
+
+> iσ
+
+(ˆ ciσ ) creates (annihilates) a fermion with spin σ on site i, and ˆ niσ = ˆ c† 
+
+> iσ
+
+ˆciσ . t is the single-particle hopping amplitude, and U > 0 denotes the strength of the on-site repulsive interactions between the fermions. We focus the study on the square lattice at half filling, thus the chemical potential of the fermion μ
+
+is set to be μ = U/ 2 throughout this paper to guaran-tee the half-filled condition. The cavity photon mode is treated as a harmonic oscillator with position operator ˆX and momentum operator ˆP , with a cavity frequency 
+
+ωc, which is fixed as ωc = t throughout this work. Both the lattice constant and the charge of the fermion are set to be unit for simplicity. We also set t as the unit for all quantities with dimensions of energy. The light-matter interaction is incorporated via the Peierls substitution [24], where the hopping amplitude acquires a phase dependent on the vector potential: tij →
+
+tij e−i R rjri dr· ˆA(r). ˆA(r) is the vector potential operator of the photon mode in gyrotropic cavity [25–27], which is defined as: ˆA(r) = 
+
+r 2
+
+N g ˆX A0(r), (3) The spatially uniform operator ˆX arises from the quan-tization of the single cavity mode. g is a dimension-less parameter characterizing the light-matter coupling strength. The vector A0(r) retains the spatial depen-dence of the vector potential, and we adopt the symmet-ric gauge A0(r) = ( −y/ 2, x/ 2) with ( x, y ) being the spa-tial coordinates in the x-y plane. ˆA(r) has a nonzero curl, thus such a cavity mode generates a fluctuating magnetic flux in each plaquette, which is described by the operator: ˆΦ = 
+
+Z
+
+> □
+
+dxdy ∇ × ˆA = 2g
+
+√N
+
+ˆX (4) where N = L2 and the integral is over a plaquette in the square lattice. The prefactor p1/N guarantees that the flux in each plaquette doesn’t depend on the system size once the photons condense ( ⟨ ˆX⟩ ∼ √N ). A simi-lar non-interacting fermionic model defined in a two-leg ladder system has been investigated by a Density-Matrix-Renormalization-Group method [20]. To investigate such a hybrid model, we perform a de-terminant quantum Monte Carlo simulation with local updates for the discrete Hubbard-Stratonovich auxiliary fields [28–30], complemented by the hybrid Monte Carlo updates [31–34] for the photon coordinate X(τ ) with τ
+
+being the imaginary time. This algorithm allows us to simultaneously update the spatial-time auxiliary fields configurations of the fermions and the coordinate con-figuration X(τ ) of the photons. By formulating the al-gorithm in the coordinate basis X(τ ) of photon instead of its occupation number basis, we avoid truncating the photon Hilbert space. This is particularly important in the presence of photon condensate, where the occupa-tion number of photons are macroscopically large. For a half-filled square lattice, our model is free from the no-torious sign problem, enabling unbiased quantum Monte Carlo simulations for large system with system size up to L = 16. We choose open boundary condition in both directions. More details about the QMC algorithm and the sign-problem-free condition have been provided in the Supplementary Materials (SM) [35]. 
+
+Symmetry analysis and superradiant phase transi-tion— Before presenting our numerical results, we first analyze the symmetry of the Hamiltonian(1). It is easy to check that at half-filling ( μ = U/ 2), the Hamilto-nian in Eq. (1) is invariant under the combination of a particle-hole (PH) transformation on the fermions: 30.0 
+
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> 〈Φ2〉
+> π2
+
+(a)         
+
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> 2.5 5.0 7.5 10.0
+
+g
+
+> 0.45
+> 0.30
+> 0.15
+> 0.00
+> Q ey
+> 1, L
+
+(b)                  
+
+> FIG. 2. Superradiant phase transition at U= 0. (a) Squared effective gauge flux ⟨ˆΦ2⟩=g2
+> N⟨ˆX2⟩per plaquette as a func-tion of light-matter coupling g.The discontinuous jump at
+> gc≈2.8 signals a first-order photon condensation transition. (b) Edge current correlation function. The finite negative value for g > g cindicates chiral edge currents induced by the emergent magnetic flux.
+
+ˆc† 
+
+> iσ
+
+→ (−1) i ˆdiσ , and a parity transformation on the pho-ton field: ˆX → − ˆX. In a light-matter coupling system, the condensate of photon ( ⟨ ˆX⟩̸ = 0) which spontaneously breaks the combined symmetry [36], leads to a superradi-ant phase transition which has been realized in ultracold atom experiments [37, 38], and has drawn considerable attention in electronic systems recently [39–42]. A no-go theorem posits that photon condensation is prohibited in presence of spatially uniform vector potential [43–47], while the coupling in a gyrotropic cavity circumvents these constraints, thereby permitting the emergence of a genuine photon condensate. 
+
+Superradiant chiral and π-flux phases— We start with the non-interacting case ( U = 0). To identify the super-radiant phase transition in a finite system, we calculate the average value of ˆΦ2 (since ⟨ ˆΦ⟩ = 0 for a finite sys-tem). The dependence of ⟨ ˆΦ2⟩ as a function of coupling strength g is plotted in Fig. 2(a), from which we can see that ⟨ ˆΦ2⟩ undergoes a sudden jump from zero to a finite value at a critical value of gc ≈ 2.8, indicating a first-order quantum phase transition. This phase transition can be understood as a competition between the energies of fermions and photons: although an emergent magnetic flux will increase the energy of photons, it indeed lowers the kinetic energy of fermions. This becomes evident in the strong-coupling limit ( g → ∞ ), where the flux per plaquette tends to π (see Fig. 2(a)). Consequently, the system maps onto a π-flux phase on the square lat-tice, whose low-energy excitations are described by Dirac fermions. For non-interacting electrons on a half-filled square lattice, the ground-state energy is minimized in the presence of a uniform π-flux per plaquette, as dic-tated by Lieb’s theorem [48]. In the thermodynamical limit, such a superradiant chi-ral state with a magnetic flux per plaquette other than 0 or π breaks the time reversal symmetry, thus hosting a chiral charge current on the edge. To verify this point numerically in a finite system, we calculate the current-current correlation between the bonds on the opposite vertical edges, which is defined as: 
+
+Qyedge = 1
+
+L2
+
+> y
+
+X
+
+> y1,y 2
+
+⟨ ˆJey 
+
+> (1 ,y 1)
+
+ˆJey
+
+> (Lx,y 2)
+
+⟩, (5) where ˆJey 
+
+> (x,y )
+
+is the current operator defined on the ver-tical bond [( x, y ), (x, y + 1)]. As shown in Fig. 2(b), the quantity Qyedge jumps from zero to a finite value at g = gc,with its negative sign signaling opposing currents on the two edges. Upon further increasing g, the current correla-tion decays and vanishes as g → ∞ , where time-reversal symmetry is restored in the π-flux phase thus the edge current disappears. 
+
+Superradiant anti-ferromagnetic phase— Next, we ex-plore the effect of electronic interactions (Hubbard repul-sion U ) on photon condensation and the cavity-induced chiral and π-flux phases. In a half-filled square lattice without cavity, the Hubbard interaction promotes AFM order. Our interest lies in the interplay between this interaction-driven AFM order and the cavity-induced photon condensation, and the competition between them is expected to yield a rich ground-state phase diagram. The onset of AFM order can be identified by a peak in the spin structure factor S(q): 
+
+S(q) = 1
+
+N 2
+
+X
+
+> ij
+
+eiq·(i−j)⟨(ˆ ni↑ − ˆni↓)(ˆ nj↑ − ˆnj↓)⟩, (6) at the wavevector q = ( π, π ). For a precise determina-tion of the critical point, we analyze the scaling of the dimensionless correlation-length ratio: 
+
+Rs = S(π, π )
+
+S  π + 2πL , π + 2πL
+
+ . (7) In the long-range ordered phase, Rs increases with sys-tem size L, while in the short-range disordered phase, it decreases. At a continuous phase transition, the system is scale-invariant, causing curves of Rs for different L to intersect at a single critical point. This crossing provides a robust and highly accurate signature of the quantum phase transition. 40.00                                                          
+
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> (a) g= 4 .0
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> 0
+> 5
+> 10
+> 〈Φ2〉
+> (b) g= 4 .0
+> 246810
+> U
+> 5
+> 10
+> Rs
+> (c) g= 6 .0
+> 5.5 6.0 6.5 7.0
+> 3
+> 4
+> 246810
+> U
+> 0
+> 5
+> 10
+> 〈Φ2〉
+> (d) g= 6 .0
+> 0.00 0.01 0.02 0.03
+> S(π, π )
+> 0
+> 50
+> 100
+> p(S(π, π ))
+> (e) g= 6 .0, U = 6 .4
+> Mean = 0.0104
+> 024
+> 〈Φ2〉
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> p(〈Φ2〉)
+> (f) g= 6 .0, U = 8 .15
+> Mean = 1.6508
+> 0.000 0.005 0.010 0.015
+> 1/L 2
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> L→ ∞ : 0 .0087
+> f(x) = 1 .52 x+ 0 .0087
+> (g) g= 6 .0, U = 7 .4
+> 0.000 0.005 0.010 0.015
+> 1/L 2
+> 4
+> 6
+> 〈Φ2〉
+> L→ ∞ : 7 .1914
+> f(x) = −20612 .0x2+ 42 .1x+ 7 .1914
+> (h) g= 6 .0, U = 7 .4
+
+FIG. 3. Effects of finite Hubbard interaction. (a) and (b) AFM structure factor S(π, π ) and squared effective flux ⟨Φ2⟩
+
+as functions of U at g = 4 .0. The simultaneous discontinuous jumps in both quantities are the hallmark of a single first-order transition. (c) Correlation-length ratio Rs as a func-tion of U at g = 6 .0 for different system sizes. The crossing of curves for different L, shown in the inset, signals a con-tinuous AFM transition at U ≈ 6.4t. (d) Squared effective flux ⟨Φ2⟩ at g = 6 .0, showing a first-order photon condensa-tion transition at U ≈ 8.6t. (e) and (f) Histogram of prob-ability distribution of the S(π, π ) at U = 6 .4 (close to the AFM transition) and ⟨Φ2⟩ at U = 8 .15 (close to the super-radiant transition) for L = 12 system, the former displays a unimodal distribution characteristic of a continuous (second-order) phase transition, while the latter exhibits a bimodal distribution characteristic of a first-order phase transition, g
+
+is fixed as g = 6 .0 and the dashed line indicates the average value. (g) and (h) Finite-size scaling of the AFM structure factor S(π, π ) and the squared effective flux ⟨Φ2⟩ for different system sizes at g = 6 .0, U = 7 .4, confirming the coexistence of AFM order and photon condensation in the intermediate interaction regime. 
+
+In the weak coupling regime ( g < g c = 2 .8) without photon condensation, the fermions exhibit a perfect fermi surface nesting at the momentum ( π, π ), thus an infinites-imal Hubbard interaction suffices to induce long-range antiferromagnetic order and drive the system into an in-10 5 0 5              
+
+> (U/U c−1) L1/ν
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> 1.25
+> S(π, π )L 2β/ν
+> (a) L= 10
+> L= 12
+> L= 14
+> L= 16
+> 10 505
+> (U/U c−1) L1/ν
+> 2
+> 4
+> 6
+> 8
+> RS
+> (b)
+
+FIG. 4. Finite-size scaling analysis of the continuous AFM transition at g = 6 .0. Data collapse of the (a) AFM struc-ture factor S(π, π )L2β/ν and (b) correlation-length ratio Rs
+
+as functions of the scaling variable ( U/U c − 1) L1/ν . The crit-ical point here is Uc ≈ 6.4. The critical exponents used for the collapse, ν = 1 .021 , β = 0 .743, are taken from the estab-lished values for the chiral Heisenberg Gross-Neveu universal-ity class [50]. 
+
+sulating phase. Our primary focus is on the strong cou-pling regime ( g > g c). As depicted in the ground-state phase diagram in Fig. 1(b), an increasing Hubbard inter-action U enhances the critical photon-electron coupling strength required for the photon condensation transition. Within an intermediate coupling regime 2 .8 < g < 4.0, we observe a single transition as a function of U , where the AFM order develops concurrently with the destruc-tion of photon condensation. As shown in Fig. 3(a) and (b), this transition is characterized by sharp discontinu-ities in both the AFM structure factor and the photon flux, indicating a first-order transition from a paramag-netic, superradiant chiral phase to an AFM phase with-out photon condensation. More intriguingly, in the strong electron-photon cou-pling regime, onset of AFM ordering and the destruc-tion of photon condensation no longer coincide, leaving an intermediate phase with coexistence of AFM order and photon condensation in the intermediate interaction regime, dubbed “superradiant AFM” phase in Fig. 1(b). To illustrate this point, we fix g = 6 .0, and increase U
+
+from zero. The system first undergoes a continuous AFM transition at U ≈ 6.4t. This is evidenced by the cross-ing of the correlation-length ratio Rs for different sys-tem sizes [Fig. 3(c), inset] and a corresponding unimodal distribution in the histogram of S(π, π ) [Fig. 3(e)], con-firming the second-order nature of the transition. As we further increase the interaction to U ≈ 8.6t, a first-order photon condensation transition occurs [Fig. 3(d)]. Near this transition, the histogram of ⟨Φ2⟩ displays a bimodal distribution [Fig. 3(f)], with peaks located at ⟨Φ2⟩ = 0 and at a finite ⟨Φ2⟩, a hallmark of a first-order tran-sition [49]. The intermediate regime bounded by these two critical points constitutes a phase where AFM order and photon condensation coexist, which can be further supported by the finite-size scaling analysis of their order parameters, as shown in Fig. 3(g) and (h) respectively. 5To elucidate the precise nature of this continuous tran-sition from the superradiant chiral/ π-flux phases to the superradiant AFM phase, we perform a finite-size scal-ing analysis, fixing g and systematically varying the Hub-bard interaction U . As illustrated in Fig. 4(a) and (b), our findings show that both the correlation-length ra-tio and the AFM structure factor exhibit a clear scaling collapse, aligning perfectly with the Gross-Neveu uni-versality class [50–60] with critical exponents adopted from Ref. [50]. This transition is usually characterized by bosonic ordering accompanied by a gap opening in the Dirac spectrum. Our finite-size scaling results show that this universality class persists even in the presence of a dynamical instead of static magnetic flux, where the quantum fluctuation can make the flux per plaquette de-viate from π.
+
+Experimental relevance— The proposed Hamiltonian in Eq.(2) provides a minimum model for exploring mag-netic photon condensation and the collective strong-coupling regime of interacting electrons coupled to a sin-gle cavity mode. In our simulation, we choose ωc ∼ t
+
+for numerical simplicity, while the photon frequency in a realistic cavity is much smaller than that ( e.g. in copper oxides [61], the hopping amplitude t is about 0 .3 eV ∼
+
+70THz), which can further facilitate the occurrence of superradiant phase transitions. The key challenge of the experimental realization of superradiant physics within current optical cavities is to access the deep strong-coupling regime ( g ∼ O (1)): for a realistic cavity with 
+
+ωc = 2 π × 300GHz and resonance wavelength λc ∼ 1 μm, the value of g can be estimated as g ∼ O(10 −2), sig-nificantly smaller than the critical gc required to ob-serve superradiant phase transition. Encouragingly, re-cent work has demonstrated ultra-strong magnetic cou-pling with a superconducting resonator [62], underscor-ing the experimental viability of the physics captured in our model. Cold-atom systems offer another potential platform. However, because atoms are neutral, realiz-ing our Hamiltonian would require the implementation of dynamical synthetic gauge fields [63, 64]. 
+
+Conclusion and Outlook— In summary, we have estab-lished an unbiased numerical framework based on sign-problem-free QMC to explore the cavity strongly corre-lated electronic systems, and revealed the exotic quan-tum phases ( e.g. the superradiant chiral/ π-flux phase and superradiant AFM phases) and quantum phase tran-sitions induced by the interplay between the cavity mode and repulsive interactions between fermions. Notably, the chiral superradiant phase identified here offers a highly controllable platform to explore the fractal spec-trum of Hofstadter’s butterfly [65] and related strongly correlated phenomena, paralleling recent breakthroughs in moir´ e architectures [66–69]. Our method has opened a new avenue for the non-perturbative study of strongly correlated cavity quantum materials, and is ready to be generalized to other systems such as the cavity-embedded 2D materials and moir´ e superlattices [70–75], cavity-mediated superconductivity or topological systems ( e.g. 
+
+a cavity Kane-Mele-Hubbard model [76, 77]). 
+
+Acknowledgments — We thank Yu-Xiang Zhang and Tao Xiang for helpful discussions. K.W. appreciates Ben-jamin Cohen-Stead for assistance with the SmoQyDQMC package [32], Shaohang Shi for help with benchmarking, and Tao Xiang for encouragement and support of com-putational resources. Z.-X.L. is supported by the Na-tional Natural Science Foundation of China under Grant No. 12347107 and No. 12474146, Beijing Natural Sci-ence Foundation under Grant No. JR25007 and the New Cornerstone Investigator Program. Z.C. is sup-ported by the National Key Research and Development Program of China (2024YFA1408303), Natural Science Foundation of China (Grant No.12525407), Shanghai Municipal Science and Technology Major Project (Grant No.2019SHZDZX01), Shanghai Science and Technology Innovation Action Plan(Grant No. 24Z510205936).                                          
+
+> REFERENCES
+> ∗zcai@sjtu.edu.cn
+> †zixiangli@iphy.ac.cn [1] F. Schlawin, D. M. Kennes, and M. A. Sentef, Cavity quantum materials, Applied Physics Reviews 9, 011312 (2022). [2] J. Bloch, A. Cavalleri, V. Galitski, M. Hafezi, and A. Ru-bio, Strongly correlated electron–photon systems, Nature
+> 606 , 41 (2022). [3] F. J. Garcia-Vidal, C. Ciuti, and T. W. Ebbesen, Ma-nipulating matter by strong coupling to vacuum fields, Science 373 , eabd0336 (2021). [4] P. Forn-D´ ıaz, L. Lamata, E. Rico, J. Kono, and E. Solano, Ultrastrong coupling regimes of light-matter interaction, Rev. Mod. Phys. 91 , 025005 (2019). [5] M. Ruggenthaler, N. Tancogne-Dejean, J. Flick, H. Ap-pel, and A. Rubio, From a quantum-electrodynamical light–matter description to novel spectroscopies, Nature Reviews Chemistry 2, 0118 (2018). [6] M. A. Sentef, M. Ruggenthaler, and A. Rubio, Cav-ity quantum-electrodynamical polaritonically enhanced electron-phonon coupling and its influence on supercon-ductivity, Science Advances 4, eaau6969 (2018). [7] F. Schlawin, A. Cavalleri, and D. Jaksch, Cavity-mediated electron-photon superconductivity, Phys. Rev. Lett. 122 , 133602 (2019). [8] J. B. Curtis, Z. M. Raines, A. A. Allocca, M. Hafezi, and V. M. Galitski, Cavity quantum eliashberg enhance-ment of superconductivity, Phys. Rev. Lett. 122 , 167002 (2019). [9] A. Chakraborty and F. Piazza, Long-range photon fluc-tuations enhance photon-mediated electron pairing and superconductivity, Phys. Rev. Lett. 127 , 177002 (2021). [10] I.-T. Lu, D. Shin, M. K. Svendsen, H. H¨ ubener, U. D. Giovannini, S. Latini, M. Ruggenthaler, and A. Ru-bio, Cavity-enhanced superconductivity in MgB 2from first-principles quantum electrodynamics (QEDFT), Pro-ceedings of the National Academy of Sciences 121 ,e2415061121 (2024).
+
+6
+
+[11] I. Keren, T. A. Webb, S. Zhang, J. Xu, D. Sun, B. S. Y. Kim, D. Shin, S. S. Zhang, J. Zhang, G. Pereira, J. Yao, T. Okugawa, M. H. Michael, E. Vi˜ nas Bostr¨ om, J. H. Edgar, S. Wolf, M. Julian, R. P. Prasankumar, K. Miya-gawa, K. Kanoda, G. Gu, M. Cothrine, D. Mandrus, M. Buzzi, A. Cavalleri, C. R. Dean, D. M. Kennes, A. J. Millis, Q. Li, M. A. Sentef, A. Rubio, A. N. Pasupathy, and D. N. Basov, Cavity-altered superconductivity, Na-ture 650 , 864 (2026). [12] F. Appugliese, J. Enkner, G. L. Paravicini-Bagliani, M. Beck, C. Reichl, W. Wegscheider, G. Scalari, C. Ciuti, and J. Faist, Breakdown of topological protection by cav-ity vacuum fields in the integer quantum hall effect, Sci-ence 375 , 1030 (2022). [13] J. Enkner, L. Graziotto, D. Bori¸ ci, F. Appugliese, C. Re-ichl, G. Scalari, N. Regnault, W. Wegscheider, C. Ciuti, and J. Faist, Tunable vacuum-field control of fractional and integer quantum hall phases, Nature 641 , 884 (2025). [14] A. Chiocchetta, D. Kiese, C. P. Zelle, F. Piazza, and S. Diehl, Cavity-induced quantum spin liquids, Nature Communications 12 , 5901 (2021). [15] C. Wei, L. Yang, and Q.-D. Jiang, Cavity-vacuum-induced chiral spin liquids in kagome lattices: Tuning and probing topological quantum phases via cavity quantum electrodynamics, Phys. Rev. Lett. 135 , 236901 (2025). [16] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, The hubbard model, Annual Review of Condensed Mat-ter Physics 13 , 239 (2022). [17] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, The hubbard model: A computational perspec-tive, Annual Review of Condensed Matter Physics 13 ,275 (2022). [18] J. Li and M. Eckstein, Manipulating intertwined orders in solids with quantum light, Phys. Rev. Lett. 125 , 217402 (2020). [19] Y. Ashida, A. m. c. ˙Imamo˘ glu, J. Faist, D. Jaksch, A. Cavalleri, and E. Demler, Quantum electrodynamic control of matter: Cavity-enhanced ferroelectric phase transition, Phys. Rev. X 10 , 041027 (2020). [20] Z. Bacciconi, G. M. Andolina, T. Chanda, G. Chiriac` o, M. Schir` o, and M. Dalmonte, First-order photon conden-sation in magnetic cavities: A two-leg ladder model, Sci-Post Phys. 15 , 113 (2023). [21] I. V. Tokatly, D. R. Gulevich, and I. Iorsh, Vacuum anomalous hall effect in gyrotropic cavity, Phys. Rev. B 
+
+104 , L081408 (2021). [22] P. Rao and F. Piazza, Non-fermi-liquid behavior from cavity electromagnetic vacuum fluctuations at the super-radiant transition, Phys. Rev. Lett. 130 , 083603 (2023). [23] G. Mazza and A. Georges, Superradiant quantum mate-rials, Phys. Rev. Lett. 122 , 017401 (2019). [24] J. M. Luttinger, The effect of a magnetic field on elec-trons in a periodic potential, Phys. Rev. 84 , 814 (1951). [25] H. H¨ ubener, U. De Giovannini, C. Sch¨ afer, J. Andberger, M. Ruggenthaler, J. Faist, and A. Rubio, Engineering quantum materials with chiral optical cavities, Nature Materials 20 , 438 (2021). [26] G. Jarc, S. Y. Mathengattil, A. Montanaro, F. Giusti, E. M. Rigoni, R. Sergo, F. Fassioli, S. Winnerl, S. Dal Zilio, D. Mihailovic, P. Prelovˇ sek, M. Eckstein, and D. Fausti, Cavity-mediated thermal control of metal-to-insulator transition in 1T-TaS 2, Nature 622 , 487 (2023). [27] E. Vi˜ nas Bostr¨ om, A. Sriram, M. Claassen, and A. Rubio, Controlling the magnetic state of the proximate quantum spin liquid α-RuCl 3 with an optical cavity, npj Compu-tational Materials 9, 202 (2023). [28] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Monte carlo calculations of coupled boson-fermion sys-tems. i, Phys. Rev. D 24 , 2278 (1981). [29] F. Assaad and H. Evertz, World-line and determinan-tal quantum Monte Carlo methods for spins, phonons and electrons, in Computational Many-Particle Physics 
+
+(Springer Berlin Heidelberg, Berlin, Heidelberg, 2008) pp. 277–356. [30] Z.-X. Li and H. Yao, Sign-Problem-Free Fermionic Quan-tum Monte Carlo: Developments and Applications, Annu. Rev. Condens. Matter Phys. 10 , 337 (2019). [31] S. Duane, A. Kennedy, B. J. Pendleton, and D. Roweth, Hybrid monte carlo, Physics Letters B 195 , 216 (1987). [32] B. Cohen-Stead, S. M. Costa, J. Neuhaus, A. T. Ly, Y. Zhang, R. Scalettar, K. Barros, and S. Johnston, Smo-QyDQMC.jl: A flexible implementation of determinant quantum Monte Carlo for Hubbard and electron-phonon interactions, SciPost Phys. Codebases , 29 (2024). [33] S. Beyl, F. Goth, and F. F. Assaad, Revisiting the hybrid quantum monte carlo method for hubbard and electron-phonon models, Phys. Rev. B 97 , 085144 (2018). [34] B. Cohen-Stead, O. Bradley, C. Miles, G. Batrouni, R. Scalettar, and K. Barros, Fast and scalable quantum monte carlo simulations of electron-phonon models, Phys. Rev. E 105 , 065302 (2022). [35] See Supplemental Material at [URL will be inserted by publisher] for details. [36] R. H. Dicke, Coherence in spontaneous radiation pro-cesses, Phys. Rev. 93 , 99 (1954). [37] K. Baumann, C. Guerlin, F. Brennecke, and T. Esslinger, Dicke quantum phase transition with a superfluid gas in an optical cavity, Nature 464 , 1301 (2010). [38] H. Ritsch, P. Domokos, F. Brennecke, and T. Esslinger, Cold atoms in cavity-generated dynamical optical poten-tials, Rev. Mod. Phys. 85 , 553 (2013). [39] L. Chirolli, M. Polini, V. Giovannetti, and A. H. Mac-Donald, Drude weight, cyclotron resonance, and the dicke model of graphene cavity QED, Phys. Rev. Lett. 109 ,267404 (2012). [40] P. Nataf, T. Champel, G. Blatter, and D. M. Basko, Rashba cavity QED: A route towards the superradiant quantum phase transition, Phys. Rev. Lett. 123 , 207402 (2019). [41] D. Guerci, P. Simon, and C. Mora, Superradiant phase transition in electronic systems and emergent topological phases, Phys. Rev. Lett. 125 , 257604 (2020). [42] G. M. Andolina, F. M. D. Pellegrino, V. Giovannetti, A. H. MacDonald, and M. Polini, Theory of photon con-densation in a spatially varying electromagnetic field, Phys. Rev. B 102 , 125137 (2020). [43] K. Rza˙ zewski, K. W´ odkiewicz, and W. ˙Zakowicz, Phase transitions, two-level atoms, and the A2 term, Phys. Rev. Lett. 35 , 432 (1975). [44] I. Bialynicki-Birula and K. Rza ¸˙ zewski, No-go theorem concerning the superradiant phase transition in atomic systems, Phys. Rev. A 19 , 301 (1979). [45] K. Rza˙ zewski and K. W´ odkiewicz, Comment on “insta-bility and entanglement of the ground state of the dicke model”, Phys. Rev. Lett. 96 , 089301 (2006). [46] P. Nataf and C. Ciuti, No-go theorem for superradiant 7
+
+quantum phase transitions in cavity QED and counter-example in circuit QED, Nature Communications 1, 72 (2010). [47] G. M. Andolina, F. M. D. Pellegrino, V. Giovannetti, A. H. MacDonald, and M. Polini, Cavity quantum elec-trodynamics of strongly correlated electron systems: Ano-go theorem for photon condensation, Phys. Rev. B 
+
+100 , 121109 (2019). [48] E. H. Lieb, Flux phase of the half-filled band, Phys. Rev. Lett. 73 , 2158 (1994). [49] A. W. Sandvik, Computational studies of quantum spin systems, AIP Conference Proceedings 1297 , 135 (2010). [50] Y. Otsuka, S. Yunoki, and S. Sorella, Universal quan-tum criticality in the metal-insulator transition of two-dimensional interacting dirac electrons, Phys. Rev. X 6,011029 (2016). [51] B. Rosenstein, Hoi-Lai Yu, and A. Kovner, Critical ex-ponents of new universality classes, Phys. Lett. B 314 ,381 (1993). [52] I. F. Herbut, Interactions and Phase Transitions on Graphene’s Honeycomb Lattice, Phys. Rev. Lett. 97 ,146401 (2006). [53] F. F. Assaad and I. F. Herbut, Pinning the order: The nature of quantum criticality in the hubbard model on honeycomb lattice, Phys. Rev. X 3, 031010 (2013). [54] Z.-X. Li, Y.-F. Jiang, S.-K. Jian, and H. Yao, Fermion-induced quantum critical points, Nature Communica-tions 8, 314 (2017). [55] N. Zerf, L. N. Mihaila, P. Marquard, I. F. Herbut, and M. M. Scherer, Four-loop critical exponents for the gross-neveu-yukawa models, Phys. Rev. D 96 , 096010 (2017). [56] Z.-X. Li, A. Vaezi, C. B. Mendl, and H. Yao, Numer-ical observation of emergent spacetime supersymmetry at quantum criticality, Science Advances 4, eaau1463 (2018). [57] T. C. Lang and A. M. L¨ auchli, Quantum Monte Carlo Simulation of the Chiral Heisenberg Gross-Neveu-Yukawa Phase Transition with a Single Dirac Cone, Phys. Rev. Lett. 123 , 137602 (2019). [58] Y.-K. Yu, Z.-X. Li, S. Yin, and Z.-X. Li, Preempt-ing fermion sign problem: Unveiling quantum critical-ity through nonequilibrium dynamics in imaginary time, Science Advances 12 , eadz4856 (2026). [59] X.-J. Yu, Z. Pan, L. Xu, and Z.-X. Li, Non-Hermitian Strongly Interacting Dirac Fermions, Phys. Rev. Lett. 
+
+132 , 116503 (2024). [60] F.-H. Wang, F. Sun, C. He, and X. Y. Xu, Resolving quantum criticality in the honeycomb hubbard model (2026), arXiv:2602.03656 [cond-mat.str-el]. [61] B. Keimer, S. A. Kivelson, M. R. Norman, S. Uchida, and J. Zaanen, From quantum matter to high-temperature superconductivity in copper oxides, Nature 518 , 179 (2015). [62] A. Ghirri, C. Bonizzoni, M. Maksutoglu, A. Mercu-rio, O. Di Stefano, S. Savasta, and M. Affronte, Ultra-strong magnon-photon coupling achieved by magnetic films in contact with superconducting resonators, Phys. Rev. Appl. 20 , 024039 (2023). [63] C. Kollath, A. Sheikhan, S. Wolff, and F. Brennecke, Ultracold fermions in a cavity-induced artificial magnetic field, Phys. Rev. Lett. 116 , 060401 (2016). [64] W. Zheng and N. R. Cooper, Superradiance induced par-ticle flow via dynamical gauge coupling, Phys. Rev. Lett. 
+
+117 , 175302 (2016). [65] D. R. Hofstadter, Energy levels and wave functions of bloch electrons in rational and irrational magnetic fields, Phys. Rev. B 14 , 2239 (1976). [66] C. R. Dean, L. Wang, P. Maher, C. Forsythe, F. Ghahari, Y. Gao, J. Katoch, M. Ishigami, P. Moon, M. Koshino, T. Taniguchi, K. Watanabe, K. L. Shepard, J. Hone, and P. Kim, Hofstadter’s butterfly and the fractal quantum hall effect in moir´ e superlattices, Nature 497 , 598 (2013). [67] M. He, X. Wang, J. Cai, J. Herzog-Arbeitman, R. Peng, T. Taniguchi, K. Watanabe, A. Stern, B. A. Bernevig, M. Yankowitz, O. Vafek, and X. Xu, Strongly interacting hofstadter states in magic-angle twisted bilayer graphene, Nature Physics 21 , 1380 (2025). [68] K. P. Nuckolls, M. G. Scheer, D. Wong, M. Oh, R. L. Lee, J. Herzog-Arbeitman, K. Watanabe, T. Taniguchi, B. Lian, and A. Yazdani, Spectroscopy of the fractal hof-stadter energy spectrum, Nature 639 , 60 (2025). [69] J. Yu, B. A. Foutty, Z. Han, M. E. Barber, Y. Schattner, K. Watanabe, T. Taniguchi, P. Phillips, Z.-X. Shen, S. A. Kivelson, and B. E. Feldman, Correlated hofstadter spec-trum and flavour phase diagram in magic-angle twisted bilayer graphene, Nature Physics 18 , 825 (2022). [70] D. M. Kennes, M. Claassen, L. Xian, A. Georges, A. J. Millis, J. Hone, C. R. Dean, D. N. Basov, A. N. Pa-supathy, and A. Rubio, Moir´ e heterostructures as acondensed-matter quantum simulator, Nature Physics 
+
+17 , 155 (2021). [71] D.-P. Nguyen, G. Arwas, Z. Lin, W. Yao, and C. Ciuti, Electron-photon chern number in cavity-embedded 2d moir´ e materials, Phys. Rev. Lett. 131 , 176602 (2023). [72] Z. Lin, C. Xiao, D.-P. Nguyen, G. Arwas, C. Ciuti, and W. Yao, Remote gate control of topological transitions in moir´ e superlattices via cavity vacuum fields, Proceedings of the National Academy of Sciences 120 , e2306584120 (2023). [73] C. Qian, M. Troue, J. Figueiredo, P. Soubelet, V. Vil-lafa˜ ne, J. Beierlein, S. Klembt, A. V. Stier, S. H¨ ofling, A. W. Holleitner, and J. J. Finley, Lasing of moir´ etrapped MoSe 2/WSe 2 interlayer excitons coupled to a nanocavity, Science Advances 10 , eadk6359 (2024). [74] L. Du, M. R. Molas, Z. Huang, G. Zhang, F. Wang, and Z. Sun, Moir´ e photonics and optoelectronics, Science 
+
+379 , eadg0014 (2023). [75] L. Zhang, F. Wu, S. Hou, Z. Zhang, Y.-H. Chou, K. Watanabe, T. Taniguchi, S. R. Forrest, and H. Deng, Van der waals heterostructure polaritons with moir´ e-induced nonlinearity, Nature 591 , 61 (2021). [76] M. Hohenadler, T. C. Lang, and F. F. Assaad, Correla-tion effects in quantum spin-hall insulators: A quantum monte carlo study, Phys. Rev. Lett. 106 , 100403 (2011). [77] D. Zheng, G.-M. Zhang, and C. Wu, Particle-hole sym-metry and interaction effects in the kane-mele-hubbard model, Phys. Rev. B 84 , 205121 (2011). [78] J. E. Hirsch, Discrete hubbard-stratonovich transforma-tion for fermion lattice models, Phys. Rev. B 28 , 4059 (1983). [79] J. E. Hirsch, Two-dimensional hubbard model: Numeri-cal simulation study, Phys. Rev. B 31 , 4403 (1985). [80] B. Mehlig, D. W. Heermann, and B. M. Forrest, Hybrid monte carlo method for condensed-matter systems, Phys. Rev. B 45 , 679 (1992). [81] B. Cohen-Stead, O. Bradley, C. Miles, G. Batrouni, R. Scalettar, and K. Barros, Fast and scalable quantum monte carlo simulations of electron-phonon models, Phys. 8
+
+Rev. E 105 , 065302 (2022). [82] C. Wu and S.-C. Zhang, Sufficient condition for absence of the sign problem in the fermionic quantum Monte Carlo algorithm, Phys. Rev. B 71 , 155115 (2005). [83] Z. C. Wei, C. Wu, Y. Li, S. Zhang, and T. Xiang, Majo-rana Positivity and the Fermion Sign Problem of Quan-tum Monte Carlo Simulations, Phys. Rev. Lett. 116 ,250601 (2016). 9
+
+## Supplemental Material for “Superradiant strongly correlated quantum states in cavity Hubbard model” 
+
+The details of Determinant Monte Carlo and Hybrid Monte Carlo 
+
+We begin by considering the Hamiltonian describing the light-matter interaction: ˆH = −t X
+
+> ⟨ij ⟩,σ
+
+
+
+e−i ˆAij ˆc† 
+
+> iσ
+
+ˆcjσ + h.c. 
+
+
+
++ U X
+
+> i
+
+ˆni↑ ˆni↓ + ˆP 2
+
+2m + 12 mω 2 
+
+> c
+
+ˆX2. (8) Here, the coupling to the photon coordinate ˆX is mediated by the Peierls phase operator ˆAij = R rj
+
+> ri
+
+ˆA · dr. We adopt the symmetric gauge for the vector potential operator, defined as ˆA = p2/N g ˆX(−y/ 2, x/ 2) with ( x, y ) being the spatial coordinates in the x-y plane. At an inverse temperature β = 1 /T , the partition function is expressed as: 
+
+Z = Tr 
+
+h
+
+e−β ˆHi
+
+. (9) To evaluate this numerically, we discretize the imaginary time into Lτ slices of width ∆ τ = β/L τ and apply the Trotter–Suzuki decomposition to the propagator: Tr 
+
+h
+
+e−β ˆHi
+
+= Tr 
+
+" LτY
+
+> l
+
+e−∆τ ˆHph e−∆τ ˆHU e−∆τ ˆHK [ ˆX]
+
+#
+
++ O(∆ τ 2). (10) Here, ˆHK [ ˆX] represents the kinetic hopping term coupled to the cavity field via the Peierls phase, ˆHU is the on-site Hubbard repulsion, and ˆHph describes the bare harmonic oscillator energy of the photon field. In our calculation, we employ a time step of ∆ τ = 0 .1, having verified that the resulting Trotter error is sufficiently small and does not affect the numerical results. We decouple the on-site interaction term using a discrete Hubbard–Stratonovich (HS) transformation in the density channel [78, 79]: 
+
+e−∆τ U (ˆ ni↑− 12 )(ˆ ni↓− 12 ) = e∆τ U/ 4
+
+2
+
+X
+
+> si=±1
+
+eλs i(ˆ ni↑+ˆ ni↓−1) , (11) with the coupling constant determined by cosh λ = exp( −∆τ U/ 2). This transformation introduces binary Ising auxiliary fields si,l ∈ {± 1} at each lattice site i and imaginary time slice l. Although this decomposition involves a complex parameter λ—making the simulation computationally more demanding than real-variable schemes—it has the crucial advantage of explicitly preserving SU(2) spin-rotational symmetry for every configuration of the auxiliary field. This conservation law significantly suppresses statistical fluctuations, enabling a more precise determination of magnetic phase transitions. Upon integrating out the fermionic degrees of freedom, the partition function takes the form: 
+
+Z =
+
+Z
+
+D[Xl] X
+
+> {s}
+
+e−Sph [{X}] w[{s}] Y
+
+> σ
+
+det Mσ [{X}, {s}], (12) where the {X} and {s} are the configurations of time-dependent photon coordinate fields and space-time dependent Ising auxiliary fields, the weight resulting from the auxiliary field transformation is w[s] = e∆τ U/ 4 
+
+> 2
+
+exp 
+
+
+
+−λ P 
+
+> i,l
+
+si,l 
+
+
+
+,and the discretized action for the photon field in the photon coordinate representation is given by: 
+
+Sph [{X}] = 
+
+> Lτ
+
+X
+
+> l=1
+
+∆τ
+
+"
+
+m
+
+2
+
+ Xl+1 − Xl
+
+∆τ
+
+2
+
++ 12 mω 2 
+
+> c
+
+X2
+
+> l
+
+#
+
+. (13) The fermion matrix Mσ encodes the coupling to both the photon field {X} and the Ising auxiliary field {s}. It is defined as 
+
+Mσ = I + BLτ ,σ BLτ −1,σ · · · B1,σ , (14) 10 where I is the identity matrix and the propagator for a single time slice l is 
+
+Bl,σ = e−∆τ Kσ [Xl]e−∆τ Vσ [sl]. (15) Here, Kσ [Xl] represents the kinetic energy matrix at time slice l, which incorporates the Peierls phase induced by the photon field. Its elements in real space are: (Kσ [Xl]) ij =
+
+(
+
+−t e −iA ij (Xl) if ⟨i, j ⟩ are nearest neighbors ,
+
+0 otherwise . (16) The potential matrix Vσ [{sl}], resulting from the density-channel decoupling, is diagonal in real space: (Vσ [{sl}]) ij = λs i,l δij , with cosh( λ) = e−∆τ U/ 2. (17) This formulation allows for the efficient construction of the equal-time Green’s function via Gσ = M−1 
+
+> σ
+
+, which is essential for computing physical observables and determining the fermionic forces required for the Hybrid Monte Carlo updates. 
+
+> Local update for Ising auxiliary fields
+
+The discrete HS field si(τ ) is updated via local Metropolis sampling. For each space-time point ( i, l ) a flip si,l → − si,l 
+
+is proposed and accepted with probability: 
+
+Pacc = min 
+
+
+
+1, w[{s′}] det M↑[{s′}] det M↓[{s′}]
+
+w[{s}] det M↑[{s}] det M↓[{s}]
+
+
+
+, (18) where {s′} is the flipped configuration. In our implementation, we employ the Sherman–Morrison formula to evaluate the determinant ratios and update the Green’s function via fast rank-one updates. This reduces the computational cost of an accepted move from O(N 3) to O(N 2), where N is the number of lattice sites. Consequently, the total computational complexity for a full sweep of the lattice scales as O(N 3Lτ )[29]. 
+
+> Hybrid Monte Carlo for photon fields
+
+Standard local updates are inefficient for sampling the continuous photon field X. To overcome this, we employ the Hybrid Monte Carlo (HMC) method [31, 32, 80, 81], which utilizes global updates based on Hamiltonian dynamics. We introduce a fictitious conjugate momentum field Π l for each photon field Xl and define a classical Hamiltonian 
+
+Hcl governing the evolution in a fictitious time t:
+
+Hcl [{X}, {Π}] = 
+
+> Lτ
+
+X
+
+> l=1
+
+12 Π2 
+
+> l
+
++ Sph [{X}] − X
+
+> σ
+
+ln det Mσ [{X}]. (19) Here, the first term represents the classical kinetic energy, and the remaining terms constitute the effective potential energy derived from the bosonic action and the fermion determinants. The HMC procedure evolves the phase space variables ( X, Π) at each imaginary-time slice l according to the equations of motion: 
+
+dX dt = ∂Hcl 
+
+∂Π = Π , dΠ
+
+dt = − ∂Hcl 
+
+∂X = −F [X], (20) where F [X] is the generalized force. We integrate these equations numerically using the reversible, symplectic leapfrog algorithm with a time step δt :Π( t + δt/ 2) = Π( t) − δt 
+
+2
+
+∂S eff 
+
+∂X (t) , (21) 
+
+X(t + δt ) = X(t) + δt Π( t + δt/ 2) , (22) Π( t + δt ) = Π( t + δt/ 2) − δt 
+
+2
+
+∂S eff 
+
+∂X (t + δt ) . (23) 11 The resulting field configuration is accepted via a Metropolis step with probability P = min [1 , exp( −∆Hcl )], where ∆Hcl accounts for energy conservation errors introduced by the finite integration step size. The total force acting on X consists of a bosonic and fermionic part: 
+
+∂S
+
+∂X = ∂SB
+
+∂X + ∂Sf
+
+∂X . (24) The bosonic force is local: 
+
+∂SB
+
+∂X l
+
+= ∆ τ m 
+
+
+
+ω2 
+
+> c
+
+Xl + 2Xl − Xl+1 − Xl−1
+
+∆τ 2
+
+
+
+. (25) The fermionic part involves the derivative of the fermion determinant: 
+
+∂Sf
+
+∂X = − X
+
+> σ
+
+Tr 
+
+ ∂M σ
+
+∂X M −1
+
+> σ
+
+
+
+, (26) which, under Trotter decomposition M = BLτ · · · B1, is explicitly written as: 
+
+∂Sf
+
+∂X = Tr 
+
+ ∂B ∂X B−1(G − I)
+
+
+
+= Tr 
+
+ ∂e −∆τ V 
+
+∂X e∆τ V (G − I)
+
+
+
++ Tr 
+
+ ∂e −∆τ K 
+
+∂X e∆τ K e∆τ V (G − I)e−∆τ V 
+
+
+
+= −∆τ Tr 
+
+ ∂V ∂X (G − I)
+
+
+
+− ∆τ Tr 
+
+ ∂K ∂X e∆τ V (G − I)e−∆τ V 
+
+
+
+, (27) where G ≡ Gσ (τ, τ ) is the equal-time Green’s function. Here, K and V are the kinetic and potential matrices in the split-operator representation. The dominant numerical cost lies in computing the trace terms involving the fermion matrix derivative and Green’s function. 
+
+Absence of Sign Problem at Half Filling 
+
+The model is free from the sign problem at half-filling. To demonstrate this, we perform a partial particle-hole transformation acting exclusively on the spin-down fermions: ˆci↓ → (−1) i ˆd†
+
+> i↓
+
+, ˆc† 
+
+> i↓
+
+→ (−1) i ˆdi↓, (28) where the phase factor ( −1) i is +1 for sites on sublattice A and −1 for sublattice B. Under this transformation, the particle number operator maps to ˆ ni↓ → 1 − ˆ˜ni↓, where ˆ ˜ni↓ = ˆd† 
+
+> i↓
+
+ˆdi↓ is the number operator in the transformed basis. Under this transformation, the kinetic energy term transforms as: 
+
+−te −iA ij ˆc† 
+
+> i↓
+
+ˆcj↓ − te iA ij ˆc† 
+
+> j↓
+
+ˆci↓ → − te iA ij ˆd† 
+
+> i↓
+
+ˆdj↓ − te −iA ij ˆd† 
+
+> j↓
+
+ˆdi↓. (29) This implies that the kinetic energy matrix for the transformed spin-down sector, K↓, is the complex conjugate of the spin-up matrix: K↓ = K∗↑. Meanwhile, the exponent in the Hubbard–Stratonovich decoupling transforms as: 
+
+λs i(ˆ ni↑ + ˆ ni↓ − 1) → λs i(ˆ ˜ni↑ − ˆ˜ni↓). (30) Consequently, the effective potential matrix for the spin-down holes is V↓ = −V↑. Since the repulsive Hubbard model requires a purely imaginary coupling λ (such that λ∗ = −λ), we obtain the relationship V↓ = V∗↑. Combining these results, the single time-slice propagator for the spin-down sector satisfies: 
+
+B↓(τ ) = e−∆τ K∗↑ e−∆τ V∗↑ =  e−∆τ K↑ e−∆τ V↑
+
+∗ = B↑(τ )∗. (31) This ensures that the product of determinants is real and non-negative (det M↑ det M↓ = | det M↑|2 ≥ 0), thereby eliminating the sign problem. Thus, we have proven the absence of the sign problem for the half-filled cavity-Hubbard model, provided the lattice is bipartite [30, 82, 83]. 12 
+
+> Additional Numerical Results and Discussion
+
+In this section, we present extended numerical data characterizing the phase diagram and the nature of the quantum phase transitions arising from the interplay between electronic correlations and cavity-mediated interactions. We track the evolution of the total ground-state energy Et, the photon fluctuation order parameter ⟨Φ2⟩, the antiferromagnetic (AFM) structure factor S(π, π ), and the correlation length ratio Rs as a function of the Hubbard U for distinct light-matter coupling strengths g ∈ { 2.0, 4.0, 6.0, 10 .0}.
+
+Weak Coupling Regime ( g = 2 .0): Since g is below the critical threshold for photon condensation ( g < g c ≈ 2.8), the system remains in the normal metallic phase with ⟨Φ2⟩ ≈ 0 for U = 0. The physics here is dominated by the electronic instability of the half-filled square lattice. As shown in the first row of Fig. 5, the AFM structure factor 
+
+S(π, π ) rises sharply upon introducing U and the correlation-length ratio Rs increases with system size in the entire region of interaction strength. This behavior aligns with the standard half-filled 2D Hubbard model, in which perfect nesting facilitates an instability toward magnetic ordering even at infinitesimal interactions. 
+
+Intermediate Coupling Regime ( g = 4 .0): In this regime, the cavity triggers a photon-condensation phase characterized by a generated flux that breaks time-reversal symmetry, giving rise to a Hofstadter butterfly spectrum. This photon-condensed state competes strongly with the tendency toward Mott insulation. As U increases, the energy penalty for double occupancy suppresses the charge fluctuations required to sustain the cavity-mediated kinetic energy gain. This competition drives a simultaneous first-order transition: the photon condensate collapses precisely when antiferromagnetic (AFM) order emerges. This is evidenced by a sharp discontinuity in the slope of the ground-state energy and abrupt jumps in both ⟨Φ2⟩ and S(π, π ). 
+
+Strong Coupling Regime ( g = 6 .0 and 10 .0): In the strong-coupling regime, the cavity induces a chiral superradiant phase where the effective flux in each plaquette gradually approaches π as the coupling increases. On a square lattice, the π-flux phase gives rise to emergent Dirac fermions at low energies. Consequently, the system is characterized by low-energy Dirac fermions interacting with quantum fluctuations of the flux. Notably, these emergent fermions exhibit enhanced stability against correlations. The onset of AFM order does not immediately destabilize the photon condensate; instead, we observe a broad coexistence region where AFM order develops within the superradiant phase. By breaking spin rotational symmetry, this AFM order opens a gap in the Dirac spectrum. As a result, the system undergoes two distinct phase transitions: a continuous Gross-Neveu transition associated with the magnetic order, followed by a first-order transition corresponding to the loss of the photon field. Consistent with the nature of a continuous phase transition, the AFM correlation-length ratios for different system sizes intersect at a well-defined crossing point, allowing for a precise determination of the critical points. By comparing 
+
+g = 10 .0 with g = 6 .0, we find that stronger light-matter coupling significantly stabilizes the photon condensate. While the onset of AFM order, Uc, AFM , remains comparable (as indicated by Rs in the third and fourth rows of Fig. 5), the critical interaction strength required to suppress the photon condensate, Uc, ph , shifts to a much higher value (as shown by ⟨Φ2⟩ in the third and fourth rows of Fig. 5). This suggests that in the ultra-strong coupling limit, the emergent photon condensation can coexist with AFM magnetic order over a broad range of interaction strengths. 13 2 4 6 8 10                                   
+
+> 0.02
+> 0.04
+> 0.06
+> 〈Φ2〉
+> 246810
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> 246810
+> 5
+> 10
+> Rs
+> 246810
+> 0.0
+> 2.5
+> 5.0
+> 7.5
+> 〈Φ2〉
+> 246810
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> 246810
+> 5
+> 10
+> Rs
+> 246810
+> 0.0
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> 〈Φ2〉
+> 246810
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> 246810
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> Rs
+> 510 15
+
+U       
+
+> 0.0
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> 〈Φ2〉 L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> 510 15
+
+U       
+
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> S(π, π )
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> 510 15
+
+U     
+
+> 2
+> 4
+> 6
+> 8
+> Rs
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+
+FIG. 5. Evolution of physical observables as a function of interaction strength U for different light-matter coupling values 
+
+g = 2 .0, 4.0, 6.0, and 10 .0 (arranged from top to bottom). From left to right, each column displays: the squared effective flux ⟨Φ2⟩, the antiferromagnetic spin structure factor S(π, π ), and the dimensionless correlation-length ratio Rs. These results provide further evidence for the competition between magnetic and photonic orders across different parameter regimes. 
+
+Detailed Analysis of Phase Transitions 
+
+In this section, we present a detailed numerical analysis of the nature of the phase transitions in the strong coupling regime ( g = 6 .0), where the antiferromagnetic (AFM) and photon condensation transitions decouple. As discussed in the main text, while the intermediate coupling regime ( g = 4 .0) exhibits a clear-cut simultaneous first-order transition with unambiguous discontinuities in both order parameters, the strong coupling regime requires more careful analysis since the two transitions occur at different critical points. To rigorously determine the order of each transition, we analyze the probability distribution histograms of the relevant order parameters near the critical points. A bimodal distribution (double-peak structure) in the histogram is a hallmark of a first-order phase transition, indicating the coexistence of two distinct phases at the critical point. Conversely, a unimodal distribution that shifts continuously signals a second-order (continuous) transition [49]. At strong coupling g = 6 .0, the transitions decouple: the AFM order sets in at a lower interaction strength (Uc1 ≈ 6.4), while the photon condensation persists until a higher interaction strength ( Uc2 ≈ 8.2 for the L = 12 system used in the histogram analysis). 14 
+
+Continuous AFM Transition: Fig. 6 shows the histograms of the AFM structure factor S(π, π ) across the magnetic transition. We observe a unimodal distribution for all values of U . The single peak shifts continuously from zero to finite values as U increases. The absence of a double-peak structure confirms that the AFM transition at g = 6 .0 is a continuous quantum phase transition. This result is consistent with the finite-size scaling analysis in the main text, which identifies this transition as a continuous one belonging to the Gross-Neveu universality class. 0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+> p(S(π, π ))
+
+## U = 6 .3
+
+> Mean = 1.750
+
+## U = 6 .35 
+
+> Mean = 1.771
+
+## U = 6 .4
+
+> Mean = 1.803
+
+0 2 4 6 8
+
+S(π, π )
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+> p(S(π, π ))
+
+## U = 6 .45 
+
+> Mean = 1.829
+
+0 2 4 6 8
+
+S(π, π )
+
+## U = 6 .5
+
+> Mean = 1.858
+
+0 2 4 6 8
+
+S(π, π )
+
+## U = 6 .6
+
+> Mean = 1.912
+
+FIG. 6. Probability distribution of the AFM structure factor S(π, π ) at g = 6 .0. The system size is L = 12. The distributions remain unimodal across the critical region ( U ≈ 6.4), shifting smoothly to higher values. This indicates a continuous phase transition. 
+
+First-Order Photon Condensation: Fig. 7 displays the histograms of the squared photon flux ⟨Φ2⟩ near the second critical point Uc2 ≈ 8.2 for the L = 12 system. Here, a distinct bimodal structure emerges in the critical region (e.g., at U = 8 .2 and U = 8 .25), where peaks corresponding to the condensed phase (large ⟨Φ2⟩) and the normal phase (small ⟨Φ2⟩) coexist. This confirms that the destruction of photon condensation remains a first-order transition, even when decoupled from the magnetic onset. 15 0.0 
+
+0.1 
+
+0.2 
+
+0.3 
+
+> p(〈Φ2〉)
+
+U = 8 .05 
+
+> Mean = 8.244
+
+U = 8 .1
+
+> Mean = 7.401
+
+U = 8 .15 
+
+> Mean = 6.603
+
+0 5 10 15 
+
+〈Φ2〉
+
+0.0 
+
+0.1 
+
+0.2 
+
+0.3 
+
+> p(〈Φ2〉)
+
+U = 8 .2
+
+> Mean = 5.820
+
+0 5 10 15 
+
+〈Φ2〉
+
+U = 8 .25 
+
+> Mean = 5.331
+
+0 5 10 15 
+
+〈Φ2〉
+
+U = 8 .3
+
+> Mean = 4.223
+
+FIG. 7. Probability distribution histogram of ⟨Φ2⟩ at g = 6 .0. Near the critical point U ≈ 8.2 for the L = 12 system, a clear bimodal distribution is observed (coexistence of high and low values), indicating the first-order nature of the photon condensation transition. 
+
+Initial Condition and Thermalization Analysis 
+
+Near a first-order phase transition, the free energy landscape exhibits multiple local minima separated by energy barriers. For each simulation, we ensure sufficient thermalization such that the measured observables reach a stationary value. However, convergence to a stationary state does not guarantee convergence to the true ground state—the system may remain trapped in a metastable local minimum. To resolve this ambiguity, we perform parallel simulations initialized from distinct photon field configurations and identify the thermodynamic ground state as the one with the lowest converged energy, as shown in Fig. 8. As illustrated in Fig. 8, far from the transition, the observable ⟨Φ2⟩ converges to the same value regardless of the initial conditions. However, in the vicinity of the transition point gc, the system may instead converge to distinct metastable states. The resulting hysteresis in ⟨Φ2⟩ is a direct consequence of the first-order nature of the phase transition. 16 2 4 6
+
+g
+
+1.75 
+
+1.70 
+
+1.65 
+
+1.60 
+
+1.55 
+
+1.50 
+
+1.45 
+
+> Et
+
+U = 0 
+
+2 4 6
+
+g
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10        
+
+> 〈Φ2〉
+> Ground state (min Et)init 0: random around 0init 3: random around π/ 2init 4: static π
+
+FIG. 8. Initial-state dependence and ground-state selection. Comparison of QMC results for the total energy Et (left column) and squared photon flux ⟨Φ2⟩ (right column) for system size L = 12. Panels (a) and (b) show the evolution with light-matter coupling g at fixed U = 0. Different symbols correspond to QMC simulations initialized from distinct flux configurations, revealing metastable branches in the vicinity of the transition. The solid red lines trace the state with the lowest total energy and thus identify the thermodynamic ground state. Their crossings with competing branches signal the first-order transition points.

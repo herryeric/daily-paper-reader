@@ -1,0 +1,315 @@
+Title: Post-selected Criticality in Measurement-induced Phase Transitions
+
+URL Source: https://arxiv.org/pdf/2603.15744v1
+
+Published Time: Wed, 18 Mar 2026 00:09:29 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Post-selected Criticality in Measurement-induced Phase Transitions 
+
+Dolly Nambi, 1, ∗ Kabir Khanna, 2, 3, ∗ Andrew Allocca, 4, 1 Thomas Iadecola, 5, 6, 7 Ciar´ an Hickey, 8, 9 Romain Vasseur, 2 and Justin H. Wilson 1, 10, †
+
+> 1
+
+Department of Physics and Astronomy, Louisiana State University, Baton Rouge, LA 70803, USA 
+
+> 2
+
+Department of Theoretical Physics, University of Geneva, 1211 Geneva, Switzerland 
+
+> 3
+
+Department of Physics, University of Massachusetts Amherst, Amherst, MA 01003, USA 
+
+> 4
+
+Department of Physics, City College of New York, City University of New York, New York, NY 10031, USA 
+
+> 5
+
+Department of Physics, The Pennsylvania State University, University Park, Pennsylvania 16802, USA 
+
+> 6
+
+Institute for Computational and Data Sciences, The Pennsylvania State University, University Park, Pennsylvania 16802, USA 
+
+> 7
+
+Materials Research Institute, The Pennsylvania State University, University Park, Pennsylvania 16802, USA 
+
+> 8
+
+School of Physics, University College Dublin, Belfield, Dublin 4, Ireland 
+
+> 9
+
+Centre for Quantum Engineering, Science, and Technology, University College Dublin, Dublin 4, Ireland 
+
+> 10
+
+Center for Computation and Technology, Louisiana State University, Baton Rouge, LA 70803, USA 
+
+Information-theoretic phase transitions, such as the measurement-induced phase transition (MIPT), characterize the robustness of quantum dynamics to local monitoring and are naturally formulated in terms of trajectories conditioned on typical measurement outcomes, which are naively accessible only through post-selection. Here we implement forced measurements to investigate how explicit post-selection alters the nature of the transition. We find that post-selection fundamentally alters the universality class by reweighting trajectories that are otherwise rare. In particular, we obtain a correlation-length exponent ν ≈ 2.1 larger than that of the standard MIPT and a negative effective central charge ceff ≈ − 0.4. We also compare the post-selected MIPT to the entanglement transition of Random Tensor Networks (RTN), and demonstrate that their universality class is the same. This setup further allows time-periodic, translationally-invariant circuits with post-selected weak measurements. In both models, we find that an onsite dimension of at least 3 (qutrits but not qubits) is necessary to induce a transition. 
+
+Introduction —Many-body quantum systems under uni-tary time evolution can be characterized by a growth of en-tanglement and scrambling of local information into non-local degrees of freedom when the dynamics is sufficiently ergodic. However, this growth can be slowed down and halted when local degrees of freedom are monitored , lead-ing to a measurement-induced phase transition (MIPT) from an entangling phase to a disentangling phase [ 1–12 ]. These information-theoretic phase transitions can be considered from various perspectives [ 4, 5, 13 , 14 ]. A particularly insightful perspective is provided by start-ing from mixed states (rather than pure states) in the monitored circuit: in the area law phase, frequent mea-surements purify the state at a system-size independent rate, whereas in the volume law phase, the purification time diverges exponentially in the system size [5]. A similar entanglement transition was identified prior to the study of measurement-induced phase transitions in random tensor networks (RTNs), where the tensors are sampled from a distribution [ 15 – 18 ]. In these net-works, the boundary state undergoes an analogous area-to-volume law transition as one tunes the bulk bond dimen-sion . While superficially unrelated, one can understand both the MIPT and the RTN transition through a map-ping to a replica stat-mech model, where the transition manifests as an ordinary symmetry breaking transition in the effective “spin” degrees of freedom [ 15 ]. The crucial difference in their stat-mech description stems solely from the difference in sampling procedure: in MIPTs, mea-surement outcomes are sampled according to the Born distribution, whereas in RTNs the tensors are i.i.d. This stat-mech framework then leads to a rather non-trivial prediction: if one were to get rid of standard measure-ments that are governed by the Born rule and instead post-select to a fixed measurement outcome, the two tran-sitions collapse to the same universality class. Post-selection is already a heavily discussed topic in the literature on standard Born-rule MIPTs [ 19 – 21 ]. The purported “problem” stems from the fact that MIPTs are transitions of quantum trajectories and therefore can only be detected using quantities that are non-linear in the density matrix, in contrast to linear observables that can be characterized through the measurement-averaged density matrix. As a result, one must repeatedly sample the same quantum trajectory to observe the transition, an event that is exponentially rare in the extensive number of measurements, making experimental detection rather challenging. This issue has been partially mitigated for smaller system sizes using hybrid quantum circuits with cross-entropy benchmarking [ 22 –24 ] and tomography tech-niques [ 25 ]. However, scaling to larger systems remains prohibitive due to the exponential growth of the Hilbert space, which necessitates either exponential computa-tional resources for classical decoding or an exponential number of realizations of a quantum trajectory for reliable quantum state tomography. 
+
+> arXiv:2603.15744v1 [quant-ph] 16 Mar 2026
+
+2(f) 
+
+> Random Quantum Circuit(RQC)
+> space
+> time
+> Random Tensor Network(RTN)
+
+# (d) (e) (a) (b) (c)                 
+
+> FIG. 1. (a-b): Schematic diagrams of both the models (a) Circuit diagram of the Random Quantum Circuit (RQC) (b) Circuit diagram of the Random Tensor Network (RTN) (c-f): Scaling collapse of various entanglement measures. Different system sizes are shown in shades of blue (Random Tensor Network) and red (Random Quantum Circuit). (c) Tripartite mutual information,
+> I3near the critical point pc. (d) Time evolution of the von Neumann entropy of an ancilla maximally entangled with Lqubits. (e) Von Neumann entropy of an ancilla entangled with a single qubit at t > 4L(f) Mutual information between ancillas entangled at sites rand r′such that |r−r′|=L/ 2.
+
+Despite these difficulties, we now understand that MIPTs belong to a broader class of information-theoretic transitions, in which the two phases differ in how infor-mation spreads and whether it can be recovered from the system [ 4 , 5, 13 , 14 , 26 , 27 ]. From this perspective, a post-selected MIPT—where the model is defined ab initio by conditioning measurements on a fixed outcome—should no longer be viewed as pathological, but instead as a natural realization of a distinct universality class of such information-theoretic transitions, one that has received comparatively little attention in the literature (excep-tions include monitored fermions, see Refs. [ 28 – 32 ]). The connection with RTNs makes the post-selected universal-ity especially compelling since in RTNs the information-theoretic interpretation of the entanglement transition is natural: in the area-law phase, contracting the network is efficient, whereas in the volume-law phase it becomes exponentially hard in the system size. In this letter, we numerically study both post-selected monitored quantum circuits and RTNs and characterize their critical properties. In particular, we report sev-eral critical exponents and confirm that the two models fall into the same “post-selected” universality class. To further probe the role of spatio-temporal randomness in these transitions, we reinstate spatial and time transla-tional symmetries in both models in ways described in the main text. The evolution is then effectively implemented by a single transfer matrix. Interestingly, we observe a transition in the resulting RTN with three-state legs and in qutrit circuits, but not for qubits—raising the question of whether randomness within individual realizations is essential for the finite-d monitored criticality. principle 
+
+Models —The post-selected random quantum circuit (RQC) consists of two-qubit gates, Ui,i +1 , drawn from the Haar distribution and arranged in a one-dimensional brick-layer geometry [ 33 ] with randomly interspersed forced measurements with probability p that project the mea-sured qubits onto |0⟩. Fig. 1(a) depicts the gates as green rectangles and the forced measurements as blue circles. Numerically, we will consider systems of L qubits with periodic boundary conditions and run the dynamics for a time t ≳ 4L to reach a steady state unless otherwise specified. The rate of post-selected measurements p is varied to probe the MIPT. Formally, a state |ψt⟩ at a discrete time step t is evolved via 
+
+|ψt+1 ⟩ = Y
+
+> i
+
+Mi
+
+Y
+
+> i, odd
+
+Ui,i +1 
+
+Y
+
+> i
+
+Mi
+
+Y
+
+> i, even
+
+Ui,i +1 |ψt⟩ ,
+
+where |ψt+1 ⟩ is the (unnormalized) state at time t + 1, 
+
+Mi = P (i)0 with ( classical ) probability p and Mi = I with probability 1 − p; P (i)0 is the projection onto the |0⟩ state of qubit i, and I is the identity operator. Note that the randomness in the model is entirely due to the random sampling of Mi and Ui,i +1 —there is thus no notion of quantum trajectories weighted by Born probabilities of different measurement outcomes. An RTN is a two-dimensional network of local tensors 
+
+Tμ,ν,κ,λ (see Fig. 1b). The indices μ, ν, κ, λ = 1 , . . . , D 
+
+label states in the local qudit Hilbert space |1⟩ , . . . , |D⟩,where D is the bond dimension of the network. The tensor entries are drawn independently from a Gaussian distribution with zero mean and unit variance. By adding a two-legged tensor (or equivalently, a quantum state) 
+
+λμ,ν on each edge e, we continuously tune the effective 3bond dimension of each leg by tracking the second R´ enyi mutual information, χn=2 , of the two-legged state |λ⟩ =
+
+PDν,μ =1 λμ,ν |μ⟩ | ν⟩ across e. We will be interested in the state of the tensor network obtained at the boundary after the full contraction of the tensor network in the 
+
+L × t lattice with periodic boundary conditions with the initial layer contracted at t = 1 with a product initial state |0⟩⊗L. We perform the contraction in a circuit-like fashion, as shown in Fig. 1b. Although this is not strictly necessary, it enables us to adapt well-established protocols for extracting critical data in MIPTs to the analogous setting of RTNs. Accordingly, throughout the rest of this work, we refer explicitly only to MIPT protocols, with the understanding that corresponding techniques apply analogously to RTNs. Calling the resulting contracted tensor Tμ1,...,μ N , the (unnormalized) wavefunction is |ψ⟩ =P 
+
+> μ1,...,μ N
+
+Tμ1,...,μ N |μ1, . . . , μ N ⟩. Ref. [ 15 ] demonstrated that tuning the effective bond dimension Deff drives an entanglement transition in the disorder averaged R´ enyi entanglement entropy of the normalized |ψ⟩—from an area-law phase at small Deff to a volume-law phase at large Deff . For a more detailed description, see the end matter. 
+
+Results —At the entanglement transition, the entan-glement behaves critically in the steady state of these models. To diagnose this, we first define the nth R´ enyi entropy Sn(A) = 11−n ln tr ρnA, where ρA = tr ¯A |ψ⟩ ⟨ ψ|,and compute the tripartite mutual information (I3,n ) on four contiguous regions A, B, C, and D of size L/ 4 [ 33 ]: For the von Neumann case, we write I3 ≡ I3,1.
+
+I3,n (A, B, C ) ≡ Sn(A) + Sn(B) + Sn(C) − Sn(A ∪ B)
+
+− Sn(A ∪ C) − Sn(B ∪ C) + Sn(A ∪ B ∪ C). (1) We locate the critical point pc(χc) by identifying the measurement rate (bond-dimension) where the behavior of 
+
+I3,n changes. In the area-law phase, I3,n approaches zero for large L due to the cancellation of boundary contribu-tions. In contrast, in the volume-law phase, I3,n exhibits a system-size dependence due to a non-zero bulk contri-bution [ 33 ], and at the critical point I3,n is scale invariant. From the exact numerical simulations of the RQC and the RTN, we use the scaling relation I3,1 ∼ f (L1/ν (p − pc)) to extract the critical points to be pc, RQC = 0 .24(1) and 
+
+χc, RTN = 0 .9(9) and the correlation length exponents to be νRQC = 2 .1(5) and νRTN = 2 .2(5) for the two models. Since ν ≳ 2, Harris’ criterion implies that the transition could be stable against static disorder [ 34 ]; an observation that would be interesting for future study. Coupling an ancilla locally with a system qubit by initializing them in a Bell state provides a local order parameter for purification [ 5, 10 ]. We obtain the density matrix of the ancilla ρa by tracing out the system and we can compute Sa = − tr ρa log ρa to diagnose purifi-cation. We consider this probe in three contexts. (1) We maximally entangle the ancilla with all qubits, then                                   
+
+> Model pcνηzβceff
+> P-RQC 0.24(1) 2.1(4) 0.17(2) 0.96(5) 0.16(5) −0.40(6) RTN 0.9(9) 2.2(5) 0.16(2) 1.05(5) 0.16(2) −0.35(2) B-RQC 0.168(5) 1.2(2) 0.19(1) 1.06(4) 0.10(4) 0.25(3) P0.51.33 0.21 10.139 0.2914 TABLE I. Critical exponents for the phase transition in the post-selected random quantum circuit (P-RQC), the random tensor network (RTN), the Born-weighted random quantum circuit (B-RQC) [ 9,33 ], and the percolation transition (P) [ 9].
+
+run the dynamics, tracking Sa to diagnose purification. Using Sa, scaling yields pc = 0 .22(2) and χc = 0 .84(2) which agrees with the critical point obtained from I3
+
+(sxee End Matter for details). Applying the scaling form 
+
+Sa ∼ g(t/L z ) to the time evolution of Sa at the critical point, we obtain the dynamical exponents zRQC = 0 .96(5) and zRTN = 1 .05(5) as shown in Fig. 1(d). (2) We run the full dynamics to a time t0 > 4L (steady-state) and couple in the ancilla locally in a Bell state to measure the local order parameter, Sbulk  
+
+> a
+
+. Using Sbulk  
+
+> a
+
+and the scaling re-lation Sbulk  
+
+> a
+
+∼ L−β h(( t − t0)/L z ) , we extract the critical exponents βRQC = 0 .16(5) and βRTN ≈ 0.16(2) as shown in Fig. 1(e). We also extracted the critical exponent of the Born-rule MIPT to be βB−RQC = 0 .10(4). (3) We couple in two ancillas a1 and a2 into Bell states at either different locations or times and compute bipartite mutual information I2 = Sa1 +Sa2 −Sa1a2 to diagnose correlation functions. In this scenario, the ancillas are coupled in at a time t0 > 4L in the steady-state (bulk) and then evolved in time. Using I2, we extract the spatial correlation ex-ponent, finding ηRQC = 0 .17(2) and ηRTN = 0 .16(2), as shown in Fig. 1(f). Next, for both the post-selected MIPT and the RTN, the mapping to a statistical-mechanical model implic-itly defines a partition function ZX = tr[ ρX ] , where 
+
+ρX = |ψX ⟩ ⟨ ψX | is the unnormalized pure-state density matrix obtained by evolving an initial state under a dis-order realization X to a final state |ψX ⟩ [ 35 ]. (Note that we use the term “disorder” here to denote random real-izations of the circuits or tensors in the respective models, rather than quenched spatial randomness.) At sufficiently long times, any dependence on the initial state can be neglected. In the post-selected MIPT, X specifies the measurement locations and gates, while in the RTN it specifies the realization of the random tensors. Equiva-lently, ZX is just the norm of the boundary state obtained after evolution with disorder realization X. As usual for disordered systems, one introduces the replica partition function Zk = [ ZX ]k and the associated annealed free energy Fk = − log Zk, where the overbar denotes the dis-order average over X. The quenched average free energy is then F = lim k→0 dF k/dk = −log[ ZX ], which is the quantity of interest for the post-selected MIPT and RTN. For comparison, in Born-rule MIPTs one must also 4(a) (b)             
+
+> FIG. 2. (a) Schematic of the central charge c(k) of the replica partition function Zk.k= 0 ,1 correspond to the post-selected and Born rule MIPTs respectively, and k= 2 is the Ising model which has c= 1 /2.(b) Free-energy density f(L) (see Eq. (2)) vs 1 /L 2.
+
+average over measurement trajectories m for a fixed 
+
+X. The replica partition function then becomes ˜ZN =P 
+
+> m
+
+pmZk 
+
+> m
+
+= P 
+
+> m
+
+ZN 
+
+> m
+
+, where N = k + 1, pm = Zm, and where the average over disorder X is now implicit. This extra replica changes the replica limit: the analogous free energy is ˜F = lim N →1 d ˜FN /dN = − P 
+
+> m
+
+pm log pm, with ˜FN = − log ˜ZN , so the limit is now N → 1 rather than 0. For fixed gates and measurement locations, this reduces to the Shannon entropy of the measurement record. Now consider a system of size L with periodic boundary conditions, evolved for t ≫ L. The associated statistical-mechanical model lives on a cylinder of circumference L
+
+and height t. Conformal invariance then fixes the finite-size scaling of the quenched free energy, more precisely its density, to take the form [36, 37] 
+
+F (L, t )
+
+A = f (L) = f (L = ∞) − πc eff 
+
+6L2 , (2) with the space-time area A ≡ vLt , where v is the anisotropy factor calculated by comparing the tempo-ral and spatial two-point correlation functions at the critical point [ 9 ] (see End Matter for details). Here ceff 
+
+is a universal number called the effective central charge, which is given by ceff = lim k→0 (dc (k)/dk ), with c(k) the central charge of the CFT describing the transition in the statistical model at a finite number of replicas with free energy Fk = − ln Zk. The anisotropy factor for the RQC is computed to be vRQC = 0 .70(6). As the RTN is symmetric under the exchange of space and time by construction, its anisotropy factor is vRTN = 1. Fitting the free energy density, F (L, t )/A = f (L), to the Casimir form in Eq. (2) yields the ceff for the RQC and RTN models (See End Matter for details). We numerically estimate the effective central charges for the models to be ceff ,RQC = −0.40(6) and ceff ,RTN = −0.35(2). The negativity of ceff , although atypical, follows from three facts [ 38 ], namely, (i) c(k) = 0 at both k = 0 and k = 1 due to trivial partition functions in these limits; (ii) for the Born-rule MIPT, the effective central charge at k = 1,   
+
+> FIG. 3. Tripartite mutual information I3for translationally-invariant post-selected weak-measurement variants.
+
+defined as ceff (k = 1) = lim k→1 dc (k) 
+
+> dk
+
+is positive [ 9 ]; and (iii) c(k) is a continuous function of k without additional zeroes. Together, (i)–(iii) imply that the slope of c(k) at 
+
+k = 0 i.e., ceff (k = 0) = lim k→0 dc (k) 
+
+> dk
+
+, must be negative as depicted in Fig. 2. 
+
+Translationally-invariant post-selected weak measure-ments — Post-selection, or equivalently removing ran-domness from the measurement trajectories, naturally prompts the question of what happens when all remain-ing randomness is eliminated, including that in the gates and measurement locations. The resulting evolution is governed by a single transfer matrix built from local non-unitary gates. One might naively expect this non-unitary evolution to mimic imaginary-time evolution toward the ground state of a local Hamiltonian with low entangle-ment, but it is unclear whether this intuition holds gener-ically. To investigate this, we now turn to time-periodic, translationally-invariant systems where a single two-site unitary (or local tensor) is drawn once and repeated throughout the spacetime lattice. Interestingly, for the translationally-invariant RTN with three-state physical legs, we find an entanglement transition as we tune the effective bond dimension ( χ), captured by I3 as shown in Fig. 3. The analogous fixed-unitary qubit circuit with post-selected weak measurements, however, shows no tran-sition in I3,1 (see End Matter for details)—but moving to qutrits restores the transition as the weak-measurement strength pw is varied. This contrast suggests a strong dependence on the onsite Hilbert-space dimension; in par-ticular, the qutrit transition indicates that randomness within individual realizations is not strictly necessary for MIPT criticality in these post-selected weak-measurement settings. 
+
+Conclusion —We have characterized the universality of the post-selected MIPT and demonstrated its relation to the RTN model. The major differences in critical prop-erties as compared to the standard MIPT (see Table I) originate from a reweighting of trajectories (equivalently, 5the replica limit k → 0). Furthermore, we find that the ef-fective central charge is negative for this universality class which is rather unusual for disordered systems. Finally, we have also studied time-periodic, translationally-invariant variants with post-selected weak measurements, finding a transition in the translationally-invariant RTN with three-state legs and in qutrit circuits (see Fig. 3). While the relationship is striking, there are still a few puzzles. For instance, in Fig. 1, the critical exponents are seen to match, but the scaling functions appear to differ. This suggests either that finite-size effects are not well captured at these system sizes or that there may be a more subtle difference between the two models that is not captured by the critical exponents. Furthermore, 
+
+ν > 2 indicates that the system may be robust against static disorder, unlike the Born-rule MIPT which flows to infinite randomness [ 39 ]. Intriguingly, pc is larger after post-selection than it was in the Born-rule MIPT, suggesting that even naive selection of trajectories could enhance the volume-law phase’s ability to retain quantum information. We leave it to future work to explore whether this can be generalized or is a special feature of this model. We thank S. Gopalakrishnan and A. Ludwig for help-ful discussions. J.H.W. acknowledges support from the National Science Foundation (NSF) under Grant Number DMR-2238895. T.I. acknowledges support from NSF Grant No. 2611305. Portions of this re-search were conducted with high performance compu-tational resources provided by Louisiana State University (http://www.hpc.lsu.edu). This research was done us-ing services provided by the OSG Consortium, which is supported by the National Science Foundation awards #2030508 and #2323298.  
+
+> ∗
+
+co-first author  
+
+> †
+
+jhwilson@lsu.edu [1] B. Skinner, J. Ruhman, and A. Nahum, Measurement-induced phase transitions in the dynamics of entangle-ment, Phys. Rev. X 9, 031009 (2019). [2] Y. Li, X. Chen, and M. P. A. Fisher, Quantum zeno effect and the many-body entanglement transition, Phys. Rev. B 98 , 205136 (2018). [3] A. Chan, R. M. Nandkishore, M. Pretko, and G. Smith, Unitary-projective entanglement dynamics, Phys. Rev. B 
+
+99 , 224307 (2019). [4] S. Choi, Y. Bao, X.-L. Qi, and E. Altman, Quantum error correction in scrambling dynamics and measurement-induced phase transition, Phys. Rev. Lett. 125 , 030505 (2020). [5] M. J. Gullans and D. A. Huse, Dynamical purification phase transition induced by quantum measurements, Phys. Rev. X 10 , 041020 (2020). [6] Y. Bao, S. Choi, and E. Altman, Theory of the phase transition in random unitary circuits with measurements, Phys. Rev. B 101 , 104301 (2020). [7] C.-M. Jian, Y.-Z. You, R. Vasseur, and A. W. W. Lud-wig, Measurement-induced criticality in random quantum circuits, Phys. Rev. B 101 , 104302 (2020). [8] Y. Li, X. Chen, A. W. W. Ludwig, and M. P. A. Fisher, Conformal invariance and quantum nonlocality in critical hybrid circuits, Phys. Rev. B 104 , 104305 (2021). [9] A. Zabalo, M. J. Gullans, J. H. Wilson, R. Vasseur, A. W. W. Ludwig, S. Gopalakrishnan, D. A. Huse, and J. H. Pixley, Operator scaling dimensions and multifractal-ity at measurement-induced transitions, Phys. Rev. Lett. 
+
+128 , 050602 (2022). [10] M. J. Gullans and D. A. Huse, Scalable probes of measurement-induced criticality, Phys. Rev. Lett. 125 ,070606 (2020). [11] Q. Tang and W. Zhu, Measurement-induced phase transi-tion: A case study in the nonintegrable model by density-matrix renormalization group calculations, Phys. Rev. Res. 2, 013022 (2020). [12] X. Turkeshi, R. Fazio, and M. Dalmonte, Measurement-induced criticality in (2 + 1)-dimensional hybrid quantum circuits, Phys. Rev. B 102 , 014315 (2020). [13] F. Barratt, U. Agrawal, A. C. Potter, S. Gopalakrishnan, and R. Vasseur, Transitions in the learnability of global charges from local measurements, Phys. Rev. Lett. 129 ,200602 (2022). [14] M. Ippoliti and V. Khemani, Learnability transitions in monitored quantum dynamics via eavesdropper’s classical shadows, PRX Quantum 5, 020304 (2024). [15] R. Vasseur, A. C. Potter, Y.-Z. You, and A. W. W. Lud-wig, Entanglement transitions from holographic random tensor networks, Phys. Rev. B 100 , 134203 (2019). [16] R. Levy and B. K. Clark, Entanglement entropy transitions with random tensor networks (2021), arXiv:2108.02225 [cond-mat.stat-mech]. [17] P. Hayden, S. Nezami, X.-L. Qi, N. Thomas, M. Walter, and Z. Yang, Holographic duality from random tensor networks, Journal of High Energy Physics 2016 , 9 (2016). [18] Z.-C. Yang, Y. Li, M. P. A. Fisher, and X. Chen, En-tanglement phase transitions in random stabilizer tensor networks, Phys. Rev. B 105 , 104306 (2022). [19] M. P. Fisher, V. Khemani, A. Nahum, and S. Vijay, Ran-dom quantum circuits, Annual Review of Condensed Mat-ter Physics 14 , 335 (2023). [20] A. C. Potter and R. Vasseur, Entanglement dynamics in hybrid quantum circuits, in Entanglement in Spin Chains 
+
+(Springer International Publishing, 2022) p. 211–249. [21] R. Vasseur, Les houches lectures on random quan-tum circuits and monitored quantum dynamics (2026), arXiv:2602.17258 [quant-ph]. [22] C. Noel, P. Niroula, D. Zhu, A. Risinger, L. Egan, D. Biswas, M. Cetina, A. V. Gorshkov, M. J. Gullans, D. A. Huse, and C. Monroe, Measurement-induced quan-tum phases realized in a trapped-ion quantum computer, Nature Physics 18 , 760 (2022). [23] H. Kamakari, J. Sun, Y. Li, J. J. Thio, T. P. Gujarati, M. P. A. Fisher, M. Motta, and A. J. Minnich, Experimen-tal demonstration of scalable cross-entropy benchmarking to detect measurement-induced phase transitions on a su-perconducting quantum processor, Phys. Rev. Lett. 134 ,120401 (2025). [24] J. C. Hoke, M. Ippoliti, E. Rosenberg, D. Abanin, R. Acharya, T. I. Andersen, M. Ansmann, F. Arute, K. Arya, A. Asfaw, J. Atalaya, J. C. Bardin, A. Bengts-son, G. Bortoli, A. Bourassa, J. Bovaird, L. Brill, M. Broughton, B. B. Buckley, D. A. Buell, T. Burger, 6
+
+B. Burkett, N. Bushnell, Z. Chen, B. Chiaro, D. Chik, J. Cogan, R. Collins, P. Conner, W. Courtney, A. L. Crook, B. Curtin, A. G. Dau, D. M. Debroy, A. Del Toro Barba, S. Demura, A. Di Paolo, I. K. Droz-dov, A. Dunsworth, D. Eppens, C. Erickson, E. Farhi, R. Fatemi, V. S. Ferreira, L. F. Burgos, E. Forati, A. G. Fowler, B. Foxen, W. Giang, C. Gidney, D. Gilboa, M. Giustina, R. Gosula, J. A. Gross, S. Habegger, M. C. Hamilton, M. Hansen, M. P. Harrigan, S. D. Harrington, P. Heu, M. R. Hoffmann, S. Hong, T. Huang, A. Huff, W. J. Huggins, S. V. Isakov, J. Iveland, E. Jeffrey, Z. Jiang, C. Jones, P. Juhas, D. Kafri, K. Kechedzhi, T. Khattar, M. Khezri, M. Kieferov´ a, S. Kim, A. Kitaev, P. V. Klimov, A. R. Klots, A. N. Korotkov, F. Kostritsa, J. M. Kreike-baum, D. Landhuis, P. Laptev, K.-M. Lau, L. Laws, J. Lee, K. W. Lee, Y. D. Lensky, B. J. Lester, A. T. Lill, W. Liu, A. Locharla, O. Martin, J. R. McClean, M. McEwen, K. C. Miao, A. Mieszala, S. Montazeri, A. Morvan, R. Movas-sagh, W. Mruczkiewicz, M. Neeley, C. Neill, A. Ner-sisyan, M. Newman, J. H. Ng, A. Nguyen, M. Nguyen, M. Y. Niu, T. E. O’Brien, S. Omonije, A. Opremcak, A. Petukhov, R. Potter, L. P. Pryadko, C. Quintana, C. Rocque, N. C. Rubin, N. Saei, D. Sank, K. Sankarago-mathi, K. J. Satzinger, H. F. Schurkus, C. Schuster, M. J. Shearn, A. Shorter, N. Shutty, V. Shvarts, J. Skruzny, W. C. Smith, R. Somma, G. Sterling, D. Strain, M. Sza-lay, A. Torres, G. Vidal, B. Villalonga, C. V. Heid-weiller, T. White, B. W. K. Woo, C. Xing, Z. J. Yao, P. Yeh, J. Yoo, G. Young, A. Zalcman, Y. Zhang, N. Zhu, N. Zobrist, H. Neven, R. Babbush, D. Bacon, S. Boixo, J. Hilton, E. Lucero, A. Megrant, J. Kelly, Y. Chen, V. Smelyanskiy, X. Mi, V. Khemani, P. Roushan, and Google Quantum AI and Collaborators, Measurement-induced entanglement and teleportation on a noisy quan-tum processor, Nature 622 , 481 (2023), publisher: Nature Publishing Group. [25] J. M. Koh, S.-N. Sun, M. Motta, and A. J. Minnich, Measurement-induced entanglement phase transition on a superconducting quantum processor with mid-circuit readout, Nature Physics 19 , 1314 (2023). [26] U. Agrawal, J. Lopez-Piqueres, R. Vasseur, S. Gopalakr-ishnan, and A. C. Potter, Observing quantum measure-ment collapse as a learnability phase transition (2023), arXiv:2311.00058 [quant-ph]. [27] H. Dehghani, A. Lavasani, M. Hafezi, and M. J. Gullans, Neural-network decoders for measurement induced phase transitions, Nature Communications 14 , 2918 (2023). [28] C.-M. Jian, B. Bauer, A. Keselman, and A. W. W. Lud-wig, Criticality and entanglement in nonunitary quantum circuits and tensor networks of noninteracting fermions, Phys. Rev. B 106 , 134206 (2022). [29] C.-M. Jian, H. Shapourian, B. Bauer, and A. W. W. Ludwig, Measurement-induced entanglement transitions in quantum circuits of non-interacting fermions: Born-rule versus forced measurements (2023), arXiv:2302.09094 [cond-mat.stat-mech]. [30] M. Fava, L. Piroli, T. Swann, D. Bernard, and A. Nahum, Nonlinear sigma models for monitored dynamics of free fermions, Phys. Rev. X 13 , 041045 (2023). [31] I. Poboiko, P. P¨ opperl, I. V. Gornyi, and A. D. Mirlin, Theory of free fermions under random projective measure-ments, Phys. Rev. X 13 , 041046 (2023). [32] M. Fava, L. Piroli, D. Bernard, and A. Nahum, Monitored fermions with conserved u(1) charge, Phys. Rev. Res. 6,043246 (2024). [33] A. Zabalo, M. J. Gullans, J. H. Wilson, S. Gopalakrish-nan, D. A. Huse, and J. H. Pixley, Critical properties of the measurement-induced transition in random quantum circuits, Phys. Rev. B 101 , 060301 (2020). [34] A. Zabalo, J. H. Wilson, M. J. Gullans, R. Vasseur, S. Gopalakrishnan, D. A. Huse, and J. H. Pixley, Infinite-randomness criticality in monitored quantum dynamics with static disorder, Phys. Rev. B 107 , L220204 (2023). [35] M. Levin and C. P. Nave, Tensor renormalization group approach to two-dimensional classical lattice models, Phys. Rev. Lett. 99 , 120601 (2007). [36] A. W. Ludwig and J. L. Cardy, Perturbative evaluation of the conformal anomaly at new critical points with applications to random systems, Nuclear Physics B 285 ,687 (1987). [37] J. Lykke Jacobsen and J. Cardy, Critical behaviour of random-bond potts models: a transfer matrix study, Nu-clear Physics B 515 , 701 (1998). [38] R. A. Patil and A. W. Ludwig, A c-theorem for the effec-tive central charge in the r= 1 replica limit, and applica-tions to systems with measurement-induced randomness, arXiv preprint arXiv:2507.07959 (2025). [39] A. Zabalo, J. H. Wilson, M. J. Gullans, R. Vasseur, S. Gopalakrishnan, D. A. Huse, and J. H. Pixley, Infinite-randomness criticality in monitored quantum dynamics with static disorder, Phys. Rev. B 107 , L220204 (2023). 7
+
+Random Tensor Network (RTN) 
+
+To set notation, we briefly introduce the random tensor network (RTN) model [ 15 ] shown in Fig. 1(b). It is defined on a square lattice of size L × t with periodic boundary conditions, where each vertex-edge pair ( v, e ) hosts a Hilbert space Hve with basis states |μve ⟩ = |1⟩ , . . . , |D⟩.Accordingly, one can associate to each bulk vertex v the state 
+
+|Tv ⟩ =
+
+> D
+
+X  
+
+> μve 1,...,μ vez =1
+
+Tμve 1 ,...,μ vez |μve 1 , . . . , μ ve z ⟩ , (3) where z = 4 is the coordination number (see Fig. 1(b)), and Tμve 1 ,...,μ vez are the entries of the tensor at vertex v.These entries are sampled from a Gaussian distribution with zero mean, ¯Tμve 1 ,...,μ vez = 0, and unit variance, such that T ∗  
+
+> μve 1,...,μ vez
+
+Tνve 1 ,...,ν vez = δμve 1 ,ν ve 1 . . . δ μvez ,ν vez . At each edge, we define an entangled pair state 
+
+|Ie⟩ =
+
+> D
+
+X
+
+> μve ,μ v′e=1
+
+λve,v ′e |μve , μ v′e⟩ , (4) where ( v, v ′) are neighboring vertices connected by edge 
+
+e. The matrix λ controls the entanglement in |Ie⟩ via the 
+
+n-th R´ enyi mutual information 
+
+χ(n) 
+
+> e
+
+= 21 − n log tr  λλ †n, (5) which ranges from 0 for a product state to 2 log D for a maximally entangled D-dimensional Bell state with 
+
+λve,v ′e = D−1/2δve,v ′e. Thus, tuning λ continuously in-terpolates the effective bond dimension between 0 and D.For a given λ, we are interested in the properties of the state |ψ⟩ obtained by contracting the tensor network: 
+
+|ψ⟩ = O
+
+> v
+
+O
+
+> e
+
+⟨Tv | Ie⟩, (6) where |ψ⟩ resides on the physical legs at the top boundary of the network. 
+
+Half-cut Entropy 
+
+To probe the entanglement structure of the system, we divide it into two equal partitions and compute the R´ enyi entropy of the subsystem. In the volume-law phase, 
+
+Sn, 1/2 ∝ L (volume of the subsystem); in the area-law phase, Sn, 1/2 ∝ O(1)(boundary of the subsystems); and at the critical point, Sn, 1/2 ∝ α(n) log L.The critical exponents α(n) for the Random Quan-tum Circuit and Random Tensor Network are consis-tent with each other and differ from the Born-rule MIPT, as shown in Table II. For B-RQC, the dashes indicate values not explicitly tabulated in Refs. [ 9 , 33 ]. 
+
+FIG. 4. Coefficients α(n) of the Renyi entropies (blue triangles: RTN; red circles: RQC). Blue dotted and red dashed lines show the n dependence, and the horizontal lines denote α(∞). Model α(1) α(2) α(3) α(4) α(5) α(∞)P-RQC 0 .88(2) 0.61(2) 0.52(2) 0.48(2) 0.46(1) 0 .37(2) RTN 0.88(1) 0 .581(2) 0 .490(8) 0 .459(7) 0 .45(1) 0 .35(1) B-RQC 1.7(2) 1.2(2) — — 0.9(1) 0.7(1) TABLE II. Critical exponents for the post-selected Random Quantum Circuit (P-RQC), the Random Tensor Network (RTN), and the Born-weighted Random Quantum Circuit (B-RQC) [9, 33]. 
+
+Their n dependence is αP−RQC (n) = 0 .53(3) /n + 0 .35(7) and αRTN (n) = 0.55(2) /n + 0 .32(4), in contrast to 
+
+αB−RQC (n) = 1 .0(1) /n + 0 .7(1). 
+
+Purification transition 
+
+The measurement-induced phase transition can also be viewed as a purification transition. To probe this, we maximally entangle an ancilla with the system in a Bell state and compute its steady-state von Neumann entropy 
+
+Sa for different measurement rates, extracting pc and ν
+
+from the scaling collapse in Fig. 5. 
+
+FIG. 5. Scaling collapse of the ancilla entropy Sa near the critical point ( pc for RQC, χc for RTN; red circles: RQC, blue triangles: RTN). 8
+
+> Anisotropy Factor computation
+
+The Random Quantum Circuit is anisotropic because the gates are unitary along the time axis but not along the spatial axis, unlike in a dual-unitary circuit where the anisotropy factor is 1.    
+
+> FIG. 6. Green curves show temporal correlations for qubits separated by ∆ t= 7 L/ 16 and 6 L/ 16 (dark to light); the red curve shows the spatial correlation for ∆ r=L/ 2.
+
+Following the procedure used for the spatial correlation in the main text, the temporal correlation is obtained by entangling two ancilla qubits with the same qubit at times ( r, t ) and ( r, t ′). For L = 16, the spatial correlation curve lies between the temporal curves for t − t′ = 6 L/ 16 and 7 L/ 16, giving t∗ ≈ 6.36 L/ 16 by linear interpolation and hence v = ln  1 + √2 Lπt ∗ .
+
+> Effective Central Charge
+
+The effective central charge of both the Random Quan-tum Circuit and the Random Tensor Network is obtained by fitting the finite-size scaling of the free energy F (see main text) to the Casimir form in Eq. (2).     
+
+> FIG. 7. Free-energy density as a function of 1 /L 2(red cir-cles and dashed lines: RQC; blue triangles and dashed lines: RTN). Dashed lines give m(Lmin ), and the inset shows the extrapolation to m(∞).
+
+To reduce finite-size effects, we compute the slope 
+
+m(Lmin ) of 1 /L 2 using only system sizes L > L min . We then extrapolate m(∞) from m(Lmin ) = m(∞) + b/L 2min ,and compute ceff = −6m(∞)/π .
+
+> Translationally invariant circuit
+
+As explained in the main text, we do not observe a MIPT for the translationally invariant RQC with qubits, but the transition reappears for qutrits. For qubits, the weak-measurement crossover pw drifts to 0 with increasing system size; for qutrits it remains stable, consistent with a MIPT in the thermodynamic limit, as shown in Fig. 8. (a) (b)

@@ -1,0 +1,1424 @@
+Title: Fast Real-Axis Eliashberg Calculations: Full-bandwidth solutions beyond the constant density of states approximation
+
+URL Source: https://arxiv.org/pdf/2603.18199v1
+
+Published Time: Fri, 20 Mar 2026 00:20:14 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# Fast Real-Axis Eliashberg Calculations: Full-bandwidth solutions beyond the constant density of states approximation 
+
+Alejandro Simon †,1, ∗ James Shi †,1 Dominik Spath, 2 Eva Kogler, 2 Reed Foster, 1
+
+Emma Batson, 1 Pedro N. Ferreira, 2 Mihir Sahoo, 2 Phillip D. Keathley, 1 Warren E. Pickett, 3 Rohit Prasankumar, 4 Karl K. Berggren, 1 and Christoph Heil 2
+
+> 1
+
+Research Laboratory of Electronics, Massachusetts Institute of Technology 50 Vassar Street, Cambridge, MA, USA, 02139-4307 
+
+> 2
+
+Institute of Theoretical and Computational Physics, Graz University of Technology Petersgasse 16, 8010 Graz, Austria 
+
+> 3
+
+Department of Physics and Astronomy University of California Davis, Davis, California 95616, United States 
+
+> 4
+
+Deep Science Fund, Intellectual Ventures Intellectual Ventures, Bellevue, Washington, United States 
+
+(Dated: March 20, 2026) Experimentally relevant signatures of superconductivity require access to real-frequency quanti-ties, such as the spectral functions, optical response, and transport properties, yet Migdal–Eliashberg calculations are commonly performed on the imaginary axis and then analytically continued, a step that is numerically delicate and can obscure physically relevant spectral features. Here we present a practical route to solving the finite-temperature Migdal–Eliashberg equations directly on the real-frequency axis, while retaining the effects from the full-bandwidth electronic structure. Our formulation accounts for particle–hole asymmetry through an energy-dependent electronic density of states, avoiding the constant density of states approximation often used in real-axis calculations, and includes a static screened Coulomb contribution. We introduce an efficient numerical tech-nique to solve the Migdal-Eliashberg integrals whose computational cost scales linearly with the real-frequency grid, making high-resolution, full-bandwidth real-axis calculations feasible and pro-viding direct access to the interacting Green’s function and derived observables without analytic continuation. As an illustration, we apply the method to H 3S, where a van-Hove singularity near the Fermi level produces strong particle–hole asymmetry. The full-bandwidth solution yields noticeably different spectra than the constant density of states approximation and brings the superconduct-ing gap and lineshapes into closer agreement with experiment, highlighting when band-structure details are essential. Furthermore, the methods presented here open the door to time-dependent, nonequilibrium simulations within Eliashberg theory. 
+
+I. INTRODUCTION 
+
+Most experimentally accessible signatures of conven-tional superconductors, such as tunneling spectra, op-tical conductivity, and transport properties, are intrin-sically real-frequency quantities. The contribution to these quantities due to the electron-phonon interaction is treated within the framework of Migdal-Eliashberg the-ory, where one obtains the equilibrium properties and linear response of a material through the Green’s func-tion technique [1–5]. Yet, due to the singular nature of the self-energies, Migdal–Eliashberg calculations are still most often performed on the imaginary-frequency axis and then analytically continued to the real-axis [6–14]. However, analytic continuation is an ill-conditioned pro-cedure that can significantly amplify numerical errors. It is therefore a delicate step that may blur or distort fine spectral features and becomes increasingly challeng-ing at low temperatures. Several studies have explored   
+
+> †These authors contributed equally to this work
+> ∗alejansi@mit.edu
+
+methods to improve the numerical procedure for perform-ing the analytic continuation between the imaginary and real frequencies [15–19], yet the ill-conditioned nature of the analytic continuation remains a fundamental limita-tion. Moreover, within the imaginary-axis formulation, nonequilibrium dynamics are cumbersome to deal with [20, 21]. Recent work has explored an intermediate rep-resentation of the Green’s function to resolve the prob-lem of requiring finely spaced Matsubara frequencies at lower temperatures [22, 23]; yet, this representation still does not recover the physical picture that a direct solu-tion on the real-frequency axis would provide. At the same time, many existing real-axis treatments are com-putationally demanding and rely on a constant electronic density of states (cDOS) near the Fermi level [24], effec-tively discarding full-bandwidth particle–hole asymmetry and band-structure features that can be important in real materials. These limitations, which constrain the computation of the full-bandwidth Green’s function to the imaginary-frequency axis and require the ill-conditioned proce-dure of analytic continuation, often present problems in the theoretical study of superconductivity, where sev-
+
+> arXiv:2603.18199v1 [cond-mat.supr-con] 18 Mar 2026
+
+2eral quantities of interest, including the transport prop-erties and nonequilibrium response of the material, can only be obtained from real-frequency-axis solutions to the Green’s function. This often necessitates resorting to phenomenology to describe experimental data [25]. In this work, we formulate and efficiently solve the finite-temperature Migdal–Eliashberg equations directly on the real-frequency axis while retaining an energy-dependent electronic density of states, enabling direct computation of the interacting Green’s function and real-frequency observables without analytic continuation. In the following, we begin by deriving a form for the real-axis Migdal-Eliashberg equations that is amenable to numerical computation. We then provide numerical techniques to efficiently evaluate the real-axis Migdal-Eliashberg equations. In contrast to previous implemen-tations of real-frequency axis solutions that remain com-putationally expensive to obtain [7, 8, 24], we present a numerical technique that has a computational complex-ity linear in the number of points used to sample the integrals in the Migdal-Eliashberg equations. We also generalize our approach to incorporate the particle-hole asymmetry introduced by considering a variable elec-tronic density of states, similarly to the full bandwidth approach on the imaginary-frequency axis in Ref. [26]. Using this method, we then examine the effect of the van-Hove singularity (vHS) on the superconducting proper-ties and excitation spectra in H 3S. The resulting framework enables detailed, first-principles studies of superconducting materials and their dynamical response, as demonstrated in Ref. [27]. Fig-ure 1 summarizes the workflow: subfigures (a)–(c) pro-vide the ab initio inputs, computed via density func-tional perturbation theory [5, 14], to a real-frequency Migdal–Eliashberg solver. Subfigures (d) and (e) show representative outputs for the superconducting gap ∆( ω)and the renormalization function Z(ω) within the cDOS approximation, while (f) illustrates the rapid convergence of our fixed-point iteration through the decreasing RMS deviation of ∆( ω) between iterations. With fast access to full-bandwidth solutions for ∆( ω) and Z(ω), we can com-pute transport and optical properties within Eliashberg theory, including nonequilibrium responses such as those probed in pump–probe experiments on superconducting films (g) [27].  
+
+> II. FULL-BANDWIDTH REAL-AXIS ELIASHBERG EQUATIONS
+
+We start by laying out the finite-temperature Migdal–Eliashberg framework in a form suited for direct real-frequency calculations. Working in the anisotropic approximation, we express the self-energy in Nambu space as: [1, 2, 12, 28] Σ( k, iω j ) = − 1
+
+β
+
+X
+
+> k′,j ′
+
+τ3G(k, iω j′ )τ3
+
+"
+
+Wk,k ′ (iω j − iω j′ )+ X
+
+> λ
+
+|gkk ′λ|2Dλ(k − k′, iω j − iω j′ )
+
+#
+
+,
+
+(1) where β = 1 /k BT is the inverse temperature, k = ( k, n )is a combined momentum and band index, λ the phonon mode index, τi is the i-th Pauli matrix, G and Dλ are the electron and phonon thermodynamic Green’s func-tions respectively, Wk,k ′ describes the Coulomb interac-tion between pairs of electrons, and gkk ′λ describes the electron-phonon coupling. Inserting the spectral repre-sentation of the electron A(k, ω ) and phonon B(k, Ω) Green’s functions [12, 29], we get Σ( k, iω j ) = − 1
+
+β
+
+X
+
+> k′,j ′
+
+Z
+
+dω ′ A(k′, ω ′)
+
+iω j′ − ω
+
+"
+
+Wk,k ′
+
++ 1
+
+N (εF)
+
+Z ∞−∞ 
+
+dΩ α2Fk,k ′ (Ω) 
+
+iω j − iω j′ − Ω
+
+#
+
+,
+
+(2) where the Eliashberg spectral function has been intro-duced [12]: 
+
+α2Fk,k ′ (Ω) = N (εF) X
+
+> λ
+
+|gkk ′λ|2Bλ(k − k′, Ω) , (3) and N (εF) is the single-spin electronic density of states at the Fermi level εF. Performing the sum over Matsubara frequencies and analytically continuing iω j 7 → ω + i0+,we obtain Σ( ε, ω ) = − 1
+
+π
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)
+
+(
+
+ℑ[τ3G(ε′, ω ′)τ3] K(ω, ω ′)
+
+N (εF) − 12 ℑ[τ3God (ε′, ω ′)τ3]W (ε, ε ′)2f (ω′) − 1)
+
+,
+
+where 
+
+K(ω, ω ′) = 
+
+Z ∞
+
+> 0
+
+dΩα2F (Ω) (4) 
+
+×
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+3 
+
+ 
+
+> 
+
+## τ •EE − Ω ΩEΩ − E Ω
+
+     
+
+FIG. 1. The superconducting and electronic properties of H 3S derived from its crystal structure. (a) The Eliashberg spectral function α2F (ω) obtained from density functional perturbation theory. (b) The electronic density of states N (ε) for H 3Scomputed using density functional theory. The van-Hove singularity near the Fermi level ( ε = 0) is highlighted in red. (c) The effective screened Coulomb potential W (ε, ε ′) as a function of electron energy ε calculated from the GW approximation. These quantities are used as input for numerical solutions to the Migdal-Eliashberg equations. The corresponding superconducting gap edge (d) ∆( ω), (e) renormalization parameter Z(ω), and (f) root-mean square deviation between iterations of ∆( ω)(convergence) in the constant density of states and μ∗ approximation at T = 1 mK. (g) With access to the real-axis solutions, one can compute the transport properties of a material and use it to model the response in nonequilibrium perturbations, such as in pump-probe experiments. 
+
+is the integral kernel, and the Coulomb contribution to the self-energy contains only the off-diagonal elements of God (k, iω j ) since the Coulomb interaction is already contained in the band structure of the normal state [12]. Here, we have also substituted in the definition for the spectral function 
+
+A(k, ω ) = − 1
+
+π ℑ{ τ3G(k, ω + i0+)τ3} (5) and replaced the sum over k′ with a weighted integral over the electronic density of states N (ε′). The self-energy can be cast in a more familiar form in terms of its Pauli-matrix decomposition [3]: Σ( ε, ω ) = [1 − Z(ω)] ωτ 0 + ϕ(ε, ω )τ1 + χ(ω)τ3 , (6) where we have neglected the ε dependence of Z and 
+
+χ [12]. Next, through the Dyson equation G−1(ε, ω ) = 
+
+G−10 (ε, ω ) − Σ( ε, ω ) with the non-interacting Green’s function given by G0(ε, ω ) = 1 /[ω − (ε − μF ) + i0+], we obtain a decomposition of the interacting Green’s func-tion [9, 12]: 
+
+G(ε, ω ) = ωZ (ω)τ0 + [ ε − μF + χ(ω)] τ3 + ϕ(ε, ω )τ1
+
+Θ( ε, ω )(7) where the determinant is given by Θ( ε, ω ) = ω2Z2(ω) − [ε − μF + χ(ω)] 2 − ϕ(ε, ω )2.
+
+Substituting this form into the self-energy expression yields the full isotropic Migdal-Eliashberg equations on the real-frequency axis: 4
+
+Z(ω) = 1 + 1
+
+ωπN (εF)
+
+Z ∞−∞ 
+
+dω ′ K(ω, ω ′)
+
+Z ∞−∞ 
+
+dε ′ N (ε′) ℑ
+
+ Z(ω′)ω′
+
+Θ( ε′, ω ′)
+
+
+
+(8a) 
+
+χ(ω) = − 1
+
+πN (εF)
+
+Z ∞−∞ 
+
+dω ′ K(ω, ω ′)
+
+Z ∞−∞ 
+
+dε ′ N (ε′) ℑ
+
+ ε′ − μF + χ(ω′)Θ( ε′, ω ′)
+
+
+
+(8b) 
+
+ϕ(ε, ω ) = 1
+
+πN (εF)
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′ N (ε′) ℑ
+
+ ϕ(ε′, ω ′)Θ( ε′, ω ′)
+
+  
+
+K(ω, ω ′) − 12 N (εF)W (ε, ε ′)[2 f (ω′) − 1] 
+
+
+
+(8c) 
+
+ne =
+
+Z ∞−∞ 
+
+dε ′ N (ε′)
+
+
+
+1 − 1
+
+π
+
+Z ∞−∞ 
+
+dω ′ tanh 
+
+ ω′
+
+2kB T
+
+
+
+ℑ
+
+ ε′ − μF + χ(ω′)Θ( ε′, ω ′)
+
+ 
+
+(8d) where Z(ω) is the wavefunction renormalization parame-ter, ϕ(ε, ω ) is the superconducting order parameter, and 
+
+χ(ω) is the effective chemical potential shift of the elec-trons. Further details regarding the derivation and de-tails on the standard approximations typically used to re-duce Eqs. (8a), (8b), (8c), and (8d) are provided in the Supplemental Information (SI). Here, N (ε) is the elec-tronic density of states, εF is the Fermi energy, f (ω) and 
+
+n(Ω) are the quasiparticle and phonon distributions, re-spectively. At thermal equilibrium, f (ω) and n(Ω) are the usual Fermi and Bose distributions. Henceforth, we refer to the variable density of states (vDOS) as the full set of equations defined by Eqs. (8a), (8b), (8c), and (8d), in which both the electronic density of states N (ε) and the screened Coulomb interaction W (ε, ε ′) retain their energy dependence [5, 14, 26, 30–34]. The constant den-sity of states approximation (cDOS) refers to the approx-imation where N (ε) → N (εF) is taken to be constant and the Coulomb contribution to the self-energy is reduced to the Morel-Anderson Coulomb pseudo-potential μ∗ [35].  
+
+> III. NUMERICAL APPROACH
+
+To determine G(ε, ω ), Eqs. (8a), (8b), (8c), and (8d) must be solved together. To this end, we may take ad-vantage of several features of the equations. Firstly, the integral kernel K(ω, ω ′) contains the entire temperature dependence of the Migdal-Eliashberg equations. Thus, as pointed out by Holcomb [24], it can be computed once for a given temperature and reused in the computation of each equation. However, precomputation of these ker-nels on a square grid of ( ω, ω ′) remains inefficient, as the runtime then scales quadratically with the density of the grid on the ω axis. Our approach to address this begins by noting that the real part of the integral kernel can be cast in the form 
+
+ℜ{ K(ω, ω ′)} =[ −I1(ω − ω′) − (1 − f (ω′)) I2(ω − ω′)] + [ I1(ω′ − ω) + f (ω′)I2(ω′ − ω)] (9) where 
+
+I1(x) = P
+
+Z ∞−∞ 
+
+dΩ α2F (Ω) n(Ω) Ω − xI2(x) = P
+
+Z ∞−∞ 
+
+dΩ α2F (Ω) 1Ω − x ,
+
+where P denotes the principal value. To compute 
+
+ℜ{ K(ω, ω ′)}, we thus only need to evaluate I1(x) and 
+
+I2(x) for all values of ω − ω′ and combine them using Eq. (9). If a linear grid of ( ω, ω ′) is used, then the number of possible values of ω − ω′ on the grid scales linearly with the number of points sampled on the ω axis. The imaginary component of the integral kernel ℑ{ K(ω, ω ′)}
+
+is computed analytically, as the corresponding integrals reduce to an evaluation over a delta function. The linear scaling enabled by our approach allows for the use of a much denser grid while also providing a very efficient computation. In the SI, we further quantify the runtime improvement with our approach. This efficiency is crucial for time-dependent analysis because K(ω, ω ′)must be recomputed at each time step as f (ω) and n(ω)may vary in nonequilibrium case. In Ref. [27], we com-bine the methods proposed in Refs. [36, 37] with the fast algorithms developed here to perform non-equilibrium modeling within the framework of Migdal-Eliashberg the-ory. In addition to the integral kernels, we must evaluate to high precision integrals of the spectral functions, which are of the form 
+
+Z ∞−∞ 
+
+dε N (ε)ℑ
+
+ g(ε, ω )Θ( ε, ω )
+
+
+
+, (10) where g(ε, ω ) is defined in Eqs. (8a), (8b), and (8c). In the cDOS approximation, these integrals can be evalu-ated analytically using the residue theorem. However, when N (ε) is allowed to vary arbitrarily, these integrals must be solved numerically except in specific cases. The resulting integrals are challenging to perform numerically due to sharp peaks near the poles of the Green’s function. To address these challenges, we use the fact that the spectral factors multiplying N (ε) in the Migdal-Eliashberg equations have an analytic antiderivative, which is derived in the SI. In fact, any polynomial of ε5      
+
+  
+
+FIG. 2. Solutions to the Migdal-Eliashberg equations for H 3S at T = 1 mK. The top panel corresponds to solutions considering the full variable electronic density of states (vDOS) for (a) the superconducting order parameter at the Fermi level ϕ(ω, ε k = 0), (b) the wavefunction renormalization parameter Z(ω), (c) the shift in the chemical potential due to superconducting correlations 
+
+χ(ω), and (f) superconducting order parameter at the gap-edge as a function of ε. The bottom panel corresponds to the solution to the Migdal-Eliashberg equations assuming a constant electronic density of states at the Fermi level (cDOS) for (d) ϕ(ω) and (e) Z(ω). In each panel, the real part corresponds to the solid black line, and the grey dashed line indicates the imaginary part. The solid red bars indicate the location of the van-Hove singularity in H 3S. The vDOS solution provides results closer in agreement with experiment.       
+
+FIG. 3. A comparison between solutions of the Migdal-Eliashberg equations for (a,d) ϕ(ω), (b,e) Z(ω), and (c,f) χ(ω) at (a-c) 
+
+T = 100 K and (d-f) T = 1 K obtained with the direct real-frequency axis solver shown in black and the analytic continuation done with the Pad´ e approximation shown in red. Numerical instabilities are clearly present in the analytically continued solutions, with large unphysical gradients notably appearing in (a), (b), (d), and (e). 6      
+
+> FIG. 4. (a) The spectral function A(ε, ω ) for H 3S at (1) T= 1 K, (b) 100 K, and (c) 200 K. The dashed red line indicates the Bogoliubov dispersion relation. Bright yellow regions indicate high spectral weight, whereas dark purple regions indicate low or zero spectral weight.
+
+multiplied by this factor also has an analytic antideriva-tive. Thus, we can perform the integral by breaking it up into a sum of integrals along subintervals of width 
+
+dε ′. For each subinterval, we interpolate N (ε′) linearly and perform the integral over ε′ analytically. So long as 
+
+N (ε′) varies slowly with respect to the step size dε ′, this approach provides a low-error and efficient method to compute the spectral integrals. In the limit of infinitely dense sampling of N (ε′), this approximation approaches the exact integral value. In the case where W (ε, ε ′) is not constant and ϕ(ε, ω ) has non-trivial ε-dependence, we also fit a piecewise-linear approximation to ϕ(ε, ω )along the ε axis. This numerical approach outlined here provides an ef-ficient method to evaluate the integrals in the Migdal-Eliashberg equations to high precision on the real-frequency axis at finite temperature. We find that combining our numerical approach with a simple fixed-point iteration with a stopping criteria of less than a 0.01% variation in ϕ(0 , 0) yields convergent solutions for 
+
+Z(ω), χ (ω), ϕ (ε, ω ), and μF that are generally within 1% of the values computed on the imaginary-frequency axis with the IsoME package [14]. When computed in the cDOS case, these highly converged results take only on the order of milliseconds to compute on typical modern laptop hardware, and this scales to minutes in the vDOS case. Because of the speed of the cDOS solutions, we use the cDOS solution as an initial guess for the vDOS fixed-point solve, which further speeds up computation. Implementing even more advanced methods, in particu-lar for evaluating integrals over the spectral functions, will further improve stability and speed, and is the focus of current work.  
+
+> IV. RESULTS AND DISCUSSION
+
+The Migdal-Eliashberg equations require material-specific inputs for α2F (ω), N (ε), and W (ε, ε ′). In Figure 1a, b, and c, we present α2F (Ω), N (ε), and 
+
+W (ε, ε ′) respectively, computed from density functional theory (DFT) [38], density functional perturbation the-ory (DFPT), and GW calculations [39] for H 3S at 200 GPa. The solution to the Migdal-Eliashberg equations for H 3S at T = 1 mK in the cDOS and μ∗ approxima-tion are shown in Figure 1d,e. The corresponding con-vergence, defined as the root mean square variation of ∆( ω) = ϕ(ω)/Z (ω) between iterations, is shown in Fig-ure 1f. H3S exhibits several features that make it an ideal testbed for our methods. As is common for hydrides, the light hydrogen atoms produce strong electron-phonon coupling and a large maximum phonon frequency ωD
+
+(Figure 1a), yielding an experimental Tc ≈ 200 K and superconducting gap 2∆( ω = 0) ≈ 60 meV at 200 GPa [40, 41]. More importantly for this work, H 3S features a prominent van Hove singularity near the Fermi level (highlighted in red in Figure 1b). This vHS induces strong particle-hole asymmetry that significantly affects the superconducting properties and manifests in macro-scopic tunneling measurements [25, 41, 42], making H 3San excellent case for demonstrating the importance of the variable density of states treatment. Using the values obtained from DFT and DFPT for H3S shown in Figure 1, we solved the full real-frequency axis Migdal-Eliashberg equations with the variable N (ε). The solutions for ϕ(ω, ε = 0), Z(ω), χ(ω), and ϕ(ω =0, ε ) at T = 1 mK are displayed in Figure 2a,b,c,d, re-spectively. For comparison, the cDOS approximation for 
+
+ϕ(ω) and Z(ω) is plotted in Figure 2e,f. Notably, the real-frequency dependence obeys the expected symmetry rela-tions as required to preserve the causality of the Green’s function and the Kramers-Kronig relation. A derivation of the expected symmetry relations for Z(ω), ϕ(ω, ε ), and 
+
+χ(ω) can be found in the SI. One can also leverage these known symmetry relations to further reduce the total number of points needed to sample the Migdal-Eliashberg integrals. The low-temperature zero frequency value of 7                  
+
+> FIG. 5. (a) The spectral function A(ε= 0 , ω ) at T= 1 mK, 1 K, 30 K, 100 K, and T= 200 K. (b) The corresponding quasiparticle density of states N(ω) is computed from A(ε, ω ). In (a) and (b), each temperature is offset on the y-axis for clarity. (c) The interacting quasiparticle occupancy ⟨n(ε)⟩at T= 1 mK plotted alongside the BCS and non-interacting (Fermi-Dirac) distributions for comparison. The solid red bar indicates the location of the van-Hove singularity in H 3S.
+
+the superconducting gap 2∆( ω = 0 , ε = 0) = 2 ϕ(ω =0, ε = 0) /Z (ω = 0) for the vDOS calculation is ∼60 meV, which matches the experimental value [41]. In contrast, the cDOS and μ∗ approximation predicts 75 meV. Both the cDOS and vDOS zero-frequency results obtained on the real axis are nearly identical to the corresponding val-ues computed using conventional imaginary-axis meth-ods [14]. We also confirmed that our real-frequency axis solu-tions agree qualitatively with the analytic continuation of the imaginary-axis solutions obtained with the Pad´ eapproximation. This comparison is shown in Figure 3 and in more detail in the SI. Here, the imaginary fre-quency solutions were obtained with the IsoME pack-age [14], and we used a smearing of 1 m eV in the con-tinuation procedure to ensure stability of the continued solution, while keeping all numerical parameters consis-tent between solutions. As we have previously pointed out, the ill-conditioned nature of the analytic continua-tion results in significant numerical instabilities, which are particularly evident in the large peaks in the analytic continuation for Z(ω) at T = 1 K in Figure 3. Addition-ally, the fine structure in solutions for ϕ(ω) is obscured in the analytically continued solutions. On the other hand, the direct real-frequency solutions we produce with our approach do not possess these instabilities and retain the fine structure introduced by α2F (ω) and N (ε) over the entire temperature range. The closer agreement of the vDOS solution with exper-iment confirms the importance of treating the electronic structure properly in H 3S [25]. Our real-frequency-axis approach allows us to quantify this effect directly: the vHS causes χ(ω) to vary rapidly and substantially within the relevant energy range, manifesting as strong particle-hole asymmetry in the spectral functions, quasiparticle density of states, and occupancies shown in Figures 4 and 5. In Figure 4, we show the resulting spectral function 
+
+A(ε, ω ) = −1/π ℑ G(ε, ω ) at T = 1 K, 100 K, and 200 K. At frequencies ω < ∆( ω = 0), as expected, a clear gap in the excitation spectra is present, corresponding to the superconducting gap and the necessary 2∆( ω = 0) re-quired to break a Cooper pair. Moreover, a “butterfly” shape near ω = εk = 0 corresponding to Bogoliubov quasiparticle dispersion relation 
+
+ω = ±Ek = ±
+
+q
+
+ε2 
+
+> k
+
++ ∆ 2(ω), (11) is visible in A(εk, ω ). The exact dispersion relation is plotted on top of the spectral functions in Figure 4 for reference. At large εk ≫ ∆( ω = 0), the superconduct-ing correlations become weak and the excitation spec-trum approaches that of a normal metal. In the range of frequencies below ωD, features of α2F (ω) lead to fine structure, which become particularly visible in the quasi-particle density of states N (ω). As T → Tc, the super-conducting gap closes ∆( ω = 0) → 0, and the Bogoli-ubov quasiparticle dispersion approaches that of a nor-mal metal with ω = ±εk.Figure 5a shows the temperature dependence of the spectral function A(εk, ω ) for εk = 0 from T = 1 mK to 200 K. A clear particle-hole asymmetry is observed when comparing the electron ( ω > 0) and hole ( ω < 
+
+0) branches of A(εk = 0 , ω ). Integrating the N (εk)-weighted spectral function with respect to εk results in the quasiparticle density of states shown in Figure 5b. Here, N (ω) also reflects the strong particle-hole asymme-try of H 3S with a clear asymmetry across ω = 0. More-over, features of α2F (ω) appear in the range ω < ω D due to the strong-coupling in H 3S. Finally, integration of the spectral function with respect to ω from ( −∞ , 0] gives the ensemble-averaged quasiparticle occupancy function 
+
+⟨n(εk)⟩, which is also equal to the square of the quasipar-ticle amplitude |vk|2. The interacting ⟨n(εk)⟩ is shown 8alongside the BCS result for ⟨n(ε)⟩ in Figure 5c. For clarity in Figure 5c, the BCS distribution is offset on the 
+
+εk-axis by χ(ω) − μF, so that the zero energy region of both distributions line up. The strong electron-phonon interaction leads to a shift in the chemical potential and a small kink in the εk < 0 branch. This kink is a further consequence of the vHS near εF. The BCS result smears out the fine structure in ⟨n(εk)⟩ and is closer to the ideal non-interacting T = 1 mK case than the strong-coupling Eliashberg calculation.  
+
+> V. CONCLUSIONS
+
+We have demonstrated an efficient method to solve the Migdal-Eliashberg equations directly on the real-frequency axis at finite temperature while accounting for the electron-hole asymmetry introduced by the electronic density of states. Our linear-scaling numerical approach addresses the computational bottleneck of previous real-axis methods and avoids the need for analytic continua-tion from imaginary to real frequencies. Applying these techniques to H 3S, we computed the temperature-dependent spectral function, quasiparticle density of states, and occupancies while capturing the particle-hole asymmetry induced by the van-Hove singu-larity near the Fermi level. The variable density of states treatment yields a low-temperature superconducting gap of 60 meV, matching experimental tunneling measure-ments and improving upon the 75 meV predicted by the constant density of states approximation. This result illustrates the quantitative importance of retaining full electronic structure information in materials with strong particle-hole asymmetry. The efficiency of our approach, with typical runtimes of milliseconds to minutes, combined with direct access to real-frequency Green’s functions, facilitates the cal-culation of transport coefficients, optical conductivities, and time-dependent response functions. These capabili-ties make it practical to model nonequilibrium dynamics in superconducting devices and other phenomena that re-quire real-frequency information. The methods outlined here provide a foundation for more systematic investi-gations of transport properties and nonequilibrium re-sponse in conventional superconductors within the frame-work of Migdal-Eliashberg theory.  
+
+> VI. COMPUTATIONAL DETAILS
+
+DF(P)T calculations for H3S were performed us-ing the Quantum Espresso code [38, 43], Perdew-Burke-Ernzerhof (PBE) exchange-correlation functional [44], together with scalar-relativistic optimized norm-conserving Vanderbilt pseudopotentials [45]. A k-grid of 24 × 24 × 24, a q-grid of 4 × 4 × 4, an energy cut-off of 100 Ry, and a Methfessel-Paxton smearing [46] of 0.01 Ry was applied. Using maximally localized Wannier functions, as implemented in the Wannier90 code [47, 48], and the EPW code [9, 49], electron-phonon coupling ma-trix elements were computed on fine 48 × 48 × 48 k and 
+
+q-grids. BerkeleyGW [39, 50, 51] was used to compute 
+
+W (ε, ε ′), with a dielectric energy cutoff of 25 Ry and a 6 × 6 × 6 q-grid as reported in [14]. Further details on calculations can be found in Ref. [26] and [14].  
+
+> VII. ACKNOWLEDGMENTS
+
+This work was funded in part by the Defense Sciences Office (DSO) of the Defense Advanced Research Projects Agency (DARPA) (HR0011-24-9-0311). AS acknowl-edges support from the NSF GRFP. RF acknowledges support from the Alan McWhorter fellowship. PNF acknowledges support from the Austrian Science Fund (FWF) under project DOI 10.55776/ESP8588124. EK, PNF, MS, and CH acknowledge support from the En-terprise Science Fund of Intellectual Ventures and usage of computational resources of the lCluster of the Graz University of Technology and of the Austrian Scientific Computing (ASC) infrastructure.  
+
+> SUPPLEMENTAL INFORMATION VIII. DERIVATION OF MIGDAL-ELIASHBERG EQUATIONS
+
+We derive the isotropic Migdal-Eliashberg equations on the real axis within the vDOS+ W (variable electron density of states and static coulomb potential) approximation. The corresponding equations on the Matsubara axis are given in Ref. [14]. The electronic self-energy on the Matsubara axis for a superconducting system in Nambu space is given by [12]: Σ( k, iω j ) = − 1
+
+β
+
+X
+
+> k′,j ′
+
+τ3G(k, iω j′ )τ3
+
+"
+
+Wk,k ′ (iω j − iω j′ ) + X
+
+> λ
+
+|gkk ′λ|2Dλ(k − k′, iω j − iω j′ )
+
+#
+
+, (12) where β = 1  
+
+> kBT
+
+is the inverse temperature, k = ( k, n ) denotes the combined momentum and band index and λ the 9phonon mode index. The electron and phonon Green’s functions can be expressed via their spectral representations: 
+
+G(k, iω j ) = 
+
+Z ∞−∞ 
+
+dω A(k, ω )
+
+iω j − ω , (13) 
+
+Dλ(k − k′, iω j ) = 
+
+Z ∞−∞ 
+
+dΩ Bλ(k − k′, Ω) 
+
+iω j − Ω . (14) Assuming a static Coulomb interaction and inserting the spectral representation of the phonon Green’s function, Eq. 12 can be rewritten as: Σ( k, iω j ) = − 1
+
+β
+
+X
+
+> k′,j ′
+
+τ3G(k, iω j′ )τ3
+
+"
+
+Wk,k ′ + X
+
+> λ
+
+|gkk ′λ|2
+
+Z ∞−∞ 
+
+dΩ Bλ(k − k′, Ω) 
+
+iω j − iω j′ − Ω
+
+#
+
+= − 1
+
+β
+
+X
+
+> k′,j ′
+
+τ3G(k, iω j′ )τ3
+
+
+
+Wk,k ′ + 1
+
+N (εF)
+
+Z ∞−∞ 
+
+dΩ α2Fk,k ′ (Ω) 
+
+iω j − iω j′ − Ω
+
+
+
+,
+
+(15) where the Eliashberg spectral function has been introduced: 
+
+α2Fk,k ′ (Ω) = N (εF) X
+
+> λ
+
+|gkk ′λ|2Bλ(k − k′, Ω) . (16) Next, inserting the spectral representation of the electronic Green’s function yields: Σ( k, iω j ) = − 1
+
+β
+
+X
+
+> k′,j ′
+
+Z
+
+dω ′ A(k′, ω ′)
+
+iω j′ − ω′
+
+
+
+Wk,k ′ + 1
+
+N (εF)
+
+Z ∞−∞ 
+
+dΩ α2Fk,k ′ (Ω) 
+
+iω j − iω j′ − Ω
+
+
+
+, (17) This formally defines the analytic continuation to the real axis through the relation iω j 7 → ω +i0+. The Pauli matrices have been added to the definition of the electronic spectral function: 
+
+A(k, ω ) = − 1
+
+π Im {τ3G(k, ω + i0+)τ3} . (18) For clarity, we separate the self-energy into an electron-phonon and Coulomb part: Σep = 1
+
+βN (εF)
+
+X
+
+> k′
+
+Z
+
+dω ′A(k′, ω ′)
+
+Z ∞
+
+> 0
+
+dΩ α2Fk,k ′ (Ω) X
+
+> ν
+
+1
+
+iω j − iω ν − ω′
+
+2Ω (ων )2 + Ω 2 (19) ΣC = − 1
+
+β
+
+X
+
+> k′
+
+Z ∞−∞ 
+
+dω ′Aod (k′, ω ′)Wk,k ′
+
+X
+
+> j′
+
+1
+
+iω j′ − ω (20) In the electron-phonon contribution, the summation over Matsubara frequencies was replaced by iω ν = iω j − iω j′
+
+and the integration over Ω was restricted to positive values through the symmetry relation α2F (−Ω) = −α2F (Ω). The Coulomb contribution to the self-energy contains only the off-diagonal elements of God (k, iω j ), as the Coulomb interaction is already contained in the band structure of the normal state. This constitutes an excellent approximation for the exact expression G − GN , where GN is the Green’s function describing the normal state. A detailed discussion can be found in chapter 9 of Ref. [12]. The Matsubara sums can be evaluated via the identities [11] †:1
+
+β
+
+X
+
+> j
+
+1
+
+iω j − ξ = 12
+
+2f (ξ) − 1 (21) and [12]: 1
+
+β
+
+X
+
+> ν
+
+1
+
+iω j − iω ν − ω′
+
+2Ω 
+
+ω2 
+
+> ν
+
++ Ω 2 = n(Ω) + 1 − f (ω′)
+
+iω j − Ω − ω′ + n(Ω) + f (ω′)
+
+iω j + Ω − ω′ = I(iω j , Ω, ω ′) , (22)         
+
+> †Ref. [12] uses 1
+> β
+> P
+> j1
+> ξ−iω j=12tanh βω ′
+> 2, which is equivalent
+
+10 where f (ξ) and n(ξ) denote the Fermi-Dirac and Bose-Einstein distribution, respectively. Incorporating these identities and performing the analytic continuation leads to the anisotropic Eliashberg self-energy on the real axis: Σep = 1
+
+N (εF)
+
+X
+
+> k′
+
+Z
+
+dω ′A(k′, ω ′)
+
+Z ∞
+
+> 0
+
+dΩ α2Fk,k ′ (Ω) 
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+(23) ΣC = − 12
+
+X
+
+> k′
+
+Z ∞−∞ 
+
+dω ′Aod (k′, ω ′)Wk,k ′ [2 f (ω′) − 1] (24) Finally, within the isotropic approximation the Eliashberg spectral function is averaged over the Fermi surface, while the Coulomb interaction is averaged over constant-energy surfaces [12, 14]: 
+
+α2Fk,k ′ (Ω) 7 → α2F (Ω) 
+
+Wk,k ′ 7 → W (ε, ε ′) (25) and the momentum sums are replaced by energy integrals, 
+
+X
+
+> k
+
+7→
+
+Z ∞−∞ 
+
+dεN (ε) , (26) which yields the isotropic form of the self-energy: Σ( ε, ω ) = − 1
+
+π
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)
+
+(
+
+Im[ τ3G(ε′, ω ′)τ3]
+
+Z ∞
+
+> 0
+
+dΩ α2F (Ω) 
+
+N (εF)
+
+×
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+− 12 Im[ τ3God (ε′, ω ′)τ3]W (ε, ε ′)2f (ω′) − 1) (27) where the definition of the electronic spectral function from Eq. 18 has been inserted. Another form of the self-energy is given by the usual decomposition using Pauli-matrices τi:Σ( k, ω ) = [1 − Z(k, ω )] ωτ 0 + ϕ(k, ω )τ1 + χ(k, ω )τ3
+
+7→ Σ( ε, ω ) = [1 − Z(ω)] ωτ 0 + ϕ(ε, ω )τ1 + χ(ω)τ3 , (28) where an isotropic form was assumed and the energy dependence of Z and χ has been neglected [12]. Through the Dyson equation 
+
+G−1(k, ω ) = G−10 (k, ω ) − Σ( k, ω ) , (29) with the non-interacting Green’s function given by: 
+
+G0(k, ω ) = 1
+
+ω − (εk − μF ) + i0+ , (30) a decomposition of the interacting Green’s function can be derived: 
+
+G(k, ω ) = ωZ (k, ω )τ0 + [ εk − μF + χ(k, ω )] τ3 + ϕ(k, ω )τ1
+
+Θ( k, ω ) . (31) The denominator is defined as: Θ( k, ω ) = det G−1(k, ω ) = ω2Z2(k, ω ) − [εk − μF + χ(k, ω )] 2 − ϕ2(k, ω ) . (32) Multiplying the Pauli-matrices onto both sides and taking the imaginary part gives: Im[ τ3G(k, ω )τ3] = Im 
+
+h ωZ (k, ω )Θ( k, ω )
+
+i
+
+τ0 + Im 
+
+h εk − μF + χ(k, ω )Θ( k, ω )
+
+i
+
+τ3 − Im 
+
+h ϕ(k, ω )Θ( k, ω )
+
+i
+
+τ1 . (33) Within the isotropic approximation, this simplifies to Im[ τ3G(ω)τ3] = Im 
+
+h ωZ (ω)Θ( ε, ω )
+
+i
+
+τ0 + Im 
+
+h ε − μF + χ(ω)Θ( ε, ω )
+
+i
+
+τ3 − Im 
+
+h ϕ(ε, ω )Θ( ε, ω )
+
+i
+
+τ1 , (34) 11 with an isotropic denominator: Θ( ε, ω ) = ω2Z2(ω) − [ε − μF + χ(ω)] 2 − ϕ2(ε, ω ) . (35) Inserting this expression into Eq. 27 and comparing it to Eq. 28 results in a set of coupled equations - the real axis isotropic Eliashberg equations in the vDOS+ W approximation: 
+
+Z(ω) = 1 + 1
+
+ωπN (εF)
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)Im 
+
+h Z(ω′)ω′
+
+Θ( ε′, ω ′)
+
+i
+
+×
+
+Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+ (36a) 
+
+χ(ω) = − 1
+
+πN (εF)
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)Im 
+
+h ε′ − μF + χ(ω′)Θ( ε′, ω ′)
+
+i
+
+×
+
+Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+ (36b) 
+
+ϕ(ε, ω ) = 1
+
+πN (εF)
+
+Z ∞−∞ 
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)Im 
+
+h ϕ(ε′, ω ′)Θ( ε′, ω ′)
+
+i( Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+×
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+− 12 N (εF)W (ε, ε ′)[2 f (ω′) − 1] 
+
+) (36c) Using the symmetry relations Z(−ω) = Z(ω)∗, ϕ(−ω) = ϕ(ω)∗, and χ(−ω) = χ(ω)∗ as derived in Section X, we can rewrite the equations with integrals over ω′ only ranging from 0 to ∞.
+
+A. Electron number equation 
+
+The electron number in the superconducting phase is given by (Eq. (4) in the supplemental of Ref. [26]): 
+
+Ne = 2 X
+
+> k
+
+
+
+12 + kB T X
+
+> j
+
+Re [ G11 (k, ω )] 
+
+ (37) where G11 (k, ω ) is the first diagonal element of the matrix Green’s function. Inserting the spectral representation yields: 
+
+Ne = 2 X
+
+> k
+
+
+
+12 + kB T X
+
+> j
+
+Z ∞−∞ 
+
+dω Re 
+
+ A11 (k, ω )
+
+iω j − ω
+
+
+
+= 2 X
+
+> k
+
+
+
+12 + kB T X
+
+> j
+
+Z ∞−∞ 
+
+dω Re 
+
+ A11 (k, ω ) ( iω j + ω)(iω j − ω)( iω j + ω)
+
+
+
+= 2 X
+
+> k
+
+
+
+12 + kB T X
+
+> j
+
+Z ∞−∞ 
+
+dω A11 (k, ω ) ω
+
+(iω j )2 − ω2
+
+
+
+(38) The Matsubara sum can be evaluated through contour integration [11]. For the given integrand, the contribution of the circle at infinity vanishes and we will deform the contour to half-circles C1/C2 in the negative ( z < 0) and positive (z > 0) half-plane and thereby pick up only the contributions from the poles at z = ±ω.1
+
+β
+
+X
+
+> j
+
+1(iω j )2 − ω2 =
+
+I
+
+> C1
+
+dz 
+
+2πi f (z)
+
+z2 − ω2 +
+
+I
+
+> C2
+
+dz 
+
+2πi f (z)
+
+z2 − ω2 = 12ω [2 f (ω) − 1] , (39) Inserting this result and the definition of the spectral function from Eq. 18 into the electron number equation gives: 
+
+Ne = X
+
+> k
+
+
+
+1 − 1
+
+π
+
+Z ∞−∞ 
+
+dω Im 
+
+ εk − μF + χ(k, ω )Θ( k, ω )
+
+
+
+[2 f (ω) − 1] 
+
+
+
+, (40) 12 which reduces to 
+
+Ne =
+
+Z
+
+dεN (ε)
+
+
+
+1 − 1
+
+π
+
+Z ∞−∞ 
+
+dω Im 
+
+ ε − μF + χ(ω)Θ( ε, ω )
+
+
+
+[2 f (ω) − 1] 
+
+
+
+(41) when employing the isotropic approximation.   
+
+> IX. OTHER APPROXIMATIONS A. vDOS+ μ
+
+In the vDOS+ μ-approximation, we neglect the energy dependence of the static Coulomb interaction, i.e. replace 
+
+W (ε, ε ′) with W (εF, ε F). This removes the ε-dependence of ϕ(ε, ω ) so that ϕ(ε, ω ) = ϕ(ω). Introducing the abbrevi-ation μ = N (εF)W (εF, ε F) and restricting the ω′ integration in Eq. 36c to |ω′| ≤ ωc, Eq. 36c reduces to: 
+
+ϕ(ω) = 1
+
+πN (εF)
+
+Z ωc
+
+> −ωc
+
+dω ′
+
+Z ∞−∞ 
+
+dε ′N (ε′)Im 
+
+h ϕ(ε′, ω ′)Θ( ε′, ω ′)
+
+i( Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+×
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+− 12 μ∗(ωc)[2 f (ω′) − 1] 
+
+)
+
+,
+
+(42) where μ∗ is the Morel-Anderson Pseudopotential [3, 12, 52]. The other two equations retain their formal structure, with only the definition of Θ being modified to reflect the aforementioned changes: Θ( ε, ω ) = ω2Z2(ω) − [ε − μF + χ(ω)] 2 − ϕ2(ω) . (43)  
+
+> B. cDOS+ μ
+
+In the cDOS+ μ approximation, the electronic density of states is assumed to be constant. The only remaining 
+
+ε-dependence is that of Θ( ε, ω ), which can be removed by integrating: 
+
+Z ∞−∞ 
+
+dε 1
+
+ω2Z2(ω) − ε2 − ϕ2(ω) . (44) The integrand has poles at: 
+
+ε2 = −ϕ2(ω) + ω2Z2(ω)
+
+⇒ ε = ±ip−ω2Z2(ω) + ϕ2(ω) = ±i√C . C = ϕ2(ω) − ω2Z2(ω)(45) By closing the contour in the upper half plane, we obtain: 
+
+−
+
+I
+
+dz 1
+
+z2 + C = −2πi Res 
+
+ 1
+
+z2 + C
+
+
+
+> z=+ i√C
+
+= −2πi 12i√C = − π
+
+√C . (46) Inserting this into Eq. 44 yields: 
+
+Z ∞−∞ 
+
+dε 1
+
+ω2Z2(ω) − ε2 − ϕ2(ω) = − π
+
+p−(ω2Z2(ω) − ϕ2) = iπ 
+
+pω2Z2(ω) − ϕ2 (47) 13 and the equations in the cDOS+ μ approximation are simplified to: 
+
+Z(ω) = 1 − 1
+
+ω
+
+Z ∞−∞ 
+
+dω ′Re 
+
+"
+
+ω′Z(ω′)
+
+pω′2Z2(ω′) − ϕ2(ω′)
+
+#
+
+×
+
+Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+ (48a) 
+
+ϕ(ω) = −
+
+Z ωc
+
+> −ωc
+
+dω ′Re 
+
+"
+
+ϕ(ω′)
+
+pω′2Z2(ω′) − ϕ2(ω′)
+
+# ( Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+×
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+− 12 μ∗(ωc)[2 f (ω′) − 1] 
+
+)
+
+,
+
+(48b) where the identity Im[ iz ] = Re[ z] was used. In analogy to Eq. (64) of Ref. [53] (part 10 of Scalapino, page 496) and Eq. (12.8) of Ref. [12] the square root is defined to have a positive imaginary part when ω is in the upper half-plane.   
+
+> X. SYMMETRIES OF G
+
+In Nambu space, the following relation holds 
+
+GR(ω) = −τ2
+
+GR(−ω)∗ τ2 (49) Recalling the form 
+
+GR(ω) = 
+
+ωZ (ω) + χ(ω) ϕ(ω)
+
+ϕ(ω) ωZ (ω) − χ(ω)
+
+
+
+(50) we obtain 
+
+−τ2
+
+GR(−ω)∗ τ2 =
+
+ωZ ∗(−ω) + χ∗(−ω) ϕ∗(−ω)
+
+ϕ∗(−ω) ωZ ∗(−ω) − χ∗(−ω)
+
+
+
+(51) Equating matrix entries yields 
+
+ωZ (ω) + χ(ω) = ωZ ∗(−ω) + χ∗(−ω) (52a) 
+
+ωZ (ω) − χ(ω) = ωZ ∗(−ω) − χ∗(−ω) (52b) 
+
+ϕ(ω) = ϕ∗(−ω) (52c) Adding Eq. 52a and Eq. 52a gives 
+
+Z(ω) = Z∗(−ω) (53) and subtracting them gives 
+
+χ(ω) = χ∗(−ω) . (54) Thus the real parts of Z, χ , and ϕ are even functions for real-valued ω and their imaginary parts are of odd parity. Using this, once can rewrite the integrals over omega from a symmetric form, i.e., 
+
+> ∞
+
+R
+
+> −∞
+
+dω... to only span the positive frequency region 
+
+> ∞
+
+R
+
+> 0
+
+dω... . In practice, these symmetries reduce the required numerical computation by half. A similar expression for the symmetry of G can also be derived from Lehmann’s representation of G, see for example Ref. [19] (paragraph above Eq. (21)) 
+
+G11 (ω) = X
+
+> α
+
+|⟨ α|ˆc|0⟩| 2
+
+ω − (Eα − E0) + iδ + X
+
+> β
+
+|⟨ β|ˆc†|0⟩| 2
+
+ω + ( Eβ − E0) + iδ (55a) 
+
+G22 (ω) = X
+
+> β
+
+|⟨ β|ˆc†|0⟩| 2
+
+ω − (Eβ − E0) + iδ + X
+
+> α
+
+|⟨ α|ˆc|0⟩| 2
+
+ω + ( Eα − E0) + iδ . (55b) 14 In order to match the particle (ˆ c†) and the hole (ˆ c) terms upon a transformation ω → − ω, one has to multiply the respective terms with a factor of ( −1) and take the complex conjugate to regain the correct sign of the iδ term. This means in short that 
+
+G11 (−ω) = − [G22 (ω)] ∗ , (56) consistent with Eq. 49. For the anomalous parts one has the usual 
+
+F12 (−ω) = F ∗
+
+> 21
+
+(ω) . (57)  
+
+> XI. ANALYTIC CONTINUATION WITH THE PAD´ E APPROXIMATION
+
+We compare the results of our real-frequency axis solver against the analytically continued solution on the imaginary frequency axis obtained using the isoME package [14]. Here, we employ the Pad´ e approximation to perform the analytic continuation; however, as discussed in the main text, there are several possible approaches that one can adopt here [15–19]. In Figure 6, the analytically continued result for H 3S is shown alongside the direct real-frequency solution. There is good qualitative agreement between ϕ(ω), Z(ω), and χ(ω) obtained with the two methods, indicating that the direct real-frequency axis solutions are properly converging. As expected, the fine structure in the solutions for these quantities is obscured in the analytically continued result. This is particularly evident in the absence of peaks in ϕ(ω)corresponding with the structure of α2F (ω). With the direct solutions, the numerical stability is also improved over a larger range of temperatures. Instabilities in the continuation procedure are particularly evident in Z(ω) as the temperature range is swept from T = 1 K to 200 K, manifesting as large unphysical peaks in the magnitude of Z(ω). This is to be contrasted with the smooth solutions obtained with the direct vDOS real-frequency solutions. Finally, the absolute magnitude of χ(ω) depends on the cutoff chosen when evaluating the Migdal-Eliashberg equations. Hence, 
+
+χ(ω) is not expected to quantitatively agree between two sets of solutions obtained with different parameters, which explains the quantitative disagreement in Figure 6. The strong qualitative agreement is expected.   
+
+> XII. NUMERICAL METHODS A. Evaluation of Kernel Integrals
+
+The evaluation of the kernel integrals has traditionally been a computational bottleneck for direct solutions to the Eliashberg equations on the real axis. We wish to compute 
+
+K(ω, ω ′) = 
+
+Z ∞
+
+> 0
+
+dΩα2F (Ω) 
+
+ n(Ω) + 1 − f (ω′)
+
+ω − Ω − ω′ + i0+ + n(Ω) + f (ω′)
+
+ω + Ω − ω′ + i0+
+
+
+
+(58) on an evenly spaced square grid of ( ω, ω ′) points. Suppose that we take N points along each axis. A naive approach would require O(N 2) integral evaluations. We will demonstrate an efficient algorithm that requires only O(N )evaluations. The imaginary parts Im {K(ω, ω ′)} can be quickly evaluated because they amount to integrating over a delta function. For the real parts, we can write Re {K(ω, ω ′)} = [ −I1(ω − ω′) − (1 − f (ω′)) I2(ω − ω′)] + [ I1(ω′ − ω) + f (ω′)I2(ω′ − ω)] (59) where 
+
+I1(x) = P
+
+Z ∞−∞ 
+
+dΩ α2F (Ω) n(Ω) Ω − xI2(x) = P
+
+Z ∞−∞ 
+
+dΩ α2F (Ω) 1Ω − x
+
+(60) On a square grid of ( ω, ω ′) points, there are only 2 N − 1 distinct values of ω − ω′, as illustrated in Figure 7a. Thus, by evaluating I1 and I2 for all such values, we can produce the full matrix of kernel values by computing only O(N )of the costly principal value integrals. Materializing the full matrix and multiplying in the factors of f (ω′) presents a slight overhead, but in practice this algorithm allows us to precompute K(ω, ω ′) in less than a second. 15       
+
+> FIG. 6. Comparison between the direct real-frequency-axis vDOS solutions (black) and the analytic continuation (red) done from the imaginary frequency axis with the Pad´ e approximation for ϕ(ω), Z(ω), and χ(ω) of H 3S at temperatures T= 200 K, 100 K, 30 K, and 1 K. The real part of the solutions is shown in solid lines and the imaginary part corresponds to the dashed lines. Numerical instabilities in Z(ω) are clear in the analytically continued solutions.
+
+To actually evaluate the principal value integrals I1 and I2 on a grid of s values, we must account for the divergence of the integrands at Ω = s. We employ a change of variables Ω ′ = Ω − s to shift all singularities to Ω ′ = 0. This allows us to use a common grid of Ω ′ samples for the entire s grid and evaluate the integrals in a vectorized manner. We employ a symmetric grid of Chebyshev nodes around the singularity in a Clenshaw–Curtis quadrature scheme. We show in Figure 7b a benchmark comparing our numerical approach to the standard quadratic-time evaluation of the integral, where the runtime is plotted as a function of the number of sampling points N . In the conventional implementation, the cost scales as O(N 2), since K(ω, ω ′) must be evaluated for all pairs of sampling points. In contrast, evaluating K(ω, ω ′) using Eq. (59) results in a much more favorable linear O(N ) cost. The exponential fit in Figure 7b highlights this rapid reduction in computational costs. This improvement enables well-converged and 16               
+
+> FIG. 7. (a) Schematic for linear-time computation of K(ω, ω ′) over a square grid of points. Blue diagonals pass through all points sharing a common value of ω−ω′, and vertical lines pass through all points with the same ω′.The integrals I1and
+> I2need only be evaluated once and reused by all points in each blue diagonal. (b) Runtime comparison for our numerical approach to compute K(ω, ω ′) versus the standard quadratic computation of the kernels. The highlighted blue region indicates
+> Nlarge enough for the solution to converge.
+
+efficient evaluations of the integral in regimes where the quadratic approach becomes prohibitively expensive.  
+
+> B. Evaluation of Electronic Spectral Function Integrals
+
+We must evaluate integrals of the form 
+
+I⋆[g(ε, ω )] = 
+
+Z ∞−∞ 
+
+dε N (ε)ℑ
+
+ g(ε, ω )Θ( ε, ω )
+
+
+
+(61) to high precision. In the cDOS approximation, the integrals are easy to evaluate analytically using the residue theorem. However, when N (ε) is non-constant, the integrals become numerically challenging due to sharp peaks near the poles of the Green’s function. To avoid these challenges, we leverage the form of Im 
+
+h g(ε,ω )Θ( ε,ω )
+
+i
+
+to derive a semi-analytic quadrature method. In the vDOS+ μ case, ϕ(ε, ω ) = ϕ(ω) is independent of ε. We can do a partial fraction decomposition: 
+
+ℑ
+
+ g(ε, ω )Θ( ε, ω )
+
+
+
+= ℑ
+
+ g(ε, ω )/2εp(ω)
+
+ε + χ(ω) + εp(ω)
+
+
+
+− ℑ 
+
+ g(ε, ω )/2εp(ω)
+
+ε + χ(ω) − εp(ω)
+
+
+
+(62) where εp = pω2Z(ω)2 − ϕ(ω)2. Define R±(ω) = ℜ{ χ(ω) ± εp(ω)} and I±(ω) = ℑ{ χ(ω) ± εp(ω)}. Also define 
+
+Rg = ℜ{ g(ε, ω )/2εp} and Ig = ℑ{ g(ε, ω )/2εp}. We can express each partial fraction above with real coefficients: 
+
+ℑ
+
+ g(ε, ω )/2εp(ω)
+
+ε + χ(ω) ± εp(ω)
+
+
+
+= Ig
+
+ε
+
+(ε + R±)2 + I2
+
+> ±
+
++ ( R±Ig − I±Rg ) 1(ε + R±)2 + I2
+
+> ±
+
+. (63) In the vDOS+ μ case, g(ε, ω ) has either constant or linear dependence on ε. Thus, within a given interval where N (ε)is approximated as linear, the integrand in (6) can be written as a sum of terms, each of which is a polynomial of degree at most 3 multiplying a Lorentzian. Note that there exists an analytic antiderivative of a Lorentzian function and any polynomial multiple of a Lorentzian. This motivates us to interpolate a piecewise-linear approximation for N (ε) as depicted in Figure 8, so that within each interval we can analytically integrate the approximation over the expression derived above. More formally, suppose that we have a sequence of evenly spaced data points {(εj , N j )}mj=1 , ordered by ε values. Define ˜Nm(ε) on 17 
+
+FIG. 8. Illustration of spectral function integration. The functions ϕ(ε, ω ) and N (ε) are approximated as piecewise linear functions. The gray curve shows the Lorentzian-like function of ε that multiplies N (ε). 
+
+the interval [ ε1, ε m] such that if ε ∈ [εj , ε j+1 ], then ˜N (ε) = Nj+1 −Nj 
+
+> εj+1 −εj
+
+(ε − εj ) + Nj = M (j)0 + M (j)1 ε. Then we compute 
+
+Z ∞−∞ 
+
+dε ˜N (ε)ℑ
+
+ g(ε, ω )Θ( ε, ω )
+
+
+
+=
+
+> m−1
+
+X
+
+> j=1
+
+Z εj+1 
+
+> εj
+
+(M (j)0 + M (j)1 ε) ℑ
+
+ g(ε, ω )Θ( ε, ω )
+
+
+
+(64) Note that the approximation approaches the actual integral value in the limit of infinitely many sample points, as lim m→∞ ˜Nm(ε) = N (ε). The vDOS+ W case can be transformed into the vDOS+ μ case by similarly using a piecewise linear approximation along the ε axis for φ(ε, ω ). Approximate ϕ(ε, ω ) ≈ ˜ϕ(ε, ω ) = Φ (j)0 (ω) + Φ (j)1 (ω)ε on each interval [ εj , ε j+1 ]. Then for 
+
+μF = 0 we have Θ( ε, ω ) ≈ ω2Z(ω)2 − (ε + χ(ω)) 2 − (Φ (j)0 (ω) + Φ (j)1 (ω)ε)2
+
+= ω2Z(ω)2 − ε2 − 2εχ (ω) − χ(ω)2 − Φ(j)0 (ω)2 − 2Φ (j)0 (ω)Φ (j)1 (ω) − Φ(j)1 (ω)2ε2
+
+= ω2Z(ω)2 − (1 + Φ (j)1 (ω)2)
+
+"
+
+ε2 + 2ε(χ(ω) + Φ (j)0 (ω)Φ (j)1 (ω)) 1 + Φ (j)1 (ω)2
+
+#
+
+− χ(ω)2 − Φ(j)0 (ω)2
+
+= (1 + Φ (j)1 (ω)2)
+
+"
+
+ω2Z(ω)2 − χ(ω)2 − Φ(j)0 (ω)2
+
+1 + Φ (j)1 (ω)2 + S(j)(ω)2 − (ε + S(j)(ω)) 2
+
+#
+
+(65) where S(j)(ω) = χ(ω)+Φ (j)0 (ω)Φ (j)1 (ω)1+Φ (j)1 (ω)2 . Define P (j)(ω)2 = ω2Z(ω)2−χ(ω)2−Φ(j)0 (ω)2  
+
+> 1+Φ (j)1(ω)2
+
++ S(j)(ω)2. Then we can write Θ( ε, ω ) ≈ (1 + Φ (j)1 (ω)2)( P (j)(ω)2 − (ε + S(j)(ω)) 2) (66) so that P (j)(ω) and S(j)(ω) are analogous to εp(ω) and χ(ω) in the formulas derived for the vDOS+ μ case. We can also absorb the 1 + Φ (j)1 (ω)2 factor into g(ε, ω ). 
+
+C. Causality of the Green’s Function 
+
+The poles of the Green’s function, which give the quasiparticle excitations, are the roots of Θ( ε, ω ). From causality, we require the imaginary part of each pole to have the same sign as the real part for all ω. The converged solution to the Eliashberg equations must obey this condition, but intermediate guesses in the iteration step may not. This point is crucial, for violation of this constraint amounts to an overall sign flip in the spectral function integrals. Even 18 if this occurs for only a small fraction of ω values, it creates jump discontinuities in the spectral function integrals as a function of ω. We observed that such discontinuities cause the fixed-point iterations to diverge. In order to remedy this issue, we manually enforce a sign flip on the spectral function integrals when the imaginary parts of the Green’s function poles have the wrong sign. For the vDOS+ μ case, this is easy, as we can directly compute the poles. However, in the vDOS+ W case, only knowing ϕ(ε, ω ) on the real ε axis means we cannot determine the complex poles of the Green’s function. To circumvent this obstacle, we notice that the spectral function integral in the equation for Z(ω) is the quasiparticle density of states, which must always be positive. Thus, the sign flip is equivalent to taking the absolute value of the spectral function integral in this case. We can identify which values were flipped by this operation and, since the sign flip must be applied to the same ω values across all three integrals, this allows us to correctly enforce the sign flip across all three integrals. 
+
+[1] A. B. Migdal, Interaction between electrons and the lattice vibrations in a normal metal, Zhur. Eksptl’. i Teoret. Fiz. Vol: 34 , (1958). [2] G. M. Eliashberg, Interactions between electrons and lattice vibrations in a superconductor, Sov. Phys. - JETP (Engl. Transl.); (United States) 11:3 , (1960). [3] D. J. Scalapino, J. R. Schrieffer, and J. W. Wilkins, Strong-coupling superconductivity. i, Phys. Rev. 148 , 263 (1966). [4] R. D. Parks, Superconductivity: In Two Volumes: Volume 1 (Routledge, 1969). [5] C. Pellegrini and A. Sanna, Ab initio methods for superconductivity, Nature Reviews Physics 6 (2024). [6] H. J. Vidberg and J. W. Serene, Solving the eliashberg equations by means ofn-point pad´ e approximants, Journal of Low Temperature Physics 29 , 179 (1977). [7] F. Marsiglio, M. Schossmann, and J. P. Carbotte, Iterative analytic continuation of the electron self-energy to the real axis, Phys. Rev. B 37 , 4965 (1988). [8] E. R. Margine and F. Giustino, Anisotropic migdal-eliashberg theory using wannier functions, Phys. Rev. B 87 , 024505 (2013). [9] S. Ponc´ e, E. Margine, C. Verdi, and F. Giustino, Epw: Electron–phonon coupling, transport and superconducting properties using maximally localized wannier functions, Computer Physics Communications 209 , 116 (2016). [10] A. L. Fetter and J. D. Walecka, Quantum theory of many-particle systems (Courier Corporation, 2012). [11] G. D. Mahan, Many Particle Physics , 3rd ed. (Springer New York, NY, 2000). [12] P. B. Allen and B. Mitrovi´ c, Theory of superconducting tc, in Solid State Physics , Solid State Physics, Vol. 37, edited by H. Ehrenreich, F. Seitz, and D. Turnbull (Academic Press, 1983) pp. 1–92. [13] F. Marsiglio, Eliashberg theory: A short review, Annals of Physics 417 , 168102 (2020), eliashberg theory at 60: Strong-coupling superconductivity and beyond. [14] E. Kogler, D. Spath, R. Lucrezi, H. Mori, Z. Zhu, Z. Li, E. R. Margine, and C. Heil, Isome: Streamlining high-precision eliashberg calculations (2025), arXiv:2503.03559 [cond-mat.supr-con]. [15] G. A. Baker Jr and J. L. Gammel, The pad´ e approximant, Journal of Mathematical Analysis and Applications 2, 21 (1961). [16] G. J. Kraberger, R. Triebl, M. Zingl, and M. Aichhorn, Maximum entropy formalism for the analytic continuation of matrix-valued green’s functions, Physical Review B 96 , 155128 (2017). [17] E. Vitali, M. Rossi, L. Reatto, and D. Galli, Ab initio low-energy dynamics of superfluid and solid h 4 e, Physical Review B—Condensed Matter and Materials Physics 82 , 174510 (2010). [18] K. S. D. Beach, R. J. Gooding, and F. Marsiglio, Reliable pad´ e analytical continuation method based on a high-accuracy symbolic computation algorithm, Phys. Rev. B 61 , 5147 (2000). [19] D. Khodachenko, R. Lucrezi, P. Ferreira, M. Aichhorn, and C. Heil, Nevanlinna analytic continuation for migdal–eliashberg theory, Computational Materials Today 4, 100015 (2024). [20] J. Rammer and H. Smith, Quantum field-theoretical methods in transport theory of metals, Rev. Mod. Phys. 58 , 323 (1986). [21] J. Rammer, Quantum Field Theory of Non-equilibrium States (2011). [22] H. Shinaoka, J. Otsuki, M. Ohzeki, and K. Yoshimi, Compressing green’s function using intermediate representation between imaginary-time and real-frequency domains, Physical Review B 96 , 035147 (2017). [23] N. Chikano, K. Yoshimi, J. Otsuki, and H. Shinaoka, irbasis: Open-source database and software for intermediate-representation basis functions of imaginary-time green’s function, Computer Physics Communications 240 , 181 (2019). [24] M. Holcomb, Finite-temperature real-energy-axis solutions of the isotropic eliashberg integral equations, Physical Review B 54 , 6648 (1996). [25] S. S. Ghosh, Y. Quan, and W. E. Pickett, Strong particle-hole asymmetry in a 200 kelvin superconductor, Physical Review B 100 , 094521 (2019). [26] R. Lucrezi, P. P. Ferreira, S. Hajinazar, H. Mori, H. Paudyal, E. R. Margine, and C. Heil, Full-bandwidth anisotropic Migdal-Eliashberg theory and its application to superhydrides, Communications Physics 7, 1 (2024), publisher: Nature Publishing Group. [27] A. Simon, J. Shi, E. Kogler, R. Foster, D. Spath, E. Batson, P. N. Ferreira, M. Sahoo, R. Prasankumar, P. D. Keathley, K. K. Berggren, and C. Heil, Ultrafast dynamics and light-induced superconductivity from first principles, arXiv (2026). 19 
+
+[28] Y. Nambu, Quasi-particles and gauge invariance in the theory of superconductivity, Phys. Rev. 117 , 648 (1960). [29] F. Marsiglio and J. P. Carbotte, Electron - phonon superconductivity (2001), arXiv:cond-mat/0106143 [cond-mat.supr-con]. [30] W. Sano, T. Koretsune, T. Tadano, R. Akashi, and R. Arita, Effect of van hove singularities on high-Tc superconductivity in h 3S, Phys. Rev. B 93 , 094525 (2016). [31] A. Sanna, J. A. Flores-Livas, A. Davydov, G. Profeta, K. Dewhurst, S. Sharma, and E. K. U. Gross, Ab initio eliashberg theory: Making genuine predictions of superconducting features, Journal of the Physical Society of Japan 87 , 041012 (2018), https://doi.org/10.7566/JPSJ.87.041012. [32] T. Wang, T. Nomoto, Y. Nomura, H. Shinaoka, J. Otsuki, T. Koretsune, and R. Arita, Efficient ab initio migdal-eliashberg calculation considering the retardation effect in phonon-mediated superconductors, Phys. Rev. B 102 , 134503 (2020). [33] C. Pellegrini, R. Heid, and A. Sanna, Eliashberg theory with ab-initio Coulomb interactions: a minimal numerical scheme applied to layered superconductors, Journal of Physics: Materials 5, 024007 (2022), publisher: IOP Publishing. [34] A. Davydov, A. Sanna, C. Pellegrini, J. K. Dewhurst, S. Sharma, and E. K. U. Gross, Ab initio theory of plasmonic superconductivity within the eliashberg and density-functional formalisms, Phys. Rev. B 102 , 214508 (2020). [35] P. Morel and P. W. Anderson, Calculation of the superconducting state parameters with retarded electron-phonon inter-action, Phys. Rev. 125 , 1263 (1962). [36] A. Simon, R. Foster, M. Sahoo, J. Shi, E. Batson, F. Incalza, M. Castellani, O. Medeiros, C. Heil, and K. K. Berggren, Ab initio modeling of nonequilibrium dynamics in superconducting detectors and qubits, Phys. Rev. B 112 , 174512 (2025). [37] A. Simon, Ab initio modeling of superconducting nanowire single-photon detectors , Master’s thesis, Massachusetts Institute of Technology (2025). [38] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau, M. B. Nardelli, M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, M. Cococcioni, N. Colonna, I. Carnimeo, A. D. Corso, S. de Gironcoli, P. Delugas, R. A. D. Jr, A. Ferretti, A. Floris, G. Fratesi, G. Fugallo, R. Gebauer, U. Gerstmann, F. Giustino, T. Gorni, J. Jia, M. Kawamura, H.-Y. Ko, A. Kokalj, E. K¨ u¸ c¨ ukbenli, M. Lazzeri, M. Marsili, N. Marzari, F. Mauri, N. L. Nguyen, H.-V. Nguyen, A. O. de-la Roza, L. Paulatto, S. Ponc´ e, D. Rocca, R. Sabatini, B. Santra, M. Schlipf, A. P. Seitsonen, A. Smogunov, I. Timrov, T. Thonhauser, P. Umari, N. Vast, X. Wu, and S. Baroni, Advanced capabilities for materials modelling with quantum espresso, Journal of Physics: Condensed Matter 29 , 465901 (2017). [39] J. Deslippe, G. Samsonidze, D. A. Strubbe, M. Jain, M. L. Cohen, and S. G. Louie, Berkeleygw: A massively parallel computer package for the calculation of the quasiparticle and optical properties of materials and nanostructures, Computer Physics Communications 183 , 1269 (2012). [40] A. Drozdov, M. Eremets, I. Troyan, V. Ksenofontov, and S. I. Shylin, Conventional superconductivity at 203 kelvin at high pressures in the sulfur hydride system, Nature 525 , 73 (2015). [41] F. Du, A. P. Drozdov, V. S. Minkov, F. F. Balakirev, P. Kong, G. A. Smith, J. Yan, B. Shen, P. Gegenwart, and M. I. Eremets, Superconducting gap of h3s measured by tunnelling spectroscopy, Nature , 1 (2025). [42] Y. Quan and W. E. Pickett, Van hove singularities and spectral smearing in high-temperature superconducting h 3 s, Physical Review B 93 , 104526 (2016). [43] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococcioni, I. Dabo, A. Dal Corso, S. de Gironcoli, S. Fabris, G. Fratesi, R. Gebauer, U. Gerstmann, C. Gougoussis, A. Kokalj, M. Lazzeri, L. Martin-Samos, N. Marzari, F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello, L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero, A. P. Seitsonen, A. Smogunov, P. Umari, and R. M. Wentzcovitch, Quantum espresso: a modular and open-source software project for quantum simulations of materials, Journal of Physics: Condensed Matter 21 , 395502 (19pp) (2009). [44] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized gradient approximation made simple, Phys. Rev. Lett. 77 , 3865 (1996). [45] D. R. Hamann, Optimized norm-conserving vanderbilt pseudopotentials, Phys. Rev. B 88 , 085117 (2013). [46] M. Methfessel and A. Paxton, High-precision sampling for brillouin-zone integration in metals, physical review B 40 , 3616 (1989). [47] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, Maximally localized wannier functions: Theory and applications, Reviews of Modern Physics 84 , 1419–1475 (2012). [48] G. Pizzi, V. Vitale, R. Arita, S. Bl¨ ugel, F. Freimuth, G. G´ eranton, M. Gibertini, D. Gresch, C. Johnson, T. Koretsune, J. Iba˜ nez-Azpiroz, H. Lee, J.-M. Lihm, D. Marchand, A. Marrazzo, Y. Mokrousov, J. I. Mustafa, Y. Nohara, Y. Nomura, L. Paulatto, S. Ponc´ e, T. Ponweiser, J. Qiao, F. Th¨ ole, S. S. Tsirkin, M. Wierzbowska, N. Marzari, D. Vanderbilt, I. Souza, A. A. Mostofi, and J. R. Yates, Wannier90 as a community code: new features and applications, Journal of Physics: Condensed Matter 32 , 165902 (2020). [49] H. Lee, S. Ponc´ e, K. Bushick, S. Hajinazar, J. Lafuente-Bartolome, J. Leveillee, C. Lian, J.-M. Lihm, F. Macheda, H. Mori, H. Paudyal, W. H. Sio, S. Tiwari, M. Zacharias, X. Zhang, N. Bonini, E. Kioupakis, E. R. Margine, and F. Giustino, Electron–phonon physics from first principles using the epw code, npj Computational Materials 9, 10.1038/s41524-023-01107-3 (2023). [50] M. S. Hybertsen and S. G. Louie, Electron correlation in semiconductors and insulators: Band gaps and quasiparticle energies, Phys. Rev. B 34 , 5390 (1986). [51] M. Rohlfing and S. G. Louie, Electron-hole excitations and optical spectra from first principles, Phys. Rev. B 62 , 4927 (2000). [52] P. Morel and P. W. Anderson, Calculation of the superconducting state parameters with retarded electron-phonon inter-action, Phys. Rev. 125 , 1263 (1962). [53] R. D. Parks, Superconductivity: In Two Volumes: Volume 1 (Routledge, 2018).

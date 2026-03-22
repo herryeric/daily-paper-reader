@@ -1,0 +1,358 @@
+Title: Entanglement R\'enyi Negativity across the Finite-Temperature Transition in the O(3) Universality Class
+
+URL Source: https://arxiv.org/pdf/2603.13711v1
+
+Published Time: Tue, 17 Mar 2026 00:44:23 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Entanglement R´ enyi Negativity across the Finite-Temperature Transition in the O(3) Universality Class 
+
+Dong-Xu Liu, 1, 2 Yi-Ming Ding, 1, 2, 3 Zhe Wang, 1, 2, ∗ and Zheng Yan 1, 2, †
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+State Key Laboratory of Surface Physics and Department of Physics, Fudan University, Shanghai 200438, China 
+
+The fate of quantum entanglement at finite-temperature phase transitions remains an open ques-tion, particularly for continuous symmetry breaking where zero-temperature Goldstone modes gen-erate long-range correlations. Using large-scale quantum Monte Carlo simulations, we investigate the third R´ enyi negativity across the O(3) transition in the three-dimensional Heisenberg antifer-romagnet—the first such study for a thermal critical point with continuous symmetry. We uncover two fundamental results. First, the negativity exhibits a pure area law at the critical point, with the subleading constant term vanishing within statistical uncertainty. This demonstrates that ther-mal fluctuations completely destroy the long-range entanglement present at zero temperature—the divergent classical correlation length leaves no imprint on quantum entanglement itself. Second, despite this absence of singular behavior in the negativity, its temperature derivative follows the exact scaling of the specific heat, yielding critical exponents −α/ν = 0 .190(1) and 1 /ν = 1 .350(5) in precise agreement with the O(3) universality class. Our work establishes that while quantum entanglement is blind to thermal criticality, its thermodynamic derivatives encode the full universal scaling, revealing an unexpected connection between entanglement and classical phase transitions. Furthermore, this also provides further evidence that R´ enyi negativity can still effectively shield classical correlations in systems with continuous symmetry. 
+
+I. INTRODUCTION 
+
+The study of many-body critical phenomena has been significantly advanced through the application of quan-tum information measures. For bipartite entanglement in general mixed states, entanglement negativity, rooted in the positive partial transpose criterion, has emerged as a key computable probe for this purpose [1–5]. However, the direct calculation of negativity is generally challeng-ing in many-body systems. Therefore, the R´ enyi neg-ativity has been introduced as a more tractable proxy for characterizing mixed-state entanglement that can be accessed both analytically and numerically [6–17]. It is defined as 
+
+Rn = − ln 
+
+ tr[( ρTB )n]tr[ ρn]
+
+
+
+, (1) where ρ is the density matrix and TB denotes the partial transpose with respect to subsystem B.For quantum phase transitions, similar to entangle-ment entropy, R´ enyi negativity obeys an area law, scal-ing with the size of the entangling boundary, i.e., Rn ∼
+
+Ld−1 [18, 19]. Subleading corrections to this lead-ing behavior can usually encode universal information about the underlying quantum correlations, including long-range entanglement [20–22]. Although enormous progress has been made over the past two decades in   
+
+> ∗wangzhe90@westlake.edu.cn
+> †zhengyan@westlake.edu.cn
+
+understanding the entanglement properties of pure quan-tum states [23–27], the study of entanglement in interact-ing many-body quantum systems in mixed states remains comparatively less developed, even for equilibrium Gibbs states [28–31]. For a purely classical Hamiltonian (e.g., the 3D clas-sical Ising model) at its finite-temperature critical point, the equilibrium density matrix is diagonal in a product basis, and therefore contains no quantum entanglement for any bipartition. By contrast, for quantum Hamiltoni-ans such as the 2D transverse-field Ising model (TFIM), recent studies have shown that the entanglement nega-tivity can remain finite over a broad temperature range around the finite-temperature critical point [6, 32, 33]. However, these results primarily concern systems with discrete symmetry breaking. For thermal phase transi-tions associated with continuous symmetry breaking, the ordered phase supports massless Goldstone modes, which can strongly affect low-energy correlations and thermo-dynamic properties. At present, it remains unclear to what extent such modes influence mixed-state entangle-ment at finite temperature, and in particular whether they qualitatively modify the behavior of R´ enyi negativ-ity near a thermal critical point. Furthermore, previous studies have suggested that, at finite-temperature phase transitions, the temperature derivative of the area-law coefficient of the negativity (and its R´ enyi counterparts) captures singular contri-butions arising from long-range correlations, and is ex-pected to scale in the same way as the specific heat [6, 32]. In particular, the area-law coefficient of the R´ enyi neg-ativity becomes singular across the transition, reflecting the underlying thermodynamic criticality. This scaling 
+
+> arXiv:2603.13711v1 [cond-mat.str-el] 14 Mar 2026
+
+2relation has been verified for the special case where the specific-heat critical exponent α = 0, such as in the two-dimensional Ising universality class, where the singular part of the specific heat diverges logarithmically with sys-tem size [34, 35]. However, numerical evidence for this relation in systems with α̸ = 0 remains limited. From an-other perspective, how the divergent non-quantum cor-relation length would specifically manifest in R´ enyi neg-ativity still lacks sufficient evidences and remains under-studied. More quantitative questions need to be further explored. In this work, we present an extensive numerical study of the R´ enyi negativity in the 3D Heisenberg antiferro-magnet on a cubic lattice using quantum Monte Carlo (QMC) simulations. In contrast to the two-dimensional transverse-field Ising model studied in previous works, whose finite-temperature transition is associated with discrete Z2 symmetry breaking, the 3D Heisenberg an-tiferromagnet undergoes a thermal phase transition with continuous O(3) symmetry breaking. The ordered phase therefore supports massless Goldstone modes which lead long-range entanglement contribution in entanglement entropy at zero temperature, providing a natural set-ting to examine how such collective excitations influence mixed-state entanglement near a thermal critical point. Moreover, the corresponding universality class is charac-terized by a nonzero (in fact negative) specific-heat crit-ical exponent α, which allows us to test the proposed scaling relation between the temperature derivative of the negativity area-law coefficient and the specific heat beyond the special case α = 0. This model therefore provides an ideal platform to address the two questions raised above. (a) (b) 
+
+> BA
+
+# A
+
+# B      
+
+> ∂A ∩∂ B
+> L
+> 𝐿
+> 2𝛽
+> 𝛽
+> 𝛽
+> FIG. 1. (a) Schematic of the partitioned subsystems A and B on a three-dimensional cubic lattice, sharing an interface
+> ∂A ∩∂B . (b) The space-time manifold in path integral used to compute the R´ enyi negativity R3. The horizontal axis denotes the spatial spin direction and the vertical axis corresponds to imaginary time. Spins of the same color are connected along the imaginary time direction.
+> II. MODEL AND METHOD
+
+We consider the 3D spin-1/2 Heisenberg antiferromag-net on a cubic lattice of size L × L × L with periodic boundary conditions. The Hamiltonian of the system is given by 
+
+H =J X
+
+> ⟨ij ⟩
+
+Si · Sj , (2) where J > 0 denotes the antiferromagnetic exchange in-teraction between nearest-neighbor spins and the sum-mation runs over all nearest-neighbor pairs ⟨ij ⟩ of the cubic lattice. The positive exchange coupling favors an-tiparallel alignment of neighboring spins. On the bipar-tite cubic lattice, this leads to long-range N´ eel order in the ground state, characterized by a staggered magneti-zation that spontaneously breaks the global SU(2) spin-rotation symmetry. At finite temperature, this ordered phase is separated from the high-temperature paramag-netic phase by a continuous phase transition at Tc ≈
+
+0.938 (in units of J = 1) [36, 37]. A key feature of this model is that the finite-temperature phase transition from the N´ eel state to the paramagnet belongs to the three-dimensional O(3) uni-versality class, which is same to the quantum phase tran-sition in 2D quantum systems at zero temperature. Near the critical point, the long-wavelength fluctuations of the staggered magnetization are effectively described by a three-dimensional classical field theory with O(3) sym-metry. Consequently, the critical behavior is charac-terized by universal critical exponents. In particular, the correlation-length exponent is ν ≈ 0.7116, and the specific-heat exponent is α ≈ − 0.1336, consistent with the hyperscaling relation α = 2 − dν [37–39]. These ex-ponents govern the singular behavior near the critical temperature Tc, where the correlation length diverges as 
+
+ξ ∼ | T − Tc|−ν .The R´ enyi negativity provides a computable measure of quantum entanglement for mixed states and is par-ticularly useful for diagnosing bipartite entanglement in finite-temperature systems. For a bipartition without ge-ometric singularities—such as a smooth boundary or a straight cut dividing the system into two extended re-gions without corners, as illustrated in Fig. 1(a)the lead-ing contribution to the R´ enyi negativity at criticality typ-ically follows an area law, 
+
+Rn = a |∂A ∩ ∂B | + γ, (3) where |∂A ∩∂B | denotes the area of the interface between the two subsystems [40, 41]. The coefficient a is nonuni-versal, while γ represents a subleading constant contribu-tion that usually encodes long-range quantum entangle-ment. At a conventional finite-temperature critical point in systems such as the Heisenberg model, the transition is governed by thermal fluctuations. While the classical correlation length diverges, quantum correlations are not expected to develop long-range coherence. Consequently, the subleading constant contribution γ is generally ex-pected to vanish in the thermodynamic limit, and the singular behavior of Rn near the transition, if exist, is dominated by the divergence of the classical correlation length [22, 31, 32]. 3To investigate the critical behavior of entanglement at finite temperature, we study the R´ enyi negativity in the three-dimensional antiferromagnetic Heisenberg model. Using quantum Monte Carlo simulations, we analyze the behavior of Rn with n = 3 near the finite-temperature phase transition. Specifically, we employ quantum Monte Carlo with the reweight-annealing method [8, 24, 42–44] to compute R3, the space-time manifold in path integral is shown in the Fig.1 (b). Further details of this method are provided in the Appendix A.               
+
+> FIG. 2. The R´ enyi negativity R3was computed for the three-dimensional Heisenberg model and fitted to the area law R3=aL 2+γ. (a) R3as a function of temperature T.(b) Temperature dependence of the fitted coefficient a.
+> III. RESULTS
+
+The first question is whether the curve of R3 vs T dis-plays any singular behaviors. In a (2+1)D Heisenberg model, its quantum phase transition is also 3D O(3) uni-versality. The previous studies [24, 45] show that the en-tanglement entropy has variations in concavity and con-vexity near the quantum phase transition point from a N´ eel order to a disordered phase. Similarly, we now ex-plore the negativity behaviors from N´ eel order to dis-ordered phase in the 3D Heisenberg model with a fi-nite temperature 3D O(3) phase transition. As shown in Fig. 2(a), the third-order R´ enyi negativity R3 is com-puted as a function of the temperature T . At the crit-ical point, R3 itself does not display any clear singular behavior or pronounced nonanalytic feature. However, previous studies have suggested that singularities in the third R´ enyi negativity may appear around β/ 3, rather than at β corresponding to the actual thermal transi-tion [6]. This shift arises from the replica structure of the R´ enyi negativity, which effectively rescales the tempera-ture in the replicated manifold. Additionally, as shown in Fig. 2(b), the coefficient a of the area law R3 = aL 2 + γ
+
+exhibits no clear singular behavior across 3 Tc, indicat-ing that the area-law contribution evolves smoothly near this point. This is totally different from the behaviors of entanglement entropy in (2+1)D O(3) quantum phase transition [46], in which the coefficient a peaks at the critical point. Therefore, the singularity introduced by the divergent classical correlation length, at least, seem-ingly never comes into the leading coefficient, even for the phase transition of continuous symmetry. To further investigate the scaling properties, we ana-lyzed the behavior of R3 near the rescaled temperature 3Tc by fitting it to the area law R3 = aL 2 + γ, where 
+
+L2 is the interface area between subsystems A and B
+
+in the bipartite geometry. System sizes L = 4 , 6, . . . , 14 were used. As shown in Fig. 3(a), R3 is plotted as a function of the interface area L2 at T = 3 Tc. The data are well described by a linear fit R3 = aL 2 + γ, indi-cating area-law scaling of the R´ enyi negativity. It shows that there is no extra nonzero constant correction in the scaling, i.e. γ = 0, which points to no long-range en-tanglement. Oppositely, the entanglement entropy scales as S = a Ld−1 
+
+> ad−1
+
++ γ Ld−1 
+
+> ξd−1
+
+with γ̸ = 0 in O(N ) quantum phase transitions [27, 47], where the divergent correla-tion length ξ contributes to the constant term. It reflects that the R´ enyi negativity displays a a good shielding of the divergent classic correlations at the critical point. We keep trace to the nearby phases, especially the N´ eel order with Goldstone modes. Figure 3(b) shows the be-havior of γ in the vicinity of the rescaled transition tem-perature 3 Tc. Within statistical uncertainties, the con-stant term γ is consistent with zero. This observation suggests that quantum correlations remain short-ranged across a conventional finite-temperature phase transition. The R´ enyi negativity can faithfully describe the entangle-ment property even for a continuous-symmetry-breaking phase. Although the various behaviors of the R3 point to no singularity at the (rescaled) phase transition point, we believe that the critical information should be still en-coded in the space-time manifold of path integral, be-cause the R´ enyi negativity can be treated as a difference of free energies of different space-time manifolds and the difference only exists on the boundary [32]. To probe possible hidden singular behavior in R3, we numerically compute dR 3/dT in the vicinity of 3 Tc using a finite-difference method. It can be shown that the derivative of R3 with respect to temperature, normalized by the boundary area |∂A ∩ ∂B |, is equivalent to the derivative of the area-law coefficient a, namely dR 3/dT ∝ da/dT .Previous works [6, 32] argued that da/dT exhibits the 4            
+
+> FIG. 3. The R´ enyi negativity R3was computed for the three-dimensional Heisenberg model. (a) R3follows the area law
+> R3=aL 2+γat the rescaled temperature 3 Tc.(b) The temperature dependence of the fitted subleading coefficient γ
+> near 3 Tc, showing that it is consistent with zero within the statistical uncertainty.
+
+same scaling behavior as the specific heat, 
+
+da dT ∼ a′ 
+
+> 0
+
++ Cs, (4) where a′ 
+
+> 0
+
+denotes the nonsingular contribution and Cs
+
+represents the singular part of the specific heat [6]. This relation has been verified for the two-dimensional Ising universality class, where the specific-heat critical expo-nent α = 0 and Cs ∼ ln L. For systems with α̸ = 0, the singular part instead follows the scaling form Cs ∼ | t|−α.To date, numerical evidence for this scaling behavior in such cases remains limited. To suppress nonsingular contributions while isolating the singular part of the R´ enyi negativity, we consider the difference relative to the critical point, 1
+
+Ld−1
+
+dR 3
+
+dT − dR 3
+
+dT T =3 Tc
+
+!
+
+= a′
+
+> 0
+
+(T ) − a′
+
+> 0
+
+(3 Tc)+ b|T − 3Tc|−α.
+
+(5) The first term represents the analytic background and, to leading order, scales linearly with T − 3Tc. Close to the critical point, the nonanalytic contribution associated with the universal term therefore dominates. In a finite system, the divergence of the correlation length ξ ∼ | t|−ν is effectively cut off by the system size                        
+
+> FIG. 4. Finite-size scaling collapse of data for system sizes
+> L=10 ,12 ,14 using Eq.(6). The horizontal axis is the scaled variable tL 1/ν , where t= ( T−3Tc)/3Tcis the re-duced temperature. The vertical axis represents the singu-lar part of the interface density of the derivative, scaled as (1 /∂A )[( dR 3/dT )−(dR 3/dT )|T=3 Tc]L−α/ν , which captures the critical behavior near 3 Tc.Inset: The behavior of the derivative of the area-law coefficient near the rescaled tem-perature 3 Tc.
+
+L. Consequently, the singular part obeys the finite-size scaling form 1
+
+Ld−1
+
+dR 3
+
+dT − dR 3
+
+dT T =3 Tc
+
+!
+
+= Lα/ν F
+
+
+
+tL 1/ν 
+
+. (6) where t = ( T − 3Tc)/3Tc is the reduced temperature, 
+
+ν is the correlation-length critical exponent, and F is a dimensionless scaling function. We perform a finite-size scaling analysis based on Eq. (6) using data for system sizes L = 10 , 12 , and 14. As shown in Fig. 4, the data collapse well onto a single universal curve. Fitting the scaling function yields crit-ical exponents −α/ν ≈ 0.190 and 1 /ν ≈ 1.350, which are consistent with the established values for the three-dimensional O(3) universality class ( −α/ν = 0 .188 and 1/ν = 1 .406) [37–39]. This agreement supports the scal-ing form proposed in Eq. (6), indicating that the singular part of the temperature derivative of the R´ enyi negativ-ity follows the same critical scaling behavior as the spe-cific heat. Furthermore, as shown in the inset of Fig. 4, 
+
+da/dT does not exhibit the divergent behavior observed in the 2D TFIM [6] at its finite-temperature transition. This absence of divergence stems from the fact that the critical exponent ratio α/ν is negative in this model.  
+
+> IV. CONCLUSIONS
+
+In this work, we have systematically investigated the critical behavior of the third R´ enyi negativity R3 across 5the finite-temperature phase transition of the three-dimensional Heisenberg model using large-scale quantum Monte Carlo simulations. At this temperature, the nega-tivity exhibits an area-law scaling, R3 = aL 2 +γ. Within statistical uncertainties, the subleading constant term γ
+
+is consistent with zero, indicating that no additional con-tribution associated with long-range quantum entangle-ment is detected. This behavior reflects the distinct na-ture of finite-temperature criticality with divergent clas-sical correlation length. It strongly supports that the R´ enyi negativity will not mistakenly include the contri-butions of the classic correlations in the entanglement behaviors, even in a phase transition of continuous sym-metry. A key observation of this work is the striking absence of any divergent singularity in either R3 or its temper-ature derivative dR 3/dT in the vicinity of 3 Tc. While this smooth behavior appears to contrast with the log-arithmic divergence typically found in the Ising univer-sality class, it in fact reflects the distinct critical scal-ing of the O(3) model. To elucidate the origin of this behavior, we performed a detailed scaling analysis. We show that, due to the critical exponents of the 3D O(3) universality class, specifically −α > 0, the non-analytic part of dR 3/dT vanishes continuously at the transition, rather than diverging. Nevertheless, its critical behav-ior remains governed by the scaling form of the specific heat. In particular, an explicit scaling relation has been demonstrated that the interfacial density of dR 3/dT on the boundary |∂A ∩ ∂B | shares the same singular scaling form as the specific heat. This study fills the gap in the research on entanglement in the mixed-state’s continuous symmetry-breaking phase transition. 
+
+V. ACKNOWLEDGEMENTS 
+
+ZW is supported by the China Postdoctoral Sci-ence Foundation under Grants No.2024M752898. The work is supported by the Scientific Research Project (No.WU2025B011) and the Start-up Funding of West-lake University. The authors thank the IT service office and the high-performance computing center of Westlake University. 
+
+[1] P. Horodecki, Physics Letters A 232 , 333 (1997). [2] A. Peres, Phys. Rev. Lett. 77 , 1413 (1996). [3] H. Shapourian, K. Shiozaki, and S. Ryu, Phys. Rev. B 
+
+95 , 165101 (2017). [4] G. Vidal and R. F. Werner, Phys. Rev. A 65 , 032314 (2002). [5] M. B. Plenio, Phys. Rev. Lett. 95 , 090503 (2005). [6] K.-H. Wu, T.-C. Lu, C.-M. Chung, Y.-J. Kao, and T. Grover, Phys. Rev. Lett. 125 , 140603 (2020). [7] C.-M. Chung, V. Alba, L. Bonnes, P. Chen, and A. M. L¨ auchli, Phys. Rev. B 90 , 064401 (2014). [8] Y.-M. Ding, Y. Tang, Z. Wang, Z. Wang, B.-B. Mao, and Z. Yan, Phys. Rev. B 111 , L241108 (2025). [9] P. Calabrese, J. Cardy, and E. Tonni, Physical review letters 109 , 130502 (2012). [10] P. Calabrese, J. Cardy, and E. Tonni, Journal of Statis-tical Mechanics: Theory and Experiment 2013 , P02008 (2013). [11] P. Calabrese, L. Tagliacozzo, and E. Tonni, Journal of Statistical Mechanics: Theory and Experiment 2013 ,P05002 (2013). [12] C.-M. Chung, V. Alba, L. Bonnes, P. Chen, and A. M. L¨ auchli, Phys. Rev. B 90 , 064401 (2014). [13] V. Alba, Journal of Statistical Mechanics: Theory and Experiment 2013 , P05013 (2013). [14] A. Neven, J. Carrasco, V. Vitale, C. Kokail, A. Elben, M. Dalmonte, P. Calabrese, P. Zoller, B. Vermersch, R. Kueng, and B. Kraus, npj Quantum Information 7,152 (2021). [15] J. Q. Fang and X. Y. Xu, Phys. Rev. B 112 , 075154 (2025). [16] F.-H. Wang and X. Y. Xu, Nature Communications 16 ,2637 (2025). [17] F.-H. Wang and X. Y. Xu, “Untwisted and twisted r´ enyi negativities: Toward a r´ enyi proxy for logarithmic neg-ativity in fermionic systems,” (2025), arXiv:2503.07731 [cond-mat.str-el]. [18] O. Hart and C. Castelnovo, Phys. Rev. B 97 , 144410 (2018). [19] N. E. Sherman, T. Devakul, M. B. Hastings, and R. R. P. Singh, Physical review. E 93 , 022128 (2016). [20] Y. A. Lee and G. Vidal, Phys. Rev. A 88 , 042318 (2013). [21] C. Castelnovo, Phys. Rev. A 88 , 042319 (2013). [22] X. Wen, P. Chang, and S. Ryu”, Journal of High Energy Physics 2016 (2016), 10.1007/JHEP09(2016)012. [23] M. A. Metlitski and T. Grover, arXiv preprint arXiv:1112.5166 (2011). [24] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Nature Communications 16 , 5880 (2025). [25] B. Kulchytskyy, C. M. Herdman, S. Inglis, and R. G. Melko, Phys. Rev. B 92 , 115146 (2015). [26] N. Laflorencie, Physics Reports 646 , 1 (2016), quantum entanglement in condensed matter systems. [27] M. A. Metlitski, C. A. Fuertes, and S. Sachdev, Phys. Rev. B 80 , 115122 (2009). [28] H. Shapourian and S. Ryu, Journal of Statistical Me-chanics: Theory and Experiment 2019 , 043106 (2019). [29] R. Fan, Y. Bao, E. Altman, and A. Vishwanath, PRX Quantum 5, 020343 (2024). [30] E. Wybo, M. Knap, and F. Pollmann, Phys. Rev. B 102 ,064304 (2020). [31] T.-C. Lu, T. H. Hsieh, and T. Grover, Phys. Rev. Lett. 
+
+125 , 116801 (2020). [32] T.-C. Lu and T. Grover, Phys. Rev. B 99 , 075157 (2019). [33] Y. Javanmard, D. Trapin, S. Bera, J. H. Bardarson, and M. Heyl, New Journal of Physics 20 , 083032 (2018). 6
+
+[34] A. E. Ferdinand and M. E. Fisher, Phys. Rev. 185 , 832 (1969). [35] H. Au-Yang and M. E. Fisher, Phys. Rev. B 11 , 3469 (1975). [36] A. W. Sandvik, Phys. Rev. Lett. 80 , 5196 (1998). [37] X. Cui, J. Cao, and Y. Wang, Physics Letters A 372 ,4151 (2008). [38] J. C. Le Guillou and J. Zinn-Justin, Phys. Rev. B 21 ,3976 (1980). [39] J. Guillou and J. Zinn-Justin, Journal De Physique 50 ,1365 (1989). [40] T.-C. Lu and T. Grover, Phys. Rev. Res. 2, 043345 (2020). [41] T. Grover, A. M. Turner, and A. Vishwanath, Phys. Rev. B 84 , 195120 (2011). [42] Y.-M. Ding, J.-S. Sun, N. Ma, G. Pan, C. Cheng, and Z. Yan, Phys. Rev. B 110 , 165152 (2024). [43] Y.-M. Ding, Z. Wang, and Z. Yan, PRX Quantum 6,030328 (2025). [44] Z. Wang, Z. Liu, B.-B. Mao, Z. Wang, and Z. Yan, Nature Communications 17 , 679 (2026). [45] Z. Wang, Z. Deng, Z. Liu, Z. Wang, Y.-M. Ding, L. Zhang, W. Guo, and Z. Yan, Chinese Physics Let-ters 42 , 110712 (2025). [46] J. Helmes and S. Wessel, Physical Review B 89 , 245120 (2014). [47] Z. Wang, C. Guo, B.-B. Mao, and Z. Yan, “Universal and non-universal contributions of entanglement under different bipartitions,” (2026), arXiv:2601.12365 [cond-mat.str-el]. [48] R. M. Neal, Statistics and Computing 110 , 125 (2001). [49] Y.-M. Ding, J.-S. Sun, N. Ma, G. Pan, C. Cheng, and Z. Yan, Phys. Rev. B 110 , 165152 (2024). [50] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Nature Communications 16 , 5880 (2025). [51] O. F. Sylju˚ asen, Physical Review E 67 (2003), 10.1103/physreve.67.046701. [52] O. F. Sylju˚ asen and A. W. Sandvik, Phys. Rev. E 66 ,046701 (2002). [53] H. G. Evertz, Advances in Physics 52 , 1 (2003). [54] Z. Yan, Y. Wu, C. Liu, O. F. Sylju˚ asen, J. Lou, and Y. Chen, Phys. Rev. B 99 , 165135 (2019). [55] Z. Yan, Z. Zhou, Y.-H. Zhou, Y.-C. Wang, X. Qiu, Z. Y. Meng, and X.-F. Zhang, npj Quantum Information 9,89 (2023). 1
+
+Appendix A: Quantum Monte Carlo with Reweight-Annealing 
+
+The central idea of calculating the R´ enyi negativity via a reweighting–annealing approach is to use quantum Monte Carlo (QMC) simulations to estimate the ratio between two partition functions [48–50]. For clarity, we first introduce two generalized partition functions, 
+
+Zn = Tr[ ρn] , ZTB 
+
+> n
+
+= Tr (ρTB )n , (S1) Here the density matrix is given by ρ = e−βH /Z , with Z = Tr[ e−βH ] the usual thermal partition function. Based on the definition in Eq. (1), the R´ enyi negativity can be written as 
+
+Rn = ln ZTB
+
+> n
+
+Zn
+
+, (S2) which reduces the problem of computing entanglement to evaluating the ratio between two partition functions. In the (a) (b) 
+
+# A ∪ 𝐵 BA𝛽 
+
+# 𝛽 
+
+# 𝛽 
+
+FIG. S1. The horizontal axis denotes the spatial spin direction, while the vertical axis corresponds to imaginary time. Spins of the same color are connected along the imaginary time direction. (a) Manifold representing Z3, where three replicas are connected along the imaginary time direction for the entire system A ∪ B. (b) The twisted manifold corresponding to ZTB 
+
+> 3
+
+, in which the three replicas are connected within subsystem A, while in subsystem B, the connections are no longer cyclic due to the partial transpose operation TB .
+
+imaginary-time path integral formulation, subsystem B in partition function Zn is defined on a replica-disconnected manifold parameterized, as shown in Fig. S1(a), by a continuous parameter λ (the annealing parameter), which may correspond to a physical parameter such as the inverse temperature β. In contrast, subsystem B in ZTB 
+
+> n
+
+has a similar form but is defined on a twisted manifold with partial-transpose boundary conditions [7, 8, 22, 43]. To probe the parameter dependence, we consider the difference ∆Rn = Rn(λ′′ ) − Rn(λ′), (S3) which represents the change in the R´ enyi negativity between two parameter points λ′ and λ′′ . Using the definition above, this quantity can be written as ∆Rn = ln ZTB 
+
+> n
+
+(λ′′ )
+
+ZTB 
+
+> n
+
+(λ′) − ln Zn(λ′′ )
+
+Zn(λ′) . (S4) For the ratios ZTB 
+
+> n
+
+(λ′′ )/Z TB 
+
+> n
+
+(λ′) and Zn(λ′′ )/Z n(λ′) appearing in Eq. (S4), both can be evaluated using reweighting or annealing techniques. Specifically, to estimate the ratios, we write the partition function as 
+
+Zn(λ′) = X
+
+> γ
+
+Wγ (λ′), (S5) where Wγ (λ′) denotes the statistical weight of configuration γ, and the sum runs over all configurations in the configuration space. The ratio of partition functions at two different parameter values can then be expressed as 
+
+Zn(λ′′ )
+
+Zn(λ′) =
+
+ Wγ (λ′′ )
+
+Wγ (λ′)
+
+
+
+> Zn(λ′)
+
+, (S6) 2where ⟨· · · ⟩ Zn(λ′) denotes the ensemble average over configurations sampled from the probability distribution defined by Zn(λ′). An analogous expression applies to the ratio involving ZTB 
+
+> n
+
+.To compute the ratio Zn(λ′′ )/Z n(λ′) (the same procedure applies to the ratio involving ZTB 
+
+> n
+
+), one may directly evaluate the reweighting estimator introduced above. However, this estimator relies on the overlap between the probability distributions corresponding to the two partition functions and can become exponentially small when the parameters λ′ and λ′′ are far apart, making accurate sampling difficult in QMC simulations. To overcome this problem, we divide the parameter interval [ λ′, λ ′′ ] into N subintervals and introduce a sequence of intermediate parameters 
+
+λ0 = λ′, λ1, . . . , λ N −1, λN = λ′′ . (S7) The ratio of partition functions can then be decomposed as 
+
+Zn(λ′′ )
+
+Zn(λ′) = 
+
+> N−1
+
+Y
+
+> i=0
+
+Zn(λi+1 )
+
+Zn(λi) , (S8) where each consecutive pair of parameters λi and λi+1 is chosen sufficiently close so that the corresponding probability distributions have significant overlap [48]. This decomposition stabilizes the numerical evaluation by ensuring that each factor can be estimated reliably within QMC simulations. In this work, we employ the stochastic series expansion (SSE) quantum Monte Carlo method to compute the R´ enyi negativity Rn [51–55]. We choose the inverse temperature β = 1 /T as the annealing parameter λ and set the reference point at β = 0, where the R´ enyi negativity is known to vanish. In the following we focus on the case n = 3, since the cases n = 1 and n = 2 do not contain nontrivial entanglement information. Within the SSE framework, the ratios of partition functions at consecutive temperatures can be estimated as 
+
+Z3(βi+1 )
+
+Z3(βi) =
+
+D  βi+1 
+
+βi
+
+ntot E
+
+> Z3(βi)
+
+, (S9) and 
+
+ZTB 
+
+> 3
+
+(βi)
+
+ZTB 
+
+> 3
+
+(βi+1 ) =
+
+D  βi
+
+βi+1 
+
+ntot E 
+
+> ZTB
+> 3(βi+1 )
+
+. (S10) Here ntot denotes the total number of vertex operators in the SSE operator string on the corresponding generalized path integral. The relevant estimators are given by: Z3(βi+1 ) 
+
+> Z3(βi)
+
+= ⟨( βi+1  
+
+> βi
+
+)ntot ⟩Z3(βi) and ZTB   
+
+> 3(βi)
+> ZTB
+> 3(βi+1 )
+
+= ⟨( βi 
+
+> βi+1
+
+)ntot ⟩ZTB 
+
+> 3(βi+1 )
+
+. Here, 
+
+ntot denotes the total number of vertex operators in the corresponding manifold: for Z3 it refers to the non-wrapped manifold (Fig.S1(a)) at βi, whereas for ZTB 
+
+> 3
+
+it corresponds to the partially wrapped manifold induced by the transpose on subsystem B (Fig.S1(b)) at βi+1 .During the Monte Carlo sampling we record the operator count ntot at each update step to estimate the ratios 
+
+ZTB 
+
+> 3
+
+(βi)/Z TB 
+
+> 3
+
+(βi+1 ) and Z3(βi+1 )/Z 3(βi) for every βi. The third-order R´ enyi negativity R3(β) is then obtained by accumulating these ratios along the annealing path starting from the reference point β0 = 0.

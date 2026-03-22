@@ -1,0 +1,1678 @@
+Title: Many-body correlations in Floquet steady-states: Frequency-resolved renormalization group of the driven Anderson impurity
+
+URL Source: https://arxiv.org/pdf/2603.12844v1
+
+Published Time: Mon, 16 Mar 2026 00:47:35 GMT
+
+Number of Pages: 20
+
+Markdown Content:
+# Many-body correlations in Floquet steady-states: Frequency-resolved renormalization group of the driven Anderson impurity 
+
+Jan-Niklas Herre, 1, ∗ Christoph Karrasch, 2 and Dante M. Kennes 1, 3 
+
+> 1
+
+Institute for Theory of Statistical Physics, RWTH Aachen University and JARA—Fundamentals of Future Information Technology, 52056, Aachen, Germany 
+
+> 2
+
+Technische Universität Braunschweig, Institut für Mathematische Physik, Mendelssohnstraße 3, 38106 Braunschweig, Germany 
+
+> 3
+
+Max Planck Institute for the Structure and Dynamics of Matter, Center for Free Electron Laser Science, Luruper Chaussee 149, 22761 Hamburg, Germany 
+
+(Dated: March 16, 2026) We introduce a functional renormalization group framework formulated directly in the Floquet steady-state that systematically incorporates frequency-dependent interaction effects. By retaining the frequency structure of the two-particle vertex up to second order in interaction strength, our approach provides controlled access to dynamical response functions and nonequilibrium transport in driven, interacting systems. Using the periodically driven single-impurity Anderson model as a paradigmatic example, we benchmark our results against state-of-the-art Floquet Green’s func-tion methods and find quantitative agreement for finite-frequency observables up to intermediate interaction strengths. Remarkably, we also show that static properties are often captured reliably by much simpler approximations, suggesting practical pathways for modeling driven quantum ma-terials. Finally, we demonstrate that although periodic driving of the dot strongly broadens the Kondo resonance through inelastic scattering, it leaves the many-body Kondo cloud largely intact. This robustness suppresses Floquet replicas of the Kondo peak and leads to a partial persistence of Kondo pinning, highlighting the resilience of emergent many-body correlations under local periodic driving. 
+
+I. INTRODUCTION 
+
+In recent years, nonequilibrium control of quantum materials has advanced rapidly, enabling the exploration of novel physical phenomena and the ultrafast manipu-lation of quantum properties [1–3]. At the same time, the complexity of nonequilibrium quantum many-body dynamics has severely constrained theoretical progress, which often relies either on simplified toy models or on uncontrolled approximations whose validity in the pres-ence of strong correlations is difficult to assess. Devel-oping theoretical frameworks that can reliably describe interacting systems out of equilibrium therefore remains a central challenge, with direct relevance for both funda-mental understanding and the design of quantum devices. Floquet engineering, where time-periodic fields dress the electronic degrees of freedom and qualitatively modify their behavior, is one of the most prominent examples of nonequilibrium control. Early successes include the pre-diction and observation of photo-induced topological phe-nomena, such as the anomalous Hall effect in graphene [4, 5], which established the field of Floquet-engineered topological phases [6–13]. More recently, alongside ex-perimental advances [14], increased attention has been fo-cused on the interplay between Floquet-modified single-particle properties and many-body interactions, which enables the control of collective phenomena such as spin or charge order [15–21], excitonic states [22] and super-conductivity [23–46]. Understanding how interactions reshape Floquet steady-states is therefore a prerequisite for controlled Floquet engineering in correlated quantum matter. Driven quan-tum dots constitute a particularly useful setting in this context. On the one hand, they serve as fundamental building blocks for quantum information processing and nanoelectronic devices [47–51]. On the other hand, their reduced dimensionality allows for controlled theoretical treatments that can disentangle local decoherence effects from genuinely many-body correlations. As such, quan-tum impurity systems provide an ideal laboratory for developing and benchmarking theoretical approaches to driven, interacting systems. A wide range of numerical methods has been devel-oped to address nonequilibrium quantum dynamics, in-cluding quasi–numerically exact approaches such as the density matrix renormalization group (DMRG) [52–54] and Green’s function–based techniques, such as the solu-tion of the Kadanoff–Baym equations [55, 56], nonequi-librium dynamical mean-field theory (DMFT) [57], and the functional renormalization group (FRG) [58–61]. A common limitation of real-time approaches is the restric-tion to finite simulation times, which complicates access to nonequilibrium (Floquet-synchronized) steady-states. This difficulty can be circumvented if the problem is for-mulated directly in the infinite-time limit, as is possi-ble within the framework of Floquet Green’s functions [62, 63]. This approach provides systematic access to Floquet steady-states and forms a natural starting point for incorporating interaction effects. In this work, we employ the functional renormaliza-tion group to treat interactions in Floquet steady-states. In equilibrium, FRG has proven highly effective for analyzing correlated systems and identifying dominant electronic instabilities [64–66]. In nonequilibrium set-
+
+> arXiv:2603.12844v1 [cond-mat.str-el] 13 Mar 2026
+
+2tings, and particularly for periodically driven systems, FRG developments have so far largely focused on self-energy–based truncation schemes and on transport prop-erties of quantum impurity models. Extending FRG to reliably capture interaction effects beyond static self-energy renormalization is therefore an important step to-ward applying the method to driven low-dimensional ma-terials. Here, we formulate a Floquet functional renor-malization group scheme that operates directly in the steady-state and retains the frequency dependence of the two-particle vertex up to second order in the interaction. By focusing on channel-decomposed ladder diagrams, our approach effectively provides a renormalization group im-provement over the random-phase approximation while remaining computationally tractable. We benchmark the method against bare second-order perturbation theory and the self-consistent GW approximation [55], which represent alternative diagrammatic resummations in the weak-to-intermediate coupling regime. In addition, we assess simplified static approximations to the vertex flow that neglect frequency dependence, with the goal of iden-tifying regimes where lightweight yet reliable descriptions are possible. As a concrete application and benchmark, we study the periodically driven single-impurity Anderson model (SIAM). While serving as a controlled testbed for methodological developments, the SIAM also allows us to address physically relevant questions concerning the fate of many-body correlations under periodic driving. In particular, we analyze Floquet-engineered transport and the behavior of Kondo correlations in the driven steady-state [67–76], highlighting the distinct roles of local de-coherence and nonlocal many-body correlations. The paper is set up as follows: In Section II we briefly introduce the model to then continue to detail the method in Section III. Here, we start by generally in-troducing the Floquet-Keldysh ansatz in Sections III A-III D and then derive the FRG flow equations in Sec-tion III E. In Section III F we briefly discuss the alter-native approaches that we use for benchmarking and, in Section III G, we give details about the numerical im-plementation. In Section IV we present the results of the FRG simulations, starting with a comparison of the different approximation schemes, including the static ap-proximation in Sections IV A and IV B. Then, we study the Floquet engineered physics of the SIAM by first look-ing at the Floquet induced modifications of the Kondo resonance in Section IV C and, next, investigating the ef-fect of many-body correlations on the Floquet engineered transport through the dot in Section IV D. We conclude with a discussion in Section V.  
+
+> II. THE MODEL
+
+We consider the single impurity Anderson model (SIAM) [59, 67, 77–82] at zero magnetic field. The time-dependent Hamiltonian is written as 
+
+ˆH(t) = ˆH0dot (t) + ˆVdot + X
+
+> α
+
+ˆH(α)coup + ˆH(α)res , (1) where the dot itself is modeled by a time-dependent spin-
+
+1/2 energy level 
+
+ˆH0dot (t) = X
+
+> σ
+
+εσ (t) ˆd† 
+
+> σ
+
+ˆdσ , (2) and an on-site repulsive interaction 
+
+ˆVdot = U ˆd†↑ ˆd↑ ˆd†↓ ˆd↓ , (3) with σ =↑, ↓ the electronic spin. The dot Hamiltonian explicitly depends on time t, varying periodically with period T . We incorporate a shift into the single-particle levels of εσ (t) → εσ (t) − U/ 2 to move the particle-hole symmetric case to μ = 0 . The dot is coupled to α metallic reservoirs via 
+
+ˆH(α)coup = X
+
+> kα,σ
+
+tkα
+
+ˆdσ ˆckασ + h .c. (4) and the reservoirs themselves are modeled by 
+
+ˆH(α)res = X
+
+> kα,σ
+
+εkα ˆc† 
+
+> kασ
+
+ˆckασ . (5) At equilibrium, the SIAM provides a minimal but micro-scopically well-founded description of a localized, inter-acting electronic level hybridized with a noninteracting conduction bath. It captures the crossover from weakly correlated behavior to the local-moment regime and the emergence of Kondo screening at low energies, which manifests in the formation of a many-body singlet and a dynamically generated low-energy scale, the Kondo tem-perature. Owing to its conceptual simplicity, nonpertur-bative physics, and direct relevance to quantum dots and DMFT impurity solvers, the SIAM serves as a canoni-cal framework for studying strong correlation effects in quantum impurities. This provides a fundamental start-ing point for investigations into Floquet engineering of correlated quantum systems.   
+
+> III. METHOD A. Keldysh formalism
+
+Within the Keldysh formalism [83–86] we set up time-dependent Green’s functions on the Keldysh contour C
+
+in terms of fermionic operators ˆc(†) 
+
+> σ
+
+where σ can denote any single particle degree of freedom (in this work only spin) as 
+
+Gj|j′ 
+
+> σ|σ′
+
+(t, t ′) = −i⟨T C ˆcjσ (t)ˆ c†j′ 
+
+> σ′
+
+(t′)⟩ , (6) 3where j = ± denotes the additional Keldysh contour in-dex determining on which side of the contour the opera-tor is applied. The expectation value of a given operator 
+
+ˆA(t) is defined with respect to the initial density matrix of the noninteracting system coupled to the reservoirs 
+
+⟨ ˆA⟩(t) = Tr {ρ0 ˆA(t)} , (7) with 
+
+ρ0 ≡ ρ(t0) = ρdot ⊗ O
+
+> α
+
+ρ(α)res , (8) and the reservoirs modeled in thermal equilibrium by 
+
+ρ(α)res = e−( ˆH(α)res −μαNα)/T α /Tr {e−( ˆH(α)res −μαNα)/T α } . (9) Performing the Keldysh rotation, we end up with [85] 
+
+GR 
+
+> σ|σ′
+
+(t, t ′) = −iΘ( t − t′)⟨{ ˆcσ (t), ˆc† 
+
+> σ′
+
+(t′)] }⟩ , (10) 
+
+GA 
+
+> σ|σ′
+
+(t, t ′) = iΘ( t′ − t)⟨{ ˆcσ (t), ˆc† 
+
+> σ′
+
+(t′)}⟩ , (11) 
+
+GK 
+
+> σ|σ′
+
+(t, t ′) = −i⟨[ˆ cσ (t), ˆc† 
+
+> σ′
+
+(t′)] ⟩ , (12) which can be written in matrix form as 
+
+G1|1′
+
+(t, t ′) ≡ Gk|k′ 
+
+> σ|σ′
+
+(t, t ′) = 0 GA 
+
+> σ|σ′
+
+(t, t ′)
+
+GR 
+
+> σ|σ′
+
+(t, t ′) GK 
+
+> σ|σ′
+
+(t, t ′)
+
+!
+
+,
+
+(13) where we introduced the multi-index 1 = ( k, σ ) to com-bine the Keldysh index k ∈ {1, 2} and the remain-ing degrees of freedom. The frequency-dependent FRG equations are written in terms of anti-symmetrized two-particle vertex functions Γ1′2′|12 (t′
+
+> 1
+
+, t ′
+
+> 2
+
+|t1, t 2). A bare (in-stantaneous) interaction vertex that describes the inter-action in Eq. (3) is given by 
+
+Γ1′2′|12 0 (t′
+
+> 1
+
+, t ′
+
+> 2
+
+|t1, t 2) = δ(t′ 
+
+> 1
+
+= t′ 
+
+> 2
+
+= t1 = t2)(Γ 0)σ′
+
+> 1σ′
+> 2|σ1σ2
+
+×
+
+( 12 , P 
+
+> i
+
+ki odd, 
+
+0 else, (14) with 
+
+(Γ 0)σ′ 
+
+> 1σ′
+> 2|σ1σ2
+
+= U δ σ1 ¯σ′ 
+
+> 2
+
+(δσ′ 
+
+> 1σ2
+
+δσ′ 
+
+> 2σ1
+
+− δσ′ 
+
+> 1σ1
+
+δσ′ 
+
+> 2σ2
+
+) . (15) 
+
+B. Floquet Green’s and vertex functions 
+
+To consider the synchronized steady-state of a period-ically driven system, whose Green’s function fulfills 
+
+G1|1′
+
+(t, t ′) = G1|1′
+
+(t + T, t ′ + T ) , (16) we perform a double Fourier transform following the def-inition introduced in Refs. [62, 63], 
+
+G1|1′
+
+(t, t ′) = 
+
+> ∞
+
+X
+
+> n=−∞
+
+Z ∞−∞ 
+
+dω
+
+2π e−in Ωt−i(ω+ n  
+
+> 2Ω) τ
+
+G1|1′ 
+
+> n0
+
+(ω) ,
+
+(17) 
+
+G1|1′ 
+
+> nn ′
+
+(ω)= 1
+
+T
+
+Z T
+
+> 0
+
+dt
+
+Z ∞−∞ 
+
+dτ e i(ω+nΩ) t−i(ω+n′Ω) t′
+
+G1|1′
+
+(t, t ′) .
+
+(18) Here, we introduced the central time t = 12 (t+t′) and the relative time τ = t − t′. We can conveniently rewrite the Floquet Green’s functions as matrices in orbital-Floquet space ( ˆGk|k′
+
+)(σn )( σ′n′) = Gk|k′ 
+
+> σ|σ′;nn ′
+
+, which obey the sym-metry relation 
+
+ˆGk|k′
+
+(ω) = −(−1) k+k′ h ˆGk′|ki†
+
+(ω) . (19) The double index introduces a non-physical redundancy, so that the Green’s function needs to be restricted to the “fundamental domain” F = [ −Ω/2, Ω/2) [87]. Addition-ally, we can define a single-index notation as 
+
+G1|1′ 
+
+> n
+
+(ω) = 1
+
+T
+
+Z T
+
+> 0
+
+dt
+
+Z ∞−∞ 
+
+dτ e iωτ +in ΩtG1|1′
+
+(t, t ′) , (20) which allows for easier numerical convolution. We can translate between the two formulations as 
+
+G1|1′ 
+
+> nn ′
+
+(ω) = G1|1′
+
+> n−n′
+
+
+
+ω + n + n′
+
+2 Ω
+
+
+
+, (21) 
+
+G1|1′ 
+
+> n
+
+(ω) = G1|1′
+
+> n+n′,n ′
+
+
+
+ω − 2n + n′
+
+2 Ω
+
+
+
+, (22) where in the second line n′ has to be chosen so that it lies in the fundamental domain (ω − 2n+n′ 
+
+> 2
+
+Ω) ∈ F . En-forcing that repeated translations leave the functions in-variant defines n′ without ambiguity. The two-particle interaction can generally only be transformed using the single-index variant [87], leading to 
+
+Γ1′2′|12 (t′
+
+> 1
+
+, t ′
+
+> 2
+
+|t1, t 2)= 1(2 π)3
+
+> ∞
+
+X
+
+> n=−∞
+
+Z
+
+dω
+
+Z
+
+dν
+
+Z
+
+dν′
+
+× e−iωτ ω −iντ ν −iν ′τν′ −in ΩtΓ1′2′|12  
+
+> n
+
+(ω, ν, ν ′) , (23) 
+
+Γ1′2′|12  
+
+> n
+
+(ω, ν, ν ′)= 1
+
+T
+
+Z T
+
+> 0
+
+dt
+
+Z
+
+dτω
+
+Z
+
+dτν
+
+Z
+
+dτν′
+
+× eiωτ ω +iντ ν +iν ′τν′ +in ΩtΓ1′2′|12 (t′
+
+> 1
+
+, t ′
+
+> 2
+
+|t1, t 2) , (24) 4with generalized central and relative times 
+
+¯t = ( t′ 
+
+> 1
+
++ t′ 
+
+> 2
+
++ t1 + t2)/4 , (25) 
+
+τω = t′ 
+
+> 1
+
++ t′ 
+
+> 2
+
+− t1 − t2 , (26) 
+
+τν = −t′ 
+
+> 1
+
++ t′ 
+
+> 2
+
++ t1 − t2 , (27) 
+
+τν′ = t′ 
+
+> 1
+
+− t′ 
+
+> 2
+
++ t1 − t2 . (28) In the following, we will routinely switch between the Floquet matrix form (double index), denoted by hats, and the Floquet coefficient form (single index), which always carries a subscript Floquet index n.
+
+C. Floquet Dyson equation 
+
+Any set of Keldysh diagrams can be brought into Flo-quet form by starting from the real-time formulation and applying Eqs. (18)-(24) and their generalizations. For example, the Dyson equation in real time is given by 
+
+G1|1′
+
+(t, t ′) = g1|1′
+
+(t, t ′)+
+
+Z
+
+dt′
+
+> 1
+
+dt2 g1|2′
+
+(t, t 1)Σ 2′|2(t′
+
+> 1
+
+, t 2)G2|1′
+
+(t2, t ′) ,
+
+(29) with the noninteracting Green’s function g1|1′
+
+(t, t ′) and the Keldysh self-energy 
+
+Σ1′|1(t′, t ) = ΣK 
+
+> σ′|σ
+
+ΣR
+
+> σ′|σ
+
+ΣA 
+
+> σ′|σ
+
+0
+
+!
+
+. (30) Due to the Keldysh rotation, the Dyson equation decou-ples in the Keldysh sector, and we can rewrite the re-tarded component in the Floquet-Keldysh formalism as a batched matrix equation 
+
+ˆGR(ω) = 
+
+h
+
+ˆgR(ω) − ˆΣR(ω)
+
+i−1
+
+. (31) The advanced and Keldysh components follow as 
+
+ˆGA(ω) = 
+
+h ˆGRi†
+
+(ω) , (32) 
+
+ˆGK(ω) = 
+
+h ˆGR ˆΣK ˆGAi
+
+(ω) . (33) 
+
+D. Integrating out the reservoirs 
+
+We can use the Floquet-Dyson equation to integrate out the reservoir degrees of freedom. In the wide-band limit a time-independent reservoir α that is in thermal equilibrium can be modeled by the following self-energies, 
+
+ˆΣR/A 
+
+> α
+
+(ω) = ∓ i
+
+2 γα1 , (34) 
+
+ˆΣK 
+
+> α
+
+(ω) = −iγ α(1 − 2 ˆfα(ω)) . (35) Here we introduced the momentum independent hy-bridization strength γα = 2π|tkα |2ρ(α)res and ˆfα(ω) =
+
+fα(ω + nΩ) δnn ′ δσσ ′ with the fermionic reservoir distri-bution function fα(ω) = ( e(ω−μα)/T (α)res + 1) −1 at temper-ature T (α)res and chemical potential μα. Accordingly, the retarded Green’s function of the noninteracting system dressed with reservoirs that couple to each orbital inde-pendently is given by 
+
+( ˆGR)−1(ω) = ( ω + nΩ + i γ
+
+2 )δnn ′ δσσ ′ − ˆH0 
+
+> σσ ′;n−n′
+
+,
+
+(36) where γ = P 
+
+> α
+
+γα gives the total hybridization of the reservoirs with self-energies ΣR/A/Kres = P 
+
+> α
+
+ΣR/A/K 
+
+> α
+
+. The Fourier components of the noninteracting Hamiltonian are given by 
+
+ˆH0 
+
+> σσ ′;n−n′
+
+= 1
+
+T
+
+Z T
+
+> 0
+
+dt ˆH0 
+
+> σσ ′
+
+(t)ei(n−n′)Ω t . (37) One can also study driven reservoirs within this formal-ism. For example, a time dependency of the chemical potentials μα → μα(t) can be realized through a gauge transformation [50, 88]. However, we will not consider this case here. 
+
+E. Functional Renormalization Group 
+
+The functional renormalization group [89, 90] has been used in the past for various different systems, ranging from quantum dots [59, 60, 82] to 2D materials [66, 91] in different approximations. Here we concentrate on the quantitative description of fermionic quantum dots out of equilibrium that has been established using the Keldysh formalism in Refs. [59–61, 82]. Within the FRG one exactly rewrites the quantum many-body problem in terms of an infinite hierarchy of differential equations for the interacting n-particle vertex functions Γn, follow-ing the Wilsonian renormalization group idea [92]. The vertex functions depend on the bare propagator g and are obtained as functional derivatives of the effective ac-tion, which is defined as the Legendre transform of the generating functional constructed from the Keldysh ac-tion [93, 94]. The differential equations are obtained by introducing a cutoff scale Λ into the bare propagator 
+
+g → gΛ and subsequent differentiation with respect to 
+
+Λ yields the infinite coupled set of flow equations for Γn
+
+in the spirit of Wilson’s renormalization group 
+
+∂ΛΓΛ 
+
+> n
+
+= F(Γ Λ1 , ΓΛ2 , . . . , ΓΛ
+
+> n+1
+
+) . (38) The cutoff scale is chosen such that at Λini the system is analytically solvable (or in some reasonable approxima-tion) and one integrates over Λ to obtain the interacting solution of interest at Λfin , regularizing possible infrared divergences throughout the flow. Since the set of equa-tions is infinite, no exact solution is possible in practice, 5and one needs to resort to truncation schemes. In a com-mon approximation, one sets all ΓΛ 
+
+> n> 2
+
+= 0 and only con-siders the flow of the one-particle and two-particle ver-tex function, which can be attributed to the self-energy 
+
+ΓΛ1 = −ΣΛ and the effective two-particle correlation func-tion ΓΛ2 ≡ ΓΛ (with amputated legs in respective dia-gram). Introducing the so-called single-scale propagator 
+
+SΛ = GΛg−1Λ
+
+dgΛ
+
+dΛ g−1Λ GΛ , (39) and the differentiated bubble diagram 
+
+∂ΛΠ34 |3′4′ 
+
+> Λ
+
+= ∂Λ[G3|3′ 
+
+> Λ
+
+G4|4′ 
+
+> Λ
+
+] = G3|3′ 
+
+> Λ
+
+S4|4′ 
+
+> Λ
+
++ S3|3′ 
+
+> Λ
+
+G4|4′ 
+
+> Λ
+
+,
+
+(40) the flow equations up to n = 2 read 
+
+∂ΛΣ1′|1Λ = − i
+
+2π Γ1′2′|12 Λ S2|2′ 
+
+> Λ
+
+, (41) 
+
+∂ΛΓ1′2′|12 Λ = i
+
+4π Γ1′2′|34 Λ ∂ΛΠ34 |3′4′ 
+
+> Λ
+
+Γ3′4′|12 Λ
+
++ i
+
+2π Γ1′4′|32 Λ ∂ΛΠ34 |3′4′ 
+
+> Λ
+
+Γ3′2′|14 Λ
+
+− i
+
+2π Γ1′3′|14 Λ ∂ΛΠ34 |3′4′ 
+
+> Λ
+
+Γ4′2′|32 Λ . (42) For the differentiated bubble, we also employ the Katanin substitution [95] and replace 
+
+SΛ → ∂ΛG = SΛ + SΛ[∂ΛΣΛ]GΛ , (43) in Eq. (40). The three terms in Eq. (42) can be at-tributed to the particle-particle ( P ), particle-hole ( C)and direct particle-hole ( D) channel known from the ladder diagrams one computes in the Bethe-Salpeter equations within random-phase approximation (RPA) [96, 97]. Thus, a one-loop FRG setup like this has an inherent bias towards ladder-type diagrams and the as-sociated divergences. In extended systems, one often employs a static approximation, neglecting all frequency dependencies of the two-particle vertex and sometimes also the full self-energy flow. Here, we want to keep the frequency dependency at least partially to investigate the impact of inelastic scattering on Floquet engineering. The frequency-dependent Floquet FRG equations are ob-tained from the real-time version in Eqs. (41) and (42) (dropping the explicit Λ-dependency) as 
+
+∂ΛΣ1′|1 
+
+> n
+
+(ω) = − i
+
+2π
+
+X
+
+> l
+
+Z ∞−∞ 
+
+d˜ ω Γ1′2′|12 
+
+> l
+
+
+
+ω + ˜ ω, ω − ˜ω, ( n
+
+2 − l
+
+4 )Ω 
+
+
+
+S2|2′
+
+> n−l
+
+(˜ ω) , (44) 
+
+∂ΛP 1′2′|12  
+
+> n
+
+(ω, ν, ν ′) = i
+
+4π
+
+X
+
+> k1,k 2,k 3
+
+Z
+
+d˜ ν Γ1′2′|34  
+
+> n−k1−k2−k3
+
+(ω + Ω2 (k1 + k2 + k3), ν − Ω2 (k1 − k2), ˜ν)
+
+× ∂ΛΠ34 |3′4′ 
+
+> k1,k 2
+
+( ω
+
+2 − ˜ν − Ω2 ( n
+
+2 − k1 − k3), ω
+
+2 + ˜ ν − Ω2 ( n
+
+2 − k2 − k3)) 
+
+× Γ3′4′|12  
+
+> k3
+
+(ω − Ω2 (n − k3), ˜ν, ν ′) , (45) 
+
+∂ΛC1′2′|12  
+
+> n
+
+(ω, ν, ν ′) = i
+
+2π
+
+X
+
+> k1,k 2,k 3
+
+Z
+
+d˜ ν Γ1′4′|32  
+
+> n−k1−k2−k3
+
+(ω + Ω2 (k1 + k2 + k3), ν − Ω2 (k1 − k2), ˜ν)
+
+× ∂ΛΠ34 |3′4′ 
+
+> k1,k 2
+
+(˜ ν − ω
+
+2 − Ω2 ( n
+
+2 − k1 − k3), ω
+
+2 + ˜ ν + Ω2 ( n
+
+2 − k2 − k3)) 
+
+× Γ3′2′|14  
+
+> k3
+
+(ω − Ω2 (n − k3), ˜ν, ν ′) , (46) 
+
+∂ΛD1′2′|12  
+
+> n
+
+(ω, ν, ν ′) = − i
+
+2π
+
+X
+
+> k1,k 2,k 3
+
+Z
+
+d˜ ν Γ1′3′|14  
+
+> n−k1−k2−k3
+
+(ω + Ω2 (k1 + k2 + k3), ν − Ω2 (k1 − k2), ˜ν)
+
+× ∂ΛΠ34 |3′4′ 
+
+> k1,k 2
+
+(˜ ν − ω
+
+2 − Ω2 ( n
+
+2 − k1 − k3), ω
+
+2 + ˜ ν + Ω2 ( n
+
+2 − k2 − k3)) 
+
+× Γ4′2′|32  
+
+> k3
+
+(ω − Ω2 (n − k3), ˜ν, ν ′) . (47) The vertices are written in their channel-native frequency parametrization from Ref. [82] and the superscript in-dices now only contain the Keldysh and orbital indices. The differentiated bubble is written in terms of propaga-tors in single index form, which is beneficial for the nu-merics but can of course be rewritten to Floquet matrix form, which is of advantage when the frequency integra-tion can be carried out analytically (this is possible if 6one only considers static self-energy feedback or no self-energy feedback at all, as well as the approximations of the vertices we discuss next). In this work, we will em-ploy further approximations to the frequency dependence of the vertex, as the combination with the Floquet degree of freedom makes numerical computations exhaustively expensive. The number of integrals to evaluate scales with n4 
+
+> f
+
+× n3 
+
+> ω
+
+, where nω ∼ 10 2 the number of frequency points required for good resolution and nf ∼ 10 1 the number of Floquet coefficients required for convergence in the Floquet indices. 
+
+1. Channel decomposition 
+
+Following Ref. [60], we approximate the two-particle vertex as a frequency decomposition into the three “channel-native” components and only keep the depen-dency on the respective bosonic frequencies 
+
+Γ1′2′|12 Λ (ωP , ω C , ω D ) ≈ Γ1′2′|12 0 + P 1′2′|12 Λ (ωP )+ C1′2′|12 Λ (ωC ) + D1′2′|12 Λ (ωD ) ,
+
+(48) where Γ0 = Γ Λ→∞ is the initial value of the vertex (usu-ally the bare interaction or an easily obtainable approx-imation). This decouples the channels and leads to an RPA-like resummation. Keeping the self-energy feed-back, it can be considered an RG enhancement of the self-consistent fluctuation-exchange (FLEX) approxima-tion [55, 88, 98] (note that the FRG is only conserving up to O(U 2), in contrast to FLEX, which is ϕ-derivable [99– 101]). The flow equations for the channels then simplify significantly as each vertex is a single frequency object like the Green’s function, so we can write them as a Flo-quet matrix (now the hat indicates only the Floquet in-dices and we dropped the orbital indices for readability). We can also attribute retarded, advanced, and Keldysh components in the vertex Keldysh structure [85] as 
+
+ˆP R(ω) = ˆP 12 |22 (ω) , ˆP K(ω) = ˆP 12 |12 (ω) , (49) 
+
+ˆCR(ω) = ˆC12 |22 (ω) , ˆCK(ω) = ˆC12 |12 (ω) , (50) 
+
+ˆDR(ω) = ˆD12 |22 (ω) , ˆDK(ω) = ˆD12 |21 (ω) . (51) In the equilibrium SIAM at zero temperature, one finds divergences in the ladder-diagrams. Those can be over-come by either including the full frequency parametriza-tion of the vertex [82] or employing the heuristic approach introduced in Ref. [59], where static interaction vertices 
+
+Φ are attributed to the contributions of the other chan-nels. 
+
+P 1′2′|12 Λ (ω) →P 1′2′|12 Λ (ω) + (Φ CΛ )1′2′|12 + (Φ DΛ )1′2′|12 ,
+
+(52) 
+
+C1′2′|12 Λ (ω) →C1′2′|12 Λ (ω) + (Φ PΛ)1′2′|12 + (Φ DΛ )1′2′|12 ,
+
+(53) 
+
+D1′2′|12 Λ (ω) →D1′2′|12 Λ (ω) + (Φ PΛ)1′2′|12 + (Φ CΛ )1′2′|12 .
+
+(54) This is not necessary in the Floquet driven SIAM at finite temperature in combination with the Katanin substitu-tion (see the discussion in Appendix A). Still, one should be aware that the approximations restrict the calcula-tions to an accuracy of O(U 2) instead of O(U 3) that one can achieve with the full frequency parametrization. Therefore, quantitatively accurate results can only be ex-pected for small to intermediate interactions. Within this approximation the flow equations can be restructured in a somewhat simpler form in terms of (differentiated) particle-hole and particle-particle susceptibilities 
+
+(∂Λχσ1σ2|σ′ 
+
+> 1σ′
+> 2
+> ph
+
+)R 
+
+> n
+
+(ω) = i X
+
+> m
+
+Z dω′
+
+2π ∂Λ
+
+h
+
+Π21 |22 + Π 22 |12 iσ1σ2|σ′
+
+> 1σ′
+> 2
+> m,n −m
+
+(ω′ − ω
+
+2 , ω ′ + ω
+
+2 ) , (55) 
+
+(∂Λχσ1σ2|σ′ 
+
+> 1σ′
+> 2
+> ph
+
+)K 
+
+> n
+
+(ω) = i X
+
+> m
+
+Z dω′
+
+2π ∂Λ
+
+h
+
+Π12 |21 + Π 21 |12 + Π 22 |22 iσ1σ2|σ′
+
+> 1σ′
+> 2
+> m,n −m
+
+(ω′ − ω
+
+2 , ω ′ + ω
+
+2 ) , (56) 
+
+(∂Λχσ1σ2|σ′ 
+
+> 1σ′
+> 2
+> pp
+
+)R 
+
+> n
+
+(ω) = i X
+
+> m
+
+Z dω′
+
+2π ∂Λ
+
+h
+
+Π22 |12 + Π 22 |21 iσ1σ2|σ′
+
+> 1σ′
+> 2
+> m,n −m
+
+( ω
+
+2 + ω′, ω
+
+2 − ω′) , (57) 
+
+(∂Λχσ1σ2|σ′ 
+
+> 1σ′
+> 2
+> pp
+
+)K 
+
+> n
+
+(ω) = i X
+
+> m
+
+Z dω′
+
+2π ∂Λ
+
+h
+
+Π22 |11 + Π 11 |22 + Π 22 |22 iσ1σ2|σ′ 
+
+> 1σ′
+> 2
+> m,n −m
+
+( ω
+
+2 + ω′, ω
+
+2 − ω′) , (58) where we have explicitly executed the Keldysh summa-tion. The susceptibilities as well as the vertices can, in this approximation, be transformed into Floquet matri-ces, turning the actual computation of the right-hand side of the vertex flow equations into batched matrix products. Leaving any other degrees of freedom implicit 7[which still follow the summation rule in Eq.(42)] we have 
+
+∂Λ ˆXR(ω) = ξX (ˆΓ0 + ˆXR(ω)) ∂Λ ˆχR
+
+> ξ
+
+ (ω)( ˆΓ0 + ˆXR(ω)) ,
+
+(59) 
+
+∂Λ ˆXK(ω) = ξX (ˆΓ0 + ˆXR(ω)) ∂Λ ˆχK
+
+> ξ
+
+ (ω)( ˆΓ† 
+
+> 0
+
++ ˆXA(ω)) + ξX (ˆΓ0 + ˆXR(ω)) ∂Λ ˆχR
+
+> ξ
+
+ (ω) ˆXK(ω)+ ξX ˆXK(ω) ∂Λ ˆχA
+
+> ξ
+
+ (ω)( ˆΓ† 
+
+> 0
+
++ ˆXA(ω)) ,
+
+(60) for X ∈ { P, C }, where we introduced shorthands for the channel specific prefactors ξP = 1 /2, ξC = 1 , and ˆΓ0 ≡
+
+ˆΓ12 |22 0 is the only independent Keldysh component of the bare vertex. The Keldysh summation of the D-channel differs slightly and is given by 
+
+∂Λ ˆDR(ω) = − (ˆΓ0 + ˆDR(ω)) ∂Λ ˆχRph 
+
+ (ω)( ˆΓ0 + ˆDR(ω)) ,
+
+(61) 
+
+∂Λ ˆDK(ω) = − (ˆΓ0 + ˆDR(ω)) ∂Λ ˆχKph 
+
+ (ω)( ˆΓ† 
+
+> 0
+
++ ˆDA(ω)) 
+
+− (ˆΓ0 + ˆXR(ω)) ∂Λ ˆχAph 
+
+ (ω) ˆDK(ω)
+
+− ˆDK(ω) ∂Λ ˆχRph 
+
+ (ω)( ˆΓ† 
+
+> 0
+
++ ˆDA(ω)) . (62) Together with Eq. (44), Eqs. (59)-(62) give the set of coupled flow equations that we solve numerically [the Keldysh sum in Eq. (44) has been carried out in Ref. [59]].  
+
+> 2. Additional approximations
+
+As we develop this framework with the goal in mind to eventually simulate extended systems and real quantum materials under Floquet driving, we also test additional approximations. Benchmarking these cheaper approxi-mations will give a good estimate of whether one can expect good results using them on extended systems, as well. A so-called static approximation, in which we neglect the dependency on ω in all quantities, is regu-larly done in equilibrium simulations [65, 102] at the ex-pense of quantitative correctness. Still, free energy and Fermi surface arguments allow for the qualitative impli-cations of such static simulations to remain accurate. In non-equilibrium, these arguments do not generally hold. Therefore, we test numerically whether for the Floquet steady-state we can still get qualitatively accurate results for static quantities like the effective interaction 
+
+Vn ≡ ΓR 
+
+> n
+
+(0 , 0, 0) . (63) We test two different possibilities, i) the fully static approximation, where we only keep the Floquet coeffi-cients, denoted “sFRG”, and ii) a static approximation that takes into account frequency shifts by multiples of 
+
+Ω/2 by setting up a discretized replica-frequency grid at exactly these values. This is motivated by considering Eqs. (21),(22) which require these multiples to work cor-rectly for static quantities at ω = 0 . Physically, this can be interpreted as including all Floquet replica effects at 
+
+ω = 0 . We denote ii) by “rsFRG”. A summary of the approximations is shown in Fig. 1.  
+
+> 3. Hybridization flow
+
+The truncation of the flow equations causes the choice of the regulator, which should in principle be arbi-trary, to become relevant. The extensive discussion in Ref. [59] showed that causality and grand-canonical en-semble statistics might be altered in unphysical ways if one considers, for example, sharp cutoff schemes, as it is frequently done in equilibrium [58, 66, 102–104]. Thus, we opt for the hybridization flow presented in Ref. [59], called ∆-flow in Ref. [82]. The flow can be interpreted as a successive decoupling from an auxiliary reservoir, which at the beginning Λ → ∞ , is coupled to the system with infinite hybridization strength. We thus introduce the flow parameter as 
+
+γ/ 2 → (γ + Λ) /2 ≡ ∆ . (64) The single-scale propagator is then given by 
+
+ˆSR(ω) = − i
+
+2
+
+h ˆGRi2
+
+(ω) , (65) 
+
+ˆSK(ω) = − i
+
+2 ˆGR ˆGK + i
+
+2 ˆGK ˆGA
+
+− i ˆGR h
+
+1 − 2 ˆf (ω)
+
+i ˆGA , (66) The initial conditions for the flow are given by the Hartree self-energy and the bare interaction 
+
+ˆΣRΛ→∞ = ˆΣH , (67) 
+
+ˆΓ1′2′|12 Λ→∞ = ˆΓ1′2′|12 0 , (68) all other terms are initialized to zero. To obtain the Hartree self-energy, we perform a self-consistent Hartree-Fock computation (see Section III F 1). The hybridiza-tion flow, as introduced here, has the benefit of describing a physical system at each point during the flow and, fur-thermore, being equivalent to an interaction flow in U/ ∆
+
+(in the case of undriven reservoirs, and the temperature of both the physical reservoir and the auxiliary being set equal). This enables a further reduction in the numeri-cal cost of the flow by initializing not with the Hartree value, but with the RPA solution at small U/ ∆ ∼ 0.1 (see Section III F 3). For smaller U/ ∆, the RPA and FRG results should give the same results. This can reduce the initial value Λini needed for converged results by sev-eral orders of magnitude. For Floquet Green’s functions specifically, the RPA initialization is practically required for the hybridization flow to work, since the number of Floquet components that need to be retained for conver-gence scales with ∆/Ω (see Section III G 1). This makes the Floquet Green’s functions hard to resolve at large initial scales. It might be of relevance to investigate tai-lored Floquet cutoffs that avoid this pitfall. One way would be to set Ω → ∆Ω so that Ω/∆ stays fixed during the flow. However, this further complicates the single-scale propagator, as one has to explicitly differentiate Ω
+
+which occurs in ˆGΛ. This will be a matter of future work. For extended systems, one could also use a momentum cutoff scheme [89]. 8                                
+
+> Flow scheme Flowing quantities FRG Σn(ω),Pn(ω),Cn(ω),Dn(ω), on frequency grid defined by Eq. (76) rsFRG Σn(ω),Pn(ω),Cn(ω),Dn(ω), for ω∈ {− n(2)
+> fΩ,−(n(2)
+> f−1/2)Ω , . . . , (n(2)
+> f−1/2)Ω , n (2)
+> fΩ}
+> sFRG Σn,Pn,Cn,Dn, constant for all ω
+> Performance
+> Accuracy
+> FIG. 1. The different approximations to the FRG equations investigated in this work. The most elaborate scheme (FRG) truncates the flow equations at second order and separates the channels (no inter-channel mixing). The second scheme (rsFRG) reduces the numerical effort by an order of magnitude by only evaluating quantities on a discrete frequency grid of multiples of
+> Ω/2, the replica grid. In between, the quantities are linearly interpolated. Here, n(2)
+> fdefines the maximal Floquet coefficient kept in all flowing quantities. The last and least computationally intensive scheme approximates all quantities as fully static in ω(sFRG).
+> 4. Spin summation for the SU(2) -symmetric SIAM
+
+In the case of the SIAM with no external magnetic field and metallic leads, we can also solve the sum-mation over spin indices explicitly to further simplify the flow equations. Then, the Green’s functions reduce to a single number per Keldysh component, frequency point, and Floquet index. For the vertices, we keep the 
+
+ˆX↑↓|↑↓ ≡ ˆX↑↓ components in each channel and the other components are related through ˆΓ↑↑ = ˆΓ↑↓ + ˆΓ↓↑ . For the P and C channels, we can drop the spin summation entirely (the P channel gets a trivial factor of 2 from the spin summation), while for the D channel and the self-energy one can perform the sum explicitly using crossing symmetry ˆD↓↑ (ω) = − ˆC↑↓ (−ω) (see Ref. [59]).  
+
+> F. Alternative approaches
+
+There are several alternatives that one can consider that are on the same level of perturbative approxima-tion in U/ ∆. Here we benchmark the FRG against bare second order perturbation theory (2PT) and the self-consistent GW approximation that attempts to incorpo-rate screening effects [55]. Both of these approaches only contain the particle-hole susceptibility, and thus only contain a subset of the diagrams that are resolved by the FRG. Still, at small U/ ∆ we expect a good agreement between all these approaches.  
+
+> 1. Self-consistent Hartree-Fock
+
+Both the 2PT and the FRG require a self-consistent Hartree-Fock (SCHF) computation as the initial value for the self-energy. The SCHF approximation aims at a self-consistent solution of only the Hartree and Fock diagrams, which leads to a frequency-independent self-energy. In Ref. [50] a Floquet FRG scheme was intro-duced that only flows the self-energy, which can be con-sidered an RG enhancement to SCHF. For the SU (2) -symmetric SIAM, the SCHF consists of computing the Hartree self-energy 
+
+ΣH 
+
+> n
+
+= U
+
+2πi 
+
+Z ∞−∞ 
+
+dω G <n (ω) , (69) where G< = 12 (GA − GR + GK) is the lesser Green’s function, iteratively reinserting the self-energy into the right-hand side until convergence is reached [82].  
+
+> 2. Bare second order perturbation theory
+
+We implement the bare 2PT by starting with a SCHF computation and subsequently dress the Green’s func-tions with ΣH to compute the non-differentiated version of Eq. (55) to obtain the particle-hole susceptibility. The vertex in 2PT is given by Eq. (59) (plugging in the full susceptibility) and setting ˆX = 0 , i.e., only contracting with the bare vertex ˆΓ0.
+
+ˆV R2PT (ω) = ˆΓ0 ˆχRph ˆΓ0 , (70) 
+
+ˆV K2PT (ω) = ˆΓ0 ˆχKph ˆΓ0 . (71) This vertex can then be plugged into the non-differentiated version of Eq. (41) (replacing the single-scale propagator by the full propagator S → G) to ob-tain the self-energy within 2PT that is then given by 
+
+Σcorr = Σ H + Σ 2PT . Note that this approach does not enforce any self-consistency on the two-particle level.  
+
+> 3. Random-phase approximation
+
+It is possible to relate the FRG flow equations to the RPA by keeping the self-energy fixed at the Hartree level and only flowing Eqs. (59)-(62) without channel-mixing. One can then solve the integral over Λ analytically to obtain the geometric series known from the ladder ap-proximation. In the particle-hole channel, this yields a 9solution in terms of a Floquet matrix inverse 
+
+ˆV RRPA (ω) = 
+
+
+
+1 − ˆΓ0 ˆχRph 
+
+−1 ˆV R2PT , (72) 
+
+ˆV KRPA (ω) = 
+
+
+
+1 − ˆΓ0 ˆχRph 
+
+−1
+
+×
+
+ ˆV K2PT + ˆΓ0 ˆχKph ˆV A2PT 
+
+
+
+. (73) This equation also holds for multiple orbitals by care-fully batching the four orbital indices of the generalized susceptibilities to obtain the corresponding matrices in a combined orbital-Floquet space. The RPA equations have already been employed to study Floquet-engineered phase-diagrams in 2D systems [105]. This approach does not regulate divergences and in equilibrium, as well as in the driven settings discussed here, it breaks down for 
+
+U/ ∆ ≳ π [85] and we do not present bare RPA results in this work. However, they provide a better starting point for the FRG than only SCHF, and we use the RPA vertex, as well as the resulting self-energy Σcorr = Σ H + Σ RPA as the initial value for the FRG to decrease Λini and reduce numerical effort.  
+
+> 4. GW approximation
+
+Within the GW approximation, we enforce both self-consistency of the full frequency-dependent self-energy and incorporate screening effects by writing diagrams in-cluding the 2PT vertex instead of the bare vertex. Al-though the GW approximation as implemented here is derived from Hedin’s equations [55, 106] as a conserv-ing approximation from a functional Φ[ G], the resulting equation for the vertex is still a ladder diagram similar to the particle-hole channel in RPA, replacing the bare vertex with the 2PT vertex. 
+
+ˆV RGW (ω) = 
+
+
+
+1 − ˆV R2PT ˆχRph 
+
+−1 ˆV R2PT , (74) 
+
+ˆV KGW (ω) = 
+
+
+
+1 − ˆV R2PT ˆχRph 
+
+−1
+
+×
+
+ ˆV K2PT + ˆV R2PT ˆχKph ˆV A2PT + ˆV K2PT ˆχAph ˆV A2PT 
+
+
+
+.
+
+(75) Again, this works for a general multi-orbital system as well by batching the four orbital indices correctly to transform all objects into matrices (see Ref. [55] for the explicit contractions). In contrast to the 2PT computa-tion, where we solve for the self-energy once with SCHF-dressed Green’s functions, in the GW the Hartree con-tribution is solved for self-consistency alongside the GW part Σcorr = Σ H +Σ GW . In equilibrium, the GW approx-imation has been applied to the SIAM in Ref. [107]. One could also employ the FLEX approximation as presented in Ref. [88], however, it suffers from the same divergences as the RPA, since it includes the RPA particle-hole chan-nel. Thus, it requires great care in the self-consistency loop to reach U/ ∆ ≳ π with questionable results for the SIAM in equilibrium [98] and we do not present it here.  
+
+> G. Numerical implementation
+
+The implementation of the Floquet-Keldysh diagram-matics requires an efficient high-performance implemen-tation, with the most expensive objects to compute be-ing the susceptibilities in Eqs. (55)-(58). Further, the implementation of the Floquet Green’s functions them-selves requires some care to consistently switch between the single and double index representation as needed. On additional technical grounds, the code requires i) an effi-ciently parallelized adaptive quadrature routine to solve in parallel for O(n4 
+
+> σ
+
+n2 
+
+> f
+
+n2 
+
+> ω
+
+) integrals, ii) a self-consistency solver with an adequate mixing scheme (we use simple Anderson mixing which leaves room for further improve-ment), iii) an adaptive ODE solver that can reliably solve the in principle non-stiff FRG equations. Here, we use a Runge-Kutta 4(5) stepper. The code is implemented us-ing the jax python framework, which we found to provide the best compromise between performance and develop-ment speed with efficient GPU acceleration. This is nec-essary to simulate more than few-level quantum dot sys-tems, the runtimes we could achieve being ∼ 5−10 h on a single NVIDIA H100 GPU for fully frequency-dependent runs.  
+
+> 1. Representation of Floquet Green’s functions
+
+To obtain the Floquet Green’s function in single index form, one needs to first generate them in double index form from Eqs. (36), which only requires knowledge of the Fourier coefficients of the time-dependent system Hamil-tonian. As the Floquet matrix of the Green’s function is only defined in the fundamental frequency domain F , the conversion to the single index version essentially consists of “stitching” together the matrix elements of the Floquet matrix along the real frequency axis for each Floquet co-efficient, using the transformation rule in Eq. (21). In principle, the Floquet matrix is infinitely large and cov-ers the whole frequency axis, but, in practice, one can only keep a finite number of nf Floquet indices. Thus, for a given nf , one can only construct the Floquet coeffi-cient version of the Floquet Green’s function for frequen-cies |ω| ≲ nf Ω. This leads to numerical inaccuracies even for large nf , since the Floquet Green’s functions, as their equilibrium counter part, decay algebraically as 
+
+ω−| β| for ω → ±∞ . To overcome this and also reduce the numerical effort by reducing the required nf we employ an extrapolation scheme and fit an algebraic tail of the form aω −| β| to each Green’s function. In this way, we can separate nf into two separate quantities. The first is the number of Floquet coefficients required to resolve each Floquet coefficient Gn on the real frequency axis, to ensure that the extrapolation works well. We set this to 
+
+n(1)  
+
+> f
+
+= 35Ω /γ , which suffices to resolve all relevant fea-tures in the central frequency region around ω = μ and allow an accurate algebraic extrapolation for larger fre-quencies. This works because Floquet induced features 10 far away from ω = μ are generally suppressed, following the envelope of the algebraic tails. The second quantity, 
+
+n(2)  
+
+> f
+
+, now only needs to be large enough to resolve the drive protocol. It scales with n(2)  
+
+> f
+
+∼ A/ Ω, where A is the drive amplitude, but generally also depends on the complexity of the protocol. The convergence in n(2)  
+
+> f
+
+must be checked for each set of parameters but can be up to a factor of 10 smaller than n(1)  
+
+> f
+
+for simple driving schemes. Finally, to further reduce the numerical effort and mem-ory requirements, we resolve the Floquet Green’s func-tions on a non-uniform frequency grid as presented in Ref. [82]. For that, we define the auxiliary variable 
+
+˜ω ∈ [−1, 1] and map it to a root grid by 
+
+ω = μ + B ˜ω|˜ω|√1 − ˜ω2 , (76) with a heuristically determined scale factor B > 0. This reduces the number of frequency points needed to re-solve the features around ω = μ and the heavy tails by another factor of 10 to Nω ∼ 10 2. For the model and drive protocol considered in this work, it turns out that for an appropriate resolution of Floquet induced features located at ω = μ ± nΩ, a similar number of grid points is needed as in the equilibrium case.  
+
+> 2. Efficient integration of Floquet susceptibilities
+
+To compute the susceptibilities in Eqs. (55)-(58) in a memory- and compute-efficient way, we utilize the previously introduced frequency grids and extrapolation schemes to set up an adaptive quadrature routine that linearly interpolates the required Gn for any frequency value on the real axis. This allows for guaranteed accu-racy of the integration, even with the very complicated features induced by the driving. We use a Gauss-Kronrod routine with 21 nodes (GK21) that is vectorized to com-pute all the components of the susceptibilities in parallel. The evaluation intervals are adaptively chosen to mini-mize the error of the Frobenius norm of all components. Adaptive quadratures are generally not very well paral-lelizable beyond the function evaluation itself, and thus are not considered a prime candidate for GPU accelera-tion. Still, using aggressive XLA kernel fusion provided by the jax python framework, we could implement a ver-sion compiled to NVIDIA GPUs that could get the inte-gration time from minutes down to a few seconds. This efficiency is paramount, as the solution of the FRG dif-ferential equations typically requires 10 2 − 10 3 of these integrations. Note that, to keep the memory footprint low, we deliberately do not use the convolution theorem to compute the susceptibilities via FFTs as this would re-quire a much more dense (and uniform) grid with ∼ 10 3
+
+frequency points to resolve all features. Although this still fits into memory for the approximations considered in this work and reduces runtime since it is much more parallelizable, an extension to a full treatment of the ver-tex would become prohibitively expensive. Note that im-plementing a compression scheme like the quantics tensor cross interpolation (QTCI) [108–110] might allow to ex-ploit FFTs in a more general setting.  
+
+> 3. Numerical parameters
+
+In order to adequately resolve all features on the real frequency axis, we set the frequency grid resolution to 
+
+Nω = 201 with the scale factor B = 15 . In the FRG scheme, we initialize the flow at Λini = 10 .0 with the SCHF dressed RPA solution and then flow to Λfin = 0 .0.Choosing γ then allows tuning U/ ∆, Ω/∆, A/ ∆ at each point during the flow. If not mentioned otherwise, we will set U = Ω = A = 1 .0. The number of Floquet co-efficients kept to reach convergence is n(2)  
+
+> f
+
+= 11 − 21 for the drive protocols considered. In the self-consistency schemes, we iterate until both fill-ing (see Eq. (B1)) and self-energy are converged below a threshold of 10 −4. 
+
+> IV. RESULTS
+
+We consider the SU2 -symmetric SIAM with metallic leads. The drive protocol is a simple sinusoidal drive of the back gate voltage Vg , such that the on-site levels oscillate with 
+
+εσ (t) = Vg + A cos(Ω t) . (77) The chemical potential of the reservoir is set to μ = 0 
+
+for all runs (unbiased SIAM). We aim to benchmark the newly developed FRG framework against 2PT and GW, as exact results are not available. Additionally, we also compare results for the “static” approximations rs-FRG and sFRG, whenever static quantities are discussed. None of the results shown include inter-channel mixing, since we found the static-feedback scheme introduced in Ref. [59] to produce unphysical results and the full parametrization of the two-particle vertex stays out of reach. Finally, we study how many-body correlations af-fect the Floquet physics by investigating the Kondo reso-nance and Floquet engineered transport through the dot.  
+
+> A. Renormalized interaction and levels
+
+Fixing U = 1 .0, we conduct a single ∆-sweep to investi-gate the renormalization of the system parameters during the flow to large U/ ∆. Fig. 2(a) shows the renormaliza-tion of the time-averaged effective interaction V ≡ V0
+
+as obtained from Eq. (63) as a function of 1/∆ for the different approaches. For small 1/∆, i.e., small interac-tion strengths, the static approximations are practically 11 0.00                    
+
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> 1.25
+> V
+> (a)
+> 2PT GW FRG rsFRG sFRG
+> 012345671/∆
+> −0.15
+> −0.10
+> −0.05
+> 0.00
+> ε1
+> (b)
+> FIG. 2. Renormalization of the time-averaged effective in-teraction Vand the n= 1 component of the dot level ε1
+> as a function of 1/∆.As comparison, 2PT and GW results are shown. For the FRG, the three different approximations summarized in Fig. 1 are shown with solid, dashed and dotted lines respectively. The sFRG simulation diverges for 1/∆≈π
+> as in the equilibrium case.
+
+equivalent to the dynamical simulations. For intermedi-ate 1/∆ ≳ 1.5 the sFRG begins to diverge and the flow breaks down at 1/∆ ≈ π. This means that one needs to take finite frequency effects into account to properly renormalize the vertex in the intermediately interacting regime already, similar to what is known from equilib-rium Hartree-Fock simulations of the SIAM [59]. How-ever, most of these effects are situated at multiples of 
+
+Ω/2, as can be seen from the rsFRG results that stay very close to the FRG with fully frequency-dependent quan-tities. Generally, all FRG approaches show a stronger renormalization than the other approaches, which can be attributed to the bias towards ladder diagrams. We further investigate the performance of the different approaches by considering the renormalization of the level energy on the dot εn ≡ ReΣ R 
+
+> n
+
+(ω = 0) . Due to the drive protocol, there is no renormalization of the time average, it stays at the particle-hole symmetric po-sition of U/ 2. However, the drive induces oscillations in the level position mediated by the interaction. In the self-consistent schemes, the level renormalization is de-termined by the sum of the Hartree component and the frequency dependent part, while in the FRG approaches, the level renormalization is part of the self-energy flow. In Fig. 2(b) the renormalization of the first harmonic (n = 1 ) of the on-site energy is shown. As for the ef-fective interaction, the different approaches only agree in the weakly interacting regime and the static FRG flow breaks down at moderate interaction strength. However, when looking at observables, like occupation number or current (Appendix B), the differences are very small and only become relevant for large U/ ∆ where accuracy is not guaranteed for any of the approaches. In the next sections, we investigate finite-frequency ef-fects specific to the SIAM. As these effects require a dense frequency grid to be appropriately resolved, we do not consider the “static” sFRG and rsFRG approximations, the latter only using a grid defined on separated discrete points, which does not represent slopes and curvatures accurately.  
+
+> B. Self-energy and spectral function
+
+The frequency-dependent simulations (2PT, GW, and FRG) enable the investigation of correlation-induced changes to the spectral function which is modified by the resulting frequency-dependent self-energy. In Fig. 3(a)-(c) the time-average ( n = 0 component) of the self-energy is shown for a representative set of parameters. At small 
+
+U/ ∆, we find that all methods shown agree well with each other as expected. Even for larger U/ ∆ (these are intermediate interaction values from a strong coupling perspective), agreement persists. Importantly, none of the methods shown violates causality [ ImΣ 0(ω) < 0 ∀ ω]. In the Floquet steady-state, it is generally possible to de-fine a Floquet engineered spectral function that describes the time-averaged particle statistics given by the imagi-nary part of the Floquet Green’s function 
+
+An(ω) = − 1
+
+π Im GR 
+
+> n
+
+(ω) . (78) Fig. 3(d)-(f) shows the spectral function for a represen-tative set of parameters. In Fig. 3(e), sidebands that correspond to the Floquet replicas appear at ω ∼ Ω. As the sidebands originate from the driven noninteracting model, all approaches capture this. For stronger inter-action U , the spectral function is significantly modified due to the energetic splitting of single and double occu-pied dot states. In equilibrium, this is known to lead to the formation of Hubbard bands as well as the Kondo resonance for temperatures below the Kondo tempera-ture T ≲ TK [60, 67, 82, 85] (see also Appendix A). In Fig. 3(f), one can see that both FRG and GW miss the Hubbard splitting at ω = ±U/ 2 similar to the equilib-rium case. Additionally, all methods predict that the central peak that describes the Kondo resonance is sig-nificantly broadened by the drive. 12 −20 −10 0 10 20 
+
+> ω/ ∆
+> −0.05
+> −0.04
+> −0.03
+> −0.02
+> −0.01
+> 0.00 ImΣ R0 (ω)
+
+(a) U/ ∆ = Ω /∆ = A/ ∆ = 1 .0    
+
+> −20 −10 010 20
+> ω/ ∆
+> −0.6
+> −0.4
+> −0.2
+> 0.0
+
+(b) U/ ∆ = Ω /∆ = A/ ∆ = 4 .0    
+
+> −20 −10 010 20
+> ω/ ∆
+> −1.50
+> −1.25
+> −1.00
+> −0.75
+> −0.50
+> −0.25
+> 0.00
+
+(c) U/ ∆ = Ω /∆ = A/ ∆ = 6 .0    
+
+> −10 −50510
+> ω/ ∆
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> π∆A(ω)
+
+(d)     
+
+> 2PT GW FRG
+> −10 −50510
+> ω/ ∆
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+
+(e)     
+
+> −10 −50510
+> ω/ ∆
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+
+(f) 
+
+FIG. 3. Self-energy and spectral function of the back-gate driven SIAM for different parameters. 2PT, GW, and frequency-dependent FRG results are shown. Panels (a)-(c) show the imaginary part of the time-averaged self-energy. It is negative in all drive-scenarios, i.e., preserves causality. Panels (d)-(f) show the time-averaged spectral function. It is strictly positive for all parameters and can indeed be interpreted as a spectral function. The reservoir temperature is given in units of ∆ as 
+
+Tres = 0 .01∆ , 0.04∆ , 0.06∆ in (a),(d), (b),(e), and (c),(f) respectively. 0 1 2 3 4 5 6 7 8
+
+> U/ ∆
+> 10 0
+> 10 1
+> m∗
+> Equilibrium
+> A/ ∆ = 0 .5
+> A/ ∆ = 5 .02PT GW FRG
+
+FIG. 4. Floquet engineered effective mass by driving the back gate voltage in the SIAM. 2PT, GW and frequency dependent FRG are shown for small ( A/ ∆ = 0 .5) and large ( A/ ∆ = 5 .0)drive amplitude. The frequency is set to Ω/∆ = 5 .0, which is an intermediate to high drive frequency. The grey dash-dotted line marks the analytically known result for the equilibrium system [111]. The reservoir temperature is Tres = 0 .05∆ ,which is still below the Kondo temperature for the shown interaction strengths. 
+
+C. Floquet engineering of the Kondo resonance 
+
+The width of the central peak in the spectral function defines the effective mass, m∗ = 1 − ∂ω ReΣ R0 (ω)|ω=0 ,which describes the emergence of the Kondo scale in the strongly correlated limit, where the (equilibrium) SIAM can be mapped to the Kondo model [67, 68, 112]. Here, the dot is occupied by a single electron that is perfectly screened by the conduction electrons in the reservoirs, leading to a many-body singlet state that is pinned to the Fermi level of the reservoirs. As Kondo screening is a nonperturbative many-body effect, it shows exponential behavior m∗ ∼ eU/ ∆, which is known analytically [111]. In Fig. 4, the effective mass of the driven system is shown as a function of interaction U for Ω/∆ = 5 .0. For weak driving ( A/ ∆ = 0 .5), the effective mass is basically un-changed. The disagreement between the exact equilib-rium result and the weak driving results is similar to the disagreement in equilibrium (see Appendix A). For strong driving, all methods predict a suppression of m∗ that is enhanced with U . This can be interpreted as nonequi-librium inelastic scattering suppressing the Kondo res-onance, which destroys the coherence of the low-energy 13 0 2 4 6 8 10              
+
+> Vg/∆
+> 0.00
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> G(0) lin  [e2/h ]
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> (a) U/ ∆ = 0 .52PT GW FRG
+> 0246810
+> Vg/∆
+> 0.2
+> 0.4
+> 0.6
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> (b) U/ ∆ = 5 .0
+> 0246810
+> Vg/∆
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> Vg = Ω
+> Vg = Ω +  U/ 2
+> (c) U/ ∆ = 8 .0
+
+FIG. 5. Time averaged linear conductance as a function of gate voltage Vg for different interaction strengths at A/ ∆ = Ω /∆ = 5.0. The black dashed line marks the position of the first Floquet replica peak in the noninteracting system at Vg = Ω . The green dashed line marks the position of the Floquet replica of the Hubbard band located at Vg = Ω + U/ 2. The reservoir temperature is set to Tres = 0 .05∆ .
+
+dynamical response, in agreement with analytical estima-tions [70]. This result should be checked with a numer-ically exact method, for example, the one introduced in Ref. [113]. We expect that the FRG could overestimate the suppression as it does not capture the equilibrium scaling well. Still, the overall agreement of the different methods suggests that this effect is not just an artifact of the FRG. 
+
+D. Correlated photo-induced transport 
+
+The Floquet sidebands induced by driving the nonin-teracting system are visible as replica peaks in the spec-tral function at ω = ±nΩ, shown in Fig. 3(e). Stronger interaction leads to the Hubbard splitting emerging be-tween the Floquet sidebands [Fig. 3(f)] which is, how-ever, only resolved by the bare second order perturbation theory. In addition to the spectral function, we investi-gate the time-averaged conductance through the driven dot, since FRG is known to provide good results for the equilibrium conductance, outperforming 2PT [60]. The Floquet version of the linear conductance follows from Landauer-Bütticker arguments [85] as 
+
+G(n)lin = e2
+
+hπ∆2
+
+X
+
+> ml α
+
+Z Ω/2
+
+> −Ω/2
+
+dω (− ∂ ˆfα
+
+∂w )m+n,l ˆAl,m (ω) ,
+
+(79) with the fermionic reservoir distribution function and the electronic charge e. The sidebands in the spectral func-tion transfer to peaks at multiples of Vg = nΩ in the lin-ear conductance as a function of gate voltage. A photon-dressed hopping process can lead to electron tunneling through the dot despite the dot levels being misaligned with the chemical potential of the leads (which remains fixed at μ = 0 ). This is shown in Fig. 5(a) in the weakly interacting regime, with the first Floquet replica peak visible at Vg = Ω . Stronger interaction [Fig. 5(b)-(c)] generally reduces the conductance of the driven dot, but it also shifts the replica peak towards larger Vg . This is because of the Floquet sidebands now decorating the Hubbard bands (double occupied dot) instead of the cen-tral Kondo peak. Fig. 5(b)-(c) show how the peak is, in fact, pushed to Vg = Ω + U/ 2. This agrees with the results for similar models in the strong coupling regime [114]. Strikingly, the GW approximation predicts a to-tally different behavior where the replica peak disappears entirely. As 2PT and FRG agree at least on the existence and position of the correlation-modified replica peak, we suspect that the GW approximation fails to predict the correct behavior beyond small interaction strengths. For the central peak associated with the singlet state, the results show that, beyond the suppression of the Kondo peak by drive-induced inelastic scattering (see Section IV C), no Floquet sidebands are generated, as such sidebands would otherwise appear at integer multi-ples of Ω. This can be explained by the locality of the drive, which is situated only on the dot, while the singlet state is a non-local many-body state that strongly entan-gles the dot with the reservoirs (Kondo cloud [115–117]). Thus, the local impurity drive cannot effectively dress a well-defined quasi-particle, and the Floquet sidebands are fully suppressed. Note that this does not contradict results for the (globally) driven Kondo model itself, which allows for sidebands [76], as well as Floquet engineering of Kondo channels [118]. Finally, the dot-reservoir entanglement of the singlet state is also known to lead to Kondo pinning, which pins the Kondo resonance to the Fermi level of the reservoirs and increases the conductance for small Vg even for larger 
+
+U , as is known from numerically exact simulations [60]. In Fig. 5(b)-(c) the 2PT results incorrectly predict a peak in the conductance at Vg = U/ 2 similar to the equilib-rium case, missing the Kondo pinning. At equilibrium, the FRG can resolve the correct behavior of the con-ductance in this regime, and it is reasonable to assume that the same is true for the driven system. The FRG finds that, despite the Kondo resonance itself being sup-pressed, Kondo pinning partially remains, which shows 14 that the many-body nature of the Kondo cloud is not destroyed by the local drive.  
+
+> V. DISCUSSION
+
+In this work, we have significantly extended the Flo-quet–Keldysh functional renormalization group frame-work by incorporating finite-frequency effects into the flow equations. This represents a substantial improve-ment over earlier numerical implementations, which were restricted to fully static vertex functions. Benchmarking against established Floquet–Keldysh approaches, includ-ing bare second-order perturbation theory and the self-consistent GW approximation, we find excellent agree-ment in the weak-coupling regime, as expected from per-turbative considerations. We further assessed the validity of a static approximation for the two-particle vertex that only keeps the Floquet coefficients. Our results indicate that this approximation remains quantitatively reliable at weak interaction strengths and thus provides a viable route toward computationally efficient, qualitative stud-ies of driven one- and two-dimensional systems. This opens the possibility of applying Floquet-FRG methods to more realistic models of periodically driven quantum materials. Finally, we considered correlation effects on Floquet engineered transport through the dot. Driving induces a pronounced peak in the linear conductance through the dot as a function of gate voltage. In the presence of interactions the peak position is shifted from the non-interacting value, Vg = Ω , to Vg = Ω + U/ 2, indicat-ing that the Floquet sidebands predominantly decorate the Hubbard bands. While the Kondo resonance itself is strongly broadened by drive-induced decoherence, the extended Kondo cloud remains largely unaffected by the local modulation. This is reflected in the complete sup-pression of Floquet sidebands associated with the Kondo resonance and the partial persistence of Kondo pinning, underscoring the nonlocal and robust nature of the un-derlying many-body singlet. One can think of several extensions to the present work. On the methodological side, incorporating inter-channel feedback as proposed in Ref. [82] is expected to improve the quantitative accuracy at intermediate and strong cou-pling. This may also address the apparent overestima-tion of the renormalized interaction strength, potentially in combination with multiloop corrections [119]. On the application side, a natural next step is to employ the (replica) static approximation to study driven Lut-tinger liquids in quantum wires [103, 120], or to adopt a truncated-unity FRG scheme [65] for two-dimensional systems, extending recent work in Ref. [105]. The present Floquet-FRG formulation can also be straightforwardly embedded into a Keldysh DMFT solver [114]. Finally, combining the approach developed here with tensor-network–based compression schemes, such as quantics tensor trains or multiscale space-time ansätze [108– 110], may allow one to retain frequency resolution while achieving sufficient momentum-space resolution for real-istic material applications. 
+
+> ACKNOWLEDGMENTS
+
+We thank Qiyu Liu for fruitful discussions. This work was funded by the Deutsche Forschungsgemein-schaft (DFG, German Research Foundation) - 508440990 - 531215165 (Research Unit “OPTIMAL”). Simulations were performed with computing resources granted by RWTH Aachen University under project rwth1749. 
+
+> DATA AVAILABILITY
+
+The data that support the findings of this article are not publicly available. The data are available from the authors upon reasonable request. 
+
+> Appendix A: Equilibrium performance of the FRG
+
+In this appendix, we provide a performance benchmark of the implemented FRG schemes on the SU2 -symmetric SIAM at zero magnetic field, μ = 0 and T = 0 .01 . The analytical results [111] are obtained at T = 0 . For in-sights on the performance of FRG schemes that treat the full frequency dependence of the two-particle vertex, see Ref. [82]. Generally, on a one-loop level, a full treat-ment of the vertex does not qualitatively improve the accuracy. In Fig. 6(a) the spectral function is shown for the different approximations considered. In Ref. [60] a static self-energy feedback scheme was introduced that was reported to perform better at T = 0. Further, static inter-channel mixing of the vertex was introduced to fix the RPA divergence. It turns out that none of this is necessary or beneficial at finite T in combina-tion with the Katanin substitution. For completeness, we still show a version with static inter-channel mixing (”mFRG”) in Fig. 6(a). Apart from the 2PT, none of the methods captures the development of the Hubbard bands. The method that performs best, showing at least a slight indication of the Hubbard bands at the correct position, is the FRG, which uses no inter-channel mix-ing, fully frequency-dependent self-energy feedback and the Katanin substition. For the case of driven systems discussed in the main text, we found additional problems with the approach in Ref. [60]. For instance, the static self-energy feed-back leads to unphysical, causality-breaking self-energies with similar effects appearing when using the static inter-channel mixing scheme (mFRG). This is due to the cou-pling between different Floquet components not being incorporated correctly when using these static feedback mechanisms. Therefore, we use frequency-dependent feedback with Katanin substitution and without static 15 −10 .0 −7.5 −5.0 −2.5 0.0 2.5 5.0 7.5 10 .0      
+
+> ω/ ∆
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> π∆A(ω)
+> (a) U/ ∆ = 10 .02PT GW FRG mFRG
+> 0246810
+> U/ ∆
+> 10 0
+> 10 1
+> m∗
+> (b)
+> Analytic
+
+FIG. 6. Benchmark of the SIAM at equilibrium, compar-ing 2PT, GW and different FRG setups. “FRG” denotes the frequency-dependent FRG without inter-channel mixing that is used for the main text results. “mFRG” denotes frequency-dependent FRG with static inter-channel mixing like in Ref. [60]. (a) Spectral function at intermediate inter-action strength, where the Hubbard bands become visible. (b) Effective mass as a function of interaction strength. Dashed grey line marks the analytically known exponential scaling. Note, that compared to Ref. [60] the x-axis must be scaled by a factor 1/2.
+
+inter-channel mixing for all simulations except for the fully static approximation “sFRG” shown in Fig. 2. In Fig. 6(b), the equilibrium effective mass is shown as a function of U/ ∆. All methods fail to capture the expo-nential scaling that is characteristic of the Kondo effect. The GW and the FRG without channel mixing show an initial overestimation of the effective mass that can be attributed to the bias towards the RPA ladder diagrams. At finite T and with the Katanin substitution the FRG does not break down, in contrast to the case considered in Ref. [60]. The mFRG tends to severely underestimate the effective mass even compared to 2PT. In the driven system, using no inter-channel mixing, an overestimation of the effective mass remains for the case of weak driving (see Fig. 4). 0.4           
+
+> 0.6
+> 〈ˆn〉(t)
+> (a)
+> 0.00.51.01.52.02.53.0
+> t/T
+> −0.1
+> 0.0
+> 0.1
+> 〈 ˆI〉(t)
+> (b)
+> drive 2PT GW FRG rsFRG sFRG
+
+FIG. 7. Real-time steady-state dynamics of the dot filling and current through the dot. (a) Dot filling of the (particle-hole symmetric) SIAM with driven back gate voltage obtained with the different approximation introduced in this work. The black dashed line indicates the drive shape ( cos Ω t). (b) Cur-rent through the dot in units of e
+
+ℏ . The back-gate voltage drive induces an alternating current. The parameters are 
+
+U = Ω = A = 2∆ , Tres = 0 .02∆ .
+
+Appendix B: Real-time steady-state dynamics 
+
+The dot occupation number can be computed similarly to the Hartree self-energy 
+
+⟨ˆn⟩n = 12πi 
+
+Z ∞−∞ 
+
+dω G <n (ω) . (B1) and the steady-state dynamics of the dot occupation can be recovered by 
+
+⟨ˆn⟩(t) = X
+
+> n
+
+e−in Ωt⟨ˆn⟩n . (B2) Following Eqs. (B1) and (B2) we can compute the steady-state dynamics of the dot filling which should be synchro-nized with the drive. This is shown in Fig. 7(a). We can also investigate the alternating current that is induced by the back-gate drive, shown in Fig. 7(b). The steady-state current through the dot can be computed with the Heisenberg equation of motion. For a given lead α, the current through this lead is obtained through 
+
+⟨ ˆI⟩α,n = ( ⟨ˆj⟩α,n +⟨ˆj⟩∗
+
+> α, −n
+
+)/2 with the Floquet coefficients 16 0.0 2.5 5.0 7.5 10 .0
+
+> Vg/∆
+> −0.6
+> −0.4
+> −0.2
+> 0.0
+> G(1) lin  [e2/h ]
+> Vg = Ω +  U/ 2Vg = Ω +  U/ 2Vg = Ω +  U/ 2
+
+(a) U/ ∆ = 0 .52PT GW FRG     
+
+> 0.02.55.07.510 .0
+> Vg/∆
+> −0.3
+> −0.2
+> −0.1
+> Vg = Ω +  U/ 2Vg = Ω +  U/ 2Vg = Ω +  U/ 2
+
+(b) U/ ∆ = 5 .0    
+
+> 0.02.55.07.510 .0
+> Vg/∆
+> −0.20
+> −0.15
+> −0.10
+> −0.05
+> Vg = Ω +  U/ 2Vg = Ω +  U/ 2Vg = Ω +  U/ 2
+
+(c) U/ ∆ = 8 .0
+
+FIG. 8. First Floquet component ( n = 1 ) of the linear conductance as a function of gate voltage Vg for different interaction strengths at A/ ∆ = Ω /∆ = 5 .0. The green dashed line marks the position of the Floquet replica of the Hubbard band located at Vg = Ω + U/ 2. The reservoir temperature is set to Tres = 0 .05∆ .
+
+given in terms of a sum over Floquet matrices 
+
+⟨ˆj⟩α,n = e
+
+ℏ
+
+X
+
+> ml
+
+Z Ω/2
+
+> −Ω/2
+
+dω
+
+2π ˆΣK 
+
+> α
+
+(ω)m+n,l ˆGK(ω)l,m 
+
++ ˆΣK 
+
+> α
+
+(ω)m+n,l ˆGR(ω)l,m .
+
+(B3) Both filling and current oscillate in synchronization with the drive up to a phase factor. For the shown (mod-erate) interaction strength, the different methods agree qualitatively, including the static approximations. 
+
+Appendix C: First harmonic of the linear conductance 
+
+In addition to the time averaged linear conductance shown in Fig. 5 in the main text it is also insightful to in-vestigate the higher harmonics that describe oscillations of the linear conductance. In Fig. 8 the first harmonic (n = 1 Floquet component) of the linear conductance is shown as a function of gate voltage for the same pa-rameters as in Section IV D. The absolute value of the oscillations shows similar behavior to the time average, i.e., at gate voltages where the averaged conductance is enhanced ( Vg = Ω + U/ 2) the oscillation amplitude also increases. We find no additional features in the higher order harmonics that could indicate a higher harmonic response.  
+
+> ∗
+
+jan.herre@rwth-aachen.de [1] D. N. Basov, R. D. Averitt, and D. Hsieh, Towards prop-erties on demand in quantum materials, Nature Mate-rials 16 , 1077 (2017). [2] A. de la Torre, D. M. Kennes, M. Claassen, S. Gerber, J. W. McIver, and M. A. Sentef, Colloquium: Nonther-mal pathways to ultrafast control in quantum materials, Rev. Mod. Phys. 93 , 041002 (2021). [3] C. Bao, P. Tang, D. Sun, and S. Zhou, Light-induced emergent phenomena in 2d materials and topological materials, Nature Reviews Physics 4, 33 (2021). [4] T. Oka and H. Aoki, Photovoltaic hall effect in graphene, Phys. Rev. B 79 , 081406 (2009). [5] J. W. McIver, B. Schulte, F.-U. Stein, T. Matsuyama, G. Jotzu, G. Meier, and A. Cavalleri, Light-induced anomalous hall effect in graphene, Nature Physics 16 ,38 (2019). [6] T. Oka and S. Kitamura, Floquet engineering of quan-tum materials, Annual Review of Condensed Matter Physics 10 , 387 (2019). [7] S. A. Sato, J. W. McIver, M. Nuske, P. Tang, G. Jotzu, B. Schulte, H. Hübener, U. De Giovannini, L. Mathey, M. A. Sentef, A. Cavalleri, and A. Rubio, Microscopic theory for the light-induced anomalous hall effect in graphene, Phys. Rev. B 99 , 214302 (2019). [8] G. E. Topp, G. Jotzu, J. W. McIver, L. Xian, A. Ru-bio, and M. A. Sentef, Topological floquet engineering of twisted bilayer graphene, Phys. Rev. Res. 1, 023031 (2019). [9] Y. H. Wang, H. Steinberg, P. Jarillo-Herrero, and N. Gedik, Observation of floquet-bloch states on the sur-face of a topological insulator, Science 342 , 453 (2013). [10] G. Usaj, P. M. Perez-Piskunow, L. E. F. Foa Torres, and C. A. Balseiro, Irradiated graphene as a tunable floquet topological insulator, Phys. Rev. B 90 , 115423 (2014). [11] M. Rodriguez-Vega, M. Vogl, and G. A. Fiete, Low-frequency and moiré–floquet engineering: A review, An-nals of Physics 435 , 168434 (2021). [12] M. W. Day, K. Kusyak, F. Sturm, J. I. Aranzadi, H. M. Bretscher, M. Fechner, T. Matsuyama, M. H. Michael, B. F. Schulte, X. Li, J. Hagelstein, D. Her-rmann, G. Kipp, A. M. Potts, J. M. DeStefano, C. Hu, Y. Huang, T. Taniguchi, K. Watanabe, G. Meier, D. Shin, A. Rubio, J.-H. Chu, D. M. Kennes, M. A. Sentef, and J. W. McIver, Nonperturbative Nonlin-ear Transport in a Floquet-Weyl Semimetal (2024), 17 
+
+arXiv:2409.04531 [cond-mat]. [13] M. Merboldt, M. Schüler, D. Schmitt, J. P. Bange, W. Bennecke, K. Gadge, K. Pierz, H. W. Schumacher, D. Momeni, D. Steil, S. R. Manmana, M. A. Sentef, M. Reutzel, and S. Mathias, Observation of floquet states in graphene, Nature Physics 21 , 1093 (2025). [14] F. Boschini, M. Zonno, and A. Damascelli, Time-resolved ARPES studies of quantum materials, Reviews of Modern Physics 96 , 015003 (2024). [15] J. H. Mentink, K. Balzer, and M. Eckstein, Ultrafast and reversible control of the exchange interaction in mott insulators, Nature Communications 6 (2015). [16] M. Claassen, H.-C. Jiang, B. Moritz, and T. P. De-vereaux, Dynamical time-reversal symmetry breaking and photo-induced chiral spin liquids in frustrated Mott insulators, Nature Communications 8, 1192 (2017). [17] D. Gole z, M. Eckstein, and P. Werner, Multiband nonequilibrium gw + EDMFT formalism for correlated insulators, Phys. Rev. B 100 , 235117 (2019). [18] M. Sarkar, Z. Lenar cic, and D. Gole z, Floquet engineer-ing of binding in doped and photo-doped mott insula-tors, Phys. Rev. Res. 6, 033331 (2024). [19] V. L. Quito and R. Flint, Polarization as a tuning pa-rameter for floquet engineering: Magnetism in the hon-eycomb, square, and triangular mott insulators, Phys. Rev. B 103 , 134435 (2021). [20] L. Stojchevska, I. Vaskivskyi, T. Mertelj, P. Kusar, D. Svetin, S. Brazovskii, and D. Mihailovic, Ultrafast Switching to a Stable Hidden Quantum State in an Elec-tronic Crystal, Science 344 , 177 (2014). [21] J. Maklar, J. Sarkar, S. Dong, Y. A. Gerasimenko, T. Pincelli, S. Beaulieu, P. S. Kirchmann, J. A. Sob-ota, S. Yang, D. Leuenberger, R. G. Moore, Z.-X. Shen, M. Wolf, D. Mihailovic, R. Ernstorfer, and L. Rettig, Coherent light control of a metastable hidden state, Sci-ence Advances 9, eadi4661 (2023). [22] D. R. Baykusheva, D. P. Carmichael, C. S. Weber, I.-T. Lu, F. Glerean, T. Meng, P. B. M. D. Oliveira, C. C. Homes, I. A. Zaliznyak, G. D. Gu, M. P. M. Dean, A. Rubio, D. M. Kennes, M. Claassen, and M. Mi-trano, Quantum control of Hubbard excitons (2026), arXiv:2601.20695 [cond-mat]. [23] D. Fausti, R. I. Tobey, N. Dean, S. Kaiser, A. Dienst, M. C. Hoffmann, S. Pyon, T. Takayama, H. Takagi, and A. Cavalleri, Light-Induced Superconductivity in a Stripe-Ordered Cuprate, Science 331 , 189 (2011). [24] B. Liu, M. Först, M. Fechner, D. Nicoletti, J. Porras, T. Loew, B. Keimer, and A. Cavalleri, Pump Frequency Resonances for Light-Induced Incipient Superconduc-tivity in YBa 2Cu 3O6.5, Physical Review X 10 , 011053 (2020). [25] M. A. Sentef, A. F. Kemper, A. Georges, and C. Kol-lath, Theory of light-enhanced phonon-mediated super-conductivity, Phys. Rev. B 93 , 144506 (2016). [26] D. M. Kennes, E. Y. Wilner, D. R. Reichman, and A. J. Millis, Transient superconductivity from electronic squeezing of optically pumped phonons, Nature Physics 
+
+13 , 479 (2017). [27] D. Kennes, A. de la Torre, A. Ron, D. Hsieh, and A. Mil-lis, Floquet engineering in quantum chains, Physical Re-view Letters 120 , 127601 (2018). [28] D. M. Kennes, M. Claassen, M. A. Sentef, and C. Kar-rasch, Light-induced d-wave superconductivity through floquet-engineered fermi surfaces in cuprates, Phys. Rev. B 100 , 075115 (2019). [29] K. Decker, C. Karrasch, J. Eisert, and D. Kennes, Flo-quet engineering topological many-body localized sys-tems, Physical Review Letters 124 , 190601 (2020). [30] M. Buzzi, D. Nicoletti, M. Fechner, N. Tancogne-Dejean, M. A. Sentef, A. Georges, T. Biesner, E. Uykur, M. Dressel, A. Henderson, T. Siegrist, J. A. Schlueter, K. Miyagawa, K. Kanoda, M.-S. Nam, A. Ardavan, J. Coulthard, J. Tindall, F. Schlawin, D. Jaksch, and A. Cavalleri, Photomolecular High-Temperature Super-conductivity, Physical Review X 10 , 031028 (2020). [31] Y. Takahashi, H. Miyamoto, K. Kuroki, and T. Kaneko, Floquet engineering of effective pairing interactions in a doped band insulator, Phys. Rev. B 111 , 125104 (2025). [32] A. Sheikhan and C. Kollath, Dynamically enhanced un-conventional superconducting correlations in a hubbard ladder, Phys. Rev. B 102 , 035163 (2020). [33] O. Hart, G. Goldstein, C. Chamon, and C. Castelnovo, Steady-state superconductivity in electronic materials with repulsive interactions, Phys. Rev. B 100 , 060508 (2019). [34] Y. Wang, T. Shi, and C.-C. Chen, Fluctuating nature of light-enhanced d-wave superconductivity: A time-dependent variational non-gaussian exact diagonaliza-tion study, Phys. Rev. X 11 , 041028 (2021). [35] U. Kumar and S.-Z. Lin, Inducing and controlling super-conductivity in the hubbard honeycomb model using an electromagnetic drive, Phys. Rev. B 103 , 064508 (2021). [36] H. Dehghani, M. Hafezi, and P. Ghaemi, Light-induced topological superconductivity via floquet interaction en-gineering, Phys. Rev. Res. 3, 023039 (2021). [37] Z.-Z. Li, C.-H. Lam, and J. Q. You, Floquet engineer-ing of long-range p-wave superconductivity: Beyond the high-frequency limit, Phys. Rev. B 96 , 155438 (2017). [38] Z. Ning, D.-S. Ma, J. Zeng, D.-H. Xu, and R. Wang, Flexible control of chiral superconductivity in optically driven nodal point superconductors with antiferromag-netism, Phys. Rev. Lett. 133 , 246606 (2024). [39] A. Sheikhan and C. Kollath, Floquet topological super-conductivity induced by chiral many-body interaction, Communications Physics 5, 174 (2022). [40] N. Tsuji and H. Aoki, Theory of anderson pseudospin resonance with higgs mode in superconductors, Phys. Rev. B 92 , 064508 (2015). [41] N. Dasari and M. Eckstein, Transient floquet engi-neering of superconductivity, Phys. Rev. B 98 , 235149 (2018). [42] M. A. Sentef, Light-enhanced electron-phonon coupling from nonlinear electron-phonon coupling, Phys. Rev. B 
+
+95 , 205111 (2017). [43] M. Knap, M. Babadi, G. Refael, I. Martin, and E. Demler, Dynamical cooper pairing in nonequilib-rium electron-phonon systems, Phys. Rev. B 94 , 214504 (2016). [44] Y. Murakami, N. Tsuji, M. Eckstein, and P. Werner, Nonequilibrium steady states and transient dynamics of conventional superconductors under phonon driving, Phys. Rev. B 96 , 045125 (2017). [45] H. P. Ojeda Collado, G. Usaj, C. A. Balseiro, D. H. Zanette, and J. Lorenzana, Emergent parametric res-onances and time-crystal phases in driven bardeen-cooper-schrieffer systems, Phys. Rev. Res. 3, L042023 (2021). 18 
+
+[46] T. Kuhn, B. Sothmann, and J. Cayao, Floquet engineer-ing higgs dynamics in time-periodic superconductors, Phys. Rev. B 109 , 134517 (2024). [47] R. Hanson, L. P. Kouwenhoven, J. R. Petta, S. Tarucha, and L. M. K. Vandersypen, Spins in few-electron quan-tum dots, Rev. Mod. Phys. 79 , 1217 (2007). [48] M. F. Ludovico, L. Arrachea, M. Moskalets, and D. Sánchez, Periodic energy transport and entropy production in quantum electronics, Entropy 18 ,10.3390/e18110419 (2016). [49] P. Haughian, H. H. Yap, J. Gong, and T. L. Schmidt, Charge pumping in strongly coupled molecular quantum dots, Phys. Rev. B 96 , 195432 (2017). [50] A. K. Eissing, V. Meden, and D. M. Kennes, Functional renormalization group in floquet space, Phys. Rev. B 
+
+94 , 245116 (2016). [51] A. K. Eissing, V. Meden, and D. M. Kennes, Renormal-ization in Periodically Driven Quantum Dots, Physical Review Letters 116 , 026801 (2016). [52] S. R. White, Density matrix formulation for quantum renormalization groups, Physical Review Letters 69 ,2863 (1992). [53] S. R. White and A. E. Feiguin, Real-time evolution using the density matrix renormalization group, Phys. Rev. Lett. 93 , 076401 (2004). [54] U. Schollwöck, The density-matrix renormalization group in the age of matrix product states, Annals of Physics 326 , 96 (2011). [55] N. Schlünzen, S. Hermanns, M. Scharnke, and M. Bonitz, Ultrafast dynamics of strongly correlated fermions—nonequilibrium green functions and selfen-ergy approximations, Journal of Physics: Condensed Matter 32 , 103001 (2019). [56] M. Schüler, D. Gole z, Y. Murakami, N. Bittner, A. Her-rmann, H. U. Strand, P. Werner, and M. Eckstein, Nessi: The non-equilibrium systems simulation package, Com-puter Physics Communications 257 , 107484 (2020). [57] H. Aoki, N. Tsuji, M. Eckstein, M. Kollar, T. Oka, and P. Werner, Nonequilibrium dynamical mean-field theory and its applications, Rev. Mod. Phys. 86 , 779 (2014). [58] C. Karrasch, R. Hedden, R. Peters, T. Pruschke, K. Schönhammer, and V. Meden, A finite-frequency functional renormalization group approach to the sin-gle impurity anderson model, Journal of Physics: Con-densed Matter 20 , 345205 (2008). [59] S. Jakobs, Functional renormalization group studies of quantum transport through mesoscopic systems, PhD thesis, RWTH Aachen University (2010). [60] S. G. Jakobs, M. Pletyukhov, and H. Schoeller, Nonequilibrium functional renormalization group with frequency-dependent vertex function: A study of the single-impurity anderson model, Phys. Rev. B 81 ,195109 (2010). [61] D. M. Kennes, S. G. Jakobs, C. Karrasch, and V. Meden, Renormalization group approach to time-dependent transport through correlated quantum dots, Phys. Rev. B 85 , 085113 (2012). [62] A. Ono and S. Ishihara, Photocontrol of magnetic struc-ture in an itinerant magnet, Phys. Rev. B 98 , 214408 (2018). [63] A. Ono and S. Ishihara, Nonequilibrium susceptibility in photoinduced floquet states, Phys. Rev. B 100 , 075127 (2019). [64] L. Klebl, D. M. Kennes, and C. Honerkamp, Functional renormalization group for a large moiré unit cell, Phys. Rev. B 102 , 085109 (2020). [65] J. B. Profe and D. M. Kennes, Tu 2frg: a scalable ap-proach for truncated unity functional renormalization group in generic fermionic models, The European Phys-ical Journal B 95 (2022). [66] C. Hille, F. B. Kugler, C. J. Eckhardt, Y.-Y. He, A. Kauch, C. Honerkamp, A. Toschi, and S. Ander-gassen, Quantitative functional renormalization group description of the two-dimensional hubbard model, Phys. Rev. Res. 2, 033372 (2020). [67] A. C. Hewson, The Kondo Problem to Heavy Fermions ,Cambridge Studies in Magnetism (Cambridge Univer-sity Press, 1993). [68] M. Pustilnik and L. Glazman, Kondo effect in quantum dots, Journal of Physics: Condensed Matter 16 , R513 (2004). [69] A. Kaminski, Yu. V. Nazarov, and L. I. Glazman, Sup-pression of the Kondo Effect in a Quantum Dot by External Irradiation, Physical Review Letters 83 , 384 (1999). [70] A. Kaminski, Yu. V. Nazarov, and L. I. Glazman, Uni-versality of the Kondo effect in a quantum dot out of equilibrium, Physical Review B 62 , 8154 (2000). [71] C. Latta, F. Haupt, M. Hanl, A. Weichselbaum, M. Claassen, W. Wuester, P. Fallahi, S. Faelt, L. Glaz-man, J. von Delft, H. E. Türeci, and A. Imamoglu, Quantum quench of Kondo correlations in optical ab-sorption, Nature 474 , 627 (2011). [72] H. T. M. Nghiem and T. A. Costi, Time Evolution of the Kondo Resonance in Response to a Quench, Physical Review Letters 119 , 156601 (2017). [73] M. Kanász-Nagy, Y. Ashida, T. Shi, C. P. Moca, T. N. Ikeda, S. Fölling, J. I. Cirac, G. Zaránd, and E. A. Dem-ler, Exploring the anisotropic Kondo model in and out of equilibrium with alkaline-earth atoms, Physical Review B 97 , 155156 (2018). [74] L. E. Bruhat, J. J. Viennot, M. C. Dartiailh, M. M. Desjardins, A. Cottet, and T. Kontos, Scaling laws of the Kondo problem at finite frequency, Physical Review B 98 , 075121 (2018). [75] I. Krivenko, J. Kleinhenz, G. Cohen, and E. Gull, Dynamics of Kondo voltage splitting after a quantum quench, Physical Review B 100 , 201104 (2019). [76] V. Bruch, M. Pletyukhov, H. Schoeller, and D. M. Kennes, Floquet renormalization group approach to the periodically driven kondo model, Phys. Rev. B 106 ,115440 (2022). [77] P. W. Anderson, Localized magnetic states in metals, Phys. Rev. 124 , 41 (1961). [78] H. R. Krishna-murthy, J. W. Wilkins, and K. G. Wil-son, Renormalization-group approach to the anderson model of dilute magnetic alloys. i. static properties for the symmetric case, Phys. Rev. B 21 , 1003 (1980). [79] H. R. Krishna-murthy, J. W. Wilkins, and K. G. Wilson, Renormalization-group approach to the anderson model of dilute magnetic alloys. ii. static properties for the asymmetric case, Phys. Rev. B 21 , 1044 (1980). [80] R. Peters, T. Pruschke, and F. B. Anders, Numerical renormalization group approach to green’s functions for quantum impurity models, Phys. Rev. B 74 , 245114 (2006). 19 
+
+[81] F. Heidrich-Meisner, A. E. Feiguin, and E. Dagotto, Real-time simulations of nonequilibrium transport in the single-impurity anderson model, Phys. Rev. B 79 ,235336 (2009). [82] A. Ge, N. Ritz, E. Walter, S. Aguirre, J. von Delft, and F. B. Kugler, Real-frequency quantum field theory applied to the single-impurity anderson model, Phys. Rev. B 109 , 115128 (2024). [83] L. V. Keldysh, Diagram Technique for Nonequilibrium Processes, Sov. Phys. JETP 20 , 1018 (1965). [84] J. Rammer and H. Smith, Quantum field-theoretical methods in transport theory of metals, Rev. Mod. Phys. 
+
+58 , 323 (1986). [85] S. G. Jakobs, M. Pletyukhov, and H. Schoeller, Proper-ties of multi-particle green’s and vertex functions within keldysh formalism, Journal of Physics A: Mathematical and Theoretical 43 , 103001 (2010). [86] A. Kamenev, Field Theory of Non-Equilibrium Systems 
+
+(Cambridge University Press, 2011). [87] J. F. Rentrop, S. G. Jakobs, and V. Meden, Nonequilib-rium transport through a josephson quantum dot, Phys. Rev. B 89 , 235110 (2014). [88] T. D. Honeychurch and D. S. Kosov, Floquet nonequi-librium green’s functions with fluctuation-exchange ap-proximation: Application to periodically driven capaci-tively coupled quantum dots, Phys. Rev. B 110 , 165420 (2024). [89] W. Metzner, M. Salmhofer, C. Honerkamp, V. Meden, and K. Schönhammer, Functional renormalization group approach to correlated fermion systems, Rev. Mod. Phys. 84 , 299 (2012). [90] P. Kopiez, L. Bartosch, and F. Schütz, Introduction to the Functional Renormalization Group (Springer Berlin, 2012). [91] C. Honerkamp, D. Rohe, S. Andergassen, and T. Enss, Interaction flow method for many-fermion systems, Phys. Rev. B 70 , 235115 (2004). [92] K. G. Wilson and J. Kogut, The renormalization group and the ϵ expansion, Physics Reports 12 , 75 (1974). [93] C. Wetterich, Exact evolution equation for the effective potential, Physics Letters B 301 , 90 (1993). [94] M. Salmhofer and C. Honerkamp, Fermionic renormal-ization group flows: Technique and theory, Progress of Theoretical Physics 105 , 1 (2001). [95] A. A. Katanin, Fulfillment of ward identities in the func-tional renormalization group approach, Phys. Rev. B 
+
+70 , 115109 (2004). [96] E. E. Salpeter and H. A. Bethe, A relativistic equation for bound-state problems, Phys. Rev. 84 , 1232 (1951). [97] R. M. Martin, L. Reining, and D. M. Ceperley, RPA and beyond: the Bethe–Salpeter equation, in Interact-ing Electrons: Theory and Computational Approaches 
+
+(Cambridge University Press, 2016) p. 345–388. [98] J. A. White, Self-consistent green functions for the an-derson impurity model, Phys. Rev. B 45 , 1100 (1992). [99] G. Baym and L. P. Kadanoff, Conservation laws and correlation functions, Phys. Rev. 124 , 287 (1961). [100] N. Bickers and D. Scalapino, Conserving approxima-tions for strongly fluctuating electron systems. i. for-malism and calculational approach, Annals of Physics 
+
+193 , 206 (1989). [101] N. E. Bickers and S. R. White, Conserving approxima-tions for strongly fluctuating electron systems. ii. nu-merical results and parquet extension, Phys. Rev. B 43 ,8044 (1991). [102] J. B. Profe, D. M. Kennes, and L. Klebl, divERGe im-plements various Exact Renormalization Group exam-ples, SciPost Phys. Codebases , 26 (2024). [103] S. Andergassen, T. Enss, V. Meden, W. Metzner, U. Schollwöck, and K. Schönhammer, Functional renor-malization group for luttinger liquids with impurities, Phys. Rev. B 70 , 075102 (2004). [104] V. Meden, Correlation effects on electronic transport through dots and wires, in Advances in Solid State Physics (Springer Berlin Heidelberg, Berlin, Heidelberg, 2008) pp. 183–195. [105] J.-N. Herre, T. Okugawa, A. Fischer, C. Karrasch, and D. M. Kennes, Floquet engineering magnetism and su-perconductivity in the square-lattice Hubbard model (2025), arXiv:2511.11798 [cond-mat.str-el]. [106] L. Hedin, New method for calculating the one-particle green’s function with application to the electron-gas problem, Phys. Rev. 139 , A796 (1965). [107] X. Wang, C. D. Spataru, M. S. Hybertsen, and A. J. Mil-lis, Electronic correlation in nanoscale junctions: Com-parison of the gw approximation to a numerically exact solution of the single-impurity anderson model, Phys. Rev. B 77 , 045119 (2008). [108] H. Shinaoka, M. Wallerberger, Y. Murakami, K. No-gaki, R. Sakurai, P. Werner, and A. Kauch, Multiscale space-time ansatz for correlation functions of quantum systems based on quantics tensor trains, Phys. Rev. X 
+
+13 , 021015 (2023). [109] M. K. Ritter, Y. Núñez Fernández, M. Wallerberger, J. von Delft, H. Shinaoka, and X. Waintal, Quantics tensor cross interpolation for high-resolution parsimo-nious representations of multivariate functions, Phys. Rev. Lett. 132 , 056501 (2024). [110] S. Rohshap, M. K. Ritter, H. Shinaoka, J. von Delft, M. Wallerberger, and A. Kauch, Two-particle calcula-tions with quantics tensor trains: Solving the parquet equations, Phys. Rev. Res. 7, 023087 (2025). [111] V. Zlatić and B. Horvatić, Series expansion for the sym-metric anderson hamiltonian, Phys. Rev. B 28 , 6904 (1983). [112] S. Andergassen, T. Enss, C. Karrasch, and V. Meden, A gentle introduction to the functional renormalization group: The kondo effect in quantum dots, in Quantum Magnetism , edited by B. Barbara, Y. Imry, G. Sawatzky, and P. C. E. Stamp (Springer Netherlands, Dordrecht, 2008) pp. 1–17. [113] M. Sonner, V. Link, and D. A. Abanin, Semigroup in-fluence matrices for nonequilibrium quantum impurity models, Phys. Rev. Lett. 135 , 170402 (2025). [114] N. Tsuji, T. Oka, and H. Aoki, Correlated electron sys-tems periodically driven out of equilibrium: Floquet +
+
+DMFT formalism, Phys. Rev. B 78 , 235124 (2008). [115] I. Affleck and P. Simon, Detecting the kondo screening cloud around a quantum dot, Phys. Rev. Lett. 86 , 2854 (2001). [116] E. S. Sørensen and I. Affleck, Kondo screening cloud around a quantum dot: Large-scale numerical results, Phys. Rev. Lett. 94 , 086601 (2005). [117] L. Borda, Kondo screening cloud in a one-dimensional wire: Numerical renormalization group study, Phys. Rev. B 75 , 041307 (2007). [118] V. L. Quito and R. Flint, Floquet engineering mul-tichannel kondo physics, Phys. Rev. B 108 , 155120 20 
+
+(2023). [119] F. B. Kugler and J. von Delft, Multiloop functional renormalization group for general models, Phys. Rev. B 97 , 035162 (2018). [120] C. Klöckner, D. M. Kennes, and C. Karrasch, Second-order functional renormalization group approach to quantum wires out of equilibrium, Phys. Rev. B 102 ,235113 (2020).

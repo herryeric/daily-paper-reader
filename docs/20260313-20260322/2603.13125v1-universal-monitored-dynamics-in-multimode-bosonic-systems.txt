@@ -1,0 +1,1279 @@
+Title: Universal monitored dynamics in multimode bosonic systems
+
+URL Source: https://arxiv.org/pdf/2603.13125v1
+
+Published Time: Mon, 16 Mar 2026 01:23:51 GMT
+
+Number of Pages: 25
+
+Markdown Content:
+# Universal monitored dynamics in multimode bosonic systems 
+
+Shivam Patel, 1, 2, ∗ Catherine McCarthy, 3, ∗ Ahana Chakraborty, 4, 1, 2 Jordan Huang, 1
+
+Thomas J. DiNapoli, 1 Romain Vasseur, 3 J. H. Pixley, 1, 2, 5, † and Srivatsan Chakram 1, ‡
+
+> 1
+
+Department of Physics and Astronomy, Rutgers University, Piscataway, NJ 08854, USA 
+
+> 2
+
+Center for Materials Theory, Rutgers University, Piscataway, NJ 08854, USA 
+
+> 3
+
+Department of Theoretical Physics, University of Geneva, 24 quai Ernest-Ansermet, 1211 Gen` eve, Switzerland 
+
+> 4
+
+Department of Physics and Astronomy, Louisiana State University, Baton Rouge, Louisiana 70803, USA 
+
+> 5
+
+Center for Computational Quantum Physics, Flatiron Institute, 162 5th Avenue, New York, NY 10010, USA 
+
+(Dated: March 16, 2026) We propose a route to study monitored many-body dynamics in multimode bosonic systems using circuit quantum electrodynamics. In this experimental setting, we construct several bosonic models comprising brickwork circuits built from beam-splitter gates, local parity measurements, and optional on-site Hubbard interactions, and diagnose their monitored dynamics via ancilla purification and a learnability-based probe. Under parity measurements, generic gate sets exhibit behavior that is largely consistent with a conventional measurement-induced phase transition, while a special class of beam-splitter circuits shows an apparent critical-like high-measurement regime in which purification times scale linearly with system size. We show that for realistic noise, gate, and measurement rates, these signatures are observable with near-term circuit QED hardware. 
+
+Rapid experimental progress in quantum devices over the past two decades has produced a range of potential quantum computing platforms—including superconduct-ing circuits, neutral Rydberg-atom arrays, and trapped ions—that can implement coherent unitary dynamics, mid-circuit measurements, and real-time feedback, en-abling quantum error correction and heralding the devel-opment of future fault-tolerant machines [1–5]. Among these, bosonic circuit quantum electrodynamic (cQED) systems have shown particular promise for hardware-efficient quantum error correction [6–8], leveraging long coherence times [9, 10], large local bosonic Hilbert spaces, fast high-fidelity universal control [11–16], high-fidelity quantum-non-demolition measurements [17], and fast feedback [6]. With the incorporation of mid-circuit measurements and error correction in bosonic cQED platforms, mea-surement and feedback naturally become part of the dy-namics. Monitored many-body dynamics has been ex-tensively studied in qubit-based circuit models, leading to the discovery of the measurement-induced phase tran-sition (MIPT) [18–29]: a transition in the entanglement structure of the wavefunction driven by the competition between entangling unitary evolution and local measure-ments. Signatures of MIPT phenomena have also been probed experimentally, albeit only in qubit platforms to date, in superconducting circuits and trapped ion sys-tems [4, 5, 30, 31]. Monitored free bosons with Gaussian measurements have also begun to attract theoretical attention in recent years [32–34]. However, in random brick-layer bosonic    
+
+> ∗co-first author
+> †jed.pixley@physics.rutgers.edu
+> ‡schakram@physics.rutgers.edu
+
+circuits with Gaussian unitaries interspersed with Gaus-sian measurements, no evidence is found for a MIPT at any finite measurement rate; instead, the system flows to an area-lawentangled phase [35]. This motivates studying monitored bosonic dynamics with non-Gaussian ingredi-ents naturally available in cQED, such as parity measure-ments and interacting gates. Rapid advancements in the coherence and control of microwave cavity devices in circuit QED now en-able access to monitored dynamics in bosonic systems. While most demonstrations of quantum operations have been limited to one or a few modes, recent experi-ments have also realized multimode bosonic memories that support universal control across many long-lived modes [13, 14, 36, 37]. The large local bosonic Hilbert space presents an opportunity to discover physics that is distinct from the standard qubit case. The bunching of bosons leads to characteristic Hong-Ou-Mandel interfer-ence effects [38] and underlies boson sampling [39], where linear, number-conserving beam-splitter dynamics gen-erate nontrivial many-body correlations even in the ab-sence of interactions. The large local Hilbert space also expands the space of operators for measurements, rang-ing from parity to photon number. In this work, we advance the understanding of moni-tored bosonic dynamics on two fronts: we extend numer-ical analyses to non-Gaussian monitored bosonic evolu-tion, uncovering novel entanglement phases and bosonic MIPTs; and we propose an experimental roadmap for realizing such monitored dynamics on near-term multi-mode cQED platforms, including a detailed error bud-get analysis. The circuits studied here are composed of a combination of Gaussian beam-splitter gates, non-Gaussian tunable on-site Hubbard interactions, and local parity measurements. We diagnose the resulting moni-tored dynamics via the purification of an initially entan-gled ancillary mode and an alternative learnability probe. 
+
+> arXiv:2603.13125v1 [quant-ph] 13 Mar 2026
+
+2 
+
+> Figure 1. Multimode bosonic analog of a brick-layer circuit for probing monitored dynamics . The resonant modes of low-loss superconducting cavities act as harmonic oscillators encoding bosonic degrees of freedom. A reference qubit (dark blue Bloch sphere) is prepared in a globally entan-gled state with the modes and serves as a probe of the MIPT through its purification dynamics. Each layer applies random beam-splitter gates (light blue), optional on-site Hubbard-like gates (green), and probabilistic mid-circuit measurements (squares with arrows) of parity or photon number.
+
+For a certain class of beam-splitter unitaries, we uncover behavior unique to the bosonic setting and find numer-ical evidence for a critical-like monitored phase whose purification time grows linearly with system size. In con-trast, for all other types of gates studied here, the dynam-ics appear consistent with a conventional measurement-induced phase transition between volume- and area-law entanglement (equivalently, between slow and O(1) pu-rification) as the measurement rate is increased, with a dynamical critical exponent z ≈ 1. Counterintu-itively, we find that increasing the scrambling power of the unitaries decreases the purification time of the high-measurement phase, highlighting a rich interplay between unitary dynamics and parity measurements in bosonic systems, where scrambling appears to help measurements reveal information, instead of hiding it [20]. Finally, we assess near-term experimental feasibility on a platform employing the recently-developed cascaded Random Ac-cess Quantum Memory (RAQM) architecture [37]. 
+
+Monitored bosonic circuit-QED toolbox: The class of monitored circuits considered in this work is shown in Fig. 1. They require a register of harmonic modes encoding bosonic degrees of freedom, entangling uni-tary gates (implemented here between nearest neigh-bors), and local quantum non-demolition (QND) mid-circuit measurements. The unitary dynamics are cho-sen to be either (i) purely Gaussian beam-splitter oper-ations or (ii) a combination of beam-splitter dynamics and a (non-Gaussian) local on-site Hubbard interaction. These ingredients can be realized in circuit QED by en-coding the bosonic modes in electromagnetic resonances of low-loss superconducting microwave cavities, and by coupling the cavity register to superconducting Joseph-son circuits that enable high-fidelity control, engineered mode–mode interactions, and QND readout. The cav-ity resonances can exhibit coherence times ranging from milliseconds [9, 13, 40] to tens of milliseconds in niobium cavities [10, 41–43], and can be engineered to be mul-timode with tens of addressable resonances [13, 36, 37]. This combination of multimode capacity, long coherence, and high-fidelity control and measurement is crucial for realizing monitored dynamics at depths comparable to the system size. We implement beam-splitter operations in circuit QED by parametrically activating mode–mode interactions mediated by superconducting Josephson circuits. Such interactions can be engineered using a variety of tun-able coupler circuits, which are driven either by a time-dependent voltage drive [16, 44] or a flux drive [37, 45, 46] at the difference frequency of the target cavity modes, re-alizing programmable beam-splitter gates with errors on the order of ∼ 10 −3. In this way, one can implement nearest-neighbor hopping operations of the form 
+
+V hop 
+
+> n,n +1
+
+(θ, φ ) = exp 
+
+h
+
+iθ 
+
+
+
+ˆa†
+
+> n
+
+ˆan+1 eiφ + ˆ a†
+
+> n+1
+
+ˆane−iφ i 
+
+,
+
+(1) where ˆ a(†) 
+
+> n
+
+are the annihilation (creation) operators on site n. The beam-splitter gates are applied for vari-able durations to implement a swap angle θ ∈ [0 , 2π], while the phase φ is set by the phase of the drive tone. In what follows, it will be important to distin-guish between evolutions generated from beam-splitter gates with fixed phases (BSFP) and those with random-ized phases (BSRP), since randomizing φ substantially increases the degree of mode mixing (and hence scram-bling within a fixed-photon-number sector). This can be seen in the Heisenberg picture: V hop 
+
+> n,n +1
+
+(θ, φ ) implements an SU(2) rotation of the operator doublet (ˆ a†
+
+> n
+
+, ˆa†
+
+> n+1
+
+), with φ selecting the rotation axis in this two-mode oper-ator space. Fixed-phase gates therefore generate SU(2) rotations about a single axis, while randomizing φ yields rotations about a range of axes, producing more generic mode mixing and state scrambling. We study both BSFP and BSRP circuits. In the presence of parity measure-ments, BSFP dynamics exhibits an apparent critical-like high-measurement regime, and we therefore focus on this case in the main text; results for BSRP circuits are dis-cussed in the Supplementary Information. To extend beyond Gaussian dynamics, we exploit the nonlinearity of a superconducting transmon circuit, which yields a dispersive interaction with the coupled cavity modes characterized by a dispersive shift χ. In the dispersive regime, the transmon frequency is shifted by nχ conditioned on the cavity photon number n. This dispersive interaction enables a broad set of unitary control primitives for the joint transmon–bosonic-mode system [11, 36, 47–49], and provides a unified toolbox for accessing non-Gaussian physics in monitored circuits in two complementary ways: (i) through unitary gates that implement effective nonlinear interactions, and (ii) 3through measurement backaction from QND measure-ments of nonlinear observables (e.g., parity or photon number), which makes individual quantum trajectories non-Gaussian. We implement nonlinear on-site Hubbard-like interac-tion gates of the form 
+
+V int  
+
+> n
+
+(U ) = e−iU (ˆ a† 
+
+> nˆan)2
+
+, (2) where U is a dimensionless parameter controlling the strength of the gate. This evolution can, in principle, be realized using a native self-Kerr interaction; however, in circuit-QED systems the self-Kerr is typically small (∼ 10 kHz). We therefore implement these interacting gates via Selective Number-dependent Arbitrary Phase (SNAP) gates [47, 48], where photon-number–selective transmon rotations [50] can be used to implement ar-bitrary photon-number-dependent geometric phases. In particular, we realize a Hubbard interaction by imprint-ing a quadratic photon-number–dependent phase. We use a recently developed optimal-control protocol [51] to achieve this operation in a time 3 .25 /χ , where χ is the dispersive interaction strength. The same dispersive interaction further enables a range of quantum non-demolition (QND) measurements of the cavity modes. In particular, it enables projections onto specific photon-number subspaces [50] using number-resolved transmon π rotations followed by transmon readout. It also enables QND parity measurements [52] via a transmon Ramsey sequence with a dispersive inter-action time T = π/χ , which maps even and odd cav-ity parity onto distinct transmon states ( |g⟩ and |e⟩). This corresponds to the first bit of the binary repre-sentation of the photon number, and higher-order bits (the mth bit) can be obtained by tuning the Ramsey idle time to T = 1 /(2 mχ). A series of adaptive Ramsey measurements with feedforward can then yield a QND photon-number (ˆ a†ˆa) measurement, extracting one bit at a time [53] (see Supplementary Information). Measure-ments of this type introduce non-Gaussianity into the trajectories; thus, all of the circuit models we study rep-resent non-Gaussian monitored evolutions even when the unitary component is composed only of (Gaussian) beam-splitter gates, in contrast to previous works on monitored free bosons [32–35]. We focus on parity measurements in the main text because they incompletely collapse the lo-cal Hilbert space onto Fock basis states, which we will show leads to qualitative differences from the qubit case and novel measurement-induced phenomena. 
+
+Monitored Dynamics in Bosonic Circuits : Moti-vated by the capabilities of the circuit-QED toolbox de-scribed above, we now introduce several quantum-circuit models for monitored dynamics in multimode bosonic systems. We consider a brickwork circuit of L bosonic modes (Fig. 1) with a fixed total photon (particle) num-ber Q, so that the Hilbert-space dimension in the fixed-Q
+
+sector scales as N =  Q+L−1
+
+> Q
+
+. Throughout this work, we fix the filling fraction Q = L/ 2 for chains of L modes so that Q scales extensively with system size and yields a large accessible state space. The dynamics proceeds in discrete layers: each timestep applies a brickwork pattern of two-mode unitary gates, followed by local mid-circuit measurements performed independently on each mode with probability p. The unitary layers are generated from beam-splitter gates with randomized swap angles. The beam-splitter phases are either kept fixed (BSFP) or also randomized (BSRP). In some models, the beam-splitter dynamics is supplemented with an on-site Hubbard in-teraction (implemented via a SNAP gate). The measure-ments are chosen to be either QND parity measurements or QND photon-number (density) measurements. In the main text, we focus on two specific models that highlight both dynamics consistent with previously stud-ied MIPTs in qubit circuits and monitored phenomena specific to bosonic circuits: (i) parity measurements with BSFP gates supplemented by on-site interactions, and (ii) parity measurements with purely BSFP dynamics. In both cases, the unitary evolution conserves total pho-ton number and is generated by repeated application of a two-mode gate of the form ˆUn,n +1 (θ, U ) = V int 
+
+> n+1
+
+(U ) V int  
+
+> n
+
+(U ) V hop 
+
+> n,n +1
+
+(θ, 0) , (3) where U tunes the strength of the on-site Hubbard inter-action, with U = 0 corresponding to the non-interacting (pure beam-splitter) limit. 
+
+Probing MIPTs through entanglement: The typical method of detecting a MIPT relies on observables that are nonlinear in the system’s density matrix ρ and con-ditioned on the mid-circuit measurement trajectories ⃗m.One such quantity is the entropy of the entanglement of an ancillary reference qubit R with the L modes, which is obtained from preparing the initial state |Ψ⟩ = 
+
+> 1√2
+
+(|ψ0⟩ | 0⟩R + |ψ1⟩ | 1⟩R), where |ψ0⟩ , |ψ1⟩ are orthogo-nal Haar-random states in the space of states contain-ing Q = L/ 2 bosons. The MIPT is detectable as a transition in the entanglement entropy of R, given by 
+
+SR = − P⃗m p⃗m Tr[ ρR log 2(ρR)], where ρR is the reduced density matrix of R and p⃗m is the Born probability of tra-jectory ⃗m [28]. A second quantity that is frequently used to diagnose MIPTs is the bipartite entanglement entropy 
+
+S = −Tr[ ρA log 2(ρA)], where A is the first L/ 2 sites of the system– numerical results for the bipartite entanglement entropy are provided in S1.4 [54]. Since the experimen-tal computation of both SR and S requires post-selecting on individual measurement trajectories, the number of which grows exponentially with system size L, obtaining either quickly becomes experimentally unfeasible for even moderate system sizes. 
+
+Learnability as a probe of MIPT: To bypass the need for performing experimental post-selection, we also con-sider an alternative “learnability” perspective [43, 55–61] which views the MIPT as an information-theoretic tran-sition rather than a transition in the entanglement prop-erties of a quantum state. To probe the learnability tran-sition, we consider a classical decoder tasked with distin-guishing between two initially orthogonal random states 
+
+|ψ0⟩ , |ψ1⟩ given a measurement record ⃗m of a monitored 40.1 0.3 0.5                                                         
+
+> p
+> 0.1 0.9
+> SR(p, t = 2 L)
+> U= 2 04
+> t/L
+> 10.05
+> SR(p = pc, t)
+> pc≈0.3
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16 0.1 0.5 1
+> p
+> 0.1 0.9
+> SR(p, t = 2 L)
+> U= 0 04
+> t/L
+> 10.03
+> SR(p = 1,  t/L)
+> L= 12 −16 060
+> t
+> 10 −21
+> SR(p = 1,  t)
+> L= 16
+> U= 0
+> U= 2 0.1 0.5 p
+> 0.55 0.75
+> A(p, t = 3 L)
+> U= 2
+> Classical Decoder
+> Prediction of Summary of results Gate Meas. pcPhases (purification time)
+> BSFP + Hubbard Parity ≈0.3∼eLto ∼ O (1) BSFP Parity None ∼ O (L)BSRP Parity ≈0.3∼eLto ∼ O (1) (see S1.6) BSFP + Hubbard Density ≈0.1∼eLto ∼ O (1) (see S1.3) BSFP Density None ∼ O (1) (see S1.3)
+> (a) (b) (c)
+> (d) (e)
+
+Figure 2. Monitored dynamics with parity measurements. Ancilla entanglement entropy SR for circuits composed of (a) both BSFP and on-site Hubbard gates of strength U = 2 and (b) those composed of purely BSFP gates ( U = 0) for systems of size L = 4 − 16, averaged over 10000 independent realizations. For the U = 2 case, both the clear crossing of the SR(p, t = 2 L)curves at pc ≈ 0.3 and the collapse of SR(pc ≈ 0.3, t/L ) (inset) indicate the presence of a phase transition. In contrast, the 
+
+U = 0 data shows no clear signature of a standard MIPT, with the ancilla not purifying at any value of p at these time scales. In addition, the collapse of SR(p, t/L ) curves for the presented times for p ≳ 0.3 for the largest numerically-accessible system sizes ( L = 12 − 16, inset) indicates that at higher measurement rates, the system is in a phase with a purification time that scales with system size. (c) Comparison of SR(p = 1 , t ) between the U = 2 and U = 0 cases. Turning on the on-site Hubbard gates takes the system from a phase in which the purification time scales with system size ( U = 0) to a phase with an O(1) purification time ( U = 2). Learnability (d) Simulated decoder accuracy A(p) for monitored dynamics with BSFP and on-site Hubbard gates ( U = 2). The accuracy A(p) shows a similar transition to the ancilla entanglement entropy SR in (a) and may be used as an alternative post-selection free order parameter. Inset: protocol for detecting the learnability transition. A monitored circuit is run in the lab using an initial state of either |ψ0⟩ or |ψ1⟩, where ⟨ψ0|ψ1⟩ = 0. A classical decoder then outputs a prediction of the initial state given the measurement record ⃗m, the gates, and knowledge of |ψ 0⟩ , |ψ1⟩. Summary table (e) Summary of all numerical results. For non-BSFP gates with any measurement type, the data is consistent with a standard MIPT. In contrast, the purely BSFP gates are consistent with either a critical phase at high p (parity measurements) or a purified phase at any p (density measurements); “None” refers to the lack of an MIPT with z = 1. 
+
+trajectory generated with the set of unitaries {Ui,t }, as il-lustrated in the inset of Fig. 2(d). The transition appears in the accuracy of this decoder A(p) = 1
+
+> N
+
+P 
+
+> n
+
+a(n, p ), where a(n, p ) ∈ { 0, 1} is a binary variable that tracks the success of the decoder for the nth record generated with measurement rate p– see S1.2 for implementation details. The advantage of the learnability perspective is that the exponential difficulty is shifted from an experimental task (post-selection) to a numerical task (the implementation of the decoder), which may permit moderate increases in experimentally-accessible system sizes. 
+
+Interacting circuits with BSFP and on-site Hubbard gates: We first consider a brick layer monitored cir-cuit evolving with both BSFP and on-site Hubbard gates (U = 2) with parity measurements. The (post-selected) ancilla entanglement entropy is shown in Fig. 2(a) for parity measurements for varying system sizes L = 8 − 16. The SR curves are consistent with a transition with 
+
+z = 1 at pc ≈ 0.3, as demonstrated by the crossing in 
+
+SR(p, t ∼ Lz ) and the collapse of the SR(p = pc, t/L z )curves for (Fig. 2a). This behavior is similar to that of a standard MIPT, in which there is a transition from an exponentially-long to O(1) purification time in the ancilla 
+
+R. The results of the learnability probe are consistent with the SR data, as shown in S1.2. Qualitatively, the SR and learnability results appear to be representative of generic bosonic monitored dynamics. For instance, choosing different values of U > 0 or choos-ing to perform full number measurements may alter the location of pc but does not appear to affect the existence of a transition or the different phases. The same ap-pears to be true for circuits generated from purely beam-splitter with random φ (BSRP) gates, indicating that non-Gaussian gates are not a requirement for observing a bosonic MIPT and the non-Gaussianity from measure-ments is sufficient– see Table in Fig. 2(e). 
+
+Purely BSFP circuits: In contrast to the U = 2 case, the monitored dynamics generated from only BSFP gates 5(U = 0) is strikingly different. Fig. 2(b) shows the data for the entanglement entropy of the ancilla qubit for evo-lution with BSFP gates together with parity measure-ment which is inconsistent with a standard MIPT with 
+
+z = 1. The ancilla never purifies at any p on timescales 
+
+t ∼ L, as most strikingly demonstrated at p = 1. Fur-thermore, we find that SR(p, t/L ) collapses on time scales 
+
+t ∼ L [Fig. 2(b) inset] for an entire range of large-p
+
+values for the largest numerically-accessible system sizes (L = 12 − 16). This collapse is consistent with a novel phase in which the ancilla purifies on O(L) timescales– given that this scaling is normally seen only at a single pc,we refer to this phase as a critical phase . The contrast be-tween the U = 0 and U = 2 curves for SR(p = 1 , t ) (Fig. 2(c)) demonstrates that the BSFP gate is a special case and that choosing a more generic gate restores the con-ventional high-measurement phase with ancilla purifica-tion on O(1) timescales. We note that this critical phase also requires the limited projective nature of the parity measurements– if we instead consider density measure-ments, we find the ancilla always purifies at a time scale of O(1) (see S1.3 [54]). While we find numerical evidence for a critical phase at high measurement rates from the U = 0 data, we are unable to identify any clear signature of a transition from some other (possibly mixed) phase to this critical phase. Two possibilities are that the system is that the critical phase endures across all values of p or that there is a tran-sition with z > 1 (see S1.5 for preliminary discussion). As demonstrated by recent work on free-fermions, inferring a critical phase from numerical data from finite system sizes is challenging [62]– it is possible that the appar-ent critical phase is an artifact of the small numerically-accessible system sizes. Future analytical work is neces-sary to distinguish among these possibilities. 
+
+Scrambling with parity measurements: MIPTs are of-ten understood as a competition between scrambling uni-tary dynamics, which dominates in the mixed phase, and the disentangling effect of measurements, which domi-nates in the purified phase. With this intuition, choos-ing more scrambling gates would be expected to favor the mixed phase. Our data displays the opposite trend: either by adding on-site Hubbard gates to a BSFP evo-lution or by using only BSRP gates, both of which are 
+
+increase scrambling compared to the purely BSFP case, the purification time of the high-measurement phase de-creases from O(L) to O(1). This effect arises from the fact that parity measurements project onto a subspace of the local Hilbert space, rather than onto a single Fock basis state. Therefore, scrambling in between repeated parity measurements creates more opportunities to col-lapse the state and thus reduce its entanglement entropy– see S2 for further discussion [54]. 
+
+Bipartite entanglement entropy: We provide results for the bipartite entanglement entropy S for both the U = 0 and U = 2 cases in S1.4. Intriguingly, for both cases, S
+
+does not show any clear signature of a transition and is possibly consistent with critical ∼ log L scaling at high measurement rates. Although the coincidence of the ap-parent log L phase for S and the critical phase for SR is consistent for the U = 0 case, the U = 2 case is more puzzling. While inferring ∼ log L scaling from numer-ics limited to small system sizes is challenging [62], the data raises the intriguing possibility that there is a de-coupling between the ancilla and bipartite entanglement transitions, a scenario which is left for future research. 
+
+Realizing Bosonic MIPT with Multimode Cir-cuit QED : We consider two representative experimen-tal platforms for realizing the theoretical bosonic circuit models. The first platform, shown in Fig. (a), consists of a 1D array of coaxial λ/ 4 cavities [9] coupled by tun-able couplers [16, 37, 45] that enable nearest-neighbor beam-splitter operations [63, 64]. Each cavity is also interfaced with its own transmon ancilla, coupled to a readout resonator, which can implement on-site interac-tions and mid-circuit measurements. This architecture supports parallel gate execution on distinct modes, but it is expensive in control hardware, requiring an ancilla qubit and a coupler element for each mode. The second platform, shown in Fig. (b), is a cas-caded random access quantum memory (RAQM) archi-tecture [37], in which a high-coherence multimode stor-age cavity is coupled via a tunable coupler to a sepa-rate buffer cavity that serves as a cache memory and is, in turn, coupled to a transmon. The tunable coupler swaps states between storage modes and buffer modes. In the buffer cavity, the transmon enables universal cav-ity control (e.g., SNAP gates) and QND measurements of the mode, such as parity measurements, as shown in Fig. (d,e). The tunable coupler also enables entan-gling beam-splitter operations between storage modes, as shown in Fig. (c). By isolating the nonlinearity to the buffer/measurement cavity, this architecture sup-presses spurious Kerr and cross-Kerr interactions among the storage modes, mitigating error propagation and re-ducing crosstalk during gate operations. Furthermore, we expect any residual interaction-induced phases to not qualitatively affect the monitored dynamics. 
+
+Preparation of the initial state: The numerical analysis of monitored bosonic circuits discussed earlier and shown in Fig. 2 begins from a Haar-random state in the fixed-charge sector with Q = L/ 2 photons. We find that quan-titatively similar results can also be obtained by starting from a “checkerboard” state that is globally entangled with a reference qubit and then scrambling with O(L)layers of beam-splitter and on-site Hubbard gates, as jus-tified numerically in S1.1 and S.6 [54]. The checkerboard state |Ψ⟩ = 1√2 (|101010 · · ·⟩ | 1⟩R + |010101 · · ·⟩ | 0⟩R) en-tangles two orthogonal alternating-occupancy configura-tions of the storage-cavity modes with the |0⟩ and |1⟩
+
+states of a reference qubit. In the RAQM architecture, this reference qubit is prepared in the transmon and then swapped into an additional ancillary storage mode (ref-erence mode). The checkerboard state can be prepared in the RAQM architecture using standard protocols used in circuit 6Transmon   
+
+> (c) (d) (e)
+> (f)
+
+# ... SWAP Transmon Buffer modes Ancilla mode Storage modes 
+
+> Initialize state
+> Transmon Ancilla Tunable Coupler Readout resonantor
+> (a)
+
+=
+
+> Storage Cavity Tunable Coupler Buffer Cavity Transmon Readout Cavity
+> (b)
+
+Figure 3. Linear cavity array architecture (a) Schematic of a 1D λ/ 4 cavity array coupled via tuneable couplers. Each cavity is also interfaced with a chip hosting a transmon and readout cavity. Cascaded RAQM architecture (b) Multimode cQED setup of a cascaded random access quantum memory (RAQM) architecture. A superconducting storage cavity coupled to a buffer cavity via a tunable coupler; the buffer cavity is interfaced with a readout resonator through a transmon. Beam-splitter gate (c) Cavity modes modeled as harmonic oscillators are coupled via a tunable coupler (ex. SQUID, LINC, or SNAIL) (dashed box). Using a SNAIL we realize a 250 ns beam-splitter gate creating an entangled 1√2 (|10 ⟩ + |01 ⟩) state between the modes, and 500 ns SWAP gate. SNAP gate (d) SNAP operations, used to realize on-site Hubbard gates, apply geometric photon-number-dependent phases by driving the transmon qubit in a closed trajectory (shaded red) around the Bloch sphere in each photon number subspace. Parity measurement (e) Ramsey-based nondemolition photon-number parity readout using dispersive coupling, where two π/ 2-pulses are separated by some idle time T = π/χ . State preparation (f) Pulse sequence for initializing a checkerboard-like state in the storage cavity entangled with a passive reference mode, using 
+
+πge /π ef pulses, f 0g1 sidebands, and coupler-mediated photon shuttling. 
+
+QED. We harness the quartic nonlinearity of the trans-mon to implement a four-wave mixing parametric pro-cess that converts two excitations in the transmon (the 
+
+|f ⟩ level) into a single photon in the dispersively cou-pled buffer cavity mode via an |f 0⟩−| g1⟩ sideband tran-sition [12, 36, 65]. This is implemented by applying an external charge drive to the transmon at the difference frequency between the |f 0⟩ and |g1⟩ states. By combin-ing these sideband operations with transmon rotations on the |g⟩−| e⟩ and |e⟩−| f ⟩ transitions, and temporary shelving of the population in the |e⟩ manifold [36], we generate an entangled state between the transmon and the {| 01 ⟩ , |10 ⟩} state of the pair of buffer modes. The photons in the buffer modes are then swapped into a pair of modes of the storage cavity via the tunable cou-pler, and this procedure is repeated to populate the stor-age cavity up to half-filling while maintaining entangle-ment with the transmon. Finally we swap the transmon state into the ancillary reference mode of storage cav-ity. A schematic of the full state-preparation sequence is shown in Fig. (f) and detailed further in S6. The ex-ecution time of the state-preparation protocol scales as 
+
+∼ L2 and is 4 .5 μs for L = 4. After the checkerboard state is prepared, we apply S = 2 L scrambling layers of nearest-neighbor beam-splitter gates followed by on-site Hubbard gates (implemented via SNAP gates) which pro-vides an initial state that is sufficiently scrambled for the monitored dynamics. 
+
+Implementation of monitored bosonic dynamics: We now subject the scrambled input state to our monitored bosonic circuit model, as shown in Fig. 1. We apply 
+
+M = 2 L monitored layers, where each layer consists of a set of BSFP gates and on-site Hubbard gates (for the 
+
+U = 2 case), followed by mid-circuit parity measurements performed independently on each mode with probability 
+
+p. Measurement outcomes are obtained by reading out the transmon through its readout cavity and are recorded to define the measurement trajectory for each circuit run. All operations are performed sequentially in the RAQM architecture. For SNAP operations and parity measure-ments, which are transmon-mediated, we swap the target modes from the storage cavity to the buffer cavity, exe-cute the operation, and then swap the modes back into storage. The transmon is reset to its ground state before the next operation. The total execution time of the mon-itored circuit scales as ∼ L2 and, for L = 4 and p = 1, is ∼ 100 μs for the BSFP case and ∼ 150 μs for the case with on-site Hubbard gates. Implementations of the gate operations and details of the protocol sequence on the RAQM architecture are described in S8.5. 
+
+Measuring the entanglement entropy of the reference mode: After completing the full sequence of gates and measurements, we extract the entanglement entropy of the reference mode, conditioned on the mid-circuit mea-surement record. Because the reference mode is re-stricted to the |0⟩ , |1⟩ subspace, its state can be swapped through the buffer cavity into the transmon and fully characterized using standard qubit tomography. Exten-sions to alternative encodings (e.g., using |0⟩ and |2⟩) en-able error-detection schemes that can improve the fidelity 70.0 0.5 1.0             
+
+> p
+> 10 −110 0
+> SR
+> Full loss Ideal
+> T1= 1.5 ms T1= 10 ms 0.00 0.15 0.35 Residual Entropy Full loss Only T1decay Noisy beam-splitter gates Noisy parity measurements Noisy SNAP gates 0.0 0.5 1.0 10 −110 0
+> SR − RE (a)
+> (b)
+> Figure 4. Effects of noise in monitored bosonic cir-cuits. (a) Averaged entropy curves for a model containing both BSFP and on-site Hubbard gates with 8 scrambling and 8 monitored layers. Results are shown for ideal gates (orange) and for circuits with all noise sources active (blue). Inset: the same curves after subtracting the residual entropy (RE) from the full loss curve. (b) Breakdown of residual entropies gen-erated at p= 1 (for a worst case estimate), obtained from simulations in which a single noise source is active at a time.
+
+of the density-matrix reconstruction, at the expense of additional shots [66]. The reconstructed density matrix is then used to compute the entanglement entropy. For a given measurement rate p, system size L, and random realization of beam-splitter angles, the total number of mid-circuit measurements scales as m ∼ L2p,yielding 2 m possible measurement trajectories. Assum-ing state-of-the-art single-shot readout fidelity ( ∼ 99%), we acquire ∼ 500 shots per trajectory to reconstruct the ancilla reduced density matrix; this requires executing the monitored circuit 500 × 2m times for each of 200 in-dependent realizations of the random unitaries, thereby sampling over both circuit instances and their associ-ated measurement trajectories. Tomography results are binned by the observed measurement record, producing a reconstructed density matrix for each trajectory, from which the entanglement entropy is computed. After each run, the system is reset; tomography and reset are esti-mated to require approximately 2 μs and 50 μs, respec-tively [36, 37]. The total runtime of a single monitored-circuit execution, from state preparation to system reset, is approximately 160 μs for the BSFP case and 210 μsfor the case with on-site Hubbard gates (for p = 1 and 
+
+L = 4). For these parameters, this corresponds to a total acquisition time on the order of a few hundred hours. 
+
+Feasibility of the experiment: We assess the feasibility of observing a MIPT in a realistic circuit-QED archi-tecture in the presence of coherent and incoherent gate errors by performing end-to-end simulations of the pro-posed monitored bosonic circuits. We model noise at the level of elementary operations using Lindblad master-equation simulations that capture the dominant incoher-ent processes: cavity decay and thermal excitation, trans-mon relaxation and thermal excitation, and transmon dephasing. Each operation is simulated on the minimal local subsystem on which it acts: beam-splitter gates are simulated on a pair of cavity modes, while parity mea-surements and on-site Hubbard gates are simulated on a single cavity mode dispersively coupled to a two-level transmon. From these simulations, we extract quantum channels for each noisy operation, embed them into a larger composite Hilbert space, and apply them sequen-tially in a full circuit-level simulation. These circuit sim-ulations do not include additional dephasing from many-body interactions, which we assume can be engineered to be sufficiently small [37]. The circuit and cavity parame-ters used in these simulations, which set the relevant gate time scales, are summarized in Tables I and II of S8. We assume readily achievable thermal populations (nth ∼ 0.5%), coherence times for the transmon ( T1, T 2 =200 , 50 μs) and tunable coupler ( T1, T 2 = 50 , 4.2 μs), and two cavity-coherence regimes, with mode lifetimes of 1 .5 ms achievable in aluminum cavities [9, 13] and 10 ms in niobium cavities [10, 43]. At these coherence levels, beam-splitter gate fidelities exceed 0 .999 and can be achieved in 250 ns, as has been demonstrated exper-imentally [16, 45, 46]. We simulate circuits with L = 4 cavity modes, S = 8 scrambling layers, and M = 8 monitored layers with random parity measurements. We model the modes as harmonic oscillators with a trun-cated local Hilbert-space dimension of L/ 2 + 1 = 3 to include all possible local configurations (0, 1, or 2 pho-tons). The total dimension of the doubled Hilbert space for four modes, a reference qubit, and a transmon qubit is 
+
+≈ 10 5, highlighting the substantial computational com-plexity of simulating the full open-system dynamics. Using this noise model, we simulate beam-splitter cir-cuits with and without on-site Hubbard gates during the monitored portion, and we identify the dominant error sources by selectively enabling individual noise channels. We verify that, before the noise channels are turned on, the numerical results for circuits with L = 4 modes match the ideal simulation data generated in the same way as the SR curves in Fig. 2. In all cases, noise produces a finite residual entropy that lifts the saturation value of the ideal entropy curves at large measurement rates. For monitored circuits containing on-site Hubbard gates (im-plemented via SNAP), we find that cavity T1 decay and imperfections in the BSFP and on-site Hubbard gates dominate the residual entropy. At lower cavity lifetimes (T1 = 1 .5 ms), idle decay of spectator modes and the ref-erence mode during sequential gate applications is the leading error source; increasing the lifetime to 10 ms suppresses this contribution, leaving BSFP and on-site Hubbard gate errors as the dominant source of residual entropy, as shown in Fig. 4(b). Unlike the RAQM archi-tecture, the linear cavity array discussed above supports parallel gate execution and can therefore mitigate this idling-T1 contribution by reducing the time modes spend 8inactive between operations. Beam-splitter circuits with-out on-site Hubbard gates exhibit the same qualitative trends but with smaller residual entropies due to shorter experimental wall times, since they do not require SNAP gates. Additional details on the error budgets for all monitored circuits considered are provided in S8.5. We note that the qualitative behavior of the ideal dynam-ics can be approximately recovered by subtracting the noise-induced residual, as shown in the inset of Fig. 4(a), similar to what has been done in qubit realizations of MIPTs [30]. 
+
+Discussion : We have theoretically investigated mon-itored dynamics in bosonic systems and outlined feasible experimental protocols for probing MIPTs on current 3D circuit QED platforms. For small system sizes, Lind-bladian simulations incorporating decay, thermal excita-tion, and dephasing errors on both the cavity modes and the coupler and ancilla circuits indicate that the exper-iment is within reach of existing hardware [37]. Noise induces a excess residual entanglement entropy of the reference mode at high measurement rates, which can be subtracted off [30], allowing for the recovery of the un-derlying ideal behavior. Although our simulations do not include errors arising from state preparation or ancilla to-mography, these errors are not expected to qualitatively alter the transition, but rather increase statistical over-head and experimental runtime. Ancilla tomography er-rors may be mitigated through error-detectable encoding schemes [67]. By embedding existing schemes for high-fidelity gate operations driven by superconducting circuits [16, 45, 51] into a multimode architecture with tens of high-coherence bosonic modes, this proposal enables access to a regime of monitored dynamics that is inaccessible on qubit-based platforms. This novelty arises from the bosonic statistics of the cavity modes, which permit bosons to bunch in individual modes and allow for the projective strength of measurements to be tuned from parity to full number resolution. As demonstrated in our results, this flexibil-ity alters the nature of the bosonic MIPT. In the case of parity measurements, our numerical results indicate that there are standard purification transitions for most types of unitary gates, while dynamics generated from only BSFP gates exhibit a new phase at high measure-ment rates in which the ancilla purifies at timescales that scale as the system size. We identify the effect that choos-ing more scrambling gates enhances the purification pro-cess, an effect that has no analogue in qubit systems. Furthermore, for generic, non-BSFP gates, we numeri-cally observe an apparent co-existence between a phase in which the ancilla purifies on O(1) timescales and a phase in which the bipartite entanglement seems to scale logarithmically with system size, which raises a host of interesting questions. Other interesting questions include how the filling frac-tion affects the nature (or existence) of the transition and whether ancilla purification and bipartite entanglement diagnose distinct phases for generic gates at high mea-surement rates. As demonstrated in studies of both in-teracting and free fermions, numerically identifying tran-sitions from finite-size data can be subtle [62, 68–72], underscoring the need for complementary analytical un-derstanding of monitored bosonic circuits. Elucidating the mechanisms underlying bosonic MIPTs and their broader implications is an important direction for fu-ture research. For example, the existence of a MIPT under beam-splitter dynamics with random phases (see S1.6)—closely related to boson-sampling dynamics and number-conserving gate operations in arrays of dual-rail qubits—motivates exploring possible connections be-tween the observed transition and (i) the classical simu-lability of monitored beam-splitter dynamics, e.g. via the computational cost of sampling from the conditional out-put distribution, and (ii) fault-tolerance thresholds for dual-rail erasure codes. 
+
+Acknowledgments: C.M. thanks Kabir Khanna for helpful conversations and acknowledges support from NSF GRFP-1938059. S.P acknowledges support from NSF GRFP-2233066. J.H., T.D., and S.C were sup-ported by the Army Research Office under Grant Number W911NF-23-1-0096 and W911NF-23-1-0251. This work was partially supported by the U.S. Department of En-ergy, Office of Science, National Quantum Information Science Research Centers, Superconducting Quantum Materials and Systems Center (SQMS), under Contract No. 89243024CSC000002. This work was partially sup-ported by the Army Research Office Grant No. W911NF-23-1-0144 ( J.H.P.), the US-ONR grant No. N00014-23-1-2357 (S.P. and J.H.P.).                 
+
+> [1] J. I. Cirac and P. Zoller, “Quantum computations with cold trapped ions,” Phys. Rev. Lett. 74 ,4091–4094 (1995). [2] M. Saffman, T. G. Walker, and K. Mlmer, “Quantum information with rydberg atoms,” Reviews of Modern Physics 82 , 23132363 (2010). [3] Frank Arute, Kunal Arya, Ryan Babbush, Dave Bacon, Joseph C Bardin, Rami Barends, Rupak Biswas, Sergio Boixo, Fernando GSL Brandao, David A Buell, et al. ,“Quantum supremacy using a programmable supercon-ducting processor,” Nature 574 , 505–510 (2019). [4] Crystal Noel, Pradeep Niroula, Daiwei Zhu, Andrew Risinger, Laird Egan, Debopriyo Biswas, Marko Cetina, Alexey V Gorshkov, Michael J Gullans, David A Huse,
+> et al. , “Measurement-induced quantum phases realized in a trapped-ion quantum computer,” Nature Physics 18 ,760–764 (2022). [5] Google Quantum AI and Collaborators, “Measurement-induced entanglement and teleportation on a noisy quan-tum processor,” Nature 622 , 481–486 (2023).
+
+9
+
+[6] Nissim Ofek, Andrei Petrenko, Reinier Heeres, Philip Reinhold, Zaki Leghtas, Brian Vlastakis, Yehan Liu, Luigi Frunzio, SM Girvin, L Jiang, et al. , “Extending the lifetime of a quantum bit with error correction in superconducting circuits,” Nature 536 , 441–445 (2016). [7] Ling Hu, Yuwei Ma, Weizhou Cai, Xianghao Mu, Yuan Xu, Weiting Wang, Yukai Wu, Haiyan Wang, YP Song, C-L Zou, et al. , “Quantum error correction and universal gate set operation on a binomial bosonic logical qubit,” Nature Physics 15 , 503–508 (2019). [8] Philippe Campagne-Ibarcq, Alec Eickbusch, Steven Touzard, Evan Zalys-Geller, Nicholas E Frattini, Volodymyr V Sivak, Philip Reinhold, Shruti Puri, Shyam Shankar, Robert J Schoelkopf, et al. , “Quantum error correction of a qubit encoded in grid states of an oscilla-tor,” Nature 584 , 368–372 (2020). [9] Matthew Reagor, Wolfgang Pfaff, Christopher Axline, Reinier W. Heeres, Nissim Ofek, Katrina Sliwa, Eric Holland, Chen Wang, Jacob Blumoff, Kevin Chou, Michael J. Hatridge, Luigi Frunzio, Michel H. Devoret, Liang Jiang, and Robert J. Schoelkopf, “Quantum mem-ory with millisecond coherence in circuit QED,” 94 ,014506, publisher: American Physical Society. [10] Ofir Milul, Barkay Guttel, Uri Goldblatt, Sergey Haz-anov, Lalit M. Joshi, Daniel Chausovsky, Nitzan Kahn, Engin iftyrek, Fabien Lafont, and Serge Rosenblum, “Superconducting cavity qubit with tens of milliseconds single-photon coherence time,” 4, 030336, publisher: American Physical Society. [11] Reinier W Heeres, Philip Reinhold, Nissim Ofek, Luigi Frunzio, Liang Jiang, Michel H Devoret, and Robert J Schoelkopf, “Implementing a universal gate set on a log-ical qubit encoded in an oscillator,” Nature Communica-tions 8, 94 (2017). [12] Serge Rosenblum, Yvonne Y Gao, Philip Reinhold, Chen Wang, Christopher J Axline, Luigi Frunzio, Steven M Girvin, Liang Jiang, Mazyar Mirrahimi, Michel H De-voret, et al. , “A cnot gate between multiphoton qubits encoded in two cavities,” Nature communications 9, 652 (2018). [13] Srivatsan Chakram, Andrew E. Oriani, Ravi K. Naik, Akash V. Dixit, Kevin He, Ankur Agrawal, Hyeokshin Kwon, and David I. Schuster, “Seamless high- q mi-crowave cavities for multimode circuit quantum electro-dynamics,” 127 , 107701 (). [14] Srivatsan Chakram, Kevin He, Akash V. Dixit, An-drew E. Oriani, Ravi K. Naik, Nelson Leung, Hyeokshin Kwon, Wen-Long Ma, Liang Jiang, and David I. Schus-ter, “Multimode photon blockade,” 18 , 879–884 (), pub-lisher: Nature Publishing Group. [15] Yvonne Y Gao, Brian J Lester, Kevin S Chou, Luigi Frunzio, Michel H Devoret, Liang Jiang, SM Girvin, and Robert J Schoelkopf, “Entanglement of bosonic modes through an engineered exchange interaction,” Nature 
+
+566 , 509 (2019). [16] Benjamin J. Chapman, Stijn J. De Graaf, Sophia H. Xue, Yaxing Zhang, James Teoh, Jacob C. Curtis, Takahiro Tsunoda, Alec Eickbusch, Alexander P. Read, Akshay Koottandavida, Shantanu O. Mundhada, Luigi Frunzio, M.H. Devoret, S.M. Girvin, and R.J. Schoelkopf, “High-on-off-ratio beam-splitter interaction for gates on boson-ically encoded qubits,” 4, 020355. [17] Thomas Connolly, Pavel D Kurilovich, Vladislav DKurilovich, Charlotte GL Bøttcher, Sumeru Hazra, Wei Dai, Andy Z Ding, Vidul R Joshi, Heekun Nho, Spencer Diamond, et al. , “Full characterization of measurement-induced transitions of a superconducting qubit,” arXiv preprint arXiv:2506.05306 (2025). [18] Yaodong Li, Xiao Chen, and Matthew P. A. Fisher, “Quantum zeno effect and the many-body entanglement transition,” Physical Review B 98 (2018), 10.1103/phys-revb.98.205136. [19] Yaodong Li, Xiao Chen, and Matthew PA Fisher, “Measurement-driven entanglement transition in hybrid quantum circuits,” Physical Review B 100 , 134306 (2019). [20] Brian Skinner, Jonathan Ruhman, and Adam Nahum, “Measurement-induced phase transitions in the dynam-ics of entanglement,” Physical Review X 9 (2019), 10.1103/physrevx.9.031009. [21] Andrew C. Potter and Romain Vasseur, “Entanglement dynamics in hybrid quantum circuits,” in Entanglement in Spin Chains (Springer International Publishing, 2022) p. 211249. [22] Matthew PA Fisher, Vedika Khemani, Adam Nahum, and Sagar Vijay, “Random quantum circuits,” Annual Review of Condensed Matter Physics 14 , 335–379 (2023). [23] Amos Chan, Rahul M. Nandkishore, Michael Pretko, and Graeme Smith, “Unitary-projective entanglement dynamics,” Physical Review B 99 (2019), 10.1103/phys-revb.99.224307. [24] Michael J. Gullans and David A. Huse, “Dynamical pu-rification phase transition induced by quantum measure-ments,” Physical Review X 10 (2020), 10.1103/phys-revx.10.041020. [25] Yimu Bao, Soonwon Choi, and Ehud Altman, “The-ory of the phase transition in random unitary circuits with measurements,” Physical Review B 101 (2020), 10.1103/physrevb.101.104301. [26] Chao-Ming Jian, Yi-Zhuang You, Romain Vasseur, and Andreas W. W. Ludwig, “Measurement-induced critical-ity in random quantum circuits,” Physical Review B 101 
+
+(2020), 10.1103/physrevb.101.104302. [27] Aidan Zabalo, Michael J Gullans, Justin H Wilson, Sarang Gopalakrishnan, David A Huse, and JH Pixley, “Critical properties of the measurement-induced transi-tion in random quantum circuits,” Physical Review B 
+
+101 , 060301 (2020). [28] Michael J. Gullans and David A. Huse, “Scalable probes of measurement-induced criticality,” Phys. Rev. Lett. 
+
+125 , 070606 (2020). [29] A. Zabalo, M. J. Gullans, J. H. Wilson, R. Vasseur, A. W. W. Ludwig, S. Gopalakrishnan, David A. Huse, and J. H. Pixley, “Operator scaling dimensions and mul-tifractality at measurement-induced transitions,” Phys. Rev. Lett. 128 , 050602 (2022). [30] Jin Ming Koh, Shi-Ning Sun, Mario Motta, and Austin J. Minnich, “Measurement-induced entanglement phase transition on a superconducting quantum proces-sor with mid-circuit readout,” 19 , 1314–1319, number: 9 Publisher: Nature Publishing Group. [31] Hirsh Kamakari, Jiace Sun, Yaodong Li, Jonathan J. Thio, Tanvi P. Gujarati, Matthew P. A. Fisher, Mario Motta, and Austin J. Minnich, “Experimental demon-stration of scalable cross-entropy benchmarking to de-tect measurement-induced phase transitions on a super-conducting quantum processor,” Phys. Rev. Lett. 134 ,120401 (2025). 10 
+
+[32] Yuri Minoguchi, Peter Rabl, and Michael Buchhold, “Continuous gaussian measurements of the free bo-son cft: A model for exactly solvable and detectable measurement-induced dynamics,” SciPost Physics 12 
+
+(2022), 10.21468/scipostphys.12.1.009. [33] Kazuki Yokomizo and Yuto Ashida, “Measurement-induced phase transition in free bosons,” Physical Review B 111 (2025), 10.1103/y5r3-tv78. [34] Zejian Li, Anna Delmonte, and Rosario Fazio, “Emer-gent deterministic entanglement dynamics in monitored infinite-range bosonic systems,” Physical Review B 112 
+
+(2025), 10.1103/bhst-127b. [35] Tianci Zhou and Xiao Chen, “Nonunitary entanglement dynamics in continuous-variable systems,” Phys. Rev. B 
+
+104 , L180301 (2021). [36] Jordan Huang, Thomas J. DiNapoli, Gavin Rockwood, Ming Yuan, Prathyankara Narasimhan, Eesh Gupta, Mustafa Bal, Francesco Crisa, Sabrina Garattoni, Yao Lu, Liang Jiang, and Srivatsan Chakram, “Fast sideband control of a weakly coupled multimode bosonic memory,” (2025), arXiv:2503.10623 [quant-ph]. [37] Ziqian Li, Eesh Gupta, Fang Zhao, Riju Banerjee, Yao Lu, Tanay Roy, Andrew Oriani, Andrei Vraji-toarea, Srivatsan Chakram, and David I. Schuster, “A cascaded random access quantum memory,” (2025), arXiv:2503.13953 [quant-ph]. [38] Yvonne Y Gao, Brian J Lester, Yaxing Zhang, Chen Wang, Serge Rosenblum, Luigi Frunzio, Liang Jiang, SM Girvin, and Robert J Schoelkopf, “Programmable interference between two microwave quantum memories,” Physical Review X 8, 021073 (2018). [39] Scott Aaronson and Alex Arkhipov, “The computational complexity of linear optics,” in Proceedings of the forty-third annual ACM symposium on Theory of computing 
+
+(2011) pp. 333–342. [40] M Kudra, J Bizn´ arov´ a, A Fadavi Roudsari, JJ Burnett, D Niepce, S Gasparinetti, B Wickman, and P Delsing, “High quality three-dimensional aluminum microwave cavities,” Applied Physics Letters 117 (2020). [41] A Romanenko, R Pilipenko, S Zorzetti, D Frolov, M Aw-ida, S Belomestnykh, S Posen, and A Grassellino, “Three-dimensional superconducting resonators at t¡ 20 mk with photon lifetimes up to τ = 2 s,” Physical Review Applied 13 , 034032 (2020). [42] Andrew E Oriani, Fang Zhao, Tanay Roy, Alexander An-ferov, Kevin He, Ankur Agrawal, Riju Banerjee, Srivat-san Chakram, and David I Schuster, “Niobium coaxial cavities with internal quality factors exceeding 1.5 bil-lion for circuit quantum electrodynamics,” arXiv preprint arXiv:2403.00286 (2024). [43] Hyejin Kim, Abhishek Kumar, Yiqing Zhou, Yichen Xu, Romain Vasseur, and Eun-Ah Kim, “Learning measurement-induced phase transitions using attention,” (2025), arXiv:2508.15895 [quant-ph]. [44] NE Frattini, U Vool, S Shankar, A Narla, KM Sliwa, and MH Devoret, “3-wave mixing josephson dipole element,” Applied Physics Letters 110 , 222603 (2017). [45] Yao Lu, Aniket Maiti, John WO Garmon, Suhas Ganjam, Yaxing Zhang, Jahan Claes, Luigi Frunzio, Steven M Girvin, and Robert J Schoelkopf, “High-fidelity para-metric beamsplitting with a parity-protected converter,” nature communications 14 , 5767 (2023). [46] Aniket Maiti, John WO Garmon, Yao Lu, Alessandro Miano, Luigi Frunzio, and Robert J Schoelkopf, “Linear quantum coupler for clean bosonic control,” PRX Quan-tum 6, 040326 (2025). [47] Stefan Krastanov, Victor V Albert, Chao Shen, Chang-Ling Zou, Reinier W Heeres, Brian Vlastakis, Robert J Schoelkopf, and Liang Jiang, “Universal control of an oscillator with dispersive coupling to a qubit,” Physical Review A 92 , 040303 (2015). [48] Reinier W. Heeres, Brian Vlastakis, Eric Holland, Stefan Krastanov, Victor V. Albert, Luigi Frunzio, Liang Jiang, and Robert J. Schoelkopf, “Cavity state manipulation us-ing photon-number selective phase gates,” 115 , 137002, publisher: American Physical Society. [49] Alec Eickbusch, Volodymyr Sivak, Andy Z Ding, Salva-tore S Elder, Shantanu R Jha, Jayameenakshi Venka-traman, Baptiste Royer, Steven M Girvin, Robert J Schoelkopf, and Michel H Devoret, “Fast universal con-trol of an oscillator with weak dispersive coupling to a qubit,” Nature Physics 18 , 1464–1469 (2022). [50] DI Schuster, Andrew Addison Houck, JA Schreier, A Wallraff, JM Gambetta, A Blais, L Frunzio, J Ma-jer, B Johnson, MH Devoret, et al. , “Resolving photon number states in a superconducting circuit,” Nature 445 ,515–518 (2007). [51] Jonas Landgraf, Christa Flhmann, Thomas Fsel, Florian Marquardt, and Robert J. Schoelkopf, “Fast quantum control of cavities using an improved protocol without coherent errors,” (2024), arXiv:2310.10498 [quant-ph]. [52] Luyan Sun, Andrei Petrenko, Zaki Leghtas, Brian Vlas-takis, Gerhard Kirchmair, KM Sliwa, Aniruth Narla, Michael Hatridge, Shyam Shankar, Jacob Blumoff, 
+
+et al. , “Tracking photon jumps with repeated quantum non-demolition parity measurements,” arXiv preprint arXiv:1311.2534 (2013). [53] Christopher S Wang, Jacob C Curtis, Brian J Lester, Yaxing Zhang, Yvonne Y Gao, Jessica Freeze, Victor S Batista, Patrick H Vaccaro, Isaac L Chuang, Luigi Frun-zio, et al. , “Efficient multiphoton sampling of molecular vibronic spectra on a superconducting bosonic proces-sor,” Physical Review X 10 , 021060 (2020). [54] See Supplemental Material for additional details. [55] Fergus Barratt, Utkarsh Agrawal, Andrew C. Potter, Sarang Gopalakrishnan, and Romain Vasseur, “Tran-sitions in the learnability of global charges from local measurements,” Physical Review Letters 129 (2022), 10.1103/physrevlett.129.200602. [56] Hossein Dehghani, Ali Lavasani, Mohammad Hafezi, and Michael J. Gullans, “Neural-network decoders for mea-surement induced phase transitions,” Nature Communi-cations 14 (2023), 10.1038/s41467-023-37902-1. [57] Ahmed A. Akhtar, Hong-Ye Hu, and Yi-Zhuang You, “Measurement-induced criticality is tomographically op-timal,” (2023), arXiv:2308.01653 [quant-ph]. [58] Yaodong Li, Yijian Zou, Paolo Glorioso, Ehud Alt-man, and Matthew P.A. Fisher, “Cross entropy benchmark for measurement-induced phase transitions,” Physical Review Letters 130 (2023), 10.1103/phys-revlett.130.220404. [59] Matteo Ippoliti and Vedika Khemani, “Learnability transitions in monitored quantum dynamics via eaves-droppers classical shadows,” PRX Quantum 5 (2024), 10.1103/prxquantum.5.020304. [60] Utkarsh Agrawal, Javier Lopez-Piqueres, Romain Vasseur, Sarang Gopalakrishnan, and Andrew C. Potter, “Observing quantum measurement collapse as a learn-11 
+
+ability phase transition,” Physical Review X 14 (2024), 10.1103/physrevx.14.041012. [61] Max McGinley, “Postselection-free learning of measurement-induced quantum dynamics,” PRX Quantum 5 (2024), 10.1103/prxquantum.5.020347. [62] Igor Poboiko, Paul P¨ opperl, Igor V Gornyi, and Alexan-der D Mirlin, “Theory of free fermions under random projective measurements,” Physical Review X 13 , 041046 (2023). [63] Kevin S. Chou, Tali Shemma, Heather McCarrick, Tzu-Chiao Chien, James D. Teoh, Patrick Winkel, Amos Anderson, Jonathan Chen, Jacob C. Curtis, Stijn J. de Graaf, John W. O. Garmon, Benjamin Gudlewski, William D. Kalfus, Trevor Keen, Nishaad Khedkar, Chan U. Lei, Gangqiang Liu, Pinlei Lu, Yao Lu, Aniket Maiti, Luke Mastalli-Kelly, Nitish Mehta, Shantanu O. Mundhada, Anirudh Narla, Taewan Noh, Takahiro Tsun-oda, Sophia H. Xue, Joseph O. Yuan, Luigi Frunzio, Jos Aumentado, Shruti Puri, Steven M. Girvin, S. Harvey Moseley, and Robert J. Schoelkopf, “A superconduct-ing dual-rail cavity qubit with erasure-detected logical measurements,” Nature Physics 20 , 1454–1460 (2024), publisher: Nature Publishing Group. [64] James D Teoh, Patrick Winkel, Harshvardhan K Babla, Benjamin J Chapman, Jahan Claes, Stijn J de Graaf, John WO Garmon, William D Kalfus, Yao Lu, Aniket Maiti, et al. , “Dual-rail encoding with superconducting cavities,” Proceedings of the National Academy of Sci-ences 120 , e2221736120 (2023). [65] S. Zeytinoglu, M. Pechal, S. Berger, A. A. Abduma-likov, A. Wallraff, and S. Filipp, “Microwave-induced amplitude- and phase-tunable qubit-resonator coupling in circuit quantum electrodynamics,” Physical Review A 
+
+91 (2015), 10.1103/physreva.91.043846. [66] Jiasheng Mai, Qiyu Liu, Xiaowei Deng, Yanyan Cai, Zhongchu Ni, Libo Zhang, Ling Hu, Pan Zheng, Song Liu, Yuan Xu, et al. , “A biased-erasure cavity qubit with hardware-efficient quantum error detection,” arXiv preprint arXiv:2601.21616 (2026). [67] Serge Rosenblum, P Reinhold, Mazyar Mirrahimi, Liang Jiang, L Frunzio, and RJ Schoelkopf, “Fault-tolerant de-tection of a quantum error,” Science 361 , 266–270 (2018). [68] Igor Poboiko, Paul Ppperl, Igor V. Gornyi, and Alexan-der D. Mirlin, “Measurement-induced transitions for in-teracting fermions,” Physical Review B 111 (2025), 10.1103/physrevb.111.024204. [69] Michele Fava, Lorenzo Piroli, Denis Bernard, and Adam Nahum, “Monitored fermions with conserved u(1) charge,” Phys. Rev. Res. 6, 043246 (2024). [70] Haoyu Guo, Matthew S. Foster, Chao-Ming Jian, and Andreas W. W. Ludwig, “Field theory of monitored in-teracting fermion dynamics with charge conservation,” Physical Review B 112 (2025), 10.1103/gdxd-pw8v. [71] Xiangyu Cao, Antoine Tilloy, and Andrea De Luca, “En-tanglement in a fermion chain under continuous monitor-ing,” SciPost Physics 7, 024 (2019). [72] Michele Fava, Lorenzo Piroli, Tobias Swann, Denis Bernard, and Adam Nahum, “Nonlinear sigma models for monitored dynamics of free fermions,” Physical Re-view X 13 (2023), 10.1103/physrevx.13.041045. Supplementary Material: Universal monitored dynamics in multimode bosonic systems 
+
+Shivam Patel, 1, 2 Catherine McCarthy, 3, ∗ Ahana Chakraborty, 4, 1, 2 Jordan Huang, 1
+
+Thomas Dinapoli, 1 Romain Vasseur, 3 J. H. Pixley, 1, 2, 5, † and Srivatsan Chakram 1, ‡  
+
+> 1Department of Physics and Astronomy, Rutgers University, Piscataway, NJ 08854, USA
+> 2Center for Materials Theory, Rutgers University, Piscataway, NJ 08854, USA
+> 3Department of Theoretical Physics, University of Geneva, 24 quai Ernest-Ansermet, 1211 Gen` eve, Switzerland
+> 4Department of Physics and Astronomy, Louisiana State University, Baton Rouge, Louisiana 70803, USA
+> 5Center for Computational Quantum Physics, Flatiron Institute, 162 5th Avenue, New York, NY 10010, USA
+> (Dated: March 16, 2026)
+> S1. ADDITIONAL NUMERICAL RESULTS FOR MONITORED BOSONIC CIRCUITS 1. Initial state preparation protocol
+
+fig:numericsHere we demonstrate the validity of the state preparation protocol discussed in the main text. The numerics in the main text mostly start from a Haar-random initial state, which is not efficiently experimen-tally preparable. In the experiment we instead begin with a “checkerboard” initial state |Ψ⟩ = 1√2
+
+ |0101 ... ⟩ | 0⟩ +
+
+|1010 ... ⟩ | 1⟩  and then scramble with 2 L layers of inter-acting gates without measurements before beginning the monitored dynamics for 2 L layers of gates. For moni-tored dynamics both with and without on-site Hubbard gates, the resulting SR curves show the same trends as the data in the main text (Fig. 2).  
+
+> 2. Learnability protocol and data for BSFP gates
+
+In the main text, we proposed an experimental pro-tocol to detect a MIPT by computing the entanglement entropy SR of an ancilla qubit globally coupled to an 
+
+L-mode system. In the near term, post-selection is ex-perimentally feasible because current circuit-QED imple-mentations are limited to system sizes of at most L ∼ 10 modes [1]; however, post-selection quickly becomes un-tenable with even modest increases in L. Recent works have sought to bypass this post-selection bottleneck by viewing the MIPT as a “learnability” transition accessi-ble to an exact classical decoder [2–5]. In this approach, the order parameter is the decoders accuracy in predict-ing which initial state generated a given measurement record [2]. Here we outline such a learnability protocol and present corresponding numerical results. This pro-tocol also has the advantage of not requiring an ancilla qubit, thereby reducing potential sources of experimental error. In this protocol, we choose two Haar-random initial states |ψ0⟩ and |ψ1⟩ such that ⟨ψ0|ψ1⟩ = 0. We then run a standard monitored circuit starting from |ψα⟩, where α ∈{0, 1} is chosen at random. After the circuit is executed, the measurement record ⃗m—including the locations and outcomes of all measurements—along with the complete gate list and a full description of the states |ψ0⟩ and |ψ1⟩,is passed to a classical decoder. The decoder’s task is to predict α, i.e. , which initial state generated the record ⃗m.To make this prediction, the decoder simulates the full monitored evolution starting from |ψ0⟩ and |ψ1⟩ to compute the Born probabilities P (⃗m|α) of obtaining the record ⃗m given the initial state |ψ α⟩. It then predicts the label corresponding to the larger probability. Averaged over N measurement records, the decoder accuracy is 
+
+A = 1
+
+N
+
+X⃗m
+
+max {P (⃗m|0) , P (⃗m|1) }. (1) The decoder accuracy undergoes a transition from an “encoded” phase to a “decodable” phase [2]. While this protocol avoids the need for experimental post-selection, it is not truly scalable because the decoder must simulate the full evolution of the state, which re-mains exponentially costly in L. The main advantage of the learnability approach is therefore that the exponen-tial difficulty is shifted from an experimental task to a numerical one. For monitored dynamics with on-site Hubbard gates (U = 2) and parity measurements, we numerically find a transition in the decoder accuracy consistent with z = 1 near pc ≈ 0.25, as discussed in the main text. In addi-tion, for purely BSFP dynamics ( U = 0), the decoder accuracy is consistent with the main-text trends: at high measurement rates, the system appears to enter a phase in which the “decodability time” (analogous to the pu-rification time) scales linearly with system size (Fig. 2).  
+
+> 3. Number measurements
+
+The main text presented results for parity measure-ments; here, we present additional results for measure-ments of photon number. As was the case for parity measurements, the behavior of the ancilla entanglement 20.1 0.2 0.3 0.4 0.5 
+
+p         
+
+> 10 −1
+> 10 0
+> SR(p)
+> U= 2
+> L= 4
+> L= 6
+> L= 8
+> L= 10 0.2 0.4 0.6 0.8 1.0
+
+p                 
+
+> 10 −1
+> SR(p)
+> U= 0
+> L= 4
+> L= 6
+> L= 8
+> L= 10
+> FIG. 1. Ancilla entanglement entropy SRfor monitored dynamics with BSFP gates both with (left) and without (right) on-site Hubbard gates. The initial state is prepared by beginning from the “checkerboard” state |Ψ⟩=1√2
+> |0101 ... ⟩ | 0⟩+|1010 ... ⟩ | 1⟩
+> and scrambling with 2 Llayers of BSFP and on-site Hubbard gates, before running 2 Lmonitored layers. Both cases reproduce the results beginning from a Haar-random state shown in the main text for experimentally accessible system sizes. 0.1 0.5
+
+p         
+
+> 0.66
+> 0.75
+> A(p, t = 4 L)
+> U= 0
+> N= 8
+> N= 10
+> N= 12
+> N= 14
+> FIG. 2. Learnability numerics for BSFP monitored dynamics. Accuracy A(p) of an exact classical decoder for a monitored circuit composed only of BSFP gates. In line with the main text numerics, the data is consistent with a phase at high measurement rates in which the “decodability time” is O(L).
+
+entropy curves SR(p, t ) depend on whether the monitored circuit is composed of only BSFP gates or not (Fig. 3). For a circuit of only BSFP gates ( U = 0), the data in Fig. 3 indicates that there is no MIPT with z = 1 and that the ancilla purifies for any measurement rate 
+
+p > 0. In contrast, for circuits with on-site Hubbard gates ( U = 2), there appears to be a transition with 
+
+z = 1 at the critical measurement rate pc ≈ 0.1. It is interesting to compare the impact of turning on 
+
+U > 0 for parity and number measurements. Despite the fact that neither measurement type features a tran-sition when U = 0, the ancilla is in a different phase depending on the measurement type– the ancilla always purifies for density measurements but appears to be in ei-ther a purified or critical phase for parity measurements. Additionally, while there is a transition that appears when U̸ = 0 for both measurement types, the mechanism through which this occurs appears to be qualitatively dif-ferent. Since performing a number measurement locally collapses the state onto a single Fock basis state, the standard picture of MIPTs as a competition between uni-tary dynamics that hide information and measurements that reveal information is accurate for number measure-ments. This intuition is consistent with the fact that for number measurements, turning on on-site Hubbard gates allows the unitary dynamics to hide information more ef-ficiently, which results in the emergence of a mixed phase. This qualitative picture is entirely different than that of the parity measurement, where increasing the scrambling power of the gates helps the purification process (see Sec. S2) and produces a phase with a O(1) purification time. Performing measurements onto the mod-n subspace for a generic choice of n is natural to implement on circuit-QED platforms, and understanding the impact of tuning 
+
+n on the MIPT remains an interesting question. In prac-tice, it is difficult to experimentally or numerically real-ize system sizes large enough to meaningfully study cases apart from the parity ( n = 2) and density ( n = Q + 1) cases, and so future investigations of this subject will likely be largely theoretical.  
+
+> 4. Bipartite entanglement entropy
+
+Here we briefly present results for the bipartite entan-glement entropy S = −Tr[ ρA ln ρA] with parity measure-ments for monitored dynamics with and without on-site Hubbard gates. In contrast to the ancilla entanglement entropy data presented in the main text, the bipartite entanglement entropy S looks similar for both U = 0 and U > 0 (4). Interestingly, the data for both values of 30.025 0.200 
+
+p       
+
+> 10 −2
+> 10 −1
+> 10 0
+> SR(p, t = 4 L)
+> U= 2
+> N= 4
+> N= 6
+> N= 8
+> N= 10
+> N= 12 0.025 0.200
+
+p      
+
+> 10 −3
+> 10 −2
+> 10 −1
+> 10 0
+> SR(p, t = 4 L)
+> U= 0
+> N= 4
+> N= 6
+> N= 8
+> N= 10
+> N= 12
+
+FIG. 3. Ancilla entanglement entropy for monitored dynamics with number measurements. Data is shown for monitored dynamics with ( U = 2, left) and without ( U = 0, right) on-site Hubbard gates with density measurements for a circuit of depth 4 L. The circuit with on-site Hubbard gates produces a phase transition at critical measurement rate pc ≈ 0.1; in contrast, there is no transition in the U = 0 circuit and the ancilla qubit purifies. 0.1 1
+
+p        
+
+> 0
+> 3.5
+> S
+> U= 0
+> 0.1 1p
+> 0
+> 1.3
+> S / log( L)
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14 0.1 1
+
+p       
+
+> 0
+> 3.5
+> S
+> U= 2
+> 0.1 1p
+> 0
+> 1.5
+> S / log( L)
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+
+FIG. 4. Bipartite entanglement entropy Bipartite entanglement entropy S for systems with (left) and without (right) on-site Hubbard gates shown for system sizes L = 4 − 14. Both cases appear to feature S that scales logarithmically with system size at large L for numerically-accessible system sizes (insets). 
+
+U appear consistent with a phase at high measurement rates in which S ∼ log L, although it is hard to accu-rately verify this scaling with only numerical access to small system sizes. Considering the striking differences in the ancilla en-tanglement entropy data, it is interesting that the bipar-tite entanglement entropy looks similar for both cases. The data is possibly consistent with a decoupling be-tween the ancilla entanglement entropy SR for the U = 2 , which purifies at high measurement rates, and the half-cut entanglement entropy, which appears to have a critical-like ∼ log L scaling in the same regime. Another possibility that we raise here is that this is a matter of protocol– following the procedure in [6], we calculate S
+
+immediately after applying gates but before measuring. Given that the parity measurements project onto an en-tire subspace, rather than individual Fock basis states, it is possible that choosing this protocol obscures the effect of the measurements. 
+
+5. Alternative values of the dynamical exponent 
+
+In the main text, we presented numerical results based on the assumption that any MIPT would have the scal-ing exponent z = 1. The basis for this assumption is the theoretical argument for z = 1 in the d → ∞ limit with no symmetries [7, 8] as well as numerical evidence showing z = 1 in the qubit limit [6]. The BSFP numerical data was consistent with the emergence of a novel critical phase at high measurement rates with a purification time that scales ∼ L. In principle, however, there is no reason to rule out the existence of a MIPT from a phase with an exponentially-long purification time to one with an O(1) purification time with z̸ = 1. Furthermore, since there is no way to independently pinpoint the location of the transition with access only to the ancilla entanglement entropy, and since numerics are limited to small system sizes, there are multiple possible combinations of ( z, p c)that are consistent with the numerics, two of which are 40 2.5 
+
+t/L5/3 
+
+10 −3 
+
+1 
+
+> SR(pc = 0.15,  t/L5/3 )
+> 0.05 0.3
+
+p    
+
+> 1
+> SR(p, t ∼ L5/3 )
+> N= 10
+> N= 12
+> N= 14
+> N= 16
+
+0 2.5 
+
+t/L1.4 
+
+10 −2 
+
+1 
+
+> SR(pc = 0.2,  t/L1.4 )
+> 0.05 0.4
+
+p    
+
+> 0.9
+> SR(p, t ∼ L1.4 )
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+
+FIG. 5. Alternative values of z. Alternative values of ( z, p c) that yield an apparent collapse in the ancilla entanglement entropy SR(pc, t/L z ) for BSFP gates with parity measurements. Both pc = 0 .15 , z = 5 /3 (left) and pc = 0 .2, z = 1 .4 (right) produce reasonable collapses– without an independent prediction for either the dynamical exponent or the critical measurement rate, determining if there is a pair of pc, z from numerics alone is challenging. 
+
+illustrated in Fig. 5 for U = 0 (though the same holds true for the U = 2 case as well). Without an independent prediction of either pc or z,it is difficult to determine which, if any, combination of (pc z) corresponds to a true transition. The approach taken in the main text is to assume z = 1 and look for a transition consistent with this scaling exponent. Re-gardless of whether the system exhibits an anomalous transition with z > 1 or if the system is in a phase with an O(L) purification time at high measurement rates, the numerics demonstrate that the ancilla purifies faster when on-site Hubbard gates are used in addition to BSFP gates. 
+
+6. Qualitative similarity of z = 1 MIPT away from BSFP gates 0.10 0.15 0.20 0.25 0.30 0.35 0.40 0.45 0.50           
+
+> p
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> SR(p, U = 0.2)
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14 0.10 0.15 0.20 0.25 0.30 0.35 0.40 0.45 0.50
+> p
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> SR(p, U = 2)
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+
+FIG. 6. Stability of crossing for different U . Data is shown for circuits of depth tf = 4 L with parity measurements for circuits of U = 0 .2 (left) and U = 2 (right). Tuning 
+
+U̸ = 0 does not appear to qualitatively affect the nature of the transition. 
+
+In the main text, we claim that there is a sharp distinc-tion between monitored dynamics generated with purely BSFP gates and more generic circuits; here, we present numerical results validating this claim for two cases. In 0.2 0.4 0.6 0.8 1.0              
+
+> p
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> SR(U = 0, fixed  φ)
+> L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16 0.1 1p
+> 0.1
+> 0.85
+> SR(U = 0, random  φ) L= 6
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+
+FIG. 7. Beam-splitter gates with fixed vs ran-dom phases. Comparison of ancilla entanglement entropy 
+
+SR(p, t ∼ L) for BSFP (left) and BSRP (right) gates. Choos-ing random phases produces a crossing in the SR curves. 
+
+particular, the presence of a crossing in the SR curves for the monitored dynamics generated by a combination of BSFP and on-site Hubbard gates remains when varying 
+
+U > 0 (Fig. 6); for a very small 0 < U ≪ 1, we would expect the crossing to emerge for sufficiently large cir-cuit depths. The precise mechanism through which this takes place remains an interesting open question. Ad-ditionally, choosing beam-splitter unitaries with random phases (BSRP gates) restores a crossing, in comparison to the BSFP gates discussed in the main text (Fig. 7). 
+
+S2. SCRAMBLING AND PURIFICATION WITH PARITY MEASUREMENTS 
+
+As discussed in the main text, performing local mea-surements that project the state onto a subspace of the on-site Hilbert space, as opposed to onto a particular Fock basis state, leads to an effect in which scrambling helps the state purification process. This effect originates from the fact that scrambling local degrees of freedom al-lows an observer to measure the same site multiple times and obtain different measurement outcomes, which re-5U=I                   
+
+> U≠I
+> FIG. 8. Scrambling with parity measurements. This figure illustrates a scenario in which increasing the scram-bling power of the unitary dynamics can decrease a systems entanglement entropy. We consider a two-mode system with a conserved total photon number Q= 2, initialized in a su-perposition within the even-parity subspace, and evolve it for one timestep under a unitary U. At t= 1, we perform parity measurements on both modes. Evolving with the identity de-terministically yields the measurement record ⃗mt=1 ={0,0},whereas evolving with a generic random unitary can yield ⃗mt=1 ={1,1}, thereby reducing the entanglement entropy between the two modes.
+
+sults in a decrease in entanglement entropy. Below, we will provide a concrete example of this effect taking place. Consider a two-mode system with Q = 2 photons. The global two-mode state is spanned by the states 
+
+{| 20 ⟩ , |02 ⟩ , |11 ⟩} . Consider time-evolving the initial state 
+
+|ψt=0 ⟩ = 1√2
+
+ |20 ⟩ + |02 ⟩  by some unitary U for one timestep before parity measurements are performed on both modes at t = 1 (Fig. 8). For a generic ran-dom gate U , it is possible to either measure the out-come ⃗m t=1 = {0, 0} or ⃗m t=1 = {1, 1}; if the outcome ⃗m t=1 = {1, 1} is measured, the entanglement entropy between the two modes will decrease to zero. How-ever, choosing a less scrambling gate (e.g. the identity, or a constrained unitary that only allows for photons to hop in pairs) deterministically leads to the outcome ⃗m t=1 = {0, 0} after the application of the gate. In this case, the entanglement between the two modes will re-main the same. In contrast, for a situation in which number measurements are performed on both sites at both t = 0 and t = 1, the gate chosen does not impact the entanglement entropy between the two modes since the number measurements definitively collapse the state onto a single Fock basis state. While somewhat contrived, the above example clearly illustrates that for measurements which project onto a subspace of the full Hilbert space and dynamics that mix between those sets of subspaces, increasing the scram-bling power of the gate can lead to a decrease in the entanglement entropy in the system. This intuition is consistent with the numerical results showing that BSFP and on-site Hubbard gates purify the ancilla faster than BSFP gates alone when using parity measurements. Note that the argument above does not answer the interesting question of exactly how scrambling a gate has to be in order to produce a purified phase– it only serves to il-lustrate the concept that increasing scrambling can favor purification in the presence of projective measurements onto subspaces.  
+
+> S3. ANALYSIS OF THE SNAIL COUPLER
+
+In this section we derive the Hamiltonian of a Super-conducting NonlineAr Inductive eLement (SNAIL) tun-able coupler which we use to perform beam-splitter op-erations on our cavity modes. A SNAIL consists of three identical Josephson junc-tions with Josephson energy EJ in parallel with a smaller junction of energy αE J , forming a superconducting loop threaded by an external magnetic flux Φ ext , as shown in Fig. 9. The superconducting phase across the smaller junction, φs, serves as a quantum degree of freedom, while the external flux tunes the circuit’s effective non-linearity and resonance frequency. The potential energy of the SNAIL is 
+
+US (φS ) = −EJ [α cos φS + 3 cos φs − φext 
+
+3 ], (2) where φext = 2 π Φext  
+
+> Φ0
+
+and Φ 0 is the flux quantum. The first term in the potential arises from the smaller junction while the second term corresponds to the three larger junctions. To form a tunable coupler, the SNAIL is connected in series with a capacitor of capacitance C (charging energy 
+
+EC = e2 
+
+> 2C
+
+), where e is the electron charge, and a linear in-ductor of inductance L (inductive energy EL = φ20 
+
+> L
+
+where 
+
+φ0 = Φ 0/2π). Denoting the phases across the capacitor, inductor, and SNAIL by φC , φ L, and φS , respectively, Kirchhoff’s loop rule gives 
+
+φc = φL + φS . (3) The Lagrangian of the circuit is 
+
+L = 12 Cφ 20 ˙φ2 
+
+> C
+
+− 12 ELφ2 
+
+> L
+
+− US (φS ). (4) The absence of a kinetic term for φS yields the current conservation equation, 
+
+EL(φc − φS ) = ∂U S
+
+∂φ S
+
+, (5) which implicitly defines φS as a nonlinear function of φC .We treat the nonlinearity perturbatively by first lin-earizing the SNAIL’s potential about its minimum, US ≈ 
+
+> 12
+
+EJ c2φ2 
+
+> S
+
+, where c2 is the second order Taylor coefficient. Plugging this expression into the current conservation equation and performing some algebra gives 
+
+φs = pφ c, p = xJ
+
+c2 + xJ
+
+, (6) where xJ = EL 
+
+> EJ
+
+, and p is the participation ratio of the SNAIL which quantifies the fraction of the total inductive 6SNAIL 
+
+FIG. 9. Schematic of the SNAIL superconducting cir-cuit used to activate beams-splitters between modes. 
+
+The SNAIL consists of three Josephson junction with junc-tion energy EJ in parallel with a junction with smaller energy 
+
+αE J . The loop is threaded with an external flux Φ ext . We connect the SNAIL to a capacitor with charging energy EC
+
+and an inductor with inductive energy EL to make a SNAIL-mon circuit. 
+
+energy contributed by the SNAIL. The remaining 1 − p
+
+contribution comes from the linear inductor. Using this linear approximation, we incorporate the SNAIL’s nonlinearity by defining an effective nonlinear potential as a function of φC ,
+
+U NL (φc) = 12 EL(φc − φs)2 + U NL  
+
+> S
+
+(φs), (7) where U NL  
+
+> S
+
+= US (φS ) − 12 EJ c2φ2 
+
+> S
+
+is the nonlinear part of the SNAIL’s potential. Expanding U NL in powers of 
+
+φC gives effective Taylor coefficients ˜ cn that are related to those of the bare SNAIL potential, ˜cn = −xJ
+
+dn−1φS
+
+dφ n−1
+
+> C
+
+, (8) providing a systematic way to dress the SNAIL nonlin-earity by the linear inductor. The Hamiltonian of the SNAILmon tunable coupler circuit is then 
+
+HTC = 4 EC N 2 + EJ
+
+> ∞
+
+X
+
+> n=2
+
+˜cn
+
+n! φn, (9) where N = Q 
+
+> 2e
+
+is the dimensionless charge on the ca-pacitor and we choose to drop the subscript from φC .We promote φ and N to operators and impose canonical quantization using [ ˆ φ, ˆN ] = i and ˆφ = φzpf (ˆ c† + ˆ c) (10) ˆN = iN zpf (ˆ c† − ˆc), (11) where φzpf and Nzpf are the zero-point fluctuations of the phase and charge, respectively, and ˆ c†, ˆc are the cre-ation and annihilation operators of the SNAILmon tun-able coupler. Then the Hamiltonian takes the form ˆHTC = ωc ˆc† ˆc +
+
+> ∞
+
+X
+
+> n=3
+
+gn(ˆ c† + ˆ c)n, (12) where ωC = √8˜ c2EC EJ is the resonant oscillator fre-quency of the tunable coupler circuit and the coefficients 
+
+gn = φn 
+
+> zpf ˜cn
+> n!
+
+.
+
+1. SNAIL-mediated beam-splitter interactions 
+
+The SNAILmon tunable coupler circuit is engineered to have a large third-order nonlinearity, ˜c3 
+
+> ˜cn
+
+≫ 1, which leads strong three-wave mixing enabling fast high fidelity beam-splitter operations between cavity modes coupled to it [9–11]. We consider a pair of cavity modes coupled to an ex-ternally driven SNAILmon tunable coupler. The system Hamiltonian is, ˆHsys = ˆHTC + ˆHcavity + ˆHcoupling + ˆHdrive , (13) ˆHcavity = ωaˆa†ˆa + ωbˆb†ˆb, (14) ˆHcoupling = i X
+
+> k∈{ a,b }
+
+gk(ˆk† + ˆk)(ˆ c† − ˆc), (15) ˆHdrive = ( ϵe −i(ωdt−φ) − ϵ∗ei(ωdt+φ))(ˆ c† − ˆc). (16) ˆHTC is given in Eq. 12 (up to third order) with ˆ c† / ˆ c be-ing the tunable coupler’s creation/annihilation operator. ˆHcavity is the Hamiltonian of the cavity oscillator mode Alice(Bob), with frequency ωa(b) and creation and anni-hilation operators ˆ a†(ˆb†) and ˆ a(ˆb). ˆHcoupling describes the capacitive coupling of the tunable coupler to the cavity mode Alice(Bob) with coupling strength ga(b). Finally, ˆHdrive describes an external microwave tone of amplitude 
+
+ϵ and frequency ωd driving the charge on the SNAILmon capacitor, and phase φ.To see the beam-splitter operation in the interaction picture, we first diagonalize ˆHcoupling via a Schrieffer-Wolff transformation ˆUS = ei P  
+
+> k∈a,b gk
+> ∆k(ˆkˆc†+ˆk†ˆc)
+
+, (17) where ∆ k = ωc − ωk. This transformation hybridizes the tunable coupler mode with Alice and Bob, ˆ c → ˆc −
+
+i P
+
+> k∈a,b gk
+> ∆k
+
+ˆk. Next, we eliminate the oscillator terms and external drive by moving to a displaced, rotating frame using ˆUD = e˜ζ(t)ˆ c†−˜ζ∗(t)ˆ c, (18) ˆUR = e−i(ωa ˆa† ˆa+ωbˆb†ˆb+ωc ˆc† ˆc)t, (19) where ˜ζ(t) = ζe −iω dt, ζ = ϵ 
+
+> −∆d
+
+eiφ , and ∆ d = ωd − ωc.After these transformations the dominant contribution 7arises from the cubic nonlinearity. Setting the drive fre-quency to the difference of the Alice and Bob modes, 
+
+ωd = ωa − ωb, and taking a rotating-wave approximation yields the beam-splitter Hamiltonian, ˆHBS = gbs (eiφ ˆaˆb† + h .c.), (20) where the beam-splitter rate gbs = 6 g3 ga 
+
+> ∆a
+> gb
+> ∆b
+> ϵ
+> ∆d
+
+. 
+
+> S4. TRANSMON-MEDIATED PARITY MEASUREMENT
+
+We describe how to perform a projective measurement of the photon number parity of a cavity mode using a transmon ancilla. Later, we generalize this protocol to enable full photon number measurements. The cavity mode is dispersively coupled to the transmon via ˆHdisp = χ
+
+2 ˆσz ˆn, (21) where χ is the dispersive shift, ˆ σz is the Pauli-Z opera-tor acting on the two lowest transmon states {| g⟩ , |e⟩} ,and ˆ n is the number operator of the cavity mode. This dispersive interaction causes the transmon transition fre-quency to shift depending on the number of photons in the cavity. As a result, the cavity’s photon number in-formation can be encoded in the phase of the transmon and subsequently readout using a Ramsey sequence. Take the initial state of the transmon, cavity sys-tem to be |ψ⟩ = |g, n ⟩, where n is the photon number in the cavity mode. A resonant π 
+
+> 2
+
+-pulse on the trans-mon prepares it in a superposition, bringing the state to |ψ⟩ = 1√2 (|g, n ⟩ + |e, n ⟩). The system is left to evolve freely under its dispersive interaction for a time T . Dur-ing this interval, the transmon’s Bloch vector precesses around the equator at a rate χn . This evolution imprints a photon-number-dependent relative phase between the transmon basis states, 
+
+|ψ(T )⟩ = 1
+
+√2 (ei χ  
+
+> 2nT
+
+|g, n ⟩ + e−i χ  
+
+> 2nT
+
+|e, n ⟩). (22) A second π 
+
+> 2
+
+-pulse is then applied to the transmon after which the probability of the transmon being in |g⟩ or |e⟩
+
+is given by 
+
+Pg = sin 2  χ
+
+2 nT 
+
+
+
+, (23) 
+
+Pe = cos 2  χ
+
+2 nT 
+
+
+
+. (24) If we set the idle time between π 
+
+> 2
+
+−pulses to T = πχ ,the argument in the above expressions becomes nπ  
+
+> 2
+
+. In this case reading out the transmon will deterministically project it to |e⟩ or |g⟩ for even or odd photon numbers, respectively. Thus, this Ramsey sequence performs a pro-jective measurement of the cavity’s photon number par-ity.  
+
+> S5. PHOTON COUNTING THROUGH REPEATED MEASUREMENTS OF BINARY DIGITS
+
+In the previous section, we showed a Ramsey sequence which performs a parity measurement of the cavity’s pho-ton population, which corresponds to measuring the 0 th 
+
+bit in the binary expansion of n. We now generalize this protocol to measure up to an arbitrary bit of n, thereby enabling a fully projective photon number measurement [12]. To access higher order bits, we modify the idle time T
+
+between the π/ 2-pulses and by introducing a phase shift 
+
+ϕ to the axis about which we drive the final π/ 2-pulse. With this modification, the probabilities to measure the transmon in |g⟩ or |e⟩ become 
+
+Pg = sin 2  χ
+
+2 nT + ϕ
+
+
+
+, (25) 
+
+Pe = cos 2  χ
+
+2 nT + ϕ
+
+
+
+. (26) As was the case for the parity measurement, the goal is to choose the idle time T and phase ϕ such that the argument in the above expressions is an integer multiple of π, causing the measurement outcome of the transmon to be conditioned on the bit we wish to measure. To see how this can be achieved, we consider the binary expansion of n,
+
+n =
+
+> K
+
+X
+
+> i=0
+
+bi2i, bi ∈ { 0, 1}. (27) Suppose we wish to measure the m-th bit bm. Di-viding n by 2 m separates the contribution of this bit from others: bits > m make an even contribution to  
+
+> n
+> 2m
+
+while all bits ¡ m make a total fractional contribu-tion strictly less than one. Consequently, the parity of 
+
+⌊ n 
+
+> 2m
+
+⌋ = n 
+
+> 2m
+
+− Pm−1 
+
+> j=0
+
+bj 2j 
+
+> 2m
+
+is determined by the value of 
+
+bm.In the transmon-cavity system, dividing by 2 m is im-plemented by setting the idle time T = π 
+
+> 2mχ
+
+. The frac-tional contribution from the preceding bits is canceled by setting ϕ = − ˜nπ  
+
+> 2m
+
+, where ˜ n denotes the photon number revealed by measuring all bits before the m-th. With these parameters, the measurement probabilities of the transmon state become, 
+
+Pg = sin 2
+
+ n − ˜n
+
+2m π
+
+
+
+, (28) 
+
+Pe = cos 2
+
+ n − ˜n
+
+2m π
+
+
+
+, (29) which deterministically map |e⟩ to bm = 0 and |g⟩ to 
+
+bm = 1. Importantly, measuring the m-th bit requires prior measurements of all preceding bits since ϕ depends on 8
+
+FIG. 10. Protocol for measuring the photon number of an oscillator mode using a transmon. To measure the photon number of a storage mode, the mode is swapped into the buffer cavity using the SNAILmon (blue line). The photon number is then determined bitwise in the binary representation using consecutive Ramsey sequences (dashed box). In each sequence, the wait time between the π/ 2 pulses is adjusted and the phase of the final pulse is set using feedforward from previous bit measurements, and the transmon is reset to its ground state before the next sequence. The Bloch spheres show the evolution of the transmons Bloch vector during measurements of the 0th and 1st bits, conditioned on whether the bit is 0 (green) or 1 (orange). 
+
+˜n, necessitating real-time feedback. By performing these Ramsey sequences sequentially to measure all bits, we build up to a full photon number measurement. This repeated measurement protocol, shown in Fig. 10, is en-abled by the long lifetimes of the cavity modes, which ensures photon loss remains minimal over the duration of the sequence. 
+
+S6. PREPARING AN ENTANGLED STATE OF THE REFERENCE MODE AND THE MULTIMODE CAVITY REGISTER 
+
+To probe the bosonic MIPT through ancilla purifica-tion, we prepare an initial state in which a dedicated ancillary storage mode is maximally entangled with two orthogonal half-filled configurations of the system stor-age modes: 1√2 (|0101 ... ⟩ | 0⟩ + |1010 ... ⟩ | 1⟩). This section details a gate sequence using universal sideband control on the RAQM architecture to construct this entangled ”checkerboard” state [1]. We label the Hilbert space as 
+
+|s1s2s3..., ancilla , transmon; ij ⟩, where sk’s denote storage modes, the ancilla is a dedicated storage mode, the transmon is indexed by its three lowest energy states, |g⟩ , |e⟩ , |f ⟩, and i, j label the buffer cavity modes. Starting from |000 ..., 0; g; 0 , 0⟩, we sequentially apply gates labeled as Θ IG, where Θ is the pulse-angle, 
+
+G specifies the state manifold supported, and I indicates the subsystems targeted: q for transmon and i, j for the buffer modes. For example, πif 0g1 denotes a f 0 − g1sideband on buffer mode i, while π 
+
+> 2
+> qef
+
+denotes a π 
+
+> 2
+
+−pulse between the |e⟩ and |f ⟩ states of the transmon. The first set of gates prepares an entangled superposi-tion of single photon excitation states of the buffer modes to the |g⟩ , |e⟩ states of the transmon, 
+
+πjf 0g1 · πqge · πqef · πif 0g1 · π
+
+2
+
+> qef
+
+· πqge (30) Restricting attention to the transmon buffer subspace, 
+
+|transmon; ij ⟩, the state evolves as 
+
+|g; 00 ⟩ πqge 
+
+−−→ | e; 00 ⟩
+
+> π
+> 2
+> qef
+
+−−→ 1
+
+√2 (|e; 00 ⟩ + |f ; 00 ⟩) 
+
+> πif0g1
+
+−−−→ 1
+
+√2 (|e; 00 ⟩ + |g; 10 ⟩)
+
+> πqef
+
+−−→ 1
+
+√2 (|f ; 00 ⟩ + |g; 10 ⟩)
+
+> πqge
+
+−−→ 1
+
+√2 (|f ; 00 ⟩ + |e; 10 ⟩) 
+
+> πjf0g1
+
+−−−→ 1
+
+√2 (|g; 01 ⟩ + |e; 10 ⟩). (31) Using the tunable coupler, we swap buffer mode i
+
+into storage mode s1 and buffer mode j into s2, re-9sulting in the system state 1√2 (|1000 ... 000 , 0; e; 00 ⟩ +
+
+|010 ... 000 , 0; g; 00 ⟩). To populate the next pair of storage modes, we per-form a πqef -pulse to bring the state to 1√2 (|g; 00 ⟩ + |f ; 00 ⟩,then repeat the gate sequence in Eq. 30. This brings our transmon-buffer cavity subsystem to the same fi-nal state in Eq. 31. The repeated πqef and πqge pulses serve to ”shelve” the |g⟩ branch of the transmon’s su-perposition in the |e⟩ manifold, making it invisible to the proceeding f 0g1 sideband, rendering it insensitive to off-resonant driving during the proceeding f 0g1 side-band and preserving the coherence of the superposition state [1]. We again swap buffer mode i into s3 and buffer mode j into s4, resulting in the system state  
+
+> 1√2
+
+(|0101 ... 000 , 0; g; 00 ⟩ + |1010 ... 000 , 0; e; 00 ⟩). Repeating this second set of gates populates the storage cavity in an alternating pattern,  
+
+> 1√2
+
+(|010101 ... 10 , 0; g; 00 ⟩ + |1010101 ... 01 , 0; e; 00 ⟩). To end the protocol we perform πef −pulse fol-lowed by a |f 0⟩ − | g1⟩ sideband to transfer the excitation in the |e⟩ branch into buffer mode 
+
+i, then swap the excitation into the ancilla mode resulting in the desired checkerboard state:  
+
+> 1√2
+
+(|010101 ... 10 , 0; g; 00 ⟩ + |1010101 ... 01 , 1; g; 00 ⟩). We take the gate time for a πge -pulse to be 20 ns, πef -pulse to be 30 ns, and a πf 0g1 sideband to be 100 ns. The total time for state preparation is therefore 
+
+Tstate prep = 1 .9 μs + ( L/ 2) × 1.3μs, (32) where L is the system size.  
+
+> S7. HUBBARD-LIKE INTERACTIONS VIA SELECTIVE NUMBER DEPENDENT ARBITRARY PHASE GATES
+
+In this section we show how to achieve a Hubbard-like onsite interaction via selective number dependent arbi-trary phase (SNAP) gates enabled by a transmon dis-persively coupled to a cavity mode. The dispersive interaction discussed in Sec. S5 shifts the transmon’s transition frequency depending on the cavity’s photon population, allowing for independent control over the transmon within each photon number subspace. By driving the transmon at the photon number resolved frequencies and steering its Bloch vector along a closed path, an arbitrary phase can be imprinted on each Fock state, ˆS = X
+
+> n
+
+eiθ n |n⟩ ⟨ n| . (33) The SNAP gate is performed in two stages. First, a se-lective multitone drive applies photon-number-dependent phases phase shifts to the state while exciting the trans-mon. Second, a fast, nonselective π−pulse returns the transmon to its ground state. Optimal selectivity favors longer pulse times, though longer pulse times increase incoherent errors, while faster times increase coherent errors. Recent work has shown that SNAP gates can instead be executed rapidly, on timescales O( 1 
+
+> χ
+
+), where coherent errors can be system-atically suppressed through pulse optimization [13]. The multitone drive takes the form Ω( t) = X
+
+> n
+
+λn ei(ωnt+αn−∆ωnT / 2) , (34) where λn, ωn and αn are the photon number ( n) depen-dent drive amplitudes, frequencies, and phases, respec-tively, ∆ ωn = ωn − χn , and T is the pulse duration. Starting from an initial guess, the drive parameters are iteratively updated according to ∆λn = − ϵ(L)
+
+> n
+
+2T , ∆αn = −∆θn, ∆ωn = πϵ (T )
+
+> n
+
+2T .
+
+(35) Here ∆ θn is the phase error relative to the target θn,while ϵ(L) and ϵ(T ) quantify the longitudinal and trans-verse errors of the transmon’s final Bloch vector from the desired state. These errors are extracted by projecting the Bloch vector onto a tangent plane to the |e⟩ state on the Bloch sphere. Iterating the parameters according to the above rules perturbatively suppresses coherent errors while maintaining a fixed short gate time. We refer the reader to [13] for full details. Choosing the SNAP phases as 
+
+θn = U n 2, (36) we realize the non-Gaussian Hubbard gates of our model.  
+
+> S8. ERROR BUDGET FOR THE EXPERIMENT
+
+To model the impact of accumulation of errors, we sim-ulate the full circuit by composing a noisy quantum error channel, which includes relevant dissipation and decoher-ence, for its elementary operations. Each error channel is obtained by numerically simulating Lindbladian evo-lution on the minimal target subsystem of the operation. We use the QuTiP python package [14–16] to numerically time evolve the Lindblad master equation, ˙ρ(t) = − i
+
+ℏ [ ˆH(t), ρ (t)] + X
+
+> n
+
+12
+
+
+
+2 ˆCnρ(t) ˆC† 
+
+> n
+
+− ρ(t) ˆC† 
+
+> n
+
+ˆCn − ˆC† 
+
+> n
+
+ˆCnρ(t)
+
+
+
+.
+
+(37) where ρ(t) is the system’s density matrix at time t, ˆH(t)is the time dependent Hamiltonian of the system, and ˆCn = √γn ˆAn are collapse operators that describe cou-pling to the environment with strength γn.10 
+
+TABLE I. Hamiltonian parameters used in Lindblad simulations. Subsystem Parameter Definition Value Cavity–tunable coupler 
+
+g1 Coupling strength between cavity mode 1 and coupler 0.533 GHz 
+
+g2 Coupling strength between cavity mode 2 and coupler 0.592 GHz ∆1 Detuning between cavity mode 1 and coupler 2.261 GHz ∆2 Detuning between cavity mode 2 and coupler 2.590 GHz 
+
+gbs Effective beam-splitter coupling rate 0.500 MHz Cavity–transmon (SNAP) χ Dispersive shift between cavity mode and transmon -5.352 MHz Cavity–transmon (Parity) χ Dispersive shift between cavity mode and transmon -2.0 MHz TABLE II. Coherence time scales used in Lindblad simulations. Subsystem Parameter Definition Value Cavity T1 Intrinsic relaxation time 1.5(10) ms 
+
+na Thermal occupation 0.1% Cavity–tunable coupler 
+
+T C 
+
+> 1
+
+Coupler energy relaxation time 50 μs T Cϕ Coupler pure dephasing time 5 μs nC Coupler thermal occupation 2% 
+
+TTh Drive-induced thermal dephasing time 2.5 ms ˜T a1 
+
+> 1
+
+Effective relaxation time of cavity mode 1 562(824) μs 
+
+˜T a1 
+
+> ϕ
+
+Effective dephasing time of cavity mode 1 7 μs 
+
+˜T a2 
+
+> 1
+
+Effective relaxation time of cavity mode 2 584(874) μs 
+
+˜T a2 
+
+> ϕ
+
+Effective dephasing time of cavity mode 2 92 μs 
+
+Cavity–transmon qubit 
+
+T q 
+
+> 1
+
+Energy relaxation time 200 μs nq Thermal occupation 0.5% 
+
+T qϕ Pure dephasing time 100 μs 
+
+The quantum error channel is a superoperator U that maps an initial density matrix to a final density matrix under the corresponding noisy operation. A library of such superoperators for each operation is collected to compose a full end-to-end simulation. We consider four primary error channels corresponding to the main op-erations in our model. All relevant circuit and cavity parameters and coherence time scales used in simulation are included in Tables I, II. 
+
+1. Decay error 
+
+As a baseline, we simulate the photon loss and ther-mal excitation of a single idle cavity mode, modeled as a truncated harmonic oscillator evolving freely for a time T . The decay and heating processes are mod-eled by pκa(1 + na)ˆ a and √κanaˆa†, respectively, where 
+
+κa = 1 /T 1 is the cavity’s decay rate and na is the average thermal occupation. Throughout, we take T1 = 1 .5(10) ms and na = 0 .001. 
+
+2. Beam-splitter gate error 
+
+To model noisy BSFP operations, we simulate two cav-ity modes evolving under the beam-splitter Hamiltonian, with φ = 0. Though we do not explicitly model the SNAILmon tun-able coupler in our Lindblad simulations, we incorporate the inherited decay and decoherence of cavity modes from the coupler. The decay rate inherited by the cavity is ˜κa = κa +
+
+ g
+
+∆
+
+2
+
+κC , (38) where g is the coupling strength between the cavity mode and the tunable coupler, ∆ is the detuning between them, and κC is the decay rate of the coupler. In the white noise regime, the inherited dephasing rate by the cavity mode is 
+
+γa ≈
+
+ g
+
+∆
+
+4
+
+γC , (39) where γC is the pure dephasing rate of the coupler. How-ever, if the noise spectrum is pink and low frequency noise dominants, the inherited dephasing rate is instead, 
+
+γa ≈
+
+ g
+
+∆
+
+2
+
+γC . (40) As a moderate choice, we assume pink noise, consistent with experimental observations [9]. In the presence of an external drive, the dephasing of the tunable coupler man-ifests as heating, inducing additional dephasing. This thermal dephasing rate is given by 
+
+γTh ≈ nC κC , (41) 11 where nC is the average thermal population of the cou-pler. We take the total inherited dephasing rate by cavity mode to be, ˜γa =
+
+ g
+
+∆
+
+2
+
+γC + γTh , (42) with the collapse operator taken to be ˆ a†ˆa. We extract a noisy beam-splitter propagator with an average gate fidelity of 0 .997(0). Randomizing the phase φ amounts to changing the phase of the external charge drive on the SNAIL and thus does not separate a spererate error channel. To ob-tain a noisy BSRP gate with phase α, we simply apply the following unitary operation on the noisy BSFP gate, ˆVBSRP (φ = α) = eiα ˆa† ˆa ˆVBSFP (φ = 0) e−iα ˆa† ˆa, (43) where ˆ a is the destruction operator for one of the target modes.  
+
+> 3. Parity measurement error
+
+Parity measurement errors are modeled by simulating a single cavity mode dispersively coupled to a transmon qubit. Intrinsic photon loss and thermal excitation for the cavity are included as before, and transmon decay, thermal excitation, and dephasing are modeled using the collapse operators pκq (1 + nq )ˆ σ−, √κq nq ˆσ+, and √γ ˆσz ,respectively. We realize a parity measurement fidelity of 0.997(0). In addition to the intrinsic noise of the parity measurement, we model readout error by introducing a misassignment probability ϵ = 0 .004, corresponding to the fraction of measurements in which the outcome is flipped and the state collapses onto the incorrect parity.  
+
+> 4. SNAP gate error
+
+The noisy SNAP gates are modeled using the cavity transmon system as in the parity measurements and the same noise parameters. Averaged over random cavity su-perposition states, we obtain a noisy SNAP gate fidelity of 0 .997(0).  
+
+> 5. Full circuit simulation
+
+Having obtained propagators for cavity dissipation, beam-splitter gates, SNAP (on-site Hubbard) gates, and parity measurements, we now simulate full monitored cir-cuit realizations. This allows us to quantify how different noisy gates affect our ability to identify the transition. These simulations neglect correlated many-body dephas-ing errors and only include local decay and dephasing errors as described above. The full circuit consists of four cavity modes, a ded-icated ancilla mode, and a transmon qubit. The cav-ity modes are modeled as harmonic oscillators with a truncated local Hilbert space dimension of 3 so that at half-filling each oscillator can be occupied by a maxi-mum of two photons. The ancilla and transmon are modeled as two-level systems. The total Hilbert space is therefore indexed as mode 1 ⊗ mode 2 ⊗ mode 3 ⊗
+
+mode 4 ⊗ transmon ⊗ ancilla . The propagators obtained from each subsystem simulation are embedded into this larger Hilbert space. Since the noisy gates are modeled as superoperators, we require simulations on the doubled Hilbert space of dimension 104,976. The system is initialized in the globally en-tangled checkerboard state described in Sec.5,  
+
+> 1√2
+
+(|1010 , g, 1⟩ + |0101 , g, 0⟩). For any given layer of our circuit, the operations are applied in the following order: 
+
+Beam-splitter gates 
+
+• Apply beam-splitter propagators for a random du-rations ( θ) and phases φ (if BSRP) on modes (1,2) and (3,4), alternating with (1,2) to implement the brick-layer geometry with open boundary condi-tions. 
+
+• For every application of a beam-splitter gate, apply a decay propagator to the ancilla qubit as well as spectator modes to account for the idle time while performing the operation. 
+
+On-site Hubbard gates 
+
+For every cavity mode: 
+
+• Apply a 500 ns decay propagator to all modes and the ancilla to simulate idle time during the swap of the target mode to the buffer cavity. 
+
+• Apply the SNAP gate propagator to the target mode and transmon. 
+
+• Apply decay propagators to all spectator modes and the ancilla to simulate idle time during the SNAP operation. 
+
+• Reset the transmon ancilla to the ground state and apply a decay propagator to all modes and the an-cilla qubit to simulate idle time during the reset operation. 
+
+• Apply another 500 ns decay propagator to all modes and ancilla to simulate idle time for the swap of the target mode back to the storage cavity. 
+
+Parity Measurements 
+
+For each mode selected for measurements: 
+
+• Apply a 500 ns decay propagator to all modes and the ancilla qubit to simulate idle time during the swap the target mode to the buffer cavity. 12 
+
+• Apply the parity measurement propagator to the target mode and transmon. 
+
+• Apply decay propagators to all spectator modes and the ancilla to account for idle time during the parity measurement operation. 
+
+• Apply decay propagators to all modes, the trans-mon, and the ancilla to account for the idle time during readout. 
+
+• Collapse the transmon into the ground or excited state according to the appropriate Born probabili-ties obtained from its reduced density matrix. Ap-ply a 4% chance to flip the outcome and collapse onto the opposite parity, corresponding to a read-out error. 
+
+• Apply another 500 ns decay propagator too all modes and ancilla to simulate the idle time for the swap of the target mode back to the storage cavity. 
+
+• Repeat the step above for every mode that has to be measured. Two clarifying remarks: (1) Although we account for the idle time during swaps between storage and buffer cav-ities, we do not explicitly simulate the buffer mode, as doing so would significantly increase computational cost. (2) Transmon dissipation and decoherence are included in the SNAP gates and parity measurements. During other operations the transmon remains in its ground state and acts as a spectator, so additional decay modeling is un-necessary. The circuit begins with S scrambling layers consist-ing of BSFP or BSRP gates followed by on-site Hubbard gates but no measurements, which prepares a sufficiently random state (see Sec. S1.1). This is followed by M
+
+monitored layers where random parity measurements are also included at a rate p and on-site Hubbard gates are optional depending on the model. Including the overhead from swapping between the storage and buffer cavity and transmon reset, the effective experimental duration of a SNAP operation is TSNAP ∼ 1.32 μs, while a parity mea-surement takes Tparity ∼ 1.47 μs. The total experimental wall time is therefore 
+
+Twall = L ˜S T SNAP + LM p T parity + L τbs 
+
+2 (S + M ), (44) where ˜S = S for BSFP and BSRP monitored circuits and ˜S = S + M for monitored circuits with on-site Hubbard gates, and τbs = 0 .25 μs is the average duration of a ran-dom BSFP gate. For the end-to-end simulations reported here ( L = 4 and S = M = 8), at p = 1, this yields an average circuit duration of ∼ 104 μs (BSFP) and 152 μs(BSFP and on-site Hubbard). BSRP circuits share the same time scale as BSFP circuits since randomizing φ
+
+doesn’t cost any additional time. In Fig.11, we show the breakdown of the noisy gates on BSFP circuits with on-site Hubbard gates included in the monitored layers, as discussed in the main text. The simulations consider several individual noise channels in-cluding: noisy BSFP gates, noisy parity measurements, noisy SNAP gates (during scrambling), T1 decay, and the case where all noise sources are activate. For each noise channel, we report the excess residual entropy relative to the ideal dynamics. Consistent with the analysis dis-cussed in the main text, noisy parity measurements show a small residual entropy of 0.001(9) compared to noisy BSFP gates, noisy SNAP gates, and T1 decay which are the primary sources of residual entropy. For a cavity lifetime of T1 = 1 .5 ms, when individually activated, T1
+
+decay gives a residual entropy of 0.140(8), noisy BSFP gates give 0.099(7), and noisy SNAP gates give 0.090(8). Increasing the lifetime to T1 = 10 ms suppresses the con-tribution from the T1 decay, bringing its residual entropy down to 0.031(7), after which the BSFP and SNAP gate imperfections become the dominant error sources. When all noise channels are activated simultaneously, the resid-ual entropy is 0.251(8) for T1 = 1 .5 ms and 0.182(8) for 
+
+T1 = 10 ms. In the top row of Fig.12, we show the averaged en-tropy curves (over 1000 random samples) for BSFP cir-cuits with L = 4 modes and 16 layers (8 scrambling and 8 monitored). BSFP circuits follow similar qualitative lossy behavior to BSFP and on-site Hubbard gate model. The residual from noisy parity measurements is small at 0.001(9) compared to the rest of the noisy gates. The residual entropy from T1 decay decreases from 0.098(8) to 0.022(7) when the lifetime is increased from T1 = 1 .5ms to 10 ms. These residuals are smaller than those seen in BSFP and on-site Hubbard circuits due to the shorter wall times introduced from fewer SNAP operations. The residual error from noisy BSFP gates is similar to the BSFP with on-site Hubbard gate case at 0.096(7), and noisy SNAP gates (in scrambling) give 0.084(8). When all noise channels are active, the total residual entropy is 0.228(8) for T1 = 1 .5 ms and 0.174(8) for 10 ms. In the bottom row of Fig.12, we show the breakdown of the noisy gates on BSRP circuits where φ is random-ized in the beam-splitter gates. The residual entropies from T1 decay are consistent with the BSFP results with no on-site Hubbard gates since the wall times for both circuits are similar. The residuals from the noisy beam-splitter gates, SNAP gates (in scrambling), and parity measurements are slightly higher than their BSFP coun-terparts at 0.145(9), 0.126(9), and 0.017(9) respectively. When all noise channels are active, the total residual en-tropy is 0.284(9) at T1 = 1 .5 ms and 0.229(8) at T1 = 10 ms. 13 0.0 0.2 0.4 0.6 0.8 1.0 10 −110 0
+
+> SR
+
+T1 = 1.5 ms Full loss Ideal Only T1 decay Noisy parity measurements Noisy beam-splitter gates Noisy SNAP gates 0.0 0.2 0.4 0.6 0.8 1.0 
+
+p 
+
+> 10 −110 0
+> SR
+
+T1 = 10 ms 
+
+(a) 
+
+(b) 
+
+FIG. 11. (a) Averaged entropy curves for circuits with BSFP and on-site Hubbard gates with different noise sources active given T1 = 1 .5 ms: beam-splitter (orange) noise, parity measurement noise (red), SNAP gate noise (in scrambling) (purple), 
+
+T1 decay only (green), all sources of noise active (blue), and the ideal noiseless case (black). (b) Averaged entropy curves for same noise scenarios but with T1 = 10 ms. 0.0 0.2 0.4 0.6 0.8 1.0 
+
+p
+
+10 −110 0
+
+> SR
+
+T1 = 1.5 ms 0.0 0.2 0.4 0.6 0.8 1.0 
+
+p
+
+0−110 0
+
+T1 = 10 ms Full loss Ideal Only T1 decay Noisy parity measurements Noisy beam-splitter gates Noisy SNAP gates 
+
+T1 = 1.5 ms T1 = 10 ms 0.00 0.05 0.10 0.15 0.20 0.25 Residual Entropy  Full loss Only T1 decay Noisy beam-splitter gates Noisy parity measurements Noisy SNAP gates 0.0 0.2 0.4 0.6 0.8 1.0 
+
+p
+
+10 −110 0
+
+> SR
+
+T1 = 1.5 ms 0.0 0.2 0.4 0.6 0.8 1.0 
+
+p
+
+10 −110 0
+
+T1 = 10 ms 
+
+T1 = 1.5 ms T1 = 10 ms 0.00 0.08 0.16 0.24 0.32 0.40 Residual Entropy 
+
+(a) (b) (c) 
+
+(d) (e) (f) 
+
+FIG. 12. Analysis of individual noisy gates (Top row) BSFP circuits with no on-site Hubbard gates (a) Averaged entropy curves with different noise sources active given T1 = 1 .5 ms: beam-splitter (orange) noise, parity measurement noise (red), SNAP gate noise (in scrambling) (purple), T1 decay only (green), all sources of noise active (blue), and the ideal noiseless case (black). (b) Averaged entropy curves for same noise scenarios but with T1 = 10 ms. (c) Bar graph showing the excess residual entropy generated by different noise sources relative to the case where all noise sources are active. (Bottom row) BSRP circuits (d-f) Same plots as top row but for BSRP circuits.  
+
+> ∗
+
+co-first author  
+
+> †
+
+jed.pixley@physics.rutgers.edu  
+
+> ‡
+
+schakram@physics.rutgers.edu [1] J. Huang, T. J. DiNapoli, G. Rockwood, M. Yuan, P. Narasimhan, E. Gupta, M. Bal, F. Crisa, S. Garat-toni, Y. Lu, L. Jiang, and S. Chakram, Fast sideband control of a weakly coupled multimode bosonic memory (2025), arXiv:2503.10623 [quant-ph]. [2] F. Barratt, U. Agrawal, A. C. Potter, S. Gopalakrishnan, 14 
+
+and R. Vasseur, Transitions in the learnability of global charges from local measurements, Physical Review Let-ters 129 , 10.1103/physrevlett.129.200602 (2022). [3] U. Agrawal, J. Lopez-Piqueres, R. Vasseur, S. Gopalakr-ishnan, and A. C. Potter, Observing quantum measure-ment collapse as a learnability phase transition, Physical Review X 14 , 10.1103/physrevx.14.041012 (2024). [4] H. Singh, R. Vasseur, A. C. Potter, and S. Gopalakr-ishnan, Mixed-state learnability transitions in moni-tored noisy quantum dynamics (2025), arXiv:2503.10308 [quant-ph]. [5] H. Kim, A. Kumar, Y. Zhou, Y. Xu, R. Vasseur, and E.-A. Kim, Learning measurement-induced phase tran-sitions using attention (2025), arXiv:2508.15895 [quant-ph]. [6] A. Zabalo, M. J. Gullans, J. H. Wilson, S. Gopalakr-ishnan, D. A. Huse, and J. Pixley, Critical properties of the measurement-induced transition in random quantum circuits, Physical Review B 101 , 060301 (2020). [7] B. Skinner, J. Ruhman, and A. Nahum, Measurement-induced phase transitions in the dynamics of entangle-ment, Physical Review X 9, 10.1103/physrevx.9.031009 (2019). [8] C.-M. Jian, Y.-Z. You, R. Vasseur, and A. W. W. Lud-wig, Measurement-induced criticality in random quan-tum circuits, Physical Review B 101 , 10.1103/phys-revb.101.104302 (2020). [9] B. J. Chapman, S. J. De Graaf, S. H. Xue, Y. Zhang, J. Teoh, J. C. Curtis, T. Tsunoda, A. Eickbusch, A. P. Read, A. Koottandavida, S. O. Mundhada, L. Frunzio, M. Devoret, S. Girvin, and R. Schoelkopf, High-on-off-ratio beam-splitter interaction for gates on bosonically encoded qubits, 4, 020355. [10] Y. Lu, A. Maiti, J. W. Garmon, S. Ganjam, Y. Zhang, J. Claes, L. Frunzio, S. M. Girvin, and R. J. Schoelkopf, High-fidelity parametric beamsplitting with a parity-protected converter, nature communications 14 , 5767 (2023). [11] N. Frattini, U. Vool, S. Shankar, A. Narla, K. Sliwa, and M. Devoret, 3-wave mixing josephson dipole element, Applied Physics Letters 110 , 222603 (2017). [12] C. S. Wang, J. C. Curtis, B. J. Lester, Y. Zhang, Y. Y. Gao, J. Freeze, V. S. Batista, P. H. Vaccaro, I. L. Chuang, L. Frunzio, L. Jiang, S. Girvin, and R. J. Schoelkopf, Effi-cient multiphoton sampling of molecular vibronic spectra on a superconducting bosonic processor, Physical Review X 10 , 10.1103/physrevx.10.021060 (2020). [13] J. Landgraf, C. Flhmann, T. Fsel, F. Marquardt, and R. J. Schoelkopf, Fast quantum control of cavities us-ing an improved protocol without coherent errors (2024), arXiv:2310.10498 [quant-ph]. [14] N. Lambert, E. Gigu‘ere, P. Menczel, B. Li, P. Hopf, G. Su’arez, M. Gali, J. Lishman, R. Gadhvi, R. Agarwal, A. Galicia, N. Shammah, P. Nation, J. R. Johansson, S. Ahmed, S. Cross, A. Pitchford, and F. Nori, Qutip 5: The quantum toolbox in Python, Physics Reports 1153 ,1 (2026). [15] J. Johansson, P. Nation, and F. Nori, Qutip 2: A python framework for the dynamics of open quantum systems, Computer Physics Communications 184 , 1234 (2013). [16] J. Johansson, P. Nation, and F. Nori, Qutip: An open-source python framework for the dynamics of open quan-tum systems, Computer Physics Communications 183 ,1760 (2012).

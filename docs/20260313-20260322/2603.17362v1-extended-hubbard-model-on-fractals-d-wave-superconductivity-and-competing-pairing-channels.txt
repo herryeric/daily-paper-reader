@@ -1,0 +1,883 @@
+Title: Extended Hubbard model on fractals: d-Wave superconductivity and competing pairing channels
+
+URL Source: https://arxiv.org/pdf/2603.17362v1
+
+Published Time: Thu, 19 Mar 2026 00:46:03 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+## Extended Hubbard model on fractals: d-Wave superconductivity and competing pairing channels 
+
+Robert Canyellas, ∗ Mikhail I. Katsnelson, † and Andrey Bagrov ‡
+
+> 1
+
+Institute for Molecules and Materials, Radboud University, Heyendaalseweg 135, 6525AJ Nijmegen, The Netherlands 
+
+Fractal structures such as the Sierpi´ nski gasket have been predicted to enhance the critical tem-perature of s-wave superconductivity compared to regular crystals while maintaining macroscopic phase coherence of Cooper pairs. Here we extend this analysis to order parameters with non-trivial symmetry by studying the extended Hubbard model with nearest-neighbor attraction on fractal lattices. Using Bogoliubov-de Gennes mean-field theory, we find that the Sierpi´ nski carpet dramat-ically alters the competition between pairing channels: the predominant d-wave superconducting dome at half filling of the square lattice becomes unstable for the carpet, while at high and low fillings extended s-wave pairing gets strongly enhanced. We attribute this to geometric frustration of sign-changing order parameters by the fractal boundary structure. On the triangular Sierpi´ nski gasket, hybrid s+d+id states show critical temperature enhancement comparable to that previously observed for pure s-wave pairing. Our results demonstrate that fractal geometry acts as a selective filter for pairing symmetries, with the compatibility between order parameter structure and lattice topology determining which channels are stabilized or suppressed. 
+
+The experimental advances of the past decade in atom-ically precise nanostructure fabrication based on scan-ning tunneling microscopy [1], molecular assembly [2], supramolecular templating [3], and high-energy beam lithography [4] have made it possible to create atomic configurations qualitatively different from naturally oc-curring crystals. Fractal atomic lattices have attracted particular attention due to their unusual geometric prop-erties: non-integer Hausdorff dimension, discrete scale in-variance, and unconventional boundary structure where bulk and edge interpenetrate at all length scales [5–10]. Following extensive theoretical exploration of single-particle quantum mechanics on fractals [8–23], re-searchers have turned their attention to many-body cor-related phenomena [24–29]. In particular, magnetic prop-erties of the repulsive Hubbard model on fractal lattices have been studied using auxiliary-field quantum Monte Carlo, revealing ferrimagnetic order on the honeycomb Sierpi´ nski gasket [30]. In [31], Bose-Einstein condensa-tion on fractals and hyperbolic lattices have been stud-ied. Ref. [32] analyzed s-wave superconductivity in the attractive Hubbard model using Bogoliubov-de Gennes mean-field theory, finding that the triangular Sierpi´ nski gasket hosts superconductivity with substantially ele-vated Tc compared to the regular triangular lattice, while maintaining macroscopic phase coherence of the conden-sate. A key finding was that this enhancement occurs specifically for finitely ramified fractals (gasket) but not for infinitely ramified structures (carpet). The s-wave enhancement naturally raises the question: how does fractal geometry affect superconducting order parameters with non-trivial spatial structure? This ques-tion is particularly intriguing for d-wave pairing (such    
+
+> ∗robert.canellasnunez@ru.nl
+> †m.katsnelson@science.ru.nl
+> ‡andrey.bagrov@ru.nl
+
+as dx2−y2 or dxy ), where the order parameter changes sign across different bond directions. Order parameters with sign-changing structure are expected to be particu-larly sensitive to geometric constraints. Consider dx2−y2
+
+pairing on the square lattice: the order parameter ∆ ij 
+
+must be positive on horizontal bonds and negative on vertical bonds (or vice versa). This requires each site to participate in a “cross” configuration with four bonds (two positive and two negative) emerging in perpendicu-lar directions. When the lattice is transformed into the Sierpi´ nski carpet by systematically removing sites, many of these crosses are broken: bonds terminate at missing sites, or connect to regions where the local environment cannot support the required sign alternation. This cre-ates geometric frustration – an incompatibility between the preferred local symmetry of the order parameter and the constraints imposed by the fractal topology. In contrast, s-wave pairing (whether on-site or ex-tended to nearest neighbors) maintains the same sign everywhere and is therefore immune to such frustration. The fractal geometry may thus act as a filter, selectively suppressing sign-changing pairing channels while allow-ing uniform-phase channels to survive or even amplify. In this paper, we take the first step toward under-standing how fractal geometry affects superconducting order parameters with non-trivial symmetry. We study the extended Hubbard model with both on-site ( U ) and nearest-neighbor ( V ) attractive interactions: the mini-mal model capable of hosting d-wave pairing. Working within the Bogoliubov-de Gennes mean-field framework [33–35], we self-consistently solve for both the anomalous pairing amplitudes ∆ ij and charge densities ni. Since the attractive Hubbard model does not develop magnetic or-der, we do not include spin-density channels in the mean-field treatment. The paper is organized as follows. Section I intro-duces the extended Hubbard model and our computa-tional methods: Bogoliubov-de Gennes mean-field theory 
+
+> arXiv:2603.17362v1 [cond-mat.supr-con] 18 Mar 2026
+
+2(BdG) for moderate system sizes and the kernel polyno-mial method (KPM) [36] for larger fractals. Section II presents the core of the results, starting with benchmark-ing our methods against the known deterministic quan-tum Monte Carlo results [37], proceeding with phase di-agrams and critical temperatures for different fractal ge-ometries and pairing symmetries, and concluding with the superfluid stiffness analysis aimed to verify macro-scopic phase coherence [38]. Section IV concludes with a discussion of physical mechanisms, connections to related work, and future directions. 
+
+I. MODEL AND METHODS A. Extended Hubbard model 
+
+The tight-binding Hamiltonian of the extended Hub-bard model is 
+
+H = −t X
+
+> ⟨i,j ⟩,σ
+
+c† 
+
+> i,σ
+
+cj,σ − μ X
+
+> i,σ
+
+ni,σ 
+
++ U
+
+2
+
+X
+
+> i,σ
+
+ni,σ ni, ¯σ + V
+
+2
+
+X
+
+> ⟨i,j ⟩,σ,σ ′
+
+ni,σ nj,σ ′
+
+(1) where c† 
+
+> i,σ
+
+, ci,σ are the fermionic creation and annihila-tion operators, and ni,σ = c† 
+
+> i,σ
+
+ci,σ is the charge density at site i with spin index σ = {↑ , ↓} . The hopping pa-rameter representing the kinetic energy is given by t, the chemical potential μ, the on-site and nearest-neighbor interactions are U and V respectively (throughout the paper we will be mostly considering the regime of attrac-tion, U < 0, V < 0). The sum ⟨i, j ⟩ runs over nearest-neighbor pairs. The system is analyzed at a mean-field level; using Wick’s theorem the interaction terms are de-coupled obtaining the Hartree (H), the Fock (F), and the anomalous expectation value terms (A): 
+
+c† 
+
+> i,σ
+
+ci,σ c† 
+
+> j,σ ′
+
+cj,σ ′ → HH + HF + HA, (2) where 
+
+HH = c† 
+
+> i,σ
+
+ci,σ ⟨c† 
+
+> j,σ ′
+
+cj,σ ′ ⟩ + ⟨c† 
+
+> i,σ
+
+ci,σ ⟩c† 
+
+> j,σ ′
+
+cj,σ ′
+
+−⟨ c† 
+
+> i,σ
+
+ci,σ ⟩⟨ c† 
+
+> j,σ ′
+
+cj,σ ′ ⟩
+
+HF = −c† 
+
+> i,σ
+
+cj,σ ′ ⟨c† 
+
+> j,σ ′
+
+ci,σ ⟩ − ⟨ c† 
+
+> i,σ
+
+cj,σ ′ ⟩c† 
+
+> j,σ ′
+
+ci,σ 
+
++⟨c† 
+
+> i,σ
+
+cj,σ ′ ⟩⟨ c† 
+
+> j,σ ′
+
+ci,σ ⟩
+
+HA = c† 
+
+> i,σ
+
+c† 
+
+> j,σ ′
+
+⟨cj,σ ′ ci,σ ⟩ + ⟨c† 
+
+> i,σ
+
+c† 
+
+> j,σ ′
+
+⟩cj,σ ′ ci,σ 
+
+−⟨ c† 
+
+> i,σ
+
+c† 
+
+> j,σ ′
+
+⟩⟨ cj,σ ′ ci,σ ⟩,
+
+These mean-field contributions renormalize the system parameters with an effective site-dependent chemical potential and hopping amplitudes. In the absence of spin–orbit coupling and magnetic fields, spin is con-served, so spin-off-diagonal normal averages vanish, 
+
+⟨c† 
+
+> i,σ
+
+cj,σ ′ ⟩ = 0 for all i, j . We would like to note that in-cluding the Hartree term involving the nearest-neighbor interactions causes the BdG scheme to converge to a false optimum with either zero or complete filling. This can be bypassed by fixing the particle number explicitly and treating the chemical potential self-consistently. The re-sulting phase diagrams then match those computed with-out nearest-neighbor Hartree term, which we present in this paper. Substituting (2) into (1), we obtain the mean-field single-particle Hamiltonian given by 
+
+HM F = − X
+
+> ⟨i,j ⟩,σ
+
+t + ⟨c† 
+
+> j,σ
+
+ci,σ ⟩c† 
+
+> i,σ
+
+cj,σ 
+
++ X
+
+> ⟨i,j ⟩,σ
+
+ − μ + U ⟨ni, ¯σ ⟩ + V ⟨nj ⟩ni,σ 
+
++ X
+
+> i,j
+
+∆ij c†
+
+> i, ↑
+
+c† 
+
+> j, ↓
+
++ ∆ ∗ 
+
+> ij
+
+cj, ↓ci, ↑,
+
+(3) where we define the singlet-pairing potential as ∆ij =
+
+( U 
+
+> 2
+
+(⟨ci, ↑cj, ↓⟩ − ⟨ ci, ↓cj, ↑⟩) if i = j 
+
+> V
+> 2
+
+(⟨ci, ↑cj, ↓⟩ − ⟨ ci, ↓cj, ↑⟩) if i̸ = j. (4) Together with 
+
+ρij,σ = ⟨c† 
+
+> i,σ
+
+cj,σ ⟩, (5) these equations constitute the mean-field self-consistency conditions. Due to the inhomogeneity of the fractal geometry, a Fourier transform is not useful, and the problem must be treated in real space. We therefore employ two comple-mentary numerical approaches: self-consistent BdG cal-culations and the kernel polynomial method (KPM). The BdG approach provides full access to the quasiparticle spectrum and wavefunctions, but its computational cost grows rapidly with system size. To access larger fractal lattices, we use the KPM, which allows us to compute the mean fields without explicit diagonalization of the Hamiltonian. 
+
+B. Bogoliubov-de Gennes equations 
+
+The Bogoliubov–de Gennes equations are derived by performing a Bogoliubov canonical transformation: 
+
+ci,σ =
+
+> ′
+
+X
+
+> n
+
+(uniσ γn − σv n∗ 
+
+> iσ
+
+γ†
+
+> n
+
+)
+
+c† 
+
+> i,σ
+
+=
+
+> ′
+
+X
+
+> n
+
+(un∗ 
+
+> iσ
+
+γ† 
+
+> n
+
+− σv niσ γn),
+
+where the dashed sums run over positive-energy En > 0states in order to avoid double counting, and γ† 
+
+> n
+
+and γn
+
+are the corresponding quasiparticle creation and annihi-lation operators. In this basis, the effective Hamiltonian 3becomes diagonal and due to the absence of spin-mixing terms, the 4 N ×4N BdG Hamiltonian block-diagonalizes into two independent 2 N ×2N Hamiltonians correspond-ing to two equivalent Nambu sectors related by spin in-version. The problem then reduces to solving the eigen-value equation 
+
+ ˆh ˆ∆ˆ∆† −ˆh∗
+
+  un↑
+
+vn↓
+
+
+
+= En
+
+un↑
+
+vn↓
+
+
+
+(6) where ˆh includes the kinetic term, chemical potential, Hartree, and Fock shifts. We start from an initial guess for the order parameter ˆ∆0, diagonalize the effective Hamiltonian, and compute the mean fields defined in Eqs. (4) and (5), which after the change of basis read 
+
+ρij, ↑ = X
+
+> n
+
+un∗ 
+
+> i↑
+
+unj↑f (En), ρij, ↓ = X
+
+> n
+
+vn∗ 
+
+> i↓
+
+vnj↓f (−En),
+
+(7) 
+
+ni, ↑ = X
+
+> n
+
+|uni↑|2f (En), ni, ↓ = X
+
+> n
+
+|vni↓|2f (−En), (8) ∆new  
+
+> ij
+
+= Wi,j 
+
+4
+
+X
+
+> n
+
+h
+
+uni↑vn∗ 
+
+> j↓
+
++ unj↑v∗
+
+> i↓
+
+i
+
+tanh En
+
+2T
+
+!
+
+, (9) where the sums now run over the full BdG spectrum, including both positive- and negative-energy states. We iterate the self-consistency equations starting from an initial guess for the order parameter. At each iter-ation, the newly computed pairing field ∆ new is mixed with the previous step result according to ∆ k+1 = ∆ k −
+
+η(∆ k − ∆new ), where mixing parameter η ∈ [0 , 1] can be either fixed or adaptive. Inspired by learning rate scheduling in machine learning, we employ different up-dates methods such as Root Mean Square propagation (RMSprop) [39] and Adaprive Gradient (Adagrad) [40].  
+
+> C. Superfluid stiffness
+
+A finite pairing amplitude alone is not sufficient for su-perconductivity; Cooper pairs must also maintain global phase coherence. This coherence can be probed through the static current response to a uniform vector poten-tial. The corresponding quantity is the superfluid stiff-ness Ds [38], which measures the rigidity of the conden-sate phase and is given by 
+
+Ds
+
+π = Π xx (qx = 0 , q y → 0, ω = 0) − ⟨ Kx⟩, (10) where Π xx is the retarded current-current correlator and 
+
+⟨Kx⟩ the kinetic energy. For the derivation of this equa-tion, we refer to our last work where all terms are shown in the appendix [32].  
+
+> D. Chebyshev expansion and Kernel polynomial method
+
+The idea of this method is to expand the spectral density, which is the difference between the retarded and advanced Green’s functions ˆd(w) = ˆGR(ω) − ˆGA(ω), in terms of the Chebyshev polynomials ϕn(x) and computed the mean-fields through this quantity. We follow [41] where a more detailed description can be found. This orthogonal polynomials are defined in the real interval x ∈ [−1, 1] and therefore first the Hamiltonian needs to be rescaled to map its spectrum into this range. The bounds of the spectrum Emax and 
+
+Emin can be estimated by a Lanczos procedure however it is enough if we define them as Emax = 10 t − μ and 
+
+Emin = −10 t + μ. The linear transformation is then given by ˜H = ( H − Ib)/a with a = ( Emax − Emin )/2 and 
+
+b = ( Emax + Emin )/2. By defining the 2 N unite component vectors e(i) and 
+
+h(i) that have components [ e(i)] γ = δi,γ and [ h(i)] γ =
+
+δi+N,γ the projection of the rescaled Hamiltonian onto the n + 1 Chebyshev polynomial is given by the recursive relation 
+
+pn+1 = 2 ˜Hpn − pn−1 (n ≥ 1) , (11) with p0 = p and p1 = ˜Hh. The mean fields can be computed then by the following expression 
+
+⟨c† 
+
+> i
+
+cj ⟩ = − 12πi 
+
+Z ∞−∞ 
+
+f (ω)e(j)T ˆd(ω)en(i)=
+
+> ∞
+
+X
+
+> n=0
+
+e(j)T en(i) Tn
+
+wn
+
+,
+
+(12) 
+
+⟨cicj ⟩ = − 12πi 
+
+Z ∞−∞ 
+
+f (ω)e(j)T ˆd(ω)hn(i)=
+
+> ∞
+
+X
+
+> n=0
+
+e(j)T hn(i) Tn
+
+wn
+
+,
+
+(13) where f (ω) = 1  
+
+> eβω +1
+
+is the Fermi-Dirac distribution, 
+
+ωn = π 
+
+> 2
+
+(1 + δn, 0), and 
+
+Tn =
+
+Z 1
+
+> −1
+
+dxf (ax + b)W (x)ϕn(x) (14) with W (x) = 1√1+ x2 . At the zero temperature limit the integrals of eq. 14 can be solved analytically and are given by 
+
+T0 = π − arccos( −b/a ),
+
+Tn̸=0 = − sin[ n arccos( −b/a )] 
+
+n . (15) 4 
+
+> E. Fixing order parameter symmetry
+
+To explore different pairing symmetries within our self-consistent framework, we employ symmetry-constrained ans¨ atze and tailored initial seeds for the order parameter ∆i,j . This protocol allows us to systematically explore how fractal geometry affects the stability of different pair-ing symmetries and whether certain lattice structures fa-vor specific order parameter channels over others. For example, for the purpose of stability diagnostic of the 
+
+d-wave pairing, we enforce ∆ ii = 0 throughout the self-consistent cycle, suppressing any on-site pairing ampli-tude, and ∆ ij for the nearest neighboring sites i and j
+
+are initialized with a sign structure reflecting the d-wave nodal pattern: positive along bonds in the x-direction and negative along bonds in the y-direction (or vice versa). This constraint ensures that the converged so-lution, if stable, exhibits the characteristic sign-changing structure of d-wave order. However, while the Bogoliubov–de Gennes equations can in principle admit multiple self-consistent solutions corresponding to local extrema of the mean-field free en-ergy, on fractal lattices we rarely find stable ground states with purely d-wave or purely chiral d + id order. When-ever an s-wave component is allowed, the iterations con-verge to a mixed state with lower free energy. Specifi-cally: 
+
+• For extended s-wave pairing, which differs from pure on-site s-wave by incorporating nearest-neighbor correlations without introducing sign changes, we allow both on-site and nearest-neighbor components, but initialize all elements with non-negative values. This permits the forma-tion of Cooper pairs with both on-site and inter-site character while maintaining a uniform phase across all bonds. 
+
+• For mixed s + d states, we allow both on-site and nearest-neighbor pairing amplitudes, and construct the initial seed as a superposition of s-wave and 
+
+d-wave components. On fractal lattices, the self-consistent solution always retains a finite extended 
+
+s-wave component. This indicates that neither a purely d-wave state nor a combination of local (on-site) s-wave and d-wave order parameters is ener-getically stable. 
+
+• For s + d + id states, we initialize a complex-valued order parameter in which one of the d-wave compo-nents acquires a relative phase with respect to the other, while the s-wave component is chosen to be real.   
+
+> II. RESULTS A. Square and carpet at the neutrality point
+
+Before exploring the full parameter space of the extended Hubbard model, we validate our numerical implementation and establish appropriate interaction strengths for subsequent analysis. This benchmark serves two purposes. First, we reproduce known quantum Monte Carlo results for the U -V phase diagram of the ex-tended Hubbard model on the square lattice at half-filling and fixed temperature T = 0 .001 [37]. This confirms that our mean-field treatment captures the essential physics despite its approximations. Second, since the remain-der of this work focuses on specific values of U and V ,we must verify that these parameters lie within a regime supporting superconductivity rather than phase separa-tion, which can emerge when both U and V become too strongly attractive [42]. Figure 1 shows the U -V phase diagram at half-filling for both the regular square lattice (left panel) and the Sierpi´ nski carpet of generation G = 2 (right panel). For the square lattice, we recover the expected phase struc-ture: s-wave pairing dominates at moderate on-site at-traction with weak or repulsive nearest-neighbor interac-tion, while dx2−y2 pairing becomes stable when nearest-neighbor attraction V is sufficiently strong. At the strongest attraction strengths, charge density wave order appears, signaling proximity to phase separation. This phase diagram agrees qualitatively with quantum Monte Carlo calculations [37], confirming that our Bogoliubov-de Gennes mean-field approach captures the correct com-petition between pairing symmetries and the onset of charge ordering. The Sierpi´ nski carpet phase diagram (right panel of Fig. 1) reveals a striking modification of the phase structure. The s-wave region shrinks dramatically, while the d-wave phase disappears entirely, replaced by charge density wave order across much of the parameter space where d-wave pairing was stable on the regular lattice. This suppression of d-wave superconductivity can be at-tributed to the geometric frustration inherent in the car-pet structure. As discussed in App.A, d-wave pairing on the square lattice relies on “elementary crosses” formed by four bonds emerging from each site, with the order parameter alternating sign between perpendicular direc-tions. The systematic removal of sites in the Sierpi´ nski carpet construction breaks many of these crosses, frus-trating the emergence of coherent d-wave order. In con-trast, s-wave pairing, being isotropic, proves more re-silient to the geometric constraints, though even it be-comes less stable relative to charge ordering. Based on these results, for the detailed T -μ phase dia-grams presented in subsequent sections, we select U = −1and V = −1, which places the system within the super-conducting regime on the regular lattice while remain-ing well away from the phase separation boundary. This choice allows us to explore how fractal geometry modifies 5superconducting pairing without considering the compet-ing charge-ordered phases dominating other parts of the phase diagram.  
+
+> B. Sierpinksi carpet
+
+Having established the U − V parameter regime that supports superconductivity, we now examine how fractal geometry affects the competition between different pair-ing symmetries. Fig. 2 shows the T − μ phase diagram for both the regular square lattice (left panel) and the Sierpi´ nski carpet of generation G = 3 (right panel) at fixed U = −1 and V = −1. To capture the competi-tion between pairing channels, we allow both extended 
+
+s-wave (on-site plus nearest-neighbor with uniform sign on a given coordination shell) and dx2−y2 components in the order-parameter ansatz. On the regular square lattice, the phase diagram ex-hibits a pronounced central dome dominated by d-wave pairing, extending to critical temperatures Tc ≃ 0.14 t.The d-wave condensate reaches its maximum amplitude ∆ ≃ 0.06 near optimal doping. In contrast, extended 
+
+s-wave pairing appears only in two weak domes at the edges of the superconducting region, with considerably lower critical temperatures and smaller condensate am-plitudes. This hierarchy reflects the energetic favorability of dx2−y2 pairing for the chosen interaction parameters on the square lattice, where the nearest-neighbor attraction 
+
+V promotes sign-changing order parameters that maxi-mize pairing on perpendicular bonds. The Sierpi´ nski carpet phase diagram reveals a substan-tial restructuring of this hierarchy. The central d-wave dome present on the regular lattice is no longer realized as a stable pure d-wave solution in the corresponding pa-rameter region. Instead, the dominant superconducting state develops a predominantly sign-definte extended-s
+
+character, Fig.5 (left panel), and its critical temperature increases relative to the regular lattice case. The result-ing condensate reaches amplitudes comparable to those of the d-wave phase on the regular lattice and persists across a broad doping range. This restructuring can be understood in terms of the bond-level disruption introduced by the carpet construc-tion. As discussed in App.A, the systematic removal of sites breaks the local four-bond motifs that support a coherent dx2−y2 sign alternation between perpendicular directions. On many sites, the coordination shell is in-complete, and the local orthogonality between extended 
+
+s and d channels is lost. As a result, the self-consistent solution reorganizes into a state in which channel mix-ing occurs at the local level alternating the global sign structure of the condensate. Interestingly, while our previous work showed that Tc
+
+enhancement for purely on-site s-wave superconductivity required finitely ramified fractals such as the Sierpi´ nski gasket, here we observe a substantial increase of the ex-tended s-wave superconducting Tc even on the infinitely ramified carpet. This indicates that the distinction be-tween finite and infinite ramification depends sensitively on the symmetry and spatial structure of the pairing channel, and that the interplay between order-parameter symmetry and fractal topology is more subtle than pre-viously anticipated. Only if s-wave component is strictly not allowed, and pure d-wave symmetry is imposed on the level of initial seed, the BdG scheme converges to a profile that resem-bles extended s-wave on incomplete local coordination stars, while the global structure of the order parameter retains a sign-changing pattern across the lattice, App. B. In particular, positive and negative bond amplitudes are related by global symmetry operations of the under-lying square lattice rather than by local 90 ◦ rotations of an intact four-bond “cross”. In this sense, the supercon-ducting state on the carpet is a geometrically modified solution whose global transformation properties remain consistent with a d-wave representation, even though its local structure is reshaped by bond removal.  
+
+> C. Triangular Sierpinksi gasket
+
+We now turn to the triangular Sierpi´ nski gasket and analyze how the fractal geometry modifies the phase di-agram in the presence of extended s-wave and d-wave pairing channels, Fig. 3. On the regular triangular lattice, the nearest-neighbor 
+
+d-wave channel spans a two-dimensional irreducible rep-resentation, allowing for both real d-wave and chiral d+id 
+
+states. Extended s-wave competes with this channel but does not trivially dominate. The superconducting in-stability is therefore controlled by the interplay between a fully symmetric component and a two-dimensional d-subspace. Upon constructing the Sierpi´ nski gasket, two out of six bonds are removed at many lattice sites, leading to locally incomplete coordination shells. Like in the previ-ous cases, such bond removal generically breaks the or-thogonality between extended s and d components at the level of a single coordination star and modifies their rel-ative spectral weights. Importantly, however, the d sec-tor forms a two-dimensional irreducible representation of the lattice symmetry group, corresponding to the dx2−y2
+
+and dxy channels. Bond removal therefore induces mix-ing between these channels rather than eliminating the d
+
+subspace altogether. The resulting self-consistent solutions on the gasket do not realize a pure d or pure d + id phase. Instead, the stable superconducting state acquires a mixed character, combining extended s with both d components. In prac-tice, the order parameter develops a finite complex struc-ture, reflecting the coexistence of real and imaginary d
+
+components together with a symmetric contribution. The phase diagram exhibits a clear enhancement of su-perconductivity relative to the regular lattice. The criti-cal temperature increases across a broad range of chem-6
+
+FIG. 1: U − V phase diagram of the extended Hubbard model on the square (left) and Sierpinski carpet (right) lattices at half-filling. 3.0 0.5 2.0       
+
+> μ
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> T
+> Thermodynamic limit
+> 3.0 0.5 2.0
+> μ
+> Square lattice flake
+> 3.0 0.5 2.0
+> μ
+> Carpet G= 3
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> ∆
+
+FIG. 2: Phase diagrams of the thermodynamic limit of the square lattice at the left, a square lattice flake with side 
+
+Nx = Ny = 27 at the center, and the G = 3 Carpet at the right. ical potential, and the magnitude of the gap is corre-spondingly larger. At the same time, the superconduct-ing domes become slightly narrower in chemical potential compared to the regular triangular lattice, although this reduction is modest. This behavior contrasts with our earlier results for purely on-site s-wave pairing, where the dome narrowing on fractal geometries was substan-tially stronger. Overall, the triangular Sierpi´ nski gasket does not sup-press superconductivity; rather, it reshapes the com-petition between pairing channels, promoting a mixed 
+
+s + d + id state with enhanced gap amplitude and ele-vated critical temperature over a somewhat reduced dop-ing window.  
+
+> D. Hexagonal Sierpinksi gasket
+
+We finally consider the Sierpi´ nski gasket constructed from the honeycomb lattice. In contrast to the square and triangular cases, the superconducting behavior here remains structurally simple. On the regular honeycomb lattice, the phase diagram exhibits two symmetric superconducting domes centered around a characteristic value of the chemical potential (approximately μ ≃ − 0.5 for the parameters considered), Fig.4. The symmetry of these domes reflects the bipar-tite nature of the lattice and the associated particle–hole structure of the spectrum. Upon constructing the Sierpi´ nski gasket, this symme-try is preserved: the superconducting domes remain cen-tered at the same chemical potential, and no noticeable 70 1 2
+
+μ  
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> T
+> Thermodynamic limit
+> 012
+
+μ  
+
+> Triangular lattice flake
+> 012
+
+μ  
+
+> Triangular Gasket G= 4
+> 0.00
+> 0.03
+> 0.06
+> 0.09
+> ∆
+
+FIG. 3: Phase diagrams of the thermodynamic limit of the triangular lattice at the left, an equilateral triangle flake with triangular lattice base with side Nx = 33 at the center, and the G = 4 Sierpi´ nski gasket at the right. 2.0 0.5 1.0 
+
+μ  
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> T
+> Thermodynamic limit
+> 2.0 0.5 1.0
+
+μ  
+
+> Honeycomb lattice flake
+> 2.0 0.5 1.0
+
+μ  
+
+> Honeycomb Gasket G= 4
+> 0.00
+> 0.03
+> 0.06
+> 0.09
+> 0.12
+> ∆
+
+FIG. 4: Phase diagrams of the thermodynamic limit of the honeycomb lattice at the left, an equilateral triangle flake with honeycomb base at the center, and the G = 4 Sierpi´ nski gasket at the right. shift or asymmetry is introduced by the fractal geometry. This robustness is consistent with the underlying bipar-tite structure, which remains intact despite the removal of sites. The primary effect of fractalization in this case is a quantitative enhancement of superconductivity. Both the critical temperature Tc and the zero-temperature gap magnitude increase relative to the regular lattice. Un-like the square and triangular geometries, we do not ob-serve a nontrivial competition between pairing channels or the emergence of mixed states. The superconduct-ing order parameter retains a uniform s-wave character across the lattice, without additional sign structure or complex components. Thus, on the honeycomb-derived Sierpi´ nski gasket, fractal geometry enhances superconductivity while pre-serving the symmetry and qualitative structure of the pairing state. 
+
+E. Phase stiffness 
+
+To quantify the degree of global phase coherence of the self-consistent superconducting states, we compute the phase stiffness by applying a weak electric field along the x axis and extracting the resulting current response. The spatial maps in Fig. 6 show that the stiffness re-mains considerable in all cases, indicating that the con-densate can sustain a coherent response across the entire system. At the same time, the stiffness is not equally uniform in space for the different geometries. For the hexagonal gasket we find a comparatively homogeneous stiffness profile. By contrast, for the Sierpi´ nski carpet and the triangular gasket the stiffness is more spatially structured, with clear variations across the sample. Although the self-consistent pairing amplitude is fi-nite and the computed phase stiffness remains sizable for all geometries considered, this does not by itself guarantee macroscopic phase coherence. Establishing 8true long-range or quasi-long-range order requires map-ping the low-energy sector onto an effective Josephson 
+
+XY model [43] and analyzing vortex excitations beyond mean-field theory. For the Sierpi´ nski gasket in the ther-modynamic limit, it is known that the vortex self-energy remains finite and no Berezinskii–Kosterlitz–Thouless transition occurs; correlations decay exponentially at any finite temperature. In that strict infinite-fractal limit, a nonzero mean-field stiffness therefore does not imply al-gebraic order [44]. However, our focus is on fractal structures of finite generation, which are the physically realizable systems in nanofabrication experiments. In such systems the hierar-chical geometry introduces a finite maximal length scale, cutting off the infrared proliferation of vortices that de-stroys quasi-long-range order in the infinite gasket. As a result, the effective phase dynamics differs qualitatively from the thermodynamic-limit scenario. Ongoing numer-ical analysis of the corresponding classical XY model on finite-depth gaskets indicates that phase coherence can persist up to finite temperatures set by the largest structural scale. Furthermore, at strictly zero temper-ature the relevant problem is that of the quantum XY 
+
+model. Preliminary results show that quantum fluctu-ations do not eliminate algebraic order in the ground state for finite ramification depth. This suggests that the enhanced pairing amplitudes found at the mean-field level can translate into physically meaningful supercon-ducting states once realistic system size and dimensional crossover effects are taken into account. A detailed anal-ysis of these phase-fluctuation effects will be presented in a separate work.  
+
+> III. DISCUSSION
+
+In this work, we studied how fractal geometry affects superconducting order parameters with different symme-tries in the extended Hubbard model. Our results show that the stability of pairing channels depends sensitively on how the spatial structure of Cooper pairs adapts to the geometric constraints imposed by the lattice. Frac-talization both renormalizes transition temperatures and reorganizes the internal structure of the superconducting state. The contrast between the regular square lattice and the Sierpi´ nski carpet illustrates this most clearly. On the regular square lattice with nearest-neighbor attrac-tion, dx2−y2 pairing dominates, forming a broad super-conducting dome with high critical temperature, while extended s-wave appears only as weak satellite domes. On the Sierpi´ nski carpet, however, the pure d-wave phase is no longer stabilized as an isolated solution in the corre-sponding parameter region as long as s-wave is in princi-ple allowed. Instead, the self-consistent state transforms into an extended-s component at the level of local co-ordination shells, and its critical temperature increases relative to the regular lattice case. In this sense, the carpet does not simply suppress superconductivity but rather reorganizes the dominant pairing channel. This restructuring can be traced to the bond-level disruption introduced by the carpet construction. Re-moving sites breaks the local orthogonality between extended-s and d components, leading to channel mixing on incomplete coordination stars. The superconducting solution therefore reflects a compromise between local ge-ometric constraints and global symmetry requirements. Extended-s–like components, being less sensitive to the presence of perpendicular bond pairs, gain relative weight in the fractal geometry. For the triangular lattice and its Sierpi´ nski gasket counterpart, the situation is qualitatively different. On the regular triangular lattice, nearest-neighbor d-wave pairing spans a two-dimensional irreducible representa-tion, allowing both real d and chiral d + id states. On the gasket, bond removal again induces local mixing between extended-s and d components, but the two-dimensional 
+
+d-subspace remains active. The stable superconducting state acquires a mixed s + d + id character rather than collapsing into a purely symmetric solution. We observe an enhancement of both the critical temperature and the gap amplitude relative to the regular triangular lattice, while the superconducting domes narrow only modestly in chemical potential. In this case, fractal geometry reshapes the balance between pairing channels without eliminating the underlying d-wave structure. The honeycomb-derived Sierpi´ nski gasket presents a simpler scenario. On the regular honeycomb lattice, superconductivity forms two symmetric domes centered around a characteristic chemical potential, consistent with the bipartite structure of the lattice. This symmetry is preserved upon fractalization: the domes remain cen-tered at the same chemical potential, with no significant shift or asymmetry. The primary effect of the gasket geometry is quantitative rather than qualitative: both the critical temperature and the gap magnitude increase, while the pairing symmetry remains purely s-wave. In this case, fractal geometry enhances superconductivity without fundamentally altering the structure of the or-der parameter. Taken together, these results show that the distinction between finite and infinite ramification, which proved central in our earlier study of purely on-site s-wave pair-ing, becomes more nuanced when anisotropic channels are included. The infinitely ramified Sierpi´ nski carpet, which did not enhance pure on-site s-wave pairing in isolation, significantly enhances extended-s–dominated states when competing against d-wave order. Conversely, the finitely ramified triangular gasket supports enhance-ment of a mixed s+d+id phase. Fractal geometry there-fore acts as a symmetry-selective environment: rather than uniformly boosting or suppressing superconductiv-ity, it reshapes the competition between pairing channels in a symmetry-dependent manner. Our calculations also show that the superfluid stiffness remains finite throughout the superconducting regions of 9x 
+
+> y
+> xx
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> Re(  )
+> 0.10
+> 0.05
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> Re(  )
+> 0.05
+> 0.00
+> 0.05
+> 0.10
+> Re(  )
+
+FIG. 5: Profiles of the order parameter for the different geometries/pairing states at T = 0 .001 and μ = −2.7, 
+
+μ = 1 .15, and μ = 1 shown in panels (a)–(c) respectively. Circular markers shows on-site superconductivity and the edge color corresponds to the extended component. x
+
+> y
+
+x x
+
+> 0.4
+> 0.8
+> 1.2
+> 1.6
+> ∆
+
+FIG. 6: Phase stiffness for the different geometries/pairing states at T = 0 .001 and μ = −2.7, μ = 1 .15, and μ = 1 shown in panels (a)–(c) respectively. all considered geometries. However, a finite mean-field stiffness does not automatically imply true long-range order. According to the Mermin–Wagner theorem, con-tinuous symmetries cannot be spontaneously broken at finite temperature in dimensions d ≤ 2. Fractal lattices are characterized by non-integer Hausdorff dimensions, 
+
+dH ≃ 1.58 for the Sierpi´ nski gasket and dH ≃ 1.89 for the Sierpi´ nski carpet, both below two. In principle, this places them in a regime where phase fluctuations may strongly suppress or even eliminate finite-temperature long-range order in the thermodynamic limit. At the same time, the mechanisms responsible for the enhancement of the pairing amplitude such as modified density of states, boundary-dominated spectra, and sup-pression or reshaping of competing channels are distinct from those governing phase coherence. Two additional considerations are therefore important. First, our analy-sis focuses on finite-generation fractals of experimentally relevant size, where macroscopic coherence can persist at finite temperature. Second, mapping the low-energy sector onto an effective Josephson XY model suggests that finite-depth structures can sustain quasi-long-range order, while at strictly zero temperature quantum fluctu-ations in the corresponding quantum XY model do not destroy algebraic order. Thus, although phase fluctua-tions remain a central open problem beyond mean-field theory, the geometric enhancement of pairing amplitudes we observe is not trivially nullified by dimensional argu-ments alone. Several directions for future work naturally follow. To address phase fluctuations and correlation effects be-yond mean field, more advanced methods are required. Real-space extensions of the GW [45] or constrained ran-dom phase approximation [46] could incorporate screen-ing and vertex corrections while respecting fractal geom-etry. Neural quantum states [47] and modern variational Monte Carlo techniques offer another promising route for treating both strong correlations and irregular lattices. It would also be valuable to investigate the repulsive Hub-bard model on fractal geometries, where pairing emerges from exchange processes rather than direct attraction, and the interplay with lattice topology may differ quali-tatively. In our recent work on hyperbolic lattices [48], we 10 demonstrated that modifying boundary geometry and lattice symmetries can dramatically enhance supercon-ductivity by increasing the number of low-energy states. Fractals share with hyperbolic lattices the property that boundary effects dominate over bulk in the thermo-dynamic limit. The highly structured boundaries of Sierpi´ nski geometries may therefore provide additional avenues for tuning the low-energy spectrum. Systematic exploration of boundary terminations, defect patterns, or hybrid structures combining fractal and crystalline mo-tifs could reveal further routes toward optimizing Tc.Experimentally, two main approaches appear promis-ing. Scanning tunneling microscopy techniques [49], which have already been used to assemble fractal struc-tures atom by atom [1], could directly probe the spa-tial profile of the superconducting gap and test the pre-dicted competition between pairing channels. Alterna-tively, high-resolution lithography [4] may enable fabri-cation of fractal patterns in thin superconducting films, allowing transport and thermodynamic measurements of phase diagrams on engineered geometries. More broadly, we have focused here on Sierpi´ nski struc-tures, but the space of fractal geometries is vast. An es-pecially interesting direction would be to study periodic lattices constructed from finite-depth fractal supercells [50]. Such systems would interpolate between fully frac-tal and conventional crystalline structures, allowing sys-tematic investigation of how much fractality is required to achieve enhancement and whether universal scaling relations connect geometric measures such as Hausdorff dimension, ramification index, or boundary-to-bulk ratio to superconducting observables like Tc, gap magnitude, and stiffness. The central lesson of this work is that geometry and order-parameter symmetry are deeply intertwined. Frac-tal lattices reshape the symmetry landscape in which pairing develops leading to considerable restructuring of the phase diagram. By selectively stabilizing some chan-nels and reshaping others, lattice geometry itself becomes a design parameter offering a complementary route to engineering superconducting states beyond conventional tuning of interactions and doping. 
+
+[1] S. N. Kempkes, M. R. Slot, S. E. Freeney, S. J. Zeven-huizen, D. Vanmaekelbergh, I. Swart, and C. M. Smith, Nature Physics 15 , 127 (2019). [2] J. Shang, Y. Wang, M. Chen, J. Dai, X. Zhou, J. Kuttner, G. Hilt, X. Shao, J. M. Gottfried, and K. Wu, Nature Chemistry 7, 389 (2015). [3] C. Li, X. Zhang, N. Li, Y. Wang, J. Yang, G. Gu, Y. Zhang, S. Hou, L. Peng, K. Wu, and D. Nieckarz, Journal of the American Chemical Society 139 , 13749 (2017). [4] F. De Nicola, N. S. P. Purayil, D. Spirito, M. Mis-cuglio, F. Tantussi, A. Tomadin, F. De Angelis, M. Polini, R. Krahne, and V. Pellegrini, ACS Photonics 5, 2418 (2018). [5] Y. Gefen, B. B. Mandelbrot, and A. Aharony, Physical Review Letters 45 , 855 (1980). [6] Y. Gefen, A. Aharony, Y. Shapir, and B. B. Mandelbrot, Journal of Physics A: Mathematical and General 17 , 435 (1984). [7] Y. Gefen, A. Aharony, and B. B. Mandelbrot, Journal of Physics A: Mathematical and General 17 , 1277 (1984). [8] A. A. Iliasov, M. I. Katsnelson, and S. Yuan, Physical Review B 99 , 075402 (2019). [9] A. A. Iliasov, M. I. Katsnelson, and S. Yuan, Physical Review B 102 , 075440 (2020). [10] Q. Yao, X. Yang, A. A. Iliasov, M. I. Katsnelson, and S. Yuan, Physical Review B 107 , 115424 (2023). [11] E. Domany, S. Alexander, D. Bensimon, and L. P. Kadanoff, Physical Review B 28 , 3110 (1983). [12] N. Laskin, Physical Review E 66 , 056108 (2002). [13] P. Carlos, S. Lara, R. Portugal, and S. Boettcher, Inter-national Journal of Quantum Information 11 , 1350069 (2013). [14] E. van Veen, A. Tomadin, M. Polini, M. I. Katsnelson, and S. Yuan, Physical Review B 96 , 235438 (2017). [15] K. Wang, Y. Liu, and T. Liang, Physica B: Condensed Matter 498 , 33 (2016). [16] X.-Y. Xu, X.-W. Wang, D.-Y. Chen, C. M. Smith, and X.-M. Jin, Nature Photonics 15 , 703 (2021). [17] S. Manna, S. Nandy, and B. Roy, Physical Review B 
+
+105 , L201301 (2022). [18] M. Brzezi´ nska, A. M. Cook, and T. Neupert, Physical Review B 98 , 205116 (2018). [19] S. Pai and A. Prem, Physical Review B 100 , 155135 (2019). [20] R. Canyellas, C. Liu, R. Arouca, L. Eek, G. Wang, Y. Yin, D. Guan, Y. Li, S. Wang, H. Zheng, C. Liu, J. Jia, and C. Morais Smith, Nature Physics 20 , 1421 (2024). [21] M. N. Ivaki, I. Sahlberg, K. P¨ oyh¨ onen, and T. Ojanen, Communications Physics 5, 327 (2022). [22] X. Yang, W. Zhou, Q. Yao, P. Lv, Y. Wang, and S. Yuan, Physical Review B 105 , 205433 (2022). [23] T. Westerhout, E. van Veen, M. I. Katsnelson, and S. Yuan, Physical Review B 97 , 205434 (2018). [24] M. St˚ alhammar and C. M. Smith, Physical Review Re-search 5, 043043 (2023). [25] M. Ippoliti, T. Rakovszky, and V. Khemani, Physical Review X 12 , 011045 (2022). [26] D. S. Ageev, A. A. Bagrov, and A. A. Iliasov, Physical Review B 103 , L100302 (2021). [27] S. Manna, B. Pal, W. Wang, and A. E. Nielsen, Physical Review Research 2, 023401 (2020). [28] S. Manna, C. W. Duncan, C. A. Weidner, J. F. Sherson, and A. E. B. Nielsen, Physical Review A 105 , L021302 (2022). [29] H. Zou and W. Wang, Chinese Physics Letters 40 , 057501 (2023). [30] M. Conte, V. Zampronio, M. R¨ ontgen, and C. M. Smith, arXiv preprint arXiv:2310.07813 (2024), arXiv:2310.07813 [cond-mat.str-el]. [31] K. Dutkiewicz, M. Plodzie´ n, A. Rojo-Franc` as, B. Juli´ a-D´ ıaz, M. Lewenstein, and T. Grass, Phys. Rev. A 113 ,013320 (2026). 11 
+
+[32] A. A. Iliasov, R. Canyellas, M. I. Katsnelson, and A. A. Bagrov, “Strong enhancement of superconduc-tivity on finitely ramified fractal lattices,” (2024), arXiv:2310.11497, arXiv:2310.11497 [cond-mat.supr-con]. [33] N. N. Bogoliubov, Nuovo Cimento 7, 794 (1958). [34] P. G. de Gennes, Superconductivity of Metals and Alloys 
+
+(CRC Press, 2018). [35] J.-X. Zhu, Bogoliubov-de Gennes Method and Its Appli-cations , Lecture Notes in Physics, Vol. 924 (Springer, 2016). [36] A. Weiße, G. Wellein, A. Alvermann, and H. Fehske, Reviews of Modern Physics 78 , 275 (2006). [37] S. A. Sousa-J´ unior, N. C. Costa, R. R. dos Santos, and T. Paiva, Physical Review B 109 , 165102 (2024). [38] D. J. Scalapino, S. R. White, and S. Zhang, Physical Review B 47 , 7995 (1993). [39] T. Tieleman and G. Hinton, “Lecture 6.5 — RMSProp: Divide the gradient by a running average of its recent magnitude,” COURSERA: Neural Networks for Machine Learning (2012). [40] J. Duchi, E. Hazan, and Y. Singer, Journal of Machine Learning Research 12 , 2121 (2011). [41] L. Covaci, F. M. Peeters, and M. Berciu, Physical Review Letters 105 , 167006 (2010). [42] E. G. C. P. van Loon and M. I. Katsnelson, Journal of Physics: Conference Series 1136 , 012006 (2018). [43] M. Harland, S. Brener, A. I. Lichtenstein, and M. I. Katsnelson, Physical Review B 100 , 024510 (2019). [44] A. Vallat, S. E. Korshunov, and H. Beck, Physical Re-view B 43 , 8482 (1991). [45] O. Dernek, D. Skachkov, W. R. L. Lambrecht, and M. van Schilfgaarde, Physical Review B 105 , 205136 (2022). [46] E. G. C. P. van Loon, M. R¨ osner, M. I. Katsnelson, and T. O. Wehling, Physical Review B 104 , 045134 (2021). [47] A. Chen, Z.-Q. Wan, A. Sengupta, A. Georges, and C. Roth, arXiv preprint arXiv:2507.10705 (2025), 10.48550/arXiv.2507.10705, arXiv:2507.10705 [cond-mat.str-el]. [48] V. Bashmakov, A. Iliasov, T. Bzduˇ sek, and A. A. Bagrov, arXiv preprint arXiv:2509.09330 (2025), arXiv:2509.09330 [cond-mat.supr-con]. [49] E. Sierda, X. Huang, D. I. Badrtdinov, B. Kiraly, E. J. Knol, G. C. Groenenboom, M. I. Katsnelson, M. R¨ osner, D. Wegner, and A. A. Khajetoorians, Science 380 , 1048 (2023). [50] Y. Zhang, X. Zhang, Y. Li, S. Zhao, S. Hou, K. Wu, and Y. Wang, Journal of the American Chemical Society 
+
+142 , 17928 (2020). 
+
+Appendix A: Local channel mixing induced by bond removal 
+
+In this Appendix we illustrate, at the level of a single coordination shell, how bond removal modifies the struc-ture of nearest-neighbor pairing channels. The purpose is purely algebraic: to show explicitly how extended s-wave and d-wave components cease to be orthogonal once the local bond environment is incomplete. We consider the “star” of nearest-neighbor bonds ema-nating from a given site. Restricting the order parameter to these bonds, we represent it as a vector whose compo-nents correspond to bond directions. For a given set of available directions S, and a set of channel form factors 
+
+ϕα(θ) evaluated on these directions, we define the local Gram matrix 
+
+Mαβ (S) = X
+
+> θn∈S
+
+ϕα(θn)ϕβ (θn), (A1) where α, β label pairing channels. Orthogonality of chan-nels corresponds to Mαβ = 0 for α̸ = β. Once bonds are removed, this orthogonality may be lost. For the square lattice, the four nearest-neighbor direc-tions are 
+
+θ ∈
+
+
+
+0, π
+
+2 , π, 3π
+
+2
+
+
+
+. (A2) We define the extended s-wave and dx2−y2 channel vec-tors as 
+
+ϕs(θ) = 1 , (A3) 
+
+ϕd(θ) = 
+
+(
+
++1 , θ = 0 , π, 
+
+−1, θ = π 
+
+> 2
+
+, 3π 
+
+> 2
+
+. (A4) On the complete star S0 of four bonds, the Gram matrix in the basis ( s, d ) is 
+
+M (□)(S0) = 
+
+4 0 0 4 
+
+
+
+. (A5) Now remove one bond, for instance, the direction θ =
+
+π/ 2. The remaining set is 
+
+S =
+
+
+
+0, π, 3π
+
+2
+
+
+
+. (A6) Restricting the channel vectors to S gives 
+
+ϕs = (1 , 1, 1) , ϕd = (1 , 1, −1) . (A7) The corresponding Gram matrix becomes 
+
+M (□)(S) = 
+
+3 1 1 3 
+
+
+
+. (A8) The off-diagonal element Msd = 1 is nonzero, demon-strating that extended s-wave and d-wave components are no longer orthogonal once a single bond is removed, and the two channels mix. Similarly, for the triangular lattice, the six nearest-neighbor directions are 
+
+θ ∈
+
+
+
+0, π
+
+3 , 2π
+
+3 , π, 4π
+
+3 , 5π
+
+3
+
+
+
+. (A9) We define the extended s-wave channel 
+
+ϕs(θ) = 1 , (A10) 12 and a two-dimensional d-wave basis 
+
+ϕ1(θ) = cos(2 θ), ϕ2(θ) = sin(2 θ). (A11) On the complete six-bond star S0, the Gram matrix in the basis ( s, 1, 2) is 
+
+M (△)(S0) = 
+
+6 0 00 3 00 0 3
+
+ . (A12) Now remove two consecutive bonds (which is typical for the gasket cut), for instance θ = π/ 3 and 2 π/ 3. The remaining set is 
+
+S =
+
+
+
+0, π, 4π
+
+3 , 5π
+
+3
+
+
+
+. (A13) Evaluating the basis functions on this set yields 
+
+ϕs = (1 , 1, 1, 1) , (A14) 
+
+ϕ1 =
+
+
+
+1, 1, − 12 , − 12
+
+
+
+, (A15) 
+
+ϕ2 = 0, 0,
+
+√32 , −√32
+
+!
+
+. (A16) The Gram matrix becomes 
+
+M (△)(S) = 
+
+4 1 01 52 00 0 32
+
+ , (A17) again, with off-diagonal components mixing the s and d
+
+channels. These local examples explicitly demonstrate that bond removal generically induces mixing between pairing chan-nels and modifies their relative spectral weights, even be-fore solving the full self-consistent problem. 
+
+> Appendix B: Pure d-wave on higher-generation Sierpinski carpet
+
+In this Appendix, we show spatial profile of ∆ on larger-scale Sierpinski carpet obtained by mean of KPM in the case when only d-wave component is present. Fig. 7, 8, and 9 show how the result depends on the number of retained moments. One can note that upon convergence the profile itself acquires a non-trivial fractal pattern with alternating regions of positive and negative ∆ emerging at diverse scales obeying a d-wave symmetry globally, but not on the level of local coordination shells. 13 x
+
+> y
+
+# 0.08 
+
+# 0.06 
+
+# 0.04 
+
+# 0.02 
+
+# 0.00 
+
+# 0.02 
+
+# 0.04 
+
+# 0.06 
+
+# 0.08 
+
+> | ∆ |
+
+FIG. 7: dx2−y2 wave order parameter profile for G = 5 carpet converged using the KPM and retaining 200 moments at T = 0 and μ = −2.8.14 x
+
+> y
+
+# 0.06 
+
+# 0.04 
+
+# 0.02 
+
+# 0.00 
+
+# 0.02 
+
+# 0.04 
+
+# 0.06 
+
+> | ∆ |
+
+FIG. 8: dx2−y2 wave order parameter profile for G = 4 carpet converged using the KPM and retaining 1000 moments at T = 0 and μ = −2.8.15 x
+
+> y
+
+# 0.06 
+
+# 0.04 
+
+# 0.02 
+
+# 0.00 
+
+# 0.02 
+
+# 0.04 
+
+# 0.06 
+
+> | ∆ |
+
+FIG. 9: dx2−y2 wave order parameter profile for G = 5 carpet converged using the KPM and retaining 2000 moments at T = 0 and μ = −2.8.
