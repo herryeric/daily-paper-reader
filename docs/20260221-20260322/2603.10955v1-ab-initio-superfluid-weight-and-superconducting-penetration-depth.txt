@@ -1,0 +1,484 @@
+Title: Ab-initio superfluid weight and superconducting penetration depth
+
+URL Source: https://arxiv.org/pdf/2603.10955v1
+
+Published Time: Thu, 12 Mar 2026 01:25:04 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# Ab-initio superfluid weight and superconducting penetration depth 
+
+Kaja H. Hiorth, 1 Martin Gutierrez-Amigo, 1 Th´ eo Cavignac, 2
+
+Kristjan Haule, 3 Miguel A.L. Marques, 2 and P¨ aivi T¨ orm¨ a1, 2, ∗
+
+> 1
+
+Department of Applied Physics, Aalto University School of Science, FI00076 Aalto, Finland 
+
+> 2
+
+Research Center Future Energy Materials and Systems of the University Alliance Ruhr and Interdisciplinary Centre for Advanced Materials Simulation, Ruhr University Bochum, Universit¨ atsstraße 150, D-44801 Bochum, Germany 
+
+> 3
+
+Center for Materials Theory, Department of Physics and Astronomy, Rutgers University, Piscataway, New Jersey 08854, USA 
+
+(Dated: March 2, 2026) Machine learning and high-throughput screening approaches to superconductor discovery require physically meaningful descriptors that capture essential physics while remaining computationally tractable. The superfluid weight is an ideal descriptor as it is a prerequisite for superconductivity, determines the magnetic penetration depth and the Berezinskii-Kosterlitz-Thouless transition tem-perature in two-dimensional materials, may limit the critical temperature in unconventional super-conductors through phase coherence, and reveals quantum geometric contributions to supercurrent transport. We develop a computationally efficient framework for calculating the zero-temperature, mean-field superfluid weight for uniform pairing from density functional theory band structures and Bloch wavefunctions. We separately evaluate the conventional contribution from band curvature and the geometric contribution from quantum geometry. To validate the method, we calculate London penetration depths for a few conventional superconductors (Al, Pb, Nb, MgB 2, LuRu 3B2
+
+and YRu 3B2) and find good agreement with experiment after accounting for nonlocal corrections, strong-coupling effects, and sample quality. The conventional contribution dominates by orders of magnitude in these wide-band materials, as expected. This framework provides a foundation for large-scale screening of superconducting candidates and exploring quantum geometric effects in unconventional superconductors. 
+
+I. INTRODUCTION 
+
+The discovery of new superconducting materials re-mains one of the most important yet challenging pur-suits in condensed matter physics. Traditional experi-mental approaches to materials discovery are inherently time-consuming and resource-intensive, often requiring extensive synthesis and characterization efforts for each candidate compound. In recent years, machine learn-ing and computational high-throughput screening have emerged as promising complementary strategies to ac-celerate the identification of novel superconductors [1– 7]. However, the success of these data-driven approaches critically depends on identifying physically meaningful descriptors [8] that both correlate strongly with desired superconducting properties, such as high critical temper-atures, and can be computed efficiently enough to enable the screening of large materials databases. The chal-lenge lies in finding quantities that capture the essential physics of superconductivity while remaining computa-tionally tractable for thousands of candidate materials. The superfluid weight [9], also known as superfluid stiffness, represents a particularly compelling descriptor that satisfies both of these requirements. The superfluid weight quantifies the response of the system to phase twists and determines key observable properties. In con-ventional three-dimensional superconductors, it directly  
+
+> ∗paivi.torma@aalto.fi
+
+sets the magnetic penetration depth—one of the most important experimental signatures of the superconduct-ing state. This direct connection to measurable quan-tities makes the superfluid weight not only theoretically significant but also experimentally verifiable. In fact, it provides a clear pathway to validate computational pre-dictions against real materials, and helps distinguish be-tween conventional and unconventional superconducting orders [10, 11]. The importance of superfluid weight extends be-yond conventional bulk superconductors to reduced-dimensional systems, where it plays an even more de-cisive role. In two-dimensional materials, thermal and quantapt-get um fluctuations prevent true long-range or-der at finite temperatures, and superconductivity instead emerges through a Berezinskii-Kosterlitz-Thouless [12– 14] (BKT) transition. Crucially, the BKT transition temperature is directly determined by the superfluid weight, making it the primary quantity controlling the critical temperature in two-dimensional superconduc-tors. This relationship has profound implications for the growing field of two-dimensional superconducting mate-rials [15, 16], including atomically thin films and van der Waals heterostructures [17]. Moreover, accumulating theoretical and experimental evidence suggests that the superfluid weight may be the limiting factor for superconductivity in unconventional high-Tc materials. In underdoped cuprate superconduc-tors, for instance, several studies have indicated that the formation of Cooper pairs occurs at temperatures 
+
+> arXiv:2603.10955v1 [cond-mat.supr-con] 11 Mar 2026
+
+2significantly higher than the observed critical tempera-ture [18–21]. This observation has led to the proposal that superconductivity in these materials is limited not by the mean-field pairing temperature, but rather by the establishment of phase coherence across the system—a phenomenon directly quantified by the superfluid weight. If this scenario applies broadly to unconventional super-conductors, then the superfluid weight becomes an even more crucial descriptor than the pairing gap itself for predicting high-temperature superconductivity. Recent theoretical advances have further enriched our understanding of the superfluid weight by revealing its composite nature [22–25]. The total superfluid weight comprises two distinct contributions: a conventional component determined by the dispersion of the electronic band structure, and a geometric component arising from the quantum geometry of Bloch wavefunctions. In wide-band superconductors with pairing gaps much smaller than the bandwidth, the conventional contribution dom-inates and the superfluid weight follows the familiar ex-pressions from BCS theory. However, in flat-band sys-tems where the pairing gap exceeds the bandwidth, the geometric contribution becomes paramount as the lack of dispersion strongly suppresses the conventional super-fluid weight. This geometric term is directly related to the quantum metric of the band structure, a fundamental quantity that characterizes the distance between quan-tum states and has been proposed to influence diverse phenomena including electron-phonon coupling and op-tical responses. The superfluid weight thus serves as a window into the quantum geometric nature of supercon-ductivity, providing information that extends beyond tra-ditional band structure descriptors. In this work, we develop a computationally efficient framework to calculate the zero-temperature, uniform pairing superfluid weight from density functional the-ory (DFT) data. We validate our approach through a benchmark study, computing the magnetic penetra-tion depth for a diverse set of conventional supercon-ductors and demonstrating agreement with experimental measurements. This framework establishes the computa-tional foundation for large-scale searches aimed at iden-tifying promising superconducting candidates guided by their superfluid properties, potentially accelerating the discovery of materials with enhanced critical tempera-tures and unconventional pairing mechanisms.   
+
+> II. METHODS A. The superfluid weight and its evaluation from DFT data
+
+For completeness and to define our notation, we first present a recap of the derivation of conventional and ge-ometric superfluid weight in a multiband system within mean-field theory [22–24]. To compute the superfluid weight within multiband mean-field Bardeen-Cooper-Schrieffer (BCS) theory, one introduces a slowly varying vector potential A through the Peierls substitution and evaluates the resulting current-current response function 
+
+Kμν within linear response theory 
+
+jμ = Kμν (q, ω )Aν (q, ω ). (1) where μ, ν correspond to spatial directions. The super-fluid weight is defined as the static, long-wavelength limit of this response function 
+
+Dsμν = Kμν (q → 0, ω = 0) , (2) which is equivalent to the second derivative of the free energy with respect to a uniform phase shift of the su-perconducting gap (see e.g. [23, 26]). It is practical to express the normal-state Bloch Hamiltonian by the Bogoliubov-de Gennes (BdG) Hamiltonian using Nambu formalism 
+
+HBdG (k) = H↑(k) − ˜μ ∆∆ −H ∗↓(−k) + ˜ μ
+
+!
+
+, (3) where Hσ is the normal-state Bloch Hamiltonian, ˜ μ is the chemical potential and ∆ is the diagonal of the matrix of superconducting order parameters in orbital space. We impose two conditions to obtain a simpler form of the superfluid weight: (1) Time-reversal symmetry, meaning H↑(k) = H∗↓(−k), and (2) Uniform pairing, meaning that the order parameter is constant across all orbitals. As a result, there is no interband pairing and the BdG Hamiltonian becomes block diagonal in band index with quasiparticle energies Ek,m = ±p(˜ ϵk,m − ˜μ)2 + ∆ 2
+
+depending on the single particle energy ˜ ϵk,m with mo-mentum k and m indicating the band index. By inserting the BdG eigenstates into the expression for the current-current response kernel [23], the superfluid weight can be separated into a conventional and geometric contribution 
+
+Ds = Dgeom + Dconv 
+
+Dμν  
+
+> conv ,k
+
+= 1
+
+V
+
+X
+
+> m
+
+ tanh( βE k,m /2) 
+
+Ek,m 
+
+− β
+
+2 cosh 2(βE k,m /2) 
+
+
+
+× ∆2
+
+E2
+
+> k,m
+
+∂μϵk,m ∂ν ϵk,m , (4) and 
+
+Dμν  
+
+> geom ,k
+
+= 1
+
+V
+
+X
+
+> m̸=n
+
+ tanh( βE k,m /2) 
+
+Ek,m 
+
+− tanh( βE k,n /2) 
+
+Ek,n 
+
+
+
+× ∆2 ϵk,n − ϵk,m 
+
+ϵk,n + ϵk,m 
+
+(⟨∂μm|n⟩ ⟨ n|∂ν m⟩ + H.c.) . (5) where V is the unit cell volume, and Ek,m =
+
+q
+
+∆2 + ϵ2
+
+> k,m
+
+and ϵk,m = ˜ ϵk,m − ˜μ is the energy dispersion shifted by the chemical potential. For obtaining the superfluid weight from DFT data, we express it with finite difference derivatives where we 3take the average of the forward and backward differences to minimize error, and for simplicity, take the zero tem-perature limit. This gives 
+
+Dμν  
+
+> conv ,k
+
+= 1
+
+V
+
+1
+
+δμδν
+
+X
+
+> m
+
+∆2
+
+(ϵ2 
+
+> k,m
+
++ ∆ 2)3/2
+
+× (ϵk,m +δμ − ϵk,m )( ϵk+δν ,m − ϵk,m ), (6) and 
+
+Dμν  
+
+> geom ,k
+
+= 1
+
+V
+
+1
+
+δμδν
+
+X
+
+> m̸=n
+
+ϵk,n − ϵk,m 
+
+ϵk,n + ϵk,m 
+
+×
+
+ ∆2
+
+q
+
+ϵ2 
+
+> k,m
+
++ ∆ 2
+
+− ∆2
+
+q
+
+ϵ2 
+
+> k,n
+
++ ∆ 2
+
+
+
+× |M k+δμ,δ ν −δμ 
+
+> nm
+
+|2 − | M k,δ ν 
+
+> nm
+
+|2 − | M k,δ μ 
+
+> mn
+
+|2 , (7) where V is the unit cell volume, ϵm is the band energies centered on the Fermi level and μ, ν ∈ (x, y, z ). The overlaps in the geometric term are between the periodic part of the Bloch states um,n given by M k,b 
+
+> mn
+
+= ⟨uk
+
+> n
+
+|uk+b 
+
+> m
+
+⟩.The matrix elements M k,b 
+
+> mn
+
+are obtainable from standard DFT codes. We compute the finite differences by adding additional k-points, referred to as satellite points, at small displace-ments from the center k-points along the positive and cartesian directions. We use a displacement of 0 .001 ˚ A. We benchmarked this choice for MgB 2 and Al, for which the resulting derivatives were well converged with respect to the displacement.  
+
+> B. Convergence and the kernel regression
+
+The analytic expressions presented in the previous sub-section provide a clear definition of the conventional and geometric contributions to the superfluid weight at a given k point. This formulation is particularly useful for computing band-resolved superfluid weight along high-symmetry paths, allowing one to identify which bands and momentum regions dominate the response or resolve between dispersion-driven and geometry-driven effects. However, evaluating the superfluid weight integrated over the entire Brillouin zone is considerably more challeng-ing, while often being the more relevant quantity, as it is directly related to experimentally accessible observables. The origin of this complexity lies in the prefactors that weight either the band dispersion or the Bloch-state derivatives in Equations (6) and (7). The conventional contribution contains the factor ∆2
+
+(ϵ2 
+
+> k,m
+
++ ∆ 2)3/2 , (8) which behaves as ∼ 1/∆ for ϵk,m → 0, and decays as 
+
+∼ ∆2/|ϵk,m |3 for |ϵk,m | ≫ ∆. This strong suppression away from the Fermi level effectively restricts the rele-vant energy space to an energy window of order ∆ around the Fermi surface. For realistic, small superconducting gaps, very dense k meshes are required to resolve this narrow energy window, resulting in slow convergence of the Brillouin-zone integral with respect to k-point sam-pling. In contrast, the geometric contribution involves differences of terms of the form ∆2
+
+q
+
+ϵ2 
+
+> k,m
+
++ ∆ 2
+
+, (9) which decay more slowly, as ∼ ∆2/|ϵk,m | for |ϵk,m | ≫ ∆. As a result, the geometric term samples a much broader energy window around the Fermi level and therefore does not impose a comparably stringent requirement on the 
+
+k-point density. In practice, convergence of the conven-tional contribution ensures convergence of the geometric contribution. To improve convergence of the conventional contri-bution and reduce the computational cost, particularly in view of high-throughput applications, several strate-gies can be considered. One possibility is to interpo-late the band energies onto a denser k grid and com-pute both the dispersion and its derivatives from the interpolated bands. However, this effectively increases the finite-difference step compared to our implementa-tion with satellite displacements of 0 .001 ˚ A. A larger finite-difference step not only compromises the accuracy and convergence of the numerical derivatives, but also in-creases interpolation errors, particularly in the vicinity of band crossings or avoided crossings where the band cur-vature changes rapidly. Moreover, the intrinsic coupling between the k-point sampling and the finite-difference step reduces methodological flexibility. Another natural strategy is Wannierization followed by Fourier interpola-tion back to reciprocal space. While powerful, this ap-proach typically requires material-specific choices, such as energy windows, disentanglement settings, and initial projections, together with manual validation. These re-quirements reduce its robustness for unsupervised and automated high-throughput workflows. For this reasons, we devise an alternative strategy based on a Nadaraya–Watson kernel regression [27, 28]. The central idea is to reformulate the Brillouin-zone inte-gral in the energy representation rather than in momen-tum space. This requires reexpressing the discrete quan-tity Ds, k as an energy-resolved function Ds(ϵ), where ϵ
+
+is treated as a continuous variable. This reformulation is particularly advantageous because the strongly varying prefactor depends only on energy and is known analyti-cally. By performing the integration in the energy repre-sentation, the sharp structure of this prefactor is handled exactly, while only the dispersion derivatives require in-terpolation. Kernel regression is therefore employed to interpolate these derivatives as a function of energy. We first rewrite the conventional contribution by sep-arating the analytic prefactor from the derivatives to be 4interpolated: 
+
+Dμν  
+
+> conv ,k,m
+
+= A(ϵk,m ) Bμν 
+
+> k,m
+
+, (10) where 
+
+A(ϵ) = 1
+
+V
+
+∆2
+
+(ϵ2 + ∆ 2)3/2 , (11) 
+
+Bμν  
+
+> k,m
+
+= ∂μϵk,m ∂ν ϵk,m . (12) We then define an energy-resolved quantity Bμν (ϵ)through kernel regression as 
+
+Bμν (ϵ) ≡ lim 
+
+> r→0
+
+P 
+
+> k,m
+
+Bμν  
+
+> k,m
+
+˜δ(ϵ − ϵk,m )
+
+P 
+
+> k,m
+
+˜δ(ϵ − ϵk,m ) + r , (13) where, r is a small regularization parameter and ˜δ is a smearing function. This construction defines Bμν (ϵ)as the ratio between the energy-resolved density of Bμν ,
+
+i.e. P 
+
+> k,m
+
+Bμν  
+
+> k,m
+
+˜δ(ϵ − ϵk,m ), and the density of states, 
+
+P 
+
+> k,m
+
+˜δ(ϵ − ϵk,m ). The width of the smearing function is chosen to be of the order of the median energy spac-ing between neighboring states, ensuring continuity and smoothness of the regression. Then, the conventional superfluid weight can be ex-pressed as 
+
+Dμν  
+
+> conv
+
+=
+
+Z
+
+A(ϵ)Bμν (ϵ)ρ(ϵ) dϵ (14) = lim 
+
+> r→0
+
+Z
+
+A(ϵ)
+
+P 
+
+> k,m
+
+Bμν  
+
+> k,m
+
+˜δ(ϵ − ϵk,m )
+
+P 
+
+> k,m
+
+˜δ(ϵ − ϵk,m ) + r
+
+×
+
+ X
+
+> k′,m ′
+
+˜δ2(ϵ − ϵk′,m ′ )
+
+ dϵ, (15) where ˜δ2 is the smearing function used to define the den-sity of states entering the energy integral. In practice, ˜δ
+
+governs the regression smoothness of Bμν (ϵ), whereas ˜δ2
+
+sets the resolution of the energy integral. The two smear-ings can therefore be chosen independently, enabling a controlled evaluation even on relatively coarse k meshes. Kernel regression is well suited in this framework, as it reproduces the original discrete Brillouin-zone sum in the limits of vanishing smearing and infinitely dense k sam-pling.  
+
+> C. Towards high-throughput
+
+The method described in this work can be systemat-ically applied to any materials with a metallic behav-ior. Because the computation of the superfluid weight only requires the knowledge of the Kohn-Sham bands, a non-self-consistent DFT computation can be added at the end of an existing DFT workflow to compute the required matrix elements. Non-self-consistent computa-tions are typically computationally negligible compared to the self-consistent counterparts, even with a high den-sity of k-points. As a consequence, this method integrates at a relatively low cost in a high-throughput workflow (e.g. [29]) using Quantum ESPRESSO . 
+
+> III. RESULTS ON PENETRATION DEPTHS
+
+All DFT calculations were performed with the Quan-tum ESPRESSO package [30, 31] and the general-ized gradient approximation (GGA) with the Perdew-Burke-Ernzerhof exchange correlation functional revised for solids (PBEsol) [32, 33], see Appendix A for details. We benchmark the adequacy of the method by calcu-lating the London penetration depths for several selected conventional superconductors. One can obtain the pen-etration depth from the superfluid weight through the electromagnetic response of superconductors in the Lon-don gauge, with the current density jj = −DsA, (16) where A is the gauge-dependent vector potential and Ds
+
+is the superfluid weight which is nonzero in superconduc-tors. Combining Eq. (16) and Ampere’s law relates the superfluid weight and London penetration depth 
+
+λL = ( μ0Ds)−1/2, (17) where μ0 is the vacuum permeability and the magnetic field is assumed to decay exponentially with the London penetration depth B(z) = Bext e−z/λ L inside the super-conductor. However, this simple exponential form is only valid in the local regime, which assumes that the super-current at a point r depends solely on the local value of the vector potential A(r). In reality, the current response can be nonlocal if the Cooper pairs are ”large” enough that the electrons within a pair experience different lo-cal magnetic fields, which is called the non-local limit. In the non-local limit, the response to the magnetic field is more complicated and will depend on the coherence length ξ, which is related to the size of the Cooper pairs. The effective magnetic penetration depth λ > λ L as the coherence length is larger and screening is less effective. Other effects can also increase the effective penetration depths, such as a thin sample or if the superconductor is dirty. There are corrections one can use to go from these effective penetration depth measurements to a London penetration depth but these experiments can have large variety in both λ and λL as they are sensitive to sample quality and geometry [34–41]. This method of extracting the London penetration depth is thus less suited for a quantitative comparison, though it can give insight into the anisotropy of the superfluid weight. We extract the London penetration depth from heat capacity experiments where the electron-phonon coupling 
+
+λel-ph is estimated from the Debye temperature θD and the critical temperature Tc5TABLE I: Table of the the calculated London penetration depth from the superfluid weight λcalc  
+
+> L
+
+and the experimental London penetration depth λexp  
+
+> L
+
+using Equations (18) and (19). We also list averages of measurements from the literature of the Debye temperature θD , charge carrier density n and critical temperatures Tc which were used to compute λexp  
+
+> L
+
+. The last column contains the superconducting gap used in the superfluid weight calculation, together with references to experimental gap measurements, and the chosen values of ∆ are in good agreement with the reported experimental gaps.                                                 
+
+> Material λcalc
+> Lλexp
+> LθDnTc∆(nm) (nm) (K) (10 23 cm −3)(K) (meV) Pb 11 798 [42–44] 4.9 [45, 46] 7.2 [47] 1.33 [47] Al 13 16 406 [42–44, 48] 1.6 [49] 1.2 [47] 0.179 [47] Nb 15 18 258 [43, 50] 0.8 [51, 52] 9.3 [47] 1.55 [47] MgB 219 16 840 [53–56] 2.2 [53] 40 [53] 1.8, 6.8 [53, 57] LuRu 3B233 32 290 [58] 0.39 0.95 [58] 0.147 YRu 3B229 33 420 [58, 59] 0.38 0.81 [58] 0.106
+
+λel-ph = 1.04 + μ∗ ln( θD /1.45 Tc)(1 − 0.62 μ∗) ln( θD /1.45 Tc) − 1.04 , (18) where μ∗ is the repulsive Coloumb coefficient, which we set to 0.13. The effective mass is then m∗ = me(1+ λel-ph )and the London penetration depth can then be computed from [43] 
+
+λL =
+
+ m∗
+
+μ0ne 2
+
+1/2
+
+. (19) where n is the charge carrier density which can be esti-mated from Hall-effect measurements through the Hall coefficient R = 1 /ne or by the number of valence elec-trons per unit cell. Figure 1 and Table I shows the calculated and ex-perimental penetration depths for a few materials. An overview of the different parameters used to calculate the experimental London penetration depth and which studies they belong to as well as the superconducting gap used to compute the superfluid weight can be seen in Table I.  
+
+> A. Single-element superconductors
+
+As a first benchmark for our framework, we consider three elemental superconductors: aluminium (Al), lead (Pb), and niobium (Nb). These materials have rela-tively simple crystal and electronic structures, Al and Pb crystallize in the face-centered cubic structure, while Nb is body-centered cubic, and have been extensively char-acterized since the early days of superconductivity re-search [43]. Their well-established superconducting prop-erties and comparatively simple band structures make them ideal test cases for assessing the accuracy of our superfluid-weight calculations in the conventional, weak-and strong-coupling regimes. 
+
+FIG. 1: A comparison between calculated penetration depths λcalc  
+
+> L
+
+and experimental estimates of the London penetration depth λexp  
+
+> L
+
+from Equations (18) and (19). See Table I for details on the experimental parameters used. 
+
+Aluminium (Al). Using Equation (19) with a Debye temperature in the range θD = 389-423 K [42–44, 48] and 
+
+n = 1 .6 × 10 23 cm −3 [49] we obtain a London penetration depth of about 16 nm. The superfluid weight calculations yields a London penetration depth of 13 nm. 
+
+Lead (Pb) Lead is a strong-coupling superconductor, so the London penetration depth should be estimated with a mass renormalization factor Z ≈ 2.55 [39] such that λL → λL/√Z [60]. Heat capacity measurements re-port θD = 93–104 K [42, 43, 61], and charge carrier densi-ties in the range n = (3 .5–6 .4) ×10 23 cm −3 [45, 46]. This corresponds to a London penetration depth of roughly 6–9 nm, which is reasonably close to the calculated value of 11 nm. 
+
+Niobium (Nb) Niobium is another well-known strong-coupling elemental superconductor with the high-6est Tc at ambient pressure among the elemental su-perconductors [43]. Heat capacity experiments report 
+
+θD = 238–275 K [43, 50] and charge carrier densities 
+
+n = (7–9) × 10 22 cm −3 [51, 52], implying a London pen-etration depth of 24–28 nm. These values also align well with recent measurements of niobium’s magnetic pene-tration depth of 29 nm using a combination of low-energy muon spin spectroscopy (LE-μSR) and secondary-ion mass spectroscopy (SIMS) [38]. Accounting for strong coupling via the renormalization λL → λL/√Z with 
+
+Z ≈ 2.1 [39, 60] leads to an experimental range of 16–19 nm, which is very close to our calculated penetra-tion depth of 15 nm. Figure 2 show the superfluid weight along high-symmetry paths for (a)-(f) Pb and (g)-(l) Nb, decom-posed into conventional and geometric contributions and into Cartesian components. In all three cases, the su-perfluid weight is clearly dominated by the conventional term, reflecting the strongly dispersive bands crossing the Fermi level, while the geometric contribution is compara-tively small and more broadly distributed in energy. This behavior is fully consistent with expectations for wide-band, conventional superconductors.   
+
+> B. Kagome superconductors LuRu 3B2and YRu 3B2
+
+LuRu 3B2 and YRu 3B2 are two superconducting kagome materials that were recently synthesized [58, 59, 62] as a result of machine learning predictions by Deng 
+
+et al. [63]. Both materials exhibit very small supercon-ducting gaps and low critical temperatures, which makes them also ideal benchmarks for testing how reliably our superfluid-weight framework can handle superconductors in the small-gap regime. The London penetration depths were estimated by Mustaf et al. [58] as 32.6 nm (Y) and 32 nm (Lu), where the charge carrier density was esti-mated by assuming that both Lu and Y contribute with 3 valence electrons. Our superfluid weight calculations use the BCS relation to determine the gap with the ex-perimental critical temperature, ∆ = 1 .76 Tc, which gives 0.106 meV (Y) and 0 .147 meV (Lu). The resulting pene-tration depths are then 32 nm in the xy-plane and 24 nm along the z axis for YRu 3B2 and 36 nm in the xy-plane and 26 nm along the z axis for LuRu 3B2. The isotropic averages are shown in Figure 1 and Table I.  
+
+> C. MgB 2
+
+Our expressions for the superfluid weight explicitly as-sume uniform pairing, whereas MgB 2 is a two-gap super-conductor. The two gaps are associated with the Boron 
+
+p-orbitals, the px and py orbitals form the σ bands and the pz orbitals form the π bands. Experiments gener-ally find a larger gap of 6-7 meV on the σ bands and a smaller gap of 1-2 meV on the π bands [34, 64]. In our calculations, we use the averaged gap values 1 .8 meV and 6.8 meV from the DFT study on MgB 2 by Eltsev et al. 
+
+[57]. To incorporate this two-gap structure within a frame-work that assumes uniform pairing, we compute the su-perfluid weight for both gap values and assign the larger gap to states near the Γ − A line which form a cylindri-cal Fermi surface, and the smaller gap elsewhere. This approximation is reasonable as the superfluid weight is sharply peaked at the Fermi level, so only the states at the Fermi level contribute significantly and should have the correct gap. The charge carrier density in MgB 2 lies in the range (1 .7 − 2.8) × 10 23 cm −3 [53, 65], and it has a Debye tem-perature in the range of 750-1100 K [53–56] with a Tc up to 40 K [53], which gives a London penetration depth in the range 14-18 nm. The properties of the MgB 2 super-fluid weight are analyzed more thoroughly in Ref. [66].  
+
+> IV. BEHAVIOR OF CONVENTIONAL AND GEOMETRIC TERMS
+
+For the materials we have considered, the geometric contribution to the superfluid weight is typically three to four orders of magnitude smaller than the conventional contribution. This is expected, as these materials host dispersive bands crossing the Fermi level which results in a large conventional contribution. The geometric term is expected to dominate in systems where the conventional contribution is suppressed, such as in flat-band systems or gapped band structures. Figure 3 shows how the superfluid weight depends on the superconducting gap for a few materials. The con-ventional term shows a weak dependence on ∆, which is difficult to discern in the figure due to the overall scale. Quantitatively, the conventional superfluid weight typi-cally varies by less than 10% as the gap is tuned from 5 to 100 meV. This can be understood from Equation (6) as it is an energy integral over band derivatives, where the prefactor containing ∆ primarily sets the energy win-dow around the Fermi level. If the band derivatives vary slowly around the Fermi level, the conventional term re-mains largely unchanged as ∆ is varied. In contrast, the geometric contribution exhibits a clear dependence on the gap and increases with ∆. This behavior is con-sistent with known limiting cases, such as the isolated flat-band limit, where the geometric contribution to the superfluid weight scales linearly with the superconduct-ing gap [22, 24].  
+
+> V. CONCLUSION
+
+We developed a computationally efficient framework for calculating the superfluid weight and magnetic pen-etration depth of superconductors from first-principles density functional theory data. Our approach combines 7
+
+FIG. 2: High-symmetry path of Pb and Nb’s electronic band structure colored by the magnitude of the superfluid weight’s conventional contribution Dconv (a)/(g) xx (b)/(h) yy and (c)/(i) zz component, and the geometric contribution Dgeom (d)/(j) xx (e)/(k) yy and (f)/(l) zz component. The superfluid weights have been computed with their corresponding experimental gaps, 1 .33 meV for Pb and 1 .55 meV for Nb. The conventional contribution clearly dominates by around 4 orders of magnitude for both materials and is strongly localized to the fermi surface. the analytical formulations of the conventional and geo-metric contributions to the superfluid weight with kernel regression techniques that enable accurate calculations even with moderately dense k-point grids, making the method suitable for high-throughput materials screen-ing. Benchmark calculations for conventional supercon-ductors demonstrates good agreement with experimen-tal penetration depth measurements after accounting for 8
+
+FIG. 3: The superfluid weight dependence on the superconducting gap ∆ for several materials with the geometric contribution in the top panel and the conventional in the bottom panel. The conventional term is is nearly constant with respect to the gap while the geometric term increases with the superconducting gap. strong-coupling renormalization. As expected for wide-band materials, the conven-tional contribution dominates the geometric contribu-tion by several orders of magnitude in all materials ex-amined, though this balance shifts dramatically in flat-band systems where quantum geometric effects become paramount. The computational accessibility of our method, that requires only standard DFT outputs of band struc-tures, Bloch wavefunctions, and their overlaps, enables a straightforward integration into existing high-throughput workflows for materials discovery. The potential ap-plications extend in multiple directions. For conven-tional superconductors, materials can be screened based on desired penetration depths, which is relevant for ap-plications in superconducting circuits and quantum de-vices. More importantly, in unconventional superconduc-tors where phase coherence may limit the critical temper-ature rather than Cooper pair formation (particularly in underdoped cuprates) the superfluid weight could emerge as a more relevant predictor of the transition temperature than traditional descriptors based on pairing gaps alone. Additionally, the geometric contribution provides a com-putationally accessible proxy for the quantum metric, which influences diverse phenomena including electron-phonon coupling and optical responses but is notoriously difficult to calculate directly due to divergences at band crossings. There are several possible extensions of this work, that include incorporating multiband non-uniform pairing for more accurate treatment of multigap superconductors, extending calculations to finite temperatures for direct comparison with experimental data, investigating doping dependence in materials where phase coherence effects are suspected, and combining superfluid weight calcu-lations with other machine learning descriptors in com-prehensive screening campaigns. Such extensions would enable systematic exploration of how quantum geome-try influences superconductivity across diverse materials families and could accelerate the discovery of materials with both high critical temperatures and favorable geo-metric properties. In summary, we have established a practical computa-tional framework that bridges fundamental theory, first-principles calculations, and experimental observables. The ability of this method to efficiently calculate su-perfluid weights, evaluate conventional and geometric contributions, and accurately predict penetration depths makes it immediately applicable to high-throughput ma-terials screening while opening new avenues for exploring the role of quantum geometry in unconventional super-conductivity and potentially accelerating the discovery of novel superconducting materials. 
+
+> ACKNOWLEDGMENTS
+
+This work was supported by a collaboration between The Kavli Foundation, Klaus Tschira Stiftung, and Kevin Wells, and by the Jane and Aatos Erkko Founda-tion, the Keele Foundation and the Magnus Ehrnrooth Foundation, as part of the SuperC collaboration. K.H., M.A.L.M., and P.T. were supported by a grant from the Simons Foundation ( SFI-MPS-NFS-00006741-06, K.H.; SFI-MPS-NFS-00006741-13, M.A.L.M.; SFI-MPS-NFS-00006741-12, P.T.) in the Simons Collaboration on New Frontiers in Superconductivity. This work is part of the Finnish Centre of Excellence in Quantum Materials (QMAT). We acknowledge the computational resources provided by the Aalto Science-IT project.                      
+
+> [1] V. Stanev, C. Oses, A. G. Kusne, E. Rodriguez, J. Paglione, S. Curtarolo, and I. Takeuchi, Machine learning modeling of superconducting critical tempera-ture, npj Computational Materials 4, 10.1038/s41524-018-0085-8 (2018). [2] L. Himanen, A. Geurts, A. S. Foster, and P. Rinke, Data-driven materials science: status, challenges, and perspec-tives, Advanced Science 6, 1900808 (2019). [3] M. J. Hutcheon, A. M. Shipley, and R. J. Needs, Predict-ing novel superconducting hydrides using machine learn-ing approaches, Phys. Rev. B 101 , 144505 (2020). [4] K. Choudhary and K. Garrity, Designing high-Tcsuper-conductors with BCS-inspired screening, density func-tional theory, and deep-learning, npj Comp. Mat. 8,
+
+9
+
+10.1038/s41524-022-00933-1 (2022). [5] T. F. T. Cerqueira, Y. Fang, I. Errea, A. Sanna, and M. A. L. Marques, Searching Materials Space for Hy-dride Superconductors at Ambient Pressure, Adv. Funct. Mater. 34 , 10.1002/adfm.202404043 (2024). [6] M. Bercx, S. Ponc´ e, Y. Zhang, G. Trezza, A. G. Ghezel-jehmeidan, L. Bastonero, J. Qiao, F. O. von Rohr, G. Pizzi, E. Chiavazzo, and N. Marzari, Charting the landscape of Bardeen-Cooper-Schrieffer superconductors in experimentally known compounds, PRX Energy 4,10.1103/sb28-fjc9 (2025). [7] T. H. B. da Silva, T. Cavignac, T. F. T. Cerqueira, H.-C. Wang, and M. A. L. Marques, Machine-learning acceler-ated prediction of two-dimensional conventional super-conductors, Materials Horizons 12 , 3408–3419 (2025). [8] L. M. Ghiringhelli, J. Vybiral, S. V. Levchenko, C. Draxl, and M. Scheffler, Big data of materials science: Criti-cal role of the descriptor, Phys. Rev. Lett. 114 , 105503 (2015). [9] D. J. Scalapino, S. R. White, and S. C. Zhang, Superfluid density and the Drude weight of the Hubbard model, Phys. Rev. Lett. 68 , 2830 (1992). [10] P. A. Lee and X.-G. Wen, Unusual superconducting state of underdoped cuprates, Phys. Rev. Lett. 78 , 4111 (1997). [11] V. J. Emery and S. A. Kivelson, Importance of phase fluc-tuations in superconductors with small superfluid den-sity, Nature 374 , 434–437 (1995). [12] V. L. Berezinskii, Destruction of long-range order in one-dimensional and two-dimensional systems having a con-tinuous symmetry group I. Classical systems, Sov. Phys. JETP 32 , 493 (1971). [13] J. M. Kosterlitz and D. J. Thouless, Ordering, metasta-bility and phase transitions in two-dimensional systems, Journal of Physics C: Solid State Physics 6, 1181–1203 (1973). [14] D. R. Nelson and J. M. Kosterlitz, Universal jump in the superfluid density of two-dimensional superfluids, Phys. Rev. Lett. 39 , 1201 (1977). [15] D. Qiu, C. Gong, S. Wang, M. Zhang, C. Yang, X. Wang, and J. Xiong, Recent advances in 2D superconduc-tors, Advanced Materials 33 , 10.1002/adma.202006124 (2021). [16] W. Tang, K. Yu, Z. Zhou, J. Li, and L. Gao, Preparation of two-dimensional superconductors: a comprehensive re-view, Journal of Materials Chemistry C 13 , 6963–6979 (2025). [17] W. Ren, P. Boggild, J. M. Redwing, K. S. Novoselov, L. Sun, Y. Qi, K. Jia, Z. Liu, O. Burton, J. A. Alexander-Webber, S. Hofmann, Y. Cao, Y. Long, Q.-H. Yang, D. Li, S. H. Choi, K. K. Kim, Y. H. Lee, M. Li, Q. Huang, Y. Gogotsi, N. Clark, A. Carl, R. Gorbachev, T. Olsen, J. Rosen, K. S. Thygesen, P. D. D. K. Efetov, B. S. Jessen, M. Yankowitz, J. Barrier, R. K. Kumar, F. Kop-pens, H. Deng, X. Li, S. Dai, D. Basov, X. Wang, S. Das, X. Duan, Z. Yu, M. Borsch, A. C. Ferrari, R. Huber, M. Kira, F. Xia, X. Wang, Z.-S. Wu, X. Feng, P. Simon, H.-M. Cheng, B. Liu, Y. Xie, W. Jin, R. R. Nair, Y. Xu, H.-B. Zhang, V. Pellegrini, B. Qu, M. Lemme, A. Kati-yar, J.-H. Ahn, I. Aharonovich, M. C. Hersam, S. Roche, Q. Hua, G. Shen, T.-L. Ren, C. M. Koo, N. A. Koratkar, R. J. Young, and A. Pollard, The 2D materials roadmap, 2D Materials 10.1088/2053-1583/ae2b82 (2025). [18] T. Kondo, Y. Hamaya, A. D. Palczewski, T. Takeuchi, J. S. Wen, Z. J. Xu, G. Gu, J. Schmalian, and A. Kamin-ski, Disentangling Cooper-pair formation above Tc from the pseudogap state in the cuprates, Nature Physics 7,21 (2011), arXiv:1005.5309 [cond-mat]. [19] C. Timm, D. Manske, and K. H. Bennemann, Phase dia-gram of underdoped cuprate superconductors: Effects of Cooper-pair phase fluctuations, Physical Review B 66 ,094515 (2002). [20] F. Yang, Y. Shi, and L. Q. Chen, Preformed Cooper pairing and the uncondensed normal-state compo-nent in phase-fluctuating cuprate superconductivity, arXiv:2509.21133 [cond-mat] 10.48550/arXiv.2509.21133 (2025). [21] J. Corson, R. Mallozzi, J. Orenstein, J. N. Eckstein, and I. Bozovic, Vanishing of phase coherence in underdoped Bi 2Sr 2CaCu 2O8+ d , Nature 398 , 221 (1999), arXiv:cond-mat/9810280. [22] S. Peotta and P. T¨ orm¨ a, Superfluidity in topologically nontrivial flat bands, Nature Communications 6, 8944 (2015). [23] L. Liang, T. I. Vanhala, S. Peotta, T. Siro, A. Harju, and P. T¨ orm¨ a, Band geometry, Berry curvature, and su-perfluid weight, Physical Review B 95 , 024515 (2017), publisher: American Physical Society. [24] K.-E. Huhtinen, J. Herzog-Arbeitman, A. Chew, B. A. Bernevig, and P. T¨ orm¨ a, Revisiting flat band super-conductivity: dependence on minimal quantum metric and band touchings, Physical Review B 10.1103/Phys-RevB.106.014518 (2022). [25] E. Rossi, Quantum metric and correlated states in two-dimensional systems, Current Opinion in Solid State and Materials Science 25 , 100952 (2021). [26] K.-E. Huhtinen, Superconductivity and normal state properties in flat bands, Phd thesis, Aalto University (2023), available at: https://urn.fi/URN:ISBN:978-952-64-1186-6. [27] G. S. Watson, Smooth regression analysis, The Indian Journal of Statistics 26 , 359 (1964). [28] E. A. Nadaraya, On estimating regression, Theory of Probability & Its Applications 9, 141 (1964). [29] T. F. T. Cerqueira, A. Sanna, and M. A. L. Marques, Sampling the materials space for conventional supercon-ducting compounds, Advanced Materials 36 , 2307085 (2024). [30] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau, M. Buongiorno Nardelli, M. Calandra, R. Car, C. Cavaz-zoni, D. Ceresoli, M. Cococcioni, N. Colonna, I. Carn-imeo, A. Dal Corso, S. De Gironcoli, P. Delugas, R. A. DiStasio, A. Ferretti, A. Floris, G. Fratesi, G. Fugallo, R. Gebauer, U. Gerstmann, F. Giustino, T. Gorni, J. Jia, M. Kawamura, H.-Y. Ko, A. Kokalj, E. K¨ u¸ c¨ ukbenli, M. Lazzeri, M. Marsili, N. Marzari, F. Mauri, N. L. Nguyen, H.-V. Nguyen, A. Otero-de-la Roza, L. Paulatto, S. Ponc´ e, D. Rocca, R. Sabatini, B. Santra, M. Schlipf, A. P. Seitsonen, A. Smogunov, I. Timrov, T. Thon-hauser, P. Umari, N. Vast, X. Wu, and S. Baroni, Ad-vanced capabilities for materials modelling with Quan-tum ESPRESSO, Journal of Physics: Condensed Matter 
+
+29 , 465901 (2017). [31] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococ-cioni, I. Dabo, A. Dal Corso, S. De Gironcoli, S. Fabris, G. Fratesi, R. Gebauer, U. Gerstmann, C. Gougoussis, A. Kokalj, M. Lazzeri, L. Martin-Samos, N. Marzari, 10 
+
+F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello, L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero, A. P. Seitsonen, A. Smogunov, P. Umari, and R. M. Wentz-covitch, QUANTUM ESPRESSO: a modular and open-source software project for quantum simulations of mate-rials, Journal of Physics: Condensed Matter 21 , 395502 (2009). [32] J. P. Perdew, A. Ruzsinszky, G. I. Csonka, O. A. Vydrov, G. E. Scuseria, L. A. Constantin, X. Zhou, and K. Burke, Restoring the density-gradient expansion for exchange in solids and surfaces, Phys. Rev. Lett. 100 , 136406 (2008). [33] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized gradient approximation made simple, Phys. Rev. Lett. 
+
+77 , 3865 (1996). [34] B. Kang, H.-J. Kim, M.-S. Park, K.-H. Kim, and S.-I. Lee, Reversible magnetization of MgB 2 single crystals with a two-gap nature, Physical Review B 69 , 144514 (2004). [35] J. Kim, L. Civale, E. Nazaretski, N. Haberkorn, F. Ron-ning, A. S. Sefat, T. Tajima, B. H. Moeckly, J. D. Thompson, and R. Movshovich, Direct measurement of the magnetic penetration depth by magnetic force mi-croscopy, Superconductor Science and Technology 25 ,112001 (2012), publisher: IOP Publishing. [36] T. Tan, M. A. Wolak, N. Acharya, A. Krick, A. C. Lang, J. Sloppy, M. L. Taheri, L. Civale, K. Chen, and X. X. Xi, Enhancement of lower critical field by reducing the thick-ness of epitaxial and polycrystalline MgB 2 thin films, APL Materials 3, 041101 (2015). [37] A. I. Gubin, K. S. Il’in, S. A. Vitusevich, M. Siegel, and N. Klein, Dependence of magnetic penetration depth on the thickness of superconducting Nb thin films, Physical Review B 72 , 064503 (2005). [38] R. M. L. McFadden, J. W. Angle, E. M. Lechner, M. J. Kelley, C. E. Reece, M. A. Coble, T. Prokscha, Z. Salman, A. Suter, and T. Junginger, Niobium’s in-trinsic coherence length and penetration depth revisited using low-energy muon spin spectroscopy and secondary-ion mass spectrometry, Phys. Rev. B 113 , L060508 (2026). [39] A. Suter, E. Morenzoni, N. Garifianov, R. Khasanov, E. Kirk, H. Luetkens, T. Prokscha, and M. Horisberger, Observation of nonexponential magnetic penetration pro-files in the Meissner state: a manifestation of nonlocal ef-fects in superconductors, Physical Review B 72 , 024506 (2005). [40] J. Brisbois, B. Raes, J. Van De Vondel, V. V. Moshchalkov, and A. V. Silhanek, Determination of the magnetic penetration depth in a superconducting Pb film, Journal of Applied Physics 115 , 103906 (2014). [41] D. L´ opez-N´ u˜ nez, A. Torras-Coloma, Q. Portell-Montserrat, E. Bertoldo, L. Cozzolino, G. A. Um-marino, A. Zaccone, G. Rius, M. Mart´ ınez, and P. Forn-D´ ıaz, Superconducting penetration depth of aluminum thin films, Superconductor Science and Technology 38 ,095004 (2025). [42] T. E. Faber and A. B. Pippard, The penetration depth and high-frequency resistance of superconducting alu-minium, Proceedings of the Royal Society of London. Series A. Mathematical and Physical Sciences 231 , 336 (1955). [43] C. P. Poole, H. A. Farach, and R. J. Creswick, Supercon-ductivity, nachdr. ed. (Acad. Press, San Diego, Calif., 1997). [44] D. R. Chipman, Temperature dependence of the Debye temperatures of aluminum, lead, and beta brass by an x-ray method, Journal of Applied Physics 31 , 2012 (1960). [45] K. Takano and T. Sato, The ordinary transport prop-erties of lead alloys, Journal of the Physical Society of Japan 20 , 2013 (1965). [46] H. Sato, H. Okimoto, I. Sakamoto, and K. Yonemitsu, The low-field galvanomagnetic properties of dilute lead alloys, Journal of Physics F: Metal Physics 15 , 1555 (1985). [47] N. Lathiotakis, M. Marques, M. L¨ uders, L. Fast, and E. Gross, Density functional theory for superconduc-tors, International journal of quantum chemistry 99 , 790 (2004). [48] J. Kok and W. Keesom, Measurements of the atomic heat of aluminium from 1.1 to 20 ° K, Physica 4, 835 (1937). [49] T. Matsuda and T. Sato, Hall coefficient of aluminium rich alloys, Journal of the Physical Society of Japan 21 ,1494 (1966). [50] B. J. C. Van Der Hoeven and P. H. Keesom, Specific heat of niobium between 0.4 and 4.2 °K, Physical Review 134 ,A1320 (1964). [51] O. K. Kuvandikov, N. S. Hamrayev, R. M. Rajabov, and N. N. Hamrayeva, Anisotropic scattering of charge carri-ers in double continuous solid solutions of the niobium-vanadium system, Journal of Physics: Conference Series 
+
+2573 , 012022 (2023). [52] T. G. Berlincourt, Hall effect, resistivity, and magnetore-sistivity of Th, U, Zr, Ti, and Nb, Physical Review 114 ,969 (1959). [53] C. Buzea and T. Yamashita, Review of the supercon-ducting properties of MgB 2, Superconductor Science and Technology 14 , R115 (2001). [54] Y. Wang, T. Plackowski, and A. Junod, Specific heat in the superconducting and normal state (2–300 K, 0–16 T), and magnetic susceptibility of the 38 K superconductor MgB 2: evidence for a multicomponent gap, Physica C: Superconductivity 355 , 179 (2001). [55] F. Bouquet, R. A. Fisher, N. E. Phillips, D. G. Hinks, and J. D. Jorgensen, Specific heat of Mg 11 B2 : Evidence for a second energy gap, Physical Review Letters 87 , 047001 (2001). [56] R. K. Kremer, B. J. Gibson, and K. Ahn, Heat capacity of MgB 2: Evidence for moderately strong coupling be-havior, arXiv:cond-mat/0102432 10.48550/arXiv.cond-mat/0102432 (2001). [57] Y. Eltsev, S. Lee, K. Nakao, N. Chikumoto, S. Tajima, N. Koshizuka, and M. Murakami, Anisotropic supercon-ducting properties of MgB 2 single crystals probed by in-plane electrical transport measurements, Physical Re-view B 65 , 140501 (2002). [58] R. A. Mustaf, S. K. P., S. Mishra, J. Deng, Y. Jiang, K. H. Hiorth, E. O. Lamponen, M. Gutierrez-Amigo, P. T¨ orm¨ a, M. A. L. Marques, B. A. Bernevig, and E. Morosan, Superconductivity in YRu 3B2 and LuRu 3B2
+
+(2025), arXiv:2512.16945 [cond-mat.supr-con]. [59] M. J. Winiarski, D. Walczak, S. Kr´ olak, D. Yazici, R. J. Cava, and T. Klimczuk, YRu 3B2 - akagome lattice superconductor, arXiv:2512.08514 https://doi.org/10.48550/arXiv.2512.08514 (2025). [60] S. B. Nam, Theory of electromagnetic properties of su-perconducting and normal systems. I, Physical Review 
+
+156 , 470 (1967). [61] H. V. Culbert, D. E. Farrell, and B. S. Chandrasekhar, 11 
+
+Properties of lead-indium alloys. II. Specific heat, Phys-ical Review B 3, 794 (1971). [62] T. Gaggl, R. Misawa, M. Kriener, Y. Tanaka, R. Ya-mada, and M. Hirschberger, Bulk superconductiv-ity in the kagome metal YRu 3B2, arXiv:2512.09314 https://doi.org/10.48550/arXiv.2512.09314 (2025). [63] J. Deng, Y. Jiang, T. F. T. Cerqueira, H. Hu, E. O. Lamponen, D. C˘ alug˘ aru, Z. W. Hanqi Pi, M. G. Vergniory, E. Morosan, T. Neupert, S. Blanco-Canosa, C. Felser, K. Haule, M. A. L. Marques, P. T¨ orm¨ a, and B. A. Bernevig, Theory of super-conductivity in LaRu 3Si 2 and predictions of new Kagome flat band superconductors, arXiv:2503.20867 https://doi.org/10.48550/arXiv.2503.20867 (2025). [64] Y.-S. Seo, J. H. Lee, W. N. Kang, and J. Hwang, Revisit-ing optical properties of MgB 2 with a high-quality sam-ple prepared by a HPCVD method, Scientific Reports 7,8977 (2017), publisher: Nature Publishing Group. [65] W. N. Kang, C. U. Jung, K. H. P. Kim, M.-S. Park, S. Y. Lee, H.-J. Kim, E.-M. Choi, K. H. Kim, M.-S. Kim, and S.-I. Lee, Hole carrier in MgB 2 characterized by Hall measurements, Applied Physics Letters 79 , 982 (2001). [66] Y. Jiang et al. , Obstructed kagome sp 2 bonding, phonons, and geometric electron–phonon coupling in MgB 2: An analytic theory, in preparation (2026). [67] M. Methfessel and A. T. Paxton, High-precision sampling for Brillouin-zone integration in metals, Phys. Rev. B 40 ,3616 (1989). [68] D. R. Hamann, Optimized norm-conserving Vanderbilt pseudopotentials, Phys. Rev. B 88 , 085117 (2013). [69] M. Van Setten, M. Giantomassi, E. Bousquet, M. Ver-straete, D. Hamann, X. Gonze, and G.-M. Rignanese, The PseudoDojo: Training and grading a 85 element optimized norm-conserving pseudopotential table, Com-puter Physics Communications 226 , 39 (2018). [70] P. E. Bl¨ ochl, Projector augmented-wave method, Phys. Rev. B 50 , 17953 (1994). [71] G. Kresse and D. Joubert, From ultrasoft pseudopoten-tials to the projector augmented-wave method, Phys. Rev. B 59 , 1758 (1999). 12 
+
+> Appendix A: Computational details
+
+All DFT calculations were performed with the Quantum ESPRESSO package [30, 31] and the generalized gradient approximation (GGA) with the Perdew-Burke-Ernzerhof exchange correlation functional revised for solids (PBEsol) [32, 33]. We use the same plane-wave and density energy cutoffs, 100 Ry and 1000 Ry for all materials, together with Methfessel-Paxton smearing [67] where the smearing values are listed in Table II. We employ the scalar relativistic optimized norm-conserving Vanderbilt pseudopotentials (ONCVPSP) [68] from the PseudoDojo set [69] with the following number of valence electrons; 3 (Al), 13 (Nb), 10 (Mg), 3 (B), 25 (Lu), 11 (Y), 16 (Ru). The calculations for Pb were done with 14 valence electrons using the fully-relativistic projector augmented-wave (PAW) method [70, 71] as it is a heavy element known to exhibit spin-orbit coupling. In Table II the required k-grids and number of k-points per reciprocal atom (KPPRA) for convergence of the superfluid weight calculation is listed for each material. TABLE II: Table showing the k-grid and number of k-points per reciprocal atom (KPPRA) required for converging the superfluid weight calculations, as well as the Methfell-Paxton smearing used in the DFT calculations.

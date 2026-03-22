@@ -1,0 +1,1223 @@
+Title: Quantum Monte Carlo study of the metal-insulator crossover in the square-lattice Hubbard model
+
+URL Source: https://arxiv.org/pdf/2602.22705v1
+
+Published Time: Fri, 27 Feb 2026 01:41:12 GMT
+
+Number of Pages: 21
+
+Markdown Content:
+# Quantum Monte Carlo study of the metal-insulator crossover in the square-lattice Hubbard model 
+
+Mingzhong Lu, 1, 2 Yu-Feng Song, 3, 2 Youjin Deng, 1, 3, 4, ∗ and Yuan-Yao He 2, 5, 6, 4, †
+
+> 1
+
+Department of Modern Physics, University of Science and Technology of China, Hefei, Anhui 230026, China 
+
+> 2
+
+Institute of Modern Physics, Northwest University, Xi’an 710127, China 
+
+> 3
+
+Hefei National Laboratory for Physical Sciences at Microscale and Department of Modern Physics, University of Science and Technology of China, Hefei, Anhui 230026, China 
+
+> 4
+
+Hefei National Laboratory, Hefei 230088, China 
+
+> 5
+
+Shaanxi Key Laboratory for Theoretical Physics Frontiers, Xi’an 710127, China 
+
+> 6
+
+Fundamental Discipline Research Center for Quantum Science and technology of Shaanxi Province, Xi’an 710127, China 
+
+(Dated: February 27, 2026) The interaction-driven evolution from a Fermi liquid to a Mott insulator is a hallmark of strongly correlated fermion systems. In this work, we present a numerically unbiased study of such metal-to-insulator crossover in the half-filled square-lattice Hubbard model at finite temperatures, employing auxiliary-field quantum Monte Carlo method. By jointly analyzing thermodynamic and dynamical observables, we establish the crossover diagram of the model in the temperature-interaction ( T -U )plane. With increasing U , our numerical results reveal an extended crossover regime, which we refer to as the Bad Metal , that separates the Fermi liquid and Mott insulator. During the crossover, we also examine the antiferromagnetic spin correlations and observe pronounced nodal-antinodal dichotomy in the momentum-resolved single-particle spectral functions. Furthermore, we investigate the temperature dependence of several commonly used observables in the model. As representative results, we achieve an accurate map of the thermal entropy across the crossover diagram, and identify the parameter regions in which the model exhibits the Pomeranchuk cooling, characterized by an adiabatic cooling with increasing U . Beyond offering a more refined understanding of the crossover phenomenon, our work also provides valuable benchmark and guideline for future optical lattice experiments on the square-lattice Hubbard model. 
+
+I. INTRODUCTION 
+
+While phase transitions and critical phenomena have long been the central focus in the study of correlated fermion systems [1–19], interaction-driven crossovers con-stitute an equally important aspect [20–39], distinguished by the absence of sharp transitions. Such crossovers ex-hibit intrinsically smooth behavior in all physical observ-ables and typically arise from the combined effect of un-derlying ground-state physics and thermal fluctuations. A widely studied example, in both theory and ultracold atomic experiment, is the BCS-BEC crossover [20–28] in superconductors and superfluids, where the ground state retains long-range pairing order with fermion pairs evolving from overlapping Cooper pairs to tightly bound molecules as the interaction strength increases. The other representative, remaining relatively underexplored, is the metal-insulator crossover (MIC) [29–39] in repul-sive fermion systems. It emerges above a characteristic temperature at which thermal fluctuations suppress mag-netic order, giving rise to the crossover from the Fermi liquid in weakly interacting regime to the Mott insulator at strong interactions. The MIC phenomenon has been explored in both the repulsive Fermi-Hubbard model [29– 36] and several correlated electron materials [37–39].   
+
+> ∗yjdeng@ustc.edu.cn
+> †heyuanyao@nwu.edu.cn
+
+Considering the universal nature of Mott physics [40– 43], it is reasonable to expect that the MIC manifests in the repulsive Hubbard model, regardless of dimen-sionality or lattice geometry. Early-stage studies of the two-dimensional (2D) Hubbard models, based on dynam-ical mean-field theory (DMFT) [4–6, 10, 11, 29], revealed that the MIC exists at temperatures above the Mott critical point obtained from paramagnetic solutions in DMFT. However, due to the limited accuracy, these stud-ies failed to accurately determine the MIC boundaries in the temperature-interaction ( T -U ) phase diagram. In a more recent series of work [32–34] employing di-agrammatic Monte Carlo (DiagMC), the MIC physics in the square-lattice Hubbard model at half filling was in-vestigated in the weak to intermediate interaction regime. While the model hosts a ground state with antiferromag-netic (AFM) long-range order at any U > 0, it remains a paramagnet at arbitrary finite temperature due to the Mermin-Wagner theorem [44]. In Ref. [32], an interme-diate non-Fermi-liquid regime was revealed between the low-U Fermi liquid and the quasi-AFM insulator at larger 
+
+U , applying the nodal-antinodal dichotomy in the imag-inary part of the self-energy. Subsequently, Ref. [33] fur-ther refined the crossover diagram using a broad set of thermodynamic observables. Nevertheless, the numerical results exhibit considerably diverse signals across differ-ent observables. As a result, the T -U phase diagram presented in Ref. [33] appears rather intricate, with the MIC boundaries and the fingerprint signatures in differ-ent regimes of the crossover not clearly identified and 
+
+> arXiv:2602.22705v1 [cond-mat.str-el] 26 Feb 2026
+
+2marked. Moreover, these DiagMC studies were restricted to U/t ≤ 5 (with t denoting the hopping strength), which failed to access the strongly correlated regime of the Hub-bard model [45, 46], i.e., U ∼W , where W = 8 t is the bandwidth of the kinetic energy dispersion. These is-sues highlight the demand for a more self-consistent and reliable study for the MIC in the model that spans a broader range of U and captures the essential physics in each crossover regime. In analogy to the 2D case, the three-dimensional (3D) Hubbard model at half filling similarly exhibits the MIC at temperatures above the N´ eel transition. In our most recent work for this 3D model [36], we have developed an efficient scheme to probe the MIC physics and calculate crossover boundaries from the characteristic signatures of a group of key observables, based on numerically exact 
+
+auxiliary-field quantum Monte Carlo (AFQMC) simula-tions. Within this scheme, as U increases, the crossover out of Fermi liquid regime is consistently identified by a local maximum in the thermal entropy and the emergence of a dip around Fermi energy in local single-particle spec-trum Aloc (ω). By contrast, the onset of Mott insulator is signaled by the vanishing of the quasiparticle weight and charge compressibility, along with the opening of a gap in 
+
+Aloc (ω). These two boundaries then define an intermedi-ate crossover regime between the Fermi liquid and Mott insulator, referred to as Bad Metal , in which the AFM spin correlation appears strongest. Remarkably, the MIC is also found to be accompanied by a distinctive form of spin-charge separation, manifested in the nonmonotonic dependence of the thermal entropy on U at fixed temper-ature. The above scheme to characterize the MIC and the key signatures in the observables are not limited to the 3D Hubbard model, and should be equally applicable to many other repulsive fermion systems. In this work, we revisit the MIC phenomenon in the half-filled 2D Hubbard model on the square lattice, em-ploying the finite-temperature AFQMC method [47–54]. In particular, we apply the MIC characterization scheme established in Ref. [36] to explore the crossover diagram on the T -U plane and the associated underlying physics of the model. Compared to the previous DiagMC stud-ies [32–34], our work accesses a more extensive range of interaction strength, 0 ≤ U/t ≤ 12, and our numerical results, incorporating both thermodynamic and dynam-ical observables, are more deterministic and thus pro-vide a more unified and comprehensive picture for the MIC in the 2D model. Beyond the MIC, we also carry out a systematic investigation of the temperature depen-dences of widely studied observables, including the ther-mal entropy, double occupancy, specific heat, and charge susceptibility. We further elucidate the essential physics governing their characteristic features and discuss their connections to the crossover physics. The remainder of this paper is organized as follows. In Sec. II, we describe the 2D Hubbard model on square lattice, the finite-temperature AFQMC method, and the physical quantities computed in this work. In Sec. III, we concentrate on the AFQMC results for the crossover diagram. Afterwards, in Sec. IV, we provide additional results on interaction and temperature dependences of various thermodynamic quantities. Finally, in Sec. V, we summarizes our findings, and discuss the broader im-plication of the MIC physics. The Appendixes provide tables listing the MIC boundaries, and supplementary results on finite-size effects.   
+
+> II. MODEL, METHOD AND PHYSICAL OBSERVABLES A. The 2D Hubbard model and AFQMC method
+
+We study the square-lattice Fermi-Hubbard model at half filling described by the following Hamiltonian ˆH = X
+
+> kσ
+
+εkc+ 
+
+> kσ
+
+ckσ + U X
+
+> i
+
+
+
+ˆni↑ ˆni↓ − ˆni↑ + ˆ ni↓
+
+2
+
+
+
+, (1) where ˆ niσ = c+ 
+
+> i,σ
+
+ci,σ and ˆ ni = ˆ ni↑ + ˆ ni↓ are the density op-erators, with i = ( ix, i y ) as the coordinates of the lattice site and σ (= ↑ or ↓) denoting spin. Considering only the nearest-neighbor (NN) hopping t and periodic boundary conditions (PBC), we reach εk = −2t(cos kx + cos ky ) as the kinetic energy dispersion. The momentum kx, k y are defined in units of 2 π/L , and L is the linear size of the square supercell with system size Ns = L2 that is applied in our simulations. Specifically, we denote the nodal and antinodal points in Brillouin zone as kn = ( π/ 2, π/ 2) and 
+
+kan = ( π, 0), respectively. Throughout this study, we set 
+
+t as the energy unit, and concentrate on the repulsive interaction ( U > 0). The above model preserves the particle-hole symmetry, meaning that ˆH remains invariant under the transforma-tions c+ 
+
+> iσ
+
+→ (−1) ix+iy diσ and ciσ → (−1) ix+iy d+ 
+
+> iσ
+
+. This symmetry enforces the half-filling condition n = 1, and also guarantees the absence of the fermion sign problem in AFQMC simulations [55–57]. Another important sym-metry of the Hamiltonian (1) is the spin SU(2) symmetry, which forbids the emergence of long-range AFM order at finite temperatures [44]. Consequently, the system is in the paramagnetic phase for any T > 0 and U > 0. We then apply the numerically exact AFQMC method, also known as Determinantal Quantum Monte Carlo [47– 54], to calculate the finite-temperature properties of the model (1). All implementation details, except for the di-mensionality, are nearly identical to those in our previous study [36]. For completeness, here we briefly summarize the key ingredients. First , the symmetric Trotter-Suzuki decomposition is used, which generally yields an overall error proportional to (∆ τ )2 in physical observables (with the discretization of the inverse temperature β = M ∆τ ). This Trotter error is systematically removed by perform-ing convergence tests with varying ∆ τ until results agree within statistical uncertainties. As a result, smaller ∆ τ
+
+values are used for larger U , ranging from ∆ τ t = 0 .10 for 3
+
+U/t = 1 to ∆ τ t = 0 .02 for U/t = 12. Second , an efficient combination of the Hubbard-Stratonovich (HS) transfor-mations into the spin-ˆ sz (HS-ˆ sz ) and charge-density (HS-ˆn) channels with two-component auxiliary fields for the Hubbard interaction [36, 48] is adopted in our AFQMC simulations. In particular, HS-ˆ sz is employed to compute density-related quantities (such as the double occupancy and total energy), whereas HS-ˆ n is used to evaluate spin-related properties (such as the spin-spin correlations). Previous studies [36, 58] showed that this mixed-channel implementation of the HS transformations can substan-tially suppress statistical fluctuations of measured ob-servables in AFQMC. Third , several advanced techniques are further integrated into our AFQMC algorithm to en-hance the simulation efficiency, including the fast Fourier transform [52, 59], the delayed update [51, 60] and τ -line global update [50]. Together, these ingredients en-able highly efficient simulations of the model (1) in this work. For further methodological details of the AFQMC method, we refer to the reviews in Refs. [53, 54].  
+
+> B. Physical observables
+
+In this subsection, we outline the physical quantities computed in our AFQMC simulations, which are used to characterize the MIC and elucidate the thermodynamic properties of the model (1). For the thermodynamics, we focus on the double occu-pancy D = N −1
+
+> s
+
+P
+
+> i
+
+⟨ˆni↑ ˆni↓⟩ and the total energy per site 
+
+e = ⟨ ˆH⟩/N s. At a fixed temperature T , we can compute the thermal entropy density s = S/N s (in units of kB )as a function of U from the U -dependence of D [denoted as D(U )], using the formula established in Ref. [36] as 
+
+s(U ) = 1
+
+T
+
+h
+
+e(U ) − f0 −
+
+Z U
+
+> 0
+
+D(U ′)dU ′ + U
+
+2
+
+i
+
+, (2) where f0 = −2( T /N s) P 
+
+> k
+
+ln(1 + e−βε k ) is the noninter-acting free energy density. Accordingly, the specific heat can be obtained from e(T ) as Cv = d e(T )/dT . We fur-ther calculate the charge compressibility χe as an inverse indicator of the electron localization, following [36] 
+
+χe = − dn dμ = βNs
+
+X
+
+> ij
+
+ ⟨ˆni ˆnj⟩ − ⟨ ˆni⟩⟨ ˆnj⟩, (3) where n = N −1
+
+> s
+
+P
+
+> i
+
+⟨ˆni⟩ is the fermion filling, and μ is the chemical potential representing the pure doping (with the corresponding term + μ P 
+
+> i
+
+ˆni in the Hamiltonian). The half filling condition is associated with μ = 0. For the magnetic properties, we measure the spin-spin correlations and the corresponding structure factor as 
+
+S(q) = X
+
+> r
+
+Czz (r)eiq·r, (4) where Czz (r) = N −1
+
+> s
+
+P
+
+> i
+
+⟨ˆsz 
+
+> i
+
+ˆsz
+
+> i+r
+
+⟩ with ˆ sz 
+
+> i
+
+= (ˆ ni↑ − ˆni↓)/2as the z-component spin operator. Then the AFM struc-ture factor reads Szz  
+
+> AFM
+
+= S(M) where M = ( π, π ) is the AFM ordering vector. For the dynamic observables, we first focus on both the momentum-resolved and local single-particle spectral functions, denoted by A(k, ω ) and Aloc (ω), respectively. Physically, Aloc (ω) relates to the electrical conductivity and encodes essential features of Mott physics [36], while 
+
+A(k, ω ) probes the quasiparticle and coherence properties of single-particle excitations. We obtain these spectra via numerical analytic continuation of the imaginary-time single-particle Green’s functions G(k, τ ) and Gloc (τ ), which are computed in AFQMC as 
+
+G(k, τ ) = 12Ns
+
+X
+
+> ij ,σ
+
+eik·(ri−rj) ciσ (τ )c+ 
+
+> jσ
+
+(0) ,Gloc (τ ) = 12Ns
+
+X
+
+> i,σ
+
+ciσ (τ )c+ 
+
+> iσ
+
+(0) .
+
+(5) Specifically, we implement the stochastic analytical con-tinuation [61, 62] method to compute the spectra. Be-sides, we compute the self-energy via the Dyson equation Σ( k, iω l) = G−10 (k, iω l) − G−1(k, iω l), (6) with G0(k, iω l) = ( iω l − εk)−1 denoting the free fermion single-particle Green’s function and ωl = (2 l + 1) πT as the fermionic Matsubara frequency ( l as an integer). The interacting correspondence G(k, iω l) is evaluated by the Fourier transform as G(k, iω l) = R β 
+
+> 0
+
+G(k, τ )eiω lτ dτ . We then calculate the quasiparticle weight at Fermi surface from Σ( k, iω l) as [63, 64] 
+
+ZkF ≈ 1 − Im Σ( kF , iω 0)/ω 0
+
+−1, (7) with ω0 = π/β and kF as the Fermi wave vector satisfy-ing εkF = 0. Both Σ( k, iω l) and ZkF provide key insights on the correlation-induced renormalization of quasiparti-cle properties. Furthermore, in AFQMC simulations, we measure the following dynamic correlation function 
+
+C ˆHI (τ, 0) = ˆHI (τ ) ˆHI (0) − ˆHI (τ ) ˆHI (0) , (8) with ˆHI = P
+
+> i
+
+[ˆ ni↑ ˆni↓ − (ˆ ni↑ + ˆ ni↓)/2]. From this corre-lation, we can evaluate the U -derivative of double occu-pancy D as [36] 
+
+∂D ∂U = − 2
+
+Ns
+
+Z β/ 20
+
+C ˆHI (τ, 0) dτ, (9) and the fidelity susceptibility χF as [65–71] 
+
+χF =
+
+Z β/ 20
+
+τ C ˆHI (τ, 0) dτ. (10) Both ∂D/∂U and χF might offer important information on the evolution of the system with increasing interaction strength. Details of the efficient numerical evaluation of the in-tegrals and derivatives, as well as the uncertainty estima-tion, for the physical quantities discussed above can be found in Ref. [36]. 40 2 4 6 8 10 12 
+
+U/t 
+
+0.10.20.30.40.50.60.7
+
+> T /t
+
+Fermi Liquid Bad Metal Mott Insulator 
+
+> Slater Insulator
+
+UBM 
+
+UMI 
+
+UD
+
+UAF 
+
+(a)
+
+0 2 4 6 8 10 12 
+
+U/t 
+
+UΣ2 
+
+UΣ1 
+
+UAloc 
+
+US2 
+
+UF
+
+(b)
+
+FIG. 1. Crossover diagram of the half-filled square-lattice Hubbard model in the T -U plane, and the characteristic signatures of various physical observables from our AFQMC calculations. (a) Shows the metal-insulator crossover, consisting of a weak-coupling Fermi liquid and a strong-coupling Mott insulator, as well as a Bad metal in between. The onset of bad metal as UBM 
+
+(green squares, taken as the local maximum location US1 of the thermal entropy) and Mott insulator as UMI (brown triangles) are the crossover boundaries. Moreover, UAF (blue hexagons) plots the peak position of the AFM structure factor Szz 
+
+> AFM
+
+, and 
+
+UD (black pentagons) marks the inflection point of double occupancy D. In (b), the values of UBM , UMI , UAF and UD from (a) are summarized as horizontal dashed lines, with error bars represented by their lengths. Signatures from additional observables are also included, namely the disappearance of the quasiparticle coherence peak of Aloc (ω) around ω = 0 ( UAloc , light blue diamonds), the local minimum of the thermal entropy ( US2 , purple left triangles), the peak position of fidelity susceptibility (UF, yellow right triangles), and the crossing point of Im Σ( kF , iω 0) and Im Σ( kF , iω 1) ( UΣ1 for kF = kan and UΣ2 for kF = kn,magenta octagons). The contour line of charge compressibility at a tiny threshold is also shown (pink dashed line), nearly coincident with UMI . The vertical gray dashed line marks an additional low-temperature crossover from Slater insulator to Mott insulator at U ∗/t ≃ 4.25, taken from Ref. [72]. Further discussion about these results is provided in Sec. III. 
+
+III. THE CROSSOVER DIAGRAM 
+
+We begin by analyzing the crossover diagram in the T -
+
+U plane constructed for the model (1), from our AFQMC results, as illustrated in Fig. 1. We focus on the essential physics in the interaction range of 0 ≤ U/t ≤ 12 at in-termediate to low temperatures, 0 < T /t ≤ 0.70. All the signatures of various observables are obtained from the fixed T calculations along with increasing U .Figure 1(a) presents the crossover boundaries of the MIC, namely UBM and UMI , which divide the diagram into three distinct regimes, i.e., the Fermi liquid at weak coupling, Mott insulator at strong interactions, and a crossover regime in between. Following the terminology of Ref. [36], we refer to the intermediate regime as the bad metal. In addition, the interaction strengths correspond-ing to the inflection point (the most rapid suppression) of the double occupancy D, denoted by UD, and to the peak position of the AFM structure factor Szz 
+
+> AFM
+
+, denoted by 
+
+UAF , are also indicated. When crossing UBM and UMI ,all physical observables vary smoothly without any sin-gularities, thereby confirming the MIC phenomenon. Figure 1(b) plots the signatures of additional observ-ables in our numerical calculations. These include UAloc 
+
+as the disappearance of the quasiparticle coherence peak of Aloc (ω) around ω = 0, US2 as the local minimum of the thermal entropy, UF as the peak of fidelity susceptibility, as well as UΣ1 and UΣ2 as the crossing of Im Σ( kF , iω 0)and Im Σ( kF , iω 1) at kF = kan and kF = kn, respec-tively. Moreover, a contour line marking the onset of van-ishing charge compressibility ( χe ≃ 10 −3) is also shown. At T = 0, the model (1) develops long-range AFM or-der and opens a single-particle gap at infinitesimal U due to perfect Fermi-surface nesting [56]. We note that the resulting insulating ground state can be further distin-guished as a Slater insulator in the weak-coupling regime and a Mott insulator at strong interactions [72–77]. The former originates from the nested Fermi surface, and its single-particle gap ∆ sp , scaling as ∆ sp ∼t exp( −αpt/U )at small U (with α as a normalized parameter) [56], is dominated by the weak AFM order [74]. As a result, the Slater insulator still exhibits significant charge fluctua-tions due to the small gap size. In contrast, the Mott insulator features a large charge gap scaling as ∆ sp ∼U ,and its low-energy physics is governed by the Heisenberg spin exchange among local moments [77]. With increas-ing U/t , the evolution from the Slater to Mott insulator is typically a smooth crossover without a sharp boundary, and different criteria have yielded diverse boundary lo-cations at U ∗/t = 4 ∼ 6 in previous studies [72, 75, 76]. Nevertheless, the detailed nature and boundary of this 
+
+T → 0 insulating crossover lies beyond the scope of the present work and is left for future study. Here, we sim-ply adopt the value U ∗/t ≃ 4.25 from Ref. [72] as the crossover boundary and mark it in Fig. 1 to separate the Slater and Mott insulators. We summarize all the signal locations of U/t shown in 5−2 −1 0 1 20.00 0.05 0.10 0.15 0.20 0.25                                       
+
+> Aloc (ω)
+> T /t = 0 .2
+> U/t = 2 .0
+> U/t = 3 .0
+> U/t = 3 .2
+> U/t = 4 .0
+> U/t = 6 .0
+> −3−2−10123
+> T /t = 0 .3
+> U/t = 3 .0
+> U/t = 3 .6
+> U/t = 4 .2
+> U/t = 5 .4
+> U/t = 7 .0
+> −4−2024
+> ω/t
+> 0.00 0.05 0.10 0.15
+> Aloc (ω)
+> T /t = 0 .5
+> U/t = 4 .0
+> U/t = 5 .0
+> U/t = 5 .4
+> U/t = 7 .0
+> U/t = 9 .0
+> −4−2024
+> ω/t
+> T /t = 0 .7
+> U/t = 4 .0
+> U/t = 5 .0
+> U/t = 5 .5
+> U/t = 7 .0
+> U/t = 11
+
+FIG. 2. Local single-particle spectrum Aloc (ω) as a function of 
+
+ω/t with different interaction strengths, at four temperatures 
+
+T /t = 0 .2, 0.3, 0.5 and 0 .7. For each T /t , with increasing U/t ,the spectrum Aloc (ω) around ω = 0 evolves from a coherence peak, describing the Fermi Liquid state, to a dip, indicating a bad metal, and eventually approaches zero, suggesting the Mott insulating state. These results are from L = 20 system for T /t = 0 .2 and L = 16 for other temperatures, and the residual finite-size effects are negligible (see Appendix. B). 
+
+Figs. 1(a) and 1(b) in Tables I and II of Appendix. A. In the rest of this section, we present the calculation details on determining the MIC boundaries and the associated physical quantities, and discuss the underlying physics. 
+
+A. Crossover from Fermi liquid to bad metal 
+
+Following the scheme established in Ref. [36], we char-acterize the crossover from Fermi liquid to bad metal via the features in local single-particle spectrum Aloc (ω) and thermal entropy density s. In the former, the presence of a coherent quasiparticle peak around ω = 0 is the rep-resentative feature of Fermi liquid state, and its disap-pearance marks the termination of Fermi liquid regime. Alternatively, in a correlated Fermi liquid, the entropy s
+
+is proportional to the effective fermion mass [10, 11, 35] which typically grows with U/t . Consequently, as U/t in-creases from the noninteracting limit, the local maximum of s also signals the boundary of Fermi liquid regime. We therefore expect these two criteria to yield consistent re-sults for the crossover boundary. In Fig. 2, we present the Aloc (ω) results for the temper-atures T /t = 0 .2, 0.3, 0.5 and 0 .7, at representative U/t 
+
+values to clearly illustrate the MIC behaviors. Note that 
+
+Aloc (ω) is symmetric about ω = 0 for the model (1) due to the particle-hole symmetry. For each fixed T /t , the spectrum Aloc (ω) near ω = 0 evolves from the coherence 2 3 4 5 6
+
+U/t 
+
+0.00.10.51.0       
+
+> Q
+> T /t = 0 .1
+> T /t = 0 .2
+> T /t = 0 .3
+> T /t = 0 .4
+> T /t = 0 .5
+> T /t = 0 .6
+> T /t = 0 .7
+
+FIG. 3. Extrapolations of the spectrum ratio Q [see the defi-nition in Eq. (11)] versus U/t for T /t = 0 .1 ∼ 0.7. The dashed lines represent linear fits for the small but nonzero Q results, and the extrapolated interaction strength at Q = 0 is taken as UAloc . The horizontal gray dashed line plotting Q = 0 .1 is used for estimating the uncertainty of UAloc . The results at 
+
+T /t = 0 .1 are from L = 24, and the system sizes for T /t ≥ 0.2are the same as Fig. 2. 
+
+peak structure, to a dip, and eventually develops a gap, signaling the Mott-insulating state at finite temperature. The intermediate U/t regime, in which Aloc (ω ∼ 0) dis-plays a dip with finite spectral weight, is then identified as the MIC crossover regime. We refer to this regime as “bad metal” following the previous studies [36, 78, 79]. Besides, the dip appearance in Aloc (ω ∼ 0) is accompa-nied by the transfer of the spectral weight at ω ∼ 0 to the high energy part, which contributes to the formation of the two shoulders in Aloc (ω) at ω = ±ωh. Towards the strong interaction limit, these two broadened max-ima evolve into the upper and lower Hubbard bands [40] in the atomic limit with ωh = U/ 2. Away from that limit, the quantum fluctuation induced by the hoppings and the thermal fluctuation together suppress the maxima loca-tion to ωh < U/ 2, as confirmed by our results in Fig. 2. Furthermore, we do not observe a three-peak structure in 
+
+Aloc (ω), which was believed to be one of the key features for the Mott metal-insulator transition in the Hubbard models from DMFT calculations [80–83]. By contrast, a weak three-peak structure is found to appear in a con-strained parameter region of the 3D Hubbard model [36]. We then quantitatively determine the disappearance location of the quasiparticle coherence peak in Aloc (ω), denoted as UAloc . Considering that UAloc also depicts the emergence of the spectral dip, we define a spectrum ratio 
+
+Q = Aloc (ω = ±ωh) − Aloc (ω = 0) 
+
+Aloc (ω = ±ωh) , (11) for U > U Aloc in the bad metal regime. As U/t decreases, the two shoulders in Aloc (ω) at ω = ±ωh shrink toward 
+
+ω = 0 and disappear at U = UAloc , leading to Q = 0 in 
+
+U < U Aloc region. Approaching Q = 0 from U > U Aloc 
+
+side, we apply a linear fit to the Q data computed from 60.15 0.20 0.25 0.30 0.35 
+
+> s
+
+(a)            
+
+> −0.16
+> −0.2
+> −0.36
+> UAloc UAF
+> T /t = 0 .2
+> T /t = 0 .3
+> T /t = 0 .4
+> T /t = 0 .6
+> 0246810 12
+
+U/t 
+
+> 012345
+> Szz
+> AFM
+
+(b)                                             
+
+> T /t = 0 .2, ×1
+> T /t = 0 .3, ×3
+> T /t = 0 .4, ×4
+> T /t = 0 .6, ×5
+> FIG. 4. (a) Thermal entropy density s, and (b) AFM struc-ture factor Szz
+> AFM , versus U/t at four temperatures. For T /t =0.3,0.4,0.6, the sresults are shifted by −0.16 ,−0.20 ,−0.36, and the Szz
+> AFM data are rescaled by factors ×3,×4,×5, to fit into the plots. In (a), the uncertainty of sis represented by the line thickness. At T /t = 0 .2, the result of UAloc = 3 .1(2) determined from Aloc (ω) in Figs. 2 and 3 is shown as the light blue shading, while the peak position of Szz
+> AFM as UAF = 5 .9(1) is depicted as the blue shading. These results are from L= 20 system for T /t ≤0.2 and L= 16 system for other tempera-tures.
+
+Eq. (11), and take the extrapolated intercept U value as the estimate for UAloc . To account for the potential bias introduced by the numerical analytic continuation which is inherently an ill-posed procedure, we assign the uncertainty for UAloc as ∆ U = |U1 − UAloc |, where U1
+
+is the interaction strength at which Q = 0 .1 [36, 84]. In Fig. 3, we show the numerical results of Q versus U/t 
+
+and its linear extrapolations to compute UAloc for T /t =0.1 ∼ 0.7. This yields the final results of UAloc (light blue diamonds) plotted in Figs. 1(b). We then turn to the thermal entropy density s and its underlying physics. In Fig. 4(a), we present its nu-merical results as a function of U/t at four temperatures 
+
+T /t = 0 .2, 0.3, 0.4 and 0 .6. The residual finite-size effects in these results are negligible (see Appendix B). Resem-bling the 3D case [36], s in the 2D model (1) also displays nonmonotonic behavior with the interaction strength at fixed temperature. With increasing U/t , s initially grows and reaches a local maximum (denoted as US1 ), confirm-ing the correlated Fermi liquid state. For U > U S1 , s
+
+clearly decays, experiences a local minimum (denoted as 
+
+US2 ), and then increases again. As discussed above, the 
+
+US1 signature can be taken as an independent metric for the crossover boundary between Fermi liquid and bad metal. Correspondingly, we observe that, at T /t = 0 .2, 
+
+US1 agrees well with UAloc extracted from Aloc (ω) [light blue shading in Fig. 4(a)]. The subsequent dip-and-rise behavior in s for U > U S1 
+
+can be understood in terms of the decoupled evolutions of charge and spin entropies as sc and ss, with s = sc + ss.Although these two components cannot be computed sep-arately and explicitly, their qualitative dependences on 
+
+U/t are nevertheless clear. In charge channel, sc is posi-tively correlated with charge fluctuations in the system, which can be characterized by the low-energy spectral weight Aloc (ω ∼ 0). Hence, sc should be monotonically suppressed with increasing U/t as charge fluctuations are frozen out. In spin channel, ss is expected to be inversely related to the AFM ordering tendency, which is quanti-fied by AFM spin correlations. At intermediate tempera-tures where AFM correlation length extends over several lattice constants, the AFM structure factor Szz  
+
+> AFM
+
+that sums correlations over all distances [see Eq. (4)] is the appropriate quantity to characterize AFM spin correla-tions. As depicted in Fig. 4(b), Szz  
+
+> AFM
+
+shows a maxi-mum at intermediate interaction (denoted as UAF ), con-sistent with previous studies [85, 86]. Consequently, for 
+
+U > U S1 , the spin entropy ss is expected to decrease to-ward a local minimum (at US2 ) and then increase again. By combining the behaviors of sc and ss, the dip-and-rise feature of the total entropy s upon entering bad metal regime, as illustrated in Fig. 4(a), naturally emerges from the superposition of a monotonically decreasing sc and a valley-like ss. At T /t = 0 .2, since Aloc (ω = 0) is vanish-ingly small near UAF = 5 .9(1) [see Fig. 2(a)], the charge entropy sc is negligible and thereby the local minimum in 
+
+s is dominated by the spin contribution ss. This leads to the nice agreement between US2 and UAF at T /t = 0 .2, as highlighted by the blue shading in Fig. 4(a). Such an agreement persists to T /t = 0 .3, 0.4, 0.5, as evidenced by the coincident US2 and UAF in Fig. 1(b). At even higher temperatures T /t ≥ 0.5, sc in bad metal regime should be significantly enhanced due to the thermal charge ex-citations. When added to the valley-like ss, this contri-bution shifts the local minimum in total s to a higher 
+
+U than UAF , thereby suggesting US2 > U AF . This rela-tion is directly confirmed by the results at T /t = 0 .6 in Fig. 4, and is further evidenced by the growing deviation between US2 and UAF for T /t > 0.5 in Fig. 1(b). The nonmonotonic behavior and the associated peak at U = UAF in Szz  
+
+> AFM
+
+[see Fig. 4(b)] can be attributed to the competition between the interaction-driven en-hancement of AFM spin correlations in weakly interact-ing regime and the fluctuation-induced suppression at strong interactions. While the former is an evident re-sult from Fermi surface nesting, the latter involves both quantum and thermal fluctuations. On large-U side, the 7Heisenberg spin exchange physics arising from virtual charge fluctuations dominate AFM spin correlations in the system. The induced nearest-neighbor AFM coupling 
+
+J = 4 t2/U [87, 88] decreases with increasing U/t , and thus weakens the AFM spin correlations. Furthermore, a fixed temperature T /t in the Hubbard model corresponds to T /J ∝ U in the effective Heisenberg model, and even-tually becomes infinitely high temperature as U/t → ∞ .Thus, approaching the limit, thermal fluctuations contin-uously suppress the AFM spin correlations toward zero, which also leads to the saturated entropy s = ss = ln 2. Moreover, around U ≳ UAF , high-order correction terms in the effective spin model, such as next-nearest-neighbor AFM coupling and ring exchange [88], play the role of physical frustration and thus also weaken the AFM spin correlations. Similar to Szz 
+
+> AFM
+
+, both the short-range spin correlation and AFM correlation length display the same nonmonotonic behavior, differing only in the peak posi-tions [36]. Although the Szz  
+
+> AFM
+
+results in Fig. 4(b) may be not well converged with respect to system size, its peak position UAF is verified to show negligible finite-size ef-fects (see Appendix B). As shown in Fig. 1(a), upon cool-ing, the peak position UAF initially shifts toward weaker interactions and subsequently moves back to larger U ,reaching its minimum ( UAF )min = 5 .9(1) at T /t = 0 .2. In the low-T regime, UAF is expected to increase and eventually diverge as T → 0, considering that AFM spin correlations are monotonically strengthened versus U/t 
+
+in the ground state [56, 57]. In relation to this, we note that UAF clearly deviates from the US2 at T /t < 0.2 [see Fig. 1(b)]. This is because the system develops quasi-long-range AFM order in this low-T regime, rendering the correlation length ξAFM a more relevant measure of the AFM spin correlations than Szz 
+
+> AFM
+
+. Consequently, at 
+
+T /t < 0.2, US2 should align more closely with the peak position of ξAFM .Regarding the crossover boundary, we note that there is a discrepancy between the UAloc and US1 (plotted as 
+
+UBM ) signatures at T /t > 0.5, as shown in Fig. 1(b). In this high-T regime, US1 drifts toward smaller U as 
+
+T /t increases, while UAloc rises continuously. We believe that this discrepancy is caused by the ill-posed nature of the numerical analytic continuation (NAC) procedure applied to compute Aloc (ω) from Gloc (τ ), which renders the resulting UAloc values less reliable in this temperature range. Performing NAC for Gloc (τ ) is essentially to ana-lytically continuing its Fourier transform, i.e., Gloc (iω n), from the imaginary to the real frequency axis. Hence, accurate information of Gloc (iω n) around iω n → 0 is re-quired to reach reliable Aloc (ω) near ω = 0. However, for T /t > 0.5, the first fermionic Matsubara frequency 
+
+ω0 = πT exceeds 1 .57 t, which is far from zero and might induces bias for Aloc (ω ∼ 0) and successively in UAloc .This issue is induced by the inherent flaw of NAC proce-dure and does not depend on the specific algorithm im-plemented. A similar problem was reported in Ref. [89] during the conductivity calculations in the 2D Hubbard model using maximum entropy method. Based on above 0.00.20.40.60.81.0
+
+> ZkF
+> Nodal point
+
+(a) 
+
+T /t = 0 .2
+
+T /t = 0 .4
+
+T /t = 0 .6
+
+0 2 4 6 8 10 12 
+
+U/t 
+
+0.00.20.40.60.81.0
+
+> ZkF
+> Antinodal point
+
+(b)               
+
+> −101
+> ω/t
+> 0.00.10.2
+> Aloc (ω)
+> T /t = 0 .2
+> U/t = 4 .6
+> U/t = 5 .0
+> U/t = 5 .6
+> −4−2024
+> ω/t
+> 0.00 0.06 0.12
+> Aloc (ω)
+> T /t = 0 .6
+> U/t = 9
+> U/t = 10
+> U/t = 11
+
+FIG. 5. The quasiparticle weight ZkF versus U/t for tempera-tures T /t = 0 .2, 0.4 and 0 .6, at (a) nodal point ( kF = kn), and (b) antinodal point ( kF = kan ). Linear fits (dashed lines) are performed at intermediate interactions, and the intercepts as-sociated with extrapolated ZkF = 0 are taken as UMI . The in-sets plot the local spectrum Aloc (ω) in the vicinity of U = UMI 
+
+for T /t = 0 .2 and 0 .6. The system sizes are the same as Fig. 2. 
+
+analysis, we adopt US1 obtained from the entropy as the crossover boundary UBM between Fermi liquid and bad metal regimes in Fig. 1. The small difference between US1 
+
+and UAloc at T /t = 0 .1 may be attributed to the residual finite-size effects. In the limit of T → 0, both US1 (also 
+
+UBM ) and UAloc are expected to approach zero, since the ground state of the model (1) develops a single-particle gap and long-range AFM order for arbitrarily small U .
+
+B. Crossover from bad metal to Mott insulator 
+
+We determine the crossover boundary between the bad metal and Mott insulator regimes using onset signatures of Mott insulating behavior. Its most prominent feature is the gradually vanished Aloc (ω = 0) as U/t increases, which signals the opening of a charge gap. However, the exact criterion of Aloc (ω = 0) = 0 is ambiguous for the 
+
+Aloc (ω) results from NAC calculations due to limited ac-curacy. Thus, we introduce the second criterion based on the quasiparticle weight ZkF [see Eq. (7)]. This quantity 8is also expected to vanish once entering Mott insulator regime [4, 63], indicating the absence of quasiparticles. In practice, we first determine the boundary UMI from 
+
+ZkF and then estimate its uncertainty by incorporating the Aloc (ω) result. In Fig. 5, we present the results of ZkF at both nodal (kF = kn) and antinodal ( kF = kan ) points, versus U/t 
+
+at T /t = 0 .2, 0.4 and 0 .6. The MIC behavior of the sys-tem is readily manifested by the progressive and smooth suppression of ZkF as U/t increases. At finite tempera-tures, however, ZkF remains rounded to a small residual value even at large U/t due to thermal fluctuations. Fol-lowing the procedure employed in Ref. [36, 63], we there-fore perform a linear fitting for ZkF versus U/t in the intermediate-interaction region and define the intercept at which ZkF = 0 as UMI . As illustrated in Fig. 5, the fitting at the antinodal point yields slightly smaller inter-cept than that at the nodal point, reflecting the nodal-antinodal dichotomy (see more discussions in Sec. III D). Then the average of these two intercepts is taken as our estimate for UMI . As expected, the Aloc (ω) results [insets of Fig. 5] are indeed vanishingly small around 
+
+U = UMI . We accordingly evaluate the uncertainty of 
+
+UMI as δU = |U2 − UMI | with U2 as the interaction strength where Aloc (ω = 0) first drops below a chosen threshold (e.g., 10 −3). This procedure yields the final estimates of the crossover boundary UMI together with the associated error bars, which are plotted in Fig. 1(a). This crossover boundary is further validated by an inde-pendent benchmark based on the vanishing charge com-pressibility [pink dashed line in Fig. 1(b)]. The temperature dependence of UMI is closely related to the ground state of the system. Since the model (1) has a single-particle gap ∆ sp for arbitrary U > 0 at T = 0, the spectrum Aloc (ω) displays a gap structure whenever the thermal energy scale kB T satisfies kB T ≲ ∆sp . As a result, the temperature associated with the UMI curve in Fig. 1(a), denoted as TMI , is roughly set by the gap, i.e., kB TMI ∼ ∆sp (UMI ). This implies that, UMI should approach zero as T /t → 0, and in strongly interacting regime where ∆ sp ∝ U , UMI is expected to scale approx-imately linearly with T (or equivalently TMI ∝ UMI ). As shown in Fig. 1, these behaviors are clearly confirmed by our numerical results.  
+
+> C. Other associated signatures in the crossover
+
+Beyond the compelling diagnostics for MIC physics dis-cussed in Secs. III A and III B, we further examine the behaviors of several other signatures commonly used in the literature. These include the inflection point of dou-ble occupancy D, the peak position of fidelity suscepti-bility χF, and the crossing point of the imaginary part of self-energy Im Σ( kF , iω n). The inflection point of D
+
+versus U/t , or equivalently the peak (or divergence) in 
+
+−∂D/∂U , corresponds to the most rapid suppression of 
+
+D, and has been widely used to detect the Mott transition 0.51.52.53.5
+
+> −∂D/∂U  (×10 −2)
+
+UBM UMI 
+
+## (a) 
+
+0 2 4 6 8 10 12 
+
+U/t 
+
+0.05 0.15 0.25 
+
+> D
+
+0 2 4 6 8 10 12 
+
+## U/t 
+
+02468
+
+> χF/N s(×10 −3)
+
+UMI 
+
+## (b) 
+
+T /t = 0 .2
+
+T /t = 0 .4
+
+T /t = 0 .6
+
+T /t = 0 .7                     
+
+> FIG. 6. Numerical results of (a) double occupancy derivative
+> −∂D/∂U , and (b) fidelity susceptibility per site χF/N s, as a function of U/t at temperatures T /t = 0 .2,0.4,0.6,0.7. The crossover boundaries of UBM = 2 .82(2) and UMI = 5 .9(5) for
+> T /t = 0 .2 are plotted as the green and yellow shading bands, respectively. The inset in (a) plots the raw data of Dversus
+> U/t . These results are from L= 20 system for T /t = 0 .2 and
+> L= 16 for other temperatures, and the residual finite-size effects are negligible.
+
+in DMFT calculations [5, 10, 90, 91]. The fidelity suscep-tibility χF is a sensitive probe of both thermal and quan-tum phase transitions [65–71], and typically shows a pro-nounced peak or divergence at critical points. The cross-ing between Im Σ( kF , iω 0) and Im Σ( kF , iω 1) has been applied to identify an intermediate pseudogap regime in the model (1) [32]. In Fig. 6, we plot the results of −∂D/∂U and χF/N s,computed via Eqs. (9) and (10), respectively, as a func-tion of U/t at temperatures T /t = 0 .2, 0.4, 0.6 and 0 .7. Both quantities exhibit a single-peak structure, with the corresponding peak positions denoted as UD and UF. The raw data of D, shown in the inset of Fig. 6(a), show merely a rather slight inflection at UD. The inset also shows that the double occupancy depends only weakly on temperature in the range 0 .2 ≤ T /t ≤ 0.7, result-ing in nearly overlapping −∂D/∂U curves, as verified in Fig. 6(a). At T /t = 0 .2, UD and UF coincide and are located in the middle of the bad metal regime, and they clearly do not match either of the crossover bound-aries, UBM and UMI , determined in Secs. III A and III B. 91.5 2.0 2.5 3.0                      
+
+> U/t
+> −0.5
+> −0.3
+> −0.1ImΣ( kn, iω n) (a)
+> UΣ2 /t = 2 .50(1)
+> T /t = 0 .1, L = 24
+> ω0
+> ω1
+> 2.53.03.54.0
+> U/t
+> −0.7
+> −0.5
+> −0.3
+> −0.1
+> (b)
+> UΣ2 /t = 3 .75(1)
+> T /t = 0 .2, L = 20
+> 1.52.02.53.0
+> U/t
+> −0.7
+> −0.5
+> −0.3
+> −0.1ImΣ( kan , iω n)
+> (c) UΣ1 /t = 2 .36(1)
+> T /t = 0 .1, L = 24
+> 2.53.03.54.0
+> U/t
+> −0.8
+> −0.6
+> −0.4
+> −0.2
+> (d)
+> UΣ1 /t = 3 .05(1)
+> T /t = 0 .2, L = 20
+
+FIG. 7. The imaginary part of self-energy ImΣ( kF , iω n) with 
+
+ωn = ω0 and ω1, versus U/t at temperatures (a)(c) T /t = 0 .1, and (b)(d) T /t = 0 .2. (a) and (b) Show results at the nodal point ( kF = kn), while (c) and (d) are for the antinodal point (kF = kan ). The solid lines connecting the data points are from the polynomial fitting. The vertical gray shadings mark the crossing points of ImΣ( kF , iω 0) and ImΣ( kF , iω 1), and the corresponding UΣ1 and UΣ2 values are included. 
+
+This is nonetheless reasonable when viewed from the per-spective of distinguishing the quasi-AFM insulator from the Fermi liquid. Moreover, the tendency, that UD and 
+
+UF progressively approach zero as T /t → 0 (see Fig. 1), correctly captures the conceptual insulating phase tran-sition at U = 0 in the model [92]. However, the situa-tion is qualitatively different in the intermediate- to high-temperature regime. At T /t = 0 .3, UD and UF instead lie close to UBM . Upon further increasing temperature, both signatures move to smaller U values and fully reside in Fermi liquid regime for T /t ≥ 0.4. We suggest that the failure of these signatures to characterize the MIC arises from the suppression of their underlying quantum char-acter by thermal fluctuations. Similar behaviors of UD
+
+and UF have also been observed in the triangular-lattice Hubbard model [35] and the 3D Hubbard model [36]. In Fig. 7, we show the variation of ImΣ( kF , iω 0) and ImΣ( kF , iω 1) with U/t at the nodal ( kF = kn) and antin-odal ( kF = kan ) points for T /t = 0 .1 and 0 .2. As U/t in-creases, both quantities decrease continuously from zero at U = 0 and exhibit a crossing at intermediate interac-tion strength. We denote the crossing points as UΣ1 and 
+
+UΣ2 for kF = kan and kF = kn, respectively, and include their values in the plot. We have verified that the re-sults of UΣ1 /t and UΣ2 /t converge to the thermodynamic limit within the system sizes shown. Their specific values also agree well with those reported in Ref. [33]. When compared with the diagram in Fig. 1, UΣ1 and UΣ2 are located in the bad metal regime for T /t ≤ 0.2, and they tend to coincide and approach zero as T /t further de-creases [33]. These results are complemented by fixed-U
+
+calculations in Ref. [93], which found UΣ1 /t = 2 .0 at 
+
+T /t ≃ 0.065 and UΣ2 /t = 2 .0 at T /t ≃ 0.0625. At higher temperatures, however, UΣ1 and UΣ2 shift toward smaller 
+
+U , and stay within the Fermi liquid regime for T /t ≥ 0.3, resembling the behavior of UD and UF discussed above. These trends can be explained via the underlying physics of the crossing between ImΣ( kF , iω 0) and ImΣ( kF , iω 1), which was used in Ref. [33] as an indicator of the evo-lution from metallic to insulating behavior with increas-ing U/t . This criterion is in fact retrieved from the dis-tinct ω → 0 behaviors of the real-frequency self-energy ImΣ( kF , ω ) [33, 36, 93], together with the connection be-tween Σ( kF , ω ) and Σ( kF , iω l) through analytical contin-uation. Its effectiveness therefore requires the condition 
+
+ωl = (2 l + 1) πT → 0, i.e., sufficiently low temperatures. This explains why the low-T values of UΣ1 /t and UΣ2 /t 
+
+qualitatively capture the MIC for T /t ≤ 0.2 and move toward zero as T /t → 0. By contrast, for T /t ≥ 0.3, the lack of low-frequency information in ImΣ( kF , iω l)causes the criterion to fail, and leads to the results of UΣ1 
+
+and UΣ2 being underestimates of the crossover boundary 
+
+UBM . Besides, the relation UΣ1 < U Σ2 is another mani-festation of the nodal-antinodal dichotomy, which is the focus of the following subsection. Combining the above results of UD, UF, UΣ1 , and UΣ2 ,we find that they can qualitatively describe the MIC in the model (1) at low temperatures ( T /t ≤ 0.2), although incapable of identifying the distinct crossover boundaries 
+
+UBM and UMI . They instead fail at higher temperatures (T /t ≥ 0.30) due to strong thermal fluctuations. Our nu-merical results together with the underlying physics re-veal that these signatures are essentially low-energy char-acteristics of the metal-to-insulator evolution. This con-clusion is further supported by our previous results for the 3D Hubbard model [36], which show similar failures in characterizing the MIC above the N´ eel transition. 
+
+D. The nodal-antinodal dichotomy 
+
+At dense filling, lattice Hubbard models typically ex-hibit nonuniform properties on the Fermi surface due to the discrete rotational symmetry of the lattice. For the model (1) on the square lattice, although both the nodal and antinodal points lie on the Fermi surface, their quan-titative behaviors in momentum-dependent observables can differ significantly. This phenomenon is referred to as the nodal-antinodal dichotomy [91, 93–98]. Its origin lies in the specificity of the antinodal point kan = ( π, 0) [and equivalently (0 , π )], which is a saddle point of the ki-netic energy dispersion εk and consequently leads to the logarithmically diverging local density of states at Fermi level for U = 0. Accordingly, the antinodal point is more vulnerable to interaction effects and tends to open a gap more readily [93, 97]. This is consistent with our numeri-cal results of the quasiparticle weight ZkF and the cross-ing of ImΣ( kF , iω 0) and ImΣ( kF , iω 1), as discussed in Secs. III B and III C. In this subsection, we further reveal the nodal-antinodal dichotomy in momentum-resolved single-particle spectral function A(k, ω ), and discuss its connection with the aforementioned Aloc (ω) results. 10 −3 −2 −1 0 1 2 30.00.20.40.6                                      
+
+> A(kn, ω ) T /t = 0 .2
+> U/t = 3 .8
+> U/t = 4 .0
+> U/t = 4 .2
+> U/t = 5 .0
+> U/t = 6 .0
+> −6−30360.00.10.20.3
+> T /t = 0 .5
+> U/t = 5 .2
+> U/t = 5 .6
+> U/t = 6 .0
+> U/t = 6 .8
+> U/t = 9 .0
+> −3−2−10123
+> ω/t
+> 0.00.20.40.6
+> A(kan , ω ) T /t = 0 .2
+> U/t = 3 .4
+> U/t = 3 .6
+> U/t = 3 .8
+> U/t = 4 .6
+> U/t = 5 .5
+> −6−3036
+> ω/t
+> 0.00 0.05 0.10 0.15 0.20 0.25
+> T /t = 0 .5
+> U/t = 5 .0
+> U/t = 5 .2
+> U/t = 5 .6
+> U/t = 6 .8
+> U/t = 9 .0
+
+FIG. 8. Momentum-space single-particle spectral function 
+
+A(k, ω ) at the nodal ( k = kn) and antinodal ( k = kan ) points as a function of ω/t , for T /t = 0 .2 and 0 .5. The system size is L = 20 for T /t = 0 .2 and L = 16 for T /t = 0 .5. 
+
+In Fig. 8, we show the results of A(kn, ω ) and A(kan , ω )versus ω/t at T /t = 0 .2 and 0 .5. As U/t increases, the spectra gradually change from a coherence peak, to a dip, and finally open a gap around ω = 0, similar to the be-havior of Aloc (ω) shown in Fig. 2. A clear discrepancy in the U/t values, at which the spectral dip appears, be-tween the nodal and antinodal points can be observed at both temperatures. Applying a similar procedure based on Eq. (11), we obtain the dip positions of Uan ≃ 3.7t
+
+and Un ≃ 4.1t for T /t = 0 .2, as well as Uan ≃ 5.5t and 
+
+Un ≃ 5.8t for T /t = 0 .5. Comparing these with the MIC boundaries, we find the relation UBM < U an < U n < U MI ,which indicates that the nodal-antinodal dichotomy in 
+
+A(k, ω ) is most prominent in bad metal regime. These anisotropic spectra features associated with the dip for-mation were also reported in Ref. [97] and were termed as “momentum-dependent pseudogaps”. By comparing the results in Figs. 2 and 8, we further observe the relation UAloc < U an < U n, meaning that the dip near ω = 0 in Aloc (ω) shows up earlier than those in A(kn, ω ) and A(kan , ω ). This can be understood from the connection between the two spectral functions, i.e., 
+
+Aloc (ω) = N −1
+
+> s
+
+P 
+
+> k
+
+A(k, ω ). For the momenta k far away from the Fermi surface, the states are either fully occu-pied or completely empty, resulting in vanishing spectral weight A(k, ω ) near ω = 0. As a result, the local weight 
+
+Aloc (ω ∼ 0) is dominated by contributions from momenta on and close to the Fermi surface, denoted as kF and k⋆F ,respectively. The latter is taken into account due to the thermal smearing of the Fermi surface at finite temper-atures. Around U/t = 0, A(k, ω ∼ 0) at all kF and k⋆F
+
+points display a peak structure, leading to the coherence peak in Aloc (ω) characterizing Fermi liquid regime. Since 
+
+A(k⋆F , ω ∼ 0) < A (kF , ω ∼ 0) and the interaction effects 00.2                   
+
+> −8
+> −4048
+> ω/t
+> U/t = 2 .200.2
+> U/t = 3 .0
+> −8
+> −4048
+> ω/t
+> U/t = 3 .2U/t = 4 .0
+> Aloc (ω)
+> −8
+> −4048
+> ω/t
+> ΓXM′MXU/t = 4 .4
+> Aloc (ω)ΓXM′MXU/t = 6 .5
+> 0.00.20.40.6
+
+FIG. 9. The single-particle spectra at T /t = 0.2 within the range of interaction strength U/t = 2 .2 ∼ 6.5. Each panel includes the local spectral function Aloc (ω) (left), and the momentum-resolved single-particle spectra A(k, ω ) (right) along the Γ −→ X −→ M ′ −→ M −→ X path in the Brillouin zone, with kΓ = (0 , 0), kX = ( π, 0), kM ′ = ( π/ 2, π/ 2), and 
+
+kM = ( π, π ). The cyan dashed line plots the kinetic disper-sion relation εk, and the green dashed line marks ω = 0. The antinodal point ( kX = kan ) and nodal point ( kM ′ = kn) are highlighted by blue dashed lines. The system size is L = 20. 
+
+suppress spectral weight in a similar manner across mo-menta, the dip near ω = 0 is expected to develop earlier in A(k⋆F , ω ) than in A(kF , ω ). Consequently, the emer-gence of a dip in Aloc (ω) at U = UAloc is mainly driven by contributions from k⋆F points. As U/t further increases, 
+
+A(kF , ω ∼ 0) subsequently develops the dip, with the antinodal point kF = kan doing so first. This naturally results in the relation UAloc < U an < U n, and validates our criterion for the Fermi liquid regime as U < U Aloc ,where Aloc (ω ∼ 0) exhibits a coherence peak correspond-ing to coherent spectra over the entire thermally smeared Fermi surface (including both k⋆F and kF points). This criterion is indeed more reasonable than examining only 
+
+A(kF , ω ), since thermal smearing of the Fermi surface be-comes significant at intermediate to high temperatures. In the low-T regime, where this smearing weakens, the deviation between UAloc and Uan gradually vanishes as 
+
+T /t → 0, and UAloc , Uan , and Un all approach zero. In Fig. 9, we further illustrate the nodal-antinodal di-chotomy and the above physical picture for the crossover, with momentum-resolved spectra A(k, ω ) along a high symmetry path in the Brillouin zone at T /t = 0 .2. Along this path, the segment X → M ′ [with kX = kan = ( π, 0) and kM ′ = kn = ( π/ 2, π/ 2)] represents the entire Fermi surface considering rotational and mirror symmetries of the model. The corresponding local spectra Aloc (ω) are also shown on the left side in a vertical layout. The evolu-tion of the spectra features is closely related to the MIC of the system. In the Fermi liquid regime ( U/t = 2 .2and 3 .0), the dominant spectral weight in A(k, ω ) closely 11 tracks kinetic energy dispersion εk (cyan dashed line) and 
+
+Aloc (ω ∼ 0) exhibits coherence peak, indicating weak in-teraction effects. Upon entering the bad metal regime, at 
+
+U/t = 3 .2, Aloc (ω ∼ 0) evolves into a dip while A(kF , ω )along X → M ′ remains almost unchanged compared with 
+
+U/t = 3 .0, confirming the above picture that the behav-ior of Aloc (ω ∼ 0) around U = UAloc is governed by contributions from k⋆F points. As U/t further increases, the spectrum A(k, ω ) near the X point (antinodal point) first develops a dip (or opens a pseudogap according to Ref. [97]) around ω = 0 at U/t = 4 .0, and this behav-ior subsequently extends over the entire Fermi surface at 
+
+U/t = 4 .4, where the M ′ point (nodal point) shows the weakest suppression. These A(k, ω ) results at U/t = 4 .0and 4 .4 explicitly illustrate the spectral anisotropy on the Fermi surface and explicitly reveal the nodal-antinodal dichotomy. The spectral evolutions also evidently mani-fest the relation UAloc < U an < U n. Then at U/t = 6 .5, both spectra Aloc (ω) and A(k, ω ) display fully gapped features, characteristic of the Mott insulating regime. The spectral features illustrated in Figs. 8 and 9, and discussed above, also appear at all other fixed tempera-tures plotted in Fig. 1. The nodal-antinodal dichotomy in 
+
+A(k, ω ), as reflected by the relation UAloc < U an < U n, is most prominent in the crossover (bad metal) regime. Be-sides, we note that Uan and Un determined from Fig. 8 are significantly larger than UΣ1 and UΣ2 obtained in Fig. 7 for T /t = 0 .2 ( Uan ≃ 3.70 t versus UΣ1 ≃ 3.05 t,and Un ≃ 4.10 t versus UΣ2 ≃ 3.75 t), although both sets of signatures indicate the breakdown of quasiparticle be-havior at the antinodal and nodal points. Their devia-tions further grow as T /t increases. In addition to possi-ble bias introduced by numerical analytical continuation, this discrepancy arises mainly because UΣ1 and UΣ2 are estimated from ImΣ( k, iω l), whose lowest Matsubara fre-quency ω0 = πT is bounded by the temperature [99].  
+
+> IV. OTHER THERMODYNAMIC QUANTITIES
+
+In this section, we present AFQMC results for widely studied thermodynamic properties, including the ther-mal entropy, double occupancy, specific heat, and charge compressibility. We focus on their interaction and tem-perature dependences, as well as their characteristic be-haviors and connections to the crossover diagram sum-marized and analyzed in Sec. III.  
+
+> A. Thermal entropy map
+
+In correlated lattice models, the thermal entropy den-sity s = S/N s generally decreases monotonically with lowering temperature [36, 100, 101]. It thus serves as an important metric in optical lattice experiments to charac-terize the relative temperature T /t [15, 102, 103], which is typically not directly measurable experimentally. This is the case for the model (1). Moreover, this model admits 0 2 4 6 8 10 12 
+
+U/t 
+
+0.10.20.30.40.50.60.7  
+
+> T /t  US1 US2
+> 0.20
+> 0.30
+> 0.10
+> 0.40
+> 0.50
+> 0.55
+> 0.60
+> 0.65 0.70
+
+0.10.20.30.40.50.60.7       
+
+> FIG. 10. Thermal entropy map of the half-filled square-lattice Hubbard model. Black solid lines are the isentropic curves with the svalues (in units of kB) marked on the lines. The po-sitions of the local maximum ( US1 , green dashed line) and the local minimum ( US2 , white dashed line) of sat fixed temper-atures extracted from Fig. 4(a) and Fig. 1 are also included.
+
+several limiting cases in which the entropy is analytically known. At finite U/t , it gradually approaches the atomic limit as T /t increases, yielding s = 2 ln 2 at T /t = ∞.At fixed T /t , the model crosses over to an effective AFM Heisenberg model at large U limit (with T /J ∝ U ), and accordingly s saturates to ln 2 at U/t = + ∞. Upon cool-ing to T = 0, s decays to zero at arbitrary U/t [104]. The most characteristic behavior of thermal entropy in the model (1) is its nonmonotonic U -dependence at fixed 
+
+T /t , as shown in Fig. 4(a) and discussed in Sec. III A. By combining the numerical data of s at different tempera-tures and performing an interpolation, we construct the entropy map of the model on the U -T plane, as presented in Fig. 10. The finite-size effects are mostly negligible, especially at T /t ≥ 0.2. In the plot, we also mark a set of isentropic curves, Ti(U ), along which s remains con-stant as s(Ti(U ), U ) = si, and highlight the US1 and US2 
+
+curves as depicted in Fig. 1. There are three prominent features of the entropy map. 
+
+First , the low entropy region ( s < 0.1) exhibits a dome-like shape, which essentially corresponds to the region with strong AFM spin correlations at finite temperatures. 
+
+Second , the isentropic curves also display a nonmonotonic dependence on U , which is actually induced by the rise-dip-rise behavior of s versus U/t at fixed T /t . This is evident from the following equation [58, 105] 
+
+∂s
+
+∂U T =Ti(U )
+
+= − c(Ti)
+
+Ti
+
+dTi(U )dU , (12) obtained from the total derivative of s(Ti(U ), U ) = si.Here, c(T ) = T × (∂s/∂T ) is the specific heat, and it is positive at T > 0. The above relation explicitly reveals that s(T, U ) and Ti(U ) have opposite slope signs with re-spect to U at T = Ti. This leads to the inverted structure 12 0.10 0.15 0.20 0.25 0.30 0.35             
+
+> T /t
+> (a)
+> s= 0 .25
+> 0.15 0.20 0.25 0.30 0.35
+> T /t
+> (b)
+> s= 0 .30
+> 036912
+> U/t
+> 0.20 0.25 0.30 0.35 0.40 0.45 0.50
+> T /t
+> (c)
+> s= 0 .45 2D 3D
+> 036912
+> U/t
+> 0.40 0.45 0.50 0.55 0.60 0.65 0.70
+> T /t
+> (d)
+> s= 0 .60
+
+FIG. 11. Comparison of isoentropic curves in the 2D and 3D half-filled Hubbard models at fixed entropy densities s = 0 .25, 0.30, 0 .45, and 0 .60. The 2D results are from Fig. 10, while the 3D data are reproduced from Ref. [105]. 
+
+of the isoentropic curves relative to the U -dependence of 
+
+s shown in Fig. 4(a). Moreover, their local extrema, de-termined via d Ti/dU = 0 and ( ∂s/∂U )|T =Ti = 0, appear at the same U value. This means that the local minimum and maximum of Ti(U ) curve correspond to the local maximum ( US1 ) and minimum ( US2 ) of s(T, U ), respec-tively, as confirmed in Fig. 10. Third , the nonmonotonic 
+
+Ti(U ) curves demonstrate the interaction-induced adia-batic cooling (also known as Pomeranchuk cooling [106]) in both U < U S1 and U > U S2 regimes. This is evident from the decrease of T /t with increasing U/t along Ti(U )curves in these two regimes. The former ( U < U S1 ) is the Fermi liquid regime in the crossover diagram. For the lat-ter ( U > U S2 ), the isentropic curves with si < ln 2 follow the asymptotic behavior Ti(U ) = α×(4 t2/U ) as U → ∞ .In this limit, the model (1) maps onto the effective AFM Heisenberg model with J = 4 t2/U at the temperature 
+
+T /J = α, and it has the same entropy si. These fea-tures are closely related to the MIC phenomenon in the model. The MIC and the associated peak antiferromag-netism [see Fig. 4(b)] result in the local maximum and minimum ( US1 and US2 ) in s versus U/t , and then via Eq. (12), lead to the nonmonotonic isentropic curves in Fig. 10 as well as the Pomeranchuk cooling. All the above features of the entropy map have also been observed in the square-lattice Hubbard model with spin-dependent hopping anisotropy [58] and the 3D Hub-bard model on simple cubic lattice [105]. In Fig. 11, we compare the isoentropic curves Ti(U ) of the standard Hubbard model in 2D and 3D at fixed entropy densities 
+
+s = 0 .25, 0 .30, 0 .45, and 0 .60. They share the same non-monotonic dependence on U , with different local extrema positions due to the distinct bandwidths, as W = 8 t in 2D versus W = 12 t in 3D. Besides, in the U < U S1 
+
+regime, the Pomeranchuk cooling effect is slightly more pronounced in 3D, as evidenced by a greater tempera-ture reduction. More importantly, we find that, at fixed entropy, the temperature T /t is systematically lower in 0.0 0.2 0.4 0.6 0.8
+
+T /t 
+
+0.044 0.046 0.048 0.050 0.052 0.054 
+
+> D
+
+−0.083    
+
+> U/t = 4 .0
+> U/t = 8 .0
+> U/t
+> 0.10.30.50.7
+> T /t  FL BM MI
+> 48
+> US1
+> US2
+
+FIG. 12. The double occupancy D as a function of T /t for 
+
+U/t = 4 .0 and 8 .0. The finite-T results (hollow symbols) are from our AFQMC simulations, while the data at T = 0 (solid symbols) are the ground-state AFQMC results reported in Ref. [108]. For U/t = 4 .0, the results are shifted by −0.083 to fit into the plot. The arrows mark the local maximum and minimum of D. The inset plots vertical lines for U/t = 4 .0 and 
+
+U/t = 8 .0 on top of the crossover diagram, and their crossing points with the US1 (also as UBM in Fig. 1) and US2 curves are highlighted by the circles and square. These results are from L = 20, are verified to show negligible finite-size effects. 
+
+2D than in 3D. This observation suggests that adiabatic dimension reduction from 3D to 2D can serve as an effec-tive cooling protocol for realizing the 2D Hubbard model at low temperatures in optical lattice experiments, in al-ternative to that applied in Ref. [107]. Experimentally, this can be implemented by gradually reducing the lat-tice depth (laser intensity) along z direction. Our results further reveal that this adiabatic cooling from dimension reduction is more pronounced on the weak- and strong-coupling sides than in the intermediate U/t regime. 
+
+B. Double occupancy and Maxwell relation 
+
+Double occupancy D is a key quantity for characteriz-ing interaction effects in the Hubbard model. With in-creasing U/t , it generally decays from 0 .25 at U = 0 (at half filling) to zero as U/t → +∞, as shown in Fig. 6(a). The nontrivial feature of D lies in its nonmonotonic tem-perature dependence, which is the focus of this subsec-tion. In Fig. 12, we present the results of D as a function of T /t for U/t = 4 .0 and 8 .0, representing two distinct temperature-dependent behaviors. At U/t = 4 .0, with lowering temperature, D initially decreases, then displays a local minimum at T /t ≃ 0.669 and a subsequent local maximum at T /t ≃ 0.317, and eventually decreases again and converges to the ground-state value D = 0 .1262(2), as reported in Ref. [108]. At U/t = 8 .0, D only has a lo-cal minimum at T /t ≃ 0.497, and subsequently increases and saturates to D(T = 0) = 0 .0540(1) [108]. For both 13 cases, D exhibits an anomalous enhancement upon cool-ing within a finite temperature window, namely, between the local minimum and maximum for U/t = 4 .0, and be-low the local minimum for U/t = 8 .0. This is referred to as the Pomeranchuk effect in double occupancy and has been reported in many previous studies of the model (1), including Refs. [93, 109–112]. However, those works cap-ture only one of the two behaviors described above, either the one similar to U/t = 4 .0 or that resembling U/t = 8 .0, rather than both within a unified framework. The above temperature-dependent behaviors of D can be explained from both mathematical and physical as-pects. Formally, the T -derivative of D is connected to the U -derivative of the entropy s via Maxwell relation as 
+
+ ∂s
+
+∂U 
+
+
+
+> T
+
+= −
+
+ ∂D ∂T 
+
+
+
+> U
+
+. (13) The results of s versus U/t shown in Fig. 4(a) explicitly show that the sign of ( ∂s/∂U )T is + for U < U S1 , − for 
+
+US1 < U < U S2 , and + again for U > U S2 . For U/t = 4 .0, the temperature line crosses the US1 curve for twice [see inset of Fig. 12], and thus divides the T /t axis into three regimes, in which the signs of ( ∂D/∂T )U are respectively +, −, and + (from high to low T /t ) according to the sign structure of ( ∂s/∂U )T and Eq. (13). This directly gives rise to the qualitative temperature dependence of D at 
+
+U/t = 4 .0 shown in Fig. 12. Quantitatively, the crossing points (black circles in the inset), where ( ∂s/∂U )T = 0, correspond to the local extrema of D versus T /t , since (∂D/∂T )U = 0 according to Eq. (13). This point is con-firmed by the agreement between the temperatures of the crossing points and the positions of the local minimum and maximum of D, located at T /t ≃ 0.669 and 0 .317, respectively. In contrast, for U/t = 8 .0, the temperature line only crosses the US2 curve once, and thus similarly separates the T dependence of D into two regimes with the sign of ( ∂D/∂T )U as + and − from high to low T /t .This leads to the single dip structure of D at U/t = 8 .0shown in Fig. 12. The temperature of the crossing point (yellow square in the inset) also quantitatively matches the local minimum of D at T /t ≃ 0.497. On the other hand, the physical interpretation for the dependence of D on T /t relies on the crossover diagram. Upon cooling, D starts from its uncorrelated value 0 .25 at T /t = ∞, and becomes strongly suppressed as T de-creases to T ∼ U , where the on-site Coulomb repulsion becomes effective and penalizes double occupancy. At lower temperatures ( T /t < 1), however, the underly-ing physics governing D diversify between the weak- and strong-interaction regimes. For U/t = 4 .0, as a represen-tative of the weakly interacting regime, the system first evolves from the bad metal state into the Fermi liquid regime at T /t ≃ 0.669, and then re-enters the bad metal at T /t ≃ 0.317, as depicted in the inset of Fig. 12. In the intermediate range 0 .317 < T /t < 0.669, the Fermi liquid coherence in the system becomes more pronounced as T /t 
+
+decreases, thereby leading to the anomalous increase of D
+
+in this temperature window. Then, at T /t < 0.317, the 0 1 2 3 4
+
+T /t 
+
+0.10.30.50.7
+
+> Cv
+
++0 .19 
+
+−0.1                        
+
+> Thigh /t ≈1.00
+> Thigh /t ≈1.66
+> Thigh /t ≈1.78
+> U/t = 4
+> U/t = 6
+> U/t = 8
+> FIG. 13. The specific heat Cvas a function of T /t for U/t = 4, 6, 8. The high-temperature peak in Cvappears at Thigh /t ≃
+> 1.00, 1 .66, and 1 .78 for the three interactions, respectively, as marked by vertical gray dashed lines. For U/t = 4 and 8, the results are shifted by +0 .19 and −0.1 to fit into the plot. These results are from L= 20 system.
+
+system progressively transforms from bad metal state to a Mott insulator, during which enhanced electron local-ization suppresses charge fluctuations and consequently reduces the double occupancy. For any U < (US1 )max 
+
+with ( US1 )max ≃ 4.87 t (see Table I), the behavior of D
+
+as a function of T /t should qualitatively resemble that at U/t = 4 .0 as analyzed above. For U/t = 8 .0 as a typ-ical strong interaction, the physical mechanism of D is instead quite different. In this case, below the dip tem-perature of D (as T /t < 0.497), its enhancement upon cooling can be attributed to the virtual charge fluctua-tions associated with the emergence of Heisenberg spin-exchange physics. These fluctuations slightly delocalize electrons and are inherently quantum in nature, which are further strengthened with lowering T /t and hence lead to the increase of D. Built on this picture, the US2 
+
+curve can be regarded as an approximate boundary, be-yond which the system can be effectively described by the AFM Heisenberg model. The temperature-dependent be-havior of D at U/t = 8 .0 likewise serves as a qualitative representative for any U > (US2 )min .Combining above analysis for the entropy and double occupancy, we can conclude that the Pomeranchuk ef-fect in D (versus T ) is equivalent to Pomeranchuk cool-ing (versus U ). They are connected through Eqs. (12) and (13), and both occur in the U < U S1 and U > U S2 
+
+regimes on the crossover diagram in Fig. 1. In contrast to our results, a previous AFQMC study [113] reported the absence of Pomeranchuk cooling in the 2D model (1), based on relatively coarse data for the entropy and dou-ble occupancy obtained from L = 10 systems. We at-tribute this discrepancy to the limited precision of the results in Ref. [113], which, for instance, failed to resolve the anomalous enhancement of double occupancy upon cooling. The entropy data in that work also had signifi-cant error bars, rendering the extracted isentropic curves 14 less reliable. Our AFQMC results for both quantities are instead highly precise, allowing us to unambiguously re-solve their fine variations and thus establish the presence of Pomeranchuk cooling.  
+
+> C. Double-peak structure of the specific heat
+
+The specific heat directly reflects the spectrum of ther-mal excitations in the system, and its characteristic peak typically signals the activation of excitations at a spe-cific energy scale. The most prominent feature of this quantity in the model (1) is the double-peak structure as a function of temperature, which was first revealed in Ref. [114], systematically investigated in Ref. [115], and subsequently reported in Refs. [111, 112, 116, 117]. In Fig. 13, we plot the results of specific heat Cv versus 
+
+T /t for U/t = 4, 6, and 8. The double-peak structure is clearly evident, consisting of a broad high-temperature peak at Thigh and a narrower peak at a lower temper-ature Tlow . Our results identify Thigh ≃ 1.00, 1 .66, and 1.78 for the three values of U/t , respectively, with the cor-responding low-T peaks located at Tlow ≃ 0.172, 0 .235, and 0 .228. These numbers have certain deviations from those presented in Ref. [115], which are likely attributed to finite-size effects in the latter that is limited to L ≤ 10. Our results are from L = 20 system and are verified to exhibit only weak finite-size effects around Tlow .The two peaks in Cv originate from distinct underly-ing physics at small and large U . In the strong-coupling regime, the high-T peak is contributed by charge excita-tions across the gap between the upper and lower Hub-bard bands, which can be approximately described by the atomic limit ( βU ≪ 1). Within this limit, the high-T
+
+peak position should gradually approach the asymptotic relation Thigh ≃ 0.208 U as U/t → ∞ (see Appendix C of Ref. [36]). The result T /U ≃ 0.223 for U/t = 8 is al-ready quite close to the limit. The low-T peak is instead associated with magnetic ordering, which is governed by the effective AFM Heisenberg model with exchange cou-pling J = 4 t2/U . This yields the relation Tlow ∼J. More quantitatively, the Heisenberg limit possesses a Cv peak at T /J ≃ 2/3 [118], which leads to Tlow ≃ 8t2/(3 U ) in the Hubbard model toward U/t → ∞ [114, 115]. Based on the separated charge and spin energy scales, the two peaks in Cv are typically referred to as “charge peak” and “spin peak” in strongly interacting regime [115]. Turn-ing to the weak-coupling regime, Ref. [115] demonstrated that the high-T peak in Cv closely follows that of the noninteracting system, with its position remaining nearly unchanged at Thigh /t ≃ 1.0 for 0 ≤ U/t ≤ 4.0. The low-temperature peak, on the other hand, corresponds to low-energy excitations and is characterized by the energy scale of the ground-state gap ∼t exp( −αpt/U ). This is also the energy scale of AFM spin fluctuations from Hartree-Fock mean-field theory. These together indicate the relation Tlow ∼t exp( −αpt/U ) as U/t → 0, which was confirmed by the numerical results in Refs. [115, 116]. 0 2 4 6 8 10 12                                                              
+
+> U/t
+> 0.00.10.20.30.40.5
+> χe
+> (a) T /t = 0 .1
+> T /t = 0 .2
+> T /t = 0 .3
+> T /t = 0 .4
+> T /t = 0 .5
+> T /t = 0 .6
+> T /t = 0 .70.30.50.7
+> T /t
+> 0.15 0.20 0.25
+> χe
+> -0.085 +0.155
+> U/t = 2 U/t = 3 U/t = 5
+> 0246810 12
+> T /t
+> 10 20 30 40
+> χ−1
+> e
+> (b)
+> U/t = 4
+> U/t = 6
+> U/t = 8
+> FIG. 14. (a) Charge compressibility χeas a function of U/t
+> at temperatures from T /t = 0 .1 to 0 .7. The inset plots χe
+> versus temperature in the range 0 .2≤T /t ≤0.7 for U/t = 2, 3, 5. These results are from L= 20 for T /t = 0 .1, L= 20 for T /t = 0 .2, and L= 16 for T /t ≥0.3. (b) Inverse charge compressibility χ−1
+> eas a function of temperature for U/t = 4, 6, 8. The dashed lines plot the χ−1
+> eresults of the atomic limit [see Eq. (14)]. These results are from L= 20 system. The residual finite-size effects are negligible.
+
+As the system crosses over from the weak- to strong-coupling regime, Tlow exhibits nonmonotonic dependence on U , reaching its maximum around U/t = 6 [115]. In-stead, Thigh increases progressively in the intermediate crossover regime [114, 115].  
+
+> D. Interaction and temperature dependences of the charge compressibility
+
+Charge compressibility serves as an important probe of electron localization arising from interaction effects. It is relatively large in Fermi liquid and small in Mott insula-tor, and it displays contrasting temperature dependences in these two regimes [33]. Therefore, its evolution with interaction strength and temperature provides useful in-sight into the MIC in the model (1). In Fig. 14, we show the results of charge compressibility χe, computed via Eq. (3), over a wide range of interaction strengths and temperatures. 15 As depicted in Fig. 14(a), the smooth suppression of χe
+
+with increasing U/t for all plotted temperatures clearly manifest the MIC behavior. At weak coupling, χe is siz-able and grows upon lowering temperature (for U/t ≲ 2within the displayed T /t range). This behavior can be regarded as a perturbative continuation of the noninter-acting result, which predicts χe ∝ − ln T due to the diver-gent local density of states at the Fermi level [33, 58]. At strong coupling, χe gradually vanishes, reflecting strong electron localization deep in Mott insulator. With this property, we can alternatively obtain the onset of Mott insulator using a tiny threshold ϵ∼10 −3 for χe, consider-ing the temperature bound and associated thermal fluc-tuations. It produces the pink dashed line in Fig. 1(b), which conforms well with the UMI results obtained via 
+
+ZkF and Aloc (ω) (see Sec. III B). We also find that χe
+
+decreases with lowering T /t for U/t ≳ 5 (see the inset). This is consistent with our crossover diagram, showing that the system continuously evolves from bad metal to Mott insulator for U/t ≳ 5. At intermediate interactions, the consecutive T /t curves of χe cross at U/t = 2 ∼ 4. This phenomenon was also reported in Ref. [33], where such crossing was taken as a signature of the crossover from metallic to insulating states. This criterion is based on d χe/dT > 0 and d χe/dT < 0 for the two states, and can be equivalently transformed into the maximum of χe
+
+(at Tχ) with decreasing T /t for a fixed U/t . The sup-pression of χe at low temperatures is due to the gapped ground state and associated insulating state near T = 0. As shown in the inset of Fig. 14(a), the χe maximum for 
+
+U/t = 3 appears at Tχ/t ∼ 0.3, which locates inside the Fermi liquid regime. Moreover, it was shown [33] that 
+
+Tχ increases monotonically within U/t = 0 ∼ 4 toward 
+
+Tχ/t ≃ 0.85 at U/t = 4. This is, nevertheless, quite dif-ferent from the crossover boundary UBM at T /t ≥ 0.3from our calculations. We attribute this deviation to the failure of the above criterion at intermediate to high temperatures, caused by thermal fluctuations, similar to that analyzed in Sec. III C. The criterion becomes more effective in low temperature region. This is evidenced by the shift of the crossing point toward smaller U/t upon lowering temperature as shown in Fig. 14(a). In addi-tion, for U/t = 2 .0, our results show that χe increases continuously from T /t = 0 .7 to 0 .1, suggesting its maxi-mum location Tχ ≲ 0.1, fairly close to the corresponding temperature at UBM = 2 .0t.In Fig. 14(b), we illustrate the temperature-dependent behavior of χ−1 
+
+> e
+
+for U/t = 4, 6, and 8. We observe that 
+
+χ−1 
+
+> e
+
+decreases upon cooling at high temperatures, and shows an upturn at a relatively lower temperature. The upturn is an indicator of approaching the insulating state. We find that χ−1 
+
+> e
+
+exhibits an approximate T -linearity in high-T regime. According to our previous work [36], this behavior can be well described by the result at atomic limit (correct to the first order in βU )
+
+χe = β
+
+
+
+2n − n2 − ne−βU e−βμ + 1 
+
+
+
++ O[( βU )2], (14) which is applicable to the doped case, with μ as the chem-ical that tunes the fermion filling to the desired number 
+
+n. Its zero-th order approximation reads 
+
+χ−1 
+
+> e
+
+= T
+
+
+
+n − n2
+
+2
+
+−1
+
++ U
+
+2 + O(βU ), (15) showing exact T -linear relation. This T -linearity in χ−1
+
+> e
+
+also persists in the doped Hubbard model [112, 119], with a decreasing slope ( n − n2/2) −1 upon doping. Further-more, from the Nernst-Einstein relation ρ = χ−1 
+
+> e
+
+/D diff ,the resistivity ρ is proportional to χ−1 
+
+> e
+
+in high-T regime, where the diffusivity Ddiff exhibits rather weak tem-perature dependence [119]. This qualitative reasoning may provide a simple picture for understanding the linear-T resistivity at high temperatures in the Hubbard model [119, 120]. It also suggests that the resistivity ρ
+
+tends to become more linear in T at higher temperatures, in agreement with numerous experimental observations in cuprate and nickelate superconductors [121–124]. Nev-ertheless, how this so-called “strange metallicity” behav-ior extends into low temperature region in both Hubbard model and realistic materials is surely beyond the above picture based on the atomic limit description. Regarding the crossover diagram in Fig. 1, we find that the fan-shaped bad metal regime at T /t ≤ 0.7 is con-nected to the high-temperature region exhibiting linear-
+
+T resistivity. This is consistent with the definition of “bad metal” in Refs. [125, 126] and also aligns with our use of the terminology.  
+
+> V. SUMMARY AND DISCUSSION
+
+In summary, we have established the complete MIC di-agram for the half-filled Hubbard model on square lattice, using numerically unbiased finite-temperature AFQMC method. Between the weak-coupling Fermi liquid and strong-coupling Mott insulator, we identify an extended crossover regime, termed bad metal. Based on our nu-merical results, we systematically characterize the key features and elucidate the underlying physics of various thermodynamic and dynamical observables across these three distinct regimes. The crossover boundaries are ac-cordingly defined as the onsets of the bad metal and Mott insulator, determined through a combined analy-sis of the thermal entropy, single-particle spectral func-tions, quasiparticle weight. We also observe strong AFM spin correlations and a pronounced nodal-antinodal di-chotomy within the crossover. In close connection with the MIC, we further examine the temperature depen-dence of widely studied physical quantities, including the thermal entropy, double occupancy, specific heat, and charge compressibility. From these results, we con-struct the entropy map across the crossover diagram and identify the Pomeranchuk cooling regions of the model. Our numerical results deepen the understanding of MIC physics and provide useful benchmark references for fu-ture optical lattice experiments. 16 Our work also has implications for metal-to-insulator crossover phenomenon in the 2D doped Hubbard model. With doping, the Fermi liquid regime persists, and the Mott insulator becomes a paramagnetic insulating state exhibiting incommensurate spin fluctuations [127–130]. Meanwhile, the bad metal may branch into the pseudo-gap state [131, 132] and strange metal [119, 120], depend-ing on the fermion filling and temperature. The crossover in the doped case has recently been explored in Ref. [133] using various static correlations, but only at high temper-atures ( T /t ≤ 0.5). The scheme applied in our work to characterize the MIC can serve as a systematic diagnos-tic framework, that combines both thermodynamic and dynamical quantities, for studying the exotic physics of the doped Hubbard model and the associated crossover behaviors. We leave the exploration of these open possi-bilities to future work. 
+
+ACKNOWLEDGMENTS 
+
+This work was supported by the National Natural Science Foundation of China (Grant Nos. 12247103, 12204377, and 12275263), the Quantum Science and Technology-National Science and Technology Major Project (Grant No. 2021ZD0301900), the Natural Sci-ence Foundation of Fujian province of China (Grant No. 2023J02032), and the Youth Innovation Team of Shaanxi Universities. 
+
+Appendix A: Signal Locations in Figs. 1 
+
+TABLE I. The signal locations in Fig. 1(a). 
+
+T /t UBM /t UMI /t UAF /t UD /t 
+
+0.10 1.95(5) 3.7(4) 7.4(3) 2.66(2) 0.20 2.82(2) 5.9(5) 6.0(2) 3.95(4) 0.30 3.79(3) 7.4(4) 6.8(1) 4.02(5) 0.40 4.7(1) 8.6(5) 7.4(1) 3.7(1) 0.50 4.87(5) 9.6(4) 8.0(2) 3.19(5) 0.60 4.53(7) 10.5(3) 8.2(1) 1.8(3) 0.70 3.63(3) 11.2(3) 8.7(2) TABLE II. The signal locations in Fig. 1(b). 
+
+T /t UAloc /t US2/t UF/t UΣ1 /t UΣ2 /t 
+
+0.10 2.29(15) 4.80(30) 2.59(10) 2.357(4) 2.501(2) 0.20 3.1(2) 5.9(1) 4.1(2) 3.045(4) 3.755(3) 0.30 3.9(3) 6.62(8) 4.4(1) 2.72(3) 3.884(9) 0.40 4.7(3) 7.2(2) 4.30(9) 2.73(10) 0.50 5.1(3) 8.3(1) 4.0(1) 0.60 5.3(3) 10.0(3) 3.5(2) 0.70 5.4(3) 11.92(7) 2.0(2) 
+
+In Tables I and II, we list the signal locations in the crossover diagram Fig. 1, which are determined along the U/t axis at fixed temperatures. Table I includes the onset of the bad metal ( UBM ) and the Mott insulator (UMI ), the peak locations of AFM structure factor ( UAF ), the inflection point of double occupancy ( UD). Table II contains the onset of a dip in the local single-particle spectral function ( UAloc ), the local minimum of entropy (US2 ), the peak location of fidelity susceptibility ( UF), and the crossing between ImΣ( kF , iω 0) and ImΣ( kF , iω 1)[UΣ1 for the antinodal point kF = kan = ( π, 0), and UΣ2 
+
+for the nodal point kF = kn = ( π/ 2, π/ 2)]. Note that the UBM in Table I is also the local maximum of entropy, denoted as US1 .0.20 0.25 0.30 0.35                     
+
+> s
+> (a1)
+> US1 US2
+> L= 16
+> L= 20
+> 0246810 12
+> U/t
+> 012345
+> Szz
+> AFM
+> (a2)
+> T /t = 0 .2
+> UAF
+> L= 16
+> L= 20
+> 0.36 0.39 0.42 0.45 0.48 0.51
+> s
+> (b1)
+> US1 US2
+> 0246810 12
+> U/t
+> 0.00.30.60.91.21.5
+> Szz
+> AFM
+> (b2)
+> T /t = 0 .3
+> UAF
+
+FIG. 15. Comparison of the L = 16 and L = 20 results for thermal entropy density s and AFM structure factor Szz 
+
+> AFM
+
+,at T /t = 0 .2 [(a1)(a2)] and T /t = 0 .3 [(b1)(b2)]. The US1 ,
+
+US2 , and UAF results are marked by the vertical shadings. 0.00.10.20.30.4                               
+
+> A(kn, ω ) (a1) L= 16
+> U/t = 4 .4
+> U/t = 4 .8
+> U/t = 5 .0
+> U/t = 6 .0
+> U/t = 7 .0(a2) L= 20
+> −3−2−10123
+> ω/t
+> 0.00.10.20.30.4
+> A(kan , ω ) (b1) L= 16
+> U/t = 4 .0
+> U/t = 4 .4
+> U/t = 4 .6
+> U/t = 5 .4
+> U/t = 6 .8
+> −3−2−10123
+> ω/t
+> (b2) L= 20
+
+FIG. 16. Comparison of the L = 16 and L = 20 results for the spectra A(kn, ω ) [(a1)(a2)] and A(kan , ω ) [(b1)(b2)] at 
+
+T /t = 0 .3. 17 
+
+Appendix B: The finite-size effect for various quantities 
+
+In this appendix, we present supplementary results on the finite-size effects of the thermal entropy, AFM struc-ture factor, as well as the spectra A(kn, ω ), A(kan , ω ), and Aloc (ω). −2 −1 0 1 2             
+
+> ω/t
+> 0.00 0.05 0.10 0.15 0.20 0.25
+> Aloc (ω)
+> (a) L= 20
+> U/t = 2 .0
+> U/t = 3 .0
+> U/t = 3 .2
+> U/t = 4 .0
+> U/t = 4 .8
+> −2−1012
+> ω/t
+> (b) L= 24
+
+FIG. 17. Comparison of the L = 20 and L = 24 results for the local spectrum Aloc (ω), at T /t = 0 .2. 
+
+In Fig. 15, we compare the finite-size results from 
+
+L = 16 and L = 20 for the thermal entropy density s
+
+and the AFM structure factor Szz  
+
+> AFM
+
+for T /t = 0 .2 and 
+
+T /t = 0 .3. At T /t = 0 .3, both quantities show excellent agreement between the two system sizes, indicating that they have essentially converged to the thermodynamic limit, as evidenced by the nearly perfect collapse of the data. Consequently, the signature locations US1 , US2 ,and UAF also converge. For T /t > 0.3, the finite-size effects should be weaker, and thus the corresponding re-sults of US1 , US2 , and UAF obtained from L = 16 system in our calculations are reliable. Turing to T /t = 0 .2, the entropy s only show weak finite-size effects near U = 0 and around U = US2 . The positions of the local maxi-mum and minimum ( US1 and US2 ) clearly converge. In-stead, Szz  
+
+> AFM
+
+only exhibits observable finite-size effects around U = UAF , while its peak location UAF also con-verges within L = 16 and L = 20. At even lower tem-perature T /t = 0 .1, the entropy s show finite-size effects similar to that of T /t = 0 .2. We have verified that the 
+
+US1 and US2 signatures almost converge within L = 20 and L = 24. The results of US1 /t (UBM /t ) and US2 /t in Tables I and II are from L = 24 system. Nevertheless, 
+
+Szz  
+
+> AFM
+
+exhibit strong finite-size effects at T /t = 0 .1, for which we compute the UAF in systems from L = 20 to 
+
+L = 40 and perform an extrapolation for the finite-size 
+
+UAF to reach the value UAF /t = 7 .4(3) at the thermody-namic limit. In Fig. 16, we compare the finite-size results from L =16 and L = 20 for the spectra A(kn, ω ) and A(kan , ω ) at 
+
+T /t = 0 .3. It is evident that these spectral results clearly converge to the thermodynamic limit. This should also be the case for the local spectrum Aloc (ω), which is a summation of A(k, ω ) at all k points. Moreover, the nice agreement between the spectra L = 16 and L = 20 also reflects the reliability of the numerical analytical continuation procedure we applied in our calculations. Similarly, at T /t > 0.3, our spectral results obtained from L = 16 system should also have vanishing finite-size effects. In Fig. 17, we show the comparison of the 
+
+L = 20 and L = 24 results at T /t = 0 .2 for the local spectrum Aloc (ω), from which we extract the signature 
+
+UAloc . Again, there is almost no noticeable difference between these two groups of results, indicating the neg-ligible finite-size effects. The obtained UAloc results also agree within these two system sizes. At T /t = 0 .1, we ob-tain UAloc from L = 24 system, which might show weak finite-size effects. 
+
+[1] K. G. Wilson, The renormalization group and critical phenomena, Rev. Mod. Phys. 55 , 583 (1983). [2] S. L. Sondhi, S. M. Girvin, J. P. Carini, and D. Sha-har, Continuous quantum phase transitions, Rev. Mod. Phys. 69 , 315 (1997). [3] M. Imada, A. Fujimori, and Y. Tokura, Metal-insulator transitions, Rev. Mod. Phys. 70 , 1039 (1998). [4] H. Park, K. Haule, and G. Kotliar, Cluster dynamical mean field theory of the mott transition, Phys. Rev. Lett. 101 , 186403 (2008). [5] T. Ohashi, T. Momoi, H. Tsunetsugu, and N. Kawakami, Finite temperature mott transition in hubbard model on anisotropic triangular lattice, Phys. Rev. Lett. 100 , 076402 (2008). [6] H. Terletska, J. Vuˇ ciˇ cevi´ c, D. Tanaskovi´ c, and V. Do-brosavljevi´ c, Quantum critical transport near the mott transition, Phys. Rev. Lett. 107 , 026401 (2011). [7] M. Kohno, Mott transition in the two-dimensional hub-bard model, Phys. Rev. Lett. 108 , 076401 (2012). [8] E. Burovski, N. Prokof’ev, B. Svistunov, and M. Troyer, Critical temperature and thermodynamics of attrac-tive fermions at unitarity, Phys. Rev. Lett. 96 , 160402 (2006). [9] M. W. Zwierlein, C. H. Schunck, A. Schirotzek, and W. Ketterle, Direct observation of the superfluid phase transition in ultracold fermi gases, Nature 442 , 54 (2006). [10] C. Walsh, P. S´ emon, D. Poulin, G. Sordi, and A.-M. S. Tremblay, Local entanglement entropy and mu-tual information across the mott transition in the two-dimensional hubbard model, Phys. Rev. Lett. 122 ,067203 (2019). [11] C. Walsh, P. S´ emon, D. Poulin, G. Sordi, and A.-M. S. Tremblay, Thermodynamic and information-theoretic description of the mott transition in the two-dimensional hubbard model, Phys. Rev. B 99 , 075122 (2019). [12] Z. Yan, P. B. Patel, B. Mukherjee, C. J. Vale, R. J. Fletcher, and M. W. Zwierlein, Thermography of the superfluid transition in a strongly interacting fermi gas, 18 
+
+Science 383 , 629 (2024). [13] X. Li, X. Luo, S. Wang, K. Xie, X.-P. Liu, H. Hu, Y.-A. Chen, X.-C. Yao, and J.-W. Pan, Second sound attenu-ation near quantum criticality, Science 375 , 528 (2022). [14] P. A. Murthy, I. Boettcher, L. Bayha, M. Holzmann, D. Kedar, M. Neidig, M. G. Ries, A. N. Wenz, G. Z¨ urn, and S. Jochim, Observation of the berezinskii-kosterlitz-thouless phase transition in an ultracold fermi gas, Phys. Rev. Lett. 115 , 010401 (2015). [15] H.-J. Shao, Y.-X. Wang, D.-Z. Zhu, Y.-S. Zhu, H.-N. Sun, S.-Y. Chen, C. Zhang, Z.-J. Fan, Y. Deng, X.-C. Yao, Y.-A. Chen, and J.-W. Pan, Antiferromagnetic phase transition in a 3d fermionic hubbard model, Na-ture 632 , 267 (2024). [16] T. Sch¨ afer, A. A. Katanin, K. Held, and A. Toschi, In-terplay of correlations and kohn anomalies in three di-mensions: Quantum criticality with a twist, Phys. Rev. Lett. 119 , 046402 (2017). [17] C. Lenihan, A. J. Kim, F. ˇSimkovic, and E. Kozik, Eval-uating second-order phase transitions with diagram-matic monte carlo: N´ eel transition in the doped three-dimensional hubbard model, Phys. Rev. Lett. 129 ,107202 (2022). [18] L. Rampon, F. ˇSimkovic, and M. Ferrero, Magnetic phase diagram of the three-dimensional doped hubbard model, Phys. Rev. Lett. 134 , 066502 (2025). [19] F. Sun and X. Y. Xu, Boosting determinant quantum Monte Carlo with submatrix updates: Unveiling the phase diagram of the 3D Hubbard model, SciPost Phys. 
+
+18 , 055 (2025). [20] I. Bloch, J. Dalibard, and W. Zwerger, Many-body physics with ultracold gases, Rev. Mod. Phys. 80 , 885 (2008). [21] Q. Chen, Z. Wang, R. Boyack, S. Yang, and K. Levin, When superconductivity crosses over: From bcs to bec, Rev. Mod. Phys. 96 , 025002 (2024). [22] M. Bartenstein, A. Altmeyer, S. Riedl, S. Jochim, C. Chin, J. H. Denschlag, and R. Grimm, Crossover from a molecular bose-einstein condensate to a degener-ate fermi gas, Phys. Rev. Lett. 92 , 120401 (2004); Col-lective excitations of a degenerate gas at the bec-bcs crossover, Phys. Rev. Lett. 92 , 203201 (2004). [23] G. E. Astrakharchik, J. Boronat, J. Casulleras, and S. Giorgini, Momentum distribution and condensate fraction of a fermion gas in the bcs-bec crossover, Phys. Rev. Lett. 95 , 230405 (2005). [24] G. Bertaina and S. Giorgini, Bcs-bec crossover in a two-dimensional fermi gas, Phys. Rev. Lett. 106 , 110403 (2011). [25] H. Shi, S. Chiesa, and S. Zhang, Ground-state proper-ties of strongly interacting fermi gases in two dimen-sions, Phys. Rev. A 92 , 033603 (2015). [26] M. G. Ries, A. N. Wenz, G. Z¨ urn, L. Bayha, I. Boettcher, D. Kedar, P. A. Murthy, M. Neidig, T. Lompe, and S. Jochim, Observation of pair condensa-tion in the quasi-2d bec-bcs crossover, Phys. Rev. Lett. 
+
+114 , 230401 (2015). [27] Y.-Y. He, H. Shi, and S. Zhang, Precision many-body study of the berezinskii-kosterlitz-thouless transi-tion and temperature-dependent properties in the two-dimensional fermi gas, Phys. Rev. Lett. 129 , 076403 (2022). [28] N. Harrison and M. K. Chan, Magic gap ratio for op-timally robust fermionic condensation and its implica-tions for High −Tc superconductivity, Phys. Rev. Lett. 
+
+129 , 017001 (2022). [29] J. Vuˇ ciˇ cevi´ c, H. Terletska, D. Tanaskovi´ c, and V. Do-brosavljevi´ c, Finite-temperature crossover and the quantum widom line near the mott transition, Phys. Rev. B 88 , 075143 (2013). [30] C. Hofrichter, L. Riegger, F. Scazza, M. H¨ ofer, D. R. Fernandes, I. Bloch, and S. F¨ olling, Direct probing of the mott crossover in the SU( n) fermi-hubbard model, Phys. Rev. X 6, 021030 (2016). [31] J. H. Drewes, E. Cocchi, L. A. Miller, C. F. Chan, D. Pertot, F. Brennecke, and M. K¨ ohl, Thermody-namics versus local density fluctuations in the metal– mott-insulator crossover, Phys. Rev. Lett. 117 , 135301 (2016). [32] F. ˇSimkovic, J. P. F. LeBlanc, A. J. Kim, Y. Deng, N. V. Prokof’ev, B. V. Svistunov, and E. Kozik, Ex-tended crossover from a fermi liquid to a quasiantiferro-magnet in the half-filled 2d hubbard model, Phys. Rev. Lett. 124 , 017003 (2020). [33] A. J. Kim, F. Simkovic, and E. Kozik, Spin and charge correlations across the metal-to-insulator crossover in the half-filled 2d hubbard model, Phys. Rev. Lett. 124 ,117602 (2020). [34] C. Lenihan, A. J. Kim, F. ˇSimkovic IV., and E. Kozik, Entropy in the non-fermi-liquid regime of the doped 2D hubbard model, Phys. Rev. Lett. 126 , 105701 (2021). [35] P.-O. Downey, O. Gingras, J. Fournier, C.-D. H´ ebert, M. Charlebois, and A.-M. S. Tremblay, Mott transition, widom line, and pseudogap in the half-filled triangu-lar lattice hubbard model, Phys. Rev. B 107 , 125159 (2023). [36] Y.-F. Song, Y. Deng, and Y.-Y. He, Extended metal-insulator crossover with strong antiferromagnetic spin correlation in half-filled 3d hubbard model, Phys. Rev. Lett. 134 , 016503 (2025); Magnetic, thermodynamic, and dynamical properties of the three-dimensional fermionic hubbard model: A comprehensive monte carlo study, Phys. Rev. B 111 , 035123 (2025). [37] P. Limelette, P. Wzietek, S. Florens, A. Georges, T. A. Costi, C. Pasquier, D. J´ erome, C. M´ ezi` ere, and P. Batail, Mott transition and trans-port crossovers in the organic compound 
+
+κ−(BEDT −TTF) 2Cu[N(CN) 2]Cl, Phys. Rev. Lett. 91 ,016401 (2003). [38] B. H. Moon, G. H. Han, M. c. v. M. Radonji´ c, H. Ji, and V. Dobrosavljevi´ c, Quantum critical scaling for finite-temperature mott-like metal-insulator crossover in few-layered mos 2, Phys. Rev. B 102 , 245424 (2020). [39] I. Castillo, T. Sohier, M. Paillet, D. Cakiroglu, C. Con-sejo, C. Wen, F. Wasem Klein, M.-Q. Zhao, A. Ouerghi, S. Contreras, A. T. C. Johnson, M. J. Verstraete, B. Jouault, and S. Nanot, Metal-insulator crossover in monolayer mos2, Nanotechnology 34 , 335202 (2023). [40] J. Hubbard and B. H. Flowers, Electron correlations in narrow energy bands, Proc. R. Soc. Lond. Ser. A 276 ,238 (1963). [41] J. Kanamori, Electron correlation and ferromagnetism of transition metals, Prog. Theor. Phys 30 , 275 (1963). [42] M. C. Gutzwiller, Effect of correlation on the ferromag-netism of transition metals, Phys. Rev. Lett. 10 , 159 (1963). [43] N. F. MOTT, Metal-insulator transition, Rev. Mod. Phys. 40 , 677 (1968). 19 
+
+[44] N. D. Mermin and H. Wagner, Absence of ferro-magnetism or antiferromagnetism in one- or two-dimensional isotropic Heisenberg models, Phys. Rev. Lett. 17 , 1307 (1966). [45] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, The Hubbard model, Annual Review of Condensed Matter Physics 13 , 239 (2022). [46] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, The Hubbard model: A computational per-spective, Annual Review of Condensed Matter Physics 
+
+13 , 275 (2022). [47] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Monte Carlo calculations of coupled boson-fermion sys-tems. i, Phys. Rev. D 24 , 2278 (1981). [48] J. E. Hirsch, Discrete Hubbard-Stratonovich transfor-mation for fermion lattice models, Phys. Rev. B 28 ,4059 (1983). [49] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Numerical study of the two-dimensional Hubbard model, Phys. Rev. B 
+
+40 , 506 (1989). [50] R. T. Scalettar, R. M. Noack, and R. R. P. Singh, Er-godicity at large couplings with the determinant Monte Carlo algorithm, Phys. Rev. B 44 , 10502 (1991). [51] F. Sun and X. Y. Xu, Delay update in determinant quantum Monte Carlo, Phys. Rev. B 109 , 235140 (2024). [52] Y.-Y. He, H. Shi, and S. Zhang, Reaching the continuum limit in finite-temperature ab Initio field-theory compu-tations in many-fermion systems, Phys. Rev. Lett. 123 ,136402 (2019). [53] F. Assaad and H. Evertz, World-line and determinantal quantum Monte Carlo methods for spins, phonons and electrons, in Computational Many-Particle Physics, Lecture Notes in Physics, Vol. 739, edited by H. Fehske, R. Schneider, and A. Weiße (Springer,Berlin, 2008) pp. 277–356. [54] C.-C. Chang, S. Gogolenko, J. Perez, Z. Bai, and R. T. Scalettar, Recent advances in determinant quantum monte carlo, Philosophical Magazine 95 , 1260 (2015). [55] C. Wu and S.-C. Zhang, Sufficient condition for absence of the sign problem in the fermionic quantum monte carlo algorithm, Phys. Rev. B 71 , 155115 (2005). [56] J. E. Hirsch, Two-dimensional hubbard model: Numer-ical simulation study, Phys. Rev. B 31 , 4403 (1985). [57] C. N. Varney, C.-R. Lee, Z. J. Bai, S. Chiesa, M. Jarrell, and R. T. Scalettar, Quantum monte carlo study of the two-dimensional fermion hubbard model, Phys. Rev. B 
+
+80 , 075116 (2009). [58] Z. Xie, Y.-F. Song, and Y.-Y. He, Ising phase transi-tions and thermodynamics of correlated fermions in a two-dimensional spin-dependent lattice potential, Phys. Rev. B 111 , 125105 (2025). [59] Y.-Y. He, Condensate fraction scaling and specific heat anomaly around berezinskii-kosterlitz-thouless transi-tion of superconductivity and superfluidity, arXiv: 
+
+2506.09611 (2025). [60] H. Du and Y.-Y. He, Accelerating ground-state auxiliary-field quantum monte carlo simulations by de-layed update and block force-bias update, Phys. Rev. B 
+
+112 , 235120 (2025). [61] A. W. Sandvik, Constrained sampling method for ana-lytic continuation, Phys. Rev. E 94 , 063308 (2016). [62] H. Shao and A. W. Sandvik, Progress on stochastic ana-lytic continuation of quantum monte carlo data, Physics Reports 1003 , 1 (2023). [63] A. Liebsch, Mott transitions in multiorbital systems, Phys. Rev. Lett. 91 , 226401 (2003). [64] Y.-H. Liu and L. Wang, Quantum monte carlo study of mass-imbalanced hubbard models, Phys. Rev. B 92 ,235129 (2015). [65] W.-L. You, Y.-W. Li, and S.-J. Gu, Fidelity, dynamic structure factor, and susceptibility in critical phenom-ena, Phys. Rev. E 76 , 022101 (2007). [66] L. Campos Venuti and P. Zanardi, Quantum critical scaling of the geometric tensors, Phys. Rev. Lett. 99 ,095701 (2007). [67] S.-J. Gu and H.-Q. Lin, Scaling dimension of fidelity sus-ceptibility in quantum phase transitions, Europhysics Letters 87 , 10003 (2009). [68] D. Schwandt, F. Alet, and S. Capponi, Quantum monte carlo simulations of fidelity at magnetic quantum phase transitions, Phys. Rev. Lett. 103 , 170501 (2009). [69] A. F. Albuquerque, F. Alet, C. Sire, and S. Capponi, Quantum critical scaling of fidelity susceptibility, Phys. Rev. B 81 , 064418 (2010). [70] L. Wang, Y.-H. Liu, J. Imriˇ ska, P. N. Ma, and M. Troyer, Fidelity susceptibility made simple: A uni-fied quantum monte carlo approach, Phys. Rev. X 5,031007 (2015). [71] L. Huang, Y. Wang, L. Wang, and P. Werner, Detecting phase transitions and crossovers in hubbard models us-ing the fidelity susceptibility, Phys. Rev. B 94 , 235110 (2016). [72] K. Borejsza and N. Dupuis, Antiferromagnetism and single-particle properties in the two-dimensional half-filled hubbard model: Slater vs. mott-heisenberg, Euro-physics Letters 63 , 722 (2003). [73] N. F. Mott, The basis of the electron theory of metals, with special reference to the transition metals, Proceed-ings of the Physical Society. Section A 62 , 416 (1949). [74] J. C. Slater, Magnetic effects and the hartree-fock equa-tion, Phys. Rev. 82 , 538 (1951). [75] T. Pruschke and R. Zitzler, From slater to mott-heisenberg physics: the antiferromagnetic phase of the hubbard model, Journal of Physics: Condensed Matter 
+
+15 , 7867 (2003). [76] E. Gull, P. Werner, X. Wang, M. Troyer, and A. J. Millis, Local order and the gapped phase of the hubbard model: A plaquette dynamical mean-field investigation, Europhysics Letters 84 , 37009 (2008). [77] D. Wang, L. Wang, and C. Wu, Slater and mott insu-lating states in the su(6) hubbard model, Phys. Rev. B 
+
+100 , 115155 (2019). [78] X. Deng, J. Mravlje, R. ˇZitko, M. Ferrero, G. Kotliar, and A. Georges, How bad metals turn good: Spectro-scopic signatures of resilient quasiparticles, Phys. Rev. Lett. 110 , 086401 (2013). [79] W. Ding, R. Yu, Q. Si, and E. Abrahams, Effective ex-change interactions for bad metals and implications for iron-based superconductors, Phys. Rev. B 100 , 235113 (2019). [80] X. Y. Zhang, M. J. Rozenberg, and G. Kotliar, Mott transition in the d= ∞ hubbard model at zero tempera-ture, Phys. Rev. Lett. 70 , 1666 (1993). [81] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly corre-lated fermion systems and the limit of infinite dimen-20 
+
+sions, Rev. Mod. Phys. 68 , 13 (1996). [82] F. Gebhard, The mott metal-insulator transition: Mod-els and methods (Springer-Verlag, Berlin Heidelberg, 1997). [83] G. Kotliar and D. Vollhardt, Strongly correlated materi-als: Insights from dynamical mean-field theory, Physics Today 57 , 53 (2004). [84] M. Bauer, M. M. Parish, and T. Enss, Universal equa-tion of state and pseudogap in the two-dimensional fermi gas, Phys. Rev. Lett. 112 , 135302 (2014). [85] S. Chiesa, C. N. Varney, M. Rigol, and R. T. Scalet-tar, Magnetism and pairing of two-dimensional trapped fermions, Phys. Rev. Lett. 106 , 035301 (2011). [86] E. Khatami and M. Rigol, Thermodynamics of strongly interacting fermions in two-dimensional optical lattices, Phys. Rev. A 84 , 053611 (2011). [87] A. H. MacDonald, S. M. Girvin, and D. Yoshioka, tU
+
+expansion for the hubbard model, Phys. Rev. B 37 , 9753 (1988). [88] J.-Y. P. Delannoy, M. J. P. Gingras, P. C. W. Holdsworth, and A.-M. S. Tremblay, N´ eel order, ring exchange, and charge fluctuations in the half-filled hub-bard model, Phys. Rev. B 72 , 115114 (2005). [89] J. Vuˇ ciˇ cevi´ c, J. Kokalj, R. ˇZitko, N. Wentzell, D. Tanaskovi´ c, and J. Mravlje, Conductivity in the square lattice hubbard model at high temperatures: Im-portance of vertex corrections, Phys. Rev. Lett. 123 ,036601 (2019). [90] M. J. Rozenberg, R. Chitra, and G. Kotliar, Finite tem-perature mott transition in the hubbard model in infi-nite dimensions, Phys. Rev. Lett. 83 , 3498 (1999). [91] O. Parcollet, G. Biroli, and G. Kotliar, Cluster dynam-ical mean field analysis of the mott transition, Phys. Rev. Lett. 92 , 226402 (2004). [92] T. Sch¨ afer, F. Geles, D. Rost, G. Rohringer, E. Arrigoni, K. Held, N. Bl¨ umer, M. Aichhorn, and A. Toschi, Fate of the false mott-hubbard transition in two dimensions, Phys. Rev. B 91 , 125109 (2015). [93] T. Sch¨ afer, N. Wentzell, F. ˇSimkovic, Y.-Y. He, C. Hille, M. Klett, C. J. Eckhardt, B. Arzhang, V. Harkov, F. m. c.-M. Le R´ egent, A. Kirsch, Y. Wang, A. J. Kim, E. Kozik, E. A. Stepanov, A. Kauch, S. Andergassen, P. Hansmann, D. Rohe, Y. M. Vilk, J. P. F. LeBlanc, S. Zhang, A.-M. S. Tremblay, M. Ferrero, O. Parcollet, and A. Georges, Tracking the footprints of spin fluctua-tions: A multimethod, multimessenger study of the two-dimensional hubbard model, Phys. Rev. X 11 , 011058 (2021). [94] A.-M. S. Tremblay, B. Kyung, and D. S´ en´ echal, Pseudo-gap and high-temperature superconductivity from weak to strong coupling. towards a quantitative theory (re-view article), Low Temperature Physics 32 , 424 (2006). [95] M. Ferrero, P. S. Cornaglia, L. De Leo, O. Parcollet, G. Kotliar, and A. Georges, Pseudogap opening and for-mation of fermi arcs as an orbital-selective mott tran-sition in momentum space, Phys. Rev. B 80 , 064501 (2009). [96] E. Gull, M. Ferrero, O. Parcollet, A. Georges, and A. J. Millis, Momentum-space anisotropy and pseudogaps: A comparative cluster dynamical mean-field analysis of the doping-driven metal-insulator transition in the two-dimensional hubbard model, Phys. Rev. B 82 , 155101 (2010). [97] D. Rost, E. V. Gorelik, F. Assaad, and N. Bl¨ umer, Momentum-dependent pseudogaps in the half-filled two-dimensional hubbard model, Phys. Rev. B 86 , 155109 (2012). [98] F. ˇSimkovic, R. Rossi, A. Georges, and M. Ferrero, Ori-gin and fate of the pseudogap in the doped hubbard model, Science 385 , eade9194 (2024). [99] The signature UΣ1 (UΣ2 ), obtained as the crossing of ImΣ( k, iω 0) and ImΣ( k, iω 1) at k = kan (k = kn), ac-tually underestimates the U value for the breakdown of quasiparticle behavior at finite temperatures. The con-dition ImΣ( k, iω 0) > ImΣ( k, iω 1) reflects the asymp-totic trend ImΣ( k, ω ) → 0 as ω → 0, which implies the presence of a coherence peak in A(k, ω ) and thus the quasiparticle behavior. However, the ImΣ( k, iω 0) <
+
+ImΣ( k, iω 1) situation is subtle. In this case, ImΣ( k, ω )may exhibit an upturn only at low frequency ω < ω 0,which cannot be accessed on the discrete Matsubara grid ωl = (2 l + 1) πT . Hence, at finite T /t , there exists a regime with U slightly larger than UΣ1 , where the rela-tion ImΣ( kan , iω 0) < ImΣ( kan , iω 1) holds, yet A(kan , ω )still displays quasiparticle behavior. This explains the observed relation of UΣ1 < U an . The same reasoning applies at the nodal point, leading to UΣ2 < U n.[100] S. Wessel, Critical entropy of quantum heisenberg mag-nets on simple-cubic lattices, Phys. Rev. B 81 , 052405 (2010). [101] Z. Zhou, D. Wang, C. Wu, and Y. Wang, Finite-temperature valence-bond-solid transitions and ther-modynamic properties of interacting SU(2 n) dirac fermions, Phys. Rev. B 95 , 085128 (2017). [102] Y.-X. Wang, H.-J. Shao, Y.-S. Zhu, D.-Z. Zhu, H.-N. Sun, S.-Y. Chen, X.-C. Yao, Y.-A. Chen, and J.-W. Pan, Homogeneous fermionic hubbard gases in a flattop optical lattice, Phys. Rev. Lett. 134 , 043403 (2025). [103] R. A. Hart, P. M. Duarte, T.-L. Yang, X. Liu, T. Paiva, E. Khatami, R. T. Scalettar, N. Trivedi, D. A. Huse, and R. G. Hulet, Observation of antiferromagnetic cor-relations in the hubbard model with ultracold atoms, Nature 519 , 211 (2015). [104] Approaching T = 0, the entropy density can be com-puted as s = N −1 
+
+> s
+
+kB ln g, where g denotes the ground-state degeneracy. For the half-filled Hubbard model in Eq. (1), g scales markedly subexponentially with the system size Ns, even considering the spin SU(2) sym-metry. This leads to s → 0 as L → ∞ .[105] Y.-F. Song, Y. Deng, and Y.-Y. He, Thermal entropy, density disorder, and antiferromagnetism of repulsive fermions in 3d optical lattice, Chinese Physics Letters 
+
+42 , 110710 (2025). [106] Z. Cai, H.-h. Hung, L. Wang, D. Zheng, and C. Wu, Pomeranchuk cooling of SU(2 n) ultracold fermions in optical lattices, Phys. Rev. Lett. 110 , 220401 (2013). [107] M. Xu, L. H. Kendrick, A. Kale, Y. Gang, C. Feng, S. Zhang, A. W. Young, M. Lebrat, and M. Greiner, A neutral-atom hubbard quantum simulator in the cryo-genic regime, Nature 642 , 909 (2025). [108] J. P. F. LeBlanc, A. E. Antipov, F. Becca, I. W. Bu-lik, G. K.-L. Chan, C.-M. Chung, Y. Deng, M. Fer-rero, T. M. Henderson, C. A. Jim´ enez-Hoyos, E. Kozik, X.-W. Liu, A. J. Millis, N. V. Prokof’ev, M. Qin, G. E. Scuseria, H. Shi, B. V. Svistunov, L. F. Tocchio, I. S. Tupitsyn, S. R. White, S. Zhang, B.-X. Zheng, Z. Zhu, and E. Gull (Simons Collaboration on the Many-Electron Problem), Solutions of the two-dimensional 21 
+
+hubbard model: Benchmarks and results from a wide range of numerical algorithms, Phys. Rev. X 5, 041041 (2015). [109] E. V. Gorelik, D. Rost, T. Paiva, R. Scalettar, A. Kl¨ umper, and N. Bl¨ umer, Universal probes for anti-ferromagnetic correlations and entropy in cold fermions on optical lattices, Phys. Rev. A 85 , 061602 (2012). [110] J. P. F. LeBlanc and E. Gull, Equation of state of the fermionic two-dimensional hubbard model, Phys. Rev. B 88 , 155108 (2013). [111] A. Wietek, R. Rossi, F. ˇSimkovic, M. Klett, P. Hans-mann, M. Ferrero, E. M. Stoudenmire, T. Sch¨ afer, and A. Georges, Mott insulating states with competing or-ders in the triangular lattice hubbard model, Phys. Rev. X 11 , 041013 (2021). [112] Q. Li, Y. Gao, Y.-Y. He, Y. Qi, B.-B. Chen, and W. Li, Tangent space approach for thermal tensor network sim-ulations of the 2d hubbard model, Phys. Rev. Lett. 130 ,226502 (2023). [113] T. Paiva, R. Scalettar, M. Randeria, and N. Trivedi, Fermions in 2d optical lattices: Temperature and en-tropy scales for observing antiferromagnetism and su-perfluidity, Phys. Rev. Lett. 104 , 066406 (2010). [114] D. Duffy and A. Moreo, Specific heat of the two-dimensional hubbard model, Phys. Rev. B 55 , 12918 (1997). [115] T. Paiva, R. T. Scalettar, C. Huscroft, and A. K. McMa-han, Signatures of spin and charge energy scales in the local moment and specific heat of the half-filled two-dimensional hubbard model, Phys. Rev. B 63 , 125116 (2001). [116] R. Mondaini and T. Paiva, Magnetism, transport, and thermodynamics in two-dimensional half-filled hubbard superlattices, Phys. Rev. B 95 , 075142 (2017). [117] A. Sinha, M. M. Rams, P. Czarnik, and J. Dziarmaga, Finite-temperature tensor network study of the hubbard model on an infinite square lattice, Phys. Rev. B 106 ,195105 (2022). [118] J. Jakliˇ c and P. Prelovˇ sek, Thermodynamic properties of the planar t − j model, Phys. Rev. Lett. 77 , 892 (1996). [119] E. W. Huang, R. Sheppard, B. Moritz, and T. P. Dev-ereaux, Strange metallicity in the doped hubbard model, Science 366 , 987 (2019). [120] P. T. Brown, D. Mitra, E. Guardado-Sanchez, R. Nourafkan, A. Reymbaut, C.-D. H´ ebert, S. Bergeron, A.-M. S. Tremblay, J. Kokalj, D. A. Huse, P. Schauß, and W. S. Bakr, Bad metallic transport in a cold atom fermi-hubbard system, Science 363 , 379 (2019). [121] N. E. Hussey, R. A. Cooper, X. Xu, Y. Wang, I. Mouzopoulou, B. Vignolle, and C. Proust, Dichotomy in the t-linear resistivity in hole-doped cuprates, Philo-sophical Transactions of the Royal Society A: Mathe-matical, Physical and Engineering Sciences 369 , 1626 (2011). [122] C. Proust and L. Taillefer, The remarkable underlying ground states of cuprate superconductors, Annual Re-view of Condensed Matter Physics 10 , 409 (2019). [123] Y.-T. Hsu, K. Lee, S. Badoux, C. Duffy, A. Cuoghi, B. Y. Wang, A. Kool, I. Ha¨ ık-Dunn, H. Y. Hwang, and N. E. Hussey, Transport phase diagram and anomalous metallicity in superconducting infinite-layer nickelates, Nature Communications 15 , 9863 (2024). [124] M. Wang, B. Hao, W. Sun, S. Yan, S. Sun, H. Zhang, Z. Gu, and Y. Nie, Superconducting dome in la 3−xsr xni 2o7−δ thin films, Phys. Rev. Lett. 136 , 066002 (2026). [125] J. Vuˇ ciˇ cevi´ c, D. Tanaskovi´ c, M. J. Rozenberg, and V. Dobrosavljevi´ c, Bad-metal behavior reveals mott quantum criticality in doped hubbard models, Phys. Rev. Lett. 114 , 246402 (2015). [126] C. H. Mousatov, I. Esterlis, and S. A. Hartnoll, Bad metallic transport in a modified hubbard model, Phys. Rev. Lett. 122 , 186601 (2019). [127] B.-X. Zheng, C.-M. Chung, P. Corboz, G. Ehlers, M.-P. Qin, R. M. Noack, H. Shi, S. R. White, S. Zhang, and G. K.-L. Chan, Stripe order in the underdoped region of the two-dimensional hubbard model, Science 358 , 1155 (2017). [128] Y.-Y. He, M. Qin, H. Shi, Z.-Y. Lu, and S. Zhang, Finite-temperature auxiliary-field quantum Monte Carlo: Self-consistent constraint and systematic ap-proach to low temperatures, Phys. Rev. B 99 , 045108 (2019). [129] H. Xu, H. Shi, E. Vitali, M. Qin, and S. Zhang, Stripes and spin-density waves in the doped two-dimensional hubbard model: Ground state phase diagram, Phys. Rev. Res. 4, 013239 (2022). [130] B. Xiao, Y.-Y. He, A. Georges, and S. Zhang, Tem-perature dependence of spin and charge orders in the doped two-dimensional hubbard model, Phys. Rev. X 
+
+13 , 011007 (2023). [131] W. Wu, M. S. Scheurer, S. Chatterjee, S. Sachdev, A. Georges, and M. Ferrero, Pseudogap and fermi-surface topology in the two-dimensional hubbard model, Phys. Rev. X 8, 021048 (2018). [132] F. Boschini, M. Zonno, E. Razzoli, R. P. Day, M. Michiardi, B. Zwartsenberg, P. Nigge, M. Schnei-der, E. H. da Silva Neto, A. Erb, S. Zhdanovich, A. K. Mills, G. Levy, C. Giannetti, D. J. Jones, and A. Dam-ascelli, Emergence of pseudogap from short-range spin-correlations in electron-doped cuprates, npj Quantum Materials 5, 6 (2020). [133] S. Roy, S. Pervaiz, T. Paiva, and N. Trivedi, Metal to insulator crossover in the repulsive fermi-hubbard model probed by static correlations, Phys. Rev. B 112 , 165144 (2025).

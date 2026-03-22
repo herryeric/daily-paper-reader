@@ -1,0 +1,573 @@
+Title: Coexistence Regime and Thermal Crystallization in the cavity-mediated extended Bose-Hubbard Model
+
+URL Source: https://arxiv.org/pdf/2603.07121v1
+
+Published Time: Tue, 10 Mar 2026 00:37:38 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Coexistence Regime and Thermal Crystallization in the cavity-mediated extended Bose-Hubbard Model 
+
+Wei-Wei Wang, 1 Jin Yang, 1, ∗ Barbara Capogrosso-Sansone, 2 Jian-Ping Lv, 1, † and Chao Zhang 1, ‡
+
+> 1
+
+Department of Physics, Anhui Normal University, Wuhu, Anhui 241000, China 
+
+> 2
+
+Institute for Condensed Matter Physics and Complex Systems, DISAT, Politecnico di Torino, I-10129, Torino, Italy 
+
+By means of path-integral Monte Carlo, we study the finite-temperature behavior of the extended Bose–Hubbard model with cavity-mediated long-range interactions at unit filling. At zero temper-ature, the system supports superfluid, Mott-insulating, supersolid, and charge-density-wave phases, with a strongly first-order transition between superfluid and charge density wave states charac-terized by a broad coexistence region. Focusing on this coexistence regime, we explore how the dominant order evolves with temperature. When the system is initialized in a superfluid state, the superfluid density is progressively suppressed upon heating, and a normal fluid is stabilized. Upon further increasing the temperature, a thermally assisted emergence of crystalline order occurs which eventually melts into the normal fluid. In contrast, simulations initialized in a charge-density-wave configuration display a smooth thermal melting of density order, with no reemergence of superfluid coherence. Overall, our results show that metastability persists at low temperatures, but ultimately disappears at higher temperatures, where thermally induced crystallization takes place. 
+
+I. INTRODUCTION 
+
+The interplay of strong correlations and quantum statistics in lattice boson systems gives rise to a vari-ety of quantum phases, including superfluid (SF) 1, Mott insulator (MI) 2, charge-density-wave (CDW) 3,4 , and su-persolid (SS) states 5–10 . Optical lattices and cavity-mediated interactions offer versatile platforms to real-ize such phases in ultracold atomic gases 11–17 . In par-ticular, Bose-Hubbard models extended by global inter-actions—such as those arising from coupling to a high-finesse optical cavity—have been shown to stabilize CDW phases and supersolid states. 7,11–13,18–21 
+
+In regimes where SF and CDW orders are energeti-cally competitive, either a supersolid state emerges or the system undergoes a first-order quantum phase tran-sition 12,22,23 . Unlike second-order transitions character-ized by continuous symmetry breaking, first-order tran-sitions often support a sizable coexistence region 22,24 in which the two distinct ordered phases represent compet-ing minima of the free energy. In this work, we build upon and refine earlier inves-tigations 12 of the extended Bose–Hubbard model with cavity-mediated long-range interactions. We focus in particular on the first-order phase transition exhibited by the system. In contrast to most previous studies 9,25–27 ,which have explored the thermal melting of supersolid phases—where diagonal and off-diagonal long-range or-der coexist at low temperatures and vanish sequentially upon heating—we focus on the effects of finite temper-ature within the first-order coexistence region. In this regime, the two phases correspond to distinct competing minima of the free-energy landscape, and the realized state depends on the initial microscopic configuration. This raises the question of how the competing superfluid and density-wave orders and their coexistence evolve un-der thermal fluctuations. We emply quantum Monte Carlo simulations and begin by studying the ground state properties of the system at unit filling. We observe that the ground state exhibits a strong first-order transition between SF and CDW phases in a broad region of parameter space. We show that, within this coexistence region, cavity-mediated interac-tions promote thermocrystallization, namely, the emer-gence of thermally induced density–density correlations. This behavior has been observed in proximity of super-solid region in lattice dipolar bosons coupled to a high-finesse cavity 25 . Our results thus corroborate that cavity-mediated interactions cooperate with thermal effects to suppress exchanges of identical particles, thereby favor-ing solid order. In the SF-CDW phase coexistence re-gion, when Monte Carlo simulations are initialized in the SF phase, we observe equilibrium configurations in which the superfluid density is progressively suppressed as the temperature increases, eventually giving way to a stable normal fluid. Upon further heating, CDW order emerges, before ultimately disappearing at sufficiently high tem-peratures in favor of a normal fluid. By contrast, when the system is initialized in a CDW configuration, the intermediate normal phase is not observed, indicating that the CDW remains a minimum of the free energy. These distinct thermal trajectories demonstrate robust coexistence of the two ordered phases at lower temper-atures. At higher temperatures the CDW phase is re-established as the thermodynamically stable equilibrium state. Our results are broadly relevant for cavity-QED experiments with ultracold atoms 11,28–30 , where tunable cavity-mediated long-range interactions and controlled heating can provide direct access to metastable domains and thermally assisted ordering processes. The remainder of this paper is organized as follows. In Sec. II and Sec. III, we introduce the extended Bose–Hubbard Hamiltonian with cavity-mediated long-range interactions and the order parameters used in our analysis. Section IV presents the zero-temperature phase 
+
+> arXiv:2603.07121v1 [cond-mat.quant-gas] 7 Mar 2026
+
+2diagram. Section V analyzes the thermal melting of SF and CDW phases. In Sec. VI we discuss the finite-temperature phase diagram. Finally, Sec. VII concludes this paper.  
+
+> II. MODEL HAMILTONIAN
+
+We consider an extended Bose-Hubbard model on a two-dimensional square lattice with cavity-mediated long-range interactions. The system is described by the Hamiltonian: 
+
+ˆH = − t X
+
+> ⟨i,j ⟩
+
+ˆb† 
+
+> i
+
+ˆbj + H .c.
+
+
+
++ Us
+
+2
+
+X
+
+> i
+
+ˆni(ˆ ni − 1) − μ X
+
+> i
+
+ˆni
+
+− Uℓ
+
+L2
+
+X
+
+> i∈e
+
+ˆni − X
+
+> j∈o
+
+ˆnj
+
+
+
+> 2
+
+, (1) where ˆb† 
+
+> i
+
+(ˆbi) creates (annihilates) a boson at site i, and 
+
+ˆni = ˆb† 
+
+> i
+
+ˆbi is the corresponding number operator. The first term represents nearest-neighbor hopping with am-plitude t. The second term describes on-site repulsion of strength Us, while μ is the chemical potential. The last term describes a cavity-mediated long-range interac-tion, with strength Uℓ, that favors an imbalance between total particle numbers on the even and odd sublattices, denoted by e and o, respectively. The prefactor 1/L 2
+
+ensures proper scaling in the thermodynamic limit for a system of linear size L. 
+
+> III. METHOD AND ORDER PARAMETERS
+
+In this work, we fix the filling factor of the sys-tem to ⟨n⟩ = 1. We explore its groundstate and finite-temperature properties paying special attention to the parameter regime where the ground state exhibits a strong first-order transition between CDW and SF phases. We use path-integral quantum Monte Carlo based on the worm algorithm 31,32 and measure the su-perfluid density, compressibility, and structure factor. 
+
+Superfluid Density: The superfluid density ρs is cal-culated via the winding number fluctuations using the Pollock–Ceperley formula 33 :
+
+ρs = ⟨W2⟩
+
+dL d−2β ,
+
+where ⟨W2⟩ = Pdi=1 ⟨W 2 
+
+> i
+
+⟩ is the mean squared winding number in d = 2 spatial dimensions, L is the linear sys-tem size, and β = 1 /T is the inverse temperature. Afinite ρs signals phase coherence and superfluidity. 
+
+Compressibility: The compressibility κ is defined as: 
+
+κ = βL2
+
+ ⟨N 2⟩ − ⟨ N ⟩2 ,            
+
+> Figure 1. Ground-state phase diagram of the Bose–Hubbard model with cavity-mediated long-range interactions [Eq. (1)] at unit filling. The horizontal axis denotes the onsite repul-sion Us/t , and the vertical axis shows the ratio of the cavity-mediated long-range interaction to the onsite interaction,
+> Uℓ/U s.Four stable phases are identified: superfluid (SF), Mott insulator (MI), supersolid (SS), and charge-density wave CDW(2,0). Solid lines denote second-order phase boundaries, and solid symbols indicate the numerically determined tran-sition points obtained from QMC simulations. Dashed lines mark first-order transitions, while the shaded region high-lights the coexistence windows in which both phases consti-tute competing free energy minima. Notably, compared to previous studies, the SF–CDW coexistence region is signifi-cantly broader, indicating a strongly first-order character of the transition.
+
+where N = P 
+
+> i
+
+ni is the total particle number. A finite κ
+
+indicates gapless excitations, while a vanishing compress-ibility characterizes incompressible insulating phases. 
+
+Structure Factor: To detect long-range density-wave ordering on the square lattice, we compute the static structure factor at the checkerboard wave vector k =(π, π ), defined as: S(k) = 1
+
+> N
+
+P 
+
+> r,r′
+
+eik·(r−r′)⟨nrnr′ ⟩,where N is the total number of particles and k is the reciprocal lattice vector. A finite value of S(π, π ) in the thermodynamic limit indicates CDW order with a checkerboard pattern.  
+
+> IV. GROUND-STATE PHASE DIAGRAM
+
+As a first step, we reproduce the zero-temperature phase diagram by performing finite-size scaling analysis of the superfluid density and structure factor. Consistent with Ref. 12 , the ground-state phase diagram of the ex-tended Bose–Hubbard model with cavity-mediated long-range interactions contains four stable phases: SF, super-solid (SS), charge-density wave with alternating doubly occupied and empty sites [CDW(2,0)], and Mott insu-lator (MI). Our results confirm these phases and refine their transition lines with improved numerical resolution, 3as shown in Fig. 1. For the finite-size scaling calculations, we simulate system sizes ranging from L = 10 , 12, up to 24, and 
+
+β = L. The SF–SS transition is found to be continuous and belongs to the (2 + 1) -dimensional Ising universality class 34 , as shown by the data collapse of S(π, π )L2β/ν 
+
+with 2β/ν = 1 .0366 (Figure 2). The CDW(2,0)–SS tran-sition is a continuous transition belonging to the (2 + 1) -dimensional XY universality class 35 , as shown based on the crossing behavior of ρsLd+z−2 with dynamical expo-nent z = 1 (Figure 3). In contrast, the transitions between CDW(2,0) and ei-ther the SF or MI phases are strongly first order, fea-turing a sizable coexistence region that was previously missed in Ref. 12 . As shown in Fig. 1, the gray-shaded region corresponds to a first-order coexistence regime in which either phase may be realized due to strong metastability. Within this interval, the final state de-pends on the initial Monte Carlo configuration. An ini-tial SF configuration converges to an SF phase, while an initial CDW configuration converges into a CDW phase. Starting from random initial configurations, the system relaxes to either the SF or CDW phase, depending on the proximity of the chosen parameters to the correspond-ing stable-phase boundary. For 11 ≲ Uℓ/U s ≲ 16 .65 ,the coexistence occurs between the SF and CDW(2,0) phases, whereas for Uℓ/U s ≳ 16 .65 , the coexistence re-gion is bounded by the MI and CDW(2,0) phases. The presence of these extended metastable windows indicates a much stronger first-order character of the transitions than previously recognized 12 .In summary: (i) SF–SS and CDW(2,0)-SS are the sec-ond order continuous transitions governed by (2 + 1) -dimensional Ising and XY universality classes, respec-tively; while (ii) SF–CDW(2,0) and MI–CDW(2,0) are strong first-order transitions characterized by a sizable region of metastability and hysteresis. Figure 2 presents the finite-size scaling analysis used to determine the critical point of the SF–SS transition at Us/t = 5 . We examine the scaled structure factor 
+
+S(π, π )L2β/ν as a function of Uℓ/U s, where the exponent 
+
+2β/ν = 1 .0366 is taken from the (2+1) -dimensional Ising universality class, appropriate for the breaking of discrete 
+
+Z2 symmetry 19 . The intersection of the curves for dif-ferent system sizes yields the crossing at critical point 
+
+(Uℓ/U s)c = 0 .733 ± 0.005 . Due to a noticeable drift in the intersection points of curves corresponding to differ-ent system sizes, we double check our prediction for the critical point by introducing corrections to the standard finite-size scaling relation: 
+
+S(π, π )L2β/ν =  1 + aL −ω f
+
+Ul/U s −  Ul/U s
+
+
+
+> c
+
+L1/ν ),
+
+(2) where f (x) is a universal scaling function. We perform a Taylor expansion of this function and perform a fit of our data with critical exponents ν = 0 .63 and 2β/ν = 1 .0366 
+
+corresponding to the (2+1)-dimensional Ising universal-ity class. The inset of Figure 2 shows S(π, π )L1.0366 /(1 + 0.728 0.730 0.732 0.734 0.736 0.738 0.740 0.35 0.40 0.45 0.50 0.55 0.60             0 . 0 0 . 2 0 . 4 0 . 6
+
+> 0.35
+> 0.40
+> 0.45
+> 0.50
+> 0.55
+> 0.60
+> 0.65
+> L
+> =12
+> L
+> =14
+> L
+> =16
+> L
+> =24
+> S
+> (
+>  ,  ) L 1 . 0 3 6 6
+
+U
+
+> l
+
+/
+
+U             
+
+> s
+> S
+> (
+>  ,  ) L 1 . 0 3 6 6 / ( 1 + a L -  )
+> [
+> U
+> l
+> /
+> U
+> s
+> (Ul/Us)c]L1/
+
+Figure 2. Finite-size scaling analysis of the super-fluid–supersolid transition at fixed on-site interaction Us/t =5. The scaled structure factor S(π, π )L1.0366 is plotted as a function of Uℓ/U s for system sizes L = 12 (red squares), 14 (blue triangles), 16 (green triangles), and 24 (gray circles). The intersection of the curves determines the critical point 
+
+(Uℓ/U s)c = 0 .733 ± 0.005 . Inset: Data callapse using eq. (2), see text for details. 
+
+Figure 3. Finite-size scaling analysis of the charge density wave–supersolid transition at fixed Uℓ/U s = 0 .6. The scaled superfluid density ρsL is plotted as a function of Us/t for system sizes L = 10 (black circles), 12 (red squares), 14 (blue triangles), and 16 (green triangles). The common intersection of the curves determines the critical point Us/t = 10 .25 ±
+
+0.1. Inset: Data collapse using critical exponents of (2 + 1) -dimensional XY universality class. 
+
+aL −ω ) as a function of [Ul/U s − (Ul/U s)c]L1/ν . From the optimal data collapse analysis, we obtain the phase tran-sition point (Ul/U s)c = 0 .731(2) , in agreement, within errorbars, with the prediction based on the intersection of curves for different system sizes (main plot). 4Figure 3 shows the finite-size scaling analysis used to locate the transition from the charge-density-wave (CDW(2,0)) to the SS phase at fixed Uℓ/U s = 0 .6. Since this transition involves the loss of global phase coherence while preserving diagonal order, it is characterized by the breaking of U(1) symmetry and is therefore expected to belong to the (2 + 1) -dimensional XY universality class. Accordingly, we analyze the scaling behavior of the su-perfluid density using the form ρsLd+z−2, where d = 2 
+
+and the dynamical exponent z = 1 36 , reducing the scal-ing combination to ρsL37 . The quantity ρsL is plotted as a function of Us/t for different system sizes L, and the intersection of these curves yields the critical point 
+
+Us/t = 10 .25 ± 0.1. The inset shows data collapse for dif-ferent system sizes. We note that the SF-MI transition in this system is driven by the breaking of U(1) symme-try and belongs to the same universality class, and its critical point can be determined using the same scaling protocol 38,39 .In contrast, the transition between the SF and CDW(2,0) phases exhibits markedly different behavior. While earlier studies reported an almost sharp first-order transition line around Uℓ/U s ≈ 0.6 for L = 10 , our sim-ulations reveal instead an extended coexistence region. For L = 10 , our phase boundaries remain consistent with those in Ref. 12 . However, for larger system sizes ( L = 16 
+
+and L = 20 ), we do not observe a sharp jump in ei-ther the superfluid density or the density-wave order as a function of Ul/U s. Instead, over a broad range of Ul/U s
+
+values, pronounced metastability is observed, indicating a significant free-energy barrier separating the two com-peting orders. To find the extension of this region, we analyze the hysteretic behavior of the order parameters. An example is shown in Fig. 4, where phase retention under parameter cycling is demonstrated. Starting from a fully equilibrated SF configuration, we gradually in-crease Uℓ/U s and use the final state of each run as the initial configuration of the next parameter point (“for-ward sweep”). Conversely, when initialized from a CDW configuration and decreasing Uℓ/U s (“backward sweep”), the density-wave order, quantified by S(π, π ), persists in a region where the SF phase would otherwise be thermo-dynamically favored in the “forward sweep”. The sepa-ration between the forward- and backward-sweep curves defines the hysteresis window, revealing the interaction range where both phases remain locally stable. For 
+
+Us/t = 15 and L = 20 , this coexistence region is found to span 0.47 ≲ Uℓ/U s ≲ 0.73 . This hysteresis-based ap-proach enables a direct and reliable identification of the coexistence region associated with the first-order transi-tion 40,41 , revealing a robust first-order character of the SF–CDW(2,0) transition with a broad metastable win-dow (gray-shaded area in Fig. 1). This constitutes one of the central findings of this work.                  
+
+> Figure 4. (a) Superfluid density ρsand (b) structure factor
+> S(π, π )as functions of Uℓ/U sat fixed Us/t = 15 ,L= 20 .The data are obtained by increasing (blue symbols) and de-creasing (red symbols) the ratio Uℓ/U s, using the final equi-librium configuration of each simulation as the initial state for the next point. The hysteretic behavior demonstrates that the superfluid–charge density wave transition is of first order. From the separation between the forward and back-ward sweeps, we determine the coexistence region to lie within
+> 0.47 ≲Uℓ/U s≲0.73 .
+
+0246810 0.0 0.2 0.4 0.6 0.8 1.0   s
+
+S
+
+(
+
+π, π)
+
+
+
+T
+
+/
+
+t
+
+0.02
+
+0.04
+
+0.06 0 . 0 8
+
+0.10                      
+
+> Figure 5. Temperature evolution of the superfluid density
+> ρs, compressibility κ, and structure factor S(π, π )for Us/t =15 ,Uℓ/U s= 0 .55 ,L= 20 , starting from a superfluid initial configuration. As temperature increases, ρsdecreases and vanishes at T /t ∼1.0, leaving the system in a normal state. At higher temperature, S(π, π )becomes finite and exhibits a sharp peak around T /t ≈3.3, revealing a thermally stabilized charge density wave ordering before eventually melting into a featureless normal fluid state.
+> V. THERMAL MELTING OF SF-CDW COEXISTENCE REGION
+
+We now examine how finite temperature affects the competing orders inside the first-order SF–CDW coex-50246810 0.0 0.2 0.4 0.6 0.8 1.0   s
+
+S
+
+(
+
+π, π)
+
+
+
+T
+
+/
+
+t
+
+0.00
+
+0.02
+
+0.04
+
+0.06
+
+0.08
+
+0.10       
+
+> Figure 6. Temperature evolution of the same observables as in Fig. 5, but starting from a charge density wave initial con-figuration. Here, S(π, π )remains finite over a wide tempera-ture range, showing strong robustness of density-wave order against thermal fluctuations. Unlike the SF-initialized case, no reentrant superfluidity or intermediate melting through SF is observed. Instead, the charge density wave phase gradually loses density modulation and directly transitions into the nor-mal fluid phase at T /t ∼5.5. This comparison confirms path dependence and metastability in the first-order coexistence region at finite temperature.
+
+istence region. Figures 5 and 6 show the temperature dependence of ρs, κ, and S(π, π ) at Us/t = 15 and 
+
+Uℓ/U s = 0 .55 , starting from SF- and CDW-initialized configurations, respectively. For the SF initial condition (Fig. 5), the system first loses phase coherence as ρs vanishes at T /t ∼ 1.0 in fa-vor of a featureless normal fluid (NF). Upon further in-creasing temperature, a pronounced peak in S(π, π ) near 
+
+T /t ≈ 3.3 is developed, indicating a thermally stabilized CDW(2,0) state. At higher temperatures, CDW order eventually melts into a NF at T /t ∼ 5.5. Thermal fluc-tuations thus induce a two-step melting scenario in which the system evolves from the SF phase to the CDW phase via an intermediate NF phase: SF → NF → CDW(2,0) 
+
+→ NF. We note that for parameter values considered in Fig. 5, simulations initialized from a random configura-tion yield the same results as those starting from an SF configuration. In contrast, when initialized from CDW order (Fig. 6), the system remains locked in the density-modulated state. No reentrant superfluidity is observed, and S(π, π )
+
+gradually decreases until it vanishes near T /t ∼ 5.5, sig-naling a direct CDW → NF transition. In summary, results of Fig. 5 and Fig. 6 indicate that at lower tem-peratures, coexistence is still present as SF and CDW, or NF and CDW, are competing phases. For 3.3 ≲ T ≲
+
+5.5, thermocrystallization occurs, that is, temperature-induced crystallization occurs due to thermal suppres-     
+
+> Figure 7. Finite-temperature phase diagram at unit filling for
+> Us/t = 15 .The horizontal axis denotes the interaction ra-tio Uℓ/U s, and the vertical axis shows the temperature T /t .Three thermodynamically stable phases are identified: super-fluid (SF), charge-density wave CDW(2,0), and normal fluid (NF). Red squares mark the numerically determined SF–NF boundary (solid red line is a guide to the eye), while blue up-ward triangles indicate the CDW–NF transition (solid blue line as a guide to the eye). The gray-shaded region denotes the metastable SF–CDW(2,0) or NF–CDW(2,0) coexistence window, where both phases remain locally stable.
+
+sion of exchange-cycles between identical bosonic par-ticles 25,42 . In this range of temperatures, the system evolves toward the CDW state irrespective of the initial configuration, demonstrating that CDW represents the global minimum of the free energy. Finally, we notice that, although an intermediate CDW-dominated region appears when heating from a su-perfluid initial condition, we find no temperature range in which both ρs and S(π, π ) are simultaneously finite. This demonstrates that no thermodynamically stable su-persolid phase emerges at finite temperature. The depen-dence of the order-parameter temperature trajectories on the initial conditions arises solely from metastability within the first-order coexistence region. This metasta-bility is eventually destroyed by thermal fluctuations.  
+
+> VI. FINITE-TEMPERATURE PHASE DIAGRAM
+
+Beyond the first-order coexistence region, we extend our analysis to explore thermal effects in hamiltonian 1 at Us/t = 15 and Us/t = 5 by examining the behavior of the superfluid density ρs and structure factor S(π, π ) as functions of temperature and the interaction ratio Uℓ/U s.The resulting finite-temperature phase diagram is sum-marized in Fig. 7 and Fig. 10. We first examine the stability of the superfluid phase, fixing Us/t = 15 and varying Uℓ/U s in the weak-cavity-6                       
+
+> Figure 8. Finite-size scaling of the superfluid density ρsas a function of temperature for Us/t = 15 and Uℓ/U s= 0 .3, for system sizes L= 12 (red squares), 16 (green triangles), 20 (or-ange diamonds), 24 (gray circles), and 30 (purple hexagons). The dashed line represents the Kosterlitz-Thouless condition
+> ρs=T /π . Inset: The intersection of ρs(T)with T /π for each
+> Lyields the finite-size Tc(L), which is extrapolated to the thermodynamic limit, giving Tc/t = 0 .77 ±0.01 .
+
+mediated long-range interaction range Us ≲ 0.47 . In this regime, thermal fluctuations destroy phase coher-ence through a Kosterlitz–Thouless (KT) transition 43 .As shown in Fig. 8 for Ul/U s = 0 .3, ρs(T ) decreases smoothly with T /t for different system sizes ( L = 12 –30), and the KT transition temperature Tc is extracted via the universal jump condition ρs(Tc) = Tc/π in lattice units 44,45 . While this jump is smeared out for finite L,the intersections between ρs(T ) and T /π yield the finite-size estimates Tc(L), which approach the thermodynamic value as 
+
+Tc(L) = Tc(∞) + c
+
+(ln L)2 .
+
+Extrapolating to L → ∞ , we obtain Tc/t = 0 .77 ± 0.01 .For stronger cavity-mediated interactions ( Uℓ/U s ≳
+
+0.73 ), the ground state is CDW ordered. Upon heating, the crystalline order melts through a continuous phase transition. The critical temperature is determined via finite-size scaling of the static structure factor using the scaling form 
+
+S(π, π )L2β/ν = f
+
+h
+
+L1/ν (T /t − Tc/t )
+
+i
+
+,
+
+where 2β/ν = 0 .25 , appropriate for the 2D Ising uni-versality class 46,47 . The crossing of rescaled curves for 
+
+L = 12 –30 identifies Tc/t = 17 .7 ± 0.9. The inset of Fig. 9 shows the corresponding data-collapse. At zero temperature, the transition between the SF and CDW(2,0) phases is strongly first order, exhibit-ing pronounced metastability and coexistence in a re-gion spanning 0.47 ≲ Ul/U s ≲ 0.73 . As summarized                        
+
+> Figure 9. Finite-size scaling of the structure factor
+> S(π, π )L2β/ν for L=12 (red squares), 16(green trian-gles), 20(orange diamonds), 24(gray circles), and 30(purple hexagons) at fixed Us/t = 15 and Uℓ/U s= 0 .8.The cross-ing point of the curves determines the critical temperature
+> Tc/t = 17 .7±0.9. Inset: Data-collapse
+
+in Fig. 7, metastability persists at finite temperature. Within the gray region, the resulting phase depends on the initial conditions: at lower temperatures, the system converges to either the SF or the CDW phase, whereas at higher temperatures it evolves to either the NF or the CDW phase. Upon further increasing the temperature, metastability eventually disappears and the CDW phase becomes the only stable state. Next, we focus on the finite-temperature evolution of the supersolid (SS) phase in parameter regimes where it is thermodynamically stable at zero temperature. Fig-ure 10 summarizes the finite-temperature phase bound-aries for fixed Us/t = 5 as a function of the cavity-mediated interaction ratio Uℓ/U s. For weak cavity-mediated long-range interactions ( Uℓ/U s ≲ 0.7) , the ground state is a superfluid, and its melting into the nor-mal fluid follows the expected Kosterlitz–Thouless behav-ior with an almost interaction-independent critical tem-perature Tc/t ≃ 1.9.As Uℓ/U s increases, diagonal order sets in and the system enters a supersolid phase. The thermal sup-pression of supersolid order proceeds in two steps: for 
+
+Uℓ/U s ≳ 0.75 phase coherence vanishes first via a KT transition, while the checkerboard density modulation persists to substantially higher temperatures; for 0.7 ≲
+
+Uℓ/U s ≲ 0.75 density modulation is destroyed first. At even larger Uℓ/U s, the ground state is a CDW(2,0) crys-tal, whose melting temperature increases rapidly, con-firming that density-wave order induced by large infinite-range cavity interactions is very robust to thermal fluc-tuations. 70.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 0.01 0.1 0.5 125T/tUl/UsNormal Fluid SF SS CDW(2,0) 
+
+Figure 10. Finite-temperature phase boundaries of the superfluid (SF), supersolid (SS), and charge-density-wave CDW(2,0) phases at fixed Us/t = 5 as a function of interac-tion ratio Uℓ/U s. Purple open squares with error bars indicate the Kosterlitz-Thouless transition temperature fot disappear-ance of superfluidity, while green open upward triangles with error bars denote the melting of the charge density wave or-der. Solid lines connecting the symbols are guides to the eye. For small Uℓ/U s the ground state is an SF, which melts into NF at an almost interaction-independent critical temperature 
+
+Tc/t ≃ 1.9. For larger Uℓ/U s the supersolid melts via a two-step process. 
+
+VII. CONCLUSION 
+
+In this work, we have investigated the ground-state and finite-temperature properties of the two-dimensional extended Bose–Hubbard model with cavity-mediated infinite-range interactions at unit filling. Employing large-scale path-integral quantum Monte Carlo simula-tions based on the worm algorithm, together with finite-size scaling and hysteresis protocols, we confirm the ex-istence of four phases—superfluid, supersolid, charge-density wave, and Mott insulator. While the su-persolid–superfluid and supersolid–charge density wave transitions are continuous and governed by (2 + 1) -dimensional Ising and XY universality classes, respec-tively, the direct superfluid–charge density wave transi-tion is strongly first order. Our numerical results reveal a significantly broader superfluid–charge density wave co-existence region than previously reported 12 , in which su-perfluid and charge density wave phases are competing free energy minima. This constitutes our principal new finding of our zero-temperature analysis. Extending our analysis to finite temperature, we con-structed a (Uℓ/U s, T /t ) phase diagram at Us/t = 5 and 
+
+15 that captures both equilibrium and metastable phase behavior. Inside the superfluid–charge density wave co-existence region, the thermal evolution depends on the initial condition. Starting from a pure SF state, upon increasing temperature, the superfluid density vanishes and a normal fluid is stabilized. A thermally assisted emergence of crystalline order, i.e. thermocrystalliza-tion, follows; the charge density wave eventually melts into the normal fluid. In contrast, when heating from a charge density wave -initialized configuration, the super-fluid never reappears; instead, the charge density wave order melts monotonically into the normal state. The coexistence region therefore exhibits melting mechanisms which depend on initial conditions. A metastable coex-istence window, where SF–CDW(2,0) or NF–CDW(2,0) phases remain locally stable, therefore persists at finite temperature. Altogether, our findings demonstrate that cavity-mediated interactions not only stabilize long-range den-sity order and supersolid phases, but also supports metastability and broad first-order coexistence regions even at finite temperature. 
+
+ACKNOWLEDGMENTS 
+
+WW Wang and JP Lv acknowledge support from the National Natural Science Foundation of China (NSFC) under Grants No 12275002.  
+
+> ∗
+
+jinyang@ahnu.edu.cn  
+
+> †
+
+jplv2014@ahnu.edu.cn  
+
+> ‡
+
+chao.zhang@ahnu.edu.cn  
+
+> 1
+
+M. Greiner, O. Mandel, T. Esslinger, T. W. Hänsch, and I. Bloch, “Quantum phase transition from a superfluid to a mott insulator in a gas of ultracold atoms,” Nature 415 ,39–44 (2002).  
+
+> 2
+
+I. B. Spielman, W. D. Phillips, and J. V. Porto, “Mott-insulator transition in a two-dimensional atomic bose gas,” Phys. Rev. Lett. 98 , 080404 (2007).  
+
+> 3
+
+R. Liao, H.-J. Chen, D.-C. Zheng, and Z.-G. Huang, “The-oretical exploration of competing phases of lattice bose gases in a cavity,” Phys. Rev. A 97 , 013624 (2018).  
+
+> 4
+
+D. L. Kovrizhin, G. V. Pai, and S. Sinha, “Density wave and supersolid phases of correlated bosons in an optical lattice,” EPL 72 , 162 (2005).  
+
+> 5
+
+E. Kim and M. H. W. Chan, “Probable observation of a supersolid helium phase,” Nature 427 , 225–227 (2004).  
+
+> 6
+
+K.-S. Liu and M. E. Fisher, “Quantum lattice gas and the existence of a supersolid,” J. Low Temp. Phys. 10 , 655–683 (1973).  
+
+> 7
+
+Y. Li, L. He, and W. Hofstetter, “Lattice-supersolid phase of strongly correlated bosons in an optical cavity,” Phys. Rev. A 87 , 051604 (2013).  
+
+> 8
+
+G. G. Batrouni, R. T. Scalettar, G. T. Zimanyi, and A. P. Kampf, “Supersolids in the bose-hubbard hamilto-8
+
+nian,” Phys. Rev. Lett. 74 , 2527–2530 (1995).  
+
+> 9
+
+F. Lin, T. A. Maier, and V. W. Scarola, “Disordered su-persolids in the extended bose-hubbard model,” Sci. Rep. 
+
+7, 12752 (2017).  
+
+> 10
+
+J. Léonard, A. Morales, P. Zupancic, T. Esslinger, and T. Donner, “Supersolid formation in a quantum gas break-ing a continuous translational symmetry,” Nature 543 , 87– 90 (2017).  
+
+> 11
+
+R. Landig, L. Hruby, N. Dogra, M. Landini, R. Mottl, T. Donner, and T. Esslinger, “Quantum phases from com-peting short- and long-range interactions in an optical lat-tice,” Nature 532 , 476–479 (2016).  
+
+> 12
+
+T. Flottat, L. de Forges de Parny, F. Hébert, V. G. Rousseau, and G. G. Batrouni, “Phase diagram of bosons in a two-dimensional optical lattice with infinite-range cavity-mediated interactions,” Phys. Rev. B 95 , 144501 (2017).  
+
+> 13
+
+A. E. Niederle, G. Morigi, and H. Rieger, “Ultracold bosons with cavity-mediated long-range interactions: A lo-cal mean-field analysis of the phase diagram,” Phys. Rev. A 94 , 033607 (2016).  
+
+> 14
+
+S. Sharma, S. B. Jäger, R. Kraus, T. Roscilde, and G. Mo-rigi, “Quantum critical behavior of entanglement in lat-tice bosons with cavity-mediated long-range interactions,” Phys. Rev. Lett. 129 , 143001 (2022).  
+
+> 15
+
+H.-J. Chen, Y.-Q. Yu, D.-C. Zheng, and R. Liao, “Ex-tended bose-hubbard model with cavity-mediated infinite-range interactions at finite temperatures,” Sci. Rep. 10 ,9076 (2020).  
+
+> 16
+
+R. Mottl, F. Brennecke, K. Baumann, R. Landig, T. Don-ner, and T. Esslinger, “Roton-type mode softening in a quantum gas with cavity-mediated long-range interac-tions,” Science 336 , 1570–1573 (2012).  
+
+> 17
+
+Y. Chen, Z. Yu, and H. Zhai, “Quantum phase transitions of the bose-hubbard model inside a cavity,” Phys. Rev. A 
+
+93 , 041601 (2016).  
+
+> 18
+
+N. Dogra, F. Brennecke, S. D. Huber, and T. Donner, “Phase transitions in a bose-hubbard model with cavity-mediated global-range interactions,” Phys. Rev. A 94 ,023632 (2016).  
+
+> 19
+
+Y. Hebib, C. Zhang, J. Yang, and B. Capogrosso-Sansone, “Quantum phases of lattice dipolar bosons coupled to a high-finesse cavity,” Phys. Rev. A 107 , 043318 (2023).  
+
+> 20
+
+L. Himbert, C. Cormick, R. Kraus, S. Sharma, and G. Mo-rigi, “Mean-field phase diagram of the extended bose-hubbard model of many-body cavity quantum electrody-namics,” Phys. Rev. A 99 , 043633 (2019).  
+
+> 21
+
+T. Chanda, L. Barbiero, M. Lewenstein, M. J. Mark, and J. Zakrzewski, “Recent progress on quantum simulations of non-standard bose–hubbard models,” Rep. Prog. Phys. 
+
+88 , 044501 (2025).  
+
+> 22
+
+C. Zhang and H. Rieger, “The effect of disorder on the phase diagrams of hard-core lattice bosons with cavity-mediated long-range and nearest-neighbor interactions,” Front. Phys. 7, 236 (2020).  
+
+> 23
+
+B. Bogner, C. De Daniloff, and H. Rieger, “Variational monte-carlo study of the extended bose-hubbard model with short- and infinite-range interactions,” Eur. Phys. J. B 92 , 111 (2019).  
+
+> 24
+
+F. Gulminelli and Ph. Chomaz, “Critical behavior in the coexistence region of finite systems,” Phys. Rev. Lett. 82 ,1402–1405 (1999).  
+
+> 25
+
+Y. Hebib, C. Zhang, M. Boninsegni, and B. Capogrosso-Sansone, “Thermocrystallization of lattice dipolar bosons coupled to a high-finesse cavity,” Phys. Rev. B 109 , 174515 (2024).  
+
+> 26
+
+K.-K. Ng, “Thermal phase transitions of supersolids in the extended bose-hubbard model,” Phys. Rev. B 82 , 184505 (2010).  
+
+> 27
+
+S. Sinha and S. S. Sinha, “Supersolid phases of bosons,” J. Phys.: Condens. Matter 37 , 333001 (2025).  
+
+> 28
+
+K. Baumann, C. Guerlin, F. Brennecke, and T. Esslinger, “Dicke quantum phase transition with a superfluid gas in an optical cavity,” Nature 464 , 1301–1306 (2010).  
+
+> 29
+
+H. Ritsch, P. Domokos, F. Brennecke, and T. Esslinger, “Cold atoms in cavity-generated dynamical optical poten-tials,” Rev. Mod. Phys. 85 , 553–601 (2013).  
+
+> 30
+
+J. A. Muniz, D. Barberena, R. J. Lewis-Swan, D. J. Young, J. R. K. Cline, A. M. Rey, and J. K. Thompson, “Exploring dynamical phase transitions with cold atoms in an optical cavity,” Nature 580 , 602–607 (2020).  
+
+> 31
+
+N. V. Prokof’ev, B. V. Svistunov, and I. S. Tupitsyn, “Exact, complete, and universal continuous-time worldline monte carlo approach to the statistics of discrete quantum systems,” J. Exp. Theor. Phys. 87 , 310–321 (1998).  
+
+> 32
+
+N. V. Prokof’ev, B. V. Svistunov, and I. S. Tupitsyn, ““worm” algorithm in quantum monte carlo simulations,” Phys. Lett. A 238 , 253–257 (1998).  
+
+> 33
+
+E. L. Pollock and D. M. Ceperley, “Path-integral computa-tion of superfluid densities,” Phys. Rev. B 36 , 8343–8352 (1987).  
+
+> 34
+
+M. Hasenbusch, K. Pinn, and S. Vinti, “Critical exponents of the three-dimensional ising universality class from finite-size scaling with standard and improved actions,” Phys. Rev. B 59 , 11471–11483 (1999).  
+
+> 35
+
+M. Campostrini, M. Hasenbusch, A. Pelissetto, P. Rossi, and E. Vicari, “Critical behavior of the three-dimensional 
+
+XY universality class,” Phys. Rev. B 63 , 214503 (2001).  
+
+> 36
+
+M. P. A. Fisher, P. B. Weichman, G. Grinstein, and D. S. Fisher, “Boson localization and the superfluid-insulator transition,” Phys. Rev. B 40 , 546–570 (1989).  
+
+> 37
+
+W.-W. Wang, J. Yang, J.-P. Lv, and C. Zhang, “Bose-hubbard model on a honeycomb superlattice: Quantum phase transitions and lattice effects,” Phys. Rev. A 112 ,043320 (2025).  
+
+> 38
+
+B. Capogrosso-Sansone, Ş. G. Söyler, N. Prokof’ev, and B. Svistunov, “Monte carlo study of the two-dimensional bose-hubbard model,” Phys. Rev. A 77 , 015602 (2008).  
+
+> 39
+
+W. Xu, Y. Sun, J.-P. Lv, and Y. Deng, “High-precision monte carlo study of several models in the three-dimensional u(1) universality class,” Phys. Rev. B 100 ,064525 (2019).  
+
+> 40
+
+D. Yamamoto, T. Ozaki, C. A. R. Sá de Melo, and I. Dan-shita, “First-order phase transition and anomalous hys-teresis of bose gases in optical lattices,” Phys. Rev. A 88 ,033624 (2013).  
+
+> 41
+
+F. Hébert, G. G. Batrouni, R. T. Scalettar, G. Schmid, M. Troyer, and A. Dorneich, “Quantum phase transitions in the two-dimensional hardcore boson model,” Phys. Rev. B 65 , 014513 (2001).  
+
+> 42
+
+M. Boninsegni, L. Pollet, N. Prokof’ev, and B. Svistunov, “Role of bose statistics in crystallization and quantum jam-ming,” Phys. Rev. Lett. 109 , 025302 (2012).  
+
+> 43
+
+J. M. Kosterlitz and D. J. Thouless, “Ordering, metasta-bility and phase transitions in two-dimensional systems,” J. Phys. C: Solid State Phys. 6, 1181 (1973).  
+
+> 44
+
+D. M. Ceperley and E. L. Pollock, “Path-integral simula-tion of the superfluid transition in two-dimensional 4He ,” 9
+
+Phys. Rev. B 39 , 2084–2093 (1989).  
+
+> 45
+
+D. R. Nelson and J. M. Kosterlitz, “Universal jump in the superfluid density of two-dimensional superfluids,” Phys. Rev. Lett. 39 , 1201–1205 (1977).  
+
+> 46
+
+C. Zhang, A. Safavi-Naini, A. M. Rey, and B Capogrosso-Sansone, “Equilibrium phases of tilted dipolar lattice bosons,” New J. Phys. 17 , 123014 (2015).  
+
+> 47
+
+D. Grimmer, A. Safavi-Naini, B. Capogrosso-Sansone, and Ş. G. Söyler, “Quantum phases of dipolar soft-core bosons,” Phys. Rev. A 90 , 043635 (2014).

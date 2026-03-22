@@ -1,0 +1,889 @@
+Title: Combining matrix product states and mean-field theory to capture magnetic order in quasi-1D cuprates
+
+URL Source: https://arxiv.org/pdf/2602.21695v1
+
+Published Time: Thu, 26 Feb 2026 01:38:47 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+## Combining matrix product states and mean-field theory to capture magnetic order in quasi-1D cuprates 
+
+Q. Staelens, 1, 2 D. Verraes, 1, 2 D. Vrancken, 1, 2 T. Braeckevelt, 1 J. Haegeman, 2 and V. Van Speybroeck 1
+
+> 1
+
+Center for Molecular Modeling, Ghent University, 9052 Zwijnaarde, Belgium 
+
+> 2
+
+Department of Physics and Astronomy, Ghent University, 9000 Ghent, Belgium 
+
+(Dated: February 26, 2026) We study quasi-one-dimensional strongly correlated materials using a multi-step approach based on density functional theory, downfolding techniques, and tensor-network simulations. The down-folding procedure yields effective multiband Hubbard models that capture the competition between electron hopping and local Coulomb interactions relevant to the system’s low-energy properties. The resulting multiband Hubbard models are solved using matrix product states. Applied to Sr 2CuO 3,SrBaCuO 3, and Ba 2CuO 3, this purely one-dimensional treatment yields no long-range magnetic order, in contrast to the magnetic ordering observed experimentally. To account for this behavior, we extend the multi-step approach by incorporating interchain couplings through a self-consistent mean-field scheme. This combined approach stabilizes finite staggered magnetizations, providing a consistent description of magnetic order in agreement with experiment. For Sr 2CuO 3.5 and SrCuO 2,we also tested an approach proposed for ladder materials, however, we find that these materials are not well suited for this approach due to the small magnitude of the intraladder hopping parameters. 
+
+I. INTRODUCTION 
+
+In many-body quantum systems, directly solving the full Hamiltonian is often computationally intractable due to the exponential growth of the Hilbert space with sys-tem size. While density functional theory (DFT) [1, 2] has become a standard and highly successful tool for describing the ground-state properties of weakly corre-lated materials, it encounters fundamental limitations in the presence of strong electronic correlations [3, 4]. In particular, commonly used local and semilocal ex-change–correlation functionals struggle to accurately de-scribe systems where electron-electron interactions dom-inate over kinetic energy, leading to qualitative failures such as the incorrect prediction of metallic behavior in Mott insulators [5], the underestimation of band gaps, and the inability to capture local magnetic moments. These shortcomings indicate that an accurate descrip-tion of strongly correlated materials requires an explicit treatment of low-energy electronic interactions beyond effective single-particle theories [6]. To address this challenge, one powerful strategy is downfolding the system to an effective Hamiltonian. In this approach, a complex, high-dimensional Hamiltonian is systematically reduced to a simpler, low-energy effec-tive Hamiltonian that captures the essential physics of the strongly correlated electrons [7]. The screening of the bare Coulomb interaction by electrons outside the low-energy subspace should be incorporated into the effective two-body interaction parameters, whereas screening pro-cesses involving low-energy electrons must be excluded, as they are already treated explicitly within the effec-tive Hamiltonian. Several constrained approaches have been proposed to tackle this issue [8, 9]. Among them, the constrained random phase approximation (cRPA) [10, 11] has become one of the most widely used methods for evaluating screened interaction parameters in solids, largely because it can naturally capture the frequency de-pendence of the interactions [12]. This approach yields a screened Coulomb interaction which, combined with the kinetic term describing electron hopping between or-bitals, defines an effective Hamiltonian taking the form of an extended multiband Hubbard model [13]. After constructing the Hubbard model, the next challenge is to solve it. Dynamical mean-field theory (DMFT) [14, 15] maps the Hubbard model to an Anderson impurity model [16], which can be solved with high precision using methods such as quantum Monte Carlo (QMC) [17] or coupled-cluster (CC) techniques [18]. Unfortunately, QMC meth-ods are limited by the sign problem [19], while coupled-cluster approaches become impractical for realistic multi-band systems. In contrast, tensor-network (TN) [20] techniques have been developed as efficient tools for in-teracting quantum systems [21–23]. The density ma-trix renormalization group (DMRG) [24–26] on matrix product states (MPS) remains highly effective in one dimension (1D), while projected entangled-pair states (PEPS) [20, 27] are advancing for higher-dimensional and fermionic systems, though research is still ongoing to en-hance their efficiency and scope. Recently, our group employed TN methods in combination with downfold-ing techniques to investigate strongly correlated materi-als [28]. Motivated by the performance of TNs in 1D, we there-fore focus on quasi-1D strongly correlated materials. In 1D at T = 0 K, it is impossible to spontaneously break the continuous SU (2) spin rotation symmetry. This is better known as the Mermin-Wagner-Hohenberg theo-rem [29–31]. It is nevertheless clear that in any real material, such as Sr 2CuO 3 [32], purely one-dimensional behavior is only approximate, as some degree of inter-
+
+> arXiv:2602.21695v1 [cond-mat.str-el] 25 Feb 2026
+
+2chain coupling is present. As a result, three-dimensional (3D) magnetic long-range order can emerge below a fi-nite N´ eel temperature TN . In this work, we show that a conceptually simple treatment of the interchain cou-pling within a mean-field (MF) approximation provides a coherent description of the ordered phase and yields nontrivial quantitative predictions for static properties. The present work focuses on including interchain and interladder interactions to achieve a more accurate de-scription of strongly correlated quasi-1D materials. Our study focuses on the compounds Sr 2CuO 3, SrBaCuO 3,and Ba 2CuO 3, which are composed of infinite chains of corner-sharing CuO 4 plaquettes embedded within an oth-erwise 3D crystal lattice, as illustrated in Fig. 1. These chains are well isolated, enabling an effective 1D low-energy description. Sr 2CuO 3 serves as an important ref-erence system for understanding the mechanisms of su-perconductivity in cuprates through oxygen doping [33]. Its antiferromagnetic spin correlations along the chains and the nature of its low-lying excitations are observables that can be directly accessed through TN calculations of the Hubbard model. In addition, we consider the cuprate materials Sr 2CuO 3.5 and SrCuO 2, for which two-leg ladder-based effective descriptions have been introduced as a concep-tual modeling framework. For these systems, we apply the MPS + MF framework developed by Bollmark et al. [34]. This framework has previously been applied to attractive Hubbard chains to study the competition be-tween charge-density wave (CDW) order and supercon-ductivity (SC), as well as to investigate the emergence of transient non-equilibrium SC [35, 36]. However, it needs to be investigated to what extent this formalism is appli-cable to the materials under consideration here. 
+
+> II. METHODOLOGY
+
+Our methodology consists of three steps. First, we construct effective multiband Hubbard models using the DFT + cRPA approach. Second, we incorporate the in-terchain or interladder interactions within a MF approx-imation. Third, we solve the resulting effective Hamilto-nian using MPS. We begin by introducing the construc-tion of the effective Hubbard model and then outline the theoretical frameworks underlying the MPS + MF ap-proaches. Finally, we describe how TN techniques are employed to obtain the low-energy properties of the sys-tem. The first step was discussed in detail in our previous work, Ref. [28]. 
+
+> A. Downfolding to a Hubbard model
+
+Consider a multiband Hubbard model Hamiltonian of the form: ˆH = − X
+
+> i,j
+
+X
+
+> α,β
+
+X
+
+> σ
+
+tiα,jβ ˆc† 
+
+> iασ
+
+ˆcjβσ 
+
++ 12
+
+X
+
+> i,j,k,l
+
+X
+
+> α,β,γ,δ
+
+X
+
+> σ,σ ′
+
+ˆc† 
+
+> iασ
+
+ˆcjβσ Uiα,jβ,kγ,lδ ˆc† 
+
+> kγσ ′
+
+ˆclδσ ′ .
+
+(1) Here, the indices i, j, k, l label the lattice sites, while the Greek indices α, β, γ, δ denote the orbital degrees of free-dom at each site. The indices σ and σ′ refer to the elec-tron spin projections. The hopping parameter tiα,jβ de-scribes the transfer of an electron with spin σ from or-bital β on site j to orbital α on site i. The interaction tensor Uiα,jβ,kγ,lδ represents the electron-electron inter-action between orbitals α, β, γ, δ on sites i, j, k, l , respec-tively. Finally, ˆ c† 
+
+> iασ
+
+and ˆ ciασ are the fermionic creation and annihilation operators for an electron with spin σ in orbital α at lattice site i.The first step is to determine the parameters in the Hubbard Hamiltonian such that the resulting model ac-curately describes the low-energy subspace of the system. Starting from a DFT calculation, the low-energy sub-space is selected, and the interactions between subspaces are approximated using cRPA. Subsequently, maximally localized Wannier functions (MLWFs) are employed to define the low-energy orbitals [37]. Generally, Wannier functions have the following form 
+
+ϕRα(r) = V
+
+(2 π)3
+
+Z
+
+> BZ
+
+dk e−ik·R X
+
+> β
+
+Tα,β (k)ψβ, k(r), (2) where ψβk is a Bloch function, V is the volume of the unit cell, R is the real-space lattice vector, α is the band index, and the integral is performed over the first Bril-louin zone (BZ). The unitary matrix Tαβ represents the gauge freedom in the choice of Wannier functions. Mini-mizing the sum of the quadratic spreads of the Wannier functions eliminates the non-uniqueness of the Wannier functions, resulting in a set of MLWFs. Using these MLWFs, the tight-binding hopping param-eters can be calculated as 
+
+tiα,jβ = −
+
+Z
+
+dr ϕ∗
+
+> iα
+
+(r) ˆHKS ϕjβ (r), (3) where ˆHKS is the Kohn-Sham Hamiltonian [1, 2]. Since ˆHKS contains the Hartree and exchange-correlation po-tentials constructed from the full electronic Hilbert space, its direct use in a low-energy effective model leads to a double-counting problem, as interaction effects within 3
+
+FIG. 1. Conventional unit cells of Sr 2CuO 3 (first), SrBaCuO 3 (second), Ba 2CuO 3 (third), Sr 2CuO 3.5 (fourth), and SrCuO 2
+
+(fifth). In the first three materials, the Cu-O chains run along the crystallographic a direction. In Sr 2CuO 3.5, the Cu-O network forms a ladder structure located in the ac plane, whereas in SrCuO 2 the ladder lies in the ab plane. 
+
+the low-energy subspace are already included. The con-strained GW (cGW) approximation provides a system-atic way to eliminate this double counting [9], its imple-mentation is left for future work. The Coulomb matrix elements Uiα,jβ,kγ,lδ are integrals of the following form 
+
+Uiα, jβ, kγ, lδ (ω) = 
+
+Z Z
+
+dr dr′ ϕ∗
+
+> iα
+
+(r) ϕjβ (r)
+
+Wr (r, r′, ω ) ϕ∗ 
+
+> kγ
+
+(r′) ϕlδ (r′). (4) The partially screened interaction Wr (r, r′, ω ) is com-puted using the cRPA, further details can be found in Ref. [10, 11, 28]. In the remainder of this work, we set ω = 0 and consider only the static limit. Although neglecting the frequency dependence can lead to non-negligible effects [9, 38], we leave the inclusion of dynam-ical corrections for future work. 
+
+B. MPS + MF framework for chain systems 
+
+When working with quasi-1D materials such as Sr 2CuO 3, the interchain interactions can be incorporated through a MF coupling scheme. While such MF ap-proaches have been widely employed in model studies [39], their application to ab initio -derived descriptions of real materials remains largely unexplored. In the follow-ing, we restrict ourselves to the one-band Hubbard model at half filling, which provides an effective low-energy de-scription of the cuprate chains. Although the MF con-struction can, in principle, be generalized to an arbitrary 3D network of coupled chains, for the materials consid-ered here, it is sufficient to retain only the coupling to the two nearest neighboring chains since hopping to more distant chains is negligible. These nearest neighboring chains are located along the crystallographic c-direction, as shown in Fig. 1. 
+
+1. Replacing interchain Hubbard interactions with an effective spin model 
+
+At half filling, when the interchain hopping t⊥ is much smaller than the onsite screened interaction U = Ui,i,i,i ,the interchain Hubbard interactions may be replaced by an effective spin- 12 Heisenberg description, as illustrated in Fig. 2. The total Hamiltonian becomes ˆHtotal = X
+
+> Rk
+
+ˆHRk + ˆH⊥, (5) where ˆHRk is the Hubbard Hamiltonian of chain Rk. The interchain Hamiltonian is described by ˆH⊥ = J⊥
+
+X
+
+> i,R k
+
+⃗Si,R k ·⃗ Si,R k+1 . (6) where ⃗ Si,R k denotes the spin operator at site i of chain 
+
+Rk. The interchain antiferromagnetic exchange coupling 
+
+J⊥ can be derived from a Schrieffer-Wolff transformation to second and fourth order in t⊥/U [40–42], yielding 
+
+J⊥ = 4t2
+
+> ⊥
+
+U − V⊥
+
+− 24 t4
+
+> ⊥
+
+(U − V⊥)3 + O
+
+ t6
+
+> ⊥
+
+(U − V⊥)5
+
+
+
+. (7) with V⊥ = Ui,i,j,j the interchain screened Coulomb repulsion. 
+
+2. Mean-field decoupling of interchain interactions 
+
+In the second step, the coupling to other chains is in-corporated through a MF approximation. Each neigh-boring chain is treated independently and characterized 4
+
+# U
+
+# U
+
+# U
+
+# t
+
+# t
+
+# t
+
+# t⊥
+
+# t⊥
+
+# V⊥
+
+# V⊥
+
+# U
+
+# U
+
+# U
+
+# t
+
+# t
+
+# t
+
+# J⊥
+
+# J⊥
+
+# J⊥
+
+# J⊥            
+
+> FIG. 2. The interchain Hubbard interactions t⊥and V⊥are replaced by an effective Heisenberg exchange J⊥. Here tand U
+> denote the intrachain hopping and on-site Coulomb interaction, while t⊥,V⊥, and J⊥describe interchain hopping, interchain Coulomb interaction, and spin exchange, respectively.
+
+by its staggered magnetization Ms, which generates an effective external field acting on the chain under consid-eration, as illustrated in Fig. 3. The staggered magnetization is defined as 
+
+Ms = 1
+
+N
+
+X
+
+> i
+
+(−1) i⟨Szi ⟩, (8) where N is the number of sites in a chain. Within MF theory, we decouple the interchain cou-pling by assuming antiferromagnetic correlations be-tween neighboring chains, corresponding to a N´ eel order-ing pattern in the interchain direction. The interchain Hamiltonian then becomes [39] ˆH⊥ ≈ J⊥
+
+X
+
+> i,R k
+
+Szi,R k
+
+
+
+⟨Szi,R k−1 ⟩ + ⟨Szi,R k+1 ⟩
+
+
+
+= 2 J⊥Ms
+
+X
+
+> i
+
+(−1) iSzi . (9) This follows from ⟨Szi,R k ⟩ = ( −1) i+Rk Ms.A challenge in our approach remains: we require Ms
+
+to introduce interchain interactions, yet Ms is not known 
+
+a priori . We will thus need a self-consistent loop to de-termine Ms [39]. We begin by computing the ground state using an initial guess for the interchain interaction (Ms̸ = 0), and then extract the corresponding Ms from this ground state. This updated Ms is used to redefine the external staggered MF, leading to a new ground state with a new value of Ms. Repeating this process, Ms even-tually converges to a stable value. After convergence, the resulting Ms is analyzed qualitatively and compared across the quasi-1D materials to identify possible trends. 
+
+> C. MPS + MF framework for ladder systems
+
+In this subsection, we briefly outline the MPS + MF approach and the perturbative framework developed by Bollmark et al. [34]. The goal is to investigate whether this framework can be meaningfully applied to two-leg ladder-based effective models of the materials studied here. To describe our materials beyond isolated ladders, we consider a lattice of coupled ladders that allows for in-terladder tunneling and correlated motion of electrons across the array. The total Hamiltonian is thus given by a sum over ladder contributions and their couplings: 
+
+Htot = X
+
+> k,l
+
+Hladder (Rk,l ) + H⊥ (10) Here, Hladder represents the local dynamics within a single ladder, while H⊥ encodes tunneling processes be-tween neighboring ladders in the array. For the sake of clarity, we repeat the most important concepts and for-mulas of the used MPS + MF approach. For more details we refer to the work of Bollmark et al. [34]. A schematic illustration of this framework showing how an array of coupled ladders is mapped onto an effective single-ladder description and indicating the relevant intra- and inter-ladder hopping processes, is provided in Fig. 4. 5
+
+# U
+
+# U
+
+# U
+
+# t
+
+# t
+
+# t
+
+# J⊥
+
+# J⊥
+
+# J⊥
+
+# J⊥
+
+# U
+
+# tJ⊥
+
+# J⊥
+
+# J⊥
+
+# J⊥
+
+# Ms
+
+# Ms
+
+FIG. 3. The nearest neighbor chains are replaced by an effective MF with the staggered magnetization Ms as parameter. Here 
+
+t and U denote the intrachain hopping and on-site Coulomb interaction, while J⊥ describes spin exchange. 
+
+Hladder (Rk,l ) = −tleg 1X
+
+> j=0
+
+X
+
+> i,σ
+
+
+
+c† 
+
+> i+1 ,j,σ
+
+(Rk,l ) ci,j,σ (Rk,l ) + h.c. 
+
+
+
+− trung 
+
+X
+
+> i,σ
+
+
+
+c† 
+
+> i, 1,σ
+
+(Rk,l ) ci, 0,σ (Rk,l ) + h.c. 
+
+
+
++Ui,i,i,i 
+
+X
+
+> i,j
+
+ni,j, ↑(Rk,l ) ni,j, ↓(Rk,l ) + Ui,i,i +1 ,i +1 
+
+X
+
+> i
+
+h 1X
+
+> j=0
+
+ni,j (Rk,l ) ni+1 ,j (Rk,l ) + ni, 0(Rk,l ) ni, 1(Rk,l )
+
+i
+
+. (11) 
+
+H⊥ = −t⊥
+
+X
+
+> i
+
+X
+
+> k,l
+
+X
+
+> σ
+
+h
+
+c† 
+
+> i, 1,σ
+
+(Rk,l ) ci, 0,σ (Rk+1 ,l ) + c† 
+
+> i, 0,σ
+
+(Rk+1 ,l ) ci, 1,σ (Rk,l )
+
+i
+
+− tab 
+
+X
+
+> i
+> 1
+
+X
+
+> j=0
+
+X
+
+> k,l
+
+X
+
+> σ
+
+h
+
+c† 
+
+> i,j,σ
+
+(Rk,l ) ci,j,σ (Rk,l +1 ) + c† 
+
+> i,j,σ
+
+(Rk,l +1 ) ci,j,σ (Rk,l )
+
+i
+
+. (12) The index i labels the sites along the legs of the ladder, while j = 0 , 1 labels the two sites on each rung. Here tleg 
+
+and trung are the intraladder hopping parameters along the legs and across the rungs, respectively. When the interladder hopping t⊥ and tab are small compared to the intrinsic energy scales of an isolated ladder, namely the pairing energy ∆ Ep and twice the spin gap 2∆ Es, the effects of interladder coupling can be treated perturbatively. The pairing energy ∆ Ep and the spin gap ∆ Es are defined as ∆Ep = 2 E(N + 1 , 12 ) − E(N, 0) − E(N + 2 , 0) (13) ∆Es = E(N, 1) − E(N, 0) , (14) with E(N, S ) denoting the ground-state energy of a single ladder with particle number N and total spin S.The pairing energy ∆ Ep quantifies the effective binding energy of two particles within a ladder, while the spin gap ∆ Es measures the energy cost of creating a spin-triplet excitation. In the small t⊥/∆Ep regime, an ef-fective low-energy Hamiltonian can be derived from a Schrieffer-Wolff transformation [34]. The resulting de-scription captures the leading-order processes that me-diate interladder coupling through virtual excitations of bound pairs. 
+
+Heff = Hladder − 1∆Ep
+
+P0H2
+
+> ⊥
+
+P0 + O(H4
+
+> ⊥
+
+). (15) where P0 is the projector onto the low-energy manifold of decoupled ladders, corresponding to the ground-state sector of each individual ladder. We now assume that all ladders are identical and that the MF is real-valued [34]. Furthermore, we neglect ex-6
+
+t⊥
+
+tab 
+
+tleg 
+
+trung 
+
+αi,i ′,j,j ′
+
+βi,i ′,j,j ′
+
+> tleg
+
+trung 
+
+FIG. 4. Schematic illustration of the MPS + MF framework, depicting the mapping from a lattice of coupled ladders to an effective single-ladder description. All intra- and interladder hopping processes included in the model are indicated. 
+
+pectation values of operators that create or annihilate particles on different ladders, reflecting the assumption that the constituents of a bound pair cannot reside on separate ladders. Within the MPS + MF framework, the resulting effec-tive Hamiltonian for a single ladder now takes the form [34]: 
+
+Heff,MF = Hladder − Hpair,MF + Hexc,MF (16) with 
+
+Hpair,MF = X
+
+> i,i ′,j,j ′
+
+αi,i ′,j,j ′
+
+ c†
+
+> i,j, ↑
+
+c† 
+
+> i′,j ′,↓
+
++ ci′,j ′,↓ci,j, ↑
+
+,
+
+(17) 
+
+Hexc,MF = X
+
+> i,i ′,j,j ′,σ
+
+βi,i ′,j,j ′,σ c† 
+
+> i,j,σ
+
+ci′,j ′,σ , (18) The pairing amplitudes, describing pair tunneling into or out of the ladder, are given by [34]: 
+
+αi,i ′,0,0 = 2∆Ep
+
+
+
+t2
+
+> ⊥
+
+⟨ci′,1,↓ci, 1,↑⟩ + 2 t2
+
+> ab
+
+⟨ci′,0,↓ci, 0,↑⟩
+
+
+
+,
+
+(19) 
+
+αi,i ′,1,1 = 2∆Ep
+
+
+
+t2
+
+> ⊥
+
+⟨ci′,0,↓ci, 0,↑⟩ + 2 t2
+
+> ab
+
+⟨ci′,1,↓ci, 1,↑⟩
+
+
+
+,
+
+(20) 
+
+αi,i ′,1,0 = 4t2
+
+> ab
+
+∆Ep
+
+⟨ci′,0,↓ci, 1,↑⟩, (21) 
+
+αi,i ′,0,1 = 4t2
+
+> ab
+
+∆Ep
+
+⟨ci′,1,↓ci, 0,↑⟩, (22) whereas the exchange terms are given by [34]: 
+
+βi,i ′,0,0,σ = 2∆Ep
+
+
+
+t2
+
+> ⊥
+
+⟨c† 
+
+> i, 1,σ
+
+ci′,1,σ ⟩ + 2 t2
+
+> ab
+
+⟨c† 
+
+> i, 0,σ
+
+ci′,0,σ ⟩
+
+
+
+.
+
+(23) 
+
+βi,i ′,1,1,σ = 2∆Ep
+
+
+
+t2
+
+> ⊥
+
+⟨c† 
+
+> i, 0,σ
+
+ci′,0,σ ⟩ + 2 t2
+
+> ab
+
+⟨c† 
+
+> i, 1,σ
+
+ci′,1,σ ⟩
+
+
+
+,
+
+(24) 
+
+βi,i ′,1,0,σ = 4t2
+
+> ab
+
+∆Ep
+
+⟨c† 
+
+> i, 1,σ
+
+ci′,0,σ ⟩, (25) 
+
+βi,i ′,0,1,σ = 4t2
+
+> ab
+
+∆Ep
+
+⟨c† 
+
+> i, 0,σ
+
+ci′,1,σ ⟩. (26) The MF parameters α and β are obtained self-consistently: starting from an initial guess, we compute the ground state of Heff,MF , update the expectation val-ues, and repeat until convergence. All simulations were carried out using our in-house Julia code HubbardTN.jl ,which implements the approach described above and is publicly available [43]. 
+
+D. Solving the Hubbard model 
+
+Having constructed the Hubbard model, we now intro-duce the matrix product state framework and the algo-rithms used to compute its ground state. Consider a lattice of N physical spins. Although we naturally consider a one-dimensional lattice, the follow-ing also applies to lattices of arbitrary dimension where sites have been numbered. However, MPS representa-tions of states on higher-dimensional lattices become im-practical for numerical computations. Every site has a local Hilbert space Hi = Cd of dimension d, this is called the physical dimension. For a Hubbard model, the local physical dimension is d = 4, corresponding to the states {| 0⟩, | ↑⟩ , | ↓⟩ , | ↑↓⟩} . The total Hilbert space of the lattice is thus H = NNi=1 Hi = ( Cd)⊗N .A general quantum state |ψ⟩ in this Hilbert space can be expressed using dN complex coefficients Cs1,...,s N ∈ C,where si ∈ { 0, . . . , d − 1} [26]: 
+
+|ψ⟩ = X
+
+> s1,...,s N
+
+Cs1,...,s N |s1, . . . , s N ⟩, (27) The tensor Cs1,...,s N can be factorized into smaller ten-sors that retain the essential structure of the quantum state while reducing storage and computational complex-ity. By applying multiple singular value decompositions (SVD), the tensor can be rewritten as a product of ma-trices [26], hence the name MPS. 7
+
+|ψ⟩ = X
+
+> s1,...,s N
+
+A[1] s1 A[2] s2 . . . A [N ]sN |s1, . . . , s N ⟩. (28) Each site i is associated with its own tensor A[i],whose physical index si selects one of d matrices of di-mension Di × Di+1 . Open boundary conditions imply 
+
+D1 = DN +1 = 1. The bond dimension D controls the amount of entanglement captured by the MPS, increas-ing D improves the accuracy of the MPS and becomes exact in the limit D → ∞ . In the thermodynamic limit 
+
+N → ∞ , it becomes natural to consider translationally invariant quantum states. A uniform MPS (uMPS) [44] is a special MPS ansatz in which a finite set of matrices 
+
+{A[1] , . . . , A [ℓ]} defining a unit cell of length ℓ is repeated periodically along the lattice. 
+
+|ψ⟩ = X
+
+> {s}
+
+v†
+
+> L
+
+Y
+
+> l
+
+A[l]s
+
+!
+
+vR |s⟩
+
+= . . . A[1] s1 A[2] s2 . . . A[l]sl . . . (29) The column vectors vL and vR encode the boundary conditions of the MPS. In the thermodynamic limit, these vectors carry no physical significance. We also show the Penrose graphical notation of the uMPS. In this nota-tion, shapes represent tensors and lines (legs) correspond to their indices. Legs pointing downward are associated with the physical Hilbert space of dimension d, while horizontal legs represent the virtual spaces of dimension 
+
+D. Connected legs indicate the contraction of the corre-sponding indices. Since its introduction by Steven White in 1992, the DMRG algorithm has become one of the most powerful numerical methods for studying one-dimensional quan-tum lattice systems [24, 25]. In this work, we find the lowest-energy matrix product state wavefunction of a Hamiltonian using infinite-system DMRG (iDMRG), which directly targets the thermodynamic limit. The al-gorithm variationally optimizes a translationally invari-ant matrix product state by iteratively growing the unit cell and projecting it onto an effective low-dimensional Hilbert space, where the truncation is controlled by an SVD of the reduced density matrix. An alternative matrix product state optimization scheme employed in this work is the variational uniform matrix product state (VUMPS) [44] algorithm, which is formulated within the tangent-space framework of uni-form MPS. Compared to iDMRG, VUMPS often exhibits faster and more stable convergence, particularly for sys-tems with longer-range interactions [44]. Accordingly, we employ both iDMRG and VUMPS to efficiently and reliably determine ground-state properties. 
+
+> III. COMPUTATIONAL DETAILS A. Structural Relaxation
+
+All DFT calculations, including full structural op-timizations and subsequent electronic-structure post-processing, were performed using the Vienna ab ini-tio Simulation Package (VASP) [45–47]. Exchange-correlation effects were treated within the generalized gradient approximation (GGA) using the Perdew-Burke-Ernzerhof (PBE) functional [48]. The interaction be-tween valence electrons and ionic cores was described us-ing the projector augmented-wave (PAW) method [49]. The following PAW potentials were used: Sr sv (4s, 4p, 5s; 10 valence electrons), Ba sv (5s, 5p, 6s; 10 valence electrons), Cu (3d, 4s, 4p; 11 valence electrons), and O
+
+(2s, 2p; 6 valence electrons). Long-range van der Waals interactions were accounted for using the DFT-D3 dis-persion correction with Becke-Johnson damping [50]. The crystal structures of Sr 2CuO 3, Sr 2CuO 3.5,SrCuO 2, SrBaCuO 3, and Ba 2CuO 3 were fully optimized within VASP by relaxing both lattice parameters and in-ternal atomic coordinates. Structural optimizations were performed using a 2 × 1 × 2 supercell constructed from the conventional unit cell shown in Fig. 1. The same computational parameters were used for all compounds, with Brillouin-zone integrations performed on a 7 × 5 × 7
+
+k-point mesh and a plane-wave energy cutoff of 600 eV. Electronic self-consistency was achieved with a total en-ergy convergence criterion of 10 −8 eV, while ionic relax-ation proceeded until the change in total energy between successive ionic steps was less than 10 −7 eV. Gaussian smearing was applied to the electronic occupations dur-ing the structural optimization. 
+
+> B. Downfolding
+
+Downfolding calculations for all materials were per-formed using the PBE functional in VASP on a 7 × 3 × 5
+
+k-point mesh with a plane wave cutoff of 600 eV. Screened Coulomb interaction parameters were computed using the cRPA as implemented in VASP. Since VASP eval-uates interaction parameters only within the unit cell, supercells were constructed to calculate the nearest-neighbor interactions. The MLWFs were constructed using the Wan-nier90 code [51] interfaced with VASP through the VASP2Wannier90 workflow [47, 51]. For systems with entangled bands, the projector method was used within the cRPA formalism to define the correlated subspace. Visualization of the relaxed crystal structures and Wan-nier function isosurfaces was performed using the VESTA software [52]. 8
+
+> C. Tensor Network Calculations
+
+To perform the calculations for the Hubbard model, we employed the open-source Julia packages TensorKit.jl 
+
+[53], MPSKit.jl [54], and MPSKitModels.jl . These li-braries provide efficient and flexible implementations of tensor-network algorithms, with built-in support for sym-metries and fermionic degrees of freedom. All simu-lations were carried out using our in-house Julia code 
+
+HubbardTN.jl and is publicly available [43]. In the MPS formulation of the Hubbard model, we introduce a filling 
+
+f = Ne
+
+N , 0 ≤ f ≤ 2, (30) defined as the number of electrons per site. Here, N
+
+denotes the number of physical lattice sites in the ma-terial unit cell. The lattice is represented as an infinite one-dimensional chain, where the sites are arranged in a zigzag geometry, forming a strip of finite width. For a Hubbard model with B bands, this strip has a width of 
+
+B sites, with each orbital treated as an individual site within the unit cell. For the chain materials, we used a one-band Hubbard model ( B = 1), while for the two-leg ladder models, we used a two-band Hubbard model (B = 2). In the ladder model, the rung index j = 0 , 1is treated as an effective band index, so that the two legs correspond to two bands. To ensure the injectivity of the MPS, the MPS unit cell contains BN sites when 
+
+Ne is even and 2 BN sites when Ne is odd [44]. In all calculations, a filling of f = 1 was used. For the chain materials, all calculations were per-formed using the U (1) ⊗U (1) ⊗f Z2 symmetry, where the first U (1) enforces charge conservation, the second U (1) conserves the spin projection along a fixed axis and thus distinguishes spin-up and spin-down states, and f Z2 ac-counts for the fermionic anticommutation relations. For the ladder materials, we employed a reduced symmetry structure consisting of f Z2 for fermionic statistics, a sin-gle U (1) symmetry for spin conservation, and a trivial symmetry in the particle-number sector. Once the Hubbard Hamiltonian is constructed, the ground state is obtained using the iDMRG2 algorithm [24–26], during which the bond dimension is determined dynamically. The resulting state is then further refined using several VUMPS iterations to ensure convergence. A gradient tolerance of 10 −8 was used throughout. 
+
+> IV. RESULTS AND DISCUSSION
+
+In this section, we first present the DFT + cRPA down-folding results for all materials considered in this work. We then present the MPS + MF results for the chain materials Sr 2CuO 3, SrBaCuO 3, and Ba 2CuO 3, where in-terchain couplings are included via a self-consistent stag-gered mean field. Finally, we assess the applicability of the ladder-based MPS + MF framework to Sr 2CuO 3.5
+
+and SrCuO 2.
+
+> A. Downfolding
+
+Starting from a KS-DFT calculation, a low-energy sub-space that captures only the essential degrees of freedom associated with the strongly correlated electrons can be selected. Looking at the band structure of Sr 2CuO 3 in Fig. 5, we can observe that only a few bands cross the Fermi energy. These upper Hubbard bands are primarily composed of Cu 3 dx2−y2 orbitals [55]. (See Supplemental Information for orbital projections.) Γ X M Z Y Γ                       
+
+> K-points
+> 2.0
+> 1.5
+> 1.0
+> 0.5
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> E − EF [eV]
+> FIG. 5. The electronic band structure of Sr 2CuO 3, rela-tive to the Fermi energy EF.The striped black lines rep-resent the Wannier interpolated bands. An orthorhombic su-percell containing eight formula units has been used. The high-symmetry points of the Brillouin zone are labeled as Γ = (0 ,0,0), X= (0 .5,0,0), M= (0 .5,0,0.5), Z= (0 ,0,0.5) and Y= (0 ,0.5,0).
+
+A real-space visualization of the MLWF isosurface for Sr 2CuO 3, together with the hopping parameters, is shown in Fig. 6. The derived hopping and interaction parameters for all materials are summarized in Tab. I and Tab. II. The interaction terms are defined in terms of the screened four-index Coulomb matrix elements Ui,j,k,l ,expressed in the basis of MLWFs. The onsite Coulomb repulsion is given by U = Ui,i,i,i , while the nearest-neighbor Coulomb repulsion between sites i and j is 
+
+V = Ui,i,j,j . The corresponding exchange interaction is defined as J = Ui,j,j,i = Ui,j,i,j , describing spin-flip and pair-hopping processes between nearest-neighbor sites. 9
+
+# t2
+
+# t
+
+# tab 
+
+# t⊥
+
+# tb
+
+FIG. 6. The MLWF isosurfaces of Sr 2CuO 3, illustrating key hopping parameters t, t 2, t ⊥, t ab and tb.TABLE I. Hopping and interaction parameters of the effective one-band Hubbard model for the quasi-1D cuprates studied in this work (all energies in eV). Sr 2CuO 3 SrBaCuO 3 Ba 2CuO 3
+
+t 0.486 0.490 0.491 
+
+t2 0.077 0.082 0.077 
+
+t3 0.018 0.019 0.018 
+
+t⊥ 0.033 0.024 0.026 
+
+tab 0.0068 -0.0017 -0.011 
+
+tb 0.0014 0.0033 0.0013 
+
+U 3.411 3.238 2.980 
+
+V 1.042 0.920 0.916 
+
+J 0.033 0.031 0.038 
+
+V⊥ 0.799 0.666 0.649 
+
+J⊥ 0.00167 0.000895 0.00116 TABLE II. Hopping and interaction parameters of the effec-tive two-band Hubbard model for the two-leg ladder-based models studied in this work (all energies in eV). Sr 2CuO 3.5 SrCuO 2
+
+tleg 0.400 0.484 
+
+trung 0.066 0.00040 
+
+t⊥ 0.046 0.025 
+
+tab 0.024 0.069 
+
+U 1.123 3.495 
+
+Vleg 0.244 0.916 
+
+Vrung 0.119 0.239 
+
+B. MPS + MF framework for chains 
+
+Using the Hubbard parameters obtained from the DFT + cRPA downfolding, we construct and solve an effective one-band Hubbard model to compute the ground state and the staggered magnetization of the quasi-1D mate-rials. All intrachain hopping and interaction parameters listed in Tab. I are taken as direct input and fully de-fine the Hamiltonian implemented in our MPS/iDMRG code. The interchain Hubbard interactions are incor-porated separately through the MF treatment discussed above. In Fig. 7, we show the staggered magnetization Ms,defined in Eq. 8, as a function of the bond dimension 
+
+D. At small bond dimensions, a finite nonzero value of Ms is observed due to the explicit symmetry break-ing inherent to finite-D MPS representations. As D
+
+is increased, the staggered magnetization gradually de-creases and vanishes in the large-D limit, consistent with the Mermin-Wagner-Hohenberg theorem, which forbids the spontaneous breaking of the continuous SU(2) spin-rotation symmetry in one-dimensional systems. We can now apply the MPS + MF approach ex-plained in the previous sections. The effective interchain exchange J⊥ is obtained from the interchain Hubbard parameters listed in Tab. I according to Eq. 7 and is antiferromagnetic for all three materials. The result-ing J⊥ values are also summarized in Tab. I. We find 
+
+J⊥ = 1 .67 meV for Sr 2CuO 3, with corresponding values of 0 .895 meV and 1 .16 meV for SrBaCuO 3 and Ba 2CuO 3,respectively. Applying the second step of the MPS + MF frame-work, we introduce an external staggered MF with cou-pling strength J⊥ and determine the staggered magne-tization self-consistently. Starting from an initial guess for Ms, the effective Hamiltonian is solved using MPS, yielding an updated value of Ms, which is then fed back into the MF term. Fig. 8 illustrates that different initial guesses for the staggered magnetization rapidly converge 10 0 50 100 150 200 250 300  
+
+> Bond dimension D
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> 0.12
+> 0.14
+> 0.16
+> Ms
+> No interchain interactions
+> Interchain interactions
+
+FIG. 7. The staggered magnetization Ms as a function of the bond dimension D for Sr 2CuO 3.0 1 2 3 4 5
+
+> Iteration step
+> 0.000
+> 0.025
+> 0.050
+> 0.075
+> 0.100
+> 0.125
+> 0.150
+> 0.175
+> 0.200
+> Ms
+
+FIG. 8. Self-consistent convergence of the staggered magne-tization Ms within the MPS + MF framework for Sr 2CuO 3,starting from three different initial guesses Ms = 0 .2, 0 .1 and 0.0. 
+
+to the same fixed-point value, demonstrating the insen-sitivity of the solution to the initial guess. As shown in Fig. 7, the inclusion of interchain interac-tions stabilizes a finite, nonzero staggered magnetization, in contrast to the purely one-dimensional case. We find final staggered magnetizations of Ms = 0 .056, 0 .045, and 0.043 for Sr 2CuO 3, SrBaCuO 3, and Ba 2CuO 3, respec-tively. Notably, the value obtained for Sr 2CuO 3 lies very close to the experimental upper bound of Ms ≃ 0.05 [32]. Upon substituting Sr with Ba, the staggered magnetiza-tion is reduced. However, this reduction cannot be at-tributed to the interchain exchange J⊥, as J⊥ itself does not decrease monotonically. This indicates that changes in the intrachain Hubbard parameters also play a crucial role in determining the magnetic order. Taken together, these results demonstrate that the MPS + MF approach provides a controlled description of the quasi-1D materials by explicitly incorporating in-terchain couplings. The resulting staggered magnetiza-tion of Sr 2CuO 3 is in quantitative agreement with exper-imental observation, establishing a direct link between 
+
+ab initio –derived Hubbard parameters and measurable magnetic order in real materials. To our knowledge, ex-perimental estimates of Ms for SrBaCuO 3 and Ba 2CuO 3
+
+are currently lacking, so a direct quantitative comparison is not possible. 
+
+C. MPS + MF framework for ladders 
+
+In this section, we investigated the extent to which Sr 2CuO 3.5 and SrCuO 2 can be described as ladders. Based on the Hubbard parameters obtained from the DFT + cRPA downfolding, we solve an effective two-band Hubbard model to compute the ground state, spin gap, and pairing energy of the quasi-1D materials. The hopping and interaction parameters listed in Tab. II fully define the Hamiltonian used in the MPS/iDMRG simu-lations. Looking at the rung hopping trung for SrCuO 2, we find it to be extremely small, such that the system is better described as very weakly coupled chains rather than as a two-leg ladder. In the limit of decoupled chains, the one-dimensional repulsive Hubbard model at half filling has a gapless spin sector, ∆ Es = 0, as demonstrated in Refs. [56–58]. Hence, for sufficiently small interchain cou-pling, the spin gap tends to zero as the system approaches the purely one-dimensional limit. While the rung hop-ping trung in Sr 2CuO 3.5 exceeds that of SrCuO 2, the ra-tio trung /t leg remains small, ∼ 0.17, indicating that the system is still close to the weakly coupled chain regime. Nevertheless, we compute the ground state and evaluate the spin gap ∆ Es. As shown in Fig. 9, the spin gap con-tinues to decrease even at very large bond dimensions, indicating the absence of a robust gap. 100 200 300 400 500 600 700 800  
+
+> Bond dimension D
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> Spin gap  Es (eV)
+
+FIG. 9. The spin gap ∆ Es as a function of the bond dimension 
+
+D for Sr 2CuO 3.5.
+
+The resulting values of ∆ Es are already too small for the perturbative treatment of Bollmark et al. [34] to be applicable, which requires t⊥ ≪ 2∆ Es. We therefore 11 conclude that both Sr 2CuO 3.5 and SrCuO 2 lie outside the two-leg ladder regime. As a consequence, the MPS + MF approach of Bollmark et al. is not applicable to these systems. However, other materials with a genuine ladder crystal structure may still be well described by a two-leg ladder model. 
+
+> V. CONCLUSION AND OUTLOOK
+
+In this work, we applied a multi-step workflow for quasi-1D cuprates that combines ab initio down-folding (DFT + cRPA) with TNs, while incorporat-ing weak interchain coupling through a self-consistent MF treatment. Starting from relaxed crystal struc-tures, we constructed effective one-band Hubbard mod-els for Sr 2CuO 3, SrBaCuO 3, and Ba 2CuO 3, and solved these models directly in the thermodynamic limit us-ing iDMRG and VUMPS. For an isolated chain, the staggered magnetization decreases systematically as the bond dimension is increased and vanishes in the large-D
+
+limit, which is consistent with the absence of spontaneous SU(2) symmetry breaking in 1D at T = 0 K [29–31]. Interchain interactions were incorporated through a two-step MF procedure. In the first step, the interchain Hubbard parameters were mapped onto an effective anti-ferromagnetic Heisenberg exchange J⊥ using a Schrieffer-Wolff expansion in t⊥/(U − V⊥) [40–42]. In the second step, this exchange interaction was treated within a MF approximation, where each neighboring chain is charac-terized by its staggered magnetization Ms. This approxi-mation leads to an effective staggered magnetic field act-ing on a single chain, which can be solved accurately us-ing MPS techniques. The resulting staggered magnetiza-tion is determined self-consistently by iterating between the MPS solution and the MF update. The converged ground state exhibits a finite Ms, offering a clear mi-croscopic picture of how weak interchain coupling drives magnetic order beyond the strictly one-dimensional limit. For the materials Sr 2CuO 3.5 and SrCuO 2, we assessed the applicability of the perturbative MPS + MF frame-work of Bollmark et al. [34] by explicitly computing the intrinsic low-energy scales of isolated ladders. Our re-sults indicate that the intraladder hopping parameters are too small to generate a robust spin gap at half filling: SrCuO 2 is effectively in the weakly coupled chain regime, while Sr 2CuO 3.5 remains close enough to that limit that ∆Es continues to decrease with bond dimension. Conse-quently, the separation of scales required for the pertur-bative interladder treatment is not satisfied, and these materials are better viewed as nearly one-dimensional systems rather than gapped ladders within the present parameterization. Several natural extensions of this work are possible. On the many body side, incorporating dynamical screen-ing effects and eliminating double counting in the kinetic term, for example with constrained GW based schemes [9], would improve the quantitative accuracy of the down-folded Hamiltonians. For systems with stronger inter-chain coupling, a direct treatment using higher dimen-sional TN approaches such as PEPS [20] is a natural next step. Taken together, these directions point toward a practical route for predictive simulations of strongly correlated low dimensional materials that combine con-trolled ab initio model construction with accurate tensor network methods. 
+
+> ACKNOWLEDGMENTS
+
+We thank Simon Ganne for fruitful discussions. This work was supported by the Research Board of Ghent University (BOF) through a Concerted Research Action (BOF23/GOA/021). V.V.S. acknowledges support from the Research Board of Ghent University (BOF). J.H., D. Verraes, and D. Vrancken acknowledge support from the Fund for Scientific Research–Flanders (FWO) via Grant No. 3G011920, No. 11A3D26N, and No. 11A0B26N, respectively. The computational resources (Stevin Su-percomputer Infrastructure) and services used in this work were provided by the Flemish Supercomputer Cen-ter (VSC), funded by Ghent University, FWO, and the Flemish Government–Department EWI. 
+
+> DATA AVAILABILITY
+
+The data supporting the findings of this study are in-cluded within the article. The input files are available from the authors upon reasonable request. The TN sim-ulations were performed using our in-house Julia code 
+
+HubbardTN.jl , which is publicly available [43].                   
+
+> [1] P. Hohenberg and W. Kohn, Phys. Rev. 136 ,B864 (1964). [2] W. Kohn and L. J. Sham, Phys. Rev. 140 , A1133 (1965). [3] A. J. Cohen, P. Mori-Sanchez, and W. Yang, Science 321 ,792 (2008). [4] E. Morosan, D. Natelson, A. H. Nevidomskyy, and Q. Si, Adv. Mater. 24 , 4896 (2012). [5] M. Imada, A. Fujimori, and Y. Tokura, Rev. Mod. Phys.
+> 70 , 1039 (1998). [6] H. Jiang, Int. J. Quantum Chem. 115 , 722 (2015). [7] M. Imada and T. Miyake, J. Phys. Soc. Jpn. 79 , 112001 (2010). [8] A. K. McMahan, R. M. Martin, and S. Satpathy, Phys. Rev. B 38 , 6650 (1988). [9] M. Hirayama, T. Miyake, and M. Imada, Phys. Rev. B
+> 87 , 195144 (2013). [10] F. Aryasetiawan, M. Imada, A. Georges, G. Kotliar, S. Biermann, and A. I. Lichtenstein, Phys. Rev. B 70 ,195104 (2004).
+
+12 
+
+[11] F. Aryasetiawan, K. Karlsson, O. Jepsen, and U. Schon-berger, Phys. Rev. B 74 , 125106 (2006). [12] S. Biermann, J. Phys.: Condens. Matter 26 , 173202 (2014). [13] J. Hubbard, Proc. R. Soc. Lond. A 276 , 238 (1963). [14] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozenberg, Rev. Mod. Phys. 68 , 13 (1996). [15] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, Rev. Mod. Phys. 78 ,865 (2006). [16] P. W. Anderson, Phys. Rev. 124 , 41 (1961). [17] S. Zhang and H. Krakauer, Phys. Rev. Lett. 90 , 136401 (2003). [18] R. J. Bartlett and M. Musial, Rev. Mod. Phys. 79 , 291 (2007). [19] E. Y. Loh, J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Phys. Rev. B 41 , 9301 (1990). [20] I. Cirac, D. Perez-Garcia, N. Schuch, and F. Verstraete, Rev. Mod. Phys. 93 , 045003 (2021). [21] G. K.-L. Chan and S. Sharma, Annu. Rev. Phys. Chem. 
+
+62 , 465 (2011). [22] E. Fertitta, B. Paulus, G. Barcza, and O. Legeza, Phys. Rev. B 90 , 245129 (2014). [23] A. Baiardi and M. Reiher, J. Chem. Phys. 152 , 040903 (2020). [24] S. R. White, Phys. Rev. Lett. 69 , 2863 (1992). [25] S. R. White, Phys. Rev. B 48 , 10345 (1993). [26] U. Schollw¨ ock, Ann. Phys. 326 , 96 (2011). [27] F. Verstraete and J. I. Cirac, Phys. Rev. A 70 , 060302 (2004). [28] D. Vrancken, S. Ganne, D. Verraes, T. Braeckevelt, L. Devos, L. Vanderstraeten, J. Haegeman, and V. Van Speybroeck, J. Chem. Theory Comput. 21 , 7830 (2025). [29] N. D. Mermin and H. Wagner, Phys. Rev. Lett. 17 , 1133 (1966). [30] L. Pitaevskii and S. Stringari, J. Low Temp. Phys. 85 ,377 (1991). [31] K. Tanaka, K. Takeda, and T. Idogaki, J. Magn. Magn. Mater. 272 , 908 (2004). [32] T. Ami, M. K. Crawford, R. L. Harlow, Z. R. Wang, D. C. Johnston, Q. Huang, and R. W. Erwin, Phys. Rev. B 51 , 5994 (1995). [33] Q. Q. Liu, H. Yang, X. M. Qin, Y. Yu, L. X. Yang, F. Y. Li, R. C. Yu, C. Q. Jin, and S. Uchida, Phys. Rev. B 74 ,100506 (2006). [34] G. Bollmark, T. Kohler, L. Pizzino, Y. Yang, J. S. Hof-mann, H. Shi, S. Zhang, T. Giamarchi, and A. Kantian, Phys. Rev. X 13 , 011039 (2023). [35] S. Marten, G. Bollmark, T. Kohler, S. R. Manmana, and A. Kantian, SciPost Phys. 15 , 236 (2023). [36] G. Bollmark, T. Kohler, and A. Kantian, Phys. Rev. B 
+
+111 , 125141 (2025). [37] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, Rev. Mod. Phys. 84 , 1419 (2012). [38] C. J. C. Scott and G. H. Booth, Phys. Rev. Lett. 132 ,076401 (2024). [39] A. W. Sandvik, Phys. Rev. Lett. 83 , 3069 (1999). [40] P. W. Anderson, Phys. Rev. 79 , 350 (1950). [41] P. W. Anderson, Phys. Rev. 115 , 2 (1959). [42] A. H. MacDonald, S. M. Girvin, and D. Yoshioka, Phys. Rev. B 37 , 9753 (1988). [43] D. Vrancken and Q. Staelens, HubbardTN.jl: Tensor net-work simulations of the hubbard model, GitHub repos-itory, https://github.com/DaanVrancken/HubbardTN. jl .[44] V. Zauner-Stauber, L. Vanderstraeten, M. T. Fishman, F. Verstraete, and J. Haegeman, Phys. Rev. B 97 , 045145 (2018). [45] G. Kresse and J. Hafner, Phys. Rev. B 47 , 558 (1993). [46] G. Kresse and J. Furthmuller, Phys. Rev. B 54 , 11169 (1996). [47] J. Hafner, J. Comput. Chem. 29 , 2044 (2008). [48] J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77 , 3865 (1996). [49] P. E. Blochl, Phys. Rev. B 50 , 17953 (1994). [50] S. Grimme, S. Ehrlich, and L. Goerigk, J. Comput. Chem. 32 , 1456 (2011). [51] A. A. Mostofi, J. R. Yates, Y.-S. Lee, I. Souza, D. Van-derbilt, and N. Marzari, Comput. Phys. Commun. 178 ,685 (2008). [52] K. Momma and F. Izumi, J. Appl. Crystallogr. 41 , 653 (2008). [53] J. Haegeman, L. Vanderstraeten, M. Hauru, et al. ,TensorKit.jl: Tensor symmetry library for tensor networks, GitHub repository, https://github.com/ QuantumKitHub/TensorKit.jl .[54] M. Vanderstraeten, J. Haegeman, L. Vander-straeten, et al. , MPSKit.jl: Matrix product state algorithms, GitHub repository, https: //github.com/QuantumKitHub/MPSKit.jl .[55] R. Neudert, S.-L. Drechsler, J. M´ alek, H. R¨ osner, M. Kielwein, Z. Hu, M. Knupfer, M. S. Golden, J. Fink, N. N¨ ucker, M. Merz, S. Schuppler, N. Motoyama, H. Eisaki, S. Uchida, M. Domke, and G. Kaindl, Phys. Rev. B 62 , 10752 (2000). [56] S. R. White and I. Affleck, Phys. Rev. B 54 , 9862 (1996). [57] S. Daul and R. M. Noack, Phys. Rev. B 58 , 2635 (1998). [58] S. Nishimoto, K. Sano, and Y. Ohta, Phys. Rev. B 77 ,085119 (2008). 13 
+
+SUPPORTING INFORMATION I. ORBITAL PROJECTIONS OF UPPER HUBBARD BAND 
+
+Examining the band structure of Sr 2CuO 3, we observe that only a few bands cross the Fermi energy. The orbital contributions of these low-energy states can be analyzed by projecting the calculated KS wavefunctions ψKS  
+
+> nk
+
+onto atomic orbitals that are centered on each atom type α and described by the corresponding spherical harmonics Y αlm .The resulting projection |⟨ Y αlm |ψKS  
+
+> nk
+
+⟩| 2 yields a decomposition of the initial KS states into contributions from specific angular momentum labeled by l and m. Most projections onto specific orbitals of O, Cu, or Sr resulted in negligible contributions. Tab. III lists the dominant orbital contributions to the four bands forming the upper Hubbard manifold. These results clearly indicate that the bands are primarily composed of Cu 3 dx2−y2 orbitals. This observation is further supported by the lm decomposition shown in Fig. 10, which highlights the specific bands where the 3 dx2−y2 character is most significant. 
+
+TABLE III. Dominant orbital contributions from an lm -decomposition of the upper Hubbard band of Sr 2CuO 3, showing the dominant Cu dx2−y2 character. The first column includes the summed s orbital contributions from all atoms (Sr, Cu, and O). Only the mean values over all k-points above a threshold of 0 .005 are listed. The total column gives the sum of the squared norms of the wavefunction projections onto atom-centered spherical harmonics within the muffin-tin region. This total is less than 1 due to two effects: (i) the exclusion of wavefunction contributions in the interstitial region (outside the muffin-tin spheres), and (ii) the incompleteness of the projection basis, since spherical harmonics form a complete basis only in the limit 
+
+ℓ → ∞ .All atoms: s O2: py O1: px Cu: dz2 Cu: dx2−y2 Total 0.021 0.202 0.171 0.007 0.481 0.882 
+
+FIG. 10. The electronic band structure of Sr 2CuO 3, highlighting the contribution from the Cu: 3 dx2−y2 orbital. The color scale indicates the orbital character weight, with darker shades corresponding to higher contributions. The high-symmetry points, given in fractional coordinates, are: Γ = (0 , 0, 0), X = (0 .5, 0.0, 0.0), M = (0 .5, 0.0, 0.5), Y = (0 .0, 0.5, 0.0), and 
+
+Z = (0 .0, 0.0, 0.5).

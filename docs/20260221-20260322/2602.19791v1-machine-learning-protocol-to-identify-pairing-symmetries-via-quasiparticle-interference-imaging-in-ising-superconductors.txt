@@ -1,0 +1,1087 @@
+Title: Machine learning protocol to identify pairing symmetries via quasiparticle interference imaging in Ising superconductors
+
+URL Source: https://arxiv.org/pdf/2602.19791v1
+
+Published Time: Tue, 24 Feb 2026 02:47:05 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+## Machine learning protocol to identify pairing symmetries via quasiparticle interference imaging in Ising superconductors 
+
+Adam Hložný, 1 Jozef Haniš, 2 Martin Gmitra, 2, 3, 4 and Marko Milivojević 1, 5 
+
+> 1
+
+Institute of Informatics, Slovak Academy of Sciences, 84507 Bratislava, Slovakia 
+
+> 2
+
+Institute of Experimental Physics, Slovak Academy of Sciences, 04001 Košice, Slovakia 
+
+> 3
+
+Institute of Physics, Pavol Jozef Šafárik University in Košice, 04001 Košice, Slovakia 
+
+> 4
+
+New Technologies Research Centre, University of West Bohemia, Univerzitní 8, CZ-301 00 Pilsen, Czech Republic 
+
+> 5
+
+Faculty of Physics, University of Belgrade, 11001 Belgrade, Serbia 
+
+(Dated: February 24, 2026) Identifying the pairing symmetry in unconventional superconductors is essential for reliably char-acterizing their superconducting states and for enabling their integration into realistic quantum de-vices. Here, we introduce a machine-learning-guided strategy to determine pairing symmetry from quasiparticle interference (QPI) data, which integrates first-principles calculations, tight-binding modeling, and symmetry-based classification of the superconducting pairing function. We demon-strate the approach on monolayer NbSe 2 as an experimentally accessible probe of superconductivity in real materials, within a single scalar-impurity Bogoliubov–de Gennes framework. Our analysis shows that the QPI-to-parameter inverse problem can be solved with high accuracy for most super-conducting pairing channels in this setting, indicating that QPI carries rich, learnable information about the superconducting gap structure. Taken together, these results demonstrate that machine-learning-assisted QPI analysis provides a promising pathway for precise learning of superconducting pairing functions in quantum materials. 
+
+I. INTRODUCTION 
+
+The experimental identification of pairing symmetry in unconventional superconductors [1–3] is crucial for un-derstanding the fundamental mechanisms behind super-conductivity and for guiding the design of materials with novel quantum properties. This determination remains a central challenge in condensed matter physics due to the subtle and complex nature of the superconducting or-der parameter [4, 5]. Techniques like Josephson junction measurements and momentum-resolved gap spectroscopy often face difficulties isolating intrinsic superconducting signals from material-specific scattering and quasiparti-cle interference effects [6–8]. This challenge is especially pronounced in more complex systems such as cuprates and iron-based superconductors, where the exact nature of the pairing symmetry is still debated [5, 9]. Current proposals range from nodal d-wave to anisotropic s-wave. Addressing these controversies requires advanced, robust symmetry-informed methodologies capable of describing the momentum-dependent pairing functions that capture both the detailed k-space structure and the possible mix-ing of singlet and triplet components in the supercon-ducting gap. This refined understanding is essential for progressing toward the unambiguous identification of un-conventional superconducting states. The key to detecting the nature of superconductivity, and its topological character, lies in understanding the nature of the Cooper pairs, which are the fundamen-tal building blocks of the superconducting state. This understanding can be achieved by analyzing quasiparti-cle interference (QPI), a phenomenon where quasiparti-cles scatter off defects or boundaries, resulting in spa-tial modulations of the local density of states that are captured in QPI spectra. While QPI patterns [10–16], measurable via techniques like scanning tunneling mi-croscopy (STM) [17–19], can reveal signatures of super-conducting pairing [20, 21], extracting and interpreting all the relevant information is a complex and challenging task [22]. This complexity limits unambiguous identifica-tion of pairing symmetries in real materials and motivates usage of methods that are able to process large amounts of data. Generating large datasets of QPI spectra through nu-merical simulations within the Bogoliubov–de Gennes (BdG) formalism offers a promising route to bridge the gap between theory and experiment. These simula-tions produce rich QPI patterns that capture subtle signatures of different superconducting pairing symme-tries [23]. However, the vast complexity and volume of these data demands advanced analytical tools. Machine learning approaches [24], such as convolutional neural networks (CNNs), have demonstrated powerful capabili-ties for pattern recognition [25] in images such as the QPI patterns, opening avenues for high-accuracy classification of pairing symmetries and extraction of hidden supercon-ducting parameters from both simulated and experimen-tal QPI spectra [26]. Thus, combining symmetry-based classification with machine learning-assisted QPI analy-sis provides a transformative approach to uncovering the detailed nature of unconventional superconductivity in layered materials. To address this, we introduce a machine-learning-guided scheme that integrates first-principles calcula-tions, tight-binding modeling, and symmetry-based clas-sification of superconducting pairing functions [27, 28], 
+
+> arXiv:2602.19791v1 [cond-mat.supr-con] 23 Feb 2026
+
+2   
+
+> Figure 1. Schematic overview of the proposed workflow. Ab-initio calculations and tight-binding approach are used to model the normal phase of NbSe 2, whereas the superconducting pairing functions of NbSe 2are determined using the group-theory approach. Secondly, a large dataset of simulated QPI spectra is generated across different superconducting parameters. This dataset is then used to train and optimize a neural network model.
+
+using QPI imaging as an experimentally accessible probe in real quantum materials. We demonstrate its usefulness on monolayer NbSe 2 [29–31], revealing how this machine learning-assisted QPI analysis provides a robust path-way for precisely determining pairing symmetries across diverse unconventional superconductors that can be de-scribed using the BdG formalism. This paper is organized as follows. In Section II, we provide theoretical framework for the analysis of super-conductivity parings in monolayer NbSe 2 based on BdG formalism, QPI imaging and machine learning. In Sec-tion III, we present our machine-learning-based results of subtracting superconducting pairing information directly from simulated QPI images of monolayer NbSe 2. Using a two-head CNN, we simultaneously classify the super-conducting pairing type (classified according to the irre-ducible representation of the group of monolayer NbSe 2)and extract the parameters controlling the superconduct-ing state, such as the singlet–triplet mixing and gap mag-nitude. Finally, in Section IV, we present our conclusions.  
+
+> II. THEORETICAL FRAMEWORK: SUPERCONDUCTIVITY, QPI, AND MACHINE LEARNING
+
+To fully describe and analyze superconductivity in NbSe 2 using quasiparticle interference imaging and mas-chine learning methods, we first describe details of the monolayer NbSe 2 model in its normal state, followed by the description of possible supperconducting pairing withing the single-band approximation of free-standing monolayer NbSe 2. As a second step, we provide the theo-retical framework to generate QPI images based on scalar impurity, implementing different types of superconduct-ing pairing function previously defined. Finally, we pro-vide a machine-learning-based protocol, based on convo-lutional neural network, able to analyze QPI images and solve the inverse problem of determining the supercon-ducting pairing type and other microscopical details of the superconducting pairings.  
+
+> A. Bogoliubov-de Gennes description of superconductivity in monolayer NbSe 2
+
+We are interested in studying the effects of electron su-perconducting pairing in free-standing monolayer NbSe 2,having the D3h symmetry, at a low-temperature regime. We model the superconductivity by the BdG formalism with the Hamiltonian 
+
+HBdG = 12
+
+X
+
+> k
+
+Ψ†
+
+> k
+
+HBdG  
+
+> k
+
+Ψk, (1) considering the Nambu spinor, Ψ† 
+
+> k
+
+= [ c†
+
+> k↑
+
+, c †
+
+> k↓
+
+, c −k↑, c −k↓]
+
+with fermionic creation c† 
+
+> k↑
+
+and annihilation c−k↑ oper-ators. The 4 × 4 BdG Hamiltonian in reciprocal space 
+
+HBdG  
+
+> k
+
+reads [32] 
+
+HBdG  
+
+> k
+
+=
+
+He(k) ∆k
+
+∆† 
+
+> k
+
+−HTe (−k)
+
+
+
+, (2) where the electron-like Hamiltonian He(k) is the effective tight-binding Hamiltonian 
+
+He(k) = Horb (k) + HI(k), (3) In the equation above, the single-orbital part Horb de-scribes the dispersion of the effective Nb d-band in the vicinity of the Fermi level [23, 33] 
+
+Horb (k) = ε0 + 2 t1f (α, β ) (4) 
+
++2 t2(cos 2 β + 2 cos 3 α cos β) + 2 t3f (2 α, 2β)+4 t4(cos α cos 3 β + cos 4 α cos 2 β + cos 5 α cos β)+2 t5f (3 α, 3β) + 2 t6(cos 2 β + 2 cos 3 α cos β)+4 t7(cos 7 α cos β + cos 5 α cos 3 β + cos 2 α cos 4 β),
+
+where f (α, β ) = cos 2 α + 2 cos α cos β, α = kxa/ 2,
+
+β = √3ky a/ 2, a is the lattice constant, kx and ky are 3components of the wave vectors in Cartesian frame, ε0 is the chemical potential of the NbSe 2 monolayer, and ti,
+
+i = 1 , ..., 7 are the real hopping parameters. The model describes Nb d-band close to the Fermi level up to 7-th neighbors. In addition to the orbital part, one has to include the intrinsic spin-orbit coupling. The intrinsic spin-orbit cou-pling Hamiltonian HI [33] up to the third neighbor equals to 
+
+HI(k) = 2 σz
+
+
+
+λ(1) I g(α, β ) + λ(3) I g(2 α, 2β)
+
+
+
+, (5) where g(α, β ) = sin 2 α − 2 sin α cos β, σz is the Pauli matrix, and the nonzero real parameters λ(1) I and λ(3) I
+
+quantify the strength of the interaction in the first and third neighbor approximation. The parameter λ(2) I = 0 
+
+due to vertical mirror plane symmetry. Finally, ∆k represents k-dependent superconducting order parameter. Without entering into a macroscopic details of the superconductivity generation in a mono-layer NbSe 2, it is possible to construct all allowed types of superconducting order parameters allowed by the D3h 
+
+symmetry, divided into one singlet and two distinct triplet channels (parametrized by the spin pairing func-tions, d0 ∝ (|↑↓⟩ − |↓↑⟩ ) for singlet, and two triplet chan-nels; one constructed by the dz ∝ (|↑↓⟩ +|↓↑⟩ ) triplet and one by two spin (dx, d y ) ( dx, d y ) ∝ (|↑↑⟩−|↓↓⟩ , |↑↑⟩ +|↓↓⟩ )
+
+and classified according to the irreducible representations (IRs) of the D3h group: one-dimensional (1D) IRs Au 
+
+> 1
+
+,
+
+Ag
+
+> 1
+
+, Au 
+
+> 2
+
+, Ag
+
+> 2
+
+, and two-dimensional (2D) IRs Eu and Eg .In Appendix A, we provide explicit forms of the super-conducting gap functions classified according to IRs and the channel type: (s) for a singlet, (t, z ) for a triplet constructed using the dz spinor solely, and (t, xy ) for a triplet constructed using (dx, d y ) multiplet. It is physically reasonable to assume that a singlet-triplet mixing can occur since for each IR both the sin-glet and triplet functions can be realized. By taking into account that the triplet function dxy can not be mixed with the singlet and triplet function dz due to the op-posite parity with respect to the horizontal mirror plane symmetry, we can obtain the following mixed gap func-tions that transform according to one-dimensional IRs 
+
+∆Au  
+
+> 1,k
+
+= ∆∆ (t,xy )  
+
+> Au
+> 1,k
+
+, (6) 
+
+∆Au  
+
+> 2,k
+
+= ∆∆ (t,xy )  
+
+> Au
+> 2,k
+
+, (7) 
+
+∆Ag  
+
+> 1,k
+
+= ∆(cos θ∆(s)  
+
+> Ag
+> 1,k
+
++ sin θ∆(t,z ) 
+
+> Ag
+> 1,k
+
+), (8) 
+
+∆Ag  
+
+> 2,k
+
+= ∆(cos θ∆(s)  
+
+> Ag
+> 2,k
+
++ sin θ∆(t,z )
+
+> Ag
+> 2
+
+), (9) where ∆ is the order parameter magnitude. As one can notice, in the case of the 1D IRs Au 
+
+> 1
+
+and Au 
+
+> 2
+
+no mixing occurs, whereas in the case of 1D IRs Ag 
+
+> 1
+
+and Ag 
+
+> 2
+
+there is only one mixing parameter. In the case of the 2D IRs the situation becomes more complicated since for each spin channel c, c =(s), (t, z ), (t, xy ), gap function ∆Eg/u ,k that trans-forms according to the IR Eg/u can be written as 
+
+(cos θc∆cEg/u   
+
+> 1,k
+
++ e iφc sin θc∆cEg/u  
+
+> 2,k
+
+), where ∆cEg/u   
+
+> 1/2,k
+
+are the two (real) components of the 2D IR Eg/u for spin channel c, θc represents the component mixing parame-ter, whereas φc is time-symmetry breaking parameter. In addition to this, similar as in IRs Ag 
+
+> 1
+
+and Ag
+
+> 2
+
+, for IR Eg
+
+there is a possibility of (s) and (t, z ) spin channel mixing, giving rise to the most general form of gap functions (for more details, see Appendix A) 
+
+∆Eu,k = ∆(cos θt∆(t,xy )  
+
+> Eu
+> 1,k
+
++ e iφt sin θt∆(t,xy )  
+
+> Eu
+> 2,k
+
+),
+
+∆Eg ,k = ∆ 
+
+h
+
+cos θ(cos θs∆(s)  
+
+> Eg
+> 1,k
+
++ e iφs sin θs∆(s) 
+
+> Eg
+> 2,k
+
+)+ sin θ(cos θt∆(t,z )  
+
+> Eg
+> 1,k
+
++ e iφt sin θt∆(t,z ) 
+
+> Eg
+> 2,k
+
+)
+
+i
+
+,
+
+However, in generating our large QPI dataset, we neglect the influence of parameters φs/t for the reasons explained in Sec. III. To keep the analysis conceptually simple and demonstrate that our machine-learning protocol can de-termine key microscopic parameters of the superconduct-ing Hamiltonian, we restrict the Eg representation to the singlet channel only. Therefore, the gap functions going to be used in the case of IRs Eu and Eg are 
+
+∆Eu,k = ∆(cos θ∆(t,xy )  
+
+> Eu
+> 1,k
+
++ sin θ∆(t,xy )  
+
+> Eu
+> 2,k
+
+), (10) 
+
+∆Eg ,k = ∆(cos θ∆(s)  
+
+> Eg
+> 1,k
+
++ sin θ∆(s) 
+
+> Eg
+> 2,k
+
+), (11) where in both cases, for simplicity, the component mixing parameter is given as θ.
+
+B. Quasiparticle interference details 
+
+QPI imaging, typically performed via Fourier-transform scanning tunneling spectroscopy, has emerged as a powerful tool for probing superconducting states in quantum materials, offering momentum-resolved in-sights into Bogoliubov quasiparticle scattering that com-plement angle-resolved photoemission spectroscopy. In superconductors, QPI patterns arise from interference between incoming and elastically backscattered quasipar-ticles off impurities or defects, with the local density of states (LDOS) modulation dispersing according to the joint density of states on the BdG quasiparticle spectrum. Up to now, QPI has been positioned as a tool that can explain superconductivity in different systems [34, 35], being able to identify superconducting gap features such as phase structure, sign [36, 37] and orbital order [38]. Theoretical modeling of QPI in superconductors draws inspiration from the intuitive picture of a solid-state sys-tem as a sea of quasiparticles—wave-like excitations gov-erned by the system’s Hamiltonian. Small perturbations from impurities or crystal defects scatter these waves, creating standing wave modulations in the LDOS that 4scanning tunneling spectroscopy (STS) directly visual-izes through conductance maps. In the superconduct-ing state, these become Bogoliubov quasiparticle interfer-ences, where elastic scattering mixes electron- and hole-like excitations, encoding the momentum-space structure of the superconducting gap. The T-matrix formalism provides a framework to com-pute these patterns theoretically, starting from the bare Green’s function of the unperturbed Hamiltonian and re-summing scattering events off a localized impurity po-tential. Since quasiparticle responses of many impurities possess identical poles as a single impurity case [39, 40], we can approximate the description of the elastic scatter-ing process via a spin-conserving single impurity. Such impurity potential can be written in real Nambu space as V = vτ 3 ⊗ σ0, where v is the impurity strength, τ3
+
+is the Pauli matrix for electron-holes and σ0 is the iden-tity operator in the spin space. Considering the poten-tial V as a perturbation, the LDOS can be calculated using the T-matrix approach via Green’s function writ-ten as G(k, k′; ω) = G0(k, k′; ω) + δG (k, k′; ω), where 
+
+G0(k, k′; ω) is retarded bare Green’s function. The cor-rection δG (k, k′; ω) can be found with the help of the T-matrix, which solves the scattering problem for a sin-gle scalar impurity [41]. Here, ω = ϵ + i δ corresponds to quasiparticle energy with small lifetime broadening (δ ≈ 0.1 meV). The spin-conserving scalar impurity V
+
+leads to a T-matrix, T (ω) = V · [1 − V · G0(ω)] −1,where G0(ω) = 1 /Ω R [ω −H BdG  
+
+> k
+
+]−1 is the integrated bare Green’s function within the first Brillouin zone (BZ). The scattered quasiparticle amplitude is equal to 
+
+ρ(q; ω) = − 1
+
+π Im 
+
+ 1Ω
+
+Z
+
+dk δG (k, k + q; ω)
+
+
+
+, (12) in which the relation k′ = k + q is used, with δG inte-grated over all possible k points in the first BZ. The con-volution theorem [42] enables efficient evaluation of QPI images ρ(q; ω), reducing computational complexity and allowing analysis of fine-grid maps with minimal broad-ening. Spectral characteristics of the band structure are calculated using the imaginary part of the spectral func-tion (for more details, see [23]).  
+
+> C. Machine-learning details
+
+After preparing a dataset of simulated QPI images ( ∼
+
+5000 train samples, ∼ 250 validation samples and ∼ 250 test samples, equal number of samples per IR, the final step is to train a convolutional neural network to solve the inverse problem: from a QPI pattern to the underlying parameters of the effective BdG description (IR label and continuous Hamiltonian parameters). We adopt a multi-task setting with two prediction heads: (i) a classification head that predicts the superconducting irreducible rep-resentation (IR), and (ii) a regression head that predicts the continuous parameters controlling the superconduct-ing state. Our primary model is based on a VGG-like architec-ture [43, 44], see Appendix B for details. Specifically, we use the convolutional features block of VGG16 as a shared backbone and modify the input layer to accept single-channel QPI maps by replacing the first convolu-tion with a 1 → 64 kernel of size k × k (default k = 3 ), initialized with He/Kaiming normalization [45]. The re-sulting feature tensor is mapped to a fixed spatial size via adaptive average pooling to 7 × 7, flattened, and passed through a fully connected aggregation layer, 
+
+agg = ReLU( W x + b), (13) where x is flattened output of the convolutional feature extractor, W is weight matrix of the layer, b is bias term and ReLU is defined as: 
+
+ReLU( t) = max(0 , t ). (14) From this shared representation, two parallel heads are evaluated: (i) a classification head producing ascore/probability vector over IRs, and (ii) a regression head producing four continuous outputs. In addition to this VGG-based model, we implemented an analogous modification of ConvNeXt [46]; however, for the present task and dataset size, the simpler VGG-based backbone provided more stable training and similar or marginally better overall validation performance. The classification target is the IR label of the supercon-ducting order parameter used to generate the QPI image. The regression target consists of the chemical potential μ,superconducting gap magnitude ∆, and the mixing angle 
+
+θ entering gap functions in Eqs. (8)-(11). To avoid dis-continuities associated with the periodicity of the mixing angle, we do not predict θ directly. Instead, we predict the two-component embedding 
+
+(θ1, θ 2) = (sin 2 θ, cos 2 θ) , (15) which correctly enforces the physical periodicity θ ≡ θ+π
+
+in our problem (see the discussion in the next Section for further explanation). At inference, θ is reconstructed by 
+
+θ = 12 atan2( θ1, θ 2) (modulo π), where atan2 is arc tan-gent of θ1/θ 2 with proper choice of quadrant. The model is trained with a weighted multi-task objective function, 
+
+L = wIR LCE (ˆ p, yIR ) + wparam ∥ˆr − yparam ∥2, (16) where ˆp denotes the predicted IR scores/probabilities, 
+
+yIR one-hot encoded IR ground truths, ˆr = ( ˆθ1, ˆθ2, ˆμ, ˆ∆) 
+
+predicted parameters of the BdG Hamiltonian, and 
+
+yparam the corresponding ground-truth targets. Further-more, wIR , wparam are weights of the IR and BdG param-eter parts of the objective function, with LCE denoting cathegorical cross-entropy defined as: 
+
+LCE (ˆ p, yIR ) = −
+
+> K
+
+X
+
+> i=1
+
+(yIR )i log ˆ pi, (17) 5with summation running across possible IRs. The loss L
+
+described in Eq.16 is per-sample, the final loss depends on the batch size and is calculated as average across all samples. As a way to regularize the training dataset and reduce overfitting [47], we apply mild noise augmentations to the input QPI images during training - Gaussian noise and pink (1/f) noise proved to slightly improve stability of the training and validation accuracy.  
+
+> III. RESULTS
+
+A large set of QPI images were obtained for differ-ent set of superconducting pairing functions and chem-ical potentials ϵ0, while keeping the same values of the hopping parameters t1, ..., t 7 (in meV) and intrinsic spin-orbit coupling parameters λ(1) I and λ(3) I (also in meV) to t1 = 33 .52 , t2 = 97 .26 , t3 = −2.11 , t4 = −13 .53 ,
+
+t5 = −10 .30 , t6 = 3.48 , t7 = 1.69 , λ(1) I = 13 .27 ,and λ(3) I = −1.94 , respectivelly [23]. On the other hand, we have varied the chemical potential ϵ0 values, to test whether this framework is applicable to a class of TMDC-based misfit structures [48, 49], which, despite their more complex layering, possess a band structure near the Fermi level that closely resembles that of the monolayer TMDCs, albeit with a modified chemical po-tential resulting from electron doping [50]. The above set of parameters fully describe the electron and the hole part of the BdG Hamiltonian; the final step is the define the allowed set of the superconducting parameters for superconducting gaps defined in Eqs. 6-11. Additionally, for all gaps in Eqs. 6-11, we have analyzed the effect of the superconducting gap intensity ∆. At the same time, this is the only free parameter to be varried in the case of superconducting gap functions that transform according to IRs Au 
+
+> 1
+
+(6) and Au 
+
+> 2
+
+(7), whereas in the case of gaps 
+
+∆Ag 
+
+> 1
+
+(8) and ∆Ag 
+
+> 2
+
+(9) there is an additional parameter 
+
+θ ∈ [0 , 2π] quantifying the level of singlet-triplet mixing, which was randomly sampled. Finally, we move to gap transforming to 2D IRs Eg and Eu, given in Eqs. (10) and (11). In the two case studied, besides varying the value of ∆, it is allowed to vary parameter θ, quantifying the mixing between two components of 2D IR Eg/u .Before performing the neural network analysis, we tried to simplify the analysis by understanding the influ-ence of free superconducting parameters on QPI images. Secondly, we note that QPI images are insensitive on the sign of the gap function, sugessting that, independently on the IR μ, gaps ∆μ, k and −∆μ, k are indistiguishable. Taking this into the account, it is clear that we can re-strict ourselves to a resticted range of allowed supercon-ducting parameters: positive ∆ and θ, ranging from 0 to π, instead from 0 to 2π, since θ → θ + π change in-duces a sign change of ∆μ, k, which is indistinguishable                                             
+
+> Table I. Evaluation metrics for detecting superconducting pairings. For each IR (with Au
+> 1and Au
+> 2merged into a sin-gle class Au
+> 12 as explained in the main text), we report the percentage probability of correctly identifying the supercon-ducting pairing transforming according to each IR, followed by the mean absolute errors for the continuous parameters ∆,
+> θ, and ϵ0of the BdG Hamiltonian (2). IR hit [%] δ∆[meV] δθ [rad] δϵ 0[eV]
+> Ag
+> 186 0.01 0.30 0.07
+> Au
+> 12 94 0.01 /0.01
+> Ag
+> 298 0.01 0.06 0.02
+> Eg98 0.01 0.01 0.01
+> Eu96 0.01 0.05 0.01
+
+by QPI imaging. Additionally, our analysis of the QPI patterns indicates that it is not possible to properly de-termine φ(φs) using (time-reversal conserving) scalar im-purities. Preciselly this fact motivated us to use Eqs. (10) and (11) in which φ(φs) is neglected and suggests that (time-reversal breaking) magnetic impurities should be employed instead. We leave this investigation for future work. Finally, we notice that the QPI signatures for ∆Au 
+
+> 1,k
+
+and ∆Au  
+
+> 2,k
+
+become indistinguishable for the same under-lying parameters in our setup. This can be traced back to the fact that, within the present modeling, the impu-rity effectively probes a gap opening predominantly at the Fermi level (we used ω = 0 in Eq. 12) rather than symmetrically above/below it (nonzero ω), where the dif-ferences between gap functions ∆Au  
+
+> 1,k
+
+and ∆Au  
+
+> 2,k
+
+are the most prononced. We therefore merge A1u and A2u into a single class during training and evaluation (we will call this class A12 u and leave the analysis of different ω for future work(s). We now turn to the results of the machine-learning based analysis of the QPI data. As discussed in Sec-tion II C, we evaluate the trained network by measuring (i) the representation hit rate, defined as the fraction of samples with a given ground-truth IR for which the pre-dicted IR (argmax over ˆp) matches the label, and (ii) the mean absolute error (MAE) for each regressed parame-ter within each ground-truth IR subset. For the mixing angle, the MAE is computed after reconstructing θ from 
+
+(sin 2 θ, cos 2 θ), respecting the π-periodicity. Table I summarizes the per-representation perfor-mance metrics for detecting superconducting pairings, including classification probabilities and MAE for ∆, θ,and μ. Overall, the model achieves near-perfect recog-nition for most IRs, while the reduced hit rate for Ag
+
+> 1
+
+and Eu reflects the intrinsically weaker and/or more am-biguous QPI signatures available to a scalar impurity in these cases. This represents the main result of our work: machine learning can detect different superconducting pairing symmetries with very high success rates—even using scalar impurities and a single excitation energy 6(ω = 0 )—paving the way for precise identification of pairing functions in quantum materials like monolayer NbSe 2.A second important result is that the trained neural network is able to recognize superconducting parameters of the BdG Hamiltonian [51]: the regression errors δ∆
+
+remain small for the gap magnitude ∆ across all IRs, indicating that ∆ leaves a robust imprint on the QPI patterns. Additionally, once the θ ≡ θ + π ambiguity is resolved via the (sin 2 θ, cos 2 θ) embedding, the trained network reliably determines the presence of the singlet-triplet (component) mixing; however, the precision of ob-taining the exact θ parameter differs among different IRs. The same IR dependence on the precision of the chemi-cal potential value is evident from the results in Table I; nonetheless, these values can be meaningfully compared to those extracted via first-principles calculations com-bined with tight-binding modeling.  
+
+> IV. CONCLUSIONS
+
+We introduced a machine-learning protocol that infers superconducting pairing symmetries and order param-eters directly from simulated quasiparticle interference images of monolayer NbSe 2. By training a two-head con-volutional neural network, we simultaneously identified the type of the superconducting pairing function, clas-sified according to the irreducible representation of the 
+
+D3h group, and continuous parameters of the supercon-ducting state, including singlet–triplet mixing and the gap magnitude. Regularization through carefully chosen input augmentations yields models that remain robust under experiment-like noise conditions. Our results show that the QPI-to-parameter inverse problem is tractable with high accuracy for most sym-metry channels, even within a minimal scalar Anderson-impurity description and at a single excitation energy. At the same time, they expose intrinsic limitations of this framework: certain representations (notably Au 
+
+> 1
+
+and 
+
+Au 
+
+> 2
+
+) are effectively degenerate in their QPI response and are best treated as a merged class, and the time-reversal breaking nature of superconducting pairing functions transforming according to two-dimensional irreducible representations cannot be resolved within the scalar im-purity model. These insights establish a concrete route toward symmetry- and parameter-resolved analysis of QPI data in unconventional superconductors and highlight clear extensions of the framework—such as incorporating mag-netic and orbital-selective impurity channels, energy-resolved QPI, or more realistic tunneling matrix ele-ments—to further lift degeneracies and enhance identi-fiability in multi-component pairing states. 
+
+> ACKNOWLEDGMENTS
+
+A.H. acknowledges the financial support provided by the Ministry of Education, Research, Development and Youth of the Slovak Republic, provided under Grant numbers APVV-21-0272 and VEGA 2/0133/25. M.G. acknowledges financial support provided by the Ministry of Education, Research, Development and Youth of the Slovak Republic, provided under Grant No. VEGA 1/0104/25 and the Slovak Academy of Sciences project IMPULZ IM-2021-42, and support of the QM4ST project funded by Programme Johannes Amos Commenius, call Excellent Research (Project No. CZ.02.01.01/00/22_008/0004572). M.M. acknowl-edges the financial support by the EU NextGenera-tionEU through the Recovery and Resilience Plan for Slovakia under the Project No. 09I02-03-V01-00012, by the APVV grant APVV-23-0430, and VEGA grants 2/0081/26 and 2/0133/25. 
+
+> DATA AVAILABILITY STATEMENT
+
+The quasiparticle interference datasets generated and analyzed during the current study (total size ≈ 50 GB) are not publicly archived due to their volume, but are available from the corresponding author on reasonable request. 
+
+> Appendix A: Superconducting gap function
+
+Here, we provide a set of allowed superconducting gap function that can be constructed in a single-band approx-imation for a free-standing NbSe 2 monolayer, having a 
+
+D3h symmetry. The procedure for obtaining all symme-try allowed superconducting gap functions is equivalent to the case defined in [23], albeith different symetry group is imposed, the one of a freestanding NbSe 2 monolayer, not of NbSe 2 on a substrate. Superconducting pairing function can be classified according to the IRs of the D3h group: four one-dimensional IRs Ag
+
+> 1
+
+, Au 
+
+> 1
+
+, Ag
+
+> 2
+
+, Au 
+
+> 2
+
+, and two two-dimensional IRs Eg and Eu. Note that labels g and u
+
+represent parity quantum number with respect to the horizontal mirror plane symmetry σh. As mentioned in the main text, it is additionally possible to classify su-perconducting pairing functions into one singlet (s) and two distinct triplet channels (t, z ) and (t, xy ). Each of the pairing channels are characterized by the appropri-ate spin functions: d0 = i σy σ0 for singlet, dz = i σy σz for 
+
+(t, z ) and (dx, d y ) = (i σy σx, iσy σy ) for (t, xy ) spin triplet channel. Whereas in the case of 1D IRs superconducting pair-ing function is uniquelly determined by a single function, 7we will call it ∆(s)/(t,z )/(t,xy )  
+
+> Ag/u
+> 1/2,k
+
+, whereas in the case of 2D IRs Eg/u , the general form of the gap function can be written as ∆cEg/u ,k = (cos θc∆cEg/u   
+
+> 1,k
+
++e iφc sin θc∆cEg/u  
+
+> 2,k
+
+),
+
+c = ( s), (t, z ), (t, xy ), where ∆cEg/u   
+
+> 1/2,k
+
+are real functions to be constructed using the symmetry-based procedure, whereas θs measures the size of the mixing between the two components, while the parameter φs̸ = 0 signals the time-reversal symmetry breaking nature of the gap func-tion. In the singlet case, classified using the single spinor function d0, nonzero gap functions belong to the IRs Ag
+
+> 1
+
+,
+
+Ag
+
+> 2
+
+, and Eg and their explicit k-dependence is the follow-ing 
+
+∆(s)  
+
+> Ag
+> 1,k
+
+=
+
+h
+
+2 cos ( kxa) + 4 cos kxa
+
+2 cos 
+
+√3ky a
+
+2
+
+i
+
+d0,
+
+∆(s)  
+
+> Ag
+> 2,k
+
+= 2 
+
+h
+
+sin kxa
+
+2 sin 3√3ky a
+
+2 − sin (2 kxa)
+
+× sin ( √3ky a) + sin 5kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+d0,
+
+∆(s)  
+
+> Eg
+> 1,k
+
+=
+
+h
+
+cos ( kxa) − cos kxa
+
+2 cos 
+
+√3ky a
+
+2
+
+i
+
+d0,
+
+∆(s)  
+
+> Eg
+> 2,k
+
+=
+
+h√3 sin kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+d0. (A1) We note that it is not possible to construct singlet gaps that transform according to IRs Au 
+
+> 1
+
+, Au 
+
+> 2
+
+, and Eu due to symmetry constraints (in the case of the single-band approximation employed here, see Section II A). Secondly, we present the explicit formulas for the triplet gap functions constructed using the dz spinor function, classified in terms of the IRs Ag
+
+> 1
+
+, Ag
+
+> 2
+
+, and Eg
+
+(due to symmetry constraints, for the same reason as in the singlet case, it is not possible to construct triplet gap functions with dz spinor that would belong to IRs Au 
+
+> 1
+
+,
+
+Au 
+
+> 2
+
+, and Eu)
+
+∆(t,z )  
+
+> Ag
+> 1,k
+
+=
+
+h 
+
+cos kxa
+
+2 − cos 
+
+√3ky a
+
+2
+
+
+
+sin kxa
+
+2
+
+i
+
+dz ,
+
+∆(t,z )  
+
+> Ag
+> 2,k
+
+=
+
+h
+
+sin ( √3ky a) − 2 sin 
+
+√3ky a
+
+2 cos 3kxa
+
+2
+
+i
+
+dz ,
+
+∆(t,z )  
+
+> Eg
+> 1,k
+
+=
+
+h
+
+sin ( kxa) + sin kxa
+
+2 cos 
+
+√3ky a
+
+2
+
+i
+
+dz ,
+
+∆(t,z )  
+
+> Eg
+> 2,k
+
+=
+
+h√3 cos kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+dz . (A2) Again, in the case of the 2D representations the gen-eral form of the gap function can be written as ∆(t,z ) 
+
+> Eu,k
+
+=(cos θt∆(t,z ) 
+
+> Eu
+> 1,k
+
++e iφt sin θt∆(t,z ) 
+
+> Eu
+> 2,k
+
+), with θt/φ t measuring the component mixing/time-reversal symmetry breaking. Finally, we present supreconducting gap function con-structed using the multiplet (dx, d y ) = (i σy σx, iσy σy )∆(t,xy )  
+
+> Au
+> 1,k
+
+=
+
+h
+
+3 cos kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+dx −
+
+h√3
+
+
+
+2 cos kxa
+
+2+ cos 
+
+√3ky a
+
+2
+
+
+
+sin kxa
+
+2
+
+i
+
+dy ,
+
+∆(t,xy )  
+
+> Au
+> 2,k
+
+=
+
+h 
+
+2 cos kxa
+
+2 + cos 
+
+√3ky a
+
+2
+
+
+
+sin kxa
+
+2
+
+i
+
+dx
+
++
+
+h√3 cos kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+dy ,
+
+∆(t,xy )  
+
+> Eu
+> 1,k
+
+=
+
+h
+
+2 sin ( √3ky a) − cos 3kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+dx
+
++
+
+h√3 sin 3kxa
+
+2 cos 
+
+√3ky a
+
+2
+
+i
+
+dy ,
+
+∆(t,xy )  
+
+> Eu
+> 2,k
+
+=
+
+h√3 sin 3kxa
+
+2 cos 
+
+√3ky a
+
+2
+
+i
+
+dx
+
+−
+
+h
+
+3 cos 3kxa
+
+2 sin 
+
+√3ky a
+
+2
+
+i
+
+dy , (A3) classified according to the IRs Au 
+
+> 1
+
+, Au 
+
+> 2
+
+, and Eu; due to symmetry constraints, no gap functions that transform according to IRs Ag
+
+> 1
+
+, Ag
+
+> 2
+
+, and Eg can be constructed. In previous equations, Eqs. (A1)-(A3), we have pre-sented all possible superconducting gaps, classified in terms of IRs of the given D3h group. An additional-nal feature of this classification is the possibility to have mixed singlet-triplet components, since in the Ag
+
+> 1
+
+, Ag
+
+> 2
+
+,and Eg case, both singlet (s) and triplet (t, z ) compo-nents are present. Taking this into account, the most general form of the gap function that transform accord-ing to 1D IRs 
+
+∆Au  
+
+> 1,k
+
+= ∆∆ (t,xy )  
+
+> Au
+> 1,k
+
+,
+
+∆Au  
+
+> 2,k
+
+= ∆∆ (t,xy )  
+
+> Au
+> 2,k
+
+,
+
+∆Ag  
+
+> 1,k
+
+= ∆(cos θ∆(s)  
+
+> Ag
+> 1,k
+
++ sin θ∆(t,z ) 
+
+> Ag
+> 1,k
+
+),
+
+∆Ag  
+
+> 2,k
+
+= ∆(cos θ∆(s)  
+
+> Ag
+> 2,k
+
++ sin θ∆(t,z ) 
+
+> Ag
+> 2,k
+
+), (A4) whereas in the 2D case the mose general form is equal to 
+
+∆Eu,k = ∆(cos θ1∆(t,xy )  
+
+> Eu
+> 1,k
+
++ e iφ1 sin θ1∆(t,xy )  
+
+> Eu
+> 2,k
+
+), (A5) 
+
+∆Eg ,k = ∆ 
+
+h
+
+cos θ(cos θs∆(s)  
+
+> Eg
+> 1,k
+
++ e iφs sin θs∆(s) 
+
+> Eg
+> 2,k
+
+) + sin θ(cos θt∆(t,z )  
+
+> Eg
+> 1,k
+
++ e iφt sin θt∆(t,z ) 
+
+> Eg
+> 2,k
+
+)
+
+i
+
+, (A6) where ∆ represents the amplitude of the superconducting gap. As discussed above, in the case of the 1D IRs Au 
+
+> 1
+
+and 
+
+Au 
+
+> 2
+
+no mixing occurs, whereas in the case of 1D IRs Ag
+
+> 1
+
+and Ag 
+
+> 2
+
+there is only one mixing parameter. In the case of the 2D IRs the situation becomes more complicated since in the Eu case, there are two parameters included in the mixing of the two components of the same gap constructed using the dxy triplet. In the second case, IR 
+
+Eg , there is a mixing between the singlet and the triplet 8component dz . The total number of parameters in this case is 5, where θ represents the mixing between the sin-glet and the triplet component, whereas (θs, φ s)/(θt, φ t)
+
+are the mixing parameters within the 2D space of the singlet/ dz space. In the main text, we focus on all 1D IRs Au 
+
+> 1
+
+, Ag
+
+> 1
+
+, Au 
+
+> 2
+
+,and Ag 
+
+> 2
+
+(A4). To simplify our study and to prove our con-cept that machine learning can be used to distinguish dif-ferent features of the superconductivity, we focus on the singlet component of the 2D IR Eg only (see Eq. (11)), whereas keeping ∆Eu,k as in Eq. (A5). 
+
+Appendix B: Architecture of the neural network 
+
+Here, we provide schematics of the neural network ar-chitecture (see Fig. 2) used to predict the type of super-conducting pairing and the microscopic parameters of the BdG Hamiltonian. 
+
+REFERENCES 
+
+[1] D. J. Scalapino, Rev. Mod. Phys. 84 , 1383 (2012). [2] Z. K. Liu, L. X. Yang, S.-C. Wu, C. Shekhar, J. Jiang, H. F. Yang, Y. Zhang, S.-K. Mo, Z. Hussain, B. Yan, C. Felser, and Y. L. Chen, Nat. Commun. 7, 12924 (2016). [3] H. Kim, K. Wang, Y. Nakajima, R. Hu, S. Ziemak, P. Syers, L. Wang, H. Hodovanets, J. D. Denlinger, P. M. R. Brydon, D. F. Agterberg, M. A. Tanatar, R. Prozorov, and J. Paglione, Science Advances 4,eaao4513 (2018). [4] R. M. Fernandes, A. V. Chubukov, and J. Schmalian, Nat. Phys. 10 , 97–104 (2014). [5] P. J. Hirschfeld, M. M. Korshunov, and I. I. Mazin, Rep. Prog. Phys. 74 , 124508 (2011). [6] S. Kashiwaya and Y. Tanaka, Rep. Prog. Phys. 63 , 1641 (2000). [7] M. P. Allan, F. Massee, D. K. Morr, J. Van Dyke, A. W. Rost, A. P. Mackenzie, C. Petrovic, and J. C. Davis, Nat. Phys. 9, 468–473 (2013). [8] T. Hanaguri, S. Niitaka, K. Kuroki, and H. Takagi, Sci-ence 328 , 474 (2010). [9] D. C. Johnston, Adv. Phys. 59 , 803 (2010). [10] J. S. Hofmann, R. Queiroz, and A. P. Schnyder, Phys. Rev. B 88 , 134505 (2013). [11] A. Kreisel, P. Choubey, T. Berlijn, W. Ku, B. M. Ander-sen, and P. J. Hirschfeld, Phys. Rev. Lett. 114 , 217002 (2015). [12] A. Dutt, A. A. Golubov, O. V. Dolgov, and D. V. Efre-mov, Phys. Rev. B 96 , 054513 (2017). [13] L. C. Rhodes, W. Osmolska, C. A. Marques, and P. Wahl, Phys. Rev. B 107 , 045107 (2023). [14] M. Zeng, X. Li, Y. Wang, and S. Feng, Phys. Rev. B 
+
+110 , 134523 (2024). [15] A. Crépieux, E. Pangburn, S. Wang, K. Zhussupbekov, J. P. Carroll, B. Hu, Q. Gu, J. C. S. Davis, C. Pépin, and C. Bena, Phys. Rev. B 112 , 214509 (2025). [16] L. Engström, P. Simon, and A. Mesaros, Phys. Rev. B 
+
+111 , 134505 (2025). [17] M. F. Crommie, C. P. Lutz, and D. M. Eigler, Nature 
+
+363 , 524 (1993). [18] P. T. Sprunger, L. Petersen, E. W. Plummer, and E. Lægsgaard, Science 275 , 1764 (1997). [19] P. Hofmann, B. G. Briner, M. Doering, H.-P. Rust, E. W. Plummer, and A. M. Bradshaw, Phys. Rev. Lett. 79 , 265 (1997). [20] N. Levy, T. Zhang, J. Ha, F. Sharifi, A. A. Talin, Y. Kuk, and J. A. Stroscio, Phys. Rev. Lett. 110 , 117001 (2013). [21] H. Kim, Y. Choi, C. Lewandowski, A. Thomson, Y. Zhang, R. Polski, K. Watanabe, T. Taniguchi, J. Al-icea, and S. Nadj-Perge, Nature 606 , 494–500 (2022). [22] S. Wang, K. Zhussupbekov, J. P. Carroll, B. Hu, X. Liu, E. Pangburn, A. Crepieux, C. Pepin, C. Broyles, S. Ran, N. P. Butch, S. Saha, J. Paglione, C. Bena, J. C. S. Davis, and Q. Gu, Nature Physics 21 , 1555–1562 (2025). [23] J. Haniš, M. Milivojević, and M. Gmitra, Phys. Rev. B 
+
+110 , 104502 (2024). [24] Y. LeCun, Y. Bengio, and G. Hinton, Nature 521 ,436–444 (2015). [25] J. Gu, Z. Wang, J. Kuen, L. Ma, A. Shahroudy, B. Shuai, T. Liu, X. Wang, G. Wang, J. Cai, and T. Chen, Pattern Recognit. 77 , 354 (2018). [26] Y. Zhang, A. Mesaros, K. Fujita, S. D. Edkins, M. H. Hamidian, K. Ch’ng, H. Eisaki, S. Uchida, J. C. Séa-mus Davis, E. Khatami, and E.-A. Kim, Nature 570 ,484–490 (2019). [27] G. E. Volovik and L. P. Gor’kov, Zh. Eksp. Teor. Fiz. 88 ,1412 (1985). [28] S.-O. Kaba and D. Sénéchal, Phys. Rev. B 100 , 214507 (2019). [29] C.-w. Cho, J. Lyu, L. An, T. Han, K. T. Lo, C. Y. Ng, J. Hu, Y. Gao, G. Li, M. Huang, N. Wang, J. Schmalian, and R. Lortz, Phys. Rev. Lett. 129 , 087002 (2022). [30] S. Hörhold, J. Graf, M. Marganska, and M. Grifoni, 2D Mater. 10 , 025008 (2023). [31] J. Siegl, A. Bleibaum, W. Wan, M. Kurpas, J. Schlie-mann, M. M. Ugeda, M. Marganska, and M. Grifoni, Nat. Commun. 16 , 8228 (2025). [32] X. Lu and D. Sénéchal, Phys. Rev. B 98 , 245118 (2018). [33] D. Sticlet and C. Morari, Phys. Rev. B 100 , 075420 (2019). [34] J. M. Byers, M. E. Flatté, and D. J. Scalapino, Phys. Rev. Lett. 71 , 3363 (1993). [35] J. Hoffman, K. McElroy, D.-H. Lee, K. Lang, H. Eisaki, S. Uchida, and J. Davis, Science 297 , 1148 (2002). [36] T. Pereg-Barnea and M. Franz, Phys. Rev. B 68 , 180506 (2003). [37] T. S. Nunner, W. Chen, B. M. Andersen, A. Melikyan, and P. J. Hirschfeld, Phys. Rev. B 73 , 104511 (2006). [38] W. Chen, C. Neerup Breiø, F. Massee, M. P. Allan, C. Petrovic, J. C. S. Davis, P. J. Hirschfeld, B. M. An-dersen, and A. Kreisel, Nat. Commun. 14 , 2984 (2023). [39] L. Capriotti, D. J. Scalapino, and R. D. Sedgewick, Phys. Rev. B 68 , 014508 (2003). [40] L. Zhu, W. Atkinson, and P. Hirschfeld, Phys. Rev. B 
+
+69 , 060503 (2004). [41] E. N. Economou, Green’s functions in quantum physics ,Vol. 7 (Springer Science & Business Media, 2006). 9
+
+Figure 2. Architecture of the neural network. The model is based on VGG16 [43, 44] architecture, input channels reduced from 3 to 1, prediction head replaced with two custom prediction heads, one for classification (IRs), the other one for regression (parameters). [42] Y. Kohsaka, T. Machida, K. Iwaya, M. Kanou, T. Hanaguri, and T. Sasagawa, Phys. Rev. B 95 , 115307 (2017). [43] K. Simonyan and A. Zisserman, arXiv:1409.1556 (2014). [44] X. Ding, X. Zhang, N. Ma, J. Han, G. Ding, and J. Sun, arXiv:2101.03697 (2021). [45] K. He, X. Zhang, S. Ren, and J. Sun, in 2015 IEEE International Conference on Computer Vision (ICCV) 
+
+(2015) pp. 1026–1034. [46] Z. Liu, H. Mao, C.-Y. Wu, C. Feichtenhofer, T. Darrell, and S. Xie, Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2022). [47] C. M. Bishop, Neural Computation 7, 108 (1995). [48] R. Roesky, A. Meerschaut, J. Rouxel, and C. J., Z. Anorg. Allg. Chem. 619 , 117 (1993). 10 
+
+[49] A. Nader, A. Lafond, A. Briggs, A. Meerschaut, and R. Roesky, Synth. Met. 97 , 147 (1998). [50] R. T. Leriche, A. Palacio-Morales, M. Campetella, C. Tresca, S. Sasaki, C. Brun, F. Debontridder, P. David, I. Arfaoui, O. Šofranko, T. Samuely, G. Kremer, C. Mon-ney, T. Jaouen, L. Cario, M. Calandra, and T. Cren, Adv. Funct. Mater. 31 , 2007706 (2020). [51] M. Khosravian, R. Koch, and J. L. Lado, J. Phys. Mater. 
+
+7, 015012 (2024).

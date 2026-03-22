@@ -1,0 +1,374 @@
+Title: Suppressed correlation-spreading in a one-dimensional Bose-Hubbard model with strong interactions
+
+URL Source: https://arxiv.org/pdf/2602.20780v1
+
+Published Time: Wed, 25 Feb 2026 01:48:22 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Suppressed correlation-spreading in a one-dimensional Bose-Hubbard model with strong interactions 
+
+Jose Carlos Pelayo 1, ∗ and Ippei Danshita 1, †
+
+> 1
+
+Department of Physics, Kindai University, Higashi-Osaka, Osaka 577-8502, Japan 
+
+(Dated: February 25, 2026) We investigate signatures of non-ergodic behavior in the real-time evolution of a one-dimensional Bose-Hubbard model, where the initial state is a doubly occupied density-wave state. We show that the occupation dynamics at strong interactions is dominated by doublon-holon exchange which leads to a domain wall excitation and propagation. The latter manifests as a negated staggered pattern in the density-density correlations. While the single-particle and the pair correlation functions show highly localized correlations that decay rapidly away from the nearest neighbor. We show that the time scale of the domain-wall excitations depends on the inverse of the interaction strength and therefore dictates the slow relaxation dynamics. In the presence of a parabolic trap, the occupation dynamics at the edges become frozen and further suppresses the propagation of correlations. This suppression happens even for trap strengths weaker than the tunneling rate. We also show that the model can be mapped to an antiferromagnetic transverse-field Ising model in the limit of strong interactions and that the correlation-propagation velocity in the original model is well captured by the group velocity of the spin-wave excitation in the effective spin model. 
+
+I. INTRODUCTION 
+
+The ergodicity principle plays a crucial role in con-necting the macroscopic theory of thermodynamics and microscopic theory of statistical mechanics. It states that for a system in equilibrium, the long time average of an observable matches that of the ensemble average [1, 2]. Isolated many-body quantum systems, like their classi-cal counterparts, can also thermalize despite undergo-ing a unitary evolution. This occurs when the eigen-state thermalization hypothesis (ETH) is satisfied, the strong version of which states that the long time expec-tation value of an observable with respect to any single eigenstate equals the ensemble average in a small inter-val around the eigenenergy [3, 4]. There are, however, cases where quantum systems break the strong ETH. Such violations typically arise due to the presence of an extensive number of conserved quantities. Prominent ex-amples include integrable systems [5–8] and many-body localized (MBL) systems [9–13]. In other instances, ther-malization is avoided only for a subset of states, such as quantum many-body scar states (QMBS) and states that have a large overlap with QMBS, while the rest of the spectrum remains thermal [14–18]. In general, con-straints are present in a non-ergodic system that pre-vents the exploration of the entire Hilbert space and thus breaks ETH [16, 19]. A distinct manifestation of this phenomenon occurs in Hilbert space fragmented (HSF) systems [16, 20, 21]. Here, the Hilbert space splits into an exponentially large number of disconnected sectors due to the presence of dynamical constraints, thereby pre-venting thermalization. Cold atoms, owing to their versatility in terms of state   
+
+> ∗josepelayo@phys.kindai.ac.jp
+> †danshita@phys.kindai.ac.jp
+
+preparation, measurement and parameter control [22– 25], have been employed to investigate thermalization and ergodicity breaking across a wide range of many-body realizations including, bosonic, fermionic, and spin systems [5, 26–42]. In particular, Bose-Hubbard sys-tems, which consist of ultracold Bose gases in optical lattices [43], have been extensively studied in relation to thermalization and ergodicity [27, 28, 34, 35, 38–42]. It has been shown that in the one-dimensional (1D) Bose-Hubbard systems, when the initial state of time evolu-tion is a singly-occupied density-wave state, the density relaxes quickly to equilibrium values [27]. However, in the presence of a tight trap, the particles become local-ized along the trap edges and the system exhibits stark MBL [44, 45]. On the other hand, it has been shown that dynamics starting from a doubly occupied density-wave state also becomes non-ergodic due to the combined ef-fects of a weak trapping potential and strong interatomic interaction [42, 46]. In these works signatures in the eigenenergies, i.e., level statistics as well as dynamical signatures in some physical quantities including the en-tanglement entropy and the particle-number imbalance have been used to detect the effects of non-ergodicity. In this paper, focusing on the dynamical spreading of quantum correlations, we further explore signatures of non-ergodicity of the 1D Bose-Hubbard system in the quench dynamics starting from a doubly occupied density-wave state. Correlation-spreading dynamics has attracted much interest mainly for understanding mecha-nisms of quantum information propagation and thermal-ization [47, 48]. Previous experiments have addressed such dynamics of the Bose-Hubbard systems taking a Mott insulator with unit filling as the initial state and observed the light-cone-like propagation in the density-density [49] and single-particle [50] correlation functions. The dynamics in the similar settings have been theoret-ically analyzed in many previous studies [51–61]. More-over, it has been shown in Ref. [35] that when a quasi-
+
+> arXiv:2602.20780v1 [cond-mat.quant-gas] 24 Feb 2026
+
+2periodic potential is added to the 1D Bose-Hubbard sys-tem, the correlation spreading is significantly suppressed in the parameter region of the many-body localization. These experimental results motivate us to address a ques-tion of whether a similar suppression of the correlation spreading occurs also in the case of the dynamics starting from a doubly occupied density-wave state. We present quasi-exact numerical simulations of the real-time dynamics of the 1D Bose-Hubbard model with use of matrix-product states (MPS) [62]. We first identify the relevant excitations by examining the site-occupation dynamics and contrast their behavior in the presence of a trapping potential. We then show that the correla-tion spreading is suppressed for finite trap strengths. In the absence of a trap, however, depending on the type of the correlator, its evolution may show either localiza-tion or relaxation at intermediate time scales. To gain deeper insight into the dynamics, we also derive an effec-tive Hamiltonian that maps the system to a transverse-field Ising (TFI) model which provides an intuitive way to understand the underlying dynamics. This paper is organized as follows: In Sec. II we spec-ify our model as well as the methods. In Sec. III A we examine the site-occupation dynamics in an open bound-ary system for both vanishing and finite trap. This is followed by investigating different types of correlators in Sec. III B and the introduction of an effective model in Sec. III C. We then conclude our work in Sec. IV. Finally, we include the appendix A which detail the derivation of the effective model.  
+
+> II. MODEL AND METHODS
+
+We consider a 1D Bose-Hubbard chain with open boundary condition, under the influence of a parabolic trapping potential. The Hamiltonian is defined as 
+
+ˆH = −J X
+
+> ⟨i,j ⟩
+
+ˆa† 
+
+> i
+
+ˆaj + U
+
+2
+
+> M
+
+X
+
+> i=1
+
+ˆni(ˆ ni − 1) + Ω 
+
+> M
+
+X
+
+> i=1
+
+Vi ˆni, (1) where ˆa† 
+
+> i
+
+(ˆ ai) is the bosonic creation (annihilation) op-erator at site i, while ⟨i, j ⟩ indicates a summation over the nearest-neighbor sites with a hopping amplitude of 
+
+J > 0. The interactions are assumed to be on-site with strength U > 0 and ˆni = ˆ a† 
+
+> i
+
+ˆai being the occupation num-ber operator at site i. The trapping potential of strength 
+
+Ω ≥ 0 is defined as Vi = ( i − (M + 1) /2) 2 which preserves reflection symmetry. In the following, all parameters of the system will be scaled by the hopping amplitude J
+
+and we set the lattice spacing to unity. As discussed in the previous section, we are interested in the dynamics starting from a doubly occupied density-wave state which can be represented in the occupation number basis as |ψ0⟩ = |ν1, ν 2, ν 3... ⟩ = |2 0 2 0 ... ⟩ with 
+
+νi being the occupation number of site i. This initial state can be prepared, for example, in cold atom experi-ments by tuning the relative lattice depths and site offsets of a superlattice potential, thereby redistributing parti-cles [27, 42, 63]. Since the initial state, |ψ0⟩, is not an eigenstate of the Hamiltonian, the evolution of the sys-tem highly depends on the interaction strength and the trapping potential. For weak interactions, U/J ≪ 1, the system quickly thermalizes into a state with one atom per site on average [64, 65]. On the other hand, for strong interactions, U/J ≫ 1, the thermalization slows down preserving the density wave for a longer time, while the effect of the parabolic trapping potential further slows down the thermalization [42, 46]. The latter response of the system is a manifestation of ETH-breaking due to Hilbert space fragmentation which can be quantified through the imbalance measuring the difference in the particle number in the odd and even sites. This quantity yields unity for the density-wave state and vanishes for a thermal state. In this work, we are interested in other signatures of ETH-breaking such as in the correlation propagation, and thus we will be focusing on parameter regimes that yield such a response. All calculations in this work, unless otherwise stated, are done using a tensor network formalism in an open boundary condition. The time evolution of the state in the MPS form, is computed using a time-evolving block decimation (TEBD) algorithm [62, 66] with a maximum bond dimension of χmax = 1600 . Moreover, we restrict the maximum occupation per site up to nmax = 4 , which is valid for large U/J . The lattice size is set to M =16 (M = 12 ) with final evolution times of t = 10 2ℏ/J 
+
+(t = 10 3ℏ/J ). In all calculations where the trapping potential is finite, we used a weak trap with strength 
+
+Ω/J = 0 .02 in order to minimize its direct influence, thus ensuring the observed dynamics arise mainly from interparticle interactions.   
+
+> III. RESULTS A. Site occupation dynamics
+
+When U ≫ J the initial state |ψ0⟩ is a high-energy state of the Hamiltonian in Eq. (1) due to its doubly-occupied density wave configuration. A single-particle hopping process from |ψ0⟩ dissociates a doublon into two nearest-neighboring singlons, yielding an energy decrease proportional to ∼ U and is therefore suppressed. In this sense the doublon is often called a repulsively bound pair [67]. Instead of the first-order processes with respect to the single-particle hopping, the second order processes such as pair tunneling [64] becomes dominant as we shall see in the following. We begin by examining the time evolution of the site occupation, ni = ⟨ˆni⟩, in the case of a vanishing trap-ping potential, Ω/J = 0, and a weak trapping po-tential, Ω/J = 0 .02 , at moderately strong interactions (U/J = 40 ) shown in Fig. 1. For Ω/J = 0 , the initial 3                       
+
+> FIG. 1. Time-evolved site occupations at strong interaction
+> U/J = 40 .For M= 16 , results are shown for Ω/J = 0 (a) and Ω/J = 0 .02 (b), with the corresponding neighboring two-site occupations in (c) and (d). Panels (e) and (f) show the site occupation for M= 15 with particle number N=M−1
+> and N=M+ 1 , respectively.
+
+site-occupation of the density wave is maintained until 
+
+tJ/ ℏ ∼ U/ 2J. Thereafter, the rightmost edge with an empty site is filled by its neighbor through a pair hop-ping process leaving the site next to the rightmost edge empty. This pair hopping process then cascades to the rest of the system (see Fig. 1 (a)) flipping a site pair from 
+
+|2 0 ⟩ → | 0 2 ⟩ until it reaches the opposite edge where the pair hopping inverts the system back to the original con-figuration [68]. The pair hopping or doublon-holon ex-change is also apparent from the two-site occupation of neighboring sites, ni + ni+1 , which shows small fluctua-tions for large U (see Fig. 1 (c)). The pair hopping dynamics can be interpreted as a domain wall being excited at the empty edge which then propagates to the opposite edge. Here, the domain wall separates the |2 0 ⟩ pairs from the |0 2 ⟩ pairs. In the case where both edges are empty, as in the case of N = M − 1
+
+with N being the particle number, the domain wall prop-agates from both sides (see Fig. 1 (e)). On the other hand, in the case of N = M + 1 , the domain wall is not excited since there is no empty edge (see Fig. 1 (f)). This boundary dependence of the dynamics comes from the difference in energy cost of the pair hopping pro-cess resulting in two adjacent empty sites or two adja-cent doubly occupied sites. The former is preferred with |∆E| ∼ 2J2/U when there is an initial empty edge but is not present when there is no empty edge, while the lat-ter’s energy cost is | ∆E| ∼ 16 J2/U (see effective Hamil-tonian (Eq. (4)) in Sec. III C for a clearer picture). Once the domain wall is excited, the system begins to ther-malize as it starts to lose its original density-wave con-figuration. At the same time, the imbalance parameter also begins its decay towards zero imbalance signifying a relaxation process (not shown here). In the presence of a trap, even for weak ones ( Ω/J =0.02 ), such as in Fig 1 (b), the domain wall propagation is replaced by a more complicated particle dynamics as the edges become energetically separated from the rest of the system and thus are localized as compared to the inner sites. In fact, for U/J ≫ 1, the pair hopping at the left edge costs the largest energy and therefore fixes n1(t). As a result, the two-site occupation in Fig. 1(d) shows large fluctuations for the pairs close to the left edge. On the right edge, however, fluctuations are smaller as the oc-cupation of the rightmost pair is fixed. This asymmetric behavior comes from the combined effect of a symmetric trap but with asymmetric initial state. The effect of increasing interaction strengths on the site occupation dynamics, in the case of Ω/J = 0 , is to modify the time scales and the excitation propa-gation speed relative to an effective hopping strength 
+
+˜J = 2 J2/U (see section III C). In addition, for finite trap-ping strengths, as U/J increases, more and more outer sites away from the center have a fixed occupation and significant changes in ni(t) only occur close to the center of the chain (not shown here). Note that this behavior is not due to the presence of a strong trap, but rather to the fact that the dynamics is now governed by an effective hopping strength ˜J that becomes weaker for larger U . 
+
+> B. Correlations
+
+In both cases shown above, it is apparent that ther-malization can be suppressed at relatively long times for 
+
+U/J ≫ 1. It is then interesting to see whether such a signature is also present in the time-evolved correlations. To investigate this, we compute several equal-time corre-lation functions defined as 4               
+
+> FIG. 2. Evolution of different correlation functions (see colorbar label) for Ω/J = 0 (upper row) and Ω/J = 0 .02 (lower row). In all cases, the interaction strength is U/J = 40 and M= 16 while the correlations at d= 0 are not shown.
+
+Csp (d, t ) = 1
+
+Nc
+
+X
+
+> i,j =i+d
+
+ℜ
+
+h
+
+⟨ˆa† 
+
+> i
+
+(t)ˆ aj (t)⟩
+
+i
+
+,
+
+(2a) 
+
+Cpair (d, t ) = 1
+
+Nc
+
+X
+
+> i,j =i+d
+
+ℜ
+
+h
+
+⟨ˆa† 
+
+> i
+
+(t)ˆ a† 
+
+> i
+
+(t)ˆ aj (t)ˆ aj (t)⟩
+
+i
+
+,
+
+(2b) 
+
+Cdd (d, t ) = 1
+
+Nc
+
+X
+
+> i,j =i+d
+
+⟨ˆni(t)ˆ nj (t)⟩ − ⟨ ˆni(t)⟩ ⟨ ˆnj (t)⟩ ,
+
+(2c) where Csp (d, t ), Cpair (d, t ), and Cdd (d, t ) are the single-particle correlation function, pair correlation function, and the connected density-density correlation function, respectively. Here, Nc is a normalization constant that counts the number of i, j -pairs for a given distance d =
+
+j − i and the symbol ℜ denotes the real-part of the cor-relators. The evolution of the single-particle correlation func-tion in Fig. 2(a) shows a highly-localized behavior with the correlations being significant only in the nearest-neighbor. This is in contrast to the ballistic spreading of correlations observed in the case of a quench from an initial Mott state to that close to the Mott-superfluid transition [49, 50]. The correlation strength of Csp is about an order of magnitude smaller compared to the pair correlation function Cpair (see Fig 2(b)). This is to be expected since the occupation dynamics of the system is dominated by the pair hopping in the large U/J regime. Although the Cpair shows a bit more correlation spread-ing, the nearest neighbor correlation still dominates and thus signals a localization of Cpair . The trap effects on both Csp and Cpair reduce the overall strength of the cor-relations and also restrict the weak correlation spreading to a smaller distance in the latter case (see Figs. 2(d) and (e)). In contrast to the clear signatures of localiza-tion in the two correlators discussed above, the density-density correlation function maintains a non-negligible correlations even at long distances (see Fig 2(c)). This is attributed to the persisting density-wave pattern of the time-evolved state which can be seen from the alternat-ing positive to negative correlations for even to odd dis-tances. As the state evolves from an initial product state, the state occupations of other density-wave-like states grow along with the correlation spreading Cdd . Notice that at tJ/ ℏ ∼ U/ 2J and at relatively large distances the 
+
+Cdd displays a negated staggered pattern relative to the dominant pattern. This is a signature of the domain wall excitation and propagation that we see in Fig. 1(a). In spite of this perceivable spreading, the nearest-neighbor correlation dominates and thus signals a weak localiza-tion. By introducing the trap, the overall strength of the correlations is reduced while keeping the staggered correlations (see Fig 2(f)). In addition, the correlation spreading is now restricted to smaller distances which means that the suppression is further enhanced. To better quantify the spreading of the correlations in 
+
+Cdd , we compute the standard deviation of the width [20] defined as, 
+
+σ(t) = 
+
+"
+
+1
+
+Nσ
+
+(t) X
+
+> d
+
+d2Cdd (t)
+
+# 12
+
+, (3) where Nσ (t) = P 
+
+> d
+
+Cdd (d, t ) is the normalization con-stant. Note that the P 
+
+> d
+
+d C dd (d, t ) vanishes. σ(t) can be interpreted as the width at which the correlations have 5         
+
+> FIG. 3. Correlation width as a function of increasing evolu-tion time for (a) Ω/J = 0 and (b) Ω/J = 0 .02 , where M= 16 .(c) Long-time average of correlation width as a function of increasing interactions for different trap strengths (see figure legend), where M= 12 .
+
+spread from any point in the lattice (since the quench is global) [69]. For weak interactions U/J = 1 , regard-less of the presence of a trap, a saturation tendency of 
+
+σ(t) can be seen in Figs. 3(a) and (b) signifying that the state has thermalized. On the other hand, for U/J ≫ 1
+
+and Ω/J = 0 , the first oscillation peak of σ(t) is shifted to longer times for increasing U/J , implying that ther-malization can be suppressed as U/J is increased. This behavior comes from the effective tunneling coefficient, 
+
+˜J = 2 J2/U , being proportional to U −1. For Ω/J = 0 .02 ,the oscillatory behavior is still present but now there is a gradual reduction of σ(t) as U is increased. This be-havior captures the suppression of correlation spreading to smaller distances as also seen in Fig. 2(f). To see whether the perceived suppression of the cor-relation persists at much longer time, we take the long time average ¯σ(t) = ( tf − ti)−1 R tf 
+
+> ti
+
+dt σ (t) for a system size of M = 12 and for ti = 10 1ℏ/J and ti = 10 3ℏ/J . We see from Fig. 3(c) that ¯σ tends to saturate as a function of increasing U for vanishing Ω/J . Whereas for finite 
+
+Ω/J , ¯σ(t) continues to decay for larger U . The behavior of ¯σ(t) in the former implies that the system is in the relaxation regime while in the latter the system remains non-ergodic.  
+
+> C. Effective Models
+
+To better understand the dynamics of the system, we introduce here effective models that map the bosonic sys-tem into spin systems. As seen in the previous sections, the dynamics is dominated by a pair hopping process in the limit of U ≫ J. In this limit, the trapped Bose-Hubbard model in Eq. (1) can be mapped to a system with a reduced Hilbert space where the occupation num-ber is restricted to only νi = {0, 2}. By applying the Schrieffer-Wolff transformation one obtains the effective model [46], 
+
+ˆHEBH = X
+
+> i
+
+h
+
+J+ 
+
+> i
+
+|0i2i+1 ⟩ ⟨ 0i2i+1 | + J− 
+
+> i
+
+|2i0i+1 ⟩ ⟨ 2i0i+1 |
+
++ ¯Ji (|0i2i+1 ⟩ ⟨ 2i0i+1 | + h.c. − 6 |2i2i+1 ⟩ ⟨ 2i2i+1 |)
+
+i
+
++ Ω 
+
+> M
+
+X
+
+> i=1
+
+Vi ˆni, (4) where ¯Ji, J + 
+
+> i
+
+and J− 
+
+> i
+
+are site-dependent tunneling co-efficients arising from the inhomogeneity caused by the trap. These site-dependent coefficients are all equiva-lent to 2J2/U in their first-order Taylor series expan-sion while the sub-leading terms are in the order of 
+
+O(Ω( Vi+1 − Vi)/U ). For our chosen parameter values, the sub-leading terms are Ω( Vi+1 − Vi)/U ≲ 10 −2 and therefore can be omitted for dynamis at relatively short times. It has been shown that Eq. (4) is equivalent to the spin-1/2 XXZ Hamiltonian with a trap [46, 64]. Here, we employ a further mapping from a two-site oc-cupation state to a single Ising spin state as |2 0 ⟩ → |↑⟩ 
+
+and |0 2 ⟩ → |↓⟩ . This leads to an effective transverse-field Ising model with a trap and an additional boundary term (see Appendix A for the exact mapping of the Hamilto-nian and observables), 
+
+ˆHTFI = ˜J 
+
+> M′
+
+X
+
+> i
+
+ˆσxi + 2 ˜J 
+
+> M′−1
+
+X
+
+> i
+
+ˆσzi ˆσzi+1 + 3 ˜J
+
+2 (ˆ σz 
+
+> 1
+
+− ˆσzM ′ )+ Ω  
+
+> M′
+
+X
+
+> i=1
+
+(V2i − V2i−1)ˆ σzi , (5) where ˆσx,z i are Ising spin operators and ˜J = 2 J2/U is the effective spin-flip coefficient. Here, the lattice size, 
+
+M ′ = M/ 2, is half the original model as we map a two-site occupation state into a single spin state. This map-ping is valid for U ≫ J and for vanishing trap strengths where only small fluctuations in the two-site occupation is observed and therefore the mapping can be safely ap-plied (see Fig. 1(c)). On the other hand, for finite Ω/J ,the mapping breaks down as the site-occupation at the edge is frozen, yielding a two-site occupation state that cannot be mapped to the Ising states. Thus, in the fol-lowing, we focus only on the case of Ω = 0 .The initial density-wave state can also be represented in terms of the Ising spins as |ψ0⟩ = |↑↑↑ ... ⟩. Although 6     
+
+> FIG. 4. (a) Site occupation dynamics and (b) density-density correlation function of the transverse field Ising model ob-tained by exact time evolution. The dotted line in (a) denotes the time at which the excitation occurs while the dashed lines in (a) and in (b) equals v−1
+> gand (2 vg)−1, respectively. See main text for details.
+
+|ψ0⟩ is the ferromagnetic ground state, the effective TFI model in Eq. (5) exhibits an anti-ferromagnetic coupling, therefore, in this representation the initial state is also a high-energy state which evolves non-trivially. Through the mapping of the Ising spin operators to the occupa-tion number operator ˆn (see Appendix A), we compute the site-occupation dynamics using the TFI Hamiltonian and find a good agreement in ni(t) between the evolu-tion of |ψ0⟩ under the Bose-Hubbard model and the TFI model (see Fig. 1(a) and Fig. 4(a), respectively). The previously observed domain wall excitation and propa-gation can then be interpreted as a spin-flip excitation, 
+
+|↑⟩ → |↓⟩ , and propagation in the spin picture. In the latter case, a lower energy cost is needed to excite a spin flip at the right edge due to the imposed boundary term. The coefficient of the spin flip term, ˆσx, in Eq. (5) is then related to the time at which the spin flip excitation occurs being ∼ 1/ ˜J. This is also captured in the occupation dy-namics (see dotted line in Fig. 4(a)). We also find a good agreement in the density-density correlation, Cdd (t), ob-tained from the Bose-Hubbard and the TFI model (see Fig. 2(c) and Fig. 4(b), respectively). The discrepancies in the observables obtained from both models arise from the restriction of the site occupation in the TFI model being only ni = {0, 2}, unlike the Bose-Hubbard model, which allows a broader range of occupations. One advantage of mapping to a TFI model over the XXZ model is that the excitation spectrum of the for-mer is known and has a closed form, being ϵk =4 ˜J (1 + 1 /4 − cos(2 k)) 1/2 [70]. Here, the spectrum refers to the case of Ω = 0 and by omitting the boundary term. The latter condition is justified since we are only interested in the bulk property such as the group ve-locity that is determined from the spectrum as vg =max |∂ϵ k/∂ (ℏk)| = 4 ˜J/ ℏ. The dashed line in Fig 4(a) traces the inverse speed v−1 
+
+> g
+
+and shows good agreement with the observed spin-flip propagation. At the same time, the correlation propagation speed under the TFI model (see dashed line in Fig 4(b)) also matches well with 2vg as in Ref. [71].  
+
+> IV. CONCLUSIONS
+
+We have numerically calculated the real-time dynam-ics of the 1D Bose-Hubbard model starting from a doubly occupied density-wave state using the matrix-product-state method in order to analyze the slow relaxation that occurs in the strongly interacting regime. We have shown that in the absence of a trapping potential once the domain-wall excitation is formed, relaxation then fol-lows. However, depending on the type of correlator con-sidered, localized correlations may still be observed as in the case of the single-particle and pair correlation func-tions. In contrast, the density-density correlations sup-port the relaxation findings especially at evolution times much longer than the ℏ ˜J−1. On the other hand, in the presence of a weak trapping potential, slow relaxation be-comes more pronounced, leading to suppression of corre-lation spreading even at long evolution times, regardless of the type of correlators. We have also demonstrated that mapping to the effec-tive TFI model provides a more intuitive interpretation of the results where the domain wall excitation corre-spond to spin-flip excitation. The spin model was able to capture the qualitative features of the site-occupation dynamics and the density-density correlations of the orig-inal model. Moreover, the reduction of the lattice size into half, together with the smaller local dimension in the spin model, enables the exploration of a larger lat-tice system. 
+
+> ACKNOWLEDGMENTS
+
+We would also like to acknowledge useful discussions with Masaya Kunimi and Yosuke Takasu. The cal-culations were performed utilizing the TeNPy library [72]. We acknowledge the support from Quantum Leap Flagship Program from MEXT [Grant No. JP-MXS0118069021], FOREST from Japan Science and Technology Agency (JST) [Grant No. JPMJFR202T], and ASPIRE from JST [Grant No. JPMJAP24C2]. 
+
+> Appendix A: Mapping to Transverse Field Ising model
+
+The mapping from the effective Bose-Hubbard model in Eq. (4) to the TFI model in Eq. (5) relies on the two-site correspondence |2 0 ⟩ → |↑⟩ and |0 2 ⟩ → |↓⟩ , together with the leading-order approximation ¯Ji = J+ 
+
+> i
+
+= J− 
+
+> i
+
+≈
+
+˜J = 2 J2/U . This is valid for strong interactions and as long as the two-site occupation does not fluctuate too much as in the case of Ω/J = 0 . We then use the follow-ing relations 7
+
+|0i2i+1 ⟩ ⟨ 2i0i+1 | + h.c. → ˆσxj (A1) 
+
+|2i0i+1 ⟩ ⟨ 2i0i+1 | → 14 (1 + ˆ σzj )(1 + ˆ σzj+1 ) (A2) 
+
+|0i2i+1 ⟩ ⟨ 0i2i+1 | → 14 (1 − ˆσzj )(1 − ˆσzj+1 ) (A3) 
+
+|2i2i+1 ⟩ ⟨ 2i2i+1 | → 14 (1 − ˆσzj )(1 + ˆ σzj+1 ), (A4) where the index changes from i = {1, 2, . . . , M } to 
+
+j = {1, 2, . . . , M/ 2} and ˆσx,z j are the Ising spin ma-trices. In addition to Eqs. (A1)-(A4), an additional term ˜J P 
+
+> j
+
+(ˆ σzj )2 must be included for completeness. This term, however, contributes only to an energy shift and is therefore omitted in the final expression of Eq. (5) along with the constant terms in Eqs. (A2)-(A4). The two-spin interaction, such as in Eq. (A4), can be understood more clearly by considering a state like |0 2 2 0 ⟩ or |↓↑⟩ in the spin picture. In the original model, the interaction be-tween particles in the second and third site is described by Eq. (A4) in the spin model. To retrieve the information of the site-occupation op-erator and the density-density correlation function, we used the following mapping 
+
+⟨ˆn2j ⟩ = 1 − ⟨ ˆσzj ⟩ (A5) 
+
+⟨ˆn2j−1⟩ = 1 + ⟨ˆσzj ⟩ (A6) 
+
+⟨ˆn2i ˆn2j ⟩c = ⟨ˆn2i−1 ˆn2j−1⟩c = ⟨ˆσzi ˆσzj ⟩c (A7) 
+
+⟨ˆn2i ˆn2j−1⟩c = ⟨ˆn2i−1 ˆn2j ⟩c = − ⟨ ˆσzi ˆσzj ⟩c , (A8) where i̸ = j and the subscript in ⟨.. ⟩c denotes a connected correlation, i.e., ⟨A B ⟩c = ⟨A B ⟩ − ⟨ A⟩ ⟨ B⟩.
+
+[1] M. Kardar, Statistical Physics of Particles (Cambridge University Press, 2007). [2] R. K. Pathria, Statistical Mechanics: International Series of Monographs in Natural Philosophy , Vol. 45 (Elsevier, 2017). [3] J. M. Deutsch, Phys. Rev. A 43 , 2046 (1991). [4] M. Srednicki, Phys. Rev. E 50 , 888 (1994). [5] T. Kinoshita, T. Wenger, and D. S. Weiss, Nature 440 ,900 (2006). [6] M. Rigol, V. Dunjko, V. Yurovsky, and M. Olshanii, Phys. Rev. Lett. 98 , 050405 (2007). [7] M. Rigol, V. Dunjko, and M. Olshanii, Nature 452 , 854 (2008). [8] M. Rigol, Phys. Rev. Lett. 103 , 100403 (2009). [9] V. Ros, M. Müller, and A. Scardicchio, Nucl. Phys. B 
+
+891 , 420 (2015). [10] E. Altman and R. Vosk, Annu. Rev. Condens. Matter Phys. 6, 383 (2015). [11] R. Nandkishore and D. A. Huse, Annu. Rev. Condens. Matter Phys. 452 , 15 (2015). [12] D. A. Abanin, E. Altman, I. Bloch, and M. Serbyn, Rev. Mod. Phys. 91 , 021001 (2019). [13] P. Sierant, M. Lewenstein, A. Scardicchio, L. Vidmar, and J. Zakrzewski, Rep. Prog. Phys. 88 , 026502 (2019). [14] C. J. Turner, A. A. Michailidis, D. A. Abanin, M. Serbyn, and Z. Papić, Nat. Phys. 14 , 745 (2018). [15] M. Serbyn, D. A. Abanin, and Z. Papić, Nat. Phys. 17 ,675 (2021). [16] S. Moudgalya, B. A. Bernevig, and N. Regnault, Rep. Prog. Phys. 85 , 086501 (2022). [17] L. Gotta, S. Moudgalya, and L. Mazza, Phys. Rev. Lett. 
+
+131 , 190401 (2023). [18] A. Chandran, T. Iadecola, V. Khemani, and R. Moessner, Annu. Rev. Condens. Matter Phys. 14 , 443 (2023). [19] L. D’Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, Adv. Phys. 65 , 239 (2016). [20] G. De Tomasi, D. Hetterich, P. Sala, and F. Pollmann, Phys. Rev. B 100 , 214313 (2019). [21] P. Sala, T. Rakovszky, R. Verresen, M. Knap, and F. Poll-mann, Phys. Rev. X 10 , 011047 (2020). [22] I. Bloch, J. Dalibard, and S. Nascimbene, Nat. Phys. 8,267 (2012). [23] F. Schäfer, T. Fukuhara, S. Sugawa, Y. Takasu, and Y. Takahashi, Nat. Rev. Phys. 2, 411 (2020). [24] A. Browaeys and T. Lahaye, Nat. Phys. 16 , 132 (2020). [25] A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pearson, M. Troyer, and P. Zoller, Nature 607 , 667 (2022). [26] M. Gring, M. Kuhnert, T. Langen, T. Kitagawa, B. Rauer, M. Schreitl, I. Mazets, D. A. Smith, E. Demler, and J. Schmiedmayer, Science 337 , 1318 (2012). [27] S. Trotzky, Y.-A. Chen, A. Flesch, I. P. McCulloch, U. Schollwöck, J. Eisert, and I. Bloch, Nat. Phys. 8, 325 (2012). [28] R. Islam, R. Ma, P. M. Preiss, M. Eric Tai, A. Lukin, M. Rispoli, and M. Greiner, Nature 528 , 77 (2015). [29] M. Schreiber, S. S. Hodgman, P. Bordia, H. P. Lüschen, M. H. Fischer, R. Vosk, E. Altman, U. Schneider, and I. Bloch, Science 349 , 842 (2015). [30] P. Bordia, H. P. Lüschen, S. S. Hodgman, M. Schreiber, I. Bloch, and U. Schneider, Phys. Rev. Lett. 116 , 140401 (2016). [31] J.-y. Choi, S. Hild, J. Zeiher, P. Schauß, A. Rubio-Abadal, T. Yefsah, V. Khemani, D. A. Huse, I. Bloch, and C. Gross, Science 352 , 1547 (2016). [32] H. P. Lüschen, P. Bordia, S. Scherg, F. Alet, E. Altman, U. Schneider, and I. Bloch, Phys. Rev. Lett. 119 , 260401 (2017). [33] H. Bernien, S. Schwartz, A. Keesling, H. Levine, A. Om-ran, H. Pichler, S. Choi, A. S. Zibrov, M. Endres, M. Greiner, V. Vuletić, and M. D. Lukin, Nature 551 ,579 (2017). [34] A. Lukin, M. Rispoli, R. Schittko, M. E. Tai, A. M. Kauf-man, S. Choi, V. Khemani, J. Léonard, and M. Greiner, Science 364 , 256 (2019). [35] M. Rispoli, A. Lukin, R. Schittko, S. Kim, M. E. Tai, J. Léonard, and M. Greiner, Nature 573 , 385 (2019). [36] S. Scherg, T. Kohlert, P. Sala, F. Pollmann, B. Hebbe Madhusudhana, I. Bloch, and M. Aidelsburger, Nat. Commun. 12 , 4490 (2021). [37] T. Kohlert, S. Scherg, P. Sala, F. Pollmann, B. Hebbe Madhusudhana, I. Bloch, and M. Aidelsburger, Phys. Rev. Lett. 130 , 010201 (2023). 8
+
+[38] L. Wadleigh, N. Kowalski, and B. DeMarco, Phys. Rev. A 107 , 043325 (2023). [39] G.-X. Su, H. Sun, A. Hudomal, J.-Y. Desaules, Z.-Y. Zhou, B. Yang, J. C. Halimeh, Z.-S. Yuan, Z. Papić, and J.-W. Pan, Phys. Rev. Res. 5, 023010 (2023). [40] D. Adler, D. Wei, M. Will, K. Srakaew, S. Agrawal, P. Weckesser, R. Moessner, F. Pollmann, I. Bloch, and J. Zeiher, Nature 636 , 80 (2024). [41] L. Zhao, P. R. Datla, W. Tian, M. M. Aliyu, and H. Loh, Phys. Rev. X 15 , 011035 (2025). [42] K. Honda, Y. Takasu, S. Goto, H. Kazuta, M. Kunimi, I. Danshita, and Y. Takahashi, Sci. Adv. 11 , eadv3255 (2025). [43] D. Jaksch, C. Bruder, J. I. Cirac, C. W. Gardiner, and P. Zoller, Phys. Rev. Lett. 81 , 3108 (1998). [44] R. Yao and J. Zakrzewski, Phys. Rev. B 102 , 104203 (2020). [45] R. Yao, T. Chanda, and J. Zakrzewski, Ann. Phys. 435 ,168540 (2021). [46] M. Kunimi and I. Danshita, Phys. Rev. A 104 , 043322 (2021). [47] Z. Gong and R. Hamazaki, Int. J. Mod. Phys. B 36 ,2230007 (2022). [48] M. Cheneau, The Physics and Mathematics of Elliott Lieb , edited by R. L. Frank, A. Laptev, M. Lewin, and R. Seiringer (EMS Press, 2022) pp. 225–245. [49] M. Cheneau, P. Barmettler, D. Poletti, M. Endres, P. Schauß, T. Fukuhara, C. Gross, I. Bloch, C. Kollath, and S. Kuhr, Nature 481 , 484 (2012). [50] Y. Takasu, T. Yagami, H. Asaka, Y. Fukushima, K. Na-gao, S. Goto, I. Danshita, and Y. Takahashi, Sci. Adv. 6,eaba9255 (2020). [51] A. M. Läuchli and C. Kollath, J. Stat. Mech.: Theory Exp. 2008 (05), P05018. [52] P. Barmettler, D. Poletti, M. Cheneau, and C. Kollath, Phys. Rev. A 85 , 053625 (2012). [53] S. S. Natu and E. J. Mueller, Phys. Rev. A 87 , 063616 (2013). [54] G. Carleo, F. Becca, L. Sanchez-Palencia, S. Sorella, and M. Fabrizio, Phys. Rev. A 89 , 031602 (2014). [55] M. R. C. Fitzpatrick and M. P. Kennett, Phys. Rev. A 
+
+98 , 053618 (2018). [56] K. Nagao, M. Kunimi, Y. Takasu, Y. Takahashi, and I. Danshita, Phys. Rev. A 99 , 023622 (2019). [57] J. Despres, L. Villa, and L. Sanchez-Palencia, Sci. Rep. 
+
+9, 4135 (2019). [58] K. Nagao, Y. Takasu, Y. Takahashi, and I. Danshita, Phys. Rev. Res. 3, 043091 (2021). [59] A. Mokhtari-Jazi, M. R. C. Fitzpatrick, and M. P. Ken-nett, Phys. Rev. A 103 , 023334 (2021). [60] R. Kaneko and I. Danshita, Commun. Phys. 5, 65 (2022). [61] K. Nagao and S. Yunoki, Phys. Rev. A 111 , 023315 (2025). [62] U. Schollwöck, Ann. Phys. 326 , 96 (2011). [63] M. Lohse, C. Schweizer, O. Zilberberg, M. Aidelsburger, and I. Bloch, Nat. Phys. 12 , 350 (2016). [64] G. Carleo, F. Becca, M. Schiró, and M. Fabrizio, Sci. Rep. 2, 243 (2012). [65] A. Russomanno, M. Fava, and R. Fazio, Phys. Rev. B 
+
+102 , 144302 (2020). [66] G. Vidal, Phys. Rev. Lett. 93 , 040502 (2004). [67] K. Winkler, G. Thalhammer, F. Lang, R. Grimm, J. Hecker Denschlag, A. J. Daley, A. Kantian, H. P. Büch-ler, and P. Zoller, Nature 441 , 853 (2006). [68] P. Weckesser, K. Srakaew, T. Blatz, D. Wei, D. Adler, S. Agrawal, A. Bohrdt, I. Bloch, and J. Zeiher, Science 
+
+390 , 849 (2025). [69] M. Magoni, C. Nill, and I. Lesanovsky, Phys. Rev. Lett. 
+
+132 , 133401 (2024). [70] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cam-bridge University Press, 2011). [71] R. Kaneko and I. Danshita, Phys. Rev. A 108 , 023301 (2023). [72] J. Hauschild, J. Unfried, S. Anand, B. Andrews, M. Bintz, U. Borla, S. Divic, M. Drescher, J. Geiger, M. Hefel, K. Hémery, W. Kadow, J. Kemp, N. Kirchner, V. S. Liu, G. Möller, D. Parker, M. Rader, A. Romen, S. Scalet, L. Schoonderwoerd, M. Schulz, T. Soejima, P. Thoma, Y. Wu, P. Zechmann, L. Zweng, R. S. K. Mong, M. P. Zaletel, and F. Pollmann, SciPost Phys. Codebases , 41 (2024).
