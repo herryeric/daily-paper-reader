@@ -1,0 +1,561 @@
+Title: Disentangling Tensor Network States with Deep Neural Network
+
+URL Source: https://arxiv.org/pdf/2603.14425v1
+
+Published Time: Tue, 17 Mar 2026 04:48:26 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Disentangling Tensor Network States with Deep Neural Networks 
+
+Chaohui Fan, 1, 2, 3, ∗ Bo Zhan, 1, 2, 3, ∗ Yuntian Gu, 3, 4, ∗ Tong Liu, 1, 2 
+
+Yantao Wu, 1, † Mingpu Qin, 5, ‡ Dingshun Lv, 3, § and Tao Xiang 1, 2, ¶
+
+> 1
+
+Beijing National Laboratory for Condensed Matter Physics, Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China 
+
+> 2
+
+School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China 
+
+> 3
+
+ByteDance Seed, China. 
+
+> 4
+
+State Key Laboratory of General Artificial Intelligence, School of Intelligence Science and Technology, Peking University. 
+
+> 5
+
+Key Laboratory of Artificial Structures and Quantum Control (Ministry of Education), School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200240, China 
+
+(Dated: March 17, 2026) We introduce Neural Tensor Network States ( νTNS), a variational many-body wave-function ansatz that integrates deep neural networks with tensor-network architectures. In the νTNS frame-work, a neural network serves as a disentangler of the wave-function, transforming the physical degrees of freedom into renormalized variables with much less entanglement. The renormalized state is then efficiently encoded by a back-flow tensor network. This construction yields a compact yet highly expressive representation of strongly correlated quantum states. Using convolutional neural networks combined with matrix product states as a concrete implementation, we obtain state-of-the-art variational energies for the spin-1 /2 J1–J2 Heisenberg model on the square lattice at the highly frustrated point J2/J 1 = 0 .5, for systems up to 20 × 20 with periodic boundary condi-tions. Finite-size scaling of spin, dimer, and plaquette correlations exhibits power-law decay without magnetic or valence-bond long-range order, consistent with a gapless quantum spin-liquid ground state at that point. This νTNS framework is flexible and naturally extensible to other neural and tensor-network structures, offering a general platform for investigating strongly correlated quantum many-body systems. 
+
+Introduction— Understanding strongly correlated quantum many-body systems remains one of the cen-tral challenges of modern physics, underlying phenomena ranging from quantum spin liquids to unconventional su-perconductivity. Their theoretical description is notori-ously difficult, making controlled numerical simulations indispensable. Among them, tensor-network states [1– 5] have emerged as a powerful framework for tackling strongly correlated systems, providing key insights into a wide range of problems in condensed matter physics [6– 8]. In one dimension (1D), this success is exemplified by the density-matrix renormalization group (DMRG) [1] and matrix product states (MPS) [2], which together pro-vide an optimal description of low-entanglement ground states [3–5]. In two dimensions, however, the situation is far less satisfactory. Projected entangled-pair states (PEPS) [9–11] offer a natural higher-dimensional gener-alization, but their computational cost rises steeply with bond dimension. It is therefore highly desirable to ex-tend to two or higher dimensions the favorable efficiency and variational controllability of simple tensor-network states, such as MPS or tree tensor network states [12– 14]. The central obstacle is entanglement, since a highly      
+
+> ∗These authors contributed equally to this work.
+> †yantaow@iphy.ac.cn
+> ‡qinmingpu@sjtu.edu.cn
+> §ywlds@163.com
+> ¶txiang@iphy.ac.cn
+
+entangled quantum state generally cannot be encoded ef-ficiently in such a tensor network unless its entanglement is first reduced by a global disentangler. Neural networks provide a natural route towards this goal. Unlike tensor networks, neural networks can im-plement highly nonlinear, nonlocal maps in configura-tion space and have already demonstrated striking ex-pressive power in quantum many-body variational wave functions [15–24]. This makes them ideally suited to re-organize complex many-body correlations before tensor-network compression. From this perspective, neural net-works and tensor networks are not competing ansatzes, but can be integrated as complementary components of a single variational strategy. Here we introduce νTNS, a hybrid architecture that combines the global representational power of neural net-works with the controlled low-rank structure of tensor networks. The key idea is to separate the tasks of dis-entangling and compression. A neural network first acts as a global, generally nonunitary disentangler, mapping the physical configuration to a set of renormalized vari-ables. The residual correlations are then encoded by a tensor network, yielding a compact, efficient, and sys-tematically improvable representation of the many-body wave function. Although previous works have explored different combinations of neural networks and tensor net-works [17, 25–27], this ansatz establishes a genuinely syn-ergistic framework in which the neural network performs global disentangling and the tensor network encodes the residual correlations. 
+
+> arXiv:2603.14425v1 [cond-mat.str-el] 15 Mar 2026
+
+2As a representative example, we implement this ansatz using convolutional neural networks (CNNs) combined with MPS (CNN-MPS) and demonstrate the potential of this approach on the spin-1/2 J1–J2 Heisenberg model on the square lattice at the highly frustrated point J2/J 1 =0.5, whose ground state has remained under debate for more than two decades. Competing proposals include valence-bond-solid order, antiferromagnetism, and gap-less spin liquids, and no consensus has emerged [16, 28– 35]. Using the CNN-MPS ansatz, we obtain the lowest variational energies reported to date for systems up to 20 × 20. Moreover, finite-size scaling of spin, dimer, and plaquette correlations exhibits power-law decay without any sign of long-range order, consistent with a gapless quantum spin-liquid ground state at J2/J 1 = 0 .5. 
+
+νTNS ansatz— The key idea of νTNS is to separate global correlation extraction from entanglement compres-sion. Figure 1 schematically illustrates the ansatz, with an MPS serving as a concrete realization of the tensor network layer. Starting from a physical configuration on a lattice of N sites, we first embed the local variables into a trainable feature vector X(0) ∈ RN ×h, where h
+
+is the hidden dimension. This embedding consists of a learned linear map augmented with positional encoding, which lifts discrete variables into a continuous space and incorporates lattice geometry. The feature vector X(0) is then processed by ℓ neural-network layers, for example ℓ
+
+convolutional layers in CNN, to produce X(ℓ). Although 
+
+X(ℓ) is formally an N -site product state in feature space, it contains highly nonlocal information, since each site feature has aggregated correlations from distant regions through the neural network. The neural network here acts as a global disentangler, in contrast to the local dis-entangling transformations considered in Refs. [36–38]. To convert X(ℓ) into a wave-function amplitude, we use an MPS as the final layer. For each site i, we in-troduce a rank-4 tensor Ti ∈ Rh×D×D×d, where d is the physical dimension and D is the MPS bond dimension. Contracting Ti with the local feature vector and the ini-tial configuration yields the corresponding MPS tensor 
+
+Ai, from which the wave-function amplitude is obtained as Ψ( s1, . . . , s N ) = Tr 
+
+> N
+
+Y
+
+> i=1
+
+Ai[s1, . . . , s N ]. (1) Because the local feature vector depends on the full phys-ical configuration ( s1, . . . , s N ), the resulting tensor Ai
+
+is also configuration dependent, unlike in ordinary MPS where the local tensor depends on the on-site variable 
+
+si only. This construction therefore realizes a backflow MPS [39–41] for each input configuration. For a fixed neural network, the bond dimension D serves as a con-trol parameter for the representational capacity of νTNS. More details about the ansatz can be found in the Sup-plementary Materials. All variational parameters are optimized using the MARCH algorithm [24], a stabilized variant of stochas-0 XN                 
+
+> 000
+> X�
+> lX2X3XN
+> lll
+> Deep Neural Network
+> T�
+> X�X2X3
+> T2T3TN
+> 0��0
+> Amplitude Ψ(s1,s2,..,s N)
+> configuration MPS contraction embedding
+> 0��0
+
+FIG. 1. Graphical illustration of the νTNS ansatz with MPS as a concrete realization of TNS. The physical configuration is first mapped into feature space by a linear embedding, yield-ing the initial feature vector X0. This vector is then processed through ℓ neural-network layers to produce the renormalized feature vector Xℓ, which is finally contracted with a backflow MPS to generate the νMPS wave function. 
+
+tic reconfiguration. In addition, lattice symmetries, such as the C4v point group, can be imposed to improve the quality of the variational state and enhance the stability of the optimization. 
+
+Result and discussion— We benchmark the νTNS ansatz on the spin-1 /2 J1 − J2 Heisenberg model on the 
+
+N = L × L square lattice, 
+
+H = J1
+
+X
+
+> ⟨i,j ⟩
+
+⃗Si ·⃗ Sj + J2
+
+X
+
+> ⟨⟨ i,j ⟩⟩
+
+⃗Si ·⃗ Sj , (2) where ⃗ Si denotes the spin-1 /2 operator at site i, and ⟨i, j ⟩
+
+and ⟨⟨ i, j ⟩⟩ represent nearest- and next-nearest-neighbor pairs, respectively. We impose periodic boundary con-ditions and set J1 = 1 as the unit of energy. In the following we focus on the point J2/J 1 = 0 .5. To characterize the spin, dimer, and plaquette orders, we calculate the correlation functions in the ground state, 
+
+Cs(i, j ) = ⟨⃗Si ·⃗ Sj ⟩,Cd(i, j ) = ⟨DiDj ⟩ − ⟨ Di⟩⟨ Dj ⟩, (3) 
+
+Cp(i, j ) = ⟨PiPj ⟩ − ⟨ Pi⟩⟨ Pj ⟩,
+
+where Di =⃗ Si ·⃗ Si+ˆ x, Pi = ( P□i + P −1 
+
+> □i
+
+)/2, and P□i is the cyclic permutation operator acting on the four spins around plaquette i. In Cd(i, j ) we choose the bond orien-tation along the x direction; the results for the y direction are identical owing to the preserved C4 lattice rotation symmetry. The corresponding structure factors are de-fined as 
+
+Sγ (q) = 1
+
+N
+
+X
+
+> i,j
+
+Cγ (i, j ) eiq ·(ri−rj ), (γ = s, d, p ) (4) 32000 4000 6000 8000 10000        
+
+> Step
+> 0.50380
+> 0.50375
+> 0.50370
+> 0.50365
+> 0.50360
+> E
+> CNN
+> D= 5
+> D= 20
+> Exact
+> 510 15 20
+> D
+> 1 × 10 5
+> 5 × 10 6
+> Relative error
+
+FIG. 2. Convergence of the ground state energy with the optimization step for the 6 × 6 J1 − J2 Heisenberg model with periodic boundary conditions at J2/J 1 = 0 .5, obtained using the pure CNN and the CNN-MPS ansatz with D = 5 and 20. The dotted horizontal line marks the exact result [33]. Inset: relative energy error versus D.
+
+which provide quantitative diagnostics of the dominant ordering channels. We first assess the accuracy of CNN-MPS on small clusters where reliable benchmarks are available. For the 6 × 6 lattice, exact diagonalization gives the ground-state energy −0.503810 and the spin structure factor 
+
+Ss(π, π ) = 3 .50968 [33]. For the pure CNN wave function with ( h, ℓ ) = (32 , 20), which corresponds to setting D = 1 in CNN-MPS, we obtain an energy of −0.5037957(4) [Fig. 2], with a relative error of 3 × 10 −5. Increasing the MPS bond dimension yields systematic improvement. At 
+
+D = 20, the energy reaches −0.50380737(5), reducing the relative error to 5 ×10 −6. Achieving comparable accuracy with a pure MPS requiring a bond dimension of order 10 4 [28]. CNN-MPS also reproduces the spin structure factor, Ss(π, π ) = 3 .50967(2), in good agreement with the exact value. These results provide direct evidence for the central idea of νTNS that CNN efficiently extracts and compresses the dominant long-range correlations, leaving only a much weaker residual entanglement to be captured by an MPS with modest bond dimension. For the 10 × 10 lattice, where a large body of varia-tional results is available in the literature (Table I), CNN-MPS again achieves state-of-the-art accuracy. With the Marshall sign transformation [43], the best energy ob-tained by CNN-MPS is −0.4976939(2) for ( h, D, ℓ ) = (32 , 20 , 20), which is lower than the best previously re-ported result [19]. The advantage of CNN-MPS becomes even more ev-ident on larger lattices. Using the same parameters, (h, D, ℓ ) = (32 , 15 , 20), for all system sizes, the to-tal number of variational parameters remains nearly constant, apart from the small position-encoding con-tribution, yet the achieved accuracy continues to im-prove over the best results in the literature. For 2000 4000 6000 8000 10000 12000 14000  
+
+> Step
+> 0.4968
+> 0.4967
+> 0.4966
+> 0.4965
+> 0.4964
+> 0.4963
+> 0.4962
+> E
+> ViT-base
+> ViT-full
+> C4vapplied
+
+FIG. 3. Optimization of the ground-state energy for the L =20 J1 − J2 Heisenberg model with the CNN-MPS ansatz. The 
+
+C4v lattice symmetry is enforced after the first 5 ,000 steps. Also shown for comparison are the ViT results reported in Ref. [42], where ViT-base and ViT-full refer to calculations without and with full point-group symmetry, respectively. 
+
+L = 16, CNN-MPS yields the lowest variational energy, 
+
+−0.4969140(5), compared with the previously best re-ported value −0.4967163(8) [19]. For the largest system considered, L = 20, we compare with the recent neural-network results reported in Ref. [42], where energies with and without symmetry projection were computed. Af-ter 5 ,000 optimization steps without any imposed sym-
+
+TABLE I. Ground-state energy per site E for the square-lattice J1 − J2 Heisenberg model at J2/J 1 = 0 .5 with periodic boundary conditions. L E Wave function Year Ref. 10 -0.49516(1) CNN 2019 [44] -0.495502(1) PEPS+CNN 2021 [17] -0.495530 DMRG 2014 [28] -0.495627(6) aCNN 2024 [20] -0.49575(3) RBM 2019 [45] -0.49586(4) CNN 2023 [46] -0.4968(4) RBM 2022 [47] -0.49717 CNN 2022 [48] -0.497437(7) GCNN 2023 [18] -0.49747 CNN 2023 [49] -0.49755(1) VMC 2013 [50] -0.497629(1) RBM+PP 2021 [16] -0.497634(1) ViT 2024 [51] -0.4976764(7) CTWF 2025 [52] -0.4976921(4) CNN 2024 [19] -0.4976923 (2) T-MPS this work -0.4976939 (2) CNN-MPS this work 16 -0.49626 CNN 2022 [48] -0.49659 CNN 2023 [49] -0.4967163(8) CNN 2024 [19] -0.496786 (1) T-MPS this work -0.4969140 (5) CNN-MPS this work 20 -0.496732(1) ViT 2026 [42] -0.4967987 (6) CNN-MPS this work 40.05 0.10 0.20                     
+
+> 1/ L
+> 10 2
+> 10 1
+> m2
+> m2
+> s( , )
+> m2
+> p( , 0)
+> m2
+> d( , 0)
+> FIG. 4. Log-log plot of the finite-size scaling of the order parameters m2
+> s(π, π ), m2
+> p(π, 0), and m2
+> d(π, 0) for the J1−J2
+> Heisenberg model at J2/J 1= 0 .5, obtained using the CNN-MPS ansatz with ( h, D, ℓ ) = (32 ,15 ,20).
+
+metry and a further 10 ,000 steps with C4v symmetry enforced, we obtain −0.4966857(7) and −0.4967987(6), respectively, both significantly below the corresponding values reported in Ref. [42], as shown in Fig. 3. These re-sults show that the νTNS construction is not only highly accurate, but also scalable as the lattice size increases. The overall computational cost scales as O(N 2), making the method suitable for large-scale simulations. Having established the high quantitative accuracy of the ansatz, we next turn to the nature of the ground state at J2/J 1 = 0 .5. To distinguish among the possible competing orders, we analyze the three structure factors. The plaquette structure factor Sp(q) displays maxima at (π, 0) and (0 , π ), but it shows no appreciable peak at (π, π ). Since a pronounced ( π, π ) peak is the character-istic fingerprint of a plaquette valence-bond phase, our results rule out the presence of this order in the ground state. By contrast, the dimer structure factor Sd(q) de-velops its dominant peak at ( π, 0), indicating that the leading valence-bond-solid fluctuation channel is colum-nar rather than plaquette-like. A more quantitative picture is obtained from the finite-size scaling of the order parameters extracted from the structure factors, m2 
+
+> γ
+
+(q) = Sγ (q)/N , evaluated at the dominant ordering wave vectors. Specifically, the lead-ing peaks occur at ( π, π ) for γ = s, and at ( π, 0) for both 
+
+γ = ( d, p ). As shown in Fig. 4, all three order parameters decay approximately linearly with 1 /L on log-log plots, corresponding to power-law scaling in ordinary coordi-nates. This behavior indicates the absence of true long-range order in these three channels in the thermodynamic limit. The slow power-law decay reveals substantial crit-ical correlations, consistent with a gapless quantum spin liquid rather than a conventionally ordered antiferromag-net or valence-bond-solid phase. Thus the νTNS results support a ground state at J2/J 1 = 0 .5 with strong anti-ferromagnetic and valence-bond correlations but no long-range order. We have also explored an alternative realization of 
+
+νTNS in which the CNN is replaced by a transformer-based neural network, which we denote as T-MPS. The corresponding results are summarized in Table I. This T-MPS ansatz consistently improves upon the correspond-ing neural-network ansatz with the MPS back-end, fur-ther confirming the usefulness of the νTNS strategy. However, for the present problem, T-MPS is less accurate and computationally more expensive than CNN-MPS. This comparison suggests that, for the frustrated J1 − J2
+
+Heisenberg model considered here, convolutional archi-tectures are more effective than transformer-based ones at disentangling the relevant entanglement. 
+
+Conclusion and perspectives.— In conclusion, we have introduced νTNS as a flexible and general varia-tional framework that unifies neural-network and tensor-network representations for quantum many-body states. By embedding physical configurations into a feature space, processing them through a deep neural network, and contracting the resulting renormalized features with a backflow-enhanced tensor network, νTNS achieves a hierarchical description that combines expressive power with efficient entanglement control. In its CNN-MPS re-alization, the method yields state-of-the-art results for the frustrated J1 − J2 Heisenberg model at J2/J 1 = 0 .5on periodic lattices up to 20 × 20. The finite-size scaling analysis of spin, dimer, and plaquette correlations shows power-law decay in all channels and no evidence for the corresponding long-range orders, consistent with the sce-nario of a gapless quantum spin-liquid ground state at this highly frustrated point. Beyond this specific application, the main strength of the νTNS framework lies in its versatility. The neu-ral network can be replaced by alternative architectures better suited to different correlation patterns, while the tensor-network backbone can be upgraded from MPS to tree tensor networks, PEPS, or other structures adapted to the geometry and entanglement properties of the tar-get system. This flexibility opens a broad range of future directions. Particularly promising are applica-tions to fermionic systems, where the combination of neural-network-based correlation extraction and tensor-network-based entanglement compression may provide a powerful route to treating sign structures and long-range quantum correlations on equal footing. It will also be important to extend the framework to larger system sizes, excited states, dynamical properties, and finite-temperature problems, as well as to develop more effi-cient optimization strategies and symmetry-preserving implementations. With continued advances in neural network architectures, tensor network algorithms, and large-scale optimization techniques, νTNS offers a prac-tical and scalable pathway for investigating strongly cor-related quantum matter and identifying exotic quantum phases beyond the reach of conventional methods. 
+
+Acknowledgments: We acknowledge the support from the National Natural Science Foundation of China (Grant 5Nos. 12488201, 12522406, and 12274290), the Na-tional Key Research and Development Program of China (2021ZD0301800, 2022YFA1405400), and the Innova-tion Program for Quantum Science and Technology (2021ZD0301902). Y.W. is supported by a start-up grant from IOP-CAS. 
+
+[1] S. R. White, Density matrix formulation for quantum renormalization groups, Phys. Rev. Lett. 69 , 2863 (1992). [2] S. ¨Ostlund and S. Rommer, Thermodynamic limit of den-sity matrix renormalization, Phys. Rev. Lett. 75 , 3537 (1995). [3] U. Schollw¨ ock, The density-matrix renormalization group in the age of matrix product states, Ann. Phys. (N.Y.) 
+
+326 , 96 (2011). [4] J. I. Cirac, D. P´ erez-Garc´ ıa, N. Schuch, and F. Ver-straete, Matrix product states and projected entangled pair states: Concepts, symmetries, theorems, Rev. Mod. Phys. 93 , 045003 (2021). [5] T. Xiang, Density Matrix and Tensor Network Renor-malization (Cambridge University Press, 2023). [6] E. Dagotto, Correlated electrons in high-temperature su-perconductors, Rev. Mod. Phys. 66 , 763 (1994). [7] J. P. F. LeBlanc, A. E. Antipov, F. Becca, I. W. Bulik, G. K.-L. Chan, C.-M. Chung, Y. Deng, M. Ferrero, T. M. Henderson, C. A. Jim´ enez-Hoyos, E. Kozik, X.-W. Liu, A. J. Millis, N. V. Prokof’ev, M. Qin, G. E. Scuseria, H. Shi, B. V. Svistunov, L. F. Tocchio, I. S. Tupitsyn, S. R. White, S. Zhang, B.-X. Zheng, Z. Zhu, and E. Gull (Simons Collaboration on the Many-Electron Problem), Solutions of the two-dimensional Hubbard model: Bench-marks and results from a wide range of numerical algo-rithms, Phys. Rev. X 5, 041041 (2015). [8] R. Chi, Y. Liu, Y. Wan, H.-J. Liao, and T. Xiang, Spin excitation spectra of anisotropic spin-1 /2 triangular lat-tice heisenberg antiferromagnets, Phys. Rev. Lett. 129 ,227201 (2022). [9] F. Verstraete and J. I. Cirac, Renormalization al-gorithms for quantum-many body systems in two and higher dimensions (2004), arXiv:cond-mat/0407066 [cond-mat.str-el]. [10] H. C. Jiang, Z. Y. Weng, and T. Xiang, Accurate de-termination of tensor network state of quantum lattice models in two dimensions, Phys. Rev. Lett. 101 , 090603 (2008). [11] Z. Y. Xie, J. Chen, J. F. Yu, X. Kong, B. Normand, and T. Xiang, Tensor renormalization of quantum many-body systems using projected entangled simplex states, Phys. Rev. X 4, 011025 (2014). [12] Y.-Y. Shi, L.-M. Duan, and G. Vidal, Classical simula-tion of quantum many-body systems with a tree tensor network, Phys. Rev. A 74 , 022320 (2006). [13] W. Li, J. von Delft, and T. Xiang, Efficient simulation of infinite tree tensor network states on the Bethe lattice, Phys. Rev. B 86 , 195137 (2012). [14] B. Zhan, J.-L. Chen, Z. Fan, and T. Xiang, Tree tensor network solver for real-time quantum impurity dynamics (2026), arXiv:2601.17718 [cond-mat.str-el]. [15] G. Carleo and M. Troyer, Solving the quantum many-body problem with artificial neural networks, Science 
+
+355 , 602 (2017). [16] Y. Nomura and M. Imada, Dirac-type nodal spin liq-uid revealed by refined quantum many-body solver using neural-network wave function, correlation ratio, and level spectroscopy, Phys. Rev. X 11 , 031034 (2021). [17] X. Liang, S.-J. Dong, and L. He, Hybrid convolutional neural network and projected entangled pair states wave functions for quantum many-particle states, Phys. Rev. B 103 , 035138 (2021). [18] C. Roth, A. Szab´ o, and A. H. MacDonald, High-accuracy variational Monte Carlo for frustrated magnets with deep neural networks, Phys. Rev. B 108 , 054410 (2023). [19] A. Chen and M. Heyl, Empowering deep neural quantum states through efficient optimization, Nat. Phys. 20 , 1476 (2024). [20] J.-Q. Wang, H.-Q. Wu, R.-Q. He, and Z.-Y. Lu, Vari-ational optimization of the amplitude of neural-network quantum many-body ground states, Phys. Rev. B 109 ,245120 (2024). [21] A. Chen, Z.-Q. Wan, A. Sengupta, A. Georges, and C. Roth, Neural network-augmented Pfaffian wave-functions for scalable simulations of interacting fermions (2025), arXiv:2507.10705 [cond-mat]. [22] M. S. Moss, R. Wiersema, M. Hibat-Allah, J. Car-rasquilla, and R. G. Melko, Leveraging recurrence in neu-ral network wavefunctions for large-scale simulations of heisenberg antiferromagnets on the square lattice, Phys. Rev. B 112 , 134450 (2025). [23] M. Geier, K. Nazaryan, T. Zaklama, and L. Fu, Self-attention neural network for solving correlated electron problems in solids, Phys. Rev. B 112 , 045119 (2025). [24] Y. Gu, W. Li, H. Lin, B. Zhan, R. Li, Y. Huang, D. He, Y. Wu, T. Xiang, M. Qin, L. Wang, and D. Lv, Solving the Hubbard model with neural quantum states (2025), arXiv:2507.02644 [cond-mat]. [25] S.-J. Du, A. Chen, and G. K.-L. Chan, Neuralized fermionic tensor networks for quantum many-body sys-tems (2025), arXiv:2506.08329 [cond-mat.dis-nn]. [26] D. Wu, R. Rossi, F. Vicentini, and G. Carleo, From tensor-network quantum states to tensorial recurrent neural networks, Phys. Rev. Res. 5, L032001 (2023). [27] Z. Chen, L. Newhouse, E. Chen, D. Luo, and M. Soljaˇ ci´ c, ANTN: Bridging autoregressive neural networks and ten-sor networks for quantum many-body simulation (2024), arXiv:2304.01996 [quant-ph]. [28] S.-S. Gong, W. Zhu, D. N. Sheng, O. I. Motrunich, and M. P. A. Fisher, Plaquette ordered phase and quantum phase diagram in the spin- 12 J1−J2 square Heisenberg model, Phys. Rev. Lett. 113 , 027201 (2014). [29] R. Haghshenas and D. N. Sheng, U (1)-symmetric infi-nite projected entangled-pair states study of the spin-1/2 square J1−J2 Heisenberg model, Phys. Rev. B 97 ,174408 (2018). [30] W.-Y. Liu, S.-S. Gong, Y.-B. Li, D. Poilblanc, W.-Q. Chen, and Z.-C. Gu, Gapless quantum spin liquid and global phase diagram of the spin- 12 J1 −J2 square antifer-romagnetic Heisenberg model, Sci. Bull. 67 , 1034 (2022). [31] W.-Y. Liu, S. Dong, C. Wang, Y. Han, H. An, G.-C. Guo, and L. He, Gapless spin liquid ground state of the spin- 126
+
+J1 − J2 Heisenberg model on square lattices, Phys. Rev. B 98 , 241109 (2018). [32] X. Qian and M. Qin, Absence of spin liquid phase in the 
+
+J1 − J2 Heisenberg model on the square lattice, Phys. Rev. B 109 , L161103 (2024). [33] H. J. Schulz, T. A. L. Ziman, and D. Poilblanc, Magnetic order and disorder in the frustrated quantum Heisen-berg antiferromagnet in two dimensions, J. Phys. I 6,675 (1996). [34] L. Wang and A. W. Sandvik, Critical level crossings and gapless spin liquid in the square-lattice spin-1 /2
+
+J1 − J2 Heisenberg antiferromagnet, Phys. Rev. Lett. 
+
+121 , 107202 (2018). [35] An overview of the proposed phase diagrams for the spin-1/2 Heisenberg model is provided in the Supplemental Material. [36] X. Qian and M. Qin, Augmenting Density Matrix Renor-malization Group with Disentanglers, Chinese Physics Letters 40 , 057102 (2023). [37] X. Qian, J. Huang, and M. Qin, Augmenting density ma-trix renormalization group with Clifford circuits, Phys. Rev. Lett. 133 , 190402 (2024). [38] J. Huang, X. Qian, Z. Li, and M. Qin, Augmenting Density Matrix Renormalization Group with Matchgates and Clifford circuits, arXiv e-prints , arXiv:2505.08635 (2025), arXiv:2505.08635 [quant-ph]. [39] R. P. Feynman and M. Cohen, Energy spectrum of the excitations in liquid helium, Phys. Rev. 102 , 1189 (1956). [40] L. F. Tocchio, F. Becca, A. Parola, and S. Sorella, Role of backflow correlations for the nonmagnetic phase of the 
+
+t–t′
+
+hubbard model, Phys. Rev. B 78 , 041101 (2008). [41] D. Luo and B. K. Clark, Backflow transformations via neural networks for quantum many-body wave functions, Phys. Rev. Lett. 122 , 226401 (2019). [42] L. L. Viteritti, R. Rende, S. Sachdev, and G. Carleo, Ap-proaching the thermodynamic limit with neural-network quantum states (2026), arXiv:2602.02665 [cond-mat.str-el]. [43] W. Marshall, Antiferromagnetism, Proc. R. Soc. A 232 ,48 (1955). [44] K. Choo, T. Neupert, and G. Carleo, Two-dimensional frustrated J1−J2 model studied with neural network quantum states, Phys. Rev. B 100 , 125124 (2019). [45] F. Ferrari, F. Becca, and J. Carrasquilla, Neural Gutzwiller-projected variational wave functions, Phys. Rev. B 100 , 125131 (2019). [46] M. Reh, M. Schmitt, and M. G¨ arttner, Optimizing design choices for neural quantum states, Phys. Rev. B 107 ,195115 (2023). [47] H. Chen, D. Hendry, P. Weinberg, and A. E. Feiguin, Sys-tematic improvement of neural network quantum states using a lanczos recursion (2022), arXiv:2206.14307 [cond-mat.str-el]. [48] M. Li, J. Chen, Q. Xiao, F. Wang, Q. Jiang, X. Zhao, R. Lin, H. An, X. Liang, and L. He, Bridging the gap be-tween deep learning and frustrated quantum spin system for extreme-scale simulations on new generation of sun-way supercomputer, IEEE Transactions on Parallel and Distributed Systems 33 , 2846–2859 (2022). [49] X. Liang, M. Li, Q. Xiao, J. Chen, C. Yang, H. An, and L. He, Deep learning representations for quantum many-body systems on heterogeneous hardware, Mach. Learn.: Sci. Technol. 4, 015035 (2023). [50] W.-J. Hu, F. Becca, A. Parola, and S. Sorella, Direct evidence for a gapless Z2 spin liquid by frustrating N´ eel antiferromagnetism, Phys. Rev. B 88 , 060402 (2013). [51] R. Rende, L. L. Viteritti, L. Bardone, F. Becca, and S. Goldt, A simple linear algebra identity to optimize large-scale neural network quantum states, Commun Phys 7, 260 (2024). [52] A. Chen, V. D. Naik, and M. Heyl, Convolutional trans-former wave functions (2025), arXiv:2503.10462 [cond-mat.dis-nn]. Disentangling Tensor Network States with Deep Neural Networks Supplementary Materials 
+
+Chaohui Fan, 1, 2, 3, ∗ Bo Zhan, 1, 2, 3, ∗ Yuntian Gu, 3, 4, ∗ Tong Liu, 1, 2 
+
+Yantao Wu, 1, † Mingpu Qin, 5, ‡ Dingshun Lv, 3, § and Tao Xiang 1, 2, ¶
+
+> 1
+
+Beijing National Laboratory for Condensed Matter Physics, Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China 
+
+> 2
+
+School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China 
+
+> 3
+
+ByteDance Seed, China. 
+
+> 4
+
+State Key Laboratory of General Artificial Intelligence, School of Intelligence Science and Technology, Peking University. 
+
+> 5
+
+Key Laboratory of Artificial Structures and Quantum Control (Ministry of Education), School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200240, China 
+
+S1. PHASE DIAGRAM OF THE SQUARE HEISENBERG J1 − J2 MODEL 
+
+Quantum spin liquids (QSLs) are paradigmatic strongly correlated quantum many-body states, distin-guished by long-range quantum entanglement, fraction-alized excitations, and nontrivial topological order. Es-tablishing their existence in realistic lattice models re-mains notoriously difficult because of the close competi-tion from nearly degenerate phases, such as valence-bond solids (VBSs) and antiferromagnetic (AFM) states with weak order. The spin-1/2 J1–J2 Heisenberg model on the square lattice provides a canonical setting for investigating this competition. As illustrated in Fig. S1, although the pre-cise phase boundaries vary among numerical studies, the regime 0 .4 ≲ J2/J 1 ≲ 0.6 is consistently identified as strongly frustrated, with the point J2/J 1 = 0 .5 remaining particularly controversial. We therefore use this point as a benchmark to demonstrate the potential of our method. The spin, dimer, and plaquette correlations presented in the main text all exhibit power-law decay, without evidence of magnetic or valence-bond long-range order. These results are consistent with a gapless quantum-spin-liquid state at J2 = 0 .5J1.
+
+S2. THE νTNS ANSATZ 
+
+In the νTNS ansatz, the many-body wave function is given by 
+
+|Ψ⟩ = X 
+
+> s1,··· ,s N
+
+Ψ( s1, · · · , s N )|s1, · · · , s N ⟩, (S1) where Ψ is parametrized by a neural network augmented tensor network state. A schematic illustration of νTNS      
+
+> ∗These authors contributed equally to this work.
+> †yantaow@iphy.ac.cn
+> ‡qinmingpu@sjtu.edu.cn
+> §ywlds@163.com
+> ¶txiang@iphy.ac.cn
+
+is shown in Fig. 1 of the main text. Here we use MPS as a concrete realization of the tensor-network component to demonstrate how the ansatz works. In particular, we consider the two specific implementations discussed in the main text, namely T-MPS and CNN-MPS. 
+
+A. Embedding of physical degrees 
+
+For νTNS, each spin-1 /2 degree of freedom is first rep-resented by a one-hot vector, (1 , 0) T or (0 , 1) T , and em-bedded into an h-dimensional feature space as 
+
+X0 
+
+> i
+
+= viW0 + Ei, W0 ∈ R2×h; E ∈ RN ×h, (S2) where Ei provides position encoding. These site features forms the vector X(0) ∈ RN ×h and serve as the input to (a) FAMPS     
+
+> N´ eel AFM VBS Striped AFM
+> 0.535 0.61
+
+J2/J 1      
+
+> (b) PEPS
+> N´ eel AFM Gapless QSL VBS Striped AFM
+> 0.45 0.56 0.61
+
+J2/J 1
+
+(c) RBM+PP       
+
+> N´ eel AFM Gapless QSL VBS Striped AFM
+> 0.49 0.54 0.61
+
+J2/J 1      
+
+> (d) DMRG
+> N´ eel AFM Gapless QSL VBS Striped AFM
+> 0.46 0.52 0.62
+
+J2/J 1    
+
+> (e) iPEPS
+> N´ eel AFM VBS Striped AFM
+> 0.53 0.61
+
+J2/J 1      
+
+> (f) DMRG
+> N´ eel AFM Gapless region VBS Striped AFM
+> 0.44 0.50 0.62
+
+J2/J 1
+
+FIG. S1. Phase diagrams for square Heisenberg J1 −J2 model obtained by different methods: (a) from Ref. [1], (b) from Ref. [2], (c) from Ref. [3], (d) from Ref. [4], (e) from Ref. [5], and (f) from Ref. [6]. Controversy exists in the vicinity of the highly frustrated point J2/J 1 = 0 .5. 2the neural-network layers. 
+
+B. Transformer layers 
+
+In T-MPS, after embedding the architecture proceeds with ℓ composite layers, each comprising a multi-head self-attention module and a subsequent feed-forward net-work (FFN) [7]. Each layer is defined as 
+
+Y (l) = X(l−1) + Att (l) 
+
+LN 
+
+
+
+X(l−1)  
+
+, (S3) 
+
+X(l) = Y (l) + FFN (l)(Y (l)), (S4) where LN denotes layer normalization [8] and the atten-tion block is given by Att (l)(X) = 
+
+> H
+
+X
+
+> m=1
+
+W (l,m )weight XW (l,m ) 
+
+> V
+
+(W (l,m ) 
+
+> O
+
+)T , (S5) 
+
+W (l,m )weight = softmax 
+
+" XW (l,m ) 
+
+> Q
+
+(XW (l,m ) 
+
+> K
+
+)T
+
+ph/H 
+
+#
+
+, (S6) where W (l,m ) 
+
+> Q
+
+, W (l,m ) 
+
+> K
+
+, W (l,m ) 
+
+> V
+
+, W (l,m ) 
+
+> O
+
+∈ Rh×h/H are vari-ational parameters. The FFN block is FFN (l)(X) = σ(XW (l) 
+
+> F
+
++ b(l)) (S7) with activation σ = SiLU. The output X(ℓ) is a N × h matrix. Technically, the transformer block enables information teleportation across all pairs of sites through learnable query, key, and value projections. Physically, this mechanism can be in-terpreted as a global “correlation extractor”. The atten-tion weights Wweight dynamically determine which spin pairs correlate more strongly for a given configuration. 
+
+C. Convolutional layers 
+
+A CNN layer is defined by a local linear transformation followed by a non-linear activation: 
+
+X(l) = LN 
+
+
+
+σ
+
+
+
+Conv (l)(X(l−1) )
+
+
+
++ X(l−1) 
+
+. (S8) The convolution operation applies a sliding window across the system. For example, for a local trainable 3 × 3 kernel with weights W (l) and a bias b(l), the trans-formation at spatial site ( i, j ) is given by: Conv (l)(X(l−1) )i,j =
+
+> 1
+
+X
+
+> m,n =−1
+
+W (l)
+
+> m,n
+
+X(l−1)  
+
+> i+m,j +n
+
++ b(l). (S9) Before the contraction with MPS, a FFN block, Eq. S7, is applied. This structure is simpler than the attention-based con-struction and resembles a renormalization procedure. The local spatial summation effectively acts as a block-spin decimation, allowing coarse-graining to be achieved through successive convolutional transformations. 
+
+D. Output layer 
+
+In the output layer, we introduce a matrix product operator (MPO) with local tensors Ti ∈ Rh×D×D×d at lattice sites i, which maps the final feature vector X(ℓ)
+
+to a configuration-dependent (backflow) periodic MPS with local tensors Ai. Contracting this MPS yields the wave-function amplitude (S1). To further enhance the representational power, we in-troduce n independent MPOs and contract each of them with X(ℓ). This construction produces n independent MPS with the same bond dimension D, and the wave function is taken as the sum of these MPS. In this work, we set n = 2. 
+
+S3. VARIATIONAL OPTIMIZATION A. The MARCH algorithm 
+
+We optimize the variational parameters using the MARCH algorithm [9], which is an extension of stochas-tic reconfiguration (SR). In SR, the parameter update is determined by minimizing the Fubini–Study distance between the imaginary-time-evolved state e−δτ H |Ψθ ⟩ and the variational state |Ψθ+d θ ⟩ within the ansatz manifold. In MARCH, the parameter update d θk is obtained by minimizing dθk = min 
+
+> dθ′
+
+ 1
+
+λ |Odθ′ − ϵ|2
+
++|diag( Vk−1) 14 (d θ′ − ϕk−1)|2i
+
+. (S10) The first term is the usual SR objective, while the sec-ond incorporates momentum and adaptive regulariza-tion, which stabilizes the optimization for large param-eter spaces. Here, ϕk = μ, dθk is the momentum term, and 
+
+Vk = βV k−1 + (d θk − dθk−1)2 (S11) is an adaptive variance estimator that controls the ef-fective step size. The parameters used in this work are listed in Table S1, unless otherwise specified. The quantities entering Eq. (S10) are evaluated from Monte Carlo samples of configurations s. The effective imaginary-time force is 
+
+ϵ(s) = −δτ  Eloc (s) − Es[Eloc (s)] , (S12) with Eloc (s) the local energy. The logarithmic derivatives ¯Ok(s) = ∂∂θ k
+
+log |Ψθ (s)|, (S13) and their centered counterparts, 
+
+Ok(s) = ¯Ok(s) − Es[ ¯Ok(s)] , (S14) 3                       
+
+> TABLE S1. Hyperparameters used in the optimization.
+> Config Value
+> Optimizer MARCH Optimizer momentum μ, β = 0 .98 ,0.995 Damping λ= 0 .001 Imaginary time step length τ= 0 .1Batch size 4096 Learning rate lr = 0 .15 for CNN-MPS
+> lr = 0 .10 for T-MPS Norm constraint at time tlr ∗
+> 
+> 1 + max( t−t0)3000
+> −1
+> t0= 4000 for CNN-MPS
+> t0= 9000 for T-MPS MCMC step 2Lx×Ly
+> Steps 15000
+
+define the SR operator vector 
+
+O(s) = ( O1(s), · · · , O k(s), · · · )T . (S15) For a batch of sampled configurations s1, . . . , sB , we de-fine operator matrix O and force vector ϵ as 
+
+O =  O(s1), O (s2), · · · , O (sB )T ∈ RB×Np , (S16) 
+
+ϵ =  ϵ(s1), ϵ(s2), · · · , ϵ(sB )T ∈ RB , (S17) where Np is the total number of parameters, which is about 2 × 10 5 used in the CNN-MPS calculations The minimization admits a closed-form solution dθ = diag( Vk−1)−1/2OT S−1(ϵ − Oϕk−1)+ϕk−1, (S18) 
+
+S = Odiag( Vk−1)−1/2OT + λI. (S19) This update scheme can be viewed as a momentum-enhanced and stabilized version of SR.  
+
+> B. Symmetry implementation
+
+Imposing symmetries such as lattice reflections and 
+
+π/ 2 rotations provides a systematic route to improving both the expressiveness and the stability of the varia-tional ansatz. In this work, we enforce the lattice point-group symmetry C4v by symmetrizing the wave function as Ψsymm (s) = X
+
+> g∈C4v
+
+Ψ( gs). (S20) This symmetrization improves the accuracy while pre-serving the internal flexibility of the variational wave function .  
+
+> C. Marshall sign transformation
+
+For the antiferromagnetic Heisenberg model 
+
+H = J1
+
+X
+
+> ⟨ij ⟩
+
+⃗Si ·⃗ Sj (S21) on a bipartite lattice, such as the square lattice, the ground-state wave function satisfies the Marshall sign rule [10]. If the lattice is partitioned into two sublat-tices A and B, the Marshall sign rule states that the sign of the ground-state wave function is determined by the parity of the number of down spins on one sublattice (e.g., the A sublattice): it is positive for even parity and negative for odd parity. This sign structure can be re-moved by performing a π rotation of all spins on the A
+
+sublattice about the z axis. Under this transformation the Hamiltonian becomes 
+
+H = J1
+
+X
+
+> ⟨ij ⟩
+
+ −Sxi Sxj − Syi Syj + Szi Szj
+
+ , (S22) and the corresponding ground-state wave function should have a uniform sign according to the Marshall sign rule. Applying this Marshall sign transformation is useful in practice, as it accelerates convergence and improves the stability of the variational optimization. In the pres-ence of frustrating next-nearest-neighbor interactions J2
+
+terms (which remain unchanged under the above trans-formation), the Marshall sign rule is no longer exact. Nevertheless, the transformation still provides a favor-able sign structure for the wave function and remains beneficial for optimization [11]. In our simulations, we therefore perform the calculations using the Hamiltonian after this Marshall sign transformation.  
+
+> D. Monte Carlo samplings
+
+In the Monte Carlo sampling procedure, we generate Markov-chain updates by randomly selecting a bond and proposing a spin exchange when the two spins are in op-posite states. Both nearest-neighbor and next-nearest-neighbor bonds are included to enhance the exploration of configuration space. The move is accepted or rejected according to the Metropolis criterion based on the ratio of the wave-function amplitudes.  
+
+> S4. STRUCTURE FACTORS
+
+Figure S2 shows the momentum-space density plots of the spin–spin, dimer–dimer, and plaquette–plaquette structure factors for the J1–J2 Heisenberg model at 
+
+J2/J 1 = 0.5, obtained using the CNN-MPS ansatz. The spin structure factor Ss(q) reaches its maximum at (π, π ), resulting from N´ eel-type antiferromagnetic corre-lations. The plaquette structure factor Sp(q) shows pro-nounced peaks at ( π, 0) and (0 , π ), while no peak appears 40     
+
+> 2
+> qy
+> Ss(q)
+> L= 8 L= 16
+> 2
+> 4
+> 6
+> 0
+> 2
+> qy
+> Sd(q)
+> 0.5
+> 1.0
+> 02
+> qx
+> 0
+> 2
+> qy
+> Sp(q)
+> 02
+> qx
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+
+FIG. S2. Structure factors of the spin–spin, dimer–dimer, and plaquette–plaquette correlations for the J1 − J2 Heisenberg model on the L×L square lattice at J2/J 1 = 0 .5, obtained us-ing CNN-MPS. The dominant momenta occur at q = ( π, π ), (π, 0), and ( π, 0), as well as at the corresponding symmetry-related points, for the three structure factors, respectively. 
+
+at ( π, π ), indicating the absence of plaquette valence-bond (PVB) order. By contrast, the dimer structure factor Sd(q) exhibits clear maxima at ( π, 0), revealing columnar valence-bond correlations in the system. 
+
+[S1] X. Qian and M. Qin, Absence of spin liquid phase in the 
+
+J1 − J2 Heisenberg model on the square lattice, Phys. Rev. B 109 , L161103 (2024). [S2] W.-Y. Liu, S.-S. Gong, Y.-B. Li, D. Poilblanc, W.-Q. Chen, and Z.-C. Gu, Gapless quantum spin liquid and global phase diagram of the spin- 12 J1 − J2 square an-tiferromagnetic Heisenberg model, Sci. Bull. 67 , 1034 (2022). [S3] Y. Nomura and M. Imada, Dirac-type nodal spin liq-uid revealed by refined quantum many-body solver us-ing neural-network wave function, correlation ratio, and level spectroscopy, Phys. Rev. X 11 , 031034 (2021). [S4] L. Wang and A. W. Sandvik, Critical level crossings and gapless spin liquid in the square-lattice spin-1 /2
+
+J1 − J2 Heisenberg antiferromagnet, Phys. Rev. Lett. 
+
+121 , 107202 (2018). [S5] S. Morawetz, I. J. S. D. Vlugt, J. Carrasquilla, and R. G. Melko, U(1) symmetric recurrent neural networks for quantum state reconstruction, Phys. Rev. A 104 ,012401 (2021). [S6] S.-S. Gong, W. Zhu, D. N. Sheng, O. I. Motrunich, and M. P. A. Fisher, Plaquette ordered phase and quantum phase diagram in the spin- 12 J1−J2 square Heisenberg model, Phys. Rev. Lett. 113 , 027201 (2014). [S7] A. Vaswani, N. Shazeer, N. Parmar, J. Uszko-reit, L. Jones, A. N. Gomez, L. u. Kaiser, and I. Polosukhin, Attention is all you need, in Adv. Neural Inf. Process. Syst., Vol. 30 (2017) pp. 5998–6008. [S8] J. L. Ba, J. R. Kiros, and G. E. Hinton, Layer normal-ization (2016), arXiv:1607.06450 [stat.ML]. [S9] Y. Gu, W. Li, H. Lin, B. Zhan, R. Li, Y. Huang, D. He, Y. Wu, T. Xiang, M. Qin, L. Wang, and D. Lv, Solving the Hubbard model with neural quantum states (2025), arXiv:2507.02644 [cond-mat]. [S10] W. Marshall, Antiferromagnetism, Proc. R. Soc. A 232 ,48 (1955). [S11] K. Choo, T. Neupert, and G. Carleo, Two-dimensional frustrated J1−J2 model studied with neural network quantum states, Phys. Rev. B 100 , 125124 (2019).
