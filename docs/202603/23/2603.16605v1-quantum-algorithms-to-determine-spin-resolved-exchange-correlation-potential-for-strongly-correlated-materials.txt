@@ -1,0 +1,1468 @@
+Title: Quantum Algorithms to Determine Spin-Resolved Exchange-Correlation Potential for Strongly Correlated Materials
+
+URL Source: https://arxiv.org/pdf/2603.16605v1
+
+Published Time: Wed, 18 Mar 2026 01:22:55 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+## Quantum Algorithms to Determine Spin-Resolved Exchange-Correlation Potential for Strongly Correlated Materials 
+
+H. Arslan Hashim, 1, ∗ Volodymyr M. Turkowski, 1 and Eduardo R. Mucciolo 1, †
+
+> 1
+
+Department of Physics, University of Central Florida, Orlando, FL 32816, USA 
+
+(Dated: March 18, 2026) Accurate exchange-correlation (XC) potentials are essential for density functional theory, yet re-liable approximations remain challenging for strongly correlated systems. In this work, we present a quantum algorithmic framework to determine spin-resolved XC potentials using a variational quan-tum eigensolver. Using the Hubbard model as a prototypical strongly correlated lattice system, we prepare ground states in fixed spin sectors through a Hamiltonian variational ansatz combined with a continuation strategy that gradually increases the interaction strength. From the resulting many-body ground states, we extract the XC energy and compute the corresponding spin-resolved XC potentials via finite differences. The accuracy of the approach is benchmarked against exact diago-nalization for one- and two-dimensional Hubbard systems of various lattice sizes. We demonstrate that the variational ansatz reproduces the ground-state energies and densities with high fidelity, enabling accurate construction of both magnetic and non-magnetic XC potentials. We analyzed the dependence of the XC potentials on the interaction strength, charge, spin densities, and mag-netization. We also present an empirical complexity scaling relation for the computational cost of the method at a fixed fidelity. These results illustrate how quantum simulations can be used to construct spin-resolved XC functionals for correlated lattice models, providing a potential pathway for improving density functional approximations in strongly correlated materials. 
+
+I. INTRODUCTION 
+
+Density functional theory (DFT) is one of the most widely used theoretical frameworks for studying elec-tronic and structural properties of materials. By refor-mulating the many-body Schr¨ odinger equation in terms of the electron density, DFT reduces the interacting prob-lem to an effective single-particle system described by the Kohn-Sham equations [1, 2]. In this formulation, all many-body effects are contained in the exchange– correlation (XC) functional. While practical approxima-tions such as the local density approximation (LDA) [3] and generalized gradient approximation (GGA) [4] have achieved remarkable success for weakly correlated sys-tems, they often fail to accurately describe strongly cor-related materials such as transition -metal oxides and Mott insulators [5]. In these systems, localized electronic interactions and magnetic correlations play a central role and require more accurate XC potentials. Spin-dependent density functional theory (SDFT) ex-tends the formalism to systems with spin polarization [6], enabling the description of magnetic materials and par-tially spin-filled electronic structures. In this case, the XC functional depends explicitly on both spin densities, leading to spin-resolved XC potentials that determine the effective Kohn–Sham Hamiltonian. Constructing ac-curate spin-dependent XC potentials therefore remains an important challenge for strongly correlated systems. For lattice models such as the Hubbard model, these ideas form the basis of lattice density functional theory   
+
+> ∗Corresponding author, email: HafizArslan.Hashim@ucf.edu
+> †Corresponding author, email: Eduardo.Mucciolo@ucf.edu
+
+(LDFT), where the site occupations play the role of the density variables [7, 8]. Quantum computing offers a promising route to ad-dress this problem. Variational quantum algorithms such as the variational quantum eigensolver (VQE) [9] pro-vide a hybrid quantum–classical approach to compute ground states of interacting many-body Hamiltonians. In VQE, a parameterized quantum circuit prepares a trial state whose energy expectation value is minimized through a classical optimization loop. By employing physically motivated ans¨ atze that capture entanglement and correlation efficiently, VQE can represent strongly correlated states that are difficult to treat using classi-cal approaches [10]. These features make VQE particu-larly attractive for studying correlated lattice models and extracting many-body properties relevant to electronic structure. Several recent works have explored connections be-tween quantum computing and DFT. Early proposals demonstrated how the Hohenberg–Kohn framework can be implemented on quantum devices [11]. Subsequent developments introduced hybrid quantum–classical em-bedding schemes and quantum-assisted approaches to de-rive density functionals and Kohn–Sham potentials [12– 17]. More recently, Sheridan et al. proposed a hybrid quantum-enhanced density functional theory (QEDFT) framework that uses quantum simulations to improve XC functionals for correlated systems [18]. These works col-lectively establish the potential of combining quantum simulations with DFT concepts to improve descriptions of strongly correlated materials. In this work we develop a quantum algorithmic frame-work for determining spin-resolved XC potentials using VQE. We focus on the fermionic Hubbard model as a pro-totypical strongly correlated lattice system and employ 
+
+> arXiv:2603.16605v1 [cond-mat.str-el] 17 Mar 2026
+
+2a Hamiltonian variational ansatz (HVA) [19]. The Hub-bard model provides a minimal description of strongly correlated electrons and has long served as a bench-mark for testing XC approximations in lattice DFT and many-body methods. Ground states are prepared in fixed particle-number sectors ( N↑, N ↓) using a continu-ation strategy that gradually increases the interaction strength from the non-interacting limit. From the re-sulting ground states we compute the XC energy and extract spin-resolved XC potentials through finite differ-ences. The method is benchmarked against exact diago-nalization for one- and two-dimensional Hubbard systems of various lattice sizes. Within this range of lattice sizes, we obtain a scaling law for the computational cost of the method as a function of size for a fixed fidelity. The results are encouraging, in the sense that the compu-tational cost of our quantum algorithm scales favorably even for system sizes beyond those accessible via exact diagonalization. Our results demonstrate that variational quantum sim-ulations can accurately reproduce XC quantities for cor-related lattice models. This approach provides a route toward constructing improved spin-dependent XC func-tionals using quantum simulations, potentially extending density functional methods to regimes where classical ap-proaches become computationally prohibitive. The remainder of this paper is organized as follows. Section II briefly reviews the theoretical background of DFT and the VQE. In Sec. III we introduce the Hub-bard model and describe the quantum algorithm used to prepare ground states and extract the XC poten-tial. Section IV presents numerical results for both spin-unpolarized and spin-polarized systems and analyzes the resulting XC potentials. Finally, Sec. V summarizes the main conclusions and discusses possible future directions.   
+
+> II. BACKGROUND A. Spin-Polarized Lattice Density Functional Theory
+
+The LDFT provides a mapping between an interact-ing many-body problem on a discrete lattice and an aux-iliary non-interacting system that reproduces the same ground-state density [20, 21]. In the spin-generalized case (SDFT) [6], the fundamental variables are the spin-resolved site occupations niσ with σ ∈ {↑ , ↓} and i run-ning over lattice sites. For a lattice with L sites, the Hamiltonian is written as ˆH = ˆT + ˆHint + ˆHext , (1) where ˆT is the hopping (kinetic energy) operator, ˆHint 
+
+contains the interaction terms, and the spin-dependent external potential acts as ˆHext = X
+
+> i,σ
+
+vext  
+
+> iσ
+
+ˆniσ . (2) This potential allows spatial inhomogeneity and spin po-larization to be treated on equal footing. The lattice Hohenberg–Kohn theorem ensures a one-to-one mapping between {niσ } and the external potential {vext  
+
+> iσ
+
+} [22, 23], such that 
+
+niσ = ⟨ψGS |ˆniσ |ψGS ⟩. (3) The corresponding ground-state energy is expressed as 
+
+E[n↑, n ↓] = F [n↑, n ↓] + X
+
+> i,σ
+
+vext  
+
+> iσ
+
+niσ , (4) where the universal functional 
+
+F [n↑, n ↓] = ⟨ψGS | ˆT + ˆHint |ψGS ⟩ (5) contains all interaction and kinetic contributions and is independent of the external potential. Because F is not known explicitly, one introduces the Kohn–Sham (KS) system [2], which reproduces the in-teracting densities using a non-interacting Hamiltonian. The KS decomposition reads 
+
+E[n↑, n ↓] = ES[n↑, n ↓] + EH[n↑, n ↓] + EXC [n↑, n ↓]+ X
+
+> i,σ
+
+vext  
+
+> iσ
+
+niσ , (6) where ES corresponds to the kinetic energy of a non-interacting system that reproduces the interacting densi-ties, while EH represents the classical mean-field contri-bution of the electron–electron interaction. All remaining many-body effects beyond this mean-field description are contained in the XC functional EXC . Stationarity of the total energy functional with respect to variations in the density niσ yields the spin-dependent KS potential 
+
+V KS  
+
+> iσ
+
+= vext  
+
+> iσ
+
++ VH,iσ [ni↑, n i↓] + VXC ,iσ [ni↑, n i↓], (7) where 
+
+VXC ,iσ = ∂E XC [{ni↑, n i↓}]
+
+∂n iσ 
+
+(8) and 
+
+VH,iσ = ∂E H[{ni↑, n i↓}]
+
+∂n iσ 
+
+. (9) The associated KS Hamiltonian is ˆHKS = ˆT + X
+
+> i,σ
+
+V KS  
+
+> iσ
+
+ˆniσ , (10) with orbitals satisfying the eigenvector/eigenvalue equa-tion ˆHKS ϕjσ = εjσ ϕjσ . (11) The KS spin densities follow from 
+
+nKS  
+
+> iσ
+
+= X
+
+> j∈occ
+
+|ϕjσ (i)|2. (12) 3                               
+
+> Algorithm 1: Spin-Polarized LDFT Self-Consistency
+> 1: Specify external potentials vext
+> iσ
+> 2: Initialize densities n(0)
+> i↑, n (0)
+> i↓
+> 3: repeat
+> 4: Construct KS potentials VKS
+> iσ using Eq. (7)
+> 5: Solve ˆHKS ϕjσ =εjσ ϕjσ
+> 6: Recompute densities niσ =P
+> j∈occ |ϕjσ (i)|2
+> 7: Evaluate total energy (Eq. 13)
+> 8: Mix densities using n(j+1)
+> iσ =α n (j)
+> iσ + (1 −α)niσ
+> 9: until energy and densities are converged
+
+The total energy can also be written in terms of the occu-pied KS eigenvalues by subtracting the double-counting contributions from the Hartree and XC potentials 
+
+E[n↑, n ↓] = X
+
+> σ
+
+X
+
+> j∈occ
+
+εjσ − X
+
+> i,σ
+
+VXC ,iσ niσ 
+
+− EH[n↑, n ↓] + EXC [n↑, n ↓]. (13) Here εjσ are the occupied eigenvalues of the full spin-dependent KS lattice Hamiltonian. For the on-site Hub-bard interaction, 
+
+EH[n↑, n ↓] = X
+
+> i
+
+Ui ni↑ni↓,
+
+so that 
+
+X
+
+> i,σ
+
+VH,iσ niσ = 2 EH,
+
+which explains the Hartree double-counting correction appearing in Eq. (13). Self-consistency is achieved by iterating the KS cycle and mixing densities between iter-ations, 
+
+n(j+1)  
+
+> iσ
+
+= α n (j) 
+
+> iσ
+
++ (1 − α) nKS  
+
+> iσ
+
+, (14) until both density and energy converge. Here, α ∈ [0 , 1] is a density mixing parameter that controls the update of the density between successive iterations. A smaller value of α corresponds to stronger mixing with the pre-vious density and improves numerical stability when the self-consistent field (SCF) cycle tends to oscillate, while larger values accelerate convergence when the iteration is already close to the self-consistent solution. Finally, spin-dependent LDFT determines the ground-state spin densities ( ni↑, n i↓) by minimizing the total en-ergy functional. This yields spin-resolved KS equations in which all many-body effects are contained in the XC potentials. The resulting eigenvalue problem is solved self-consistently, and once convergence is achieved, all ground-state observables follow. The complete iterative procedure is summarized in Algorithm II A.  
+
+> B. Hamiltonian Variational Ansatz
+
+The Hamiltonian variational ansatz (HVA) [19] pro-vides a physically motivated alternative to generic hardware-efficient circuits by constructing variational unitaries directly from the structure of the problem Hamiltonian. Instead of relying on arbitrary parameter-ized gates, the HVA builds the ansatz using exponentials of Hamiltonian components, such as hopping and inter-action terms. This construction naturally reflects the lo-cality and symmetry properties of the underlying lattice model. The ansatz begins from a reference Fock state that initializes the quantum circuit in a fixed particle-number sector, 
+
+|Φ0⟩ =
+
+> Ne
+
+Y
+
+> i=1
+
+ˆc† 
+
+> pi
+
+|0⟩, (15) where pi denotes the occupied orbitals. This state corre-sponds to a single occupation configuration in Fock space and sets the number of particles in the system. The system Hamiltonian is decomposed into physically meaningful components, ˆH = X
+
+> γ
+
+ˆhγ , (16) where the operators ˆhγ correspond to different terms in the Hamiltonian, such as hopping and on-site interac-tions. Each term generates a variational rotation. Adepth-S HVA circuit is then constructed as a sequence of exponentials of these operators, ˆU (θ) = 
+
+> S
+
+Y
+
+> ℓ=1
+
+Y
+
+> γ
+
+exp  − i θ ℓ,γ ˆhγ
+
+, (17) where θ are trainable parameters. Acting on the refer-ence state, this unitary produces a correlated many-body wavefunction, 
+
+|Ψ( θ)⟩ = ˆU (θ)|Φ0⟩, (18) which serves as the variational trial state in the varia-tional quantum eigensolver (VQE) [9, 24]. The parame-ters θ are optimized by minimizing the expectation value of the Hamiltonian, 
+
+E(θ) = ⟨Ψ( θ)| ˆH|Ψ( θ)⟩. (19) The entanglement structure and trainability of HVA circuits have been analyzed in several studies, indicating that Hamiltonian-inspired ans¨ atze can exhibit improved optimization behavior compared to generic hardware-efficient circuits [25]. This makes HVA a natural choice for simulations of strongly correlated lattice systems. 4 
+
+> C. Fermion Encoding
+
+We use the Hubbard model as a prototypical exam-ple of a strongly correlated systems. The first step to simulate the system on a quantum device is to switch the Hamiltonian representation from raising and lower-ing operators to Pauli operators. A homogenous Hub-bard model is defined as ˆH = ˆHt + ˆHU , (20) where ˆHt = −t X
+
+> ⟨i,j ⟩,σ
+
+
+
+ˆc† 
+
+> iσ
+
+ˆcjσ + H.c. 
+
+
+
+(21) and ˆHU = U X
+
+> i
+
+ˆni↑ ˆni↓ (22) describe hopping and onsite terms, respectively. Here, ˆc† 
+
+> iσ
+
+and ˆ ciσ are fermionic raising and lowering operators on site i with spin σ, respectively, with the corresponding number operator defined as ˆ niσ = ˆ c† 
+
+> iσ
+
+ˆciσ .The fermionic operators must be rewritten in terms of Pauli operators X, Y , and Z. Several fermion–to–qubit mappings exist [26, 27], and in our variational algorithm we adopt the Jordan-Wigner (JW) transformation [28]. For the spinful model with L sites, each fermionic mode is assigned a qubit index q = π(i, σ ), where σ ∈ {↑ , ↓} and 
+
+π represents a map function. Each site corresponds to two qubits to account for spin up and spin down modes. Hence, the L-site system is mapped onto 2 L qubits. We employ two JW orderings, which differ only in the map 
+
+π and therefore lead to different Pauli-string structures in the mapped Hamiltonian. For a fermionic mode mapped to a qubit q = π(i, σ ), the JW transform is ˆcq = 12
+
+ Y 
+
+> k<q
+
+Zk
+
+
+
+(Xq − iY q ),
+
+ˆc† 
+
+> q
+
+= 12
+
+ Y 
+
+> k<q
+
+Zk
+
+
+
+(Xq + iY q ),
+
+and ˆ nq = ˆ c† 
+
+> q
+
+ˆcq = (1 − Zq )/2. With qi↑ = π(i, ↑) and 
+
+qi↓ = π(i, ↓), the on-site interaction turns out to be ˆni↑ ˆni↓ = 14
+
+ 1 − Zqi↑ − Zqi↓ + Zqi↑ Zqi↓
+
+, (23) hence ˆHU = U
+
+4
+
+X
+
+> i
+
+h
+
+1 − Zπ(i, ↑) − Zπ(i, ↓) + Zπ(i, ↑)Zπ(i, ↓)
+
+i
+
+. (24) For two modes p = π(i, σ ) and q = π(j, σ ), the Hermi-tian hopping is ˆc† 
+
+> p
+
+ˆcq + ˆ c† 
+
+> q
+
+ˆcp = 12
+
+ max( p,q )−1
+
+Y
+
+> k=min( p,q )+1
+
+Zk
+
+
+
+(XpXq + YpYq ). (25) (Adjacent mapped modes give the identity for the Z-string.) Therefore, the kinetic part reads ˆHt = −t
+
+2
+
+X
+
+> ⟨i,j ⟩,σ
+> πmax −1
+
+Y
+
+> k=πmin +1
+
+Zk
+
+!
+
+×Xπ(i,σ )Xπ(j,σ ) + Yπ(i,σ )Yπ(j,σ )
+
+, (26) where πmin = min[ π(i, σ ), π (j, σ )] and πmax =max[ π(i, σ ), π (j, σ )]. The two orderings employed in this work are the fol-lowing: 
+
+• Zig-zag ordering (site-major): 
+
+πzz (i, ↑) = 2 i, πzz (i, ↓) = 2 i + 1 .
+
+Each site’s spin-up and spin-down modes occupy consecutive qubits. The visual mapping is illus-trated in Fig. 1(a). The onsite interaction acts on neighboring qubits (there are no long-range Z’s). However, hopping terms generally acquire nontriv-ial Z-strings even in horizontal hopping because fixed-spin qubits are no longer adjacent. 
+
+• Box ordering (spin-major): 
+
+πbox (i, ↑) = i, πbox (i, ↓) = i + L. 
+
+All spin-up qubits come first, followed by all spin-down qubits. The visual representation of the map-ping is shown in Fig. 1(b). Nearest-neighbor hop-ping terms with fixed spin have no JW Z-strings in the horizontal hoppings since the corresponding qubits are adjacent. The onsite term acts on qubits separated by L positions and involve distant Z op-erators. Thus, box ordering simplifies hopping layers, while zig-zag ordering simplifies onsite layers. Both are used de-pending on which part of the variational ansatz domi-nates. Detailed examples of both ordering are discussed in Appendix A for small lattice sizes.  
+
+> III. METHOD
+
+Here we discuss step-by-step the process to compute the spin-resolved XC potentials. For the sake of concrete-ness we use the Hubbard model and HVA. The procedure is performed sector by sector, resolving particle number and spin polarization, which allows a direct construction of E(N↓,N ↑)XC and the corresponding V (N↓,N ↑)XC potentials. Here, N↓ and N↑ correspond to the number of spin down and number of spin up particles in the system, respec-tively. We begin with the construction of the variational ansatz and the adiabatic process to find the ground state on quantum computer. After that, we use this ground state and its energy to determine the XC energy and po-tential. The process is repeated for different value of N↓
+
+and N↑.5
+
+FIG. 1. Qubit mappings for a one-dimensional lattice under the JW transformation. The JW ordering is depicted by the black line. Each spin orbital needs two qubits, so L sites system are mapped onto 2 L qubits. (a) Zig-zag ordering of lattice sites, with connection between spin up and down on same site. (b) Box (block) ordering, grouping sites into local blocks to reduce long Pauli strings. 
+
+Varational Ansatz 
+
+Following the JW transformation introduced in Sec. II C, the Hubbard Hamiltonian is mapped onto qubit operators, enabling its implementation on a quantum de-vice. For a lattice with horizontal hopping hh, vertical hopping hv , and on-site interaction hU , we construct a problem-specific HVA. From Eqs. (25) and (23), 
+
+Uh/v (θh/v ) → e−iθ h/v (XX +Y Y )Z··· Z
+
+and 
+
+UU (θU ) → e−iθ U (−Zp−Zq −ZpZq ).
+
+The length of the Z string in the hopping gates de-pends on the ordering and the distance between the sites. Putting it all together, one obtains a quantum circuit equivalent to the operator ˆU (θ) = 
+
+> 1
+
+Y
+
+> b=S
+
+h
+
+UU (θ(b) 
+
+> U
+
+) Uh(θ(b) 
+
+> h
+
+) Uv (θ(b) 
+
+> v
+
+)
+
+i
+
+, (27) where Uα(θ) ≈ exp( −iθh α) for α ∈ { h, v, U }. The hop-ping operators contain sums of non-commuting fermionic terms and are therefore implemented using a Trotter– Suzuki decomposition. In contrast, the on-site interac-tion UU is diagonal in the occupation basis and can be ap-plied exactly. The horizontal and vertical hopping terms are partitioned into sets of commuting gates that can be executed in parallel, each controlled by a single varia-tional parameter θ. As these are two-qubit gates, the horizontal and vertical layers are divided into two layers, i.e., hh1, hh2, and hv1, h v2 and have two parameters each. This corresponds to an approximate evolution under the effective Hamiltonian 
+
+H(b) = θ(b) 
+
+> h1
+
+hh1 +θ(b) 
+
+> h2
+
+hh2 +θ(b) 
+
+> v1
+
+hv1 +θ(b) 
+
+> v2
+
+hv2 +θ(b) 
+
+> U
+
+hU . (28) The HVA is designed to respect the operator struc-ture of the Hubbard model while maintaining a compact, physically motivated parameterization. Any Trotteriza-tion error is absorbed into the variational parameters, as the ansatz is optimized for the expectation value of the Hamiltonian rather than to simulate real-time dynamics. 
+
+Adiabatically preparing the ground state 
+
+To generate ground states within a specific spin sector, the ansatz is initialized in a reference Fock state consis-tent with the desired particle number and spin polariza-tion, 
+
+|Ψ(N↓,N ↑)(0) ⟩ =
+
+
+
+> N↓
+
+Y
+
+> k=1
+
+ˆc† 
+
+> pk↓
+
+
+
+> N↑
+
+Y
+
+> l=1
+
+ˆc†
+
+> ql↑
+
+ |0⟩, (29) where pk and ql denote the occupied spin–orbitals for the spin-down and spin-up particles, respectively. To explore the full Hilbert space within this sector, a sequence of two-mode Givens rotation gates [29] is ap-plied. A Givens rotation acting on fermionic modes i
+
+and j is defined as 
+
+Ri,j (ϕ) = exp 
+
+h
+
+ϕ
+
+
+
+c† 
+
+> i
+
+cj − c† 
+
+> j
+
+ci
+
+i 
+
+. (30) After mapping the fermionic operators to qubits using the JW transformation, this rotation corresponds to an XX + YY interaction, 
+
+Ri,j (ϕ) = exp 
+
+
+
+− iϕ 
+
+2 (XiXj + YiYj )
+
+
+
+, (i̸ = j) (31) which can be implemented using standard two-qubit gates. The ground state of the non-interacting Hamil-tonian ( U = 0) is prepared first: 
+
+|Ψ(N↓,N ↑)(G) ⟩ = ˆUG(ϕ)|Ψ(N↓,N ↑)(0) ⟩, (32) where ˆUG(ϕ) represents layer(s) of Givens rotations gates as shaded gray circuit section shown in Fig. 2 and ϕ are a set of free parameters. Starting from the converged parameters ϕ for U = 0, we gradually increase U in small increments. At each step, the optimized parameters of the previous step serve as the initial guess for the next. Correlations induced by the Hubbard interactions are captured through the sequential application of hopping and onsite gates in the HV ansatz, yielding the variational state 
+
+|Ψ(N↓,N ↑)(θ)⟩ = ˆU (θ)|Ψ(N↓,N ↑)(G) ⟩, (33) where the unitary ˆU (θ) is represented in the quantum circuit as the shaded block in Fig. 2. We call this pro-cess sequential optimization. After evolving the state to the desired U , we also optimize the full parameter space including the free parameters of the Slater determinant; we refer to this as full optimization. For a detailed dis-cussion on the Givens rotation gates and the adiabatic state preparation, see Ref. [29]. 6
+
+FIG. 2. Quantum circuit layout for a 4-site Hubbard chain at half-filling, using a single variational layer. G: Givens rotations; O: onsite evolution gates; H: hopping evolution gates. The first four qubits encode the spin-up orbitals and the last four encode the spin-down orbitals, following the box-ordering convention. The onsite and hopping gates implement short-time evolutions under the corresponding onsite and ki-netic terms of the Fermi–Hubbard Hamiltonian, and the green block is stacked to form multiple layers. All onsite gates in a layer share the same time parameter, and for a 1 × Ly sys-tem, all parallel hopping operations also use a common time parameter. The layers of G gates (shaded gray) are used to prepare the non-interacting ground state first. Then we use the layer of onsite and hopping gates (shaded green) to evolve the state in U̸ = 0 regime. The full circuit is executed repeat-edly to estimate the energy. A similar quantum circuit layout has been used in Ref. [10] .
+
+Determining the spin-resolved XC potential 
+
+Once the ground state |ψ(N↓,N ↑)⟩ and its energy 
+
+E(N↓,N ↑) of desired interaction strength U are obtained, we compute the expectation values of the spin-resolved densities, 
+
+⟨niσ ⟩ = X
+
+> b
+
+Pb ni,σ (b),
+
+where |ψ(N↓,N ↑)⟩ = P
+
+> b
+
+√Pb|b⟩ and ni,σ (b) is the occu-pancy of spin-σ at site i in the Fock basis state b ∈ { 0, 1}.The Hartree energy is then 
+
+E(N↓,N ↑) 
+
+> H
+
+= U X
+
+> i
+
+⟨ni↑⟩⟨ ni↓⟩, (34) and the XC energy is obtained by using Eq. (6), 
+
+E(N↓,N ↑)XC = E(N↓,N ↑) − E(N↓,N ↑) 
+
+> S
+
+− E(N↓,N ↑) 
+
+> H
+
+. (35) Finally, the spin-resolved XC potentials are obtained via finite differences, 
+
+V (N↓,N ↑)XC ,↑ = E(N↓,N ↑+1) XC − E(N↓,N ↑)XC 
+
+V (N↓,N ↑)XC ,↓ = E(N↓+1 ,N ↑)XC − E(N↓,N ↑)XC .
+
+(36) This procedure yields the spin-resolved XC potentials re-quired for solving the spin-polarized Kohn–Sham equa-tions in SDFT. The steps are summarized in Algo-rithm III. Once the XC potentials are extracted from 
+
+Algorithm 2: Variational Quantum Approach to XC Potential and Energy  
+
+> 1:
+
+Map ˆH (Eq. 20) to a Pauli sum (JW/Parity/BK).  
+
+> 2:
+
+for (N↑, N ↓) do  
+
+> 3:
+
+Prepare the non-interacting ground state in the (N↑, N ↓) sector using Eq. (32)  
+
+> 4:
+
+Initialize warm-start parameters θprev  
+
+> 5:
+
+for U = Umin to Umax step ∆U do  
+
+> 6:
+
+Run warm-start VQE (Eq. 33) and obtain 
+
+{ψU , E (U )} 
+
+> 7:
+
+Update parameters θprev ← θU 
+
+> 8:
+
+end for  
+
+> 9:
+
+For each stored U evaluate EXC using Eqs. (34) and (35)  
+
+> 10:
+
+end for  
+
+> 11:
+
+Perform simultaneous re-optimization of the evolution and Slater determinant parameters  
+
+> 12:
+
+Obtain VXC ,σ using Eq. (36) and interpolate to obtain a smooth function 
+
+the quantum simulation, they can be inserted directly into the self-consistent SDFT loop. In particular, the computed potential enters the construction of the Kohn–Sham potential V KS  
+
+> iσ
+
+in Algorithm II A, enabling a fully quantum-informed update of the effective single-particle Hamiltonian. 
+
+A. Restriction to Fixed Spin Sectors 
+
+The variational simulations are performed in sectors with fixed particle numbers ( N↑, N ↓). In the approach used in this work, the quantum circuit is initialized in a Slater determinant corresponding to the desired spin con-figuration. Because both the hopping and onsite interac-tion terms of the Hubbard Hamiltonian conserve particle number and spin, the HV ansatz preserves the initial-ized sector throughout the variational evolution. Conse-quently, the VQE optimization remains restricted to the Hilbert space associated with the chosen ( N↑, N ↓) sector. An alternative strategy is to explicitly project the Hamiltonian onto a fixed particle-number sector before mapping it to qubits, which can significantly reduce the Hilbert space dimension. Such projection techniques have been explored in Ref. [30]. However, although this approach reduces the number of qubits required, the resulting Hamiltonian typically contains a much larger number of Pauli terms, which increases circuit depth and measurement cost. Because the HV ansatz naturally preserves particle-number and spin symmetries, we adopt the first approach in this work. For completeness, the projection-based re-duction method and its implications for the Hubbard model are discussed in Appendix B. 7
+
+IV. RESULTS 
+
+We benchmark the performance of the HV ansatz for the Hubbard model by preparing ground states in fixed particle-number sectors ( N↑, N ↓) using the continuation strategy outlined in Algorithm III. The resulting ground-state energies are used to reconstruct XC quantities within the LDFT framework. All calculations reported here are performed using noiseless statevector simula-tions, and the variational parameters are optimized using the L-BFGS-B algorithm. The accuracy of the varia-tional states and derived XC quantities is validated by comparison with exact diagonalization results. 
+
+A. Variational ground-state preparation 
+
+We first examine the ability of the Hamiltonian vari-ational ansatz to accurately prepare ground states of the Hubbard model in fixed spin sectors. The Hubbard Hamiltonian is mapped to qubits using the JW trans-formation with the box-ordering convention described in Sec. II C. In this mapping, the first L qubits correspond to spin-up orbitals and the remaining L qubits corre-spond to spin-down orbitals. The quantum circuit is initialized in a Slater determi-nant corresponding to the desired spin sector ( N↑, N ↓). The non-interacting ground state ( U = 0) is prepared using layers of Givens rotations, which are optimized to minimize the energy expectation value. Interaction ef-fects are incorporated by attaching S layers of the Hamil-tonian variational ansatz composed of hopping and onsite evolution gates, as illustrated in Fig. 2. Each evolution layer contains three variational parameters corresponding to horizontal hopping, vertical hopping, and onsite inter-action terms. An exception is the 2 × 3 lattice, where separate parameters are introduced for different vertical hoppings to increase variational flexibility. The interacting ground states are obtained using a con-tinuation procedure in which the interaction strength is gradually increased from U = 0 to the target value. At each step the optimized parameters from the previous value of U are used as the initial guess for the next op-timization. This strategy significantly improves conver-gence compared to direct optimization at the final inter-action strength [19]. Table I summarizes the convergence of the variational ground states as a function of the number of evolu-tion layers S for several lattice geometries at interac-tion strength U = 4. Representative results are shown at half filling, ( N↑, N ↓) = ( L/ 2, L/ 2) for even L and (( L − 1) /2, (L − 1) /2) for odd L. The accuracy of the variational state is quantified using the relative energy error percentage 100 × |Eexact − EVQE ||Eexact |
+
+TABLE I. Convergence with the number of evolution layers 
+
+S at U = 4, using a continuation step ∆ U = 0 .5, in the half-filled sector ( N↑, N ↓). We report the relative energy error percentage % err s/f = 100 × | Eexact − EVQE ,s/f |/|Eexact | and the fidelity Fs/f = |⟨ ψexact |ψVQE ,s/f ⟩| 2. The subscripts “s” and “f” denote continuation-only optimization and full opti-mization, respectively; the latter includes a re-optimization of all parameters, including the Slater-determinant (Givens rotation) parameters used to prepare the non-interacting ref-erence state. For all lattices considered here, each evolution layer contains three variational parameters, except for the 2 × 3∗ lattice. For the 2 × 3∗ lattice we employ five parame-ters per evolution layer.                                                                                                                                                                             
+
+> S% err sFs% err fFf% err sFs% err fFf
+> 1×42×222.90 0.9601 2.89 0.9656 15.7 0.7299 14.7 0.7514 31.79 0.9767 0.96 0.9947 10.6 0.8213 1.08 0.9855 40.00 1.0000 0.00 1.0000 0.00 0.9999 0.00 1.0000 1×62×3∗
+> 34.78 0.9235 3.37 0.9312 47.5 0.6253 16.8 0.595 50.75 0.9914 0.60 0.9919 2.40 0.9809 2.40 0.9809 70.48 0.9949 0.48 0.9949 0.83 0.9947 0.83 0.9947 1×71×851.84 0.9577 1.70 0.9621 1.76 0.9581 0.85 0.9773 70.83 0.9735 0.54 0.9842 1.68 0.9722 1.12 0.9684 90.44 0.9850 0.34 0.9916 0.86 0.9840 0.21 0.9965 11 0.27 0.9928 0.18 0.9963 0.04 0.9995 0.04 0.9995 1×91×10 53.80 0.9160 3.13 0.9285 2.85 0.9309 1.65 0.9334 61.85 0.9453 1.24 0.9563 2.67 0.9318 1.68 0.9312 70.99 0.9584 0.80 0.9718 1.45 0.9533 0.87 0.9603 80.81 0.9660 0.62 0.9758 1.23 0.9677 0.67 0.9704 90.80 0.9665 0.63 0.9748 2.22 0.9207 1.67 0.9218 11 0.49 0.9772 0.38 0.9833 1.23 0.9630 0.75 0.9655 13 0.20 0.9896 0.16 0.9926 1.14 0.9675 0.94 0.9694 15 0.20 0.9895 0.16 0.9926 0.06 0.9991 0.05 0.9991
+
+and the wavefunction fidelity 
+
+F = |⟨ ψexact |ψVQE ⟩| 2.
+
+Two optimization protocols are compared. In the first approach only the parameters of the evolution layers are propagated along the continuation path. In the second approach all variational parameters, including those as-sociated with the Slater preparation, are re-optimized after the continuation procedure. While the full re-optimization consistently improves the ground-state en-ergy, the fidelity does not always increase. This occurs because the VQE objective function minimizes the energy rather than the overlap with the exact ground state, al-lowing the optimizer to move toward states with slightly lower energy but reduced overlap. Figure 3 illustrates the convergence behavior for the 
+
+L = 8 Hubbard chain at half filling. Both the relative en-83 6 9 12           
+
+> S
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> Rel. error
+> 36912
+> S
+> 10 3
+> 10 2
+> 10 1
+> Infidelity 1
+
+FIG. 3. Convergence of the VQE solution as a function of the number of evolution layers S for the L = 8 Hubbard model at half filling ( N↑, N ↓) = (4 , 4). Left: relative error in the ground-state energy. Right: state infidelity 1 −F between the VQE state and the exact ground state. Solid lines are guides to the eye only. Results are shown for interaction strengths 
+
+U = 1 , 2, 3, and 4 going from bottom to top. The curves are the average of 4 random initial starting points. 4 5 6 7 8 9 10  
+
+> Lattice size L
+> 4
+> 8
+> 12
+> 16
+> Smin (F 0.99)
+> Easiest
+> Hardest
+
+FIG. 4. Minimum number of evolution layers Smin required to reach fidelity F ≥ 0.99 at U = 4 as a function of lattice size L. Two representative cases are shown: the easiest sector (blue) and the hardest sector (orange) for each lattice size. 
+
+ergy error and the state infidelity decrease systematically as the number of evolution layers increases. The con-vergence becomes slower for larger interaction strengths, reflecting the stronger correlations present in the system. The circuit depth required to achieve a given fidelity also depends on the size of the Hilbert space of the cor-responding spin sector, dim HN↑,N ↓ =
+
+ LN↑
+
+ LN↓
+
+
+
+.
+
+Sectors with small particle numbers have relatively small Hilbert spaces and are therefore easier to prepare. In con-trast, sectors near the center of the ( N↑, N ↓) grid require deeper circuits. This behavior is summarized in Fig. 4, which shows the minimum number of evolution layers required to reach fidelity F ≥ 0.99 for several lattice sizes. For the one-dimensional case, the required circuit depth grows mod-erately with system size and scales approximately linearly with the lattice size, 
+
+Smin ≈ c L, 
+
+with c ranging from 1 to 1.5, to achieve the fidelity ≥ 0.99 at U = 4. This scaling remains mild compared with the exponential growth of the Hilbert space dimension, indi-cating that the Hamiltonian variational ansatz provides an efficient representation of correlated ground states for the Hubbard model, at least for the system sizes analyzed in this study. 
+
+Circuit depth and gate-count scaling. 
+
+The variational circuit consists of two components: (i) a Slater determinant preparation circuit that constructs the non-interacting ground state at U = 0, and (ii) S
+
+HV ansatz evolution layers that generate the interacting state. The non-interacting state is a fermionic Gaussian state and can be prepared efficiently using Givens rota-tions [31, 32], while the interacting part is generated by the HV ansatz circuit [19]. All circuits were transpiled to the gate set {u, cx }.
+
+Slater determinant preparation. For a lattice with L
+
+sites (2 L qubits in the spinful encoding), each Slater layer contains approximately 2 L Givens rotations. After com-pilation each Givens rotation ( G) decomposes into four CNOT gates, giving approximately 8 L CNOT gates per Slater layer, 
+
+N Slater CX ≈ 8L S Slater .
+
+The number of Slater layers SSlater depends on the parti-cle sector and increases approximately linearly with sys-tem size, with the largest values occurring near half fill-ing. Consequently the worst-case initialization cost scales as N Slater CX ∼ O(L2), while the two-qubit depth scales lin-early with system size, 
+
+DSlater 2Q ∼ O(L).
+
+HVA evolution layers. The cost of the interacting HV ansatz is controlled by the number of evolution layers S.A hopping gate H decomposes into four CNOT gates and an onsite interaction gate O into two CNOT gates. Counting the number of hopping bonds and onsite inter-actions in each layer leads to the compiled scaling 
+
+N HVA CX ≈ (6 L − 4) S, DHVA 2Q ≈ 6S, 
+
+with compiled total circuit depth 
+
+DHVA tot ≈ 30 S. 
+
+Total circuit complexity. Combining both contribu-tions yields the total two-qubit gate count 
+
+N total CX ≈ 8L S Slater + (6 L − 4) S, 
+
+and two-qubit depth 
+
+Dtotal 2Q ≈ DSlater 2Q + 6 S. 9
+
+Example. To illustrate the circuit cost we consider the largest system simulated here, a half-filled chain with 
+
+L = 10. In the most demanding sectors we observe the empirical scaling Smin ≈ 1.5L, giving Smin = 15 for fi-delity ≥ 0.99 at U = 4. The HVA circuit then requires 
+
+N HVA CX = 840 , DHVA 2Q = 90 , DHVA tot ≈ 450 .
+
+Including the Slater preparation circuit (480 CNOT gates and two-qubit depth 48) yields a total circuit cost 
+
+N total CX ≈ 1320 , Dtotal 2Q ≈ 138 , Dtotal tot ≈ 595 .
+
+Extrapolating the observed scaling to a one-dimensional system with L = 25 sites (half filling at 
+
+U = 4) gives Smin ≈ 38 evolution layers, correspond-ing to roughly 5 .5 × 10 3 CNOT gates for the HVA block and about 8 × 10 3 CNOT gates for the full circuit includ-ing the initialization step. These results indicate that the circuit depth is primarily controlled by the number of variational layers, while the total two-qubit gate count grows approximately linearly with system size for fixed 
+
+S. Additional compiled circuit statistics are provided in Appendix C.  
+
+> B. Reconstruction of the XC functional
+
+Once accurate ground states are obtained, the corre-sponding ground-state energies are used to construct the XC energy and the spin-resolved XC potential within LDFT. The XC energy is determined by subtracting the non-interacting kinetic energy and the Hartree contri-bution from the interacting ground-state energy using Eqs. (34) and (35). The spin-resolved XC potentials are then obtained from finite differences of the XC energy according to Eq. (36). Figure 5 shows the dependence of the XC function-als on electron density for several interaction strengths in a system with L = 9 sites. Panels (a) and (b) dis-play the XC energy density εXC = EXC /L and the cor-responding XC potential density along the non-magnetic line n↑ = n↓. Panels (c) and (d) show the spin-resolved dependence obtained by fixing n↓ and varying n↑. The markers correspond to values obtained from VQE ground states, while the solid curves represent exact diagonal-ization results. Across the full density range the VQE results closely follow the exact curves, indicating that the variational ground states are sufficiently accurate to reconstruct the XC functional. The dependence of the XC quantities on lattice size is shown in Fig. 6 for interaction strength U = 4. Panels (a) and (b) show the XC energy density and the cor-responding XC potential along the non-magnetic line, while panels (c) and (d) show the spin-resolved depen-dence on n↑. Calculations were performed only for the independent spin sectors, and the remaining sectors are reconstructed using particle–hole and spin-flip symmetry of the Hubbard Hamiltonian. The agreement between the VQE data and the exact curves remains excellent for all lattice sizes considered. The two-dimensional structure of the XC functionals is illustrated in Fig. 7, which shows the XC energy sur-face EXC (n↑, n ↓) together with the corresponding spin-dependent XC potential. The VQE ground-state energies obtained for each spin sector are used to reconstruct the full density domain, and a spline interpolation is applied to obtain a smooth functional representation. The con-tour plot is generated from a relatively sparse set of cal-culated ( N↑, N ↓) points. Consequently, the interpolated surface used for visualization may exhibit some sensitiv-ity to the choice of interpolation parameters. Finally, Fig. 9 presents the XC quantities for two-dimensional lattice geometries. The qualitative behavior is similar to the one-dimensional case: increasing inter-action strength enhances correlation effects, making the XC energy smaller and producing stronger variations in the XC potential. The VQE results again show excellent agreement with exact diagonalization. Overall, these results demonstrate that variational quantum simulations can accurately reproduce XC func-tionals for correlated lattice models. Because the ap-proach relies only on ground-state preparation, it pro-vides a potential route for constructing improved spin-dependent XC functionals for strongly correlated systems using quantum simulations.  
+
+> C. Spin dependence of the XC potential
+
+The spin dependence of the XC functional can be ana-lyzed more directly by examining the difference between the spin components of the XC potential, ∆vXC = v↑ 
+
+> XC
+
+− v↓
+
+> XC
+
+.
+
+This quantity measures the effective XC splitting be-tween spin channels and provides insight into magnetic correlation effects in the system. Figure 8 shows ∆ vXC as a function of the magnetiza-tion m = n↑ − n↓ for a lattice with L = 8 sites. For the non-magnetic case ( m = 0) the two spin channels are equivalent and the XC potentials are identical, resulting in ∆ vXC = 0. As the magnetization increases, the two spin potentials progressively separate and the magnitude of ∆ vxc increases. This behavior reflects the growing importance of spin-dependent correlation effects in the Hubbard model. The XC potential must account for the different correlation environments experienced by spin-up and spin-down elec-trons as the system becomes polarized. The smooth de-pendence of ∆ vXC on magnetization also demonstrates that the reconstructed XC functional captures the con-tinuous evolution between non-magnetic and magnetic regimes. These results illustrate that the variational quantum simulations provide access not only to total en-ergies but also to spin-resolved correlation effects encoded in the XC potential. 10 0.0 0.5 1.0 1.5 2.0                                         
+
+> n(n=n)
+> 0.25
+> 0.20
+> 0.15
+> 0.10
+> 0.05
+> 0.00
+> xc
+> (a)
+> 0.0 0.5 1.0 1.5 2.0
+> n(n=n)
+> 0.4
+> 0.2
+> 0.0
+> 0.2
+> 0.4
+> vxc
+> (b)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> n
+> 0.25
+> 0.20
+> 0.15
+> 0.10
+> 0.05
+> 0.00
+> xc
+> (c)
+> 0.0 0.2 0.4 0.6 0.8 1.0
+> n
+> 0.5
+> 0.0
+> 0.5
+> vxc
+> (d)
+> U=1 U=2 U=3 U=4
+> FIG. 5. XC functionals as a function of density for different interaction strengths of L= 9. (a) XC energy per site
+> εXC =EXC (n)/L and (b) corresponding XC potential density vXC (n) = VXC (n)/L for the spin-balanced case. (c) (d) The same as in Figs. (a) and (b) for fixed n↓= 4 /L . Data symbols denote values obtained from VQE ground-state energies, while solid curves correspond to exact results. The ansatz shows monotonic convergence in fidelity as the number of layers increases. The circuit depth increased layer-by-layer, and the smallest depth achieving F ≥ 0.99 was used for each spin sector.
+> V. CONCLUSION
+
+We have presented a quantum algorithmic framework for determining spin-resolved XC potentials with the VQE. Using the Hubbard model as a representative strongly correlated lattice system, we prepared ground states in fixed particle-number sectors through a HV ansatz combined with a continuation strategy that grad-ually increases the interaction strength. The resulting variational states reproduce the exact ground-state energies with high fidelity across multiple lattice sizes and spin sectors. From these states we con-structed XC energies and extracted spin-resolved XC po-tentials as functionals of Columb interaction, spin densi-ties, and magnetization. The reconstructed XC quanti-ties show excellent agreement with exact diagonalization results, demonstrating that variational quantum simula-tions can accurately capture the many-body correlations required for density functional descriptions. We analyzed the circuit resources required to prepare the Hubbard ground states used to extract the XC quan-tities. The variational circuit consists of a Slater deter-minant preparation block followed by S HVA evolution layers. From compiled circuits we find that each HVA layer contributes approximately (6 L − 4) CNOT gates and has two-qubit depth 6, giving N HVA CX ≈ (6 L−4) S and 
+
+DHVA 2Q ≈ 6S. The non-interacting reference state is pre-pared using Givens rotations, resulting in an additional initialization cost N Slater CX ≈ 8L, S Slater , with two-qubit depth growing approximately linearly with system size. Across the lattice sizes studied here the number of Slater layers remains modest and increases roughly lin-early with L, giving a worst-case initialization cost 
+
+N Slater CX ∼ O(L2). Combining both contributions yields 
+
+N total CX ≈ 8LS Slater + (6 L − 4) S. 
+
+In the most demanding sectors we observe the empirical scaling Smin ∼ 1.5L for achieving fidelities above 0 .99 at 
+
+U = 4, so that the overall circuit cost grows approxi-mately quadratically with system size while the circuit depth remains controlled by the number of variational layers. These results indicate that the required circuit resources remain mangeable supporting the feasibility of variational quantum simulations for generating XC data in correlated lattice models. Beyond benchmarking the variational ansatz, our re-sults illustrate how quantum simulations can be used to generate XC functionals for correlated lattice mod-11 0.0 0.5 1.0 1.5 2.0 
+
+n (n = n )
+
+0.3 
+
+0.2 
+
+0.1 
+
+0.0 
+
+> xc
+
+(a) 
+
+> L=4
+> L=6
+> L=8
+> L=10
+
+0.0 0.5 1.0 1.5 2.0 
+
+n (n = n )
+
+0.2 
+
+0.1 
+
+0.0 
+
+0.1 
+
+0.2 
+
+> vxc
+
+(b) 
+
+> L=4
+> L=6
+> L=8
+> L=10
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+n
+
+0.3 
+
+0.2 
+
+0.1 
+
+0.0 
+
+> xc
+
+(c) 
+
+> L=4
+> L=6
+> L=8
+> L=10
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+n
+
+0.2 
+
+0.1 
+
+0.0 
+
+0.1 
+
+0.2 
+
+> vxc
+
+(d) 
+
+> L=4
+> L=6
+> L=8
+> L=10
+
+FIG. 6. XC functionals as a function of density for different lattice sizes at interaction strength U = 4. (a) XC energy density 
+
+εXC = EXC /L along the non-magnetic line n↑ = n↓. (b) Corresponding XC potential vXC . (c) Spin-resolved XC energy as a function of n↑. (d) Spin-resolved XC potential v↑
+
+> XC
+
+. Symbols denote values obtained from VQE ground-state energies, while solid curves correspond to exact diagonalization. The calculations are performed at half filling with ( N↑, N ↓) = ( L/ 2, L/ 2) for even L. For each lattice size the minimum number of evolution layers required to reach fidelity > 0.99 in each spin sector is used. 0 2 4 6 8
+
+n
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> n
+> xc
+
+(n , n )    
+
+> 02468
+
+n
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> n
+
+vxc = xc / n
+
+> 0.24
+> 0.21
+> 0.18
+> 0.15
+> 0.12
+> 0.09
+> 0.06
+> 0.03
+> 0.00
+> xc
+> 0.072
+> 0.054
+> 0.036
+> 0.018
+> 0.000
+> 0.018
+> 0.036
+> 0.054
+> 0.072
+> vxc
+
+FIG. 7. Two-dimensional structure of the XC functional for the Hubbard model with L = 8 at U = 4. Left: XC energy density εXC (n↑, n ↓). Right: spin-resolved XC potential density v↑ 
+
+> XC
+
+= ∂ε XC /∂n ↑. Ground-state energies are obtained from VQE calculations in each unique spin sector. Particle–hole and spin-flip symmetries are used to reconstruct the full density domain. Spline interpolation is applied to obtain a smooth representation of the functional. 12 0.75 0.50 0.25 0.00 0.25 0.50 0.75    
+
+> m= ( NN)/ L
+> 0.10
+> 0.05
+> 0.00
+> 0.05
+> 0.10
+> Vxc  = Vxc  Vxc
+> Total fillng
+> 5
+> 6
+> 7
+> 8
+
+FIG. 8. Spin splitting of the XC potential ∆ vXC = v↑ 
+
+> XC
+
+− v↓
+
+> XC
+
+as a function of magnetization m = n↑ − n↓ for lattice size 
+
+L = 8. Each curve corresponds to a fixed total filling N =
+
+N↑ + N↓. The splitting vanishes in the non-magnetic sector and increases with the magnetization increase. 
+
+els. Such quantum-derived XC potentials may provide valuable input for density functional approaches applied to strongly correlated materials. As we demonstrated, the combination of variational quantum algorithms with density functional concepts of-fers a promising direction for improving electronic struc-ture methods in strongly correlated regimes. Future work will explore the extension of this framework to larger systems and to realistic quantum hardware, where noise mitigation and measurement optimization will become important considerations. 
+
+VI. ACKNOWLEDGMENTS 
+
+This work was supported in part by an internal seed grant from the UCF Office of Research. 13 0.0 0.5 1.0 1.5 2.0 
+
+n (n = n )
+
+2.0 
+
+1.5 
+
+1.0 
+
+0.5 
+
+0.0 
+
+> xc
+
+(a) 
+
+> L=2x2
+> L=2x3
+
+0.0 0.5 1.0 1.5 2.0 
+
+n (n = n )
+
+1.0 
+
+0.5 
+
+0.0 
+
+0.5 
+
+1.0 
+
+> vxc
+
+(b) 
+
+> L=2x2
+> L=2x3
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+n
+
+2.0 
+
+1.5 
+
+1.0 
+
+0.5 
+
+0.0 
+
+> xc
+
+(c) 
+
+> L=2x2
+> L=2x3
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+n
+
+1.0 
+
+0.5 
+
+0.0 
+
+0.5 
+
+1.0 
+
+> vxc
+
+(d) 
+
+> L=2x2
+> L=2x3
+
+FIG. 9. XC functionals obtained for the two chain Hubbard model at U = 4. XC densities (a) εXC (b) vXC . Spin-resolved XC densities (c) εXC (d) vXC . Symbols denote values obtained from VQE calculations and solid curves correspond to exact diagonalization. 14 
+
+[1] P. Hohenberg, Inhomogeneous Electron Gas, Physical Review 136 , B864 (1964). [2] W. Kohn, Self-Consistent Equations Including Exchange and Correlation Effects, Physical Review 140 , A1133 (1965). [3] J. P. Perdew, Self-interaction correction to density-functional approximations for many-electron systems, Physical Review B 23 , 5048 (1981). [4] J. P. Perdew, Generalized Gradient Approximation Made Simple, Physical Review Letters 77 , 3865 (1996). [5] V. I. Anisimov, Band theory and Mott insulators: Hub-bard U instead of Stoner I , Physical Review B 44 , 943 (1991). [6] U. V. Barth and L. Hedin, A local exchange-correlation potential for the spin polarized case. i, Journal of Physics C: Solid State Physics 5, 1629 (1972). [7] N. A. Lima, Density Functionals Not Based on the Electron Gas: Local-Density Approximation for a Lut-tinger Liquid, Physical Review Letters 90 , 10.1103/Phys-RevLett.90.146402 (2003). [8] K. Capelle and V. L. Campo, Density-functional theory for lattice models, Physics Reports 528 , 91 (2013). [9] A. Peruzzo, J. McClean, P. Shadbolt, M.-H. Yung, X.-Q. Zhou, P. J. Love, A. Aspuru-Guzik, and J. L. O’Brien, A variational eigenvalue solver on a photonic quantum processor, Nature Communications 5, 4213 (2014). [10] S. Stanisic, J. L. Bosse, F. M. Gambetta, R. A. Santos, W. Mruczkiewicz, T. E. O’Brien, E. Ostby, and A. Mon-tanaro, Observing ground-state properties of the Fermi-Hubbard model using a scalable algorithm on a quantum computer, Nature Communications 13 , 5743 (2022). [11] F. Gaitan, Density functional theory and quantum computation, Physical Review B 79 , 10.1103/Phys-RevB.79.205117 (2009). [12] B. Bauer, Hybrid Quantum-Classical Approach to Cor-related Materials, Physical Review X 6, 10.1103/Phys-RevX.6.031045 (2016). [13] T. E. Baker, Density functionals and Kohn-Sham po-tentials with minimal wavefunction preparations on a quantum computer, Physical Review Research 2,10.1103/PhysRevResearch.2.043238 (2020). [14] M. Rossmannek, P. K. Barkoutsos, P. J. Ollitrault, and I. Tavernelli, Quantum HF/DFT-embedding algorithms for electronic structure calculations: Scaling up to com-plex molecular systems, The Journal of Chemical Physics 
+
+154 , 114105 (2021). [15] C. D. Pemmaraju, Levy-Lieb embedding of density-functional theory and its quantum kernel: Illustration for the Hubbard dimer using near-term quantum algorithms, Physical Review A 106 , 10.1103/PhysRevA.106.042807 (2022). [16] B. Senjean, S. Yalouz, and M. Sauban` ere, Toward den-sity functional theory on quantum computers?, SciPost Physics 14 , 055 (2023). [17] T. Ko, X. Li, and C. Wang, Implementation of the Density-functional Theory on Quantum Computers with Linear Scaling with respect to the Number of Atoms (2023), arXiv:2307.07067 [quant-ph]. [18] E. Sheridan, L. Mineh, R. A. Santos, and T. Cubitt, En-hancing density functional theory using the variational quantum eigensolver (2024), arXiv:2402.18534 [quant-ph]. [19] D. Wecker, Progress towards practical quantum varia-tional algorithms, Physical Review A 92 , 10.1103/Phys-RevA.92.042303 (2015). [20] O. Gunnarsson and K. Sch¨ onhammer, Density-Functional Treatment of an Exactly Solvable Semi-conductor Model, Physical Review Letters 56 , 1968 (1986). [21] K. Schonhammer and O. Gunnarsson, Discontinuity of the exchange-correlation potential in density functional theory, Journal of Physics C: Solid State Physics 20 , 3675 (1987). [22] J. P. Coe, I. D’Amico, and V. V. Fran¸ ca, Uniqueness of density-to-potential mapping for fermionic lattice sys-tems, Europhysics Letters 110 , 63001 (2015). [23] S. H. Vosko, L. Wilk, and M. Nusair, Accurate spin-dependent electron liquid correlation energies for local spin density calculations: A critical analysis, Canadian Journal of Physics 58 , 1200 (1980). [24] J. R. McClean, J. Romero, R. Babbush, and A. Aspuru-Guzik, The theory of variational hybrid quantum-classical algorithms, New Journal of Physics 18 , 023023 (2016). [25] R. Wiersema, Exploring Entanglement and Optimization within the Hamiltonian Variational Ansatz, PRX Quan-tum 1, 10.1103/PRXQuantum.1.020319 (2020). [26] S. B. Bravyi and A. Y. Kitaev, Fermionic Quantum Com-putation, Annals of Physics 298 , 210 (2002). [27] J. T. Seeley, M. J. Richard, and P. J. Love, The Bravyi-Kitaev transformation for quantum computation of elec-tronic structure, The Journal of Chemical Physics 137 ,224109 (2012). [28] P. Jordan and E. Wigner, ¨Uber das paulische ¨aquivalenzverbot, Zeitschrift f¨ ur Physik 47 , 631 (1928). [29] D. Wecker, M. B. Hastings, N. Wiebe, B. K. Clark, C. Nayak, and M. Troyer, Solving strongly correlated electron models on a quantum computer, Physical Re-view A 92 , 062318 (2015). [30] N. Moll, A. Fuhrer, P. Staar, and I. Tavernelli, Optimiz-ing qubit resources for quantum chemistry simulations in second quantization on a quantum computer, Journal of Physics A: Mathematical and Theoretical 49 , 295301 (2016). [31] I. D. Kivlichan, J. R. McClean, N. Wiebe, et al. , Quan-tum simulation of electronic structure with linear depth and connectivity, Physical Review Letters 120 , 110501 (2018). [32] F. Arute et al. , Observation of separated dynamics of charge and spin in the fermi–hubbard model, Science 
+
+369 , 1084 (2020). 
+
+Appendix A: Jordan–Wigner Mapping for Small Hubbard Chains 
+
+The explicit Pauli representations presented here illus-trate how different Jordan–Wigner orderings modify the structure of the resulting Hamiltonian while preserving its physical content. The Jordan–Wigner transformation maps fermionic 15 operators to qubit operators according to 
+
+cq = 12
+
+ Y 
+
+> k<q
+
+Zk
+
+
+
+(Xq −iY q ), c† 
+
+> q
+
+= 12
+
+ Y 
+
+> k<q
+
+Zk
+
+
+
+(Xq +iY q ),
+
+(A1) with the number operator 
+
+nq = 1 − Zq
+
+2 . (A2) A Hermitian hopping operator between modes p and q
+
+with p < q maps to 
+
+c†
+
+> p
+
+cq + c† 
+
+> q
+
+cp = 12
+
+ q−1Y
+
+> k=p+1
+
+Zk
+
+
+
+(XpXq + YpYq ). (A3) For the spinful Hubbard model the fermionic mode index is written as q = π(i, σ ), where σ ∈ {↑ , ↓} . We consider two different qubit orderings. 
+
+1. Qubit Orderings 
+
+• Zig-zag ordering (site-major ordering) Spin-up and spin-down orbitals of the same site are placed on adjacent qubits, 
+
+πzz (i, ↑) = 2 i, πzz (i, ↓) = 2 i + 1 .
+
+• Box ordering (spin-major ordering) All spin-up orbitals are listed first, followed by all spin-down orbitals, 
+
+πbox (i, ↑) = i, πbox (i, ↓) = i + L. 
+
+The Hubbard Hamiltonian is 
+
+H = −t X
+
+> ⟨i,j ⟩,σ
+
+ c† 
+
+> iσ
+
+cjσ + h .c. + U X
+
+> i
+
+ni↑ni↓. (A4) Below we present explicit Pauli representations for small chains. 
+
+2. Two-Site Hubbard Chain ( L = 2 )
+
+This system contains four qubits. 
+
+a. Zig-zag ordering 
+
+0 : (0 , ↑), 1 : (0 , ↓), 2 : (1 , ↑), 3 : (1 , ↓)On-site interaction terms become 
+
+n0↑n0↓ = 14 (1 − Z0 − Z1 + Z0Z1), (A5) 
+
+n1↑n1↓ = 14 (1 − Z2 − Z3 + Z2Z3). (A6) Nearest-neighbour hopping terms are 
+
+c†
+
+> 0↑
+
+c1↑ + h .c. = 12 Z1(X0X2 + Y0Y2), (A7) 
+
+c†
+
+> 0↓
+
+c1↓ + h .c. = 12 Z2(X1X3 + Y1Y3). (A8) Thus the Hamiltonian reads 
+
+Hzz  
+
+> L=2
+
+= − t
+
+2
+
+h
+
+Z1(X0X2 + Y0Y2) + Z2(X1X3 + Y1Y3)
+
+i
+
++ U
+
+4
+
+h
+
+(1 − Z0 − Z1 + Z0Z1) + (1 − Z2 − Z3 + Z2Z3)
+
+i
+
+.
+
+(A9) 
+
+b. Box ordering 
+
+0 : (0 , ↑), 1 : (1 , ↑), 2 : (0 , ↓), 3 : (1 , ↓)On-site terms become 
+
+n0↑n0↓ = 14 (1 − Z0 − Z2 + Z0Z2), (A10) 
+
+n1↑n1↓ = 14 (1 − Z1 − Z3 + Z1Z3). (A11) Nearest-neighbour hopping operators are 
+
+c†
+
+> 0↑
+
+c1↑ + h .c. = 12 (X0X1 + Y0Y1), (A12) 
+
+c†
+
+> 0↓
+
+c1↓ + h .c. = 12 (X2X3 + Y2Y3). (A13) The resulting Hamiltonian is 
+
+Hbox  
+
+> L=2
+
+= − t
+
+2
+
+h
+
+(X0X1 + Y0Y1) + ( X2X3 + Y2Y3)
+
+i
+
++ U
+
+4
+
+h
+
+(1 − Z0 − Z2 + Z0Z2) + (1 − Z1 − Z3 + Z1Z3)
+
+i
+
+.
+
+(A14) 
+
+3. Three-Site Hubbard Chain ( L = 3 )
+
+For L = 3 the system contains six qubits. 
+
+a. Zig-zag ordering 
+
+0 : (0 , ↑), 1 : (0 , ↓), 2 : (1 , ↑), 3 : (1 , ↓), 4 : (2 , ↑), 5 : (2 , ↓)The on-site interaction terms are 
+
+ni↑ni↓ = 14 (1 − Z2i − Z2i+1 + Z2iZ2i+1 ). (A15) Nearest-neighbour hopping becomes 
+
+c†
+
+> 0↑
+
+c1↑ + h .c. = 12 Z1(X0X2 + Y0Y2), (A16) 
+
+c†
+
+> 1↑
+
+c2↑ + h .c. = 12 Z3(X2X4 + Y2Y4), (A17) 
+
+c†
+
+> 0↓
+
+c1↓ + h .c. = 12 Z2(X1X3 + Y1Y3), (A18) 
+
+c†
+
+> 1↓
+
+c2↓ + h .c. = 12 Z4(X3X5 + Y3Y5). (A19) 
+
+b. Box ordering 
+
+0 : (0 , ↑), 1 : (1 , ↑), 2 : (2 , ↑), 3 : (0 , ↓), 4 : (1 , ↓), 5 : (2 , ↓)The on-site terms are 
+
+ni↑ni↓ = 14 (1 − Zi − Zi+3 + ZiZi+3 ). (A20) Nearest-neighbour hopping operators are 
+
+c†
+
+> 0↑
+
+c1↑ + h .c. = 12 (X0X1 + Y0Y1), (A21) 
+
+c†
+
+> 1↑
+
+c2↑ + h .c. = 12 (X1X2 + Y1Y2), (A22) 
+
+c†
+
+> 0↓
+
+c1↓ + h .c. = 12 (X3X4 + Y3Y4), (A23) 
+
+c†
+
+> 1↓
+
+c2↓ + h .c. = 12 (X4X5 + Y4Y5). (A24) 16  
+
+> 4. General Form
+
+Combining the above relations, the Hubbard Hamilto-nian mapped under the Jordan–Wigner transformation can be written compactly as 
+
+H = − t
+
+2
+
+X
+
+> ⟨i,j ⟩,σ
+> max( π(i,σ ),π (j,σ )) −1
+
+Y
+
+> k=min( π(i,σ ),π (j,σ ))+1
+
+Zk
+
+!
+
+×  Xπ(i,σ )Xπ(j,σ ) + Yπ(i,σ )Yπ(j,σ )
+
+
+
++ U
+
+4
+
+X
+
+> i
+
+ 1 − Zπ(i, ↑) − Zπ(i, ↓) + Zπ(i, ↑)Zπ(i, ↓)
+
+.
+
+(A25) 
+
+> Appendix B: Projection onto Fixed Particle-Number Sectors
+
+An alternative way to restrict simulations to a specific particle sector is to project the Hamiltonian directly onto the subspace with a fixed number of electrons. Since the second-quantized Hamiltonian is block diagonal in particle number, 
+
+Ntot =
+
+> K
+
+X
+
+> j=1
+
+nj , (B1) one can isolate the desired N -electron sector using the projector 
+
+PN = Y 
+
+> j̸=N
+
+Ntot − jN − j . (B2) Applying the projection operator yields 
+
+HN = PN HP N , (B3) which acts only on the Hilbert space corresponding to the N -particle sector. This reduces the Hilbert space dimension from 2K (B4) to dim HN =
+
+KN
+
+
+
+. (B5) Further reduction can be obtained by fixing the spin sector ( N↑, N ↓), leading to dim HN↑,N ↓ =
+
+K/ 2
+
+N↑
+
+ K/ 2
+
+N↓
+
+
+
+. (B6) The projector can be applied directly in operator space using the fermionic anticommutation relations without constructing the full matrix representation of the Hamil-tonian [30]. Subsequent qubit reductions can be per-formed iteratively using shift operators, 
+
+I ⊗ H(K−1) = SK 
+
+> +
+
+H(K)SK 
+
+> −
+
++ SK 
+
+> −
+
+H(K)SK 
+
+> +
+
+, (B7) with 
+
+S(K) 
+
+> ±
+
+= 12 (XK−1 ∓ iY K−1 + XK−1XK ± iY K−1YK ) .
+
+(B8) As an illustrative example, the two-site Hubbard model ( K = 4 spin orbitals) can be reduced to a two-qubit Hamiltonian in the sector N↑ = N↓ = 1, 
+
+H2 = −t (X ⊗ I + I ⊗ X) + U
+
+2 (I + Z ⊗ Z) . (B9) While this projection approach reduces the number of qubits, the resulting Hamiltonian generally contains many more Pauli terms, which increases circuit depth and measurement cost. For this reason we do not employ the projection method in the main simulations presented in this work. 
+
+> Appendix C: Circuit Cost Analysis
+
+In this appendix we analyze the circuit depth and two– qubit gate counts of the quantum circuits used in this work. The total circuit used in the variational algorithm consists of two components: 1. Slater determinant preparation circuit that con-structs the non–interacting ground state ( U = 0), 2. Hamiltonian variational ansatz (HVA) evolution layers that generate the interacting state. All circuits were transpiled using the Qiskit transpiler to the universal gate set {u, cx }. Here the gate u represents a generic single–qubit unitary.  
+
+> 1. Hamiltonian Variational Ansatz Layers
+
+Each evolution layer of the HV ansatz consists of nearest–neighbour hopping operations and onsite inter-action terms. After mapping the fermionic Hamiltonian to qubits using the JW transformation these operators are implemented using two–qubit entangling gates and single–qubit rotations. To quantify the circuit cost we constructed ansatz cir-cuits for lattice sizes L = 2–10 and measured the circuit metrics after transpilation. Representative results are shown in Table II. From the compiled circuits we observe that the CNOT count grows linearly with both the lattice size and the number of evolution layers. The numerical data are well described by 
+
+N HVA CX ≈ (6 L − 4) S. 
+
+The two–qubit depth depends only on the number of lay-ers and is approximately 
+
+DHVA 2Q ≈ 6S. 17                                   
+
+> TABLE II. Representative compiled circuit metrics for the HVA ansatz after transpilation to the gate set {u, cx }.
+> LSCNOT count two–qubit depth total depth 4240 12 60 45100 30 150 6264 12 60 65160 30 150 8288 12 60 85220 30 150 10 2 112 12 60 10 5 280 30 150
+
+The total circuit depth also grows linearly with the num-ber of layers and is approximately 
+
+DHVA tot ≈ 30 S. 
+
+These relations confirm that the cost of the interacting variational block scales linearly with both lattice size and ansatz depth.  
+
+> 2. Slater Determinant Preparation
+
+The initialization circuit prepares the exact non– interacting ground state using a sequence of Givens rota-tions. Such circuits implement fermionic Gaussian trans-formations and are commonly used for preparing Slater determinants in quantum simulation algorithms [31, 32]. The number of required layers depends on the particle sector and is largest near half filling. Across the lattice sizes studied here the number of Slater layers remains modest and increases approximately linearly with system size. Representative compiled circuit metrics are shown in Table III.                              
+
+> TABLE III. Representative circuit metrics for Slater determi-nant preparation circuits.
+> L(N↑, N ↓) Slayers CNOT count two–qubit depth 4(2,2) 264 16 5(2,2) 280 20 6(3,3) 296 16 7(3,4) 3168 28 8(4,4) 4256 32 9(5,4) 5360 48 10 (5,5) 6480 48
+
+The compiled circuits show that each Slater layer con-tributes approximately 8 L CNOT gates. The total cost of the initialization circuit can therefore be expressed as 
+
+N Slater CX ≈ 8L S Slater .
+
+Since the number of Slater layers grows at most linearly with system size, the worst–case initialization cost scales as O(L2) while the two–qubit depth scales linearly with system size.  
+
+> 3. Total Circuit Complexity
+
+Combining the initialization and variational compo-nents yields the total CNOT count 
+
+N total CX ≈ 8L S Slater + (6 L − 4) S. 
+
+The first term represents the one–time cost of prepar-ing the non–interacting reference state, while the sec-ond term describes the cost of the variational evolution. Because the Slater preparation is performed only once, the dominant scaling for large systems is the linear de-pendence NCX ∼ O(LS ) associated with the variational ansatz layers.

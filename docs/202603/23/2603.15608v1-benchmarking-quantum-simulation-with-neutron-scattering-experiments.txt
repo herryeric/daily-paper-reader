@@ -1,0 +1,812 @@
+Title: Benchmarking quantum simulation with neutron-scattering experiments
+
+URL Source: https://arxiv.org/pdf/2603.15608v1
+
+Published Time: Tue, 17 Mar 2026 05:13:27 GMT
+
+Number of Pages: 48
+
+Markdown Content:
+# Benchmarking quantum simulation with neutron-scattering experiments 
+
+## Yi-Ting Lee 1†, Keerthi Kumaran 2,3†, Bibek Pokharel 3,4∗ Allen Scheie 5,Colin L. Sarkis 3, David A. Tennant 6, Travis Humble 3,Andr´ e Schleife 1,7, Abhinav Kandala 3,4, and Arnab Banerjee 2,3∗
+
+> 1
+
+Department of Materials Science and Engineering, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA. 
+
+> 2
+
+Department of Physics and Astronomy, Purdue University, West Lafayette, IN 47907, USA. 
+
+> 3
+
+Quantum Science Center, Oak Ridge National Laboratory, Oak Ridge, TN 37831, USA. 
+
+> 4
+
+IBM Quantum, IBM Thomas J. Watson Research Center, Yorktown Heights, NY, USA. 
+
+> 5
+
+MPA-Q, Los Alamos National Laboratory, Los Alamos, NM 87545, USA 
+
+> 6
+
+Department of Materials Science and Engineering, University of Tennessee, Knoxville, Tennessee 37996, USA. 
+
+> 7
+
+Materials Research Laboratory, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA. 
+
+> ∗
+
+Corresponding author. Email: Bibek.Pokharel@ibm.com, arnabb@purdue.edu. 
+
+> †
+
+These authors contributed equally to this work. 
+
+A central goal of quantum computation is the realistic simulation of quantum materials. Although quantum processors have advanced rapidly in scale and fi-delity, it has remained unclear whether pre–fault-tolerant devices can perform quantitatively reliable material simulations within their limited gate budgets. Here, we demonstrate that a superconducting quantum processor operating on 
+
+1
+
+> arXiv:2603.15608v1 [quant-ph] 16 Mar 2026
+
+up to 50 qubits can already produce meaningful, quantitative comparisons with inelastic neutron-scattering measurements of KCuF 3, a canonical realization of a gapless Luttinger liquid system with a strongly correlated ground state and a spectrum of emergent spinons. The quantum simulation is enabled by a quan-tum–classical workflow for computing dynamical structure factors (DSFs). The resulting spectra are benchmarked against experimental measurements using multiple metrics, highlighting the impact of circuit depth and circuit fidelity on simulation accuracy. Finally, we extend our simulations to 1D XXZ Heisenberg model with next-nearest neighbor interactions and a strong anisotropy, producing a gapped excitation spectrum, which could be used to describe the CsCoX 3 com-pounds above the N´ eel temperature. Our results establish a framework for com-puting DSFs for quantum materials in classically challenging regimes of strong entanglement and long-range interactions, enabling quantum simulations that are directly testable against laboratory measurements. 
+
+Recent advances in quantum processors have enabled the investigation of both static ( 1, 2 ) and dynamical ( 3–5 ) properties through quantum simulations of increasingly large many-body sys-tems. However, even with rapid improvements in scale and fidelity, establishing a clear connection between quantum simulations of materials and corresponding experimental outcomes remains a central challenge. Inelastic neutron scattering (INS) is particularly well suited to bridge the gap between quantum simulation and experiment, as it directly probes the dynamical structure factor (DSF), which can be computed on digital quantum computers from the corresponding two-point correlation functions ( 6, 7 ). Neutrons are a weakly out-of-equilibrium probe and provide a faithful representation of a system’s equilibrium dynamics. The scattered neutrons encode both the energy and momentum of the spin excitations, which can be described by many-body spin Hamiltonians that, in turn, can be directly mapped onto digital quantum computers ( 8, 9 ). In particular, by com-puting spatiotemporal series of retarded Green’s functions and classically transforming them into momentum and frequency space, quantum processors provide direct access to the correlation func-tions that underlie renormalization-group descriptions of quantum matter ( 10 ), thereby establishing a connection between microscopic quantum simulation and emergent field theory. While classical and semiclassical methods exist for simulating INS spectra ( 11, 12 ), their 2applicability is restricted to regimes where quantum effects are negligible or systems can be ap-proximated by tractable bosonic field theories ( 11 ) (wherein interactions and dynamics can be computed perturbatively about a classical ground state ( 12 )). These approaches become inadequete in strongly interacting systems that exhibit nontrivial collective behavior, or where the quantum ground state does not resemble the classical ground state—such as in quantum spin liquids or at quantum criticality—precisely where the most interesting collective quantum behaviour occurs. More advanced non-perturbative techniques, including exact diagonalization ( 13 ), Krylov-space methods ( 14 ), and tensor-network approaches such as t-DMRG and Matrix Product State (MPS) simulations ( 15 ), can simulate unequal-time correlators and DSFs. However, their performance is constrained by exponential scaling in system size and rapid entanglement growth in long time evo-lution. Overcoming these classical limitations demands quantum hardware capable of performing coherent evolution over many time steps. Recent improvements in qubit coherence, gate fidelity, and device stability now support deeper circuit and longer time evolutions, yet questions remain whether it is yet possible to reliably compute the DSF of complex phases on current quantum hardware. If quantum computers can reliably compute DSFs with controlled approximations, the quantum simulated spectra can serve as faithful proxies for INS spectra enabling quantitative comparisons between theoretical models and experimental data. To benchmark the utility of quantum simulations in a setting where cross-validation is possible, we focus on a one-dimensional model that is numerically tractable and thus allows verification of the quantum results. We reproduce the rich dynamics in quasi-1D quantum magnets, including signatures of a 1-D quantum spin liquid described by Luttinger theory, exhibiting fractionalized spinon excitations and a continuum of magnetic scattering (16–18 ). Establishing reliability in this tractable setting is a necessary step toward more general regimes where classical high-performance computing (HPC) methods break down. In those regimes, evaluating the DSF for general local Hamiltonians is believed to be BQP-hard ( 7), and classical HPC approaches may fail to capture the nontrivial collective quantum signatures that quantum processors can efficiently access ( 19 ). This context enables our central result: quantum computers are now reliable tools, much like MPS, for simulating INS spectra. We establish this by performing a direct experimental verification in which quantum simulations are benchmarked against the INS measurements of experimentally 3established quasi-1D quantum magnet KCuF 3 at 6 K, a canonical realization of 1D Tomonaga-Luttinger quantum spin liquid ( 17 ). Its INS spectrum is characterized by a broad continuum of emergent spinons, arising from its isotropic Heisenberg Hamiltonian, which is integrable and analytically solvable via the Bethe Ansatz. We achieve this by evaluating the spatiotemporal retarded Green’s functions, following Ref. ( 7), using 50-qubit quantum circuits executed on IBM’s Heron processors to obtain the DSF for comparison against the INS spectrum (see Figure 1). In addition, we demonstrate that our approach extends seamlessly beyond the analytically solvable limit by benchmarking quantum simulations against MPS results for a non-integrable, strongly Ising-like XXZ chain with next-nearest-neighbor interactions, precisely the ingredients that render classical simulations challenging. Simulation of this model, motivated by its relevance to CsCo 𝑋 3 compounds above their N´ eel temperature ( 20–22 ), shows that our quantum simulations can readily address more classically challenging Hamiltonians. 
+
+## Inelastic neutron scattering 
+
+The spin moments of neutrons are scattered by the those in a magnet, making neutron scattering a staple technique for energy-momentum resolved spectroscopy of quantum magnets. INS using moderated thermal and cold neutrons, typically from a reactor or spallation source, is a non-destructive experimental technique widely used to probe spin dynamics at the atomic scale. When the neutrons interact with a material, they exchange energy and momentum with its microscopic degrees of freedom; therefore, measuring the scattered neutrons provides direct access to the underlying eigenstates and excitation spectra of the material. Evaluating the INS spectrum involves computing the magnetic neutron scattering cross-section ( 23 )(𝐼 (𝑞, 𝜔 )), which is directly related to the DSF 𝑆 (𝑞, 𝜔 ), as follows. 
+
+𝐼 (𝑞, 𝜔 ) = 𝑟 20
+
+𝑘 𝑓 
+
+𝑘 𝑖 
+
+𝑔 
+
+2 𝐹 (𝑞 ) 2∑︁ 
+
+> 𝛼,𝛽 =𝑥,𝑦,𝑧
+
+(𝛿 𝛼,𝛽 − ˆ𝑞 𝛼 ˆ𝑞 𝛽 ) 𝑆 (𝑞, 𝜔 )𝛼,𝛽 , (1) where 𝑞 is the momentum transfer vector, 𝑘 𝑖 and 𝑘 𝑓 are the wave vectors of incident and scattered neutrons respectively, 𝑟 0 is the interatomic distance, 𝑔 is the gyromagnetic ratio, 𝐹 (𝑞 ) is the magnetic form-factor, which depends on the isotope, and 𝑆 (𝑞, 𝜔 )𝛼,𝛽 is the DSF. Within the framework of the fluctuation-dissipation theorem ( 24 ), the DSF can be evaluated at experimentally achievable temperatures, assuming there are no phase transitions due to the 4change in temperature, directly from the imaginary part of the retarded two-point Green’s function, 
+
+𝐺 𝑅 (𝑞, 𝜔 ), as follows: 
+
+𝑆 𝛼,𝛽 (𝑞, 𝜔 ) = − 1
+
+𝜋 [1 + 𝑛 𝐵 (𝜔 )] 𝐼𝑚 [𝐺 𝑅 𝛼,𝛽 (𝑞, 𝜔 )] (2) where 𝑛 𝐵 (𝜔 ) is the Bose distribution function and is equal to 0 at 𝑇 = 0. This retarded Green’s function (RGF) can be measured efficiently in the position and time domain, 𝐺 𝑅 𝛼,𝛽 (𝑖, 𝑗, 𝑡 ), via quantum simulations based on local unitary perturbations applied at each site in the system ( 7), the corresponding quantum circuit is illustrated in Figure 1 and is described in detail in supplementary material . 
+
+## Quantum simulation of INS spectrum 
+
+KCuF 3 is a prototypical quasi-one-dimensional antiferromagnet whose magnetic properties have been extensively characterized by INS experiments. Although the compound has a tetragonal crystal structure ( 25 ), orbital ordering leads to strong antiferromagnetic superexchange interactions along the 𝑐 -axis and much weaker interactions orthogonal to the 𝑐 -axis ( 26 ). This hierarchy effectively decouples the spin chains, giving rise to an emergent one-dimensional quantum magnet well captured by the 1D spin-1/2 XXZ Hamiltonian, 
+
+𝐻 = 2𝐽 
+
+> 𝑛 −1
+
+∑︁ 
+
+> 𝑖 =1
+
+[𝑆 𝑋 𝑖 𝑆 𝑋 𝑖 +1 + 𝑆 𝑌 𝑖 𝑆 𝑌 𝑖 +1 + 𝜖 𝑆 𝑍 𝑖 𝑆 𝑍 𝑖 +1], (3) where 𝐽 denotes the exchange interaction and 𝜖 is the anisotropy term. For KCuF 3, both experimental evidence ( 27 ) and theoretical modeling have indicated that the chain lies extremely close to the isotropic point ( 𝜖 = 1), as shown in Figure 1B. This regime is integrable, admits an exact Bethe ansatz solution ( 27, 28 ), and serves as a paradigmatic example of a strongly correlated many-body system at quantum criticality ( 16 ). The model is also known to exhibit superdiffusive spin transport ( ∝ 𝑡 −2/3 two-point correlation decay) ( 29–31 ). These features have motivated a growing body of quantum simulation studies ( 32–35 ). To clarify the fundamental spectral changes across different transport regimes, we also examine the DSF of the Hamiltonian in Equation 3 at the anisotropic limit ( 𝜖 = 0), which corresponds to the XX model and exhibits ballistic transport ( ∝ 𝑡 −1 two-point correlation decay). 5When a neutron scatters off a one-dimensional XXZ spin-1/2 chain, it injects a single-spin flip, 
+
+𝑆 = 1, excitation that fractionalizes into a pair of spinons, as illustrated in Figure 2A. These charge-less quasiparticles carry spin-1/2 and emerge naturally in strongly correlated one-dimensional XXZ spin-1/2 chains. Once created, the two spinons can propagate independently while conserving energy and momentum, giving rise to a broad continuum in the INS spectrum, a signature of fractionalized spin dynamics, in contrast to the conventional sharp magnon modes characteristic of bosonic spin waves. In the XX model, this behavior is clearly reflected in the retarded Green’s function (RGF) which exhibits a light-cone structure (See Figure 2B), consistent with the observa-tions in Ref. ( 18 ). The corresponding DSF displays a continuum (Figure 2C), with spectral weight concentrated near its upper boundary, consistent with theoretical expectations of ballistic spinon propagation in the XX limit. At the isotropic point, the two-spinon continuum forms a gapless dispersive lower boundary, as shown in Figure 2D. This reveals the presence of slow spinons and dynamics reminiscent of a quantum spin liquid in a 1D chain. The RGF in KCuF 3 exhibits antiferromagnetic correlations pinned to the light-cone boundary, accompanied by persistent oscillations within the cone, as shown in Figure 2E. This long-lived oscillatory state, termed the “quantum wake” in Ref. ( 18 ), is heuristically understood as interference between counterpropagating spinons and antispinons. The redistribution of spectral weight between the upper and lower boundaries of the spectrum provides a direct fingerprint of the underlying transport regime. Enhanced intensity near the lower boundary reflects slower excitation dynamics and the collapse of ballistic modes from the upper boundary. Taken together, the evolution of spectral weight and the RGF spreading pattern can also offer a practical diagnostic for distinguishing superdiffusive from ballistic transport. While the quantum simulation reproduces the key qualitative features of the spectrum, including the characteristic gapless continuum and signatures of spin fractionalization, the resulting signals are noticeably broadened, particularly at low frequencies. In RGF simulations that rely on deep circuits, long-time signal amplitudes are strongly suppressed (Figure 2E), which directly leads to spurious Fourier components when the noisy time-domain data are transformed into the frequency domain. Although this smearing can incidentally mimic finite-temperature or finite-lifetime broadening, perhaps even bringing the simulated spectrum into closer visual agreement with experiment, it is not intrinsic to the underlying physics. This effect is expected to diminish systematically as the 6performance of quantum devices continues to improve. 
+
+## Benchmarking 
+
+To quantitatively assess how close the quantum hardware results are to the neutron spectra, we first compute three baseline metrics: the mean squared error (MSE), the Wasserstein distance and the structural similarity index measure (SSIM) ( 36 ). MSE measures the average local pixel-wise deviation between two spectra, while the Wasserstein distance captures their global similarity by evaluating the cost of transporting one spectra into another. SSIM provides a complementary structure-aware comparison; its values range from 1 (perfect similarity) to 0 (no similarity) to -1 (perfect antisimilarity). MSE, Wasserstein distance, and SSIM all quantitatively confirm that the quantum simulation and the MPS results reproduce the INS spectra with comparable fidelity. As summarized in Figure 2J, the MPS simulation (computed from the DMRG ground state using the same number of qubits, time discretization and discrete Fourier transform procedure) sets an upper bound on the accuracy achievable in the absence of hardware noise. Accordingly, its slightly better MSE and SSIM is expected. Any other visual similarity observed between the quantum simulation and the INS spectra arises from noise-induced data smearing rather than from the underlying dynamics. Although these baseline metrics provide useful global similarity measures, they remain rela-tively generic image-based metrics less relevant to condensed-matter applications, such as peak positions, linewidths, spectral-weight distribution, or correlation and entanglement properties. To address these, we turn to additional physics-informed metrics. In terms of the spectral distribution, the main dispersion carries approximately 48 % of the total spectral weight in the experimental spectrum. The MPS results slightly overestimate this weight at 58.9 %, whereas the 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 results lie close to the experimental value, yielding weights near 50 %. This apparent agreement, however, is a consequence of noise rather than increased accuracy. Hardware noise reduces the ability to cleanly resolve the main dispersion, effectively smearing the intensity and thus lowering the observable spectral weight relative to MPS result. The uncertainty in the estimated peak position at the 𝜋 point (Figure 2F) , expressed as a percentage of the full width at half-maximum (FWHM), is below 10 % for both the MPS and 7𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 results, but increases to approximately 20–30 % at the 𝜋 /2 point (Figure 2G). At the low-frequency, the 𝜋 point excitation is intrinsically broad; although the absolute uncertainty in the fitted peak position is sizable, it remains small compared to the peak linewidth. In contrast, the higher-frequency 𝜋 /2 point mode becomes significantly sharper. Consequently, even a small absolute uncertainty in the fitted peak position corresponds to a larger fraction of the much narrower FWHM. We further extend the metrics by evaluating the entanglement witness of the system, which serves as a key quantity for exploring many-body physics. In particular, we use Quantum Fisher information (QFI), a well-established probe to lower bound the multipartite entanglement and remains accessible for large system sizes ( 37–39 ). We compute the normalized form of QFI (nQFI) ( 39 ) from the energy-integrated dynamic structure factor (DSF) (See equation S13). We observe at least four-partite entanglement for both the MPS and the 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 results, which is consistent with the experimental observations ( 39 ). Except at the 𝜋 point, both the MPS and quantum simulations of KCuF 3 capture the overall trend, which arises from contributions of either high-frequency components or low-intensity signals. The deviation observed at the 𝜋 point can be attributed to its strong intensity combined with its low-frequency character, which requires accurate long-time simulations that are particularly sensitive to quantum noise. A summary of the nQFI extracted from the INS data, MPS simulations, and quantum simulations is provided in Figure 2J. In addition, we evaluate the two-tangle, 𝜏 2 , which quantifies pairwise entanglement. The 𝜏 2,evaluated from the short-range spin-spin correlation function (Figure 2I), indicates a low degree of pairwise entanglement for KCuF 3, compared to experimentally measured one-tangle 𝜏 1, which quantifies the overall entanglement and is reported as 0 .76 in Ref. ( 39 ). The low ratio 𝜏 2/𝜏 1 indicates that only a small fraction of the total entanglement arises from pairwise correlations, consistent with the consensus that the highly entangled ground state of KCuF 3 is quantum critical. Notably, the 𝜏 2 evaluated based on the MPS simulations tends to overestimate 𝜏 2, which is also reported in Ref. ( 39 ). While quantum noise underestimates both nQFI and 𝜏 2, the overall trend is preserved, allowing for quantitative characterization. Entanglement measures extracted from the spectrum, including multipartite bounds from the nQFI and pairwise correlations quantified by the two-tangle, serve 8as experimentally accessible bridge variables linking real-space quantum correlations to universal scaling behavior. 
+
+## Hardware scaling of simulation accuracy 
+
+To understand what enables current quantum devices to simulate the INS spectrum, we analyze the effects of qubit count (finite-size effects), circuit depth (finite-time effects), and gate errors on the simulated spectrum. We first use 50 qubits and 20 Trotter steps as our baseline, then vary each parameter, and evaluate three representative metrics: MSE, SSIM, and nQFI. The number of qubits and the number of Trotter steps determine the momentum and frequency resolution, respectively. Small systems (10–20 qubits) yield heavily pixelated structure factors, particularly along the momentum-axis (Figure 3A, first row), with low SSIM (Figure 3C) and high MSE (Figure 3D). This makes them poor proxies for real materials with effectively infinite sites. In contrast, systems with more than 30 qubits provide better resolution, with SSIM and MSE values approaching those of the baseline 50-qubit MPS results, as also demonstrated by the nQFI (Figure 3E). Similarly, just as limited system size leads to pixelation along the momentum axis, finite evolution time causes pixelation along the frequency axis, as shown in the second row of Figure 3A. The SSIM and MSE generally converge around 10 time steps (Figures 3C and D). However, as nQFI is sensitive to low-frequency information in the KCuF 3 spectrum, 20 Trotter steps are found to be sufficient to capture the entangled information. The ability to simulate quantum circuits with sufficient qubits and Trotter steps is largely limited by the device error rates. To assess their impact on spectrum simulation, we apply a depolarization model to two-qubit gates within the light-cone region of the observables and evaluate the resulting DSF using MPS simulations. As the error rate is reduced from 7 .5 × 10 −3 to 1 × 10 −3, we observe substantial improvements in spectrum quality, as reflected in the SSIM, MSE, and nQFI metrics. To further validate the effect of the error rate on agreement with the reference spectrum, we perform quantum experiments on two different generations of IBM’s Heron quantum processors, ibm kingston and ibm boston , whose respective error rates for the 50-qubit experiment are summarized in Figure 3B. Unsurprisingly, the significantly lower gate errors for ibm boston relative to ibm kingston lead to a systematically 9better agreement with the INS spectra, showing lower MSE, higher SSIM and nQFI accuracy. As the median two-qubit error rate of our current device approaches 1 × 10 −3, we are now entering an era in which quantum computers can be used as a tool to simulate INS spectra. Continued advances in error mitigation and suppression techniques will effectively increase the gate budget, enabling the simulation of increasingly complex INS spectra in the near future. 
+
+## Beyond Integrable Hamiltonians 
+
+Beyond the integrable and analytically solvable case of KCuF 3, we also investigate the DSF for a non-integrable example: the XXZ Hamiltonian with ferromagnetic next-nearest-neighbor (NNN) interactions, which introduces longer-range couplings and effectively extends the strictly 1D chain toward a quasi-1D triangular geometry. This model is known to capture essential features of the interchain interactions in the CsCo 𝑋 3 compounds above their N´ eel temperature ( 20–22 ), as illustrated in Figure 1C. The Hamiltonian is 
+
+𝐻 = 2𝐽 
+
+> 𝑁 −1
+
+∑︁ 
+
+> 𝑖 =1
+
+[𝑆 𝑍 𝑖 𝑆 𝑍 𝑖 +1 + 𝜖 (𝑆 𝑋 𝑖 𝑆 𝑋 𝑖 +1 + 𝑆 𝑌 𝑖 𝑆 𝑌 𝑖 +1)] − 2𝐽 ′
+
+> 𝑁 −1
+
+∑︁ 
+
+> 𝑖 =1
+
+[𝑆 𝑍 𝑖 𝑆 𝑍 𝑖 +2 + 𝜖 ′(𝑆 𝑋 𝑖 𝑆 𝑋 𝑖 +2 + 𝑆 𝑌 𝑖 𝑆 𝑌 𝑖 +2)] (4) where 𝐽 ′ and 𝜖 ′ are the exchange interaction strength and anisotropy parameter within the NNN pairs. The easy axis (Ising-like) limit of the XXZ Hamiltonian now restricts the anisotropy term such that 0 ≤ 𝜖 ≤ 1 (note that the anisotropy term acts on the X and Y components unlike Equation 3). For our simulations, we use the parameter set 𝐽 ′/𝐽 ≈ 0.095 and 𝜖 = 𝜖 ′ = 0.145, which has been reported to model CsCoCl 3 (20 ) with good accuracy. Other works theorize unequal anisotropy strengths for NN and NNN couplings ( 40 ) and/or the presence of staggered fields ( 41 ); both generalizations can be incorporated into our circuit construction without increasing the (noise-inducing) two-qubit gate depth. To isolate the effects of NNN interactions, we also simulate the spectrum in the absence of NNN coupling. This limit lies close to the pure Ising regime and remains analytically tractable, allowing direct comparison with the non-integrable case. With the strong ZZ anisotropic interaction, the DSF is broadly and almost uniformly distributed between the upper and lower boundaries of the gapped 10 bow-tie structure, a hallmark of diffusive transport ( ∝ 𝑡 −1/2 spin correlation decay) and consistent with the well-known two-soliton continuum ( 42,43 ), as shown in Figure 4A. In the pure Ising limit, the system hosts two degenerate ground states and features no dynamics. The transverse coupling term, 𝜖 (𝑆 𝑋 𝑆 𝑋 + 𝑆 𝑌 𝑆 𝑌 ), lifts this degeneracy and generates a continuum of excited states around 2𝐽 (42,43 ). Both MPS and quantum simulations capture this theoretical continuum accurately. The corresponding spread of the RGF is shown in Figure 4C. Here, the light-cone width is noticeably narrower than in KCuF 3 or in the XX model, reflecting slower quasiparticle propagation in the diffusive regime. For the quasi 1D model with ferromagnetic NNN, the two-soliton continuum evolves as shown in Figure 4B. The lower edge of the spectrum is enhanced. Heuristically, the ferromagnetic NNN interaction favors the “bound” dispersion, which carries a lower excitation energy in the antifer-romagnetic Heisenberg model, while disfavoring the “anti-bound” dispersion associated with a higher excitation energy. The transition from the two-soliton continuum to the single magnon mode demonstrates the effect of NNN interaction on spin dynamics. Importantly, the weak NNN couplings introduce controlled departures from integrability. This breaks analytical tractability and places the Hamiltonian far from any analytically solvable limit, unlike KCuF 3. As a result, the quasi 1D XXZ model provides a regime where direct comparisons between the MPS and quantum simulations of the DSF are particularly meaningful, since an exact analytical benchmark is no longer available. The quantum simulated DSF is generally consistent with the MPS results. The peak positions of the quantum and MPS results at the 𝜋 /2 and 𝜋 points are both within a 10% error relative to the FWHM of the MPS spectrum, as shown by the line scan in Figure 4E. In terms of the entanglement witness, the nQFI of the XX channel at the 𝜋 point is below 1.0 in both the quantum and MPS calculations, indicating a weakly entangled regime with low multipartite entanglement compared to KCuF 3, as expected. The corresponding quantum and MPS values are summarized in Figure 4F. Given that the dispersion shapes and excitation energies can be reliably predicted, we are able to qualitatively characterize materials based on the DSF for this class of models; however, experimental verification of this Hamiltonian through INS experiments is still needed. 11 Conclusion & Outlook 
+
+In this work, we utilize Inelastic Neutron Scattering (INS) spectra as a strategic benchmark for tracking the accelerating progress of quantum simulations. Using KCuF 3 and a strongly anisotropic 1D XXZ model with NNN interactions, we show that quantum simulations utilizing up to 50 qubits, serving as proxies for the thermodynamic limit, can faithfully reconstruct the dynamical structure factor of real materials. Our results reveal that current quantum hardware already captures key emergent quantum phenomena, including the two-spinon continuum present in real materials, as well as how anisotropy and realistic NNN couplings reshape this continuum. This marks a decisive moment: quantum computers are no longer just testbeds; they are emerging as practical tools alongside classical tensor-network methods for studying quantum materials. Beyond remarkable qualitative agreements, we introduce a set of rigorous quantitative metrics, ranging from standard image-based measures to entanglement-based physical metrics, that remain computable even when classical exact methods struggle. These metrics form a crucial roadmap for monitoring hardware progress. As these figures of merit improve, we anticipate a crossover point where quantum simulation evolves from a benchmarking target into an indispensable tool for condensed matter physicists, enabling discovery in regimes where classical simulation is no longer viable. The central achievement of this work is establishing a quantum benchmark and demonstrating the utility of current quantum devices. This represents a significant advancement over earlier calcu-lations of DSFs ( 44–48 ) and paves the way for modeling and understanding systems that are beyond classical tractability. As quantum devices scale to larger lattices, support longer time evolutions, and ultimately handle general two-dimensional non-integrable models, this framework positions quantum simulation as a renormalization-group-compatible engine for constructing complete equi-librium descriptions of quantum materials. The work presented here is the first step along this path, demonstrating that quantum hardware can faithfully reproduce experimentally measured DSF with high accuracy and signaling the beginning of a new era in computational condensed matter physics. 12 Quasi 1D CsCoX 3        
+
+> Crystal
+> Field
+> = Cs
+> = X
+> = Co
+> NN interaction
+> NNN interaction
+> Ei,⃗ki
+> Time
+> qubit
+> Correlator / Green’s function Quantum simulation
+> Fourier Transform
+> Neutron
+> Ef,⃗kf
+> Heisenberg model
+> Hheisenberg=∑
+> i,j
+> Ji,jSiSj
+> Momentum q
+> ⟨E
+> Scattering
+> information
+> Inelastic neutron scattering
+> Measure  ⟩πσ
+> i −
+> Trotter circuit
+> ….
+
+Uα     
+
+> jU(dt)
+> Initial state
+> AQC circuit
+> U(βi)U(βj)U(dt)U(dt)
+> ….
+> Perturbation Ground state preparation
+> Evaluating Green’s function
+
+GR
+
+> σ,α
+
+(i, j, t)
+
+A  
+
+> = Cu
+> = K
+> Quasi 1D KCuF 3
+> JΔ
+> J
+> J⊥JΔ
+> Isotropic chain
+> =F
+
+B CFigure 1 : Quantum Simulation of the Inelastic Neutron Scattering (INS) Spectra: We use spin Hamiltonians to model the materials of interest and compute their retarded Green’s functions. The ground state is prepared using a variational ansatz, applied to an appropriate initial state ( 49 ). Next, we perturb the 𝑗 -th qubit with a rotation gate 𝑈 𝛽 as defined in equation S2, evolve the system in time, and finally measure 𝜎 𝛼 𝑖 to obtain the retarded Green’s function (RGF) 𝐺 𝑅 𝛼,𝛽 (𝑖, 𝑗, 𝑡 ). Fourier transforming the RGF yields the dynamical structure factor (DSF) in energy-momentum space, a quantity that can be directly compared with the INS spectrum. Crystal structure of ( B) KCuF 3 and CsCoX 3. KCuF 3 is well described by a nearest neighbor XXZ model at the isotropic point, whereas CsCoX 3 requires the inclusion of next-nearest-neighbor interactions for realistic modelling. 13 XX model MPS  IBM Boston  XX model                     
+
+> XX model XX model MPS IBM Boston
+> MPS
+> IBM Boston
+> INS Experiment at 6 K KCuF 3
+> KCuF 3
+> KCuF 3
+> KCuF 3
+> KCuF 3MPS
+> IBM Boston
+> MPS - DMRG
+> > 5-partite
+> > 4-partite
+> > 3-partite
+> > 2-partite
+> MSE ( )10 −3
+> Wasserstein ( )10 −2
+> SSIM
+> Spectral Weight
+> Peak pos. at ()π˜ω
+> FWHM at ()π˜ω
+> Peak pos.
+> at ()π/2˜ω
+> FWHM at ()π/2˜ω
+> nQFI at π
+> Two-tangle τ2
+> I
+> ACB
+> D
+> E
+> FJG
+> H
+
+Figure 2 : Inelastic neutron scattering (INS) spectrum for XX model and KCuF 3. ( A) Illustration of the spread of fractionalized excitation (spinon) after interacting with a neutron. Comparison of the spatio-temporal retarded Green’s function and DSF obtained by 50-qubit MPS simulation and quantum simulation for ( B,C ) XX model and ( D,E ) KCuF 3. The experimental data (first figure in (D)) was replotted from Ref. ( 18 ), and all spectral intensities are normalized. Both MPS and quantum simulation results display pixelated features arising from finite-size and finite-time effects, while the latter also shows smearing due to noise. The spread of the RGF illustrates the light-cone property of the measured observable. We used a time-step length Δ𝑡 = 0.6 for both MPS simulation and quantum experiments, with 30 total time steps for the XX model and 20 for KCuF 3. Benchmarking experimental, MPS, and quantum results of KCuF 3 with line-scan comparisons at ( F) 𝑞 = 𝜋 and (G) 𝑞 = 𝜋 /2, ( H) quantum Fisher information, and ( I) spin–spin correlations. 14 10 qubits  20 qubits  30 qubits  40 qubits     
+
+> 5 Steps 10 Steps 15 Steps 20 Steps
+> Error rate: 1E-3 Error rate: 3E-3 Error rate: 5E-3 Error rate: 7.5E-3
+> A
+> BE
+> D
+> C
+
+Figure 3 : Analysis of the spectrum with finite-size effects, finite-time effects, and depolarization errors. (A) MPS simulation of finite-size effects (first row), finite-time effects (second row), and noisy circuit-MPS simulation of noisy results with depolarization errors (last row). The baseline setup consists of 50 qubits, 20 time steps, and a fixed time step length of 0.6; in each row, we vary either the system size or the number of time steps. The noisy circuit-MPS results are simulated using a depolarization model applied only to two-qubit gates in the light-cone region of the quantum circuit. ( B) The cumulative distributions of gate errors for 50-qubit layout on 𝑖𝑏𝑚 𝑘𝑖𝑛𝑔𝑠𝑡𝑜𝑛 and 
+
+𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 . The median error rates of single-qubit gates are 2 .130 × 10 −4 and 1 .449 × 10 −4; those of two-qubit gates are 1 .877 × 10 −3 and 1 .080 × 10 −3; and those of readout are 7 .876 × 10 −3 and 5.123 × 10 −3. Benchmarking MPS, noisy circuit-MPS, and quantum results for KCuF 3 using ( C)MSE, ( D) SSIM, and ( E) nQFI. The markers correspond to the cases considered in ( A). 15 IBM Boston 
+
+> IBM Boston
+> MPS
+> MPS
+> CsCoCl 3
+> CsCoCl 3
+> 2-soliton
+> continuum
+> 2-soliton
+> continuum
+
+A
+
+B 
+
+> Two-soliton continuum IBM Boston
+> IBM Boston
+> Two-soliton continuum Two-soliton continuum
+> NNN interaction
+
+C
+
+D
+
+> MPS
+> NNN interaction
+> MPS
+
+E F              
+
+> Peak pos. at
+> ()ω˜ϵ
+> FWHM at ()ω˜ϵ
+> Peak pos.
+> at ()ω/2˜ϵ
+> FWHM at ()ω/2˜ϵ
+> MSE ( )10 −3
+> Wasserstein ( )10 −2
+> SSIM
+> nQFI at ω
+
+Figure 4 : Inelastic neutron scattering (INS) spectrum for two-soliton continuum and CsCoX 3
+
+model. Comparison of the spatio-temporal retarded Green’s functions and DSF obtained from 50-qubit MPS and quantum simulation with ( A,C ) only nearest-neighbor (NN) interaction and ( B,D )additional NNN interaction. With only NN interactions, the spectrum exhibits a bow-tie structure consistent with the theoretical two-soliton continuum. Upon including NNN interactions, this bow-tie feature breaks down and evolves into a lower-band dispersion. For both the MPS simulation and the quantum experiments, we used a time-step length Δ𝑡 = 0.8, and 30 first-order trotter steps. ( E)Comparison of various metrics for MPS and quantum spectra. 16 References and Notes 
+
+1. J. Robledo-Moreno, et al. , Chemistry beyond the scale of exact diagonalization on a quantum-centric supercomputer. Science Advances 11 (25), eadu9991 (2025). 2. J. Yu, et al. , Quantum-centric algorithm for sample-based krylov diagonalization. arXiv preprint arXiv:2501.09702 (2025). 3. Y. Kim, et al. , Evidence for the utility of quantum computing before fault tolerance. Nature 
+
+618 (7965), 500–505 (2023). 4. R. Haghshenas, et al. , Digital quantum magnetism at the frontier of classical simulations. arXiv preprint arXiv:2503.20870 (2025). 5. Observation of constructive interference at the edge of quantum ergodicity. Nature 646 (8086), 825–830 (2025). 6. S. Piccinelli, F. Tacchino, I. Tavernelli, G. Carleo, Efficient calculation of Green’s functions on quantum computers via simultaneous circuit perturbation. arXiv preprint arXiv:2505.05563 
+
+(2025). 7. M. L. Baez, et al. , Dynamical structure factors of dynamical quantum simulators. Proceedings of the National Academy of Sciences 117 (42), 26123–26134 (2020). 8. A. Chiesa, et al. , Quantum hardware simulating four-dimensional inelastic neutron scattering. 
+
+Nature Physics 15 (5), 455–459 (2019). 9. N. Bauer, et al. , Progress towards neutron-scattering simulation on an analog quantum proces-sor. Physical Review A 111 (2), 022442 (2025). 10. K. G. Wilson, J. Kogut, The renormalization group and the 𝜖 expansion. Physics reports 12 (2), 75–199 (1974). 11. R. S. Fishman, J. A. Fernandez-Baca, T. R˜ o˜ om, Spin-wave theory and its applications to neutron scattering and THz spectroscopy (Morgan & Claypool Publishers) (2018). 17 12. D. Dahlbom, et al. , Sunny. jl: a Julia package for spin dynamics. arXiv preprint arXiv:2501.13095 (2025). 13. F. Liu, et al. , Confined quasiparticle dynamics in long-range interacting quantum spin chains. 
+
+Phys. Rev. Lett. 122 , 150601 (2019). 14. D. J. Luitz, Y. B. Lev, Emergent locality in systems with power-law interactions. Phys. Rev. A 
+
+99 , 010105 (2019). 15. K. R. Fratus, M. Srednicki, Eigenstate thermalization and spontaneous symmetry breaking in the one-dimensional transverse-field Ising model with power-law interactions. arXiv preprint 
+
+(2016). 16. B. Lake, D. A. Tennant, C. D. Frost, S. E. Nagler, Quantum criticality and universal scaling of a quantum antiferromagnet. Nature materials 4 (4), 329–334 (2005). 17. A. Scheie, et al. , Witnessing entanglement in quantum magnets using neutron scattering. 
+
+Physical Review B 103 (22), 224434 (2021). 18. A. Scheie, et al. , Quantum wake dynamics in Heisenberg antiferromagnetic chains. Nature Communications 13 (1), 5796 (2022). 19. A. B¨ artschi, et al. , Potential applications of quantum computing at los alamos national labora-tory. arXiv preprint arXiv:2406.06625 (2024). 20. F. Matsubara, S. Inawashiro, H. Ohhara, On the magnetic Raman scattering in CsCoCl3, CsCoBr3 and RbCoCl3. Journal of Physics: Condensed Matter 3 (12), 1815 (1991). 21. F. Matsubara, S. Inawashiro, Two-soliton excitations and spin-wave responses in the antiferro-magnets CsCoBr 3 and CsCoCl 3. Physical Review B 43 (1), 796 (1991). 22. H. Shiba, Y. Ueda, K. Okunishi, S. Kimura, K. Kindo, Exchange interaction via crystal-field excited states and its importance in CsCoCl3. Journal of the Physical Society of Japan 72 (9), 2326–2333 (2003). 23. S. W. Lovesey, Theory of neutron scattering from condensed matter (1984). 18 24. R. Kubo, The fluctuation-dissipation theorem. Reports on progress in physics 29 (1), 255 (1966). 25. S. Satija, J. Axe, G. Shirane, H. Yoshizawa, K. Hirakawa, Neutron scattering study of spin waves in one-dimensional antiferromagnet KCu F 3. Physical Review B 21 (5), 2001 (1980). 26. E. Pavarini, E. Koch, A. Lichtenstein, Mechanism for orbital ordering in KCuF3. Physical review letters 101 (26), 266405 (2008). 27. B. Lake, et al. , Multispinon continua at zero and finite temperature in a near-ideal Heisenberg chain. Physical Review Letters 111 (13), 137205 (2013). 28. J.-S. Caux, R. Hagemans, The four-spinon dynamical structure factor of the Heisenberg chain. 
+
+Journal of Statistical Mechanics: Theory and Experiment 2006 (12), P12013–P12013 (2006). 29. A. Scheie, et al. , Detection of Kardar–Parisi–Zhang hydrodynamics in a quantum Heisenberg spin-1/2 chain. Nature Physics 17 (6), 726–730 (2021). 30. M. Ljubotina, M. ˇ Znidariˇ c, T. Prosen, Spin diffusion from an inhomogeneous quench in an integrable system. Nature Communications 8 (1), 16117 (2017). 31. E. Ilievski, J. De Nardis, S. Gopalakrishnan, R. Vasseur, B. Ware, Superuniversality of Su-perdiffusion. Phys. Rev. X 11 , 031023 (2021). 32. N. Keenan, N. F. Robertson, T. Murphy, S. Zhuk, J. Goold, Evidence of Kardar-Parisi-Zhang scaling on a digital quantum simulator. npj Quantum Information 9 (1), 00742 (2023). 33. E. Rosenberg, et al. , Dynamics of magnetization at infinite temperature in a Heisenberg spin chain. Science 384 (6691), 48–53 (2024), doi:10.1126/science.adi7877, http://dx.%doi. org/10.1126/science.adi7877 .34. K. Kumaran, et al. , Superdiffusion resilience in Heisenberg Chains with 2D interactions on a quantum processor. arXiv preprint arXiv:2503.14371 (2025). 35. Y.-T. Lee, B. Pokharel, J. Cohn, A. Schleife, A. Banerjee, Digital Quantum Simulation of Spin Transport. Physical Review Letters 136 (5), 050603 (2026). 19 36. Z. Wang, A. C. Bovik, H. R. Sheikh, E. P. Simoncelli, Image quality assessment: from error visibility to structural similarity. IEEE transactions on image processing 13 (4), 600–612 (2004). 37. P. Hauke, M. Heyl, L. Tagliacozzo, P. Zoller, Measuring multipartite entanglement through dynamic susceptibilities. Nature Physics 12 (8), 778–782 (2016). 38. V. Menon, et al. , Multipartite entanglement in the one-dimensional spin-1 2 Heisenberg anti-ferromagnet. Physical Review B 107 (5), 054422 (2023). 39. A. Scheie, P. Laurell, W. Simeth, E. Dagotto, D. A. Tennant, Tutorial: Extracting entanglement signatures from neutron spectroscopy. Materials Today Quantum 5, 100020 (2025). 40. H. Shiba, Y. Ueda, K. Okunishi, S. Kimura, K. Kindo, Exchange Interaction via Crystal-Field Excited States and Its Importance in CsCoCl3. Journal of the Physical Society of Japan 72 (9), 2326–2333 (2003). 41. S. Nagler, W. Buyers, R. Armstrong, B. Briat, Ising-like spin-1 /2 quasi-one-dimensional antiferromagnets: Spin-wave response in CsCo X 3 salts. Physical Review B 27 (3), 1784 (1983). 42. S. Nagler, W. Buyers, R. Armstrong, B. Briat, Solitons in the one-dimensional antiferromagnet CsCo Br 3. Physical Review B 28 (7), 3873 (1983). 43. J. Goff, D. Tennant, S. Nagler, Exchange mixing and soliton dynamics in the quantum spin chain CsCoCl 3. Physical Review B 52 (22), 15992 (1995). 44. L. Vilchez-Estevez, R. A. Santos, S. Y. Wang, F. M. Gambetta, Extracting the spin excitation spectrum of a fermionic system using a quantum processor. Phys. Rev. B 112 , 045143 (2025). 45. A. Baroni, et al. , Nuclear two point correlation functions on a quantum computer. Phys. Rev. D 105 , 074503 (2022). 46. J. Sun, L. Vilchez-Estevez, V. Vedral, A. T. Boothroyd, M. S. Kim, Probing spectral features of quantum many-body systems with quantum simulators. Nature Communications 16 (1), 1403 (2025). 20 47. J. K. Nauth, V. M. Stojanovi´ c, Spectral features of polaronic excitations in a superconducting analog simulator. Phys. Rev. B 107 , 174306 (2023). 48. N. Bauer, et al. , Progress towards neutron-scattering simulation on an analog quantum proces-sor. Phys. Rev. A 111 , 022442 (2025). 49. H. Yu, Y. Zhao, T.-C. Wei, Simulating large-size quantum spin chains on cloud-based super-conducting quantum computers. Physical Review Research 5 (1), 013183 (2023). 50. H. Ikeda, K. Hirakawa, Neutron diffraction study in one-dimensional antiferromagnet KCuF3. 
+
+Journal of the Physical Society of Japan 35 (3), 722–728 (1973). 51. B. Lake, et al. , Multispinon Continua at Zero and Finite Temperature in a Near-Ideal Heisenberg Chain. Phys. Rev. Lett. 111 , 137205 (2013). 52. A. Scheie, et al. , Quantum wake dynamics in Heisenberg antiferromagnetic chains. Nat. Com-mun. 13 , 5796 (2022). 53. K. Mitarai, K. Fujii, Methodology for replacing indirect measurements with direct measure-ments. Physical Review Research 1 (1), 013006 (2019). 54. N. Robertson, A. Akhriev, J. Vala, S. Zhuk, Approximate quantum compiling for quantum simulation: A tensor network based approach. ACM Transactions on Quantum Computing 
+
+6 (3), 1–15 (2025). 55. J. Koch, et al. , Charge-insensitive qubit design derived from the Cooper pair box. Physical Review A—Atomic, Molecular, and Optical Physics 76 (4), 042319 (2007). 56. A. Maudsley, Modified Carr-Purcell-Meiboom-Gill sequence for NMR fourier imaging appli-cations. Journal of Magnetic Resonance (1969) 69 (3), 488–491 (1986). 57. J. J. Wallman, J. Emerson, Noise tailoring for scalable quantum computation via randomized compiling. Physical Review A 94 (5), 052325 (2016). 58. E. Van Den Berg, Z. K. Minev, K. Temme, Model-free readout-error mitigation for quantum expectation values. Physical Review A 105 (3), 032620 (2022). 21 59. Q. Contributors, Qiskit: An open-source framework for quantum computing. Zenodo: Geneva, Switzerland (2023). 60. N. Hatano, M. Suzuki, Finding exponential product formulas of higher orders, in Quantum annealing and other optimization methods (Springer), pp. 37–68 (2005). 61. S. Lloyd, Universal quantum simulators. Science 273 (5278), 1073–1078 (1996). 62. N. Khaneja, S. Glaser, Cartan decomposition of SU (2ˆ n), constructive controllability of spin systems and universal quantum computing. arXiv preprint quant-ph/0010100 (2000). 63. J. R. Garrison, et al. , Qiskit addon: Approximate Quantum Compilation with Tensor Networks, %urlhttps://github.com/Qiskit/qiskit-addon-aqc-tensor (2024). 64. Y. Rubner, C. Tomasi, L. J. Guibas, A metric for distributions with applications to image databases, in Sixth international conference on computer vision (IEEE Cat. No. 98CH36271) 
+
+(IEEE) (1998), pp. 59–66. 65. P. Virtanen, et al. , SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python. 
+
+Nature Methods 17 , 261–272 (2020). 66. S. Van der Walt, et al. , scikit-image: image processing in Python. PeerJ 2, e453 (2014). 67. M. Newville, et al. , LMFIT: Non-linear least-square minimization and curve-fitting for Python. 
+
+Astrophysics Source Code Library pp. ascl–1606 (2016). 68. D. C. McKay, et al. , Benchmarking quantum processor performance at scale. arXiv preprint arXiv:2311.05933 (2023). 69. P. D. Nation, M. Treinish, Suppressing Quantum Circuit Errors Due to System Variability. PRX Quantum 4, 010327 (2023). 
+
+# Acknowledgments 
+
+B.P. would like to thank Abhinav Deshpande and James Raftery for useful discussions. This research was supported by the U.S. Department of Energy, Office of Science, National Quantum 22 Information Science Research Centers, Quantum Science Center. A portion of this research used resources at the Spallation Neutron Source, a DOE Office of Science User Facility operated by the Oak Ridge National Laboratory under IPTS-34938. The work at the University of Illinois at Urbana-Champaign (UIUC) is supported by the Taiwan UIUC Scholarship under the official memo No. 1100063269M and by the IBM Illinois Discovery Accelerator Institute (IIDAI). The work performed at IBM and Purdue University is supported by the United States Department of Energy, the National Quantum Initiative Science Research Center, and the Quantum Science Center, managed by Oak Ridge National Laboratory. This work made use of the Illinois Campus Cluster, a computing resource that is operated by the Illinois Campus Cluster Program (ICCP) in conjunction with the National Center for Supercomputing Applications (NCSA) and which is supported by funds from UIUC. 23 Supplementary Materials for Benchmarking quantum simulation with neutron-scattering experiments 
+
+Yi-Ting Lee †, Keerthi Kumaran †, Bibek Pokharel ∗, Allen Scheie, Colin L. Sarkis, David A. Tennant, Travis Humble, Andr´ e Schleife, Abhinav Kandala, and Arnab Banerjee ∗
+
+> ∗
+
+Corresponding author. Email: Bibek.Pokharel@ibm.com, arnabb@purdue.edu. 
+
+> †
+
+These authors contributed equally to this work. 
+
+This PDF file includes: 
+
+Materials and Methods Figures S1 to S13 Tables S1 to S2 S1 Materials and Methods 
+
+Spin Hamiltonian 
+
+For KCuF 3, the ratio of interchain to intrachain interaction is only 0.027 ( 50 ). At the N´ eel tem-perature of 39 K, the system is dominated by intrachain behavior and can be effectively modeled by the 1D Heisenberg model (equivalent to the XXZ Model at the isotropic point, 𝜖 = 1) ( 27 ). Although the low-energy spectrum ( < 30 meV) is expected to be influenced by interchain exchange below the N´ eel temperature, the experimental spectrum at 6 K remains consistent with the Bethe ansatz prediction at 0 K ( 27 ). Therefore, in this work, we simulate the DSF of the 1D XXZ model at the isotropic point, as shown in Figure 1B, and benchmark it against the corresponding neutron scattering spectra reported in Ref. ( 17 ) with the quantum circuit in figure S1(a). 
+
+Retarded Green’s function 
+
+The retarded green’s function (RGF) takes the following form 
+
+𝐺 𝑅 𝛼,𝛽 (𝑖, 𝑗, 𝑡 ) = − 𝑖 
+
+2 ⟨𝑆 𝛼 𝑖 (𝑡 )𝑆 𝛽 𝑗 − 𝑆 𝛽 𝑗 𝑆 𝛼 𝑖 (𝑡 )⟩ 0 (S1) where 𝑆 𝛼 𝑖 are the spin-12 operators acting on 𝑖 th spin and 𝛼, 𝛽 ∈ 𝑋, 𝑌 , 𝑍 are the Pauli spin operators. When the system is close to the thermodynamic limit, one can approximate the computation in Eq. S1 by fixing 𝑗 to the central site 𝑗 𝑐 (9). This reduces the number of required circuits by a factor equal to the system size, since there is no need to iterate 𝑗 over all qubit sites. 
+
+Inelastic neutron scattering experiment 
+
+The KCuF 3 spectrum was previously measured and reported in Refs. ( 51, 52 ) using a combination of MAPS (ISIS) and SEQUOIA (ORNL) spectrometers: MAPS for high-energy ( ℏ𝜔 > 8 meV), SEQUOIA for low-energy ( ℏ𝜔 < 8 meV). 
+
+Implementation details for quantum computing 
+
+To measure the dynamical structure factor (DSF), we follow the procedure shown in Figure 1A, beginning with variational ground-state preparation ( 49 ). For KCuF 3, the state preparation begins with a product of singlet states concatenated with an ansatz that incorporates a time-evolution S2 circuit structure, as shown in figure S1(a). Since the ground state of KCuF 3 belongs to the class of quantum critical states, the construction of quantum circuits that accurately capture its highly entangled nature is computationally demanding. Therefore, we target a fidelity of 80% for the ground-state circuit preparation. For the Hamiltonian in the Ising limit with strong ZZ anisotropy, the ansatz to prepare the ground state starts from the N´ eel state rather than the singlet product state as shown in figure S1(b). Because the ground state is expected to be less entangled than that of KCuF 3, we target fidelity exceeding 90%. To extract the RGF 𝐺 𝑅 𝛼,𝛽 (𝑞, 𝜔 ), we implement the protocol in Ref. ( 7) and utilize the center-site approximation ( 9) to reduce the cost of measurements as shown in Figure 1A. Specifically, we first apply a local rotation gate at the center site ( 𝑗 𝑐 ): 
+
+𝑈 𝑗 𝑐 = 1
+
+√2 (1 − 𝑖𝜎 𝛽 𝑗 𝑐 ) (S2) After time evolution 𝑈 (𝑡 ) = 𝑒 −𝑖𝐻𝑡 , the state becomes |𝜓 (𝑡 )⟩ = 𝑈 (𝑡 )𝑈 𝑗 𝑐 |𝜓 𝐺𝑆 ⟩, and measuring 𝜎 𝛼 𝑖 
+
+yields: 
+
+𝐺 𝑅 𝛼,𝛽 ( 𝑗, 𝑗 𝑐 , 𝑡 ) = ⟨𝜓 (𝑡 )| 𝜎 𝛼 𝑗 |𝜓 (𝑡 )⟩ (S3) This expression is simplified by the parity symmetry of the 1D XXZ model. The RGF 𝐺 𝑅 𝛼,𝛽 (𝑞, 𝜔 )
+
+is obtained by taking the Fourier transform of 𝐺 𝑅 𝛼,𝛽 ( 𝑗, 𝑗 𝑐 , 𝑡 ) as follows: 
+
+𝐺 𝑅 𝛼,𝛽 (𝑞, 𝜔 ) =
+
+> 𝑛
+
+∑︁ 
+
+> 𝑗 =0
+> 𝑁
+
+∑︁ 
+
+> 𝑘 =0
+
+𝑒 −𝑖𝑞 ( 𝑗 − 𝑗 𝑐 ) 𝑒 𝑖𝜔𝑘 Δ𝑡 𝐺 𝑅 𝛼,𝛽 ( 𝑗, 𝑗 𝑐 , 𝑡 ) (S4) where 𝑛 is the number of spins, 𝑁 is the number of time steps, and Δ𝑡 is the time interval for trotterization. The center-site approximation reduces the number of circuits measured by a factor of 𝑛 , since we only perturb the central site once, compared to perturbing each qubit individually with 𝑛 separate circuits. The DSF is the Fourier transform of the RGF. Since we use 50 qubits, an even number, the RGF preserves the mirror symmetry of the ground state under the center-cite approximation, i.e., mirror symmetry upon perturbing the 𝑛 // 2 − 1 and 𝑛 // 2 sites. We therefore average the final spectrum with its inverted counterpart. We also note that the RGF can also be evaluated from the imaginary part of the spin-spin autocorrelation function, resulting in an identical circuit construction following the strategy in Ref. ( 35, 53 ). To implement the time-evolution operator on quantum computers, we employ second-order Trotterization for KCuF 3 and the XX model. Because implementing the time-evolution operator S3 with next-nearest-neighbor (NNN) interactions remains costly on near-term devices due to the limited connectivity of current qubit topologies, we apply first-order Trotterization, which involves the implementation of a swap layer. To reduce the circuit depth for long-time simulations on current devices, we employ approximate quantum compilation (AQC) based on the tensor network approach ( 54 ). We optimized the quantum circuit over a short time period and achieved circuit fidelity of 90 % compared to the time-evolved state obtained from matrix-product-state (MPS) simulation using a bond dimension of 128. For longer-time simulations that cannot be accurately approximated by just AQC, we concatenate Trotter circuits to the AQC circuit, keeping the ratio of two-qubit gates in the AQC part below 50 % of the deepest simulated circuit. For the quantum experiment, we perform our simulation on the IBM Heron processor 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 ,which comprises 156 fixed-frequency transmon qubits ( 55 ), featuring heavy-hex connectivity. We perform dynamical decoupling (DD) using the XY4 sequence ( 56 ) and employ 1000 Pauli-twirled (PT) circuits ( 57 ) with 128 shots to suppress coherent noise. We further apply twirled readout error extinction (TREX) ( 58 ) to mitigate measurement errors. Circuit compilation, the implementation of error mitigation and error suppression are handled by Qiskit (59 ). 
+
+Ground state preparation 
+
+To prepare the ground-state circuits for the spin models studied in Figure 2 and 4, we perform optimization of Hamiltonian variational ansatz acting on appropriate initial states. The optimization is performed classically, with the loss function chosen to be the fidelity overlap with respect to the MPS ground state computed using DMRG, i.e., |⟨ 𝜓 𝑜 |𝜓 GS ⟩| 2. For the 1D XX model and the 1D XXZ model at the isotropic point, we adopt the procedure outlined in the work ( 49 ): the process begins with pairs of singlets, which form the ground state of a Hamiltonian corresponding to the XXZ model acting only on the odd pairs of the system. We then apply the variational Hamiltonian ansatz on the entire system. This approach enables convergence to the ground state for both cases. For the ground states corresponding to 𝜖 = 0.145, the N´ eel state is closer to them than the singlet configuration. Therefore, it is more appropriate to start from the N´ eel state and use a variational Hamiltonian ansatz. Using this approach, we achieve significantly higher fidelities compared to starting from singlet states, reaching approximately 95 .9%. S4 To evaluate the quality of the ansatz used in the ground-state preparation ( 49 ), we plot the converged fidelity, |⟨ 𝜓 𝑜 |𝜓 GS ⟩| 2, against the system size 𝑁 for different numbers of ansatz layers, ranging from 𝐿 = 1 to 𝐿 = 6 (see figure S2). The parameter initialization in our variational ground-state preparation for a given number of ansatz layers proceeded as follows: compute converged parameters for system size 𝑛 = 10, use those as the starting point for 𝑛 = 20, then use the converged parameters corresponding to 𝑛 = 20 as the starting point for 𝑛 = 30, and so on, until 𝑛 = 50. For the XX model, we observe that six layers are required to reach a fidelity of approximately 70% − 75%. In contrast, for isotropic point, the variational optimization achieves higher fidelities slightly faster, achieving a fidelity close to 85% for the same number of layers. For the simulation results presented in Figure 2, we used five layers. We note that for the simulations shown in Figure 4B, we used the same ground state as in the case without NNN interactions. This choice is justified because these NNN interactions are very small in magnitude, and the fidelity overlap with respect to the true ground state (including NNN interactions) is nearly identical to that obtained without them. The small NNN interaction does not significantly alter the ground-state wavefunction, as the fidelity between the states with and without the NNN interaction is 99 .4%. 
+
+Time evolution circuit 
+
+In this study, we employ trotterization to implement the time-evolution operator in quantum circuits. For the time-evolution circuit of KCuF 3, we employ second-order Trotterization based on the Suzuki-Trotter formulas ( 60 ). 
+
+𝑒 −𝑖𝐻𝑡 ≈
+
+
+
+> 𝑁
+
+Ö
+
+> 𝑗 =1
+
+𝑒 −𝑖 𝑡   
+
+> 2𝑛 ℎ𝑗
+> 1
+
+Ö
+
+> 𝑗 =𝑁
+
+𝑒 −𝑖 𝑡   
+
+> 2𝑛 ℎ𝑗
+
+
+
+> 𝑛
+
+(S5) where 𝑛 and 𝑡 refer to the number of Trotter steps and the total time in the simulation, respectively. For KCuF 3, ℎ 𝑗 denotes the minimal set of non-commuting operators with nearest-neighbor interaction, which can generally be expressed in terms of the linear combination of 𝑆 𝑋 𝑗 𝑆 𝑋 𝑗 +1, 𝑆 𝑌 𝑗 𝑆 𝑌 𝑗 +1, and 
+
+𝑆 𝑍 𝑗 𝑆 𝑍 𝑗 +1 pauli operators and the circuit implementation is shown in figure S3(a). The second-order Trotterization layout for KCuF 3 is illustrated in figure S3(b). For the Hamiltonian in Equation 4, since it involves NNN interactions, performing second-order trotterization on the current device becomes computationally unfeasible. Therefore, we employ the S5 first-order trotterization via the lie-trotter formula ( 61 ). 
+
+𝑒 −𝑖𝐻𝑡 ≈
+
+
+
+> 𝑁
+
+Ö
+
+> 𝑗 =1
+
+𝑒 −𝑖 𝑡 𝑛 ℎ 𝑗 
+
+
+
+> 𝑛
+
+=
+
+
+
+> 𝑁
+
+Ö
+
+> 𝑗 =1
+
+𝑒 −𝑖 𝑡 𝑛 𝐻 𝑁 𝑁 𝑒 −𝑖 𝑡 𝑛 𝐻 𝑁 𝑁 𝑁 
+
+
+
+> 𝑛
+
+(S6) where it can be further represented as the product of the time-evolution operators for the nearest-neighbor (NN) term 𝐻 NN and the NNN term 𝐻 NNN , corresponding to the first and second terms in Equation 4, respectively. The implementation of the first-order Trotterization is shown in fig-ure S3(c), where the circuit is composed of time-evolution operators based on NN and NNN interactions. For the time evolution under 𝐻 𝑁 𝑁 𝑁 , SWAP gates are employed to implement two-qubit interactions across three qubits, addressing the limitations of the current qubit topology. 
+
+Approximate quantum compiling 
+
+We employ AQC based on a tensor network approach ( 54 ) to reduce two-qubit gate depth and enable simulations for longer times. Specifically, for short-time evolution, the quantum circuit can be simulated efficiently on classical hardware because the entanglement can still be accurately described using MPS simulation. The original quantum circuit is approximated by optimizing the ansatz parameters to achieve the target fidelity, using a shallower circuit as the ansatz. However, as entanglement grows with simulation time, the required number of quantum gates increases, and the cost of MPS simulations becomes significantly more computationally expensive due to the memory demands associated with optimizing highly entangled quantum states. Thus, longer-time simulations need to be achieved by concatenating the AQC circuits with the Trotter circuits. To prepare the AQC circuit, we initiate the process using the original circuit with fewer Trotter steps and employ KAK decomposition to generate the ansatz ( 62 ), the target fidelity is set to 90 %. Thus, the difference between the ansatz and the target circuit is the number of Trotter steps. This discrepancy is expected to decrease over time, as the number of Trotter steps required to accurately approximate an entangled quantum state typically increases with simulation time. The AQC process terminates once the optimization process requires more than 500 GB of memory, which typically exceeds the memory of a single computational node. The time-evolution quantum circuit beyond the AQC capability will be described by a Trotter circuit, as mentioned beforehand. The generation of the ansatz and the optimization process are carried out by qiskit addon aqc tensor (63 ) package. S6 For the XX model, we start with the 5-layer ground state with 2-qubit gates of 760 and depth of 31. The fidelity of the AQC circuit with different number of trotter steps is shown in figure S4(a). Based on the target fidelity, we perform AQC circuit to simulate the system up to 10 Trotter steps. The deepest ansatz we can employ corresponding to the original circuit with 2 Trotter steps, for which the AQC optimization of the ansatz with 3 Trotter steps requires over 700 GB. A comparison of the 2-qubit gate count and circuit depth between the circuit with and without AQC are shown in figure S4(b). The deepest circuit after AQC reaches a 2-qubit depth of 77 and contains 1888 two-qubit gates. Compared to the original circuit, the number of two-qubit gates is reduced by 1567 and the two-qubit depth is reduced by 64 . The two-qubit gates from the AQC circuit account for 50.7 % of those in the deepest quantum circuit. Notably, the 2-qubit depth and gate count are higher for the AQC circuit than for the full Trotter circuits before 5 trotter steps. This is a consequence of the qiskit addon aqc tensor (63 ) package employing KAK decomposition when generating the ansatz circuit for the time evolution block of the XX model. Since the XX model’s time-evolution block contains only two CNOT gates, preparing the ansatz with XX, YY, and ZZ interactions in the package requires three CNOT gates, leading to an increased circuit depth. Besides, the use of a 6-layer ansatz required at least 700 GB of memory just to initiate the AQC process, validating the choice of the 5-layer ansatz for subsequent runs. For KCuF 3, we start with the entangled ground-state circuit, which has a 2-qubit gates of 760 and depth of 31, and gradually increase the Trotter steps in the ansatz to approximate the full quantum circuit. The fidelity of the AQC circuit with different number of trotter steps is shown in figure S5(a). Based on the target fidelity, we select AQC circuit for original circuits with up to 10 Trotter steps, achieving a fidelity above 89.5 %. Although it does not reach the 90 % criteria, we find it beneficial to sacrifice a small amount of fidelity in order to reduce the circuit depth and the number of two-qubit gates. Notably, the deepest ansatz we can employ corresponds to ground state circuit with additional 2 Trotter steps, for which the optimization of the entangled state over 3 Trotter steps requires over 850 GB of memory for the case of 10 Trotter-steps evolution. To simulate time evolution beyond 10 Trotter steps, we concatenate the standard Trotter circuit with the AQC circuit. A comparison of the 2-qubit gate count and circuit depth between the circuit with and without AQC is shown in figure S5(b). The deepest circuit after AQC reaches a 2-qubit depth of 103 and contains 2,574 two-qubit gates. Compared to the original circuit, the number of two-qubit S7 gates is reduced by 1,126, and the two-qubit depth is reduced by 46. The two-qubit gates in the AQC circuit account for 42.6 % of those in the deepest quantum circuit. For the CsCoX 3 Hamiltonian in Equation 4, we start with the ground-state circuit that has the 2-qubit depth of 12 and 2-qubit gates of 294. Instead of using the entire Trotter step in our ansatz, we only include the circuit involving the NN interaction, which corresponds to the first part of the circuit shown in figure S3(c). This reduces the circuit depth, and the time evolution with small NNN interactions can still be effectively parametrized, as the fidelity shown in figure S6(a). Based on the target fidelity of 90 %, we perform the AQC circuit for up to 20 Trotter steps, achieving a fidelity of 90.2 %. The deepest ansatz we are able to employ is the ground-state circuit with 5 Trotter steps, as the optimization of the ansatz with 6 Trotter steps for the ground-state circuit with 18 Trotter steps could not be completed within the one-day node wall-time limit. The comparison of the 2-qubit gate count and 2-qubit depth are shown in figure S6(b). The deepest circuit after AQC reaches a 2-qubit depth of 219 and contains 4,908 two-qubit gates. Compared to the original circuit, the number of two-qubit gates is reduced by 7,245, and the two-qubit depth is reduced by 330. The significant amount of circuit reduction is due to bypassing the implementation of the time-evolution circuit based on the NNN interaction, which involves a swap network, at early times. The two-qubit gates from the AQC circuit account for 17.8 % of those in the deepest quantum circuit. For the circuit with two-soliton continuum, we start with the same ground-state circuit as in the CsCoX 3 Hamiltonian. For the purpose of comparison, we perform AQC circuit with the same trotter steps in the ansatz circuit as we used in the AQC circuit with NNN circuits, and the corresponding fidelity is shown in figure S7(a). While there is only NN interaction in the circuit, it is expected that the quantum state is less entangled and the corresponding AQC circuit is easier to prepared compared to the previous case with both NN and NNN interaction. Thus, the fidelity shown in figure S7(a) is slightly better than the one shown in figure S6(a). Based on the target fidelity, we also prepare the AQC circuit for the original circuit with Trotter steps up to 20. The comparison of the 2-qubit gate count and 2-qubit depth are shown in figure S7(b). The deepest circuit after AQC reaches a 2-qubit depth of 99 and contains 2,424 two-qubit gates. Compared to the original circuit, the number of two-qubit gates is reduced by 2,205, and the two-qubit depth is reduced by 90. The two-qubit gates from the AQC circuit account for 39.4 % of those in the deepest quantum circuit. Notably, for short period of time, the circuit could be optimized based on the light-cone structure S8 of the correlator or the Green’s function and further benefit the APS process. However, for longer period, as the correlator and Green’s function propagate through the entire circuit, the reduction of the quantum gates will be limited. 
+
+Resolution of the simulation 
+
+In quantum simulation, the resolution of the Fourier-transformed (FT) spectrum is set by the number of qubits and the cost of implementing two-qubit gates, which are the primary source of error. For FT spectrum, the the momentum resolution is Δ𝑘 = 2𝜋 /𝑛 for 𝑛 qubits, while the energy resolution is Δ𝜔 = 2𝜋 /( 𝑁 𝑑𝑡 ), where 𝑁 is the number of Trotter steps and 𝑑𝑡 the time interval. The choice of 𝑑𝑡 is governed by the Nyquist sampling theorem: to accurately capture excitations up to energy 
+
+𝐸 , the sampling rate must satisfy 𝜋 /𝑑𝑡 ≥ 𝐸 . This ensures that the highest frequency component is resolved without aliasing in the FT spectrum. Combining these: 
+
+Δ𝑘 Δ𝜔 = 4𝜋 2
+
+𝑁𝑛𝑑𝑡 = 4𝜋𝐸 𝑁𝑛 . (S7) Under gate constraints, either the total number of two-qubit gates 𝐺 or the circuit depth 𝐷 is fixed to achieve a target error threshold due to the hardware noise. For the purpose of analyzing the relationship between gate cost and spectral resolution, we assume that most two-qubit gates arise from the time-evolution block of the circuit in Figure 1. We do not account for any compression techniques such as AQC, since their effectiveness depend on the specific model and its entanglement structure. For a 1D XXZ chain using first-order Trotterization with periodic boundary conditions (PBC), each Trotter step requires 3 𝑛 two-qubit gates, giving a total gate count 𝐺 = 3𝑛𝑁 . With a fixed circuit depth 𝐷 , the maximum number of Trotter steps is 𝑁 = 𝐷 /6. The combined resolution in terms of G and D becomes: 
+
+Δ𝑘 Δ𝜔 = 12 𝜋𝐸 𝐺 , Δ𝑘 Δ𝜔 = 24 𝜋𝐸 𝐷𝑛 . (S8) For a 2D lattice of size 𝑛 𝑥 × 𝑛 𝑦 with PBC, each Trotter step requires 6 𝑛 𝑥 𝑛 𝑦 two-qubit gates, giving 
+
+𝐺 = 6𝑛 𝑥 𝑛 𝑦 𝑁 . As a 2D lattice has coordination number four and each two-qubit interaction is implemented using three two-qubit gates, the maximum number of Trotter steps is 𝑁 = 𝐷 /12. The combined resolution is: 
+
+Δ𝑘 𝑥 Δ𝑘 𝑦 Δ𝜔 = 48 𝜋 2𝐸 𝐺 , Δ𝑘 𝑥 Δ𝑘 𝑦 Δ𝜔 = 96 𝜋 2𝐸 𝑛 𝑥 𝑛 𝑦 𝐷 . (S9) S9 Convergence of the bond dimension for MPS simulation 
+
+We perform an MPS-based simulation and use it as one of the benchmarks for our quantum simu-lation, as it can handle 1D systems and serves as a noiseless reference. Because the wavefunction is represented as a product of matrices, the dimension of these matrices, commonly referred to as the bond dimension 𝜒 , largely determines the ability of the MPS to capture the entanglement of the wavefunction. Here, we perform a convergence test of the bond dimension for the ⟨𝑍 𝑐 (𝑡 )𝑍 𝑐 ⟩
+
+correlation, where 𝑐 refers to the central site, using bond dimensions ranging from 16 to 256 for each model in this research. Based on the convergence results and the residuals of each bond dimension relative to 𝜒 = 256 (figure. S8), we use 𝜒 = 128 as the benchmark in this work. The results converge to 10 −4 for the XX model and KCuF 3, and to 10 −5 for the models with NNN interaction. 
+
+Approximated error 
+
+In this work, we employ several approximations to evaluate the spectrum, including ground-state preparation (GSP) using a variational ansatz and an AQC circuit. In addition, the results are affected by errors originating from the quantum hardware. In this section, we analyze the impact of these different error sources by taking the DMRG ground state with full Trotterized time evolution as a reference and quantifying deviations via the structural similarity index (SSIM) of the measured RGF. We evaluated the RGF and the corresponding spectra for the GSP and GSP+AQC protocols using MPS simulations, which serve as noiseless benchmarks. In addition, we evaluate the RGF and the spectrum on ibm kingston , ibm pittsburgh , and ibm boston to examine how device quality affects the results, although it is straightforward that higher-quality devices yield better performance. We consider KCuF 3 as a representative case. The spectral features are well captured by the GSP+AQC approximation, as shown in figure S9, with the corresponding SSIM exceeding 99%, as summarized in table S1. Notably, the relative SSIM between Green’s functions and spectra reflects the different sensitivity of time- and frequency-domain observables to phase coherence, dispersion, and spectral-weight redistribution. The improvement of the device yields a better spectrum, as shown in figure S9 From 𝑖𝑏𝑚 𝑘𝑖𝑛𝑔𝑠𝑡𝑜𝑛 (Heron r2 device) to 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 (best Heron r3 device), we observe an improved capture of the overall RGF and enhanced spectrum quality, with the corresponding SSIM approaching the noiseless result (MPS-GSP+AQC). S10 Metrics 
+
+The mean square error (MSE) provides the most direct measure of the quality of the predictor ˆ𝑦 relative to the baseline 𝑦 , where the target spectrum 𝑦 𝑡𝑎𝑟𝑔𝑒𝑡 is compared with the experimental spectrum 𝑦 𝑒𝑥 𝑝𝑡 . MSE is defined as MSE = 1
+
+𝑛 
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖
+
+(𝑦 𝑖 − ˆ𝑦 𝑖 )2 = (𝑦 𝑡𝑎𝑟𝑔𝑒𝑡 − 𝑦 𝑒𝑥 𝑝𝑡 )2
+
+𝑛 (S10) where 𝑛 denotes the number of predictions, corresponding to the total number of pixels in the spectrum. To quantify the differences between spectra, we evaluate the Wasserstein distance (also known as the Earth Mover’s Distance ( 64 )), which measures the minimum cost required to transform one intensity distribution into another. The Wasserstein distance is sensitive to shifts and broadening of spectral features, making it well suited for comparing dispersive structures in dynamical spectra. The Wasserstein distance between x and y is calculated using Scipy (65 ) package, according to the formula 
+
+𝑙 1 (𝑢, 𝑣 ) = inf 𝜋 ∈Γ(𝑢,𝑣 )
+
+∫
+
+||( 𝑥 − 𝑦 )|| 2𝑑𝜋 (𝑥, 𝑦 ) (S11) where Γ(𝑢, 𝑣 ) is the set of is the set of all transport plans with marginals 𝑢 and 𝑣 .Structural Similarity Index Measure (SSIM) ( 36 ) is a widely used metric for comparing image similarity, particularly in computer science and image processing. The SSIM index is computed between two windows of pixel values 𝑥 and 𝑦 of common size, taken from corresponding locations in two images. These SSIM values can be aggregated across the full image by averaging or other variations. In a simple special case, the SSIM measure between 𝑥 and 𝑦 is given by: SSIM (𝑥, 𝑦 ) = (2𝜇 𝑥 𝜇 𝑦 + 𝑐 1)( 2𝜎 𝑥𝑦 + 𝑐 2)(𝜇 2 
+
+> 𝑥
+
++ 𝜇 2 
+
+> 𝑦
+
++ 𝑐 1)( 𝜎 2 
+
+> 𝑥
+
++ 𝜎 2 
+
+> 𝑦
+
++ 𝑐 2) (S12) where: 𝜇 𝑥 (𝜇 𝑦 ) and 𝜎 2 
+
+> 𝑥
+
+(𝜎 2 
+
+> 𝑦
+
+) denote the sample means and variances of 𝑥 (𝑦 ), respectively. 𝜎 𝑥𝑦 
+
+denotes the sample covariance between 𝑥 and 𝑦 . 𝑐 1 and 𝑐 2 are small constants introduced to stabilize the division, where 𝑐 1 and 𝑐 2 are set to the standard values 0 .01 2 and 0 .03 2 based on the data range of the normalized spectrum equals 1 ( 36 ). The SSIM is evaluated using the scikit-image 
+
+package ( 66 ) with window size of 11 by 11. To further assess the spectral characteristics, we evaluate features such as the spectral weight and the positions of the main peaks, providing a more detailed benchmark of the quantum simulations. S11 Furthermore, when the spectrum exhibits a discernible distribution, which may reflect specific quasiparticle dynamics, it is worthwhile to evaluate the corresponding properties to investigate transport behavior. To determine the peak position and the associated spectral weight, we fit the line-scan data using a Gaussian function implemented in Lmfit (67 ). Once the peak position is identified, we integrate the spectrum over a window of width 0 .5𝐽 centered on the peak to account for broadening effects. In this work, we employ the normalized form of QFI (nQFI) ( 39 ), based on the energy integration of the DSF, defined as 
+
+𝑛𝑄𝐹 𝐼 [𝑞, 𝑇 ] = 1
+
+𝑆 2
+
+∫ ∞
+
+> 0
+
+𝑑 (ℏ𝜔 ) [ tanh ( ℏ𝜔 
+
+2𝑘 𝐵 𝑇 )( 1 − 𝑒 −ℏ𝜔 /𝑘 𝐵 𝑇 )𝑆 𝛼,𝛼 (𝑞, 𝜔 )] (S13) where 𝑆 = 1/2, 𝑇 is the temperature, ℏ𝜔 is the energy transfer, and 𝑘 𝐵 denotes the Boltzmann constant. The 𝑛𝑄𝐹 𝐼 > 𝑚 indicated the system with at least 𝑚 +1-partite entanglement. We compute Eq. S13 after renormalizing the total spectrum based on the sum rule as follows. 
+
+∫ ∞−∞ 𝑑𝜔 ∫ 
+
+> 𝐵𝑍
+
+𝑑𝑞 Í𝛼 𝑆 𝛼,𝛼 (𝑞, 𝜔 )
+
+∫ 
+
+> 𝐵𝑍
+
+𝑑𝑞 = 𝑆 (𝑆 + 1) (S14) Notably, a small nQFI does not necessarily imply a low degree of entanglement within the wave function, as it serves as a lower bound for the information about multipartite entanglement. Fur-thermore, we evaluate the two-tangle, 𝜏 2, which quantifies pairwise entanglement as the sum of squared concurrences, 𝜏 2 = Í𝑟 ≠0 𝐶 2 
+
+> 𝑟
+
+(17,39 ). This measure involves the spin-spin correlation func-tion, 𝐶 𝑧𝑧 = ⟨𝑆 𝑧 𝑖 𝑆 𝑧 𝑖 +𝑟 ⟩ , which can be obtained via the Fourier transform of the energy-integrated spectrum. For the isotropic point, the concurrences can be simplified as ( 17 )
+
+𝐶 𝑟 = 2 max {0, 2|𝐶 𝑧𝑧 | − | 14 + 𝐶 𝑧𝑧 |} (S15) with 𝜏 2 = 2 Í𝑟 ≠0 𝐶 2 
+
+> 𝑟
+
+. We note that 𝜏 2 is sensitive to experimental artifacts and therefore should be used only as an auxiliary or semi-quantitative metric for entanglement witnessing. 
+
+Noisy simulation 
+
+To evaluate the effect of gate errors on the quality of the INS spectrum, we employ a global depolarization channel to describe the noise of two-qubit gates, which are most dominant source of noise in our experiments. 
+
+D ( 𝜌 ) = (1 − 𝑝 ) 𝜌 + 𝑝 𝐼 
+
+2𝑛 (S16) S12 where 𝜌 is the density matrix and 𝑝 is the depolarization probability. To incorporate the error rates from each two-qubit gate into equation S16, we approximate (1 − 𝑝 ) as Î𝑁 𝑖 (1 − 𝑝 𝑖 ), where 𝑝 𝑖 is the gate error and 𝑁 is the total number of two-qubit gates. We first take the compiled AQC circuit and evaluate the number of two-qubit gates within the backward light cone from the final measurement at each time step, which serves as 𝑁 for approximating the total (1 − 𝑝 ) factor. Next, to assign an error to each two-qubit gate, we sample it from a Gaussian distribution with the given error rate as the mean. Then, we sample bitstrings from the MPS simulation of the quantum circuit to create the noiseless bitstring dictionary and randomly choose the sampled bitstrings from the dictionary based on the probability of (1 − 𝑝 ).To mimic the maximally mixed state (second term in equation S16), we sample random bitstrings with probability 𝑝 . In total, we sample 128000 bitstrings probabilistically either from the MPS distribution or random bitstrings, with (1 − 𝑝 ) informing the probability of encountering noise. The same number of shots was used in the experimental setup. The RGF and the corresponding DSF was computed from the acquired distribution. 
+
+Hardware information 
+
+The quantum experiments are performed on the IBM Heron r3 processor, 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 , which comprises 156 fixed-frequency transmon qubits ( 55 ) arranged in a heavy-hex connectivity. We conduct our experiments in two sets: one involves the XX model and KCuF 3, and the other involves the two-soliton continuum and CsCoX 3. The device properties for conducting the experiments for the XX model and KCuF 3 are shown in figure S10. The median single-qubit gate, two-qubit gate, and readout error rates are 1 .584 × 10 −4, 1 .177 × 10 −3, and 4 .883 × 10 −3, respectively. The median 
+
+𝑇 1 and 𝑇 2 time are 278.65 and 337.76 𝜇𝑠 , respectively. On the other hand, the device properties of the experiments for the two-soliton continuum and CsCoX 3 are shown in figure S12. The median single-qubit gate, two-qubit gate, and readout error rates are 1 .471 × 10 −4, 1 .256 × 10 −3, and 4.395 × 10 −3, respectively. The median 𝑇 1 and 𝑇 2 time are 278.67 and 329.76 𝜇𝑠 , respectively. To further benchmark the device quality and optimize the layout selection, we perform a layer fidelity (LF) experiment via randomized benchmarking (RB) ( 68 ), yielding median error rates of 1.734 × 10 −3 and 1 .867 × 10 −3 for the two sets of experiments, as shown in the bottom-right panels of figure S10 and figure S12, respectively. S13 To choose the optimal layout for our 50-qubit experiment, we first randomly sample 10,000 candidate layouts generated by mapomatic (69 ). We then determine the optimal layout based on the fidelity evaluated from the layered error rates and the readout error rates from the device. The layout properties of the experiments for XX model and KCuF 3 are shown in figure S11. The median single-qubit gate, two-qubit gate, and readout error rates are 1 .450 × 10 −4, 1 .080 × 10 −3,and 5 .127 × 10 −3, respectively. The median 𝑇 1 and 𝑇 2 time are 298.40 and 343.75 𝜇𝑠 , respectively. The layout properties of the experiments for two-soliton continuum and CsCoX 3 are shown in figure S13. The median single-qubit gate, two-qubit gate, and readout error rates are 1 .632 × 10 −4,1.342 × 10 −3, and 4 .578 × 10 −3, respectively. The median 𝑇 1 and 𝑇 2 time are 283.59 and 329.22 
+
+𝜇𝑠 , respectively. The LF experiment is implemented using the layered connectivity of the quantum circuits employed in this research, with a median error rate of 1 .316 × 10 −3 and 1 .234 × 10 −3, as shown in the bottom-right panels of figure S11 and figure S13, respectively. S14 X
+
+> X
+> X
+> Measure  −θσ
+> i ≈
+
+U(αi) U(αj)
+
+U(αi)
+
+U(αi)
+
+U(αi)
+
+U(αi)
+
+U(αj)
+
+U(αj)
+
+U(αj)
+
+U(αj)
+
+UNN
+
+> Trotter circuit
+
+Uβ 
+
+> j
+> Perturbation
+> ….
+> Ground-state preparation
+> n-times
+> UNNN
+> AQC circuit Partial AQC circuit
+> Measure  −θσ
+> i ≈
+
+U(αi) U(αj)
+
+U(αi)
+
+U(αi)
+
+U(αi)
+
+U(αi)
+
+U(αj)
+
+U(αj)
+
+U(αj)
+
+U(αj)
+
+> Trotter circuit
+
+Uβ 
+
+> j
+> Perturbation
+> ….
+> Ground-state preparation
+> n-times
+> Singlet
+> AQC circuit Partial AQC circuit
+> Singlet
+> Singlet
+
+U
+
+(a)  (b) Figure S1 : Quantum circuit for measuring the dynamical structural factor . A Quantum circuit for XX model and KCuF 3, where 𝑈 refers to second-order trotterization. B Quantum circuit for Ising-like XXZ model with next-nearest-neighbor interactions, where the initial state is the N´ eel state instead of the singlet product state. 10 15 20 25 30 35 40 45 50                   
+
+> N (System Size)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Fidelity (|  ASP | GS  |2)
+> (a) XX model
+> 10 15 20 25 30 35 40 45 50
+> N (System Size)
+> (b) = 1
+> 10 15 20 25 30 35 40 45 50
+> N (System Size)
+> (c) = 0.145
+> L=1
+> L=2
+> L=3
+> L=4
+> L=5
+> L=6
+> L=7
+> L=8
+
+Figure S2 : Fidelity of variational state preparation for the XXZ spin models considered in this work as a function of system size 𝑁 and the number of ansatz layers 𝐿 . Panel A shows results for the XX model, panel C for 𝜖 = 1 and B for 𝜖 = 0.18. We observe that between the XX model and the 𝜖 = 1, the ansatz achieves higher fidelities with fewer layers in the latter. In both these cases, the achieved fidelities for a given number of ansatz layers decreases with increasing system size. The trends are noticeably different for C 𝜖 = 0.145, characterized by the rapid saturation of fidelities near 1 .0. This behavior may be attributed to our different choice of initial state in C;notably, the initial N´ eel state has a significantly higher overlap with the true ground state compared to the initial states used in cases A and B.S15 (a) 
+
+(b) 
+
+(c) 
+
+Rx(θx) H H
+
+Rz(−θy)
+
+SX†
+
+S
+
+SXRz(θz)
+
+NN interaction  NNN interaction 
+
+= e−itHNN interation = e−itHNNN interation
+
+> 1st-order trotter. for CsCoBr 3
+
+=
+
+e−idtHloc/2
+
+e−idtHloc
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc/2
+
+e−idtHloc
+
+e−idtHloc
+
+> 2nd-order trotter. for KCuF 3
+
+=Figure S3 : Circuit implementation for the trotterization. (a) Quantum circuit for the local time evolution operator with 𝑆 𝑋 𝑖 𝑆 𝑋 𝑖 +1, 𝑆 𝑌 𝑖 𝑆 𝑌 𝑖 +1, and 𝑆 𝑍 𝑖 𝑆 𝑍 𝑖 +1 interactions, where the parameters 𝜃 𝑥 , 𝜃 𝑦 , 𝜃 𝑧 are adjusted according to the strengths of the individual interactions and the time step length. (b) The circuit implementation of the second-order trotterization for the XX model and KCuF 3, where 𝐻 𝑙𝑜𝑐 
+
+denotes the local Hamiltonian 𝐽 (𝑆 𝑋 𝑗 𝑆 𝑋 𝑗 +1 + 𝑆 𝑌 𝑗 𝑆 𝑌 𝑗 +1 + 𝑆 𝑍 𝑗 𝑆 𝑍 𝑗 +1) at the isotropic point. (c) The circuit implementation of the first-order trotterization for Ising-like XXZ model with NNN interactions (Eq. 4). To implement the NNN interaction within the 1D model on IBM quantum computers, we employ SWAP gates to bring next-nearest neighbor pairs adjacent to each other and perform the gate operation shown in (a) using the parameters corresponding to the NNN interaction. S16 Target fidelity   
+
+> (a) (b)
+> 1 layer AQC 2 layer AQC
+> AQC +
+> trotter circuit
+> AQC circuit
+
+Figure S4 : Approximate Quantum Compiling (AQC) details for the XX model simulations. 
+
+(a) Fidelity between the original Trotter circuit and the AQC circuit. The deepest ansatz we employ consists of five Trotter layers combined with the ground-state circuit. (b) Comparison of the 2-qubit depth and gate count between the original Trotter circuit and the AQC+Trotter circuit. After 22 Trotter steps, the depth and gate costs increase linearly as the Trotter circuit is concatenated to perform the simulation over 22 steps. AQC+trotter circuit AQC circuit   
+
+> 1 layer AQC 2 layer AQC
+> Target fidelity
+> (a) (b)
+
+KCuF3 
+
+Figure S5 : Approximate Quantum Compiling (AQC) details for the KCuF 3 simulations. (a) Fidelity between the original Trotter circuit and the AQC circuit. Due to memory limitations, the deepest ansatz we employ consists of two Trotter layers combined with the ground-state circuit. (b) Comparison of the 2-qubit depth and gate count between the original Trotter circuit and the AQC+Trotter circuit. After 10 Trotter steps, the depth and gate costs increase linearly as the Trotter circuit is concatenated to perform the simulation over 10 steps. S17 AQC circuit  
+
+> (a) (b)
+
+CsCoCl3 NNN 
+
+> AQC +
+> trotter circuit Target fidelity
+> 1 layer AQC
+> 5 layer AQC
+> 2 layer AQC
+> 3 layer AQC
+> 4 layer AQC
+
+Figure S6 : AQC information of the quantum circuits for CsCoX 3 Hamiltonian. (a) Fidelity between the original Trotter circuit and the AQC circuit. The deepest ansatz we employ consists of five Trotter layers combined with the ground-state circuit. (b) Comparison of the 2-qubit depth and gate count between the original Trotter circuit and the AQC+Trotter circuit. After 20 Trotter steps, the depth and gate costs increase linearly as the Trotter circuit is concatenated to perform the simulation. AQC +  
+
+> trotter circuit
+> AQC circuit
+> Target fidelity
+> (a) (b)
+
+CsCoCl3 NN 
+
+> 1 layer AQC
+> 5 layer AQC
+> 2 layer AQC
+> 3 layer AQC
+> 4 layer AQC
+
+Figure S7 : AQC information of the quantum circuits for two-soliton continuum. (a) Fidelity between the original Trotter circuit and the AQC circuit. The deepest ansatz we employ consists of five Trotter layers combined with the ground-state circuit. (b) Comparison of the 2-qubit depth and gate count between the original Trotter circuit and the AQC+Trotter circuit. After 20 Trotter steps, the depth and gate costs increase linearly as the Trotter circuit is concatenated to perform the simulation. S18 XX model  KCuF 3 
+
+> Two-soliton continuum CsCoX 3
+
+(a) (b) 
+
+(c)  (d) Figure S8 : Bond-dimension convergence test for the observable ⟨𝑍 𝑐 (𝑡 )𝑍 𝑐 ⟩ for each model, where 
+
+𝑐 is the center site. The inset shows the residual between the observable calculated with different bond dimensions and that with the highest bond dimension, 𝜒 = 256. The results converge to 10 −4
+
+for both the XX model and KCuF 3, and to 10 −5 for the CsCoX 3 model and two-soliton continuum. S19 MPS-DMRG  MPS-GSP  MPS-GSP+AQC   
+
+> (noiseless simulation)
+> Ibm_kingston Ibm_pittsburgh Ibm_boston
+> single-qubit gate
+> two-qubit gate
+> readout error
+
+Figure S9 : Comparison of quantum simulated KCuF 3 spectrum with noiseless simulations. 
+
+The fidelity of the GSP and AQC is 83 % and 90 % respectively. The median error rate of single-qubit gate are 2 .130 ×10 −4, 1 .778 ×10 −4, and 1 .449 ×10 −4; those of two-qubit gate are 1 .877 ×10 −3,1.792 ×10 −3, and 1 .080 ×10 −3; and those of readout are 7 .876 ×10 −3, 3 .662 ×10 −3, and 5 .123 ×10 −3,for 𝑖𝑏𝑚 𝑘𝑖𝑛𝑔𝑠𝑡𝑜𝑛 on August 25 𝑡ℎ , 2025, 𝑖𝑏𝑚 𝑝𝑖𝑡𝑡𝑠𝑏𝑢𝑟𝑔ℎ on Octorber 13 𝑡ℎ , 2025, and 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 
+
+on December 22 𝑛𝑑 , 2025, respectively. S20 Two-qubit gate error 
+
+> Single-qubit gate error
+
+## (a)KCuF3 Figure S10 : Properties of 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 on December 22 𝑛𝑑 , 2025, for the XX model and KCuF 3
+
+experiment. The single- and two-qubit gate errors across the entire device map are shown in the left panel. The right panel shows the cumulative percentages of single-qubit errors, two-qubit errors, readout errors, 𝑇 1, 𝑇 2, and the layered error from the LF experiment. S21 Two-qubit gate error 
+
+> Single-qubit gate error
+
+## (a)(a)
+
+## KCuF3 Figure S11 : Properties of chosen 50 qubits on 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 on December 22 𝑛𝑑 , 2025, for the XX model and KCuF 3 experiment. The layered error evaluated in the LF experiment with the layered connectivity of the quantum circuit used in this research. S22 Two-qubit gate error 
+
+> Single-qubit gate error
+
+## (a)Figure S12 : Properties of 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 on January 26 𝑡ℎ , 2026, ibmfor the two-soliton continuum and CsCoX 3 experiment. The single- and two-qubit gate errors across the entire device map are shown in the left panel. The right panel shows the cumulative percentages of single-qubit errors, two-qubit errors, readout errors, 𝑇 1, 𝑇 2, and the layered error from the LF experiment. S23 Two-qubit gate error 
+
+> Single-qubit gate error
+
+## (a)Figure S13 : Properties of chosen 50 qubits on 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 on January 26 𝑡ℎ , 2026, for the two-soliton continuum and CsCoX 3 experiment. The layered error evaluated in the LF experiment with the layered connectivity of the quantum circuit used in this research. S24 Approximation MPS-GSP MPS-GSP+AQC 𝑖𝑏𝑚 𝑘𝑖𝑛𝑔𝑡𝑜𝑛 𝑖𝑏𝑚 𝑝𝑖𝑡𝑡𝑠𝑏𝑢𝑟𝑔ℎ 𝑖𝑏𝑚 𝑏𝑜𝑠𝑡𝑜𝑛 
+
+KCuF 3 - RGF 0.892 0.859 0.626 0.658 0.705 KCuF 3 - spectrum 0.990 0.990 0.845 0.877 0.900 
+
+Table S1 : SSIM comparison of the RGF and spectrum against the MPS result using DMRG state for KCuF 3 (Figs. S9). Quantum experiments Median T1 ( 𝜇𝑠 ) T2 ( 𝜇𝑠 ) 1Q (10 −4) 2Q (10 −3) RO (10 −3) LF (10 −3)XX model / KCuF 3 overall 278.65 337.76 1.584 1.177 4.883 1.734 XX model / KCuF 3 layout 298.40 343.75 1.450 1.080 5.127 1.316 2-soliton / CsCoX 3 overall 278.67 329.76 1.471 1.256 4.395 1.867 2-soliton / CsCoX 3 layout 283.59 329.22 1.632 1.342 4.578 1.234 
+
+Table S2 : Calibration data for the 50-qubit quantum simulation for XX model/KCuF 3 and two-soliton/CsCoX 3.S25

@@ -1,0 +1,1636 @@
+Title: Lee-Yang Zeros and Pseudocritical Drift in J-Q N\'eel-VBS Transitions
+
+URL Source: https://arxiv.org/pdf/2603.15116v1
+
+Published Time: Tue, 17 Mar 2026 04:05:40 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+## Lee–Yang Zeros and Pseudocritical Drift in J-Q N´ eel–VBS Transitions 
+
+Chunhao Guo, 1, 2 Zhe Wang, 1, 2 Danhe Wang, 3 Zenan Liu, 1, 2 Haiyuan Zou, 3, ∗ and Zheng Yan 1, 2, †
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+Key Laboratory of Polar Materials and Devices (MOE), School of Physics, East China Normal University, Shanghai 200241, China 
+
+(Dated: March 17, 2026) Square-lattice J-Q models provide a sign-problem-free setting for probing the quantum phase tran-sition between N´ eel antiferromagnet and columnar valence-bond solid. We analyze this transition through the scaling of Lee–Yang zeros, computed within stochastic series expansion quantum Monte Carlo by reweighting configurations sampled near criticality in the presence of complex source fields. Benchmark studies of the dimerized Heisenberg model and the checkerboard J-Q model validate the method, yielding stable O(3) critical scaling in the former and clear spacetime-volume scaling in the latter, as expected for a first-order transition. Applying the same analysis to the J-Q models, we find a pronounced and systematic drift of the leading-zero scaling with increasing system size, consistent with an extended pseudocritical regime. The Lee–Yang scaling implies an effective scal-ing dimension ∆ ϕ of the SO(5) order-parameter field that decreases with size and is consistent with vanishing in the thermodynamic limit. Such behavior lies below the scalar unitarity bound of any unitary relativistic conformal field theory in 2+1 dimensions and enforces inverse spacetime-volume scaling of the zeros, the hallmark of a first-order transition. These results support a weakly first-order interpretation of the N´ eel–VBS transition and establish the finite-size Lee–Yang zeros as a sensitive, symmetry-resolved diagnostic of pseudocriticality and transition order in the J-Q family. 
+
+Introduction. Quantum magnets provide a controlled setting for studying quantum phase transitions beyond the standard Landau–Ginzburg–Wilson framework based on a single local order parameter [1–5]. A central ex-ample is the square-lattice transition between N´ eel anti-ferromagnet (AFM) and a columnar valence-bond solid (VBS), realized in sign-problem-free J-Q models and ac-cessible to large-scale quantum Monte Carlo simulations [6–13]. Within conventional Landau theory, a direct con-tinuous transition between these phases is not generically expected without additional fine tuning, since the N´ eel and VBS phases break distinct symmetries [1–4]. The deconfined quantum critical point (DQCP) scenario in-stead posits a continuous transition governed by frac-tionalized spinons coupled to an emergent gauge field, with the N´ eel order parameter arising as a spinon bilin-ear and the VBS order associated with monopole oper-ators [3–5, 14, 15]. Complementary to continuum field-theory approaches, Lee–Yang theory characterizes phase transitions through the analytic structure of the partition function Z in the complex plane, where thermodynamic singularities are tied to the accumulation of zeros [16–25]. Importantly, Lee–Yang theory is naturally formulated at finite size and is therefore well suited to numerical simu-lations. For finite linear system size L and inverse tem-perature β, Lee–Yang zeros are discrete and remain off the real axis, but their scaling with L provides a sharp, nonperturbative diagnostic of transition order and criti-cal behavior [18, 25–30]. Lee–Yang zeros therefore pro-vide a natural probe of the debated N´ eel–VBS criticality in J-Q models [9–11, 13, 31–35]. Early quantum Monte Carlo studies of square-lattice SU(2) J-Q models found nearly size-independent cross-ings of Binder cumulants and correlation-length ratios, consistent with a putative continuous N´ eel–VBS tran-sition [6–9]. At the same time, conventional finite-size diagnostics in these models remain difficult to interpret [9, 10, 12, 13, 32, 36]. Crossing points can look almost size independent on moderate lattices, yet continue to drift as larger sizes are included, while exponents from stan-dard finite-size fits depend noticeably on the fitting win-dow, indicating that the asymptotic regime is not cleanly reached. Joint AFM–VBS order-parameter distributions also exhibit approximate emergent symmetry, which is suggestive but does not by itself distinguish true critical-ity from a long-lived pseudocritical regime [5, 11, 36, 37]. Conventional real-axis observables therefore provide im-portant evidence, but do not directly isolate the finite-size singularity scale or decisively determine the char-acter of the transition. Distinguishing a stable unitary fixed point from an anomalously weak first-order transi-tion thus remains a central challenge for understanding N´ eel–VBS criticality in the J-Q family [5, 10, 15, 32, 36]. In this Letter we study the N´ eel–VBS transition through Lee–Yang zeros computed within stochastic se-ries expansion (SSE) quantum Monte Carlo [24, 25, 38– 43]. By evaluating complex generating functions in symmetry-resolved channels, we track the finite-size flow of the leading Lee–Yang zeros, which directly measures the singularity scale and distinguishes critical behav-ior from first-order coexistence [18, 29, 44–47]. Using amplitude-free two-size estimators constructed from low-lying zeros [18, 25, 27, 28, 30], we analyze benchmark models together with the uniform J-Q 3 and J-Q 2 systems. 
+
+> arXiv:2603.15116v1 [cond-mat.str-el] 16 Mar 2026
+
+2Q2   
+
+> Q2
+> Q3
+> Q3
+> Q
+> Q
+> J2J1
+> (a) (b)
+> (c) (d)
+
+FIG. 1. Schematic illustrations of the lattice Hamiltoni-ans studied in this work. (a) Columnar dimerized Heisen-berg model with alternating strong and weak nearest-neighbor bonds. (b) Checkerboard J-Q (CBJQ) model with Q interac-tions on a checkerboard plaquette pattern. (c) Uniform J-Q 2
+
+model with Q2 interactions on every plaquette. (d) Uniform J-Q 3 model with Q3 interactions on 2 ×3 and 3 ×2 rectangles. 
+
+While the benchmarks recover their expected behavior, J-Q 2 and J-Q 3 exhibit pronounced finite-size drift, in-dicating an extended pseudocritical regime. These re-sults support a weakly first-order interpretation of the N´ eel–VBS transition and highlight the advantage of Lee– Yang zeros as a direct finite-size diagnostic of slow drift [5, 10, 13, 32, 36, 48]. 
+
+Methods and Models. For finite L and inverse temper-ature β, a symmetry-preserving anchor Hamiltonian H0
+
+defines an ensemble that respects all microscopic symme-tries, so phases and criticality are inferred from the L de-pendence of symmetry-resolved fluctuations [1, 2, 15, 49]. We probe a channel specified by operator support (site, bond, or plaquette) and translation sector Q, defined from a local density O(x) at position Rx by the momen-tum projection OQ ≡ P 
+
+> x
+
+eiQ·Rx O(x), which is a transla-tion eigen-operator and does not mix with inequivalent Q
+
+sectors in correlators [1, 2, 49, 50]. We introduce an imag-inary source i gQ coupled to OQ, H(i gQ) = H0 − igQOQ,and work with the normalized generator GL,β (i gQ) ≡
+
+ZL,β (i gQ)/Z L,β (0), whose finite-L zeros encode the ana-lytic structure of the complex Z [16–18, 20, 51] and whose thermodynamic pinching yields free-energy nonanalytic-ities [16–18, 51]. We evaluate G in SSE by reweight-ing configurations sampled from the real anchor ensem-ble [24, 52–56]: for each stored configuration C we form the ratio R(i gQ; C) ≡ W (C; i gQ)/W (C; 0), where W is the SSE weight including the source-dependent diago-nal matrix elements [38, 39, 41], and compute G(i gQ) = 
+
+⟨R(i gQ; C)⟩0. Lee–Yang zeros are then the values of i gQ
+
+at which this estimator vanishes [24, 25]. As a continuous-transition example, we study the 2+1D columnar dimerized Heisenberg model [57, 58], shown in Fig. 1(a), 
+
+Hdim = J1
+
+X
+
+> ⟨ij ⟩∈ weak
+
+Si ·Sj + J2
+
+X
+
+> ⟨ij ⟩∈ strong
+
+Si ·Sj , (1) which hosts an O(3) quantum phase transition between a N´ eel AFM and a quantum-disordered dimer phase [57– 59]. We probe the N´ eel channel at Q = ( π, π ) through 
+
+M z = P
+
+> r
+
+(−1) x+y Sz 
+
+> r
+
+, by adding the imaginary source term i hM z , with h ∈ R. For each SSE configuration, we record the numbers of diagonal bond operators acting on the two antiparallel local spin configurations ( ↑i↓j ) and (↓i↑j ), denoted n(s) 
+
+> ↑↓
+
+and n(s) 
+
+> ↓↑
+
+, respectively.[60] With real anchor denominators Js and αs = 2 /(NcJs) ( Nc = 4 on the square lattice) [38, 61], the per-configuration ratio factor is Rh(i h) = Q
+
+> s
+
+ 1 − iαshn(s) 
+
+> ↑↓
+
+ 1 + i αshn(s) 
+
+> ↓↑
+
+.
+
+As a controlled first-order benchmark, we use the checkerboard J-Q (CBJQ) model [31, 62, 63], shown in Fig. 1(b), 
+
+HCBJQ = −J X
+
+> ⟨ij ⟩
+
+Pij − Q X
+
+> ⟨ij,kl ⟩∈ □′
+
+Pij Pkl , (2) where Pij ≡ 14 − Si ·Sj , and □′ denotes one of the two checkerboard plaquette subfamilies, for example the red shaded plaquettes in Fig. 1(b) [15, 31, 62]. This model exhibits a discontinuous transition between a N´ eel AFM and a plaquette-singlet-solid (PSS) phase [31, 62, 63]. Motivated by the emergent O(4) symmetry reported at the transition [31, 62], we probe Lee–Yang zeros for both the N´ eel and PSS order parameters. For the AFM channel, we couple an imaginary source i h to the stag-gered magnetization M z = P
+
+> r
+
+(−1) x+y Sz 
+
+> r
+
+. To detect PSS order, we resolve plaquettes by checkerboard and row parities, ϵrow (□′) = (−1) y(□′) [31, 62], and de-fine OPSS ≡ P 
+
+> □′
+
+ϵrow (□′) O(□′), where O(□′) is the local plaquette density associated with the microscopic interaction.[64] In the PSS channel, we introduce an imaginary source term i η O PSS . For each SSE configura-tion, the corresponding reweighting factor is determined by the real anchor coupling Q and by the row-parity-resolved numbers of Q-vertex insertions, NQ+ and NQ−,giving Rpss (i η) = 
+
+
+
+1 + i ηQ
+
+NQ+ 
+
+1 − i ηQ
+
+NQ−
+
+.
+
+Our primary targets are the uniform J-Q 2 and J-Q 3
+
+models, which are canonical DQCP candidates [5–13, 36], shown in Fig. 1(c) and (d). In these systems, conven-tional real-axis observables can appear stable over the accessible range of sizes and may yield seemingly con-verged critical exponents. As we show below, Lee–Yang zeros provide a more direct probe of the finite-size sin-gularity scale and thereby expose slow drift more clearly. 30 5e-05 0.0001 0.00015 0.0002               
+
+> gLY
+> 0.00
+> 2.00
+> 4.00
+> 6.00
+> 8.00
+> 10.00
+> 12.00
+> 14.00
+> −ln| G|
+> L= 128 fit
+> data
+> (a) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 0.5
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> eff (L)
+> global fit
+> rank 1
+> rank 2
+> rank 3
+> rank 4 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> gLY
+> fit
+> excluded
+> data
+> (b)
+
+FIG. 2. Leading Lee–Yang zeros gLY and two-size estimators 
+
+ηeff (L) of the 2+1D columnar dimerized Heisenberg model at 
+
+Jc = J2/J 1 = 1 .90951 [59]. (a) − ln |G| along the imaginary-source axis for L = 128, with red vertical lines marking the leading Lee–Yang zeros. (b) ηeff (L) from ( L, 2L) pairs using the first four zeros. The dashed line shows the O(3) reference form η + cL −ω with fixed η = 0 .0375 and ω = 0 .78. Inset: leading gLY versus 1 /L , fitted to a L −yh  1 + bL −ω , with fit-ted η defined by yh = ( d + z + 2 − η)/2. The fit uses fixed 
+
+ω = 0 .78 and excludes L ≤ 32. 
+
+The Hamiltonians are 
+
+HJQ 2 = −J X
+
+⟨ij ⟩
+
+Pij − Q2
+
+X
+
+⟨ij,kl ⟩∈ □
+
+Pij Pkl , (3) 
+
+HJQ 3 = −J X
+
+⟨ij ⟩
+
+Pij − Q3
+
+X
+
+⟨ij,kl,mn ⟩∈ □
+
+Pij Pkl Pmn , (4) where ⟨ij, kl ⟩ ∈ □ denotes the two parallel bonds of an elementary plaquette, in either orientation, and 
+
+⟨ij, kl, mn ⟩ ∈ □ denotes three adjacent parallel bonds on a 2 × 3 or 3 × 2 rectangle [6, 8, 10]. Tuning J/Q p, with 
+
+p ∈ { 2, 3}, drives the transition between the N´ eel AFM and the columnar VBS [6–10, 36]. To detect VBS order, we probe the bond-supported columnar channels at Q =(π, 0) and (0 , π ), using Dμ = P
+
+r(−1) rμ Sr ·Sr+ˆ μ. Moti-vated by the emergent SO(5) structure discussed for these transitions [5, 10–13, 36, 37], one may equivalently probe the AFM sector or use plaquette-based definitions of VBS order; here we focus on the bond VBS channel and summarize alternative probes in the Supplemental Ma-terial. Implementing the imaginary source term i ξμDμ,we separate bond insertions of orientation μ into the two translation-related subclasses distinguished by the sign of (−1) rμ , and denote the corresponding counts by NJ+ and 
+
+NJ− [24].[68] The resulting factorized ratio contribution is [24] RJμ (i ξμ) = 
+
+
+
+1 + i ξμ
+
+J
+
+NJ+ 
+
+1 − i ξμ
+
+J
+
+NJ−
+
+.
+
+At a continuous transition in a given symmetry sec-tor, we denote by i gQ the imaginary source coupled to the corresponding order parameter OQ and g(k)LY (L) the 
+
+kth Lee–Yang zero in the complex source plane for linear system size L. A more detailed discussion of this scal-ing is given in the Supplemental Material. Since gQ is 0.00 0.02 0.04 0.06 0.08 0.10 0.12                                            
+
+> 1/ L
+> 1.0
+> 0.8
+> 0.6
+> 0.4
+> 0.2
+> 0.0
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> gLY
+> fit
+> excluded
+> data
+> (a) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 1.0
+> 0.8
+> 0.6
+> 0.4
+> 0.2
+> 0.0
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+> (b) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 1.0
+> 0.8
+> 0.6
+> 0.4
+> 0.2
+> 0.0
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> gLY
+> fit
+> excluded
+> data
+> (c) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 1.0
+> 0.8
+> 0.6
+> 0.4
+> 0.2
+> 0.0
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> gLY
+> fit
+> excluded
+> data
+> (d)
+
+FIG. 3. Leading Lee–Yang zeros gLY and two-size estimators 
+
+ηeff (L) of the 2+1D CBJQ model at Jc = J/Q = 0 .2174 in panels (a,b), and at Jc = J/Q = 0 .2175 [31] in panels (c,d). ηeff (L) is obtained from ( L, 2L) pairs using the first two zeros. The dashed line shows the first-order reference form 
+
+η+c1L−ω +c2L−2ω with fixed η = −1. Panels (a,c) show zeros from analytic continuation of the N´ eel field h conjugate to 
+
+M z , and panels (b,d) show zeros from analytic continuation of the plaquette-singlet-solid (PSS) source η conjugate to OPSS .Insets: leading gLY versus 1 /L , fitted to a L −yh , with fitted η
+
+defined by yh = ( d + z + 2 − η)/2. The fits exclude L ≤ 32. 
+
+the scaling field conjugate to OQ, with renormalization-group eigenvalue yh [1, 18, 26, 69], finite-size scaling gives 
+
+g(k)LY (L) ∼ Ak L−yh , up to nonuniversal metric factors and irrelevant-operator corrections [18, 27, 28, 30, 70], with nonuniversal amplitude Ak. Using yh = ( d + z + 2 − η)/2,
+
+where d is the spatial dimension, z is the dynamical ex-ponent, and η is the anomalous dimension of the or-der parameter, the Lee–Yang zeros therefore provide di-rect access to η [1, 69]. At phase coexistence, by con-trast, a small source biases competing phases by an amount proportional to the Euclidean spacetime volume 
+
+Vτ = βL d, where β is the inverse temperature, since the source term is summed over all sites and imaginary time. The zeros then scale as g(k)LY (L, β ) ∼ Bk/(βL d),
+
+with nonuniversal amplitude Bk [29, 44–47, 71]. To re-move Bk, we use the two-size estimator[72] [25, 30, 59] 
+
+η(k)eff (L) = d+z+2+ 2ln 2 ln 
+
+ g(k)LY (2 L)
+
+g(k)LY (L)
+
+
+
+. For d = 2 and z = 1, 
+
+η(k)eff (L) approaches η at a continuous transition, whereas for the first-order benchmarks studied here, with β ∝ L,40.00 0.02 0.04 0.06 0.08 0.10 0.12                                             
+
+> 1/ L
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+> (a) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+> (b) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+> (c) 0.00 0.02 0.04 0.06 0.08 0.10 0.12
+> 1/ L
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+> (d)
+
+FIG. 4. Leading Lee–Yang zeros gLY and two-size estima-tors ηeff (L) of the 2+1D J-Q 3 model at Jc = J/Q 3 = 0 .67045 [8, 13, 65] in panels (a,b), and of the 2+1D J-Q 2 model at Jc = J/Q 2 = 0 .045 [9, 10, 13, 66, 67] in panels (c,d). 
+
+ηeff (L) is obtained from ( L, 2L) pairs using the first two ze-ros. The dashed line shows the first-order reference form 
+
+η + c1L−ω + c2L−2ω with fixed η = −1. Panels (a,c) show zeros from analytic continuation of the N´ eel field conjugate to M z , and panels (b,d) show zeros from analytic continua-tion of the columnar VBS source ξx conjugate to Dx. Insets: leading gLY versus 1 /L , fitted to a L −yh , with fitted η defined by yh = ( d + z + 2 − η)/2. The fits exclude L ≤ 32. 
+
+the volume law g(k)LY ∼ L−(d+1) gives the diagnostic value 
+
+η = −1 [18, 29, 44–47]. If the probed channel is not the ordering channel, the free energy remains analytic at 
+
+gQ = 0 in the thermodynamic limit, and the Lee–Yang zeros terminate at a finite edge [20, 69, 73–75]. In J-Q models, this gives a finite VBS-source (N´ eel-source) edge in the N´ eel (VBS) phase, closing only at the transition. We therefore focus on leading-zero scaling near critical-ity and leave edge behavior and its finite-size crossover to the Supplemental Material [18, 20, 70, 76]. This perspective also clarifies why the leading Lee– Yang zeros can reveal slow pseudocritical drift more cleanly than real-axis observables in a weakly first-order regime [32, 48]. At first order the correlation length re-mains finite, so real-axis correlators do not approach a unique critical power law at coexistence and are strongly affected by phase mixing and analytic backgrounds [44– 46]. By contrast, the leading Lee–Yang zeros directly encode the finite-size singularity scale through their dis-tance from the real axis. In the coexistence regime they scale as gLY (L) ∼ L−(d+z), corresponding to η → − 1, or equivalently to a vanishing effective scaling dimension of the order-parameter field, ∆ ϕ = ( d + z − 2 + η)/2 → 0[27, 29, 47, 71]. Since real-axis response functions are derivatives of ln Z, they are most sensitive when a zero lies nearby. The leading zeros gLY (L) can therefore re-veal the slow crossover toward spacetime-volume scaling on size windows where conventional diagnostics still ap-pear quasi-critical [25, 30]. 
+
+Results and Discussion. We first benchmark the Lee– Yang analysis in a system with well-established infrared behavior [15, 41]. The columnar dimerized Heisenberg model hosts a conventional 2+1D O(3) critical point [15, 57, 58]. As shown in Fig. 2, the leading zeros in the complex source conjugate to M z are well described by 
+
+gLY (L) = a L −yh (1 + bL −ω ) , with yh = ( d + z + 2 − η)/2[16–18, 30, 70]. Fitting with fixed ω = 0 .78 and exclud-ing L ≤ 32, we obtain η = 0 .0368 ± 0.0037, consistent with the established 3D O(3) value η = 0 .0375(5) [77– 79]. We also construct ηeff (L) from ( L, 2L) pairs using the first four zeros, which removes the nonuniversal am-plitude and exposes finite-size corrections more clearly [25, 30, 59]. The resulting sequence follows the O(3) ref-erence form ηeff (L) = η + cL −ω with fixed η = 0 .0375 and ω = 0 .78 [15, 79]. Notably, ηeff (L) drifts upward with increasing L, in contrast to the first-order trend, where gLY (L) ∼ L−(d+z) implies η → − 1 [29, 44–47]. The CBJQ transition provides a controlled first-order benchmark for our Lee–Yang diagnostics [31, 62, 63]. As shown in Fig. 3, we examine two nearby couplings around the literature estimate Jc/Q = 0 .2175 ± 0.0001 [31]. At 
+
+J/Q = 0 .2174, the leading zeros in both the N´ eel and PSS channels drift clearly toward the first-order spacetime-volume law gLY (L) ∼ L−(d+z) in the ground-state win-dow β ∝ Lz [29, 44–47, 71], corresponding to yh = d + z
+
+and hence η → − 1 for d = 2, z = 1 [18, 27, 28]. The paired-size flow is likewise well described by the first-order reference form ηeff (L) = η + c1L−ω + c2L−2ω with fixed η = −1 [29, 44–47]. At J/Q = 0 .2175, the N´ eel-channel zeros remain broadly consistent with this trend, whereas in the PSS channel the first and second zeros split visibly in their finite-size flow. We interpret this as indicating that J/Q = 0 .2175 lies slightly on the N´ eel side of the transition, so that a small PSS-channel Lee–Yang edge remains finite on the accessible sizes: the first zero reaches the edge-controlled regime earlier than the sec-ond, and the corresponding ηeff (L) values should there-fore not be viewed as following a single critical scaling form [18, 20, 73, 75]. By contrast, the J/Q = 0 .2174 data provide the cleaner first-order benchmark in both chan-nels. Overall, the CBJQ results establish the expected first-order Lee–Yang phenomenology and highlight the sensitivity of Lee–Yang zeros to coexistence versus criti-cal scaling, even within a very narrow coupling window [29, 31, 44, 47, 62]. This provides a useful first-order base-5line for the J-Q cases discussed below [9, 10, 13, 31, 32]. We now turn to the uniform J-Q 3 and J-Q 2 models at their putative N´ eel–VBS critical couplings. As shown in Fig. 4, we extract the leading Lee–Yang zeros gLY (L)from two symmetry-resolved deformations, the complex N´ eel field h conjugate to M z and the columnar VBS source ξx conjugate to Dx [6–9, 24]. Although restricted fitting windows admit apparent power laws, the paired-size estimator ηeff (L), constructed from the first two ze-ros, shows a systematic downward drift with increasing 
+
+L in both channels and in both models, relative to the first-order reference form ηeff (L) = η + c1L−ω + c2L−2ω
+
+with fixed η = −1 [24, 25, 59]. For J-Q 3, this behavior is consistent with the weakly first-order or pseudocritical interpretation discussed in the literature, namely a slow flow toward the spacetime-volume law gLY (L) ∼ L−(d+z),equivalently η → − 1 and ∆ ϕ → 0 for d = 2, z = 1 [5, 10, 27, 29, 32, 36, 47, 48]. For J-Q 2, where the na-ture of the transition has remained less settled, we find closely analogous Lee–Yang flow in both the N´ eel and VBS probes, providing direct evidence that J-Q 2 exhibits the same slow drift toward the first-order benchmark [9, 10, 13, 66, 67]. The N´ eel-channel sequence is typ-ically smoother than the VBS-channel sequence in our Lee–Yang analysis, suggesting stronger subleading finite-size effects in the VBS probe. Compared with CBJQ, however, the approach to η = −1 is much slower in both J-Q 2 and J-Q 3, consistent with an extended pseudocriti-cal regime in which accessible sizes remain quasi-critical over broad intermediate scales before eventually bending toward coexistence [5, 10, 13, 32, 36, 48]. Overall, the Lee–Yang data support a weakly first-order interpreta-tion of both transitions and show that Lee–Yang zeros provide a particularly sensitive probe of this slow drift, especially in the less settled J-Q 2 case. 
+
+Conclusion. We introduced a symmetry-resolved Lee– Yang framework for quantum magnets that combines SSE sampling at a symmetry-preserving real anchor Hamiltonian with analytic continuation of conjugate sources to evaluate complex generating functions and ex-tract leading zeros. Benchmark calculations recover con-ventional O(3) scaling in the columnar dimerized Heisen-berg model and the expected first-order scaling behavior in the CBJQ model. For the uniform J-Q 3 and J-Q 2 mod-els, we find systematic downward drift of the leading-zero scaling in both N´ eel and VBS channels. In J-Q 3, this be-havior is consistent with the weakly first-order or pseu-docritical scenario discussed in the literature; in J-Q 2,we find closely analogous Lee–Yang flow providing direct evidence for the same slow drift toward the first-order benchmark, with the two-size estimator ηeff remaining compatible with a slow approach toward η → − 1, equiv-alently ∆ ϕ → 0, consistent with an extended pseudo-critical regime and a weakly first-order interpretation of the N´ eel–VBS transition. Our work therefore clarifies a long-standing question from the perspective of complex-ified partition functions and demonstrates the power of the Lee–Yang zero method. 
+
+Acknowledgments. We thank Q. Ye, X. Li, J. Rong and W. Zhu for helpful discussions. Z.W. acknowledges sup-port from the China Postdoctoral Science Foundation un-der Grant No. 2024M752898. This project is supported by the Scientific Research Project (No. WU2025B011) and the Start-up Funding of Westlake University. H.Z. is supported by the National Natural Science Foundation of China (Grant No. 12274126). The authors thank the IT service office and the high-performance computing center of Westlake University.                             
+
+> ∗hyzou@phy.ecnu.edu.cn
+> †zhengyan@westlake.edu.cn [1] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cam-bridge University Press, Cambridge, 2011). [2] P. M. Chaikin and T. C. Lubensky, Principles of Con-densed Matter Physics (Cambridge University Press, Cambridge, 1995). [3] T. Senthil, A. Vishwanath, L. Balents, S. Sachdev, and M. P. A. Fisher, Science 303 , 1490 (2004). [4] T. Senthil, L. Balents, S. Sachdev, A. Vishwanath, and M. P. A. Fisher, Phys. Rev. B 70 , 144407 (2004). [5] T. Senthil, Deconfined quantum critical points: A re-view, in 50 Years of the Renormalization Group (World Scientific, 2024) Chap. 14, pp. 169–195. [6] A. W. Sandvik, Phys. Rev. Lett. 98 , 227202 (2007). [7] R. G. Melko and R. K. Kaul, Phys. Rev. Lett. 100 ,017203 (2008). [8] J. Lou, A. W. Sandvik, and N. Kawashima, Phys. Rev. B80 , 180414 (2009). [9] A. W. Sandvik, Phys. Rev. Lett. 104 , 177201 (2010). [10] H. Shao, W. Guo, and A. W. Sandvik, Science 352 , 213 (2016). [11] A. Nahum, P. Serna, J. T. Chalker, M. Ortu˜ no, and A. M. Somoza, Phys. Rev. Lett. 115 , 267203 (2015). [12] A. W. Sandvik and B. Zhao, Chin. Phys. Lett. 37 , 057502 (2020). [13] J. Takahashi, H. Shao, B. Zhao, W. Guo, and A. W. Sandvik, SO(5) multicriticality in two-dimensional quan-tum magnets (2024), arXiv:2405.06607 [cond-mat.str-el]. [14] M. Levin and T. Senthil, Phys. Rev. B 70 , 220403 (2004). [15] R. K. Kaul, R. G. Melko, and A. W. Sandvik, Annu. Rev. Condens. Matter Phys. 4, 179 (2013). [16] C. N. Yang and T. D. Lee, Phys. Rev. 87 , 404 (1952). [17] T. D. Lee and C. N. Yang, Phys. Rev. 87 , 410 (1952). [18] C. Itzykson, R. B. Pearson, and J.-B. Zuber, Nucl. Phys. B220 , 415 (1983). [19] R. A. Blythe and M. R. Evans, Braz. J. Phys. 33 , 464 (2003). [20] I. Bena, M. Droz, and A. Lipowski, Int. J. Mod. Phys. B
+> 19 , 4269 (2005). [21] Y. Tang, Q. Liu, Q. Tang, and W. Zhu, SciPost Phys.
+> 19 , 164 (2025). [22] L. Liu, Y. Dong, Q.-J. Ye, and X.-Z. Li, Phys. Rev. B
+> 112 , 104102 (2025). [23] R.-C. He, J.-X. Zeng, S. Yang, C. Wang, Q.-J. Ye, and X.-Z. Li, Phys. Rev. E 113 , 024115 (2026).
+
+6
+
+[24] J. D’Emidio, Lee–yang zeros at O(3) and deconfined quantum critical points (2023), arXiv:2308.00575 [cond-mat.str-el]. [25] T. Wada, M. Kitazawa, and K. Kanaya, Phys. Rev. Lett. 
+
+134 , 162302 (2025). [26] M. E. Fisher and M. N. Barber, Phys. Rev. Lett. 28 ,1516 (1972). [27] W. Janke and R. Kenna, J. Stat. Phys. 102 , 1211 (2001). [28] R. Kenna and B. Berche, Condens. Matter Phys. 16 ,23601 (2013). [29] M. Biskup, C. Borgs, J. T. Chayes, L. J. Kleinwaks, and R. Koteck´ y, Phys. Rev. Lett. 84 , 4794 (2000). [30] A. Deger, F. Brange, and C. Flindt, Phys. Rev. Research 
+
+1, 023004 (2019). [31] B. Zhao, P. Weinberg, and A. W. Sandvik, Nat. Phys. 
+
+15 , 678 (2019). [32] R. Ma and C. Wang, Phys. Rev. B 102 , 020407 (2020). [33] A. Sen and A. W. Sandvik, Phys. Rev. B 82 , 174428 (2010). [34] F.-J. Jiang, M. Nyfeler, S. Chandrasekharan, and U.-J. Wiese, J. Stat. Mech.: Theory Exp. 2008 (02), P02009. [35] A. B. Kuklov, M. Matsumoto, N. V. Prokof’ev, B. V. Svistunov, and M. Troyer, Phys. Rev. Lett. 101 , 050405 (2008). [36] A. Nahum, J. T. Chalker, P. Serna, M. Ortu˜ no, and A. M. Somoza, Phys. Rev. X 5, 041048 (2015). [37] C. Wang, A. Nahum, M. A. Metlitski, C. Xu, and T. Senthil, Phys. Rev. X 7, 031051 (2017). [38] A. W. Sandvik, Phys. Rev. B 59 , R14157 (1999). [39] O. F. Sylju˚ asen and A. W. Sandvik, Phys. Rev. E 66 ,046701 (2002). [40] H. G. Evertz, Adv. Phys. 52 , 1 (2003). [41] A. W. Sandvik, in Lectures on the Physics of Strongly Correlated Systems XIV , AIP Conference Proceedings, Vol. 1297 (AIP, 2010) pp. 135–338. [42] Z. Yan, Y. Wu, C. Liu, O. F. Sylju˚ asen, J. Lou, and Y. Chen, Phys. Rev. B 99 , 165135 (2019). [43] Z. Yan, Phys. Rev. B 105 , 184432 (2022). [44] V. Privman and M. E. Fisher, J. Stat. Phys. 33 , 385 (1983). [45] K. Binder, Rep. Prog. Phys. 50 , 783 (1987). [46] C. Borgs and R. Koteck´ y, J. Stat. Phys. 61 , 79 (1990). [47] M. Biskup, C. Borgs, J. T. Chayes, L. J. Kleinwaks, and R. Koteck´ y, Commun. Math. Phys. 251 , 79 (2004). [48] V. Gorbenko, S. Rychkov, and B. Zan, J. High Energy Phys. 2018 (10), 108. [49] L. D. Landau and E. M. Lifshitz, Statistical Physics, Part 1, 3rd ed., Course of Theoretical Physics, Vol. 5 (Perga-mon Press, Oxford, 1980). [50] M. Tinkham, Group Theory and Quantum Mechanics 
+
+(McGraw–Hill, New York, 1964). [51] M. E. Fisher, in Lectures in Theoretical Physics , Vol. 7C, edited by W. E. Brittin (University of Colorado Press, Boulder, 1965) pp. 1–159. [52] Y.-M. Ding, J.-S. Sun, N. Ma, G. Pan, C. Cheng, and Z. Yan, Phys. Rev. B 110 , 165152 (2024). [53] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Nat. Commun. 16 , 5880 (2025). [54] Y.-M. Ding, Y. Tang, Z. Wang, Z. Wang, B.-B. Mao, and Z. Yan, Phys. Rev. B 111 , L241108 (2025). [55] Y.-M. Ding, Z. Wang, and Z. Yan, PRX Quantum 6,030328 (2025). [56] Z. Wang, Z. Liu, B.-B. Mao, Z. Wang, and Z. Yan, Nat. Commun. 17 , 679 (2026). [57] S. Wenzel, L. Bogacz, and W. Janke, Phys. Rev. Lett. 
+
+101 , 127202 (2008). [58] S. Wenzel and W. Janke, Phys. Rev. B 79 , 014410 (2009). [59] N. Ma, P. Weinberg, H. Shao, W. Guo, D.-X. Yao, and A. W. Sandvik, Phys. Rev. Lett. 121 , 117202 (2018). [60] More precisely, these are counts of diagonal SSE vertices in bond sector s whose local bond state is ( ↑i↓j ) or ( ↓i↑j ). The bond endpoints are ordered as i ∈ A and j ∈ B on the bipartite square lattice, and s = μϵ labels the bond orientation μ ∈ { x, y } and the two translation-related bond sublattices ϵ = ± selected by the columnar stag-gering factor ( −1) rμ [24, 57]. [61] A. W. Sandvik and J. Kurkij¨ arvi, Phys. Rev. B 43 , 5950 (1991). [62] G. Sun, N. Ma, B. Zhao, A. W. Sandvik, and Z. Y. Meng, Chin. Phys. B 30 , 067505 (2021). [63] C. Li, C. Xie, A. Nocera, L. Yu, Y. Schattner, G. K.-L. Chan, and G. Sun, Quantum scaling of the spin lat-tice relaxation rate in the checkerboard j-q model (2024), arXiv:2402.17418 [cond-mat.str-el]. [64] In the SSE implementation, O(□′) corresponds to the local four-spin operator on an active checkerboard pla-quette, namely the projector product Pij Pkl appearing in Eq. (2). The PSS estimator is therefore obtained by counting operator-string insertions of Q-vertices on the active checkerboard family with row parity ϵrow = ±1. We denote these counts by NQ+ and NQ−, respectively. Equivalently, NQ± are the numbers of plaquette-operator insertions carrying the two signs selected by the row-staggering factor in OPSS .[65] J. Zhao, Y.-C. Wang, M. Yan, W. Guo, and A. W. Sand-vik, Phys. Rev. Lett. 128 , 010601 (2022). [66] H. Suwa, A. Sen, and A. W. Sandvik, Phys. Rev. B 94 ,144416 (2016). [67] A. W. Sandvik, V. N. Kotov, and O. P. Sushkov, Phys. Rev. Lett. 106 , 207203 (2011). [68] In the SSE representation, NJ+ and NJ− are the counts of diagonal J-bond operator insertions on bonds of orien-tation μ belonging to the two subclasses with ( −1) rμ =+1 and ( −1) rμ = −1, respectively. [69] J. L. Cardy, Phys. Rev. Lett. 54 , 1354 (1985). [70] R. Kenna and C. B. Lang, Phys. Rev. E 49 , 5012 (1994). [71] M. Biskup, in Methods of Contemporary Mathematical Statistical Physics , Lecture Notes in Mathematics, Vol. 1970 (Springer, Berlin, 2009) pp. 1–55. [72] Starting from g(k)LY (L) ∼ Ak L−yh , the ratio for a size pair ( L, 2L) eliminates Ak , g(k)LY (2 L)/g (k)LY (L) ∼ 2−yh , so 
+
+yh = − ln[ g(k)LY (2 L)/g (k)LY (L)] / ln 2 . Combining this with 
+
+yh = ( d + z + 2 − η)/2 gives the estimator below. At finite size, corrections to scaling make this a size-dependent effective estimate of η, rather than its asymptotic value. [73] M. E. Fisher, Phys. Rev. Lett. 40 , 1610 (1978). [74] P. Fonseca and A. B. Zamolodchikov, J. Stat. Phys. 110 ,527 (2003). [75] F. Rennecke and V. V. Skokov, Ann. Phys. (N. Y.) 444 ,169010 (2022). [76] W. Janke and R. Kenna, Comput. Phys. Commun. 147 ,443 (2002). [77] R. Guida and J. Zinn-Justin, J. Phys. A 31 , 8103 (1998). [78] M. Campostrini, M. Hasenbusch, A. Pelissetto, P. Rossi, and E. Vicari, Phys. Rev. B 65 , 144520 (2002). [79] D. Poland, S. Rychkov, and A. Vichi, Rev. Mod. Phys. 
+
+91 , 015002 (2019). Supplemental Material: Lee–Yang Zeros and Pseudocritical Drift in J-Q N´ eel–VBS Transitions 
+
+Chunhao Guo, 1, 2 Zhe Wang, 1, 2 Danhe Wang, 3 Zenan Liu, 1, 2 Haiyuan Zou, 3, ∗ and Zheng Yan 1, 2, †
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+Key Laboratory of Polar Materials and Devices (MOE), School of Physics, East China Normal University, Shanghai 200241, China 
+
+(Dated: March 17, 2026) 
+
+LEE–YANG ZEROS AND THERMODYNAMIC SINGULARITIES Finite-size analyticity and zero pinching 
+
+For any finite system size L and inverse temperature β, the finite-size free energy is analytic for real source λQ, so no genuine singularity can occur on the real axis [1–3]. A phase transition therefore requires a nonuniform thermodynamic limit: the convergence fL,β → f fails to be uniform in any neighborhood of the transition point because the limiting free energy becomes nonanalytic there. In the Lee–Yang framework, this nonuniformity arises when complex zeros of the generating function condense into curves that approach and pinch the real axis as L → ∞ [4–6]. Spontaneous symmetry breaking provides the canonical example in the source direction. In an ordered phase, the limits L → ∞ 
+
+and λQ → 0 do not commute, producing a cusp in f (λQ) and a discontinuity in m(λQ) = −∂f /∂λ Q at λQ = 0. Microscopically, this is enforced by Lee–Yang zeros pinching the origin on the inverse spacetime-volume scale [1, 2, 7, 8]. We consider a generally complex source λQ ∈ C coupled to a symmetry-channel operator OQ,
+
+H(λQ) = H0 − λQOQ, ZL,β (λQ) = Tr e−βH (λQ). (S1) [1–3, 5] We work with the normalized generating function 
+
+GL,β (λQ) ≡ ZL,β (λQ)
+
+ZL,β (0) , GL,β (0) = 1 , (S2) whose zeros coincide with those of ZL,β [1, 2, 5]. We also define the free-energy density and normalized free-energy shift, 
+
+fL,β (λQ) ≡ − 1
+
+βN ln ZL,β (λQ), ϕL,β (λQ) ≡ − 1
+
+βN ln GL,β (λQ) = fL,β (λQ) − fL,β (0) , (S3) with N = Ld [3–5]. For finite ( L, β ), if λQ ∈ R and H(λQ) is Hermitian, then e−βH (λQ) is positive and 
+
+ZL,β (λQ) = Tr e−βH (λQ) > 0 (β > 0, λ Q ∈ R), (S4) so neither ZL,β nor GL,β has real zeros at finite size [1–3, 5]. Consequently, ϕL,β (λQ) is smooth on the real axis. If 
+
+H(λQ) depends analytically on λQ in a neighborhood of the real axis, as in Eq. (S1), then ZL,β and GL,β are analytic there as traces of analytic matrix-valued functions [3, 4, 9]. Thermodynamic nonanalyticities must therefore arise from a nonuniform limit as L → ∞ [3, 5]. At finite size, ZL,β (λQ) is an entire function of λQ and has isolated zeros {λn} with finite multiplicity [4, 5]. Because 
+
+ZL,β is real and strictly positive on the real axis, the zero set is invariant under complex conjugation, so zeros occur in pairs λn and λ∗ 
+
+> n
+
+[1, 2, 4]. In some variables, Z is a polynomial and admits a global factorization in terms of its zeros [1, 2]. More generally, in any simply connected region free of zeros one may write 
+
+GL,β (λQ) = AL,β (λQ) Y
+
+> n
+
+(λQ − λn), AL,β (λQ)̸ = 0 and analytic , (S5) which gives 
+
+ϕL,β (λQ) = − 1
+
+βN 
+
+X
+
+> n
+
+ln( λQ − λn) + ϕan  
+
+> L,β
+
+(λQ), (S6) 2with analytic background 
+
+ϕan  
+
+> L,β
+
+(λQ) = − 1
+
+βN ln AL,β (λQ). (S7) Thus all singularities of ln GL,β lie at complex zeros and do not affect the real axis at finite size. A thermodynamic singularity can occur only if, as L → ∞ , the zeros condense into a continuum whose support approaches and pinches the real axis at a real impact point λQ = λc [1–5]. The scaling variable controlling the approach to λc depends on the origin of the pinch. In a coexistence regime, finite-size rounding is controlled by the competition between macroscopically distinct sectors whose free-energy difference is extensive in the spacetime volume βN [6, 7, 10, 11]. A small shift δλ Q = λQ − λc biases their relative weights by an amount of order βN δλ Q, so the natural scaled coordinate is 
+
+u ≡ βN (λQ − λc). (S8) In this regime the leading zeros satisfy un = O(1), equivalently 
+
+λn − λc = O
+
+ 1
+
+βN 
+
+
+
+, (S9) which is the characteristic inverse spacetime-volume approach to the real axis [6, 11]. By contrast, at a continuous critical point the leading zero scales as 
+
+λ1(L) ∼ L−yh , (S10) where yh is the RG eigenvalue of the source λQ. The corresponding finite-size scaling variable is λQLyh [3, 4, 12, 13]. For ground-state quantum criticality one typically scales imaginary time as β ∼ Lz [14–16]. In that case the coexistence scale Im( λ1) ∼ (βN )−1 ∼ L−(d+z) is parametrically distinct from the critical law L−yh . These two behaviors therefore provide a sharp finite-size discriminator between coexistence and critical pinching [6, 7, 10, 12]. 
+
+> Zero density, first-order pinching, and symmetry breaking
+
+Differentiating Eq. (S6) gives 
+
+∂ϕ L,β 
+
+∂λ Q
+
+= − 1
+
+βN 
+
+X
+
+> n
+
+1
+
+λQ − λn
+
++ ∂ϕ an 
+
+> L,β
+
+∂λ Q
+
+, (S11) so the nonanalytic structure of ϕL,β is carried by simple poles at the Lee–Yang zeros [3–5]. On the other hand, combining the source–response identity (S77) with Eq. (S3) yields 
+
+∂ϕ L,β 
+
+∂λ Q
+
+= − 1
+
+N ⟨OQ⟩ , (S12) so any thermodynamic nonanalyticity in ∂ϕ/∂λ Q is equivalently a nonanalyticity in the intensive channel expectation value [3, 4]. In a coexistence regime it is natural to work in the scaled coordinate u = βN (λQ − λc). Writing un = βN (λn − λc), we focus on the zeros controlling the local pinch and assume that near u = 0 they lie close to an axis-pinned locus, 
+
+un ≈ isn, sn ∈ R, (S13) as occurs when the limiting set is invariant under u 7 → − u∗ [1, 2, 4, 8]. We define the cumulative counting function for the positive branch, 
+
+NL(s) ≡ #{n : 0 < s n < s }, s > 0, (S14) and assume that as L → ∞ it converges in the distributional sense to a limiting density 
+
+ρ(s) ≡ lim 
+
+> L→∞
+
+dNL(s)
+
+ds . (S15) 3Using λQ − λn = ( u − un)/(βN ) in Eq. (S11) and replacing the discrete sum over pinching zeros by the corresponding continuum description gives 
+
+∂ϕ ∂λ Q sing 
+
+= −
+
+Z ∞−∞ 
+
+ds ρ(s)
+
+u − is , u = βN (λQ − λc), (S16) which is the Cauchy transform of the limiting zero density [3, 4, 6, 17]. To extract the singular part, we take boundary values approaching the accumulation line. Write 
+
+u = ∆ + i ϵ, ∆ = Re u, ϵ = Im u. (S17) The Sokhotski–Plemelj formula then gives lim 
+
+> ∆→0±
+
+1
+
+u − is = i P 1
+
+s − ϵ ± π δ (s − ϵ), (S18) and hence lim 
+
+> ∆→0±
+
+∂ϕ ∂λ Q sing 
+
+= −i P
+
+Z ∞−∞ 
+
+ds ρ(s)
+
+s − ϵ ∓ π ρ (ϵ). (S19) Therefore the discontinuity across the accumulation line is 
+
+"
+
+∂ϕ ∂λ Q sing 
+
+#∆→0−
+
+> ∆→0+
+
+= −2π ρ (ϵ), (S20) which is the standard relation between the jump across the cut and the local zero density [3, 4]. If the density approaches a finite nonzero limit at the impact point, 
+
+ρ(s) = ρ(0) + O(s), ρ(0) ̸ = 0 , (S21) then Eq. (S19) implies a finite jump at ϵ = 0, 
+
+ ∂ϕ ∂λ Q
+
+λ−
+
+> c
+> λ+
+> c
+
+= −2π ρ (0) . (S22) Using Eq. (S12), the intensive channel expectation value is discontinuous, 
+
+ 1
+
+N ⟨OQ⟩
+
+λ+
+
+> c
+> λ−
+> c
+
+= 2 π ρ (0) , (S23) so a finite ρ(0) produces a first-order singularity in the λQ direction [3, 6, 7, 10, 17]. This is also the Lee–Yang form of spontaneous symmetry breaking. In a broken-symmetry phase, 
+
+m± = lim  
+
+> λQ→0±
+
+lim 
+
+> L→∞
+
+1
+
+N ⟨OQ⟩ , (S24) and if the channel is odd under λQ 7 → − λQ, then m± = ±m0 and 
+
+m0 = π ρ (0) , (S25) up to the overall normalization of u [1, 2, 4, 8]. In this language, spontaneous symmetry breaking means that the thermodynamic limit produces a finite zero density at the impact point in the coexistence-scaled variable. The same criterion is equivalent to inverse spacetime-volume scaling of the leading zero. If ρ(0) ∈ (0 , ∞), then 
+
+N (s) = ρ(0) s + o(s) as s → 0+, so the first positive zero s1 satisfies s1 = O(1). Mapping back gives Im( λ1 − λc) = s1
+
+βN + o
+
+ 1
+
+βN 
+
+
+
+∼ 1
+
+βN , (S26) 4which is the characteristic inverse spacetime-volume scaling of the leading Lee–Yang zero [6, 7, 10, 11]. Conversely, if the leading zeros satisfy Im( λn − λc) ∼ 1
+
+βN ⇐⇒ sn = βN Im( λn − λc) = O(1) , (S27) and if N (s) exists for fixed s = O(1) and is differentiable at s = 0 +, then 
+
+ρ(0) ≡ dN
+
+ds s=0 +
+
+= lim 
+
+> s→0+
+
+N (s)
+
+s (S28) exists and is finite. Under these mild regularity assumptions, volume-law pinching is therefore equivalent to a finite nonzero zero density at the impact point [6, 7, 10]. A compact derivation of the volume law follows from the standard two-sector coexistence approximation [6, 7, 10, 11]. For real λQ near λc, assume two competing macrostates α = ± with analytic free-energy densities f±(λQ) that cross at λc,
+
+f+(λc) = f−(λc) ≡ fc, f±(λQ) analytic near λc, (S29) and that the partition function is dominated by these contributions, 
+
+ZL,β (λQ) ≃ A +(λQ) e−βN f +(λQ) + A−(λQ) e−βN f −(λQ), (S30) with nonvanishing, slowly varying prefactors A±. Define 
+
+m± ≡ 1
+
+N ⟨OQ⟩± = − ∂f ±
+
+∂λ Q λc
+
+, ∆m ≡ m+ − m−. (S31) Expanding about λc, one finds 
+
+λn − λc = 1
+
+βN ∆m
+
+h
+
+ln |R| + i  π(2 n + 1) − θi
+
++ o
+
+ 1
+
+βN 
+
+
+
+, n ∈ Z, (S32) where 
+
+R = A−(λc)
+
+A+(λc) = |R|eiθ . (S33) Thus Im( λn − λc) = O
+
+ 1
+
+βN 
+
+
+
+, (S34) independent of microscopic details [6, 7, 10, 11]. In the axis-pinned case ln |R| = 0 and θ = 0, the zeros become asymptotically equally spaced along the imaginary u axis, 
+
+un ≃ i π(2 n + 1) ∆m , (S35) so the limiting density at the impact point is 
+
+ρ(0) = ∆m
+
+2π for u = βN (λQ − λc). (S36) This agrees with the jump relation above and makes explicit that a first-order singularity in the λQ direction is equivalent to a finite density of Lee–Yang zeros at the impact point [6, 7, 10, 11]. If instead the zero density vanishes at the impact point, 
+
+ρ(s) ∼ A|s|a, a > 0, (s → 0) , (S37) then the first derivative is continuous. Taking the real part of Eq. (S16) at ϵ = 0 gives Re 
+
+"
+
+∂ϕ ∂λ Q sing 
+
+#
+
+= −
+
+Z ∞−∞ 
+
+ds ρ (s) ∆∆2 + s2 , ∆ = Re u, (S38) 5and with s = |∆|t one finds Re 
+
+"
+
+∂ϕ ∂λ Q sing 
+
+#
+
+∼ − A |∆|a sgn(∆) 
+
+Z ∞−∞ 
+
+dt |t|a
+
+1 + t2 , (S39) which vanishes as ∆ → 0 for any a > 0. Hence ⟨OQ⟩ /N is continuous at λc, and any singularity in the source direction appears only in higher derivatives, equivalently higher cumulants [3, 4, 17]. In this case the coexistence variable u = βN (λQ − λc) is no longer the appropriate scaling coordinate, and the leading zero instead follows the critical power law λ1(L) ∼ L−yh .
+
+SCALING OF LEADING ZEROS AND LEE–YANG EDGES Critical scaling and coexistence scaling of leading zeros 
+
+Lee–Yang zeros provide a compact, symmetry-resolved probe of how fluctuations reorganize with system size [4, 12, 13, 17]. In the channels considered here, we deform the anchor Hamiltonian by an imaginary source i gQ coupled to the order parameter OQ, and track the leading zeros g(k)LY (L) in the complex source plane as L increases. Their finite-size flow distinguishes critical pinching from coexistence scaling [4, 6–8]. Near a continuous transition, gQ is the RG scaling field conjugate to OQ [4, 14, 18]. Under coarse graining by a factor b > 1, 
+
+g′ 
+
+> Q
+
+= byh gQ, (S40) so [ gQ] = L−yh . If OQ has scaling dimension ∆ O in effective dimension d + z, then 
+
+yh = d + z − ∆O . (S41) For an order parameter with anomalous dimension η,∆O = d + z − 2 + η
+
+2 , yh = d + z + 2 − η
+
+2 . (S42) Define 
+
+ϕL,β (gQ) ≡ − (βN )−1 ln GL,β (i gQ), N = Ld. (S43) At a quantum critical point with dynamical exponent z, RG implies the homogeneity relation [4, 14, 18, 19] 
+
+ϕsing 
+
+ gQ, L, β ; {ui} = b−(d+z)ϕsing 
+
+ gQbyh , L/b, β/b z ; {uib−yi }, (S44) where ui are irrelevant scaling fields with exponents yi > 0. Choosing b = L and fixing the ground-state scaling window β/L z = const gives [14, 19] 
+
+ϕsing (gQ, L ) = L−(d+z)Φ gQLyh , {uiL−yi } . (S45) Thus gQLyh is the relevant finite-size scaling variable. Since 
+
+GL,β (i gQ) = exp[ −βN ϕ L,β (gQ)] , (S46) and βN ∼ Ld+z in the ground-state window, 
+
+GL,β (i gQ) = F gQLyh , {uiL−yi } , (S47) for some scaling function F. The kth Lee–Yang zero is therefore determined by a root of F, implying 
+
+g(k)LY (L) ∼ Ak L−yh (L → ∞ ), (S48) up to nonuniversal metric factors and scaling corrections [4, 12, 17, 18], where Ak is a nonuniversal amplitude. Systematic deviations from a pure power law over accessible sizes then provide a sensitive diagnostic of pseudocritical drift [13, 20]. 6In a coexistence regime, the source biases the relative weights of competing macrostates through an extensive order parameter, so the natural finite-size scale is the Euclidean spacetime volume [6, 7, 10, 11] 
+
+Vτ ≡ βL d. (S49) Equivalently, in the characteristic-function representation the phase factor involves the time-integrated observable 
+
+X =
+
+Z β
+
+> 0
+
+dτ O Q(τ ) ∼ βL d, (S50) so zeros occur when the dominant macroscopic contributions acquire an O(1) relative phase. This gives the standard spacetime-volume law [6, 7, 10, 11] 
+
+g(k)LY (L, β ) ∼ Bk
+
+βL d , (S51) where Bk is a nonuniversal amplitude for the kth zero in the coexistence regime. If one further sets β ∝ Lz , Eq. (S51) reduces to g(k)LY ∼ L−(d+z), but the more general statement is the 1 /(βL d) scaling set by Vτ .Leading-zero scaling therefore separates two parametrically distinct regimes [4, 6–8]. At a continuous transition, 
+
+g(k)LY (L) ∼ Ak L−yh , (S52) up to nonuniversal metrics and irrelevant-operator corrections. In a coexistence regime, the natural scaling variable is gQβL d, and the leading zeros obey 
+
+g(k)LY (L, β ) ∼ Bk
+
+βL d . (S53) This distinction is the basic finite-size criterion we use to separate critical scaling from coexistence scaling in a given symmetry channel [12, 13, 17]. 
+
+> Lee–Yang edges in gapped symmetric regimes
+
+For a local operator O(r), the equal-time connected correlator 
+
+C(r) ≡ ⟨ O(r)O(0)⟩ − ⟨ O⟩2 (S54) decays exponentially in a gapped phase [14, 21], 
+
+C(r) ∼ e−r/ξ 
+
+rd−2+ η , (S55) thereby defining a finite correlation length ξ. In quantum systems, ξ ∼ v/ ∆, with ∆ the gap and v a characteristic velocity [14]. Approaching a continuous quantum critical point by tuning g → gc, the gap closes and 
+
+ξ ∼ | δg |−ν , δg ≡ g − gc, (S56) with correlation time ξτ ∼ ξz [14]. Ground-state scaling therefore requires β ≫ ξτ , and in particular β ≫ Lz at criticality [14, 22]. A source λQ coupled to a Hermitian operator OQ deforms the Hamiltonian as 
+
+H(λQ) = H0 − λQOQ, Z(λQ) = Tr e−βH (λQ). (S57) Hermiticity implies Z(λ∗
+
+> Q
+
+) = Z(λQ)∗, so zeros occur in complex-conjugate pairs [4, 5]. In a gapped symmetric regime, the thermodynamic free-energy density is analytic for real λQ near the origin, which forbids zero accumulation on the real axis [5, 23, 24]. Instead, the zeros approach a limiting locus in the complex plane that remains a finite distance from λQ = 0. The point of minimal distance defines the Lee–Yang edge, and the corresponding distance is the Lee–Yang gap [5, 23]. When the zero set is axis pinned, one may parametrize the edge as 
+
+λQ,edge = i gedge , gedge ̸ = 0 , (S58) 7so the leading zeros approach ±igedge in the thermodynamic limit at fixed δg ̸ = 0 [5, 23, 25]. Near a continuous quantum critical point, the singular part of the free-energy density obeys [4, 14, 19, 26] 
+
+fs(δg, λ Q; L, β ) = L−(d+z)Φ
+
+
+
+δg L 1/ν , λ Q Lyh , β/L z 
+
+, (S59) with yh the RG eigenvalue of the source [4, 26]. Since Z = exp −βL df , a Lee–Yang zero occurs at a complex λQ
+
+where the scaling function enforces Z = 0. The leading zeros therefore have the finite-size form 
+
+λ(1)  
+
+> Q
+
+(L, δg ) ∼ L−yh F(x, β/L z ) , x ≡ δg L 1/ν , (S60) which is the quantum analogue of standard Lee–Yang scaling [4, 26, 27]. The crossover is controlled by L/ξ , equiva-lently by x ∼ (L/ξ )1/ν . For L ≪ ξ, the system appears quasi-critical and λ(1)  
+
+> Q
+
+∼ L−yh . For L ≫ ξ, the leading zeros saturate to an L-independent edge scale [26, 27]. Requiring a finite thermodynamic limit, 
+
+λQ,edge (δg ) ≡ lim  
+
+> L→∞
+
+λ(1)  
+
+> Q
+
+(L, δg )̸ = 0 , (S61) fixes the large-x asymptotic behavior F(x, ∞) ∼ xνy h Cedge and gives 
+
+λQ,edge (δg ) ∼ | δg |νy h Cedge ∼ ξ−yh . (S62) Finite-size corrections may then be organized as powers of L/ξ ,
+
+λ(1)  
+
+> Q
+
+(L, δg ) = λQ,edge (δg )
+
+h
+
+1 + c1(L/ξ )−p + c2(L/ξ )−p′
+
++ · · · 
+
+i
+
+, (S63) with p, p ′ > 0 set by the leading correction mechanisms [26, 27]. If a probe source couples to a nonordering channel, analyticity near real λQ = 0 implies a finite Lee–Yang gap and an edge λQ,edge = i gedge ̸ = 0 [5, 23, 25]. By contrast, for a source conjugate to an ordering field, or at criticality, the thermodynamic free energy is nonanalytic at λQ = 0, and the zeros can pinch the real axis [1–5, 9]. In the J-Q setting, this means that VBS-source zeros are gapped on the N´ eel side, while N´ eel-source zeros are gapped on the VBS side, with the edge closing only as ξ → ∞ upon approaching the transition [5, 23, 25]. Separately, spin- 12 square-lattice J-Q models admit no intermediate featureless gapped paramagnet; the disordered side is the VBS phase, consistent with Lieb–Schultz–Mattis–Oshikawa–Hastings constraints [28–30]. We therefore focus on leading-zero scaling near the N´ eel–VBS transition, where drift and crossover most directly constrain the character of the transition, and leave a systematic study of deep-phase edges for future work. 
+
+> SYMMETRY CHANNELS AND LEE–YANG GENERATORS Translation-resolved operator channels
+
+Our Lee–Yang probes are specified by the microscopic support of the operator, site, bond, or plaquette, together with a translation sector of a symmetry-preserving anchor Hamiltonian H0 [14, 21, 31, 32]. Since H0 preserves the microscopic symmetries at any finite L, phases and criticality are inferred from the finite-size behavior of symmetry-resolved fluctuations [14, 21, 32]. Let O(x) be a local density defined on objects x at positions Rx, such as sites r, oriented bonds ( r, μ ), or plaquettes 
+
+□. A translation sector is isolated by 
+
+OQ ≡ X
+
+> x
+
+eiQ·Rx O(x). (S64) Under translation by a,
+
+TaOQT −1 
+
+> a
+
+= eiQ·aOQ, (S65) so OQ is a translation eigen-operator and does not mix with inequivalent Q sectors in correlators [14, 31, 32]. Further point-group resolution may be imposed through the choice of O(x) [14, 31]. The corresponding equal-time structure factor is 
+
+SO (Q) ≡ 1
+
+N ⟨OQO−Q⟩ . (S66) 8
+
+TABLE S1. Representative symmetry-resolved channels. Support Q sector Operator Site (π, π ) M z = P
+
+> r
+
+(−1) x+y Sz
+
+> r
+
+Bond (π, 0), (0 , π ) Dx = P
+
+> r
+
+(−1) xBx(r), Dy = P
+
+> r
+
+(−1) y By (r)Plaquette (π, 0), (0 , π ) Oplaq (π, 0) , Oplaq (0 ,π )
+
+The representative channels used in this work are standard [14–16, 33]. For N´ eel order on the square lattice, 
+
+Q = ( π, π ), and a convenient site-supported channel is 
+
+M z = X
+
+> r
+
+(−1) x+y Sz 
+
+> r
+
+. (S67) For columnar VBS order, bond-supported channels are 
+
+Dx = X
+
+> r
+
+(−1) x Sr ·Sr+ˆ x, Dy = X
+
+> r
+
+(−1) y Sr ·Sr+ˆ y , (S68) which lie in the ( π, 0) and (0 , π ) sectors [15, 16, 34, 35]. Plaquette-supported probes are defined analogously from a local plaquette density O(□), 
+
+Oplaq (π, 0) = X
+
+> □
+
+(−1) x(□)O(□), Oplaq (0 ,π ) = X
+
+> □
+
+(−1) y(□)O(□). (S69) These operators furnish alternative microscopic realizations of the same columnar VBS symmetry sectors [33, 36]. Representative symmetry-resolved channels are summarized in Table S1. 
+
+Checkerboard-resolved plaquette channels 
+
+For the CBJQ model it is convenient to resolve plaquettes into the two checkerboard families, since the multi-spin interaction acts only on one family [33, 36]. When both families are present, this basis is related by an exact change of basis to the usual clean columnar plaquette sectors [33]. For a plaquette at R□ = ( x(□), y (□)), define 
+
+ϵcb (□) ≡ (−1) x(□)+ y(□), ϵrow (□) ≡ (−1) y(□). (S70) Here ϵcb labels the checkerboard family, while ϵrow labels the row parity. They satisfy (−1) x(□) = ϵcb (□) ϵrow (□). (S71) With O(□) a local plaquette density, define the projected operators 
+
+OPSS  
+
+> s
+
+≡ X
+
+> □
+
+1 + s ϵ cb (□)2 ϵrow (□) O(□), s = ±1. (S72) The corresponding two-source deformation is 
+
+H(η+, η −) = H0 − η+ OPSS + − η− OPSS  
+
+> −
+
+. (S73) When both checkerboard families are present, the family basis is related exactly to the clean columnar basis, 
+
+OPSS + + OPSS  
+
+> −
+
+= Oplaq (0 ,π ), OPSS + − OPSS  
+
+> −
+
+= Oplaq (π, 0) , (S74) so one may equivalently write 
+
+H(η+, η −) = H0 − η(0 ,π ) Oplaq (0 ,π ) − η(π, 0) Oplaq (π, 0) , (S75) with η(0 ,π ) = ( η+ + η−)/2 and η(π, 0) = ( η+ − η−)/2 [33]. In CBJQ only one checkerboard family carries the Q interaction [33]. The active-family operator, for example OPSS + ,is therefore the natural PSS probe, and in practice we set the inactive source to zero [33, 36]. 9
+
+TABLE S2. Plaquette Z2 labels in the PSS decomposition. Label Meaning 
+
+ϵcb (□) = ( −1) x(□)+ y(□) checkerboard family 
+
+ϵrow (□) = ( −1) y(□) row parity 
+
+Conjugate sources and normalized generating functions 
+
+A source λQ conjugate to OQ deforms the anchor Hamiltonian as 
+
+H(λQ) = H0 − λQ OQ. (S76) Derivatives of ln Z(λQ) generate the corresponding responses [14, 21], 
+
+∂ ln Z∂λ Q
+
+= β ⟨OQ⟩, ∂2 ln Z∂λ 2
+
+> Q
+
+=
+
+Z β
+
+> 0
+
+dτ ⟨δO Q(τ ) δO Q(0) ⟩, (S77) with δO Q ≡ OQ − ⟨ OQ⟩. For the diagonal sources used in SSE, this reduces to 
+
+∂2 ln Z∂λ 2
+
+> Q
+
+= β2
+
+⟨O2
+
+> Q
+
+⟩ − ⟨ OQ⟩2
+
+. (S78) For finite ( L, β ), 
+
+Z(λQ) = Tr e−β(H0−λQOQ) (S79) is analytic in λQ ∈ C [4, 5]. We define the normalized generating function 
+
+G(λQ) ≡ Z(λQ)
+
+Z(0) , G(0) = 1 , (S80) whose zeros are the Lee–Yang zeros [1, 2, 4, 5]. The same object may be written as 
+
+G(λQ) = 
+
+D
+
+Tτ exp 
+
+h
+
+λQ
+
+Z β
+
+> 0
+
+dτ O Q(τ )
+
+iE 
+
+> 0
+
+, (S81) where ⟨· · · ⟩ 0 denotes averaging in the anchor ensemble of H0 [5, 9]. In the SSE implementation, analytic continuation changes only the corresponding diagonal matrix elements, so each stored configuration C acquires a ratio factor 
+
+R(λQ; C), and 
+
+G(λQ) = ⟨R(λQ; C)⟩0 . (S82) This is the standard reweighting representation used in recent Lee–Yang and related QMC calculations [37–42]. Expanding ln G generates connected cumulants of the time-integrated observable 
+
+X ≡
+
+Z β
+
+> 0
+
+dτ O Q(τ ), (S83) through ln G(λQ) = 
+
+> ∞
+
+X
+
+> n=1
+
+λ n
+
+> Q
+
+n! κn(X). (S84) For a purely imaginary source, 
+
+λQ = i gQ, gQ ∈ R, (S85) Eq. (S81) becomes the characteristic function 
+
+G(i gQ) = ⟨eigQX ⟩0. (S86) 10 Writing m = X/β , the anchor distribution 
+
+P0(m) ≡
+
+D
+
+δ
+
+
+
+m − 1
+
+β
+
+Z β
+
+> 0
+
+dτ O Q(τ )
+
+E 
+
+> 0
+
+(S87) gives the Fourier representation 
+
+G(i gQ) = 
+
+Z
+
+dm P 0(m) eigQβm . (S88) For finite L, the zeros are isolated. Their motion with increasing L tracks the reorganization of P0(m): critical scaling gives a power-law approach set by the conjugate-field exponent, whereas coexistence gives the faster spacetime-volume scale 1 /(βL d) [4, 8, 9, 12, 17]. 
+
+> Symmetry constraints and imaginary-axis scans
+
+For Hermitian H0 and OQ,
+
+Z(λ∗
+
+> Q
+
+) = Z(λQ)∗, (S89) so G(λ∗
+
+> Q
+
+) = G(λQ)∗ and Lee–Yang zeros occur in complex-conjugate pairs {λ(k) 
+
+> Q
+
+, (λ(k) 
+
+> Q
+
+)∗} [5, 9]. An additional discrete symmetry may flip the probed channel, 
+
+U H 0U −1 = H0, U O QU −1 = −OQ. (S90) For the N´ eel channel at Q = ( π, π ), one may take U to be translation by ˆ x or ˆ y. For a columnar channel at ( π, 0) or (0 , π ), one may take translation by ˆ x or ˆ y, respectively [14, 31, 37]. In these cases the anchor distribution of m = X/β 
+
+is even, 
+
+P0(m) = P0(−m). (S91) Along the imaginary axis, λQ = i gQ, this implies 
+
+G(i gQ) = ⟨cos( gQX)⟩0 ∈ R. (S92) Thus imaginary-axis scans probe a real function, although off-axis zeros may still exist in general [1, 2, 5, 9]. When Eq. (S90) holds, zeros on the imaginary axis are real roots g(k) 
+
+> Q
+
+∈ R,
+
+G(i g(k) 
+
+> Q
+
+) = 0 , λ(k) 
+
+> Q
+
+= i g(k) 
+
+> Q
+
+. (S93) This reduces nearest-zero finding in these symmetry-odd channels to one-dimensional root finding in gQ, which is numerically robust on the largest accessible lattices [20, 37]. We conclude by listing the model-specific imaginary-source deformations used in this work. For the N´ eel channel, 
+
+H(i h) = H0 − ih M z , M z ≡ X
+
+> r
+
+(−1) x+y Sz 
+
+> r
+
+, h ∈ R. (S94) For the bond-supported VBS channels, 
+
+H(i ξx) = H0 − iξx Dx, H(i ξy ) = H0 − iξy Dy , ξx, ξ y ∈ R, (S95) with 
+
+Dx ≡ X
+
+> r
+
+(−1) x Bx(r), Dy ≡ X
+
+> r
+
+(−1) y By (r). (S96) For plaquette-supported VBS probes in J-Q models, 
+
+H(i ζ) = H0 − iζ O Q2 
+
+> (π, 0)
+
+= H0 − iζ X
+
+> □
+
+(−1) x(□) OQ2 (□), ζ ∈ R, (S97) 11 and analogously for the (0 , π ) channel. These plaquette-supported probes are not used in the main text, because they transform in the same columnar VBS sectors as Dx and Dy and are expected to mix linearly with them under coarse graining [15, 16, 33, 36]. They are included here only as an alternative microscopic realization of the same symmetry channel. For the CBJQ plaquette-singlet-solid channel, let 
+
+OPSS ≡ X 
+
+> □:ϵcb =+1
+
+ϵrow (□) O(□). (S98) The corresponding imaginary source is 
+
+H(i η) = H0 − iη O PSS = H0 − iη X 
+
+> □:ϵcb =+1
+
+ϵrow (□) O(□), η ∈ R. (S99) The generator G(i η) = Z(i η)/Z (0) then defines the Lee–Yang problem in the CBJQ PSS sector [1, 2, 4, 5, 33, 36]. 
+
+> SSE REWEIGHTING ESTIMATORS FOR SYMMETRY-RESOLVED GENERATORS General ratio-estimator framework
+
+We sample stochastic-series-expansion (SSE) configurations C from a real, symmetry-preserving anchor Hamiltonian 
+
+H0 and evaluate Lee–Yang generators for complex deformations by reweighting [22, 37, 38, 43–45]. For a general complex source λ, let W (C; λ) be the SSE weight of a stored configuration. The corresponding configuration-level ratio is 
+
+R(λ; C) ≡ W (C; λ)
+
+W (C; 0) . (S100) Its anchor average gives the normalized generator, 
+
+G(λ) ≡ ⟨ R(λ; C)⟩0 = Z(λ)
+
+Z(0) . (S101) This is the standard ratio-estimator representation of the normalized partition function used in reweighting-based Monte Carlo analyses [37–39, 46, 47]. In the main text we specialize to imaginary-axis scans, λ = i g, and correspondingly write R(i g; C) and G(i g). In the Supplemental Material we retain the general notation λ in the formal setup and then switch to the model-specific scan variables used in the data, namely 
+
+p ∈ { h, ξ x, ξ y , η x, η y , η +, η −}, (S102) with complex deformations i p. When scanning a selected source or source pair, all other coordinates are set to zero. In the SSE implementation, deformations set to zero contribute an identically unit ratio factor at the configuration level [37–39]. For the deformations studied here, analytic continuation modifies only a specified subset of local diagonal matrix elements along the operator string. The configuration ratio therefore factorizes into contributions from the affected operator classes, and for multi-parameter scans it further factorizes by symmetry sector within each class. This structure is explicit in Eqs. (S108) and (S111)–(S125), and is the basis for efficient accumulation on source grids [22, 37, 38, 44, 45]. To control the dynamic range, we evaluate G(λ) in a max-shifted form. Writing 
+
+acfg (λ) ≡ ln |R(λ; C)|, bcfg (λ) ≡ Arg  R(λ; C), (S103) and defining amax (λ) = max cfg acfg (λ) over the stored ensemble, we compute 
+
+G(λ) = eamax (λ)
+
+Ncfg 
+
+X
+
+> cfg
+
+exp  acfg (λ) − amax (λ) eibcfg (λ). (S104) Equation (S104) is used only as a numerically stable implementation of the anchor average in Eq. (S101). Physical conclusions are drawn from the finite-size scaling of the resulting G(λ) [20, 37, 38]. 12 
+
+N´ eel-channel estimator 
+
+N´ eel order resides in the Q = ( π, π ) sector [15, 16, 48]. We use the z-component staggered magnetization 
+
+M z = X
+
+> r
+
+(−1) x+y Sz 
+
+> r
+
+, (S105) and introduce the imaginary staggered field 
+
+Hh = H0 − ih M z , h ∈ R. (S106) The symmetry-resolved ( π, π ) generator is thus obtained from the scan Gh(i h) [20, 37]. In the SSE formulation, the staggered field modifies diagonal matrix elements, so the configuration ratio depends only on sector-resolved counts of diagonal vertices with antiparallel spin patterns [22, 37, 43–45]. For the benchmark models it is convenient to retain an explicit bond-sector label s ∈ { x+, x −, y +, y −} with real denominators Js. For each stored configuration we record the counts n(s) 
+
+> ↑↓
+
+and n(s) 
+
+> ↓↑
+
+of diagonal vertices with local patterns ( ↑↓ ) and ( ↓↑ ), respectively. With 
+
+αs = 2
+
+Nc Js
+
+, (S107) where Nc is the bond-count normalization entering the diagonal matrix elements [43, 44], the ratio factor is 
+
+Rh(i h; C) = Y
+
+> s∈{ x+,x −,y +,y −}
+
+ 1 − iαshn(s) 
+
+> ↑↓
+
+ 1 + i αshn(s) 
+
+> ↓↑
+
+. (S108) The corresponding generator is 
+
+Gh(i h) = ⟨Rh(i h; C)⟩0 . (S109) 
+
+Bond-supported VBS estimators 
+
+Columnar VBS order is naturally diagnosed in bond-energy sectors at momenta ( π, 0) and (0 , π ) [15, 16, 34, 35, 49]. A symmetry-matched probe is obtained by a staggered continuation of the nearest-neighbor exchange on x or y bonds. Defining 
+
+Bx(r) = Sr ·Sr+ˆ x, By (r) = Sr ·Sr+ˆ y , (S110) the corresponding channel operators are Dx = P
+
+> r
+
+(−1) xBx(r) and Dy = P
+
+> r
+
+(−1) y By (r) [15, 16, 49, 50]. In the ratio-estimator implementation it is convenient to view the deformation as a sector-dependent continuation of the real bond denominators [37]. We partition each oriented bond family into two translation-related sectors ϵ = ±
+
+and denote the real anchor denominators by Jxϵ and Jyϵ . A scan in ξx corresponds to Jxϵ → Jxϵ + i ϵ ξ x, and similarly for ξy .With sector-resolved insertion counts NJxϵ and NJyϵ , the bond-channel ratio factors are 
+
+RJx (i ξx; C) = 
+
+
+
+1 + i ξx
+
+Jx+
+
+NJx + 
+
+1 − i ξx
+
+Jx−
+
+NJx −
+
+, (S111) 
+
+RJy (i ξy ; C) = 
+
+
+
+1 + i ξy
+
+Jy+
+
+NJy + 
+
+1 − i ξy
+
+Jy−
+
+NJy −
+
+. (S112) These expressions are the bond-channel analogs of the general factorized SSE ratio estimator under complex source deformations [37, 44, 45]. The corresponding generators are 
+
+GJx (i ξx) = ⟨RJx (i ξx; C)⟩0 , GJy (i ξy ) = ⟨RJy (i ξy ; C)⟩0 . (S113) 13 
+
+Plaquette-supported VBS estimators 
+
+In J-Q models the multi-spin interaction is expressed in terms of singlet projectors Pij = 14 − Si ·Sj [15, 34, 51]. A columnar Q2 interaction is a product of two parallel projectors on an elementary plaquette, 
+
+HQ2 = −Q2x
+
+X
+
+> □x
+
+Pi,i +ˆ x Pj,j +ˆ x − Q2y
+
+X
+
+> □y
+
+Pi,i +ˆ y Pj,j +ˆ y , (S114) where □x and □y denote the oriented plaquette families [15, 34]. To probe plaquette-based VBS channels we continue these couplings with real scan coordinates ( ηx, η y ) by introducing Q2x,ϵ → Q2x + i ϵ η x and Q2y,ϵ → Q2y + i ϵ η y for 
+
+ϵ = ± [37]. With sector-resolved insertion counts NQ2x± and NQ2y±, the plaquette-channel ratio factors are 
+
+RQ2x(i ηx; C) = 
+
+
+
+1 + i ηx
+
+Q2x
+
+NQ2x+ 
+
+1 − i ηx
+
+Q2x
+
+NQ2x−
+
+, (S115) 
+
+RQ2y (i ηy ; C) = 
+
+
+
+1 + i ηy
+
+Q2y
+
+NQ2y+ 
+
+1 − i ηy
+
+Q2y
+
+NQ2y−
+
+. (S116) For joint scans the deformation factorizes, 
+
+RQ2(i ηx, iηy ; C) = RQ2x(i ηx; C) RQ2y (i ηy ; C). (S117) This factorized structure follows the same reweighting logic as in the bond-channel case and is convenient for multi-dimensional source scans [37, 38]. The corresponding generator is 
+
+GQ2(i ηx, iηy ) = ⟨RQ2(i ηx, iηy ; C)⟩0 . (S118) 
+
+Checkerboard-resolved PSS estimator 
+
+For the checkerboard J-Q model, plaquette observables are naturally refined by the checkerboard decomposition, since the microscopic multi-spin interaction acts only on one checkerboard sublattice of plaquettes [33, 36]. We label plaquettes by R□ = ( x(□), y (□)) and define 
+
+ϵcb (□) ≡ (−1) x(□)+ y(□) = ±1, ϵrow (□) ≡ (−1) y(□) = ±1. (S119) For a local plaquette density O(□), the projected row-staggered operators are 
+
+OPSS  
+
+> s
+
+≡ X
+
+> □
+
+1 + s ϵ cb (□)2 ϵrow (□) O(□), s = ±1, (S120) with OPSS + ≡ OPSS  
+
+> e
+
+and OPSS  
+
+> −
+
+≡ OPSS  
+
+> o
+
+[33, 36]. When both checkerboard families are active, the symmetric and antisymmetric combinations reconstruct the clean columnar plaquette channels, 
+
+OPSS  
+
+> e
+
++ OPSS  
+
+> o
+
+= Oplaq (0 ,π ), OPSS  
+
+> e
+
+− OPSS  
+
+> o
+
+= Oplaq (π, 0) . (S121) In CBJQ only one checkerboard family is present in the Hamiltonian, so only the projected operator on the active family is generated by modulating an existing Q term [33]. Coupling independent sources defines 
+
+Hpss (i η+, iη−) = H0 − iη+ OPSS + − iη− OPSS  
+
+> −
+
+. (S122) Working at a real anchor with plaquette denominators Q+ and Q−, we resolve insertions by the row parity within each family, with counts NQ+,+, NQ+,−, NQ−,+, and NQ−,−. The configuration ratio factorizes as 
+
+Rpss (i η+, iη−; C) = Rpss ,+(i η+; C) Rpss ,−(i η−; C), (S123) 14 0.00 0.02 0.04 0.06 0.08 0.10 0.12 
+
+1/ L      
+
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 3
+> 10 2
+> 10 1
+> gLY
+> fit
+> excluded
+> data
+
+(a) 0.00 0.02 0.04 0.06 0.08 0.10 0.12 
+
+1/ L     
+
+> 0.4
+> 0.3
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> eff (L)
+> global fit
+> rank 1
+> rank 2 10 210 1
+> 1/ L
+> 10 3
+> 10 2
+> gLY
+> fit
+> excluded
+> data
+
+(b) 
+
+FIG. S1. Leading Lee–Yang zeros gLY obtained from plaquette-supported columnar VBS probes in the 2+1D J-Q 3 model at 
+
+Jc = J/Q 3 = 0 .67045 [51–53] in panel (a), and in the 2+1D J-Q 2 model at Jc = J/Q 2 = 0 .045 [16, 34, 53–55] in panel (b). In each panel, the two-size estimator ηeff (L) is constructed from ( L, 2L) pairs using the first two zeros, and the dashed line shows the first-order reference form η + c1L−ω + c2L−2ω with fixed η = −1. The plaquette-supported results closely track the bond-supported VBS results shown in the main text, including the systematic downward drift of ηeff (L). Insets: leading gLY 
+
+versus 1 /L , fitted to a L −yh , with fitted η defined by yh = ( d + z + 2 − η)/2, excluding L ≤ 32. 
+
+where 
+
+Rpss ,+(i η+; C) = 
+
+
+
+1 + i η+
+
+Q+
+
+NQ+,+ 
+
+1 − i η+
+
+Q+
+
+NQ+,−
+
+, (S124) 
+
+Rpss ,−(i η−; C) = 
+
+
+
+1 + i η−
+
+Q−
+
+NQ−,+ 
+
+1 − i η−
+
+Q−
+
+NQ−,−
+
+. (S125) These expressions implement the checkerboard-resolved PSS generator within the same factorized SSE reweighting framework [33, 37, 38]. The corresponding generator is 
+
+Gpss (i η+, iη−) = ⟨Rpss (i η+, iη−; C)⟩0 . (S126) For CBJQ only one checkerboard family carries a nonzero microscopic Q coupling [33, 36]. The probe therefore reduces to a single imaginary source coupled to the active family. Setting the inactive source to zero gives 
+
+Rpss (i η, 0; C) = Rpss ,+(i η; C), Gpss (i η, 0) = ⟨Rpss ,+(i η; C)⟩0 . (S127) 
+
+NUMERICAL DETAILS AND SUPPLEMENTARY PLAQUETTE-CHANNEL RESULTS Numerical details 
+
+All simulations were performed within the stochastic series expansion (SSE) quantum Monte Carlo framework with loop updates, using the symmetry-preserving anchor Hamiltonians described in the main text [22, 43–45, 56]. We studied L × L square lattices with periodic boundary conditions in the ground-state scaling regime β = L/ 2 for z = 1, following standard practice for square-lattice quantum magnets near 2+1D quantum criticality [15, 16, 34, 48, 57]. For each parameter point, we accumulated 10 8 Monte Carlo steps. System sizes extend up to L = 128 for the columnar dimerized Heisenberg model and up to L = 96 for the CBJQ, J-Q 2, and J-Q 3 models. Lee–Yang generators were evaluated by reweighting configurations sampled from the anchor ensemble to complex source fields through the ratio estimators introduced in the main text [20, 37, 38]. The range of system sizes and the sampling effort are comparable to those of previous large-scale SSE studies of square-lattice quantum magnets [15, 16, 33, 34, 57] and are sufficient to resolve the slow finite-size drift discussed in the main text. 15 
+
+Plaquette-supported VBS probes in J-Q 2 and J-Q 3
+
+As an additional robustness check, we also computed Lee–Yang zeros using plaquette-supported VBS probes in the J-Q 2 and J-Q 3 models. Specifically, we considered plaquette-supported columnar operators in the same symmetry channels as the bond-supported probes Dx and Dy used in the main text [15, 16, 34, 35, 49]. The resulting leading-zero flow and the corresponding two-size estimator ηeff (L) are shown in Fig. S1. The plaquette-supported results closely parallel the bond-supported results presented in the main text. In particular, both J-Q 3 and J-Q 2 display the same qualitative downward drift of ηeff (L) with increasing L, together with the same slow flow toward the first-order benchmark. This consistency is expected on symmetry grounds: bond-supported and plaquette-supported columnar VBS operators belong to the same lattice-symmetry sector and can therefore mix under coarse graining [14, 48–50]. The close numerical agreement between the two probes indicates that the observed Lee–Yang drift is a property of the columnar VBS channel itself, rather than a consequence of a particular microscopic estimator. For this reason, we use the bond-supported VBS probes in the main text and present the plaquette-supported results here as a supplementary consistency check.  
+
+> ∗
+
+hyzou@phy.ecnu.edu.cn  
+
+> †
+
+zhengyan@westlake.edu.cn [1] C. N. Yang and T. D. Lee, Phys. Rev. 87 , 404 (1952). [2] T. D. Lee and C. N. Yang, Phys. Rev. 87 , 410 (1952). [3] M. E. Fisher, in Lectures in Theoretical Physics , Vol. 7C, edited by W. E. Brittin (University of Colorado Press, Boulder, 1965) pp. 1–159. [4] C. Itzykson, R. B. Pearson, and J.-B. Zuber, Nucl. Phys. B 220 , 415 (1983). [5] I. Bena, M. Droz, and A. Lipowski, Int. J. Mod. Phys. B 19 , 4269 (2005). [6] M. Biskup, in Methods of Contemporary Mathematical Statistical Physics , Lecture Notes in Mathematics, Vol. 1970 (Springer, Berlin, 2009) pp. 1–55. [7] V. Privman and M. E. Fisher, J. Stat. Phys. 33 , 385 (1983). [8] M. Biskup, C. Borgs, J. T. Chayes, L. J. Kleinwaks, and R. Koteck´ y, Phys. Rev. Lett. 84 , 4794 (2000). [9] R. A. Blythe and M. R. Evans, Braz. J. Phys. 33 , 464 (2003). [10] K. Binder, Rep. Prog. Phys. 50 , 783 (1987). [11] C. Borgs and R. Koteck´ y, J. Stat. Phys. 61 , 79 (1990). [12] R. Kenna and B. Berche, Condens. Matter Phys. 16 , 23601 (2013). [13] A. Deger, F. Brange, and C. Flindt, Phys. Rev. Research 1, 023004 (2019). [14] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cambridge University Press, Cambridge, 2011). [15] A. W. Sandvik, Phys. Rev. Lett. 98 , 227202 (2007). [16] A. W. Sandvik, Phys. Rev. Lett. 104 , 177201 (2010). [17] W. Janke and R. Kenna, J. Stat. Phys. 102 , 1211 (2001). [18] J. L. Cardy, Phys. Rev. Lett. 54 , 1354 (1985). [19] M. E. Fisher and M. N. Barber, Phys. Rev. Lett. 28 , 1516 (1972). [20] T. Wada, M. Kitazawa, and K. Kanaya, Phys. Rev. Lett. 134 , 162302 (2025). [21] P. M. Chaikin and T. C. Lubensky, Principles of Condensed Matter Physics (Cambridge University Press, Cambridge, 1995). [22] A. W. Sandvik, in Lectures on the Physics of Strongly Correlated Systems XIV , AIP Conference Proceedings, Vol. 1297 (AIP, 2010) pp. 135–338. [23] M. E. Fisher, Phys. Rev. Lett. 40 , 1610 (1978). [24] P. Fonseca and A. B. Zamolodchikov, J. Stat. Phys. 110 , 527 (2003). [25] F. Rennecke and V. V. Skokov, Ann. Phys. (N. Y.) 444 , 169010 (2022). [26] R. Kenna and C. B. Lang, Phys. Rev. E 49 , 5012 (1994). [27] W. Janke and R. Kenna, Comput. Phys. Commun. 147 , 443 (2002). [28] E. H. Lieb, T. D. Schultz, and D. C. Mattis, Ann. Phys. (N. Y.) 16 , 407 (1961). [29] M. Oshikawa, Phys. Rev. Lett. 84 , 1535 (2000). [30] M. B. Hastings, Phys. Rev. B 69 , 104431 (2004). [31] M. Tinkham, Group Theory and Quantum Mechanics (McGraw–Hill, New York, 1964). [32] L. D. Landau and E. M. Lifshitz, Statistical Physics, Part 1 , 3rd ed., Course of Theoretical Physics, Vol. 5 (Pergamon Press, Oxford, 1980). [33] B. Zhao, P. Weinberg, and A. W. Sandvik, Nat. Phys. 15 , 678 (2019). [34] H. Shao, W. Guo, and A. W. Sandvik, Science 352 , 213 (2016). [35] A. Nahum, P. Serna, J. T. Chalker, M. Ortu˜ no, and A. M. Somoza, Phys. Rev. Lett. 115 , 267203 (2015). [36] G. Sun, N. Ma, B. Zhao, A. W. Sandvik, and Z. Y. Meng, Chin. Phys. B 30 , 067505 (2021). 16 
+
+[37] J. D’Emidio, Lee–yang zeros at O(3) and deconfined quantum critical points (2023), arXiv:2308.00575 [cond-mat.str-el]. [38] Y.-M. Ding, J.-S. Sun, N. Ma, G. Pan, C. Cheng, and Z. Yan, Phys. Rev. B 110 , 165152 (2024). [39] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Nat. Commun. 16 , 5880 (2025). [40] Y.-M. Ding, Y. Tang, Z. Wang, Z. Wang, B.-B. Mao, and Z. Yan, Phys. Rev. B 111 , L241108 (2025). [41] Y.-M. Ding, Z. Wang, and Z. Yan, PRX Quantum 6, 030328 (2025). [42] Z. Wang, Z. Liu, B.-B. Mao, Z. Wang, and Z. Yan, Nat. Commun. 17 , 679 (2026). [43] A. W. Sandvik and J. Kurkij¨ arvi, Phys. Rev. B 43 , 5950 (1991). [44] A. W. Sandvik, Phys. Rev. B 59 , R14157 (1999). [45] O. F. Sylju˚ asen and A. W. Sandvik, Phys. Rev. E 66 , 046701 (2002). [46] A. M. Ferrenberg and R. H. Swendsen, Phys. Rev. Lett. 61 , 2635 (1988). [47] A. M. Ferrenberg and R. H. Swendsen, Phys. Rev. Lett. 63 , 1195 (1989). [48] R. K. Kaul, R. G. Melko, and A. W. Sandvik, Annu. Rev. Condens. Matter Phys. 4, 179 (2013). [49] A. Nahum, J. T. Chalker, P. Serna, M. Ortu˜ no, and A. M. Somoza, Phys. Rev. X 5, 041048 (2015). [50] C. Wang, A. Nahum, M. A. Metlitski, C. Xu, and T. Senthil, Phys. Rev. X 7, 031051 (2017). [51] J. Lou, A. W. Sandvik, and N. Kawashima, Phys. Rev. B 80 , 180414 (2009). [52] J. Zhao, Y.-C. Wang, M. Yan, W. Guo, and A. W. Sandvik, Phys. Rev. Lett. 128 , 010601 (2022). [53] J. Takahashi, H. Shao, B. Zhao, W. Guo, and A. W. Sandvik, SO(5) multicriticality in two-dimensional quantum magnets (2024), arXiv:2405.06607 [cond-mat.str-el]. [54] H. Suwa, A. Sen, and A. W. Sandvik, Phys. Rev. B 94 , 144416 (2016). [55] A. W. Sandvik, V. N. Kotov, and O. P. Sushkov, Phys. Rev. Lett. 106 , 207203 (2011). [56] H. G. Evertz, Adv. Phys. 52 , 1 (2003). [57] R. G. Melko and R. K. Kaul, Phys. Rev. Lett. 100 , 017203 (2008).

@@ -1,0 +1,627 @@
+Title: On second-order optimality in the high-$\kappa$ regime of the Ginzburg-Landau model
+
+URL Source: https://arxiv.org/pdf/2603.20039v1
+
+Published Time: Mon, 23 Mar 2026 01:07:08 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# On second-order optimality in the high-κ regime of the Ginzburg–Landau model 
+
+Christian Döding 1
+
+Abstract. We study energy minimizers of the Ginzburg–Landau (GL) free energy, a fundamental model of superconductivity. We address the high-κ regime, the regime of a large GL parameter, in which energy minimizers exhibit vortex structures whose finite element approximations require a fine mesh resolution. This difficulty is re-flected in the error analysis of discrete minimizers, which relies on a second-order optimality condition. The spectrum of the energy’s second Fréchet derivative must be bounded away from zero up to symmetry. In practice, the associated spectral gap decreases rapidly with the GL parameter. This degrades the quality of the ap-proximations because the GL parameter directly enters as an additional factor in the error estimates. Although a polynomial dependence of the spectral gap on the GL parameter has been conjectured, its precise behavior remains unclear. As a first step toward addressing this issue, we compute the spectral gap based on a finite element approximation for a range of GL parameters, providing numerical evidence for the conjectured polynomial dependence. 
+
+Key words. Ginzburg–Landau equation, superconductivity, finite element method, optimization 
+
+# 1 Introduction 
+
+In this work, we study the Ginzburg–Landau (GL) problem with a prescribed magnetic vector potential, which seeks a complex-valued function u that minimizes the GL energy functional 
+
+E(u) = 1
+
+2
+
+∫
+
+> Ω
+
+∣∣∣ i
+
+κ ∇u + Au
+
+∣∣∣2
+
++ 1
+
+2 (1 − | u|2)2 dx. (1) Here, Ω ⊂ Rd, d = 2 , 3, denotes a bounded domain, A : Ω → Rd is a given magnetic vector potential, and κ > 0 is the GL parameter. The so-called order parameter u minimizing the energy ( 1) can exhibit complex pattern formation in the form of quantized vortices – localized regions where the order parameter vanishes. The structure and density of these vortex patterns, known as Abrikosov vortex lattices [ 1], depend sensitively on κ. In the high-κ regime, where κ is large, the number of vortices increases while their characteristic size decreases, creating significant challenges for accurate numerical resolution. This difficulty is closely related to the influence of 
+
+κ on the second-order optimality condition for minimizers: as κ grows, the coercivity constant of the second derivative of the energy functional appears to decrease drastically. The exact depen-dence of this coercivity constant on κ is unknown, but numerical evidence from previous works [2, 4, 6, 8] suggests a polynomial decay in κ. The focus of this work is a systematic computation of the coercivity constant, leading to a numerical verification of this decay and an estimation of  
+
+> 1Institute for Numerical Simulation, University of Bonn, D-53115 Bonn, Germany, e-mail: doeding@ins.uni-bonn.de .
+
+1
+
+> arXiv:2603.20039v1 [math.NA] 20 Mar 2026
+
+its rate w.r.t. the GL parameter κ.The model ( 1) arises as a reduction of the GL theory of superconductivity [ 10 , 16 , 23 ], the phenomenon of certain materials losing their electrical resistance at very low temperatures. The macroscopic GL theory of phase transitions describes the state of a superconductor through a minimizer of the full GL free energy 
+
+EGL (u, A) = 1
+
+2
+
+∫
+
+> Ω
+
+∣∣∣ i
+
+κ ∇u + Au
+
+∣∣∣2
+
++ 1
+
+2
+
+(1 − | u|2)2 + |curl A − H|2 dx. (2) The order parameter u describing the superconducting properties of the material has the physi-cal observable |u|2 representing the density of superconducting electrons – so-called Cooper pairs [23 ]. In particular, |u| = 0 corresponds to the normal (non-superconducting) state, while |u| = 1 
+
+represents a perfectly superconducting state. The second variable A denotes the electromagnetic vector potential in the superconductor, whose curl corresponds to the magnetic field and tends to align with the externally applied magnetic field H. Between the two perfect states |u| = 0 
+
+and |u| = 1 , Abrikosov identified the aforementioned mixed vortex state where quantized vorticies occur in the order parameter which locally destroys superconductivity and allows partial penetra-tion of the external magnetic field. Understanding and computing such vortex configurations is of considerable interest as it contributes to the understanding of the phenomena. As a common reduction of the model we obtain the reduced energy ( 1) from ( 2) pretending that the vector potential A is given a priori. The numerical approximation of GL minimizers using finite element approximation was ex-tensively studied in the seminal works of Du, Gunzburger, and Peterson [ 10 , 11 ], where both well-posedness and optimal order approximation of ( 2) in finite element spaces were established. Alternative approaches, such as finite volume and co-volume methods, have also been proposed [9, 12 ]. However, the error analyses in these works did not explicitly track the dependence on the material parameter κ. More recent studies [ 2, 4, 8] for the reduced model ( 1), and later for the full model [ 6], revealed the presence of a κ-dependent pollution effect. The effect imposes resolution conditions on the computational mesh that are required to correctly capture energy minimizers and, in particular, the vortex structures. These resolution conditions involve the aforementioned coercivity constant appearing in the second-order optimality conditions of the GL energy leading to an interest of its behavior in the high-κ regime. We mention that there is a also large literature on time-dependent Ginzburg-Landau problems regarding L2- or Schrödinger flows of the energy (1) or ( 2). We examplarily refer to [ 5, 14 , 15 , 17 , 18 ] and the references therein. We conclude the introduction with an overview of the article. In Section 2, we introduce the analytical framework of the GL problem and review established results on the existence and stability of GL energy minimizers. We then discuss the first- and second-order optimality conditions, introduce the coercivity constant of the second Fréchet derivative that is central to our study, and formulate a conjecture on its decay. Furthermore, we explain its relation to the spectral gap and to the second-smallest eigenvalue of the second derivative. In Section 3, we present the numerical discretization and the iterative method used to compute GL minimizers, and discuss recently proven error estimates together with the pollution effect in the GL problem and its relation to the second order optimality condition. Section 4 is devoted to the main contribution of this work. There, we present numerical experiments computing GL minimizers for several parameter settings, verify the conjectured polynomial decay of the coercivity constant in the second-order optimality condition, and provide an estimate for its rate. 22 The Ginzburg-Landau model 
+
+Let Ω ⊂ Rd, d = 2 , 3, be a bounded domain with Lipschitz boundary ∂Ω, and denote by L2 =
+
+L2(Ω , C) the space of complex-valued, square-integrable functions equipped with the real inner product (v, w ) = Re ∫ 
+
+> Ω
+
+v w dx and norm ‖ · ‖ L2 . Further, denote by Hk = Hk(Ω , C) the standard Sobolev space of complex-valued functions with derivatives in L2 up to order k ∈ N and denote by ‖ · ‖ Hk and | · | Hk the associated norms and semi-norms. The GL problem then reads as finding a minimizer 
+
+u = arg min 
+
+> v∈H1
+
+E(v). (3) Throughout the article we assume for the energy E that κ > 0 and that the vector potential A is bounded and has zero-normal trace on Ω, i.e., A ∈ (L∞(Ω , R))d and A · n = 0 on ∂Ω where n is the outer normal unit vector on ∂Ω. Finally, we use the notation a . b, if there exists a constant 
+
+C > 0 which is independent of κ and any mesh sizes such that a ≤ Cb holds. Under these general assumptions one proves existence of a GL energy minimizers by a classical compactness argument, which also applies to full model ( 2) (cf. [10 ]). Furthermore, stability bounds on u can be shown that are curcial for the established analysis of the GL problem [ 8, 10 ]. We note these well-known properties in the following lemma and recap the proof of existence here for the sake of completeness. 
+
+Lemma 1 (existence and stability bounds) . Under the general assumptions, there exists at least on minimizer u ∈ H1 of E such that (3) holds and 
+
+0 ≤ | u| ≤ 1, ‖∇ u‖L2 + κ−1‖u‖L2 . κ. 
+
+If in addition ∂Ω is of class C2 or Ω is a convex polytope, then u ∈ H2 with 
+
+|u|H2 . κ2.
+
+Proof. Since E(v) ≥ 0, is bounded from below. Let {vn}n∈N be a minimizing sequence such that 
+
+E(vn) → inf v∈H1 E(v) =: E∞ as n → ∞ . Now for any v ∈ H1 we estimate 
+
+‖v‖2 
+
+> L2
+
+. ‖1 − | v|‖ 2 
+
+> L2
+
++ |Ω|2 .
+
+∫
+
+> Ω
+
+(1 − | v|)2(1 + |v|)2 dx + |Ω|2 . E(v) + |Ω|2
+
+and 
+
+‖∇ v‖2 
+
+> L2
+
+. ‖∇ v + Av‖2 
+
+> L2
+
++ ‖A‖2 
+
+> L∞
+
+‖v‖2 
+
+> L2
+
+. E(v) + |Ω|2.
+
+Thus, {vn}n∈N is bounded in H1 and since H1 embeds into L4 compactly we can extract a subsequence, again denoted by {vn}n∈N, such that vn → u strongly in L4 and vn → u weakly in 
+
+H1 for some limit u ∈ H1. Since E is weakly lower semicontinuous in H1 we conclude 
+
+E(u) ≤ lim inf  
+
+> n→∞
+
+E(vn) = lim  
+
+> n→∞
+
+E(vn) = E∞.
+
+Thus, u ∈ H1 is a minimizer of E and ( 3) holds. The proof of the stability bounds can be found e.g. in [ 4] and [ 8]. 
+
+Due to the stability bounds in Lemma 1 we introduce the κ-weighted norm 
+
+‖v‖2 
+
+> H1
+> κ
+
+:= κ−2‖∇ v‖2 
+
+> H1
+> κ
+
++ ‖v‖2
+
+> L2
+
+which is the natural energy norm for the GL problem. Note that for the minimizer u Lemma 1
+
+implies ‖u‖H1 
+
+> κ
+
+. 1.32.1 First- and second-order optimality condition 
+
+It follows from classical optimization theory (e.g. [ 22 , 24 ]) that the minimizer u from ( 3) needs to be a critical point of the energy functional. In other words, let 〈· , ·〉 denotes the dual pairing on the real Hilbert space H1. Then the real Fréchet derivative of E at u given by 
+
+〈E′(u), v 〉 = Re 
+
+∫
+
+> Ω
+
+( i 
+
+> κ
+
+∇u + Au)( i 
+
+> κ
+
+∇v + Av) − (1 − | u|2)uv dx, v ∈ H1
+
+needs to vanish, i.e., 〈E′(u), v 〉 = 0 for all v ∈ H1. This first order optimality condition is equivalent to the famous Ginzburg-Landau equation 
+
+( i
+
+κ ∇ + A
+
+)2
+
+u − u + |u|2u = 0 in Ω (4) with homogeneous Neumann boundary ∇u · n = 0 on ∂Ω which holds in strong form if u is 
+
+H2-regular or needs to be read in weak form in general. However, this is only a necessary but no sufficient condition for the minimum. In particular, every (weak) solution to the GL equation (4) can be a local minimum or even a saddle-point. To ensure, at least the critical point to be a local minimum we consider the second-order optimality condition stating that the second Frechét derivative E′′ (u) : H1 × H1 → R given by 
+
+〈E′′ (u)v, w 〉 = Re 
+
+∫
+
+> Ω
+
+( i 
+
+> κ
+
+∇v + Av)( i 
+
+> κ
+
+∇w + Aw) − (1 − | u|2)vw + 2Re ( uv)uw dx, v, w ∈ H1
+
+is positive definite. However, as we show now E′′ (u) cannot be positive definite since there is a symmetry under complex rotations hidden in the expression of the GL energy: it holds 
+
+E(eiθ v) = E(v) ∀θ ∈ [0 , 2π), v ∈ H1.
+
+Thus, if u is a minimizer given by ( 3) so is eiθu for any angle θ ∈ [0 , 2π). Consequently the set of minimizers forms a manifold M(u) := {eiθu : θ ∈ [0 , 2π)}. Locally, this manifold admits the smooth parametrization 
+
+γ : ( −ε, ε ) → M (u), γ(θ) = eiθu
+
+for any 0 < ε < π . Its tangent space at u is spanned by 
+
+γ′(0) = d
+
+dθ eiθ u
+
+∣∣∣θ=0 = i u. 
+
+It follows using the first order optimality condition and γ′′ (0) = −u ∈ H1,
+
+0 = d2
+
+dθ2 E(γ(θ)) 
+
+∣∣∣θ=0 = 〈E′′ (γ(0)) γ′(0) , γ ′(0) 〉 + 〈E′(γ(0)) , γ ′′ (0) 〉 = 〈E′′ (u)i u, iu〉.
+
+Thus γ′(0) = i u ∈ H1 lies in the kernel of the second Fréchet derivative and hence E′′ (u) cannot be positive definite. However, this is in general the only symmetry the energy admits. Blocking this neutral direction we can therefore expect the second order optimality condition to be satisfied on the orthogonal complement 
+
+(i u)⊥ := {v ∈ H1 : (i u, v ) = 0 }.
+
+4Recall here that (·, ·) is the real inner product on L2 so that we take the real orthogonal comple-ment of the neutral mode iu.We assume that the minimizer u given by ( 3) is locally quasi-isolated , i.e., it holds 
+
+〈E′′ (u)v, v 〉 > 0 ∀v ∈ (i u)⊥. (5) We now make the crucial observation that if the minimizer u given by ( 3) is locally-quasi isolated, then the second Fréchet derivative E′′ (u) is coercive on the orthogonal complement (i u)⊥ w.r.t. the norm ‖ · ‖ H1 
+
+> κ
+
+.
+
+Lemma 2. Under the general assumptions let u be a locally quasi-isolated minimizer given by 
+
+(3). Then there exists a constant ρ(κ) > 0 such that 
+
+〈E′′ (u)v, v 〉 ≥ ρ(κ)−1‖v‖2 
+
+> H1
+> κ
+
+for all v ∈ (i u)⊥.
+
+Proof. Note that E′′ (u) : H1 → (H1)∗ is symmetric w.r.t. the dual pairing 〈· , ·〉 . Denote by 
+
+0 ≤ λ1 ≤ λ2 ≤ · · · the eigenvalues of E′′ (u). We have shown above that λ1 = 0 with eigenfunction 
+
+iu. Then the Courant-Fisher theorem yields 
+
+λ2 = sup  
+
+> w∈H1,‖w‖=1
+
+inf 
+
+> v∈H1, v ⊥w
+
+〈E′′ (u)v, v 〉
+
+(v, v )L2
+
+= inf 
+
+> v∈(i u)⊥
+
+〈E′′ (u)v, v 〉
+
+(v, v )L2
+
+> 0.
+
+This implies 
+
+〈E′′ (u)v, v 〉 ≥ λ2‖v‖2 
+
+> L2
+
+for all v ∈ (i u)⊥. (6) Next we note that | i 
+
+> κ
+
+∇v +Av|2 ≥ 1 
+
+> 2κ2
+
+|∇ v|2 −| Av|2 and conclude the following Gårding inequality, cf. [ 4, Lemma 4.1], 
+
+〈E′′ (u)v, v 〉 =
+
+∫
+
+> Ω
+
+| i 
+
+> κ
+
+∇v + Av|2 + ( |u|2 − 1) |v|2 + 2Re ( uv)2 dx
+
+≥
+
+∫ 
+
+> Ω1
+> 2κ2
+
+|∇ v|2 − | Av|2 + ( |u|2 − 1) |v|2 dx
+
+≥
+
+∫ 
+
+> Ω1
+> 2κ2
+
+|∇ v|2 + 1 
+
+> 2
+
+|v|2 − (‖A‖2 
+
+> L∞
+
++ |u|2 − 3
+
+> 2
+
+)|v|2 dx
+
+≥ 1 
+
+> 2
+
+‖v‖2 
+
+> H1
+> κ
+
+− ( 3 
+
+> 2
+
++ ‖A‖2
+
+> L∞
+
+)‖v‖2 
+
+> L2
+
+for all v ∈ H1.
+
+(7) Combining ( 6) and ( 7) yields 
+
+〈E′′ (u)v, v 〉 ≥ λ2
+
+2( λ2 + 3 
+
+> 2
+
++ ‖A‖2 
+
+> L∞
+
+) ‖v‖2 
+
+> L2
+
+for all v ∈ (i u)⊥.
+
+As we will review in the next section, the coercivity constant ρ(κ)−1 plays a central role in the numerical approximation of GL minimizers, due to a pollution effect that scales with 
+
+ρ(κ). Intuitively, ρ(κ) reflects the curvature of the energy functional at the minimizers, and therefore influences not only the approximation properties of the minimizers but also typically the convergence rates of iterative solvers when computing minimizers in appropriate approximation 5spaces. In the proof of Lemma 2 we have seen that the coercivity constant ρ(κ)−1 satisfies 
+
+ρ(κ)−1 . λ2(κ)
+
+where λ2(κ) is the second smallest eigenvalue of E′′ (u). Since the smallest eigenvalue λ1 = 0 we can identify λ2(κ) with the spectral gap of E′′ (u). Unfortunately, to the best of our knowledge, there a no analytic results about the dependence of the constant ρ(κ) or the spectral gap λ2(κ)
+
+w.r.t. κ. However, from numerical observation it is conjectured that ρ(κ) ∼ κα for some α ≥ 1.We formulate this in the following conjecture that we aim to verify numerically in Section 4.
+
+Conjecture 3. Under the general assumptions, there exists α ≥ 1 such that for all κ ≥ 1
+
+ρ(κ)−1 . κα
+
+where ρ(κ)−1 is the coercivity constant of E′′ (u) from Lemma 2.
+
+We note that the spectral properties of the linear part of E′′ (u) have been studied extensively e.g. in [ 13 ]. The linear part is given by the so-called magnetic Neumann Laplacian ( i 
+
+> κ
+
+∇+A)2. For bounded smooth domains it is shown in [ 13 , Theorem 8.1.1 & 9.1.1] that its smallest eigenvalue 
+
+λ(κ) satisfies λ(κ) ∼ κ−1 if curl A does not vanish in Ω. This suggests a decay rate α ≥ 1 in Conjecture 3. However, since this concerns only the linear part of E′′ (u), it does not imply a corresponding bound for the full operator as the nonlinear effects might dominate the spectrum of E′′ (u).
+
+# 3 Computation of GL minimizers 
+
+In this section, we introduce the a discretization and an iterative numerical method for approx-imating minimizers of the GL energy. For the spatial discretization, we employ classical P2
+
+Lagrange finite elements. Let Th be a quasi-uniform, shape-regular triangulation of Ω with mesh size h > 0. We define the space of quadratic, H1-conforming Lagrange finite elements by 
+
+Vh := {vh ∈ C(Ω) : vh|T ∈ P 2(T ) for all T ∈ T h},
+
+where P2(T ) denotes the space of quadratic polynomials on T ∈ T h. A discrete minimizer uh ∈ Vh
+
+of the GL energy E is then characterized by 
+
+uh = arg min 
+
+> vh∈Vh
+
+E(vh). (8) To achieve optimal approximation order of the minimizer u in the P2 finite element space we need to ensure H3 regularity of u. This can be guaranteed if we assume, in addition, that 
+
+A ∈ (W 1,∞(Ω)) d and that ∂Ω is of class C3 or that Ω is a cuboid. Then it is shown in [ 4] for the smooth boundary and in [ 6] for the cuboid that the exact minimizer satisfies u ∈ H3(Ω) and 
+
+|u|H3 . κ3. Standard interpolation estimates (cf. [ 3]) then imply for the best-approximation error 
+
+inf 
+
+> vh∈Vh
+
+‖u − vh‖H1 
+
+> κ
+
+. κ−1h2|u|H3 + h2|u|H2 . (κh )2.
+
+6Consequently, obtaining meaningful approximations in Vh requires at least the resolution condition 
+
+h . κ−1. However, previous works reveal that the situation is more restrictive when considering the error of the discrete minimizer from ( 8). In [ 4, Theorem 3.2], it is shown that if 
+
+h . ρ(κ)−1/2κ−1−d/ 2, (9) then the optimal convergence rate 
+
+‖u − uh‖H1 
+
+> κ
+
+. (κh )2
+
+is achieved. In particular, there is a pollution effect present that needs to be resolved by the constraint ( 9) to achieve optimal order of convergence. Similar results involving resolution con-ditions that quantify the pollution effect have been derived for general Lagrange finite elements of order p (see [ 8, 4]) as well as for multiscale approximation spaces in the spirit of the Localized Orthogonal Decomposition, cf. [2, 19 ]. As shown in [ 6], the pollution effect is also observed in the order parameter for minimizers of the full GL energy ( 2). Assuming that Conjecture 3 holds, the GL parameter κ has a decisive influence on the mesh size required for accurate approximations. For the quadratic finite element approximation considered here, the resolution condition can be given explicitly in terms of κ by 
+
+h . κ−1−(α+d)/2,
+
+where α denotes the rate appearing in Conjecture 3. Finally we note, that the pollution effect is indeed observed numerically through a pre-asymptotic regime for coarse mesh sizes where no error decay is observed. This gives rise to the high interest of the magnitude of α in order to further quantifying the pollution effect. 
+
+3.1 A gradient descent method 
+
+To verify Conjecture 3 and compute the magnitude of α via the spectrum of the second derivative 
+
+E′′ (u), we first need to compute the discrete minimizer satisfying ( 8). This is typically achieved using iterative descent methods of the form 
+
+un+1 = un + τndn, (10) where un is the current iterate, τn > 0 is a step size, and dn is the descent direction. In this work, we employ a nonlinear conjugate Sobolev gradient method, initially introduced for the GL problem in [ 4] and further used in [ 7]. In this method, the descent direction dn incorporates the Sobolev gradient ∇Xn E(un), defined via 
+
+(∇Xn E(un), v )Xn = 〈E′(un), v 〉 for all v ∈ Vh,
+
+for a suitably chosen metric (·, ·)Xn on H1. The metric is adaptively updated with respect to the current iterate un and is given by 
+
+(v, w )Xn := Re 
+
+∫
+
+> Ω
+
+( i
+
+κ ∇v + Av
+
+)( i
+
+κ ∇w + Aw
+
+)
+
++ ( |un|2 + |A|2)vw dx, v, w ∈ Vh.
+
+The Sobolev gradient can then be computed as 
+
+∇Xn E(un) = un − A −1
+
+> n
+
+((1 + |A|2)un),
+
+7where A−1 
+
+> n
+
+v ∈ Vh is the solution to 
+
+(A−1 
+
+> n
+
+v, w )Xn = ( v, w )X ∀w ∈ Vh.
+
+Then, the descent direction for the nonlinear conjugate Sobolev gradient method is defined by 
+
+dn = −∇ Xn E(un) + βndn−1,
+
+where βn is the Polak–Ribière parameter [ 20 ], 
+
+βn := max 
+
+{
+
+0, (∇Xn E(un), ∇Xn E(un) − ∇ Xn−1 E(un−1)) Xn
+
+(∇Xn−1 E(un−1), ∇Xn−1 E(un−1)) Xn−1
+
+}
+
+(11) and where we formally set d0 = 0 . The step size τn > 0 is obtained through minimizing the energy along the descent direction, i.e., 
+
+τn = arg min 
+
+> τ > 0
+
+E(un + τ d n). (12) The iteration is continued until a given tolerance tol > 0 is achieved with respect to the energy difference between successive iterates. This procedure leads to the following algorithm. 
+
+Algorithm 4. Given an initial value u0 ∈ Vh, a tolerance tol > 0, and set d0 = 0 . Then perform the following steps for n ∈ N until termination: 1. Solve for δn ∈ Vh such that (δn, w h)Xn = ((1 + |A|2)un, w h) for all wh ∈ Vh.2. Set the descent direction dn = δn − un + βndn−1, where βn is defined in ( 11 ). 3. Compute the step size τn using a line search according to ( 12 ). 4. Update the iterate un+1 = un + τndn.5. Terminate if E(un) − E(un+1 ) < tol .Due to the construction of the algorithm as a descent method, the iterates are expected to be energy diminishing. Moreover, the algorithm terminates when the classical L2-gradient E′(un) at the current iterate becomes sufficiently small. Consequently, the iterate un can be regarded as a suitable approximation of a critical point of the energy functional E in Vh. In order to verify that this critical point corresponds to at least a local minimum of the energy functional, we compute the spectrum of the second derivative. If the second smallest eigenvalue is smaller in magnitude than a prescribed tolerance tol EV , we assume that the critical point corresponds to a saddle point. In this case, we perform an additional descent step in the direction of the eigenfunction associated with the second smallest eigenvalue. This perturbs the system and the algorithm is restarted from the perturbed iterate. The procedure is repeated until the obtained critical point satisfies our criterion for a local minimum, namely that the spectral gap exceeds the tolerance tol EV .We emphasize, that a rigorous convergence analysis of the nonlinear conjugate Sobolev gradient descent method is an open problem and remains an interesting topic for future research. In particular, it is of interest to understand how the parameter κ influences the convergence rate toward a critical point. As typical for such iterative methods, it is expected that the coercivity constant ρ(κ)−1 plays a significant role, as it provides, loosely speaking, a measure of the curvature of the energy at the critical point. Numerical experiments indicate that, with increasing κ, the number of iterations required to reach the prescribed tolerance grows significantly. This provides an additional motivation to study the dependence of ρ(κ)−1 on κ.84 Numerical results 
+
+In this section we compute GL minimizers numerically in several model settings and estimate the coercivity constant ρ(κ)−1 via the second smallest eigenvalue λ2(κ) of the second Fréchet derivative E′′ (u). This allows us to verify Conjecture 3 and to estimate the resulting decay rate 
+
+α.For the model problems we fix the domain Ω = (0 , 1) 2 and consider two different vector potentials A: The first vector potential A1 is defined by 
+
+A1(x) = √2
+
+( sin( πx 1) cos( πx 2)
+
+− cos( πx 1) sin( πx 2)
+
+)
+
+.
+
+This vector potential belongs to the model case of a external magnetic field given by 
+
+H1(x) = 2 √2π sin(2 πx 1) sin(2 πx 2)
+
+as it solves curl A1 = H1, div A1 = 0 in Ω and is in align with reduction procedure of the full GL energy ( 2) to the reduced energy ( 1). In a similar fashion, we choose a constant homogeneous magnetic field H2(x) = 2 √2π for the second vector potential A = A2 and define it as a the solution of 
+
+curl A2 = H2, div A2 = 0 in Ω.
+
+Note that, in practice, A2 is computed with a P2 finite element approximation on Th. For each model problem defined by one of the vector potentials we vary the GL parameter according to 
+
+κ = 5 j, j = 2 , . . . , 20 , so that κ ranges from 10 to 100 in increments of size 5. For each parameter configuration we employ P2 finite elements on a uniform triangular mesh with mesh size h = 2 −9
+
+leading to 1050625 degrees of freedom (over C). On Vh we compute the discrete GL energy minimizers using the nonlinear conjugate Sobolev gradient descent method from Algorithm 4
+
+up to a tolerance of tol = 10 −14 . To ensure that the obtained solutions correspond to local minimizers, we apply the test for a local minimum as described after Algorithm 4, using the tolerance tol EV = 10 −8.Since this procedure only guarantees the computation of local minimizers and the nonlinear conjugate Sobolev gradient method is typically sensitive to the choice of initial values, we run the algorithm for each parameter configuration with five different initial states. These are generated from empirically chosen functions (cf. [ 7]), 
+
+ψ1(x, y ) = 1√2 (1 + i) e−(x2 +y2), ψ2(x, y ) = 1√π
+
+( 2 
+
+> 3
+
+(x + i y) + 1
+
+> 2
+
+) e−(x2+y2),ψ3(x, y ) = 1√2 (1 + i) e10i( x2 +y2), ψ4(x, y ) = 1√2 (1 + i)( x + i y)e10i( x2+y2),ψ5(x, y ) = 1√2 (1 + i) .
+
+The initial values are prescribed by ϕj = ψj ◦ χ, where the transformation χ : (0 , 1) 2 → (−1, 1) 2
+
+is defined by χ(x, y ) = (2 x − 1, 2y − 1) . The energy levels of the obtained local minimizers are then compared, and the local minimizer with the lowest energy is selected. This minimizer serves as a reference global minimizer, and we compute the spectral gap λ2(κ) to validate Conjecture 3.The densities |u|2 of the discrete minimizers in both model settings for the varying values of κ
+
+are depicted in Figure 1 for A = A1 and in Figure 2 for A = A2. The Abrikosov vortex lattice is 9Figure 1: Densities |u|2 of the computed discrete GL energy minimizers with A = A1 and κ = 5 j,
+
+j = 2 , . . . , 20 .clearly identifiable in the discrete minimizers. With increasing κ, the number of vortices increases while their size decreases. Comparing the two model problems, we observe that the vortex pattern is more centralized for A = A1, which results from the fact that the vector potential decays to zero at the boundary. In contrast, for A = A2, the magnetic field remains constant up to the boundary, and the vortex pattern is homogeneously distributed over the domain Ω. Furthermore, in the latter case and for larger values of κ, the vortices align in a triangular/hexagonal lattice, consistent with the physical and mathematical theory for a constant magnetic field [ 21 , 23 ]. In Table 1 and Figure 3 (left), we show the energy levels E(u) of the computed discrete minimizers for varying values of κ. In particular, Figure 3 (left) illustrates the decay of the energy with increasing κ. This decay can be identified with the rate O(κ−1 log κ), which agrees with the asymptotic analysis in [ 21 , Theorem 8.1] in the high-κ regime. Finally, we use this data to verify Conjecture 3. For each discrete minimizer u, we compute the spectrum of the second Fréchet derivative, and in particular the spectral gap, given by the second smallest eigenvalue λ2(κ). The size of the spectral gap is shown in Figure 3 (right), and the particular values are reported in Table 1 for both model problems. Recall that the coercivity constant from Lemma 2 we are interested in is bounded by the spectral gap, i.e., ρ(κ)−1 . λ2(κ).As a function of κ, the spectral gap clearly decays, leading to a corresponding decay of the coercivity constant ρ(κ)−1, as predicted by Conjecture 3. Up to small pollution, this decay can be described by λ2(κ) . κ−α. The rate α can be estimated using a least-squares regression. For the first model problem ( A = A1), we calculate α ≈ 2.726369 , whereas for the second model problem with a homogeneous magnetic field ( A = A2), we find α ≈ 2.671856 . In both cases, a 10 Figure 2: Densities |u|2 of the computed discrete GL energy minimizers with A = A2 and κ = 5 j,
+
+j = 2 , . . . , 20 .     
+
+> 20 40 60 80 100
+> 00.05 0.1 0.15 0.2 0.25
+> 10 110 2
+> 10 -6
+> 10 -4
+> 10 -2
+
+Figure 3: Energy levels E(u) (left) and spectral gap λ2(κ) of E′′ (u) for the computed discrete minimizers u for both model problem A = A1 and A = A2.rough estimate of the decay rate yields α ≈ 2 for which we therefore have shown strong numerical evidence. In summary, these results provide numerical evidence supporting Conjecture 3, indicating that the decay rate is at least of order 2. Consequently, we obtain the overall estimate ρ(κ) . λ2(κ) .
+
+κ−2, which is confirmed numerically. 11 A1 A2
+
+κ E(u) λ2(κ) E(u) λ2(κ)
+
+10 0.104590638 3.364695e-02 0.210302180 1.253325e-02 15 0.087800780 5.043459e-04 0.175409470 1.277341e-03 20 0.075291293 3.865896e-05 0.151924400 7.506412e-04 25 0.064500846 4.387885e-05 0.133881341 3.254416e-04 30 0.058934712 8.862484e-06 0.119779397 4.431788e-04 35 0.052393817 5.051936e-05 0.109046329 1.906038e-04 40 0.048082822 1.768819e-04 0.101158914 2.061991e-04 45 0.045289744 1.287305e-04 0.093076130 7.584095e-05 50 0.041412827 1.084707e-04 0.087120326 1.231738e-04 55 0.038966075 4.098281e-05 0.081475140 1.364403e-04 60 0.037183406 1.793039e-06 0.077086813 5.682032e-05 65 0.034882249 5.122268e-07 0.073577591 6.054500e-05 70 0.033180030 2.499888e-05 0.070531694 3.705614e-05 75 0.031875279 3.501932e-05 0.066838003 4.146475e-05 80 0.030282029 2.590564e-05 0.063537417 2.219414e-05 85 0.029072447 4.891610e-07 0.061940527 2.156034e-05 90 0.028146489 4.520968e-06 0.058974280 1.038614e-05 95 0.026935874 1.156596e-05 0.057159507 1.165843e-05 100 0.026059354 1.440620e-05 0.055481094 1.584083e-05 
+
+α ≈ 2.726369 α ≈ 2.671856 
+
+Table 1: Energy levels E(u) and spectral gap λ2(κ) of E′′ (u) of the discrete minimizers for the two model problems with A = A1 and A = A2. The decay rate α of the spectral gap according to Conjecture 3 is calculated by least-squares regression. 
+
+Acknowledgement. This work was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy – EXC-2047/1 – 390685813. 
+
+# References 
+
+[1] A. A. Abrikosov. Nobel lecture: Type-II superconductors and the vortex lattice. Rev. Mod. Phys. , 76(3,1):975–979, 2004. [2] M. Blum, C. Döding, and P. Henning. Vortex-capturing multiscale spaces for the Ginzburg-Landau equation. Multiscale Model. Simul. , 23(1):339–373, 2025. [3] S. C. Brenner and L. R. Scott. The mathematical theory of finite element methods , volume 15 of Texts in Applied Mathematics . Springer, New York, third edition, 2008. [4] T. Chaumont-Frelet and P. Henning. The pollution effect for FEM approximations of the Ginzburg–Landau equation. ArXiv e-print 2506.07433 (to appear in Math.Comp.), 2025. [5] T. C. Corso, G. Kemlin, C. Melcher, and B. Stamm. Simulation of the magnetic Ginzburg– Landau equation via vortex tracking. 2025. arXiv preprint 2510.26334. 12 [6] C. Döding, B. Dörich, and P. Henning. A multiscale approach to the stationary ginzburg-landau equations of superconductivity. ArXiv e-print 2409.12023, 2024. [7] C. Döding and P. Henning. The Ginzburg-Landau equations: Vortex states and numerical multiscale approximations. 2025. ArXiv e-print 2511.19540. [8] B. Dörich and P. Henning. Error bounds for discrete minimizers of the Ginzburg-Landau energy in the high-κ regime. SIAM J. Numer. Anal. , 62(3):1313–1343, 2024. [9] Q. Du. Numerical approximations of the Ginzburg-Landau models for superconductivity. J. Math. Phys. , 46(9):095109, 22, 2005. [10] Q. Du, M. D. Gunzburger, and J. S. Peterson. Analysis and approximation of the Ginzburg-Landau model of superconductivity. SIAM Rev. , 34(1):54–81, 1992. [11] Q. Du, M. D. Gunzburger, and J. S. Peterson. Modeling and analysis of a periodic Ginzburg-Landau model for type-II superconductors. SIAM J. Appl. Math. , 53(3):689–717, 1993. [12] Q. Du, R. A. Nicolaides, and X. Wu. Analysis and convergence of a covolume approximation of the Ginzburg-Landau model of superconductivity. SIAM J. Numer. Anal. , 35(3):1049– 1072, 1998. [13] S. Fournais and B. Helffer. Spectral methods in surface superconductivity , volume 77 of 
+
+Progress in Nonlinear Differential Equations and their Applications . Birkhäuser Boston, Inc., Boston, MA, 2010. [14] H. Gao, L. Ju, and W. Xie. A stabilized semi-implicit Euler gauge-invariant method for the time-dependent Ginzburg-Landau equations. J. Sci. Comput. , 80(2):1083–1115, 2019. [15] H. Gao and W. Sun. Analysis of linearized Galerkin-mixed FEMs for the time-dependent Ginzburg-Landau equations of superconductivity. Adv. Comput. Math. , 44(3):923–949, 2018. [16] L. Landau and V. Ginzburg. On the theory of superconductivity. Sov. Phys. JETP. , 20:1064– 1082, 1950. [17] B. Li and Z. Zhang. A new approach for numerical simulation of the time-dependent Ginzburg-Landau equations. J. Comput. Phys. , 303:238–250, 2015. [18] B. Li and Z. Zhang. Mathematical and numerical analysis of the time-dependent Ginzburg-Landau equations in nonconvex polygons based on Hodge decomposition. Math. Comp. ,86(306):1579–1608, 2017. [19] A. Målqvist and D. Peterseim. Localization of elliptic multiscale problems. Math. Comp. ,83(290):2583–2603, 2014. [20] E. Polak and G. Ribière. Note sur la convergence de méthodes de directions conjuguées. Rev. Française Informat. Recherche Opérationnelle , 3(16):35–43, 1969. [21] E. Sandier and S. Serfaty. Vortices in the magnetic Ginzburg-Landau model , volume 70 of 
+
+Progress in Nonlinear Differential Equations and their Applications . Birkhäuser Boston, Inc., Boston, MA, 2007. 13 [22] M. Struwe. Variational methods , volume 34 of Ergebnisse der Mathematik und ihrer Gren-zgebiete (3) [Results in Mathematics and Related Areas (3)] . Springer-Verlag, Berlin, second edition, 1996. Applications to nonlinear partial differential equations and Hamiltonian sys-tems. [23] M. Tinkham. Introduction to superconductivity . International series in pure and applied physics. McGraw-Hill, New York, 1975. [24] E. Zeidler. Nonlinear functional analysis and its applications. III . Springer-Verlag, New York, 1985. Variational methods and optimization, Translated from the German by Leo F. Boron. 14

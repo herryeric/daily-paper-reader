@@ -1,0 +1,413 @@
+Title: Electronic correlations and dynamical screening with ab initio quantum embedding
+
+URL Source: https://arxiv.org/pdf/2603.12336v1
+
+Published Time: Mon, 16 Mar 2026 00:02:56 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+Electronic correlations and dynamical screening with ab initio quantum embedding 
+
+Chia-Nan Yeh, 1, ∗ Francesco Petocchi, 2, † Alexander Hampel, 1, ‡ Philipp Werner, 2, §
+
+Olivier Parcollet, 1, 3, ¶ Antoine Georges, 4, 1, 5, 6, ∗∗ and Miguel Morales 1, †† 
+
+> 1
+
+Center for Computational Quantum Physics, Flatiron Institute, Simons Foundation, New York, NY 10010, USA 
+
+> 2
+
+Department of Physics, University of Fribourg, 1700 Fribourg, Switzerland 
+
+> 3
+
+Universit´ e Paris-Saclay, CNRS, CEA, Institut de Physique Th´ eorique (IPhT), 91191 Gif-sur-Yvette, France 
+
+> 4
+
+Coll` ege de France, 11 place Marcelin Berthelot, 75005 Paris, France 
+
+> 5
+
+CPHT, CNRS, ´Ecole Polytechnique, Institut Polytechnique de Paris, Route de Saclay, 91128 Palaiseau, France 
+
+> 6
+
+Department of Quantum Matter Physics, University of Geneva, 24 Quai Ernest-Ansermet, 1211 Geneva 4, Switzerland 
+
+(Dated: March 16, 2026) First-principles descriptions of correlated quantum materials require a simultaneous treatment of strong local many-body effects and nonlocal dynamical screening. We present an efficient fully self-consistent implementation of GW +EDMFT that combines nonlocal effects at the GW level with a non-perturbative treatment of local correlations within extended dynamical mean-field theory (EDMFT), while providing a controlled double-counting prescription. Crucially, self-consistency in both the Green’s function and the dynamically screened interaction is essential to achieve a consistent description of screening processes across energy scales. The efficient computation of this self-consistent solution is enabled here by compressing two-particle correlation functions using interpolative separable density fitting (ISDF). Applying the scheme to the Mott insulator SrMnO 3
+
+and the correlated metal LaNiO 3, we show that full self-consistency resolves the overscreening inherent to constrained-RPA approaches. By suppressing spurious low-energy screening channels, a Mott-insulating state in quantitative agreement with experiment is obtained for SrMnO 3. These results establish fully self-consistent GW +EDMFT as a predictive ab initio framework for strongly correlated quantum materials. 
+
+Introduction —Accurate ab initio descriptions of quan-tum materials with strong electron correlations remain a central challenge in condensed matter physics. While density functional theory (DFT) offers a favorable bal-ance between accuracy and cost, a universal functional capable of including strong correlation effects is not cur-rently available. A many-body formalism, which also gives access to excited states, is therefore required. A widely adopted strategy to incorporate many-body effects is quantum embedding . The general concept is to isolate, within the full Hilbert space B of the material, a subspace C spanned by correlated orbitals to which many-body methods are applied, while the remaining degrees of freedom B\C form an environment that is treated at a mean-field or perturbative level (Fig. 1). Despite their conceptual simplicity, implementing quantum embedding strategies from first principles poses several major challenges. First, computing effective in-teractions for C requires properly accounting for screen-ing of the long-range Coulomb interaction, which involves processes associated with inter-band transitions in the full Hilbert space. In practice, perturbative approaches such as the constrained random phase approximation (cRPA) [1] are often used. cRPA is however known to lead to over-screening in models and materials [2–4]. The reason is illustrated in Figs. 1a-b: because cRPA is based on an inaccurate description of the correlated states in C,contributions to the polarisation from transitions involv-ing these states are overestimated. This is particularly evident in Mott insulators, in which C states are pushed away from zero-energy by the gap opening. Second, the double-counting (DC) contribution must be defined and removed consistently to ensure a consistent treatment of electronic correlations across Hilbert space partitions,a well-known issue when combining DFT with dynami-cal mean-field theory (DMFT) [5]. An improper treat-ment of the DC term leads for example to an incorrect relative energy between oxygen-p and metal-d states in transition-metal oxides. Finally, a self-consistent embed-ding scheme requires that the perturbative description of the B space is updated in the presence of many-body corrections arising from C, as done for example in charge self-consistent implementations of DFT+DMFT. The combination of the GW approximation [6] and extended dynamical mean-field theory (EDMFT) [7–10], referred to as GW +EDMFT [11, 12], provides a promis-ing theoretical framework for addressing these challenges. The method is formulated as an approximation within the Almbladh free-energy functional framework, where many-body effects are encoded in the correlation func-tional Ψ[ G, W ] of the interacting Green’s function G and the screened interaction W (Fig. 1c): Ψ[ G, W ] ≈ ΨGW  
+
+> B
+
+[G, W ] + Ψ EDMFT  
+
+> C
+
+[G, W ] − ΨDC  
+
+> C
+
+[G, W ].
+
+(1) Here Ψ GW  
+
+> B
+
+corresponds to the GW diagram across the entire B space, incorporating long-range screening and non-local correlations. The local correlated subspace 
+
+C is treated non-perturbatively with EDMFT, identi-fying Ψ EDMFT  
+
+> C
+
+with the Almbladh functional of a self-
+
+> arXiv:2603.12336v1 [cond-mat.str-el] 12 Mar 2026
+
+2consistent quantum impurity problem with dynamically screened interactions embedded in an effective non-interacting medium [11, 12] (Fig. 1c). The DC term Ψ DC 
+
+C
+
+is defined as the local GW diagram which unambiguously removes contributions common to the first two terms. Despite its conceptual appeal, fully self-consistent im-plementations of GW +EDMFT for real materials pose significant numerical challenges, owing to the high com-putational cost of achieving self-consistency in frequency-dependent two-particle quantities across the full B space. Consequently, existing fully self-consistent studies have been largely restricted to model systems [13–16], while applications to realistic materials have relied on sim-plified schemes. These include quasiparticle GW com-bined with DMFT using static interactions derived from cRPA [17, 18], as well as variants that retain frequency-dependent impurity interactions but avoid full self-consistency, such as one-shot [19, 20] and multi-tier schemes [21, 22]. As a result, the physical consequences of a fully self-consistent GW +EDMFT treatment for real materials have remained largely unexplored, with only very recent work reporting such an implementation with applications to NiO and SrVO 3 [23]. In this article, we introduce an efficient implementa-tion of fully self-consistent ab initio GW +EDMFT and demonstrate its successful application to two prototyp-ical materials, a Mott insulator (SrMnO 3) and a corre-lated metal (LaNiO 3). We show that full self-consistency allows to overcome the issues emphasized above, most notably the overscreening problem, which otherwise pre-vents a correct description of the Mott insulator. Our 
+
+GW +EDMFT implementation is made possible by re-cent advances in the compression of two-particle corre-lation functions based on interpolative separable density fitting (ISDF), which enable considerably more efficient self-consistent GW (sc GW ) calculations with full fre-quency dependence [24–26]. Our work demonstrates the viability of GW +EDMFT as a first-principle electronic structure framework for materials with strong correla-tions. 
+
+Methods —We introduce a set of Kohn-Sham (KS) Bloch orbitals ϕk
+
+i (r) that spans the full Hilbert space 
+
+B. Here k is a wave vector in the first Brillouin zone and i is the band index. The correlated subspace C is de-fined via a projector Ck
+
+ia onto a set of maximally localized Wannier functions (MLWFs), wa(r) = P
+
+k
+
+P
+
+i Ck
+
+ia ϕk
+
+i (r), with wa(r) centered at the home unit cell. Crucially, an efficient implementation of sc GW requires a compact basis set for two-particle quantities. Instead of using the product basis set ρk k −q
+
+ij (r) = ϕk∗
+
+i (r)ϕk−q
+
+j (r) we adopt the auxiliary basis ζq
+
+μ (r) constructed using the ISDF method [24–26]: 
+
+ρk k −q
+
+ij (r) ≈ X
+
+μ
+
+ρk k −q
+
+ij (rμ)ζq
+
+μ (r) (2) Here rμ denotes the interpolation points, whose number controls the accuracy of the ISDF representation. At the cyeh@flatironinstitute.org  2
+
+> Energy
+
+0
+
+C space 
+
+(1) 
+
+(1) 
+
+(2) 
+
+(3) 
+
+> Energy
+
+0
+
+C space 
+
+(1) 
+
+(1) 
+
+(2) 
+
+(3) 
+
+(a)  
+
+> <latexit sha1_base64="qGv+I3fpX20sqPNseMUcmoSbr4I=">AAAB+3icbVDLSsNAFL2pr1pfsS7dBIvgqiRS1GWxG5cV7AOaECbTSTt0MgkzE7GE/IobF4q49Ufc+TdO2iy09cDA4Zx7uWdOkDAqlW1/G5WNza3tnepubW//4PDIPK73ZZwKTHo4ZrEYBkgSRjnpKaoYGSaCoChgZBDMOoU/eCRC0pg/qHlCvAhNOA0pRkpLvll3u5L6mRshNcWIZZ08982G3bQXsNaJU5IGlOj65pc7jnEaEa4wQ1KOHDtRXoaEopiRvOamkiQIz9CEjDTlKCLSyxbZc+tcK2MrjIV+XFkL9fdGhiIp51GgJ4uMctUrxP+8UarCGy+jPEkV4Xh5KEyZpWKrKMIaU0GwYnNNEBZUZ7XwFAmEla6rpktwVr+8TvqXTeeq2bpvNdq3ZR1VOIUzuAAHrqENd9CFHmB4gmd4hTcjN16Md+NjOVoxyp0T+APj8wdyP5S4</latexit>
+
+!C 
+
+> <latexit sha1_base64="SXvkOyLIPVrO6cfktlKESVd8UQA=">AAACEHicbVDLSsNAFL3xWesr6tJNsIiuSiJFXZZ247KCfUATwmQ6bYdOJmFmIpSQT3Djr7hxoYhbl+78GydtEG09MHA45965954gZlQq2/4yVlbX1jc2S1vl7Z3dvX3z4LAjo0Rg0sYRi0QvQJIwyklbUcVILxYEhQEj3WDSzP3uPRGSRvxOTWPihWjE6ZBipLTkm2duS1I/dUOkxhixtJG5AcITyZAc/4jNLPPNil21Z7CWiVOQChRo+eanO4hwEhKusP5M9h07Vl6KhKKYkazsJpLEehIakb6mHIVEeunsoMw61crAGkZCP66smfq7I0WhlNMw0JX5jnLRy8X/vH6ihtdeSnmcKMLxfNAwYZaKrDwda0AFwYpNNUFYUL2rhcdIIKx0hmUdgrN48jLpXFSdy2rttlapN4o4SnAMJ3AODlxBHW6gBW3A8ABP8AKvxqPxbLwZ7/PSFaPoOYI/MD6+AUJ2ngI=</latexit>
+
+!B\C  
+
+> <latexit sha1_base64="SXvkOyLIPVrO6cfktlKESVd8UQA=">AAACEHicbVDLSsNAFL3xWesr6tJNsIiuSiJFXZZ247KCfUATwmQ6bYdOJmFmIpSQT3Djr7hxoYhbl+78GydtEG09MHA45965954gZlQq2/4yVlbX1jc2S1vl7Z3dvX3z4LAjo0Rg0sYRi0QvQJIwyklbUcVILxYEhQEj3WDSzP3uPRGSRvxOTWPihWjE6ZBipLTkm2duS1I/dUOkxhixtJG5AcITyZAc/4jNLPPNil21Z7CWiVOQChRo+eanO4hwEhKusP5M9h07Vl6KhKKYkazsJpLEehIakb6mHIVEeunsoMw61crAGkZCP66smfq7I0WhlNMw0JX5jnLRy8X/vH6ihtdeSnmcKMLxfNAwYZaKrDwda0AFwYpNNUFYUL2rhcdIIKx0hmUdgrN48jLpXFSdy2rttlapN4o4SnAMJ3AODlxBHW6gBW3A8ABP8AKvxqPxbLwZ7/PSFaPoOYI/MD6+AUJ2ngI=</latexit>
+
+!B\C 
+
+(a)  (b)  (c)  
+
+> <latexit sha1_base64="IbYBeFyu/ZgtmuJQSwlT/T0ouC8=">AAACAnicbVBNS8NAEN3Ur1q/op7ES7AI9VISKeqx6MVjBdMWmlA2m027dPPB7kQoIXjxr3jxoIhXf4U3/42bNgdtfTDweG+GmXlewpkE0/zWKiura+sb1c3a1vbO7p6+f9CVcSoItUnMY9H3sKScRdQGBpz2E0Fx6HHa8yY3hd97oEKyOLqHaULdEI8iFjCCQUlD/cgBxn2aOSGGMcE8s/O84QBOz4Z63WyaMxjLxCpJHZXoDPUvx49JGtIICMdSDiwzATfDAhjhNK85qaQJJhM8ogNFIxxS6WazF3LjVCm+EcRCVQTGTP09keFQymnoqc7iUrnoFeJ/3iCF4MrNWJSkQCMyXxSk3IDYKPIwfCYoAT5VBBPB1K0GGWOBCajUaioEa/HlZdI9b1oXzdZdq96+LuOoomN0ghrIQpeojW5RB9mIoEf0jF7Rm/akvWjv2se8taKVM4foD7TPH5abl44=</latexit>
+
+˜U(ω ) 
+
+> <latexit sha1_base64="FBz/aQ9SKWtQ/3SA82ey/f+F/mU=">AAACAnicbVBNS8NAEN34WetX1JN4CRahXkoiRT0WPeixgv2AJpTNZtMu3WzC7kQooXjxr3jxoIhXf4U3/42bNgdtfTDweG+GmXl+wpkC2/42lpZXVtfWSxvlza3tnV1zb7+t4lQS2iIxj2XXx4pyJmgLGHDaTSTFkc9pxx9d537ngUrFYnEP44R6ER4IFjKCQUt989AFxgOauRGGIcE8u5lMqi7g9LRvVuyaPYW1SJyCVFCBZt/8coOYpBEVQDhWqufYCXgZlsAIp5OymyqaYDLCA9rTVOCIKi+bvjCxTrQSWGEsdQmwpurviQxHSo0jX3fml6p5Lxf/83ophJdexkSSAhVktihMuQWxledhBUxSAnysCSaS6VstMsQSE9CplXUIzvzLi6R9VnPOa/W7eqVxVcRRQkfoGFWRgy5QA92iJmohgh7RM3pFb8aT8WK8Gx+z1iWjmDlAf2B8/gCA85eA</latexit>
+
+˜G(ω )
+
+FIG. 1. (a) Different types of screening processes, involving transitions between B and C (1), within B (2) and within C
+
+(3). The cRPA construction removes processes of type (3) from the polarisation, keeping (1) and (2). (b) In a Mott in-sulator, a gap opens within C. Self-consistent GW +EDMFT improves the description of screening processes of type (1) which remedies the overscreening problem of cRPA. (c) Per-turbative and non-perturbative contributions to the Ψ func-tional in GW +EDMFT, within B and C respectively. 
+
+two-particle level, the mapping between B and C is per-formed using the projector Bq
+
+abμ , which expands the local Wannier product basis wa(r)wb(r) = P
+
+q
+
+P
+
+μ Bq
+
+abμ ζq
+
+μ (r)(for details, see Ref. [26]). In the following, a tilde indi-cates quantities expressed in the MLWF basis of C.The Green’s function G and screened interaction W
+
+in the full Hilbert space, expanded in ϕk
+
+i (r) and ζq
+
+μ (r)respectively, are related to the self-energy Σ and polari-sation Π by the Dyson equations: 
+
+Gk
+
+ij (iω n) = 
+
+h
+
+Gk,−10 (iω n) − Σk(iω n)
+
+i−1
+
+ij 
+
+, (3a) 
+
+W q
+
+μν (iΩn) = V q,−1 − Πq(iΩn)−1
+
+μν . (3b) Here ωn = (2 n + 1) π/β and Ω n = 2 nπ/β (n ∈ Z ) are fermionic and bosonic Matsubara frequencies at inverse temperature β, while Gk
+
+0 and V q are the non-interacting Green’s function and the bare Coulomb interaction. For simplicity, we will omit frequency arguments and basis indices when unambiguous. Given the interacting propagators G and W , the self-energy and polarization are obtained from the functional derivatives Σ = δΨ/δG and Π = −2, δ Ψ/δW . Within 
+
+GW +EDMFT, these take the form [12]: Σk = Σ k
+
+GW + Ck† h ˜Σimp − ˜ΣDC 
+
+i
+
+Ck, (4a) Πq = Π q
+
+GW + Bq† h ˜Πimp − ˜ΠDC 
+
+i
+
+Bq. (4b) The GW contributions Σ k
+
+GW and Π q
+
+GW are evaluated in the full Hilbert space B using a cubic-scaling algo-rithm within the ISDF formalism [26]. The correspond-ing DC terms ˜ΣDC = ˜Gloc ˜Wloc and ˜ΠDC = ˜Gloc ˜Gloc 3represent the same GW diagrams evaluated using the local projected propagators within the C space, ˜Gloc =P 
+
+> k
+
+CkGkCk† and ˜Wloc = P 
+
+> q
+
+BqW qBq†.The impurity self-energy ˜Σimp and polarization ˜Πimp 
+
+are obtained by solving an EDMFT impurity prob-lem defined by the fermionic and bosonic Weiss fields ˜G−1(iω n) = ˜G−1loc (iω n) + ˜Σimp (iω n) and ˜U−1(iΩn) =˜W −1loc (iΩn) + ˜Πimp (iΩn) using a numerically exact continuous-time quantum Monte Carlo impurity solver [27, 28]. The EDMFT corrections ˜Σimp − ˜ΣDC and ˜Πimp − ˜ΠDC are then upfolded to the full Hilbert space 
+
+B using the projectors Ck and Bq.The lattice Green’s function Gk and screened inter-action W q are updated using the resulting Σ k and Π q,which completes one iteration of the self-consistent cy-cle. The procedure is iterated until the locally projected propagators coincide with the impurity Green’s function and screened interaction, ˜Gloc = ˜Gimp and ˜Wloc = ˜Wimp .
+
+Results —We assess the performance of self-consistent 
+
+GW +EDMFT by studying two prototypical materials: the Mott insulator SrMnO 3 and the correlated metal LaNiO 3. SrMnO 3 crystallizes in the ideal cubic per-ovskite structure (space group P m ¯3m). In the high-temperature cubic phase, Mn is in a t32g e0 
+
+> g
+
+configura-tion and the system is a paramagnetic insulator; upon cooling, G-type antiferromagnetic order sets in below 
+
+∼ 260 K. Photoemission experiments reveal an insulat-ing gap, even above TN´ eel , and reveal a valence band dominated by Mn-t2g and O-2 p states, together with a conduction band of predominantly Mn-eg character [29– 31]. LaNiO 3 is the only rare-earth nickelate of the RNiO 3
+
+family that remains metallic down to low temperature. It is often described as close to cubic, adopting a rhom-bohedrally distorted perovskite structure ( R¯3c) in which modest octahedral rotations reduce the symmetry from 
+
+P m ¯3m. The Ni ions are in a low-spin t62g e1 
+
+> g
+
+configuration in a negative charge-transfer regime, yielding a strongly correlated metal with substantial Ni-3 d/O-2 p hybridiza-tion and a narrow band with predominantly eg character at the Fermi level. Consistent with this picture, experi-ments report sizeable mass enhancements and proximity to charge and spin instabilities [32, 33]. All calculations are carried out on a 10 × 10 × 10 k-mesh at inverse temperature β = 15 eV −1. The B space is spanned by KS orbitals constructed using Quantum ESPRESSO [34]. The GW +EDMFT self-consistency loop is initialized from a fully converged sc GW solution. The correlated space C is defined by transition-metal 3 d ML-WFs obtained with Wannier90 [35] from an isolated low-energy window with predominantly 3 d character. The re-sulting Wannier orbitals retain a finite O-2 p component, reflecting substantial transition-metal–oxygen covalency. For each compound we perform two GW +EDMFT cal-culations corresponding to different C spaces. (i) In the first scheme, we consider the bands closest to the Fermi level, obtaining a minimal correlated space consisting of the Mn-t2g orbitals in SrMnO 3 (C3) and the Ni-eg or-bitals in LaNiO 3 (C2). (ii) In the second scheme we re-−10 −8 −6 −4 −2 0 2 4 6 8 10  
+
+> ω[eV] 0.00.40.81.21.6Aloc  [eV −1]
+> (a)
+
+SrMnO 3                 
+
+> O−2p
+> Mn −3t2g
+> Mn −3eg−10 −8−6−4−20246810
+> ω[eV] 0.00.20.40.60.81.01.2Aloc  [eV −1]
+> (b)
+
+SrMnO 3    
+
+> EDMFT on 5 d=C5
+> EDMFT on t2g⊂ W 14
+> Expt
+
+FIG. 2. (a) Local GW +EDMFT spectral functions for SrMnO 3. The EDMFT space is either the full Mn-3 d shell defined by C5 (thick lines) or the Mn-t2g states of C3 (dashed lines). For a fair comparison of both cases, the spectral func-tions are projected on the same set of very localised Wannier orbitals of W14 . (b) Comparison to experimental PES and XAS data from Ref. 31 (black dots). Thick lines correspond to calculations in which the full Mn 3 d shell is included in the EDMFT impurity problem (same curve of the upper panel), while dashed lines denote a minimal Mn-t2g EDMFT sub-manifold extracted from W14 .
+
+tain within EDMFT the entire transition metal 3 d shell of the correlated space C5. This approach enables us to assess the robustness of the GW +EDMFT results with respect to the choice of correlated orbitals defining C.To compare the spectral properties of these two schemes on equal footing, we project the converged spectral func-tions on a common set of very localized Wannier states obtained from a large energy window that includes the O-2 p states, labeled by W14 .In Fig. 2 we report the local spectral functions for SrMnO 3. The GW +EDMFT method converges to a paramagnetic Mott insulating state. This is a remark-able result, since previous multi-tier calculations, re-lying on a single-shot G0W 0 description of the high-energy states, failed to obtain an insulating solution in the paramagnetic phase [22, 36]. This is because the 4DFT G0 on which the calculation of W0 is based has 
+
+d-states at the Fermi level, while these states are in re-ality located in lower and upper Hubbard bands away from the Fermi level, hence leading to a much weaker screening, as illustrated in Fig. 1a-b. When full self-consistency is achieved, this effect is properly taken into account by GW +EDMFT, hence correcting the over-screening problem. This result highlights the ability of GW +EDMFT to properly describe spectral proper-ties and screening in Mott insulators. In Fig. 2b, we compare the GW +EDMFT spectrum to photoemission (PES) ( ω < 0) and XAS ( ω > 0) experiments [31] (black dotted lines). The XAS intensity predominantly reflects the unoccupied 3 d-derived density of states via 2 p–3 d hy-bridization and hence the onset and overall profile of the XAS spectrum provide a reasonable experimental proxy for the unoccupied part of the local spectral function. Our results for the insulating gap and spectra compare quite well to experiments. Note that the experimental in-tensity of the peak at ∼ − 5.5 eV may be quite sensitive to the procedure used in Ref. [31] to separate the contri-bution of the Mn 3 d-states from that of other states. To test the robustness of the embedding scheme, we performed an additional calculation in which the minimal three orbital Mn-t2g EDMFT subspace is constructed from a larger energy window containing also the oxy-gen states. This corresponds to quite localized atomic-like correlated orbitals to which non-perturbative many-body effects are applied within EDMFT, as commonly done also in some static implementations of DMFT [37]. The resulting EDMFT problem and the treatment of the oxygen states is the same as in previous multi-tier stud-ies [21, 22], with the crucial improvement that in the present work the EDMFT self-energy is upfolded to the full space and the latter is treated at the sc GW level. The local spectral functions obtained from this scheme, shown in Fig. 2b (dashed lines), are in excellent agree-ment with both the converged results obtained using the other embedding and downfolding choice and with the experimental data (right panel). This demonstrates that our scheme yields internally consistent solutions for dif-ferent choices of correlated manifolds. In Fig. 3, we display the LaNiO 3 local spectral func-tions obtained from GW +EDMFT with a correlated space corresponding to either the full Ni-3 d shell C5, or the eg subset C2. The calculations yield consistent spec-tra characterized by occupied t2g orbitals and a quasipar-ticle peak with predominantly eg character. The results are consistent with a metal with intermediate electronic correlations. As a general trend, we observe that the spectral functions associated with the manifolds that are always 
+
+treated within EDMFT, namely the Mn-t2g states for SrMnO 3 (dashed red lines of Fig. 2) and the Ni-eg states for LaNiO 3 (dashed green lines of Fig. 3), are not sig-nificantly modified when the impurity model is enlarged from either C3 or C2 to the full 3 d shell C5 (thick red and green lines). For the cases at hand, this is expected be-−10 −8 −6 −4 −2 0 2 4 6 8 10  
+
+> ω[eV] 0.00.40.81.21.6Aloc  [eV −1]
+
+LaNiO 3               
+
+> O−2p
+> Ni −3t2g
+> Ni −3eg
+> FIG. 3. Local GW +EDMFT spectral functions for LaNiO 3
+> downfolded to MLWFs projected onto MLWFs constructed from a large energy window. Thick and dashed lines corre-spond respectively to the case where EDMFT encompasses the full Ni-3 dfrom C5and minimal Ni-egfrom C2.
+
+cause the excluded orbitals are either nearly empty (Mn-
+
+eg ) or nearly filled (Ni-t2g ) thus justifying both minimal and full-3 d embeddings. This is expected to be material-dependent and not a universal result, however: a physi-cally motivated approach is to include in the subspace C
+
+treated with EDMFT all the MLWFs with fractional fill-ing, whose exclusion would omit important inter-orbital correlations. In Fig. 4 we show the local dynamical interactions for the Mn-t2g and Ni-eg MLWFs. The top panels display in black the local cRPA interaction computed from G0W0,and in red the effective local interaction UGW +EDMFT ob-tained from the converged GW +EDMFT calculation. A first important observation is that, in the low-frequency regime, U is systematically larger than the cRPA pre-diction. This reflects the above-mentioned overscreen-ing of cRPA, which is based on the DFT bandstructure. When the self-energy modifies the low-energy electronic structure, screening processes are suppressed, resulting in a larger effective interaction. Note that the relative enhancement of the static interaction is stronger in the Mott insulating SrMnO 3 than in the correlated metal LaNiO 3. Once strong correlations are accounted for, the frequency dependence of U becomes less pronounced than that of U cRPA and the high-frequency limit is essentially given by sc GW . A relevant observation is that the low-frequency limit of U is quantitatively consistent with the (empirical) static Hubbard U parameters commonly used in DFT+DMFT studies of these two compounds. Specif-ically, U yields local interactions of 3-5 eV for SrMnO 3
+
+and 4-6 eV for LaNiO 3, which is close to the typical DFT+DMFT parameters: typically U = 2 .5-5 eV with 
+
+J = 0 .5-0 .7 eV for Mn [38–42], and U = 5-7 eV with 
+
+J = 0 .7-1 eV for Ni [43–49]. The local polarizations shown in the insets of Fig. 4 reveal a clear system-dependent contrast between the 50 5 10 15 20 25 30 0246810                                           
+
+> [eV]
+> (a)
+> Mn −3t2g
+> UcRPA
+> UGW +EDMFT
+> 0510 15 20 25 30 0246810
+> (b)
+> Ni −3eg
+> UcRPA
+> UGW +EDMFT
+> 0510 15 20 25 30
+> Ωn[eV]
+> 0246810
+> Wloc [eV]
+> (c)
+> G0W0
+> sc GW
+> GW + EDMFT
+> 0510 15 20 25 30
+> Ωn[eV]
+> 0246810
+> (d)
+> G0W0
+> sc GW
+> GW + EDMFT
+> 01234Ωn[eV]
+> −1.2
+> −0.8
+> −0.40.0Π[eV −1]
+> Πsc GW
+> loc
+> ΠEDMFT
+> 01234Ωn[eV]
+> −3
+> −2
+> −10Π[eV −1]
+> Πsc GW
+> loc
+> ΠEDMFT
+
+FIG. 4. Local interactions for Mn-t2g and Ni-eg Wannier or-bitals defined in the full 3 d correlated manifold. Top panels report the local cRPA interaction and the effective local inter-actions UGW and UEDMFT of the sc GW and GW +EDMFT converged solutions respectively. The inset shows the local EDMFT polarization compared to the corresponding RPA one. Bottom panels report the local bosonic propagators where electronic correlations are treated within perturbation theory and GW +EDMFT. Quantities plotted with yellow and red lines are linked through the same local Dyson equation. 
+
+perturbative sc GW estimate Πsc GW  
+
+> loc
+
+and the local 
+
+GW +EDMFT polarization Π EDMFT . For SrMnO 3, the RPA-like polarization, indicated by a yellow curve, dis-plays a strongly metallic behavior missing the Mott-insulating ground state, whereas the EDMFT impurity polarization in red is smaller by several orders of mag-nitude, reflecting the strong suppression of local charge fluctuations. In metallic LaNiO 3, by contrast, the dif-ference between the two polarizations is more moderate, but interestingly Π EDMFT is larger than the perturba-tive estimate, indicating enhanced local charge fluctua-tions captured by GW +EDMFT. Taken together, these results highlight the limitations of purely perturbative approaches in the moderate to strong correlation regimes. We note that both W G0W 0
+
+and U cRPA display astrong frequency dependence over the displayed fre-quency range. In contrast, self-consistency considerably weakens this frequency dependence, both at the GW and 
+
+GW +EDMFT levels. At low frequencies, W sc GW gen-erally exhibits an increase relative to W G0W 0
+
+, a trend that appears in both materials but is more pronounced for metallic LaNiO 3. This behavior indicates that sc GW 
+
+underestimates screening effects at low energies in cor-related metals. This observation is consistent with the tendency of sc GW to overestimate band gaps in semi-conductors compared to single-shot G0W 0. Once the EDMFT correction is included, the contrast between metallic LaNiO 3 and insulating SrMnO 3 becomes evi-dent. In LaNiO 3, the GW +EDMFT screened interaction smoothly interpolates between the high-energy behavior of W sc GW and the low-energy behavior of W G0W 0
+
+, with a crossover around 5 eV. In contrast, the GW +EDMFT bosonic propagator for insulating SrMnO 3 differs dra-matically from any perturbative result: both W G0W 0
+
+and W sc GW severely underestimate the magnitude of the screened interaction over a broad frequency range The 
+
+GW +EDMFT screened interaction instead approaches the effective local interaction UEDMFT from below. These observations lead to two main conclusions: (i) strong local correlations are beyond the reach of pertur-bative approaches, which hence systematically underesti-mate the screened interaction in Mott insulators; and (ii) in the Mott-insulating state, local charge fluctuations are strongly suppressed, resulting in a small impurity polar-ization. As a consequence, the fully screened interaction 
+
+W of a Mott insulator remains close to the local effective interaction U.
+
+Conclusion — We demonstrated that fully self-consistent GW +EDMFT [11, 12, 23] provides a con-trolled, parameter-free quantum embedding description of electronic correlations and screening in real materials, with a well-defined double-counting correction and a self-consistently determined impurity interaction. Applying this framework to prototypical correlated perovskites, we find that self-consistency stabilizes a Mott-insulating so-lution in good agreement with photoemission data for cu-bic SrMnO 3, and reveals significant deviations from the local RPA polarization in LaNiO 3. In the Mott insulat-ing system, charge fluctuations are strongly suppressed due to non-perturbative vertex corrections, leading to an effective local interaction that is substantially larger and less structured than predicted by cRPA. In metal-lic LaNiO 3 charge fluctuations are instead enhanced by correlation effects. Comparing minimal and full-3 d corre-lated manifolds yields similar low-energy spectra for the correlated subspaces in both compounds, highlighting the robustness of the method with respect to the choice of the correlated space. The efficient realization of these fully self-consistent calculations is enabled by compress-ing two-particle correlation functions using ISDF. These results establish self-consistent GW +EDMFT as a prac-tical ab initio framework and motivate applications to systems in which the interplay of screening, covalency, and strong correlations governs metal–insulator transi-tions, non-Fermi liquid behavior, and other many-body phenomena. 
+
+ACKNOWLEDGMENTS 
+
+We are grateful to Sangkook Choi, Gabriel Kotliar, Jernej Mravlje, Malte R¨ osner and Nils Wentzell for use-ful discussions. F.P. acknowledges the support of the University of Geneva and of the Simons Foundation. The Flatiron Institute is a division of the Simons Foundation. 6 
+
+> ∗
+
+This author contributed equally to this work.; cyeh@flatironinstitute.org  
+
+> †
+
+This author contributed equally to this work.; francesco.petocchi@unifr.ch  
+
+> ‡
+
+mail@alexander-hampel.de  
+
+> §
+
+philipp.werner@unifr.ch  
+
+> ¶
+
+olivier.parcollet@cea.fr  
+
+> ∗∗
+
+ageorges@flatironinstitute.org  
+
+> ††
+
+mmorales@flatironinstitute.org [1] F. Aryasetiawan, M. Imada, A. Georges, G. Kotliar, S. Biermann, and A. I. Lichtenstein, Phys. Rev. B 70 ,195104 (2004). [2] B. Amadon, T. Applencourt, and F. Bruneval, Phys. Rev. B 89 , 125110 (2014). [3] H. Shinaoka, M. Troyer, and P. Werner, Phys. Rev. B 91 ,245156 (2015). [4] C. Honerkamp, H. Shinaoka, F. F. Assaad, and P. Werner, Phys. Rev. B 98 , 235151 (2018). [5] K. Haule, Phys. Rev. Lett. 115 , 196403 (2015). [6] L. Hedin, Phys. Rev. 139 , A796 (1965). [7] A. M. Sengupta and A. Georges, Phys. Rev. B 52 , 10295 (1995). [8] Q. Si and J. L. Smith, Phys. Rev. Lett. 77 , 3391 (1996). [9] J. L. Smith and Q. Si, Phys. Rev. B 61 , 5184 (2000). [10] R. Chitra and G. Kotliar, Phys. Rev. Lett. 84 , 3678 (2000). [11] P. Sun and G. Kotliar, Phys. Rev. B 66 , 085120 (2002). [12] S. Biermann, F. Aryasetiawan, and A. Georges, Phys. Rev. Lett. 90 , 086402 (2003). [13] T. Ayral, P. Werner, and S. Biermann, Phys. Rev. Lett. 
+
+109 , 226401 (2012). [14] T. Ayral, S. Biermann, and P. Werner, Phys. Rev. B 87 ,125149 (2013). [15] P. Hansmann, T. Ayral, L. Vaugier, P. Werner, and S. Biermann, Phys. Rev. Lett. 110 , 166401 (2013). [16] R. Sakuma, P. Werner, and F. Aryasetiawan, Phys. Rev. B 88 , 235110 (2013). [17] J. M. Tomczak, Journal of Physics: Conference Series 
+
+592 , 012055 (2015). [18] S. Choi, A. Kutepov, K. Haule, M. van Schilfgaarde, and G. Kotliar, npj Quantum Materials 1, 16001 (2016). [19] J. M. Tomczak, M. Casula, T. Miyake, F. Aryasetiawan, and S. Biermann, Europhysics Letters 100 , 67001 (2012). [20] J. M. Tomczak, M. Casula, T. Miyake, and S. Biermann, Phys. Rev. B 90 , 165138 (2014). [21] F. Nilsson, L. Boehnke, P. Werner, and F. Aryasetiawan, Phys. Rev. Mater. 1, 043803 (2017). [22] R. Mushkaev, F. Petocchi, V. Christiansson, and P. Werner, npj Comput. Mater. 10 , 182 (2024). [23] B. Kang, P. Semon, C. Melnick, M. Han, S. Mo, H. Lee, G. Kotliar, and S. Choi, Computer Physics Communica-tions 308 , 109447 (2025). [24] J. Lu and L. Ying, J. Comput. Phys. 302 , 329 (2015). [25] C.-N. Yeh and M. A. Morales, Journal of Chemical The-ory and Computation 19 , 6197 (2023). [26] C.-N. Yeh and M. A. Morales, Journal of Chemical The-ory and Computation 20 , 3184 (2024). [27] P. Werner and A. J. Millis, Phys. Rev. Lett. 104 , 146401 (2010). [28] N. Kavokine, H. Lu, T. Ayral, M. Ferrero, N. Wentzell, and O. Parcollet, Journal of Open Source Software 10 ,7425 (2025). [29] T. Saitoh, A. E. Bocquet, T. Mizokawa, H. Namatame, A. Fujimori, M. Abbate, Y. Takeda, and M. Takano, Phys. Rev. B 51 , 13942 (1995). [30] J.-S. Kang, H. J. Lee, G. Kim, D. H. Kim, B. Dabrowski, S. Kolesnik, H. Lee, J.-Y. Kim, and B. I. Min, Phys. Rev. B 78 , 054434 (2008). [31] D. H. Kim, H. J. Lee, B. Dabrowski, S. Kolesnik, J. Lee, B. Kim, B. I. Min, and J.-S. Kang, Phys. Rev. B 81 ,073101 (2010). [32] H. Guo, Z. W. Li, L. Zhao, Z. Hu, C. F. Chang, C.-Y. Kuo, W. Schmidt, A. Piovano, T. W. Pi, O. Sobolev, D. I. Khomskii, L. H. Tjeng, and A. C. Komarek, Nature Communications 9, 10.1038/s41467-017-02524-x (2018). [33] Y. Shin and J. M. Rondinelli, Phys. Rev. Res. 4, L022069 (2022). [34] P. Giannozzi, O. Baseggio, P. Bonf` a, D. Brunato, R. Car, I. Carnimeo, C. Cavazzoni, S. de Gironcoli, P. Delugas, F. F. Ruffino, A. Ferretti, N. Marzari, I. Timrov, A. Urru, and S. Baroni, J. Chem. Phys. 152 , 154105 (2020). [35] A. A. Mostofi, J. R. Yates, G. Pizzi, Y.-S. Lee, I. Souza, D. Vanderbilt, and N. Marzari, Computer Physics Com-munications 185 , 2309 (2014). [36] F. Petocchi, F. Nilsson, F. Aryasetiawan, and P. Werner, Phys. Rev. Res. 2, 013191 (2020). [37] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, Rev. Mod. Phys. 78 ,865 (2006). [38] J. Mravlje, M. Aichhorn, and A. Georges, Phys. Rev. Lett. 108 , 197202 (2012). [39] H. Chen, H. Park, A. J. Millis, and C. A. Marianetti, Phys. Rev. B 90 , 245138 (2014). [40] D. Bauernfeind, R. Triebl, M. Zingl, M. Aichhorn, and H. G. Evertz, Phys. Rev. B 97 , 115156 (2018). [41] C. Ricca, I. Timrov, M. Cococcioni, N. Marzari, and U. Aschauer, Phys. Rev. B 99 , 094102 (2019). [42] O. Y. Long, G. Sai Gautam, and E. A. Carter, Phys. Rev. Mater. 4, 045401 (2020). [43] X. Deng, M. Ferrero, J. Mravlje, M. Aichhorn, and A. Georges, Phys. Rev. B 85 , 125137 (2012). [44] O. E. Peil, M. Ferrero, and A. Georges, Phys. Rev. B 90 ,045128 (2014). [45] A. Subedi, O. E. Peil, and A. Georges, Phys. Rev. B 91 ,075128 (2015). [46] E. A. Nowadnick, J. P. Ruf, H. Park, P. D. C. King, D. G. Schlom, K. M. Shen, and A. J. Millis, Phys. Rev. B 92 ,245109 (2015). [47] H. Park, A. J. Millis, and C. A. Marianetti, Phys. Rev. B 93 , 235109 (2016). [48] X. Liao, V. Singh, and H. Park, Phys. Rev. B 103 , 085110 (2021). [49] U. Herath, S. S. Bhat, V. Singh, A. T. Lee, A. T. Ngo, H. Park, and A. H. Romero, J. Phys. Chem. C 130 , 977 (2026).

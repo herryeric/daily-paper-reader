@@ -1,0 +1,1119 @@
+Title: Study of the triangular-lattice Hubbard model with constrained-path quantum Monte Carlo
+
+URL Source: https://arxiv.org/pdf/2603.14808v1
+
+Published Time: Tue, 17 Mar 2026 05:04:31 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Study of the triangular-lattice Hubbard model with constrained-path quantum Monte Carlo 
+
+Shu Fay Ung, 1, ∗ Ankit Mahajan, 1, † and David R. Reichman 1, ‡
+
+> 1
+
+Department of Chemistry, Columbia University, New York, NY, United States 
+
+(Dated: March 17, 2026) We benchmark constrained-path Monte Carlo (CPMC) on the triangular-lattice Hubbard model for several fillings and U values and show that symmetry-adapted trial wave functions are essen-tial for quantitative accuracy. Away from half-filling, simple free-electron-based trials that preserve the ground state symmetry yield energy deviations ≲ 1% from exact diagonalization and density matrix renormalization group results. At half-filling, strong frustration in the intermediate to large 
+
+U regimes necessitates symmetry-projected trials to reach comparable accuracy, where both free-electron and symmetry-broken Hartree-Fock trials incur substantial constraint bias. Since the com-putational cost of CPMC with symmetry projection scales polynomially with system size, our results motivate its use as a practical route for studying competing ground states in strongly correlated, frustrated systems. 
+
+I. INTRODUCTION 
+
+The Hubbard model has long served as a central paradigm for understanding the emergence of strongly correlated phenomena, ranging from magnetic order and metal-insulator transitions to superconductivity [1]. In recent years, the discovery of triangular moir´ e super-lattices in graphene and transition-metal dichalcogenide (TMD) heterostructures has reinvigorated interest in the triangular-lattice Hubbard model [2–7], which has been shown to capture the low-energy physics of TMD hetero-bilayers [8]. Extensive study of the model was previously spurred by the discovery of superconductivity and spin-liquid states in organic salts [9–15], as it offers a minimal framework for interpreting experiments on strongly cor-related, frustrated systems. Theoretically, the triangular-lattice Hubbard model is an important benchmark for many-body computational methods due to the complex interplay of geometric frus-tration and electronic correlations. At half-filling in the limit of large on-site repulsion U (i.e. U → ∞ ), the model maps onto the Heisenberg model, which was orig-inally proposed by Anderson to host a quantum spin-liquid ground state [16]. Subsequent numerical stud-ies find that the ground state retains the 120 ◦ N´ eel or-der, albeit with a significantly reduced order parameter compared to the classical prediction [17, 18]. Introduc-ing additional frustration, for example via next-nearest-neighbor interactions or ring-exchange terms, has been shown to melt the magnetic order and stabilize spin-liquid phases [19–23]. In the limit of small U , the ground state is metallic; the intermediate-U regime, where charge fluctuations re-main, is still under intense debate. The existence of a    
+
+> ∗su2254@columbia.edu; These authors contributed equally to this work.
+> †ankitmahajan76@gmail.com; These authors contributed equally to this work.
+> ‡drr2103@columbia.edu
+
+non-magnetic insulating phase has been predicted by sev-eral computational methods including the path-integral renormalization group [24, 25], variational cluster ap-proximation [26], exact diagonalization (ED) [27, 28], and the ladder dual-fermion approach [29]. Recent DMRG studies [30–32] provide evidence that the intermediate phase is a chiral spin liquid, while earlier DMRG results [33] challenged this and variational Monte Carlo studies [34, 35] instead suggest the absence of a spin-liquid phase. A recent “multi-method, multi-messenger” approach [36] also finds competing chiral and magnetic orders at inter-mediate U .In the doped regime relevant to many triangular-lattice materials, DMRG calculations have revealed a rich phase diagram comprising chiral metallic, spin density wave, and enhanced pair-pair correlation phases as doping and interaction strength are varied [37]. Significant effort has focused on superconductivity and its pairing symmetries [38–41], driven by the discovery of superconductivity in organic salts [11, 12] and cobaltates [42]. Given the complexity of the phase diagram, it is valu-able to compare results across complementary numerical approaches. Quantum Monte Carlo (QMC) techniques have played a central role in elucidating the Hubbard model, especially on the square lattice, where the fermion sign problem can be eliminated at half-filling [43]. Due to its non-bipartite nature, one generically encounters a sign problem on the triangular lattice, including at half-filling. Constrained-path Monte Carlo (CPMC), a projector QMC method, is particularly well-suited for the Hubbard interaction and has been extensively bench-marked on the square lattice [44–52]. In contrast, its performance has not been systematically assessed to a comparable extent on the triangular lattice, with only a few recent studies [53, 54]. In this paper, we present a detailed CPMC study of the triangular-lattice Hubbard model at several fillings. We show that the use of appropriate symmetry-adapted trial wave functions is essential for obtaining accurate results, especially at half-filling where strong frustration 
+
+> arXiv:2603.14808v1 [cond-mat.str-el] 16 Mar 2026
+
+2makes the problem particularly challenging. Our results help clarify the ground-state properties of the triangular-lattice Hubbard model and demonstrate the effective-ness of symmetry projection in CPMC simulations of frustrated systems. This provides a potentially power-ful route to exploring emergent states of the model in a controlled manner as the thermodynamic limit is ap-proached. The paper is organized as follows. We first intro-duce the model, the CPMC method, and our symmetry-adapted trial states in Sec. II. We then present results in Sec. III and conclude with a discussion in Sec. IV.   
+
+> II. MODEL AND METHODS A. The Hubbard model
+
+The Hubbard model is described by the lattice Hamil-tonian ˆH = −t X
+
+> σ
+
+X
+
+> ⟨ij ⟩
+
+h
+
+ˆc† 
+
+> iσ
+
+ˆcjσ + h.c. 
+
+i| {z }
+
+> ˆH1
+
++ U X
+
+> i
+
+ˆni↑ ˆni↓
+
+| {z }
+
+> ˆH2
+
+, (1) where ˆ c† 
+
+> i,σ
+
+(ˆ ci,σ ) is the creation (annihilation) operator for an electron at site i and spin σ ∈ {↑ , ↓} , ˆ niσ = ˆ c† 
+
+> iσ
+
+ˆciσ 
+
+is the number operator, t ≥ 0 is the hopping parameter, 
+
+U ≥ 0 is the interaction strength, and P 
+
+> ⟨ij ⟩
+
+enumerates nearest-neighbor sites only. We define the filling factor 
+
+ν = ( N↑ +N↓)/N s, where Nσ denotes the number of spin-
+
+σ electrons and Ns the number of sites. In this work, we focus on ground states in the ˆSz = 0 spin sector ( i.e. 
+
+N↑ = N↓) and the hole-doped to half-filling regime ν ≤ 1. We set t = 1 in all calculations reported. We perform our CPMC calculations on finite cylinders with periodic (open) boundary conditions and Ny (Nx)sites along the y- ( x-) direction, giving a total number of Ns = NxNy sites. This geometry facilitates direct comparison with DMRG results and reduces open-shell effects associated with degeneracies in the one-electron spectrum, although it is not strictly required for CPMC. For the triangular lattice, two commonly considered con-figurations are the XC n and YC n cylinders, where n de-notes the number of bonds along the y-direction [33]. Illustrative examples are depicted in Fig. 1.  
+
+> B. Constrained-path Monte Carlo
+
+CPMC is a projector quantum Monte Carlo method that filters out the ground state |Ψ0⟩ from an initial state 
+
+|Φ(0) ⟩ (such that ⟨Ψ0|Φ(0) ⟩̸ = 0) via imaginary-time evo-lution, 
+
+|Ψ0⟩ ∝ lim   
+
+> τ→∞
+
+e−τ ˆH |Φ(0) ⟩ . (2) In practice, the long-time propagator is first discretized into n time steps ∆ τ = τ /n and Trotterized to obtain the short-time propagator 
+
+e−∆τ ˆH = e−∆τ ˆH1/2e−∆τ ˆH2 e−∆τ ˆH1/2 + O(∆ τ 3). (3) The two-body propagator e−∆τ ˆH2 is then expressed via a Hubbard-Stratonovich (HS) transformation as a linear combination of one-body propagators coupled to fluctu-ating auxiliary fields. For the Hubbard interaction, this is achieved with Hirsch’s discrete formulation (we use the spin decomposition) [55, 56]: 
+
+e−∆τ U ˆni↑ ˆni↓ = e−∆τ U (ˆ ni↑+ˆ ni↓)/2 X
+
+> xi=±1
+
+p(xi)eγx i(ˆ ni↑−ˆni↓),
+
+(4) where γ is determined by cosh γ = e∆τ U/ 2 and p(xi) is a discrete probability density function over xi. The pro-jection of the ground state is hence implemented using Monte Carlo sampling of the auxiliary fields {xi} as an open-ended random walk starting from |Φ(0) ⟩ [44, 45]. The state |Φ(k)⟩ at time k∆τ is represented as an en-semble of Slater determinants |ϕ(k) 
+
+> i
+
+⟩ (i.e. walkers) with weights wi,
+
+|Φ(k)⟩ = X
+
+> i
+
+wi |ϕ(k) 
+
+> i
+
+⟩ . (5) Since the propagator (3) is expressed only in terms of one-body operators in the exponent, Thouless’ theorem [57, 58] implies that the evolution of walkers is con-strained to the manifold of Slater determinants. Due to the symmetry between the ground state |Ψ0⟩ and its negative − | Ψ0⟩, the approximate propagation by (4) can cause walkers to cross the nodal surface defined by ⟨Ψ0|ϕi⟩ = 0 and acquire a minus sign, resulting in the sign problem [43, 59]. CPMC eliminates this issue by imposing a constraint on the sign of walkers via a trial wave function |ψT ⟩, reducing the sample complex-ity from exponential to polynomial scaling in the system size [60]. However, this introduces a bias that depends on the quality of |ψT ⟩ in approximating |Ψ0⟩. Choices of |ψT ⟩ range from the simplistic free-electron (FE) and Hartree-Fock (HF) Slater determinants to more sophisti-cated trials that incorporate a self-consistent constraint [50, 52, 61, 62] or use symmetry-projection [48, 63]. In practice, the application of (4) also leverages importance sampling to improve efficiency and reduce fluctuations in 
+
+wi.Given a sufficiently equilibrated |Φ(k)⟩, the expectation value of observables ˆO can be estimated using the mixed estimator 
+
+⟨ ˆO⟩ =
+
+P 
+
+> i
+
+wi ⟨ψT | ˆO|ϕ(k) 
+
+> i
+
+⟩
+
+P 
+
+> i
+
+wi ⟨ψT |ϕ(k) 
+
+> i
+
+⟩ . (6) For ˆO that commute with ˆH (such as ˆO = ˆH so ⟨ ˆH⟩
+
+is the energy), the mixed estimator is exact if |ψT ⟩ =3A1 A2 B1 B2                      
+
+> (a) XC 4 ×4A1 A2 B1 B2 (b) YC 4 ×4Figure 1 Triangular-lattice clusters (left) and corresponding one-electron spectra (eigenvalues of ˆH1) grouped by D2irreps (right). The black outline shows a 4 ×4 region with periodic boundaries across the dashed lines. Note that while the symmetry groups of the XC 4 ×4 and YC 4 ×4 lattices are D4and D8, respectively, one can label the orbitals using irreps of the D2
+> subgroup (see App. C for details).
+
+|Ψ0⟩; it is biased otherwise. In the latter case, back-propagation [64–66] or extrapolations [65, 67] may be applied to obtain unbiased estimates.  
+
+> C. Symmetry-projected trial wave functions
+
+Previous work on the square lattice Hubbard model [47, 48] has shown that symmetry properties in the trial wave function play a significant role in reducing the con-straint bias. In particular, deliberately breaking and restoring symmetries in the wave function [68–70] yields a hierarchy of trial wave functions with increasing quality. This includes continuous symmetries such as SU(2) spin-rotation, as well as discrete symmetries such as lattice space-group operations and complex-conjugation. Starting from an arbitrary broken-symmetry HF de-terminant, one may restore these symmetries by applying the proper projection operators. Spin symmetry entails that the wave function is invariant to the axis of spin quantization, leading to the projector [71, 72] ˆPsmm ′ = 2s + 1 8π2
+
+Z
+
+dΩ Dsmm ′ (Ω) ∗ ˆR(Ω) , (7) where Dsmm ′ (Ω) = ⟨s; m| ˆR(Ω) |s; m′⟩ is the Wigner D-matrix and ˆR(Ω) = e−iα ˆSz e−iβ ˆSy e−iγ ˆSz is the rotation operator parametrized by Euler angles Ω = ( α, β, γ ) in spin space. By restoring spin-rotational invariance, the wave function is forced to be an eigenstate of ˆS2 [70]. For a Hamiltonian invariant under a spatial symmetry group G, its eigenstates |Ψ⟩ can be chosen to transform according to irreducible representations (irreps) of G. To recover spatial symmetries, we hence use the projector onto irrep α of G [48] given by ˆPα = dα
+
+|G| 
+
+X
+
+> g∈G
+
+χα(g)∗ ˆR(g), (8) where ˆR(g) is the symmetry operator labeled by the group element g, χα is the character of g in the irrep, 
+
+dα is the irrep dimension, and |G| is the order of the group. Finally, in cases where the Hamiltonian is real in some basis, then [ ˆH, ˆK] = 0. For a non-degenerate eigenstate 
+
+|Ψ⟩, this implies ˆK |Ψ⟩ = eiϕ |Ψ⟩ for some real ϕ. We can always choose a gauge in which ϕ = 0. For a general state that does not satisfy this condition, we can enforce it by defining ˆPK = 12 ( ˆI + ˆK), (9) since ˆK2 = ˆI and ˆK ˆPK |Ψ⟩ = 12 ( ˆK + ˆI) |Ψ⟩ = ˆPK |Ψ⟩ . (10) In this work, we consider generalized Hartree-Fock (GHF) determinants that break both ˆSz and ˆS2 spin symmetries, enabling greater variational freedom in de-scribing the frustration inherent in the triangular-lattice Hubbard model. Furthermore, symmetry-restored GHF trial states have also been shown to yield better accu-racy compared to unrestricted Hartree-Fock (UHF) trial states that only break ˆSz symmetry [48]. We varia-tionally optimize the GHF state orbital coefficients in the presence of symmetry-projection operators ( i.e. the variation-after-projection (VAP) approach), leading to a lower energy trial state (see App. A 3 for details). We follow Ref. [73] in using the notation x-GHF to denote symmetry-projected wave functions, where x indicates the symmetries broken and restored. For example, ( K,SG, S2)-GHF refers to a state prepared by breaking and restoring spin ( S2), space-group (SG), and complex con-jugation ( K) symmetry out of a GHF determinant. We also consider a class of symmetry-preserving FE trials consisting of Slater determinants constructed from 4                                                                                                           
+
+> Table IGround state energies per site obtained from CPMC and ED for the XC 4 ×4 lattice at fillings ν≤1. The relative (rel.) error is computed as ( εCPMC −εexact )/|εexact | ×
+> 100. Tuples ( N↑, N ↓, ν ) marked with an asterisk (*) indicate an open shell at the Fermi level. CPMC energies marked with a dagger ( †) are obtained with symmetry-projected trial states; otherwise, FE trial states are used. Uncertainties smaller than 5 ×10 −5(5 ×10 −3) are reported as (0) for en-ergies (relative errors). (N↑, N ↓, ν )UGround state CPMC Exact Rel. symmetry error (%) (2, 2, 1/4) 4A1−1.0746(0) −1.0746 0.00(0) 8A1−1.0483(0) −1.0483 0.00(0) 12 A1−1.0320(0) −1.0320 0.00(0) (3 ,3,3/8) ∗
+> 4B1−1.2298(0) −1.2296 −0.01(0) 8B1−1.1787(1) −1.1779 −0.06(0) 12 B1−1.1477(1) −1.1467 −0.09(1) (4, 4, 1/2) 4A1−1.3409(0) −1.3408 −0.01(0) 8B1−1.2520(1) †−1.2520 0.00(0) 12 B1−1.1997(1) †−1.2041 0.36(1) (6 ,6,3/4) ∗
+> 4B1−1.3706(1) −1.3703 −0.03(0) 8B1−1.1670(2) −1.1648 −0.19(2) 12 B1−1.0603(3) −1.0569 −0.32(3) (7, 7, 7/8) 4A1−1.2611(1) −1.2612 0.01(1) 8A1−0.9558(3) −0.9547 −0.11(3) 12 A1−0.8086(5) −0.8079 −0.09(6) (8 ,8,1) ∗
+> 4B1−0.9724(1) †−0.9725 0.02(1) 8B1−0.5239(1) †−0.5294 1.03(2) 12 A1−0.3584(2) †−0.3611 0.75(5)
+
+the one-body eigenstates of ˆH1. A single determinant often preserves the Hamiltonian symmetries for closed-shell systems, but multiple determinants are required for open-shell systems to preserve spin and spatial symme-tries. We distinguish between these cases using c-FE (for closed-shell) and o-FE (for open-shell).   
+
+> III. RESULTS A. Away from half-filling
+
+Table I compares the ground state energies per site ε
+
+obtained from CPMC and ED for the XC 4 × 4 lattice as an illustrative example; data for other lattices can be found in Table II in the appendix. We find that CPMC is highly accurate away from half-filling, achieving relative errors < 0.5% from ED over a range of U . This is attained using relatively simple trial wave functions that preserve the symmetry of the ground state. In all cases considered here, the ground state is non-degenerate with spin s = 0 and momentum (0, 0). At fill-ings where the system is closed-shell ( ν = 1 /4, 1/2, 7/8), the ground state generally transforms as the A1 irrep of the lattice symmetry group D4, hence c-FE trials were used since they reside in the same symmetry sector. For 
+
+U > 4 at ν = 1 /2, however, the ground state symme-try transitions from A1 to B1, so the c-FE trial is no longer adequate since it has zero overlap with the ground state. We thus construct an appropriate symmetry-adapted trial by projecting a real GHF state onto the correct space-group (SG) and spin ( S2) symmetry sec-tors, denoted as (SG, S2)-GHF. For doped systems, we find that symmetry projection without subsequent vari-ational re-optimization yields sufficiently accurate trial states. The effects of symmetry projection and its ne-cessity at half-filling are illustrated in further detail in Section III B. At fillings where the system is open-shell (ν =3/8, 3/4), the ground state transforms as the B1 irrep of D4. We prepare the symmetry-adapted o-FE trial by first choosing a D2-symmetry-adapted basis within the degenerate subspace, i.e. forming linear combinations of the orbitals that transform as irreps of a D2 ⊂ D4
+
+subgroup (see Fig. 1). We then define a complete active space (CAS) expansion in this subspace that gives a state with the target D4 symmetry. To be explicit, the o-FE trial for ν = 3 /8 ( N↑ = N↓ = 3) is given by 
+
+|ψT ⟩ = 1
+
+√2 |A(1) 1 ¯A(1) 1 A(1) 2 ¯A(1) 2 B(1) 1 ¯B(1) 1 ⟩− 1
+
+√2 |A(1) 1 ¯A(1) 1 A(1) 2 ¯A(1) 2 B(1) 2 ¯B(1) 2 ⟩ , (11) where Γ (n) (¯Γ(n)) denotes the n-th level up- (down-) spin orbitals in irrep Γ of the D2 subgroup (see Fig. 1) and each ket lists the occupied spin orbitals defining a Slater determinant. App. C contains further details on symme-try characterization. Having performed a similar study on small YC n lat-tices and obtained consistent results there (see Table II in App. A 1), we next benchmark CPMC against DMRG on long YC n cylinders at quarter-filling ( ν = 1 /2). This choice is motivated by two observations: (i) the system is often closed-shell for such cylinders at this filling; and (ii) the ground state of the YC 4 × 4 and 4 × 3 lattices at ν = 1 /2 transforms as the A1 irrep of D4 for all U
+
+considered, suggesting that this behavior may generalize to wider YC n cylinders. Thus, we restrict our attention to closed-shell systems and employ c-FE trial wave func-tions here. As shown in Fig. 2, CPMC achieves comparable ac-curacy to DMRG and exhibits a linear relationship with 
+
+N −1 
+
+> x
+
+for a fixed Ny . This arises from the presence of open boundaries along the x-direction, which causes the energy per site to approach the infinite cylinder limit 
+
+Nx → ∞ with an error proportional to N −1 
+
+> x
+
+[74]. In contrast to DMRG’s steep scaling with the width Ny ,the cost of CPMC only scales cubically with the number of sites Ns, enabling CPMC to reach system sizes that are inaccessible to DMRG. We demonstrate this on YC n
+
+cylinders up to n = Ny = 12 and provide estimates of 5                    
+
+> Figure 2 (Top panels) Ground state energies per site obtained from CPMC and DMRG on YC ncylinders with widths
+> n≡Ny= 4 ,6,12 at quarter-filling ( ν= 1 /2) and U= 4 ,8,12. The insets highlight the three largest Nxpoints, which exhibit a clear linear dependence on N−1
+> x. Colored labels indicate the extrapolated infinite-cylinder energies ε∞obtained from data of the corresponding color. The quoted uncertainties include both statistical and systematic contributions from the fitting procedure, detailed in App. A 4. (Bottom panels) Relative error between CPMC and DMRG energies for the YC4 and YC6 cylinders, which remain below 1%.
+
+infinite cylinder bulk energies in Fig. 2 by extrapolating in N −1 
+
+> x
+
+(see App. A 4 for details). Thus, once infinite cylinder bulk energies are obtained, it is straightforward to extrapolate in Ny to estimate the 2D bulk energy.  
+
+> B. Half-filling
+
+In contrast to the square lattice, the triangular lat-tice is not bipartite, so particle-hole symmetry is absent in the Hubbard model at all fillings. This implies that the sign problem persists even at half-filling ( ν = 1), where we find the associated constraint bias more chal-lenging to mitigate than in the doped cases. In particu-lar, we achieve ≲ 1% relative errors at large U only when employing symmetry-projected trial wave functions that yield the lowest variational energies while preserving the essential symmetries of the system. The GHF phase diagram for XC n cylinders is shown in Fig. 3, displaying four distinct solutions as a function of U . The ground state transitions from a metallic phase in the weak-coupling regime U ≲ 4 to a vertical stripe phase with alternating spin orders along the x-direction at intermediate U . At U ≈ 6, the lowest GHF solu-tion breaks complex conjugation symmetry and exhibits a chiral phase with non-zero bond charge currents [37] 
+
+Jij = −it X
+
+> σ
+
+h
+
+⟨ˆc† 
+
+> iσ
+
+ˆcjσ ⟩ − ⟨ ˆc† 
+
+> jσ
+
+ˆciσ ⟩
+
+i
+
+(12) between nearest-neighbor sites i, j . The emergence of chiral domains is seen more clearly by computing the plaquette current on an elementary triangular plaquette (i, j, k ), defined as 
+
+J△,ijk = Jij + Jjk + Jki , (13) where the loop direction is taken counter-clockwise (see Fig. 3). This state lies close to the 120 ◦ N´ eel-ordered phase that persists into the strong-coupling regime U ≳
+
+10 and may be related to the spiral magnetic phases re-ported in previous GHF studies [75, 76]. We note that GHF overestimates the stability of the insulating phases, predicting their onset at U ≈ 5 in contrast to DMRG’s prediction of U ≈ 9 [30–32]. From these GHF states, we prepare symmetry-projected trials by restoring spin, spatial, and complex conjugation symmetries via a variation-after-projection approach. Since the half-filled system is open-shell, 62 4 6 8 10 12 
+
+U
+
+−1.2 
+
+−1.0 
+
+−0.8 
+
+−0.6 
+
+−0.4 
+
+> εGHF
+
+Metallic 
+
+Stripe 
+
+Chiral 
+
+N´ eel 
+
+Metallic Stripe 
+
+Chiral N´ eel 
+
+−0.10 
+
+−0.05 
+
+0.00 
+
+0.05 
+
+0.10 
+
+> δρ
+
+−0.05 0.00 0.05 
+
+J∆
+
+Figure 3 GHF ground state solutions on XC n cylinders at half-filling as a function of U .
+
+another reasonable trial wave function is a symmetry-adapted o-FE trial constructed to match the D4 irrep of the exact ground state (which varies with U ; see Table I). For U < 12, the ground state transforms as the B1
+
+irrep of D4, so in the same notation as (11), we define (see Fig. 1) 
+
+|ψT ⟩ = 1
+
+√2 |A(1) 1 · · · B(3) 1 ¯B(3) 1 ⟩ − 1
+
+√2 |A(1) 1 · · · B(3) 2 ¯B(3) 2 ⟩ .
+
+(14) The orbitals are labeled by D2 irreps, and we omit or-bitals below the Fermi level for clarity. For U = 12, the ground state transforms as the A1 irrep of D4, and we have 
+
+|ψT ⟩ = 1
+
+√2 |A(1) 1 · · · B(3) 1 ¯B(3) 1 ⟩ + 1
+
+√2 |A(1) 1 · · · B(3) 2 ¯B(3) 2 ⟩ .
+
+(15) A comparison of CPMC energies with o-FE and ( K,SG, S2)-GHF trial wave functions against ED for the XC 4 × 4 lattice is shown in Fig. 4. Substantial improve-ment is observed with ( K, SG, S2)-GHF trials–especially for U ≳ 9–where relative errors are ≲ 1% compared to 
+
+∼ 3−6% obtained with o-FE trials, which increase mono-tonically with U . This illustrates the significance of these symmetries ( K, SG, S2) and the inadequacy of FE tri-als in describing the ground state as the system becomes more strongly correlated. Fig. 5 shows the improvement in the trial quality as S2, SG, and K symmetry pro-jectors are successively applied. Across the range of U
+
+values considered, deviations from ED are systematically reduced as more symmetries are restored from the GHF state. The importance of each symmetry can be inferred from the reduction in error as the corresponding symmetry projector is applied. The broken-symmetry GHF trial 4 5 6 7 8 9 10 11 12       
+
+> U
+> -1.0
+> -0.9
+> -0.8
+> -0.7
+> -0.6
+> -0.5
+> -0.4
+> ε
+> ED
+> CPMC o-FE
+> CPMC ( K, SG, S2)-GHF
+> 46810 12
+> U
+> 0
+> 2
+> 4
+> 6
+> Relative error (%)
+
+Figure 4 Ground state energies per site obtained from CPMC and ED for the XC 4 × 4 lattice at half-filling ( ν = 1). The inset depicts the relative error between CPMC and ED energies. Employing the symmetry-projected ( K, SG, S2)-GHF trial yields improved energies compared to the o-FE trial. 7U = 4 U = 8 U = 12                
+
+> 0
+> 2
+> 4
+> 6
+> 8
+> Relative error (%)
+> −0.14 −0.93
+> 6.01
+> 0.76
+> 7.68
+> 6.67
+> 1.74 1.79 1.60
+> 0.02
+> 1.72
+> 1.04
+> 0.02
+> 1.03 0.75
+> o-FE
+> GHF
+> S2-GHF
+> (SG, S2)-GHF
+> (K, SG, S2)-GHF
+> Figure 5 Relative error between CPMC and ED ener-gies for U= 4 ,8,12 from o-FE and a variety of symmetry-projected trials. The relative errors are systematically re-duced as symmetry projectors are successively applied onto the GHF state.
+
+yields the largest relative errors, except at U = 4. In this regime, restoring both spatial and spin symmetries is necessary to improve upon the GHF trial, while addi-tionally restoring complex conjugation symmetry has a negligible effect. By contrast, restoring spin symmetry alone yields a larger relative error than GHF, highlight-ing the coupled role of spin and spatial symmetries at low U .At U = 8, restoring spin symmetry yields a sub-stantial reduction in relative error compared to GHF, whereas further restoring spatial symmetry provides only a marginal improvement. Including complex conjugation symmetry gives the lowest error, suggesting that spin and complex conjugation symmetries are most important for describing the ground state in this regime. We note that the projected-energy landscape, ⟨ΨGHF | ˆH ˆP| ΨGHF ⟩, over the determinants |ΨGHF ⟩ exhibits several local minima, making the global minimum difficult to locate. We select the trial wave function based on two criteria: (i) the op-timization converges to 10 −5 in the gradient norm; and (ii) it has the lowest variational energy among the solu-tions found. The lowest-variational-energy trial we found yields a CPMC energy with a relative error of 1.03%. At U = 12, the relative error decreases monotonically as more symmetries are restored on top of the preceding trial. Specifically, the error is reduced by factors of ∼
+
+4.2 from GHF → S2-GHF, ∼ 1.5 from S2-GHF → (SG, 
+
+S2)-GHF, and ∼ 1.4 from (SG, S2)-GHF → (K, SG, 
+
+S2)-GHF, again suggesting that spin symmetry is most important, followed by spatial and complex conjugation symmetries. In addition to the energy, we also evaluate the spin structure factor, 
+
+S(q) = 1
+
+Ns
+
+X
+
+> ij
+
+eiq·(ri−rj )⟨ˆSi · ˆSj ⟩c, (16) where ⟨ˆSi · ˆSj ⟩c is the connected spin-spin correlation function, ˆSi = ( ˆSxi , ˆSyi , ˆSzi ) is the spin operator at site i,and ri is its position vector. We estimate S(q) within CPMC using the mixed estimator and compare with SU(2) spin-symmetry-preserving DMRG for the XC 4 ×4lattice at U = 10 and U = 16 (Fig. 6). The ( K, SG , S 2)-GHF trial wave function is used. For both interaction strengths, we find good agreement between CPMC and DMRG. At U = 10, stripy correlations are already apparent in this small lattice, with ferromagnetic correlations along one direction and antiferromagnetic correlations along the other two, consistent with previous studies [32, 36]. Upon increasing U to 16, the stripy correlations evolve into the tripartite 120 ◦ N´ eel order. For larger widths, it becomes challenging to converge the DMRG spin struc-ture factor without breaking symmetries, likely due to the one-dimensional site ordering used in DMRG. A sys-tematic study of the evolution of spin correlations with system size is left for future work.  
+
+> IV. DISCUSSION
+
+In this work, we present a benchmark study of the triangular-lattice Hubbard model at several fillings and U
+
+values using constrained-path Monte Carlo. Our findings show that the use of appropriate symmetry-adapted trial wave functions is essential for obtaining accurate results. Away from half-filling, we achieve energy deviations of 
+
+≲ 0.5% compared to ED (on small clusters) and DMRG (on long cylinders) using relatively simple FE trial wave functions that preserve the symmetry of the ground state. At half-filling, we first elucidate four distinct solutions– metallic, stripe, chiral, and N´ eel–as a function of U in the GHF phase diagram. We then highlight the inad-equacy of using these broken-symmetry states as trial wave functions and the necessity of symmetry restoration in the intermediate to large U regimes. Here, unprojected GHF trials can introduce a sizable constraint bias that is mitigated by restoring the relevant symmetries. This should be borne in mind when interpreting conclusions drawn from CPMC studies of the half-filled and doped triangular-lattice Hubbard models, including the results of Ref. [54]. Therein, the authors report evidence of chi-ral superconductivity using trial wave functions prepared from GHF states computed at an effective U value; how-ever, symmetry considerations do not appear to factor into trial construction. We demonstrate that hierarchi-cally breaking then restoring spin, spatial, and complex conjugation symmetries can not only systematically in-crease the quality of the trial wave function, but also provide insight into the ground-state properties of this frustrated system. Our study is limited to cylinder geometries to facilitate comparison with DMRG results and mitigate open-shell effects that arise from degeneracies in the one-electron spectrum. The latter can be alleviated by employing 8Γ K M Γ
+
+> 0.00
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> 1.25
+> 1.50
+> 1.75
+> 2.00
+> S(q)
+
+a) U = 10    
+
+> ΓKMΓ
+
+b) U = 16                           
+
+> Γ
+> K
+> M
+> 0.0
+> 0.4
+> 0.8
+> 1.2
+> 1.6
+> 〈Si·Sj
+> 〉
+> −0.25
+> 0.00
+> 0.25
+> Γ
+> K
+> M
+> 0.0
+> 0.4
+> 0.8
+> 1.2
+> 1.6
+> 〈Si·Sj
+> 〉
+> −0.25
+> 0.00
+> 0.25
+> DMRG CPMC
+> Figure 6 Spin structure factor S(q) for the XC 4 ×4 lattice at U= 10 (left panel) and U= 16 (right panel). In each panel, the main plot compares CPMC and DMRG results for S(q) along the Γ −K−M−Γ high-symmetry path in the Brillouin zone. The insets show S(q) plotted over the Brillouin zone (top right) and the real-space spin correlations ⟨ˆSi·ˆSj⟩c(bottom) obtained using CPMC.
+
+twist boundary conditions that lift these degeneracies; averaging over random twists ( i.e. twist-averaged bound-ary conditions) may also accelerate convergence to the thermodynamic limit [51]. We leave the investigation of the performance of CPMC under such boundary condi-tions to future work. The existence of a spin-liquid state in the triangular-lattice Hubbard model remains a controversial topic, with various numerical techniques providing evidence for both sides of the debate. On the one hand, DMRG stud-ies on long cylinders generally suggest the presence of a spin-liquid phase, while variational Monte Carlo studies do not. This discrepancy could perhaps be attributed to cylindrical geometries that bias the ground state towards the spin liquid. The non-trivial effects of the cylinder length have been highlighted in [77] and [32], the lat-ter of which reports that long-range chiral correlations are only observed in sufficiently long cylinders. While DMRG’s exponential scaling in the system’s width limits its applicability to cylinders, the computational cost of CPMC scales only polynomially with the system size, en-abling an approach to the thermodynamic limit via two-dimensional sheets of increasing area. Therefore, CPMC may be a valuable tool for investigating the existence of spin liquids in the triangular-lattice Hubbard model.  
+
+> V. ACKNOWLEDGMENTS
+
+We acknowledge funding support from the National Science Foundation (NSF) through the Columbia Univer-sity Materials Research Science and Engineering Center (MRSEC) on Precision Assembled Quantum Materials under Award No. DMR-2011738 (S.F.U. and D.R.R.) and the Air Force Office of Scientific Research (AFOSR) under MURI Grant No. FA 9550-25-1-0288 (A.M. and D.R.R.). We thank Shiwei Zhang, Joonho Lee, and Moritz Baumgarten for useful discussions. Compu-tations in this paper were primarily executed on the Delta system at the National Center for Supercomput-ing Applications [award OAC 2005572] through alloca-tion CHE230028 from the Advanced Cyberinfrastruc-ture Coordination Ecosystem: Services & Support (AC-CESS) program, which is supported by National Sci-ence Foundation grants #2138259, #2138286, #2138307, #2137603, and #2138296. We also acknowledge com-puting resources from Columbia University’s Shared Re-search Computing Facility. 9
+
+Appendix A: Additional CPMC data and computational details 1. Additional data 
+
+Table II Ground state energies per site obtained from CPMC and ED for fillings ν ≤ 1. The relative (rel.) error is computed as ( εCPMC − εexact )/|εexact | × 100. Tuples ( N↑, N ↓, ν ) marked with an asterisk (*) indicate an open shell at the Fermi level. CPMC energies marked with a dagger ( †) are obtained with symmetry projection; otherwise, FE trials are used. Uncertainties smaller than 5 × 10 −5 (5 × 10 −3) are reported as (0) for energies (relative errors). Lattice ( Nx × Ny ) ( N↑, N ↓, ν ) U Ground state symmetry CPMC Exact Rel. error (%) XC 3 × 4(2, 2, 1/3) 6 A1 −1.1376(1) −1.1375 −0.01(1) 12 A1 −1.0981(1) −1.0978 −0.02(1) (3 , 3, 1/2) ∗ 6 B1 −1.2649(1) −1.2675 0.21(1) 12 B1 −1.1853(2) −1.1843 −0.08(2) (4, 4, 2/3) 6 A1 −1.2868(2) −1.2865 −0.03(2) 12 A1 −1.1350(2) −1.1337 −0.11(2) (5 , 5, 5/6) ∗ 6 B1 −1.0871(2) −1.0859 −0.11(2) 12 B1 −0.8709(4) −0.8689 −0.23(5) (6, 6, 1) 6 B1 −0.6584(2) † −0.6600 0.23(3) 12 B1 −0.3435(2) † −0.3465 0.86(5) YC 4 × 3(2, 2, 1/3) 6 A1 −1.3045(0) −1.3045 0.00(0) 12 A1 −1.2562(0) −1.2561 −0.01(0) (3, 3, 1/2) 6 A1 −1.3183(0) −1.3189 0.04(0) 12 A1 −1.2298(2) −1.2313 0.12(2) (4 , 4, 2/3) ∗ 6 3A2 −1.2615(2) −1.2610 −0.04(1) 12 3A2 −1.1163(3) −1.1170 0.07(2) (5, 5, 5/6) 6 B1 −1.0740(1) † −1.0741 0.01(1) 12 B1 −0.8716(2) † −0.8748 0.36(2) YC 4 × 4(2, 2, 1/4) 4 A1 −1.0157(0) −1.0157 0.00(0) 8 A1 −0.9934(0) −0.9934 0.00(0) 12 A1 −0.9801(0) −0.9800 -0.01(0) (3 , 3, 3/8) ∗
+
+4 3A2 −1.2530(0) −1.2529 0.00(0) 8 3A2 −1.2028(0) −1.2023 −0.04(0) 12 3A2 −1.1730(1) −1.1720 −0.08(1) (4, 4, 1/2) 4 A1 −1.4382(0) −1.4383 0.00(0) 8 A1 −1.3371(1) −1.3366 −0.04(0) 12 A1 −1.2796(1) −1.2785 −0.08(1) (6, 6, 3/4) 4 A1 −1.4382(1) −1.4387 0.03(1) 8 A1 −1.2267(2) −1.2273 0.05(2) 12 A1 −1.1132(3) −1.1137 0.04(3) (7, 7, 7/8) 4 A1 −1.3234(1) −1.3234 0.00(1) 8 A1 −0.9776(4) −0.9739 -0.38(4) 12 A1 −0.8151(5) −0.8086 −0.81(6) 
+
+2. Efficient imaginary-time evolution 
+
+We perform all CPMC calculations with a development version of the ad afqmc Python package [78]. We use a time step of ∆ τ = 0 .005 and 200-400 walkers, having verified for select cases that the energies agree within sta-tistical error with ∆ τ = 0 .001 and 600 walkers. Measure-ments are taken after the propagation has equilibrated. In ad afqmc , imaginary-time evolution and impor-tance sampling are implemented in an algorithm that scales as O(N 3 
+
+> s
+
+) per time step, where Ns is the num-ber of sites. Recall that the spin decomposition due to Hirsch [55, 56] for the Hubbard interaction on site i is 10 given by (4) ˆBi = e−∆τ U ˆni↑ ˆni↓
+
+= e−∆τ U (ˆ ni↑+ˆ ni↓)/2 X
+
+> xi=±1
+
+p(xi)eγx i(ˆ ni↑−ˆni↓)
+
+= X
+
+> xi=±1
+
+p(xi)eλ↑(xi)ˆ ni↑ · eλ↓(xi)ˆ ni↓ , (A1) where we defined λ↑/↓(xi) = −∆τ U/ 2 ± γx i and γ is determined by cosh γ = e∆τ U/ 2. Using the fact that ˆnkiσ = ˆ niσ , we can simplify 
+
+eλσ (xi)ˆ niσ = X
+
+> k=0
+
+1
+
+k! [λσ (xi)] k ˆnkiσ 
+
+= 1 + ˆ niσ 
+
+
+
+eλσ (xi) − 1
+
+
+
+, (A2) which gives ˆBi = X
+
+> xi=±1
+
+p(xi)
+
+n
+
+1 + 
+
+
+
+eλ↑(xi) − 1
+
+
+
+ˆni↑ +
+
+
+
+eλ↓(xi) − 1
+
+
+
+ˆni↓ +
+
+
+
+eλ↑(xi) − 1
+
+  
+
+eλ↓(xi) − 1
+
+
+
+ˆni↑ ˆni↓
+
+o
+
+. (A3) To implement importance sampling and the positivity constraint, we sample the auxiliary fields xi from the weighted probability distribution ˜p(xi) ∝ p(xi) max 0, ⟨ψT | ˆBi|ϕ⟩⟨ψT |ϕ⟩
+
+!
+
+. (A4) Intuitively, the overlap ratio ⟨ψT | ˆBi|ϕ⟩ / ⟨ψT |ϕ⟩ between a trial state |ψT ⟩ and walker |ϕ⟩ guides the random walk towards regions where the overlap with |ψT ⟩ is large. If 
+
+|ψT ⟩ is a single Slater determinant, the overlap is given by 
+
+⟨ψT |ϕ⟩ = det 
+
+h
+
+ψ† 
+
+> T
+
+ϕ
+
+i
+
+= det [ O(ϕ)] , (A5) where O(ϕ) = ψ† 
+
+> T
+
+ϕ is the overlap matrix and ψT , ϕ
+
+are coefficient matrices associated with |ψT ⟩ , |ϕ⟩. For a Ne-electron system and GHF-type determinants, the matrices ψT , ϕ have shape 2 Ns ×Ne, implying that O(ϕ)has shape Ne × Ne. Thus, for a fixed filling factor, the evaluation of the overlap requires O(N 3 
+
+> e
+
+) ∼ O (N 3 
+
+> s
+
+) time to compute the determinant det [ O(ϕ)]. However, this can be sped up if one has access to the Green’s function 
+
+⟨ψT |ˆc† 
+
+> iσ
+
+ˆcjτ |ϕ⟩⟨ψT |ϕ⟩ = G(ϕ)στ ij =
+
+h
+
+ϕO(ϕ)−1ψ†
+
+> T
+
+iτ σ ji 
+
+. (A6) To see this, we insert (A3) into the overlap ratio (assum-ing we’ve sampled a value for xi) and obtain 
+
+⟨ψT | ˆBi|ϕ⟩⟨ψT |ϕ⟩
+
+= 1 + 
+
+
+
+eλ↑(xi) − 1
+
+ ⟨ψT |ˆni↑|ϕ⟩⟨ψT |ϕ⟩
+
++
+
+
+
+eλ↓(xi) − 1
+
+ ⟨ψT |ˆni↓|ϕ⟩⟨ψT |ϕ⟩
+
++
+
+
+
+eλ↑(xi) − 1
+
+  
+
+eλ↓(xi) − 1
+
+ ⟨ψT |ˆni↑ ˆni↓|ϕ⟩⟨ψT |ϕ⟩ . (A7) Applying the generalized Wick’s theorem [79], 
+
+⟨ψT |ˆniσ |ϕ⟩⟨ψT |ϕ⟩ = ⟨ψT |ˆc† 
+
+> iσ
+
+ˆciσ |ϕ⟩⟨ψT |ϕ⟩ = G(ϕ)σσ ii (A8) 
+
+⟨ψT |ˆni↑ ˆni↓|ϕ⟩⟨ψT |ϕ⟩ = ⟨ψT |ˆc† 
+
+> i↑
+
+ˆci↑ ˆc† 
+
+> i↓
+
+ˆci↓|ϕ⟩⟨ψT |ϕ⟩
+
+= G(ϕ)↑↑  
+
+> ii
+
+G(ϕ)↓↓  
+
+> ii
+
+− G(ϕ)↑↓  
+
+> ii
+
+G(ϕ)↓↑  
+
+> ii
+
+, (A9) and rearranging terms, we end up with 
+
+⟨ψT | ˆBi|ϕ⟩⟨ψT |ϕ⟩ =
+
+n
+
+1 + 
+
+
+
+eλ↑(xi) − 1
+
+
+
+G(ϕ)↑↑ 
+
+> ii
+
+o n 
+
+1 + 
+
+
+
+eλ↓(xi) − 1
+
+
+
+G(ϕ)↓↓ 
+
+> ii
+
+o
+
+−
+
+
+
+eλ↑(xi) − 1
+
+  
+
+eλ↓(xi) − 1
+
+
+
+G(ϕ)↑↓  
+
+> ii
+
+G(ϕ)↓↑  
+
+> ii
+
+,
+
+(A10) which only requires O(1) time to retrieve the appropriate matrix elements of G(ϕ). The evaluation of G(ϕ) in (A6) involves matrix multi-plications and an inversion, with cost scaling as O(N 3 
+
+> e
+
+) ∼O(N 3 
+
+> s
+
+). If one were to recompute G(ϕ) to use in impor-11 tance sampling after each successive application of ˆBi
+
+over all sites, the total cost of the two-body propaga-tion QNs 
+
+> i=1
+
+ˆBi for one time step would be O(N 4 
+
+> s
+
+). We avoid this by updating the Green’s function efficiently between consecutive applications of ˆBi with cost scaling as O(N 2 
+
+> s
+
+). Consider the updated Green’s function 
+
+G′(ϕ)στ pq = ⟨ψT |ˆc† 
+
+> pσ
+
+ˆcqτ ˆBi|ϕ⟩⟨ψT | ˆBi|ϕ⟩
+
+= ⟨ψT |ˆc† 
+
+> pσ
+
+ˆcqτ ˆBi|ϕ⟩⟨ψT |ϕ⟩ × ⟨ψT |ϕ⟩⟨ψT | ˆBi|ϕ⟩ . (A11) The first term can be evaluated using Wick’s theorem again, while the second term is the inverse of the overlap ratio. Repeating the exercise of inserting (A3) into the first term (and dropping the dependence on ϕ from G), we have 
+
+⟨ψT |ˆc† 
+
+> pσ
+
+ˆcqτ ˆBi|ϕ⟩⟨ψT |ϕ⟩ = Gστ pq 
+
+⟨ψT | ˆBi|ϕ⟩⟨ψT |ϕ⟩ +
+
+
+
+eλ↑(xi) − 1
+
+
+
+Gσ↑
+
+> pi
+
+n 
+
+eλ↓(xi) − 1
+
+ h 
+
+G↑↓  
+
+> ii
+
+G↓τiq − G↓↓  
+
+> ii
+
+G↑τiq 
+
+i
+
+− G ↑τiq 
+
+o
+
++
+
+
+
+eλ↓(xi) − 1
+
+
+
+Gσ↓
+
+> pi
+
+n 
+
+eλ↑(xi) − 1
+
+ h 
+
+G↓↑  
+
+> ii
+
+G↑τiq − G↑↑  
+
+> ii
+
+G↓τiq 
+
+i
+
+− G ↓τiq 
+
+o
+
+, (A12) where we defined Gστ pq = Gστ pq − δpq δστ = [ G − I]στ pq . Putting it all together, the updated Green’s function can be calculated with 
+
+G′στ pq = Gστ pq + eλ↑(xi) − 1
+
+Oratio 
+
+Gσ↑
+
+> pi
+
+n 
+
+eλ↓(xi) − 1
+
+ h 
+
+G↑↓  
+
+> ii
+
+G↓τiq − G↓↓  
+
+> ii
+
+G↑τiq 
+
+i
+
+− G ↑τiq 
+
+o
+
++ eλ↓(xi) − 1
+
+Oratio 
+
+Gσ↓
+
+> pi
+
+n 
+
+eλ↑(xi) − 1
+
+ h 
+
+G↓↑  
+
+> ii
+
+G↑τiq − G↑↑  
+
+> ii
+
+G↓τiq 
+
+i
+
+− G ↓τiq 
+
+o
+
+, (A13) where we introduced the shorthand Oratio =
+
+⟨ψT | ˆBi|ϕ⟩ / ⟨ψT |ϕ⟩. Note that G′ is determined solely from the current Green’s function G since Oratio 
+
+also depends only on G. To update each matrix ele-ment, the cost is O(1) since (A13) can be evaluated by retrieving the appropriate matrix elements of G. The cost per time step to update the entire Green’s function is thus O(N 2 
+
+> s
+
+) since G′ is a Ns × Ns matrix. Therefore, the theoretical scaling of our CPMC algo-rithm is determined by the calculation of G between suc-cessive time steps, which scales as O(N 3 
+
+> s
+
+). We show this empirically in Fig. 7. 
+
+3. Symmetry-projected trial wave functions 
+
+The projectors ˆPsmm ′ , ˆPα, and ˆPK are defined in the main text Sec. II C. In all cases considered in this work, we target the singlet spin sector ( s = 0, m = m′ = 0), for which the Wigner D-matrix reduces to D000 (Ω) = 1 and the spin projector simplifies to ˆPs=0 = 18π2
+
+Z
+
+dα dβ dγ sin β ˆR(α, β, γ ), (A14) where ˆR(α, β, γ ) = e−iα ˆSz e−iβ ˆSy e−iγ ˆSz . We discretize the α, γ integrations with the midpoint rule and the β
+
+integration with Gauss-Legendre quadrature. We construct the trial wave function by variation-ally optimizing a GHF determinant |ψGHF ⟩ in the pres-ence of all three projectors, following the variation-after-projection (VAP) approach. The projected energy 
+
+E = ⟨ψGHF | ˆH ˆP| ψGHF ⟩⟨ψGHF | ˆP| ψGHF ⟩ , ˆP = ˆPs=0 ˆPα ˆPK , (A15) is minimized with respect to the GHF orbital coefficients using L-BFGS, with gradients obtained by automatic dif-ferentiation. The optimization is repeated over multiple random initial perturbations of a converged GHF solu-tion, and the trial with the lowest projected energy is selected. 12 The resulting trial is a linear combination of Nd Slater determinants generated by the combined action of the three projectors on the optimized GHF reference. Within CPMC, each walker is a spin-collinear determinant with a definite ˆSz eigenvalue. Since the spin projector is Her-mitian and commutes with the Hamiltonian, it can be applied to the walker rather than the trial when com-puting overlaps and local energies. The rightmost ˆSz
+
+rotation gives e−iγ ˆSz |ϕ⟩ = e−iγm |ϕ⟩ with m = 0, elimi-nating the γ integration and reducing Nd by a factor of 
+
+nγ . Each determinant in the expansion is then treated as a separate component of a multideterminant trial; the Green’s function for each is updated using the fast update procedure described in App. A 2, giving an overall cost of 
+
+O(NdN 3 
+
+> s
+
+) per time step. This scaling is confirmed empir-0 1 2 3
+
+# N 3 
+
+> s
+
+1e6 
+
+0
+
+2500 
+
+5000 
+
+7500 
+
+10000 
+
+12500 
+
+> time (s)
+
+r = 0 .9997 
+
+0.0 0.5 1.0 
+
+# NdN 3 
+
+> s
+
+1e7 
+
+0
+
+5000 
+
+10000 
+
+15000 
+
+20000 
+
+25000 
+
+> time (s)
+
+r = 0 .9949                
+
+> Figure 7 (Top) CPMC runtime scaling without symme-try projection. Calculations are performed on YC4 cylinders at quarter-filling ( ν= 1 /2) and U= 12. (Bottom) CPMC runtime scaling with symmetry projection. Calculations are performed on XC4 cylinders at half-filling ( ν= 1) and U= 8, using only S2symmetry projection. The timings exhibit cubic scaling with the number of sites Ns, while symmetry projec-tion introduces an additional linear scaling with the number of determinants Nd. The Pearson correlation coefficient rof the linear fit is also shown.
+
+ically in Fig. 7. The Euler-angle grid used in the CPMC trial expansion is chosen by evaluating the mixed energy estimator with the initial CPMC walkers on a sequence of progressively finer grids, then selecting the coarsest grid for which the energy is converged to within a speci-fied tolerance. Typical grids consist of 5 − 10 points per angle.  
+
+> 4. Infinite-cylinder extrapolations
+
+The energies in Fig. 2 are fitted to the form ε(Nx) = 
+
+ε∞ + m/N x. For the YC4 and YC6 cylinders, the un-certainty in ε∞ is estimated by combining a statistical contribution σstat (standard error of the fitted intercept) with a systematic contribution σsys that quantifies sen-sitivity to the fitting window. Specifically, we repeat the fit using only the largest k cylinder lengths, with 
+
+k ∈ { 3, 4, 6} for YC4 and k ∈ { 3, 4, 5} for YC6, and obtain intercepts {ε(k) 
+
+> ∞
+
+}. We take the systematic uncer-tainty to be the maximum deviation of the windowed-fit intercepts from their median value ˜ ε∞,
+
+σsys = max  
+
+> k
+
+ε(k) 
+
+> ∞
+
+− ˜ε∞ , (A16) and σstat to be the standard error of the fit for ˜ ε∞. The total uncertainty is computed as σtot =
+
+q
+
+σ2stat + σ2sys 
+
+and we report ε∞ ≃ ˜ε∞ ± σtot .For the YC12 cylinder, we repeat the fit only for 
+
+k ∈ { 2, 3} (i.e. using the two and three longest cylin-der lengths). We report ε∞ ≡ ¯ε∞ ± σtot , where ¯ ε∞ =(ε(2)  
+
+> ∞
+
++ ε(3)  
+
+> ∞
+
+)/2; σstat is obtained by propagating the stan-dard errors of ε(k) 
+
+> ∞
+
+and σsys = max k |ε(k) 
+
+> ∞
+
+− ¯ε∞|. 
+
+> Appendix B: GHF, ED, and DMRG computational details 1. GHF and ED
+
+GHF and ED calculations are carried out using pyscf 
+
+[80–82]. GHF solutions are optimized through the co-iterative augmented Hessian (CIAH) second-order solver [83, 84], with orbitals perturbed and re-optimized upon convergence to unstable solutions. We initialize the self-consistent field (SCF) procedure with a variety of initial guesses, including the N´ eel-ordered state as well as real and complex random density matrices sampled from the standard Gaussian distribution N (0 , 1). The GHF so-lutions reported in the main text are the lowest-energy states obtained across these initial guesses. On the other hand, ED solutions are obtained from 
+
+pyscf ’s full configuration interaction (FCI) solver, with multiple roots computed to ensure convergence to the correct ground state. 13  
+
+> 2. DMRG
+
+DMRG calculations for the energy are performed with the itensor software library [85]. The matrix prod-uct state is initialized with a staggered antiferromagnetic (AFM) state dressed with random noise. The bond di-mension Ds for the first 6 sweeps (1 ≤ s ≤ 6) is set to 
+
+Ds ∈ { 10 , 20 , 100 , 300 , 500 }, before increasing in a uni-formly exponential manner following D(n) = da n, where 
+
+n ∈ Z+ starts from n = 1 and a is a parameter that con-trols the rate of increase of D up to the maximum Dmax 
+
+[32]. We choose d = 512 , a = 2 1/5, and Dmax = 8192. To extrapolate the energy ε to the zero truncation error limit ξ → 0, we repeat each value of D(n) for two full sweeps ( i.e. sweeps s and s + 1) for s > 15, resulting in a total of 32 sweeps. The energy from each second sweep is then linearly fitted to the form ε(ξ) = ε0 + mξ .The DMRG energies reported in Fig. 2 are the zero-truncation-error intercepts ε0, with uncertainties esti-mated following the procedure used for the infinite-cylinder extrapolations in App. A 4. The total uncer-tainty σtot includes both a statistical contribution σstat 
+
+(the standard error of the fitted intercept) and a sys-tematic contribution σsys that quantifies sensitivity to the fitting window. To estimate σsys , we repeat the fit using only the smallest k truncation error points with 
+
+k ∈ { 2, 3, 4} or k ∈ { 3, 4, 5}, obtaining intercepts {ε(k)0 }.We define ˜ ε0 ≡ median k ε(k)0 and take 
+
+σsys = max  
+
+> k
+
+ε(k)0 − ˜ε0 . (B1) We take σstat to be the standard error of the fit that gives ˜ε0 and report ε0 ≡ ˜ε0 ± σtot , with σtot =
+
+q
+
+σ2stat + σ2sys .On the other hand, DMRG calculations for the spin structure factor are performed using the Block2 code [86] with full SU(2) spin symmetry.          
+
+> Appendix C: XC4 cylinder symmetries 1. D4symmetry group
+> Table III Symmetry operators of the XC4 lattice. Symmetry operator Action
+> TyTranslation by Ly
+> G
+> Translation by Ly/2 followed by a reflection along the vertical line bisecting the lattice
+> Rπ
+> Rotation by πabout the center of the lattice
+
+The symmetry operators on XC4 cylinders are given in Table III and satisfy the relations 
+
+Ty = G2 (C1) 
+
+Rπ GR π = G−1 (C2) 
+
+G4 = T 2 = R2 
+
+> π
+
+= 1 (C3) [G, R π ]̸ = 0 , (C4) which imply that the generators of the group are G and 
+
+Rπ . The operators furnish a faithful 8-dimensional uni-tary permutation representation (in the site basis) of the dihedral group D4 (i.e. C4v ), defined by 
+
+D4 = ⟨x, y : x4 = y2 = 1 , xyx = y⟩, (C5) with group elements {1, x, x 2, x 3, y, yx, yx 2, yx 3}. An ex-plicit mapping between group elements and symmetry operators may be obtained by identifying x ≡ G, y ≡ Rπ .The conjugacy classes are shown in Table IVa, each of which can be identified with the canonical D4 classifica-tion consisting of the identity ( E), a 180 ◦ rotation ( C2), 90 ◦ rotations ( C4), and two distinct types of reflections (σv , σ d). The character table, which we use to character-ize the ground state symmetry, is given in Table IVb.                                    
+
+> Table IV Conjugacy classes and character table of D4.(a) Conjugacy classes. Conjugacy Canonical class naming
+> {1}E
+> {G2}C2
+> {G, G 3}C4
+> {Rπ, R πG2}σv
+> {RπG, R πG3}σd
+> (b) Character table. Irrep EC2C4σvσd
+> A1+1 +1 +1 +1 +1
+> A2+1 +1 +1 −1−1
+> B1+1 +1 −1 +1 −1
+> B2+1 +1 −1−1 +1
+> E+2 −2000
+> 2. D2subgroup
+
+The D4 group contains an Abelian D2 subgroup with elements {1, G 2, R π , R π G2}. Since the subgroup is Abelian, each element forms its own conjugacy class and has four one-dimensional irreps. These irreps provide a set of good quantum numbers for labeling eigenstates of ˆH1 and defining a canonical basis inside degenerate sub-spaces. 14 
+
+Table V Conjugacy classes and character table of D2.(a) Conjugacy classes. Conjugacy Canonical class naming 
+
+{1} E
+
+{G2} C2
+
+{Rπ } C′
+
+> 2
+
+{Rπ G2} C′′ 
+
+> 2
+
+(b) Character table. Irrep E C2 C′ 
+
+> 2
+
+C′′ 
+
+> 2
+
+A1 +1 +1 +1 +1 
+
+A2 +1 +1 −1 −1
+
+B1 +1 −1 +1 −1
+
+B2 +1 −1 −1 +1 [1] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, Annual Review of Condensed Matter Physics 
+
+13 , 275 (2022), arXiv:2104.00064 [cond-mat]. [2] H. Pan, F. Wu, and S. Das Sarma, Physical Review B 
+
+102 , 201104 (2020). [3] J. Zang, J. Wang, J. Cano, and A. J. Millis, Physical Review B 104 , 075150 (2021). [4] N. Morales-Dur´ an, N. C. Hu, P. Potasz, and A. H. Mac-Donald, Physical Review Letters 128 , 217202 (2022). [5] Y. Zhou, D. Sheng, and E.-A. Kim, Physical Review Letters 133 (2024), 10.1103/physrevlett.133.156501. [6] A. Kumar, C. Lewandowski, and H. J. Changlani, npj Quantum Materials 10 , 95 (2025). [7] Y. Tang, L. Li, T. Li, Y. Xu, S. Liu, K. Barmak, K. Watanabe, T. Taniguchi, A. H. MacDonald, J. Shan, and K. Fai Mak, Nature | 579 , 353 (2025). [8] F. Wu, T. Lovorn, E. Tutuc, and A. H. Macdon-ald, Physical Review Letters 121 (2018), 10.1103/Phys-RevLett.121.026402, arXiv: 1804.03151. [9] Y. Shimizu, K. Miyagawa, K. Kanoda, M. Maesato, and G. Saito, Physical Review Letters 91 , 107001 (2003). [10] T. Itou, A. Oyamada, S. Maegawa, M. Tamura, and R. Kato, Physical Review B 77 , 104413 (2008). [11] S. Yamashita, Y. Nakazawa, M. Oguni, Y. Oshima, H. Nojiri, Y. Shimizu, K. Miyagawa, and K. Kanoda, Nature Physics 4, 459 (2008). [12] M. Yamashita, N. Nakata, Y. Kasahara, T. Sasaki, N. Yoneyama, N. Kobayashi, S. Fujimoto, T. Shibauchi, and Y. Matsuda, Nature Physics 5, 44 (2009). [13] T. Itou, A. Oyamada, S. Maegawa, and R. Kato, Nature Physics 6, 673 (2010). [14] M. Yamashita, N. Nakata, Y. Senshu, M. Nagata, H. M. Yamamoto, R. Kato, T. Shibauchi, and Y. Matsuda, Science 328 , 1246 (2010). [15] S. Yamashita, T. Yamamoto, Y. Nakazawa, M. Tamura, and R. Kato, Nature Communications 2, 275 (2011). [16] P. W. Anderson, Materials Research Bulletin 8, 153 (1973). [17] D. A. Huse and V. Elser, Physical Review Letters 60 ,2531 (1988). [18] S. R. White and A. L. Chernyshev, Physical Review Let-ters 99 , 127004 (2007). [19] O. I. Motrunich, Physical Review B 72 , 045105 (2005). [20] D. N. Sheng, O. I. Motrunich, and M. P. A. Fisher, Physical Review B 79 , 205112 (2009). [21] R. Kaneko, S. Morita, and M. Imada, Journal of the Physical Society of Japan 83 , 093707 (2014). [22] Z. Zhu and S. R. White, Physical Review B 92 , 041105 (2015). [23] T. Cookmeyer, J. Motruk, and J. E. Moore, Physical Review Letters 127 , 087201 (2021). [24] H. Morita, S. Watanabe, and M. Imada, Journal of the Physical Society of Japan 71 , 2109 (2002). [25] T. Yoshioka, A. Koga, and N. Kawakami, Physical Re-view Letters 103 , 036401 (2009). [26] P. Sahebsara and D. S´ en´ echal, Physical Review Letters 
+
+100 , 136402 (2008). [27] T. Koretsune, Y. Motome, and A. Furusaki, Journal of the Physical Society of Japan 76 , 074719 (2007). [28] J. Kokalj and R. H. McKenzie, Physical Review Letters 
+
+110 , 206402 (2013). [29] G. Li, A. E. Antipov, A. N. Rubtsov, S. Kirchner, and W. Hanke, Physical Review B 89 , 161118 (2014). [30] A. Szasz, J. Motruk, M. P. Zaletel, and J. E. Moore, Physical Review X 10 , 021042 (2020). [31] A. Szasz and J. Motruk, Physical Review B 103 , 235132 (2021). [32] B.-B. Chen, Z. Chen, S.-S. Gong, D. N. Sheng, W. Li, and A. Weichselbaum, Physical Review B 106 , 094420 (2022). [33] T. Shirakawa, T. Tohyama, J. Kokalj, S. Sota, and S. Yunoki, Physical Review B 96 , 205130 (2017). [34] L. F. Tocchio, A. Montorsi, and F. Becca, Physical Re-view B 102 , 115150 (2020). [35] L. F. Tocchio, A. Montorsi, and F. Becca, Physical Re-view Research 3, 043082 (2021). [36] A. Wietek, R. Rossi, F. ˇSimkovic, M. Klett, P. Hans-mann, M. Ferrero, E. M. Stoudenmire, T. Sch¨ afer, and A. Georges, Physical Review X 11 , 041013 (2021). [37] Z. Zhu, D. N. Sheng, and A. Vishwanath, Physical Re-view B 105 , 205110 (2022). [38] K. S. Chen, Z. Y. Meng, U. Yu, S. Yang, M. Jarrell, and J. Moreno, Physical Review B 88 , 041103 (2013). [39] N. Gomes, W. W. De Silva, T. Dutta, R. T. Clay, and S. Mazumdar, Physical Review B 93 , 165110 (2016). [40] W. W. De Silva, N. Gomes, S. Mazumdar, and R. T. Clay, Physical Review B 93 , 205111 (2016). [41] J. Venderley and E.-A. Kim, Physical Review B 100 ,060506 (2019). [42] K. Takada, H. Sakurai, E. Takayama-Muromachi, F. Izumi, R. A. Dilanian, and T. Sasaki, Nature 422 ,15 
+
+53 (2003). [43] E. Y. Loh, J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Physical Review B 41 ,9301 (1990). [44] S. Zhang, J. Carlson, and J. E. Gubernatis, Physical Review Letters 74 , 3652 (1995). [45] S. Zhang, (1999), arXiv:cond-mat/9909090. [46] C.-C. Chang and S. Zhang, Physical Review B 78 , 165101 (2008). [47] H. Shi and S. Zhang, Physical Review B 88 , 125132 (2013), arXiv:1307.2147 [cond-mat, physics:physics]. [48] H. Shi, C. A. Jim´ enez-Hoyos, R. Rodr´ ıguez-Guzm´ an, G. E. Scuseria, and S. Zhang, Physical Review B 89 ,125129 (2014). [49] Simons Collaboration on the Many-Electron Problem, J. LeBlanc, A. E. Antipov, F. Becca, I. W. Bulik, G. K.-L. Chan, C.-M. Chung, Y. Deng, M. Ferrero, T. M. Hen-derson, C. A. Jim´ enez-Hoyos, E. Kozik, X.-W. Liu, A. J. Millis, N. Prokof’ev, M. Qin, G. E. Scuseria, H. Shi, B. Svistunov, L. F. Tocchio, I. Tupitsyn, S. R. White, S. Zhang, B.-X. Zheng, Z. Zhu, and E. Gull, Physical Review X 5, 041041 (2015). [50] M. Qin, H. Shi, and S. Zhang, Physical Review B 94 ,235119 (2016), arXiv:1608.07154 [cond-mat]. [51] M. Qin, H. Shi, and S. Zhang, Physical Review B 94 ,085103 (2016). [52] B.-X. Zheng, C.-M. Chung, P. Corboz, G. Ehlers, M.-P. Qin, R. M. Noack, H. Shi, S. R. White, S. Zhang, and G. K.-L. Chan, Science 358 , 1155 (2017). [53] Y. Yang, M. Morales, and S. Zhang, (2023), arXiv:2306.14954 [cond-mat]. [54] V. Zampronio and T. Macr` ı, Quantum 7, 1061 (2023). [55] J. E. Hirsch, Physical Review B 28 , 4059 (1983). [56] J. E. Hirsch, Physical Review B 31 , 4403 (1985). [57] D. Thouless, Nuclear Physics 21 , 225 (1960). [58] D. J. Thouless, Nuclear Physics 22 , 78 (1961). [59] M. Troyer and U.-J. Wiese, Physical Review Letters 94 ,170201 (2005). [60] J. Lee, H. Q. Pham, and D. R. Reichman, Journal of Chemical Theory and Computation 18 , 7024 (2022). [61] H. Xu, H. Shi, E. Vitali, M. Qin, and S. Zhang, Physical Review Research 4, 013239 (2022). [62] M. Qin, Physical Review B 107 , 235124 (2023). [63] R. Rodr´ ıguez-Guzm´ an, K. W. Schmid, C. A. Jim´ enez-Hoyos, and G. E. Scuseria, Physical Review B 85 , 245130 (2012). [64] M. Motta and S. Zhang, Journal of Chemical Theory and Computation 13 , 5367–5378 (2017). [65] W. Purwanto and S. Zhang, Physical Review E 70 ,056702 (2004). [66] S. Zhang, J. Carlson, and J. E. Gubernatis, Physical Review B 55 , 7464 (1997). [67] A. Mahajan, J. Lee, and S. Sharma, The Journal of Chemical Physics 156 , 174111 (2022). [68] P. Ring and P. Schuck, The Nuclear Many-Body Problem (1980), 10.1007/978-3-642-61852-9. [69] H. Fukutome, International Journal of Quan-tum Chemistry 20 , 955 (1981), eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/qua.560200502. [70] G. E. Scuseria, C. A. Jim´ enez-Hoyos, T. M. Henderson, K. Samanta, and J. K. Ellis, Journal of Chemical Physics 
+
+135 (2011), 10.1063/1.3643338, arXiv: 1106.0956. [71] J. K. Percus and A. Rotenberg, Journal of Mathematical Physics 3, 928 (1962). [72] R. Lefebvre and R. F. Prat, International Jour-nal of Quantum Chemistry 3, 93 (1969), eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/qua.560030113. [73] C. A. Jim´ enez-Hoyos, T. M. Henderson, T. Tsuchimochi, and G. E. Scuseria, The Journal of Chemical Physics 136 ,164109 (2012). [74] E. M. Stoudenmire and S. R. White, Annual Review of Condensed Matter Physics 3, 111 (2012). [75] C. Jayaprakash, H. R. Krishnamurthy, S. Sarker, and W. Wenzel, Europhysics Letters 15 , 625 (1991). [76] Gilmutdinov V. F., Timirgazin M. A., and Arzhnikov A. K., Physics of the Solid State 64 , 76 (2022). [77] A. W. Sandvik, Physical Review B 85 , 134407 (2012). [78] https://github.com/ankit76/ad_afqmc .[79] J. Hendekovi´ c, M. Pavlovi´ c, and F. Sokoli´ c, Chemical Physics Letters 77 , 382 (1981). [80] Q. Sun, Journal of Computational Chemistry 36 , 1664 (2015), eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/jcc.23981. [81] Q. Sun, T. C. Berkelbach, N. S. Blunt, G. H. Booth, S. Guo, Z. Li, J. Liu, J. D. McClain, E. R. Sayfutyarova, S. Sharma, S. Wouters, and G. K. Chan, WIREs Compu-tational Molecular Science 8 (2018), 10.1002/wcms.1340. [82] Q. Sun, X. Zhang, S. Banerjee, P. Bao, M. Barbry, N. S. Blunt, N. A. Bogdanov, G. H. Booth, J. Chen, Z.-H. Cui, J. J. Eriksen, Y. Gao, S. Guo, J. Hermann, M. R. Hermes, K. Koh, P. Koval, S. Lehtola, Z. Li, J. Liu, N. Mardirossian, J. D. McClain, M. Motta, B. Mussard, H. Q. Pham, A. Pulkin, W. Purwanto, P. J. Robin-son, E. Ronca, E. R. Sayfutyarova, M. Scheurer, H. F. Schurkus, J. E. T. Smith, C. Sun, S.-N. Sun, S. Upad-hyay, L. K. Wagner, X. Wang, A. White, J. D. Whitfield, M. J. Williamson, S. Wouters, J. Yang, J. M. Yu, T. Zhu, T. C. Berkelbach, S. Sharma, A. Y. Sokolov, and G. K.-L. Chan, The Journal of Chemical Physics 153 , 024109 (2020). [83] Q. Sun, (2017), 10.48550/arXiv.1610.08423, arXiv:1610.08423 [physics]. [84] Q. Sun, J. Yang, and G. K.-L. Chan, Chemical Physics Letters 683 , 291 (2017). [85] M. Fishman, S. R. White, and E. M. Stoudenmire, Sci-Post Phys. Codebases , 4 (2022). [86] H. Zhai, H. R. Larsson, S. Lee, Z.-H. Cui, T. Zhu, C. Sun, L. Peng, R. Peng, K. Liao, J. T¨ olle, J. Yang, S. Li, and G. K.-L. Chan, The Journal of Chemical Physics 159 
+
+(2023), 10.1063/5.0180424.
