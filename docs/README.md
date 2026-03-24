@@ -6,73 +6,91 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-23
-- 运行时间：2026-03-23 20:19:05 UTC
+- 最新运行日期：2026-03-24
+- 运行时间：2026-03-24 20:13:07 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：23
+- 精读区：12
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度追踪 17 篇超导领域前沿进展，重点攻克 Ginzburg-Landau 模型与铁基超导配对难题。
-核心结论揭示了高 κ 极限下的二阶最优性，并利用热电噪声为铁基超导的配对机制提供了关键线索。
-建议读者从界面增强超导与多相超导的对称性分析入手，快速掌握凝聚态物理的最新动态。
-- 详情：[/202603/23/README](/202603/23/README)
+今日深度研读 23 篇物理前沿进展，重点攻克了 $t$-$t'$-$J$ 模型超导机制与 Kagome 磁体轨道特性两大满分课题。
+研究揭示了电荷簇向条纹相演化对超导的关键作用，并观测到 Kagome 晶格中轨道特异性的巡游与局域化共存。
+建议从强关联体系的微观演化入手，深入理解量子材料在超导与磁性交织下的奇异物性。
+- 详情：[/202603/24/README](/202603/24/README)
 
 ### 精读区论文标签
-1. [On second-order optimality in the high-$κ$ regime of the Ginzburg-Landau model](/202603/23/2603.20039v1-on-second-order-optimality-in-the-high--regime-of-the-ginzburg-landau-model)  
+1. [Evolution of superconductivity from charge clusters to stripes in the $t$-$t'$-$J$ model](/202603/24/2603.20368v1-evolution-of-superconductivity-from-charge-clusters-to-stripes-in-the-t-t-j-model)  
+   标签：评分：10.0/10、query:cmp
+   evidence：高温铜氧化物中的超导性
+2. [Orbital-specific Itinerancy and Localization in a Kagome Magnet](/202603/24/2603.21203v1-orbital-specific-itinerancy-and-localization-in-a-kagome-magnet)  
+   标签：评分：10.0/10、query:cmp
+   evidence：笼目磁体中非费米液体行为的实验证据
+3. [Critical dynamics of the superfluid phase transition in Model F](/202603/24/2603.21479v1-critical-dynamics-of-the-superfluid-phase-transition-in-model-f)  
+   标签：评分：10.0/10、query:cmp
+   evidence：超流相变附近临界动力学的数值模拟
+4. [Optically Activated Superconductivity in MgB2 via Electroluminescent GaP Inhomogeneous Phase](/202603/24/2603.20719v1-optically-activated-superconductivity-in-mgb2-via-electroluminescent-gap-inhomogeneous-phase)  
    标签：评分：9.0/10、query:cmp
-   evidence：高kappa机制下超导Ginzburg-Landau模型的分析
-2. [$Δ_T$ Noise, Quantum Shot Noise, and Thermoelectric Clues to the Pairing Puzzle in Iron Pnictides](/202603/23/2603.20069v1-t-noise-quantum-shot-noise-and-thermoelectric-clues-to-the-pairing-puzzle-in-iron-pnictides)  
+   evidence：通过光学激活调节MgB2的超导性质
+5. [Gap Engineered Superconducting Multilayer Nanobridge Josephson Junctions](/202603/24/2603.20757v1-gap-engineered-superconducting-multilayer-nanobridge-josephson-junctions)  
    标签：评分：9.0/10、query:cmp
-   evidence：铁基超导体的配对对称性
-3. [Signatures of Green's function zeros and their topology using impurity spectroscopy](/202603/23/2602.23477v2-signatures-of-greens-function-zeros-and-their-topology-using-impurity-spectroscopy)  
-   标签：评分：8.0/10、query:cmp
-   evidence：莫特绝缘体及掺杂系统中的格林函数零点
-4. [Electronic correlations and dynamical screening with ab initio quantum embedding](/202603/23/2603.12336v1-electronic-correlations-and-dynamical-screening-with-ab-initio-quantum-embedding)  
-   标签：评分：8.0/10、query:cmp
-   evidence：通过GW+EDMFT研究量子材料中的电子关联
-5. [Benchmarking quantum simulation with neutron-scattering experiments](/202603/23/2603.15608v1-benchmarking-quantum-simulation-with-neutron-scattering-experiments)  
-   标签：评分：8.0/10、query:cmp
-   evidence：强关联系统中 Luttinger 液体和自旋子的量子模拟
-6. [Fermi surface of Kagome metal CsCr$_3$Sb$_5$ observed by laser photoemission microscopy](/202603/23/2603.18672v1-fermi-surface-of-kagome-metal-cscr3sb5-observed-by-laser-photoemission-microscopy)  
-   标签：评分：8.0/10、query:cmp
-   evidence：Kagome金属中的费米面与轨道相关关联效应
+   evidence：超导约瑟夫森结的制备与应用
+6. [Universally Diverging Grüneisen Ratio of Holographic Quantum Criticality](/202603/24/2603.21320v1-universally-diverging-grneisen-ratio-of-holographic-quantum-criticality)  
+   标签：评分：9.0/10、query:cmp
+   evidence：高温超导体中的量子临界性
+7. [Hopping mechanism for superconductivity revealed by Density Functional Theory](/202603/24/2603.21417v1-hopping-mechanism-for-superconductivity-revealed-by-density-functional-theory)  
+   标签：评分：9.0/10、query:cmp
+   evidence：基于密度泛函理论的MgB2电子-空穴配对跳跃机制
+8. [A possible superconducting gap signature with filling temperature around 40 K in hexagonal iron telluride islands](/202603/24/2603.21959v1-a-possible-superconducting-gap-signature-with-filling-temperature-around-40-k-in-hexagonal-iron-telluride-islands)  
+   标签：评分：9.0/10、query:cmp
+   evidence：碲化铁岛中可能的超导能隙特征
+9. [Nonlocal energy transfer mechanism in three-dimensional quantum turbulence](/202603/24/2603.21979v1-nonlocal-energy-transfer-mechanism-in-three-dimensional-quantum-turbulence)  
+   标签：评分：9.0/10、query:cmp
+   evidence：超流氦-4流中的能量传递机制
+10. [Interlayer-coupling-driven stabilization and superconductivity in bilayer CoTe$_2$](/202603/24/2603.22101v1-interlayer-coupling-driven-stabilization-and-superconductivity-in-bilayer-cote2)  
+   标签：评分：9.0/10、query:cmp
+   evidence：层间耦合驱动的双层CoTe2声子介导超导
+11. [Transparency-controlled multiple charge transfer in superconducting junctions with local shot-noise scanning tunneling spectroscopy](/202603/24/2603.22145v1-transparency-controlled-multiple-charge-transfer-in-superconducting-junctions-with-local-shot-noise-scanning-tunneling-spectroscopy)  
+   标签：评分：9.0/10、query:cmp
+   evidence：超导接头中的多重电荷转移和安德烈夫反射
+12. [Thermodynamic evidence for a pressure-driven crossover from strong- to weak-coupling superconductivity in Pb](/202603/24/2603.22178v1-thermodynamic-evidence-for-a-pressure-driven-crossover-from-strong--to-weak-coupling-superconductivity-in-pb)  
+   标签：评分：9.0/10、query:cmp
+   evidence：铅超导中的热力学临界场与耦合强度研究
 
 ### 速读区论文标签
-1. [Interface-Enhanced Superconductivity in Ultrathin TiN Proximitized by Topological Insulators](/202603/23/2602.23612v1-interface-enhanced-superconductivity-in-ultrathin-tin-proximitized-by-topological-insulators)  
+1. [Superfluid Vortex Lines-Magnetic Flux Tubes Interaction and Braking Indices of Pulsars](/202603/24/2603.01582v1-superfluid-vortex-lines-magnetic-flux-tubes-interaction-and-braking-indices-of-pulsars)  
    标签：评分：8.0/10、query:cmp
-   evidence：拓扑绝缘体-超导体异质结中的界面增强超导性
-2. [Intrinsic translational symmetry-breaking charge stripes in underdoped iron pnictides](/202603/23/2602.23680v1-intrinsic-translational-symmetry-breaking-charge-stripes-in-underdoped-iron-pnictides)  
+   evidence：中子星中超流涡旋线与超导磁通管的相互作用
+2. [Geometry-Driven Thermodynamics: Shape Effects and Anisotropy in Quantum-Confined Ideal Fermi and Bose Gases](/202603/24/2603.02634v1-geometry-driven-thermodynamics-shape-effects-and-anisotropy-in-quantum-confined-ideal-fermi-and-bose-gases)  
    标签：评分：8.0/10、query:cmp
-   evidence：铁基超导体中介于向列相和超导相之间的电荷条纹序
-3. [Unveiling the superconducting scenario in multiphase superconductor CeRh$_2$As$_2$ from space-group symmetry analysis and DFT calculations](/202603/23/2602.23726v1-unveiling-the-superconducting-scenario-in-multiphase-superconductor-cerh2as2-from-space-group-symmetry-analysis-and-dft-calculations)  
+   evidence：量子受限理想费米和玻色气体的热力学
+3. [Kondo driven suppression of charge density wave in Van der Waals material UTe$_3$](/202603/24/2603.03509v1-kondo-driven-suppression-of-charge-density-wave-in-van-der-waals-material-ute3)  
    标签：评分：8.0/10、query:cmp
-   evidence：CeRh2As2多相超导态的对称性分析
-4. [Emergence of Charge-Imbalanced BCS State and Suppression of Nonequilibrium FFLO State in Asymmetric NSN Junctions](/202603/23/2603.00435v1-emergence-of-charge-imbalanced-bcs-state-and-suppression-of-nonequilibrium-fflo-state-in-asymmetric-nsn-junctions)  
+   evidence：强关联材料UTe3中的近藤相互作用和电子不稳定性
+4. [Systematic study of superconductivity in few-layer $T_d$-MoTe$_2$](/202603/24/2603.04978v1-systematic-study-of-superconductivity-in-few-layer-td-mote2)  
    标签：评分：8.0/10、query:cmp
-   evidence：NSN结中的非平衡BCS理论与FFLO态
-5. [Study of the triangular-lattice Hubbard model with constrained-path quantum Monte Carlo](/202603/23/2603.14808v1-study-of-the-triangular-lattice-hubbard-model-with-constrained-path-quantum-monte-carlo)  
+   evidence：少层拓扑材料超导性的系统研究
+5. [AC Fingerprints of 2D Electron Hydrodynamics: Superdiffusion and Drude Weight Suppression](/202603/24/2603.15737v1-ac-fingerprints-of-2d-electron-hydrodynamics-superdiffusion-and-drude-weight-suppression)  
    标签：评分：7.0/10、query:cmp
-   evidence：三角晶格 Hubbard 模型的量子蒙特卡罗研究
-6. [Anomalous Thermal Transport Reveals Weak First-Order Melting of Charge Density Waves in 2H-TaSe2](/202603/23/2603.15915v1-anomalous-thermal-transport-reveals-weak-first-order-melting-of-charge-density-waves-in-2h-tase2)  
+   evidence：二维费米液体中的流体力学输运与非标准弛豫
+6. [Observation of a Reconstructed Chern Insulator in Twisted Bilayer MoTe2](/202603/24/2603.16374v1-observation-of-a-reconstructed-chern-insulator-in-twisted-bilayer-mote2)  
    标签：评分：7.0/10、query:cmp
-   evidence：具有电荷密度波的低维量子材料中的热输运研究
-7. [Anomalous dynamical scaling in interacting anyonic chains](/202603/23/2603.15972v1-anomalous-dynamical-scaling-in-interacting-anyonic-chains)  
+   evidence：莫尔材料中的电子关联与涌现量子相
+7. [Identification of sub-angstrom many-body localization in quantum materials by Bragg scattering phase breaking and ultrafast structural dynamics](/202603/24/2603.17591v1-identification-of-sub-angstrom-many-body-localization-in-quantum-materials-by-bragg-scattering-phase-breaking-and-ultrafast-structural-dynamics)  
    标签：评分：7.0/10、query:cmp
-   evidence：任意子链中的非平衡量子动力学和分数统计
-8. [Quantum Algorithms to Determine Spin-Resolved Exchange-Correlation Potential for Strongly Correlated Materials](/202603/23/2603.16605v1-quantum-algorithms-to-determine-spin-resolved-exchange-correlation-potential-for-strongly-correlated-materials)  
+   evidence：量子材料中多体定位的识别
+8. [Fine-grained topological structures hidden in Fermi sea](/202603/24/2603.18843v1-fine-grained-topological-structures-hidden-in-fermi-sea)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联哈伯德模型中交换相关势的量子算法
-9. [Giant anomalous Hall conductivity in frustrated magnet EuCo2Al9](/202603/23/2603.14682v1-giant-anomalous-hall-conductivity-in-frustrated-magnet-euco2al9)  
+   evidence：费米海拓扑与拓扑超导
+9. [Statistics-governed dynamical scaling in interacting anyonic chains](/202603/24/2603.15972v2-statistics-governed-dynamical-scaling-in-interacting-anyonic-chains)  
    标签：评分：6.0/10、query:cmp
-   evidence：受挫磁体中传导电子与局域磁矩的相互作用
-10. [Lee-Yang Zeros and Pseudocritical Drift in J-Q Néel-VBS Transitions](/202603/23/2603.15116v1-lee-yang-zeros-and-pseudocritical-drift-in-j-q-nel-vbs-transitions)  
+   evidence：任意子链中的量子动力学与统计
+10. [Correlated Quantum Phenomena in Confined Two-Dimensional Hexagonal Crystals](/202603/24/2603.16677v1-correlated-quantum-phenomena-in-confined-two-dimensional-hexagonal-crystals)  
    标签：评分：6.0/10、query:cmp
-   evidence：探测Neel态与VBS态之间的量子相变
-11. [Analog-Digital Quantum Computing with Quantum Annealing Processors](/202603/23/2603.15534v1-analog-digital-quantum-computing-with-quantum-annealing-processors)  
+   evidence：二维材料中的关联量子现象
+11. [Momentum-gapped quasiparticles in disordered metals](/202603/24/2603.17002v1-momentum-gapped-quasiparticles-in-disordered-metals)  
    标签：评分：6.0/10、query:cmp
-   evidence：超导量子退火处理器与XY模型实现
+   evidence：无序金属中的流体动力学理论与准粒子研究
 
 
 <div class="dpr-home-promo-card">

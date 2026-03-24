@@ -1,0 +1,644 @@
+Title: Statistics-governed dynamical scaling in interacting anyonic chains
+
+URL Source: https://arxiv.org/pdf/2603.15972v2
+
+Published Time: Tue, 24 Mar 2026 01:19:30 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Statistics-governed dynamical scaling in interacting anyonic chains 
+
+Xu-Chen Yang, 1, 2, 3 Botao Wang, 4, 5 Jianpeng Liu, 1, 2, 3 Bing Yang, 6 Jianmin Yuan, 7, 1 and Yongqiang Li 1, 2, 3, ∗
+
+> 1
+
+College of Science, National University of Defense Technology, Changsha 410073, P. R. China 
+
+> 2
+
+Hunan Key Laboratory of Extreme Matter and Applications, National University of Defense Technology, Changsha 410073, P. R. China 
+
+> 3
+
+Hunan Research Center of the Basic Discipline for Physical States, National University of Defense Technology, Changsha 410073, P. R. China 
+
+> 4
+
+Center for Nonlinear Phenomena and Complex Systems, Universit´ e Libre de Bruxelles, Brussels, Belgium 
+
+> 5
+
+International Solvay Institutes, Brussels, Belgium 
+
+> 6
+
+State Key Laboratory of Quantum Functional Materials, Department of Physics and Guangdong Basic Research Center of Excellence for Quantum Science, Southern University of Science and Technology, Shenzhen 518055, P. R. China 
+
+> 7
+
+Institute of Atomic and Molecular Physics, Jilin University, Changchun 130012, P. R. China 
+
+(Dated: March 24, 2026) Particle statistics impose fundamental constraints on nonequilibrium quantum dynamics, yet it remains an open question whether anyonic statistics can lead to emergent dynamical scaling beyond the conventional Bose-Fermi paradigm. Here we investigate the far-from-equilibrium many-body relaxation of anyons in a one-dimensional lattice, uncovering a statistics-governed, robust scaling behavior that deviates from standard Bose–Fermi limits. Based on large-scale numerical simula-tions and scaling analysis, we find that in the weakly interacting regime, anyonic statistics leads to emergent superdiffusive scaling in particle transport, while the entanglement entropy remains ballistic and is essentially insensitive to exchange statistics. The anomalous dynamics can be inter-preted intuitively from the statistical-phase-induced quantum interference that suppresses coherent holon-doublon propagation; in contrast, the entanglement growth is dominated by its configurational component, which maintains ballistic spreading regardless of the statistical phase. Our results es-tablish anyonic statistics as a distinct source of universal nonequilibrium dynamics beyond bosons and fermions, with direct relevance to current quantum simulation experiments. 
+
+Introduction— Anyonic statistics provides a funda-mental extension of quantum many-body physics beyond the conventional Bose-Fermi framework [1–5]. Its phys-ical relevance has been established through the observa-tion of exotic quantum phenomena, including the frac-tional quantum Hall effect [6–9] and topological spin liquids [10–12], and has stimulated extensive interest in topological quantum computation [13–16]. While anyonic statistics are intrinsically associated with two-dimensional systems, anyonic behavior can also emerge in one dimension (1D). For instance, fractional exclu-sion statistics were first revealed through the general-ized Pauli principle in the Haldane-Shastry model [17– 19]. This has triggered extensive studies of 1D any-onic models both in the continuum [20–22] and on dis-crete lattices [23–26], leading to hallmark ground-state phenomena such as asymmetric momentum distribu-tions [23, 27–29], Friedel oscillations [30], and statistics-induced phase transitions [24, 31, 32]. Experimentally, recent advances in ultracold atoms have brought the engi-neering of anyonic properties within reach [33–37], mak-ing it both timely and essential to investigate the role of anyonic statistics in the nonequilibrium dynamics [38–43] of quantum many-body systems. Far-from-equilibrium dynamics in bosonic and fermionic settings has attracted considerable attention in recent years [44–49]. These quantum many-body systems exhibit rich emergent dynamical scaling behav-ior, providing valuable insights into collective quantum phenomena [50–55]. Ballistic and diffusive transport have been observed experimentally in a broad range of quantum simulators [56–59]. Beyond these conven-tional regimes, qualitatively new universality classes have also been identified, such as Kardar-Parisi-Zhang scaling in 1D quantum magnets [60, 61]. This behavior arises from the interplay of integrability and internal non-Abelian symmetries [62–64] and has been observed in quantum gas microscopy [65] and programmable quantum circuits [66]. These developments raise afundamental question: can particle statistics itself give rise to emergent scaling in far-from-equilibrium quantum dynamics beyond the Bose-Fermi paradigm? To address this question, we investigate the many-body relaxation dynamics of a 1D anyon-Hubbard model (AHM) [Fig. 1(a)], starting from far-from-equilibrium initial states. We demonstrate that anyonic statistics can induce emergent dynamical scaling that goes beyond conventional bosonic and fermionic limits. This effect is particularly prominent in the weak-interaction regime: while the density correlations in these conventional limits exhibit ballistic transport, those in anyonic systems un-dergo a distinct crossover to superdiffusive behavior as the statistical angle θ is varied [Fig. 1(b)]. The anoma-lous scaling can be understood in terms of quantum in-terference between exchange paths of the holon-doublon pair, which suppresses its coherent propagation. While 
+
+> arXiv:2603.15972v2 [cond-mat.quant-gas] 22 Mar 2026
+
+2Jeiθn 
+
+# U
+
+(a) 
+
+(b) 
+
+superdiffusive θ
+
+# t
+
+ΔN
+
+S
+
+ballistic 
+
+U J≲
+
+ballistic 
+
+> relaxation
+
+dynamic of correlation 
+
+θ = 0 
+
+π/2 
+
+π
+
+# Jeiθn 
+
+# J                      
+
+> FIG. 1. Emergent far-from-equilibrium dynamical scaling in a 1D interacting anyonic system. (a) Schematic of a 1D anyonic lattice with hopping J, mapped onto a BHM with density-dependent tunneling Je iθn and interactions U, where nand θ
+> denote the local density and statistical angle, respectively. A quantum quench from an out-of-equilibrium state triggers the spreading of spatial correlations and entanglement through-out the system. (b) Distinct scaling of the half-chain particle-number fluctuations ∆ Nand the von Neumann entanglement entropy S. Both quantities are shown as functions of statis-tical angle θand time t:for U≤J, ∆ Ncrosses over from ballistic to superdiffusive as θincreases from 0 to π, while S
+> remains ballistic.
+
+anyonic interference suppresses particle transport, the entanglement entropy remains robustly ballistic. This contrast arises because the configuration entropy dom-inates the growth and propagates ballistically, whereas the number entropy is primarily constrained by the sta-tistical phase. Finally, we show that this anomalous dy-namical scaling is robust against onsite disorder and ini-tially density configurations, offering a promising route for experimental verification in state-of-the-art quantum simulators. 
+
+Model and method— We consider interacting anyons confined in a 1D optical lattice of L sites, described by the AHM [23] ˆHAHM = − J
+
+> L−1
+
+X
+
+> j=1
+
+
+
+ˆa† 
+
+> j
+
+ˆaj+1 + h.c. 
+
+
+
++ U
+
+2
+
+> L
+
+X
+
+> j=1
+
+ˆnj (ˆ nj − 1) ,
+
+(1) where J denotes the nearest-neighbor hopping ampli-tude, U onsite interaction strength, and ˆ nj = ˆ a† 
+
+> j
+
+ˆaj the anyon number operator on site j. The anyonic creation and annihilation operators ˆ a† 
+
+> j
+
+, ˆ aj obey generalized com-mutation relations [20, 67], ˆaj ˆa† 
+
+> k
+
+− e−iθ sgn( j−k)ˆa† 
+
+> k
+
+ˆaj =δjk , (2a) ˆaj ˆak − eiθ sgn( j−k)ˆak ˆaj =0 . (2b) An experimentally relevant route to simulate interacting anyons is to map the AHM onto a Bose-Hubbard model (BHM) with a density-dependent Peierls phase [68–71], as illustrated in the top panel of Fig. 1(a). The mapped Hamiltonian reads [35, 37] ˆH = − J
+
+> L−1
+
+X
+
+> j=1
+
+ˆb† 
+
+> j
+
+eiθ ˆnj ˆbj+1 + h.c. 
+
+
+
++ U
+
+2
+
+> L
+
+X
+
+> j=1
+
+ˆnj (ˆ nj − 1) ,
+
+(3) where ˆb† 
+
+> j
+
+, ˆbj are bosonic operators related to the anyons via a generalized Jordan-Wigner transformation, ˆ ak =ˆbkeiθ P  
+
+> j<k ˆnj
+
+. The statistical angle θ continuously inter-polates between bosonic and pseudofermionic limits, re-shaping the ground-state momentum distribution from a sharp condensate peak to a nearly flat fermionic pro-file [23, 27–29] and giving rise to rich anyonic dynamics, including dynamical fermionization [38, 41], asymmet-ric transport [42, 43], and two-particle correlations [39]. Here we focus on the emergent scaling governing the far-from-equilibrium dynamics of interacting many-body anyonic systems. The system is initialized in a far-from-equilibrium product state |ψ0⟩, and its time evolution |ψ(t)⟩ =
+
+e−i ˆHt |ψ0⟩ is computed using the time-dependent vari-ational principle [72] as implemented in TeNPy [73]. To characterize density correlation spreading, we con-sider the two-particle correlation transport distance (CTD) [74, 75], 
+
+l(t) = 
+
+> L−1
+
+X
+
+> d=1
+
+d Ck,k +d(t) k , (4) where Cj,k = ⟨ˆnj ˆnk⟩ − ⟨ ˆnj ⟩⟨ ˆnk⟩ is the density-density correlation function, and ⟨· · · ⟩ k denotes averaging over k.The CTD quantifies the mean correlation distance during nonequilibrium relaxation. It has been used to probe many-body localization in disordered BHM [74] and to characterize ballistic spreading of density correlations in standard BHM [75]. We further examine the half-chain density fluctuations, ∆N (t) = 
+
+q
+
+⟨ ˆN 2⟩(t) − ⟨ ˆN ⟩2(t), (5) where ˆN = PL/ 2 
+
+> j=1
+
+ˆnj denotes the total particle number operator of the left half-chain. This quantity provides a probe of nonequilibrium particle transport and relaxation in lattice Hubbard models [59, 76, 77]. To quantify the spreading of quantum information, we compute the von Neumann entanglement entropy, 
+
+S(t) = −Tr ρA(t) log ρA(t), (6) where ρA(t) = Tr B [|ψ(t)⟩⟨ ψ(t)|] is the reduced density matrix of the left half-chain A, obtained by tracing out 3.                                        
+
+> (a) (b)
+> (c) (d )
+> FIG. 2. Dynamical scaling of the correlation distance and particle-number fluctuations. (a)(b) In the noninteracting regime ( U= 0), (a) time evolution of the correlation distance
+> l(t) for statistical angles θ∈[0 , π ], revealing a crossover from ballistic growth ( β= 1) to superdiffusive scaling ( β= 2 /3) (see inset); (b) half-chain particle-number fluctuations ∆ eN(t), exhibiting a scaling collapse with dynamical exponent z= 3 /2(inset: unscaled data for θ=π). (c) Time evolution of l(t)in the strongly interacting regime ( U/J = 100) for θ∈[0 , π ], exhibiting an approximately ballistic scaling with z≈1. (d) Scaling exponent βextracted from l(t) over a broad range of interaction strengths U/J = 0 .01–100 at statistical angles
+> θ= 0, π/ 2, and π, demonstrating a universal scaling regime for U≤J. Numerical results of l(t) are obtained for system size L= 100 with bond dimensions up to 1500.
+
+its complement B. To extract the dynamical scaling of the observable dynamics, we rescale time according to 
+
+t → t/L z and define ∆ eN (t) = ∆ N (t/L z )/∆Nsat , (7a) 
+
+eS(t) = S(t/L z )/S sat . (7b) where ∆ Nsat and Ssat denote the long-time saturation values. Here, z denotes the dynamical exponent charac-terizing different scaling regimes of the dynamics. The dynamics is ballistic for z = 1, diffusive for z = 2, and superdiffusive for 1 < z < 2 [78–82]. 
+
+Anomalous scaling of density correlation— We first in-vestigate the far-from-equilibrium dynamics of density correlations in the anyonic chain in the noninteracting limit. We find that tuning the statistical angle θ drives a crossover from ballistic to superdiffusive spreading, in contrast to the ballistic dynamics of integrable bosonic and fermionic chains. This anomalous behavior is re-vealed by the CTD following a quench from the unit-filled product state |ψ0⟩ = | · · · 111 · · · ⟩ . As shown in Fig. 2(a), following a short θ-independent period, the characteristic length l(t) exhibits robust power-law scaling, l(t) ∼ tβ .The growth exponent β decreases monotonically with in-creasing θ, from β = 1 in the bosonic limit ( θ = 0) to 
+
+β = 2 /3 at θ = π [inset of Fig. 2(a)]. In a 1D system, the corresponding dynamical exponent satisfies z = 1 /β [83], establishing superdiffusive dynamics (1 < z < 2) in-duced by anyonic statistics, distinct from the bosonic and fermionic limits ( z = 1) [75, 83, 84]. In finite systems, boundary effects can affect the scaling behavior. Here we find that a lattice size of L = 100 already suffices to capture the anomalous scaling [83]. This scaling is in-dependently confirmed by half-chain density fluctuations ∆N (t), which collapse onto a universal curve when time is rescaled as t/L z , yielding z = 3 /2 at θ = π [Fig. 2(b)]. Although larger systems cannot be evolved long enough for ∆ N (t) to reach the L-dependent saturation plateau, a small system of L = 14 readily saturates, allowing ac-curate extraction of z (inset of Fig. 2(b), [77]). We next examine the interplay between anyonic statis-tics and interactions by analyzing the CTD dynamics across a broad range of interaction strengths U . In the weakly interacting regime, the scaling exponent β re-mains robust. As summarized in Fig. 2(d), the dynam-ics at θ = π is superdiffusive with β ≈ 2/3 ( U ≤ J), while the bosonic limit ( θ = 0) remains ballistic. By contrast, in the strong-interaction regime, the growth of 
+
+l(t) is nearly ballistic for all θ, with β ≈ 1, as shown in Fig. 2(c). This reflects the suppression of particle-exchange processes by strong interactions, rendering the effect of anyonic statistics negligible and recovering con-ventional ballistic dynamics. The anomalous scaling is found to be robust against disorder and initial-state variations. We study l(t) in the presence of finite onsite disorder and for different ini-tial states, such as | · · · 110211 · · · ⟩ and the density wave 
+
+| · · · 0202 · · · ⟩ [83]. In all cases, we find that the growth exponent β remains largely unchanged, demonstrating that the anomalous scaling is intrinsically determined by anyonic statistics. 
+
+Ballistic dynamical scaling in entropy— We now turn to the dynamics of the entanglement entropy S(t). While information propagation typically follows the same bal-listic scaling as particle transport in the noninteracting bosonic [76] and fermionic limits [85], we find that in any-onic chains, the entropy remains ballistic and essentially independent of the statistical angle θ, despite the signif-icant modification of the particle dynamics. Focusing on an anyonic case with θ = π/ 2 in the weakly interacting regime ( U/J = 0 .2) and starting from the product state 
+
+|ψ0⟩, S(t) as expected grows from zero to an L-dependent saturation value, as shown in the inset of Fig. 3(a). Re-markably, data for different system sizes collapse when time is rescaled as t → t/L z , yielding z ≈ 1.05 (see Fig. 3(a) and Ref. [83]). This ballistic growth contrasts with the anomalous scaling of density fluctuations ∆ N (t)[Fig. 2(d), z ≈ 1.62], highlighting the different dynamical scales associated with information and particle spreading. Unlike localized systems where both particle and infor-4(d) (c)                                     
+
+> (b) (a)
+> N=0
+> N= 1
+> N= 2
+> S=SN+SC
+> ρAN=0
+> t
+> SN
+> SC
+> FIG. 3. Dynamical scaling of entanglement entropy in the relaxation dynamics of the anyonic chain. (a) Rescaled von Neumann entropy eS(t) as a function of time tfor θ=π/ 2, with the inset showing the unrescaled data. The nearly ballis-tic scaling with z≃1 demonstrates a clear separation between entanglement propagation and particle transport [Fig. 2(d)]. (b) Schematic illustration of the reduced density matrix ρA,where the total entanglement entropy Sis decomposed into the number entropy SN, associated with particle-number fluc-tuations between sectors, and the configuration entropy SC,arising from superpositions within each particle-number sec-tor. (c) Number entropy eSN(t) and (d) configuration entropy
+> eSC(t) for θ=π/ 2. Throughout the evolution, the entangle-ment growth is dominated by SC(insets). Results are ob-tained for system sizes L= 10–14 at interaction strength
+> U/J = 0 .2, using bond dimensions up to 4000.
+
+mation spreading are simultaneously suppressed by dis-order [86–88], the phenomenon predicted here is driven by anyonic statistics. To understand this behavior, we decompose S(t) into number and configurational contributions. This decom-position was introduced as a symmetry-resolved entan-glement diagnostic to distinguish many-body localiza-tion from thermalization in disordered systems [89–92]. Particle-number conservation enforces the half-chain re-duced density matrix to be block diagonal, leading to 
+
+S(t) = SN (t) + SC (t). (8) Here, the number entropy SN (t) quantifies inter-sector entanglement, while the configuration entropy SC (t) cap-tures entanglement within each fixed-N sector [83], as shown in Fig. 3(b). We find that while eSN (t) exhibits an anomalous dynamical exponent z = 1 .5 [Fig. 3(c)], eSC (t)grows ballistically with z = 1 .05 [Fig. 3(d)]. Throughout the evolution, SC (t) ≫ SN (t), and thus the total entropy inherits ballistic scaling from the configurational degrees of freedom. This accounts for the faster spread of entan-glement compared to density fluctuations [Fig. 2(b)(d)]. 
+
+Quantum interference in anyonic lattice— We can un-derstand the anomalous dynamical scaling by appealing to the propagation of a holon-doublon pair on a unit-filled background, which reflects the spreading of den-sity correlations [93]. We find that propagation of the pair is suppressed due to quantum interference between hopping paths, revealing that the anomalous correlation scaling arises from anyonic statistics. Fig. 4(a) schemati-cally illustrates holon-doublon propagation, where differ-ent hopping paths acquire θ-dependent phases. Starting from a holon-doublon pair contributing density correla-tions at distance d = 1, we consider its propagation to distance d = 3, where d denotes the holon-doublon sep-aration. A representative contribution involves two in-terfering paths: (i) two adjacent particles tunnel sequen-tially to the right (orange arrows) without exchanging, yielding an amplitude J2 in the noninteracting limit; (ii) the left particle tunnels twice (green arrows), exchang-ing with its neighbor, acquiring an anyonic phase fac-tor 2 J2e−iθ . The resulting amplitude arises from the coherent sum of such processes. In the bosonic limit (θ = 0), the two paths interfere constructively, enhancing the propagation of the holon-doublon pair. In contrast, at θ = π, the interference becomes destructive, strongly suppressing the propagation. Additional exchange pro-cesses give rise to more complex interference patterns, which can suppress correlation spreading over a broad range of θ > 0 [83]. To quantify the effect of anyonic statistics on holon-doublon propagation, we compute the time evolution of the density deviation δn j (t) = nj (t) − ¯n in the weakly interacting regime, starting from an initial state 
+
+| · · · 110211 · · · ⟩ containing a central holon-doublon pair. Here, ¯n denotes the average density. As shown in Fig. 4(b), the pair spreads ballistically in the bosonic limit ( θ = 0). By contrast, the propagation is strongly suppressed for intermediate (θ = π/ 2) and pseud-ofermionic ( θ = π) statistics. 
+
+Experimental accessibility— The identified many-body features are within reach of current ultracold atom exper-iments, leveraging the Floquet protocol recently demon-strated in Ref. [35, 37]. While this protocol was originally demonstrated in a two-particle setting, the underlying in-terference mechanism remains robust in the many-body regime. As detailed in Fig. 4(c), a three-tone modulation of the lattice depth resonantly restores tunneling other-wise suppressed by the static tilt. Crucially, the phase offset θ of the V3 component (dot-dashed line) imple-ments the density-dependent Peierls phase. The numer-ical results in Fig. 4(d) exhibit agreement between the full Floquet-driven dynamics and the direct evolution of Eq. (3). Note that the difference at θ = π/ 2 originates from the opposite statistical angle acquired during the Floquet realization in a many-body setting [83]. Despite such a discrepancy, the overall dynamics exhibits qualita-tive agreement. This indicates that the additional com-plexities inherent in the Floquet scheme, such as higher-5(d )
+
+(a) (c) 
+
+(b) 
+
+θ = π/2 θ = πθ = 0 
+
+Hubbard model 
+
+anyon model 
+
+## t
+
+j jj                                         
+
+> FIG. 4. Diagram of interference picture of holon-doublon pairs under anyonic statistics and experimental realization. (a) Schematic illustration of holon-doublon propagation starting from an initially adjacent holon-doublon pair ( d= 1) to separation
+> d= 3 via two distinct hopping paths. Paths along these trajectories acquire θ-dependent phases, leading to destructive interference that suppresses the propagation of the pairs. (b) Density deviation dynamics δn j(t) governed by Eq. (3), after a central-site excitation for the bosonic (left, θ= 0), intermediate (middle, θ=π/ 2), and pseudofermionic (right, θ=π)cases. Dashed lines indicate the propagation front of the pair. (c) Floquet protocol realized in Ref. [35]: three-tone modulation
+> V=PVi(solid) resonantly restores tunneling in a tilted lattice; V1,2,3(dashed, dotted, dot-dashed) selectively drive singly-to-empty, singly-to-singly, and doubly-to-empty transitions. The phase offset θof V3implements the density-dependent Peierls phase. (d) Density deviation dynamics δn j(t) for the setup in (c). The agreement demonstrates the robust realization of anyonic dynamics in the many-body regime. Time tis in units of 1 /J in (b) and 1 /J ′in (d), with J′the effective hopping strength [83]. Results are obtained for a system of size L= 100 in the weakly interacting regime ( U/J = 0 .2).
+
+order tunneling, would not alter the essential physics, thereby establishing the predicted phenomena as an ex-perimentally accessible feature. Furthermore, single-site-resolved quantum-gas microscopy provides direct access to both correlation functions [77, 93–95] and entangle-ment entropy [89, 96, 97], offering a powerful experimen-tal probe into nonequilibrium dynamics governed by any-onic statistics. 
+
+Conclusion— In summary, we have demonstrated that anyonic statistics fundamentally modifies far-from-equilibrium quantum dynamics, driving a robust dynam-ical scaling that extends beyond the conventional bosonic and fermionic limits. In contrast to previous studies fo-cusing on asymmetric transport [35, 37, 42, 43] or dynam-ical fermionization [38, 41], our work identifies a distinct regime of scaling dynamics: while particle transport en-ters a superdiffusive regime, the entanglement entropy growth remains ballistic. This anomalous scaling is con-nected to quantum interference effects induced by the anyonic statistical phase, which suppress the propagation of coherent holon-doublon pairs. The scaling exponents exhibit a weak dependence on initial states within the explored regime, indicating that this statistics-induced dynamical scaling is a characteristic feature of anyonic systems. Our results provide new insights into nonequi-librium physics governed by anyonic statistics and ad-vance the control of transport and entanglement in syn-thetic quantum matter, realizable with current experi-mental techniques [35, 37]. Future work may clarify the universality classes underlying the predicted scaling using high-order cumulants in the long-time dynamics of larger quantum systems [65, 66]. It is an interesting question to explore richer nonequilibrium dynamics and entangle-ment growth beyond one dimension [5, 15, 98–100]. We acknowledge useful discussions with Yinghai Wu, and Felix Helluin. This work is supported by the Na-tional Natural Science Foundation of China (Grants No. 12374252, No. 12074431, No. 12174130, No. 12304076, and No. 12404332), and the Excellent Youth Founda-tion of Hunan Scientific Committee under Grant No. 2021JJ10044. Numerical calculations were performed on the TianHe-1A cluster of the National Supercomputer Center at Tianjin, and HPC resources on the ChinaHPC.   
+
+> ∗li yq@nudt.edu.cn [1] J. M. Leinaas and J. Myrheim, On the theory of identical particles, Il Nuovo Cimento B (1971-1996) 37 , 1 (1977). [2] G. A. Goldin, R. Menikoff, and D. H. Sharp, Represen-
+
+6
+
+tations of a local current algebra in nonsimply connected space and the aharonov–bohm effect, Journal of Mathe-matical Physics 22 , 1664 (1981). [3] F. Wilczek, Quantum mechanics of fractional-spin parti-cles, Phys. Rev. Lett. 49 , 957 (1982). [4] A. Khare, Fractional Statistics and Quantum Theory (WORLD SCIENTIFIC, 1998). [5] M. Greiter and F. Wilczek, Fractional statistics, Annual Review of Condensed Matter Physics 15 , 131 (2024). [6] B. I. Halperin, Statistics of quasiparticles and the hierar-chy of fractional quantized hall states, Phys. Rev. Lett. 
+
+52 , 1583 (1984). [7] D. Arovas, J. R. Schrieffer, and F. Wilczek, Fractional statistics and the quantum hall effect, Phys. Rev. Lett. 
+
+53 , 722 (1984). [8] H. Bartolomei, M. Kumar, R. Bisognin, A. Marguerite, J.-M. Berroir, E. Bocquillon, B. Pla¸ cais, A. Cavanna, Q. Dong, U. Gennser, Y. Jin, and G. F` eve, Fractional statistics in anyon collisions, Science 368 , 173 (2020). [9] J. Nakamura, S. Liang, G. C. Gardner, and M. J. Manfra, Direct observation of anyonic braiding statistics, Nature Physics 16 , 931 (2020). [10] R. Coldea, D. A. Tennant, A. M. Tsvelik, and Z. Tylczyn-ski, Experimental realization of a 2d fractional quantum spin liquid, Phys. Rev. Lett. 86 , 1335 (2001). [11] A. Kitaev, Anyons in an exactly solved model and be-yond, Annals of Physics 321 , 2 (2006). [12] G. Semeghini, H. Levine, A. Keesling, S. Ebadi, T. T. Wang, D. Bluvstein, R. Verresen, H. Pichler, M. Kali-nowski, R. Samajdar, A. Omran, S. Sachdev, A. Vish-wanath, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Prob-ing topological spin liquids on a programmable quantum simulator, Science 374 , 1242 (2021). [13] A. Y. Kitaev, Fault-tolerant quantum computation by anyons, Annals of physics 303 , 2 (2003). [14] S. Bravyi, Universal quantum computation with the 
+
+ν=5/2 fractional quantum hall state, Phys. Rev. A 73 ,042313 (2006). [15] C. Nayak, S. H. Simon, A. Stern, M. Freedman, and S. Das Sarma, Non-abelian anyons and topological quan-tum computation, Rev. Mod. Phys. 80 , 1083 (2008). [16] G. Q. AI and Collaborators, Non-abelian braiding of graph vertices in a superconducting processor, Nature 
+
+618 , 264 (2023). [17] F. D. M. Haldane, Exact jastrow-gutzwiller resonating-valence-bond ground state of the spin- 12 antiferromagnetic heisenberg chain with 1/r 2 exchange, Phys. Rev. Lett. 60 ,635 (1988). [18] B. S. Shastry, Exact solution of an s=1/2 heisenberg an-tiferromagnetic chain with long-ranged interactions, Phys. Rev. Lett. 60 , 639 (1988). [19] F. D. M. Haldane, “fractional statistics” in arbitrary di-mensions: A generalization of the pauli principle, Phys. Rev. Lett. 67 , 937 (1991). [20] A. Kundu, Exact solution of double δ function bose gas through an interacting anyon gas, Phys. Rev. Lett. 83 ,1275 (1999). [21] N. L. Harshman and A. C. Knapp, Anyons from three-body hard-core interactions in one dimension, Annals of Physics 412 , 168003 (2020). [22] M. Bonkhoff, K. J¨ agering, S. Eggert, A. Pelster, M. Thor-wart, and T. Posske, Bosonic continuum theory of one-dimensional lattice anyons, Phys. Rev. Lett. 126 , 163201 (2021). [23] T. Keilmann, S. Lanzmich, I. McCulloch, and M. Roncaglia, Statistically induced phase transitions and anyons in 1d optical lattices, Nature communications 2,361 (2011). [24] S. Greschner and L. Santos, Anyon hubbard model in one-dimensional optical lattices, Phys. Rev. Lett. 115 ,053002 (2015). [25] S. Nagies, B. Wang, A. C. Knapp, A. Eckardt, and N. L. Harshman, Beyond braid statistics: Constructing a lattice model for anyons with exchange statistics intrinsic to one dimension, SciPost Physics 16 , 086 (2024). [26] B. Wang, A. Vashisht, Y. Guo, S. Dhar, M. Landini, H.-C. N¨ agerl, and N. Goldman, Anyonization of bosons in one dimension: An effective swap model, Phys. Rev. Lett. 
+
+135 , 253403 (2025). [27] Y. Hao, Y. Zhang, and S. Chen, Ground-state properties of one-dimensional anyon gases, Phys. Rev. A 78 , 023631 (2008). [28] Y. Hao, Y. Zhang, and S. Chen, Ground-state proper-ties of hard-core anyons in one-dimensional optical lat-tices, Phys. Rev. A 79 , 043633 (2009). [29] G. Tang, S. Eggert, and A. Pelster, Ground-state prop-erties of anyons in a one-dimensional lattice, New Journal of Physics 17 , 123016 (2015). [30] C. Str¨ ater, S. C. L. Srivastava, and A. Eckardt, Floquet realization and signatures of one-dimensional anyons in an optical lattice, Phys. Rev. Lett. 117 , 205303 (2016). [31] W. Zhang, S. Greschner, E. Fan, T. C. Scott, and Y. Zhang, Ground-state properties of the one-dimensional unconstrained pseudo-anyon hubbard model, Phys. Rev. A 95 , 053614 (2017). [32] M. Bonkhoff, K. J¨ agering, S. Hu, A. Pelster, S. Eggert, and I. Schneider, Anyonic phase transitions in the 1d ex-tended hubbard model with fractional statistics, Phys. Rev. Lett. 135 , 036601 (2025). [33] A. Fr¨ olian, C. S. Chisholm, E. Neri, C. R. Cabrera, R. Ramos, A. Celi, and L. Tarruell, Realizing a 1d topo-logical gauge theory in an optically dressed bec, Nature 
+
+608 , 293 (2022). [34] C. S. Chisholm, A. Fr¨ olian, E. Neri, R. Ramos, L. Tarru-ell, and A. Celi, Encoding a one-dimensional topological gauge theory in a raman-coupled bose-einstein condensate, Phys. Rev. Res. 4, 043088 (2022). [35] J. Kwan, P. Segura, Y. Li, S. Kim, A. V. Gorshkov, A. Eckardt, B. Bakkali-Hassani, and M. Greiner, Realiza-tion of one-dimensional anyons with arbitrary statistical phase, Science 386 , 1055 (2024). [36] S. Dhar, B. Wang, M. Horvath, A. Vashisht, Y. Zeng, M. B. Zvonarev, N. Goldman, Y. Guo, M. Landini, and H.-C. N¨ agerl, Observing anyonization of bosons in a quantum gas, Nature 642 , 53 (2025). [37] B. Bakkali-Hassani, J. Kwan, P. Segura, Y. Li, I. Tes-faye, G. Valent´ ı-Rojas, A. Eckardt, and M. Greiner, Re-vealing pseudo-fermionization and chiral binding of one-dimensional anyons using adiabatic state preparation, arXiv:2602.20421 . [38] A. del Campo, Fermionization and bosonization of ex-panding one-dimensional anyonic fluids, Phys. Rev. A 78 ,045602 (2008). [39] L. Wang, L. Wang, and Y. Zhang, Quantum walks of two interacting anyons in one-dimensional optical lattices, Phys. Rev. A 90 , 063618 (2014). [40] T. M. Wright, M. Rigol, M. J. Davis, and K. V. 7
+
+Kheruntsyan, Nonequilibrium dynamics of one-dimensional hard-core anyons following a quench: Complete relaxation of one-body observables, Phys. Rev. Lett. 113 , 050601 (2014). [41] L. Piroli and P. Calabrese, Exact dynamics following an interaction quench in a one-dimensional anyonic gas, Phys. Rev. A 96 , 023611 (2017). [42] F. Liu, J. R. Garrison, D.-L. Deng, Z.-X. Gong, and A. V. Gorshkov, Asymmetric particle transport and light-cone dynamics induced by anyonic statistics, Phys. Rev. Lett. 
+
+121 , 250404 (2018). [43] R.-J. Chen, Y.-X. Huang, G.-Q. Zhang, and D.-W. Zhang, Asymmetric and chiral dynamics of two-component anyons with synthetic gauge flux, arXiv:2512.19139 . [44] T. Kinoshita, T. Wenger, and D. S. Weiss, A quantum newton’s cradle, Nature 440 , 900 (2006). [45] S. Trotzky, Y.-A. Chen, A. Flesch, I. P. McCulloch, U. Schollw¨ ock, J. Eisert, and I. Bloch, Probing the re-laxation towards equilibrium in an isolated strongly cor-related one-dimensional bose gas, Nature physics 8, 325 (2012). [46] M. Gring, M. Kuhnert, T. Langen, T. Kitagawa, B. Rauer, M. Schreitl, I. Mazets, D. A. Smith, E. Demler, and J. Schmiedmayer, Relaxation and prethermalization in an isolated quantum system, Science 337 , 1318 (2012). [47] J.-y. Choi, S. Hild, J. Zeiher, P. Schauß, A. Rubio-Abadal, T. Yefsah, V. Khemani, D. A. Huse, I. Bloch, and C. Gross, Exploring the many-body localization transition in two dimensions, Science 352 , 1547 (2016). [48] M. Pr¨ ufer, P. Kunkel, H. Strobel, S. Lannig, D. Linne-mann, C.-M. Schmied, J. Berges, T. Gasenzer, and M. K. Oberthaler, Observation of universal dynamics in a spinor bose gas far from equilibrium, Nature 563 , 217 (2018). [49] S. Erne, R. B¨ ucker, T. Gasenzer, J. Berges, and J. Schmiedmayer, Universal dynamics in an isolated one-dimensional bose gas far from equilibrium, Nature 563 ,225 (2018). [50] A. Polkovnikov, K. Sengupta, A. Silva, and M. Ven-galattore, Colloquium: Nonequilibrium dynamics of closed interacting quantum systems, Rev. Mod. Phys. 83 , 863 (2011). [51] R. Vasseur and J. E. Moore, Nonequilibrium quantum dynamics and transport: from integrability to many-body localization, Journal of Statistical Mechanics: Theory and Experiment 2016 , 064010 (2016). [52] L. D’Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, From quantum chaos and eigenstate thermalization to statistical mechanics and thermodynamics, Advances in Physics 65 , 239 (2016). [53] F. H. Essler and M. Fagotti, Quench dynamics and relax-ation in isolated integrable quantum spin chains, Journal of Statistical Mechanics: Theory and Experiment 2016 ,064002 (2016). [54] M. Ueda, Quantum equilibration, thermalization and prethermalization in ultracold atoms, Nature Reviews Physics 2, 669 (2020). [55] B. Bertini, F. Heidrich-Meisner, C. Karrasch, T. Prosen, R. Steinigeweg, and M. ˇZnidariˇ c, Finite-temperature transport in one-dimensional quantum lattice models, Rev. Mod. Phys. 93 , 025003 (2021). [56] M. A. Nichols, L. W. Cheuk, M. Okan, T. R. Hartke, E. Mendez, T. Senthil, E. Khatami, H. Zhang, and M. W. Zwierlein, Spin transport in a mott insulator of ultracold fermions, Science 363 , 383 (2019). [57] P. N. Jepsen, J. Amato-Grill, I. Dimitrova, W. W. Ho, E. Demler, and W. Ketterle, Spin transport in a tunable heisenberg model realized with ultracold atoms, Nature 
+
+588 , 403 (2020). [58] M. K. Joshi, F. Kranzl, A. Schuckert, I. Lovas, C. Maier, R. Blatt, M. Knap, and C. F. Roos, Observing emergent hydrodynamics in a long-range quantum magnet, Science 
+
+376 , 720 (2022). [59] J. F. Wienand, S. Karch, A. Impertro, C. Schweizer, E. McCulloch, R. Vasseur, S. Gopalakrishnan, M. Aidels-burger, and I. Bloch, Emergence of fluctuating hydrody-namics in chaotic quantum systems, Nature Physics 20 ,1732 (2024). [60] M. Ljubotina, M. ˇZnidariˇ c, and T. c. v. Prosen, Kardar-parisi-zhang physics in the quantum heisenberg magnet, Phys. Rev. Lett. 122 , 210602 (2019). [61] A. Das, M. Kulkarni, H. Spohn, and A. Dhar, Kardar-parisi-zhang scaling for an integrable lattice landau-lifshitz spin chain, Phys. Rev. E 100 , 042116 (2019). [62] S. Gopalakrishnan and R. Vasseur, Kinetic theory of spin diffusion and superdiffusion in xxz spin chains, Phys. Rev. Lett. 122 , 127202 (2019). [63] J. De Nardis, M. Medenjak, C. Karrasch, and E. Ilievski, Anomalous spin diffusion in one-dimensional antiferro-magnets, Phys. Rev. Lett. 123 , 186601 (2019). [64] B. Ye, F. Machado, J. Kemp, R. B. Hutson, and N. Y. Yao, Universal kardar-parisi-zhang dynamics in integrable quantum systems, Phys. Rev. Lett. 129 , 230602 (2022). [65] D. Wei, A. Rubio-Abadal, B. Ye, F. Machado, J. Kemp, K. Srakaew, S. Hollerith, J. Rui, S. Gopalakrishnan, N. Y. Yao, I. Bloch, and J. Zeiher, Quantum gas microscopy of kardar-parisi-zhang superdiffusion, Science 376 , 716 (2022). [66] E. Rosenberg, T. Andersen, R. Samajdar, A. Petukhov, J. Hoke, D. Abanin, A. Bengtsson, I. Drozdov, C. Erick-son, P. Klimov, and et al, Dynamics of magnetization at infinite temperature in a heisenberg spin chain, Science 
+
+384 , 48 (2024). [67] M. T. Batchelor, X.-W. Guan, and N. Oelkers, One-dimensional interacting anyon gas: Low-energy proper-ties and haldane exclusion statistics, Phys. Rev. Lett. 96 ,210402 (2006). [68] F. Wilczek, Fractional statistics and anyon superconduc-tivity, Vol. 5 (World scientific, 1990). [69] L. W. Clark, B. M. Anderson, L. Feng, A. Gaj, K. Levin, and C. Chin, Observation of density-dependent gauge fields in a bose-einstein condensate based on micromotion control in a shaken two-dimensional lattice, Phys. Rev. Lett. 121 , 030402 (2018). [70] F. G¨ org, K. Sandholzer, J. Minguzzi, R. Desbuquois, M. Messer, and T. Esslinger, Realization of density-dependent peierls phases to engineer quantized gauge fields coupled to ultracold matter, Nature Physics 15 , 1161 (2019). [71] C. Schweizer, F. Grusdt, M. Berngruber, L. Barbiero, E. Demler, N. Goldman, I. Bloch, and M. Aidelsburger, Floquet approach to Z2 lattice gauge theories with ultra-cold atoms in optical lattices, Nature Physics 15 , 1168 (2019). [72] J. Haegeman, J. I. Cirac, T. J. Osborne, I. Piˇ zorn, H. Verschelde, and F. Verstraete, Time-dependent vari-ational principle for quantum lattices, Phys. Rev. Lett. 
+
+107 , 070601 (2011). 8
+
+[73] J. Hauschild, J. Unfried, S. Anand, B. Andrews, M. Bintz, U. Borla, S. Divic, M. Drescher, J. Geiger, M. Hefel, K. H´ emery, W. Kadow, J. Kemp, N. Kirchner, V. S. Liu, G. M¨ oller, D. Parker, M. Rader, A. Romen, S. Scalet, L. Schoonderwoerd, M. Schulz, T. Soejima, P. Thoma, Y. Wu, P. Zechmann, L. Zweng, R. S. K. Mong, M. P. Zaletel, and F. Pollmann, Tensor network Python (TeNPy) version 1, SciPost Phys. Codebases , 41 (2024). [74] M. Rispoli, A. Lukin, R. Schittko, S. Kim, M. E. Tai, J. L´ eonard, and M. Greiner, Quantum critical behaviour at the many-body localization transition, Nature 573 , 385 (2019). [75] O. Due˜ nas, D. Pe˜ na, and A. Rodr´ ıguez, Propagation of two-particle correlations across the chaotic phase for in-teracting bosons, Phys. Rev. Res. 7, L012031 (2025). [76] D. S. Bhakuni and Y. B. Lev, Dynamic scaling relation in quantum many-body systems, Phys. Rev. B 110 , 014203 (2024). [77] K. Kwon, K. Fujimoto, J. Hur, B. Lee, S. Hwang, S. Kim, R. Hamazaki, Y. Kawaguchi, and J. yoon Choi, Universal Family-Vicsek scaling in quantum gases far from equilib-rium, arXiv:2603.09060 . [78] S. F. Edwards and D. R. Wilkinson, The surface statistics of a granular aggregate, Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences , 17 (1982). [79] T. Vicsek and F. Family, Dynamic scaling for aggregation of clusters, Phys. Rev. Lett. 52 , 1669 (1984). [80] F. Family and T. Vicsek, Scaling of the active zone in the eden process on percolation networks and the ballistic deposition model, Journal of Physics A: Mathematical and General 18 , L75 (1985). [81] M. Kardar, G. Parisi, and Y.-C. Zhang, Dynamic scaling of growing interfaces, Phys. Rev. Lett. 56 , 889 (1986). [82] K. Fujimoto, R. Hamazaki, and Y. Kawaguchi, Family-vicsek scaling of roughness growth in a strongly interacting bose gas, Phys. Rev. Lett. 124 , 210604 (2020). [83] See Supplemental Material for CTD analyses, numerical convergence, extraction of growth exponent, robustness to initial states and disorder, entanglement-entropy scal-ing analyses, additional holon–doublon propagation mech-anisms, and experimental realization. [84] K. Fujimoto, R. Hamazaki, and Y. Kawaguchi, Impact of dissipation on universal fluctuation dynamics in open quantum systems, Phys. Rev. Lett. 129 , 110403 (2022). [85] K. Fujimoto, R. Hamazaki, and Y. Kawaguchi, Dynam-ical scaling of surface roughness and entanglement en-tropy in disordered fermion models, Phys. Rev. Lett. 127 ,090601 (2021). [86] M. ˇZnidariˇ c, T. c. v. Prosen, and P. Prelovˇ sek, Many-body localization in the heisenberg xxz magnet in a ran-dom field, Phys. Rev. B 77 , 064426 (2008). [87] J. H. Bardarson, F. Pollmann, and J. E. Moore, Un-bounded growth of entanglement in models of many-body localization, Phys. Rev. Lett. 109 , 017202 (2012). [88] D. A. Huse, R. Nandkishore, and V. Oganesyan, Phe-nomenology of fully many-body-localized systems, Phys. Rev. B 90 , 174202 (2014). [89] A. Lukin, M. Rispoli, R. Schittko, M. E. Tai, A. M. Kauf-man, S. Choi, V. Khemani, J. L´ eonard, and M. Greiner, Probing entanglement in a many-body–localized system, Science 364 , 256 (2019). [90] M. Kiefer-Emmanouilidis, R. Unanyan, M. Fleischhauer, and J. Sirker, Evidence for unbounded growth of the num-ber entropy in many-body localized phases, Phys. Rev. Lett. 124 , 243601 (2020). [91] D. J. Luitz and Y. B. Lev, Absence of slow particle trans-port in the many-body localized phase, Phys. Rev. B 102 ,100202 (2020). [92] J. Chen, C. Chen, and X. Wang, Symmetry- and energy-resolved entanglement dynamics in a disordered bose-hubbard model, Phys. Rev. B 112 , 094201 (2025). [93] M. Cheneau, P. Barmettler, D. Poletti, M. Endres, P. Schauß, T. Fukuhara, C. Gross, I. Bloch, C. Kollath, and S. Kuhr, Light-cone-like spreading of correlations in a quantum many-body system, Nature 481 , 484 (2012). [94] M. Endres, M. Cheneau, T. Fukuhara, C. Weitenberg, P. Schauss, C. Gross, L. Mazza, M. C. Banuls, L. Pollet, I. Bloch, , and S. Kuhr, Observation of correlated particle-hole pairs and string order in low-dimensional mott insu-lators, Science 334 , 200 (2011). [95] T. Schweigler, V. Kasper, S. Erne, I. Mazets, B. Rauer, F. Cataldini, T. Langen, T. Gasenzer, J. Berges, and J. Schmiedmayer, Experimental characterization of aquantum many-body system via higher-order correlations, Nature 545 , 323 (2017). [96] R. Islam, R. Ma, P. M. Preiss, M. Eric Tai, A. Lukin, M. Rispoli, and M. Greiner, Measuring entanglement en-tropy in a quantum many-body system, Nature 528 , 77 (2015). [97] A. M. Kaufman, M. E. Tai, A. Lukin, M. Rispoli, R. Schittko, P. M. Preiss, and M. Greiner, Quantum ther-malization through entanglement in an isolated many-body system, Science 353 , 794 (2016). [98] L. Mazza, J. Viti, M. Carrega, D. Rossini, and A. De Luca, Energy transport in an integrable parafermionic chain via generalized hydrodynamics, Phys. Rev. B 98 , 075421 (2018). [99] D. Rossini, M. Carrega, M. Calvanese Strinati, and L. Mazza, Anyonic tight-binding models of parafermions and of fractionalized fermions, Phys. Rev. B 99 , 085113 (2019). [100] F. Helluin, D. Pinto-Dias, Q. Fontaine, S. Ravets, J. Bloch, A. Minguzzi, and L. Canet, Phase diagram and universal scaling regimes of two-dimensional exciton-polariton bose-einstein condensates, Phys. Rev. Res. 7,033103 (2025). 9
+
+# Supplemental Material for “Statistics-governed dynamical scaling in interacting anyonic chains” 
+
+CONTENTS 
+
+I. Correlation transport distance in a free bosonic chain 1II. Numerical convergence 2III. Extraction of growth exponent β 3IV. Robustness of anomalous dynamical scaling 4V. Entanglement entropy in anyonic chain 5(A) Number and Configuration Entropy 5(B) Entropy in bosonic chain 5(C) Extraction of dynamical exponent z 5VI. Additional propagation processes of holon-doublon pairs 6VII. Experimental realization of the anyon hubbard model 7
+
+I. CORRELATION TRANSPORT DISTANCE IN A FREE BOSONIC CHAIN 
+
+In this section, we derive the correlation transport distance (CTD) for the standard Bose-Hubbard model (BHM) in the noninteracting regime. The system is described by the tight-binding Hamiltonian ˆH0 = −J X
+
+> j
+
+ˆb†
+
+> j
+
+ˆbj+1 + h .c.
+
+
+
+, (S1) where J denotes the nearest-neighbor hopping amplitude. The time evolution of the bosonic annihilation operator is governed by 
+
+i ddt ˆbj (t) = [ ˆbj (t), ˆH0] = −J
+
+hˆbj−1(t) + ˆbj+1 (t)
+
+i
+
+. (S2) Introducing the Fourier transform ˆbk = 1
+
+√L
+
+> L
+
+X
+
+> j=1
+
+e−ikj ˆbj , (S3) the equation of motion in momentum space becomes 
+
+i ddt ˆbk(t) = −J  e−ik + eik  ˆbk(t) = −2J cos( k) ˆbk(t), (S4) which yields the solution ˆbk(t) = e2iJt cos( k)ˆbk(0) . (S5) Transforming back to real space, the annihilation and creation operators evolve as ˆbj (t) = 
+
+> L
+
+X
+
+> m=1
+
+Vj−m(t) ˆbm(0) ,
+
+ˆb† 
+
+> j
+
+(t) = 
+
+> L
+
+X
+
+> n=1
+
+V ∗
+
+> j−n
+
+(t) ˆb†
+
+> n
+
+(0) , (S6) 10 where the single-particle propagator is 
+
+Vl(t) = 1
+
+L
+
+X
+
+> k
+
+eikl e2iJt cos( k). (S7) We consider an initial state with integer filling ¯ n per site. In this case, the four-point correlator satisfies [1] 
+
+⟨¯n|ˆb†
+
+> p
+
+ˆbqˆb†
+
+> r
+
+ˆbs|¯n⟩ = ¯ n2δp,q δr,s + ¯ n(¯ n + 1)(1 − δp,q )δp,s δq,r . (S8) Using this identity, the density-density correlation function can be written as 
+
+⟨ˆnj ˆnj+d⟩ = X
+
+> m,n,p,q
+
+V ∗
+
+> j−m
+
+Vj−nV ∗
+
+> j+d−p
+
+Vj+d−q ⟨ˆb†
+
+> m
+
+ˆbnˆb†
+
+> p
+
+ˆbq ⟩
+
+= ¯ n2 − ¯n(¯ n + 1) X
+
+> m
+
+|Vj−m|2|Vj+d−m|2. (S9) Subtracting the disconnected contribution, we obtain the connected density-density correlation 
+
+Cd(t) = ⟨ˆnj ˆnj+d⟩ − ⟨ ˆnj ⟩⟨ ˆnj+d⟩
+
+= −¯n(¯ n + 1) X
+
+> m
+
+|Vj−m|2|Vj+d−m|2. (S10) In the thermodynamic limit, the propagator reduces to Bessel functions, Vl(t) = ilJl(2 Jt ), yielding 
+
+Cd(t) = −¯n(¯ n + 1) X
+
+> j
+
+J2 
+
+> j
+
+(2 Jt ) J2
+
+> j+d
+
+(2 Jt ) . (S11) The two-particle CTD is defined as 
+
+l(t) = 
+
+> L−1
+
+X
+
+> d=1
+
+d × ⟨| Ck,k +d(t)|⟩ k, (S12) where ⟨· · · ⟩ k denotes averaging over all reference sites k. This analytical result explains the ballistic scaling behavior shown in Fig. 2(a) of the main text. 
+
+> II. NUMERICAL CONVERGENCE
+
+In this section, we present convergence tests for the numerical results on the dynamics of the anyonic Hubbard chain, obtained using the time-dependent variational principle algorithm. Since matrix-product-state simulations are inherently variational, it is essential to verify convergence with respect to the numerical control parameters. We perform systematic convergence checks by varying the bond dimension, system size L, time step dt , and local occupation cutoff Nm, as shown in Fig. S1. The results demonstrate that, for the model parameters considered in this work, the dependence on these parameters is weak and does not significantly affect the system dynamics.  
+
+> III. EXTRACTION OF GROWTH EXPONENT β
+
+In this section, we describe the numerical procedure used to extract the dynamical exponent β from the time evolution of the CTD l(t). As discussed in the main text, l(t) exhibits a steady growth regime at intermediate times, characterized by a power-law scaling l(t) ∼ tβ . To determine β reliably, we perform power-law fits to l(t) within an intermediate-time window [ tl, t r ], where neither short-time transients nor finite-size saturation effects dominate the dynamics. Specifically, we vary the left boundary tl of the fitting window while keeping the right boundary tr fixed, and monitor the convergence of the extracted exponent. The early-time regime is excluded from the fitting window because the dynamics in this regime is dominated by free processes, which do not reflect the emergent many-body scaling behavior. At late times, l(t) gradually approaches a saturation value due to the finite system size, and data points in this regime are also excluded from the fit. Therefore, the right boundary of the fitting window is chosen sufficiently before the onset of saturation. 11 (b) (d ) (f) (h)                    
+
+> (a) (c )(e) (g )
+> FIG. S1. Dependence of the correlation transport distance l(t) on numerical control parameters: (a,b) bond dimension, (c,d) system size L, (e,f) time step dt , and (g,h) local occupation cutoff Nm.The parameters used in the main text are a bond dimension of 1500 for θ= 0 and 2000 for θ=π, with L= 100, dt = 0 .01, and Nm= 5.
+
+## (b) (a) (c )                           
+
+> FIG. S2. Convergence of the growth exponent βextracted from the CTD l(t) for system size L= 100. The inset illustrates the growth exponent βextracted from a power-law fit l(t)∼tβwithin a fitting time window [ tl, t r] (highlighted in yellow). (a) Bosonic limit θ= 0 with tr= 3. (b) Anyonic regime θ=π/ 2 with tr= 3. (c) Pseudofermionic limit θ=πwith tr= 5.
+
+In practice, we take the right boundary of the fitting window to be tr = 3 for smaller values of the statistical angle θ, and tr = 5 for larger θ. Within these windows, the extracted exponent β shows clear convergence as the left boundary tl approaches the deep intermediate-time regime. This convergence behavior demonstrates the robustness of the extracted β, as illustrated in Fig. S2. Here we clarify the relationship between the dynamical exponent z and the growth exponent β extracted from the CTD. In general, for a single-particle operator ˆO, the associated dynamical exponent satisfies the scaling relation 
+
+z = α/β O , where α = 1 /2 for one-dimensional (1D) transport. However, the CTD l(t) considered here is constructed from a two-point density-density correlation function and therefore probes two-particle correlations. As a result, the growth exponent extracted from l(t) satisfies β = 2 βO , which leads to the relation z = 1 /β used in the main text. 
+
+> IV. ROBUSTNESS OF ANOMALOUS DYNAMICAL SCALING
+
+To demonstrate that the anomalous dynamical scaling observed in the anyonic chain is robust and universal, we examine the dynamics starting from different initial states, specifically | · · · 110211 · · · ⟩ and | · · · 0202 · · · ⟩ , as shown in Fig. S3(a) and (c), respectively. Panels (a) and (c) show the time evolution of the CTD l(t) under different interaction strengths, while panels (b) and (d) display the corresponding growth exponents β. In the weakly interacting regime, the anyonic chain exhibits superdiffusive scaling, indicating that the anomalous scaling does not require a homogeneous initial state. To further test the robustness against disorder, we introduce an onsite disorder term ˆHdis = W X
+
+> j
+
+wj ˆnj , (S13) 12 (b) (d ) (f) 
+
+(a) (c ) (e) 
+
+FIG. S3. Robustness of the anomalous dynamical scaling. (a–d) Anomalous dynamical scaling starting from different initial states. (e,f) Robustness to the onsite disorder term Hdis . For finite disorder strength W = 0 .5, l(t) remains superdiffusive. 
+
+where wj is drawn from a uniform distribution in the interval [ −1, 1], and consider the total Hamiltonian ˆHtot =ˆH + ˆHdis . The resulting l(t) averaged over 10 disorder samples with W = 0 .5 is shown in Fig. S3(e), and the extracted growth exponent β in Fig. S3(f) indicates that the anomalous dynamical scaling persists in the weakly interacting regime even in the presence of finite disorder. 
+
+V. ENTANGLEMENT ENTROPY IN THE ANYONIC CHAIN A. Number and Configuration Entropy 
+
+For a subsystem A, the reduced density matrix ρA can be block-diagonalized according to the particle number N
+
+in A, ρA = L 
+
+> N
+
+ρNA , where ρNA acts on the N -particle subspace HNA . The probability to find N particles in A is 
+
+pN = Tr ρNA , X
+
+> N
+
+pN = 1 . (S14) Normalized density matrices within each subspace are defined as ˜ρNA = ρNA
+
+pN
+
+, Tr ˜ ρNA = 1 . (S15) The total von Neumann entropy of A is 
+
+S = −Tr( ρA log ρA) = − X
+
+> N
+
+Tr( ρNA log ρNA ). (S16) Substituting ρNA = pN ˜ρNA and using log( pN ˜ρNA ) = (log pN )I + log ˜ ρNA , we obtain 
+
+−Tr( ρNA log ρNA ) = −pN log pN − pN Tr(˜ ρNA log ˜ ρNA ). (S17) Defining the conditional von Neumann entropy in the subspace HNA as 
+
+SN = −Tr(˜ ρNA log ˜ ρNA ), (S18) we arrive at the standard decomposition 
+
+S = SN + SC , SN = − X
+
+> N
+
+pN log pN , SC = X
+
+> N
+
+pN SN . (S19) 13 (b) (a) (c )             
+
+> FIG. S4. Dynamical scaling of entanglement entropy in the bosonic limit. (a) Scaled von Neumann entropy eS(t), (b) number entropy eSN(t), (c) configuration entropy eSC(t) as a function of time tfor bosonic limit θ= 0, with the corresponding unscaled data shown in the insets. Numerical results are calculated for system sizes L= 10–14 with weak interaction strength U/J = 0 .2.
+
+Here, SN is the number entropy, reflecting particle-number fluctuations in A, and SC is the configuration entropy, quantifying quantum correlations within each fixed-N subspace. This decomposition separates the total entanglement into contributions from particle-number fluctuations and configurational quantum correlations. The rescaled number entropy and rescaled configuration entropy are 
+
+eSN (t) = SN (t/L z )/S N, sat , (S20a) 
+
+eSC (t) = SC (t/L z )/S C, sat , (S20b) where SN, sat and SC, sat are the long-time saturation values. 
+
+> B. Entropy in bosonic chain
+
+To further support our numerical results, we examine the entanglement entropy dynamics in the bosonic limit (θ = 0) to demonstrate its ballistic scaling behavior. We numerically simulate the evolution of the total entanglement entropy S(t), number entropy SN (t), and configuration entropy SC (t) for different system sizes. We find that all contributions exhibit ballistic scaling, with the configuration entropy SC (t) remaining larger than the number entropy 
+
+SN (t) throughout the evolution. These features are consistent with the behavior observed in the anyonic case ( θ = π/ 2) discussed in the main text.  
+
+> C. Extraction of dynamical exponent z
+
+To illustrate the numerical extraction of the dynamical exponent z from entanglement entropy, we show the evolution of S(t) with θ = π/ 2 and U/J = 0 .2 in Fig. S5. Entanglement growth for different system sizes L is expected to follow the same scaling function. By rescaling time as t → t/L z and normalizing the entropies as eS(L, t ), the saturation curves for different system sizes should collapse onto each other. We define an error function quantifying the deviation of each rescaled entropy from a reference size Lref within a chosen time window [ t1, t 2]: 
+
+ξ(z) = X
+
+> L̸=Lref
+
+Z t2
+
+> t1
+
+eS(L, t ) − eS(Lref , t ) dt. (S21) The value of z minimizing ξ provides the optimal estimate of the dynamical exponent. Here we choose Lref = 14. Since early-time dynamics is dominated by free processes and does not reflect universal scaling, we focus on the late-time evolution approaching saturation. For the total entropy S(t), we consider the time window t ∈ [5 , 20], as shown in Fig. S5(a). The inset shows the error ξ as a function of z, with a minimum at z = 1 .05, where the rescaled entropies collapse onto a single curve, confirming ballistic scaling. Applying the same procedure to the number entropy SN (t), using a later window t ∈ [6 , 40] due to its slower satu-ration, yields a minimum at z = 1 .5, as shown in Fig. S5(b), indicating superdiffusive behavior. For the configuration entropy SC (t), using a time window similar to that of S(t), t ∈ [5 , 20], we find z = 1 .05 in Fig. S5(c), consistent with ballistic scaling. These results show that the total entanglement growth is dominated by configuration entropy, while the number entropy reflects the anomalous particle transport. 14 (b) (a) (c )         
+
+> FIG. S5. Extraction of the dynamical exponent zfrom entanglement entropy. (a) Total entanglement entropy S(t) for different system sizes L. (b) Number entropy SN(t). (c) Configuration entropy SC(t). The insets show the error function ξ(z), with its minimum indicating the optimal dynamical exponent.
+> VI. ADDITIONAL PROPAGATION PROCESSES OF HOLON-DOUBLON PAIRS
+
+In the main text, we presented a representative example of the propagation of correlations from d = 1 to d = 3, corresponding to the leftward propagation of the holon. Here we provide the complementary process associated with the rightward propagation of the doublon in Fig. S6(a). This contribution also involves two interfering paths: (i) two adjacent particles tunnel sequentially to the right (orange arrows), exchanging once and yielding an amplitude 2J2e−iθ ; (ii) the left particle tunnels twice (green arrows), exchanging twice with its neighbor and acquiring an anyonic phase 4 J2e−i2θ . The total amplitude arises from the coherent sum of these processes. In the bosonic limit ( θ = 0), the two paths interfere constructively, enhancing the propagation of the holon-doublon pair, whereas in the fermionic limit ( θ = π), the interference becomes destructive, strongly suppressing the propagation. The dynamics of the density deviation δn j (t) shown in the main text indicate that the site with δn j < 0 remains on the left while the site with δn j > 0 remains on the right. This implies that for θ > 0, the holon and doublon effectively propagate toward opposite sides of the chain. To understand this behavior, we analyze the motion of the holon-doublon pair. We consider cases where the pair propagates coherently to the right [Fig. S6(b)] or to the left [Fig. S6(c)]. For the rightward propagation [case (b)], the contribution again involves two interfering paths: (i) one particle of the doublon hops to the left, filling the holon site, followed by the other hopping to the right, yielding an amplitude 2 J2; (ii) one particle of the doublon hops to the right first, then the other hops to the left, acquiring an anyonic phase 2 J2e−iθ . The hopping order determines the accumulated phase, and the total amplitude is given by the coherent superposition of these processes. Such coherent pair propagation is suppressed for θ > 0. Consequently, during the time evolution the holon-doublon pair tends either to remain localized or to separate toward opposite sides of the chain. As a result, the growth of particle-number fluctuations in the half-chain is suppressed for θ > 0, and the corresponding number entropy exhibits a strongly reduced growth rate, consistent with the main text. To elucidate the role of the anyonic statistical angle in the coherent propagation of holon-doublon pairs at larger distances, we illustrate the representative processes contributing to a separation d = 4, as shown in Fig. S6(d). Three typical paths contribute to this process, each acquiring a distinct phase determined by the anyonic angle θ, which controls the resulting interference pattern. (i) Three adjacent particles hop sequentially to the right (blue arrows), involving one exchange and yielding an amplitude 2 J3e−iθ ; (ii) two particles separated by one site each hop once to the right, followed by a hop of one particle from the left doublon (orange arrows), resulting in an amplitude 4 J3e−i2θ ; (iii) the leftmost particle hops three times sequentially from left to right (green arrows), acquiring an amplitude 8 J3e−i3θ .Additional hopping sequences are omitted for clarity. The total amplitude for propagation to d = 4 arises from the coherent superposition of all contributing paths, each carrying a distinct exchange phase. As the propagation distance increases, the superposition of these multiple contributions generates increasingly intricate interference structures in 
+
+θ space. Consequently, destructive interference can arise over a broad range of nonzero θ, naturally accounting for the suppression of correlation spreading for general θ > 0. 
+
+> VII. EXPERIMENTAL REALIZATION OF THE ANYON HUBBARD MODEL
+
+Following the experimental framework demonstrated in Ref. [2], we discuss the realization of the anyon Hubbard model in an optical lattice. As shown in Fig. S7(a), the experimental implementation utilizes a tilted 1D Bose-Hubbard chain with interaction U0, where a magnetic field gradient creates a static energy offset E between adjacent sites. 15 d = 4                         
+
+> d= 1
+> (b) (a) (c )
+> (d)
+> d= 3
+> d= 1
+> N+ 1
+> N
+> N+ 1
+> N
+> FIG. S6. Interferometric processes for holon–doublon propagation. (a) Additional contribution to the increase of the separation from d= 1 to d= 3 via rightward motion of the doublon. Two tunneling paths interfere: sequential hopping of adjacent particles (orange) with amplitude 2 J2e−iθ and hopping twice of a single particle (green) with amplitude 4 J2e−i2θ.(b,c) Coherent propagation of the holon–doublon pair to the right or left. Different hopping orders accumulate distinct anyonic exchange phases, leading to interference that suppresses coherent pair propagation for θ > 0. (d) Representative processes contributing to d= 4. Three typical paths (blue, orange, green) acquire amplitudes 2 J3e−iθ , 4 J3e−i2θ, and 8 J3e−i3θ.
+
+This potential tilt effectively suppresses the bare tunneling J. To restore particle tunneling with amplitude J′, the lattice depth is modulated with resonant frequencies that compensate for the energy differences of specific hopping processes, a technique known as Floquet engineering. This Floquet approach provides an effective route to realize density-dependent hopping phases, as illustrated in Fig. S7(b). The Hamiltonian is ˆH′(t) = − J
+
+> L−1
+
+X
+
+> j=1
+
+ˆb†
+
+> j
+
+ˆbj+1 + h.c. 
+
+
+
++ U0
+
+2
+
+> L
+
+X
+
+> j=1
+
+ˆnj (ˆ nj − 1) + E
+
+> L
+
+X
+
+> j=1
+
+j ˆnj + X
+
+> i
+
+Vi(t). (S22) Defining the effective onsite interaction as U , the primary processes are: (i) |1, 0⟩ → | 0, 1⟩, driven at frequency ω1 = E;(ii) |1, 1⟩ → | 0, 2⟩, driven at ω2 = E − (U0 − U ); (iii) |2, 0⟩ → | 1, 1⟩, driven at ω3 = E + ( U0 + U ). To map these processes onto the anyon Hubbard model, an additional phase offset θ is imprinted on the drive for process (iii), while processes (i) and (ii) remain reference transitions [gray block in Fig. S7(b)]. This configuration is sufficient for low fillings; however, at unit filling, an additional process (iv) |2, 1⟩ → | 1, 2⟩ emerges as an important additional contribution. Due to the energy offset E, this transition is unavoidably induced by the same Floquet channel as process (i) and lacks the required phase (orange block). We demonstrate that this imperfect higher-order term does not destroy the observation of holon-doublon propaga-tion. As shown in Fig. S7(c), the expansion of a pair from distance d = 1 to d = 3 involves an interference between two major paths: (left) sequential particle hops that accumulate no phase, and (right) one particle hops twice, ac-quiring an anyonic phase e−iθ . The resulting θ-dependent interference patterns remain robust, as process (iv) does not dominate the dynamics in this regime. Similarly, in Fig. S7(d), two processes contribute to pair expansion: (left) the sequential hopping process accumulates a phase θ, whereas (right) twice hopping carries no phase in the present Floquet scheme. Although this differs from the ideal anyonic model, where the latter would acquire a phase e2iθ , the interference between the two paths remains sensitive to θ.Our analysis confirms that the proposed Floquet scheme remains a powerful tool for observing the hallmarks of anyonic statistics, specifically the suppression of coherent transport and asymmetric expansion dynamics. The parameters used in the numerical simulation of Floquet engineering in the main text are E/J = 30, U0/J = 4, 
+
+U/J = 0 .2, K/J = 40, with an effective tunneling rate J′/J ∼ 0.5.    
+
+> ∗li yq@nudt.edu.cn [1] P. Barmettler, D. Poletti, M. Cheneau, and C. Kollath, Propagation front of correlations in an interacting bose gas, Phys. Rev. A 85 , 053625 (2012). [2] J. Kwan, P. Segura, Y. Li, S. Kim, A. V. Gorshkov, A. Eckardt, B. Bakkali-Hassani, and M. Greiner, Realization of one-dimensional anyons with arbitrary statistical phase, Science 386 , 1055 (2024).
+
+16 U0
+
+J
+
+E
+
+Floquet engineering 
+
+anyonic chain Floquet drive realized tunneling  
+
+> lack θ
+
+(a) (b) 
+
+d = 3 
+
+d = 1 
+
+d = 3 
+
+d = 1 
+
+(c) (d) 
+
+U
+
+FIG. S7. Floquet realization of the anyon Hubbard model. (a) Schematic of the anyonic chain and its implementation via Floquet engineering in a tilted Bose-Hubbard lattice. The tilt E suppresses bare tunneling J, while periodic modulation restores resonant hopping. (b) Density-dependent tunneling processes addressed by the Floquet drive. The first three processes reproduce the desired tunneling amplitudes J′, √2J′, and √2J′e−iθ (gray block). At unit filling, the additional transition 
+
+|2, 1⟩ → | 1, 2⟩ is resonant with the same channel as |1, 0⟩ → | 0, 1⟩ and therefore lacks the phase θ (orange block). (c) Interference between two processes for holon-doublon separation ( d = 1 → 3): two particle sequential hopping ( J′2) and one particle hopping twice (2 J′2e−iθ ). (d) Similarly, two particle sequential hopping (2 J′2e−iθ ) and one particle hopping twice (4 J′2).

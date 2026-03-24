@@ -1,0 +1,937 @@
+Title: Critical dynamics of the superfluid phase transition in Model F
+
+URL Source: https://arxiv.org/pdf/2603.21479v1
+
+Published Time: Tue, 24 Mar 2026 01:41:01 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+MIT-CTP/6018 
+
+# Critical dynamics of the superfluid phase transition in Model F 
+
+Chandrodoy Chattopadhyay 1, Robert Maguire 2,Josh Ott 3, Thomas Sch¨ afer 2, and Vladimir V. Skokov 21 Theoretical Physics Division, Physical Research Laboratory, Navrangpura, Ahmedabad 380009, India  
+
+> 2
+
+Department of Physics and Astronomy, North Carolina State University, Raleigh, NC 27695 and  
+
+> 3
+
+Center for Theoretical Physics – a Leinweber Institute, Massachusetts Institute of Technology, Cambridge, MA 02139 
+
+# Abstract 
+
+We describe numerical simulations of the critical dynamics near the superfluid phase transition. The calculations are based on an implementation of a stochastic hydrodynamic theory known as model F in the classification of Hohenberg and Halperin. This theory is expected to describe dynamic scaling near the lambda transition in liquid 4He, Bose-Einstein condensation in ultracold atomic gases, and the superfluid transition in the unitary Fermi gas. Our simulation is based on a Metropolis algorithm previously applied to the critical endpoint of the liquid-gas phase transition in ordinary fluids. In the model E truncation of model F we obtain the expected dynamical exponent 
+
+z ≃ 3/2. We observe the emergence of a propagating second sound mode at the phase transition. The second sound diffusivity Ds is consistent with the scaling relation Ds ∼ ξxκ , where ξ is the correlation length and xκ = 1 /2. 
+
+1 
+
+> arXiv:2603.21479v1 [cond-mat.quant-gas] 23 Mar 2026 I. INTRODUCTION
+
+The dilute Fermi gas at unitarity, a system of spin 1/2 fermions interacting via an s-wave interaction tuned to infinite scattering length, has emerged as an important model system for studying the transport properties of strongly correlated liquids [1–5]. In this work we are particularly interested in transport properties such as thermal relaxation and sound diffusivity in the vicinity of a second order phase transition. Our study builds on earlier work on critical transport in liquid helium [6, 7], but it is motivated by more recent attempts to identify a critical point in the phase diagram of Quantum Chromodynamics (QCD) [8]. The unitary Fermi gas has a second order phase transition between a superfluid phase at low temperature, and a normal phase at high temperature. This transition has been observed in both experiment and in numerical simulations [9, 10], and the available data is consistent with the prediction that the transition is in the universality class of the three dimensional 
+
+O(2) model. Real time dynamics near the superfluid phase transition is expected to be governed by a hydrodynamic theory known as model F in the classification of Hohenberg and Halperin [7, 11]. Model F describes the coupled evolution of the order parameter and the diffusion of heat. It predicts that correlation functions exhibit dynamic scaling, and that the thermal conductivity and sound attenuation constant diverge near the critical temperature. Indications for this behavior were observed in experiments that study the linear response of the unitary Fermi gas to external perturbations [12]. Superfluidity is also expected to occur in QCD in the regime of large baryon density. Two phases of matter that have been discussed in the literature are superfluid neutrons at densities comparable to the density of ordinary nuclei, and quark superfluidity at even higher densities [13, 14]. The finite temperature transitions associated with these phases are described by model F, but it is not clear how the associated dynamics can be probed in the laboratory. The superfluid transition may have observable consequences for the cooling of neutron stars [15]. A phase transition in QCD which is analogous to the superfluid transition involves the restoration of chiral symmetry. This transition occurs between the hadronic phase at low temperatures and the quark-gluon plasma at high temperatures. The static universality class of this transition is governed by an O(4) model, and the dynamics is described by model G [16]. This hydrodynamic theory describes the coupling of the order parameter 2with the conserved isospin currents in QCD. In particular, there is a Josephson relation that governs the evolution of the phase of the order parameter. In QCD the chiral symmetry is explicitly broken by a quark mass. This corresponds to an external field coupled to the order parameter. It implies that the transition is a smooth crossover, and that the correlation length remains finite. It has nevertheless been argued that imprints of dynamic universality can be observed in experiment [17]. There has been a significant amount of work on dynamical scaling in model F based on the epsilon expansion [6, 18–22]. These studies found that the dynamical exponent z is exactly equal to 3 /2, and that the diffusivity of second sound diverges as Ds ∼ ξ1/2, where 
+
+ξ is the correlation length. The goal of the present work is to study dynamical correlation functions in model F numerically. We have several motivations in mind. First, we want to verify the results of the epsilon expansion in a non-perturbative framework. Second, we want to construct a framework that will allow us to compute non-universal quantities and make numerical predictions that can be confronted with cold gas experiments. Not many numerical studies of critical dynamics near the superfluid phase transition have appeared in the literature. We are only aware of the real-time statistical simulation of a spin model described in [23]. Our work is based on recent advances in simulating stochastic hydrodynamic theories, including model A (relaxational dynamics) [24], model B (diffusion of a conserved charge) [25], model G (order parameter dynamics in an anti-ferromagnet) [26], and model H (fluid dynamics near a liquid-gas endpoint) [27]. These simulations employ a Metropolis algorithm to ensure that the Langevin dynamics relaxes to the correct equilibrium distribution and satisfies fluctuation-dissipation relations. This paper is structured as follows: We provide a brief introduction to model F of statis-tical dynamics in Sect. II, describe our numerical methods in Sect. III, and present results on static and dynamic phenomena in Sect. IV. We give a brief outlook in Sect. V. Numer-ical details regarding the parameters describing the static critical behavior are given in an appendix. 3II. MODEL F A. Equations of Motion 
+
+Model F describes the interaction between a complex order parameter ϕ(t,⃗ x) and a conserved density which we denote as ψ(t,⃗ x) [43]. As we will explain in more detail below, we can think of ϕ as the wave function of the condensate, ϕ ∼ ⟨ ψ↑ψ↓⟩, and ψ as proportional to the entropy per particle, ψ ∼ s/n [44]. Here, ψα with α = ↑, ↓ is the Schr¨ odinger field of a non-relativistic fermion. In a bosonic superfluid ϕ ∼ ⟨ Φ⟩, where Φ is a non-relativistic scalar field. The equations of motion are given by [6, 7] 
+
+∂ϕ ∂t = −2 Γ δH
+
+δϕ ∗ − i g 0 ϕ δH
+
+δψ + θ , (1) 
+
+∂ψ ∂t = κ ∇2 δH
+
+δψ + 2 g0 Im 
+
+
+
+ϕ∗ δH
+
+δϕ ∗
+
+
+
++ ζ. (2) Here, Γ is a complex relaxation rate, g0 is the mode coupling parameter, κ is the thermal conductivity, H is the hydrodynamic Hamiltonian, and θ and ζ are space-time dependent noise terms. We will take the Hamiltonian to be of the form 
+
+H =
+
+Z
+
+d3x
+
+12 |∇ ϕ|2 + 12 m2 |ϕ|2 + λ
+
+4 |ϕ|4 + 12 C0
+
+ψ2 + γ0 ψ |ϕ|2 − Re( H ϕ ∗) − Hψ ψ
+
+
+
+, (3) where m is the inverse bare correlation length, λ is the self coupling of the order parameter, 
+
+C0 is the bare specific heat, γ0 is the coupling of the conserved density to the order parameter, and H as well as Hψ are external fields. The noise terms are zero on average. The correlation function of the noise is given by 
+
+⟨θ(t,⃗ x) θ ∗(t′,⃗ x ′)⟩ = 4 T Re (Γ) δ (⃗x −⃗x ′) δ(t − t′), (4) 
+
+⟨ζ(t,⃗ x) ζ(t ′,⃗ x ′)⟩ = −2 κ T ∇2δ (⃗x −⃗x ′) δ(t − t′), (5) 
+
+⟨θθ ⟩ = ⟨θ∗θ∗⟩ = ⟨θζ ⟩ = ⟨θ∗ζ⟩ = 0 , (6) where T is the temperature. The equation of motion for ψ can be written in a manifestly conserving form. To see this, we note that 
+
+ϕ∗ δH
+
+δϕ ∗ = −12 ϕ∗ ∇2ϕ + f (|ϕ|) = −12⃗ ∇ · 
+
+
+
+ϕ∗⃗ ∇ϕ
+
+
+
++ 12|∇ ϕ|2 + f (|ϕ|), (7) where f (|ϕ|) is a real function, 
+
+f (|ϕ|) = 12 m2|ϕ|2 + λ
+
+2 |ϕ|4 + γ0 ψ |ϕ|2 . (8) 4We conclude that Im 
+
+
+
+ϕ∗ δH
+
+δϕ ∗
+
+
+
+= −12⃗ ∇ · Im 
+
+
+
+ϕ∗⃗ ∇ϕ
+
+
+
+, (9) so that Eq. (2) can be written as 
+
+∂ψ ∂t +⃗ ∇ · ⃗ȷ = 0 ,⃗ ȷ = −κ⃗ ∇ δH
+
+δψ + g0 Im 
+
+
+
+ϕ∗⃗ ∇ϕ
+
+
+
++⃗ ξ, (10) where the noise ⃗ ξ is also delta-correlated, 
+
+⟨ξi(t,⃗ x) ξ j (t′,⃗ x ′)⟩ = 2 κ T δ ij δ(⃗x −⃗x ′)δ(t − t′). (11) If the external fields are included then the density ψ is no longer conserved, ∂tψ +⃗ ∇ · ⃗ȷ =
+
+−g0 Im( ϕ∗ H). 
+
+B. Equations of motion in O(2) notation 
+
+For the numerical implementation, we will represent the order parameter in terms of real-valued fields ( ϕ1, ϕ 2) defined by 
+
+ϕ1 = 12 (ϕ + ϕ∗) , ϕ2 = i
+
+2 (ϕ∗ − ϕ) . (12) This implies, for example, that the rhs. of Eq. (1) is 
+
+δH
+
+δϕ ∗ = 12
+
+ δH
+
+δϕ 1
+
++ i δH
+
+δϕ 2
+
+
+
+. (13) We will also decompose the noise θ = θ1 + iθ 2 and the external field H = H1 + iH 2 into 
+
+O(2) components. Eqs. (4, 6) imply that the noise correlators of θ1 and θ2 are equal and governed by the real part of Γ. The off-diagonal correlators vanish and we have 
+
+⟨θ1(t,⃗ x) θ 1(t′,⃗ x ′)⟩ = ⟨θ2(t,⃗ x) θ 2(t′,⃗ x ′)⟩ = 2 Γ 1 T δ (⃗x −⃗x ′) δ(t − t′). (14) 
+
+⟨θ1(t,⃗ x) θ 2(t′,⃗ x ′)⟩ = 0 . (15) The real and imaginary parts of Eq. (1) determine the equations of motion for ( ϕ1, ϕ 2), 
+
+∂ϕ 1
+
+∂t = −Γ1
+
+δH
+
+δϕ 1
+
++ Γ 2
+
+δH
+
+δϕ 2
+
++ g0 ϕ2
+
+δH
+
+δψ + θ1, (16) 
+
+∂ϕ 2
+
+∂t = −Γ1
+
+δH
+
+δϕ 2
+
+− Γ2
+
+δH
+
+δϕ 1
+
+− g0 ϕ1
+
+δH
+
+δψ + θ2. (17) Here, Γ 1 = Re(Γ) is the real part of Γ, and Γ 2 = Im(Γ) is the imaginary part. 5C. Physical interpretations and theoretical expectations: Static behavior 
+
+In thermodynamic equilibrium the fields are sampled from the Gibbs distribution 
+
+p[ϕa, ψ ] ∼ exp( −H [ϕa, ψ ]/T ). The partition function is 
+
+Z(Ha, H ψ, T ) = 
+
+Z
+
+Dϕ a Dψ exp ( −H [ϕa, ψ ]/T ) . (18) Note that the dependence on ψ is Gaussian, and for static observables the conserved density can be integrated out. The parameters C0, γ 0 merely shift the value of λ. The resulting Hamiltonian H[ϕa] is that of the O(2) model, also known as the xy model, 
+
+Hxy =
+
+Z
+
+d3x
+
+12 (∇ϕa) ( ∇ϕa) + 12 m2 ϕaϕa + λ′
+
+4 (ϕaϕa)2 − Ha ϕa
+
+
+
+, (19) where λ′ = λ − 2C0γ20 is the shifted valued of λ. The critical exponents of the O(2) model are well known [28], 
+
+α β γ δ ν η ωZ2 0.110 0.326 1.237 4.790 0.630 0.036 0.830 
+
+O(2) −0.015 0.349 1.318 4.779 0.672 0.038 0.794 (20) where for comparison we also show the exponents of the Z2 (Ising) model. Here, α is the heat capacity exponent, C ∼ τ −α, β governs the order parameter, Σ ∼ (−τ )β , and γ is the susceptibility exponent, χ ∼ τ −γ . We have defined τ = m2 − m2 
+
+> c
+
+, where mc is the critical value of m. At the critical point, δ is the order parameter exponent, Σ ∼ hδ and η is the correlation function exponent, C(x) ∼ x2−d−η. Finally, ν controls the correlation length, 
+
+ξ ∼ | τ |−ν . The leading correction-to-scaling exponent ω for the O(2) model was determined in [29]. We observe that difference between the xy and Ising exponents is very small. The main distinction is that in the xy model α is small and negative, whereas in the Ising model α is small and positive. This means that in the xy model the heat capacity has a non-analyticity, but not a divergence at the critical point. This is the origin of the term “ λ transition”. The order parameter Σ is defined as Σ = lim  
+
+> H1→0
+
+lim   
+
+> V→∞
+
+⟨M1⟩ , Ma = 1
+
+V
+
+Z
+
+d3x ϕ a(x) , (21) where V is the volume of the system. The order parameter defines a magnetic equation of state Σ = h1/δ fG(y) + freg (H1, m 2) , (22) 6where fG(y) is the universal, singular, part and freg (H, m 2) is the regular part of the equation of state. Here 
+
+y = τ h −1/(βδ ) , τ = m2 − m2
+
+> c
+
+τ0
+
+, h = H1
+
+H01
+
+, (23) where H01 and τ0 are normalization factors, defined by fG(0) = 1. In a system at finite volume there is a generalized equation [30] 
+
+⟨M1⟩ = h1/δ 
+
+h
+
+fG(y, y L) + hων c f (1)  
+
+> G
+
+(y, y L)
+
+i
+
+, (24) where yL = ( L/L 0)hνc , L0 is a non-universal constant, νc = ν/ (βδ ), ω is the first sub-leading exponent, and we have neglected regular terms. We can define a susceptibility matrix 
+
+χab = ∂2 log( Z)
+
+∂H a∂H b
+
+. (25) In the restored phase O(2) invariance implies that χab = δab χ as Ha → 0. If we approach 
+
+τ = 0 from above χ diverges as τ −γ . In the broken phase 
+
+χab = ( δab − ˆna ˆnb) χT + ˆ na ˆnbχL , (26) where ˆ na = Ha/H with H2 = ( Ha)2. The transverse susceptibility diverges as H → 0, 
+
+χT = Σ /H for any value of τ < 0. The zero field longitudinal susceptibility has the same critical scaling as χ, χL ∼ (−τ )−γ . In the broken phase the long-wavelength dynamics is governed by an effective theory that only contains the phase φ of the order parameter [6, 31] 
+
+Hφ =
+
+Z
+
+d3x
+
+f 2
+
+2 (∇φ)2 + f 2m2
+
+> φ
+
+2 φ2
+
+
+
+, (27) where f and mφ are the Goldstone boson decay constant and mass. In Eq. (27) we have omitted terms that contain additional gradients or powers of mφ. The Goldstone boson mass is given by the Gell-Mann-Oakes-Renner relation f 2m2 
+
+> φ
+
+= HΣ. In the theory of superfluidity 
+
+vs = ∇φ (in units mB = ℏ = 1) is called the superfluid velocity, and f 2 = ρs is the superfluid mass density. The superfluid mass current is ȷ = ρsvs.In the symmetric phase we can define the correlation length in terms of the correla-tion function of the order parameter, ⟨ϕa(0) ϕb(x)⟩ = δab Gϕ(x). At large x we expect 
+
+Gϕ(x) ∼ exp( −x/ξ ). Near the critical point ξ ∼ τ −ν . In the broken phase the existence of a Goldstone boson implies that the naively defined correlation length is infinite as H → 0. It is conventional to define a correlation length ξT ∼ 1/f 2 (in d = 3) [7], and one can show that this correlation length scales as ξT ∼ (−τ )−ν [32]. 7D. Dynamic behavior 
+
+We begin by discussing the physical meaning of the terms in the model F equations of motion, and the truncations that are involved in reducing the full set of hydrodynamic equa-tions of a superfluid to model F. Consider the equations of motion without mode coupling terms, 
+
+∂ϕ ∂t = −2 (Γ 1 + iΓ2) δH
+
+δϕ ∗ + θ , (28) 
+
+∂ψ ∂t = κ ∇2 δH
+
+δψ + ζ. (29) For Γ 1̸ = 0, Γ 2 = 0 Eq. (28) is a relaxation equation for a non-conserved order parameter (model A). This theory has a dynamic exponent close to z = 2. In the broken phase there is a Goldstone boson which corresponds to the phase of ϕ. This mode is purely diffusive, not only at Tc, but also in the broken phase. For Γ 2̸ = 0 Eq. (28) is a stochastic Gross-Pitaevskii (GP) equation [33, 34]. For a weakly interacting condensate of bosons of mass 
+
+mB = 2 mA, where mA is the mass of the fermionic atom, we can match the gradient term in the Hamiltonian to the Schr¨ odinger equation by setting Γ 2 = ℏ/(2 mB ). The potential terms can be viewed as a chemical potential for ϕ. The stochastic GP equation near a critical point was studied in [35], and it was shown that the critical dynamics corresponds to model A. Eq. (29) is a diffusion equation for the conserved density ψ. Once the dynamical equation for ψ is included we can no longer integrate out the conserved density, and the dynamical scaling behavior near the critical point is modified from model A universality to model C. In practice, this makes very little difference. For α < 0, as is the case in the O(2) model, the dynamic exponent z of model C is equal to that of model A. Even if α is positive (as in the Ising model), the dynamic exponent changes from z = 2 + cη (with a small coefficient 
+
+c) to z = 2 + α, with a small exponent α.The most important ingredient in model F is the presence of mode couplings, 
+
+∂ϕ ∂t = {H , ϕ } , ∂ψ ∂t = {H , ψ } . (30) The fundamental Poisson bracket is taken to be 
+
+{ϕ, ψ } = ig 0ϕ , (31) 8which, together with {ϕ∗, ψ } = −ig 0ϕ∗, leads to the mode-coupling terms in Eq. (1,2). The physical significance of g0 becomes clear if we assume that Eq. (31) is derived from the quantum mechanical commutator between the particle density n and the field operator, [n(x), ϕ (x′)] = 2 ϕ δ (x − x′), where we have assumed that ϕ ∼ ψ↑ψ↓ carries particle number 2. Then we can write 
+
+∂ϕ ∂t = {H , ϕ } =
+
+Z δH
+
+δn {n, ϕ } = 2 iμϕ , (32) where μ is the chemical potential. Eq. (32) is the Josephson equation, and taking the fundamental Poisson bracket to be {n, ϕ } = 2 iϕ implies g0 = −2( ∂ψ/∂n ) = 2[( s/n )T + μ], where we have used thermodynamic relations for the variable dψ = nT d (s/n ). The mode coupling equation for ψ can be written as a conservation equation ∂tψ +∇ȷ = 0 with ⃗ȷ = g 0 Im( ϕ∗⃗ ∇ϕ), see Eq. (10). In the regime of validity of the effective theory Eq. (27) we have ⃗ȷ = g 0ρs⃗v s. This result is counterintuitive, because, based on the definition of the density ψ, the current ⃗ȷ must be proportional to the entropy current. However, in superfluid hydrodynamics entropy is carried by the normal fluid, whereas ρsvs is the superfluid mass current. The resolution of this puzzle is that in model F we view ordinary sound as a high frequency mode, and therefore ignore the dynamics of the momentum density. If the total momentum ⃗π = ρ n⃗v n + ρs⃗v s is frozen, then fluctuations of ⃗ȷ are indeed proportional to ρ n⃗v n.In the broken phase, the mutual mode coupling between the order parameter and the conserved density leads to a propagating mode which mixes the phase of the order parameter with ψ. In the regime of validity of the Goldstone boson EFT this mode has the dispersion relation 
+
+ω = cs
+
+q
+
+k2 + m2 
+
+> φ
+
+, c2 
+
+> s
+
+= g20 ρs
+
+C0
+
+. (33) This is a second sound mode, an oscillation of the entropy density in which the superfluid moves relative to the normal fluid. As expected, the speed of sound goes to zero at the critical point. Hohenberg and Halperin observed that the existence of a propagating mode determines the dynamical critical exponent. Using ρs ∼ ξ−1 
+
+> T
+
+and demanding that the disper-sion relation is consistent with ω ∼ ξ−z for kξ T ∼ const we obtain z = 3 /2 (for d = 3). Here, we have used the fact that α < 0, so that there is no divergence in C0. Taking the dissipative terms into account, the second sound mode acquires a width w = csk − (i/ 2) Dsk2, where we have set mφ = 0. Compatibility with dynamic scaling implies that Ds ∼ ξ1/2 
+
+> T
+
+, and since 9C0 remains finite, we have κ ∼ DS ∼ ξ1/2 
+
+> T
+
+. These scaling relations have been checked in the context of the epsilon expansion [6]. Finally, we note that there is a truncation of model F that is known as model E. In this theory we set the coupling γ0 as well as the imaginary part of Γ to zero. Calculations within the context of the renormalization group indicate that this simplification does not change the universal critical dynamics [6, 11]. In the case of setting γ0 = 0 this is related to the fact that in the O(2) model the specific heat does not diverge, and a purely Gaussian Hamiltonian for ψ is sufficient. The reason that Γ 2 can be set to zero is that, as explained above, the critical dynamics of the stochastic GP equations is the same as that of model A/C.   
+
+> III. NUMERICAL IMPLEMENTATION A. Lattice formulation
+
+We discretize the fields ϕa and ψ on a spatial lattice with lattice spacing a, and adopt a set of units where a = 1. We employ periodic boundary conditions on a cubic lattice with sides of length L = N a . The discretized Hamiltonian is 
+
+H = X⃗x
+
+"
+
+12
+
+> d
+
+X
+
+> μ=1
+
+(ϕa(⃗x + ˆ μ) − ϕ a(⃗x)) 2 + 12m2ϕ2
+
+> a
+
+(⃗x) + 14λ  ϕ2
+
+> a
+
+(⃗x) 2 − Haϕa(⃗x)+ 12C0
+
+ψ(⃗x) 2 + γ0 ψ(⃗x)ϕ 2
+
+> a
+
+(⃗x) − H ψψ(⃗x)
+
+#
+
+, (34) where we have suppressed the time argument of the fields and the sum over the index 
+
+a = 1 , 2. The sum over ⃗x is a sum over integer vectors ⃗n with ⃗x = a⃗ n. We also define a unit vector ˆ μ in the direction μ ∈ { 1, . . . , d }, where d is the number of spatial dimensions. In the present work we will only consider d = 3. Following our earlier work on model H [27], as well as previous work on model G [26], we will separate the time update into a diffusive step and an ideal step. The diffusive step is performed using a Metropolis algorithm which is designed to lead to the correct equilibrium distribution of the fields ϕa and ψ, and to respect fluctuation-dissipation relations. 10 B. Metropolis update 
+
+We first consider the dissipative/stochastic evolution of ϕa
+
+∂ϕ a
+
+∂t = −Γ1
+
+δH
+
+δϕ a
+
++ θa. (35) The required Metropolis scheme is identical to that in Model A [24]. For every site ⃗x in the lattice we choose a trial update 
+
+ϕnew  
+
+> a
+
+(⃗x) = ϕ old  
+
+> a
+
+(⃗x) + p2 T Γ1 ∆t Θ, (36) where Θ is a random number drawn from a normal distribution with zero mean and unit variance. We compute the change in Hamiltonian due to this trial update ∆ H for the field 
+
+ϕa and accept with probability P = max (1 , e −∆H/T ). If the update is accepted, 
+
+ϕa(t + ∆ t,⃗ x) = ϕ new  
+
+> a
+
+(⃗x), (37) else the field is kept unchanged. For the conserved density ψ, the diffusive/stochastic part of the evolution is 
+
+∂ψ ∂t +⃗ ∇ · ⃗ȷ diss = 0 ,⃗ ȷ diss = −κ⃗ ∇ δH
+
+δψ +⃗ ξ. (38) Here the Metropolis step is constructed in analogy with the model B update described in [25]. The basic idea is to integrate the evolution equation over the cell centered at ⃗x∂tψ(t,⃗ x) = −
+
+> μ=3
+
+X
+
+> μ=1
+
+ q+ 
+
+> μ
+
+− q−
+
+> μ
+
+ , (39) where q± 
+
+> μ
+
+are fluxes through forward and backward faces of the cell. A trial update involves a pair of cells centered at ( ⃗x,⃗ x + ˆ μ), 
+
+ψnew (⃗x) = ψ old (⃗x) + q μ , ψnew (⃗x + ˆ μ) = ψ old (⃗x + ˆ μ) − q μ , qμ = √2 κ T ∆t λ, (40) where λ is drawn from a distribution with zero mean and unit variance. Again, we compute the change ∆ H due to the proposed update, and accept with probability P =
+
+max (1 , e −∆H/T ). As explained in our earlier work, the Metropolis updates have the prop-erty that the mean updates ⟨[ϕa(t + ∆ t, x ) − ϕa(t, x )] ⟩ and ⟨[ψ(t + ∆ t, x ) − ψ(t, x )] ⟩ realize the relaxation and diffusive terms in Eqs. (35,38). Furthermore, the variance of the updates reproduces the variance of the stochastic forces. 11 C. Non-dissipative evolution 
+
+The ideal, non-dissipative, part of the evolution equations is ˙ϕ1 = Γ 2
+
+h
+
+− ∇ 2ϕ2 + m2 ϕ2 + λ |ϕ|2 ϕ2 + 2 γ0 ψ ϕ 2 − H2
+
+i
+
++ g0 ϕ2
+
+ ψC0
+
++ γ0 |ϕ|2 − Hψ
+
+
+
+, (41) ˙ϕ2 = −Γ2
+
+h
+
+− ∇ 2ϕ1 + m2 ϕ1 + λ |ϕ|2 ϕ1 + 2 γ0 ψ ϕ 1 − H1
+
+i
+
+− g0 ϕ1
+
+ ψC0
+
++ γ0 |ϕ|2 − Hψ
+
+
+
+, (42) ˙ψ = −g0
+
+ ϕ1 ∇2ϕ2 − ϕ2 ∇2ϕ1
+
+ − g0 (ϕ1 H2 − ϕ2 H1) . (43) Eq. (43) explicitly conserves the integral of ψ if Ha = 0. Furthermore, the coupled set of equations conserves the hydrodynamic Hamiltonian H,
+
+dH
+
+dt =
+
+Z
+
+d3x
+
+h
+
+− ˙ϕ1 ∇2ϕ1 − ˙ϕ2 ∇2ϕ2 +
+
+ ˙ϕ1 ϕ1 + ˙ϕ2 ϕ2
+
+  m2 + λ |ϕ|2 + 2 γ0 ψ
+
++ 1
+
+C0
+
+ψ ˙ψ + γ0 |ϕ|2 ˙ψ − H1 ˙ϕ1 − H2 ˙ϕ2 − Hψ ˙ψ
+
+i
+
+= 0 , (44) which follows simply from substituting Eqs. (41-43) into Eq. (44). More fundamentally, the conservation of H is due to the fact that the equations of motion are generated by Poisson brackets, so that ˙H = {H , H} = 0. Our goal is to find a discretization scheme for the equations of motion in which conservation of ψ and H in the ideal step is exact even if the lattice spacing a is finite. In this context we observe that in deriving Eq. (44) we did not use any identities other than integration by parts, R d3x (∇ϕa)2 = − R d3x ϕ a ∇2 ϕa. Motivated by this observation we define forward and backward derivatives in the spatial direction μ = 1 , 2, 3 as 
+
+∇Rμ ϕ(⃗x) = 1
+
+a [ϕ(⃗x + ˆ μa ) − ϕ(⃗x)] , ∇ Lμ ϕ(⃗x) = 1
+
+a [ϕ(⃗x) − ϕ(⃗x − ˆμa )] . (45) The Laplacian is defined as ∇2 = ∇Lμ ∇Rμ = ∇Rμ ∇Lμ , where summation over μ is implied. Note that this lattice derivative satisfies integration by parts 
+
+X⃗x
+
+∇Rμ ϕ(⃗x)∇ Rμ ϕ(⃗x) = X⃗x
+
+∇Lμ ϕ(⃗x)∇ Lμ ϕ(⃗x) = − X⃗x
+
+ϕ(⃗x)∇ 2ϕ(⃗x). (46) We then define the right hand side of the equations of motion (41-43) using the lattice derivative ∇2. We integrate the equations over a time step ∆ t using the strongly stable 12 FIG. 1: Left panel: The binder cumulant U4 as a function of temperature m2 for several values of the lattice size L. The universal value, U ∗ 
+
+> 4
+
+, is shown by the dashed black line. Right panel: The value of m2 where U4 crosses the critical value as a function of the scaled inverse lattice size L.The star indicates the infinite volume extrapolation, m2 
+
+> c
+
+= −3.1046(3). 
+
+third order Runge-Kutta scheme of Shu and Osher [36]. Finally, we note that there is a lattice version of the non-dissipative part of the conserved current ȷ,
+
+ȷμ(⃗x) = g 0
+
+ ϕ1(⃗x)∇ Rμ ϕ2(⃗x) − ϕ 2(⃗x)∇ Rμ ϕ1(⃗x)  , (47) which has the property that ˙ψ(t,⃗ x) = −∇ Lμ ȷμ(t,⃗ x). Note that we can also define a current 
+
+ȷLμ using the backwards derivative ∇Lμ so that ˙ψ(t,⃗ x) = −∇ Rμ ȷLμ (t,⃗ x). 
+
+IV. NUMERICAL RESULTS A. Static behavior 
+
+We first study the static behavior of model F. We have to do this in order to locate the critical value of m2, and to verify that we obtain the correct static scaling behavior of the 
+
+O(2) model. In the process we also obtain the non-universal parameters H0 and τ0 (which we will define below) that will allow us to map the O(2) model onto a realistic equation of state. As explained in Sect. II C the static behavior of model F is the same as that of model A/C. Indeed, since the critical exponent α is negative model C reduces to model A, and we can set the coupling γ0 between the order parameter and the conserved density to zero. We use the dynamical algorithm described in Sect. III. Note that this algorithm describes 13 −2ypc −2 −1 0 0.7ypc      
+
+> ypc 2343ypc
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> y
+> fG
+> 5×fχ
+
+FIG. 2: The magnetic equation of state and susceptibility as a function of the scaling variable y.The dots depict the values of y at which we have simulated the dynamics of the system. Here, 
+
+ypc ≈ 1.671 is the position of the susceptibility peak. 
+
+critical slowing down. As a result, it does not provide an efficient method for simulating the static behavior. Much more accurate results can be obtained with algorithms that avoid critical slowing down, such as a cluster algorithm. Our methods for determining m2 
+
+> c
+
+and analyzing static criticality closely follow our earlier work on model A [24]. In that case we considered the lattice Hamiltonian Eq. (34) for a single real field. Using Binder cumulants we obtained m2 
+
+> c
+
+= −2.285 for λ = 4. The Binder cumulant is defined by 
+
+U4 = 1 − ⟨(M 2 
+
+> a
+
+)2⟩
+
+3⟨M 2 
+
+> a
+
+⟩2 , (48) where the magnetization Ma is defined in Eq. (21). In the left panel of Fig. 1 we show results for the Binder cumulant using model F simulations with the O(2) Hamiltonian for λ = 4 and different values of m2. In practice we performed a number of simulations on coarse lattices to determine the approximate crossing point, and then used reweighting to obtain results on larger lattices. The reweighting is performed using the reference m2ref = −3.098. The horizontal line indicates the universal critical value of the Binder cumulant, U ∗ 
+
+> 4
+
+= 0 .585 [37]. In the right panel we show the value of m2 at which the Binder cumulant U4(m2, L )intersects the line U4 = U ∗ 
+
+> 4
+
+. Finite size scaling predicts m2(L) = m2 
+
+> c
+
++CL −1/ν −ω. We observe a linear relation between m2(L) and L−1/ν −ω and extrapolate to the critical m2 in the infinite volume limit, m2 
+
+> c
+
+= −3.1046(3), where the stated uncertainty is purely statistical. 14 FIG. 3: Order parameter correlation function Gσ(t, 0) at the critical point m2 = m2 
+
+> c
+
+and H = 0 for two different values of the lattice size, L = 32 and L = 40. The correlation function is plotted as a function of the scaling variable t/L z for two different values of the dynamic exponent, z = 2 (left panel) and z = 3 /2 (right panel). The best fit value of z, based on the scaling behavior at 
+
+Gσ(t)/χ σ = 0 .3 is z = 1 .51 ± 0.14. 
+
+In App. A we discuss the extraction of the parameters H0, τ0, and L0. We find 
+
+y = m2 − m2
+
+> c
+
+τ0
+
+ HH0
+
+−1/(βδ )
+
+, τ0 = 4 .8 , H0 = 7 .97 , (49) and yL = ( L/L 0)hνc with L0 = 0 .567. We can use these quantities to identify specific points on the universal equation of state at which we will perform dynamical simulations. In Fig. 2 we show the magnetic equation of state and the universal susceptibility curve, taken from a parametrization of the O(2) equation of state described in [30]. We overlay values of y,listed in Table I, at which we have performed simulations. 
+
+y −2ypc 0 0.7ypc ypc 3ypc 
+
+m2 −3.3 −3.1046 −3.04 −3 −2.8TABLE I: Simulation parameters for dynamical studies performed in this work. All simulations are performed at H = 0 .005, except in the case y = 0, where we consider several values of H.
+
+B. Dynamics 
+
+In this Section we describe dynamical simulations based on the algorithm described in Sect. III. We have set γ0 = Γ 2 = 0 and focus on model E dynamics, as explained in 15 FIG. 4: Conserved density correlation function Gψ(t, k = 2 π/L ) at the critical point m2 = m2 
+
+> c
+
+and 
+
+H = 0 for two different values of the lattice size, L = 32 and L = 40. The correlation function is plotted as a function of the scaling variable t/L z for two different values of the dynamic exponent, 
+
+zψ = 2 (left panel) and zψ = 3 /2 (right panel). The best fit value of zψ, based on the scaling behavior at Gψ(t)/χ ψ = 0 .3, is zψ = 1 .715 ± 0.026. 
+
+Sect. II D. We can absorb C0 into the normalization of ψ and set C0 = 1. We define a reference temperature T0 so that the dimensions of the fields are [ ϕa] = ( T0/a )1/2 and [ψ] = ( T0/a 3)1/2. We use the order parameter relaxation rate to define the unit of time and set Γ ≡ Γ1 ≡ 1. We then have two physical parameters, the mode coupling g0 and the thermal conductivity κ. In the following we show results for ( T /T 0) = g0 = κ = 1. We study dynamical correlation functions of the order parameter field ϕa and the con-served density ψ. We work with spatial Fourier components 
+
+ϕa(⃗k) = X⃗x
+
+ϕa(⃗x) e i⃗ x·⃗ k , ψ(⃗k) = X⃗x
+
+ψ(⃗x) e i⃗ x·⃗ k , (50) where on the lattice we have discrete wave numbers ⃗ k = 2 π⃗ m/L with m i = 0 , . . . , N − 1. We define the correlation functions 
+
+Gϕaa (t,⃗ k ) = 
+
+D
+
+ϕa(0 ,⃗ k )ϕa(t, −⃗k)
+
+E
+
+, Gψ(t,⃗ k ) = 
+
+D
+
+ψ(0 ,⃗ k )ψ(t, −⃗k)
+
+E
+
+, (51) where Gϕaa contains no sum over a. We consider an external field in the a = 1 direction, 
+
+Ha = δa1H, and define the correlation functions in the Higgs and Goldstone boson direction, 
+
+Gσ(t,⃗ k ) = Gϕ
+
+> 11
+
+(t,⃗ k ) and Gπ(t,⃗ k ) = Gϕ
+
+> 22
+
+(t,⃗ k ). Note that in the broken phase we always work at non-zero field H. For H = 0 in the symmetric phase O(2) symmetry implies 
+
+Gσ(t,⃗ k ) = Gπ(t,⃗ k ). 16 FIG. 5: Goldstone boson correlation function Gπ(t, 0) at the critical temperature m2 = m2                
+
+> cfor different values of the external field H.We plot the correlation function as a function of the scaling variable th zν cfor two different values of the dynamic exponent, z= 2 (left panel) and
+> z= 3 /2 (right panel). Here, h=H/H ref with Href = 0 .004 and the lattice size is L= 40.
+
+Fig. 3 shows Gσ(t, 0) at the critical point m2 = m2 
+
+> c
+
+, H = 0, for two different values of the lattice size, L = 32 and L = 40. At the critical point the correlation length ξ is only limited by L, and dynamical scaling implies that Gσ(t,⃗ k ; L) = ¯Gσ(t/L z ,⃗ kL ). The left and right panel show two different scaling plots with z = 2 and z = 3 /2, and we observe that the value z = 3 /2 is clearly preferred. To be more quantitative we determined z from the value of t at which Gσ(t, 0) = 0 .3. We find z = 1 .51 ± 0.14 [45], which is in very good agreement with the prediction z = 3 /2 discussed in Sect. II D. In Fig. 4 we show a similar scaling plot for the correlation function of ψ. In this case, the ⃗ k = 0 mode reflects the initial condition for the integral of ψ, and carries no dynamical information. We show the correlator for the lowest momentum mode ⃗ k1. Here, the best fit value shows some deviation from z = 3 /2. We find zψ = 1 .715 ± 0.026, where the quoted error is purely statistical. In Fig. 5 we study the scaling with the external field at the critical temperature m2 = m2 
+
+> c
+
+.We show Gπ(t, 0) as a function of the scaling variable th zν c , again comparing two different values of the dynamic exponent, z = 2 and z = 3 /2. Here, we have taken the value of the static exponent ξ ∼ h−νc with νc = ν/ (βδ ) from Eq. (20). Again, we observe that the value 
+
+z = 3 /2 is clearly preferred. In Figs. 6 and 7 we show the correlation functions of ϕa and ψ for different values of the universal variable ¯ z that enters the magnetic equation of state, see Fig. 2. Fig. 6 shows the Higgs and Goldstone mode in the left and right panel, respectively. We observe that the 17 FIG. 6: Order parameter correlation functions Gσ(t, 0) (left panel) and Gπ(t, 0) (right panel) for different values of the universal variable y, see Fig. 2 and Table I. The correlation functions are normalized to the respective susceptibilities. 
+
+Higgs mode is diffusive for all values of y, but a propagating Goldstone mode emerges for 
+
+y < y pc . This mode becomes less damped as we move deeper into the broken phase. In Fig. 7 we show the analogous result for the correlation function of the conserved density. As in Fig. 4 we show the correlator for the lowest momentum mode ⃗ k1 Again, we observe that the correlation function changes from diffusive behavior to exhibiting a propagating mode as we move into the broken phase. Physically, this corresponds to the emergence of second sound at the superfluid phase transition.  
+
+> C. Transport and Kubo relation
+
+The divergence of the thermal conductivity and the second sound attenuation constant is an interesting and experimentally accessible manifestation of dynamic scaling near the superfluid phase transition. There are (at least) two possible strategies to access these transport coefficients. The first is to study the asymptotic behavior of Gψ(t,⃗ k ). In the symmetric phase, we expect Gψ(t,⃗ k ) ∼ exp( −tD sk2), and in the broken phase Gψ(t,⃗ k ) ∼
+
+sin( cskt + φs) exp( −Dstk 2). Here, Ds = κ/C is the thermal diffusivity, cs is the speed of sound, and φs is a phase. For γ0 = 0 we have C = C0, but for γ0̸ = 0 we have to measure the thermal conductivity in order to extract κ from Ds. As noted above, in the O(2) model the specific heat does not diverge, and the critical scaling of Ds and κ is the same. The difficulty with this strategy is that we have to identify a suitable window in which the 18 FIG. 7: Correlation function of the conserved density Gψ(t,⃗ k 1) as a function of time for the lowest momentum mode ⃗ k1. We show the result for several values of the universal quantity y as in the previous figure. 
+
+correlation function (or its envelope) decays exponentially, and in which the decay constant scales as k2.A second strategy is based on the Kubo relation, which expresses the thermal conductivity in terms of the time integrated current-current correlation function [38–40], 
+
+κ =
+
+Z ∞
+
+> 0
+
+dt C ȷȷ (t) , Cȷȷ (t) = 13T V ⟨Ji(0) Ji(t)⟩, (52) where Ji(t) = R d3x ȷ (t,⃗ x) and the current ȷ is defined in Eq. (10). The stochastic current ⃗ξ contributes a delta-function that corresponds to the tree level contribution κ = κ0. The remainder of the integral can be interpreted as the fluctuation induced thermal conductivity ∆κ. A possible difficulty with the Kubo relation is that Cȷȷ may contain additional UV sensitive terms, contributions of the form Cȷȷ (t) ∼ t−ρ with ρ ≥ 1, which are sensitive to the lattice regulator. Terms of this form are known to be present in the Kubo intgrand for the shear viscosity in a normal fluid [41], but they do not affect the extraction of critical exponents [40]. We note that the dissipative current ⃗ȷ dis = −κ⃗ ∇(δH/δψ ) vanishes when summed over all lattice sites. Therefore, we will consider the lattice integral of the current defined in Eq. (47) 
+
+Jμ(t) = g0
+
+X⃗x
+
+ ϕ1(t,⃗ x)∇ Rμ ϕ2(t,⃗ x) − ϕ 2(t,⃗ x)∇ Rμ ϕ1(t,⃗ x)  . (53) Note that using the current ȷLμ (t,⃗ x) leads to the same integrated quantity J μ(t). In Fig. 8 (left panel) we show the correlation function Cȷȷ (t) of the current in Eq. (53). The calculation is 19 FIG. 8: Current-current correlation function Cȷȷ (t) (left panel) and fluctuation contribution to the thermal conductivity (right panel). The correlation function as a function of time is shown for several values of the lattice size L. The Kubo integral ∆ κ is shown as a function of L, together with the fit ∆ κ = aL 1/2 + b. The best fit parameters are a = 0 .069 ± 0.009 and b = −0.17 ± 0.046. 
+
+performed at the critical point for a number of lattice sizes L. We observe that the short-time behavior is indeed insensitive to L, but that the long-time tail increases with L. In the right panel we show the fluctuation induced contribution to the thermal conductivity ∆ κ. Because of the limited range in L that we can access, the data do not determine the exponent xκ in the scaling relation ∆ κ ∼ Lxκ with very high accuracy. The results are consistent with the prediction xκ = 1 /2 based on dynamic scaling and z = 3 /2. In particular, as shown in the right panel of Fig. 8, the data is very well described by ∆ κ = aL 1/2 +b with a = 0 .069 ±0.009 and b = −0.17 ± 0.046.  
+
+> V. CONCLUSION AND OUTLOOK
+
+In this work, we have studied the critical dynamics of the superfluid transition using numerical simulations of the model E truncation of model F. This model describes the coupled dynamics of a relaxational order parameter mode and a diffusive heat current. We observe dynamical scaling with a critical exponent consistent with z = 3 /2, and the emergence of a second sound mode. A determination of the dynamic critical exponent based on finite size scaling of the order parameter correlation function gives z = 1 .51 ± 0.14. Extractions of z based on other correlation functions, or on the scaling with the external field, are consistent within error bars. The diffusivity of the second sound mode diverges as 20 Ds ∼ ξxκ , where xκ is compatible with the scaling prediction xκ = 1 /2. There are a number of compelling directions for future work. First, it would be interesting to test the truncations employed in our study. This includes the role of the coupling γ0 and the imaginary part of the order parameter relaxation rate, Γ 2. Going beyond this, one can investigate the role of fluctuations of the momentum density, which amounts to including shear modes and ordinary, first sound, modes. Second, there is an opportunity for quantitative comparison with experimental data on the dynamics of ultracold atomic gases near the superfluid phase transition. As discussed in the introduction, an enhancement of the second sound diffusivity has been observed in an experiment that combines local thermometry with linear response [12]. An attempt to understand this behavior quantitatively requires mapping the parameters of the free energy functional Eq. (3) onto the equation of state, and determining the dynamical parameters Γ1, Γ 2, κ, and g0. Numerical studies of this type have been performed in the case of liquid helium [19], but the unitary Fermi gas has the advantage that the microscopic interaction is simpler. The unitary gas also offers the opportunity to study out-of-equilibrium transitions such as quenches or transitions in an expanding gas, and to monitor fluctuations of the density and temperature with atomic resolution. 
+
+> Acknowledgments
+
+We are grateful to Eduardo Grossi and Derek Teaney for stimulating discussions. This work is supported by the U.S. Department of Energy, Office of Science, Office of Nu-clear Physics through Contract No. DE-SC0020081, DE-FG02-03ER41260, and DE22-SC0024622. C.C. is supported by the Department of Space (DOS), Government of India. We acknowledge the computing resources provided by North Carolina State University High Performance Computing Services Core Facility (RRID:SCR-022168) and the computational resources provided by NCShare, which is supported by National Science Foundation (NSF) grants OAC-2201525, OAC-2201105, and OAC-2430141. We also thank Uthpala Herath for the computational support at NCShare. 21 10 −3 10 −2 10 −1    
+
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> H
+> M
+> L=16
+> L=24
+> L=32
+> L=36
+> L=40 −3.5−3.4−3.3−3.2−3.1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> m2
+> f
+> Σ
+> fit
+
+FIG. 9: Left panel: The simulation data (symbols) at critical temperature for various H and 
+
+L and its fits (curves) by Eq. (A1). Only L > 24 are used to fit the parameters. Right panel: Goldstone boson decay constant, f and order parameter, Σ as a function of temperature, m2. The fit is based on Eq. (A8). 
+
+Appendix A: Metric factors and universal scaling 1. H0 and L0
+
+The metric factors H0 and L0 are determined by coupling an external field H ≡ H1 along the ϕ1 direction. We measure the H and L dependence of the order parameter M ≡ M1
+
+defined in Eq. (21), and fit the result to the universal magnetic equation of state 
+
+M =
+
+ HH0
+
+1/δ "
+
+fG y = 0 , y L = L0
+
+L
+
+ HH0
+
+−νc
+
+!
+
++ CH
+
+ HH0
+
+ων c
+
+#
+
+, (A1) where νc ≡ ν/ (βδ ) and we have approximated f (1)  
+
+> G
+
+(0 , y L) ≃ CH . This fit determines the parameters H0, L0, and CH . The function fG(y, y L) is taken from a parametrization given in Ref. [30]. The critical exponents for the three-dimensional O(2) universality class are collected in Eq. (20). The fit is performed on lattices of size L = 32 , 36 , 40. To assess the quality of the fit, the scaling curves are compared against data at L = 16 and L = 24; see the left panel of Fig. 9. The comparison shows that only the smallest volume, L = 16, departs from the expected scaling behavior at H ≲ 10 −3, indicating the onset of finite-size corrections beyond the scaling window. The best-fit values of the metric factors are 
+
+H0 = 7 .97 ± 0.17 ,
+
+22 −3.5 −3.4 −3.3 −3.2 −3.1
+
+> 10 −3
+> 10 −2
+> 10 −1
+> 10 0
+> m2
+> NLO
+> NNLO
+
+FIG. 10: An estimate of the series convergence in Eq. (A7). LO term is 10 0. The figure shows that the series expansion breaks down near the critical temperature and is no longer reliable. Thus to perform the fit in Right panel of Fig. 9 we restricted the range to m2 ≤ − 3.15, where NLO/LO ⪅
+
+NNLO/NLO ⪅ 10 −1.
+
+L0 = 0 .567 ± 0.008 , (A2) 
+
+CH = 0 .64 ± 0.04 .
+
+2. Metric factor τ0
+
+The normalization factor τ0 can be extracted from the m2 dependence of the order pa-rameter at zero field, see the right panel of Fig. 9. The difficulty is that in order to use the definition in Eq. (21) we have to extrapolate the lattice results to infinite volume and zero field. An alternative method that can be applied directly at zero field is based on the following observation: In the broken phase at H = 0, the finite-volume deviation of ⟨M 2⟩
+
+from its infinite-volume limit Σ 2 is driven by infrared fluctuations of the massless Goldstone modes. These contributions are systematically captured by the Euclidean effective theory in Eq. (27), which organizes finite-size corrections as an expansion in powers of ( f 2L)−1. In the regime f 2(m2)L ≫ 1, the connection between ⟨M 2⟩ and Σ 2 takes the form [31] 
+
+⟨M 2⟩ = Σ 2
+
+
+
+ρ21 + 2N ρ 2
+
+f 4L2
+
+
+
++ O (f 2L)−3 . (A3) The coefficients ρ1 and ρ2, which determine the 1 /L corrections, are expressed through the geometry-dependent shape coefficients β1 and β2 as 
+
+ρ1 = 1 + (N − 1) β1
+
+2f 2L − (N − 1)( N − 3) 8f 4L2
+
+ β21 − 2β2
+
+ , (A4) 23 ρ2 = (N − 1) β2
+
+4 . (A5) These shape coefficients arise from discrete Fourier sums over the momentum modes of a cubic box of side length L and evaluate numerically to 
+
+β1 = 0 .225785 , β2 = 0 .010608 . (A6) Setting N = 2 and substituting these values, the expansion simplifies to 
+
+⟨M 2⟩ = Σ 2
+
+1 + 0.225785 
+
+f 2L
+
+| {z }
+
+> NLO
+
++ 0.0307934 
+
+f 4L2
+
+| {z }
+
+> NNLO
+
++O (f 2L)−3 , (A7) which provides the basis for extracting Σ from finite-volume lattice data. As m2 → m2 
+
+> c
+
+, the Goldstone boson decay constant vanishes, f → 0, and the expansion in Eq. (A7) breaks down. It is therefore necessary to restrict the analysis to values of m2
+
+for which the series remains convergent. To delineate this region, we display the NLO and NNLO contributions separately in Fig. 10. A comparison of the two orders indicates that the expansion is reliable for m2 < −3.15, which we adopt as the boundary of the fitting range. Within this range, we fit Σ( m2) to the expected power-law behaviour near the critical point in the low-temperature phase, Σ = 
+
+
+
+− ττ0
+
+β 
+
+1 + CT
+
+
+
+− ττ0
+
+ων 
+
+, τ ≡ m2 − m2 
+
+> c
+
+. (A8) The best-fit values of the free parameters are 
+
+τ0 = 4 .8 ,CT = 0 .37 . (A9) The scaling variable z is thereby fully determined, 
+
+y = m2 − m2
+
+> c
+
+τ0
+
+ HH0
+
+− 1
+
+> βδ
+
+, (A10) with metric factors τ0 = 4 .8 and H0 = 7 .97. 
+
+[1] I. Bloch, J. Dalibard, and W. Zwerger, Reviews of Modern Physics 80 , 885–964 (2008), ISSN 1539-0756, URL http://dx.doi.org/10.1103/RevModPhys.80.885 .
+
+24 [2] T. Sch¨ afer and D. Teaney, Rept. Prog. Phys. 72 , 126001 (2009), 0904.3107. [3] A. Adams, L. D. Carr, T. Sch¨ afer, P. Steinberg, and J. E. Thomas, New J. Phys. 14 , 115009 (2012), 1205.5180. [4] T. Sch¨ afer, Ann. Rev. Nucl. Part. Sci. 64 , 125 (2014), 1403.0653. [5] W. Zwerger (2016), proceedings of the International School of Physics “Enrico Fermi,” Course 191, edited by M. Inguscio, W. Ketterle and S. Stringari, IOS Press, Amsterdam (2014), 1608.00457. [6] B. I. Halperin, P. C. Hohenberg, and E. D. Siggia, Phys. Rev. B 13 , 1299 (1976), URL 
+
+https://link.aps.org/doi/10.1103/PhysRevB.13.1299 .[7] P. C. Hohenberg and B. I. Halperin, Rev. Mod. Phys. 49 , 435 (1977). [8] A. Bzdak, S. Esumi, V. Koch, J. Liao, M. Stephanov, and N. Xu, Phys. Rept. 853 , 1 (2020), 1906.00936. [9] M. J. Ku, A. T. Sommer, L. W. Cheuk, and M. W. Zwierlein, Science 335 , 563 (2012). [10] A. Bulgac, J. E. Drut, and P. Magierski, Phys. Rev. A 78 , 023625 (2008), 0803.3238. [11] R. Folk and H.-G. Moser, J. Phys. A 39 , R207 (2006). [12] Z. Yan, P. B. Patel, B. Mukherjee, C. J. Vale, R. J. Fletcher, and M. W. Zwierlein, Science 
+
+383 , 629 (2024), 2212.13752. [13] D. J. Dean and M. Hjorth-Jensen, Rev. Mod. Phys. 75 , 607 (2003), URL https://link.aps. org/doi/10.1103/RevModPhys.75.607 .[14] M. G. Alford, A. Schmitt, K. Rajagopal, and T. Sch¨ afer, Rev. Mod. Phys. 80 , 1455 (2008), 0709.4635. [15] D. Page, M. Prakash, J. M. Lattimer, and A. W. Steiner, Phys. Rev. Lett. 106 , 081101 (2011), URL https://link.aps.org/doi/10.1103/PhysRevLett.106.081101 .[16] K. Rajagopal and F. Wilczek, Nucl. Phys. B 399 , 395 (1993), hep-ph/9210253. [17] A. Florio, E. Grossi, A. Mazeliauskas, A. Soloviev, and D. Teaney, Phys. Rev. Lett. 135 ,242303 (2025), 2504.03516. [18] V. Dohm, Zeitschrift f¨ ur Physik B Condensed Matter 33 , 79 (1979). [19] V. Dohm, Journal of low Temperature Physics 69 , 51 (1987). [20] V. Dohm, Phys. Rev. B 44 , 2697 (1991), URL https://link.aps.org/doi/10.1103/ PhysRevB.44.2697 .[21] R. Haussmann, Phys. Rev. B 60 , 12349 (1999), URL https://link.aps.org/doi/10.1103/ 
+
+25 PhysRevB.60.12349 .[22] V. Dohm, Phys. Rev. B 73 , 092503 (2006), URL https://link.aps.org/doi/10.1103/ PhysRevB.73.092503 .[23] M. Krech and D. P. Landau, Phys. Rev. B 60 , 3375 (1999), URL https://link.aps.org/ doi/10.1103/PhysRevB.60.3375 .[24] T. Sch¨ afer and V. Skokov, Phys. Rev. D 106 , 014006 (2022), 2204.02433. [25] C. Chattopadhyay, J. Ott, T. Sch¨ afer, and V. Skokov, Phys. Rev. D 108 , 074004 (2023), 2304.07279. [26] A. Florio, E. Grossi, A. Soloviev, and D. Teaney, Phys. Rev. D 105 , 054512 (2022), 2111.03640. [27] C. Chattopadhyay, J. Ott, T. Sch¨ afer, and V. V. Skokov, Phys. Rev. Lett. 133 , 032301 (2024), 2403.10608. [28] J. Zinn-Justin, Int. Ser. Monogr. Phys. 113 , 1 (2002). [29] S. M. Chester, W. Landry, J. Liu, D. Poland, D. Simmons-Duffin, N. Su, and A. Vichi, JHEP 
+
+06 , 142 (2020), 1912.03324. [30] F. Karsch, M. Neumann, and M. Sarkar, Phys. Rev. D 108 , 014505 (2023), 2304.01710. [31] P. Hasenfratz and H. Leutwyler, Nucl. Phys. B 343 , 241 (1990). [32] M. E. Fisher, M. N. Barber, and D. Jasnow, Phys. Rev. A 8, 1111 (1973), URL https: //link.aps.org/doi/10.1103/PhysRevA.8.1111 .[33] H. Stoof and M. Bijlsma, Journal of low Temperature Physics 124 , 431 (2001). [34] C. W. Gardiner, J. R. Anglin, and T. I. A. Fudge, Journal of Physics B: Atomic, Molecular and Optical Physics 35 , 1555 (2002), URL https://doi.org/10.1088/0953-4075/35/6/310 .[35] U. C. T¨ auber and S. Diehl, Phys. Rev. X 4, 021010 (2014), URL https://link.aps.org/ doi/10.1103/PhysRevX.4.021010 .[36] C.-W. Shu and S. Osher, Journal of Computational Physics 77 , 439 (1988). [37] M. Campostrini, M. Hasenbusch, A. Pelissetto, P. Rossi, and E. Vicari, Phys. Rev. B 63 ,214503 (2001), cond-mat/0010360. [38] R. Kubo, Journal of the Physical Society of Japan 12 , 570 (1957). [39] J. M. Luttinger, Phys. Rev. 135 , A1505 (1964). [40] C. Chattopadhyay, J. Ott, T. Sch¨ afer, and V. V. Skokov, Phys. Rev. D 112 , 114026 (2025), 2510.12557. [41] P. Kovtun, G. D. Moore, and P. Romatschke, Phys. Rev. D 84 , 025006 (2011), 1104.1586. 
+
+26 [42] L. P. Kadanoff and P. C. Martin, Annals of Physics 24 , 419 (1963), ISSN 0003-4916. [43] Note that Hohenberg and Halperin use the notation ψ for the order parameter and denote the conserved density by m [7]. [44] More precisely, ψ is taken to be the variable that evolves diffusively in linearized compressible fluid dynamics [42]. This amounts to dψ = dq = T n d (s/n ) = dϵ + ( ϵ + P )/n dn , where ϵ is the energy density and P is the pressure. [45] The value of the correlation function at which determine the scaling parameter is a rough compromise between resolution and statistics. The stated error in z is due to the statistical error on the correlation function. Note that Gψ(t,⃗ k 1) falls of more quickly than Gσ(t, 0). As a result, the statistical error of z determined from Gψ(t,⃗ k 1) = 0 .3 is smaller, but the sensitivity to genuine IR behavior is worse. 
+
+27
