@@ -6,72 +6,71 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-25
-- 运行时间：2026-03-25 20:25:50 UTC
+- 最新运行日期：2026-03-26
+- 运行时间：2026-03-26 20:13:15 UTC
 - 运行状态：成功
 - 本次总论文数：17
 - 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度解析 17 篇前沿论文，重点攻克铜氧化物高温超导中 $T_c$ 演化机制与费米面拓扑难题。
-研究揭示了多层体系中临界温度非单调变化的物理起源，并证实了电荷转移能与稳健顺磁子对超
-- 详情：[/202603/25/README](/202603/25/README)
+今日精选 17 篇前沿论文，深度解析了 CeCoIn5 奇异金属输运机制与一维晶
+- 详情：[/202603/26/README](/202603/26/README)
 
 ### 精读区论文标签
-1. [A mechanism for nonmonotonic $T_{c,max}(n)$ in multilayer cuprates](/202603/25/2603.22662v1-a-mechanism-for-nonmonotonic-tcmaxn-in-multilayer-cuprates)  
+1. [Reconciling strange metal transport in CeCoIn$_5$ through the difference of optical and cyclotron effective masses](/202603/26/2603.23740v1-reconciling-strange-metal-transport-in-cecoin5-through-the-difference-of-optical-and-cyclotron-effective-masses)  
    标签：评分：10.0/10、query:cmp
-   evidence：多层铜氧化物超导体临界温度机制
-2. [Fermiology, charge transfer energy, and robust paramagnons in high-$T_c$ cuprate superconductors](/202603/25/2603.23281v1-fermiology-charge-transfer-energy-and-robust-paramagnons-in-high-tc-cuprate-superconductors)  
-   标签：评分：10.0/10、query:cmp
-   evidence：高温铜氧化物超导体中的顺磁子动力学与费米面学
-3. [A Dayem Loop Qubit Based on Interfering Superconducting Nanowires](/202603/25/2603.17214v2-a-dayem-loop-qubit-based-on-interfering-superconducting-nanowires)  
+   evidence：重费米子金属中的奇异金属输运与非费米液体行为
+2. [Emergent superconformal symmetry in the phase diagram of a 1D $\mathbb{Z}_{2}$ lattice gauge theory](/202603/26/2603.17807v1-emergent-superconformal-symmetry-in-the-phase-diagram-of-a-1d-mathbbz2-lattice-gauge-theory)  
    标签：评分：9.0/10、query:cmp
-   evidence：基于超导纳米线和量子干涉的量子比特设计
-4. [Triplet superconductivity supported by an X$_9$ high-order Van Hove singularity](/202603/25/2603.22645v1-triplet-superconductivity-supported-by-an-x9-high-order-van-hove-singularity)  
+   evidence：描述正交金属的一维晶格规范场论相图
+3. [Vortex Retention Mediated Turbulent Transitions in Self-Gravitating Bosonic and Axionic Condensates](/202603/26/2603.18880v1-vortex-retention-mediated-turbulent-transitions-in-self-gravitating-bosonic-and-axionic-condensates)  
    标签：评分：9.0/10、query:cmp
-   evidence：高阶范霍夫奇点支持的三重态超导
-5. [Correlation-driven enhancement of pairing in a nematic Hund's metal](/202603/25/2603.23314v1-correlation-driven-enhancement-of-pairing-in-a-nematic-hunds-metal)  
+   evidence：玻色-爱因斯坦凝聚中的涡旋动力学与湍流
+4. [Crossover and Critical Behavior in the Layered XY Model](/202603/26/2603.19351v1-crossover-and-critical-behavior-in-the-layered-xy-model)  
    标签：评分：9.0/10、query:cmp
-   evidence：铁基超导体中的Hund驱动关联效应
-6. [A Dayem Loop Qubit Based on Interfering Superconducting Nanowires](/202603/25/2603.17214v1-a-dayem-loop-qubit-based-on-interfering-superconducting-nanowires)  
-   标签：评分：8.0/10、query:cmp
-   evidence：基于干涉超导纳米线的量子比特设计
+   evidence：非常规层状超导体中的标度特征
+5. [Role of interstitial $s$ orbital in a model of infinite-layer nickelates](/202603/26/2603.20705v1-role-of-interstitial-s-orbital-in-a-model-of-infinite-layer-nickelates)  
+   标签：评分：9.0/10、query:cmp
+   evidence：使用三轨道Emery模型和DQMC研究无限层镍氧化物
+6. [Electrical Transport and Quantum Oscillations in the Metallic Spin Supersolid EuCo2Al9](/202603/26/2603.24445v1-electrical-transport-and-quantum-oscillations-in-the-metallic-spin-supersolid-euco2al9)  
+   标签：评分：9.0/10、query:cmp
+   evidence：金属自旋超固态与量子振荡
 
 ### 速读区论文标签
-1. [Spin-resolved microscopy of $^{87}$Sr SU($N$) Fermi-Hubbard systems](/202603/25/2603.05478v1-spin-resolved-microscopy-of-87sr-sun-fermi-hubbard-systems)  
+1. [Enhanced carrier binding and bond correlations in the Hubbard-Su-Schrieffer-Heeger model with dispersive optical phonons](/202603/26/2603.11373v1-enhanced-carrier-binding-and-bond-correlations-in-the-hubbard-su-schrieffer-heeger-model-with-dispersive-optical-phonons)  
    标签：评分：8.0/10、query:cmp
-   evidence：费米型 SU(N) 哈伯德系统的量子气体显微镜研究
-2. [Critical behavior of the thermal phase transition of U(1) lattice gauge systems](/202603/25/2603.09895v1-critical-behavior-of-the-thermal-phase-transition-of-u1-lattice-gauge-systems)  
+   evidence：高临界温度超导的电子配对与SSH模型
+2. [Phase stiffness in flat-band superconductors with nodal pairing](/202603/26/2603.11986v1-phase-stiffness-in-flat-band-superconductors-with-nodal-pairing)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导相变与U(1)规范系统的临界行为
-3. [Persistent short-range charge correlations revealed by ultrafast melting of electronic order in YBa$_2$Cu$_3$O$_{6+x}$](/202603/25/2603.10486v1-persistent-short-range-charge-correlations-revealed-by-ultrafast-melting-of-electronic-order-in-yba2cu3o6x)  
+   evidence：平带超导体中的相位刚度与节点配对
+3. [Kinetic obstruction to pairing in the doped Kitaev-Heisenberg ladder](/202603/26/2603.12198v1-kinetic-obstruction-to-pairing-in-the-doped-kitaev-heisenberg-ladder)  
    标签：评分：8.0/10、query:cmp
-   evidence：铜氧化物超导体中的电荷密度波
-4. [Dissipation- versus Chaos-Induced Relaxation in Non-Markovian Quantum Many-Body Systems](/202603/25/2603.10815v1-dissipation--versus-chaos-induced-relaxation-in-non-markovian-quantum-many-body-systems)  
+   evidence：掺杂Kitaev-Heisenberg模型中的配对倾向与动力学阻碍
+4. [Real-time detection of critical slowing-down at the superconducting phase transition](/202603/26/2603.12473v1-real-time-detection-of-critical-slowing-down-at-the-superconducting-phase-transition)  
    标签：评分：8.0/10、query:cmp
-   evidence：强关联系统中非马尔可夫弛豫的SYK模型研究
-5. [A Correlated Route to Antiferromagnetic Spintronics](/202603/25/2603.16552v1-a-correlated-route-to-antiferromagnetic-spintronics)  
+   evidence：超导相变中临界慢化的实时检测
+5. [Observation of Resonance of Kagome Flat Band Doublet](/202603/26/2603.18537v1-observation-of-resonance-of-kagome-flat-band-doublet)  
    标签：评分：7.0/10、query:cmp
-   evidence：掺杂哈伯德模型与电子关联
-6. [A Correlated Route to Antiferromagnetic Spintronics](/202603/25/2603.16552v2-a-correlated-route-to-antiferromagnetic-spintronics)  
+   evidence：关联笼目晶格中局域与巡游电子的相互作用
+6. [Cavity Control of Strongly Correlated Electrons Beyond Resonant Coupling](/202603/26/2603.18933v1-cavity-control-of-strongly-correlated-electrons-beyond-resonant-coupling)  
    标签：评分：7.0/10、query:cmp
-   evidence：掺杂哈伯德模型中的关联驱动输运
-7. [Quasiparticle properties below coherence onset in YbAl3 nanostructures](/202603/25/2603.16563v1-quasiparticle-properties-below-coherence-onset-in-ybal3-nanostructures)  
+   evidence：腔诱导的哈伯德模型磁交换相互作用修正
+7. [Computation of thermal entropy for the doped Hubbard Model](/202603/26/2603.18998v1-computation-of-thermal-entropy-for-the-doped-hubbard-model)  
    标签：评分：7.0/10、query:cmp
-   evidence：重费米子关联金属中的准粒子相干性
-8. [Chiral and bond-ordered phases in a triangular-ladder superconducting-qubit quantum simulator](/202603/25/2603.16993v1-chiral-and-bond-ordered-phases-in-a-triangular-ladder-superconducting-qubit-quantum-simulator)  
+   evidence：掺杂哈伯德模型的量子热熵计算
+8. [Non-collinear ferromagnetism in the Kondo lattice Ce$_5$CoGe$_2$](/202603/26/2603.19592v1-non-collinear-ferromagnetism-in-the-kondo-lattice-ce5coge2)  
    标签：评分：7.0/10、query:cmp
-   evidence：用于玻色-哈伯德模型的超导量子比特模拟器
-9. [Site-selective renormalization and competing magnetic instabilities in paramagnet Y$_{3}$Cu$_{2}$Sb$_{3}$O$_{14}$](/202603/25/2603.17796v1-site-selective-renormalization-and-competing-magnetic-instabilities-in-paramagnet-y3cu2sb3o14)  
+   evidence：高压下表现出超导性的近藤晶格体系
+9. [Exactly Solvable Disorder-free Quantum Breakdown Model: Spectrum, Thermodynamics, and Dynamics](/202603/26/2603.17379v1-exactly-solvable-disorder-free-quantum-breakdown-model-spectrum-thermodynamics-and-dynamics)  
    标签：评分：6.0/10、query:cmp
-   evidence：量子自旋液体与受挫磁体的电子性质
-10. [Semi-classical evaporative cooling: classical and quantum distributions](/202603/25/2603.20446v1-semi-classical-evaporative-cooling-classical-and-quantum-distributions)  
+   evidence：具有配对项的可精确求解量子模型
+10. [Dimensionality-Dependent Exciton Dispersion in a Single-Band Mott Insulator](/202603/26/2603.22695v1-dimensionality-dependent-exciton-dispersion-in-a-single-band-mott-insulator)  
    标签：评分：6.0/10、query:cmp
-   evidence：陷俘原子气体向量子简并态演化的蒸发冷却
-11. [Tracking the local order parameter through the Hubbard exciton decoherence time in the Mott-Hubbard insulator LaVO3](/202603/25/2603.20693v1-tracking-the-local-order-parameter-through-the-hubbard-exciton-decoherence-time-in-the-mott-hubbard-insulator-lavo3)  
+   evidence：单带莫特绝缘体中的激子色散
+11. [Glassy magnetic freezing of interacting clusters in LK-99-family materials](/202603/26/2603.23377v1-glassy-magnetic-freezing-of-interacting-clusters-in-lk-99-family-materials)  
    标签：评分：6.0/10、query:cmp
-   evidence：莫特-哈伯德绝缘体与局部序参数涨落
+   evidence：LK-99系列材料磁异常分析
 
 
 <div class="dpr-home-promo-card">

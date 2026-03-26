@@ -1,0 +1,2188 @@
+Title: Computation of thermal entropy for the doped Hubbard Model
+
+URL Source: https://arxiv.org/pdf/2603.18998v1
+
+Published Time: Fri, 20 Mar 2026 01:36:58 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# Computation of thermal entropy for the doped Hubbard Model 
+
+Yu-Feng Song, 1, 2 Youjin Deng, 2, 3, 4, ∗ and Yuan-Yao He 1, 5, 6, 4, †
+
+> 1
+
+Institute of Modern Physics, Northwest University, Xi’an 710127, China 
+
+> 2
+
+Hefei National Laboratory for Physical Sciences at Microscale and Department of Modern Physics, University of Science and Technology of China, Hefei, Anhui 230026, China 
+
+> 3
+
+Department of Modern Physics, University of Science and Technology of China, Hefei, Anhui 230026, China 
+
+> 4
+
+Hefei National Laboratory, Hefei 230088, China 
+
+> 5
+
+Shaanxi Key Laboratory for Theoretical Physics Frontiers, Xi’an 710127, China 
+
+> 6
+
+Fundamental Discipline Research Center for Quantum Science and Technology of Shaanxi Province, Xi’an 710127, China 
+
+We develop a highly efficient framework for computing the thermal entropy in the doped Fermi-Hubbard model within the grand-canonical ensemble. The framework comprises four calculation schemes that express the entropy as path integrals in the parameter space of temperature, interaction strength, and chemical potential. The integrands involve only fundamental observables, including the total energy, fermion density, and double occupancy, which are readily accessible in a wide range of theoretical and numerical methods. We further derive useful Maxwell relations connecting the entropy to other quantities, and present practical formulas for directly evaluating the grand potential. As an application, we compute the entropy of the doped Hubbard model in two and three dimensions, using the numerically unbiased auxiliary-field quantum Monte Carlo method. The test results show excellent agreement across the different schemes and quantitatively verify the Maxwell relations, confirming the reliability of the framework. In two dimensions, we further benchmark our entropy results in physically relevant parameter regimes against diagrammatic Monte Carlo calculations and observe excellent quantitative consistency between the two approaches. By providing an efficient and broadly applicable route for entropy evaluation, our work facilitates the thermodynamic characterization of complex correlated states in the doped Hubbard model. 
+
+I. INTRODUCTION 
+
+In correlated quantum systems, thermodynamic quan-tities encode signatures of microscopic correlations and collective phenomena, and are widely used as theoreti-cal and experimental probes of quantum criticality and emergent order [1–6]. Among them, thermal entropy is particularly important, as it quantifies the number of ac-cessible microstates and captures the interplay between quantum correlations and thermal fluctuations [7–11]. It exhibits characteristic behaviors in a variety of quantum states and phases, including the Fermi liquid, Mott in-sulator, quantum spin liquids, antiferromagnets, and su-perconductors [12–18]. The entropy landscape provides essential insights into cryogen-free cooling protocols, such as adiabatic demagnetization refrigeration near quantum criticality in magnetic materials [19–22] and interaction-induced adiabatic cooling (also known as Pomeranchuk cooling) in Fermi-Hubbard systems [23–28]. In ultra-cold atomic experiments, thermal entropy is a more fun-damental metric than temperature for quantifying how cold the system is [29–38], since temperature is a de-rived quantity and is typically not directly measurable. More broadly, the entropy lies at the interface of quan-tum many-body physics and information-theoretic con-cepts [39–44]. In the Fermi-Hubbard model [45–47], the paradigmatic model for strongly correlated electrons [48, 49], thermal   
+
+> ∗yjdeng@ustc.edu.cn
+> †heyuanyao@nwu.edu.cn
+
+entropy plays a significant role in understanding the ther-modynamic properties and associated underlying physics of the system [13, 14, 28, 50–53]. At half filling, entropy is one of the key observables used to characterize the metal-to-Mott insulator crossover in both two- and three-dimensional (2D and 3D) models [13, 14]. Its nonmono-tonic behavior with interaction strength controls the tem-perature dependence of double occupancy via a Maxwell relation, and essentially leads to the Pomeranchuk cool-ing effect [14, 28]. Away from half filling, the early studies showed that [50–52], at sufficiently strong interactions, the variation of entropy with doping displays the signa-ture of a possible quantum critical point in the 2D Hub-bard model. This doping dependence was re-examined more recently in Ref. [53], where an additional crossover from a non-Fermi-liquid (or pseudogap) state to a Fermi-liquid state was identified. These previous results demon-strate that the evolution of thermal entropy in the multi-dimensional parameter space is intimately connected to the full phase diagram of the Hubbard model, which re-mains a central focus of condensed matter theory and computational quantum many-body physics. Hence, the efficient computation of thermal entropy is crucial for the study of the Hubbard model. In our previous work [13], we have established the for-malism of computing thermal entropy for the half-filled standard Hubbard model. We refined the conventional calculation scheme based on the integration over temper-ature [24, 54–56], and developed a novel formalism via an integration over interaction strength. The latter can sub-stantially reduce the computational cost when evaluating the entropy as a function of interaction strength at fixed 
+
+> arXiv:2603.18998v1 [cond-mat.str-el] 19 Mar 2026
+
+2temperature. With doping, the additional parameter of chemical potential μ, that controls the fermion filling n
+
+of the model, is introduced (within the grand canonical ensemble), and accordingly renders the computation of entropy more complicated. Although numerous existing studies [25–27, 41–44, 50– 53, 56–62] have involved entropy evaluation in the doped Hubbard model, the techniques applied all have certain limitations. The first approach [25–27, 50–52, 56–60] is to simply employ the scheme of integration over tem-perature T (or equivalently integration over inverse tem-perature β = 1 /k B T ), as widely used in the half-filled case. Nevertheless, such calculations must deal with the high-temperature limit ( T = ∞) which usually involves a high-T cutoff, and may also suffer from the coarse resolution in β at low temperatures. Both issues can compromise the numerical accuracy. Moreover, the en-tropy formulas in this approach only work for calculations with fixed fermion fillings, and need to be slightly mod-ified for the fixed-μ situation (see Secs. III A and III B). The second route [53, 61, 62] directly computes the en-tropy from the grand potential via their connection for-mula. However, this approach is only practical in spe-cific many-body numerical methods, including numeri-cal linked cluster expansions (NLCE) and diagrammatic Monte Carlo (DiagMC), which can directly access the grand potential. The third method obtains thermal en-tropy in two steps [41–44]. It first numerically calculates the pressure via an integration of fermion density n(μ, T )over μ, from the empty state [ μ = + ∞ based on the model Hamiltonian in Eq. (1)] to the specific μ value at a desired filling. Then the entropy is the temperature derivative of the pressure. This procedure requires per-forming wide μ-sweep calculations (even with a practical 
+
+μ cutoff), and involves successive numerical integration and differentiation, which may lead to instability issues. Thus, overcoming the above limitations and developing simple yet generally applicable schemes for computing thermal entropy in the doped Hubbard model remains highly desirable. In this work, we address the efficient evaluation of ther-mal entropy in the doped Hubbard model and develop a unified computational framework for this purpose. It in-corporates four complementary calculation schemes that all formulate the entropy as simple path integrals over temperature, interaction strength, and chemical poten-tial. The integrands involve very fundamental observ-ables, including the total energy, fermion density, and double occupancy. We derive these entropy formulas independently from the definition of the grand poten-tial and the finite-temperature Hellmann-Feynman theo-rem. We also obtain useful Maxwell relations that con-nect the entropy to other thermal quantities. The frame-work should be broadly applicable to various theoretical and numerical methods, and we demonstrate its appli-cations here using auxiliary-field quantum Monte Carlo (AFQMC) simulations for both the 2D and 3D doped Hubbard model. We find excellent agreement among the results obtained from different schemes within the frame-work, as well as with the physically relevant results re-ported in previous DiagMC calculations. The rest of this paper is organized as follows. In Sec. II, we first describe the doped Hubbard model and briefly in-troduce the finite-temperature AFQMC method applied in this work. Then we summarize the entropy evaluation for the half-filling case. In Sec. III, we present the compu-tational framework and formulas for thermal entropy in the doped Hubbard model within the grand canonical en-semble, and also derive useful Maxwell relations. Then in Sec. IV, we present an alternative and independent derivation for the entropy formulas obtained in Sec. III. In Sec. V, we show the test results of entropy in both 2D and 3D doped Hubbard model from AFQMC simula-tions. Finally, Section VI is devoted to the summary of this work, along with discussions on broader applications and further extensions of our computational framework for entropy evaluation. In the Appendixes, we discuss the Trotter error of double occupancy and thermal en-tropy, and present detailed derivations for the entropy at certain limits and several equations in the main text.   
+
+> II. MODEL, METHOD, AND ENTROPY EVALUATION AT HALF FILLING A. The Hubbard model and AFQMC method
+
+We focus on the single-band Fermi-Hubbard model on 2D square lattice and 3D simple cubic lattice to elucidate the computation of thermal entropy. The model Hamil-tonian takes the following form ˆH = X
+
+> kσ
+
+εkc+ 
+
+> kσ
+
+ckσ + μ X
+
+> i
+
+(ˆ ni↑ + ˆ ni↓)+ U X
+
+> i
+
+
+
+ˆni↑ ˆni↓ − ˆni↑ + ˆ ni↓
+
+2
+
+
+
+,
+
+(1) where ˆ niσ = c+ 
+
+> iσ
+
+ciσ is the density operator, with σ (= ↑ or 
+
+↓) denoting spin and i as the coordinates of the lattice site. Here we only consider the nearest-neighbor hopping 
+
+t, and take periodic boundary conditions. This leads to the kinetic energy dispersion εk = −2t(cos kx + cos ky ) in 2D, and εk = −2t(cos kx + cos ky + cos kz ) in 3D, where the momentum kx, k y (and kz ) are defined in units of 2π/L with L as the linear system size. The total number of lattice sites reads Ns = L2 and Ns = L3 for 2D and 3D systems, respectively. We define the fermion filling as n = Ne/N s with Ne as the total number of fermions. The chemical potential term μ represents a pure doping, since the system with μ = 0 is at half filling ( n = 1) due to the particle-hole symmetry. The system is hole doped with μ > 0, while the electron doping is associated with 
+
+μ < 0 case. Both the repulsive ( U > 0) and attractive (U < 0) interactions are involved in our calculations. We employ the numerically exact finite-temperature AFQMC method [13, 63–72] to solve the model (1) and 3to compute the thermal entropy. While the simulation is free of the fermion sign problem for U > 0 at half filling and U < 0 at arbitrary filling [73], we apply the standard reweighting technique [65, 67] to treat the sign problem in the repulsive Hubbard model away from half filling. All implementation details of the AFQMC method can be found in our previous work [13]. Here, we briefly outline the key components. We apply the symmetric Trotter-Suzuki decomposition, which generally leads to the Trot-ter error O[(∆ τ )2] in observables (with ∆ τ from the dis-cretization of the inverse temperature as β = M ∆τ ). We adopt the Hubbard-Stratonovich (HS) transforma-tion into the spin-ˆ sz channel with two-component aux-iliary fields for the Hubbard interaction [13, 64]. Our AFQMC simulation also incorporates several algorithmic improvements, including the fast Fourier transform [72], the delayed update [70, 71] and τ -line global update [66].  
+
+> B. Computation of thermal entropy at half filling
+
+Prior to discussing the doped case, we first summarize the entropy evaluation for the standard Hubbard model at half filling in this subsection. This corresponds to the special case of μ = 0 and n = 1 in the model (1), where the tuning parameters are the interaction strength U and the temperature T . The entropy is typically computed either along the T axis at fixed U or along the U axis at fixed T . Here we define the entropy density s = S/N s
+
+with S as the total entropy of the system. Both s and S
+
+are in units of kB . The calculations involve the energy density e and double occupancy D, which are computed as e = ⟨ ˆH⟩/N s and D = N −1
+
+> s
+
+P
+
+> i
+
+⟨ˆni↑ ˆni↓⟩ in AFQMC simulations. We begin with the entropy evaluation at fixed U with varying T . The conventional approach is to evaluate s(T )via temperature integration [24, 54–56] as 
+
+s(T ) = ln 4 + e(T )
+
+T −
+
+Z ∞
+
+> T
+
+e(T ′)
+
+T ′2 dT ′. (2) Practically, the upper limit of the integral is usually re-placed by a high-T cutoff [54], which simply neglects the residual tail and may lead to numerical inaccuracy. More-over, evaluating the integral over a very wide temperature range requires a large number of data points. A possible way to bypass these issues is to reformulate the integral into the inverse temperature axis ( β = 1 /T ) as 
+
+s(β) = ln 4 + βe (β) −
+
+Z β
+
+> 0
+
+e(β′)d β′. (3) This formula has an advantage in handling the high-T
+
+regime, since e(β) typically varies slowly and smoothly as T = ∞. This limit actually corresponds to the atomic limit, where e(T = ∞) = −U/ 4 for the model (1). There-fore, at high temperatures (e.g., βt ≤ 2), Eq. (3) works well, as only a few data points are usually sufficient to evaluate the integral. However, at intermediate to low temperatures where β becomes large, simulations over a wide β range are required to accurately evaluate the in-tegral. To overcome this issue, in our previous work [13], we proposed to combine Eqs. (2) and (3) by dividing the integral into two parts as 
+
+s(T ) = ln 4 + e(T )
+
+T −
+
+Z T0
+
+> T
+
+e(T ′)
+
+T ′2 dT ′ −
+
+Z β0
+
+> 0
+
+e(β′)d β′.
+
+(4) where T0 = 1 /β 0 > T denotes an intermediate tempera-ture. In practical calculations, different choices of T0 can be used to cross-check the results for s(T ). This hybrid formula separates the calculations into 0 ≤ β′ ≤ β0 and 
+
+T ≤ T ′ ≤ T0 regimes, both of which require significantly fewer data points to evaluate the integrals than directly applying Eqs. (2) or (3). Thus, Eq. (4) can substantially improve the efficiency for the entropy evaluation. Physi-cally, there are two known limits for s(T ) in the Hubbard model. The first is s(T = ∞) = ln 4, which corresponds to the atomic-limit result at half filling and is also evi-dent from the expressions in Eqs. (2)-(4). The second is 
+
+s(T = 0) = 0, which can not be explicitly derived from the above formulas but holds for the Hubbard model [74]. Connecting these two limits, s(T ) simply decays mono-tonically from ln 4 to zero with lowering temperature. We now turn to the computation of thermal entropy as a function of U at fixed T , denoted as s(U ). In princi-ple, s(U ) can be obtained by repeating the above proce-dure to compute s(T ) for different values of U . However, this approach requires substantial computational effort, as extensive simulations over a wide range of T must be performed for each U . To address this challenge, we developed a scheme to directly calculate s(U ) in our pre-vious work [13], which only involves simulations at fixed 
+
+T . The idea comes from the Hellmann-Feynman theorem at finite temperatures for the Hubbard model (1) as 
+
+∂Ω
+
+∂U = D − 12 , (5) with Ω = e − T s(U ) as the grand potential density. This relation allows for the direct calculation of Ω via an in-tegral over U as Ω( U ) = Ω 0 +
+
+Z U
+
+> 0
+
+D(U ′)d U ′ − U
+
+2 , (6) with Ω 0 = −2( T /N s) P 
+
+> k
+
+ln(1 + e−βε k ) as the grand po-tential density at U = 0. Then the following expression for s(U ) is evident from the definition of Ω as 
+
+s(U ) = 1
+
+T
+
+h
+
+e(U ) − Ω0 −
+
+Z U
+
+> 0
+
+D(U ′)d U ′ + U
+
+2
+
+i
+
+, (7) which depends on the energy density e and double occu-pancy D. This approach is far more efficient for comput-ing s(U ) than repeating the conventional procedure along the T axis at a bunch of U values. It also allows us to carefully track the nonmonotonic U -dependence of s at 4fixed T , which provides valuable insights into the metal-insulator crossover in the 2D and 3D half-filled Hubbard models [13, 14] and the associated Pomeranchuk cooling effect [28]. The combined use of Eqs. (4) and (7) enables efficient calculation of thermal entropy in the half-filled Hubbard model. In Eqs. (2)-(4), the energy density e can be re-placed by a simplified analog ee = N −1 
+
+> s
+
+⟨ ˆHK ⟩+U D , where ˆHK = P 
+
+> kσ
+
+εkc+ 
+
+> kσ
+
+ckσ is the kinetic Hamiltonian. It is ev-ident that the extra energy ∆ e = e − ee = −U/ 2 at half filling cancels out in all the formulas. Accordingly, the expression in Eq. (7) can be reformulated as 
+
+s(U ) = 1
+
+T
+
+hee(U ) − Ω0 −
+
+Z U
+
+> 0
+
+D(U ′)d U ′i
+
+. (8) Regarding the computation of the integrals in Eqs. (4) and (7), we suggest first performing fitting (e.g., cubic spline) for numerical data of the integrands [as e(T ′) and 
+
+e(β′) in Eq. (4), and D(U ′) in Eq. (7)], and then evalu-ate the integral analytically using the fitting curve. The uncertainty of the entropy can be estimated via the boot-strapping technique (see Appendix C in Ref. [75]). The same procedure is also used in numerically evaluating the integrals involved in the next section for the doping case.  
+
+> III. ENTROPY EVALUATION AWAY FROM HALF FILLING AND MAXWELL RELATIONS
+
+In this section, we concentrate on our unified frame-work for computing the thermal entropy for the doped Hubbard model. Comparing with the half-filling case, the doping introduces the additional parameter μ, which is the characteristic variable of the grand canonical en-semble. The framework is formulated based on the fun-damental quantity of grand potential. We first clarify the terminology used below. In pre-vious literature, the thermodynamic potential in grand canonical ensemble is sometimes loosely called the free energy . More precisely, however, free energy usually refers to the Helmholtz free energy in canonical ensem-ble, while the corresponding quantity in grand canonical ensemble is the grand potential . In this work, since all calculations are carried out in grand canonical ensemble, we use the term grand potential throughout. Correspond-ingly, the grand potential density is regarded as a func-tion of temperature T , interaction strength U , and chem-ical potential μ. With our convention for the Hubbard Hamiltonian, the chemical-potential term is included ex-plicitly in ˆH, and thus the grand potential density is writ-ten as Ω( T, U, μ ) = e−T s, where s = S/N s is the entropy density and e = ⟨ ˆH⟩/N s = ek + U h I + μn is the total energy density including the chemical-potential contribu-tion. Here ek = N −1 
+
+> s
+
+⟨ ˆHK ⟩ is the kinetic energy density, while hI = ⟨ ˆHI ⟩/N s with ˆHI = P
+
+> i
+
+[ˆ ni↑ ˆni↓ −(ˆ ni↑ +ˆ ni↓)/2]. Therefore, Ω( T, U, μ ) can be expressed explicitly as Ω = ek + U h I − T s + μn, (9) where s = S/N s is the entropy density. Based on the fact that the natural variables in Ω are T ,
+
+U and μ, the total differential of Ω should be physically written as dΩ = −s dT + hI dU + n dμ . (10) Moreover, from Eq. (9), we can calculate the total differ-ential of Ω in a totally mathematical manner as dΩ = d ek + hI dU + U dhI − T ds − s dT
+
++ μ dn + n dμ . (11) By comparing Eqs. (10) and (11), we reach the total dif-ferential of the entropy density as ds = dek + U dhI + μ dnT . (12) This relation clearly provides the practical routes to com-pute s along different pathways by integrating specific parameter trajectories. To systematically evaluate the entropy along physically relevant pathways, we consider four representative paths in the ( U, T, μ ) parameter space of the model (1), each involving the variation of a single control parameter while keeping the others fixed. Specifically, we concentrate on the following four paths: (a) varying T with fixed U and 
+
+n [see Eq. (16)]; (b) varying T with fixed U and μ [see Eq. (18)]; (c) varying μ with fixed U and T [see Eq. (23)]; (d) varying U with fixed T and n [see Eqs. (27) and (28)]. These basically cover the whole parameter space of the doped Hubbard model. For clarity and later convenience for use, we define two different kinds of energy density 
+
+ein = ek + U h I ,etot = ek + U h I + μn, (13) where etot includes the chemical potential term. Both ein 
+
+and etot will be used in the following calculations for the entropy. In the following, we present the detailed derivations for the entropy density s based on Eq. (12) along the above four paths in Secs. III A-III D, and discuss the Maxwell relations connecting the entropy to other thermal quan-tities in Sec. III E. We also elucidate an efficient tech-nique to tune the chemical potential μ to reach a fixed fermion filling in the context of grand canonical ensemble in Sec. III F.       
+
+> A. Varying Twith fixed Uand n
+
+This is the standard path that is usually applied in quantum many-body simulations for the doped Hubbard model [69, 76]. In grand canonical ensemble calculations, the fixed fermion filling n is typically reached via tuning 
+
+μ by hand (see Sec. III F). Starting from Eq. (12), the fixed n means d n = 0, and fixed U leads to d ek + U dhI = d ein . This leads to the 5simplified total differential d s = d ein /T , which can be easily transformed to an integral form as 
+
+sn(∞) − s(T ) = 
+
+Z ∞
+
+> T
+
+dein (T ′)
+
+T ′ , (14) where sn(∞) = ln 4 − n ln n − (2 − n) ln(2 − n) is the entropy density at T = ∞ with the fixed filling n (see Appendix B). Note sn(∞) reduces to the half-filling value of ln 4 at n = 1. To make Eq. (14) numerically tractable, we perform the integration by parts and arrive at 
+
+s(T ) = sn(∞) + ein (T )
+
+T −
+
+Z ∞
+
+> T
+
+ein (T ′)
+
+T ′2 dT ′. (15) We then apply the same operation as that in Sec. II B to deal with upper limit T = ∞ in the integral, by dividing it into two parts separated by an intermediate tempera-ture T0 > T (and β0 = 1 /T 0) as 
+
+s(T ) = sn(∞) + ein (T )
+
+T −
+
+Z T0
+
+> T
+
+ein (T ′)
+
+T ′2 dT ′
+
+−
+
+Z β0
+
+> 0
+
+ein (β′)d β′.
+
+(16) At the special filling n = 1, this expression clearly degen-erates into Eq. (4) for the half-filling case. In Eqs. (15) and (16), the energy ein can be replaced by eein = ek +U D ,as the extra term ein − eein = −U n/ 2 cancels out. An alternative choice for formulating the integration in Eq. (14) is to integrate from T ′ = 0 to T ′ = T , which can benefit from sn(T = 0) = 0. However, it requires the results of ein (T ) in low-T regime, which is typically more challenging for quantum many-body numerical methods, especially for the AFQMC method due to the fermion sign problem.       
+
+> B. Varying Twith fixed Uand μ
+
+In addition to fixed-n trajectory, another frequently studied path involves varying temperature T with fixed 
+
+U and μ. This path can be applied in quantum many-body calculations when fixing n requires substantially greater computational effort. With fixed μ, the fermion filling n changes as T de-creases, implying d n̸ = 0. Consequently, the chemical potential term μ dn in Eq. (12) contributes to total dif-ferential d s, which is the major difference from the fixed-
+
+n path as discussed in Sec. III A. Together with fixed U ,it leads to d ek + U dhI + μ dn = d etot , resulting in the total differential d s = d etot /T . Hence, the entropy can be computed as 
+
+sμ(∞) − s(T ) = 
+
+Z ∞
+
+> T
+
+detot (T ′)
+
+T ′ , (17) where sμ(∞) = ln 4 is the entropy density at T = ∞
+
+with the fixed μ. As T → ∞ , the system approaches the atomic limit, which holds n = 1 for any finite μ (see Ap-pendix B) and thus yields sμ(∞) = ln 4. Then via apply-ing the integration by parts for Eq. (17) and introducing an intermediate temperature T0 > T (and β0t = 1 /T 0), we reach the final expression for s(T ) as 
+
+s(T ) = ln 4 + etot (T )
+
+T −
+
+Z T0
+
+> T
+
+etot (T ′)
+
+T ′2 dT ′
+
+−
+
+Z β0
+
+> 0
+
+etot (β′)d β′,
+
+(18) which shares the same form as Eq. (16) for the fixed-n
+
+path, the only difference being the replacement of ein (T )by etot (T ). At half filling with μ = 0 and n = 1, the relation etot = ein holds, and hence Eqs. (18) and (16) become identical, which both degenerate into Eq. (4) as expected. With μ̸ = 0, we can obtain two types of specific heat along the trajectories of fixed n and fixed μ applied to calculate the entropy. The specific heat can be computed as 
+
+CX = T
+
+ ∂s
+
+∂T 
+
+ 
+
+> X
+
+, (19) with X = n or X = μ denoting the fixed quantity of the path. Using the expressions for s(T ) in Eqs. (16) and (18) along the two paths, we obtain 
+
+Cn = T
+
+ ∂s
+
+∂T 
+
+
+
+> n
+
+=
+
+ ∂e in 
+
+∂T 
+
+
+
+> n
+
+,Cμ = T
+
+ ∂s
+
+∂T 
+
+
+
+> μ
+
+=
+
+ ∂e tot 
+
+∂T 
+
+
+
+> μ
+
+.
+
+(20) These two formulas can be used to compute the specific heat along the corresponding paths to characterize the physical properties of the system.       
+
+> C. Varying μwith fixed Uand T
+
+As a complementary perspective on varying T schemes in Secs. III A and III B, we can also evaluate the entropy as a function of μ (namely, doping or n) or U at fixed T .Such a formulation is particularly useful in characterizing the doping physics in the model. We first focus on the path of varying μ with fixed U and T .In Eq. (12), fixing U means d ek + U dhI = d ein , and results in the total differential d s = (d ein + μ dn)/T . We can similarly perform integration on both sides from a specific reference point μ′ = μ0 to μ′ = μ, leading to 
+
+s(μ) − s(μ0) = 1
+
+T
+
+h
+
+ein (μ) − ein (μ0) + 
+
+Z μμ0
+
+μ′ dn(μ′)
+
+i
+
+.
+
+(21) Applying the integration by parts for the integral, we can reach its simplified form as 
+
+s(μ) = s(μ0) + 1
+
+T
+
+h
+
+etot (μ) − etot (μ0) −
+
+Z μμ0
+
+n(μ′) d μ′ i
+
+,
+
+(22) 6where we apply the relation etot (μ) = ein (μ)+ μn (μ) from Eq. (13). In practical calculations, the reference μ0 can be chosen at a point where the numerical simulations are relatively straightforward. For the Hubbard model (1), the half filling point with μ0 = 0 is obviously the best choice, and the corresponding s(μ0 = 0) can be computed via either Eq. (4) or Eq. (7). Accordingly, Eq. (22) with 
+
+μ0 = 0 can be written as 
+
+s(μ) = s(0) + 1
+
+T
+
+h
+
+etot (μ) − etot (0) −
+
+Z μ
+
+> 0
+
+n(μ′) d μ′ i
+
+,
+
+(23) where s(0) and etot (0) are the entropy density and total energy density, respectively, at μ = 0 (half filling). Note that the energy etot instead of ein appears in Eq. (23), since the fermion filling n changes along the trajectory of varying μ. Another special choice for μ0 is μ0 = + ∞, at which the fermion density n = 0 in the model (1). How-ever, this requires wide μ-sweep simulations to evaluate the integral, which consumes more computational effort. Although s(0) in Eq. (23) must be computed indepen-dently, typically through the integration along the T or 
+
+U axis as described in Sec. II, it contributes only an ad-ditive constant when analyzing the entropy differences across fillings. In practical applications, this constant is irrelevant when only the relative variation or the shape of the entropy curve as a function of doping is of interest. This path therefore provides a flexible and efficient route to access entropy trends in the doped Hubbard model, particularly in regimes where fixing the fermion filling directly is computationally demanding. For example, at intermediate to low temperatures where the fermion sign problem becomes significant in AFQMC simulations, this scheme is particularly useful since the fermion density 
+
+n(μ) can typically be obtained with high precision.       
+
+> D. Varying Uwith fixed Tand n
+
+The last computational scheme for the entropy density 
+
+s is along the U axis with fixed T and n. It enables us to study the U dependence of s, which plays a significant role in characterizing the metal-to-insulator crossover in the Hubbard models [13, 14]. Based on Eq. (12), the fixed n means d n = 0, leading to the total differential d s = (d ek + U dhI )/T . Note that 
+
+hI also changes with varying U . Then we compute s
+
+by performing the integration from U ′ = 0 to U ′ = U ,yielding 
+
+s(U ) − s(0) = 1
+
+T
+
+h
+
+ek(U ) − ek(0) + 
+
+Z U
+
+> 0
+
+U ′ dhI (U ′)
+
+i
+
+.
+
+(24) Here, s(0) = s0 is the noninteracting ( U = 0) entropy density with fixed T and n, which takes the explicit form (see Appendix B) 
+
+s0 = −2N −1
+
+> s
+
+X
+
+> k
+
+fk ln fk + (1 − fk) ln(1 − fk), (25) with fk = 1 /[eβ(εk+μ) +1] as the Fermi-Dirac distribution function. Via the integration by parts for the integral in Eq. (24), the expression can be simplified as 
+
+s(U ) − s0 = 1
+
+T
+
+h
+
+ein (U ) − ein (0) −
+
+Z U
+
+> 0
+
+hI (U ′) d U ′ i
+
+,
+
+(26) which incorporates the relation ein (U ) = ek(U )+ U h I (U )from Eq. (13). Moreover, using the equality hI (U ′) = 
+
+D(U ′) − n/ 2, Eq. (26) can be rewritten as 
+
+s(U ) = s0
+
++ 1
+
+T
+
+h
+
+ein (U ) − ein (0) −
+
+Z U
+
+> 0
+
+D(U ′) d U ′ + U n 
+
+2
+
+i
+
+. (27) Considering the fixed n, we can reformulate this equality using eein (U ) = ek(U ) + U D (U ) = ein (U ) + U n/ 2 as 
+
+s(U ) = s0 + 1
+
+T
+
+heein (U ) − eein (0) −
+
+Z U
+
+> 0
+
+D(U ′) d U ′ i
+
+.
+
+(28) It is evident that, at n = 1, Eqs. (27) and (28) become identical to Eqs. (7) and (8) for the half-filling case, re-spectively, based on the relations Ω 0 = ek − T s0 and 
+
+ein (0) = eein (0) = ek(U = 0) with s0 = ln 4. Typically, double occupancy D(U ) is a very smooth function of U with fixed T and n. As a result, we can accurately evaluate the integral in Eq. (28) and accord-ingly obtain the full s(U ) curve, using a limited number of data points from numerical simulations.  
+
+> E. Maxwell relations
+
+In the previous subsections, we have derived formulas for the entropy along four different paths in the param-eter space of the doped Hubbard model, which together cover all relevant simulation scenarios. With the entropy formulas, here we focus on the Maxwell relations that connect thermal entropy with other physical quantities in the model. In grand canonical ensemble, Maxwell re-lations follow from the equality of mixed second-order derivatives of the grand potential. In the procedure, we need to carefully distinguish the fixed-μ and fixed-n con-ditions. From the grand potential density Ω( U, T, μ ) in Eq. (9), we can readily obtain its first-order derivatives as 
+
+∂Ω
+
+∂T = −s, ∂Ω
+
+∂U = hI , ∂Ω
+
+∂μ = n, (29) which then yields the mixed second-order derivatives 
+
+ ∂s
+
+∂U 
+
+
+
+> μ,T
+
+= −
+
+ ∂h I
+
+∂T 
+
+
+
+> μ,U
+
+, (30a) 
+
+ ∂s
+
+∂μ 
+
+
+
+> U,T
+
+= −
+
+ ∂n ∂T 
+
+
+
+> U,μ
+
+, (30b) 
+
+ ∂h I
+
+∂μ 
+
+
+
+> T,U
+
+= + 
+
+ ∂n ∂U 
+
+
+
+> T,μ
+
+, (30c) 7where the subscripts (such as “ μ, T ” and “ μ, U ”) denote the condition of fixed natural variables. Note that, in our model Hamiltonian (1), we write the chemical potential term + μ P
+
+> i
+
+(ˆ ni↑ + ˆ ni↓) as a pure hole-doping term with 
+
+μ > 0. Equations (30a)-(30c) are the Maxwell relations for the fixed-μ calculations. They already have practical applications. First , fixing μ = 0 in the model (1) leads to 
+
+n = 1 for arbitrary U and T , as the half-filling case. This yields hI = D−1/2, and hence Eq. (30a) can be rewritten as ( ∂s/∂U )T = −(∂D/∂T )U , the well-known Maxwell relation in the half-filled Hubbard model [13, 14]. Second ,Eq. (30b) means that, at fixed U , the variation of s with 
+
+μ [as ( ∂s/∂μ )U,T ] is opposite to the change of fermion density n versus T [as ( ∂n/∂T )U,μ ]. Consequently, the extrema of s(μ) and n(T ) occur at the same ( T, μ ) point. As a special case, μ = 0 in the model (1) corresponds to the half filling, and hence leads to ( ∂n/∂T )U,μ =0 = 0 and subsequently ( ∂s/∂μ )U,T = 0, meaning that μ = 0 is an extremum of s(μ) function at fixed T and U . This can also be revealed by directly computing ( ∂s/∂μ )U,T 
+
+via Eq. (23), which yields 
+
+ ∂s
+
+∂μ 
+
+
+
+> U,T
+
+= 1
+
+T
+
+h ∂e tot (μ)
+
+∂μ − n(μ)
+
+i
+
+> U,T
+
+= 1
+
+T
+
+h ∂e in (μ)
+
+∂μ + μ ∂n (μ)
+
+∂μ 
+
+i
+
+> U,T
+
+,
+
+(31) based on etot (μ) = ein (μ) + μn (μ) from Eq. (13). More-over, the hole-doped (with μ > 0) and electron-doped (with μ < 0) situations of the model (1) are connected via particle-hole transformations c+ 
+
+> iσ
+
+→ (−1) iciσ , c iσ →
+
+(−1) ic+ 
+
+> iσ
+
+, which leads to n(−μ) = 2 −n(μ) and ein (−μ) = 
+
+ein (μ). Both ein (μ) and n(μ) are expected to be analytic functions near μ = 0 (in the absence of phase transi-tions), resulting in ( ∂e in /∂μ )μ=0 = 0, and consequently (∂s/∂μ )U,T = 0 at μ = 0. Equation (31) also indi-cates that ( ∂s/∂μ )U,T has opposite signs but equal mag-nitudes at + μ and −μ points, implying s(μ) = s(−μ)in the model (1) for fixed U and T . A direct proof of 
+
+s(μ) = s(−μ) can also be achieved via Eq. (23) (see Ap-pendix B). Furthermore, Eq. (31) can be used to numeri-cally compute the extremum of s(μ) via ( ∂s/∂μ )U,T = 0. 
+
+Third , taking an additional μ-derivative for Eq. (30b) can lead to a new equality 
+
+ ∂2s
+
+∂μ 2
+
+ 
+
+> U,T
+
+=
+
+ ∂κ ∂T 
+
+
+
+> U,μ
+
+, (32) in which κ = −∂n/∂μ is the charge compressibility, and the equality of mixed partial derivatives is applied. Typ-ically, ∂κ/∂T < 0 and ∂κ/∂T > 0 can qualitatively sepa-rate the metallic and insulating behaviors [77]. Based on this physical interpretation and Eq. (32), the condition 
+
+∂2s/∂μ 2 = 0 is identified as the crossover from metallic behavior to a non-Fermi-liquid state in Ref. [53]. While the fixed-μ case discussed above follows directly from the natural variables of the grand canonical ensem-ble, many theoretical and experimental situations instead involve fixing the fermion filling n. Therefore, we now turn to the Maxwell relations under the fixed-n condi-tion for the doped Hubbard model. These relations can be obtained by enforcing the total differential conditions along paths of constant filling. First , at fixed U and n,the total differential d n is given by dn =
+
+ ∂n ∂μ 
+
+
+
+> U,T
+
+dμ +
+
+ ∂n ∂T 
+
+
+
+> U,μ
+
+dT = 0 , (33) and it subsequently yields a Maxwell relation 
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+= −
+
+  ∂n ∂T 
+
+
+
+> U,μ
+
+  ∂n ∂μ 
+
+
+
+> U,T
+
+=
+
+ ∂s
+
+∂n 
+
+
+
+> U,T
+
+, (34) in which Eq. (30b) is used in the second equality. This relation was also discussed in Ref. [50, 51]. It connects the temperature dependence of chemical potential μ to the entropy variation with fermion density n at fixed U .
+
+Second , at fixed T and n, the total differential d n follows dn =
+
+ ∂n ∂μ 
+
+
+
+> T,U
+
+dμ +
+
+ ∂n ∂U 
+
+
+
+> T,μ
+
+dU = 0 , (35) and it leads to the second Maxwell relation 
+
+ ∂μ ∂U 
+
+ 
+
+> T,n
+
+= −
+
+  ∂n ∂U 
+
+
+
+> T,μ
+
+  ∂n ∂μ 
+
+
+
+> T,U
+
+= −
+
+ ∂h I
+
+∂n 
+
+ 
+
+> T,U
+
+= 12 −
+
+ ∂D ∂n 
+
+ 
+
+> T,U
+
+,
+
+(36) where Eq. (30c) and the equality hI = D − n/ 2 are used in the second and third equality, respectively. Third , by combining the total differentials d s with fixed T and n
+
+as well as d hI with fixed U and n, we can reach the third Maxwell relation 
+
+ ∂s
+
+∂U 
+
+
+
+> n,T
+
+= −
+
+ ∂D ∂T 
+
+
+
+> n,U
+
+. (37) The detailed derivation is summarized in Appendix B. This relation associates the entropy variation with U to the temperature derivative of double occupancy D. For the special case of n = 1, Eq. (37) becomes identical to Eq. (30a) obtained from fixed-μ condition, and it also reduces to half-filling form ( ∂s/∂U )T = −(∂D/∂T )U .At arbitrary fixed filling n, double occupancy D =
+
+n2/4 at U = 0 holds, and according to Eq. (37), it leads to ( ∂D/∂T )n,U =0 = 0 and subsequently results in (∂s/∂U )n,T = 0 at U = 0. This means that U = 0 point is the extremum of s(U ) function at fixed n and T . Be-sides, based on the entropy formula in Eq. (28), we can actually evaluate the derivative ( ∂s/∂U )n,T as 
+
+ ∂s
+
+∂U 
+
+ 
+
+> n,T
+
+= 1
+
+T
+
+h ∂eein (U )
+
+∂U − D(U )
+
+i
+
+> n,T
+
+= 1
+
+T
+
+h ∂e k(U )
+
+∂U + U ∂D (U )
+
+∂U 
+
+i
+
+> n,T
+
+,
+
+(38) where eein (U ) = ek(U ) + U D (U ) is applied in the second equality. Equation (38) can be used to numerically esti-mate the extremum of s(U ) by solving ( ∂s/∂U )n,T = 0. 8In the Hubbard model, Maxwell relations provide ex-plicit connections between different thermodynamic ob-servables, including thermal entropy s, double occupancy 
+
+D, chemical potential μ, and fermion density n. From our calculations, Eqs. (30a)-(30c), associated with Eq. (32), are the Maxwell relations for the fixed-μ simulations of the doped Hubbard model (1), while the fixed-n corre-spondences include Eqs. (34), (36), and (37). A clear un-derstanding of these relations can offer valuable insights into the essential physics in the doped Hubbard model.    
+
+> F. Tuning μto reach a fixed fermion filling
+
+In grand-canonical-ensemble simulations for the Hub-bard model, the requirement of fixing fermion filling n to a desired value ntarget is frequently encountered in var-ious quantum many-body numerical approaches [50, 51, 53, 61, 69, 76, 78]. This is typically realized via tuning the chemical potential μ by hand, based on the obser-vation that n(μ) versus μ is a monotonically decreasing function in the model (1). Here we introduce a highly efficient procedure to achieve the μ-tuning process. We start with a relatively wide range of μ, denoted as [μi, μ f ], which contains the final solution μtarget satisfy-ing n(μtarget ) = ntarget . First, we apply the standard bi-section or linear interpolation method to update ( μi, μ f )and to narrow down the correct range containing μtarget .For instance, given that n(μi) > n target and n(μf ) <ntarget , we generate μnew = ( μi + μf )/2 via bisection (or an analogous μnew via linear interpolation) and compute 
+
+n(μnew ), and then set μi = μnew if n(μnew ) > n target 
+
+or otherwise set μf = μnew . Second, once the differ-ence ( μf − μi) is reduced to a threshold (e.g., ∼ 10 −2t), the desired fermion density n(μtarget ) = ntarget can be approximated by its first-order Taylor expansion around 
+
+μ0 = μnew from the last step as 
+
+ntarget ≃ n(μ0) + ( μtarget − μ0) ∂n (μ)
+
+∂μ μ=μ0
+
+, (39) in which ∂n (μ)/∂μ is related to the charge compressibil-ity κ that can be numerically computed via [13] 
+
+κ = − ∂n (μ)
+
+∂μ = βNs
+
+X
+
+> ij
+
+ ⟨ˆni ˆnj⟩ − ⟨ ˆni⟩⟨ ˆnj⟩. (40) The calculation of κ only involves the density-density cor-relation function, which is straightforward in numerical methods. From Eq. (39), we obtain an approximate so-lution eμtarget for the true μtarget as 
+
+eμtarget = μ0 + n(μ0) − ntarget 
+
+κ(μ0) . (41) Then we set μ0 = eμtarget , compute n(μ0), apply Eq. (41) to get a new eμtarget , and repeat the process until con-vergence. In statistical methods such as AFQMC, n(μ0)from the simulation has average and error bar, denoted as ¯ n0 and σn0 . We typically use |¯n0 − ntarget | ≤ σn0 as the convergence criterion. The combination of the first and second steps as discussed above enables the precise determination of μtarget .In practical AFQMC simulations, we find that the above procedure can converge for most situations within quite a limited number of iterations, such as three in the first step and two in the second. Moreover, since μtarget 
+
+typically varies only slightly with changes in adjacent model parameters or linear system sizes, a more accu-rate guess for the initial range [ μi, μ f ] can often be made in subsequent simulations, thereby accelerating conver-gence. More broadly, the above self-consistent procedure for determining μtarget can be applied to other quantum many-body methods, provided that n(μ) and κ(μ) can be computed efficiently and accurately.  
+
+> IV. AN ALTERNATIVE DERIVATION FOR THE ENTROPY EVALUATION FORMULAS
+
+In the previous section, we derived the entropy evalua-tion formulas from the total differential of the grand po-tential. Here, we provide an alternative derivation based on the connection between the grand potential and the partition function, combined with the finite-temperature Hellmann-Feynman theorem. In thermodynamics and statistical physics, the grand potential density Ω is connected to the partition function 
+
+Z = Tr( e−β ˆH ) via Ω = −N −1 
+
+> s
+
+T ln Z. The ensemble av-erage of an observable ˆO reads ⟨ ˆO⟩ = Z−1Tr( e−β ˆH ˆO). From the model (1), one can readily obtain the following derivative d(Ω /T )dT = − etot (T )
+
+T 2 + nT
+
+dμ(T )dT . (42) Note that the chemical potential μ can be a function of temperature T in the fixed-n calculations. This equal-ity enables the direct evaluation of Ω /T via integration and subsequently the thermal entropy along the T axis. For other paths in the parameter space, such as those along the μ or U axes, we rely on the finite-temperature Hellmann-Feynman theorem 
+
+∂Ω
+
+∂α =
+
+D ∂ ˆH∂α 
+
+E
+
+, (43) which can be proved using the Lehmann representation (see Appendix A in Ref. [13]). By setting α = μ and 
+
+α = U , we obtain explicit expressions for ∂Ω/∂μ and 
+
+∂Ω/∂U . Integrating these expressions gives Ω( μ) and Ω( U ), which in turn allow the thermal entropy to be evaluated. In the following, we combine Eqs. (42), (43) and (9) to independently derive the entropy formulas ob-tained in Sec. III for four different paths. For varying T with fixed U and n, we can take an in-tegration over temperature from T to ∞ for both sides of Eq. (42). In this calculation, the limit [Ω( T )/T ]T =∞9needs to be carefully handled. From Eq. (9), Ω( T )/T =
+
+ein /T + μn/T − s. As T → ∞ , μ should diverge to reach the fixed filling n (see Appendix B), while ein remains fi-nite. This leads to [Ω( T )/T ]T =∞ = ( nμ/T )T =∞−sn(∞), where sn(∞) = 2 ln 2 − n ln n − (2 − n) ln(2 − n) is the fixed-n entropy density at T = ∞ (see Appendix B). Thus, after the integration, we arrive at Ω( T )
+
+T = − sn(∞) + n μ(T )
+
+T T =∞
+
++
+
+Z ∞
+
+> T
+
+etot (T ′)
+
+T ′2 dT ′ − n
+
+Z ∞
+
+> T
+
+1
+
+T ′ dμ(T ′).
+
+(44) Then applying the relation etot = ein + μn and perform-ing the integration by parts for both integrals, the above equality can be simplified as Ω( T )
+
+T = −sn(∞) + n μ(T )
+
+T +
+
+Z ∞
+
+> T
+
+ein (T ′)
+
+T ′2 dT ′. (45) Then combining Eqs. (9) and (45), the entropy formula in Eq. (15) can be exactly reproduced. For varying T with fixed U and μ, the derivative d μ/ dT
+
+in Eq. (42) vanishes. For this case, the total energy etot 
+
+is always finite, leading to [Ω( T )/T ]T =∞ = −sμ(∞) with 
+
+sμ(∞) = ln 4 as the fixed-μ entropy density at T = ∞.Then the integration over temperature for Eq. (42) yields Ω( T )
+
+T = −sμ(∞) + 
+
+Z ∞
+
+> T
+
+etot (T ′)
+
+T ′2 dT ′, (46) which evidently recovers the formulas in Eqs. (17) and (18) when combining Ω( T )/T = etot /T − s(T ) from Eq. (9). For varying μ with fixed U and T , we apply Eq. (43) and choose α = μ, which gives 
+
+∂Ω( μ)
+
+∂μ =
+
+D ∂ ˆH∂μ 
+
+E
+
+= n. (47) Integrating over μ for this equality gives Ω( μ) = Ω(0) + 
+
+Z μ
+
+> 0
+
+n(μ′)dμ ′, (48) which clearly reproduces the formula in Eq. (23) consid-ering Ω( μ) = etot − T s(μ). For varying U with fixed T and n, we choose α = U in Eq. (43), and reach the Hellmann-Feynman theorem 
+
+∂Ω( U )
+
+∂U =
+
+D ∂ ˆH∂U 
+
+E
+
+= hI + n ∂μ ∂U . (49) The integration over U for this equality yields Ω( U ) = Ω(0) + 
+
+Z U
+
+> 0
+
+hI (U ′)dU ′ + n[μ(U ) − μ(0)] ,
+
+(50) which recovers the formula in Eq. (26) by combining Ω( U ) = ein + μ(U )n − T s(U ). 0.70.80.91.0 n
+
+> 02468
+
+U/t 
+
+> 0.00.20.40.60.81.0
+
+T /t                                       
+
+> FIG. 1. Illustration of four calculation schemes for the ther-mal entropy along different paths in the parameter space of the doped Hubbard model, consisting of interaction strength
+> U/t , temperature T /t , and fermion filling n. The red dashed line shows the varying-Tpath with fixed U/t =6and
+> n= 0 .875. The blue dashed line plots the varying-Tpath with fixed U/t = 6 and μ=μ0. The orange dashed line rep-resents the varying-μpath with fixed U/t = 6 and T /t = 0 .3. The green dashed line denotes the varying-Upath with fixed
+> T /t = 0 .3 and n= 0 .875. The value μ0≃1.23656 is chosen such that n(μ0) = 0 .875 at ( U/t = 6 , T /t = 0 .3) for L= 4 system in the 3D Hubbard model. This reference point is marked by the red star.
+
+In addition to reproducing the entropy formulas, the expressions in Eqs. (45), (46), (48), and (50) can also be used to directly compute the grand potential density Ω. This quantity plays a central role in the thermodynam-ics of quantum systems, as many commonly used observ-ables can be obtained from its derivatives. In Ref. [60], Ω is employed as a key quantity to identify possible in-commensurate orders in the 3D doped Hubbard model. Therefore, the reliable computation of Ω in the doped Hubbard model can provide additional insights into its finite-temperature properties.  
+
+> V. NUMERICAL RESULTS
+
+Applying the calculation formulas derived in Sec. III, we present numerical results for the thermal entropy obtained from finite-temperature AFQMC simulations in this section. First, we test the entropy evaluation schemes as well as the Maxwell relations in the 3D doped Hubbard model using a small system with L = 4 for sim-plicity. The test results are summarized in Sec. V A. Second, we perform large-scale simulations for physically relevant parameters in the 2D doped Hubbard model and benchmark the resulting entropy against that reported in a previous DiagMC study. The corresponding results and discussions are presented in Sec. V B. In Fig. 1, we illustrate the calculation schemes for the 10 0.5 1.0 1.5 2.0 2.5          
+
+> T /t
+> 0.40.60.81.01.2
+> s
+> Exact Eq.(16) (a)n= 0 .875
+> 0.51.01.52.02.5
+> T /t
+> 0.20.40.60.81.01.2
+> Exact Eq.(18), with etot
+> Eq.(18), with ein
+> (b)μ= 0 .3
+
+FIG. 2. Entropy density s as a function of T /t for the 3D Hubbard model with U = 0 from L = 4 system. Panel (a) plots the results (blue squares) for fixed n = 0 .875 evaluated from Eq. (16), while panel (b) shows the fixed-μ results (red circles) with μ/t = 0 .3 obtained from Eq. (18). In both panels, the black dashed line denotes the exact results computed via Eq. (25). In (b), the blue squares are obtained from Eq. (18) using the incorrect energy ein rather than etot , yielding inten-tionally erroneous results. 
+
+thermal entropy in the doped Hubbard model along four paths in its parameter space, corresponding to the for-mulas achieved in Sec. III. For the numerical tests, we consider the 3D Hubbard model (1) on the simple cu-bic lattice with L = 4, and all the four paths cross at (U/t = 6 , T /t = 0 .3, n = 0 .875). For the varying-U path, we perform the U -sweep calculations from U/t = −6 to 
+
+U/t = +6. For the other three paths, we carry out the calculations for U/t = +6 , +4 , +2 , −2, −4, −6. All the fixed-n simulations are realized via tuning the chemical potential μ to reach the target filling n = 0 .875, applying the procedure discussed in Sec. III F. For the physically relevant results in the 2D doped Hubbard model, we con-centrate on the varying-μ path with fixed U/t and T /t ,and perform simulations up to L = 16, which clearly show convergence toward the thermodynamic limit. 
+
+A. Test results in the 3D doped Hubbard model 
+
+We begin with testing the fixed-T calculation schemes for entropy density s in the noninteracting system. At 
+
+U = 0, the exact results of s can be computed via Eq. (25) for either fixed n or fixed μ. In Fig. 2, we show the comparisons between the exact results and those from the numerical calculations using Eqs. (16) and (18). For both the fixed-n and fixed-μ situations, the perfect match is clear, validating the evaluation formulas for s. For the fixed-μ calculation, we also include results intentionally miscalculated using Eq. (18) with the energy ein instead of the correct etot , shown as blue squares in Fig. 2(b). These conceptually incorrect results almost coincide with the correct ones at high temperatures but clearly deviate for T /t ≤ 0.5. This can be understood from the relation 
+
+etot = ein + μn , combined with the fact that for fixed μ,the system gradually approaches half filling with n = 1 in the atomic limit. In the high-T regime, this renders the 0.0 0.5 1.0 1.5 2.0
+
+βt 
+
+−3.5
+
+−2.5
+
+−1.5
+
+−0.50.51.5
+
+> ein /t
+
+(a)
+
+0.30 0.35 0.40 0.45 0.50 
+
+T /t 
+
+−3.70 
+
+−3.68 
+
+−3.66 
+
+−3.64 
+
+−3.62 
+
+−3.60 
+
+> ein /t
+> −0.65
+> −1.25
+> −2.25
+> −2.6
+> −2.87
+
+(b)
+
+0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+
+T /t 
+
+0.30.50.70.91.11.3
+
+> s
+
+(c)         
+
+> U/t = 6
+> U/t = 4
+> U/t = 2
+> U/t =−2
+> U/t =−4
+> U/t =−6
+
+FIG. 3. Test results for the varying-T path with fixed U/t 
+
+and n = 0 .875. Panels (a) and (b) plot the energy density 
+
+ein /t versus inverse temperature βt within 0 ≤ βt ≤ 2.0, and versus temperature T /t within 0 .30 ≤ T /t ≤ 0.50, re-spectively. The ein /t data in (b) have been vertically offset (except for U/t = 6) to fit into the plot, and the shifts are marked with the same colors as the data. Panel (c) shows the entropy density s as a function of T /t , computed via Eq. (16) with T0/t = 0 .5 and β0t = 2 .0. The calculations are per-formed on an L = 4 system for the 3D Hubbard model with 
+
+U/t = +6 , +4 , +2 , −2, −4, −6. The black dashed line in (c) plots sn(∞) = ln 4 − n ln n − (2 − n) ln(2 − n) as the entropy result at T /t = ∞.
+
+additional energy μn to be nearly a constant, thereby eliminating its contribution in Eq. (18). In the low-T
+
+regime, by contrast, n varies significantly with T , and the μn term in Eq. (18) contributes substantially, lead-ing to the deviation observed in Fig. 2(b). We then turn to the entropy evaluations in the inter-acting system. The test results are demonstrated in the following according to the four calculation schemes out-lined in Sec. III. In the AFQMC simulations, we mostly adopt ∆ τ t = 0 .04, and specifically take ∆ τ t = 0 .015 for the fixed-U simulations due to the significant Trotter error in double occupancy (see Appendix A). For the varying-T path with fixed U/t and n = 0 .875, we plot the test results in Fig. 3, including energy density 
+
+ein /t and entropy density s computed via Eq. (16). The 11 results of ein /t in Figs. 3(a) and 3(b) are presented ac-cording to the intermediate T0 = 1 /β 0 in Eq. (16), which is chosen as T0/t = 0 .5 (and β0 = 2 .0). As expected, 
+
+ein /t is rather smooth in both ranges of 0 ≤ β ≤ β0 and 
+
+T ≤ T0, thereby allowing us to accurately evaluate the integrals in Eq. (16) with a few data points in each range. The double occupancy D = n2/4 at T /t = ∞ and the associated energy ein = U (D − n/ 2), are directly used at 
+
+βt = 0 in Fig. 3(a). The resulting s in Fig. 3(c) evidently shows the convergence to sn(T = ∞) as T /t increases. Interestingly, we find that the numerical results of s(+ U )and s(−U ) almost coincide in the high-T regime (such as 
+
+T /t ≥ 1.0). This behavior can be understood from the atomic limit ( β|U | ≪ 1), which dominates the high-T
+
+physics of the Hubbard model [13]. In this regime, the kinetic energy ek is small and largely insensitive to the sign of U , and thus ein is governed by the interaction en-ergy U (D−n/ 2). As βt increases from zero, the reduction of ein /t arises from the opposite temperature dependence of the double occupancy: it is suppressed upon cooling for U > 0, but enhanced for U < 0. Moreover, the atomic limit result gives (see Appendix B) 
+
+D(T, U ) = n2
+
+4 − n2(2 − n)2
+
+16 βU + O[( βU )2]. (51) This equality together with the above analysis indicates that the energy difference between ein (−U ) and ein (+ U )in the high-T regime can be approximated as 
+
+ein (−U ) − ein (+ U ) ≃ − U D(T, −U ) + D(T, +U ) − n
+
+= + U (n − n2/2) ,
+
+(52) which is a T -independent constant that only depends on the filling n. This qualitatively explains the behavior of 
+
+ein /t results in Fig. 3(a), where the curves for ein (−U )and ein (+ U ) are approximately related by a constant shift. More quantitatively, here for n = 0 .875 in our calculations, the energy difference predicted by Eq. (52) is ∼ 0.492 U , which agrees well with the shifts observed for all three pairs of ( −U, +U ). Regarding the s results in Fig. 3(c), since the contribution from a T -independent constant in ein cancels out in Eq. (16), s(+ U ) and s(−U )naturally becomes almost identical in the high-T regime. In the low-T regime, the atomic-limit approximation and accordingly Eqs. (51) and (52) are instead no longer valid, which leads to the deviation between s(+ U ) and s(−U )as shown in Fig. 3(c). This deviation becomes more pro-nounced for larger |U |, since the atomic-limit condition 
+
+β|U | ≪ 1 breaks down earlier as T /t decreases. Besides, 
+
+s always decreases monotonically upon cooling, as antic-ipated. For the varying-T path with fixed U/t and μ/t , we plot the test results in Fig. 4, in a manner similar to Fig. 3. The fixed μ is chosen as μ = μ0 such that n(μ0) = 0 .875 at T /t = 0 .3 for all values of U/t . Apparently, μ0 differs for different U/t . For example, our AFQMC simulations identify μ0/t ≃ 0.17997 and 1 .23656 for U/t = −6 and +6, respectively. Here the entropy density s is computed 0.0 0.5 1.0 1.5 2.0
+
+βt 
+
+−2.5
+
+−1.5
+
+−0.50.51.5
+
+> etot /t
+> (a)
+
+0.30 0.35 0.40 0.45 0.50 
+
+T /t 
+
+−2.65 
+
+−2.60 
+
+−2.55 
+
+−2.50 
+
+> etot /t
+> −0.3
+> −0.6
+> −1.3
+> −1.68
+> −1.92
+> (b)
+
+0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+
+T /t 
+
+0.30.50.70.91.11.3
+
+> s
+
+(c)                                                            
+
+> U/t = 6
+> U/t = 4
+> U/t = 2
+> U/t =−2
+> U/t =−4
+> U/t =−6
+> FIG. 4. Test results for the varying-Tpath with fixed U/t
+> and μ/t .Panels (a) and (b) plot the energy density etot /t
+> versus inverse temperature βt within 0 ≤βt ≤2.0, and ver-sus temperature T /t within 0 .30 ≤T /t ≤0.50, respectively. The etot /t data in (b) have been vertically offset (except for
+> U/t =6) to fit into the plot, and the shifts are marked with the same colors as the data. Panel (c) shows the en-tropy density sas a function of T /t , computed via Eq. (18) with T0/t = 0 .5 and β0t= 2 .0. The calculations are per-formed on an L= 4 system for the 3D Hubbard model with
+> U/t =+6 ,+4 ,+2 ,−2,−4,−6, at fixed chemical potential
+> μ=μ0, chosen such that n(μ0) = 0 .875 at T /t = 0 .3 for all values of U/t . The black dashed line in (c) plots sμ(∞) = ln 4 as the entropy result at T /t =∞.
+
+using Eq. (18) with T0/t = 0 .5 and β0t = 2 .0. The results of energy density etot /t are also smooth in both ranges of 0 ≤ β ≤ β0 and T ≤ T0. Similar to Fig. 3, we find that the curves for etot (−U ) and etot (+ U ) are also approxi-mately related by a constant shift in the high-T regime, as shown in Fig. 4(a). This can again be explained from the atomic-limit approximation, which renders n = 1 for finite μ under the β|U | ≪ 1 condition. Thus, Eq. (52) is modified to 
+
+etot (−U ) − etot (+ U ) ≃ U/ 2 + μ0(−U ) − μ0(+ U ), (53) considering etot = ein + μn . For U/t = 6, this energy difference is ∼ 1.943 t, which quantitatively agrees with the numerical results in Fig. 4(a). For the other two 12 0.40.60.81.01.2                   
+
+> s
+> (a)
+> fixed-n
+> fixed-μ
+> 0.40.60.81.01.2(c)
+> 01234
+> T /t
+> 0.10.20.30.40.5
+> C
+> (b)Cn
+> Cμ
+> U/t = 2
+> 01234
+> T /t
+> 0.25 0.27 0.29 0.31 0.33 0.35 (d)
+> U/t = 6
+> 024
+> T /t
+> 0.88 0.90 0.92 0.94
+> n
+> (0 .3,0.875)
+> 024
+> T /t
+> 0.88 0.89 0.90
+> n
+> (0 .3,0.875)
+
+FIG. 5. Comparison between the fixed-n and fixed-μ calcula-tions. Panels (a) and (b) show the results of entropy density 
+
+s and two types of specific heat [ Cn and Cμ, see Eq. (20)] ver-sus T /t , for U/t = 2. In the fixed-n path, the filling is main-tained at n = 0 .875, while for the fixed-μ path, the chemical potential is set to μ = μ0, chosen such that n(μ0) = 0 .875 at T /t = 0 .3. The inset in (a) plots the fermion density as a function of T /t for both cases. Panels (c) and (d) similarly show the results of s, and Cn and Cμ, for U/t = 6. The spe-cial point ( T /t = 0 .3, n = 0 .875) is marked by the black star in (a) and (c). 
+
+pairs of ( −U, +U ), similar agreement is also confirmed in our calculations. Then this nearly constant difference between etot (−U ) and etot (+ U ) also leads to the almost merged results of s(−U ) and s(+ U ) in the high-T regime, as shown in Fig. 4(c). The underlying reason is similar to that in the fixed-n case, as the contribution from a 
+
+T -independent constant in etot cancels out in Eq. (18). Turning to the lower-T regime, the above behavior per-sists in etot (±U ) and s(±U ) for U/t = ±2 and ±4, as shown in Fig. 4(b). By contrast, the prominent devi-ation in s for U/t = ±6 originates from the obviously different curves of etot .Based on the results in Figs. 3 and 4, we further com-pare the fixed-n and fixed-μ calculations with varying temperature for U/t = 2 and 6 in Fig. 5. For each U/t ,we present the comparison results of entropy density s
+
+and ( Cn, C μ) [computed via Eq. (20)] versus T /t . For the fixed-μ path, we set μ to μ = μ0, which is chosen such that n(μ0) = 0 .875 at T /t = 0 .3, yielding μ0/t ≃ 0.43812 and 1 .23656 for U/t = 2 and 6, respectively. The fixed-n
+
+path maintains n = 0 .875 for both values of U/t . The en-tropy is accordingly evaluated using Eqs. (16) and (18) in fixed-n and fixed-μ calculations. We observe that the de-viation in s between these two cases is most pronounced in the high-T regime. This is reflected by their results at T = ∞, i.e., sn(∞) ≃ ln 4 − 0.016 for n = 0 .875 versus sμ(∞) = ln 4. As T /t decreases, the deviation di-minishes and finally vanishes at T /t = 0 .3 [black star in Figs. 5(a) and 5(c)]. The specific heats Cn and Cμ show 0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8
+
+μ/t 
+
+0.80 0.85 0.90 0.95 1.00 
+
+> n
+
+(a)         
+
+> U/t = 6
+> U/t = 4
+> U/t = 2
+> U/t =−2
+> U/t =−4
+> U/t =−6
+
+0.80 0.85 0.90 0.95 1.00 
+
+## n
+
+0.26 0.30 0.34 0.38 0.42 
+
+> s
+
+(b)
+
+FIG. 6. Test results for the varying-μ path with fixed U/t 
+
+and T /t = 0 .3. Panel (a) plots the fermion density n as a function of μ/t , and panel (b) shows the entropy density s
+
+versus n, computed via Eq. (23). The calculations are per-formed on an L = 4 system for the 3D Hubbard model with 
+
+U/t = +6 , +4 , +2 , −2, −4, −6. The dashed lines in (a) and (b) denote the noninteracting results. 
+
+a similar trend, with deviations at high T gradually dis-appearing with decreasing T /t . The difference between 
+
+Cn and Cμ mainly comes from etot − ein = μn in fixed-μ
+
+calculations. Physically, we find that both Cn and Cμ
+
+exhibit peak structures, which is the characteristic fea-ture of the specific heat in both 2D and 3D Hubbard models [13, 14, 79]. For U/t = 2, the peaks in Cn and 
+
+Cμ correspond to the high-T peak originating from the noninteracting case around T /t ∼ 1, while the absence of a low-T peak is likely due to insufficiently low tem-perature or small system size. For U/t = 6, both the prominent high-T charge peak around T /t ∼ 1.5, domi-nated by the atomic-limit behavior, and a weak shoulder around T /t ∼ 0.5, serving as a precursor of the low-T
+
+spin peak, can be observed even within L = 4 system. For the varying-μ path with fixed T /t and U/t , we plot the test results in Fig. 6, including fermion density 
+
+n and entropy density s computed via Eq. (23). The calculations are performed at T /t = 0 .3 for six values of U/t . We observe that, for both U > 0 and U < 0, the fermion density n decreases very smoothly with μ
+
+and it can always achieve high precision. Note μ = 0 represents half-filling case with n = 1 in the model (1). The variation n with μ involves the charge compressibil-ity κ = −∂n/∂μ , which is inversely correlated with the charge gap of the model at T = 0. This leads to the rela-13 −6 −5 −4 −3 −2 −1 0 1 2 3 4 5 6
+
+U/t 
+
+0.28 0.30 0.32 0.34 0.36 0.38 0.40 0.42 0.44    
+
+> s
+> (b)
+> U-path, Eq.(28)
+> T-path1, Eq.(16)
+> T-path2, Eq.(18)
+> μ-path, Eq.(23)
+
+0.10 0.15 0.20 0.25 0.30 0.35 
+
+> D
+
+(a)
+
+FIG. 7. Test results for the varying-U path with fixed T /t =0.3 and n = 0 .875, and cross-check against the other three calculation schemes. Panel (a) plots the double occupancy D
+
+as a function of U/t in the range −6 ≤ U/t ≤ +6. Panel (b) shows the entropy density s computed via Eq. (28) (blue cir-cles, U -path). In (b), the s results at ( T /t = 0 .3, n = 0 .875) and U/t = +6 , +4 , +2 , −2, −4, −6 from Fig. 3 (red squares, 
+
+T -path1), Fig. 4 (red squares, T -path2), and Fig. 6 (orange diamonds, μ-path) are also included for the check across dif-ferent calculation schemes for the entropy. The calculations are performed on an L = 4 system for the 3D Hubbard model. 
+
+tively slower variation in n(μ) curve with increasing U/t 
+
+for U > 0. As a comparison, for U/t < 0, n is rapidly suppressed by μ, indicating large κ, which should be re-lated to the superconducting ground state of the attrac-tive Hubbard model. In Fig. 6(b), we directly plot s as a function of n, using the results in Fig. 6(a). We find that, for U/t = −2 and −4, s slightly decreases with the doping ( δ = 1 − n), whereas it remains nearly unchanged at U/t = −6. These behaviors call for further investiga-tion with large-scale simulations. For U/t > 0, s(n) at 
+
+U/t = 2 gradually traces the noninteracting curve, and interestingly exhibits a nonmonotonic dependence on n
+
+at U/t = 4 and 6. The latter is related to the essential physics of the doped Hubbard model and will be sys-tematically analyzed in Sec. V B. Moreover, these s(n)results roughly suggest ( ∂s/∂n )U,T = 0 at n = 1, consis-tent with the Maxwell relation in Eq. (34), since μ = 0 is T -independent at half filling. For the varying-U path with T /t = 0 .3 and n = 0 .875, we present the test results in Fig. 7, including double oc-cupancy D and entropy density s computed via Eq. (28). As illustrated in Fig. 7(a), D(U ) varies smoothly across both the attractive and repulsive regimes and is highly precise, facilitating the numerical evaluation of the inte-gral in Eq. (28). In AFQMC simulations, we find that 0.85 0.90 0.95 1.00 
+
+n                    
+
+> 0.385 0.390 0.395 0.400
+> s n= 0 .915 (a)
+> U/t = 4 , T /t = 0 .30
+> 0.25 0.30 0.35
+> T /t
+> 0.540 0.542 0.544 0.546 0.548 0.550
+> μ/t
+> (b)
+> U/t = 4 , n = 0 .915
+> 012345
+> U/t
+> 0.53 0.54 0.55
+> s
+> (c)
+> T /t = 0 .40 , n = 0 .95
+> 0.30 0.35 0.40 0.45 0.50
+> T /t
+> 0.1104 0.1106 0.1108 0.1110 0.1112
+> D
+> (d)
+> U/t = 4 , n = 0 .95
+
+FIG. 8. Illustration of the Maxwell relations in Eqs. (34) and (37). At fixed U/t = 4, panel (a) shows the entropy density s at T /t = 0 .3 versus fermion density n tuned by the chemical potential μ, while panel (b) plots the determined 
+
+μ/t versus T /t with fixed n = 0 .915. At fixed n = 0 .95, panel (c) plots s at T /t = 0 .4 versus U/t , while panel (d) presents the double occupancy D versus T /t with fixed U/t =4. The vertical dashed lines in each panel mark the extremum position of the curve. The calculations are performed on an 
+
+L = 4 system for the 3D Hubbard model. 
+
+the high precision of D makes its Trotter error more noticeable than in other observables (see Appendix A). Accordingly, we set ∆ τ = 0 .015 in these fixed-U cal-culations. The resulting s in Fig. 7(b) decreases with 
+
+|U |/t at U < 0 side, whereas it exhibits a nonmono-tonic dependence on U for U > 0. These nontrivial be-haviors need to be verified in future large-scale simula-tions. The s results also conform with ( ∂s/∂U )n,T = 0 at U = 0 point, which is evident from the Maxwell re-lation in Eq. (37). Furthermore, to enable a direct com-parison across different evaluation schemes for the en-tropy, we plot the s results at ( T /t = 0 .3, n = 0 .875) and 
+
+U/t = +6 , +4 , +2 , −2, −4, −6 obtained from the other three calculation schemes in Fig. 7(b). They include the fixed-T paths in Figs. 3 and 4 and the fixed-μ path in Fig. 6. All four schemes yield perfectly consistent results for s in the doped Hubbard model, thereby validating our computational framework. This agreement further suggests that, in practical calculations, one may apply the most convenient scheme to evaluate the entropy at a given point ( T /t, U/t, n ) in the parameter space of the Hubbard model. We then turn to the numerical check of the Maxwell relations in Eqs. (34) and (37) for the doped Hubbard model. The test results are presented in Fig. 8. Ac-cording to Eq. (34), with fixed U , the extremum position of the s(n) curve [as ( ∂s/∂n )U,T = 0] coincides with that of the μ(T ) curve [as ( ∂μ/∂T )U,n = 0]. This corre-spondence is apparently satisfied in Figs. 8(a) and 8(b), where the position is around ( T /t = 0 .30 , n = 0 .915). This extremum position depends on T /t and U/t . Simi-larly, Eq. (37) means that, at fixed n, the s(U ) curve and 14 0.10 0.15 0.20 0.25 0.30 
+
+> s
+
+(a) 0.15 0.20 0.25 0.30 0.35 
+
+(c)  
+
+> L= 12
+> L= 16 Ref.[53]
+
+0.35 0.40 0.45 0.50 
+
+(e)
+
+0 1 2 3 4
+
+# μ/t 
+
+0.20.40.60.81.0
+
+> n
+
+(b)  
+
+> U/t = 2
+> T /t = 0 .2
+
+0 1 2 3
+
+# μ/t 
+
+0.40.50.60.70.80.91.0
+
+(d)      
+
+> U/t = 4
+> T /t = 0 .2
+> μp/t ≈0.748
+> np≈0.890
+
+0 1 2 3
+
+# μ/t 
+
+0.50.60.70.80.91.0
+
+(f )                               
+
+> U/t = 6
+> T /t = 0 .3
+> μp/t ≈1.417
+> np≈0.877
+> FIG. 9. Entropy density s(top panels) and fermion density n(bottom panels) as functions of chemical potential μ/t for the 2D Hubbard model from L= 12 (red circles) and L= 16 (blue squares) systems. Panels (a) and (b) show results for
+> U/t = 2 , T /t = 0 .2; (c) and (d) for U/t = 4 , T /t = 0 .2; and (e) and (f) for U/t = 6 , T /t = 0 .3. Black stars denote previous DiagMC results from Ref. [53]. In (c) and (e), gray vertical dashed lines mark the peak positions of s, whose corresponding μ
+> and nare indicated in (d) and (f) by the dashed lines, with their values labeled.
+
+D(T ) curve have the same extremum position on the T -U
+
+plane. This is also confirmed in Figs. 8(c) and 8(d), where the extremum position is around ( U/t = 4 , T /t = 0 .30) for the specific parameters applied. A complete numer-ical verification of these Maxwell relations requires the full landscapes of s and μ on the T -n plane for Eq. (34), and those of s and D on the T -U plane for Eq. (37).  
+
+> B. Physically relevant results in the 2D doped Hubbard model
+
+The test results in the previous subsection demon-strate the effectiveness and reliability of our computa-tional framework for evaluating the thermal entropy. We now focus on the physically relevant parameter regime of the 2D doped Hubbard model and elucidate its essential physics based on AFQMC calculations of the entropy. We apply ∆ τ t = 0 .04 in the simulations. In Fig. 9, we present the results from varying-μ cal-culations with fixed U/t and T /t , showing the thermal entropy density s and fermion density n as functions of 
+
+μ/t . The simulations are carried out for the parame-ter sets ( U/t = 2 , T /t = 0 .2), ( U/t = 4 , T /t = 0 .2), and ( U/t = 6 , T /t = 0 .3), for which the fermion sign problem remains moderate (see Appendix A). Compar-ing the results for L = 12 and L = 16, it is clear that the n(μ) data have already converged to the thermody-namic limit for all three parameter sets. Here s is com-puted via Eq. (23), where the integral of n(μ) can be evaluated numerically with high efficiency and accuracy due to the rather smooth behavior of n(μ). The observ-able oscillation in the s results for U/t = 2 and 4 at 
+
+L = 12 is attributed to non-smoothness of etot (μ), due to the single-particle finite-size effect [13]. This issue al-most disappears in L = 16 results. Moreover, we bench-mark our results against those from the previous DiagMC study [53], where the entropy was evaluated from the di-rectly computed grand potential. Excellent agreement is found between the two calculations for U/t = 2 and 4, further confirming the validity of our entropy evaluation schemes. However, the DiagMC calculations in Ref. [53] show large error bars in s even for U/t = 4 and do not access the U/t = 6 case due to convergence issues in the diagrammatic series. In contrast, our AFQMC simula-tions provide substantially more precise data for U/t = 4 and yield fully converged results for U/t = 6 at T /t = 0 .3. The most characteristic feature of s versus μ/t is the peak structure, clearly visible for U/t = 4 and U/t = 6 in Figs. 9(c) and 9(e). This peak in s also exists in the 3D doped Hubbard model even with L = 4, as shown in Fig. 6(b). Such behavior of s versus μ/t or n (or doping 
+
+δ = 1 − n) was first reported via Dynamical Mean-Field Theory (DMFT) calculations for the 2D doped Hubbard model in Ref. [50]. The study found that, with decreas-ing T /t , the corresponding filling np at the peak position 
+
+μp/t evolves toward the doping-induced quantum criti-cal point (QCP) at T = 0 [50, 51, 78]. A subsequent DMFT study [52] further confirmed that np exhibits only weak temperature dependence. Later, this peak behav-ior in s(μ) was also observed in optical lattice experi-ments [41]. In recent years, the ground-state properties of the 2D system have been extensively studied using cutting-edge quantum many-body approaches [49, 80– 83]. These works suggest that the doping-induced QCP is likely associated with a quantum phase transition be-15 tween the stripe-ordered phase and disordered metallic phase in the underdoped and overdoped regimes, respec-tively, of the 2D doped Hubbard model (without next-nearest-neighbor hopping t′). A similar doping-induced QCP has also been identified in the magnetic phase dia-gram of the 3D doped Hubbard model [60, 84]. Understanding the connection between the peak posi-tion of s(μ) [or equivalently s(n)] and the QCP in the doped Hubbard model relies on the Maxwell relations in Eqs. (34) and (30b). The peak in s(μ) at μp/t implies a corresponding peak in s(n) at np = n(μp), featuring (∂s/∂n )U,T = 0 at n = np and ( ∂s/∂n )U,T < 0 at n > n p
+
+[and oppositely ( ∂s/∂n )U,T > 0 at n < n p]. According to Eq. (34), these relations translate into 
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+= 0 at n = np, (54a) 
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+> 0 for n > n p, (54b) 
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+< 0 for n < n p. (54c) The first equality indicates a stationary chemical poten-tial at n = np, which can be interpreted as the signa-ture of local particle-hole symmetry [50, 78] in analogy to the half-filled case. Such near particle-hole symmetry has indeed been observed in the cuprates around optimal doping [85]. In addition, Eqs. (54b) and (54c) reveal to-tally different low-T behaviors of μ(T ) (at fixed n) in the regimes n > n p and n < n p, namely μ(T ) decreases or increases, respectively, with decreasing T /t . From a the-oretical perspective [51], the former [Eq. (54b)] conforms with the pseudogap state, which has been shown to evolve continuously into the T = 0 stripe-ordered phase as T /t 
+
+decreases in the 2D doped Hubbard model [86]. And the latter [Eq. (54c)] aligns with the Fermi-liquid state. Taken together, these features elucidate that np, the peak filling of s(n), evolves into the critical filling at the doping-induced QCP as T /t approaches zero. The same conclusion can also be reached via Eq. (30b), which in-stead focuses on the T -dependence of the fermion density 
+
+n at fixed μ. The condition ( ∂s/∂μ )U,T = ( ∂n/∂T )U,μ =0 at μ = μp, corresponding to a stationary n with re-spect to T , likewise signals a local particle-hole symme-try. It separates two regimes μ < μ p (with n > n p) and 
+
+μ > μ p (with n < n p), which feature ( ∂n/∂T )U,μ < 0 and (∂n/∂T )U,μ > 0, respectively, according to Eq. (30b). These opposite T dependences of n(T ) at fixed μ distin-guish two distinct states, namely pseudogap and Fermi liquid, in the low-T regime of the doped Hubbard model. As included in Fig. 9, we have determined the peak position of s(μ) or s(n) as ( μp/t ≃ 0.748 , n p ≃ 0.890) for ( U/t = 4 , T /t = 0 .2), and ( μp/t ≃ 1.417 , n p ≃ 0.877) for ( U/t = 6 , T /t = 0 .3). At U/t = 6, our result of np
+
+is slightly larger than the DMFT result as np ≃ 0.85, re-ported in Ref. [50, 78]. The difference may be attributed to the residual temperature dependence of np or the ap-proximation introduced in DMFT method. For U/t = 2, as shown in Fig. 9(a), the entropy s(μ) decreases mono-tonically with μ, exhibiting no peak. This behavior may arise because the QCP for U/t = 2 lies very close to half filling, and the temperature T /t = 0 .2 used here is not low enough to reveal the features discussed above. Besides the peak behavior, s(μ) also features an inflec-tion point, corresponding to the point of most rapid in-crease with μ, in the range 0 < μ < μ p. This is reflected by the equality ( ∂s/∂μ )U,T = 0 at both μ = μp and 
+
+μ = 0, where the former is evident and the latter arises from the Maxwell relation in Eq. (30b). The inflection point of s(μ) can be determined by ∂2s(μ)/∂μ 2 = 0, and it actually separates two regimes characterized by 
+
+∂κ/∂T < 0 and ∂κ/∂T > 0, respectively, according to Eq. (32). In Ref. [53], this inflection point is used to identify the crossover from a non-Fermi-liquid state near half filling to the metallic state with larger doping. For the numerical results, we obtain the inflection point of 
+
+s(μ) at ( μ/t ≃ 0.32 , n ≃ 0.959) for ( U/t = 4 , T /t = 0 .2) and at ( μ/t ≃ 0.75 , n ≃ 0.964) for ( U/t = 6 , T /t = 0 .3). From the above analysis, the fermion filling (or doping) dependence of the thermal entropy can serve as an effec-tive thermodynamic probe of the doping-induced QCP in the doped Hubbard model, while also providing valu-able insights into finite-temperature crossover phenom-ena. Our calculation scheme, based on the varying-μ
+
+path with fixed U and T via Eq. (23), offers a highly effi-cient approach for mapping out the full landscape of ther-mal entropy in the temperature-filling plane. This may help elucidate the phase diagram of the doped Hubbard model, a long-standing problem in theoretical condensed matter physics.  
+
+> VI. SUMMARY AND DISCUSSION
+
+In summary, we have established a unified and highly efficient framework for computing the thermal entropy in the doped Fermi-Hubbard model. Building on the fundamental quantity of the grand potential, we have achieved four complementary evaluation schemes ob-tained from two independent theoretical derivations. In these schemes, the entropy is expressed as simple path integrals over temperature, chemical potential, and in-teraction strength within the parameter space of the model. We have also derived useful Maxwell relations that link the thermal entropy to other thermodynamic quantities. As an early-stage application, we have em-ployed numerically unbiased AFQMC method to system-atically test the entropy calculations in the 3D Hubbard model and to perform cross-checks between different eval-uation schemes. Furthermore, in the physically relevant parameter regime of the 2D doped Hubbard model, our numerical results show nice agreement with previous Di-agMC calculations, while also revealing a deep connec-tion between characteristic features of the entropy land-scape and the essential physics of the model. Our computational framework for the thermal entropy 16 can have broader applications. First, it can be read-ily applied across a wide range of quantum many-body numerical methods. This is because the entropy admits simple expressions [see Eqs. (16), (18), (23) and (28)], and the integrands in these evaluation schemes only involve the total energy, fermion density, and double occupancy, all of which are straightforward to compute in most nu-merical approaches. Second, the framework is not re-stricted to the grand canonical ensemble simulations for the Hubbard model. Specifically, the varying-T scheme in Sec. III A and the varying-U scheme in Sec. III D can be applied to numerical methods working in the canon-ical ensemble, such as the finite-temperature canonical-ensemble AFQMC method [87–90] and the minimally en-tangled typical thermal states method [91–93]. Third, the framework can be further extended to fit into gener-alized Hubbard models. For example, in the 2D Hubbard model with next-nearest-neighbor hopping t′ [94–96] and the 3D Hubbard model with hopping anisotropy in z-direction (denoted as tz ) [97, 98], one can follow the for-malism in Sec. III, add t′ or tz as a new natural variable to the grand potential, and reach a similar scheme to cal-culate the entropy as a function of the variable. Or equiv-alently, one can set α = t′ (or α = tz ) in Eq. (43) to get the corresponding Hellmann-Feynman relation and then achieve the expression of thermal entropy. Our compu-tational framework, together with these promising gen-eralizations, can help broaden the scope and deepen the study of the doped Hubbard models from a thermody-namic perspective centered on thermal entropy. 
+
+> ACKNOWLEDGMENTS
+
+This work was supported by the National Natural Science Foundation of China (Grant Nos. 12247103, 12204377, and 12275263), the Quantum Science and Technology-National Science and Technology Major Project (Grant No. 2021ZD0301900), the Natural Sci-ence Foundation of Fujian province of China (Grant No. 2023J02032), and the Youth Innovation Team of Shaanxi Universities. 
+
+> Appendix A: The Trotter error in double occupancy, and the sign average for Fig. 9
+
+In this appendix, we show additional AFQMC results for the Trotter errors in double occupancy and the corre-sponding thermal entropy, as well as for the fermion sign average for the results shown in Fig. 9 in the main text. In Sec. III D, we show that the entropy can be eval-uated via the varying-U path with fixed T and n [see Eq. (28)], in which the integral of double occupancy D
+
+over U is involved. During the testing calculations in Sec. V A, we find that the AFQMC results of D exhibit substantial Trotter error. This is actually due to the fact that the precision of D is significantly higher than many 0.0766 0.0767 0.0768 0.0769 0.0770 0.0771 
+
+> D
+> (a)
+
+−3.7016 
+
+−3.7014 
+
+−3.7012 
+
+−3.7010 
+
+> ein
+> (b)
+
+0 0.0004 0.0008 0.0012 0.0016 
+
+> (∆ τ t )2
+
+0.422 0.424 0.426 0.428                                     
+
+> s
+> (c)
+> FIG. 10. Trotter error tests in double occupancy Dand ther-mal entropy density scomputed via Eq. (28). Panels (a) and (b) plot Dand the energy density ein /t as a function of (∆ τ t )2
+> at T /t = 0 .3 and U/t = 6 with fixed filling n= 0 .875, where ∆τis the Trotter time step defined as ∆ τ=β/M .In (a), the gray band represents the linear fitting versus (∆ τ t )2for the Dresults. Panel (c) shows the results of s, while the light blue band denotes the sresult evaluated via Eq. (16) along the varying-Tpath with fixed Uand n. The calculations are performed on an L= 4 system for the 3D Hubbard model at
+> T /t = 0 .3 and U/t = 6 with fixed filling n= 0 .875.
+
+other observables, thus rendering its Trotter error more noticeable within the same ∆ τ . Figure 10 presents the test results of Trotter error in both D and thermal en-tropy density s for the 3D Hubbard model at T /t = 0 .3, 
+
+U/t = 6, and n = 0 .875. The four data points correspond to ∆ τ t = 0 .015 , 0.026 , 0.034 and 0 .040 in the AFQMC simulations. Note the extremely small scales in all three panels. The relative errors for the D results in Fig. 10(a) are smaller than or close to 0 .01%. We find that D ver-sus (∆ τ t )2 fits well to a linear dependence, as expected for the symmetric Trotter decomposition applied in our AFQMC calculations. As illustrated, D(∆ τ t = 0 .015) is roughly consistent with the extrapolated result of D
+
+at ∆ τ t = 0 considering the statistical uncertainties. For the energy density ein shown in Fig. 10(b), the results are consistent within twice the error bars, indicating that the Trotter error is nearly eliminated. The slight variations may be induced by small differences in the fermion den-sity during the fixed-n procedure. To assess the Trot-ter error in s, we repeat the AFQMC simulations for 17 0 1 2 3
+
+## μ/t 
+
+0.91.01.1 
+
+> 〈S〉
+> (a)U/t = 2
+
+0 1 2 3
+
+## μ/t 
+
+0.40.60.81.0   
+
+> (b)U/t = 4
+> L= 12
+> L= 16
+
+0 1 2 3
+
+## μ/t 
+
+0.20.40.60.81.0                       
+
+> (c)U/t = 6
+> FIG. 11. The average sign ⟨S⟩ of the corresponding AFQMC simulations in Fig. 9 in the main text. The results are presented for three parameter sets as (a) U/t = 2 , T /t = 0 .2, (b) U/t = 4 , T /t = 0 .2, and (c) U/t = 6 , T /t = 0 .3. In (b) and (c), gray vertical dashed lines mark the peak positions of s(μ), as μp/t ≃0.748 for U/t = 4 case and μp/t ≃1.417 for U/t = 6 case.
+
+each ∆ τ t over the range 0 ≤ U/t ≤ 6, and compute the corresponding s via Eq. (28). The resulting s, shown in Fig. 10(c), also exhibits noticeable Trotter errors and converges to the result obtained from the varying-T cal-culations at fixed U and n [see Eq. (16)], which we have verified to be essentially free of Trotter error. The largest Trotter error in s at ∆ τ t = 0 .04 is about 1% (rela-tive). Based on the above test results, we find that, at ∆τ t = 0 .015, the Trotter errors in both D and s are neg-ligible. Hence we apply ∆ τ t = 0 .015 for the varying-U
+
+calculations in Sec. V A. In Fig. 11, we present the results of the average sign ⟨S⟩ 
+
+of the corresponding AFQMC simulations in Fig. 9 in the main text. For the parameter set ( U/t = 2 , T /t = 0 .2), 
+
+⟨S⟩ remains close to unity for both L = 12 and 16, indi-cating a negligible sign problem. For the cases of U/t = 4 and 6, a significant sign problem is observed, with the minimum ⟨S⟩ reaching ∼ 0.4 for U/t = 4 and ∼ 0.2 for 
+
+U/t = 6. Interestingly, for both cases, ⟨S⟩ reaches its minimum around the peak position ( μp) of s(μ), which, according to our discussion in Sec. V B, is associated with the doping-induced quantum critical point (QCP) at T = 0. Hence, the most severe sign problem in the doped Hubbard model is very likely to be correlated with the QCP.  
+
+> Appendix B: Derivations for the entropy at certain limits, and the proof of Eqs. (37), (51), and
+> s(+ μ) = s(−μ)
+
+In this appendix, we focus on the detailed derivations for some formulas or expressions used in the main text. First, we derive the expressions of the thermal entropy in noninteracting systems as well as at T = ∞ with fixed fermion filling. Second, we present the proof for Eqs. (37) and (51). Third, we prove s(+ μ) = s(−μ) for the model (1) using Eq. (23). For the noninteracting limit ( U = 0) of the model (1), we can compute its partition function Z = Tr( e−β ˆH ), and accordingly obtain the grand potential density via Ω = −N −1 
+
+> s
+
+T ln Z. This yields the following result Ω = −N −1 
+
+> s
+
+T X
+
+> k,σ
+
+ln 1 + e−β(εkσ +μ), (B1) where εkσ is the kinetic energy dispersion, with its spe-cific expression in both 2D and 3D given in Sec. II A. Then the entropy density follows from the thermody-namic relation 
+
+s0 = −
+
+ ∂Ω
+
+∂T 
+
+
+
+> U,μ
+
+= −N −1
+
+> s
+
+X
+
+> k,σ
+
+fkσ ln fkσ + (1 − fkσ ) ln(1 − fkσ ),
+
+(B2) where fkσ = 1 /[eβ(εkσ +μ) + 1] is the Fermi-Dirac dis-tribution. The equality can be simplified to Eq. (25) considering εk,↑ = εk,↓ in the model (1). For the system at T = ∞ with fixed U and n, we can compute its entropy density via the result in Eq. (B2). At fixed n, the corresponding μ(T ) can be obtained via solving the equation 
+
+n = 1
+
+N
+
+X
+
+> k,σ
+
+fkσ [μ(T )] . (B3) Then substituting the resulting μ(T ) into Eq. (B2) yields the exact noninteracting entropy. At T = ∞ (and β = 0), any finite U becomes irrelevant because it only enters into the calculations via βU which is also zero. Therefore, the T → ∞ entropy at fixed n is identical to that of the noninteracting system, provided that the correct μ
+
+is used to enforce the desired density. Starting from the Fermi-Dirac distribution, 
+
+fkσ (μ) = 1
+
+eβ(εkσ +μ) + 1 , (B4) we note that, as β → 0 the dispersion becomes negli-gible in the exponent, the occupation (function value) 18 approaches a k-independent result as 
+
+fkσ (μ) −−−→
+
+> β→0
+
+11 + eβμ . (B5) Then the fixed-n condition presents the constraint 
+
+n = 1
+
+N
+
+X
+
+> kσ
+
+fkσ −−−→
+
+> β→0
+
+21 + eβμ , (B6) which yields fkσ = n/ 2 at T = ∞ and also 
+
+βμ −−−→ 
+
+> β→0
+
+ln 
+
+ n
+
+2 − n
+
+
+
+, μ(T ) −−−−→  
+
+> T→∞
+
+T ln 
+
+ n
+
+2 − n
+
+
+
+.
+
+(B7) This expression explicitly shows that μ(T ) diverges as 
+
+T → ∞ for fixed fermion filling n̸ = 1. By substituting 
+
+fkσ = n/ 2 into Eq. (B2), we obtain the T = ∞ entropy density at fixed n as 
+
+sn(∞) = −2
+
+h n
+
+2 ln 
+
+ n
+
+2
+
+
+
++
+
+
+
+1 − n
+
+2
+
+
+
+ln 
+
+
+
+1 − n
+
+2
+
+ i 
+
+= ln 4 − n ln n − (2 − n) ln(2 − n),
+
+(B8) which is the result mentioned in Sec. III A. We then turn to prove the Maxwell relation in Eq. (37) in the main text. First, with tuning U at fixed T and n,the chemical potential μ is also a function of U , and thus the entropy can be written as s(U, T, μ (U )). Hence, the total differential of s follows ds =
+
+ ∂s
+
+∂U 
+
+
+
+> T,μ
+
+dU +
+
+ ∂s
+
+∂μ 
+
+
+
+> T,U
+
+dμ
+
+=
+
+ ∂s
+
+∂U 
+
+
+
+> T,μ
+
+dU +
+
+ ∂s
+
+∂μ 
+
+
+
+> T,U
+
+ ∂μ ∂U 
+
+
+
+> T,n
+
+dU, 
+
+(B9) which leads to the equality 
+
+ ∂s
+
+∂U 
+
+
+
+> T,n
+
+=
+
+ ∂s
+
+∂U 
+
+
+
+> T,μ
+
++
+
+ ∂s
+
+∂μ 
+
+
+
+> T,U
+
+ ∂μ ∂U 
+
+
+
+> T,n
+
+. (B10) Using the equalities in Eqs. (30a), (30b) and (36), the above equality can be reformulated as 
+
+ ∂s
+
+∂U 
+
+
+
+> T,n
+
+= −
+
+ ∂h I
+
+∂T 
+
+
+
+> U,μ
+
++
+
+ ∂n ∂T 
+
+
+
+> U,μ
+
+  ∂n ∂U 
+
+
+
+> T,μ
+
+  ∂n ∂μ 
+
+
+
+> T,U
+
+. (B11) Similarly, when tuning T at fixed U and n, the interaction energy density hI can be written as hI (U, T, μ (T )). Its total differential reads dhI =
+
+ ∂h I
+
+∂T 
+
+
+
+> U,μ
+
+dT +
+
+ ∂h I
+
+∂μ 
+
+ 
+
+> T,U
+
+dμ
+
+=
+
+ ∂h I
+
+∂T 
+
+
+
+> U,μ
+
+dT +
+
+ ∂h I
+
+∂μ 
+
+
+
+> T,U
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+dT, 
+
+(B12) which leads to the equality 
+
+ ∂h I
+
+∂T 
+
+
+
+> U,n
+
+=
+
+ ∂h I
+
+∂T 
+
+
+
+> U,μ
+
++
+
+ ∂h I
+
+∂μ 
+
+
+
+> T,U
+
+ ∂μ ∂T 
+
+
+
+> U,n
+
+. (B13) Using the equalities in Eqs. (30c) and (34), the above equality can be rewritten as 
+
+ ∂h I
+
+∂T 
+
+
+
+> U,n
+
+=
+
+ ∂h I
+
+∂T 
+
+
+
+> U,μ
+
+−
+
+ ∂n ∂U 
+
+
+
+> T,μ
+
+  ∂n ∂T 
+
+
+
+> U,μ
+
+  ∂n ∂μ 
+
+
+
+> U,T
+
+. (B14) Then by comparing Eqs. (B11) and (B14), the following equality is evident as 
+
+ ∂s
+
+∂U 
+
+
+
+> n,T
+
+= −
+
+ ∂h I
+
+∂T 
+
+
+
+> n,U
+
+= −
+
+ ∂D ∂T 
+
+
+
+> n,U
+
+, (B15) in which the relation hI = D − n/ 2 is used in the second equality. This is the Maxwell relation in Eq. (37). The proof of Eq. (51) involves the atomic limit under the condition βU ≪ 1. Under this limit, the local Hamil-tonian can be solved exactly, which allows us to derive the expansion of the double occupancy at fixed filling n.The atomic-limit Hamiltonian is ˆh = U ˆn↑ ˆn↓ + μ(ˆ n↑ + ˆ n↓), (B16) with partition function 
+
+Z = 1 + 2 e−βμ + e−β(U +2 μ). (B17) The filling n and the double occupancy D computed as 
+
+n = 2e−βμ + 2 e−β(U +2 μ)
+
+Z , D = e−β(U +2 μ)
+
+Z . (B18) Therefore, we can reach 
+
+Dn = 12 1 + eβ(U +μ) . (B19) From the expression of n in Eq. (B18), one can also find (2 − n)e−βU e−2βμ + 2(1 − n)e−βμ − n = 0 . (B20) Solving this quadratic equation for e−βμ presents 
+
+e−βμ = n − 1 + ∆ 
+
+e−βU (2 − n) , (B21) where ∆ = p(n − 1) 2 − e−βU n(n − 2). By substituting Eq. (B21) into Eq. (B19), we obtain 
+
+Dn = 12
+
+h
+
+1 + 2 − nn − 1 + ∆ 
+
+i−1
+
+. (B22) Now we expand this expression at the limit βU → 0. Using the relation e−βU = 1 − βU + O[( βU )2], we have ∆ = 1 + 12 βU n (n − 2) + O(βU )2 . (B23) Thus, the right side of Eq. (B22) can be simplified as 2 − nn − 1 + ∆ = 2 − nn + (2 − n)2
+
+2n βU + O(βU )2 . (B24) 19 By substituting Eq. (B24) into Eq. (B22), we obtain 
+
+Dn = 12
+
+h 2
+
+n + (2 − n)2
+
+2n βU 
+
+i−1
+
++ O[( βU )2]= n
+
+4
+
+h
+
+1 + (2 − n)2
+
+4 βU 
+
+i−1
+
++ O[( βU )2]= n
+
+4 − n(2 − n)2
+
+16 βU + O[( βU )2],
+
+(B25) in which the last equality is Eq. (51). Besides, we also briefly discuss the fermion density at fixed μ under the atomic limit. For this case, both βU and βμ are small numbers, and the expression of n in Eq. (B18) can be expanded as 
+
+n = 1 − βU 
+
+4 − βμ 
+
+2 + O(β2). (B26) Since βμ = ( μ/U )βU , the above result can be rewritten as 
+
+n = 1 − 1 + 2 μ/U 
+
+4 βU + O(β2). (B27) This means that, at fixed (and finite) μ, the filling n
+
+generally approaches n = 1 in the T → ∞ limit, with the leading correction determined by μ/U and βU .For the model (1), μ = 0 corresponds to the half-filling case with n = 1. In Sec. V A, we have estab-lished the relation s(+ μ) = s(−μ) (with μ > 0) based on Eq. (31) and qualitative arguments. Here in the fol-lowing, we prove it directly via the entropy evaluation formula in Eq. (23). First of all, the model Hamilto-nian in Eq. (1) with + μ and −μ, denoted as ˆH(U, ±μ), are connected via the particle-hole (PH) transformations [c+ 
+
+> iσ
+
+→ (−1) iciσ , c iσ → (−1) ic+ 
+
+> iσ
+
+] as ˆH(U, +μ) PH 
+
+=⇒ ˆH(U, −μ) + 2 μN s, (B28) which indicates that the energy density etot should satisfy the relation etot (+ μ) = etot (−μ) + 2 μ. Similarly from the PH transformation, we have n(−μ) = 2 − n(+ μ), satisfying the n(μ = 0) = 1 condition (as half filling). From Eq. (31), we compute s(+ μ) via 
+
+s(+ μ) = s(0) + 1
+
+T
+
+h
+
+etot (+ μ) − etot (0) −
+
+Z μ
+
+> 0
+
+n(μ′) d μ′ i
+
+.
+
+(B29) For s(−μ), we assume μ > 0 and accordingly reach 
+
+s(−μ) = s(0) + 1
+
+T
+
+h
+
+etot (−μ) − etot (0) −
+
+Z −μ
+
+> 0
+
+n(μ′) d μ′ i
+
+= s(0) + 1
+
+T
+
+h
+
+etot (−μ) − etot (0) + 
+
+Z μ
+
+> 0
+
+n(−μ′) d μ′ i
+
+= s(0) + 1
+
+T
+
+h
+
+etot (+ μ) − etot (0) −
+
+Z μ
+
+> 0
+
+n(μ′) d μ′ i
+
+,
+
+(B30) in which the relations etot (−μ) = etot (+ μ) − 2μ and 
+
+n(−μ′) = 2 − n(+ μ′) are used. By comparing Eqs. (B29) and (B30), given that the same s(0) is applied, the equal-ity s(+ μ) = s(−μ) is evident. 
+
+[1] S. Sachdev, Quantum Phase Transitions, 2nd ed. (Cam-bridge University Press, 2011). [2] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions, Rev. Mod. Phys. 68 , 13 (1996). [3] M. Imada, A. Fujimori, and Y. Tokura, Metal-insulator transitions, Rev. Mod. Phys. 70 , 1039 (1998). [4] H. v. L¨ ohneysen, A. Rosch, M. Vojta, and P. W¨ olfle, Fermi-liquid instabilities at magnetic quantum phase transitions, Rev. Mod. Phys. 79 , 1015 (2007). [5] I. Bloch, J. Dalibard, and W. Zwerger, Many-body physics with ultracold gases, Rev. Mod. Phys. 80 , 885 (2008). [6] S. Nascimb` ene, N. Navon, K. J. Jiang, F. Chevy, and C. Salomon, Exploring the thermodynamics of a univer-sal fermi gas, Nature 463 , 1057 (2010). [7] M. Garst and A. Rosch, Sign change of the gr¨ uneisen pa-rameter and magnetocaloric effect near quantum critical points, Phys. Rev. B 72 , 205129 (2005). [8] A. W. Rost, R. S. Perry, J.-F. Mercure, A. P. Mackenzie, and S. A. Grigera, Entropy landscape of phase formation associated with quantum criticality in sr3ru2o7, Science 
+
+325 , 1360 (2009). [9] A. W. Rost, S. A. Grigera, J. A. N. Bruin, R. S. Perry, D. Tian, S. Raghu, S. A. Kivelson, and A. P. Mackenzie, Thermodynamics of phase formation in the quantum crit-ical metal sr¡sub¿3¡/sub¿ru¡sub¿2¡/sub¿o¡sub¿7¡/sub¿, Proceedings of the National Academy of Sciences 108 ,16549 (2011). [10] K. Grube, S. Zaum, O. Stockert, Q. Si, and H. v. L¨ ohneysen, Multidimensional entropy landscape of quan-tum criticality, Nature Physics 13 , 742 (2017). [11] H. Ryll, K. Kiefer, C. R¨ uegg, S. Ward, K. W. Kr¨ amer, D. Biner, P. Bouillot, E. Coira, T. Giamarchi, and C. Kol-lath, Magnetic entropy landscape and gr¨ uneisen param-eter of a quantum spin ladder, Phys. Rev. B 89 , 144416 (2014). [12] E. V. Gorelik, D. Rost, T. Paiva, R. Scalettar, A. Kl¨ umper, and N. Bl¨ umer, Universal probes for anti-ferromagnetic correlations and entropy in cold fermions on optical lattices, Phys. Rev. A 85 , 061602 (2012). [13] Y.-F. Song, Y. Deng, and Y.-Y. He, Extended metal-insulator crossover with strong antiferromagnetic spin correlation in half-filled 3d hubbard model, Phys. Rev. Lett. 134 , 016503 (2025); Magnetic, thermodynamic, and dynamical properties of the three-dimensional fermionic hubbard model: A comprehensive monte carlo study, Phys. Rev. B 111 , 035123 (2025). [14] M. Lu, Y.-F. Song, Y. Deng, and Y.-Y. He, Quantum monte carlo study of the metal-insulator crossover in the square-lattice hubbard model, arXiv: 2602.22705 20 
+
+(2026). [15] L. Balents, Spin liquids in frustrated magnets, Nature 
+
+464 , 199 (2010). [16] S. Wessel, Critical entropy of quantum heisenberg mag-nets on simple-cubic lattices, Phys. Rev. B 81 , 052405 (2010). [17] E. Dagotto, Correlated electrons in high-temperature su-perconductors, Rev. Mod. Phys. 66 , 763 (1994). [18] N. Bulut, dx2-y2 superconductivity and the hubbard model, Advances in Physics 51 , 1587 (2002). [19] B. Wolf, Y. Tsui, D. Jaiswal-Nagar, U. Tutsch, A. Ho-necker, K. Removi´ c-Langer, G. Hofmann, A. Prokofiev, W. Assmus, G. Donath, and M. Lang, Magnetocaloric ef-fect and magnetic cooling near a field-induced quantum-critical point, Proceedings of the National Academy of Sciences 108 , 6862 (2011). [20] J. Xiang, C. Zhang, Y. Gao, W. Schmidt, K. Schmalzl, C.-W. Wang, B. Li, N. Xi, X.-Y. Liu, H. Jin, G. Li, J. Shen, Z. Chen, Y. Qi, Y. Wan, W. Jin, W. Li, P. Sun, and G. Su, Giant magnetocaloric effect in spin supersolid candidate na2baco(po4)2, Nature 625 , 270 (2024). [21] M. Shu, X. Xu, N. Xi, M. He, J. Xiang, G. Qu, D. Khalyavin, P. Manuel, J. G. Nakamura, J. Jiao, Y. Liu, G. Wu, K. Guo, H. Zhao, W. Xu, Q. Duan, R. Zhong, X. Wang, Y. Han, L. Ling, X. Sun, D. Song, Y. Gao, Z. Wang, X. Chen, T. Qian, S. Jia, H. Du, G. Su, W. Li, J. Ma, and Z. Qu, Giant magnetocaloric effect and spin supersolid in a metallic dipolar magnet, Nature (2026). [22] W. Lin, N. Zhao, Z. Li, Y. Zhao, Y. Liao, W. An, R. Guo, J. Wang, C. Pan, B. Wen, J. Sheng, L. Wu, and S. Guo, Quantum criticality enhanced millikelvin magnetic re-frigeration in a large-spin-7/2 triangular lattice antifer-romagnet, The Innovation , 101254 (2026). [23] F. Werner, O. Parcollet, A. Georges, and S. R. Hassan, Interaction-induced adiabatic cooling and antiferromag-netism of cold fermions in optical lattices, Phys. Rev. Lett. 95 , 056401 (2005). [24] A.-M. Dar´ e, L. Raymond, G. Albinet, and A.-M. S. Trem-blay, Interaction-induced adiabatic cooling for antiferro-magnetism in optical lattices, Phys. Rev. B 76 , 064402 (2007). [25] T. Paiva, Y. L. Loh, M. Randeria, R. T. Scalettar, and N. Trivedi, Fermions in 3d optical lattices: Cooling proto-col to obtain antiferromagnetism, Phys. Rev. Lett. 107 ,086401 (2011). [26] L. De Leo, J.-S. Bernier, C. Kollath, A. Georges, and V. W. Scarola, Thermodynamics of the three-dimensional hubbard model: Implications for cooling cold atomic gases in optical lattices, Phys. Rev. A 83 , 023606 (2011). [27] G. Li, A. E. Antipov, A. N. Rubtsov, S. Kirchner, and W. Hanke, Competing phases of the hubbard model on a triangular lattice: Insights from the entropy, Phys. Rev. B 89 , 161118 (2014). [28] Y.-F. Song, Y. Deng, and Y.-Y. He, Thermal entropy, density disorder, and antiferromagnetism of repulsive fermions in 3d optical lattice, Chinese Physics Letters 
+
+42 , 110710 (2025). [29] I. Bloch, J. Dalibard, and S. Nascimb` ene, Quantum sim-ulations with ultracold quantum gases, Nature Physics 
+
+8, 267 (2012). [30] T.-L. Ho and Q. Zhou, Squeezing out the entropy of fermions in optical lattices, Proceedings of the National Academy of Sciences 106 , 6916 (2009). [31] R. Joerdens, N. Strohmaier, K. Guenther, H. Moritz, and T. Esslinger, A mott insulator of fermionic atoms in an optical lattice, Nature 455 , 204 (2008). [32] U. Schneider, L. Hackermueller, S. Will, T. Best, I. Bloch, T. A. Costi, R. W. Helmes, D. Rasch, and A. Rosch, Metallic and insulating phases of repulsively interacting fermions in a 3d optical lattice, Science 322 , 1520 (2008). [33] P. M. Duarte, R. A. Hart, T.-L. Yang, X. Liu, T. Paiva, E. Khatami, R. T. Scalettar, N. Trivedi, and R. G. Hulet, Compressibility of a fermionic mott insulator of ultracold atoms, Phys. Rev. Lett. 114 , 070403 (2015). [34] R. J¨ ordens, L. Tarruell, D. Greif, T. Uehlinger, N. Strohmaier, H. Moritz, T. Esslinger, L. De Leo, C. Kollath, A. Georges, V. Scarola, L. Pollet, E. Burovski, E. Kozik, and M. Troyer, Quantitative de-termination of temperature in the approach to magnetic order of ultracold fermions in an optical lattice, Phys. Rev. Lett. 104 , 180401 (2010). [35] D. Greif, T. Uehlinger, G. Jotzu, L. Tarruell, and T. Esslinger, Short-range quantum magnetism of ultra-cold fermions in an optical lattice, Science 340 , 1307 (2013). [36] R. A. Hart, P. M. Duarte, T.-L. Yang, X. Liu, T. Paiva, E. Khatami, R. T. Scalettar, N. Trivedi, D. A. Huse, and R. G. Hulet, Observation of antiferromagnetic correla-tions in the hubbard model with ultracold atoms, Nature 
+
+519 , 211 (2015). [37] D. Greif, G. Jotzu, M. Messer, R. Desbuquois, and T. Esslinger, Formation and dynamics of antiferromag-netic correlations in tunable optical lattices, Phys. Rev. Lett. 115 , 260401 (2015). [38] H.-J. Shao, Y.-X. Wang, D.-Z. Zhu, Y.-S. Zhu, H.-N. Sun, S.-Y. Chen, C. Zhang, Z.-J. Fan, Y. Deng, X.-C. Yao, Y.-A. Chen, and J.-W. Pan, Antiferromagnetic phase tran-sition in a 3d fermionic hubbard model, Nature 632 , 267 (2024). [39] R. Islam, R. Ma, P. M. Preiss, M. Eric Tai, A. Lukin, M. Rispoli, and M. Greiner, Measuring entanglement en-tropy in a quantum many-body system, Nature 528 , 77 (2015). [40] E. Cocchi, L. A. Miller, J. H. Drewes, M. Koschorreck, D. Pertot, F. Brennecke, and M. K¨ ohl, Equation of state of the two-dimensional hubbard model, Phys. Rev. Lett. 
+
+116 , 175301 (2016). [41] E. Cocchi, L. A. Miller, J. H. Drewes, C. F. Chan, D. Per-tot, F. Brennecke, and M. K¨ ohl, Measuring entropy and short-range correlations in the two-dimensional hubbard model, Phys. Rev. X 7, 031025 (2017). [42] C. Walsh, P. S´ emon, D. Poulin, G. Sordi, and A.-M. S. Tremblay, Local entanglement entropy and mutual infor-mation across the mott transition in the two-dimensional hubbard model, Phys. Rev. Lett. 122 , 067203 (2019); Thermodynamic and information-theoretic description of the mott transition in the two-dimensional hubbard model, Phys. Rev. B 99 , 075122 (2019). [43] C. Walsh, P. S´ emon, D. Poulin, G. Sordi, and A.-M. S. Tremblay, Entanglement and classical correlations at the doping-driven mott transition in the two-dimensional hubbard model, PRX Quantum 1, 020310 (2020). [44] C. Walsh, M. Charlebois, P. S´ emon, G. Sordi, and A.-M. S. Tremblay, Information-theoretic measures of super-conductivity in a two-dimensional doped mott insulator, Proceedings of the National Academy of Sciences 118 ,e2104114118 (2021). 21 
+
+[45] J. Hubbard and B. H. Flowers, Electron correlations in narrow energy bands, Proc. R. Soc. Lond. Ser. A 276 ,238 (1963). [46] J. Kanamori, Electron correlation and ferromagnetism of transition metals, Prog. Theor. Phys 30 , 275 (1963). [47] M. C. Gutzwiller, Effect of correlation on the ferromag-netism of transition metals, Phys. Rev. Lett. 10 , 159 (1963). [48] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, The hubbard model, Annual Review of Condensed Mat-ter Physics 13 , 239 (2022). [49] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, The hubbard model: A computational perspec-tive, Annual Review of Condensed Matter Physics 13 ,275 (2022). [50] K. Mikelsons, E. Khatami, D. Galanakis, A. Macridin, J. Moreno, and M. Jarrell, Thermodynamics of the quan-tum critical point at finite doping in the two-dimensional hubbard model studied via the dynamical cluster approx-imation, Phys. Rev. B 80 , 140505 (2009). [51] D. Galanakis, E. Khatami, K. Mikelsons, A. Macridin, J. Moreno, D. A. Browne, and M. Jarrell, Quantum criticality and incipient phase separation in the thermo-dynamic properties of the hubbard model, Philosophi-cal Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 369 , 1670 (2011). [52] G. Sordi, K. Haule, and A.-M. S. Tremblay, Mott physics and first-order transition between two metals in the normal-state phase diagram of the two-dimensional hub-bard model, Phys. Rev. B 84 , 075161 (2011). [53] C. Lenihan, A. J. Kim, F. ˇSimkovic IV., and E. Kozik, Entropy in the non-fermi-liquid regime of the doped 2D hubbard model, Phys. Rev. Lett. 126 , 105701 (2021). [54] E. Ibarra-Garc´ ıa-Padilla, R. Mukherjee, R. G. Hulet, K. R. A. Hazzard, T. Paiva, and R. T. Scalettar, Ther-modynamics and magnetism in the two-dimensional to three-dimensional crossover of the hubbard model, Phys. Rev. A 102 , 033340 (2020). [55] A. Sushchyev and S. Wessel, Thermodynamics of the metal-insulator transition in the extended hubbard model from determinantal quantum monte carlo, Phys. Rev. B 
+
+106 , 155121 (2022). [56] T. Paiva, R. Scalettar, M. Randeria, and N. Trivedi, Fermions in 2d optical lattices: Temperature and entropy scales for observing antiferromagnetism and superfluid-ity, Phys. Rev. Lett. 104 , 066406 (2010). [57] J. Imriˇ ska, E. Gull, and M. Troyer, Thermodynamics of the hubbard model on stacked honeycomb and square lat-tices, The European Physical Journal B 89 , 171 (2016). [58] J. P. F. LeBlanc and E. Gull, Equation of state of the fermionic two-dimensional hubbard model, Phys. Rev. B 
+
+88 , 155108 (2013). [59] S. Fuchs, E. Gull, L. Pollet, E. Burovski, E. Kozik, T. Pr-uschke, and M. Troyer, Thermodynamics of the 3d hub-bard model on approaching the n´ eel transition, Phys. Rev. Lett. 106 , 030401 (2011). [60] L. Rampon, F. ˇSimkovic, and M. Ferrero, Magnetic phase diagram of the three-dimensional doped hubbard model, Phys. Rev. Lett. 134 , 066502 (2025). [61] E. Khatami and M. Rigol, Thermodynamics of strongly interacting fermions in two-dimensional optical lattices, Phys. Rev. A 84 , 053611 (2011). [62] E. Khatami and M. Rigol, Effect of particle statistics in strongly correlated two-dimensional hubbard models, Phys. Rev. A 86 , 023633 (2012). [63] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Monte Carlo calculations of coupled boson-fermion sys-tems. i, Phys. Rev. D 24 , 2278 (1981). [64] J. E. Hirsch, Discrete Hubbard-Stratonovich transforma-tion for fermion lattice models, Phys. Rev. B 28 , 4059 (1983). [65] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Numerical study of the two-dimensional Hubbard model, Phys. Rev. B 40 ,506 (1989). [66] R. T. Scalettar, R. M. Noack, and R. R. P. Singh, Er-godicity at large couplings with the determinant Monte Carlo algorithm, Phys. Rev. B 44 , 10502 (1991). [67] F. Assaad and H. Evertz, World-line and determinan-tal quantum Monte Carlo methods for spins, phonons and electrons, in Computational Many-Particle Physics, Lecture Notes in Physics, Vol. 739, edited by H. Fehske, R. Schneider, and A. Weiße (Springer,Berlin, 2008) pp. 277–356. [68] Y.-Y. He, H. Shi, and S. Zhang, Reaching the continuum limit in finite-temperature ab Initio field-theory compu-tations in many-fermion systems, Phys. Rev. Lett. 123 ,136402 (2019). [69] Y.-Y. He, M. Qin, H. Shi, Z.-Y. Lu, and S. Zhang, Finite-temperature auxiliary-field quantum Monte Carlo: Self-consistent constraint and systematic approach to low temperatures, Phys. Rev. B 99 , 045108 (2019). [70] F. Sun and X. Y. Xu, Delay update in determinant quan-tum Monte Carlo, Phys. Rev. B 109 , 235140 (2024). [71] H. Du and Y.-Y. He, Accelerating ground-state auxiliary-field quantum monte carlo simulations by delayed update and block force-bias update, Phys. Rev. B 112 , 235120 (2025). [72] Y.-Y. He, Condensate fraction scaling and specific heat anomaly around berezinskii-kosterlitz-thouless tran-sition of superconductivity and superfluidity, arXiv: 
+
+2506.09611 (2025). [73] C. Wu and S.-C. Zhang, Sufficient condition for absence of the sign problem in the fermionic quantum monte carlo algorithm, Phys. Rev. B 71 , 155115 (2005). [74] Approaching T = 0, the entropy density can be computed as s = N −1 
+
+> s
+
+kB ln g, where g denotes the ground-state degeneracy. For the half-filled Hubbard model in Eq. (1), 
+
+g scales markedly subexponentially with the system size 
+
+Ns, even considering the spin SU(2) symmetry. This leads to s → 0 as L → ∞ .[75] Y.-F. Song, Y. Deng, and Y.-Y. He, Nature of the mixed-parity pairing of attractive fermions with spin-orbit cou-pling in an optical lattice, Phys. Rev. B 109 , 094504 (2024). [76] Q. Li, D.-W. Qu, B.-B. Chen, T. Shi, and W. Li, Thermal tensor network simulations of lattice fermions with fixed filling, Phys. Rev. B 113 , 085150 (2026). [77] A. J. Kim, F. Simkovic, and E. Kozik, Spin and charge correlations across the metal-to-insulator crossover in the half-filled 2d hubbard model, Phys. Rev. Lett. 124 ,117602 (2020). [78] N. S. Vidhyadhiraja, A. Macridin, C. S ¸en, M. Jarrell, and M. Ma, Quantum critical point at finite doping in the 2d hubbard model: A dynamical cluster quantum monte carlo study, Phys. Rev. Lett. 102 , 206407 (2009). [79] T. Paiva, R. T. Scalettar, C. Huscroft, and A. K. McMa-han, Signatures of spin and charge energy scales in the 22 
+
+local moment and specific heat of the half-filled two-dimensional hubbard model, Phys. Rev. B 63 , 125116 (2001). [80] M. Qin, H. Shi, and S. Zhang, Coupling quantum monte carlo and independent-particle calculations: Self-consistent constraint for the sign problem based on the density or the density matrix, Phys. Rev. B 94 , 235119 (2016). [81] B.-X. Zheng, C.-M. Chung, P. Corboz, G. Ehlers, M.-P. Qin, R. M. Noack, H. Shi, S. R. White, S. Zhang, and G. K.-L. Chan, Stripe order in the underdoped region of the two-dimensional hubbard model, Science 358 , 1155 (2017). [82] M. Qin, C.-M. Chung, H. Shi, E. Vitali, C. Hubig, U. Schollw¨ ock, S. R. White, and S. Zhang (Simons Col-laboration on the Many-Electron Problem), Absence of superconductivity in the pure two-dimensional hubbard model, Phys. Rev. X 10 , 031016 (2020). [83] H. Xu, H. Shi, E. Vitali, M. Qin, and S. Zhang, Stripes and spin-density waves in the doped two-dimensional Hubbard model: Ground state phase diagram, Phys. Rev. Res. 4, 013239 (2022). [84] T. Sch¨ afer, A. A. Katanin, K. Held, and A. Toschi, Inter-play of correlations and kohn anomalies in three dimen-sions: Quantum criticality with a twist, Phys. Rev. Lett. 
+
+119 , 046402 (2017). [85] S. Chakraborty, D. Galanakis, and P. Phillips, Emergence of particle-hole symmetry near optimal doping in high-temperature copper oxide superconductors, Phys. Rev. B 
+
+82 , 214503 (2010). [86] F. ˇSimkovic, R. Rossi, A. Georges, and M. Ferrero, Origin and fate of the pseudogap in the doped hubbard model, Science 385 , eade9194 (2024). [87] C. Gilbreth, S. Jensen, and Y. Alhassid, Reducing the complexity of finite-temperature auxiliary-field quantum monte carlo, Computer Physics Communications 264 ,107952 (2021). [88] S. Humeniuk and Y. Wan, Numerically exact mimick-ing of quantum gas microscopy for interacting lattice fermions, Phys. Rev. B 104 , 075155 (2021). [89] S. Ding, S. Li, and Y. Wang, Sampling electronic fock states using determinant quantum monte carlo, Commu-nications Physics 8, 48 (2025). [90] T. Hong, K. Chen, and X. Y. Xu, Linear canonical-ensemble quantum monte carlo, arXiv: 2601.08552 
+
+(2026). [91] S. R. White, Minimally entangled typical quantum states at finite temperature, Phys. Rev. Lett. 102 , 190601 (2009). [92] A. Wietek, Y.-Y. He, S. R. White, A. Georges, and E. M. Stoudenmire, Stripes, antiferromagnetism, and the pseu-dogap in the doped hubbard model at finite temperature, Phys. Rev. X 11 , 031007 (2021). [93] A. Wietek, R. Rossi, F. ˇSimkovic, M. Klett, P. Hans-mann, M. Ferrero, E. M. Stoudenmire, T. Sch¨ afer, and A. Georges, Mott insulating states with competing or-ders in the triangular lattice hubbard model, Phys. Rev. X 11 , 041013 (2021). [94] Y.-F. Jiang, J. Zaanen, T. P. Devereaux, and H.-C. Jiang, Ground state phase diagram of the doped hub-bard model on the four-leg cylinder, Phys. Rev. Res. 2,033073 (2020). [95] H. Xu, C.-M. Chung, M. Qin, U. Schollw¨ ock, S. R. White, and S. Zhang, Coexistence of superconductivity with par-tially filled stripes in the hubbard model, Science 384 ,eadh7691 (2024). [96] C. Zhang, J.-W. Li, D. Nikolaidou, and J. von Delft, Frustration-induced superconductivity in the t−t′
+
+hub-bard model, Phys. Rev. Lett. 134 , 116502 (2025). [97] J. Imriˇ ska, M. Iazzi, L. Wang, E. Gull, D. Greif, T. Uehlinger, G. Jotzu, L. Tarruell, T. Esslinger, and M. Troyer, Thermodynamics and magnetic properties of the anisotropic 3d hubbard model, Phys. Rev. Lett. 112 ,115301 (2014). [98] E. Ibarra-Garc´ ıa-Padilla, R. Mukherjee, R. G. Hulet, K. R. A. Hazzard, T. Paiva, and R. T. Scalettar, Ther-modynamics and magnetism in the two-dimensional to three-dimensional crossover of the hubbard model, Phys. Rev. A 102 , 033340 (2020).

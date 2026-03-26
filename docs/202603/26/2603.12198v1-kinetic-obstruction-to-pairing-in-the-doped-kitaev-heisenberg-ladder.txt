@@ -1,0 +1,1159 @@
+Title: Kinetic obstruction to pairing in the doped Kitaev-Heisenberg ladder
+
+URL Source: https://arxiv.org/pdf/2603.12198v1
+
+Published Time: Fri, 13 Mar 2026 01:15:48 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+## Kinetic obstruction to pairing in the doped Kitaev-Heisenberg ladder 
+
+Bradraj Pandey, 1, 2, ∗ Bo Xiao, 3, 4 Satoshi Okamoto, 3 Gonzalo Alvarez, 5
+
+G´ abor B. Hal´ asz, 3, 4 Elbio Dagotto, 2, 3 and Pontus Laurell 1, 6, †
+
+> 1
+
+Department of Physics and Astronomy, University of Missouri, Columbia, Missouri 65211, USA 
+
+> 2
+
+Department of Physics and Astronomy, University of Tennessee, Knoxville, Tennessee 37996, USA 
+
+> 3
+
+Materials Science and Technology Division, Oak Ridge National Laboratory, Oak Ridge, Tennessee 37831, USA 
+
+> 4
+
+Quantum Science Center, Oak Ridge, Tennessee 37831, USA 
+
+> 5
+
+Computational Sciences and Engineering Division, Oak Ridge National Laboratory, Oak Ridge, Tennessee 37831, USA 
+
+> 6
+
+Materials Science and Engineering Institute, University of Missouri, Columbia, Missouri 65211, USA 
+
+(Dated: March 12, 2026) We investigate the hole-doped Kitaev-Heisenberg ( t–J–K) model on a two-leg ladder geometry using the density-matrix renormalization group (DMRG). We first consider the behavior of the antiferromagnetic Kitaev (AFK) spin-liquid phase as a function of hopping strength t and doping level. This reveals intriguing pairing tendencies only for tK ≲ 0.65 , consistent with prior results on three-leg ladders, and firmly supports the emerging picture that the physics of doped Kitaev spin liquids strongly depends on the kinetic energy of the doped holes. Analysis of one- and two-hole doping uncovers close links between the spatial profiles of the plaquette operator and the charge density. We construct a doping-dependent phase diagram for antiferromagnetic Heisenberg interactions and intermediate hopping t = 1. Upon doping, the rung-singlet region develops dominant superconducting correlations. Charge-density-wave correlations dominate at weak doping near the transition to the stripy phase. Spin-density wave-like behavior is found in the AFK and ferromagnetic Kitaev limits, and in the stripy phase. 
+
+Introduction 
+
+The response of quantum spin liquids (QSLs) to charge doping presents many open questions. QSLs are intriguing exotic phases of matter found in strongly interacting spin systems, characterized by long-range entanglement, fractionalized excitations, and the absence of magnetic ordering even at zero temperature [1–3]. However, their strong interactions and high entanglement present substantial challenges for theoretical and computational modeling. The exactly solvable Kitaev spin liquid [4] has thus attracted particular interest as it allows for rigorous results. This model consists of bond-dependent Ising interactions on a honeycomb lattice, and hosts a QSL ground state featuring gapless Majorana and gapped Z2 flux (vison) excitations [4– 6]. In the presence of a magnetic field, the system undergoes a transition to a topological chiral QSL phase that supports Ising non-Abelian anyons, providing a potential platform for fault-tolerant topological quantum computation [4, 7]. Motivated by Kitaev’s honeycomb model, a number of spin-orbit-coupled transition metal compounds [6, 8– 11] have been explored as candidate materials, notably including Na 2IrO 3 [12–14] and α-RuCl 3 [15–20]. However, additional non-Kitaev interactions, such as Heisenberg exchange terms, destabilize the Kitaev QSL phase, resulting in a magnetically ordered ground state in most candidate materials, and make the model non-integrable. While certain aspects can nevertheless be explored using perturbative or mean-field methods, numerical methods are often required for an accurate description of the properties away from equilibrium or half-filling. Tensor network approaches [21–   
+
+> ∗bradraj.pandey@gmail.com
+> †plaurell@missouri.edu
+
+23] provide the state-of-the-art framework for this regime, most notably by utilizing the density matrix renormalization group (DMRG) [24, 25] to variationally optimize the matrix product state ansatz [26–28]. It has been proposed that doping the Kitaev QSL can give rise to exotic superconducting states [29–34] and could produce insights into the mechanisms of high-temperature superconductivity in cuprates [35, 36]. However, recent DMRG studies on three- and four-leg cylinders have shown that, in the pure Kitaev limit, the superconducting pair–pair correlation functions decay exponentially for large hopping amplitudes (corresponding to the so-called fast-hole regime) [37–39]. In fact, our recent study [39] shows that the binding of two holes occurs only at low hopping strengths, i.e. in the slow-hole regime, supporting a distinction between the physics of slow and fast holes in the Kitaev QSL. It has also recently been demonstrated that, upon single-hole doping, signatures of Nagaoka-type kinetic ferromagnetism emerge in the ferromagnetic Kitaev (FK) QSL phase [38], whereas in the antiferromagnetic (AFK) QSL phase, the single-hole spectral function exhibits characteristics of fractionalized excitations [40], reflecting the intricate interplay between charge, spin, and flux degrees of freedom. Similar findings were also reported on three-leg cylinders for the triangular lattice [41]. This recent progress notwithstanding, questions remain as to what happens when the FK and AFK models are doped, both microscopically and on a larger scale, i.e. which phases do emerge? Prior studies have focused on cylindrical multi-leg geometries, which are associated with large computational costs and challenges for finite-size scaling. In this work, we instead investigate the doped Kitaev–Heisenberg model on a two-leg ladder, with a particular focus on pairing tendencies in the Kitaev spin-liquid, rung-singlet, and stripy phases. 
+
+> arXiv:2603.12198v1 [cond-mat.str-el] 12 Mar 2026
+
+2This quasi-one-dimensional geometry is numerically more tractable, allowing us to obtain more robust results and to map out a phase diagram. In addition, we note that the two-leg ladder geometry has previously been found to yield results in surprisingly close correspondence to the two-dimensional (2D) limit [42–44]. Thus, much like with models for cuprate superconductors [45], we expect that reliable ladder results are informative about the physics also in the 2D limit. The phase diagram of the Kitaev-Heisenberg ladder at half-filling is known [42, 43, 46, 47], but the doped model has yet to be explored. Here we obtain the ground-state properties and analyze correlation functions together with the plaquette operator using DMRG methods. Our results show that pairing tendencies in the spin-liquid phases are strongly controlled by the kinetic energy of the doped holes. In the AFK region, pairing between two holes persists only for hopping strengths tK ≲ 0.65 , beyond which spin-density-wave order develops. In contrast, the FK region is much more fragile: pairing survives only for very small hopping values tK ≲ 0.1,and further increase in t subsequently leads to Nagaoka-type ferromagnetic order. We also reveal signatures of this kinetic obstruction to pairing in the plaquette operator: (i) its spatial profile mimics the charge distribution and thus depends on whether holes form pairs or repel each other, and (ii) the slope of its spatial average changes at the hopping strengths where pairing disappears. Furthermore, we construct a doping-dependent phase diagram at intermediate hopping t = 1 by varying the Kitaev and Heisenberg interactions. We find that superconducting correlations appear only in the rung-singlet phase, whereas charge-density-wave order emerges at weak doping near the transition between the rung-singlet and stripy phases. Other regions in the phase diagram develop spin-density wave-like behavior. Overall, our results uncover a rich interplay among pairing, charge, flux, and spin orders in the doped Kitaev–Heisenberg ladder. 
+
+Results 
+
+> Model Hamiltonian
+
+The t–J–K Hamiltonian for the doped Kitaev–Heisenberg model [29, 31–33, 39, 48, 49] is given by 
+
+H = K X
+
+> ⟨i,j ⟩
+
+Sγi Sγj + J X
+
+> ⟨i,j ⟩
+
+Si · Sj
+
+− t X
+
+> ⟨i,j ⟩,σ
+
+P
+
+
+
+c† 
+
+> iσ
+
+cjσ + H .c.
+
+
+
+P, (1) where K = sin ϕ is the Kitaev interaction, J = cos ϕ is the Heisenberg exchange, and t is the hopping amplitude of the doped holes. Here, γ labels the type of bond connecting sites 
+
+i and j, Sγi is the γ ∈ { x, y, z } component of the spin-1/2
+
+operator, and Si = ( Sxi , S yi , S zi ) is the spin vector on site 
+
+i. The summation P 
+
+> ⟨i,j ⟩
+
+runs over nearest neighbors (NN), and c† 
+
+> iσ
+
+is the fermionic creation operator. The projector 
+
+P imposes the constraint of no double occupancy, typical of t–J–like models. We solve Eq. (1) on a two-leg ladder numerically using the DMRG method [24, 25] leveraging the computational frameworks of DMRG++ [50] and ITensor [51, 52]. We employ a two-leg ladder geometry, as illustrated in Fig. 1(a) with N = 2 Lx sites and open boundary conditions (OBC) along the leg direction, whereas periodic boundary conditions (PBC) are applied along the rung direction so that most sites have a coordination number of three [42, 43]. In the following we will report results for both fixed t = 1 (when varying ϕ) and varying t 
+
+> |K|
+
+(when keeping ϕ = ± π 
+
+> 2
+
+fixed so that |K| = 1 ). 
+
+> Phase Diagram
+
+The ground-state phase diagram at half filling (i.e., one electron per site) as a function of ϕ exhibits six distinct phases [42, 43]. Among them, four are magnetically ordered: (i) a zigzag phase with antiferromagnetic (AFM) ordering along the rungs and ferromagnetic (FM) alignment along the legs [Fig. 1(b)]; (ii) a stripy phase characterized by FM rung alignment and AFM leg ordering [Fig. 1(c)]; (iii) a ferromagnetic phase with spin alignment predominantly in the XY plane [Fig. 1(d)]; and (iv) a rung-singlet phase featuring spin singlets formed along the rungs [Fig. 1(e)]. The rung-singlet phase is the ladder counterpart to the N´ eel AFM phase in the 2D lattice. In addition to these ordered states, we identify the (v) AFK and (vi) FK spin-liquid phases emerging near ϕ = π/ 2 and −π/ 2, respectively. The phase boundaries are determined from the spin–spin correlation functions and singular features in the second derivative of the ground-state energy, χE = −∂2
+
+> ϕ
+
+E0 (see Supplementary Note 1). In Fig. 1(f), we present the phase diagram as a function of hole doping ( nh) and interaction angle ϕ (−0.5π ≤ ϕ ≤ 0.5π)for a fixed hopping amplitude t = 1 and system size N = 126 .(Four of the six distinct phases at half-filling are found in this range of ϕ, and thus displayed in Fig. 1(f).) To identify the various phases, we compute the binding energy, spin–spin, charge–charge, and both singlet and triplet pair–pair correlation functions. Upon doping, the rung-singlet phase develops dominant singlet superconducting correlations, accompanied by competing charge-density correlations and exponentially decaying spin–spin correlations. In contrast, in the AFK limit at weak doping ( nh < 8) we observe a potentially disordered phase (DS). In this regime, both spin-spin an charge-charge correlations decay with similar power-law behavior. However the static spin structure factor exhibits broad features, reminiscent of the behavior at half-filling, suggesting a QSL-like background lacking clear ordering wave vector signals. As the doping level is increased further, spin-spin correlations become dominant, and the static spin and charge structure factors develop incommensurate peaks; we denote this as the incommensurate spin-density-wave (SDW 3) phase (see Supplementary Note 2). In the FK regime, however, even weak hole doping enhances the spin–spin correlations from an exponential decay to nearly long-range behavior at higher doping levels. This strong ferromagnetic response originates from the formation of a Nagaoka-type ferromagnet (SDW 1) induced by mobile holes. The stripy phase evolves into an incommensurate spin-density-wave magnetic order (SDW 2)that persists across all studied doping strengths. Near the SDW 2-SC boundary at lower hole concentrations ( 2 ≤ nh <36
+
+−0.5 −0.4 −0.3 −0.2 −0.1 0.0 0.1 0.2 0.3 0.4 0.5
+
+4
+
+8
+
+12 
+
+16 
+
+# nh
+
+# ϕ/π 
+
+# (a) 
+
+# (b) 
+
+# (d) (e) 
+
+# (c) (f ) 
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6 t = 1 
+
+# ZZ 
+
+# FM 
+
+# ST 
+
+# RS 
+
+> RS
+
+SC  
+
+> ST FK SDW 1
+> SDW 2
+> SDW 3DS
+> CDW
+> AFK
+
+# y
+
+# z
+
+# x
+
+# J = cos ϕ
+
+# K = sin ϕ
+
+FIG. 1. Kitaev–Heisenberg model and doping-dependent phase diagram. (a) Schematic of the two-leg honeycomb ladder. The three inequivalent bonds, x, y, and z, are shown as solid green, blue, and red lines, respectively. Dashed red lines indicate z-type bonds connecting sites across the periodic boundary of the ladder. (b) –(e) Pictorial representations of the (b) zigzag (ZZ), (c) stripy (ST), (d) ferromagnetic (FM), and (e) rung-singlet (RS) magnetic phases occurring at half-filling. Ellipses in (e) indicate singlet states formed by the two enclosed spins. (f) 
+
+Doping-dependent phase diagram obtained by parametrizing the interactions as J = cos ϕ and K = sin ϕ over the interval −π/ 2 ≤ ϕ ≤ π/ 2,with fixed intermediate hopping t = 1 . The phase diagram at half-filling is shown at the bottom, below the hatched area. Upon finite doping (above the hatched area), the rung-singlet phase evolves into a superconducting (SC) phase, whereas the ferromagnetic Kitaev (FK) phase evolves into a commensurate spin-density-wave (SDW) order SDW 1 and the stripy phase evolves into an incommensurate SDW 2. A narrow range dominated by charge-density wave (CDW) correlations is also found near the ST-RS transition. At low doping levels in the AFK limit a potential disorder phase (DS) is identified. At higher doping levels it evolves into an incommensurate SDW 3 phase. 
+
+8), we find intertwined charge, spin, and superconducting orders [53], where all corresponding correlations decay close to power-law behavior. In this region, we find that charge-charge correlations dominate, which we identify as the charge-density-wave (CDW) phase (see Supplementary Note 2). The pair-pair correlations decay exponentially in all phases except for the rung-singlet phase, indicating the absence of superconducting order outside the rung-singlet regime. 
+
+Pairing tendencies 
+
+To investigate the pairing tendencies of holes in the Kitaev–Heisenberg ladder, we calculate the binding energy 
+
+∆E, defined near half filling as [53] 
+
+∆E = E(N − 2) + E(N ) − 2E(N − 1) , (2) where E(ne) denotes the ground-state energy with ne
+
+electrons. The hole concentration is quantified as nh =
+
+N − ne, representing the number of holes introduced into the half-filled system. A negative value of ∆E (∆E < 0)indicates that it is energetically favorable for holes to form bound pairs. In contrast, ∆E ≳ 0 signifies the absence of hole binding (note that ∆E may take slightly positive values in finite-size systems). In Fig. 2(a), we present the binding energy ∆E as a function of ϕ in the range −π/ 2 ≤ ϕ ≤ π/ 2 for several system sizes, N = 2 ×23 , 2×33 , 2×53 , and 2×63 , at a fixed hopping amplitude t = 1 . The binding energy takes negative values only within the range −0.29 π ≤ ϕ ≤ 0.48 π, indicating that hole pairing occurs only in the rung-singlet phase. This is consistent with our prior finding on three-leg ladders that hole pairing at t = 1 occurs only within the N´ eel phase [39]. In the rung-singlet region of the two-leg ladder, the values of the binding energy for different system sizes almost overlap, indicating that finite-size effects are negligible [Fig. 2(a)]. In the rung-singlet phase, hole binding is energetically favored because it minimizes the number of broken singlet bonds; qualitatively two bound holes break only one rung singlet, whereas two unbound holes would break two. The positive binding energy observed in the stripy, AFK, and FK phases at t = 1 rules out the possibility of hole pairing for moderate hopping strengths, which is also consistent with our previous study on the three-leg honeycomb Kitaev–Heisenberg ladder model [39]. The binding energy in Fig. 2(a) exhibits an asymmetry around ϕ = 0 . This asymmetric behavior of the binding energy closely follows the behavior of the many-body excitation gap [43] (see Supplementary Note 1 for details). 4-0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 0.4 0.5 
+
+# -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 00 0.2 0.4 0.6 0.8 
+
+# -0.3 -0.2 -0.1 00 0.2 0.4 0.6 0.8 
+
+# -0.3 -0.2 -0.1 0N = 2 × 23 
+
+N = 2 × 33 
+
+N = 2 × 43 
+
+N = 2 × 53 
+
+N = 2 × 63 
+
+# t
+
+# t
+
+# ϕ/π 
+
+# t = 1 
+
+# (a) (b) 
+
+# (c) ∆E∆E
+
+## RS ST 
+
+## K = 1 
+
+## J = 0 
+
+## K = −1
+
+## J = 0 
+
+## AFK 
+
+## FK 
+
+> ∆E
+
+# J = cos ϕ
+
+# K = sin ϕ
+
+FIG. 2. Hole-pair formation. (a) Binding energy ∆E for different system sizes N , obtained using DMRG for −π/ 2 ≤ ϕ ≤ π/ 2 with fixed hopping t = 1 , where the couplings are parametrized as J = cos ϕ and K = sin ϕ. At this intermediate hopping strength, pair formation is found only in the rung singlet phase. (b) Binding energy ∆E as a function of hopping t in the AFK limit ( K = 1 , J = 0 ) for different system sizes N . (c) Binding energy ∆E as a function of t in the FK limit ( K = −1, J = 0 ) for different N . In both the AFK and FK regimes, the vertical dashed cyan line marks the hopping strength at which the binding energy becomes non-negative, occurring at tc 
+
+> AFK
+
+≈ 0.65 K and 
+
+tc 
+
+> FK
+
+≈ 0.1|K|, respectively. 
+
+As discussed above, the binding energy is non-negative at the Kitaev points ( K = ±1 and J = 0 ) for intermediate hopping strength t = 1 . It is therefore interesting to examine how the kinetic energy of dopants influences hole pairing within the Kitaev spin-liquid phases for two leg-ladder t–K–J
+
+model. In Fig. 2(b,c), we show the binding energy for the AFK and FK spin-liquid phases as a function of the hopping parameter t. For the AFK phase, the binding energy becomes negative for t ≤ tc 
+
+> AFK
+
+≈ 0.65 K across all system sizes, indicating the formation of bound hole pairs in the slow-hole limit [Fig. 2(b)]. In contrast, for the FK spin-liquid phase, hole binding occurs only at much lower hopping values, t ≤
+
+tc 
+
+> FK
+
+≈ 0.1|K| [Fig. 2(c)]. The lower critical hopping tc, in the FK phase compared to the AFK phase arises from the emergence of a kinetic ferromagnetic state in the FK regime even for small t and low hole concentrations; see Fig. 3(c). In the exactly solvable slow-hole limit of t = 0 where the holes can be interpreted as static vacancies, the binding energies for both phases converge to the same value, ∆E = −0.25 ,showing their independence from the sign of K. The hole binding observed in both AFK and FK phases as t → 0 can be qualitatively understood as a consequence of minimizing the number of broken magnetic bonds due to hole pairing, following standard t − J model arguments [35, 39]. 
+
+Effect of hole doping on spin-liquid phases 
+
+Having found that the hopping amplitude t 
+
+> |K|
+
+controls the pairing tendencies at the Kitaev points, we next investigate how hole doping and the kinetic energy of dopants modify the AFK and FK spin-liquid backgrounds. We first focus on the one- and two-hole doping cases by calculating the average plaquette operator and spin–spin correlation functions. The Kitaev Hamiltonian ( K = ±1, J = t = 0) possesses a conserved quantity called the plaquette operator Wp [4], defined on each elementary hexagon p of the ladder as 
+
+Wp = 2 6Sx 
+
+> 1
+
+Sy 
+
+> 2
+
+Sz 
+
+> 3
+
+Sx 
+
+> 4
+
+Sy 
+
+> 5
+
+Sz 
+
+> 6
+
+, (3) where the subscripts 1, . . . , 6 label the sites of the elementary plaquette p as indicated in Fig. 1(a). Wp has eigenvalues 
+
+Wp = +1 and Wp = −1 corresponding to the Z2 gauge fluxes of 0 and π, respectively. In the absence of hole doping, the ground state at either Kitaev point is flux free, with the expectation value of each plaquette operator given by ⟨Wp⟩ =1. Deviations from this value thus quantify the modification of the spin liquid ground state due to perturbations by doped holes or additional interactions [38, 40, 54]. 50 0.2 0.4 0.6 0.8 1
+
+0.86 0.88 0.90 0.92 0.94 0.96 0.98 15 10 15 20 25 
+
+1e-06 0.0001 0.01 5 10 15 20 25 
+
+1e-06 0.0001 0.01 nh = 1 (AFK) 
+
+# nh = 2 (AFK) 
+
+# nh = 1 (FK) 
+
+# nh = 2 (FK) 
+
+## t = 0 .2
+
+## t = 0 .4
+
+## t = 0 .6
+
+## t = 0 .8
+
+## t = 1 .0
+
+## t = 0 .05 
+
+## t = 0 .1
+
+## t = 0 .2
+
+## t = 0 .4
+
+## t = 0 .6
+
+# nh = 2 
+
+## AFK 
+
+# nh = 2 FK 
+
+# t
+
+# (a) (b) 
+
+# (c) 
+
+> |s(r)|
+
+# r
+
+# r
+
+> s(r)
+> Pavg
+
+FIG. 3. Average plaquette operator and spin correlations as a function of hopping. (a) Average plaquette operator Pavg = 1
+
+> Np
+
+P
+
+> i
+
+⟨Wp(l)⟩
+
+at the Kitaev points ϕ = ±π/ 2 as a function of the hopping amplitude t for one ( nh = 1 ) and two ( nh = 2 ) doped holes. At half-filling 
+
+Wp is a good quantum number and the ground state has Pavg = 1 . Deviations from this value thus capture deviations from the QSL state. Dotted lines indicate reference values of Pavg for n broken plaquettes. The top line corresponds to n = 1 , with descending lines representing 
+
+n = 2 , 3, 4, respectively. (b,c) Spin–spin correlation function S(r) for two doped holes at different values of t in the (b) AFK and (c) FK regions. These numerical calculations were performed for a fixed system size N = 2 × 63 .
+
+In Fig. 3(a), we show the plaquette operator averaged over all hexagonal plaquettes of the two-leg ladder, defined as 
+
+Pavg = 1
+
+> Np
+
+P 
+
+> l
+
+Wp(l) , where l labels the plaquette index and Np is the total number of plaquettes, as a function of the hopping amplitude t for one- and two-hole doping. For t 
+
+> |K|
+
+≪
+
+1, the holes remain confined to the boundary sites and act as quasi-static vacancies in both the FK and AFK spin-liquid phases. In the slow-hole limit ( t ≪ | K|), a single hole thus breaks only one plaquette near the boundary, yielding Pavg ≈
+
+0.9677 . In this regime, we observe finite local magnetization, 
+
+⟨Szi ⟩ or ⟨Sxi ⟩, localized near the edge sites where vacancies are created in both FK and AFK phases. Upon increasing t, a distinct kink appears in Pavg for the one-hole case, signaling a transition in which the hole relocates toward the center of the ladder and spreads over multiple sites. The characteristic crossover scale occurs at t∗ 
+
+> FK
+
+≈ 0.09 |K| in the FK regime and 
+
+t∗ 
+
+> AFK
+
+≈ 0.18 K in the AFK regime. In both regimes, Pavg 
+
+remains finite and approaches ≈ 0.935 at t 
+
+> |K|
+
+= 1 , indicating that on average only two plaquettes are effectively destroyed by hole motion while the overall flux structure of the spin liquid largely survives. Next, we examine the effect of two-hole doping in both AFK and FK phases as the hopping amplitude t increases. In the AFK phase, the averaged plaquette operator Pavg 
+
+decreases more rapidly with increasing t [Fig. 3(a)]. The Pavg 
+
+curve shows two distinct slope changes at t ≈ 0.19 K and 
+
+t ≈ 0.65 K, indicating two characteristic crossover scales. The second slope change is associated with the disappearance of hole pairing at tc 
+
+> AFK
+
+≈ 0.65 K, where the binding energy changes from negative to positive [see Fig. 3(a) and Fig. 2(b)]. In the FK case, the averaged plaquette operator Pavg for two-hole doping shows only one transition at t ≈ 0.1|K|, the same value as tc 
+
+> FK
+
+at which the binding energy changes from negative to non-negative in the FK regime [see Fig. 3(a) and Fig. 2(c)]. Notably, the average plaquette expectation value is larger in the FK case than in AFK [Fig. 3(a)], showing that the underlying flux background is less disrupted by hole motion in FK (at least for the range of t we studied). To characterize the evolution of magnetic correlations, we calculate the spin–spin correlation function along the upper leg of the ladder, 
+
+s(r) = ⟨Si0 · Sj ⟩, (4) where we choose the reference site i0 = 27 near the center of the ladder, and define r = |j − i0| as the 6distance along the leg direction. In the AFK phase, |s(r)|
+
+decays exponentially for small tK [Fig. 3(b)], consistent with short-range spin-liquid behavior. However, for t > 0.65 K,
+
+|s(r)| saturates to a finite value after an initial exponential decay, indicating the onset of magnetic correlations in the system. In contrast, in the FK phase magnetic correlations emerge already at small hopping, t ∼ 0.1|K| [Fig. 3(c)], where s(r) develops a quasi-long-range profile characteristic of a Nagaoka-type ferromagnetic state, in agreement with Ref. [38]. In this phase, the local spin moment acquires a small but finite value and exhibits a weak spatial modulation (with a two-peak structure along the ladder). This modulation is also reflected in the behavior of the spin-spin correlator 
+
+s(r), which displays the corresponding spatial variation with 
+
+r [see Fig. 3(c)]. These transitions in spin-spin correlations are consistent with the binding energy results in the FK and AFK regimes, where ∆E changes from negative to positive at approximately the same crossover hopping amplitude t∗ =0.1|K| and t∗ = 0 .65 K, respectively. These results indicate close links between the binding energy, the emergence of spin-spin correlations and the deterioration of the spin liquid background. In Fig. 4, we present the spatially resolved expectation value of the flux operator ⟨Wp(l)⟩ alongside the plaquette-averaged charge density, defined as 
+
+np(l) = 16
+
+P 
+
+> j∈pl
+
+⟨nj ⟩, for the two-hole-doped case. Here l labels the plaquette and the sum runs over the six sites 
+
+j belonging to plaquette pl. The spatial profiles of the two quantities are strikingly similar. Interestingly, for smaller hopping ( t ≲ 0.65 K), both ⟨Wp(l)⟩ [Fig. 4(a,b)] and np(l)
+
+exhibit a single broad minimum near the center, indicating that the two holes form an extended bound state that perturbs a contiguous region of plaquettes. Since the bound states can move, the width of the minimum does not directly correspond to the size of the bound state. The depth of the minimum increases with the hopping strength tK , reflecting enhanced local plaquette distortion as the holes become more mobile. In contrast, for larger hopping ( t ≳ 0.65 K), ⟨Wp(l)⟩ and 
+
+np(l) develop two well-separated minima, showing that the holes move independently and disrupt distinct plaquette regions. The transition from a single-minimum (bound-pair) structure to a two-minima (unbound) structure in ⟨Wp(l)⟩
+
+and np(l) at t ∼ 0.65 K is fully consistent with the pairing tendencies inferred from the binding-energy calculations. 
+
+> Comparison of charge, spin and pairing order in the doped AFK spin liquid
+
+The above results show that, in the AFK phase, hole pairing occurs for t ≲ 0.65 K. However, the formation of bound hole pairs alone is not a sufficient condition for superconductivity, which also requires phase coherence among these pairs. To examine this, we compute both singlet and triplet pair–pair correlation functions and compare them with the corresponding charge–charge and spin–spin correlation functions. We find that the pair–pair correlations along the x- and y-bond directions either decay exponentially or remain very small in magnitude, indicating that hole pairing occurs predominantly along the rungs of the ladder (i.e., the z
+
+bonds). Therefore, in the following we focus on the pair–pair 6 12 18 24 30 
+
+## 0.75 0.80 0.85 0.90 0.95 1.00 6 12 18 24 30 
+
+## 0.96 0.97 0.98 0.99 1.00 (e
+
+# l
+
+# l
+
+# (a) 
+
+# (b) 
+
+t = 0 .2
+
+t = 0 .4
+
+t = 0 .6
+
+t = 0 .8
+
+t = 1 .0
+
+## nh = 2 
+
+## AFK                                   
+
+> ⟨Wp(l)⟩np(l)
+> FIG. 4. Spatial correspondence between the local plaquette operator and charge-density profile in the two-hole doped system (AFK regime). (a) Spatial profiles of the local plaquette expectation value ⟨Wp(l)⟩in the AFK limit, plotted for various hopping amplitudes t.(b) Corresponding plaquette-averaged charge density np(l)in the two-hole doped system, displayed for increasing hopping strength t. Notably, ⟨Wp(l)⟩and np(l)exhibit strong spatial congruence: a single minimum in the range of t≤0.6Kwhere pair formation occurs, and two minima for t≥0.8Kwhere doped holes repel instead of forming bound pairs. This correlation underscores that the dopants locally disturb the spin liquid background in the plaquettes around where the holes are delocalized. Data are shown for a fixed system size of N= 2 ×63 .
+
+correlation function with paring along the z-bond. The pair creation operator along the ith rung is given by 
+
+∆† 
+
+> z
+
+(i) = 1
+
+√2
+
+h
+
+c†
+
+> i, 1,↑
+
+c† 
+
+> i, 2,↓
+
+± c†
+
+> i, 1,↓
+
+c†
+
+> i, 2,↑
+
+i
+
+, (5) where the negative (positive) sign corresponds to singlet (triplet) pairing and 1, 2 are the ladder indices. The averaged pair-pair correlation for the z-bond is defined as 
+
+P zS/T (r) = 1
+
+Nr
+
+X
+
+> i,j
+
+δ|i−j|,r 
+
+D
+
+∆† 
+
+> z
+
+(i) ∆ z (j)
+
+E
+
+, (6) where Nr is the number of bond pairs separated by distance 
+
+r = j − i along the leg direction of the ladder. We also 76 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 rr
+
+# rr
+
+# (a) 
+
+# (c) 
+
+# (b) 
+
+# (d) 
+
+# AFK 
+
+> C(r)
+> S(r)P zT (r)
+> P zS (r)
+
+# K = 1 J = 0 
+
+# nh = 4 
+
+t = 0 .2
+
+t = 0 .4
+
+t = 0 .6
+
+t = 0 .8
+
+t = 1 .0
+
+FIG. 5. Comparison of averaged correlation functions in the four-hole doped AFK regime with various hopping amplitudes. (a) 
+
+Charge–charge correlations C(r), (b) spin–spin correlations S(r), (c) singlet pair–pair P zS (r), and (d) triplet pair–pair P zT (r) correlations vs. distance r, plotted for representative values of the hopping amplitude t. The pair-pair correlations are strongly suppressed for t ≥ 0.8K,consistent with the absence of pair formation. This is accompanied by enhanced spin-spin correlations, signaling a transition into a SDW phase. Data correspond to a fixed system size of N = 2 × 63 .
+
+compute the averaged charge–charge correlation C(r) along the upper leg, defined as 
+
+C(r) = 1
+
+Nr
+
+X
+
+> i,j
+
+δ|i−j|,r 
+
+h
+
+⟨ninj ⟩ − ⟨ ni⟩⟨ nj ⟩
+
+i
+
+, (7) where ni denotes the local charge density at site i. The averaged spin–spin correlation is defined as 
+
+S(r) = 1
+
+Nr
+
+X
+
+> i,j
+
+δ|i−j|,r ⟨Si · Sj ⟩ . (8) To minimize boundary effects, we exclude N = 2 × 11 sites from each end of the ladder when computing the correlation functions. Figure 5 compares the absolute values of the distance-averaged charge-charge correlation C(r), spin-spin correlation S(r), and singlet/triplet pair-pair correlations 
+
+P zS/T (r) (evaluated along the z bonds) for nh = 4 holes as a function of the hopping amplitude tK . For small hopping values ( t ≲ 0.6K), S(r) decays exponentially, indicating the suppression of magnetic correlations, while C(r) and 
+
+P zS/T (r) exhibit competing behavior. At t = 0 .2K, the singlet and triplet pair–pair correlations slightly dominate over C(r),suggesting the emergence of superconducting tendencies in the slow-hole limit. As t increases to t = 0.4K and 
+
+t = 0 .6K, the charge–charge correlations become dominant, signaling a crossover to charge–density–wave (CDW) ordering. For larger hopping ( t > 0.6K) [Fig. 5(c,d)], the pair–pair correlations decay exponentially, while C(r) and 
+
+S(r) remain comparable. In this regime, it is unclear whether the spin–spin or charge–charge correlations dominate at long distances. Moreover, for nh = 4 and th ∼ 1 the spin and charge static structure factors exhibit only very broad features (see Fig. 7), we therefore refer to this regime as a disordered phase. Overall, these results demonstrate that hole doping and the kinetic energy of dopants drive a rich interplay between pairing, charge, and spin orders. 
+
+Comparison of charge, spin, and pairing correlations for finite 
+
+K and J
+
+Finally, we compare the charge-charge, spin-spin, and pair-pair correlations in the presence of both Kitaev ( K =sin ϕ) and Heisenberg ( J = cos ϕ) interactions. We vary the angle ϕ in the range −0.33 π ≤ ϕ ≤ 0.5π and 86 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 8 16 24 32 40 48 56 
+
+0.94 0.95 0.96 0.97 0.98 0.99 1rr
+
+# ir
+
+# t = 1 .0(a) (b) 
+
+# (c) (d) 
+
+# K = sin ϕ J = cos ϕ
+
+> P zS (r)
+> C(r)⟨n(i)⟩
+> S(r)
+
+ϕ = −0.33 π [ST] 
+
+ϕ = −0.16 π [RS] 
+
+ϕ = 0 .0π [RS] 
+
+ϕ = 0 .16 π [RS] 
+
+ϕ = 0 .33 π [RS] 
+
+ϕ = 0 .5π [AFK] 
+
+# nh = 4 
+
+FIG. 6. Comparison of averaged correlation functions in different phases at fixed hopping and for four doped holes. (a) Singlet pair–pair correlations P zS (r), (b) charge–charge correlations C(r), (c) spin–spin correlations S(r), and (d) charge density ⟨n(i)⟩ along the leg direction, evaluated for nh = 4 over the range −0.33 π ≤ ϕ ≤ 0.5π at fixed hopping t = 1 . The correlation functions and the charge density profile remain remarkably stable in the rung-singlet phase, which has robust pairing tendencies. In contrast, the AFK limit (ϕ = 0 .5π) and the transition to the stripy phase ( −0.33 π) exhibit suppressed pairing and enhanced spin correlations. These regimes are further characterized by by a charge density profile with four distinct minima, signaling strong inter-hole repulsion that precludes the formation of local bound pairs. Data correspond to a fixed system size of N = 2 × 63 .
+
+compute correlation functions for nh = 4 holes at an intermediate hopping amplitude t = 1 . The singlet pair-pair correlation P Sz dominates within the range −0.27 π ≲ ϕ ≲
+
+0.44 π [Fig. 6(a)], consistent with the pairing tendencies inferred from the negative binding energy in the rung-singlet phase [Fig. 2(a)]. In this rung-singlet regime, the spin-spin correlation S(r) [Fig. 6(c)] decays exponentially, whereas the charge-charge correlation C(r) [Fig. 6(b)] competes closely with the pair-pair correlation upon hole doping. For ϕ =
+
+−0.33 π (stripy phase), the spin-spin correlations dominate, consistent with spin-density-wave order (SDW 2). Figure 6(d) shows the local charge density ⟨ni⟩ as a function of site index 
+
+i: in the rung-singlet phase, two pronounced minima appear, corresponding to two bound hole pairs (four holes in total). In contrast, for ϕ = −0.33 π (stripy phase) and ϕ = 0 .5π, four distinct minima emerge, reflecting four unpaired and spatially separated holes in the system. These results are summarized in the doping-dependent phase diagram of Fig. 1(f) along with results for many more values of ϕ and nh than shown here. Results for the nh dependence at representative ϕ values are shown in Supplementary Note 2. 
+
+Discussion 
+
+We have demonstrated that pairing tendencies at the Kitaev points (at least in the gapless, isotropic Kitaev model) are highly sensitive to the kinetic energy of the dopants, and that the pairing tendencies follow the same trends as the plaquette operator. The latter is a good quantum number only in the Kitaev limit, and its decay with increasing hopping directly reflects the breakdown of the quantum spin liquid state. Indeed, its spatial profile mimics the spatial charge distribution, namely the expectation value of the plaquette operator dips at the same locations where the dopants are preferentially located; see Fig. 4. We interpret this as a signature of the dopants locally breaking the QSL background over a range set by their delocalization length. As the hopping strength is increased, this range increases, and eventually the QSL state deteriorates to a point where it fails to support pairing. This is reflected in the vanishing of the binding energy, in a doubling of the number of troughs in the 9spatially resolved plaquette operator and charge density, and remarkably also in kinks in the average value of the plaquette operator. We note that Ref. [38] also found a kink in the average plaquette operator at the transition from QSL to FM state in the one-hole doped FK model. This strongly t-dependent behavior stands in stark contrast to the behavior at the antiferromagnetic Heisenberg point (J = 1 , K = 0 ), where the binding energy is not sensitive to the hopping strength over the entire range we have considered here. This contrast in results agree with our previous findings for the three-leg ladder [39] and match the more familiar behavior of t − J models on lattices with square motifs [35, 36, 55]. The distinct sensitivity to the hopping strength at the Kitaev points is a signal that kinetic effects play a key role in destabilizing the QSL background and therefore obstructing pairing. Indeed, considering the results in Fig. 5 we see a marked suppression of pair-pair correlations as t is raised, accompanied by the emergence of competing phases. The distinction between slow ( t ≪ 1) and fast holes ( t ≫
+
+1) is fundamental to understanding doping effects in Kitaev systems. It explains the apparent conflict between early reports that a single hole in a Kitaev spin liquid propagates incoherently (for fast holes) [48, 49] or coherently (for slow holes) [56, 57]. Recent numerical work has also revealed significant tendencies towards Nagaoka ferromagnetism [38, 40] that strengthen as t increases. Our plaquette operator results can thus be interpreted as follows. For slow holes, the quantum spin liquid background remains mostly undisturbed, and holes can propagate coherently, allowing them to form pairs. There is a crossover to incoherent hole transport above some critical hopping strength. Our results suggest this may be concomitant with the kinks in the plaquette operator, which indicate a sudden deleterious change to the spin liquid background, and which coincide with the disappearance of pair formation. Between prior work and our results herein and in our previous work [39], there is now robust numerical evidence for this distinction between slow and fast holes in cylinders of finite circumference. These observations are expected to generalize to the full two-dimensional honeycomb lattice, both because of the surprisingly close correspondence previously observed [42–44] between Kitaev systems on quasi-one-dimensional geometries and in the 2D limit and because of the short-ranged nature of pairing processes and magnetic correlations in Kitaev systems. We expect faster holes with t ≥ 1 in realistic doped bulk quantum materials. Our results thus imply that materials close to the Heisenberg limit, such as YbCl 3 [58] may become superconducting under hole-doping, but that materials in the Kitaev limit are unlikely to do so. However, as previously argued [39], the slow-hole regime may be accessible through heterostructures [59] or quantum simulation platforms [60– 62]. We also note that current Kitaev candidate materials such as RuCl 3 and Na 2IrO 3 are known to require additional interactions not included in the minimal Kitaev-Heisenberg model considered here. Their impacts on pairing tendencies and the phase diagram is left for future work. Separately, the binding energy for J > 0 and fixed finite 
+
+t is not symmetric with respect to ϕ = 0. This can be explained as being due to the stronger tendency towards Nagaoka ferromagnetism [38, 40] and weakened pairing for FM Kitaev interactions. The strongest binding energy is found near ϕ = 0.1, i.e. near the maximum of the many-body excitation gap [43] (see also Supplementary Note 1). Since magnetization is not conserved away from ϕ = 0 , π the gap cannot be identified as a pure spin gap, but it is nevertheless likely to strongly screen the spin-spin correlations, which is linked with increased pairing tendencies in t − J and Hubbard models. We also find negative binding energy in a narrow range around the quantum phase transition between the zigzag and FM phases at t = 1; see Supplementary Note 3. This is entirely unexpected and may be a frustration effect. However, at such intermediate hopping, the negative binding energy coincides with a spin-density wave order. Whether a superconducting phase can be stabilized in the slow-hole regime is left for future work. We note that a coupled cluster study [63] recently proposed that the Kitaev-Heisenberg model at half-filling on the 2D honeycomb lattice may have a narrow phase between zigzag and FM, however we do not find any evidence for such a phase in our calculations. Indeed, the phase boundaries we find on long ladders are in excellent agreement with prior exact diagonalization results [42]. In conclusion, our results highlight the role of kinetic effects in doped Kitaev systems. It will be interesting in future work to consider extended Kitaev-Heisenberg models, which include additional interactions such as the off-diagonal 
+
+Γ interaction [44, 64]. More generally, it is relevant to ask whether other quantum spin liquids with bond-anisotropic interactions would also be highly sensitive to the hopping strength. 
+
+Methods 
+
+We solve the Hamiltonian [Eq. (1)] on a two-leg ladder using the density-matrix renormalization group (DMRG) method [24, 25], implemented in the DMRG++ code [50] and the ITensor library [51, 52]. We consider ladder systems with 
+
+N = 2 ×Lx sites, up to N = 126 . The corresponding number of plaquettes, Np, satisfies N = 2 + 4 Np, and is an integer if Lx is odd. Binding energies and all correlation functions are computed using DMRG++. We retain up to m = 7200 
+
+DMRG states, yielding truncation errors ϵ ∼ 10 −8–10 −9.The plaquette operator and local charge density are computed using ITensor. For the ITensor calculations, we employed a maximum bond dimension of mmax = 5000 and a singular value truncation threshold of 10 −10 .
+
+Data availability 
+
+The data underlying this work will be made available in a Zenodo repository. 
+
+Code availability 
+
+DMRG++ and ITensor are open-source software packages available at https://github.com/g1257/dmrgpp 
+
+and https://github.com/ITensor , respectively. 
+
+References 10 
+
+[1] L. Savary and L. Balents, Quantum spin liquids: a review, Rep. Prog. Phys. 80 , 016502 (2017). [2] J. Knolle and R. Moessner, A field guide to spin liquids, Annu. Rev. Condens. Matter Phys. 10 , 451 (2019). [3] C. Broholm, R. J. Cava, S. A. Kivelson, D. G. Nocera, M. R. Norman, and T. Senthil, Quantum spin liquids, Science 367 ,eaay0668 (2020). [4] A. Kitaev, Anyons in an exactly solved model and beyond, Ann. Phys. (N.Y.) 321 , 2 (2006). [5] M. Hermanns, I. Kimchi, and J. Knolle, Physics of the Kitaev model: Fractionalization, dynamic correlations, and material connections, Annu. Rev. Condens. Matter Phys. 9, 17 (2018). [6] S. Mandal, A primer on Kitaev model: basic aspects, material realization, and recent experiments, J. Phys.: Condens. Matter 
+
+37 , 193002 (2025). [7] C. Nayak, S. H. Simon, A. Stern, M. Freedman, and S. Das Sarma, Non-abelian anyons and topological quantum computation, Rev. Mod. Phys. 80 , 1083 (2008). [8] G. Jackeli and G. Khaliullin, Mott insulators in the strong spin-orbit coupling limit: From Heisenberg to a quantum compass and Kitaev models, Phys. Rev. Lett. 102 , 017205 (2009). [9] H. Takagi, T. Takayama, G. Jackeli, G. Khaliullin, and S. E. Nagler, Concept and realization of Kitaev quantum spin liquids, Nat. Rev. Phys. 1, 264 (2019). [10] S. Trebst and C. Hickey, Kitaev materials, Phys. Rep. 950 , 1 (2022). [11] Y. Matsuda, T. Shibauchi, and H.-Y. Kee, Kitaev quantum spin liquids, Rev. Mod. Phys. 97 , 045003 (2025). [12] Y. Singh, S. Manni, J. Reuther, T. Berlijn, R. Thomale, W. Ku, S. Trebst, and P. Gegenwart, Relevance of the Heisenberg-Kitaev model for the honeycomb lattice iridates A2IrO 3, Phys. Rev. Lett. 108 , 127203 (2012). [13] S. K. Choi, R. Coldea, A. N. Kolmogorov, T. Lancaster, I. I. Mazin, S. J. Blundell, P. G. Radaelli, Y. Singh, P. Gegenwart, K. R. Choi, S.-W. Cheong, P. J. Baker, C. Stock, and J. Taylor, Spin waves and revised crystal structure of honeycomb iridate 
+
+Na 2IrO 3, Phys. Rev. Lett. 108 , 127204 (2012). [14] S. H. Chun, J.-W. Kim, J. Kim, H. Zheng, C. C. Stoumpos, C. D. Malliakas, J. F. Mitchell, K. Mehlawat, Y. Singh, Y. Choi, T. Gog, A. Al-Zein, M. M. Sala, M. Krisch, J. Chaloupka, G. Jackeli, G. Khaliullin, and B. J. Kim, Direct evidence for dominant bond-directional interactions in a honeycomb lattice iridate Na 2IrO 3, Nat. Phys. 11 , 462 (2015). [15] K. W. Plumb, J. P. Clancy, L. J. Sandilands, V. V. Shankar, Y. F. Hu, K. S. Burch, H.-Y. Kee, and Y.-J. Kim, α − RuCl 3: A spin-orbit assisted Mott insulator on a honeycomb lattice, Phys. Rev. B 90 , 041112(R) (2014). [16] A. Banerjee, J. Yan, J. Knolle, C. A. Bridges, M. B. Stone, M. D. Lumsden, D. G. Mandrus, D. A. Tennant, R. Moessner, and S. E. Nagler, Neutron scattering in the proximate quantum spin liquid α-RuCl 3, Science 356 , 1055 (2017). [17] A. Banerjee, P. Lampen-Kelley, J. Knolle, C. Balz, A. A. Aczel, B. Winn, Y. Liu, D. Pajerowski, J. Yang, C. A. Bridges, A. T. Savici, B. C. Chakoumakos, M. D. Lumsden, D. A. Tennant, R. Moessner, D. G. Mandrus, and S. E. Nagler, Excitations in the field-induced quantum spin liquid state of α-RuCl 3, npj Quantum Mater. 3, 8 (2018). [18] P. Laurell and S. Okamoto, Dynamical and thermal magnetic properties of the Kitaev spin liquid candidate α-RuCl 3, npj Quantum Mater. 5, 2 (2020). [19] Y. Wang, G. B. Osterhoudt, Y. Tian, P. Lampen-Kelley, A. Banerjee, T. Goldstein, J. Yan, J. Knolle, H. Ji, R. J. Cava, J. Nasu, Y. Motome, S. E. Nagler, D. Mandrus, and K. S. Burch, The range of non-Kitaev terms and fractional particles in α-RuCl 3, npj Quantum Mater. 5, 14 (2020). [20] M. M¨ oller, P. A. Maksimov, S. Jiang, S. R. White, R. Valent´ ı, and A. L. Chernyshev, Rethinking α−RuCl 3: Parameters, models, and phase diagram, Phys. Rev. B 112 , 104403 (2025). [21] U. Schollw¨ ock, The density-matrix renormalization group in the age of matrix product states, Ann. Phys. (N.Y.) 326 , 96 (2011). [22] R. Or´ us, Tensor networks for complex quantum systems, Nature Reviews Physics 1, 538 (2019). [23] T. Xiang, Density Matrix and Tensor Network Renormalization (Cambridge University Press, Cambridge, UK, 2023). [24] S. R. White, Density matrix formulation for quantum renormalization groups, Phys. Rev. Lett. 69 , 2863 (1992). [25] S. R. White, Density-matrix algorithms for quantum renormalization groups, Phys. Rev. B 48 , 10345 (1993). [26] M. Gohlke, R. Verresen, R. Moessner, and F. Pollmann, Dynamics of the Kitaev-Heisenberg model, Phys. Rev. Lett. 
+
+119 , 157203 (2017). [27] Y.-F. Jiang, T. P. Devereaux, and H.-C. Jiang, Field-induced quantum spin liquid in the Kitaev-Heisenberg model and its relation to α−RuCl 3, Phys. Rev. B 100 , 165123 (2019). [28] B. Xiao, G. Alvarez, and G. B. Hal´ asz, Robustness of vacancy-bound non-Abelian anyons in the Kitaev model in a magnetic field, Phys. Rev. Lett. 135 , 096603 (2025). [29] T. Hyart, A. R. Wright, G. Khaliullin, and B. Rosenow, Competition between d-wave and topological p-wave superconducting phases in the doped Kitaev-Heisenberg model, Phys. Rev. B 85 , 140510(R) (2012). [30] J.-W. Mei, Possible Fermi liquid in the lightly doped Kitaev spin liquid, Phys. Rev. Lett. 108 , 227207 (2012). [31] Y.-Z. You, I. Kimchi, and A. Vishwanath, Doping aspin-orbit Mott insulator: Topological superconductivity from the Kitaev-Heisenberg model and possible application to (Na 2/Li 2)IrO 3, Phys. Rev. B 86 , 085145 (2012). [32] S. Okamoto, Global phase diagram of a doped Kitaev-Heisenberg model, Phys. Rev. B 87 , 064508 (2013). [33] D. D. Scherer, M. M. Scherer, G. Khaliullin, C. Honerkamp, and B. Rosenow, Unconventional pairing and electronic dimerization instabilities in the doped Kitaev-Heisenberg model, Phys. Rev. B 90 , 045135 (2014). [34] J. Schmidt, D. D. Scherer, and A. M. Black-Schaffer, Topological superconductivity in the extended Kitaev-Heisenberg model, Phys. Rev. B 97 , 014504 (2018). [35] E. Dagotto, Correlated electrons in high-temperature superconductors, Rev. Mod. Phys. 66 , 763 (1994). [36] P. A. Lee, N. Nagaosa, and X.-G. Wen, Doping a Mott insulator: Physics of high-temperature superconductivity, Rev. Mod. Phys. 78 , 17 (2006). [37] C. Peng, Y.-F. Jiang, T. P. Devereaux, and H.-C. Jiang, Precursor of pair-density wave in doping Kitaev spin liquid on the honeycomb lattice, npj Quantum Mater. 6, 64 (2021). [38] H.-K. Jin, W. Kadow, M. Knap, and J. Knolle, Kinetic ferromagnetism and topological magnons of the hole-doped Kitaev spin liquid, npj Quantum Mater. 9, 65 (2024). [39] P. Laurell, B. Pandey, G. B. Hal´ asz, S. Okamoto, G. Alvarez, and E. Dagotto, Pairing tendencies in the doped Kitaev-Heisenberg model, Phys. Rev. B 110 , 224518 11 
+
+(2024). [40] W. Kadow, H.-K. Jin, J. Knolle, and M. Knap, Single-hole spectra of Kitaev spin liquids: from dynamical Nagaoka ferromagnetism to spin-hole fractionalization, npj Quantum Mater. 9, 32 (2024). [41] A. Hardy, R. Levy, and A. Paramekanti, Hunting for superconductivity in doped triangular lattice Kitaev magnets, arXiv:2508.16720. [42] A. Catuneanu, E. S. Sørensen, and H.-Y. Kee, Nonlocal string order parameter in the S = 12 Kitaev-Heisenberg ladder, Phys. Rev. B 99 , 195112 (2019). [43] C. E. Agrapidis, J. van den Brink, and S. Nishimoto, Ground state and low-energy excitations of the Kitaev-Heisenberg two-leg ladder, Phys. Rev. B 99 , 224418 (2019). [44] E. S. Sørensen, A. Catuneanu, J. S. Gordon, and H.-Y. Kee, Heart of entanglement: Chiral, nematic, and incommensurate phases in the Kitaev-Gamma ladder in a field, Phys. Rev. X 11 ,011013 (2021). [45] E. Dagotto, Experiments on ladders reveal a complex interplay between a spin-gapped normal state and superconductivity, Rep. Prog. Phys. 62 , 1525 (1999). [46] Y. Chen, Y.-C. He, and A. Szasz, Phase diagrams of spin-S
+
+Kitaev ladders, Phys. Rev. B 108 , 045124 (2023). [47] M. G. Sousa, O. ´Avalos Ovando, E. Vernek, and S. E. Ulloa, Charge fluctuations and topological phases in Kitaev-Heisenberg ladders (2025), arXiv:2512.17596. [48] F. Trousselet, M. Berciu, A. M. Ole´ s, and P. Horsch, Hidden quasiparticles and incoherent photoemission spectra in 
+
+Na 2IrO 3, Phys. Rev. Lett. 111 , 037205 (2013). [49] F. Trousselet, P. Horsch, A. M. Ole´ s, and W.-L. You, Hole propagation in the Kitaev-Heisenberg model: From quasiparticles in quantum N´ eel states to non-Fermi liquid in the Kitaev phase, Phys. Rev. B 90 , 024404 (2014). [50] G. Alvarez, The density matrix renormalization group for strongly correlated electron systems: A generic implementation, Comp. Phys. Comms. 180 , 1572 (2009). [51] M. Fishman, S. R. White, and E. M. Stoudenmire, The ITensor Software Library for Tensor Network Calculations, SciPost Phys. Codebases , 4 (2022). [52] M. Fishman, S. R. White, and E. M. Stoudenmire, Codebase release 0.3 for ITensor, SciPost Phys. Codebases , 4 (2022). [53] B. Pandey, R. Soni, L.-F. Lin, G. Alvarez, and E. Dagotto, Intertwined charge, spin, and pairing orders in doped iron ladders, Phys. Rev. B 103 , 214513 (2021). [54] J. S. Gordon, A. Catuneanu, E. S. S´ orensen, and H.-Y. Kee, Theory of the field-revealed Kitaev spin liquid, Nat. Commun. 
+
+10 , 2470 (2019). [55] E. Dagotto and T. M. Rice, Surprises on the way from one-to two-dimensional quantum magnets: The ladder materials, Science 271 , 618 (1996). [56] G. B. Hal´ asz, J. T. Chalker, and R. Moessner, Doping a topological quantum spin liquid: Slow holes in the Kitaev honeycomb model, Phys. Rev. B 90 , 035145 (2014). [57] G. B. Hal´ asz and J. T. Chalker, Coherent hole propagation in an exactly solvable gapless spin liquid, Phys. Rev. B 94 , 235105 (2016). [58] G. Sala, M. B. Stone, B. K. Rai, A. F. May, P. Laurell, V. O. Garlea, N. P. Butch, M. D. Lumsden, G. Ehlers, G. Pokharel, A. Podlesnyak, D. Mandrus, D. S. Parker, S. Okamoto, G. B. Hal´ asz, and A. D. Christianson, Van Hove singularity in the magnon spectrum of the antiferromagnetic quantum honeycomb lattice, Nat. Commun. 12 , 171 (2021). [59] S. Biswas, Y. Li, S. M. Winter, J. Knolle, and R. Valent´ ı, Electronic properties of α-RuCl 3 in proximity to graphene, Phys. Rev. Lett. 123 , 237201 (2019). [60] A. Bohrdt, L. Homeier, C. Reinmoser, E. Demler, and F. Grusdt, Exploration of doped quantum magnets with ultracold atoms, Ann. Phys. 435 , 168651 (2021). [61] B.-Y. Sun, N. Goldman, M. Aidelsburger, and M. Bukov, Engineering and probing non-Abelian chiral spin liquids using periodically driven ultracold atoms, PRX Quantum 4, 020329 (2023). [62] T. Cookmeyer and S. Das Sarma, Engineering the Kitaev spin liquid in a quantum dot system, Phys. Rev. Lett. 132 , 186501 (2024). [63] M. Georgiou, I. Rousochatzakis, D. J. J. Farnell, J. Richter, and R. F. Bishop, Spin-S Kitaev-Heisenberg model on the honeycomb lattice: A high-order treatment via the many-body coupled cluster method, Phys. Rev. Res. 6, 033168 (2024). [64] E. S. Sørensen and H.-Y. Kee, Twice hidden string order and competing phases in the spin-1/2 Kitaev–Gamma ladder, npj Quantum Mater. 9, 10 (2024). 
+
+ACKNOWLEDGMENTS 
+
+The work of B.P., S.O., and E.D. was supported by the U.S. Department of Energy (DOE), Office of Science, Basic Energy Sciences (BES), Materials Sciences and Engineering Division. The work of B.X., G.A., and G.B.H. was supported by the U.S. Department of Energy, Office of Science, National Quantum Information Science Research Centers, Quantum Science Center. Parts of the computations for this work were performed on the high performance computing infrastructure operated by Research Support Solutions in the Division of IT at the University of Missouri, Columbia MO DOI: https: //doi.org/10.32469/10355/97710 .This manuscript has been co-authored by UT-Battelle, LLC, under contract DE-AC05-00OR22725 with the U.S. Department of Energy (DOE). The U.S. government retains and the publisher, by accepting the article for publication, acknowledges that the U.S. government retains a nonexclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of this manuscript, or allow others to do so, for U.S. government purposes. DOE will provide public access to these results of federally sponsored research in accordance with the DOE Public Access Plan https: //www.energy.gov/doe-public-access-plan .Supplemental material for “Luther-Emery liquid and dominant singlet superconductivity in the hole-doped Haldane spin-1 chain” 
+
+Bradraj Pandey, 1, 2, ∗ Bo Xiao, 3, 4 Satoshi Okamoto, 3 Gonzalo Alvarez, 5
+
+G´ abor B. Hal´ asz, 3, 4 Elbio Dagotto, 2, 3 and Pontus Laurell 1, 6, †
+
+> 1
+
+Department of Physics and Astronomy, University of Missouri, Columbia, Missouri 65211, USA 
+
+> 2
+
+Department of Physics and Astronomy, University of Tennessee, Knoxville, Tennessee 37996, USA 
+
+> 3
+
+Materials Science and Technology Division, Oak Ridge National Laboratory, Oak Ridge, Tennessee 37831, USA 
+
+> 4
+
+Quantum Science Center, Oak Ridge, Tennessee 37831, USA 
+
+> 5
+
+Computational Sciences and Engineering Division, Oak Ridge National Laboratory, Oak Ridge, Tennessee 37831, USA 
+
+> 6
+
+Materials Science and Engineering Institute, University of Missouri, Columbia, Missouri 65211, USA 
+
+(Dated: March 12, 2026) 
+
+SUPPLEMENTARY NOTE 1: PHASE BOUNDARIES AND EXCITATION GAPS AT HALF-FILLING 0 0.5 1 1.5 2
+
+-0.6 -0.5 -0.4 -0.3 -0.2 -0.1 00.1 (e)   
+
+> N= 2 ×125
+
+ϕ/π 
+
+RS ZZ 
+
+> AFK
+
+FM FK ST RS 
+
+EN
+
+## J = cos ϕ
+
+## K = sin ϕ0 0.5 1 1.5 2
+
+020 40 60 80 100 N = 2 × 125 
+
+ϕ/π 
+
+RS ZZ 
+
+> AFK
+
+FM FK ST RS 
+
+> −1
+> N d2E(ϕ)/dϕ 2
+
+## J = cos ϕ
+
+## K = sin ϕ(e)
+
+# (a) (b) 
+
+FIG. 7. Phase boundary at half filling for 0 ≤ ϕ ≤ 2π. (a) Ground state energy per site, E, as a function of ϕ in the second quadrant (π/ 2 ≤ ϕ ≤ π) at fixed t = 1 .0. (b) Second derivative of the energy with respect to ϕ, −(1 /N ) d2E(ϕ)/dϕ 2, as a function of ϕ. All results are obtained for system size N = 250 .
+
+Figure 7 shows the ground state energy (a) and its second derivative (b) as a function of ϕ for the half-filled Kitaev-Heisenberg model. The results are in close agreement with the ED results on 24-site ladders with PBC previously reported in the Supplemental Material of Ref. [42]. We have calculated the many-body excitation gap in the half-filled Kitaev-Heisenberg model using DMRG. The gap between the mth excited state and the ground state is defined for fixed system size N as 
+
+∆Em(N ) = Em(N ) − E0(N ), (9) where E0 is ground state energy and Em is the mth excited state energy. The results for m = 1 , 2 are shown in Fig. 8, along with the extrapolation lim N →∞ ∆Em. Our extrapolated results for ∆E1 are in excellent agreement with those reported in Ref. [43] for the range ϕπ ∈ [−0.3, 0.5] , and confirm that the gap is (i) asymmetric around ϕ = 0 and (ii) maximized away from ϕ = 0 .Unlike the rung singlet phase, the ZZ, ST, AFK, and FK phases all have twofold degenerate ground states [42] so the physical excitation gap in these phases is given by ∆E2.   
+
+> ∗bradraj.pandey@gmail.com †plaurell@missouri.edu
+
+13 0.0 
+
+# 0.2 
+
+# 0.4 
+
+# 0.6 
+
+> E1
+
+# (a) 
+
+0.0 0.1 0.2           
+
+> N= 42
+> N= 70
+> N= 98
+> N= 126
+> N= 154
+> N= 182
+> N= 210
+> N= 238
+> N= 266
+> N= 294
+> N
+
+# -0.7 -0.5 -0.3 -0.1 0.1 0.3 0.5 
+
+/
+
+# 0.0 
+
+# 0.2 
+
+# 0.4 
+
+# 0.6 
+
+> E2
+
+# (b)        
+
+> FIG. 8. Many-body excitation gaps. (a) Gap between the first excited state and the ground state. The symbols shows calculated gaps from DMRG for for various system sizes N= 2 ×Lx. The solid line is a linear extrapolation to the thermodynamic limit. The inset shows a zoomed-in view of the peak. (b) Gap between the second excited state and the ground state.
+> SUPPLEMENTARY NOTE 2: CHARACTERIZATION OF PHASES AWAY FROM HALF-FILLING Comparison of correlation functions in the rung-singlet phase with increasing hole doping
+
+In Fig. 9, we compare the charge-charge, spin-spin, and pair-pair correlations in the rung-singlet phase at fixed ϕ = π/ 3
+
+(i.e., K = √3/2 and J = 1 /2) and t = 1 .0 for different hole numbers, nh = 4 , 8, 12 , and 16 . As shown in Fig. 9(a), the singlet pair-pair correlation P zz S (r) decays slowly with distance and is consistent with an algebraic (power-law-like) behavior for all doping levels considered. The charge-charge correlation C(r) [Fig. 9(b)] also decreases with distance, but its decay is noticeably faster than that of P zz S (r). In contrast, the spin-spin correlation S(r) is strongly suppressed at long distances and remains short-ranged for all nh [Fig. 9(c)]. With increasing hole doping, we observe a modest enhancement of C(r), while 
+
+P zz S (r) remains the dominant long-distance correlation, indicating that charge and superconducting correlations compete but that superconducting correlations continue to dominate in this parameter regime over the doping levels studied here. 
+
+> Comparison of correlation functions in the stripy phase with increasing hole doping
+
+In Fig. 10, we compare the charge-charge, spin-spin, and pair-pair correlations in the stripy phase at fixed ϕ = −π/ 3 (i.e., 
+
+K = −√3/2 and J = 1 /2) and t = 1 .0 for different hole numbers, nh = 4 , 8, 12 , and 16 . Consistent with the fact that the binding energy remains positive in this regime, the singlet pair-pair correlation P zz S (r) is short-ranged and decays rapidly with distance [Fig. 10(a)]. By contrast, the charge-charge correlation C(r) exhibits a slow (power-law-like) decay with r for all doping levels shown [Fig. 10(b)]. The spin-spin correlation S(r) decays most slowly among the three correlations [Fig. 10(c)], indicating that spin ordering is robust against hole doping in the stripy phase and remains quasi-long-ranged over the range of 
+
+nh studied here. 14 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 rr
+
+# r
+
+# t = 1 .0
+
+# (a) (b) 
+
+# (c) 
+
+# K = √3/2, J = 1 /2
+
+> P zS (r)
+> C(r)
+> S(r)
+
+nh = 4 
+
+nh = 8 
+
+nh = 12 
+
+nh = 16 
+
+# ϕ = π/ 3
+
+FIG. 9. Comparison of averaged correlation functions at ϕ = 0 .33 π for increasing hole number. (a) singlet pair-pair correlations P zz S (r),
+
+(b) charge-charge correlations C(r), and (c) spin-spin correlations S(r), shown as a function of distance r for nh = 4 , 8, 12 , and 16 holes. The pair-pair correlations dominate for all studied nh. The charge–charge correlations also exhibit a power-law decay and compete with the pair–pair correlations, whereas the spin-spin correlations decay exponentially for all nh. All results are obtained for a fixed system size 
+
+N = 2 × 63 and t = 1 .0.
+
+Charge-charge and spin-spin correlations in the antiferromagnetic Kitaev spin-liquid phase with increasing hole doping 
+
+In Fig. 11, we examine the evolution of the spin-spin correlation S(r) and the charge-charge correlation C(r) in the antiferromagnetic Kitaev spin-liquid regime at a fixed intermediate hopping t = 1 .0 as the hole number is increased. At low doping, S(r) and C(r) decay with comparable rates, indicating a close competition between spin and charge correlations. Upon further hole doping, S(r) is enhanced at long distances and decays more slowly, whereas C(r) shows a similar overall decay behavior across the doping levels considered. In addition, the pair-pair correlations remain short-ranged (not shown), indicating the absence of dominant superconducting correlations in this parameter regime. Overall, these results suggest that sufficient hole doping strengthens magnetic ordering in the spin-liquid phase, leading to spin correlations that dominate the long-distance behavior. 
+
+Charge-density-wave order near the ST-RS transition. 
+
+Near the transition between the stripy (ST) and rung-singlet (RS) phases, around ϕ ≃ − 0.29 π, we observe signatures of intertwined charge, spin, and pairing correlations. In Fig. 12(a,b), we compare spin-spin and charge-charge correlation functions along the upper leg of the ladder, defined as 
+
+s(r) = ⟨Si0 · Sj ⟩, (10) 
+
+c(r) = ⟨ni0 nj ⟩ − ⟨ ni0 ⟩⟨ nj ⟩, (11) 15 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 rr
+
+# r
+
+# t = 1 .0
+
+# (a) (b) 
+
+# (c) 
+
+# K = −√3/2, J = 1 /2
+
+> P zS (r)
+> C(r)
+> S(r)
+
+nh = 4 
+
+nh = 8 
+
+nh = 12 
+
+nh = 16 
+
+# ϕ = −π/ 3
+
+FIG. 10. Comparison of averaged correlation functions at ϕ = −0.33 π for increasing hole number. (a) singlet pair-pair correlations 
+
+P zz S (r), (b) charge-charge correlations C(r), and (c) spin-spin correlations S(r), shown as a function of distance r for nh = 4 , 8, 12 , and 
+
+16 holes. The pair-pair correlations decay exponentially for all studied nh. The charge-charge correlations exhibit a power-law decay and compete with the spin-spin correlations, whereas the spin-spin correlations dominates for all nh. All results are obtained for a fixed system size N = 2 × 63 and t = 1 .0.6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 6 12 18 24 30 36 
+
+1e-06 0.0001 0.01 (e
+
+# rr
+
+# r
+
+# t = 1 .0
+
+# (a) (b) K = 1 , J = 0 
+
+> S(r)
+> C(r)
+
+nh = 4 
+
+nh = 8 
+
+nh = 12 
+
+FIG. 11. Comparison of averaged correlation functions at ϕ = π/ 2 for increasing hole number. (a) Spin-spin correlations S(r) and (b) 
+
+charge-charge correlations C(r) are shown as a function of distance r for nh = 4 , 8, 12 holes. The spin-spin correlations are enhanced with increasing hole doping. The charge-charge correlations also decay as a power law and compete with the spin-spin correlations. However, at higher doping levels the spin-spin correlations dominate over the charge-charge correlations. All results are obtained for a fixed system size 
+
+N = 2 × 63 and t = 1 .0.16 5 10 15 20 25 
+
+# 1e-06 0.0001 0.01 5 10 15 20 25 
+
+# 1e-06 0.0001 0.01 0 0.5 1 1.5 
+
+# 00.02 0.04 0.06 0.08 0 0.5 1 1.5 
+
+# 00.02 0.04 0.06 0.08 0 0.5 1 1.5 
+
+# 0.0 1.0 2.0 3.0 4.0 0 0.5 1 1.5 
+
+# 0.0 1.0 2.0 3.0 4.0 nh = 2 
+
+# nh = 4 
+
+# nh = 8 
+
+# (a) (b) ϕ = −0.29 π
+
+# (c) (d) 
+
+# (e) (f ) 
+
+> |s(r)|
+
+# r
+
+> N (q∥, 0) S(q∥, 0)
+> S(q∥, π ) |c(r)|
+
+# r
+
+> N (q∥, π )
+
+# q∥/π q∥/π 
+
+# q∥/π q∥/π 
+
+FIG. 12. Charge-density-wave correlations near the ST-RS transition. (a) Spin-spin correlations |s(r)| and (b) charge-charge correlations 
+
+|c(r)|, measured from the central site to sites on the right leg, plotted versus distance r for nh = 2 , 4, 8 at ϕ = −0.29 π. (c) Static charge structure factor N (q∥, 0) and (d) N (q∥, π ) plotted versus q∥. (e) Static spin structure factor S(q∥, 0) and (f) S(q∥, 0) plotted versus q∥. All results are obtained for a fixed system size N = 2 × 63 and t = 1 .0.17 where we choose a reference site i0 = 27 near the center of the ladder and define the distance along the leg direction as 
+
+r = |j − i0|. For nh < 8, the charge correlations |c(r)| decay more slowly than the spin correlations |s(r)|, whereas for nh ≥ 8
+
+the spin correlations dominate. In Fig. 12(c,d), we compute the static charge structure factor 
+
+N (q∥, q ⊥) = 1
+
+N
+
+X
+
+> i,j
+
+e−iq·(ri−rj ) ⟨ninj ⟩ − ⟨ ni⟩⟨ nj ⟩ , q = ( q∥, q ⊥), (12) where N = 2 L is the total number of sites, ni is the density operator on site i, and ri denotes the position of site i. The structure factor N (q∥, 0) exhibits two clear peaks, indicating incommensurate charge-density-wave behavior close to the ST-RS phase boundary. We also compute the static spin structure factor 
+
+S(q∥, q ⊥) = 1
+
+N
+
+X
+
+> i,j
+
+e−iq·(ri−rj ) Si · Sj , q = ( q∥, q ⊥), (13) where Si is the spin operator on site i. As shown in Fig. 12(e,f), S(q∥, 0) displays a broad bump around q∥ = π, whereas 
+
+S(q∥, π ) shows a sharper peak at q∥ = π for low hole doping. For nh ≥ 8, S(q∥, π ) develops incommensurate peaks, similar to the behavior of the static spin structure factor in the RS phase [see Fig. 13(e,f)]. Furthermore, the pair-pair correlations become closer to a power-law decay near the ST-RS transition, in contrast to the more rapid (exponential) decay in the stripy phase. Taken together, these results suggest intertwined charge, spin, and pairing tendencies near the ST–RS phase boundary. Because the charge correlations dominate the long-distance behavior for nh < 8, we refer to this regime as exhibiting charge-density-wave (CDW) order in the main text. 
+
+> Static spin structure factors
+
+To further clarify the nature of the doped phases, we calculate the static spin structure factor S(q∥, q ⊥) for representative values of ϕ = −π/ 2 (FK), −π/ 3 (ST), 0 (RS), and π/ 2 (AFK) (see Fig. 13). In the FK limit, a strong S(q∥, 0) peak develops at 
+
+q∥ = 0 with finite doping, signaling Nagaoka ferromagnetism [Fig. 13 (a,b)]. We denote this commensurate spin-density wave order SDW 1 in the main text. At half-filling in the stripy phase, the AFM order along the legs results in a strong S(q∥, 0) peak at 
+
+q∥ = π [Fig. 13 (c,d)]. At finite doping the single peak at q∥ = π splits into two incommensurate peaks appearing symmetrically around q∥ = π, as is typical for t − J and Hubbard two-leg ladders. As previously shown the spin-spin correlations dominate the long-range behavior at this value of ϕ [Fig. 10]. We denote this incommensurate spin-density-wave order SDW 2 in the main text. In the rung-singlet phase, S(q∥, 0) exhibits a broad bump around q∥ = π, whereas S(q∥, π ) shows a peak at q∥ = π at half filling ( nh = 0 ) [Fig. 13 (e,f)]. This behavior is consistent with short-range antiferromagnetic correlations along the legs and antiferromagnetic ordering across the rungs. Upon hole doping, the peak at q∥ = π splits into two incommensurate peaks. In the AFK limit both S(q∥, 0) and S(q∥, π ) show very broad features at half-filling and for nh = 4 [Fig. 13 (g,h)]. Since it is also unclear from Figure 11 whether spin-spin or charge-charge correlations dominate at large distance (both are much larger than the pair-pair correlations, as shown in Fig. 5 of the main text) we call this a disordered phase. At nh ≥ 12 clear incommensurate peaks appear in S(q∥, 0) , similar to the behavior in the stripy phase. We denote this incommensurate spin-density wave order 
+
+SDW 3 in the main text. 18 0 0.5 1 1.5 
+
+04812 16 0 0.5 1 1.5 
+
+04812 16 0 0.5 1 1.5 
+
+0714 21 28 35 0 0.5 1 1.5 
+
+0714 21 28 35 nh = 0 
+
+nh = 4 
+
+nh = 8 
+
+nh = 12 
+
+nh = 16 
+
+## (a) 
+
+ϕ = −π/ 2
+
+ϕ = −π/ 3
+
+## (b) 
+
+## (c) (d) 
+
+SDW 1
+
+SDW 2
+
+> S(qx, 0) S(qx, 0)
+> S(qx, π )S(qx, π )
+
+## FK FK 
+
+## ST ST 
+
+J = cos ϕ
+
+K = sin ϕ0 0.5 1 1.5 
+
+0.0 1.0 2.0 3.0 4.0 0 0.5 1 1.5 
+
+0.0 1.0 2.0 3.0 4.0 0 0.5 1 1.5 
+
+00.3 0.6 0.9 1.2 1.5 0 0.5 1 1.5 
+
+00.3 0.6 0.9 1.2 1.5 (e) 
+
+ϕ = 0 
+
+ϕ = π/ 2
+
+## (f ) 
+
+## (g) (h) 
+
+# q∥/π q∥/π 
+
+SDW 3
+
+> S(q∥, 0) S(q∥, 0)
+> S(q∥, π )S(q∥, π )
+
+## RS RS 
+
+## AFK AFK 
+
+FIG. 13. Static spin structure factor. Static spin structure factors S(qx, 0) and S(qx, π ) plotted versus qx/π for different hole numbers nh.Panels (a,c,e,g) show S(qx, 0) for the FK phase at ϕ = −π/ 2, the ST phase at ϕ = −π/ 3, the RS phase at ϕ = 0 , and the AFK phase at 
+
+ϕ = π/ 2, respectively. Panels (b,d,f,h) show S(qx, π ) for the same phases and ϕ values, respectively. All results are obtained for a fixed system size N = 2 × 63 and t = 1 .0. The purple arrows indicate the spin-density-wave phases SDW 1, SDW 2, and SDW 3.19 
+
+SUPPLEMENTARY NOTE 3: BINDING ENERGY FOR π/ 2 ≤ ϕ ≤ π
+
+In Fig. 14, we show the binding energy ∆E as a function of ϕ in the range π/ 2 ≤ ϕ ≤ π for several system sizes, N = 2 × 33 ,
+
+2 × 43 , 2 × 53 , 2 × 63 , and 2 × 73 , at a fixed hopping amplitude t = 1 .0. At half filling, the ground state in this quadrant evolves from the zigzag (ZZ) phase into the ferromagnetic (FM) phase, with the ZZ-FM transition occurring near ϕ ≃ 0.8π. We find that ∆E becomes negative in a narrow window, 0.75 π ≲ ϕ ≲ 0.81 π, close to the ZZ-FM phase boundary, indicating a weak tendency toward pairing in this region. However, the magnitude of ∆E is small compared to that in the rung-singlet regime, and the corresponding pair-pair correlations remain short-ranged, whereas the spin-spin and charge-charge correlations are comparatively stronger. Overall, for π/ 2 ≤ ϕ ≤ π and for the doping levels considered in this work ( nh ≤ 16 ), the long-distance behavior is dominated by spin–spin correlations, indicating robust magnetic correlations upon hole doping in this parameter regime. The negative binding energy seen in this range may thus be a frustration effect associated with the quantum phase transition. 0.5 0.6 0.7 0.8 0.9 1
+
+# -0.02 -0.01 00.01 0.02 (e
+
+N = 2 × 33 
+
+N = 2 × 43 
+
+N = 2 × 53 
+
+N = 2 × 63 
+
+N = 2 × 73 
+
+# ϕ/π 
+
+# t = 1 
+
+# ZZ FM 
+
+> ∆E
+
+# J = cos ϕ
+
+# K = sin ϕ
+
+FIG. 14. Binding energy for π/ 2 ≤ ϕ ≤ π. Binding energy ∆E as a function of ϕ in the second quadrant ( π/ 2 ≤ ϕ ≤ π) at fixed t = 1 .0.
+
+∆E becomes negative in a narrow window, 0.75 π ≤ ϕ ≤ 0.81 π, close to the ZZ–FM phase boundary. The ZZ–FM transition occurs at 
+
+ϕ ≈ 0.8π and is indicated by the vertical cyan dotted line. Results are obtained for system sizes N = 2 × 33 , 2 × 44 , 2 × 53 , 2 × 64 , and 
+
+2 × 73 .
