@@ -1,0 +1,404 @@
+Title: Tackling the Sign Problem in the Doped Hubbard Model with Normalizing Flows
+
+URL Source: https://arxiv.org/pdf/2603.18205v1
+
+Published Time: Fri, 20 Mar 2026 00:12:44 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Tackling the Sign Problem in the Doped Hubbard Model with Normalizing Flows 
+
+Dominic Schuh ,1, 2, ∗ Lena Funcke ,1, 2 Janik Kreit ,1, 2 Thomas Luu ,2, 3 and Simran Singh 1, 2 
+
+> 1
+
+Transdisciplinary Research Area (TRA) Matter, University of Bonn, Bonn, Germany 
+
+> 2
+
+Helmholtz Institute for Radiation and Nuclear Physics (HISKP), University of Bonn, Bonn, Germany 
+
+> 3
+
+Institute for Advanced Simulation 4 (IAS-4), Forschungszentrum J¨ ulich, J¨ ulich, Germany 
+
+(Dated: March 20, 2026) The Hubbard model at finite chemical potential is a cornerstone for understanding doped correlated systems, but simulations are severely limited by the sign problem. In the auxiliary-field formulation, the spin basis mitigates the sign problem, yet severe ergodicity issues have limited its use. We extend recent advances with normalizing flows at half-filling to finite chemical potential by introducing an annealing scheme enabling ergodic sampling. Compared to state-of-the-art hybrid Monte Carlo in the charge basis, our approach accurately reproduces exact diagonalization results while reducing statistical uncertainties by an order of magnitude, opening a new path for simulations of doped correlated systems. 
+
+Introduction —Understanding systems of strongly cor-related electrons is fundamental to quantum many-body-physics [1]. One of the most widely used theoretical frameworks for studying such systems is the Hubbard model [2–4], which captures the essential competition between electron kinetic energy and on-site interactions, thereby giving rise to phenomena such as the Mott in-sulating behavior [5], magnetism and superconductiv-ity [6–8]. Over the years, a wide range of methods have been developed to analyze the Hubbard model. In the weak-interaction regime, perturbative approaches pro-vide valuable insights [9]. In contrast, in the strongly correlated regime, where perturbative methods fail, non-perturbative methods are required. These can be broadly classified into Hamiltonian-based approaches and action-based approaches. The latter typically rely on the finite-temperature auxiliary-field formulation of the Hubbard model, where Monte Carlo simulations become essential (see, e.g., Refs. [10–17] and references therein). Doped systems are described by a finite chemical po-tential and are essential for describing realistic materials and molecular systems. However, away from half-filling or on non-bipartite lattices, the Hubbard model suffers from a severe numerical sign problem, making reliable es-timates of observables increasingly challenging [18]. Fur-thermore, due to practical ergodicity problems in the spin basis, Monte Carlo based methods are usually restricted to work in the charge basis of the Hubbard model, where the sign problem is particularly pronounced. Although several methods have been developed to mitigate these challenges [19, 20], they still fall short for crucial regions of the parameter space. In this work, we build on the results of Refs. [21, 22] and develop the first deep generative machine learning approach to the finite-temperature auxiliary-field formu-lation of the Hubbard model at non-zero chemical poten-tial. To this end, we introduce an annealing scheme to over-come the practical ergodicity problem in the spin basis [23] and benchmark our method against results obtained by state-of-the-art optimized hybrid Monte Carlo (HMC) simulations [20]. The remainder of this letter is organized as follows. We first introduce the Hubbard model in the spin basis and highlight its key features, followed by a brief overview of normalizing flows. We then present our proposed anneal-ing scheme and its results, before concluding. 
+
+The Hubbard model at finite density —The Hubbard model [2–4, 24] provides a simple framework for study-ing the interaction of electrons in materials and thereby their conducting properties. In its simplest form, the dy-namics consist of nearest-neighbor hopping, a repulsive Coloumb-like on-site interaction, and a chemical poten-tial. In this work, we will focus on studying the model in the spin basis and at finite chemical potential. The corresponding Hamiltonian can be written as 
+
+H = −κ X
+
+> ⟨x,y ⟩,σ
+
+c† 
+
+> x,σ
+
+cy,σ − U
+
+2
+
+X
+
+> x
+
+(nx, ↑ − nx, ↓)2 − μ X
+
+> x
+
+qx ,
+
+(1) where κ is the hopping parameter, U the on-site inter-action, and μ the chemical potential. Here, c† 
+
+> x,σ
+
+(cx,σ )denotes the creation (annihilation) operator for an elec-tron at site x with spin σ (= ↑↓ ), nx,σ = c† 
+
+> x,σ
+
+cx,σ is the corresponding number operator, and qx = P 
+
+> σ
+
+nx,σ is the net charge at site x.To circumvent the exponential growth of the Hilbert space with the number of spatial sites Nx, the model can be reformulated in an action-based auxiliary field representation [2–4, 24–26], enabling the use of Monte-Carlo based methods. In this framework, observables are expressed as statistical quantum-mechanical expectation values, 
+
+⟨O⟩ = 1
+
+Z tr e−βH O , (2) where the partition function is Z = tr e−βH , the in-verse temperature is β = 1 /k B T , and the trace runs over the entire Fock space. 
+
+> arXiv:2603.18205v1 [cond-mat.str-el] 18 Mar 2026
+
+2After applying a Suzuki-Trotter decomposition [27, 28] and a Hubbard-Stratonovich transformation [29] to de-couple the quartic fermion interaction, this expectation value can be rewritten in terms of an auxiliary bosonic field ϕ,
+
+⟨O⟩ = 1
+
+Z
+
+Z
+
+D[ϕ]e−S[ϕ]O[ϕ]. (3) Here, the Hubbard action S[ϕ] is given by 
+
+S[ϕ] = 12 ˜U
+
+X
+
+> x,t ∈Λ
+
+ϕ2 
+
+> x,t
+
+− ln det ( M [ϕ, ˜κ, ˜μ]M [−ϕ, ˜κ, ˜μ]) ,
+
+(4) where Λ = Nx × Nt is the lattice volume, ϕxt denotes the field at site ( x, t ), and ˜U = U β/N t, ˜ κ = κβ/N t,˜μ = μβ/N t are the dimensionless lattice couplings. The fermion matrices M [±ϕ, ˜κ, ˜μ] originate from the spin-up and spin-down electrons in Eq. (1), respectively. In this reformulation, one can choose a discretization of the fermion matrix [17]. In this work, we adopt the exponential discretization, as it preserves chiral (or sub-lattice) symmetry [23, 30]. In this discretization, the ma-trix elements are given by 
+
+M [ϕ|˜κ, ˜μ]x′t′,xt = δx′,x δt′t − [eh]x′xeϕxt +˜ μBt′ δt′,t +1 . (5) Here, h is the hopping matrix defined as h = ˜ κδ ⟨x,x ′⟩,with ⟨x, x ′⟩ denoting nearest-neighbor-interactions, and 
+
+B incorporates anti-periodic boundary conditions in the temporal direction [31]. The observable considered in this work is the single-particle Euclidean-time correlator, defined as 
+
+Cx,y (t) ≡ ⟨ cx(t)c† 
+
+> y
+
+(0) ⟩ = 1
+
+Ncfg 
+
+X
+
+> {ϕ}
+
+M −1(t,x );(0 ,y )[ϕ|˜κ, ˜μ].
+
+(6) These correlators are computed for all site pairs ( x, y )and diagonalized to obtain the eigenfunctions C±(t) [22, 23], sampled on Ncfg configurations. This observable has previously been used to illustrate the lack of ergodicty in sampling the Boltzmann distribution [22, 23]. In this work, we demonstrate the ergodic nature of our novel annealing-based sampling method by comparing these correlators with results obtained from exact diagonaliza-tion (ED), where available. 
+
+Choice of basis —The Hubbard model is most com-monly simulated either in the repulsive spin basis [15, 32] or the attractive charge basis [17, 33]. In the action-based formulation, the difference between the two lies in how the auxilliary field ϕxt enters the fermion matrix in Eq. 5. In the spin basis the fields are real-valued, making the matrix elements real, whereas in the charge basis, the fields are purely imaginary. Monte Carlo simulations of the Hubbard model typi-cally face two major challenges: (i) ergodicity issues [15, 23] and (ii) the non-positivity of the probability weight arising from the product of fermion determinants [34, 35]. Consequently, at zero chemical potential, the feasibility of HMC simulations depends primarily on effectively ad-dressing the ergodicity problem. This aspect has been systematically investigated in Refs. [23, 36], where the authors show that the formal ergodicity issues of the charge basis are often easier to handle than the practical ergodicity issues of the spin basis. Since the primary objective of this work is to investi-gate the system at finite chemical potential, it is advan-tageous to adopt a formulation that offers better control over the sign problem. In this context, as we explicitly demonstrate, the spin basis offers a structural advantage: the fermion matrix is real for each spin species separately, thereby avoiding the complex probability weights that arise in the charge basis. As a result, the sign problem is purely real rather than complex, which simplifies its numerical treatment. In the spin basis, the fermion matrices of the two species are real but not related by conjugation, so the associated probability weight is not manifestly positive. This can lead to a potential sign problem even at half-filling. However, as shown in Ref. [23], the fermion deter-minant in the exponential discretization satisfies a sym-metry relation between the two species that guarantees positivity of the probability weight at zero chemical po-tential. Introducing a finite chemical potential explicitly breaks this symmetry and thus destroys the exact posi-tivity of the measure [37]. 
+
+Sign quenching & re-weighting— When simulating the-ories with a complex action, standard sampling-based methods — which rely on a probabilistic interpretation of the Boltzmann weight e−βS — are no longer directly applicable. In such cases, one typically follows one of two strategies: (i) simulate the phase-quenched theory [38], in which the complex phase of the Boltzmann weight is neglected and subsequently restored by reweighting; or (ii) simulate the sign-quenched theory [39, 40], where the Boltzmann weight is replaced by the absolute value of its real part, and sign fluctuations are reintroduced through 
+
+sign reweighting . The phase-quenched approach is pri-marily hindered by severe overlap problems [41], whereas the sign-quenched approach suffers from an exponentially degrading signal-to-noise ratio [42, 43]. In the spin basis, the sign problem is literally a sign problem: the probability weight is real but not positive definite, rather than complex. We therefore employ sign quenching, defining wq = |wt| for real weights wt that fluctuate in sign. Observables in the full theory, ⟨O⟩t,are recovered via reweighting: 
+
+⟨O⟩t =
+
+R Dϕ w t(ϕ)O(ϕ)
+
+R Dϕ w t(ϕ) = ⟨ wt 
+
+> wq
+
+· O⟩q
+
+⟨ wt 
+
+> wq
+
+⟩q
+
+, (7) where ⟨·⟩ q denotes sampling from the sign-quenched the-ory. 3The severity of the sign problem is quantified by the denominator in Eq. (7), commonly referred to as the av-erage sign Σ. A value of Σ = 1 corresponds to the ab-sence of a sign problem, whereas Σ → 0 indicates the most severe sign problem, where cancellations between configurations suppress the signal. The resulting reduc-tion in statistical efficiency leads to an effective sample size N eff = |Σ|2N [44], with Monte Carlo uncertainties scaling as ( N eff )−1/2.With this in mind, we model the sign-quenched distri-bution e−βS q , where 
+
+Sq [ϕ] = X
+
+> x,t ∈Λ
+
+ϕ2
+
+> x,t
+
+2 ˜U − log | det ( M [ϕ|˜κ, ˜μ]M [−ϕ|˜κ, ˜μ]) | .
+
+(8) This gives us a well-defined probability weight, from which the physical theory can be recovered by reweight-ing observables with the sign of the original weight. 
+
+Normalizing flows — Normalizing flows (NFs) [45, 46] are a class of generative models that enable efficient sampling from high-dimensional distributions. This is achieved by learning a bijective map fθ between a simple prior distribution qz and a target distribution qy ,
+
+fθ : z ∼ qz 7 → y ∼ qy , (9) where fθ is parametrized by neural network weights θ. In our setup, the target degrees of freedom y are the aux-iliary field configurations of the Hubbard model. Con-structing these maps requires balancing the expressivity of the neural network with the need for a tractable Ja-cobian. Several approaches have been developed to this end, such as coupling-based NFs [47–49], autoregressive NFs [50], and continuous NFs [51]. In this work, we employ a coupling-based NF with a real-valued non-volume preserving (RealNVP) archi-tecture [48]. Specifically, we consider a sequence of L
+
+smooth, invertible mappings f lθl : R|Λ| → R|Λ|, each de-fined by a neural network with parameters θl. Since each layer is bijective, their composition defines an overall in-vertible transformation: 
+
+y ≡ fθ (z) = 
+
+
+
+f LθL ◦ f L−1 
+
+> θL−1
+
+◦ · · · ◦ f 1
+
+> θ1
+
+
+
+(z) , (10) where θ = {θ1, . . . , θ L} denotes the full set of train-able parameters. A crucial property of this construc-tion is that the determinant of the Jacobian of fθ can be computed efficiently, which is required for tractable likelihood-based training and density estimation of qy .The generated field configurations ϕ are then given by 
+
+ϕ ≡ fθ (z) , (11) with the associated learned density 
+
+qθ (fθ (z)) = qz (z) · ∂f θ
+
+∂z 
+
+> −1
+
+. (12) Training of the neural network proceeds by minimiz-ing the reverse Kullback–Leibler (KL) divergence [52], which measures the distance between the flow-induced distribution qθ and the target Boltzmann distribution 
+
+p(ϕ) = e−S[ϕ]/Z . This objective can be written as KL( qθ || p) = Ez∼qz
+
+h
+
+log qθ (fθ (z)) + S [fθ (z)] 
+
+i
+
+, (13) where S[·] denotes the action of the underlying phys-ical system. To ensure exact and unbiased sampling, observables calculated from the flow are subsequently reweighted according to the unnormalized importance weights w(ϕ) = exp( −S[ϕ]) /q θ (ϕ), where, in our case, 
+
+S = Sq [ϕ] corresponds to the sign-quenched action. 
+
+Avoiding practical ergodicty problems with normaliz-ing flows —It is well known that training with the re-verse KL divergence can lead to mode dropping in the learned density [53–55]. In challenging settings, such as the Hubbard model in the spin basis, having an ergodic sampler is essential to ensure unbiased results [22, 23]. Symmetry-informed architectures, e.g. canon-icalization [21] or symmetry-enforcing stochastic modu-lation [22, 56], have proven highly effective at sampling distributions with a strong practical ergodicity problem. However, their applicability is limited to systems exhibit-ing particular symmetries, which in the Hubbard model typically arise only in the strongly coupled regime, where these symmetries become particularly pronounced. To describe systems across a range of couplings, we cannot rely on deterministic symmetry transformations. Instead, we employ an annealing scheme [57], in which an auxiliary parameter λ scales the fermionic contribution to the action, 
+
+Sq,λ [ϕ] = X
+
+> x,t ∈Λ
+
+ϕ2
+
+> x,t
+
+2 ˜U − λ · log |det ( M [ϕ|˜κ, ˜μ]M [−ϕ|˜κ, ˜μ]) | .
+
+(14) For λ = 0, the fermion determinant is absent, leaving a simple Gaussian distribution, while λ = 1 recovers the full interacting Hubbard action. Gradually increasing 
+
+λ during training smoothly deforms the target distribu-tion toward the final multimodal target, as illustrated schematically in Fig. 1. This mitigates the mode-seeking behavior of the reverse KL divergence, allowing the NF to receive training signals from all modes and represent even widely separated probability sectors. This approach is highly scalable, as its computational cost grows only moderately with system size, adding a minimal training overhead. We emphasize, however, that while the annealing procedure emprically demonstrates strong robustness against mode dropping, it does not provide a formal guarantee of complete mode coverage in the final model. 
+
+Results —In the following, we evaluate the performance of our annealing-based NF ansatz for the Hubbard model in the spin basis. As a benchmark, we use state-of-the 4λ = 0 λ = 0 .5 λ = 1 
+
+FIG. 1. Schematic illustration of the annealing procedure controlled by the parameter λ. At λ = 0, the fermion determinant is absent and the target distribution is Gaussian. As λ is increased, fermionic effects are gradually introduced, deforming the distribution until the full interacting Hubbard action with its multimodal structure is recovered at λ = 1. 
+
+art HMC in the charge basis with optimized shifts [20]. We compare the average sign of both approaches and calculate correlation functions for the most challenging system. Each model is trained for 50k steps, with the an-nealing parameter λ increased linearly from 0 to 1 during the first 1k steps. Figure 2 shows the average sign obtained with the NF ansatz compared to optimized HMC simulations for an eight-site hexagonal lattice with U = 2, β = 8, and 
+
+Nt = 16. Although optimized shifts are known to al-leviate the sign problem in the charge basis compared to standard HMC [20], we still observe a significant suppres-sion of the average sign for μ ∈ [1 .0, 2.0] in this setup. In contrast, simulations performed in the spin basis using the NF approach maintain a substantially larger average sign across this region, with an improvement of approxi-mately a factor of four at the minimum. 0 1 2 3 4 5 6
+
+> Chemical Potential
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Average Sign
+> O+HMC CH
+> NF SP
+
+FIG. 2. Average sign Σ as a function of the chemical potential 
+
+μ for an eight-site hexagonal lattice with U = 2, β = 8, and 
+
+Nt = 16. Shown are results from the annealing-based NF ap-proach in the spin basis (NF SP, yellow) and optimized HMC simulations in the charge basis [20] (O+HMC CH, grey). 
+
+To validate and assess our approach, we calculate one-body correlation functions C(t), defined in Eq. 6, and compare them to the ground truth obtained via ED as well as the state-of-the-art optimized HMC algorithm. We consider an eight-site hexagonal lattice with param-eters U = 2, β = 8, μ = 1 .75, and Nt = 40, which represents the largest exactly solvable system exhibiting the most severe sign problem, as indicated in Fig. 2. The corresponding results are shown in Fig. 3. We find that the NF approach reproduces the exact results with high precision while reducing uncertainties by an order of mag-nitude compared to HMC. Additional results for U = 3 are provided in App. C. Lastly, we extend our analysis beyond exactly solv-able systems and compute one-body correlation func-tions for an 18-site hexagonal lattice with parameters 0 2 4 6 8    
+
+> t
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> C(t)
+> ED
+> O+HMC CH
+> NF SP
+
+FIG. 3. One-body correlation functions for an eight-site hexagonal lattice with U = 2, β = 8, μ = 1 .75, and Nt = 40. Shown are continous exact diagonalization results (ED, grey dashed), state-of-the-art optimized HMC in the charge basis (O+HMC CH, grey), and our annealing-based NF ansatz in the spin basis (NF SP, yellow). Both HMC and NF results are generated with 1M samples each. 50 2 4 6 8     
+
+> t
+> 10 5
+> 10 4
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> C(t)
+> O+HMC CH
+> NF SP
+
+FIG. 4. One-body correlation functions for an 18-site hexag-onal lattice with U = 2, β = 8, μ = 2 .5, and Nt = 40. Shown are state-of-the-art optimized HMC in the charge ba-sis (O+HMC CH, grey) and our annealing-based NF ansatz in the spin basis (NF SP, yellow). Both HMC and NF results are generated with 1M samples each. 
+
+U = 2 , β = 8 , μ = 2 .5, and Nt = 40, as shown in Fig. 4. In the absence of exact results at this system size, we validate our approach using a less noise-sensitive corre-lator, finding good agreement with HMC (top correlator in Fig. 4). For more noise-sensitive observables (bottom correlator), the NF method produces smaller uncertain-ties and improved accuracy, consistent with the milder sign problem in the spin-basis formulation. 
+
+Conclusion —In this work, we presented a new annealing-based NF method that enables reliable sam-pling of the Hubbard model in the spin basis at finite 
+
+chemical potential. By learning the sign-quenched the-ory and exploiting the milder sign problem in this for-mulation, our approach outperforms state-of-the-art op-timized HMC calculations by up to an order of magnitude in both accuracy and uncertainty for system sizes up to 
+
+Nx = 18. The proposed annealing scheme enables controlled sampling of multimodal target distributions without in-troducing significant training overhead or strong depen-dence on the system size. As a result, the overall scala-bility of the method is primarily determined by the prop-erties of the underlying generative model. While the Re-alNVP architecture employed here performs well at the lattices sizes considered, its training cost is expected to increase for larger volumes. Building on recent work on improving the numerical stability of action-based Hub-bard model simulations [58], we plan to extend our an-nealing scheme to more expressive and scalable genera-tive models in future work. Taken together, these results establish a broadly ap-plicable framework for efficient and accurate sampling of the Hubbard model in regimes where conventional Monte Carlo methods are limited by ergodicity loss or severe sign problems. 
+
+Acknowledgements —The authors thank Johann Ost-meyer for insightful discussions. The authors gratefully acknowledge the granted access to the Marvin cluster hosted by the University of Bonn, as well as the comput-ing time granted by the JARA Vergabegremium and pro-vided on the JARA Partition part of the supercomputer JURECA at Forschungszentrum J¨ ulich [59]. This project was supported by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) as part of the CRC 1639 NuMeriQS – project no. 511713970.  
+
+> ∗
+
+schuh@hiskp.uni-bonn.de [1] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, Annu. Rev. Condens. Matter Phys. 13 , 239 (2022). [2] J. Hubbard, Proceedings of the Royal Society of London. Series A. Mathematical and Physical Sciences 276 , 238 (1963). [3] J. Hubbard, Proceedings of the Royal Society of London. Series A. Mathematical and Physical Sciences 277 , 237 (1964). [4] J. Hubbard, Proceedings of the Royal Society of London. Series A. Mathematical and Physical Sciences 281 , 401 (1964). [5] N. F. Mott and Z. Zinamon, Reports on Progress in Physics 33 , 881 (1970). [6] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, Ann. Rev. Condensed Matter Phys. 13 , 275 (2022), arXiv:2104.00064 [cond-mat.str-el]. [7] B. Xiao, Y.-Y. He, A. Georges, and S. Zhang, Phys. Rev. X 13 , 011007 (2023). [8] H. Xu, C.-M. Chung, M. Qin, U. Schollw¨ ock, S. R. White, and S. Zhang, Science 384 , eadh7691 (2024). [9] L. Razmadze and T. Luu, PoS LATTICE2024 , 071 (2024). [10] J. Ostmeyer, E. Berkowitz, S. Krieg, T. A. L¨ ahde, T. Luu, and C. Urbach, Phys. Rev. B 102 , 245105 (2020). [11] J. Ostmeyer, L. Razmadze, E. Berkowitz, T. Luu, and U.-G. Meißner, Phys. Rev. B 109 , 195135 (2024). [12] P. Sinilkov, E. Berkowitz, T. Luu, and M. Rodekamp, PoS LATTICE2024 , 075 (2025). [13] M. Rodekamp, E. Berkowitz, C. G¨ antgen, S. Krieg, T. Luu, J. Ostmeyer, and G. Pederiva, Eur. Phys. J. B 98 (2025), 10.1140/epjb/s10051-024-00859-1. [14] P. Buividovich, D. Smith, M. Ulybyshev, and L. von Smekal, Phys. Rev. B 98 , 235129 (2018). [15] S. Beyl, F. Goth, and F. F. Assaad, Phys. Rev. B 97 ,085144 (2018). [16] D. Smith and L. von Smekal, Phys. Rev. B 89 , 195429 (2014). [17] M. V. Ulybyshev, P. V. Buividovich, M. I. Katsnel-son, and M. I. Polikarpov, Phys. Rev. Lett. 111 , 056801 (2013). [18] E. Y. Loh, J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Phys. Rev. B 41 , 9301 (1990). [19] M. Rodekamp, E. Berkowitz, C. G¨ antgen, S. Krieg, T. Luu, and J. Ostmeyer, Phys. Rev. B 106 , 125139 (2022), arXiv:2203.00390 [physics.comp-ph]. 6
+
+[20] C. G¨ antgen, E. Berkowitz, T. Luu, J. Ostmeyer, and M. Rodekamp, Phys. Rev. B 109 , 195158 (2024), arXiv:2307.06785 [cond-mat.str-el]. [21] D. Schuh, J. Kreit, E. Berkowitz, L. Funcke, T. Luu, K. A. Nicoli, and M. Rodekamp, PoS LATTICE2024 ,069 (2025). [22] D. Schuh, J. Kreit, E. Berkowitz, L. Funcke, T. Luu, K. A. Nicoli, and M. Rodekamp, (2025), arXiv:2506.17015 [cond-mat.str-el]. [23] J.-L. Wynen, E. Berkowitz, C. K¨ orber, T. A. L¨ ahde, and T. Luu, Phys. Rev. B 100 , 075141 (2019), arXiv:1812.09268 [cond-mat.str-el]. [24] R. C. Brower, D. Schaich, and C. Rebbi, PoS Lattice 2011 , 056 (2012). [25] T. Luu and T. A. L¨ ahde, Phys. Rev. B 93 , 155106 (2016). [26] M. Rodekamp, Machine Learning for Path Deformation and Bayesian Data Analysis in Selected Lattice Field Theories , Ph.d. thesis, Rheinische Friedrich-Wilhelms-Universit¨ at Bonn, Bonn (2024). [27] H. F. Trotter, Proceedings of the American Mathematical Society 10 , 545 (1959). [28] M. Suzuki, Progress of Theoretical Physics 56 , 1454 (1976). [29] J. Hubbard, Phys. Rev. Lett. 3, 77 (1959). [30] P. Buividovich, D. Smith, M. Ulybyshev, and L. von Smekal, Phys. Rev. B 98 , 235129 (2018). [31] Note that we could have equivalently defined the chemi-cal potential term on the diagonal of the hopping matrix. [32] S. A. Gottlieb, W. Liu, D. Toussaint, R. L. Renken, and R. L. Sugar, Phys. Rev. D 35 , 2531 (1987). [33] T. Luu and T. A. L¨ ahde, Phys. Rev. B 93 , 155106 (2016). [34] R. T. Scalettar, E. Y. Loh, J. E. Gubernatis, A. Moreo, S. R. White, D. J. Scalapino, R. L. Sugar, and E. Dagotto, (1989). [35] V. I. Iglovikov, E. Khatami, and R. T. Scalettar, Phys-ical Review B 92 (2015), 10.1103/physrevb.92.045110. [36] F. Temmen, E. Berkowitz, A. Kennedy, T. Luu, J. Ost-meyer, and X. Yu, PoS LATTICE2024 , 068 (2024). [37] The relation between fermion matrices at finite chemical potential and the emergence of a sign problem is derived in App. D. [38] Z. Fodor and S. D. Katz, Phys. Lett. B 534 , 87 (2002), arXiv:hep-lat/0104001. [39] P. de Forcrand, S. Kim, and T. Takaishi, Nucl. Phys. B Proc. Suppl. 119 , 541 (2003), arXiv:hep-lat/0209126. [40] M. Giordano, K. Kapas, S. D. Katz, D. Nogradi, and A. Pasztor, JHEP 05 , 088 (2020), arXiv:2004.10800 [hep-lat]. [41] Z. Fodor and S. D. Katz, JHEP 03 , 014 (2002), arXiv:hep-lat/0106002. [42] M. Troyer and U.-J. Wiese, Phys. Rev. Lett. 94 , 170201 (2005), arXiv:cond-mat/0408370. [43] G. Aarts, J. Phys. Conf. Ser. 706 , 022004 (2016), arXiv:1512.05145 [hep-lat]. [44] C. Berger, L. Rammelm¨ uller, A. Loheac, F. Ehmann, J. Braun, and J. Drut, Physics Reports 892 , 1 (2021), complex Langevin and other approaches to the sign prob-lem in quantum many-body physics. [45] I. Kobyzev, S. J. Prince, and M. A. Brubaker, IEEE Transactions on Pattern Analysis and Machine Intelli-gence 43 , 3964 (2021). [46] G. Papamakarios, E. Nalisnick, D. J. Rezende, S. Mo-hamed, and B. Lakshminarayanan, J. Mach. Learn. Res. 
+
+22 (2021). [47] L. Dinh, D. Krueger, and Y. Bengio, in 3rd Interna-tional Conference on Learning Representations, ICLR 2015, Workshop Track Proceedings (2015). [48] L. Dinh, J. Sohl-Dickstein, and S. Bengio, in Interna-tional Conference on Learning Representations (2017). [49] C. Durkan, A. Bekasov, I. Murray, and G. Papamakarios, in Advances in Neural Information Processing Systems ,Vol. 32 (Curran Associates, Inc., 2019). [50] D. P. Kingma and P. Dhariwal, in Advances in Neural Information Processing Systems , Vol. 31 (Curran Asso-ciates, Inc., 2018). [51] R. T. Q. Chen, Y. Rubanova, J. Bettencourt, and D. K. Duvenaud, in Advances in Neural Information Processing Systems , Vol. 31 (Curran Associates, Inc., 2018). [52] S. Kullback and R. A. Leibler, The annals of mathemat-ical statistics 22 , 79 (1951). [53] T. Minka et al. , Divergence Measures and Message Pass-ing , Technical Report (Microsoft Research, 2005). [54] D. C. Hackett, C.-C. Hsieh, S. Pontula, M. S. Albergo, D. Boyda, J.-W. Chen, K.-F. Chen, K. Cranmer, G. Kan-war, and P. E. Shanahan, (2021), arXiv:2107.00734 [hep-lat]. [55] K. A. Nicoli, C. J. Anders, T. Hartung, K. Jansen, P. Kessel, and S. Nakajima, Phys. Rev. D 108 , 114501 (2023), arXiv:2302.14082 [hep-lat]. [56] J. Kreit, D. Schuh, K. A. Nicoli, and L. Funcke, (2025), arXiv:2505.19619 [cs.LG]. [57] R. M. Neal, Statistics and Computing 11 , 125 (2001). [58] J. Kreit, A. Bulgarelli, L. Funcke, T. Luu, D. Schuh, S. Singh, and L. Verzichelli, “Toward scalable nor-malizing flows for the hubbard model,” (2026), arXiv:2601.18273 [cond-mat.str-el]. [59] J¨ ulich Supercomputing Centre, Journal of large-scale re-search facilities 7, A 182 (2021). 
+
+END MATTER 
+
+Appendix A: Two-site model distribution —The formal ergodicity problem in the charge basis formulation of the Hubbard model is lifted away from half-filling [23]. How-ever, this does not apply to the spin basis, where the ergocity problem is of practical nature, i.e., when modes are widely separated. We illustrate this on a a two-site lattice, where the distribution can be easily visualized. As shown in Fig. 5, at vanishing chemical potential (left) the distribution takes the form of a correlated Gaus-sian. Introducing a chemical potential (right) splits the distribution into two fairly disconnected modes, indicat-ing that the practical ergodicity issues still persist. This demonstrates that the main challenge faced by HMC [23] in this formulation is not removed away from half-filling. To demonstrate that our annealing-based NF method can nevertheless model this challenging distribution, we provide one-body correlation functions in Fig. 6, finding excellent agreement with the exact solution. 
+
+Appendix B: Hybrid Monte Carlo simulations in the spin basis —HMC is known to struggle with ergodicity when simulating the Hubbard model in the spin basis 7
+
+FIG. 5. Distribution of the two-site Hubbard model in the spin basis ( U = 3, β = 5, and Nt=20) for μ = 0 (left) and 
+
+μ = 2 (right). Shown are the fields summed over the temporal direction, i.e., ϕx = PNt−1 
+
+> t=0
+
+ϕxt .0.0 0.5 1.0 1.5 
+
+t  
+
+> 10 2
+> 10 1
+> C(t)
+> ED
+> NF SP
+
+FIG. 6. One-body correlation functions for the two-site Hub-bard model with U = 3, β = 5, μ = 2, and Nt = 20. Shown are exact diagonalization results at fixed discretization (ED, grey) and those obtained by our annealing-based NF ansatz in the spin basis (NF SP, yellow). 
+
+[23]. In Fig. 7, we illustrate this for the eight-site setup used in the main text ( U = 2, β = 8, μ = 1 .75, Nt = 40). We compare HMC to our annealing-based NF ansatz and a ground truth obtained by ED. HMC exhibits the usual non-ergodic behavior: over-shooting at early times and undershooting at late times (or vice versa), with variations depending on initializa-tion. In contrast, the NF method produces results inde-pendent of initialization, agreeing with the exact solution and demonstrating ergodic sampling of the target distri-bution. 
+
+Appendix C: Further results —In the main text, we fo-cused on U = 2 for comparison with related work. To demonstrate applicability at larger U , we show results for an eight-sites hexagonal lattice with U = 3, β = 6, 
+
+μ = 2 .75, and Nt = 40 in Fig. 8. Excellent agreement with the exact solution is observed. 
+
+Appendix D: Non-positivity of probability weight —We show that even in the spin basis, a charge-conjugation-like symmetry exists at half-filling and is explicitly broken 0 2 4 6 8    
+
+> t
+> 3 × 10 1
+> 4 × 10 1
+> 5 × 10 1
+> 6 × 10 1
+> C(t)
+> ED
+> HMC SP Run 1
+> HMC SP Run 2
+> NF SP Run 1
+> NF SP Run 2
+
+FIG. 7. One-body correlation functions for the hexagonal eight-site Hubbard model with U = 2, β = 8, μ = 1 .75, and Nt = 40. Shown are continuum exact diagonalization results (ED, grey), HMC in the spin basis with two initial-izations (HMC SP Run 1/2, blue/grey), and our annealing-based NF ansatz with two initializations (NF SP Run 1/2, yellow/orange). Small deviations from the exact results at early times are due to discretization errors. 0 1 2 3 4 5 6
+
+t   
+
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> C(t)
+> ED
+> NF SP
+
+FIG. 8. One-body correlation functions for the hexagonal eight-site Hubbard model with U = 3, β = 6, μ = 2 .75, and 
+
+Nt = 40. Shown are continuum exact diagonalization results (ED, grey) and 1M samples generated by our annealing-based NF ansatz (NF SP, yellow). 
+
+at finite chemical potential, revealing the origin of the sign problem in this formulation. Extending the treatment of the fermion determinant presented in Ref. [23] to finite chemical potential, we first consider the case ˜ μ = 0: det M [ϕ|˜κ] ≡ det M [ϕ|˜κ, ˜μ = 0] . (15) In the exponential discretization, the fermion determi-nant can be written as det M [ϕ|˜κ] = det( INx + A) , (16) where A ≡ TNt−1TNt−2 · · · T0 and Tt ≡ ehFt with 
+
+Ft[ϕ]x′x = eϕx,t −1 δx′x. Equivalently, it can be expressed 8as det M [ϕ|˜κ] = det( A) · det  A−1 + INx
+
+ . (17) Here, det eh = 1 since h is traceless, and the product over the field exponentials gives det( FNt−1 · · · F0) = Y
+
+> t′
+
+eP  
+
+> xϕx,t ′
+
+= eP  
+
+> x,t ϕx,t
+
+= eΦ, (18) leading to det M [ϕ|˜κ] = eΦ det  INx + A−1 . (19) Using F −1 
+
+> t
+
+[ϕ] = Ft[−ϕ], the bipartite condition det M [ϕ|˜κ] = det M [ϕ| − ˜κ] [23], and the invariance det( I + X) = det  I + XT  for any square matrix X, we can rearrange the factors in A. Since Ft[ϕ] is diagonal and 
+
+h is symmetric, we have Ft[ϕ]T = Ft[ϕ] and ( eh)T = eh,giving det M [−ϕ|˜κ] = det  INx + A−1. (20) Comparing Eqs. (19) and (20) yields det M [ϕ|˜κ] = eΦ det M [−ϕ|˜κ] , (21) ensuring positivity of the probability weight in the spin basis: 
+
+W [ϕ|˜κ] = det M [ϕ|˜κ] det M [−ϕ|˜κ]e− 12 ˜U 
+
+> P
+> x,t ϕ2
+> x,t
+
+= eΦ det( M [−ϕ, ˜κ]) 2e− 12 ˜U  
+
+> P
+> x,t ϕ2
+> x,t
+
+> 0 . (22) At finite chemical potential, following Ref. [20], we mod-ify 
+
+Ft → ˜Ft[ϕ, ˜μ]x′x = eϕx, (t−1) +˜ μδx′x . (23) With this, and using Eqs. (18) and (19), we obtain det M [ϕ|˜κ, ˜μ] = eΦ+ V ˜μ det 
+
+
+
+INx + ˜A−1
+
+, (24) where V = Nt × Nx. Aside from the harmless factor eV ˜μ,the only modification appears in ˜A−1, constructed from ˜Ft[−ϕ, −˜μ]. The loss of positivity originates from ˜A−1, introducing factors of e−˜μ. Applying the bipartite condition yields det M [ϕ|˜κ, ˜μ] = eΦ+ V ˜μ det M [−ϕ|˜κ, −˜μ] . (25) The main obstacle to positivity is that Eq. (25) relates a determinant at positive chemical potential to one at neg-ative chemical potential. Since both spin species couple to the same chemical potential, the resulting probability weight 
+
+W [ϕ|˜κ, ˜μ] = det M [ϕ|˜κ, ˜μ] det M [−ϕ|˜κ, ˜μ]e− 12 ˜U 
+
+> P
+> x,t ϕ2
+> x,t
+
+= eΦ+ V ˜μ det  M [−ϕ|˜κ, −˜μ] M [−ϕ|˜κ, ˜μ]
+
+× e− 12 ˜U  
+
+> P
+> x,t ϕ2
+> x,t
+
+, (26) no longer factorizes into a manifestly positive form, ex-plicitly demonstrating the origin of the sign problem.

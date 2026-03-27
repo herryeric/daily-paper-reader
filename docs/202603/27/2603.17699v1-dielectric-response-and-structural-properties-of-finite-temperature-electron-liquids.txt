@@ -1,0 +1,753 @@
+Title: Dielectric response and structural properties of finite-temperature electron liquids
+
+URL Source: https://arxiv.org/pdf/2603.17699v1
+
+Published Time: Thu, 19 Mar 2026 01:17:21 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Dielectric response and structural properties of finite-temperature electron liquids 
+
+Chengliang Lin, 1 Yong Hou, 2, ∗ Jianmin Yuan, 2, 3, † Yong Wu, 1, ‡ and Jianguo Wang 1
+
+> 1
+
+National Key Laboratory of Computational Physics, Institute of Applied Physics and Computational Mathematics, Beijing 100088, People’s Republic of China 
+
+> 2
+
+College of Science, National University of Defense Technology, Changsha Hunan 410073, People’s Republic of China 
+
+> 3
+
+Institute of Atomic and Molecular Physics, Jilin University, Changchun Jilin 130012, People’s Republic of China 
+
+The dielectric response and structural properties of finite-temperature electron liquids are cen-tral to accurately describing the physical behavior of electronic systems. This study presents a robust analytical model for the static structure factor of the uniform electron gas, combining phys-ically motivated form for the static structure factor with constraints derived from high-accuracy path integral Monte Carlo simulations. The model accurately reproduces key features of the static structure factor across a broad range of temperatures and densities. Using this static structure factor, the density response function is directly evaluated, enabling a self-consistent definition of the static local field correction. As practical applications, the model is employed to investigate the low-velocity stopping power and the electron–ion friction coefficient. Results derived for the friction coefficient show good agreement with simulation data at moderate coupling and degeneracy. The proposed approach provides a computationally efficient and reliable method for characterizing the static response properties of correlated electron systems, facilitating improved simulations of energy deposition and ionic transport in warm dense matter and other strongly coupled quantum plasmas. 
+
+I. INTRODUCTION 
+
+The uniform electron gas (UEG) serves as a funda-mental model system for understanding correlated quan-tum many-body effects [1–6]. Understanding the behav-ior of UEG systems across varying densities and tem-peratures is crucial for accurately modeling warm dense matter [7–10], inertial confinement fusion [11–15], and astrophysical environments [16–18]. Despite its simplic-ity, the UEG exhibits rich physical behavior due to the interplay of Coulomb coupling, quantum degeneracy, and collective excitations, rendering traditional perturbative methods like the random phase approximation (RPA) inadequate [19]. Thus, developing advanced analytical models, non-perturbative theoretical methods, and sim-ulation approaches has become a major focus of current research. The static structure factor (SSF) and the static den-sity response function of UEG are central to character-izing the equilibrium properties of plasmas, such as the ionization potential depression [20–22] and the exchange-correlation functional [23–26]. It further provides key in-sights into electronic correlations, screening phenomena, and the onset of collective excitations. The SSF reveals how electrons are spatially correlated, offering a direct window into the organization of the quantum fluids, from ideal gases to strongly coupled liquids [2]. In the clas-sic limit, the SSF is intimately connected to the static density response function according to the fluctuation-dissipation theorem [27, 28]. In the strongly coupled and    
+
+> ∗yonghou@nudt.edu.cn
+> †yuanjianmin@jlu.edu.cn
+> ‡wu yong@iapcm.ac.cn
+
+partially degenerate regimes where strong Coulomb in-teractions and quantum effects are equally important, accurately calculating these properties from theory be-comes notoriously difficult. Unlike the classical one-component plasma (OCP), which can be described using static theories such as the Ornstein–Zernike equation [29–31], the SSF of UEG typ-ically must be derived from its dynamical counterpart. This is primarily because the interplay of strong cou-pling and quantum effects as well as dynamic correla-tions complicates theoretical descriptions of the UEG. The simplest approximation for modeling the dynamical response within UEG is the RPA. To account for the in-fluence of the strong Coulomb interactions and quantum effects, local field correction or collision frequency are in-troduced to improve the theoretical description based on the RPA [14, 32–34]. However, existing analytical mod-els often do not satisfy the exact sum rules and asymp-totic constraints [35, 36], which limit their predictive power and sometimes lead to unreasonable behavior of the correlation properties [37, 38]. Recent advances in path-integral Monte Carlo (PIMC) simulations have en-abled highly accurate calculations of properties of the UEG [8, 39–41], even in the strongly coupling regime, which can therefore serve as a testbed for theoretical methods. However, PIMC simulations are computation-ally prohibitive over wide parameter ranges. The purpose of this work is to present a robust analytical model for the SSF and the static density response function over a broad range of temperatures and densities. In this work, we develop a comprehensive analyti-cal framework for the SSF and static response function that is valid across a wide range of plasma conditions. Our strategy leverages highly accurate PIMC simulation data [25, 37, 42, 43], not as a direct fit, but as phys-
+
+> arXiv:2603.17699v1 [physics.plasm-ph] 18 Mar 2026
+
+2ical constraints to guide the development of an accu-rate model for the SSF. The resulting analytical expres-sion successfully reproduces the key features of the SSF, including its characteristic peak and asymptotic limits, demonstrating consistent agreement with independent PIMC benchmarks. It also shows strong agreement with ab initio results for dielectric and static response proper-ties in the plasma conditions under study. The availabil-ity of an accurate and computationally efficient model for the SSF and static response has immediate practical applications. A primary example is the calculation of the electron-ion friction coefficient [44–46], which deter-mines the low-velocity energy loss of a charged particle moving through an electron plasma. The accuracy of electron-ion friction coefficient critically affects the reli-ability of ion dynamics simulations, such as those based on the Langevin equation [47–49]. By providing a firm foundation in the well-established UEG model, our work facilitates more predictive and reliable simulations of en-ergy deposition in complex, high-energy-density systems, and provides more reliable input parameters for future non-equilibrium dynamics simulations. The present work is structured as follows: Sec. II A provides a brief introduction to key plasma parameters relevant for describing the UEG. In Sec II B, we outline the theoretical framework employed in our calculations and discuss the relationships among the SSF, the static response function, and the static local field correction. The numerical strategy used to calculate the SSF of the UEG is detailed in Sec. II C. Sec. II D presents the the-ory underlying the low-velocity stopping power and its connection to the electron-ion friction coefficient. Our results for the SSF, the static response function, and the friction coefficients are presented and discussed in Sec. III. Finally, conclusions are summarized in Sec. IV.   
+
+> II. THEORETICAL METHOD A. Parameters for Coulomb coupling and electron degeneracy
+
+The UEG is a quantum many-body system consist-ing of free electrons embedded in a uniform neutralizing background of positive charges. It can be viewed as the quantum-mechanical analogue of the classical OCP sys-tem. In this work, we consider a homogeneous param-agnetic electron liquid with electron number density ne
+
+and thermal temperature T . While the classical OCP is fully characterized by a single coupling parameter Γ = 
+
+e2/(4 πϵ 0aee kBT ) [50], where aee = (4 πn e/3) −1/3 denotes the average electron-electron separation, the UEG re-quires two independent dimensionless parameters for its complete description. Although different choices of these two parameters exist in the literature [8, 9, 19, 51, 52], we adopt the following pair of parameters to describe the UEG: the electron degeneracy parameter θ and the Brueckner parameter rS
+
+θ = kBTEF
+
+, rS = aee 
+
+aB
+
+, (1) where aB is the Bohr radius and EF = ℏ2k2
+
+> F
+
+/(2 me) de-notes the Fermi energy with kF =  3π2ne
+
+1/3 being the Fermi wavevector. The Brueckner parameter rS quan-tifies the Coulomb coupling strength in degenerate elec-tron systems. Other dimensionless parameters can be ex-pressed in terms of these two parameters. For example, the classical coupling parameter is given by Γ = 2 γ20 rS/θ 
+
+with γ0 = (9 π/ 4) −1/3.The quantum coupling strength rS and the classical coupling parameter Γ can be unified within a single expression [52]. By definition, the Coulomb coupling strength is determined by the ratio of the average poten-tial energy Epot = e2 
+
+> 4πϵ 0aee
+
+and the mean thermodynamic kinetic energy Ekin = ⟨ mev2 
+
+> 2
+
+⟩
+
+Γeff = 32
+
+Epot 
+
+Ekin 
+
+= 2γ20 rS
+
+θ5/2 F3/2(η) =
+
+(
+
+5γ20 rS, θ ≪ 1Γ, θ ≫ 1 (2) where the factor 3 /2 is introduced to recover the classic coupling parameter in the high-temperature limit. The mean thermodynamic kinetic energy is given by Ekin = 
+
+> 32
+
+EFθ5/2 F3/2(η) with the Fermi–Dirac integral of order 
+
+ν [53, 54] 
+
+Fν (η) = 
+
+Z ∞
+
+> 0
+
+xν
+
+ex−η + 1 dx. (3) Here η represents the reduced chemical potential of the electrons, determined implicitly by the condition 
+
+F1/2(η) = 2 /(3 θ3/2). Throughout this work, we examine the SSF and the static density response function within the parameter range 1 ≤ rS ≤ 100 and θ ≥ 0.5.  
+
+> B. Dielectric formulation and density response
+
+To investigate interparticle correlations in the UEG, we adopt the dielectric formulation in this work. Within this framework, the dynamic structure factor of free electrons 
+
+S(k, w) can be expressed in terms of the inverse dielec-tric function Im ε−1(k, w) dependent on the wave vector 
+
+k and frequency w using the fluctuation-dissipation the-orem [28] 
+
+S(k, w) = − ℏ
+
+πn evC(k) Im 
+
+ 1 + nB(w) 
+
+ε(k, w) 
+
+
+
+, (4) where vC(k) = e2/(ϵ0k2) is the Coulomb potential in momentum space, and nB(ω) = [eβℏω − 1] −1 is the Bose distribution function with β = (kBT )−1. It is convenient to introduce the dimensionless wavenumber 
+
+q = k a ee and normalized frequency ω = w /ω pl , where 3
+
+ωpl = pe2ne/(ϵ0me) is the plasma frequency of elec-trons. The dynamic structure factor can then be written in normalized form as 
+
+S(q, ω ) = ωpl S(k, w) = q2
+
+3πΓ B (deω) L(q, ω ) (5) with de = βℏωpl = γ20
+
+√12 rS/θ and B(x) = x[1 − e−x]−1.Here, L(q, ω ) = −Im ε−1(q, ω )/ω is the loss function, which is a positively defined quantity that characterizes the excitation spectrum and the stopping power in plas-mas [54]. The SSF S(q) is obtained by integrating S(q, w )with respect to the frequency ωS(q) = 
+
+Z ∞−∞ 
+
+S(q, ω ) dω. (6) The central quantity characterizing the dynamical structure and response properties is the (inverse) dielec-tric function, which is highly non-trivial to be determined accurately. A well-known approximation is the RPA di-electric function [54], which describes the effective re-sponse in a non-interacting electron gas. Various exten-sions beyond RPA have been developed, such as those in-corporating a local field correction and the Born–Mermin ansatz [32]. In the present work, the inverse dielec-tric function is constructed within the framework of the canonical solution to the Hamburger truncated moment problem [55], modeled as 
+
+L(q, ω ) = π
+
+ 1
+
+ω21
+
+− 1
+
+ω22
+
+
+
+δ(ω)+ 1
+
+ω22
+
+δ  ω2 −ω22
+
+
+
+, (7) where the characteristic frequencies w1 and w2 are de-fined by 
+
+ω1 = ω1(q) = 
+
+s C2
+
+ω2pl C0(q) , ω2 = ω2(q) = 
+
+s
+
+C4(q)
+
+ω2pl C2
+
+. (8) Here, Cν denotes the frequency moment of the loss func-tion 
+
+Cν = ων
+
+> pl
+
+π
+
+Z ∞−∞ 
+
+ων L(q, ω )dω, (9) which is related to the sum rules (conservation laws) of the UEG. For instance, C2 = ω2pl corresponds to the 
+
+f -sum rule reflecting the conservation of the particle number. The quantity C0(q) is related to the static in-verse dielectric function ε−1(q) = ε−1(q, 0) through the Kramers–Kronig relation [55] 
+
+C0(q) = 1 − ε−1(q). (10) For the OCP system, the function C4(q) is determined by the following expression 
+
+C4(q) = ω4pl [1 + K(q) + U (q)] (11) with the function U (q) defined as 
+
+U (q) = 13π
+
+Z ∞
+
+> 0
+
+dp p 2f (p, q ) [ S(p) − 1] , (12) in which f (p, q ) is a monotonically decreasing function that depends only on the ratio p/q f (p, q ) = 56 − p2
+
+2q2 + q
+
+4p
+
+ p2
+
+q2 − 1
+
+2
+
+ln q + pq − p . (13) The function K(q) is expressed as 
+
+K(q) = A(q) q2
+
+Γ θ3/2F3/2(η) + q4
+
+12 rS
+
+, (14) Although A(q) = 1 was used in Ref. [55], it is known that the q2-term represents the exact kinetic energy per electron in the interacting UEG [9, 56]. Therefore, A(q)should correspond to the ratio of the kinetic energy per electron in the interacting UEG to that in the non-interacting system, and generally differs from unity. In the current work, A(q) is treated as a parameterization function chosen to ensure the correct asymptotic behav-ior of the static density response function in both the short- and long-wavelength limits. Within the framework of the canonical solution to the Hamburger truncated moment problem (Eq. (7)), the static inverse dielectric function ε−1(q)) can be directly obtained using the SSF as follows [55] 
+
+ε−1(q) = 1 − 3Γ 
+
+q2 S(q) − 1
+
+w22
+
++ de
+
+2w2
+
+coth 
+
+ dew2
+
+2
+
+
+
+. (15) The static density response function χ(q) is connected to the static inverse DF ε−1(q) through the relation 
+
+χ(q) = 1
+
+vC(q)
+
+ε−1(q) − 1 (16) The availability of χ(q) further enables the determination of the static local field correction 
+
+G(q) = 1 − 1
+
+vC(q)
+
+ 1
+
+χ0(q) − 1
+
+χ(q)
+
+
+
+(17) in which χ0(q) denotes the static density response func-tion of the ideal UEG and is given by [54] 
+
+vC(q)χ0(q) = − γ0rS
+
+2πz 3 g(z) (18) with z = k/ (2 kF) = γ0q/ 2, and g(z) given by 
+
+g(z) = 
+
+Z ∞
+
+> 0
+
+yey2/θ −η + 1 ln z + yz − y dy. (19) The electronic cusp condition [57] predicts that the static local field correction approaches a constant in the large q limit as G(q → ∞ ) = 1 − g(0), where g(0) is the on-top value of the radial distribution function. Us-ing the short-wavelength asymptotic form of χ0(q) from Eq. (19), namely g(z ≫ 1) ≈ 2/(3 x) + θ5/2F3/2(η)/(3 x3), the asymptotic behavior of both χ(q) and ω2(q) in the large-q regime can be derived. A detailed analysis in-dicates that the function A(q) in Eq. (14), which con-tributes to K(q), must vanish in this limit. Accordingly, we propose the following form for A(q)
+
+A(q) = 12 − 12 tanh[0 .1325 ( q − 10 .3725)] . (20) 4 
+
+> C. Static structure factor
+
+In principle, the SSF of UEG S(q) must be derived from its dynamic counterpart S(q, w ), since the quantum nature and the degeneracy effects of electrons complicate the development of statistical theories analogous to the classical Ornstein–Zernike equation. For classical OCP systems, Bretonnet and Derouiche proposed a simple an-alytic representation for the SSF [58]. Inspired by its success and simplicity [58, 59], we adopt a similar ana-lytical form for the SSF of UEG 1
+
+S(q) = 1 − 3α0
+
+q4α22
+
+
+
+cos ( qα 1)+2 cos ( qα 2)−3 sin ( qα 1)
+
+qα 1
+
+
+
+(21) In the small-wavenumber limit ( q → 0), this form of SSF satisfies the exact relation S(q → 0) = q2/α 0. In classical OCP systems, this corresponds to the perfect screening condition, implying α0 = Γ. For the UEG, however, the exact long-wavelength limit of the SSF that is valid at any temperature and degeneracy is given by the following exact relation [56] 
+
+S(q → 0) = q2
+
+√12 rS
+
+coth 
+
+ √3rS γ20
+
+θ
+
+
+
+. (22) This relation leads to α0 = p4 rS/3 tanh( √3rS γ20 /θ ). To fully determine the SSF, the parameters α1 and α2 must be specified for given temperature and density condi-tions. These can be obtained, for instance, by fitting to structure factors computed from alternative methods such as PIMC simulations. In the current work, the pa-rameters α1 and α2 are determined by imposing physical constraints based on the excess internal energy and the on-top value of the radial distribution function. The on-top value of the radial distribution function is given by 
+
+g(0) = 1 + 23π
+
+Z ∞
+
+> 0
+
+dq q 2 [S(q) − 1] (23) We require that g(0) ≡ gPIMC (0), where gPIMC (0) rep-resents the value obtained from the PIMC-based fitting model [43]. The excess internal energy per electron is evaluated by 
+
+uex = EH
+
+π r S
+
+Z ∞
+
+> 0
+
+dq [S(q) − 1] , (24) where EH is the Hartree energy. The second constraint is to minimize the absolute relative difference between the calculated uex and the PIMC result [9, 25], i.e., min[ |uex /u PIMC  
+
+> ex
+
+− 1|]. In the present approach, the pa-rameters α1 and α2, and hence the resulting SSF, de-pend critically on the precision and validity of g(0) and 
+
+uex obtained from PIMC simulations. Under certain pa-rameter conditions, exact agreement between the values computed from Eqs. (23) and (24) and the PIMC bench-marks cannot be achieved. Therefore, the values of α1
+
+and α2 are determined self-consistently through a numer-ical minimization procedure.  
+
+> D. Low-velocity stopping power and electron-ion friction coefficient
+
+In the study of charged particle interactions with the UEG and plasmas, the stopping power S(v) = −dE/dx 
+
+plays a undamental role in characterizing energy deposi-tion processes. Within the framework of linear response theory, the stopping power of a test ion with charge Ze 
+
+and velocity v in the UEG system is given by [28, 53] 
+
+S(v) = 2Z2e2
+
+4π2ϵ0v2
+
+Z ∞
+
+> 0
+
+dk k
+
+Z kv 
+
+> 0
+
+dw w Im 
+
+ −1
+
+ε(k, w) 
+
+
+
+, (25) where the recoil of the heavy ion due to collisions with electrons is neglected, corresponding to the assumption of an infinite test ion mass. In the low-velocity limit 
+
+v ≪ vth , where vth = pkBT /m e is the electron thermal velocity, the stopping power exhibits a linear dependence on the projectile velocity [28, 53, 60]. This behavior mo-tivates the introduction of the electron-ion friction coef-ficient ξ = S(v) 
+
+> v
+
+|v=0 [28, 44]. The accurate determination of the electron–ion fric-tion coefficient ξ depends critically on a precise descrip-tion of the dynamic density response, particularly the behavior of the local field correction in the static and long-wavelength limits. In principle, the dielectric (loss) function (7) could be used to calculate the low-velocity stopping power. It is believed that the dominant con-tribution to the stopping power arise from single-particle excitations [61, 62]. However, the loss function defined in Eq. (7) fails to capture this essential physics and yields unphysical results. To overcome this limitation, non-canonical solutions to the Hamburger moment problem may be applied [63]. In this work, we instead calculate the inverse dielectric function using the static local field correction provided in Eq. (17) 1
+
+ε(k, w) = 1 + vC(k)χ0(k, w) 1 − vC(k)[1 − G(k)] χ0(k, w) . (26) Substituting this expression into the stopping power for-mula (25) and taking the low-velocity limit yields the following expression for the friction coefficient ξξ = ξ0
+
+4γ0Z2r2
+
+> S
+
+3π
+
+r 2
+
+θ
+
+Z ∞
+
+> 0
+
+dz z3 F (z)(1 + ez2/θ −η ) , (27) with ξ0 = mevth /a ee and the function F (z) defined as 
+
+F (z) = 
+
+n
+
+z2 + γ0rS
+
+2πz g(z)[1 − G(z)] 
+
+o−2
+
+. (28) Setting G(z) = 0 recovers the well-known RPA result for the low-velocity stopping power and the corresponding friction coefficient. The friction coefficient ξ is directly related to the quantity γ = ξ/m i that appears in the Langevin equation of motion [47–49], governing the dy-namics of ion with mass mi in an electron fluid. 50.0 0.5 1.0 1.5 0.0 0.5 1.0 1.5 0.0 0.5 1.0 1.5 024680.0 0.5 1.0 1.5 024680.0 0.5 1.0 1.5 024680.0 0.5 1.0 1.5  θ = 1
+
+# θ = 2
+
+# θ = 4
+
+> S(q)
+
+# θ = 1
+
+# θ = 2
+
+# θ = 4
+
+# (a)r
+
+> S
+
+# =1
+
+# (c)r
+
+> S
+
+# =6
+
+# (b)r
+
+> S
+
+# =2
+
+# (d)r
+
+> S
+
+# =10
+
+# (e)r
+
+> S
+
+# =50
+
+# (f)r
+
+> S
+
+# =100
+
+> S(q)
+
+# q=k
+
+# a
+
+> ee
+
+# q=k
+
+# a
+
+> ee
+
+# q=k
+
+# a             
+
+> ee
+> FIG. 1. Comparison of the SSF for UEG under different plasma conditions. The square, diamond, and circular symbols represent the PIMC results [37, 42] for three degeneracy parameters θ= 1 , θ = 2 ,and θ= 4 at different densities, respectively. The corresponding predictions calculated from the model proposed in this work is depicted by the red ( θ= 1), brown ( θ= 2) and blue ( θ= 4) lines.
+> III. RESULTS AND DISCUSSION A. Parametrization of the static structure factor
+
+In this section, we compare the SSF of UEG under var-ious plasma conditions with the corresponding PIMC re-sults [37, 42]. The comparisons are summarized in Fig. 1. As shown in the figure, the SSF model developed in this work performs exceptionally well in the parameter re-gion of 1 ≤ rS ≤ 10 and θ ≥ 1, where it reproduces the PIMC data with high precision. At rS = 10 and θ = 1 (Γ = 5 .43), the PIMC results exhibit a pronounced corre-lation peak, signaling the emergence of strong interpar-ticle correlations. At an even higher coupling strength at rS = 50 and θ = 4 (Γ = 6 .79), the electron correla-tions are further enhanced, resulting in a more distinct correlation peak. Remarkably, under these conditions, our model still shows overall agreement with the PIMC benchmarks, particularly in matching the position and height of the correlation peak. As θ decreases at a cer-tain fixed density (such as at rS = 50), the coupling strength increases significantly, and noticeable discrep-ancies emerge between the SSF predicted by our model and the PIMC reference data. Moreover, under low-temperature and low-density con-ditions (panel (f) in Fig. 1), the proposed SSF model yields a single-peak structure, in contrast to the oscilla-tory behavior observed in PIMC simulations. It should be noted that in classical OCP systems, the model in-troduced by Bretonnet and Derouiche [58] successfully reproduces oscillatory features consistent with those ob-served in metallic systems. These observations empha-size the need for further investigation into the combined effects of Coulomb coupling and electron degeneracy to achieve a more accurate description of the UEG SSF. Furthermore, there is currently no consensus on the SSF of electron fluids in the low-temperature and low-density region, where the results of different theoretical mod-els exhibit substantial discrepancies [64]. These limita-tions highlight the demand for more advanced theoretical frameworks capable of simultaneously capturing strong correlations and quantum effects in the UEG. In studies of the SSF for classic OCP systems, the mean spherical approximation yields results that are in excellent agreement with Monte Carlo simulations [65] and the experimental data for liquid alkali metals [66]. Within this theoretical framework, the only undeter-mined parameter is the packing fraction η, which deter-mines the effective diameter of the charged particles [66]. It can be computed using the following fitting formula 
+
+ηfit (t) = t2 + c1t3 + c2t4 + c3t5
+
+8 + 8 b1t + b2t2 + b3t3 + b4t4 + c3t5 (29) 60246810 0.0 0.5 1.0 0246810 0.0 0.5 1.0 0246810 12 0.0 0.5 1.0 PIMC α2 - n u m e r i c
+
+## α2 - f i t t i n g
+
+> S(q)
+
+## q=ka
+
+> ee
+
+## (a)r
+
+> S
+
+## =10&
+
+## θ = 4 ( b ) r S = 5 0 & θ = 4 ( c ) r S = 1 0 0 & θ = 4
+
+## q=ka
+
+> ee
+
+## q=ka
+
+> ee
+
+FIG. 2. Comparison of the SSF for UEG under different plasma conditions. The square symbols represent the PIMC results [37, 42] for three densities rS = 10 (panel (a)), rS = 50 (panel (b)), and rS = 100 (panel (c)) at the fixed degeneracy θ = 4. The red lines mark the prediction obtained with the numeric strategy described in Sec. II C. The blue curves represent the results using the fitting formula (29). 
+
+with b1 = c1 +3 3/2, b 3 = c1 +108 1/6c2 +32 1/3c3, b 4 = c2 +108 1/6c3. The fitting parameters are c1 = 9962 .883 , c 2 =
+
+−14619 .16 , c 3 = 11211 .48 , b 2 = 6344 .277. Here t =
+
+t(g) = g3/2/(1 + g4/3). For classical OCP systems, g = Γ is adopted. A comparative analysis of the UEG SSF re-veals that, over a broad range of temperatures and den-sities, the value of α2 can be derived from the expres-sion (29) using α2 = 2 .5 η1/3fit with g = α0, while the value of α1 is still determined by solving Eq. (23). Fig. 2 presents a comparison among the results com-puted using the numeric strategy described in Sec. II C, those obtained from Eq. (29), and the reference PIMC data. For plasma conditions corresponding to rS = 10 and θ = 4, both methods produce results for the SSF that agree excellently with the PIMC benchmarks. As the coupling strength increases, discrepancies between the two approaches become apparent, particularly in the peak region of the SSF. Under strong coupling condi-tions ( rS = 100), although the model proposed in this work does not fully reproduce the peak compared to the PIMC results, the method based on Eq. (29) shows bet-ter agreement with PIMC data within the range q ≤ 4. Moreover, it more accurately captures the peak position and begins to exhibit oscillatory features. These findings suggest that refining the constraints used to determine 
+
+α1 and α2 may further enhance the performance of the current SSF model. 
+
+B. Static dielectric function 
+
+In this section, we discuss the static response prop-erties of UEG. Fig. 3 compares the static density re-sponse functions obtained from the present model under different choice of parameter function A(q), with several commonly used theoretical approximations and reference 0510 15 20 25 30     
+
+    
+
+    
+
+0.0
+
+> 10
+> 3
+> χ( q )
+
+q=ka
+
+> ee
+
+P I M C
+
+χ0 ( q )
+
+χR P A ( q )
+
+χ( q ) w i t h A ( q ) = 1
+
+χ( q ) w i t h A ( q ) = 0
+
+χ( q ) w i t h f u l l A ( q )
+
+FIG. 3. The static response function χ(q) for rS = 20 and 
+
+θ = 4 predicted by different approaches. The square symbols represent the PIMC data reported in Ref. [37]. The magenta, blue and red curves represent the predictions calculated using 
+
+A(q) = 1 (magenta), A(q) = 0 (blue) and A(q) (20) (red), re-spectively. For comparison, the results for Lindhard response function χ0(q) (black) and the RPA response function χRPA (q)(brown) are also displayed. 
+
+PIMC results. As illustrated, the RPA static density re-sponse function χRPA (q) fails to accurately capture the response within the range 2 < q < 10, primarily due to its neglect of Coulomb coupling effects. On the other hand, the Lindhard response function χ0(q) of the ideal electron gas does not account for the collective response behav-ior, rendering it inaccurate in the long-wavelength limit. Unlike other models, χ0(q) approaches a finite value in 70246810     
+
+#     
+
+# 0.0
+
+# 0
+
+# 2
+
+# 4
+
+# 6
+
+# 8
+
+# 10
+
+# 12
+
+# 14
+
+# 16
+
+#     
+
+#     
+
+# 0.0
+
+# lines:
+
+# χ( q ) w i t h f u l l A ( q )
+
+# symbols:PIMC
+
+> 10
+> 2
+> χ( q )
+
+# (a)r
+
+S
+
+# =2
+
+# (b)
+
+# θ = 4
+
+# θ = 3 2
+
+# θ = 1 6
+
+# θ = 8
+
+# r
+
+S
+
+# =100
+
+# r
+
+S
+
+# =100
+
+# r
+
+S
+
+# =50
+
+# r
+
+S
+
+# =20
+
+> 10
+> 3
+> χ( q )
+
+# q=ka
+
+ee        
+
+> FIG. 4. The static response function χ(q) for a fixed density
+> rS= 2 at three degeneracy parameters (upper panel (a)) and for a fixed degeneracy θ= 4 at three electron densities (lower panel (b)). The PIMC data are taken from Ref. [67] for rS= 2 in the panel (a) and from Ref. [37] for θ= 4 in the panel (b). The lines represent the results calculated using the model proposed in this work.
+
+the long-wavelength limit as q → 0
+
+χ0(q = 0) = θ1/2
+
+2π2γ0 rS
+
+F−1/2(η). (30) In Sec. II B, various models for the parameter function 
+
+A(q) were discussed. The corresponding results with dif-ferent choices of A(q) for rS = 20 and θ = 4 are also presented in Fig. 3. It can be seen that the model with 
+
+A(q) = 1 accurately describes the static response be-havior within the range 0 < q < 6. However, as q in-creases beyond this range, deviations from PIMC results become increasingly noticeable. In contrast, the model with A(q) = 0 begins to deviate from the PIMC data near the minimum of the response function (around q ≈ 4). However, compared to the case of A(q) = 1, the model with A(q) = 0 exhibits better overall agreement with the PIMC trends and converges more rapidly toward RPA behavior as q increases. These results suggest that A(q)decays from a finite value to zero as q increases. Since the long-wavelength response is insensitive to the finite value of A(q) at small q, and since the model with A(q) = 1 performs well for q < 6, we propose the expression given in Eq. (20) to represent the q-dependence of A(q). To further validate the effectiveness of Eq. (20), we cal-culate the static density response function χ(q) of UEG under various temperature and density conditions, and compare the results with corresponding PIMC simula-tions [37, 67], as shown in Fig. 4. The results obtained from Eq. (20) show excellent agreement with the PIMC data in all conditions considered. Even in extremely low-density regimes (e.g., rS = 50 and 100), the predictions based on Eq. (20) remain consistent with the overall trends observed in the simulations. The discrepancies near the minimum are primarily due to an inadequate description of the coupling peak in the SSF as shown in Fig. 1, and may also be affected by inaccuracies in the parameter function A(q) within this region. Address-ing these issues will require further refinement of both the SSF model and a more precise representation of the parameter function A(q). Furthermore, due to the ab-sence of PIMC data at higher q values, it is not yet clear whether the form of A(q) should be adjusted to account for the effects of temperature and density.  
+
+> C. Low-velocity stopping power and friction coefficient
+
+Finally, in this subsection, we turn to the electron–ion friction coefficient. In Langevin dynamics simulations, the friction coefficient based on the Rayleigh model is widely adopted, which takes the following form [47–49] 
+
+ξR = miγR = 2 πZ 2/3ξ0. (31) Furthermore, Zwicknagel [44] investigated the energy loss of charged particles in an electron gas across various cou-pling regimes and provided a fitted expression for the friction coefficient based on low-velocity stopping power. Adapted to the notation used in this work, their expres-sion takes the form 
+
+ξZ = ξ0
+
+3Z2Γ2
+
+8
+
+
+
+ln 
+
+
+
+1 + 0.14 
+
+x2
+
+
+
++ 1.81 + 0 .4 x1.3
+
+
+
+(32) with x = Z Γ3/2.In Fig. 5, we present a comparison of the reduced electron-ion friction coefficient ξ/ξ 0 predicted by different models at rS = 4, examining its behavior as a function of the electron degeneracy parameter θ. The Rayleigh model (31) yields a reduced friction coefficient that re-mains constant with varying degeneracy, while all other models show an increase as θ decreases (i.e., as degen-eracy effects strengthen). Although the absolute values 810   1 0 0 1 0 1
+
+10
+
+>  
+
+10
+
+>  
+
+10
+
+> 0
+
+10
+
+> 1
+> ξ / ξ 0
+
+# θ
+
+PIMC
+
+Rayleighmodel
+
+Zwicknagel
+
+RPA(thiswork)
+
+LFC(thiswork)  
+
+> FIG. 5. The reduced friction coefficient at the electron density
+> rS= 4 with varying degeneracy θ. The PIMC data are taken from Ref. [46]. The gray and magenta lines present the results from the Rayleigh model (31) and the results based on the fit of Zwicknagel (32). The predictions denoted by RPA (blue) and LFC (red) are calculated without and with the static local field correction from Eq. (28), respectively.
+
+differ, both the RPA model (Eq. (28) with the local field correction G(q) = 0, see also Ref. [68]) and Zwicknagel’s fit (Eq. (32)) exhibit a rising trend with decreasing θ.In contrast, the LFC-based model agrees more closely with PIMC results at θ = 2 and θ = 1. However, at 
+
+θ = 0 .5 (Γ = 4 .3), it predicts a value of 0 .206, exceeding the PIMC benchmark of 0 .154. As θ decreases further, the LFC model shows a faster increase in the friction co-efficient, which may stem from inaccuracies in the SSF under strong coupling conditions. In Langevin molecular dynamics, the friction coeffi-cient γ = ξ/m i quantifies the influence of the damping of medium on particle motion. It underscores the role of fluctuation–dissipation mechanisms in shaping plasma transport properties, such as ion diffusion, viscosity, and thermal conductivity. By governing the temporal and spatial scales of energy dissipation, the friction coefficient critically influences the dynamical structure factor, sound waves of the nonideal ions, and the non-equilibrium be-havior of the system [46, 49, 69, 70]. The comparison presented in Fig. 5 indicates the need for further investi-gation into the friction coefficient.  
+
+> IV. CONCLUSIONS
+
+Based on the comprehensive analysis presented in this work, we have developed and systematically validated a robust analytical model for the SSF and static den-sity response function of the UEG, applicable across a broad range of temperatures and densities. By com-bining physically motivated analytical form with con-straints from highly accurate PIMC simulations, the pro-posed model accurately reproduces key characteristics of the SSF within the parameter region 1 ≤ rS ≤ 10 and 
+
+θ ≥ 1, including the position and height of the correla-tion peak. The model also demonstrates good agreement with PIMC benchmarks under stronger coupling condi-tions, although discrepancies emerge at very low temper-atures and high rS values, particularly in the oscillatory behavior of the SSF. The parameter function A(q), introduced to ensure correct asymptotic behavior of the static density response function, plays a critical role in bridging the gap between the random phase approximation and strongly correlated regimes. Our findings demonstrate that a q-dependent form of A(q), as specified in Eq. (20), significantly en-hances agreement with PIMC data across varying cou-pling strengths and degeneracy conditions. Additionally, the electron–ion friction coefficient ξ, derived from the low-velocity limit of the stopping power, exhibits reason-able consistency with PIMC results at moderate degener-acy. Some overestimation occurs under strong coupling, indicating a need for further refinement of the SSF model in these regimes. Despite these advances, several challenges remain. The current SSF model does not fully capture the oscillatory behavior observed in PIMC simulations at low temper-atures and densities, highlighting the necessity of more accurate treatments of the interplay between Coulomb coupling and quantum degeneracy. The analytical frame-work presented here offers a foundation for future im-provements. Subsequent work will focus on developing more advanced theoretical approaches that adhere to ad-ditional sum rules and asymptotic constraints. Such en-hancements will improve the description of both static and dynamic response properties, enabling more reli-able simulations of energy deposition, stopping power, and non-equilibrium dynamics in warm dense matter and other strongly correlated systems. 
+
+> ACKNOWLEDGMENTS
+
+This work was supported by the Science Challenge Project under Grants No. TZ2025013 and the National Natural Science Foundation of China under Grants Nos. 12474277, U2430208, 12274384, and 11974424. 
+
+> DATA AVAILABILITY
+
+The data that supports the findings of this study are available from the corresponding author upon reasonable request. 9
+
+[1] P. Nozi` eres and D. Pines, Theory of Quantum Liquids 
+
+(Avalon Publishing, 1999). [2] G. Giuliani and G. Vignale, Quantum Theory of the Elec-tron Liquid (Cambridge University Press, 2008). [3] A. Isihara, Electron Liquids (Springer-Verlag Berlin Hei-delberg, 1998). [4] M. Zaghoo, T. R. Boehly, J. R. Rygg, P. M. Celliers, S. X. Hu, and G. W. Collins, Breakdown of fermi degeneracy in the simplest liquid metal, Phys. Rev. Lett. 122 , 085001 (2019). [5] S. Kim, J. Bang, C. Y. Lim, S. Y. Lee, J. Hyun, G. Lee, Y. Lee, J. D. Denlinger, S. Huh, C. Kim, S. Y. Song, J. Seo, D. Thapa, S.-G. Kim, Y. H. Lee, Y. Kim, and S. W. Kim, Quantum electron liquid and its possible phase transition, Nat. Mater. 21 , 1269–1274 (2022). [6] T. Dornheim, T. D¨ oppner, P. Tolias, M. P. B¨ ohme, L. B. Fletcher, T. Gawne, F. R. Graziani, D. Kraus, M. J. Mac-Donald, Z. A. Moldabekov, S. Schwalbe, D. O. Gericke, and J. Vorberger, Unraveling electronic correlations in warm dense quantum plasmas, Nat. Commun. 16 , 5103 (2025). [7] S. H. Glenzer and R. Redmer, X-ray thomson scattering in high energy density plasmas, Rev. Mod. Phys. 81 , 1625 (2009). [8] E. W. Brown, B. K. Clark, J. L. DuBois, and D. M. Ceperley, Path-integral monte carlo simulation of the warm dense homogeneous electron gas, Phys. Rev. Lett. 
+
+110 , 146405 (2013). [9] T. Dornheim, S. Groth, and M. Bonitz, The uniform elec-tron gas at warm dense matter conditions, Phys. Rep. 
+
+744 , 1 (2018). [10] S. K. Kodanova, T. S. Ramazanov, and M. K. Issanova, Impact of local field correction on transport and dynamic properties of warm dense matter, Matter Radiat. Extrem. 
+
+10 , 037601 (2025). [11] B. He, Z.-G. Wang, and J.-G. Wang, Slowing down of al-pha particles in icf dt plasmas, Phys. Plasmas 25 , 012704 (2018). [12] Y. H. Ding, A. J. White, S. X. Hu, O. Certik, and L. A. Collins, Ab initio studies on the stopping power of warm dense matter with time-dependent orbital-free density functional theory, Phys. Rev. Lett. 121 , 145001 (2018). [13] A. C. Hayes, M. E. Gooden, E. Henry, G. Jungman, J. B. Wilhelmy, R. S. Rundberg, C. Yeamans, G. Kyrala, C. Cerjan, D. L. Danielson, J. Daligault, C. Wilburn, P. Volegov, C. Wilde, S. Batha, T. Bredeweg, J. L. Kline, G. P. Grim, E. P. Hartouni, D. Shaughnessy, C. Velsko, W. S. Cassata, K. Moody, L. F. B. Hop-kins, D. Hinkel, T. D¨ oppner, S. L. Pape, F. Graziani, D. A. Callahan, O. A. Hurricane, and D. Schneider, Plasma stopping-power measurements reveal transition from non-degenerate to degenerate plasmas, Nat. Phys. 
+
+16 , 432–437 (2020). [14] T. W. Hentschel, A. Kononov, A. Olmstead, A. Cangi, A. D. Baczewski, and S. B. Hansen, Improving dynamic collision frequencies: Impacts on dynamic structure fac-tors and stopping powers in warm dense matter, Phys. Plasmas 30 , 062703 (2023). [15] S. X. Hu, K. A. Nichols, N. R. Shaffer, B. Arnold, A. J. White, L. A. Collins, V. V. Karasiev, S. Zhang, V. N. Goncharov, R. C. Shah, D. I. Mihaylov, S. Jiang, and Y. Ping, A review on charged-particle transport modeling for laser direct-drive fusion, Phys. Plasmas 31 , 040501 (2024). [16] G. Chabrier, Quantum effects in dense coulombic matter: Application to the cooling of white dwarfs, Astrophys. J. 
+
+414 , 695 (1993). [17] J. Vorberger, I. Tamblyn, B. Militzer, and S. A. Bonev, Hydrogen-helium mixtures in the interiors of giant plan-ets, Phys. Rev. B 75 , 024206 (2007). [18] D. Kraus, J. Vorberger, A. Pak, N. J. Hartley, L. B. Fletcher, S. Frydrych, E. Galtier, E. J. Gamboa, D. O. Gericke, S. H. Glenzer, E. Granados, M. J. MacDonald, A. J. MacKinnon, E. E. McBride, I. Nam, P. Neumayer, M. Roth, A. M. Saunders, A. K. Schuster, P. Sun, T. van Driel, T. D¨ oppner, and R. W. Falcone, Formation of di-amonds in laser-compressed hydrocarbons at planetary interior conditions, Nat. Astron. 1, 606–611 (2017). [19] S. Ichimaru, H. Iyetomi, and S. Tanaka, Statistical physics of dense plasmas: Thermodynamics, transport coefficients and dynamic correlations, Phys. Rep. 149 ,91 (1987). [20] C. Lin, G. R¨ opke, W.-D. Kraeft, and H. Reinholz, Ionization-potential depression and dynamical structure factor in dense plasmas, Phys. Rev. E 96 , 013202 (2017). [21] C. Lin, Quantum statistical approach for ionization po-tential depression in multi-component dense plasmas, Phys. Plasmas 26 , 122707 (2019). [22] X. Zan, C. Lin, Y. Hou, and J. Yuan, Local field correc-tion to ionization potential depression of ions in warm or hot dense matter, Phys. Rev. E 104 , 025203 (2021). [23] K. Utsumi and S. Ichimaru, Dielectric formulation of strongly coupled electron liquids at metallic densities. ii. exchange effects and static properties, Phys. Rev. B 22 ,5203 (1980). [24] V. V. Karasiev, L. Calder´ ın, and S. B. Trickey, Im-portance of finite-temperature exchange correlation for warm dense matter calculations, Phys. Rev. E 93 , 063207 (2016). [25] S. Groth, T. Dornheim, T. Sjostrom, F. D. Malone, W. M. C. Foulkes, and M. Bonitz, Ab initio exchange-correlation free energy of the uniform electron gas at warm dense matter conditions, Phys. Rev. Lett. 119 ,135001 (2017). [26] K. P. Hilleke, V. V. Karasiev, S. B. Trickey, R. M. N. Goshadze, and S. X. Hu, Fully thermal meta-gga ex-change correlation free-energy density functional, Phys. Rev. Mater. 9, L050801 (2025). [27] M. W. C. Dharma-wardana and F. Perrot, Simple classi-cal mapping of the spin-polarized quantum electron gas: Distribution functions and local-field corrections, Phys. Rev. Lett. 84 , 959 (2000). [28] D. Kremp, M. Schlanges, and W.-D. Kraeft, Quantum Statistics of Nonideal Plasmas (Springer-Verlag Berlin Heidelberg, 2005). [29] L. S. Ornstein and F. Zernike, Accidental deviations of density and opalescence at the critical point of a single substance, Proc. Acad. Sci. Amsterdam 17 , 793 (1914). [30] M. Baus and J.-P. Hansen, Statistical mechanics of sim-ple coulomb systems, Phys. Rep. 59 , 1 (1980). [31] J.-P. Hansen and I. McDonald, Theory of Simple Liquids 
+
+(Academic Press, 2006). 10 
+
+[32] C. Fortmann, A. Wierling, and G. R¨ opke, Influence of local-field corrections on thomson scattering in collision-dominated two-component plasmas, Phys. Rev. E 81 ,026405 (2010), and references thererin. [33] T. Dornheim, M. B¨ ohme, Z. A. Moldabekov, J. Vor-berger, and M. Bonitz, Density response of the warm dense electron gas beyond linear response theory: Exci-tation of harmonics, Phys. Rev. Res. 3, 033231 (2021). [34] H. K¨ ahlert, Dynamic local field correction of the one-component plasma, Phy. Plasmas 31 , 092109 (2024). [35] G. S. Atwal and N. W. Ashcroft, Relaxation of an elec-tron system: Conserving approximation, Phys. Rev. B 
+
+65 , 115109 (2002). [36] T. Chuna and M. S. Murillo, Conservative dielectric func-tions and electrical conductivities from the multicompo-nent bhatnagar-gross-krook equation, Phys. Rev. E 111 ,035206 (2025). [37] T. Dornheim, T. Sjostrom, S. Tanaka, and J. Vorberger, Strongly coupled electron liquid: Ab initio path inte-gral monte carlo simulations and dielectric theories, Phys. Rev. B 101 , 045129 (2020). [38] S. Tanaka, Correlational and thermodynamic properties of finite-temperature electron liquids in the hypernetted-chain approximation, J. Chem. Phys. 145 , 214104 (2016). [39] S. Groth, T. Dornheim, and J. Vorberger, Ab initio path integral monte carlo approach to the static and dynamic density response of the uniform electron gas, Phys. Rev. B 99 , 235122 (2019). [40] V. S. Filinov, A. S. Larkin, and P. R. Levashov, Uni-form electron gas at finite temperature by fermionic-path-integral monte carlo simulations, Phys. Rev. E 102 ,033203 (2020). [41] A. S. Larkin, V. S. Filinov, and P. R. Levashov, Single-momentum path integral monte carlo simulations of uni-form electron gas in warm dense matter regime, Phys. Plasmas 28 , 122712 (2021). [42] T. Dornheim, S. Groth, and M. Bonitz, Ab initio results for the static structure factor of the warm dense electron gas, Contrib. Plasma Phys. 57 , 468 (2017). [43] T. Dornheim, A. Cangi, K. Ramakrishna, M. B¨ ohme, S. Tanaka, and J. Vorberger, Effective static approxima-tion: A fast and reliable tool for warm-dense matter the-ory, Phys. Rev. Lett. 125 , 235001 (2020). [44] G. Zwicknagel, Nonlinear energy loss of heavy ions in plasma, Nucl. Instrum. Methods Phys. Res. B 197 , 22 (2002). [45] C. C. Montanari and J. E. Miraglia, Low- and intermediate-energy stopping power of protons and an-tiprotons in solid targets, Phys. Rev. A 96 , 012707 (2017). [46] Z. A. Moldabekov, T. Dornheim, M. Bonitz, and T. S. Ramazanov, Ion energy-loss characteristics and friction in a free-electron gas at warm dense matter and non-ideal dense plasma conditions, Phys. Rev. E 101 , 053203 (2020). [47] J. Dai, Y. Hou, and J. Yuan, Unified first principles de-scription from warm dense matter to ideal ionized gas plasma: Electron-ion collisions induced friction, Phys. Rev. Lett. 104 , 245001 (2010). [48] Y. Fu, Y. Hou, D. Kang, C. Gao, F. Jin, and J. Yuan, Multi-charge-state molecular dynamics and self-diffusion coefficient in the warm dense matter regime, Phys. Plas-mas 25 , 012701 (2018). [49] Y. Hou, Y. Jin, P. Zhang, D. Kang, C. Gao, R. Redmer, and J. Yuan, Ionic self-diffusion coefficient and shear vis-cosity of high-z materials in the hot dense regime, Matter Radiat. Extrem. 6, 026901 (2021). [50] J. P. Hansen, Statistical mechanics of dense ionized matter. i. equilibrium properties of the classical one-component plasma, Phys. Rev. A 8, 3096 (1973). [51] S. Tanaka, Improved equation of state for finite-temperature spin-polarized electron liquids on the ba-sis of singwi–tosi–land–sj¨ olander approximation, Con-trib. Plasma Phys. 57 , 126 (2017). [52] R. G. Dandrea, N. W. Ashcroft, and A. E. Carlsson, Elec-tron liquid at any degeneracy, Phys. Rev. B 34 , 2097 (1986). [53] N. R. Arista and W. Brandt, Energy loss and straggling of charged particles in plasmas of all degeneracies, Phys. Rev. A 23 , 1898 (1981). [54] N. R. Arista and W. Brandt, Dielectric response of quan-tum plasmas in thermal equilibrium, Phys. Rev. A 29 ,1471 (1984). [55] J. Ara, L. Coloma, and I. M. Tkachenko, Static properties of a warm dense uniform electron gas, Phys. Plasmas 28 ,112704 (2021). [56] A. A. Kugler, Bounds for some equilibrium properties of an electron gas, Phys. Rev. A 1, 1688 (1970). [57] J. C. Kimball, Short-range correlations and electron-gas response functions, Phys. Rev. A 7, 1648 (1973). [58] J.-L. Bretonnet and A. Derouiche, Analytic form for the one-component plasma structure factor, Phys. Rev. B 38 ,9255 (1988). [59] M. Veysman, G. R¨ opke, M. Winkel, and H. Reinholz, Optical conductivity of warm dense matter within a wide frequency range using quantum statistical and kinetic ap-proaches, Phys. Rev. E 94 , 013203 (2016). [60] S. Tanaka and S. Ichimaru, Stopping power of degenerate electron liquid at metallic densities, J. Phys. Soc. Jpn. 
+
+54 , 2537 (1985). [61] E. M. Bringa and N. R. Arista, Energy loss of correlated ions in plasmas: Collective and individual contributions, Phys. Rev. E 54 , 4101 (1996). [62] C. D. Archubi and N. R. Arista, General formulation of interactions and energy loss of particles in plasmas: Quantum-wave-packet model versus a semiclassical ap-proach, Phys. Rev. A 105 , 032806 (2022). [63] Y. Arkhipov, A. Ashikbayeva, A. Askaruly, D. Dubovt-sev, S. Syzganbayeva, and I. Tkachenko, Stopping power of an electron gas: The sum rule approach, Contrib. Plasma Phys. 59 , e201800171 (2019). [64] P. Tolias, F. Lucco Castello, and T. Dornheim, Quantum version of the integral equation theory-based dielectric scheme for strongly coupled electron liquids, J. Chem. Phys. 158 , 141102 (2023). [65] H. B. Singh, Structure and thermodynamics of the clas-sical one-component plasma, J. Stat. Phys. 33 , 371–383 (1983). [66] H. B. Singh and A. Holz, Structure factor of liquid alkali metals, Phys. Rev. A 28 , 1108 (1983). [67] T. Dornheim, J. Vorberger, Z. Moldabekov, G. R¨ opke, and W.-D. Kraeft, The uniform electron gas at high tem-peratures: ab initio path integral monte carlo simulations and analytical theory, High Energy Density Phys. 45 ,101015 (2022). [68] N. R. Arista, Low-velocity stopping power of semidegen-erate quantum plasmas, J. Phys. C: Solid State Phys. 18 ,11 
+
+5127 (1985). [69] P. Mabey, S. Richardson, T. White, L. B. Fletcher, S. H. Glenzer, N. J. Hartley, J. Vorberger, D. O. Gericke, and G. Gregori, A strong diffusive ion mode in dense ionized matter predicted by langevin dynamics, Nat. Commun. 
+
+8, 14125 (2017). [70] H. K¨ ahlert, Dynamic structure factor of strongly cou-pled yukawa plasmas with dissipation, Phys. Plasmas 26 ,063703 (2019). [71] L. G. Stanton and M. S. Murillo, Ionic transport in high-energy-density matter, Phys. Rev. E 93 , 043203 (2016).
