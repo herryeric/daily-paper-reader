@@ -1,0 +1,6756 @@
+Title: Unifying Variational and Dynamical Quantum Embedding: From Ghost Gutzwiller Approximation to Dynamical Mean-Field Theory
+
+URL Source: https://arxiv.org/pdf/2603.20559v1
+
+Published Time: Tue, 24 Mar 2026 00:22:58 GMT
+
+Number of Pages: 35
+
+Markdown Content:
+## Unifying Variational and Dynamical Quantum Embedding: From Ghost Gutzwiller Approximation to Dynamical Mean-Field Theory 
+
+Samuele Giuli, 1 Tsung-Han Lee, 2 Yong-Xin Yao, 3, 4 Gabriel Kotliar, 5, 6 
+
+Andrei E. Ruckenstein, 7 Olivier Gingras, 1, 8 and Nicola Lanat` a9, 1, ∗
+
+> 1
+
+Center for Computational Quantum Physics, Flatiron Institute, New York, New York 10010, USA 
+
+> 2
+
+Department of Physics, National Chung Cheng University, Chiayi 62102, Taiwan 
+
+> 3
+
+Ames National Laboratory, Ames, Iowa 50011, USA 
+
+> 4
+
+Department of Physics and Astronomy, Iowa State University, Ames, Iowa 50011, USA 
+
+> 5
+
+Physics and Astronomy Department, Rutgers University, Piscataway, New Jersey 08854, USA 
+
+> 6
+
+Condensed Matter Physics and Materials Science Department, Brookhaven National Laboratory, Upton, New York 11973, USA 
+
+> 7
+
+Physics Department, Boston University, Boston, Massachusetts 02215, USA 
+
+> 8
+
+Universit´ e Paris-Saclay, CNRS, CEA, Institut de physique th´ eorique, 91191, Gif-sur-Yvette, France 
+
+> 9
+
+School of Physics and Astronomy, Rochester Institute of Technology, Rochester, New York 14623, USA 
+
+(Dated: March 24, 2026) Dynamical and variational frameworks have long been viewed as distinct paradigms. In particular, in quantum embedding (QE) frameworks, dynamical mean-field theory (DMFT) captures nonper-turbative dynamical correlations through a frequency-dependent self-energy, while the Gutzwiller approximation (GA) is formulated in terms of a variationally optimized ground-state wavefunction. Here we bridge these perspectives, proving that the ghost-Gutzwiller approximation (ghost-GA), which also admits a density-matrix-matching QE formulation known as ghost density matrix em-bedding theory (ghost-DMET), becomes strictly equivalent to DMFT in the limit of infinitely many auxiliary bath modes. This formal unification has immediate consequences. In particular, it yields a rigorous finite-temperature extension of ghost-GA and shows that the physical Green’s function can be determined from static expectation values of the embedding Hamiltonians, providing a route to computational studies of competing phases in strongly correlated matter with DMFT-level accu-racy, while bypassing the need to calculate dynamical spectra with conventional impurity solvers. More broadly, it shows that the variational ghost-GA, the density-matrix-matching ghost-DMET formulation, and the dynamical DMFT description are not separate constructions, but complemen-tary formulations of the same QE structure, thereby providing a concrete formal basis for future controlled extensions beyond DMFT. 
+
+I. INTRODUCTION 
+
+Strongly correlated electrons [1] generate a wide range of collective phenomena, from metal-insulator transi-tions [2] to unconventional superconductivity and mag-netism [3–10], that remain difficult to predict from first principles [11, 12]. QE methods address this challenge by treating a selected set of local degrees of freedom with an interacting solver while describing the rest of the sys-tem through an effective environment determined self-consistently. Among them, dynamical mean-field theory (DMFT) [13–18] provides a nonperturbative description of local dynamical correlations and has become a stan-dard framework for correlated materials, especially when combined with density-functional theory (DFT) in the DFT+DMFT approach [13–19]. However, accounting for these dynamical effects entails a significant compu-tational cost, which often hinders the efficient simulation of complex materials. In contrast, static QE schemes formulate the prob-lem in terms of static expectation-value self-consistency conditions, offering higher computational efficiency at  
+
+> ∗Corresponding author: nxlsps@rit.edu
+
+the cost of sacrificing the resolution of frequency-dependent spectral features. Standard examples include the Gutzwiller approximation (GA) [20–29], the rota-tionally invariant slave-boson (RISB) theory [30–32], and density matrix embedding theory (DMET) [33–42]. Asystematic variational pathway to enhance the accuracy from a static QE perspective is the ghost-GA [43–47], which augments the GA variational space by incorporat-ing auxiliary “ghost” fermionic degrees of freedom—a re-current theme in many-body theory, including extensions to DMET [48, 49], matrix product states (MPS) [50– 55] and projected entangled pair states [56], the ancilla qubit technique [57], and recent extensions of neural net-work states [58]. Specifically, the ghost-GA ansatz is constructed by applying a variationally-optimized local non-perturbative map to a non-interacting Slater deter-minant living in the enlarged Hilbert space generated by auxiliary ghost fermionic modes. A remarkable property of the ghost-GA is that it de-scribes in this fashion not only the ground state, but also provides an explicit wavefunction representation for the excited states. Specifically, it portrays both the heavy quasiparticles and the Hubbard bands as the im-age of non-interacting fermionic excitations defined in the extended Hilbert space, which are connected to the physical system via the same non-perturbative map cal-
+
+> arXiv:2603.20559v1 [cond-mat.str-el] 20 Mar 2026
+
+2culated by optimizing the ground-state variational en-ergy [29, 43, 44]. This construction presents suggestive analogies with the concepts of hidden fermions [59] and hidden Fermi liquids [60]. Recently, this emergent quasi-particle picture has also enabled a rigorous wavefunc-tion perspective for correlated topological phases [61], showing that the ghost-GA can describe topologically nontrivial Hubbard bands hosting their own protected edge states. The same wavefunction perspective has also proved fruitful in other contexts, including the ex-citon Mott transition [62], neutral spinon excitations that re-emerge as heavy-fermion bands by proximity [63], interaction-driven altermagnetism and its tunable trans-port properties [64], and a rigorous bridge from fully in-teracting chemistry to an effective one-body quasiparti-cle language, including a reformulation of Woodward– Hoffmann rules [65]. Since both ghost-GA and DMFT are formulated by neglecting nonlocal correlation contributions that van-ish in the limit of infinite coordination number, a fun-damental link between these theories is expected. Nev-ertheless, dynamical and variational embeddings appear to be mutually exclusive: DMFT is intrinsically dynami-cal, encoding the physics of spectral weight transfer and quasiparticle lifetimes through a continuous frequency-dependent self-energy; whereas variational methods, by definition, do not explicitly contemplate these dynamical fluctuations within their formalism, optimizing instead a single variational ground state. This raises a funda-mental question: Is it possible for such a static wave-function to strictly encode the complete dynamical in-formation of the Green’s function, or is the frequency dependence irretrievably lost in the variational formal-ism? In this work, we resolve this apparent dichotomy by proving that ghost-GA becomes strictly equivalent to DMFT in the limit of infinitely many ghost modes. This equivalence implies that the same local variational map that defines the ghost-GA ground state also maps the el-ementary single-particle excitations of the auxiliary non-interacting reference system onto a complete representa-tion of the physical one-particle spectrum, so that the full frequency-dependent structure of the DMFT self-energy is encoded within static variational parameters. This correspondence has profound immediate conse-quences. In particular, it opens the possibility of using highly efficient ground-state impurity solvers for calcu-lating spectral properties. Besides MPS [50–55], this in-cludes neural quantum states (NQS) [58, 66–72], meth-ods based on coupled-cluster (CC) theory [73–79], varia-tional impurity solvers based on superpositions of Gaus-sian states [80], quantum-assisted methods [81–84], and machine learning frameworks [85, 86]. Furthermore, our formalism yields a principled finite-temperature exten-sion of ghost-GA that can be equivalently obtained from a functional reformulation of DMFT, whose stationarity conditions can be fully formulated in terms of static self-consistency conditions. This work opens a route to low-temperature studies of competing phases with DMFT-level accuracy, leveraging efficient ground-state embed-ding solvers, thereby bypassing major bottlenecks of con-ventional impurity methods. More broadly, it provides a concrete starting point for controlled extensions beyond DMFT within a variational quantum-embedding frame-work. The manuscript is organized as follows. In Sec. II we introduce the ghost-GA framework and set the notation. In Sec. III we present the central theoretical result of this work, namely the functional reformulation of ghost-GA that underpins the connection between the static QE per-spective of Ref. [46] and the dynamical one of DMFT [18]. In Sec. IV we show that this reformulation is equivalent to the conventional ghost-GA formulation of Refs. [43, 44]. In Sec. V we establish the connection between ghost-GA and DMFT by proving that, in the infinite-bath limit, the ghost-GA fixed point converges to the DMFT fixed point. In Sec. VI we develop the finite-temperature ex-tension of the formalism and connect it to the DMFT functional [18]. In Sec. VII we present numerical valida-tions and benchmarks. Finally, in Sec. VIII we summa-rize the main results and discuss their implications.  
+
+> II. THE GHOST-GA FORMALISM
+
+This section introduces the ghost-GA formalism and the notation employed in its formulation. In Sec. II A we define the multi-orbital Hubbard Hamiltonian and its block structure. In Sec. II B we outline the ghost-GA variational ansatz and formalism, as developed in Refs. [43, 44].  
+
+> A. Multi-orbital Hubbard Hamiltonian
+
+We consider a general multi-orbital Hubbard Hamilto-nian written as ˆH = ˆH0 + ˆHint , (1) where the interaction part is assumed local, ˆHint =
+
+> N
+
+X
+
+> i=1
+
+ˆHi 
+
+> int
+
+, (2) and the one-body part is ˆH0 =
+
+> N
+
+X
+
+> i,j =1
+> νi
+
+X
+
+> α=1
+> νj
+
+X
+
+> β=1
+
+[h0]iα,jβ c†
+
+> iα
+
+cjβ . (3) Here i = 1 , . . . , N labels system fragments, each hosting 
+
+νi physical fermionic modes with annihilation operators 
+
+ciα (α = 1 , . . . , ν i), including both spin and orbital de-grees of freedom. 3tij
+
+(α = 1,.., νi)
+
+c†
+
+> iα
+
+Figure 1. Schematic representation of the multi-orbital Hub-bard lattice Hamiltonian. 
+
+We represent the one-body matrix h0 in block form as 
+
+h0 =
+
+
+
+ε1 t12 . . . t1N
+
+t21 ε2 . . . ...... ... . . . ...
+
+tN 1 . . . . . . εN
+
+ , (4) where εi ∈ Cνi×νi are Hermitian local one-body blocks and tij ∈ Cνi×νj (i̸ = j) are the hopping blocks satisfying 
+
+tji = t† 
+
+> ij
+
+(equivalently, h0 = h†
+
+> 0
+
+). We also define the hopping matrix t as the block matrix collecting the off-diagonal blocks of h0:
+
+t =
+
+
+
+0 t12 . . . t1N
+
+t21 0 . . . ...... ... . . . ...
+
+tN 1 . . . . . . 0
+
+ , (5) and the corresponding block-diagonal local one-body ma-trix 
+
+ε =
+
+
+
+ε1 0 . . . 00 ε2 . . . ...... ... . . . ...
+
+0 . . . . . . εN
+
+ , h0 = ε + t. (6) For later convenience, we group the local one-body terms and the local interactions into a single local op-erator ˆHi
+
+> loc
+
+c†
+
+> iα
+
+, c iα 
+
+ =
+
+> νi
+
+X
+
+> α,β =1
+
+[εi]αβ c†
+
+> iα
+
+ciβ + ˆHi 
+
+> int
+
+, (7) so that Eq. (1) can be rewritten in the following form used throughout this work: ˆH =
+
+> N
+
+X
+
+> i,j =1
+> i̸=jνi
+
+X
+
+> α=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ c†
+
+> iα
+
+cjβ +
+
+> N
+
+X
+
+> i=1
+
+ˆHi
+
+> loc
+
+c†
+
+> iα
+
+, c iα 
+
+ , (8) schematically represented in Fig. 1. 
+
+B. The ghost-GA variational framework 
+
+The ghost-GA is a theoretical framework based on the variational principle. Specifically, the variational energy is minimized over multiconfigurational states of the form 
+
+|ΨG⟩ = ˆPG |Ψ0⟩, (9) where |Ψ0⟩ is a single-particle wavefunction and ˆPG is an operator, both to be variationally determined. A key feature of ghost-GA is that, differently from the standard GA, |Ψ0⟩ is constructed in an auxiliary Fock space of tunable dimension, and ˆPG provides a local embedding map into the physical Hilbert space. Specifically, the physical many-body Hilbert space is the tensor product H = NN 
+
+> i=1
+
+Hi, where Hi is the local Fock space generated by {c†
+
+> iα
+
+}νi 
+
+> α=1
+
+acting on a local vac-uum |0⟩ annihilated by all ciα . A convenient orthonormal basis of Hi is given by the set of Fock states: 
+
+|Γ, i ⟩ = [ c†
+
+> i1
+
+]q1(Γ) · · · [c† 
+
+> iν i
+
+]qνi (Γ) |0⟩ , (10) where Γ = 0 , . . . , 2νi − 1, qα(Γ) ∈ { 0, 1} denotes the α-th occupation number of the state labeled by Γ (equiva-lently, the α-th digit of Γ in binary form). For each fragment i we introduce Bν i auxiliary (ghost) fermionic modes fia (a = 1 , . . . , Bν i), where B is a pos-itive integer. The auxiliary many-body Hilbert space is ˜Hghost = NN 
+
+> i=1
+
+˜Hi, where ˜Hi is the local auxiliary Fock space generated by {f †
+
+> ia
+
+}Bν i 
+
+> a=1
+
+acting on a local auxiliary vacuum |0⟩ annihilated by all fia . A convenient orthonor-mal basis of ˜Hi is 
+
+|n, i ⟩ = [ f †
+
+> i1
+
+]q1(n) · · · [f † 
+
+> iBν i
+
+]qBν i (n)|0⟩ , (11) where n = 0 , . . . , 2Bν i − 1, qa(n) ∈ { 0, 1} denotes the a-th occupation number of the state labeled by n (i.e., the 
+
+a-th digit of n in binary form). We assume that |Ψ0⟩ ∈ ˜Hghost , and that |ΨG⟩ ∈ H 
+
+is obtained from |Ψ0⟩ through the embedding map ˆPG,which is assumed to have a local-product structure: ˆPG =
+
+> N
+
+Y
+
+> i=1
+
+ˆPi , (12) where each ˆPi is a general linear map from the local aux-iliary Fock space ˜Hi to the local physical Fock space Hi.In the bases (10) and (11), we parametrize it as ˆPi = 
+
+> 2νi−1
+
+X 
+
+> Γ=0 2Bν i−1
+
+X
+
+> n=0
+
+[Ω i]Γn |Γ, i ⟩⟨ n, i | , (13) where [Ω i]Γn are complex variational parameters. Note that, despite the traditional terminology, the operators ˆPi are not assumed to be projectors in the operatorial sense; they are general local embedding maps implement-ing the variational ansatz (9). Given |ΨG⟩, the corresponding variational energy is 
+
+E = ⟨ΨG| ˆH |ΨG⟩ = ⟨Ψ0| ˆP† 
+
+> G
+
+ˆH ˆPG |Ψ0⟩ , (14) to be minimized both with respect to |Ψ0⟩ and the entries of the rectangular matrices Ω i ∈ C2νi ×2Bν i
+
+.4
+
+1. Variational ansatz for normal states 
+
+In this work we restrict to particle-number conserving variational states, i.e., we consider |ΨG⟩ that are eigen-states of the physical number operator ˆN =
+
+> N
+
+X
+
+> i=1
+> νi
+
+X
+
+> α=1
+
+c†
+
+> iα
+
+ciα . (15) Within the parametrization (13), this restriction can be enforced by requiring that the coefficients [Ω i]Γn satisfy the selection rule 
+
+N (n) − N (Γ) = mi ∀ Γ, n s.t. [Ω i]Γn̸ = 0 , (16) where 
+
+N (Γ) = 
+
+> νi
+
+X
+
+> α=1
+
+qα(Γ) , (17) 
+
+N (n) = 
+
+> Bν i
+
+X
+
+> a=1
+
+qa(n) , (18) and the mi are fixed integer values that, in principle, could be chosen arbitrarily, with each choice correspond-ing to a different variational ansatz. As clarified in previ-ous work [43, 44], setting B odd and mi = B−12 νi usually produces the optimal solution. 
+
+2. Gutzwiller constraints and Gutzwiller approximation 
+
+The evaluation of the variational energy in Eq. (14) is simplified by imposing, for each fragment i, the Gutzwiller constraints 
+
+⟨Ψ0| ˆP† 
+
+> i
+
+ˆPi |Ψ0⟩ = 1 , (19) 
+
+⟨Ψ0| ˆP† 
+
+> i
+
+ˆPi f †
+
+> ia
+
+fib |Ψ0⟩ = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ , (20) for all a, b = 1 , . . . , Bν i.In addition we adopt the Gutzwiller approximation, i.e., in Wick expansions with respect to the Slater deter-minant |Ψ0⟩ we neglect all contributions that vanish in the limit of infinite coordination number. 
+
+III. FUNCTIONAL REFORMULATION UNDERPINNING THE UNIFICATION OF GHOST-GA, GHOST-DMET, AND DMFT 
+
+In this section we introduce a functional reformulation of the ghost-GA variational problem as a QE theory. This formulation is the central structural result of the present work: it provides the bridge between the static ghost-DMET perspective of Ref. [46] and the dynamical DMFT functional framework. The section is organized as follows: c†
+
+# iα b†
+
+# ia
+
+# Ψi
+
+# ⟩c
+
+# i
+
+# (α = 1,.., νi)
+
+# (a = 1,.., Bνi)
+
+Figure 2. Schematic representation of the correlated embed-ding Hamiltonian ˆHi
+
+> emb
+
+[Di, Λci ] [Eq. (23)]. The physical local degrees of freedom of fragment i (governed by ˆHi
+
+> loc
+
+) are hy-bridized with Bν i auxiliary bath modes {bia } through the matrix Di, while the quadratic bath term is parametrized by Λci .
+
+• In Sec. III A we introduce the Lagrange function at the center of this work. 
+
+• In Sec. III B we derive the corresponding stationar-ity conditions. 
+
+• In Sec. III C we summarize how physical observ-ables and Green’s functions are evaluated from the variational parameters. 
+
+• In Sec. III D we discuss the asymptotic behavior of the self-energy and the associated spectral-weight relation. 
+
+• In Sec. III E we discuss the gauge structure of the Lagrange function and show explicitly that all physical quantities are invariant under the corre-sponding transformations. 
+
+• In Sec. III F we show how the stationarity condi-tions implied by this formulation organize into a DMFT-like iterative structure. 
+
+A. Functional formulation of ghost-GA 
+
+Our reformulation of the ghost-GA equations is en-coded in the following Lagrange function: 
+
+L[{D i}, {Λci }, {R i}, {Λi}] = 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ + E (1 − ⟨ Ψ0|Ψ0⟩)+
+
+> N
+
+X
+
+> i=1
+
+h
+
+⟨Φi| ˆHi
+
+> emb
+
+[Di, Λci ]|Φi⟩ + Eci (1 − ⟨ Φi|Φi⟩)
+
+i
+
+−
+
+> N
+
+X
+
+> i=1
+
+h
+
+⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]|Φ0 
+
+> i
+
+⟩
+
++ E0ci
+
+ 1 − ⟨ Φ0 
+
+> i
+
+|Φ0 
+
+> i
+
+⟩ i
+
+, (21) 5where the ghost-GA variational parameters are Ri, Di ∈
+
+CBν i×νi and Λ i, Λci ∈ CBν i×Bν i , with Λ i = Λ† 
+
+> i
+
+and Λci = (Λ ci )†. They parametrize the following auxiliary Hamiltonians: ˆHqp [R, Λ] = 
+
+> N
+
+X
+
+> i,j =1
+> Bν i
+
+X
+
+> a=1
+> Bν j
+
+X
+
+> b=1
+
+Ri tij R†
+
+> j
+
+ 
+
+> ab
+
+f †
+
+> ia
+
+fjb (22) +
+
+> N
+
+X
+
+> i=1
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
+f †
+
+> ia
+
+fib ,
+
+ˆHi
+
+> emb
+
+[Di, Λci ] = ˆHi
+
+> loc
+
+[c†
+
+> iα
+
+, c iα ] + 
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λci
+
+ 
+
+> ab
+
+bib b† 
+
+> ia
+
+(23) +
+
+> Bν i
+
+X
+
+> a=1
+> νi
+
+X
+
+> α=1
+
+Di
+
+
+
+> aα
+
+c†
+
+> iα
+
+bia + H.c. 
+
+
+
+,
+
+ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] = 
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
+f †
+
+> ia
+
+fib (24) +
+
+> Bν i
+
+X
+
+> a,b =1
+
+DiRTi
+
+ 
+
+> ab
+
+f †
+
+> ib
+
+bia + H.c. 
+
+
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λci
+
+ 
+
+> ab
+
+bib b† 
+
+> ia
+
+.
+
+In Eqs. (21)–(24), bia (a = 1 , . . . , Bν i) denote auxiliary bath fermionic modes associated with fragment i. We also introduced the following block matrices: 
+
+R =
+
+
+
+R1 0 . . . 00 R2 . . . 0
+
+... ... . . . ...
+
+0 0 . . . RN
+
+ , Λ = 
+
+
+
+Λ1 0 . . . 00 Λ2 . . . ...... ... . . . ...
+
+0 . . . . . . ΛN
+
+ .
+
+(25) As in Refs. [21, 43–46], the Lagrange function involves the so-called quasiparticle Hamiltonian ˆHqp , which is quadratic and acts on the ghost fermions. It also in-volves, for each fragment i, an embedding Hamiltonian (EH) ˆHi
+
+> emb
+
+, consisting of the physical local Hamiltonian ˆHi 
+
+> loc
+
+coupled to bath modes through the hybridization matrix Di, with Λ ci parametrizing the quadratic bath term, depicted in Fig. 2. In addition, the present Lagrange construction involves a new quadratic auxiliary EH ˆHi 
+
+> 0,emb
+
+for each fragment i,featuring a coupling between local ghost degrees of free-dom and the bath modes. This new embedding Hamil-tonian is the key element behind both the formal and algorithmic developments presented in this work. A central point of the present formulation is that the same Lagrange construction already contains the dynam-ical objects entering the correspondence with DMFT. In particular, as shown in Sec. VI, the present Lagrange construction admits a finite-temperature generalization, which can be equivalently rewritten in the following form: 
+
+Lβ [{D i}, {Λci }, {R i}, {Λi}]= Ω qp [R, Λ] + 
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> emb
+
+[Di, Λci ]
+
+−
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]
+
+≡ − T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0 − Σ( iω n)
+
++ T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1−εi −∆i(iω n)−Σi(iω n)
+
++
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> imp
+
+[∆ i] , (26) where β = T −1, T is the temperature, ωn = (2 n + 1) πT 
+
+are the fermionic Matsubara frequencies, iω n = iω n,Σ( iω n) is the fragment-diagonal matrix with local blocks Σi(iω n), and the dependence on the static matrices (Ri, Λi, Di, Λci ) enters through Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi, (27) ∆i(z) = DTi
+
+ z1Bν i + Λ ci
+
+−1D∗ 
+
+> i
+
+. (28) Here the thermodynamic-potential contributions are de-fined as: Ωqp [R, Λ] = − 1
+
+β ln 
+
+
+
+Tr e−β ˆHqp 
+
+
+
+, (29) Ωi
+
+> emb
+
+[Di, Λci ] = − 1
+
+β ln 
+
+
+
+Tr e−β ˆHi
+
+> emb
+
+
+
+, (30) Ωi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] = − 1
+
+β ln 
+
+
+
+Tr e−β ˆHi
+
+> 0,emb
+
+
+
+, (31) Ωi
+
+> bath
+
+[Λ ci ] = − 1
+
+β ln 
+
+
+
+Tr e−β ˆHi 
+
+> bath [Λ ci]
+
+
+
+, (32) Ωi
+
+> imp
+
+[∆] = Ω i
+
+> emb
+
+[Di, Λci ] − Ωi
+
+> bath
+
+[Λ ci ], (33) ˆHi
+
+> bath
+
+[Λ ci ] = 
+
+> Bν i
+
+X
+
+> a,b =1
+
+[Λ ci ]ab bib b† 
+
+> ia
+
+. (34) This makes explicit the resemblance with the DMFT functional structure [18]. From this perspective, the ghost-GA variational parameters can be viewed as en-coding a specific finite-pole parametrization of the local self-energy and hybridization function, while at the same time defining, from the ghost-DMET perspective [46], the auxiliary reference systems entering the density-matrix matching conditions. We will show that, while the stationary point of this functional can be formulated in terms of static density-matrix matching, it recovers DMFT exactly in the limit 
+
+B → ∞ , for any temperature T .
+
+B. Zero-temperature stationarity equations 
+
+In this subsection we focus on the zero-temperature case, which is also the setting in which the connection 6with the ghost-DMET perspective developed below is most transparent. The corresponding finite-temperature generalization is presented later in Sec. VI A. The Lagrange function L, defined above in Eq. (21), has to be extremized with respect to |Ψ0⟩, E, |Φ0⟩, E0c,
+
+|Φ⟩, Ec, D, Λ c, R and Λ. It is convenient to introduce the matrix: 
+
+h∗[R, Λ] = R t R† + Λ , (35) where t is defined in Eq. (5) and R, Λ are defined in Eq. (25). The matrix h∗ can also be written in block form as follows: 
+
+h∗[R, Λ] = 
+
+
+
+Λ1 R1t12 R† 
+
+> 2
+
+. . . R1t1N R†N
+
+R2t21 R† 
+
+> 1
+
+Λ2 . . . ...... ... . . . ...
+
+RN tN 1R† 
+
+> 1
+
+. . . . . . ΛN
+
+ .
+
+(36) Having established the notation above, the stationarity conditions of L are the following: ˆHqp [R, Λ] |Ψ0⟩ = E0|Ψ0⟩ , (37) ˆHi
+
+> emb
+
+[Di, Λci ]|Φi⟩ = Eci |Φi⟩ , (38) ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]|Φ0 
+
+> i
+
+⟩ = E0ci |Φ0 
+
+> i
+
+⟩ , (39) 
+
+⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+
+fib |Φ0 
+
+> i
+
+⟩ = ∂∂[Λ i]ab 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ , (40) 
+
+⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+> Bν i
+
+X
+
+> b=1
+
+[Di]bα bib 
+
+!
+
+|Φ0 
+
+> i
+
+⟩ = ∂∂[Ri]aα 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ⟨Ψ0| f †
+
+> ia
+
+
+
+> N
+
+X
+
+> j=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ Bν j
+
+X
+
+> b=1
+
+[R† 
+
+> j
+
+]βb fjb 
+
+ |Ψ0⟩ , (41) 
+
+⟨Φ0 
+
+> i
+
+| bib b† 
+
+> ia
+
+|Φ0 
+
+> i
+
+⟩ = ⟨Φi| bib b† 
+
+> ia
+
+|Φi⟩ , (42) 
+
+⟨Φ0 
+
+> i
+
+|
+
+> Bν i
+
+X
+
+> a=1
+
+[Ri]aα f †
+
+> ia
+
+!
+
+bib |Φ0 
+
+> i
+
+⟩ = ⟨Φi| c†
+
+> iα
+
+bib |Φi⟩ . (43) Here the expectation values with respect to |Ψ0⟩ can be calculated recognizing that the corresponding single-particle density matrix is the transpose of nF (h∗[R, Λ]), where nF is the zero-temperature Fermi function and 
+
+nF (h∗) is defined in terms of the spectral decomposi-tion h∗ = U ε U †, where ε is diagonal and we denote its diagonal entries by εn, as follows: 
+
+nF (h∗) = U n F (ε) U † , [nF (ε)] nn = θ(−εn) , (44) where θ is the Heaviside step function. In addition, as shown in Refs. [43, 44], within the particle-number conserving (normal-state) variational setup of Sec. II B (in particular, for the standard choice 
+
+B odd and mi = B−12 νi in Eq. (16)), the ground-state eigenvalue problems in Eqs. (38) and (39) are to be un-derstood in the half-filled sector of the corresponding impurity+bath Hilbert spaces, i.e.: 
+
+" νiX
+
+> α=1
+
+c†
+
+> iα
+
+ciα +
+
+> Bν i
+
+X
+
+> a=1
+
+b†
+
+> ia
+
+bia 
+
+#
+
+|Φi⟩ = (B + 1) νi
+
+2 |Φi⟩ , (45) 
+
+"Bν iX
+
+> a=1
+
+f †
+
+> ia
+
+fia +
+
+> Bν i
+
+X
+
+> a=1
+
+b†
+
+> ia
+
+bia 
+
+#
+
+|Φ0 
+
+> i
+
+⟩ = Bν i |Φ0 
+
+> i
+
+⟩ . (46) 
+
+C. Physical observables and Green’s functions 
+
+Once the Lagrange problem defined by Eqs. (21) and (37)–(43) is converged, physical observables can be eval-uated directly in terms of the variational parameters. 
+
+1. Ground-state expectation values 
+
+Within the ghost-GA, ground-state expectation values are computed as follows: 
+
+• As shown in Refs. [21, 43, 44], for any local operator ˆOi
+
+> loc
+
+[c†
+
+> iα
+
+, c iα ] acting on fragment i, one has 
+
+⟨ΨG| ˆOi
+
+> loc
+
+|ΨG⟩ = ⟨Φi| ˆOi
+
+> loc
+
+|Φi⟩ . (47) In particular, 
+
+⟨ΨG| ˆHi
+
+> loc
+
+|ΨG⟩ = ⟨Φi| ˆHi
+
+> loc
+
+|Φi⟩ . (48) 
+
+• For i̸ = j, the ghost-GA approximation yields 
+
+⟨ΨG|c†
+
+> iα
+
+cjβ |ΨG⟩ =
+
+> Bν i
+
+X
+
+> a=1
+> Bν j
+
+X
+
+> b=1
+
+R†
+
+> i
+
+
+
+> αa
+
+⟨Ψ0|f †
+
+> ia
+
+fjb |Ψ0⟩Rj
+
+ 
+
+> bβ
+
+.
+
+(49) 7| ΨG⟩ = Λ PG | Ψ0⟩
+
+| Ψ0⟩
+
+α† 
+
+> n
+
+| Ψ0⟩       
+
+> |Ψ(+)
+> G,n⟩=ΛPGα†
+> n|Ψ0⟩
+
+Figure 3. Schematic representation of the ghost-GA exci-tation construction. A quasiparticle excitation ξ†
+
+> n
+
+|Ψ0⟩ of the auxiliary reference state |Ψ0⟩ in the ghost Hilbert space ˜Hghost 
+
+is mapped into the physical Hilbert space ˜H by the same variationally-optimized local map ˆPG that defines the ground-state |ΨG⟩, yielding the corresponding physical excited state 
+
+|Ψ(+) 
+
+> G,n
+
+⟩.
+
+• The total energy is 
+
+E =
+
+> N
+
+X
+
+> i=1
+
+⟨Φi| ˆHi
+
+> loc
+
+|Φi⟩
+
++
+
+> N
+
+X
+
+> i,j =1
+> i̸=jνi
+
+X
+
+> α=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ ⟨ΨG|c†
+
+> iα
+
+cjβ |ΨG⟩ .
+
+(50) 
+
+2. Single-particle Green’s function 
+
+Single-particle spectra in ghost-GA are obtained by constructing explicit particle and hole excitations as stationary points of the same variational energy func-tional that defines the ground state [43, 44]. Once the ground-state stationary point is found, the quadratic quasiparticle Hamiltonian ˆHqp [R, Λ] [Eq. (22)] defines single-particle eigenmodes {ξn, ξ †
+
+> n
+
+} acting on the aux-iliary Slater determinant |Ψ0⟩. In the thermodynamic limit, the corresponding N ± 1 states can be taken as stationary (variational) solutions obtained by adding or removing one such quasiparticle mode and applying the same optimized local map ˆPG [43, 44], namely: 
+
+|Ψ(+) 
+
+> G,n
+
+⟩ = ˆPG ξ† 
+
+> n
+
+|Ψ0⟩ , |Ψ(−)
+
+> G,n
+
+⟩ = ˆPG ξn |Ψ0⟩ , (51) see Fig. 3. Computing the one-particle Green’s function within this variational excitation manifold yields the fol-lowing closed expression for G(z) in terms of the con-verged variational parameters: 
+
+G(z) = R†z1 − h∗[R, Λ] −1R , (52) where h∗[R, Λ] is defined in Eqs. (35) and (36), R is defined in Eq. (25), and 1 denotes the identity matrix. It is convenient to write G(z) in Dyson form: 
+
+G(z) = z1 − h0 − Σ( z)−1, (53) where h0 is the one-body matrix introduced in Eq. (4). As shown below, the resulting self-energy is local in the fragment index, i.e.: Σ( z) = 
+
+
+
+Σ1(z) 0 . . . 00 Σ2(z) . . . ...... ... . . . ...
+
+0 . . . . . . ΣN (z)
+
+ , (54) with the following local blocks: Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi . (55) Here εi denotes the diagonal block of h0 on fragment i
+
+[Eq. (4)], and Λ i is the corresponding diagonal block of Λ [Eq. (25)]. 
+
+3. Local self-energy from the quasiparticle Hamiltonian 
+
+Here we derive the local self-energy formula in Eq. (55). We start from the physical Green’s function induced by the quadratic quasiparticle Hamiltonian ˆHqp [R, Λ] [Eq. (22)] written in Eq. (52), see Ref. [43], namely: 
+
+G(z) = R†h
+
+z1 − Λ − R t R†i−1
+
+R . (56) 
+
+• We compute G(z)−1 by applying Eq. (A5) (Ap-pendix A) with 
+
+A = z1 − Λ, U = R, C = t . (57) This gives 
+
+G(z)−1 =
+
+h
+
+R† z1 − Λ−1R
+
+i−1
+
+− t . (58) 
+
+• Comparing Eq. (58) with the Dyson form 
+
+G(z) = z1 − h0 − Σ( z)−1, (59) [Eq. (53)], and using h0 = ε + t [Eq. (6)], we have 
+
+G(z)−1 = z1 − ε − t − Σ( z) . (60) Equating Eqs. (58) and (60) and canceling −t yields Σ( z) = z1 −
+
+h
+
+R† z1 − Λ−1R
+
+i−1
+
+− ε . (61) 
+
+• Since R and Λ are block diagonal in the fragment index [Eq. (25)], the matrix R† z1 − Λ−1R is also block diagonal, hence Σ( z) is fragment diagonal. Taking the i-th diagonal block of Eq. (61) yields Eq. (55). 8
+
+D. Asymptotic behavior of Σi(z) and spectral-weight 
+
+Starting from Eq. (55), we extract the leading behavior of Σ i(z) at large |z|. Using 
+
+ z1Bν i − Λi
+
+−1 = 1
+
+z 1Bν i + 1
+
+z2 Λi + O(z−3) , (62) we obtain 
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri = 1
+
+z R† 
+
+> i
+
+Ri
+
++ 1
+
+z2 R† 
+
+> i
+
+ΛiRi + O(z−3) . (63) Substituting Eq. (63) into Eq. (55) yields Σi(z) = z
+
+h
+
+1νi − (R† 
+
+> i
+
+Ri)−1i
+
+(64) + ( R† 
+
+> i
+
+Ri)−1(R† 
+
+> i
+
+ΛiRi)( R† 
+
+> i
+
+Ri)−1 − εi + O(z−1) .
+
+For later convenience we note that, since 
+
+Gi(z) = 
+
+Z +∞−∞ 
+
+dω Ai(ω)
+
+z − ω , (65) from Eq. (53), together with Eq. (64), it follows that, in ghost-GA: 
+
+Z +∞−∞ 
+
+dω A i(ω) = R† 
+
+> i
+
+Ri . (66) Therefore, the unphysical linear term in the asymptotic expansion of the self-energy vanishes in the limit where 
+
+R† 
+
+> i
+
+Ri = 1νi , recovering the correct spectral sum rule. 
+
+E. Gauge invariance 
+
+A remarkable property of the Lagrange function L in Eq. (21) is its invariance under a group of unitary gauge transformations in the Bν i-dimensional ghost ( f ) and bath ( b) single-particle spaces of each fragment i.Let θi, ϕ i ∈ CBν i×Bν i be Hermitian matrices and define 
+
+ui(θi) = eiθ i , u† 
+
+> i
+
+(θi)ui(θi) = 1 , (67) 
+
+vi(ϕi) = eiϕ i , v† 
+
+> i
+
+(ϕi)vi(ϕi) = 1 . (68) We also introduce the corresponding second-quantized unitary operators acting on the ghost and bath Fock spaces: ˆUi(θi) = exp 
+
+i
+
+> Bν i
+
+X
+
+> a,b =1
+
+[θi]ab f †
+
+> ia
+
+fib 
+
+ , (69) ˆU (θ) = 
+
+> N
+
+Y
+
+> i=1
+
+ˆUi(θi) , (70) ˆVi(ϕi) = exp 
+
+i
+
+> Bν i
+
+X
+
+> a,b =1
+
+[ϕi]ab b†
+
+> ia
+
+bib 
+
+ . (71) Since θi = θ† 
+
+> i
+
+and ϕi = ϕ† 
+
+> i
+
+, the operators ˆUi, ˆU , and ˆVi
+
+are unitary. The gauge transformation is defined by 
+
+|Ψ0⟩ → ˆU †(θ)|Ψ0⟩, (72) 
+
+|Φi⟩ → ˆV † 
+
+> i
+
+(ϕi)|Φi⟩ , (73) 
+
+|Φ0 
+
+> i
+
+⟩ → ˆU † 
+
+> i
+
+(θi) ˆV † 
+
+> i
+
+(ϕi)|Φ0 
+
+> i
+
+⟩ , (74) together with the parameter transformations 
+
+Ri → u† 
+
+> i
+
+(θi)Ri , (75) Λi → u† 
+
+> i
+
+(θi)Λ i ui(θi) , (76) 
+
+Di → vTi (ϕi)Di , (77) Λci → v† 
+
+> i
+
+(ϕi)Λ ci vi(ϕi) . (78) The invariance of the Lagrange function is verified by not-ing that the hybridization matrix entering ˆHi 
+
+> 0,emb
+
+trans-forms covariantly: from Eqs. (75) and (77) one has 
+
+DiRTi −→ vTi (DiRTi ) u∗ 
+
+> i
+
+, (79) which is compensated by the rotations of the f and b
+
+operators implied by Eqs. (72) and (74). Note also that all physical observables are invariant un-der the combined gauge group defined in Eqs. (72)–(78). In particular, the local expectation values in Eq. (47), the non-local one-body correlators in Eq. (49), and the total energy in Eq. (50) are invariant. Moreover, the local self-energy blocks Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi (80) are invariant, since the combination R†
+
+> i
+
+ z1Bν i −Λi
+
+−1Ri
+
+is unchanged under Eqs. (75) and (76). Similarly, the hy-bridization function of the correlated embedding Hamil-tonian ∆i(z) = DTi
+
+ z1 + Λ ci
+
+−1D∗ 
+
+> i
+
+(81) is invariant under Eqs. (77) and (78). 
+
+F. DMFT-like algorithmic structure 
+
+The stationarity conditions (37)–(43) admit a DMFT-like interpretation and suggest a fixed-point iteration between two sets of quantities. The pair (Ri, Λi)parametrizes a fragment-diagonal self-energy through Eq. (55). The pair ( Di, Λci ) specifies the bath sector of the embedding Hamiltonians ˆHi 
+
+> emb
+
+and ˆHi 
+
+> 0,emb
+
+[Eqs. (23)– (24)], and therefore plays the role of Weiss-field parame-ters. A practical implementation can be organized as the following four-step cycle: 91. Starting from a guess for ( Ri, Λi), solve the quasi-particle problem (37) for |Ψ0⟩ and evaluate the one-body quantities entering (40)–(41). This mirrors the DMFT step in which, given a local self-energy Σ( z) (here encoded by ( Ri, Λi) through Eq. (55)), one constructs the lattice Green’s func-tion by the Dyson equation (53). 2. With ( Ri, Λi) fixed, determine ( Di, Λci ) by solving the auxiliary quadratic embedding problem (39) for 
+
+|Φ0 
+
+> i
+
+⟩ (in the half-filled impurity+bath sector speci-fied in Eq. (46)) and enforcing the consistency re-lations (40) and (41). This corresponds to the subsequent DMFT Weiss-field update, i.e., determining the impurity hy-bridization functions ∆i(z) (here encoded by (Di, Λci ) through Eq. (81)) consistently with the lat-tice information computed in the previous step. 3. With (Di, Λci ) fixed, solve the interacting em-bedding problems (38) for |Φi⟩ (in the half-filled impurity+bath sector specified in Eq. (45)). This mirrors the impurity step of T = 0 DMFT; with a key difference: since the self-consistency constraints are expressed in terms of equal-time expectation values, only the ground state of each finite-bath embedding Hamiltonian ˆHi
+
+> emb
+
+[Di, Λci ] is required. 4. With ( Di, Λci ) fixed, update ( Ri, Λi) by solving (39) for |Φ0 
+
+> i
+
+⟩ and enforcing the matching relations (42) and (43). The updated ( Ri, Λi) define the updated self-energy through Eq. (55). This mirrors the DMFT self-energy update: the impurity information obtained in step 3 is fed back into the lattice through a new local self-energy, here parametrized by ( Ri, Λi) via Eq. (55), which is then used again in step 1. The cycle is iterated until convergence of physical quantities, such as the total energy (50), the local observ-ables (47)–(48), and the local self-energy blocks Σ i(z) in Eq. (55). Accordingly, convergence is assessed in terms of gauge-invariant physical quantities, rather than in terms of the parameters ( Ri, Λi, Di, Λci ) themselves. This algorithmic structure is used in Sec. V as the basis for establishing the B → ∞ correspondence with the DMFT fixed point at zero temperature.    
+
+> 1. Analytic hybridization update from the Schmidt–DMET embedding of ˆHqp at zero temperature
+
+In this section we show that, at temperature T = 0, step 2 of the DMFT-like cycle in Sec. III F can be carried out analytically. The key point is that, once ( R, Λ) are fixed, |Ψ0⟩ is the Slater-determinant ground state of the quadratic Hamiltonian ˆHqp [R, Λ] [Eq. (37)], so that the corresponding embedding problem can be constructed explicitly from the Schmidt decomposition of ˆHqp as in Appendix B. This is precisely the mechanism underly-ing the ghost-DMET formulation introduced in Ref. [46], here recovered directly from the Lagrange-functional per-spective of Sec. III. The starting observation is that Eqs. (40) and (41) can be rewritten in the following derivative form: 
+
+∂∂[Λ i]ab 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ∂∂[Λ i]ab 
+
+⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] |Φ0 
+
+> i
+
+⟩ , (82) 
+
+∂∂[Ri]aα 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ∂∂[Ri]aα 
+
+⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] |Φ0 
+
+> i
+
+⟩ . (83) Equations (82)–(83) are exactly of the type discussed in Appendix B, where expectation values of operator deriva-tives are preserved by the Slater-determinant embedding construction; see in particular the identities (B29) and (B25). To make this correspondence explicit, we consider the bipartition of the quasiparticle Hamiltonian ˆHqp [R, Λ] [Eq. (22)] into the subsystem A = { fia }Bν i 
+
+> a=1
+
+and its complement B = { fjc }j̸ =i. For fixed ( R, Λ), |Ψ0⟩
+
+is the Slater-determinant ground state of ˆHqp [R, Λ] [Eq. (37)], and Appendix B constructs an auxiliary bath and a quadratic embedding Hamiltonian ˆHemb  
+
+> A
+
+on the active modes such that the A–A one-body density ma-trix and the A–B coupling derivatives of ˆHqp are re-produced by construction. Identifying this ˆHemb  
+
+> A
+
+with ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] [Eq. (24)] therefore yields an ex-plicit realization of step 2: the parameters ( Di, Λci ) are obtained directly from the Slater-determinant embedding data of ˆHqp [R, Λ], and Eqs. (40)–(41) are satisfied iden-tically. Denoting the local single-particle density matrix of 
+
+|Ψ0⟩ by [∆ i]ab = ⟨Ψ0|f †
+
+> ia
+
+fib |Ψ0⟩ , (84) and identifying the matrix ρ0 
+
+> A
+
+of Appendix B with the local ghost density matrix ∆ i defined above, the spe-cialization of the embedding construction in Appendix B to the present A/B partition yields an explicit analytic 10 update for the hybridization parameters. In particular, using the bath-orbital definition Eq. (B6) (specialized to the present A/B partition), together with the algebraic simplification of the bath block in Eq. (B51), one obtains: 
+
+DTi
+
+ 
+
+> αa
+
+=
+
+> Bν i
+
+X
+
+> b=1
+
+" NX 
+
+> j=1
+> j̸=iνj
+
+X
+
+> β=1
+> Bν j
+
+X
+
+> c=1
+
+[tij ]αβ [R† 
+
+> j
+
+]βc ⟨Ψ0|f †
+
+> ib
+
+fjc |Ψ0⟩
+
+# h
+
+∆Ti (1 − ∆Ti )
+
+i− 12
+
+> ba
+
+, (85) Λci = − 12
+
+"s 
+
+∆Ti
+
+1 − ∆Ti
+
+Λi
+
+s
+
+1 − ∆Ti
+
+∆Ti
+
++ H.c. 
+
+#
+
+−
+
+" 1 
+
+> 2
+
+− ∆Ti
+
+p∆Ti (1 − ∆Ti ) Ri DTi + H.c. 
+
+#
+
+. (86) In summary, Eqs. (85) and (86) provide an analytic implementation of the hybridization determination step, i.e., the Weiss-field update encoded by ( Di, Λci ) [Eq. (81)], directly from the one-body correlators of the quasiparti-cle Slater determinant |Ψ0⟩.
+
+2. Numerical density-matrix fit for the self-energy update 
+
+The update of (Ri, Λi) in step 4 of Sec. III F can be formulated in complete analogy with the hy-bridization update discussed in Sec. III F 1. Also in this case, for fixed bath parameters ( Di, Λci ), one is faced with a one-body density-matrix fit problem: determine the quadratic parameters ( Ri, Λi) entering ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] [Eq. (24)] such that the corre-sponding ground state |Φ0 
+
+> i
+
+⟩ reproduces the one-body information extracted from the interacting embedding ground state |Φi⟩ [Eq. (38)], as required by Eqs. (42)– (43). Note that, analogously to Sec. III F 1, the match-ing conditions (42)–(43) can be formally rewritten in the following derivative form: 
+
+∂∂[Λ ci ]ab 
+
+⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] |Φ0 
+
+> i
+
+⟩ = ∂∂[Λ ci ]ab 
+
+⟨Φi| ˆHi
+
+> emb
+
+[Di, Λci ] |Φi⟩, (87) 
+
+∂∂[Di]bα 
+
+⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] |Φ0 
+
+> i
+
+⟩ = ∂∂[Di]bα 
+
+⟨Φi| ˆHi
+
+> emb
+
+[Di, Λci ] |Φi⟩ . (88) However, while the hybridization update discussed in Sec. III F 1 admits a closed-form solution because 
+
+|Ψ0⟩ is a Slater determinant, so that the corresponding density-matrix fit can be realized analytically through the Schmidt–DMET embedding construction of Ap-pendix B, here the target state |Φi⟩ is the ground state of the interacting Hamiltonian ˆHi
+
+> emb
+
+[Di, Λci ]. Therefore, the quadratic auxiliary state |Φ0 
+
+> i
+
+⟩ cannot be constructed an-alytically in general, and the determination of ( Ri, Λi)must be performed numerically by enforcing the one-body matching conditions [Eqs. (42) and (43)] (equiv-alently, Eqs. (87) and (88)). In practice, this amounts to a numerical one-body density-matrix fit that updates the local self-energy pa-rameters ( Ri, Λi), and hence Σ i(z) through Eq. (55), by matching the relevant reduced one-body informa-tion between the interacting embedding problem and its quadratic auxiliary counterpart (at fixed Di, Λci ). In this context, we mention that advanced strategies from the DMET literature, such as projected schemes [87] or semidefinite programming [88], could be directly adapted here to further enhance numerical stability. 
+
+IV. DERIVATION OF THE QE LAGRANGE FUNCTION FROM THE STANDARD GHOST-GA FORMULATION 
+
+In Sec. III we introduced the Lagrange function (21), involving the additional quadratic embedding Hamilto-nian ˆHi 
+
+> 0,emb
+
+defined in Eq. (24). The purpose of this sec-tion is to show that Eq. (21) can be derived directly from the ghost-GA Lagrange formulation previously derived in Refs. [43, 44], and is therefore an equivalent reformula-tion of the variational problem outlined in Sec. II. The standard embedding formulation of ghost-GA is encoded in the following Lagrange function [43, 44]: 
+
+L = ⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ + E (1 − ⟨ Ψ0|Ψ0⟩)+
+
+> N
+
+X
+
+> i=1
+
+h
+
+⟨Φi| ˆHi
+
+> emb
+
+[Di, Λci ]|Φi⟩ + Eci (1 − ⟨ Φi|Φi⟩)
+
+i11 
+
+−
+
+> N
+
+X
+
+> i=1
+
+Fi 
+
+> Ri,Λi,Di,Λci
+
+[∆ i] , (89) where ˆHqp and ˆHi 
+
+> emb
+
+are the same operators defined in Eqs. (22) and (23), and 
+
+Fi 
+
+> Ri,Λi,Di,Λci
+
+[∆ i] = 
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
++ Λci
+
+
+
+> ab
+
+
+
+[∆ i]ab 
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+> νi
+
+X
+
+> α=1
+
+
+
+[Di]aα [Ri]bα 
+
+∆i(1 − ∆i) 12 
+
+> ba
+
++ c.c. 
+
+
+
+(90) encodes the matching conditions between the quasi-particle sector and the embedding sector. The ghost-GA solution is obtained extremizing Eq. (89) with respect to |Ψ0⟩, E, {| Φi⟩} , {Eci }, and the matrices 
+
+{R i, Λi, Di, Λci , ∆i}.In Sec. IV A we show that the standard ghost-GA func-tional Eq. (89) can be recast into the QE form Eq. (21) by introducing the auxiliary quadratic embedding problem. Conversely, Sec. IV B proves that any stationary point of Eq. (21) induces, up to gauge, a stationary point of Eq. (89). Together, these results establish the equiva-lence of the two Lagrange formulations. 
+
+A. Purification of ∆i and recovery of the QE functional 
+
+In this subsection we show how the standard ghost-GA functional in Eq. (89) can be recast into the QE form Eq. (21). The key step is to represent ∆ i through the auxiliary quadratic state |Φ0 
+
+> i
+
+⟩. To this end, we note that extremizing Eq. (89) with respect to Λ i implies that: [∆ i]ab = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ . (91) At the saddle point, ∆ i can also be expressed as follows: 
+
+⟨Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]| f †
+
+> ia
+
+fib |Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]⟩
+
+= [∆ i]ab , (92) 
+
+⟨Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]| f †
+
+> ia
+
+bib |Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]⟩
+
+= [∆ i(1 − ∆i)] 12 
+
+> ab
+
+, (93) 
+
+⟨Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]| bib b† 
+
+> ia
+
+|Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]⟩
+
+= [∆ i]ab , (94) where |Φ0 
+
+> i
+
+[Ri, Λi, Di, Λci ]⟩ is the normalized ground state of ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi], as defined in Eq. (24). Conceptually, Eqs. (92)–(94) can be viewed as encod-ing ∆ i into a specific purification fixed by the saddle-point data ( Ri, Λi, Di, Λci ). Once Eqs. (92)–(94) are established, the equivalence with Eq. (21) follows because Fi
+
+> Ri,Λi,Di,Λci
+
+[∆ i] in Eq. (89) can be replaced by ⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]|Φ0 
+
+> i
+
+⟩ (with 
+
+E0ci enforcing normalization), which is exactly what Eq. (21) implements. 
+
+1. Standard ghost-GA Lagrange equations 
+
+Following Refs. [43, 44], we represent the matrices ∆ i,Λi, and Λ ci as expansions in terms of an orthonormal basis of Hermitian matrices, denoted [ hi]s (with respect to the canonical scalar product ( A, B ) = Tr A†B): ∆i =
+
+> (Bν i)2
+
+X
+
+> s=1
+
+[di]s
+
+hTi
+
+ 
+
+> s
+
+, (95) Λi =
+
+> (Bν i)2
+
+X
+
+> s=1
+
+[li]s [hi]s , (96) Λci =
+
+> (Bν i)2
+
+X
+
+> s=1
+
+[lci ]s [hi]s , (97) where [ di]s, [ li]s, and [ lci ]s are real-valued coefficients. Having established this notation, the saddle-point of the ghost-GA Lagrange function in Eq. (89) is given by the following equations: ˆHqp [R, Λ] |Ψ0⟩ = E0|Ψ0⟩ , (98) ˆHi
+
+> emb
+
+[Di, Λci ]|Φi⟩ = Eci |Φi⟩ , (99) [∆ i]ab = ∂∂[Λ i]ab 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ , (100) 
+
+> Bν i
+
+X
+
+> c=1
+
+[Di]cα [∆ i (1 − ∆i)]  
+
+> 12
+> ac
+
+= ∂∂[Ri]aα 
+
+⟨Ψ0| ˆHqp [R, Λ] |Ψ0⟩ = ⟨Ψ0| f †
+
+> ia
+
+
+
+> N
+
+X
+
+> j=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ Bν j
+
+X
+
+> b=1
+
+[R† 
+
+> j
+
+]βb fjb 
+
+ |Ψ0⟩ , (101) [lci ]s = −[li]s −
+
+> Bν i
+
+X
+
+> c,b =1
+> νi
+
+X
+
+> α=1
+
+∂∂ [di]s
+
+
+
+[∆ i (1 − ∆i)]  
+
+> 12
+> cb
+
+[Di]bα [Ri]cα + c .c.
+
+
+
+, (102) 12 [∆ i]ab = ⟨Φi|bib b†
+
+> ia
+
+|Φi⟩ , (103) 
+
+> Bν i
+
+X
+
+> a=1
+
+[Ri]aα [∆ i (1 − ∆i)]  
+
+> 12
+> ab
+
+= ⟨Φi|c†
+
+> iα
+
+bib |Φi⟩ . (104) As shown in Refs. [43, 44], within the particle-number conserving variational ansatz of Sec. II B the ground-state EH eigenproblem Eq. (99) is understood in the half-filled impurity+bath sector, as specified by Eq. (45). The physical observables can be evaluated directly in terms of the variational parameters as follows: 
+
+• For any local operator ˆOi
+
+> loc
+
+[c†
+
+> iα
+
+, c iα ] acting on frag-ment i one has: 
+
+⟨ΨG| ˆOi
+
+> loc
+
+|ΨG⟩ = ⟨Φi| ˆOi
+
+> loc
+
+|Φi⟩ . (105) 
+
+• For i̸ = j, the ghost-GA approximation yields 
+
+⟨ΨG|c†
+
+> iα
+
+cjβ |ΨG⟩ =
+
+> Bν i
+
+X
+
+> a=1
+> Bν j
+
+X
+
+> b=1
+
+R†
+
+> i
+
+
+
+> αa
+
+⟨Ψ0|f †
+
+> ia
+
+fjb |Ψ0⟩Rj
+
+ 
+
+> bβ
+
+.
+
+(106) 
+
+2. Identification of ˆHi 
+
+> 0,emb
+
+as the GA EH of ˆHqp 
+
+Here we prove Eqs. (92)–(94) at the saddle point of the standard ghost-GA Lagrange problem (89). For this purpose, it is useful to consider the quasipar-ticle Hamiltonian ˆHqp [R, Λ] [Eq. (22)], treating R and Λ as fixed parameters, and to write its GA equations ob-tained by extremizing the corresponding Lagrange func-tion L0 
+
+> R,Λ
+
+with respect to |Ψ00⟩, E00 , {| Φ0 
+
+> i
+
+⟩} , {E0ci }, and the matrices {R 0 
+
+> i
+
+, Λ0 
+
+> i
+
+, D0 
+
+> i
+
+, Λ0ci , ∆0 
+
+> i
+
+} —which, in this spe-cific context, are all of size Bν i × Bν i.Since ˆHqp [R, Λ] is one-body, we already know that its GA solution |Ψ0⟩ is exactly reproduced by the GA, set-ting the Gutzwiller projector as the identity operator. Therefore, the corresponding GA equations can be solved setting: |Ψ00⟩ = |Ψ0⟩, E00 = E0, R0 
+
+> i
+
+= 1Bν i and Λ 0 
+
+> i
+
+= Λ i.Therefore, specializing Eqs. (98)-(104) to this problem, we obtain the following equations: ˆHqp [R, Λ] |Ψ0⟩ = E0|Ψ0⟩ , (107) ˆHi
+
+> emb
+
+[D0 
+
+> i
+
+, Λ0ci ]|Φ0 
+
+> i
+
+⟩ = E0ci |Φ0 
+
+> i
+
+⟩ , (108) [∆ 0 
+
+> i
+
+]ab = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ , (109) 
+
+> Bν i
+
+X
+
+> c=1
+
+D0
+
+> i
+
+
+
+> cA
+
+∆0
+
+> i
+
+ 1 − ∆0
+
+> i
+
+ 12 
+
+> ac
+
+=
+
+> N
+
+X
+
+> j=1
+> Bν j
+
+X
+
+> b=1
+
+
+
+> νi
+
+X
+
+> α=1
+> νj
+
+X
+
+> β=1
+
+[Ri]Aα [tij ]αβ [R† 
+
+> j
+
+]βb 
+
+ ⟨Ψ0| f †
+
+> ia
+
+fjb |Ψ0⟩
+
+=
+
+> νi
+
+X
+
+> α=1
+
+[Ri]Aα ⟨Ψ0| f †
+
+> ia
+
+
+
+> N
+
+X
+
+> j=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ Bν j
+
+X
+
+> b=1
+
+[R† 
+
+> j
+
+]βb fjb 
+
+ |Ψ0⟩ , (110) [l0ci ]s = −[li]s −
+
+> Bν i
+
+X
+
+> c,b =1
+> Bν i
+
+X
+
+> A=1
+
+∂∂ [d0 
+
+> i
+
+]s
+
+∆0
+
+> i
+
+ 1 − ∆0
+
+> i
+
+ 12
+
+> cb
+
+D0
+
+> i
+
+ 
+
+> bA
+
+[1Bν i ]cA + c .c.
+
+
+
+, (111) 
+
+∆0
+
+> i
+
+ 
+
+> ab
+
+= ⟨Φ0 
+
+> i
+
+|bib b†
+
+> ia
+
+|Φ0 
+
+> i
+
+⟩ , (112) 
+
+∆0
+
+> i
+
+ 1 − ∆0
+
+> i
+
+ 12 
+
+> ab
+
+= ⟨Φ0 
+
+> i
+
+|f †
+
+> ia
+
+bib |Φ0 
+
+> i
+
+⟩ , (113) where ˆHi
+
+> emb
+
+[D0 
+
+> i
+
+, Λ0ci ] = 
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
+f †
+
+> ia
+
+fib 
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+
+
+
+[D0 
+
+> i
+
+]ab f †
+
+> ib
+
+bia + H.c. 
+
+13 +
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λ0ci
+
+ 
+
+> ab
+
+bib b† 
+
+> ia
+
+, (114) and we introduced the following expansions: ∆0 
+
+> i
+
+=
+
+> (Bν i)2
+
+X
+
+> s=1
+
+d0
+
+> i
+
+
+
+> s
+
+hTi
+
+ 
+
+> s
+
+, (115) Λ0ci =
+
+> (Bν i)2
+
+X
+
+> s=1
+
+l0ci
+
+ 
+
+> s
+
+[hi]s , (116) where d0
+
+> i
+
+ 
+
+> s
+
+and l0ci
+
+ 
+
+> s
+
+are real-valued coefficients. Note that, since this auxiliary GA solution is realized with the Gutzwiller projector equal to the identity, par-ticle number is conserved locally and the selection rule Eq. (16) reduces here to mi = 0 (ordinary GA, no ghost extension). Therefore, as shown in Refs. [43, 44], this fixes the EH eigenproblem [Eq. (108)] to be solved in the half-filled f +b sector, as specified by Eq. (46). By comparing Eqs. (107)-(113) with Eqs. (98)-(104) it follows that, at the saddle point of the correlated La-grange function [Eq. (89)], the following conditions must hold: [∆ 0 
+
+> i
+
+]ab = [∆ i]ab , (117) [D0 
+
+> i
+
+]ab = [ DiRTi ]ab , (118) [Λ 0ci ]ab = [Λ ci ]ab . (119) In particular, this implies that ˆHi
+
+> emb
+
+[D0 
+
+> i
+
+, Λ0ci ] = ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] , (120) with ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] defined in Eq. (24). We also use the same GA/QE property recalled in Eq. (105), here applied to the auxiliary GA problem de-fined by ˆHqp [R, Λ]: the embedding state |Φ0 
+
+> i
+
+⟩ reproduces the expectation values of all local operators of that prob-lem (built from the local f and b modes). In summary: 
+
+• Eq. (92) follows from Eqs. (120), (109), and by applying the local-observable identity mentioned above to ˆOi 
+
+> loc
+
+= f †
+
+> ia
+
+fib ;
+
+• Eq. (93) follows from Eqs. (120), (117) and (113); 
+
+• Eq. (94) follows from Eqs. (120), (117) and (112). 
+
+B. Converse implication: recovery of the standard ghost-GA functional 
+
+In Sec. IV A we showed that the QE Lagrange func-tion [(21)] can be obtained from the standard ghost-GA Lagrange formulation (89)–(90) by introducing the aux-iliary quadratic problem ˆHi 
+
+> 0,emb
+
+and the state |Φ0 
+
+> i
+
+⟩. Here we prove the inverse statement: any stationary point of Eq. (21) induces, up to gauge transformation, a station-ary point of Eqs. (89)–(90). This shows that introduc-ing ˆHi 
+
+> 0,emb
+
+does not create additional physical stationary points, but only uncovers an enlarged gauge-group struc-ture. Let |Ψ0⟩, {| Φi⟩} , {| Φ0 
+
+> i
+
+⟩} , {R i, Λi}, {D i, Λci } realize astationary point of the QE functional (21), and define: [∆ i]ab = ⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+
+fib |Φ0 
+
+> i
+
+⟩ = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ . (121) Since ˆHi 
+
+> 0,emb
+
+is one-body and its ground state |Φ0 
+
+> i
+
+⟩ is a Slater determinant, the fermionic Schmidt theorem of Appendix B can be applied to the bipartition: 
+
+H(i)0,emb = H(i) 
+
+> f
+
+⊗ H (i) 
+
+> b
+
+. (122) Therefore, there exists a unitary transformation of the form 
+
+vi(ϕi) = eiϕ i , (123) 
+
+Di → vTi (ϕi)Di , (124) Λci → v† 
+
+> i
+
+(ϕi)Λ ci vi(ϕi) , (125) 
+
+|Φ0 
+
+> i
+
+⟩ → exp 
+
+i
+
+> Bν i
+
+X
+
+> a,b =1
+
+[ϕi]ab b†
+
+> ia
+
+bib 
+
+ |Φ0 
+
+> i
+
+⟩ , (126) acting exclusively on the bath space, such that: 
+
+Φ0 
+
+> i
+
+f †
+
+> ia
+
+fib Φ0 
+
+> i
+
+= [∆ i]ab , (127) 
+
+Φ0 
+
+> i
+
+f †
+
+> ia
+
+bib Φ0 
+
+> i
+
+= ∆i(1 − ∆i)1/2 
+
+> ab
+
+, (128) 
+
+Φ0 
+
+> i
+
+bib b† 
+
+> ia
+
+Φ0 
+
+> i
+
+= [∆ i]ab . (129) Since L in Eq. (21) is invariant under the bath-space unitary rotation (124)–(126) (with |Ψ0⟩, {| Φi⟩} ,and {R i, Λi} unchanged), the transformed set of vari-ables |Ψ0⟩, {| Φi⟩} , {| Φ0 
+
+> i
+
+⟩} , {R i, Λi}, {D i, Λci } also realizes a (physically equivalent) stationary point. Using Eq. (24) together with Eqs. (127)–(129), we can evaluate ⟨Φ0 
+
+> i
+
+| ˆHi
+
+> 0,emb
+
+|Φ0 
+
+> i
+
+⟩ explicitly in terms of ∆ i:
+
+Φ0 
+
+> i
+
+ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] Φ0 
+
+> i
+
+=
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
+Φ0 
+
+> i
+
+f †
+
+> ia
+
+fib Φ0
+
+> i
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+
+DiRTi
+
+ 
+
+> ab
+
+Φ0 
+
+> i
+
+f †
+
+> ib
+
+bia Φ0 
+
+> i
+
++ H.c. 
+
+
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λci
+
+ 
+
+> ab
+
+Φ0 
+
+> i
+
+bib b† 
+
+> ia
+
+Φ0
+
+> i
+
+=
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
++ Λci
+
+
+
+> ab
+
+
+
+[∆ i]ab 
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+> νi
+
+X
+
+> α=1
+
+
+
+[Di]aα [Ri]bα 
+
+∆i(1 − ∆i) 12 
+
+> ba
+
++ c.c. 
+
+14 = Fi 
+
+> Ri,Λi,Di,Λci
+
+[∆ i] , (130) where in the second equality we used Eqs. (127)–(129), and in the last equality we recognized Eq. (90). More-over, the matrix ∆ i is fixed by the quasiparticle state, see Eq. (121). Substituting Eq. (130) into Eq. (21) (with the normal-ization of |Φ0 
+
+> i
+
+⟩ enforced by E0ci ) shows that, after the bath-gauge choice above, the QE Lagrange function re-duces exactly to the standard ghost-GA Lagrange func-tion in Eq. (89), with ∆ i understood as the quasiparticle density matrix, see Eq. (121). Finally, starting from the standard formulation (89), one may eliminate the matrices ∆ i as independent vari-ables by substituting the stationarity condition with re-spect to Λ i, [∆ i]ab = ⟨Ψ0|f †
+
+> ia
+
+fib |Ψ0⟩ (see Eq. (100)). This produces the same reduced functional obtained above from Eq. (21) after eliminating the auxiliary sector 
+
+{| Φ0 
+
+> i
+
+⟩} , proving that the QE formulation does not intro-duce additional physical stationary points beyond those related by the bath gauge transformations.  
+
+> C. Enlarged gauge structure of the new Lagrange formulation
+
+As shown in Sec. III E, Eq. (21) is invariant under independent local unitary rotations of the ghost and bath single-particle spaces, {ui(θi)} and {vi(ϕi)}, imple-mented by Eqs. (72)–(78); the mixed hybridization ma-trix in ˆHi 
+
+> 0,emb
+
+transforms covariantly as in Eq. (79). By contrast, the standard ghost-GA functional in Eqs. (89)–(90) is invariant only under the diagonal sub-group in which the two rotations are locked, 
+
+vi(ϕi) = ui(θi) (i = 1 , . . . , N ), (131) together with ∆ i → u† 
+
+> i
+
+(θi) ∆ i ui(θi). This restriction fol-lows directly from Eq. (90), where Di and Ri appear only through contractions with ∆ i and ∆i(1−∆i)1/2, which transform by conjugation with the same ui. Therefore, Eq. (89) implicitly fixes the relative f /b gauge. In summary, Eq. (21) exposes the full gauge-invariance group under which all physical observables are un-changed, see Eqs. (72)–(78). This enlarged gauge struc-ture of Eq. (21) is essential for the relation with DMFT established in Sec. V, since it allows one to treat the self-energy sector (Ri, Λi) and the Weiss-field sector (Di, Λci ) as independent, gauge-covariant parametriza-tions of the two dynamical objects entering the DMFT self-consistency map.    
+
+> V. PROOF OF EQUIVALENCE BETWEEN GHOST-GA AND DMFT AT B→ ∞
+
+In Sec. III we showed that the ghost-GA solution can be obtained extremizing a Lagrange function with respect to a set of matrices denoted as Ri, Di, Λi, Λci . These vari-ational parameters are fully encoded, up to a gauge trans-formation, into a list of hybridization functions ∆ i(z)given by Eq. (81): ∆i(z) = DTi
+
+ z1 + Λ ci
+
+−1D∗ 
+
+> i
+
+. (132) and a local self-energy, represented as in Eq. (54): Σ( z) = 
+
+
+
+Σ1(z) 0 . . . 00 Σ2(z) . . . ...... ... . . . ...
+
+0 . . . . . . ΣN (z)
+
+ , (133) with Σ i(z) given by Eq. (55): Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi . (134) Furthermore, in Sec. III F we showed that the ghost-GA Lagrange equations can be solved with an algorithmic structure that closely resembles DMFT. In this section we prove that ghost-GA solution reduces to DMFT in the limit B → ∞ . This is accomplished as follows: 
+
+• First, in Sec. V A we note that, as pointed out in previous work, for each fragment i = 1 , . . . , N ,any DMFT hybridization function ∆ i(z) and any DMFT self-energy Σ i(z) can be reproduced exactly by the ghost-GA parametrizations (132) and (134) in the limit B → ∞ .
+
+• Second, in the subsequent subsections we prove ex-plicitly that, in the limit where the so-obtained representations of Σ i(z) and ∆ i(z) become exact, the resulting parameters Ri, Di, Λi, Λci satisfy the ghost-GA stationarity conditions (37)–(43), imply-ing that the ghost-GA fixed point coincides with the DMFT fixed point as B → ∞ . 
+
+> A. Ghost-GA parametrization of DMFT hybridization function and self-energy
+
+Fix a fragment i. At a DMFT fixed point, the lo-cal objects ∆ i(z) and Σ i(z) are causal matrix-valued functions (in particular, they admit a representation in terms of a noninteracting bath and of a causal local self-energy). In this subsection we explain why the ghost-GA parametrizations (132) and (134) are general enough to reproduce such functions in the limit B → ∞ . 
+
+> 1. Hybridization function
+
+The parametrization (132), ∆i(z) = DTi
+
+ z1 + Λ ci
+
+−1D∗ 
+
+> i
+
+, (135) 15 is the hybridization function generated by a quadratic bath with Bν i fermionic modes and one-body bath ma-trix −Λci . Diagonalizing Λ ci with a unitary transforma-tion and expanding the inverse shows that ∆ i(z) is a rational matrix function with at most Bν i poles on the real axis. Increasing B increases the number of available bath poles and therefore the resolution of the representa-tion. In particular, the DMFT Weiss field for fragment i
+
+is, by construction, the hybridization function of an im-purity model with a (possibly infinitely large) noninter-acting bath; discretizing that bath with Bν i modes yields a sequence of rational hybridization functions of the form (132) converging to the target ∆ i(z) as B → ∞ .
+
+2. Self-energy 
+
+The parametrization (134), Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi , (136) is invariant under the local gauge transformation (75)– (76). Using this freedom, choose a unitary ui (e.g. from an SVD of Ri) such that, in the transformed basis, 
+
+u† 
+
+> i
+
+Ri =
+
+R0,i 
+
+0
+
+
+
+, u† 
+
+> i
+
+Λi ui =
+
+λ0,i λ1,i 
+
+λ† 
+
+> 1,i
+
+λ2,i 
+
+
+
+, (137) where R0,i ∈ Cνi×νi is invertible and λ2,i = λ† 
+
+> 2,i
+
+has size (Bν i −νi)×(Bν i −νi). Using an additional gauge rotation acting only within the ( Bν i − νi)-dimensional subspace corresponding to the lower block in Eq. (137), we can further assume that λ2,i is diagonal. Let Mi = Bν i − νi.Applying the block-inverse identity Eq. (A2) (Ap-pendix A) to the block form (137) yields the following expression for the projected resolvent entering (134): 
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri = (138) 
+
+R†
+
+> 0,i
+
+h
+
+z1νi − λ0,i − λ1,i 
+
+ z1Mi − λ2,i 
+
+−1λ†
+
+> 1,i
+
+i−1
+
+R0,i .
+
+Substituting Eq. (138) into (134) yields Σi(z) = z
+
+h
+
+1νi − (R†
+
+> 0,i
+
+R0,i )−1i
+
+− εi
+
++ R−10,i λ0,i (R†
+
+> 0,i
+
+)−1
+
++ R−10,i λ1,i 
+
+ z1Mi − λ2,i 
+
+−1λ†
+
+> 1,i
+
+(R†
+
+> 0,i
+
+)−1. (139) Since λ2,i is diagonal, Eq. (139) can be written explicitly as 
+
+Σi(z) 
+
+> αβ
+
+= z
+
+h
+
+1νi − (R†
+
+> 0,i
+
+R0,i )−1i
+
+> αβ
+
+− εi
+
+
+
+> αβ
+
++
+
+> νi
+
+X
+
+> a,b =1
+
+R−10,i 
+
+
+
+> αa
+
+λ0,i 
+
+
+
+> ab
+
+(R†
+
+> 0,i
+
+)−1
+
+> bβ
+
++
+
+> νi
+
+X
+
+> a,b =1
+> Mi
+
+X
+
+> c=1
+
+R−10,i 
+
+
+
+> αa
+
+λ1,i 
+
+
+
+> ac
+
+1
+
+z − λ2,i 
+
+
+
+> cc
+
+λ†
+
+> 1,i
+
+
+
+> cb
+
+(R†
+
+> 0,i
+
+)−1 
+
+> bβ
+
+.
+
+(140) Equation (140) exhibits Σ i(z) as a pole expansion whose pole locations are the diagonal entries [ λ2,i ]cc . Moreover, each pole has a positive-semidefinite residue by construc-tion, consistent with a causal representation. In summary, increasing B (hence increasing Mi =
+
+Bν i − νi) increases the number of available poles and al-lows one to approximate an arbitrary target causal Σ i(z)with arbitrary accuracy. In the limit B → ∞ the repre-sentation can be made exact. 
+
+3. Isometry from spectral sum rule 
+
+Once the representation of Σ i(z) is exact, the high-frequency behavior of the corresponding Green’s func-tion satisfies the correct spectral sum rule. Therefore, as discussed in Sec. III D, the ghost-GA parameters satisfy 
+
+R† 
+
+> i
+
+Ri = 1νi , (141) consistently with Eq. (66). In particular, in the gauge of Eq. (137) this implies 
+
+R†
+
+> 0,i
+
+R0,i = 1νi , (142) i.e., R0,i is unitary. Therefore Eq. (139) reduces to: 
+
+Σi(z) 
+
+> αβ
+
+= −εi
+
+ 
+
+> αβ
+
++
+
+> νi
+
+X
+
+> a,b =1
+
+R†
+
+> 0,i
+
+
+
+> αa
+
+λ0,i 
+
+
+
+> ab
+
+R0,i 
+
+
+
+> bβ
+
++
+
+> νi
+
+X
+
+> a,b =1
+> Mi
+
+X
+
+> c=1
+
+R†
+
+> 0,i
+
+
+
+> αa
+
+λ1,i 
+
+
+
+> ac
+
+1
+
+z − λ2,i 
+
+
+
+> cc
+
+λ†
+
+> 1,i
+
+
+
+> cb
+
+R0,i 
+
+ 
+
+> bβ
+
+. (143) 
+
+B. Setup: from a DMFT fixed point to a ghost-GA realization 
+
+In this section we assume a fixed-point solution of zero-temperature DMFT for the lattice Hamiltonian (8). For each fragment i = 1 , . . . , N , we denote by ∆ i(z) the cor-responding Weiss (hybridization) function and by Σ i(z)the corresponding local self-energy. The associated im-purity Green’s function is 
+
+Gi(z) = z1νi − εi − ∆i(z) − Σi(z)−1 . (144) At the DMFT fixed point, Gi(z) coincides with the i-th diagonal block of the lattice Green’s function ob-tained from the same local self-energy. Introducing the 16 fragment-diagonal matrix Σ( z) = 
+
+
+
+Σ1(z) 0 . . . 00 Σ2(z) . . . ...... ... . . . ...
+
+0 . . . . . . ΣN (z)
+
+ , (145) the lattice Green’s function is 
+
+G(z) = z1 − h0 − Σ( z)−1
+
+=
+
+
+
+G1(z) G12 (z) . . . G1N (z)
+
+G21 (z) G2(z) . . . ...... ... . . . ...
+
+GN 1(z) . . . . . . GN (z)
+
+ , (146) where 1 denotes the identity matrix in the full physical one-particle space and h0 is the one-body matrix intro-duced in Eq. (4). We assume that B is chosen sufficiently large so that ∆i(z) and Σ i(z) can be represented (to the desired accu-racy, and exactly in the limit B → ∞ ) by the ghost-GA parametrizations discussed in Sec. V A, namely: ∆i(z) = DTi
+
+ z1 + Λ ci
+
+−1D∗ 
+
+> i
+
+, (147) Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi . (148) In the remainder of this section we show that, under the standing assumptions above, the matrices ( Ri, Λi, Di, Λci )obtained in this way satisfy the ghost-GA stationarity conditions (37)–(43). In order to prove our claim, we consider the three operators defined in Sec. III: the quasiparticle Hamilto-nian ˆHqp [R, Λ] in Eq. (22), the interacting embedding Hamiltonian ˆHi
+
+> emb
+
+[Di, Λci ] in Eq. (23), and the auxiliary quadratic embedding Hamiltonian ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]in Eq. (24). 
+
+C. Role of isometry relation in B → ∞ limit 
+
+A key observation, at the core of our proof, is that in the B → ∞ limit the correct spectral sum rule implies (Sec. III D): 
+
+R† 
+
+> i
+
+Ri = 1νi . (149) Equation (149) allows us to define, for each fragment i,canonical impurity operators within the local f sector: ˜ciα =
+
+> Bν i
+
+X
+
+> a=1
+
+[R† 
+
+> i
+
+]αa fia , (α = 1 , . . . , ν i) . (150) In fact, from this relation it follows that: 
+
+{˜ciα , ˜c† 
+
+> iβ
+
+} =
+
+> Bν i
+
+X
+
+> a=1
+
+[R† 
+
+> i
+
+]αa [Ri]aβ = [ R† 
+
+> i
+
+Ri]αβ = δαβ . (151) This has two key consequences: b†
+
+# iaΨi
+
+# ⟩c
+
+# i
+
+# (α = 1,.., νi) (a = 1,.., Bνi)
+
+# ˜c†
+
+# iα
+
+# f†
+
+## ia⟩i
+
+Figure 4. Schematic representation of the auxiliary quadratic embedding Hamiltonian ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] for a fixed frag-ment i. The impurity modes {˜ciα }α=1 ,...,ν i are embedded within the local f sector and hybridize with the bath modes 
+
+{bia }a=1 ,...,Bν i through Di. The bath one-body term is con-trolled by Λ ci [Eq. (147)], while the local quadratic term Λ i
+
+acts in the full local f space, mixing ˜ ciα with the remaining local degrees of freedom (complement within the f sector). tij
+
+(α = 1,.., νi)
+
+˜c†
+
+> iα
+
+(a = 1,.., Bνi)
+
+# f †
+
+ia
+
+# Ψi
+
+Figure 5. Schematic representation of the quasiparticle Hamiltonian ˆHqp [R, Λ]. Inter-fragment hopping is restricted to the {˜ciα } subspace and is governed by the physical hopping matrices tij , whereas the local quadratic term Λ i acts on the full local f sector and therefore couples ˜ ciα to the remaining local degrees of freedom within {fia }.
+
+1. The auxiliary quadratic embedding Hamiltonian ˆHi
+
+> 0,emb
+
+, previously introduced in Eq. (24), can be represented as: ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] = 
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λi
+
+ 
+
+> ab
+
+f †
+
+> ia
+
+fib 
+
++
+
+> Bν i
+
+X
+
+> a=1
+> νi
+
+X
+
+> α=1
+
+Di
+
+ 
+
+> aα
+
+˜c†
+
+> iα
+
+bia + H.c. 
+
+
+
++
+
+> Bν i
+
+X
+
+> a,b =1
+
+Λci
+
+ 
+
+> ab
+
+bib b† 
+
+> ia
+
+. (152) Equation (152) makes explicit that the bath modes 
+
+{bia } hybridize directly with the impurity opera-tors {˜ciα }, while the remaining local degrees of free-dom within the f space enter through the quadratic term governed by Λ i, see Fig. 4. 2. The quasiparticle Hamiltonian ˆHqp [R, Λ], previ-ously introduced in Eq. (22), can be represented 17 as: ˆHqp [R, Λ] = 
+
+> N
+
+X
+
+> i,j =1
+> i̸=jνi
+
+X
+
+> α=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ ˜c† 
+
+> iα
+
+˜cjβ 
+
++
+
+> N
+
+X
+
+> i=1
+> Bν i
+
+X
+
+> a,b =1
+
+[Λ i]ab f †
+
+> ia
+
+fib . (153) This form makes explicit that inter-fragment hop-ping acts only within the {˜ciα } subspace, while the local quadratic term governed by Λ i acts in the full local f space. Hence it couples {˜ciα } to the re-maining local degrees of freedom within {fia }, see Fig. 5. Within this setting, the ghost-GA can be interpreted through the lens of the ghost-DMET QE scheme of Ref. [46]: (I) On one hand, the ghost-GA stationarity conditions in Eqs. (42)–(43) can be written as 
+
+⟨Φ0 
+
+> i
+
+| bib b† 
+
+> ia
+
+|Φ0 
+
+> i
+
+⟩ = ⟨Φi| bib b† 
+
+> ia
+
+|Φi⟩, (154) 
+
+⟨Φ0 
+
+> i
+
+| ˜c† 
+
+> iα
+
+bib |Φ0 
+
+> i
+
+⟩ = ⟨Φi| c† 
+
+> iα
+
+bib |Φi⟩. (155) Therefore, ˆHi 
+
+> 0,emb
+
+acts as an interface that matches the impurity environment of ˆHi 
+
+> emb
+
+at the level of equal-time impurity–bath correlators, with the physical impurity op-erators {ciα } replaced by the canonical modes {˜ciα }. (II) On the other hand, as discussed in Sec. III F 1, the sta-tionarity conditions in Eqs. (40)–(41) encode the one-body matching between ˆHi 
+
+> 0,emb
+
+and ˆHqp , implied by the Schmidt embedding construction. In the following subsections we exploit this structure to complete the DMFT correspondence proof: starting from a DMFT fixed point and its ghost-GA representa-tion in the B → ∞ limit, we show explicitly that the resulting parameters ( Ri, Λi, Di, Λci ) satisfy the station-arity conditions (40)–(43). Specifically, Sec. V D derives the impurity representation implied by ˆHi 
+
+> 0,emb
+
+and estab-lishes the equal-time identities that yield (42)–(43), while Sec. V E relates the corresponding Weiss field to the lat-tice (cavity) construction and thereby verifies (40)–(41). 
+
+D. Weiss field from ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]
+
+Let us focus on a fixed fragment i and con-sider the auxiliary quadratic embedding Hamiltonian ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] previously introduced in Eq. (152). Our goal is to prove that the Green’s function of the de-grees of freedom {˜ciα }, as defined in Eq. (150), is given by the following equation: 
+
+G˜c,i (z) = z1νi − εi − ∆i(z) − Σi(z)−1 , (156) with Σ i(z) given by Eq. (55) and ∆ i(z) given by Eq. (81): ∆i(z) = DTi
+
+ z1Bν i + Λ ci
+
+−1D∗ 
+
+> i
+
+, (157) Σi(z) = z1νi −
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− εi . (158) To prove Eq. (156), let us consider the single-particle resolvent of ˆHi
+
+> 0,emb
+
+, which can be expressed in the fol-lowing block-matrix form: 
+
+Gi(z) = 
+
+"
+
+z12Bν i −
+
+ Λi Wi
+
+W † 
+
+> i
+
+−Λci
+
+ #−1
+
+, (159) where we introduced the Bν i × Bν i matrix 
+
+Wi = Ri DTi . (160) 
+
+• We denote by Gf,i (z) the ( f, f ) block of Gi(z)in Eq. (159). Applying the block-inverse formula Eq. (A2) (Appendix A) to the matrix 
+
+z12Bν i −
+
+ Λi Wi
+
+W † 
+
+> i
+
+−Λci
+
+
+
+=
+
+ A UU † C
+
+
+
+, (161) with the identifications 
+
+A = z1Bν i − Λi, U = −Wi, C = z1Bν i + Λ ci , (162) we obtain: 
+
+Gf,i (z) = 
+
+h
+
+A − U C −1U †i−1
+
+=
+
+h
+
+z1Bν i − Λi − Wi
+
+ z1Bν i + Λ ci
+
+−1W †
+
+> i
+
+i−1
+
+=
+
+h
+
+z1Bν i − Λi − R i ∆i(z) R†
+
+> i
+
+i−1
+
+, (163) where in the last line we used Wi = RiDTi
+
+[Eq. (160)] together with ∆ i(z) = DTi
+
+ z1Bν i +Λci
+
+−1D∗ 
+
+> i
+
+[Eq. (157)]. 
+
+• By definition (150), the ˜ c-Green’s function induced by ˆHi 
+
+> 0,emb
+
+is the projection of Gf,i (z): 
+
+G˜c,i (z) = R† 
+
+> i
+
+Gf,i (z) Ri
+
+= R†
+
+> i
+
+h
+
+z1Bν i − Λi − R i∆i(z)R†
+
+> i
+
+i−1
+
+Ri . (164) We now compute G˜c,i (z)−1 explicitly, applying Eq. (A5) (Appendix A) to Eq. (164) with 
+
+A = z1Bν i − Λi , U = Ri , C = ∆ i(z) . (165) Using these definitions we obtain: 
+
+G˜c,i (z)−1 =
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+− ∆i(z) .
+
+(166) 
+
+• Recalling Eq. (158), one rewrites 
+
+h
+
+R†
+
+> i
+
+ z1Bν i − Λi
+
+−1Ri
+
+i−1
+
+= z1νi − εi − Σi(z) . (167) Substituting Eq. (167) into Eq. (166) yields the DMFT-like Dyson form of Eq. (156). 18 In summary, we proved Equation (156), which shows that ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] provides a quadratic realiza-tion of an impurity problem for the modes ˜ ciα , where the bath parameters ( Di, Λci ) generate the Weiss field ∆ i(z)in Eq. (157), while the parameters ( Ri, Λi) generate the local self-energy Σ i(z) in Eq. (158). As a consequence, the full single-particle Green’s func-tion matrix of the impurity–bath subsystem is also repro-duced. Indeed, let G(cb ) 
+
+> i
+
+(z) denote the full ( ci, b i) Green’s function matrix of the correlated embedding Hamiltonian ˆHi
+
+> emb
+
+[Di, Λci ] in Eq. (23), and let G(˜ cb ) 
+
+> i
+
+(z) denote the full (˜ ci, b i) Green’s function matrix of the auxiliary quadratic embedding Hamiltonian ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]. Then, in both cases, the inverse Green’s function matrix is 
+
+G(cb ) 
+
+> i
+
+(z)−1 =
+
+z1νi − εi − Σi(z) −D Ti
+
+−D ∗ 
+
+> i
+
+z1Bν i + Λ ci
+
+
+
+,
+
+G(˜ cb ) 
+
+> i
+
+(z)−1 =
+
+z1νi − εi − Σi(z) −D Ti
+
+−D ∗ 
+
+> i
+
+z1Bν i + Λ ci
+
+
+
+.
+
+(168) Consequently, G(cb ) 
+
+> i
+
+(z) = G(˜ cb ) 
+
+> i
+
+(z) as matrix-valued func-tions, even though the impurity operators are different in the two realizations (physical ciα versus ˜ ciα ). There-fore the corresponding equal-time one-body correlators coincide. In particular, we have: 
+
+⟨Φ0 
+
+> i
+
+| b†
+
+> ia
+
+bib |Φ0 
+
+> i
+
+⟩ = ⟨Φi| b†
+
+> ia
+
+bib |Φi⟩ , (169) 
+
+⟨Φ0 
+
+> i
+
+| ˜c† 
+
+> iα
+
+bib |Φ0 
+
+> i
+
+⟩ = ⟨Φi| c†
+
+> iα
+
+bib |Φi⟩ , (170) where |Φi⟩ denotes the ground state of ˆHi
+
+> emb
+
+[Di, Λci ] and 
+
+|Φ0 
+
+> i
+
+⟩ the ground state of ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]. 
+
+E. Lattice Weiss field from the quasiparticle cavity construction 
+
+In this subsection we prove Eqs. (40) and (41). The key step is to identify the lattice Weiss field from the quasiparticle cavity construction and show that, at the DMFT fixed point, it coincides with the impurity Weiss field ∆ i(z). We consider the single-particle resolvent of the quadratic quasiparticle Hamiltonian ˆHqp [R, Λ] [Eq. (22)], 
+
+Gqp (z) = z1 − h∗[R, Λ] −1
+
+= (z1 − Λ) − R t R†−1
+
+=
+
+
+
+Gqp 1 (z) Gqp 12 (z) . . . Gqp 1N (z)
+
+Gqp 21 (z) Gqp 2 (z) . . . ...... ... . . . ...
+
+Gqp  
+
+> N1
+
+(z) . . . . . . Gqp  
+
+> N
+
+(z)
+
+ , (171) where h∗[R, Λ] = R t R† + Λ [Eq. (35)], Gqp  
+
+> j
+
+(z) denotes the j-th diagonal block (size Bν j × Bν j ), and Gqp  
+
+> jk
+
+(z)denotes the ( j, k ) off-diagonal block. We now project the quasiparticle resolvent Gqp (z) onto the ˜ c subspace defined by R [Eq. (25)] and define 
+
+G(z) = R† Gqp (z) R
+
+=
+
+
+
+G1(z) G12 (z) . . . G 1N (z)
+
+G21 (z) G2(z) . . . ...... ... . . . ...
+
+GN 1(z) . . . . . . GN (z)
+
+ , (172) where Gi(z) denotes the i-th diagonal block (of size νi ×
+
+νi). Using Eq. (A5) (Appendix A) directly on Gqp (z) with 
+
+A = z1 − Λ, U = R, and C = t yields 
+
+G(z)−1 =
+
+h
+
+R†(z1 − Λ) −1R
+
+i−1
+
+− t . (173) Finally, invoking Eq. (158) (and h0 = ε + t, Eq. (6)) to rewrite R†(z1 − Λ) −1R−1 = z1 − ε − Σ( z), we obtain the lattice Dyson form 
+
+G(z)−1 = z1 − h0 − Σ( z) , (174) where Σ( z) has the local (fragment-diagonal) structure defined in Eq. (54), with diagonal blocks Σ i(z) given by Eq. (158). 
+
+Lattice Weiss field 
+
+We define the lattice Weiss (hybridization) field ∆latt  
+
+> i
+
+(z) by the local Dyson relation: 
+
+Gi(z)−1 = z1νi − εi − ∆latt  
+
+> i
+
+(z) − Σi(z) . (175) We now compute ∆ latt  
+
+> i
+
+(z) explicitly in terms of the quasi-particle cavity construction. 
+
+• Let ¯h ∗ 
+
+> i
+
+[R, Λ] denote the block matrix obtained from 
+
+h∗[R, Λ] by removing the block row and column corresponding to fragment i, and define the corre-sponding cavity resolvent ¯Gqp  
+
+> i
+
+(z) = z1 − ¯h ∗ 
+
+> i
+
+[R, Λ] −1, (176) with blocks ¯Gqp 
+
+> i;jk
+
+(z) for j, k ̸ = i. To obtain the lo-cal ghost block Gqp  
+
+> i
+
+(z), we apply the block-inverse identity Eq. (A2) (Appendix A) to the matrix 
+
+z1 − h∗[R, Λ] decomposed in the ( i) block versus its complement. This yields: 
+
+Gqp  
+
+> i
+
+(z) = 
+
+h
+
+z1Bν i − Λi − R i Xi(z) R†
+
+> i
+
+i−1
+
+, (177) where we introduced the νi × νi matrix 
+
+Xi(z) = 
+
+> N
+
+X  
+
+> j,k =1
+> j̸=i, k ̸=i
+
+tij R† 
+
+> j
+
+¯Gqp 
+
+> i;jk
+
+(z) Rk tki . (178) 19 
+
+• Projecting Eq. (177) onto the {˜ciα } subspace gives 
+
+Gi(z) = R† 
+
+> i
+
+Gqp  
+
+> i
+
+(z) Ri. Applying Eq. (A5) (Ap-pendix A) to this expression with A = z1Bν i − Λi,
+
+U = Ri, and C = Xi(z), and using Eq. (158) to rewrite 
+
+R† 
+
+> i
+
+(z1Bν i − Λi)−1Ri
+
+−1 = z1νi − εi − Σi(z) , (179) we obtain 
+
+Gi(z)−1 = z1νi − εi − Σi(z) − Xi(z) . (180) 
+
+• Comparing Eq. (180) with the defining relation (175) shows that Xi(z) = ∆ latt  
+
+> i
+
+(z). In summary, the cavity expression for the lattice Weiss field is: ∆latt  
+
+> i
+
+(z) = 
+
+> N
+
+X  
+
+> j,k =1
+> j̸=i, k ̸=i
+
+tij R† 
+
+> j
+
+¯Gqp 
+
+> i;jk
+
+(z) Rk tki . (181) At the DMFT fixed point assumed in Sec. V B, the local lattice Green’s function block Gi(z) satisfies the impurity Dyson equation (144) with the same pair  Σi(z), ∆i(z). Since ∆ latt  
+
+> i
+
+(z) is defined by Eq. (175), comparing (175) with (144) yields: ∆latt  
+
+> i
+
+(z) = ∆ i(z) (182) and, in turn: 
+
+Gqp  
+
+> i
+
+(z) = 
+
+h
+
+z1Bν i − Λi − R i ∆latt  
+
+> i
+
+(z) R†
+
+> i
+
+i−1
+
+=
+
+h
+
+z1Bν i − Λi − R i ∆i(z) R†
+
+> i
+
+i−1
+
+. (183) 
+
+Local ghost density matching 
+
+We first prove Eq. (40), i.e., the equality of the local ghost density matrices of ˆHi 
+
+> 0,emb
+
+and ˆHqp . From Sec. V D the ( f, f ) block of the resolvent of ˆHi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi]is 
+
+Gf,i (z) = 
+
+h
+
+z1Bν i − Λi − R i ∆i(z) R†
+
+> i
+
+i−1
+
+. (184) Using Eq. (182) together with Eq. (183) we obtain 
+
+Gf,i (z) = Gqp  
+
+> i
+
+(z) . (185) Taking the equal-time limit of Eq. (185) yields 
+
+⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+
+fib |Φ0 
+
+> i
+
+⟩ = ⟨Ψ0| f †
+
+> ia
+
+fib |Ψ0⟩ , (186) which is Eq. (40). 
+
+Hybridization matching 
+
+We next prove Eq. (41), which expresses the matching of the mixed impurity–bath correlator with the corre-sponding lattice quantity entering the hybridization up-date. Let Gbf,i (z) denote the ( b, f ) block of the resol-vent Gi(z) in Eq. (159). Using the block inverse formula Eq. (A2) (Appendix A) with the same identifications as in Sec. V D gives 
+
+Gbf,i (z) =  z1Bν i + Λ ci
+
+−1D∗ 
+
+> i
+
+R† 
+
+> i
+
+Gf,i (z) , (187) hence 
+
+DTi Gbf,i (z) = ∆ i(z) R† 
+
+> i
+
+Gf,i (z) . (188) On the lattice side, block inversion of z1 − h∗[R, Λ] in the same ( i) versus ( j̸ = i) structure yields, for j̸ = i,
+
+Gqp  
+
+> ji
+
+(z) = 
+
+> N
+
+X 
+
+> k=1
+> k̸=i
+
+¯Gqp 
+
+> i;jk
+
+(z) Rk tki R† 
+
+> i
+
+Gqp  
+
+> i
+
+(z) . (189) Multiplying Eq. (189) by tij R† 
+
+> j
+
+and summing over j̸ = i
+
+gives 
+
+> N
+
+X 
+
+> j=1
+> j̸=i
+
+tij R† 
+
+> j
+
+Gqp  
+
+> ji
+
+(z) = ∆ latt  
+
+> i
+
+(z) R† 
+
+> i
+
+Gqp  
+
+> i
+
+(z) . (190) Using Eqs. (182) and (185), and comparing Eqs. (188) and (190), we obtain 
+
+DTi Gbf,i (z) = 
+
+> N
+
+X 
+
+> j=1
+> j̸=i
+
+tij R† 
+
+> j
+
+Gqp  
+
+> ji
+
+(z) . (191) Taking the equal-time limit of Eq. (191) yields Eq. (41), i.e.: 
+
+⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+> Bν i
+
+X
+
+> b=1
+
+[Di]bα bib 
+
+!
+
+|Φ0 
+
+> i
+
+⟩ =
+
+> N
+
+X
+
+> j=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ ⟨Ψ0| f †
+
+> ia
+
+
+
+> Bν j
+
+X
+
+> b=1
+
+[R† 
+
+> j
+
+]βb fjb 
+
+ |Ψ0⟩ . (192) In summary, the ghost-GA embedding construction re- produces the DMFT fixed point exactly. The central 20 mechanism is that the DMFT objects entering the self-consistency map (local propagators and the hybridiza-tion function) are represented through a sequence of finite-dimensional auxiliary Hamiltonians whose param-eters are updated self-consistently. In the B → ∞ limit the auxiliary bath becomes complete, and the result-ing update map coincides with the standard DMFT up-date, yielding the same local self-energy and hybridiza-tion function. A conceptual insight emerging from the proof above is that, while at finite B the hybridization function ∆ i(z)parametrizing the EH (23) via Eq. (81) is generally dif-ferent from the lattice Weiss field ∆ latt  
+
+> i
+
+(z) defined by the cavity construction [Eq. (181)] and implied by the lattice resolvent (53), they become equal in the limit B → ∞ .Note that this finite-B ghost-GA framework contrasts with how finite-bath approximations are introduced in standard DMFT implementations, which are based on discretizing the Weiss field, replacing the continuous hy-bridization function by a finite-bath representation. In the present scheme, instead, ∆ i(z) enters only via the ghost-GA stationarity conditions that determine the self-energy, while the local Green’s function is computed from (53) with Σ i(z) given by (55). Systematic com-parisons [89, 90] demonstrated that the ghost-GA varia-tional optimization yields a faster convergence of ground-state observables as a function of bath size than standard finite-bath DMFT, even though, as emphasized earlier, only the ground state of the EH is required.  
+
+> F. Unified perspective: ghost-GA, ghost-DMET, and DMFT
+
+A key conceptual consequence of this section is that DMFT can be viewed as implementable through ground-state information of the interacting auxiliary problem. At T = 0, the quantities required to close the self-consistency loop are obtained from ground-state expec-tation values of the embedding Hamiltonian, rather than from explicitly computing frequency-dependent correla-tion functions or excited-state spectra. In this sense, the proof provides a principled route to formulate DMFT as a ground-state-based embedding algorithm, while retain-ing full equivalence in the complete-bath limit. The equivalence established in this work also clarifies the relationship between the present variational frame-work and density matrix embedding theory (DMET) [33, 34], specifically in light of the ghost-DMET formulation proposed in Ref. [46]. In fact, as shown in Ref. [46], the stationarity conditions of the ghost-GA energy functional can be derived from a QE perspective by constructing the auxiliary quasiparticle Hamiltonian ˆHqp [R, Λ] and requiring self-consistency between the impurity and the bath. However, a crucial formal step in interpreting the ghost-GA equations as a DMET-like embedding relies on the condition that the embedding matrix Ri acts as an isometry from the physical space to the auxiliary space, i.e., R† 
+
+> i
+
+Ri ≈ 1νi . In the finite-B ghost-GA framework, this condition is generally satisfied only approximately (although often to high accuracy [43, 44, 89, 90]), and the deviation 1νi − R † 
+
+> i
+
+Ri represents the spectral weight “missing” from the finite-bath description. The present work reveals that in the limit B → ∞ , the ghost-GA parameters must reproduce the exact high-frequency be-havior of the local Green’s function [Eq. (66)], which en-forces the exact sum rule: lim  
+
+> B→∞
+
+R† 
+
+> i
+
+Ri = 1νi . (193) In summary, we showed that the B → ∞ limit not only recovers the exact DMFT self-energy, but also rigorously enforces the isometry condition required to interpret the theory from a DMET perspective.   
+
+> VI. FINITE-TGHOST-GA FUNCTIONAL AND DMFT FUNCTIONAL STRUCTURE
+
+In this section we derive a finite-temperature grand-potential functional for the ghost-GA, and show that it admits a fully gauge-invariant reformulation in terms of the dynamical Weiss field and self-energy. In the infinite-bath limit, this dynamical functional coincides with the standard DMFT functional [18]. As a consequence, the DMFT stationarity conditions can be enforced within the ghost-GA functional through stationarity with respect to static auxiliary parameters, providing a purely static route to the finite-temperature DMFT fixed point. The section is structured as follows: In Sec. VI A we in-troduce the finite-temperature grand-potential functional in terms of auxiliary quasiparticle and embedding Hamil-tonians and derive the corresponding stationarity con-ditions as thermal expectation-value matching relations. In Sec. VI B we rewrite the same functional in a gauge-invariant form in terms of the induced dynamical Weiss field and self-energy, making contact with DMFT func-tional formulations. In Sec. VI C we provide the algebraic derivation connecting these two representations. Finally, in Sec. VI D we take the infinite-bath limit and identify the resulting dynamical functional with the DMFT func-tional [18], thereby establishing a static-parameter for-mulation of the DMFT stationarity conditions in terms of auxiliary problems.  
+
+> A. Finite-temperature extension
+
+Although the discussion and implementation above fo-cus on T = 0, the same construction admits a direct finite-temperature generalization. To make this explicit, we define the following finite-T grand-potential Lagrange function: 
+
+Lβ [R, Λ, D, Λc] = Ω qp [R, Λ] + 
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> emb
+
+[Di, Λci ]21 
+
+−
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> 0,emb
+
+[Di, Λci ; Ri, Λi] , (194) where β = 1 /T and each term is defined as: Ωqp = − 1
+
+β ln 
+
+
+
+Tr e−β ˆHqp [R,Λ] 
+
+, (195) Ωi 
+
+> emb
+
+= − 1
+
+β ln 
+
+
+
+Tr e−β ˆHi 
+
+> emb [Di,Λci]
+
+
+
+, (196) Ωi 
+
+> 0,emb
+
+= − 1
+
+β ln 
+
+
+
+Tr e−β ˆHi 
+
+> 0,emb [Di,Λci;Ri,Λi]
+
+
+
+. (197) Note that Lβ reduces to the ghost-GA Lagrange function in Eq. (21) in the limit β → ∞ .Extremizing Lβ yields the following thermal general-ization of the stationarity conditions in Eqs. (40)–(43): 
+
+D
+
+f †
+
+> ia
+
+fib 
+
+E
+
+> β, qp
+
+=
+
+D
+
+f †
+
+> ia
+
+fib 
+
+E
+
+> β, 0emb ,i
+
+, (198) 
+
+*
+
+f †
+
+> ia
+> Bν i
+
+X
+
+> b=1
+
+[Di]bα bib 
+
+!+ 
+
+> β, 0emb ,i
+
+=
+
+*
+
+f †
+
+> ia
+
+
+
+> N
+
+X
+
+> j=1
+> νj
+
+X
+
+> β=1
+
+[tij ]αβ Bν j
+
+X
+
+> b=1
+
+[R† 
+
+> j
+
+]βb fjb 
+
++
+
+> β, qp
+
+, (199) 
+
+D
+
+bib b†
+
+> ia
+
+E
+
+> β, 0emb ,i
+
+=
+
+D
+
+bib b†
+
+> ia
+
+E
+
+> β, emb ,i
+
+, (200) 
+
+* Bν iX
+
+> a=1
+
+[Ri]aα f †
+
+> ia
+
+!
+
+bib 
+
++
+
+> β, 0emb ,i
+
+=
+
+D
+
+c†
+
+> iα
+
+bib 
+
+E
+
+> β, emb ,i
+
+, (201) where the thermal averages in each auxiliary problem are defined as follows: 
+
+⟨ ˆO⟩β, qp =Tr 
+
+
+
+e−β ˆHqp ˆO
+
+
+
+Tr 
+
+
+
+e−β ˆHqp 
+
+ , (202) 
+
+⟨ ˆO⟩β, emb ,i =Tr 
+
+
+
+e−β ˆHi 
+
+> emb
+
+ˆO
+
+
+
+Tr 
+
+
+
+e−β ˆHi
+
+> emb
+
+ , (203) 
+
+⟨ ˆO⟩β, 0emb ,i =Tr 
+
+
+
+e−β ˆHi 
+
+> 0,emb
+
+ˆO
+
+
+
+Tr 
+
+
+
+e−β ˆHi
+
+> 0,emb
+
+ . (204) Remarkably, the proof of Sec. V relies only on algebraic resolvent identities and on the self-consistency structure of the auxiliary construction, and therefore carries over to finite temperature upon working on the Matsubara axis ( z = iω n) and replacing ground-state expectation values with thermal averages [Eqs. (202)–(204)]. Conse-quently, the stationary point of Lβ converges to the finite-temperature DMFT fixed point in the limit B → ∞ for any fixed β, and not only in the limit β → ∞ , where Lβ
+
+reduces to the ghost-GA Lagrange function in Eq. (21) and Eqs. (198)–(201) reduce to Eqs. (40)–(43). Note that thermal averages of observables in Eqs. (202)- (204) can be evaluated using a vari-ety of techniques, including finite-temperature exact-diagonalization methods such as the Lanczos ap-proach [91], series and linked-cluster expansions [92, 93], numerical renormalization-group [94, 95], quantum Monte Carlo methods [96], tensor-network algorithms for thermal states [97–100], thermal pure quantum-state approaches [101, 102], and finite-temperature coupled-cluster formalisms [103–106], with recent extensions to quantum algorithms [107–111]. In the following subsection we show numerically that this convergence is not only an asymptotic statement about the strict B → ∞ limit: for the cases considered, the finite-temperature ghost-GA results at B = 3 are already very close to DMFT. 
+
+B. Gauge-invariant dynamical form of the finite-T
+
+functional 
+
+In this subsection we rewrite Eq. (194) in a gauge-invariant form in terms of the induced self-energy and hybridization functions, thereby making contact with the DMFT functional [18]. We express the finite-T functional [(194)] in terms of the local self-energy and hybridization functions induced by the following ghost-GA parametrizations: Σi(iω n) = iω n1νi −
+
+h
+
+R† 
+
+> i
+
+(iω n1Bν i − Λi)−1Ri
+
+i−1
+
+− εi,
+
+(205) ∆i(iω n) = DTi
+
+ iω n1Bν i + Λ ci
+
+−1D∗ 
+
+> i
+
+. (206) As we are going to show, Eq. (194) can be written in the following equivalent form: 
+
+Lβ [{D i}, {Λci }, {R i}, {Λi}] = 
+
+− T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0 − Σ( iω n)22 + T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1−εi −∆i(iω n)−Σi(iω n)
+
++
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> imp
+
+[∆ i] , (207) where Σ( iω n) is the fragment-diagonal matrix of Eq. (54), with diagonal blocks Σ i(iω n) given by Eq. (205), Ωi
+
+> imp
+
+[∆ i] = Ω i
+
+> emb
+
+[Di, Λci ] − Ωi
+
+> bath
+
+[Λ ci ] , (208) Ωi
+
+> bath
+
+[Λ ci ] = Tr(Λ ci ) − T X
+
+> n
+
+eiω n0+
+
+Tr Bν i ln  iω n1 + Λ ci
+
+ ,
+
+(209) and Ω i 
+
+> emb
+
+is defined in Eq. (196), so that Ω i 
+
+> imp
+
+depends on (Di, Λci ) only through the hybridization function ∆ i(iω n)in Eq. (206). Equation (207) is directly comparable to the DMFT functional [18] written in terms of the dynamical objects Σ( iω n) and ∆ i(iω n). The key distinction is that here Σ and ∆ i are not treated as arbitrary dynamical variables, but are restricted to the finite-dimensional parametriza-tions in Eqs. (205)–(206), in terms of the ghost-GA vari-ational parameters ( R, Λ, D, Λc). A central practical feature of this specific parametriza-tion is that extremizing Lβ with respect to the under-lying matrices ( R, Λ, D, Λc) yields self-consistency equa-tions that can be enforced entirely through static auxil-iary problems (thermal expectation values in ˆHqp , ˆHi
+
+> emb
+
+,and ˆHi
+
+> 0,emb
+
+), rather than by treating Σ( iω n) and ∆ i(iω n)as unconstrained dynamical variables. This finite-T func-tional viewpoint is not tied to the T = 0 ghost-GA for-mulation, although it can be motivated from that per-spective in the limit β → ∞ .
+
+C. Derivation of the gauge-invariant dynamical form of the finite-T functional 
+
+In this subsection we prove that the finite-T grand-potential Lagrange function in Eq. (194) is equivalent to the gauge-invariant form in Eq. (207). Starting from Eq. (194) together with the definitions Eqs. (195)–(197), we rewrite the three contributions Ω qp , Ω i
+
+> emb
+
+, and Ω i
+
+> 0,emb
+
+one by one. Throughout the derivation we use the following ele-mentary identities: Tr ln M = ln det M, (210) det  A − U CU † = det( A) det  1 − C U †A−1U , (211) det 
+
+A BC D
+
+
+
+= det( D) det  A − BD −1C, (212) valid whenever the indicated inverses exist. 
+
+Quasiparticle contribution 
+
+Since ˆHqp is quadratic, Eq. (195) can be written in the Matsubara trace–log form Ωqp = − T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h∗[R, Λ]  , (213) where h∗[R, Λ] = R t R† + Λ [Eq. (35)]. Using Eq. (211) with A = iω n1 − Λ, U = R, and C = t, we obtain Tr ln  iω n1 − h∗[R, Λ]  = Tr ln( iω n1 − Λ) + Tr ln 
+
+
+
+1 − t R†(iω n1 − Λ) −1R
+
+
+
+. (214) From the definition (205) (and h0 = ε + t, Eq. (6)) one has 
+
+R†(iω n1 − Λ) −1R = iω n1 − ε − Σ( iω n)−1 , (215) hence Tr ln 
+
+
+
+1 − t R†(iω n1 − Λ) −1R
+
+
+
+=Tr ln  iω n1 − h0 − Σ( iω n)
+
+− Tr ln  iω n1 − ε − Σ( iω n) . (216) Substituting Eq. (216) into Eq. (214) yields Tr ln  iω n1 − h∗[R, Λ]  = Tr ln  iω n1 − h0 − Σ( iω n)
+
++ Tr ln( iω n1 − Λ) 
+
+− Tr ln  iω n1 − ε − Σ( iω n) .
+
+(217) Inserting Eq. (217) into Eq. (213) yields the correspond-ing expression for Ω qp .
+
+Quadratic embedding contribution 
+
+Since ˆHi 
+
+> 0,emb
+
+is quadratic, Eq. (197) can be written as Ωi 
+
+> 0,emb
+
+= Tr(Λ ci ) − T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0,emb 
+
+> i
+
+ ,
+
+(218) where the one-body matrix associated with ˆHi
+
+> 0,emb
+
+[Eq. (24)] is 
+
+h0,emb  
+
+> i
+
+=
+
+ Λi Wi
+
+W † 
+
+> i
+
+−Λci
+
+
+
+, Wi = RiDTi . (219) Using Eq. (212) with D = iω n1 + Λ ci yields Tr ln  iω n1 − h0,emb 
+
+> i
+
+ = Tr ln( iω n1 + Λ ci )+ Tr ln 
+
+
+
+iω n1 − Λi − Wi(iω n1 + Λ ci )−1W †
+
+> i
+
+
+
+. (220) Using Wi = RiDTi and the definition (206) gives 
+
+Wi(iω n1 + Λ ci )−1W † 
+
+> i
+
+= Ri ∆i(iω n) R† 
+
+> i
+
+. Applying 23 Eq. (211) to the second term in Eq. (220) with A =
+
+iω n1 − Λi, U = Ri, and C = ∆ i(iω n), and using again Eq. (205) to write 
+
+R† 
+
+> i
+
+(iω n1 − Λi)−1Ri = iω n1 − εi − Σi(iω n)−1, (221) one obtains Tr ln  iω n1 − h0,emb 
+
+> i
+
+ = Tr ln( iω n1 + Λ ci )+ Tr ln( iω n1 − Λi)+ Tr ln  iω n1 − εi − Σi(iω n) − ∆i(iω n)
+
+− Tr ln  iω n1 − εi − Σi(iω n) , (222) which rewrites Ω i 
+
+> 0,emb
+
+through Eq. (218). 
+
+Collecting terms 
+
+Substituting Eqs. (217) and (222) into Eq. (194) (using Eqs. (195) and (197)), and using Tr ln( iω n1 − Λ) = 
+
+> N
+
+X
+
+> i=1
+
+Tr ln( iω n1 − Λi), (223) Tr ln  iω n1 − ε − Σ( iω n)
+
+=
+
+> N
+
+X
+
+> i=1
+
+Tr ln  iω n1 − εi − Σi(iω n) ,
+
+while the additive constants Tr(Λ ci ) are exactly canceled by the corresponding terms in Ω i 
+
+> bath
+
+[Eq. (209)], yields 
+
+Lβ = −T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0 − Σ( iω n)
+
++ T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1−εi −Σi(iω n)−∆i(iω n)
+
++
+
+> N
+
+X
+
+> i=1
+
+Ωi 
+
+> emb
+
+−
+
+> N
+
+X
+
+> i=1
+
+Ωi 
+
+> bath
+
+, (224) where Ω i 
+
+> bath
+
+is given by Eq. (209). Finally, using the definition (208) of Ω i 
+
+> imp
+
+yields Eq. (207). 
+
+D. Functional viewpoint on the ghost-GA–DMFT correspondence 
+
+Let us consider the functional Lβ , see Eq. (207) in the infinite-bath limit, considering it as an unrestricted func-tional of the dynamical variables Σ i(iω n) and ∆ i(iω n). 
+
+Lβ [Σ , {∆i}] = 
+
+− T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0 − Σ( iω n)
+
++ T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1−εi −∆i(iω n)−Σi(iω n)
+
++
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> imp
+
+[∆ i] . (225) We note that Eq. (225) becomes equivalent to the following DMFT functional, previously introduced in Ref. [18]: Γβ [Gloc , Σ, {∆i}] = 
+
+> N
+
+X
+
+> i=1
+
+Ωi
+
+> imp
+
+[∆ i]
+
+− T X
+
+> n
+
+eiω n0+
+
+Tr ln  iω n1 − h0 − Σ( iω n)
+
+− T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr ln  Gloc ,i (iω n)
+
++ T
+
+> N
+
+X
+
+> i=1
+
+X
+
+> n
+
+eiω n0+
+
+Tr 
+
+h iω n1 − εi − ∆i(iω n)
+
+− Σi(iω n) − Gloc ,i (iω n)−1 Gloc ,i (iω n)
+
+i
+
+, (226) where the local Green’s function variable Gloc ,i (iω n) is considered as an independent variable. In fact, station-arity of Γ β with respect to Gloc ,i (iω n) yields 
+
+Gloc ,i (iω n)−1 = iω n1 − εi − ∆i(iω n) − Σi(iω n) , (227) and substituting Eq. (227) into Eq. (226) eliminates Gloc 
+
+and gives Eq. (225) identically. This observation provides us with an alternative route to the connection between ghost-GA and DMFT. In fact, from this perspective, the ghost-GA can be recovered re-stricting Eq. (225) to the manifold generated by the static matrices ( Ri, Λi, Di, Λci ) through the parametrizations in Eqs. (205)–(206), and observing that taking variations within this restricted manifold recovers Eq. (207). It is this specific parametrization of Σ( iω n) and ∆ i(iω n) that makes it possible to enforce the restricted stationarity conditions through purely static density-matrix match-ing in terms of the auxiliary problems ˆHqp , ˆHi
+
+> emb
+
+, and ˆHi
+
+> 0,emb
+
+, and to connect the present gauge-invariant for-mulation to the variational ghost-GA viewpoint. Note that the restricted-manifold formulation used here is not the only possible. In particular, Eq. (205) allows variations for which R† 
+
+> i
+
+Ri̸ = 1νi , i.e., it admits a contribution to Σ i(iω n) proportional to iω n and, in turn, deviations from the spectral sum rule (see Sec. III D). One could have alternatively restricted the variational space by imposing R† 
+
+> i
+
+Ri = 1νi from the outset, thereby excluding such a term. However, such a restriction would not be compatible with our ghost-GA variational con-struction and its formulation in terms of static auxiliary-Hamiltonian stationarity conditions. The derivation in Sec. V complements the present func-tional argument by deriving the B → ∞ correspondence in a fully constructive way and by identifying explicitly the key limiting identities that characterize the large-B
+
+limit, namely Eqs. (141) and (182). These relations un-derlie the DMET interpretation and motivate the finite-
+
+B restart/extrapolation protocol discussed in Sec. VII A. 24 
+
+VII. NUMERICAL VALIDATION AND BENCHMARKS 
+
+Throughout this section we consider the single-band Hubbard model on the Bethe lattice, ˆH = −t X
+
+> ⟨i,j ⟩
+
+X
+
+> σ=↑,↓
+
+
+
+c† 
+
+> iσ
+
+cjσ + H .c.
+
+
+
++ U X
+
+> i
+
+ˆni↑ ˆni↓ , (228) where ˆniσ = c† 
+
+> iσ
+
+ciσ , ˆni = ˆ ni↑ + ˆ ni↓ . (229) The corresponding noninteracting density of states is semicircular, 
+
+ρ(ω) = 2
+
+πD 2
+
+pD2 − ω2 , (230) with D the half-bandwidth. Throughout this section we set D = 1. In Sec. VII A we derive a few important identities implied by the constructive proof of the ghost-GA– DMFT correspondence, and verify them numerically. In Sec. VII B we present finite-temperature benchmark cal-culations, showing that the finite-T extension of the ghost-GA framework reproduces the DMFT thermody-namics with high accuracy already at B = 3. 
+
+A. Limiting identities implied by the ghost-GA–DMFT correspondence 
+
+In Sec. V, Eq (182), we showed that, in the limit B →∞, the lattice Weiss field ∆ latt  
+
+> i
+
+(z) defined by the cavity construction in Eq. (181) coincides with the DMFT Weiss field ∆ i(z). The fact that lim  
+
+> B→∞
+
+∆latt  
+
+> i
+
+(z) = ∆ i(z) (231) sheds light on recent benchmarks showing that small-
+
+B ghost-GA solutions act as efficient preconditioners for DMFT [112]. The constructive proof of the ghost-GA– DMFT correspondence of Sec. V implies further identi-ties that must become exact as B → ∞ :
+
+• From Eq. (168) it follows that, in the complete-bath limit, the (˜ ci, b i) and ( ci, b i) Green’s function matrices coincide. Therefore the full one-body re-duced density matrix of the impurity–bath subsys-tem must coincide. Besides Eqs. (42) and (43), this also gives 
+
+⟨Φ0 
+
+> i
+
+| ˜c† 
+
+> iα
+
+˜ciβ |Φ0 
+
+> i
+
+⟩ = ⟨Φi| c†
+
+> iα
+
+ciβ |Φi⟩ , (232) where ˜ ciα is defined in Eq. (150). Equivalently, 
+
+> Bν i
+
+X
+
+> a,b =1
+
+[Ri]aα ⟨Φ0 
+
+> i
+
+| f †
+
+> ia
+
+fib |Φ0 
+
+> i
+
+⟩ [R† 
+
+> i
+
+]βb = ⟨Φi| c†
+
+> iα
+
+ciβ |Φi⟩ .
+
+(233) 
+
+• Extending Eq. (64) of Sec. III D by one order, we write Σi(z) = z Σlin  
+
+> i
+
++ Σ (0)  
+
+> i
+
++ Σ(1) 
+
+> i
+
+z + O(z−2) , (234) with Σlin  
+
+> i
+
+= 1νi − (R† 
+
+> i
+
+Ri)−1, (235) Σ(0)  
+
+> i
+
+= ( R† 
+
+> i
+
+Ri)−1(R† 
+
+> i
+
+ΛiRi)( R† 
+
+> i
+
+Ri)−1 − εi , (236) Σ(1)  
+
+> i
+
+= ( R† 
+
+> i
+
+Ri)−1h
+
+R† 
+
+> i
+
+Λ2 
+
+> i
+
+Ri
+
+− (R† 
+
+> i
+
+ΛiRi)( R† 
+
+> i
+
+Ri)−1(R† 
+
+> i
+
+ΛiRi)
+
+i
+
+(R† 
+
+> i
+
+Ri)−1 .
+
+(237) Since the DMFT self-energy has no linear term, the 
+
+B → ∞ limit implies: Σlin  
+
+> i
+
+−→ 0 , (238) Σ(0)  
+
+> i
+
+−→ Σ(0)  
+
+> i, emb
+
+, (239) Σ(1)  
+
+> i
+
+−→ Σ(1)  
+
+> i, emb
+
+. (240) The embedding coefficients are obtained di-rectly from equal-time expectation values of ˆHi
+
+> emb
+
+through the standard identities [113–116]: 
+
+Σ(0) 
+
+> i, emb
+
+ 
+
+> αβ
+
+= ⟨Φi|
+
+n
+
+[ciα , ˆHi
+
+> int
+
+], c †
+
+> iβ
+
+o
+
+|Φi⟩ , (241) 
+
+Σ(1) 
+
+> i, emb
+
+ 
+
+> αβ
+
+= ⟨Φi|
+
+n
+
+[ciα , ˆHi
+
+> int
+
+], [ ˆHi
+
+> int
+
+, c † 
+
+> iβ
+
+]
+
+o
+
+|Φi⟩−
+
+> νi
+
+X
+
+> γ=1
+
+Σ(0) 
+
+> i, emb
+
+
+
+> αγ
+
+Σ(0) 
+
+> i, emb
+
+ 
+
+> γβ
+
+. (242) Figure 6 numerically verifies the limiting identities de-rived above for the paramagnetic single-band Hubbard model on the Bethe lattice at T = 0 and U/D = 2, for 
+
+n = 1 .00 and n = 0 .85. For each bath size B, the inter-acting embedding Hamiltonian was solved with DMRG. The figure reports the quantities entering Eqs. (233) and (240); the black dashed lines denote the corresponding reference quantities indicated in the legend. For the present single-band interaction ˆHi 
+
+> int
+
+= U ˆni↑ ˆni↓ (243) one has [ciσ , ˆHi
+
+> int
+
+] = U ˆni, −σ ciσ , (244) so that, for a homogeneous paramagnetic solution with density 
+
+n = ⟨ˆni⟩ = ⟨ˆni↑ + ˆ ni↓⟩ , (245) the commutator expressions in Eqs. (241) and (242) re-duce to Σ(0)  
+
+> i, emb
+
+= {[ciσ , ˆHi
+
+> int
+
+], c † 
+
+> iσ
+
+} = U ⟨ˆni, −σ ⟩ = U n 
+
+2 , (246) 25 0.45                            
+
+> 0.50
+> (a) U/D= 2, n= 1.00
+> 0
+> i|cici|0
+> i
+> i|cici|i
+> (b) U/D= 2, n= 0.85
+> 0.02
+> 0.00
+> lin
+> i
+> 0
+> 0.8
+> 0.9
+> 1.0
+> (0)
+> i
+> (0)
+> i, emb
+> 357911 13
+> B
+> 0.6
+> 0.8
+> 1.0
+> (1)
+> i
+> (1)
+> i, emb
+> 357911 13
+> B
+
+Figure 6. Zero-temperature large-B behavior of the quanti-ties entering Eqs. (233) and (240) for the paramagnetic single-band Hubbard model on the Bethe lattice at U/D = 2. The left and right columns correspond to n = 1 .00 and n = 0 .85, respectively. 
+
+and Σ(1)  
+
+> i, emb
+
+= {[ciσ , ˆHi
+
+> int
+
+], [ ˆHi
+
+> int
+
+, c † 
+
+> iσ
+
+]} −
+
+
+
+Σ(0) 
+
+> i, emb
+
+2
+
+= U 2⟨ˆni, −σ ⟩ − 
+
+ U n 
+
+2
+
+2
+
+= U 2 n
+
+2
+
+
+
+1 − n
+
+2
+
+
+
+.
+
+(247) Similarly, Eq. (233) implies that, in the same limit, 
+
+⟨Φ0 
+
+> i
+
+| ˜c† 
+
+> iσ
+
+˜ciσ |Φ0 
+
+> i
+
+⟩ = ⟨Φi| c† 
+
+> iσ
+
+ciσ |Φi⟩ = n
+
+2 . (248) The figure shows the expected systematic convergence with increasing bath size. In particular, the occupation matching displayed in the upper row becomes increas-ingly accurate, the unphysical linear term Σ lin  
+
+> i
+
+is pro-gressively suppressed and tends to zero, and the zeroth-and first-order coefficients approach the corresponding embedding values Σ (0)  
+
+> i, emb
+
+and Σ (1) 
+
+> i, emb
+
+, in agreement with Eqs. (233) and (240). Taken together, these results provide direct numeri-cal verification of the large-B identities derived above from Sec. V. More importantly, they indicate that finite-
+
+B ghost-GA solutions already encode nontrivial spectral information. Indeed, the self-energy tails and the cav-ity Weiss field are constrained by equal-time identities, and therefore by quantities that, within a variational framework, are expected to converge accurately already at relatively small B. This suggests a concrete numer-ical strategy: starting from a converged small-B solu-tion, one can enlarge the self-energy representation while enforcing the known asymptotic constraints, and then update the hybridization sector through the cavity con-struction. In this way, small-B ghost-GA solutions can be used as principled preconditioners for larger-B cal-culations. Concrete numerical implementations of this strategy will be explored in future work. 
+
+B. Benchmark Calculations at Finite Temperature 
+
+In this section we focus on the paramagnetic half-filled case, so that ⟨ˆni⟩ = 1. For the homogeneous single-site solution, the local variational matrices are site indepen-dent: 
+
+R, D ∈ C2B×2, Λ, Λc ∈ C2B×2B . (249) The corresponding local embedding Hamiltonian is ˆHemb [D, Λc] = U ˆn↑ ˆn↓ +
+
+> 2B
+
+X
+
+> a=1
+
+X
+
+> σ=↑,↓
+
+
+
+[D]aσ c† 
+
+> σ
+
+ba + H .c.
+
+
+
++
+
+> 2B
+
+X
+
+> a,b =1
+
+[Λ c]ab bbb† 
+
+> a
+
+. (250) We denote the double occupancy by: 
+
+d = ⟨ˆn↑ ˆn↓⟩ , (251) which is computed as 
+
+d =Tr 
+
+
+
+e−β ˆHemb [D,Λc] ˆn↑ ˆn↓
+
+
+
+Tr 
+
+
+
+e−β ˆHemb [D,Λc]
+
+ . (252) The internal energy per site is 
+
+e = E
+
+N = U d + ekin , (253) 
+
+ekin =
+
+Z
+
+dε ρ (ε) ε Tr 
+
+h
+
+R† nF
+
+ ε RR † + Λ  R
+
+i
+
+, (254) where 
+
+nF (X) =  eβX + 1−1 (255) is the Fermi function and ρ(ε) is the semicircular density of states defined in Eq. (230). Figure 7 shows the temperature evolution of the dou-ble occupancy, energy, and entropy for three representa-tive interaction strengths. The B = 3 ghost-GA solution captures the DMFT behavior with high accuracy in all parameter regimes. At fixed temperature, d is progressively suppressed as 
+
+U/D increases, reflecting the reduction of charge fluctu-ations. For U/D = 1 .0 and 2 .0, the B = 3 curves dis-play a nonmonotonic temperature dependence: d is re-duced upon heating out of the low-temperature coherent regime, and then increases again as the system crosses 26 0.00       
+
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> ni ni
+> Interaction strength
+> U/D= 1.0
+> U/D= 2.0
+> U/D= 3.2
+> Method
+> Ghost-GA (B=1)
+> Ghost-GA (B=3)
+> DMFT
+> 10 110 010 1
+
+T/D   
+
+> 1.75
+> 1.50
+> 1.25
+> 1.00
+> 0.75
+> 0.50
+> 0.25
+> ( N)/ N
+> 10 110 010 1
+> T/D
+> 1
+> 2
+> S/ln 2
+
+Figure 7. Finite-temperature ghost-GA results for the half-filled paramagnetic single-band Hubbard model on the Bethe lattice. Upper panel: double occupancy d = ⟨ˆni↑ ˆni↓⟩ as a function of temperature for U/D = 1 .0, 2 .0, and 3 .2. Lower panel: ( E − μN )/N for the same interaction strengths. Dashed and solid lines denote ghost-GA results for B = 1 and B = 3, respectively, while triangles denote NRG-DMFT data pro-duced with NRGLjubljana [117, 118]. The inset shows the entropy S/ ln 2 obtained for B = 3. 
+
+over toward the high-temperature atomic limit. For 
+
+U/D = 3 .2, by contrast, the double occupancy remains strongly suppressed over a broad temperature window, consistent with the onset of Mott-like local-moments. The entropy shown in the inset is reconstructed from the internal energy through the thermodynamic identity 
+
+dS = dE/T , fixing the integration constant by imposing the exact high-temperature limit 
+
+S(T → ∞ ) = ln 4 , (256) or equivalently 
+
+S(T ) = ln 4 −
+
+Z ∞
+
+> T
+
+1
+
+T ′
+
+de (T ′)
+
+dT ′ dT ′ . (257) The value ln 4 corresponds to the four local states of a single Hubbard site being thermally accessible: empty, spin-up, spin-down, and doubly occupied. At stronger coupling, the B = 3 results develop a broad regime with 
+
+S ≃ ln 2, which signals that charge fluctuations are frozen while the local spin- 12 doublet remains active. These results indicate that, already at B = 3, our finite-temperature ghost-GA extension captures the cor-0 1 2 3 4        
+
+> U/D
+> 10 2
+> 10 1
+> 10 0
+> 10 1
+> T/D
+> B= 1
+> 01234
+> U/D
+> B= 3
+> 0.00
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> 1.25
+> 1.50
+> 1.75
+> 2.00
+> S/ln 2
+
+Figure 8. Entropy map S/ ln 2 in the ( U/D, T /D ) plane for the half-filled paramagnetic single-band Hubbard model on the Bethe lattice, computed within the finite-temperature ghost-GA for B = 1 (left) and B = 3 (right). 
+
+rect thermodynamic structure of both the double occu-pancy and the entropy in all parameter regimes, including the Mott phase. Figure 8 shows the entropy over the full ( U/D, T /D )plane for B = 1 and B = 3. In both cases, the results display the expected crossover from the high-temperature regime with S ≃ ln 4, where the four local states of the Hubbard site are thermally accessible, to the intermediate-temperature regime with S ≃ ln 2 at sufficiently large interaction, where charge fluctuations are suppressed and the local spin- 12 degree of freedom remains active. The comparison between the two pan-els indicates that this overall thermodynamic behavior is already captured qualitatively at B = 1, while the 
+
+B = 3 calculation yields a more accurate description of the crossover lines. A remarkable feature of the present finite-temperature extension is that, in contrast with previous finite-temperature extensions of the GA [119–121], its imple-mentation remains very close to the T = 0 ghost-GA scheme, the only formal modification being the replace-ment of ground-state expectation values by thermal av-erages. This provides a concrete route to low-cost finite-temperature calculations over broad parameter ranges, including the study of competing order parameters down to low temperatures. 
+
+VIII. CONCLUSIONS 
+
+We introduced a functional reformulation of the vari-ational problem in ghost-GA [43–45], in which the sta-tionary point is determined by density-matrix matching conditions among three auxiliary Hamiltonians, recov-ering the ghost-DMET quantum-embedding formulation of the theory [46]. Using this formulation, we proved that, in the limit of infinitely many auxiliary bath modes, ghost-GA becomes strictly equivalent to DMFT [13–18]. This unified picture of seemingly distinct QE frameworks has immediate consequences. A first remarkable con-sequence of this theorem is that it places on rigorous 27 footing a central physical insight behind ghost-GA: al-though formulated as a ground-state variational theory, it does not discard the dynamical content of the cor-related problem. Rather, the full local dynamical in-formation recovered in DMFT is encoded in the same static variational parameters that optimize the ghost-GA ground state, so that the same variationally opti-mized local map that defines the ground state also yields an explicit wavefunction representation of the physical single-particle excitations, including both quasiparticle and Hubbard bands [29, 43, 44]. This, in turn, gives a rig-orous foundation to the quasiparticle wavefunction per-spective enabled by ghost-GA, which has already proved fruitful in the description of topologically nontrivial Hub-bard bands with protected edge states and of neutral spinon excitations that re-emerge as heavy-fermion bands by proximity [61, 63]. Our theorem also opens the possi-bility of calculating spectral properties with highly effi-cient ground-state impurity solvers, including MPS [50– 55], neural quantum states (NQS) [58, 66–72], meth-ods based on coupled-cluster (CC) theory [73–79], varia-tional impurity solvers based on superpositions of Gaus-sian states [80], quantum-assisted methods [81–84], and machine learning frameworks [85, 86]. A further imme-diate consequence of our theorem connecting ghost-GA and DMFT is a principled finite-temperature extension of ghost-GA. The algorithmic structure of this extension is unchanged, except that the ground-state expectation values of the auxiliary reference systems are replaced by the corresponding thermal averages. Our benchmark calculations for the single-band Hubbard model on the Bethe lattice indicate that this construction reproduces DMFT thermodynamics with high accuracy already at small bath size. This opens a route to low-temperature studies of competing phases with DMFT-level accuracy by leveraging solvers that compute static expectation val-ues for finite-size impurity Hamiltonians without neces-sarily computing dynamical spectra, including tensor-network thermal-state methods [97–100], thermal pure quantum-state approaches [101, 102], finite-temperature extensions of the coupled-cluster formalism [103–106], and quantum algorithms [107–111], while avoiding ma-jor bottlenecks of conventional impurity solvers, such as the fermionic sign problem in continuous-time quantum Monte Carlo [122, 123]. More broadly, this work provides a concrete starting point for future controlled extensions beyond DMFT within a variational quantum-embedding framework. 
+
+> AUTHOR CONTRIBUTIONS
+
+N.L. led the project, developed the theoretical frame-work, and carried out the analytic derivations. S.G., T.-H.L., Y.-X.Y., O.G. and A.R. implemented all algo-rithms numerically and performed numerical validations and benchmarks. All authors discussed the results and contributed to editing the manuscript. 
+
+> ACKNOWLEDGMENTS
+
+N.L. gratefully acknowledges funding from the Na-tional Science Foundation under Award No. DMR-2532771 and from the Simons Foundation (Grant No. 00010910). The Flatiron Institute is a division of the Simons Foundation. Part of this work by Y.Y. was sup-ported by the US Department of Energy (DOE), Office of Science, Basic Energy Sciences, Materials Science and Engineering Division, including the grant of computer time at the National Energy Research Scientific Comput-ing Center (NERSC) in Berkeley, California. This part of research was performed at the Ames National Labo-ratory, which is operated for the US DOE by Iowa State University under Contract No. DE-AC02-07CH11358. T.-H.L. gratefully acknowledges funding from the Na-tional Science and Technology Council (NSTC) of Tai-wan under Grant No. NSTC 112-2112-M-194-007-MY3 and the National Center for Theoretical Sciences (NCTS) in Taiwan. 
+
+> Appendix A: Block-matrix identities
+
+Let A ∈ Cn×n and C ∈ Ck×k be invertible, and let 
+
+U ∈ Cn×k. Define the block matrix 
+
+M =
+
+ A UU † C
+
+
+
+. (A1) Assume that the matrices A − U C −1U † (equivalently 
+
+C − U †A−1U ) are invertible.   
+
+> 1. Block inverse of M
+
+Under the assumptions above, one has 
+
+M −1 =
+
+ A − U C −1U †−1 − A − U C −1U †−1U C −1
+
+− C−1U † A − U C −1U †−1 C−1 + C−1U † A − U C −1U †−1U C −1
+
+!
+
+. (A2)  
+
+> 2. Projected inverse identity used in the main text
+
+Let A ∈ Cn×n and U ∈ Cn×k, and let C ∈ Ck×k be arbitrary. Assume that A and A − U CU † are invertible, and define 
+
+X = U †A−1U , (A3) 28 
+
+Y = U †(A − U CU †)−1U . (A4) Assuming that X is invertible, one has 
+
+h
+
+U †(A−U CU †)−1U
+
+i−1
+
+=  U †A−1U −1 − C . (A5) 
+
+Proof. 
+
+Let Q = ( A − U CU †)−1. From ( A − U CU †)Q = 1 it follows that 
+
+Q U = A−1U + A−1U C (U †QU ) , (A6) 
+
+Y = X + XCY . (A7) Therefore ( 1 − XC )Y = X, i.e. ( X−1 − C)Y = 1, which implies Y −1 = X−1 − C and yields Eq. (A5). □
+
+Appendix B: Schmidt decomposition theorem for Slater determinants in bipartite fermionic systems 
+
+Let nA, n B ∈ N and n = nA + nB . Consider fermionic modes {ai}nA 
+
+> i=1
+
+(subsystem A) and {ai+nA }nB 
+
+> i=1
+
+(subsys-tem B), and a quadratic Hamiltonian ˆH =
+
+> n
+
+X
+
+> i,j =1
+
+hij a† 
+
+> i
+
+aj , h = h† ∈ Cn×n , (B1) with block form 
+
+h =
+
+hAA hAB 
+
+hBA hBB 
+
+
+
+, hBA = ( hAB )† , (B2) i.e.: ˆH =
+
+> nA
+
+X
+
+> i,j =1
+
+[hAA ]ij a† 
+
+> i
+
+aj +
+
+> nB
+
+X
+
+> i,j =1
+
+[hBB ]ij a† 
+
+> i+nA
+
+aj+nA
+
++
+
+> nA
+
+X
+
+> i=1
+> nB
+
+X
+
+> j=1
+
+
+
+[hAB ]ij a† 
+
+> i
+
+aj+nA + H.c. 
+
+
+
+. (B3) Let |Ψ0⟩ be the ground state of ˆH with N fermions, and assume 
+
+nA ≤ N ≤ nB . (B4) Define the nA × nA matrix [ρ0
+
+> A
+
+]ij = ⟨Ψ0|a† 
+
+> i
+
+aj |Ψ0⟩, (i, j = 1 , . . . , n A) . (B5) Assume that ρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+) is invertible. Define the nB ×
+
+nA matrix B with entries 
+
+Bjk =
+
+> nA
+
+X
+
+> l=1
+
+"
+
+1
+
+pρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+)
+
+#
+
+> kl
+
+⟨Ψ0|a† 
+
+> l
+
+aj+nA |Ψ0⟩ , (B6) where j = 1 , . . . , n B ; k = 1 , . . . , n A.Using B, define nA modes in B by 
+
+b† 
+
+> k
+
+=
+
+> nB
+
+X
+
+> j=1
+
+Bjk a† 
+
+> j+nA
+
+, (k = 1 , . . . , n A) . (B7) The modes {bk}nA 
+
+> k=1
+
+are independent canonical fermionic modes. Then there exist additional independent modes 
+
+{c†
+
+> B,l
+
+}l=nA+1 ,...,N within B such that, defining 
+
+|ψC ⟩ = c† 
+
+> B,n A+1
+
+· · · c† 
+
+> B,N
+
+|0⟩ , (B8) one can write 
+
+|Ψ0⟩ = |Ψemb 0 ⟩ ⊗ | ψC ⟩ , (B9) where |Ψemb 0 ⟩ is the ground state (in the sector with nA
+
+fermions) of the quadratic Hamiltonian acting on the 2 nA
+
+active modes {ai}nA 
+
+> i=1
+
+and {bi}nA
+
+> i=1
+
+:ˆHemb  
+
+> A
+
+=
+
+> nA
+
+X
+
+> i,j =1
+
+[hAA ]ij a† 
+
+> i
+
+aj +
+
+> nA
+
+X
+
+> q,q ′=1
+
+B†hBB B 
+
+> qq ′
+
+b† 
+
+> q
+
+bq′
+
++
+
+> nA
+
+X
+
+> i,q =1
+
+hAB B 
+
+> iq
+
+a† 
+
+> i
+
+bq + H.c. 
+
+
+
+. (B10) Moreover, the one-body correlators of the active modes satisfy 
+
+⟨Ψ0|a† 
+
+> i
+
+aj |Ψ0⟩ = [ ρ0
+
+> A
+
+]ij , (B11) 
+
+⟨Ψ0|a† 
+
+> i
+
+bj |Ψ0⟩ = ρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+) 12 
+
+> ij
+
+, (B12) 
+
+⟨Ψ0|b† 
+
+> i
+
+bj |Ψ0⟩ = 1nA − ρ0
+
+> A
+
+ 
+
+> ij
+
+. (B13) 
+
+1. Expectation-value identity for the A–B coupling 
+
+Assume that the one-body matrix h depends on a com-plex matrix parameter R only through 
+
+hAB (R) = R ¯hAB , hBA (R) = ( hAB (R)) †, (B14) where ¯hAB is independent of R, while hAA and hBB are also independent of R. Let |Ψ0⟩ be the N -fermion ground state of ˆH and construct the bath modes {bk}nA 
+
+> k=1
+
+from 
+
+|Ψ0⟩ using Eqs. (B6) and (B7), so that Eq. (B9) holds with the embedded state |Ψemb 0 ⟩.For any i = 1 , . . . , n A and any index μ labeling the rows of ¯hAB , we define the following operators: ˆOiμ =
+
+> nB
+
+X
+
+> j=1
+
+[¯hAB ]μj a† 
+
+> i
+
+aj+nA , (B15) ˆOemb  
+
+> iμ
+
+=
+
+> nA
+
+X
+
+> k=1
+
+
+
+> nB
+
+X
+
+> j=1
+
+[¯hAB ]μj Bjk 
+
+ a† 
+
+> i
+
+bk . (B16) Below we prove that 
+
+⟨Ψ0| ˆOiμ |Ψ0⟩ = ⟨Ψemb 0 | ˆOemb  
+
+> iμ
+
+|Ψemb 0 ⟩ . (B17) 29 
+
+Proof. 
+
+• First we establish the identity 
+
+⟨Ψ0|a† 
+
+> i
+
+aj+nA |Ψ0⟩ =
+
+> nA
+
+X
+
+> k=1
+
+⟨Ψ0|a† 
+
+> i
+
+bk|Ψ0⟩ B jk . (B18) Indeed, Eq. (B6) implies 
+
+⟨Ψ0|a† 
+
+> i
+
+aj+nA |Ψ0⟩ =
+
+> nA
+
+X
+
+> k=1
+
+ρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+) 12 
+
+> ik
+
+Bjk , (B19) and Eq. (B12) gives 
+
+ρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+) 12 
+
+> ik
+
+= ⟨Ψ0|a† 
+
+> i
+
+bk|Ψ0⟩ , (B20) so that Eq. (B18) follows. 
+
+• Now, using Eq. (B15) and substituting Eq. (B18), 
+
+⟨Ψ0| ˆOiμ |Ψ0⟩ =
+
+> nB
+
+X
+
+> j=1
+
+[¯hAB ]μj ⟨Ψ0|a† 
+
+> i
+
+aj+nA |Ψ0⟩
+
+=
+
+> nA
+
+X
+
+> k=1
+
+
+
+> nB
+
+X
+
+> j=1
+
+[¯hAB ]μj Bjk 
+
+ ⟨Ψ0|a† 
+
+> i
+
+bk|Ψ0⟩ .
+
+(B21) Finally, since |Ψ0⟩ = |Ψemb 0 ⟩ ⊗ | ψC ⟩ in Eq. (B9) and 
+
+a† 
+
+> i
+
+bk acts only on the active ( A, b ) modes, we have 
+
+⟨Ψ0|a† 
+
+> i
+
+bk|Ψ0⟩ = ⟨Ψemb 0 |a† 
+
+> i
+
+bk|Ψemb 0 ⟩ . (B22) Substituting Eq. (B22) into Eq. (B21) and compar-ing with the definition (B16) proves Eq. (B17). We note that, treating R and R∗ as independent variables and using only the explicit dependence (B14), Eq. (B15) coincides with the formal operator derivative ˆOiμ = ∂ ˆH/∂R iμ . (B23) Similarly, viewing Eq. (B10) as an operator-valued ex-pression in which B enters as a coefficient matrix and the only explicit dependence on R is through the ( A, b )hybridization term hAB (R)B = R(¯hAB B), Eq. (B16) co-incides with ˆOemb  
+
+> iμ
+
+= ∂ ˆHemb  
+
+> A
+
+/∂R iμ . (B24) With the notation above, Eq. (B17) can be formally rewritten as: 
+
+*
+
+Ψ0
+
+∂ ˆH∂R iμ 
+
+Ψ0
+
++
+
+=
+
+*
+
+Ψemb 0
+
+∂ ˆHemb 
+
+> A
+
+∂R iμ 
+
+Ψemb 0
+
++
+
+. (B25) 
+
+2. Expectation-value identity for the A–A block 
+
+Below we prove that, for any i, j = 1 , . . . , n A,
+
+⟨Ψ0|a† 
+
+> i
+
+aj |Ψ0⟩ = ⟨Ψemb 0 |a† 
+
+> i
+
+aj |Ψemb 0 ⟩ . (B26) 
+
+Proof. 
+
+Since |Ψ0⟩ = |Ψemb 0 ⟩ ⊗ | ψC ⟩ in Eq. (B9) and a† 
+
+> i
+
+aj acts only on the active modes {ai}nA
+
+> i=1
+
+, Eq. (B26) follows im-mediately. □
+
+We note that, treating hAA and ( hAA )∗ as indepen-dent variables in Eqs. (B3) and (B10), the operator a† 
+
+> i
+
+aj
+
+coincides with the formal derivatives 
+
+a† 
+
+> i
+
+aj = ∂ ˆH/∂h AA ij , (B27) 
+
+a† 
+
+> i
+
+aj = ∂ ˆHemb  
+
+> A
+
+/∂h AA ij . (B28) With the notation above, Eq. (B26) can be formally rewritten as 
+
+*
+
+Ψ0
+
+∂ ˆH∂h AA ij 
+
+Ψ0
+
++
+
+=
+
+*
+
+Ψemb 0
+
+∂ ˆHemb 
+
+> A
+
+∂h AA ij 
+
+Ψemb 0
+
++
+
+. (B29) 
+
+3. Algebraic simplification of the bath block 
+
+B†hBB B
+
+Because |Ψ0⟩ is a Slater determinant ground state of the quadratic Hamiltonian ˆH = Pni,j =1 hij a† 
+
+> i
+
+aj , its one-body correlations can be written in terms of the (zero-temperature) Fermi projector nF (h) associated to h:
+
+⟨Ψ0|a† 
+
+> i
+
+aj |Ψ0⟩ = [ nF (h)] ji . (B30) In the A/B block notation, 
+
+h =
+
+hAA hAB 
+
+hBA hBB 
+
+
+
+. (B31) 
+
+nF (h) = 
+
+nAA F nAB F
+
+nBA F nBB F
+
+
+
+. (B32) Equation (B30) implies ρ0 
+
+> A
+
+= ( nAA F )T . We also define the matrix: 
+
+Slk =
+
+h
+
+ρ0
+
+> A
+
+(1nA − ρ0
+
+> A
+
+)
+
+i−1/2
+
+> kl
+
+=
+
+h
+
+nAA F
+
+ 1nA − nAA F
+
+i−1/2
+
+> lk
+
+. (B33) Having established this notation, we have: 
+
+Bjk =
+
+> nA
+
+X
+
+> l=1
+
+Slk ⟨Ψ0|a† 
+
+> l
+
+aj+nA |Ψ0⟩
+
+=
+
+> nA
+
+X
+
+> l=1
+
+Slk [nF (h)] j+nA,l . (B34) Hence, in matrix form, 
+
+B = nBA F S . (B35) 30 and the bath-bath block entering HA 
+
+> emb
+
+and the embed-ded hybridization matrix are: 
+
+B†hBB B = S† nAB F hBB nBA F S, (B36) 
+
+hAB B = hAB nBA F S. (B37) Let Π A be the projector onto A (so Π B = 1 − ΠA
+
+projects onto B). Then 
+
+B†hBB B = S† ΠAnF (h) Π B h ΠB nF (h) Π A S. (B38) Below we derive a useful alternative form for Eq. (B38). 
+
+Step 1 
+
+We use the algebraic identity ΠB h ΠB = Π B h + h ΠB + Π A h ΠA − h , (B39) which follows from Π B = 1 − ΠA by direct expansion. Using Eq. (B39) in Eq. (B38) gives ΠAnF (h) Π B hΠB nF (h) Π A = Π AnF (h) Π B h n F (h) Π A
+
++ Π AnF (h) hΠB nF (h) Π A
+
++ Π AnF (h) Π AhΠA nF (h) Π A
+
+− ΠAnF (h) h n F (h) Π A. (B40) 
+
+Step 2 
+
+We have 
+
+nF (h)2 = nF (h),
+
+[nF (h), h ] = 0 . (B41) Therefore, ΠAnF (h) h n F (h) Π A = Π AnF (h) h ΠA. (B42) Moreover, the first two terms on the right-hand side of Eq. (B40) are Hermitian conjugates. 
+
+Step 3 
+
+We insert 1 = Π A + Π B once: ΠAnF (h) Π B h n F (h) Π A = Π AnF (h) Π B h ΠAnF (h) Π A
+
++ Π AnF (h) Π B hΠB nF (h) Π A.
+
+(B43) ΠAnF (h) hΠB nF (h) Π A = Π AnF (h) Π AhΠB nF (h) Π A
+
++ Π AnF (h) Π B hΠB nF (h) Π A.
+
+(B44) Denoting 
+
+X = Π AnF (h) Π B hΠB nF (h) Π A
+
+= nAB F hBB nBA F , (B45) and using Eqs. (B43)–(B44) in Eq. (B40), together with Eq. (B42), we obtain an identity for X:
+
+X = Π AnF (h) h ΠA − ΠAnF (h) Π AhΠA nF (h) Π A
+
+− ΠAnF (h) Π B h ΠAnF (h) Π A
+
+− ΠAnF (h) Π AhΠB nF (h) Π A. (B46) Writing Eq. (B46) in A/B block form yields 
+
+nAB F hBB nBA F = Π AnF (h) h ΠA − nAA F hAA nAA F
+
+− nAB F hBA nAA F − nAA F hAB nBA F . (B47) 
+
+Step 4 
+
+Since [ nF (h), h ] = 0 and both operators are Hermitian, ΠAnF (h) h ΠA = 12 ΠA
+
+
+
+nF (h) h + h n F (h)
+
+
+
+ΠA
+
+= 12 ΠAnF (h) (Π A + Π B ) h ΠA
+
++ 12 ΠAh (Π A + Π B ) nF (h) Π A
+
+= 12
+
+
+
+nAA F hAA + nAB F hBA 
+
++ hAA nAA F + hAB nBA F
+
+
+
+.
+
+(B48) Substituting Eq. (B48) into Eq. (B47) and regrouping gives 
+
+nAB F hBB nBA F = 12
+
+h
+
+nAA F hAA  1nA − nAA F
+
+
+
++  1nA − nAA F
+
+hAA nAA F
+
+i
+
++
+
+ 1nA 
+
+> 2
+
+− nAA F
+
+
+
+hAB nBA F
+
++ nAB F hBA  1nA 
+
+> 2
+
+− nAA F
+
+
+
+. (B49) 
+
+Step 5 
+
+From Eqs. (B36) and (B49), 
+
+B†hBB B = S† 
+
+nAB F hBB nBA F
+
+
+
+S. (B50) Since S is a matrix function of nAA F , it commutes with 
+
+nAA F , and we can rewrite hAB nBA F S = hAB B using Eq. (B37). Therefore, 31 
+
+B†hBB B = 12
+
+"s 
+
+nAA F
+
+1nA − nAA F
+
+hAA 
+
+s
+
+1nA − nAA F
+
+nAA F
+
++ H.c. 
+
+#
+
++
+
+ 
+
+> 1nA
+> 2
+
+− nAA F
+
+q
+
+nAA F
+
+ 1nA − nAA F
+
+ (hAB B) + H.c. 
+
+
+
+= 12
+
+"s 
+
+(ρ0
+
+> A
+
+)T
+
+1nA − (ρ0
+
+> A
+
+)T hAA 
+
+s
+
+1nA − (ρ0
+
+> A
+
+)T
+
+(ρ0
+
+> A
+
+)T + H.c. 
+
+#
+
++
+
+ 
+
+> 1nA
+> 2
+
+− (ρ0
+
+> A
+
+)T
+
+q
+
+(ρ0
+
+> A
+
+)T  1nA − (ρ0
+
+> A
+
+)T  (hAB B) + H.c. 
+
+ . (B51) Note that Eq. (B51) expresses B†hBB B solely in terms of ρ0 
+
+> A
+
+and the hybridization matrix hAB B [Eq. (B37)]. Consequently, once hAB B has been constructed, B†hBB B
+
+can be evaluated by simple nA × nA matrix operations, without explicitly forming nAB F and nBA F or carrying out additional sums over the B degrees of freedom. 
+
+[1] Paul R. C. Kent and Gabriel Kotliar, “Toward a predic-tive theory of correlated materials,” Science 361 , 348– 354 (2018). [2] N. F Mott, Metal-Insulator Transitions (Taylor and Francis, London/Philadelphia, 1990). [3] Patrick A. Lee, Naoto Nagaosa, and Xiao-Gang Wen, “Doping a mott insulator: Physics of high-temperature superconductivity,” Rev. Mod. Phys. 78 , 17–85 (2006). [4] Paglione Johnpierre and Greene Richard L., “High-temperature superconductivity in iron-based materi-als,” Nat. Phys. 6, 645 (2010). [5] Yi Ming, Zhang Yan, Shen Zhi-Xun, and Lu Donghui, “Role of the orbital degree of freedom in iron-based su-perconductors,” npj Comput. Mater. 2, 57 (2017). [6] Miao Lin, Basak Rourav, Ran Sheng, Xu Yishuai, Kotta Erica, He Haowei, Denlinger Jonathan D., Chuang Yi-De, Zhao Y., Xu Z., Lynn J. W., Jeffries J. R., Saha S. R., Giannakis Ioannis, Aynajian Pegor, Kang Chang-Jong, Wang Yilin, Kotliar Gabriel, Butch Nicholas P., and Wray L. Andrew, “High temperature singlet-based magnetism from hund’s rule correlations,” Nat. Com-mun. 4, 2644 (2019). [7] Nica Emilian M., Yu Rong, and Si Qimiao, “Orbital-selective pairing and superconductivity in iron se-lenides,” npj Comput. Mater. 2, 24 (2017). [8] Dai Pengcheng, Hu Jiangping, and Dagotto Elbio, “Magnetism and its microscopic origin in iron-based high-temperature superconductors,” Nat. Phys. 8, 709 (2012). [9] Ge Jian-Feng, Liu Zhi-Long, Liu Canhua, Gao Chun-Lei, Qian Dong, Xue Qi-Kun, Liu Ying, and Jia Jin-Feng, “Superconductivity above 100 K in single-layer FeSe films on doped SrTiO 3,” Nat. Mater. 14 , 285 (2015). [10] Manna S., Kamlapure A., Cornils L., H¨ anke T., Hede-gaard E. M. J., Bremholm M., Iversen B. B., Hofmann P., Wiebe J., and R. Wiesendanger, “Interfacial super-conductivity in a bi-collinear antiferromagnetically or-dered FeTe monolayer on a topological insulator,” Nat. Commun. 8, 14074 (2017). [11] Kristjan Haule, “Structural predictions for correlated electron materials using the functional dynamical mean field theory approach,” Journal of the Physical Society of Japan 87 , 041005 (2018). [12] National Science and Technology Council (U.S.), “Ma-terials genome initiative for global competitiveness,” (2011). [13] V. Anisimov and Y. Izyumov, Electronic Structure of Strongly Correlated Materials (Springer, 2010). [14] V. I. Anisimov, A. I. Oteryaev, M. A. Korotin, A. O. Anokhin, and G. Kotliar, “First-principles calculations of the electronic structure and spectra of strongly cor-related systems: dynamical mean-field theory,” J. Phys. Condens. Matter 9, 7359 (1997). [15] K. Held, A. Nekrasov, G. Keller, V. Eyert, N. Bl¨ umer, A. K. McMahan, R. T. Scalettar, Th. Pruschke, V. I. Anisimov, and D. Vollhardt, “Realistic investigations of correlated electron systems with LDA+DMFT,” Phys. Stat. Sol. (B) 243 , 2599 (2006). [16] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, “Dynamical mean-field theory of strongly corre-lated fermion systems and the limit of infinite dimen-sions,” Rev. Mod. Phys. 68 , 13 (1996). [17] J.-Z. Zhao, J.-N. Zhuang, X.-Y. Deng, Y. Bi, L.-C. Cai, Z. Fang, and X. Dai, “Implementation of LDA+DMFT with the pseudo-potential-plane-wave method,” Chin. Phys. B 21 , 057106 (2012). [18] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, “Electronic struc-ture calculations with dynamical mean-field theory,” Rev. Mod. Phys. 78 , 865 (2006). [19] Walter Metzner and Dieter Vollhardt, “Ground-state properties of correlated fermions: Exact analytic results for the Gutzwiller wave function,” Phys. Rev. Lett. 59 ,121 (1987). [20] M. C. Gutzwiller, “Correlation of Electrons in a Narrow 
+
+s Band,” Phys. Rev. 137 , A1726 (1965). [21] Nicola Lanat` a, Yong Xin Yao, Cai-Zhuang Wang, Kai-Ming Ho, and Gabriel Kotliar, “Phase diagram and electronic structure of praseodymium and plutonium,” Phys. Rev. X 5, 011008 (2015). [22] N. Lanat` a, P. Barone, and M. Fabrizio, “Fermi-surface evolution across the magnetic phase transition in the Kondo lattice model,” Phys. Rev. B 78 , 155127 (2008). [23] W. Metzner and D. Vollhardt, “Correlated lattice Fermions in d = ∞ dimensions,” Phys. Rev. Lett. 62 ,324 (1989). [24] X.-Y. Deng, L. Wang, X. Dai, and Z. Fang, “Local den-32 
+
+sity approximation combined with Gutzwiller method for correlated electron systems: Formalism and applica-tions,” Phys. Rev. B 79 , 075114 (2009). [25] K. M. Ho, J. Schmalian, and C. Z. Wang, “Gutzwiller density functional theory for correlated electron sys-tems,” Phys. Rev. B 77 , 073101 (2008). [26] N. Lanat` a, H. U. R. Strand, X. Dai, and B. Hellsing, “Efficient implementation of the Gutzwiller variational method,” Phys. Rev. B 85 , 035133 (2012). [27] J. B¨ unemann, F. Gebhard, T. Ohm, S. Weiser, and W. Weber, “Gutzwiller-correlated wave functions: ap-plication to ferromagnetic nickel,” in Frontiers in Mag-netic Materials , edited by A.V. Narlikar (Springer, Berlin, 2005) p. 117. [28] Claudio Attaccalite and Michele Fabrizio, “Properties of Gutzwiller wave functions for multiband models,” Phys. Rev. B 68 , 155117 (2003). [29] J. B¨ unemann, F. Gebhard, and R. Thul, “Landau-Gutzwiller quasiparticles,” Phys. Rev. B 67 , 075103 (2003). [30] G. Kotliar and A. E. Ruckenstein, “New functional inte-gral approach to strongly correlated Fermi systems: The Gutzwiller Approximation as a Saddle Point,” Phys. Rev. Lett. 57 , 1362 (1986). [31] T. Li, P. W¨ olfle, and P. J. Hirschfeld, “Spin-rotation-invariant slave-boson approach to the Hubbard model,” Phys. Rev. B 40 , 6817 (1989). [32] Nicola Lanat` a, Yongxin Yao, Xiaoyu Deng, Vladimir Dobrosavljevi´ c, and Gabriel Kotliar, “Slave Boson The-ory of Orbital Differentiation with Crystal Field Effects: Application to UO 2,” Phys. Rev. Lett. 118 , 126401 (2017). [33] G. Knizia and G. K.-L. Chan, “Density matrix embed-ding: A simple alternative to dynamical mean-field the-ory,” Phys. Rev. Lett. 109 , 186404 (2012). [34] G. H. Booth and G. K.-L. Chan, “Spectral functions of strongly correlated extended systems via an exact quan-tum embedding,” (2013), arXiv:cond-mat/1309.2320. [35] G. Knizia and G. K.-L. Chan, “Density matrix embed-ding: A strong-coupling quantum embedding theory,” J. Chem. Theory Comput. 9, 1428 (2013). [36] I. W. Bulik, G. E. Scuseria, and J. Dukelsky, “Density matrix embedding from broken symmetry lattice mean fields,” Phys. Rev. B 89 , 035140 (2014). [37] Uliana Mordovina, Teresa E. Reinhard, Iris Theophilou, Heiko Appel, and Angel Rubio, “Self-consistent density-functional embedding: A novel approach for density-functional approximations,” Journal of Chem-ical Theory and Computation 15 , 5209–5220 (2019). [38] Sajanthan Sekaran, Matthieu Sauban‘ere, and Em-manuel Fromager, “Local potential functional embed-ding theory: A self-consistent flavor of density functional theory for lattices without density functionals,” Compu-tation 10 , 45 (2022). [39] Sajanthan Sekaran, Masahisa Tsuchiizu, Matthieu Sauban` ere, and Emmanuel Fromager, “Householder-transformed density matrix functional embedding the-ory,” Phys. Rev. B 104 , 035121 (2021). [40] Saad Yalouz, Sajanthan Sekaran, Emmanuel Fromager, and Matthieu Sauban‘ere, “Quantum embedding of multi-orbital fragments using the block-householder transformation,” The Journal of Chemical Physics 157 ,214112 (2022). [41] Sajanthan Sekaran, Oussama Bindech, and Em-manuel Fromager, “A unified density-matrix func-tional construction of quantum baths in density ma-trix embedding theory beyond the mean-field approx-imation,” arXiv preprint arXiv:2304.14729 (2023), arXiv:2304.14729 [physics.chem-ph]. [42] Bo-Xiao Zheng, Density Matrix Embedding Theory and Strongly Correlated Lattice Systems , Ph.D. thesis, Princeton University (2017), arXiv:1803.10259 [cond-mat.str-el]. [43] Nicola Lanat` a, Tsung-Han Lee, Yong-Xin Yao, and Vladimir Dobrosavljevi´ c, “Emergent Bloch excitations in Mott matter,” Phys. Rev. B 96 , 195126 (2017). [44] Marius S. Frank, Tsung-Han Lee, Gargee Bhat-tacharyya, Pak Ki Henry Tsang, Victor L. Quito, Vladimir Dobrosavljevi´ c, Ove Christiansen, and Nicola Lanat` a, “Quantum embedding description of the Anderson lattice model with the ghost Gutzwiller ap-proximation,” Phys. Rev. B 104 , L081103 (2021). [45] Nicola Lanat` a, “Operatorial formulation of the ghost rotationally invariant slave-boson theory,” Phys. Rev. B 105 , 045111 (2022). [46] Nicola Lanat` a, “Derivation of the ghost gutzwiller approximation from quantum embedding principles: Ghost density matrix embedding theory,” Phys. Rev. B 108 , 235112 (2023). [47] Carlos Mejuto-Zaera and Michele Fabrizio, “Efficient computational screening of strongly correlated mate-rials: Multiorbital phenomenology within the ghost gutzwiller approximation,” Phys. Rev. B 107 , 235150 (2023). [48] Edoardo Fertitta and George H. Booth, “Rigorous wave function embedding with dynamical fluctuations,” Phys. Rev. B 98 , 235132 (2018). [49] P. V. Sriluckshmy, Max Nusspickel, Edoardo Fer-titta, and George H. Booth, “Fully algebraic and self-consistent effective dynamics in a static quantum em-bedding,” Phys. Rev. B 103 , 085131 (2021). [50] M. Fishman, S. R. White, and E. M. Stoudenmire, “The itensor software library for tensor network calculations,” SciPost Physics Codebases 4 (2022), 10.21468/SciPost-PhysCodeb.4. [51] H. Zhai, H. R. Larsson, S. Lee, Z.-H. Cui, T. Zhu, C. Sung, L. Peng, R. Peng, K. Liao, J. T¨ olle, J. Yang, S. Li, and G. K.-L. Chan, “Block2: A comprehensive open source framework to develop and apply state-of-the-art dmrg algorithms in electronic structure and be-yond,” Journal of Chemical Physics 159 , 234801 (2023). [52] U. Schollw¨ ock, “The density-matrix renormalization group,” Rev. Mod. Phys. 77 , 259–315 (2005). [53] Steven R. White, “Density matrix formulation for quan-tum renormalization groups,” Phys. Rev. Lett. 69 ,2863–2866 (1992). [54] Steven R. White, “Density-matrix algorithms for quan-tum renormalization groups,” Phys. Rev. B 48 , 10345– 10356 (1993). [55] X. Cao, Y. Lu, P. Hansmann, and M. W. Haverkort, “Tree tensor-network real-time multiorbital impurity solver: Spin-orbit coupling and correlation functions in sr 2ruo 4,” Phys. Rev. B 104 , 115119 (2021). [56] F. Verstraete, V. Murg, and J.I. Cirac, “Matrix prod-uct states, projected entangled pair states, and vari-ational renormalization group methods for quantum spin systems,” Advances in Physics 57 , 143–224 (2008), https://doi.org/10.1080/14789940801912366. 33 
+
+[57] Ya-Hui Zhang and Subir Sachdev, “From the pseudogap metal to the fermi liquid using ancilla qubits,” Phys. Rev. Res. 2, 023172 (2020). [58] Javier Robledo Moreno, Giuseppe Carleo, An-toine Georges, and James Stokes, “Fermionic wave functions from neural-network constrained hidden states,” Proceedings of the National Academy of Sciences 119 , e2122059119 (2022), https://www.pnas.org/doi/pdf/10.1073/pnas.2122059119. [59] Shiro Sakai, Marcello Civelli, and Masatoshi Imada, “Hidden-fermion representation of self-energy in pseudogap and superconducting states of the two-dimensional hubbard model,” Phys. Rev. B 94 , 115130 (2016). [60] P. W. Anderson, “Hidden fermi liquid: The secret of high-Tc cuprates,” Phys. Rev. B 78 , 174505 (2008). [61] Ivan Pasqua, Antonio Maria Tagliente, Gabriele Bel-lomia, Bartomeu Monserrat, Michele Fabrizio, and Car-los Mejuto-Zaera, “Quasiparticle band picture bridging topology and strong correlations across energy scales,” arXiv preprint arXiv:2507.10670 (2025). [62] Daniele Guerci, Massimo Capone, and Michele Fab-rizio, “Exciton mott transition revisited,” Phys. Rev. Materials 3, 054605 (2019). [63] Antonio Maria Tagliente, Carlos Mejuto-Zaera, and Michele Fabrizio, “Revealing spinons by proximity ef-fect,” Phys. Rev. B 111 , 125110 (2025). [64] Samuele Giuli, Carlos Mejuto-Zaera, and Massimo Capone, “Altermagnetism from interaction-driven itin-erant magnetism,” Phys. Rev. B 111 , L020401 (2025). [65] Carlos Mejuto-Zaera and Michele Fabrizio, “Ghost em-bedding bridging chemistry and one-body theories,” (2026), arXiv:2602.17164 [cond-mat.str-el]. [66] Giuseppe Carleo and Matthias Troyer, “Solving the quantum many-body problem with artificial neural net-works,” Science 355 , 602–606 (2017). [67] Or Sharir, Amnon Shashua, and Giuseppe Carleo, “Neural tensor contractions and the expressive power of deep neural quantum states,” Physical Review B 106 ,205136 (2022). [68] Ao Chen and Markus Heyl, “Empowering deep neural quantum states through efficient optimization,” Nature Physics 20 , 1476–1481 (2024). [69] Gil Goldshlager, Nilin Abrahamsen, and Lin Lin, “A kaczmarz-inspired approach to accelerate the optimiza-tion of neural network wavefunctions,” Journal of Com-putational Physics 516 , 113351 (2024). [70] Yoav Levine, Or Sharir, Nadav Cohen, and Amnon Shashua, “Quantum entanglement in deep learning ar-chitectures,” Physical review letters 122 , 065301 (2019). [71] Qi-Hang Yu and Zi-Jing Lin, “Solving quantum many-particle models with graph attention network,” Chinese Physics Letters 41 , 030202 (2024). [72] Yinzhanghao Zhou, Tsung-Han Lee, Ao Chen, Nicola Lanat` a, and Hong Guo, “Neural-quantum-states im-purity solver for quantum embedding problems,” arXiv preprint arXiv:2509.12431 (2025). [73] Isaiah Shavitt and Rodney J. Bartlett, Many-Body Methods in Chemistry and Physics: MBPT and Coupled-Cluster Theory (Cambridge University Press, 2009). [74] Trygve Helgaker, Poul Jørgensen, and Jeppe Olsen, 
+
+Molecular Electronic-Structure Theory (John Wiley & Sons, 2013). [75] Rodney J. Bartlett and Monika Musial, “Coupled-cluster theory in quantum chemistry,” Reviews of Mod-ern Physics 79 , 291–352 (2007). [76] Krishnan Raghavachari, Gary W. Trucks, John A. Pople, and Martin Head-Gordon, “A fifth-order per-turbation comparison of electron correlation theories,” Chemical Physics Letters 157 , 479–483 (1989). [77] John D. Watts, J¨ urgen Gauss, and Rodney J. Bartlett, “Coupled-cluster methods with noniterative triple exci-tations for restricted open-shell hartree-fock and other general single determinant reference functions. ener-gies and analytical gradients,” The Journal of Chemical Physics 98 , 8718–8733 (1993). [78] Miroslav Urban, Jozef Noga, S. J. Cole, and Rodney J. Bartlett, “Towards a full ccsdt model for electron corre-lation,” The Journal of Chemical Physics 83 , 4041–4046 (1985). [79] Jiace Sun and Garnet Kin-Lic Chan, “Stochastic tensor contraction for quantum chemistry,” (2026), arXiv:2602.17158 [physics.chem-ph]. [80] Samuel Boutin and Bela Bauer, “Quantum impu-rity models using superpositions of fermionic gaussian states: Practical methods and applications,” Phys. Rev. Res. 3, 033188 (2021). [81] P.V. Sriluckshmy, Fran¸ cois Jamet, and Fedor ˇSimkovic IV, “Quantum assisted ghost gutzwiller ansatz,” arXiv preprint arXiv:2506.21431 (2025), 20 pages, 14 figures. [82] Niladri Gomes, Anirban Mukherjee, Feng Zhang, Thomas Iadecola, Cai-Zhuang Wang, Kai-Ming Ho, Pe-ter P Orth, and Yong-Xin Yao, “Adaptive variational quantum imaginary time evolution approach for ground state preparation,” Adv. Quantum Technol. 4, 2100114 (2021). [83] Tao Jiang, John Rogers, Marius S. Frank, Ove Chris-tiansen, Yong-Xin Yao, and Nicola Lanat` a, “Error mit-igation in variational quantum eigensolvers using tai-lored probabilistic machine learning,” Phys. Rev. Res. 
+
+6, 033069 (2024). [84] I-Chi Chen, Aleksei Khindanov, Carlos Salazar, Hum-berto Munoz Barona, Feng Zhang, Cai-Zhuang Wang, Thomas Iadecola, Nicola Lanat` a, and Yong-Xin Yao, “Quantum-classical embedding via ghost gutzwiller ap-proximation for enhanced simulations of correlated elec-tron systems,” arXiv:2506.01204 (2025), 15 pages, 5 figures. [85] Marius S. Frank, Denis G. Artiukhin, Tsung-Han Lee, Yongxin Yao, Kipton Barros, Ove Christiansen, and Nicola Lanat` a, “Active learning approach to simulations of strongly correlated matter with the ghost gutzwiller approximation,” Phys. Rev. Res. 6, 013242 (2024). [86] Samuele Giuli, Hasanat Hasan, Benedikt Kloss, Mar-ius S. Frank, Tsung-Han Lee, Olivier Gingras, Yong-Xin Yao, and Nicola Lanat` a, “Linear foundation model for quantum embedding: Data-driven compression of the ghost gutzwiller variational space,” arXiv preprint arXiv:2512.21666 (2025). [87] Xiaojie Wu, Zhi-Hao Cui, Yu Tong, Michael Lindsey, Garnet Kin-Lic Chan, and Lin Lin, “Projected density matrix embedding theory with applications to the two-dimensional hubbard model,” The Journal of Chemical Physics 151 , 064108 (2019). [88] Xiaojie Wu, Michael Lindsey, Tiangang Zhou, Yu Tong, and Lin Lin, “Enhancing robustness and efficiency of density matrix embedding theory via semidefinite pro-34 
+
+gramming and local correlation potential fitting,” Phys. Rev. B 102 , 085123 (2020). [89] Tsung-Han Lee, Nicola Lanat` a, and Gabriel Kotliar, “Accuracy of ghost rotationally invariant slave-boson and dynamical mean field theory as a function of the impurity-model bath size,” Phys. Rev. B 107 , L121104 (2023). [90] Tsung-Han Lee, Corey Melnick, Ran Adler, Nicola Lanat` a, and Gabriel Kotliar, “Accuracy of ghost-rotationally-invariant slave-boson theory for multior-bital hubbard models and realistic materials,” Phys. Rev. B 108 , 245147 (2023). [91] Janez Jakliˇ c and Peter Prelovˇ sek, “Lanczos method for the calculation of finite-temperature quantities in cor-related systems,” Physical Review B 49 , 5065 (1994). [92] Jaan Oitmaa, Chris Hamer, and Weihong Zheng, Series expansion methods for strongly interacting lattice models 
+
+(Cambridge University Press, 2006). [93] Marcos Rigol, Tyler Bryant, and Rajiv RP Singh, “Nu-merical linked-cluster approach to quantum lattice mod-els,” Physical review letters 97 , 187202 (2006). [94] Kenneth G Wilson, “The renormalization group: Crit-ical phenomena and the kondo problem,” Reviews of modern physics 47 , 773 (1975). [95] Ralf Bulla, Theo A Costi, and Thomas Pruschke, “Nu-merical renormalization group method for quantum im-purity systems,” Reviews of Modern Physics 80 , 395– 450 (2008). [96] Anders W Sandvik, “Stochastic series expansion method with operator-loop update,” Physical Review B 59 , R14157 (1999). [97] F. Verstraete, J. J. Garc´ ıa-Ripoll, and J. I. Cirac, “Matrix product density operators: Simulation of finite-temperature and dissipative systems,” Phys. Rev. Lett. 
+
+93 , 207204 (2004). [98] Adrian E. Feiguin and Steven R. White, “Finite-temperature density matrix renormalization using an enlarged hilbert space,” Phys. Rev. B 72 , 220401 (2005). [99] Steven R. White, “Minimally entangled typical quan-tum states at finite temperature,” Phys. Rev. Lett. 102 ,190601 (2009). [100] EM Stoudenmire and Steven R White, “Minimally en-tangled typical thermal state algorithms,” New Journal of Physics 12 , 055026 (2010). [101] Sho Sugiura and Akira Shimizu, “Thermal pure quan-tum states at finite temperature,” Physical review let-ters 108 , 240401 (2012). [102] Sho Sugiura and Akira Shimizu, “Canonical thermal pure quantum state,” Phys. Rev. Lett. 111 , 010401 (2013). [103] Goutam Sanyal, Seikh Hannan Mandal, and Debashis Mukherjee, “Thermal averaging in quantum many-body systems: a non-perturbative thermal cluster cumulant approach,” Chemical physics letters 192 , 55–61 (1992). [104] Alec F White and Garnet Kin-Lic Chan, “A time-dependent formulation of coupled-cluster theory for many-fermion systems at finite temperature,” Journal of Chemical Theory and Computation 14 , 5690–5700 (2018). [105] Felix Hummel, “Finite temperature coupled cluster the-ories for extended systems,” Journal of Chemical The-ory and Computation 14 , 6505–6514 (2018). [106] Gaurav Harsha, Thomas M Henderson, and Gustavo E Scuseria, “Thermofield theory for finite-temperature coupled cluster,” Journal of Chemical Theory and Com-putation 15 , 6127–6136 (2019). [107] Jingxiang Wu and Timothy H Hsieh, “Variational ther-mal quantum simulation via thermofield double states,” Physical review letters 123 , 220502 (2019). [108] Mario Motta, Chong Sun, Adrian TK Tan, Matthew J O’Rourke, Erika Ye, Austin J Minnich, Fernando GSL Brandao, and Garnet Kin-Lic Chan, “Determining eigenstates and thermal states on a quantum com-puter using quantum imaginary time evolution,” Nature Physics 16 , 205–210 (2020). [109] Jo˜ ao C Getelina, Niladri Gomes, Thomas Iadecola, Pe-ter P Orth, and Yong-Xin Yao, “Adaptive variational quantum minimally entangled typical thermal states for finite temperature simulations,” SciPost Physics 15 , 102 (2023). [110] Alec F White and Garnet Kin-Lic Chan, “Finite-temperature coupled cluster: Efficient implemen-tation and application to prototypical systems,” The Journal of Chemical Physics 152 (2020), https://doi.org/10.1063/5.0009845. [111] Gaurav Harsha, Yi Xu, Thomas M. Henderson, and Gustavo E. Scuseria, “Thermal coupled cluster theory for su(2) systems,” Phys. Rev. B 105 , 045125 (2022). [112] E. M. Makaresz, O. Gingras, Tsung-Han Lee, Nicola Lanat` a, B. J. Powell, and Henry L. Nourse, “Ac-celerating dynamical mean-field theory convergence by preconditioning with computationally cheaper quantum embedding methods,” arXiv preprint arXiv:2601.16401 (2026). [113] V. M. Turkowski and J. K. Freericks, “Spectral mo-ment sum rules for strongly correlated electrons in time-dependent electric fields,” Phys. Rev. B 73 , 075108 (2006). [114] V. Turkowski and J. K. Freericks, “Spectral moment sum rules for the retarded self-energy of inhomogeneous strongly correlated systems,” Phys. Rev. B 77 , 205102 (2008). [115] J. K. Freericks and V. Turkowski, “Inhomogeneous spec-tral moment sum rules for the retarded green function and self-energy of strongly correlated electrons or ultra-cold fermionic atoms in optical lattices,” Phys. Rev. B 
+
+80 , 115119 (2009). [116] Harrison LaBollita, Jason Kaye, and Alexander Ham-pel, “Stabilizing the calculation of the self-energy in dynamical mean-field theory using constrained residual minimization,” Phys. Rev. B 111 , 115155 (2025). [117] Rok Zitko, “NRG Ljubljana,” (2021). [118] Rok ˇZitko and Thomas Pruschke, “Energy resolution and discretization artifacts in the numerical renormal-ization group,” Phys. Rev. B 79 , 085106 (2009). [119] W.-S. Wang, X.-M. He, D. Wang, Q.-H. Wang, Z. D. Wang, and F. C. Zhang, “Finite-temperature Gutzwiller projection for strongly correlated electron systems,” Phys. Rev. B 82 , 125105 (2010). [120] M. Sandri, M. Capone, and M. Fabrizio, “Finite-temperature Gutzwiller approximation and the phase diagram of a toy model for V 2O3,” Phys. Rev. B 87 ,205108 (2013). [121] Nicola Lanat` a, Xiaoyu Deng, and Gabriel Kotliar, “Finite-temperature Gutzwiller approximation from the time-dependent variational principle,” Phys. Rev. B 92 ,081108 (2015). [122] Aaram J. Kim, Philipp Werner, and Roser Valent´ ı, 35 
+
+“Alleviating the sign problem in quantum monte carlo simulations of spin-orbit-coupled multiorbital hubbard models,” Phys. Rev. B 101 , 045108 (2020). [123] Ryan Levy and Bryan K. Clark, “Mitigating the sign problem through basis rotations,” Phys. Rev. Lett. 126 ,216401 (2021).

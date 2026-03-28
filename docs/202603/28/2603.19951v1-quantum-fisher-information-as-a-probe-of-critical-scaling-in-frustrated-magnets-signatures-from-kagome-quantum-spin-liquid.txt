@@ -1,0 +1,900 @@
+Title: Quantum Fisher Information as a Probe of Critical Scaling in Frustrated Magnets: Signatures from Kagome Quantum Spin Liquid
+
+URL Source: https://arxiv.org/pdf/2603.19951v1
+
+Published Time: Mon, 23 Mar 2026 00:55:43 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+## Quantum Fisher Information as a Probe of Critical Scaling in Frustrated Magnets: Signatures from Kagome Quantum Spin Liquid 
+
+Zhengbang Zhou, 1, ∗ Chengkang Zhou, 2, 3, ∗ Menghan Song, 2, 3 Yong Baek Kim, 1 and Zi Yang Meng 2, 3 
+
+> 1
+
+Department of Physics, University of Toronto, Toronto, Ontario M5S 1A7, Canada 
+
+> 2
+
+Department of Physics and HK Institute of Quantum Science & Technology, The University of Hong Kong, Pokfulam Road, Hong Kong SAR, China 
+
+> 3
+
+State Key Laboratory of Optical Quantum Materials, The University of Hong Kong, Pokfulam Road, Hong Kong SAR, China 
+
+(Dated: March 23, 2026) Quantum Fisher information (QFI) is a measure of multipartite quantum entanglement that can be obtained from inelastic neutron scattering data on quantum magnets. In this work, we demonstrate that the QFI can distinguish an unconventional quantum critical point (QCP) with fractionalization and emergent gauge structure from conventional ones within the Landau paradigm. We compute the QFI, via large-scale quantum Monte Carlo (QMC) simulations and exact diagonalization, in a kagome lattice quantum spin liquid (QSL) model with an XY and a cluster-Ising interactions. When the XY interaction is ferromagetic, the QFI obtained by QMC reveals a large anomalous dimension, which is a fingerprint of the (2 +1)d XY ∗ universality class for the transition from the ferromagnetic phase to the Z2 QSL. The investigation of thermal and dynamical properties of QFI is further extended to the case of antiferromagnetic XY interaction via exact diagonalization. In this regime, a transition to a possibly distinct QSL phase is suggested via both entanglement-based probes, such as QFI and genuine multipartite negativity, and analyses of the energy spectrum and structure factors. These results not only demonstrate the versatility of QFI in identifying QSL states and unconventional QCPs but also provide useful guidance for future theoretical and experimental studies of frustrated magnets. 
+
+Introduction. — Unambiguous identification of a quantum spin liquid (QSL) in candidate materials, especially from the spectral information obtained by neutron scattering and nu-clear magnetic resonance, has been a central issue in quantum magnets and quantum phase transitions therein. Representa-tive candidate materials are now widely available for common lattice motifs such as triangular and kagome lattices [1–16], where the continua of the excitation spectrum and quantum critical scaling behaviors at the transition from a QSL to con-ventional phases are expected to be used to validate the pres-ence of a QSL [1–5, 9–11, 13, 16]. However, quantitative comparisons between model computations and experimental results remain rare, making it challenging to understand the precise connection between the nature of fractionalization and emergent gauge structures of QSL phases in theoretical [17– 20] model computations [21–25] and those hidden in real ex-perimental data in candidate materials. The di ffi culty in making a quantitative comparison arises from both theoretical and experimental challenges. On the one hand, the currently available analytical and numerical meth-ods do not yet provide a quantitatively reliable description of their dynamical responses across the experimentally rele-vant regimes (e.g., low temperatures, applied fields, and mo-mentum–frequency resolution), particularly for triangular and kagome antiferromagnets. On the other hand, the excitation spectra obtained are often described by a continuum of two-spinon excitations, but the experimental probes may not have enough energy and momentum resolution to identify smok-ing gun signatures in the data and distinguish them from other possible mechanisms, such as disorder. In this letter, we demonstrate that the quantum Fisher infor-mation (QFI) [28–42], a measure of multipartite quantum en-tanglement [43–48], may help overcome some of the di ffi cul-L = L1    
+
+> L=L2
+> L=L3
+> LT
+> f QF I  T −∆Q
+
+FIG. 1. Model, phase diagram and the dynamical scaling of QFI in kagome QSL. The schematic phase diagram of the kagome QSL model shows the Z2 QSL phase (orange region) and the ferromag-netic (FM) phase (red region). The color gradient within the red region indicates that the FM phase only appears at zero tempera-ture. The nearest-neighbor hopping term J± and the coupling Jz = 1(taken as the energy unit) between each pair of spins within the same hexagon are depicted. The black dashed line traces the location of the lowest-temperature peak in the specific heat based on ED results in SM [26]. The green circle in the left inset refers to the e ff ective four-spin exchange coupling Jring in the Z2 QSL phase, which sets the temperature scale for entering the QSL phase T ∼ Jring ∼ J2 
+
+> ±
+
+[27], as examplified by the blue, red, and green diamonds for J± = 0.05, 0.06, and 0 .07, respectively. The critical point (red dot) between the FM and Z2 QSL phases belongs to the (2 +1)d XY ∗ universality class. The upper right inset illustrates how the quantum Fisher in-formation (QFI) scaling behaves at this critical point: as temperature decreases, it captures the anomalous scaling dimension characteristic of the XY ∗ transition (red shaded data) rather than that of the conven-tional XY transition (blue shaded data). Additionally, our numerical results in the J± < 0 regime identify a possible QSL region (green region) distinct from the Z2 QSL (orange region). 
+
+ties mentioned above. The QFI provides a lower bound on the multipartite entanglement in the system, and is directly related to the dynamical spin structure factor [49], which is routinely 
+
+> arXiv:2603.19951v1 [cond-mat.str-el] 20 Mar 2026
+
+2measured in inelastic neutron scattering experiments [50–52]. For example, the scaling behavior of the QFI has been argued to probe multipartite entanglement in 1d systems [30, 49, 53]. More recently, the temperature and momentum dependence of the QFI has been used to elucidate the thermal and dynamical properties of a pyrochlore lattice model of quantum spin ice, a 3d QSL hosting fractionalized quasiparticles and emergent photons [40]. Furthermore, it is demonstrated that QFI can be viewed as an experimentally accessible measure to distin-guish a QSL from a competing disorder-driven random singlet phase on the triangular lattice [36]. In this work, we explore the QFI as a tool to identify the QSL state in 2d and its non-Landau QCP arising from frac-tionalization and emergent gauge field for the transition to a conventional phase. Here we show, by means of large-scale quantum Monte Carlo (QMC) and exact diagonalization (ED) simulations in a kagome lattice QSL model with an XY and a cluster-Ising interactions, that QFI can indeed identify such a novel QCP. Our results on thermal scaling behavior of the QFI in the case of ferromagnetic XY interaction, clearly capture the anomalous scaling dimension of the (2 +1)d XY ∗ transi-tion from a ferromagnetic phase to Z2 QSL in contrast to the (2 +1)d XY one that falls into the Landau paradigm. Moreover, the investigation of thermal and dynamical prop-erties of QFI is further extended to the antiferromagnetic XY interaction regime, which may be more relevant to the exper-imental progress in finding QSL in candidate materials [1– 5, 9, 10, 15, 16, 54, 55]. In this regime, we also consider the genuine multipartite negativity (GMN) [43, 56–58] calcula-tion to probe the multipartite entanglement structure. Specifi-cally, the minimal multipartite entangled subregion describes the smallest subregion that hosts the non-zero GMN signal in the system, and the change of this subregion indicates the change of the entanglement structure in the system. Using the QFI and GMN, we find evidence of a transition from the 
+
+Z2 QSL to a novel QSL in the antiferromagnetic XY interac-tion regime, which has not been identified in earlier studies. The possible presence of this transition is further supported by the energy spectrum in the ED calculation, which shows a change in relevant momentum sectors from Z2 QSL to the other phase. 
+
+Model and Method. — We consider the Balents-Fisher-Girvin (BFG) model [24, 27, 59–64] on the kagome lattice, whose Hamiltonian is given by 
+
+H = −J±
+
+X 
+
+> ⟨i,j⟩
+
+(S + 
+
+> i
+
+S − 
+
+> j
+
++ S − 
+
+> i
+
+S + 
+
+> j
+
+) + Jz
+
+2
+
+X
+
+7
+
+X
+
+> i∈
+
+7
+
+S zi
+
+
+
+> 2
+
+. (1) As illustrated in Fig. 1, the first term describes the nearest-neighbor XY interaction with coupling strength J±, while the second term is the cluster interaction between pairs of spins in each hexagon 7 of the kagome lattice with coupling strength 
+
+Jz. In our simulations, we set Jz = 1 as the energy unit. The phase diagram for J± > 0 has been numerically in-vestigated in QMC [24, 59–63]. There is a Z2 QSL phase in the regime of J± < 0.07076 and a ferromagnetic (FM) phase for J± > 0.07076. In the Z2 QSL phase, the e ff ective four-spin exchange coupling Heff = −Jring (S + 
+
+> 0
+
+S − 
+
+> 1
+
+S + 
+
+> 2
+
+S − 
+
+> 3
+
++ h.c.)is indicated by green circles in Fig.1, where Jring ∼ J2
+
+> ±
+
+.The temperature scale characterizing the QSL phase is set by T ∼ Jring ∼ J2
+
+> ±
+
+, with examples T ∼ (0 .05) 2 (blue dia-mond), (0 .06) 2 (red diamond), and (0 .07) 2 (green diamond) shown in Fig.1, respectively. At zero temperature, the phase transition between Z2 QSL and FM phase is continuous and belongs to the (2 +1)d XY ∗ universality class [24, 61, 63], with the anomalous scaling dimension of the S ± operator 
+
+∆ = 1+η 
+
+> 2
+
+= βν ∼ 1.25 [27, 61, 63, 64] instead of that of the con-ventional (2 +1)d XY transition ∆ = 1+η 
+
+> 2
+
+= βν ∼ 0.52 [65, 66], precisely due to the fractionalization of S = 1 magnon to 
+
+S = 1/2 spinon and the associated visons and the emergent 
+
+Z2 gauge field at the QCP [27, 61, 63, 64]. In contrast, for 
+
+J± < 0, the phase diagram remains to be explored due to the sign-problem in QMC. To probe the full phase diagram, we employ ED for both 
+
+J± < 0 and J± > 0, and QMC for J± > 0. The ED simulations use clusters of sizes Lx = Ly = 3 with total 
+
+N = 3 × Lx × Ly = 27 spins, while QMC simulations ac-cess larger systems with Lx = Ly = 6 to 12. Both methods employ periodic boundary conditions and calculate the QFI density fQ at di ff erent momentum points q, defined as 
+
+fQ(S α 
+
+> q
+
+, T ) = 4
+
+Z ∞
+
+> 0
+
+dω tanh 
+
+ ω
+
+2T
+
+  1 − e−ω/ T  Aα(q, ω ), (2) where Aα(q, ω ) is the dynamical spin structure factor (DSSF) defined as Aα(q, ω ) : = 12πN
+
+R dt ⟨S α† 
+
+> q
+
+(t)S α 
+
+> q
+
+(0) ⟩eiωt at momen-tum q. Here, T is the temperature and α ∈ {x, y, z} la-bels di ff erent components. To obtain the DSSF from QMC simulations, we measure the imaginary-time spin-spin cor-relation functions and then perform stochastic analytic con-tinuation (SAC) [40, 67–72] to extract the DSSF from the imaginary-time data. For the ED simulations, besides the typ-ical ground state results, the scheme of fQ follows the mi-crocanonical thermal pure quantum method (mTPQ) [73, 74], and the DSSF is calculated via Lanczos approximation of the continued fraction form of the Green’s function [75–77]. Technical details of both methods are provided in Secs. I and II of the Supplemental Material (SM) [26]. Moreover, to further probe the multipartite entanglement structure in the AFM regime, we compute the GMN [43, 56– 58], an entanglement monotone that quantifies genuine mul-tipartite entanglement. The GMN builds on the bipartite neg-ativity: for any bipartition M|M, the negativity is defined as 
+
+NM|M (ρ) = 12 (|ρTM |1 − 1), where TM denotes partial transpo-sition with respect to M and | · | 1 is the trace norm. GMN probes multipartite entanglement in specific real-space sub-regions and can exhibit singular behavior near quantum phase transitions [44, 47]. Recent work has further shown that GMN can vanish on non-loopy subregions in certain collectively en-tangled phases, including QSLs [41, 58] and beyond-Landau quantum critical points [43]. Specifically, we evaluate GMN as a function of J± on four representative subregions defined 310 −3
+
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(a) ED , S ±, Γ
+
+> 0.41.22.02.8
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(d) ED , S ±, Γ′     
+
+> 0.41.22.0
+> −0.40 −0.20 −0.10 00.05 0.10
+> J±
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(g) ED , S z, K 
+
+> 0.20.40.60.81.0
+
+(b) QMC , S ±, Γ
+
+> 1.02.03.04.05.0
+
+(e) QMC , S ±, Γ′
+
+> 1.02.03.0
+> 0.04 0 .05 0 .06 0 .07 0 .08 0 .09 0 .10
+> J±
+
+(h) QMC , S z, K 
+
+> 0.10.20.3
+> 0.02.04.06.08.0
+> fQ
+
+(c) QMC , S ±, Γ            
+
+> T= 0 .07 2
+> T= 0 .06 2
+> T= 0 .05 2
+> J±= 0 .07 ,Z2QSL
+> J±= 0 .06 ,Z2QSL
+> J±= 0 .05 ,Z2QSL
+> 0.01.02.03.04.0
+> fQ
+
+(f ) ED , S ±, Γ′         
+
+> J±=−0.05
+> J±=−0.15
+> J±=−0.40
+> 10 −310 −210 −11
+> T
+> 0.00.20.40.60.81.0
+> fQ
+
+(i) ED , S z, K       
+
+> J±=−0.05
+> J±=−0.15
+> J±=−0.40
+
+FIG. 2. QFI map in the Kagome spin liquid model. The QFI density fQ obtained from ED and QMC is shown as a function of J± and temperature T . The system size is N = 3 × Lx × Ly = 3 × 3 × 3 = 27 for ED (panels (a), (d) and (g)) and N = 3 × 6 × 6 for QMC (panels (b), (e) and (h)). Panels (a) and (b) show fQ in the S ± channel at q = Γ = (0 , 0), mapping out the thermal and quantum phase diagram of the BFG model and revealing the phase boundary between the FM and Z2 QSL phases. Panels (d) and (e) display fQ at q = Γ ′ = (2 π, 2/ √3π) in the same channel, reflecting the strength of fluctuations across the thermal and quantum phase diagram. Panel (c) shows line cuts of (b) for 
+
+J± = 0.05, 0 .06, and 0 .07, where the dashed line represents the temperature scale for entering the QSL phase, determined by T ∼ Jring ∼ J2
+
+> ±
+
+.The Z2 QSL phase is highlighted in orange shading. Panel (f) shows line cuts of (e) for J± = −0.05, −0.15, and −0.40 for the detailed QFI behavior with decreasing temperature in the AFM regime. Furthermore, panels (g) and (h) show fQ in the S z channel at q = K = (4 π/ 3, 0) for ED and QMC, respectively. Panel (g) reveals a region with a characteristic hump around T ≈ 10 −2 for J± ∈ [−0.15 , 0] and reaches a lower plateau at lower temperature. Panel (i) shows line cuts of (g) for J± = −0.05, −0.15, and −0.40, with the hump structure at J± = −0.05 highlighted in orange shading and the lower plateau in green shading. 
+
+in the bowtie and hexagon. Detailed definitions and computa-tional procedures are provided in Sec. III of the SM [26]. 
+
+Results. —Our results for the QFI density fQ in the channel 
+
+fQ(S ± 
+
+> q
+
+, T ) = fQ(S x
+
+> q
+
+, T ) + fQ(S y
+
+> q
+
+, T ) and fQ(S z
+
+> q
+
+, T ) are plotted in Fig. 2 as a function of both J± and temperature T at the momenta Γ = (0 , 0) ([Panels (a-c)]) and Γ′ = (2 π, 2/ √3π)(Panels (d-f)) for the S ± channel, and at K = (4 π/ 3, 0) for the S z channel (Panels (g-i)). Panels (b), (c), (e), and (h) are obtained from QMC for J± > 0, while the others are from ED calculations. At the Γ point, as shown in panels (a) and (b), the QFI den-sity fQ serves as an e ff ective probe to distinguish di ff erent thermal phases in the BFG model. In panel (c), we plot the temperature dependence of the QFI within the Z2 QSL regime for J± = 0.05 , 0.06 , 0.07. The QFI density fQ is small at high temperatures but increases to a plateau as the temperature de-creases. As the temperature decreases further, fQ increases again and reaches a higher plateau (highlighted by the yellow shading) below the energy scale of the e ff ective four-spin ring-exchange coupling T ∼ Jring ∼ J2 
+
+> ±
+
+(marked by the dashed line in panel (c)). This behavior indicates the emergence of strong multipartite entanglement when entering the Z2 QSL phase. On the other hand, in the FM regime ( J±/Jz > 0.07076), the QFI density fQ also increases as the temperature decreases. It comes from the onset of the enhanced FM order at low temper-atures in finite size systems. We note, in the thermodynamic limit, the true FM order will only occur at zero temperature. Meanwhile, in the J± < 0 regime, the QFI density fQ
+
+extracted from ED reveals a thermal phase diagram qualita-tively distinct from that for J± > 0. As shown in Fig. 2(d– f), fQ(S ± 
+
+> Γ′
+
+, T ) increases upon cooling within the QSL regime. However, unlike the J± > 0 case, no well-defined interme-diate plateau appears for stronger AFM couplings, such as 
+
+J± = −0.05 and −0.15 [green and red points in Fig. 2(f)]. A sharper distinction emerges in the S z channel at the K point [Fig. 2(g–i)]: for weak AFM coupling ( −0.1 < J± < 0), fQ de-velops a pronounced hump near T ≈ 10 −2 [orange shading in Fig. 2(i) for J± = −0.05], followed by a crossover to a lower-temperature plateau [green shading in Fig. 2(i)]. Such a hump structure is not observed in the J± > 0 regime and vanishes as J± decreases further, e.g., J± = −0.15 and −0.4, as shown in Fig. 2(i). Meanwhile, the lower plateau value of fQ also increases as J± decreases, and finally reaches a higher value (≈ 0.81) for strong AFM J±, e.g., J± = −0.4. Taken together, these trends may suggest the onset of a distinct phase, di ff er-ent from the Z2 QSL close to J± = 0 limit, near J± ∼ − 0.1. To further investigate the phase diagram, we first focus on the scaling behavior of the QFI at the critical point in the J± >
+
+0 regime. After which, we leverage various diagnostics to probe the nature of the possible distinct phase in the J± < 0regime. 
+
+(i) The J ± > 0 regime —Here, we investigate the scaling behavior of the QFI density fQ at the critical point J±,c =
+
+0.07076 as a function of temperature ( T ) with di ff erent sys-tem sizes L, which reflects the anomalous scaling dimension of the (2 +1)d XY ∗ transition. Previous works [30, 33, 49] 4proposed that at the critical point, the QFI density scales as 
+
+fQ = λ∆Q ϕ(T λz, L−1λ, hλ1/ν ), (3) where ϕ is a universal function of its dimensionless argu-ments, and λ is the finite-size space-time cuto ff scale at the critical point. ν and z are the correlation length and dynamical critical exponents, respectively. L is the linear system size, and h is the strength of a conjugate field that drives the system away from criticality. In our case, h = J± 
+
+> Jz
+
+− ( J± 
+
+> Jz
+
+)c.The scaling exponent of the QFI is ∆Q = d − 2∆, where 
+
+∆ is the scaling dimension of the order parameter operator (S ±) and d is the spatial dimension. At the critical point of (2 +1)d XY ∗ universality class, i.e. h = 0, z = 1 and 
+
+∆Q = d − 2∆ = 2 − (1 + η) = −0.495. In sharp contrast, if the phase transition belongs to the (2 +1)d XY class, i.e. 
+
+h = 0, z = 1 and ∆Q = d − 2∆ = 2 − (1 + η) = 0.96. There-fore, by setting λ = L at low temperature ( L ≪ 1/T ) and fixing the temperature as T = 1/(bL ) with a constant b, the scaling form of the QFI density at the critical point becomes 
+
+fQ = L∆Q ϕ(1 /b). It means that if we plot fQ as a function of L at the critical point with fixed T = 1/(bL ), all the data should follow a power-law behavior with power ∆Q = −0.495 if the transition is of beyond-Landau type, and with power 
+
+∆Q = 0.96 if the transition is of Landau type. Alternatively, we can obtain the finite-size scaling form of the QFI density at the critical point as fQT ∆Q = (T L )∆Q ϕ(T L ). It means that if we plot fQT ∆Q as a function of T L for di ff erent system sizes 
+
+L at the critical point, all the data should collapse onto a sin-gle curve. The slope of the universal curve, will distinguish the beyond-Landau transition (with negative slope) from the Landau-type transition (with positive slope). To compare these two universality classes, we also perform QMC simulations on the easy-plane J1-J2 model on the square lattice [43, 65, 66, 78], whose Hamiltonian is given by 
+
+HJ1 J2 =J1
+
+X 
+
+> ⟨i,j⟩
+
+(S xi S xj + S y 
+
+> i
+
+S y 
+
+> j
+
++ ∆ S zi S zj)
+
++ J2
+
+X 
+
+> ⟨⟨ i,j⟩⟩
+
+(S xi S xj + S y 
+
+> i
+
+S y 
+
+> j
+
++ ∆ S zi S zj), (4) As shown in the inset of Fig. 3(a), the black bonds denote the J1 coupling and the blue bonds denote the J2 coupling. We use XXZ-type couplings by setting ∆ = 1/2. By tuning the ratio J1/J2, a phase transition from the AFM phase to the paramagnetic phase occurs at J1/J2 = 2.735(2) and belongs to the (2 +1)d XY universality class [43, 78]. Detailed simulation results are provided in the SM [26]. Our data are presented in Fig. 3. Panel (a) shows the scal-ing behavior of fQ as a function of system size L with fixed 
+
+T = 1/(bL ) at the critical point for the BFG model (red points) at J±,c = 0.07076 ( h = 0) with b ranging from 30 to 50. For comparison, the scaling behavior of QFI for the easy-plane J1-
+
+J2 model is plotted as the blue points with J1/J2 = 2.735(2) and b = 4. As L increases, both data sets follow a power-law behavior. However, the BFG model data (red points) 6 8 10 12 
+
+L
+
+10 50 
+
+> f QF I
+
+# (a)BFG XY ∗ b = 30 BFG XY ∗ b = 40 BFG XY ∗ b = 50     
+
+> J1−J2XY b = 4
+
+10 −2 10 −1
+
+LT 
+
+10 010 110 210 3
+
+> f QF I  T −0.495
+
+# (b)BFG XY ∗ L=6 BFG XY ∗ L=8 BFG XY ∗ L=10 BFG XY ∗ L=12         
+
+> J1−J2XY L=6
+> J1−J2XY L=8
+
+10 −310 −210 −110 0
+
+> f QF I  T 0.96
+
+FIG. 3. Dynamical scaling of QFI to identify beyond-Landau QCP with fractionalization and emergent gauge field. (a) The scaling behavior of QFI density fQ(Γ) is plotted as a function of tem-perature T with fixed T = 1/(bL ) at the critical point ( h = 0) for di ff erent system sizes ranging from L = 6 to L = 12, where b ranges from 30 to 50. And the inset figure is the schematic figure of the easy-plane J1-J2 model. (b) shows the scaling behavior of fQ(Γ)T ∆Q as a function of LT at the critical point for di ff erent system sizes ranging from L = 6 to L = 12 with β ∈ [100 , 400]. In both panels, the red points refer to the BFG model, whose phase transition belongs to the (2 +1)d XY ∗ universality class – beyond-Landau QCP, while the blue points refer to the easy plane J1-J2 model, whose phase transition belongs to the (2 +1)d XY universality class. In panel (b), the red (left) y-axis refers to the XY ∗ case while the blue (right) one is for the XY case. The orange solid lines correspond to a power-law with exponent 1 + η = −0.495 (XY ∗ QCP), while the green dashed lines correspond to an exponent of 0 .96 (XY QCP). Both panels clearly show the di ff erent scaling behaviors of QFI density fQ at the critical point between the (2 +1)d XY ∗ universality class and the (2 +1)d XY universality class. 
+
+approach the power-law behavior with exponent −0.495 (or-ange solid line), while the easy-plane J1-J2 model data (blue points) approach the power-law behavior with exponent 0 .96 (green dashed line). Such a clear distinction in the scaling be-havior of fQ at the critical point between the BFG model and the easy-plane J1-J2 model is caused by the emergence of the fractionalized spinon excitations and the associated Z2 gauge field at the (2 +1)d XY ∗ QCP in the BFG model, which leads 5to the anomalous scaling dimension of the S ± operator. Furthermore, Fig. 3(b) shows the second scaling behavior of fQT ∆Q as a function of LT at the critical point for di ff erent system sizes: from L = 6 to L = 12 with β ∈ [100 , 400] for the BFG model (red points), and from L = 8 to L = 10 for the easy-plane J1-J2 model (blue points). As LT decreases, the fQ
+
+values for these system sizes collapse onto a single curve, fol-lowing a power law with an exponent of −0.495 (orange solid line), which decreases as a function of LT . In sharp contrast, the QFI in the easy-plane J1-J2 model follows a power law with an exponent of 0 .96 (green dashed line), which increases as a function of LT . Once again, the opposite scaling behav-iors of fQ at the critical point between the BFG model and the easy-plane J1-J2 model further confirm that their phase tran-sitions belong to di ff erent universality classes. The uniqueness of the XY ∗ transition is manifested in its anomalous scaling dimension of the S ± operator, and our re-sults confirm that the QFI density fQ at the critical point in-deed captures the anomalous scaling dimension of the (2 +1)d XY ∗ transition instead of that of the conventional (2 +1)d XY one, demonstrating that the QFI can identify the novel QCP with fractionalization and emergent gauge structure. We note that the enhancement of the scaling dimension caused by the fractionalization is a universal phenomenon and has also been recently observed in quantum loop models [79, 80] with im-plications for the persistence of fractionalization at finite tem-peratures [81]. 
+
+(ii) The J ± < 0 regime. —To investigate the potentially dis-tinct phase indicated in the QFI map [Fig. 2 (f),(g),(h), (i)], we compute the energy spectrum, static spin structure factor 
+
+S (q), and dimer structure factor D(q) from ED calculations to examine possible energy crossings and conventional order parameters. In addition, the GMN [43, 56–58] is utilized to further characterize the entanglement structure. The results are shown in Fig. 4. Figure 4 (a) shows the energy gap ∆E = Eq − E0 as a func-tion of J± at zero temperature for 3 × 3 cluster, where E0 is the ground-state energy and Eq is the lowest energy level in the momentum sector q, with q taking the values Γ = (0 , 0), K =
+
+(4 π/ 3, 0), Q = (0 , 4 √3π/ 9) together with other symmetry-related momenta. The energy spectrum reveals three distinct regimes. For J± > 0.07076, the system enters the FM phase (blue shaded region), while it is in the Z2 QSL phase (orange shaded region) for −0.1 < J± < 0.07076. These two regimes are separated by a critical point at J±,c = 0.07076 (red solid line). For J± < 0, the energy spectrum exhibits a di ff erent behavior: the lowest energy levels in the Γ, K, and Q sectors remain nearly degenerate until J± ∼ − 0.1, where the Γ and 
+
+K sectors begin to split from the Q sector. In this region, the system remains in the Z2 QSL phase [82]. As J± decreases further, the Q sector becomes the lowest energy level, while the Γ and K sectors remain nearly degenerate. This change in the low-energy spectrum suggests a possible rearrangement of the ground state structure, consistent with the QFI map, which indicates a distinct phase for J± < −0.1 (green shaded region).                                                                  
+
+> FIG. 4. ED results on the AFM kagome model. (a) shows the energy gap ∆E=Eq−E0as a function of J±at zero temperature for the same system size, where E0is the ground-state energy and Eq
+> is the lowest energy level in the momentum sector q, with qtaking the values Γ = (0 ,0), K=(4 π/ 3,0), Q=(0 ,4√3π/ 9), and other symmetry-related points. (b) shows the static spin structure factor
+> S(q) at these momenta as a function of J±, while (c) shows the dimer structure factor D(q)=1
+> N
+> Pi,jeiq(ri−rj)⟨DiDj⟩ − ⟨ Di⟩⟨ Dj⟩where Di=
+> Si·Si+ˆxfor the nearest-neighbor spins at these same momenta as a function of J±; both (b) and (c) are at the zero temperature for 3×3 cluster as in (a). (d) shows the GMN as a function of J±for the same system size and for di ff erent partitions obtained from ED calculations. The inset of (d) shows a zoomed view near J±=−0.3. In all panels, three di ff erent regimes are highlighted with di ff erent colors: green shading for the possible QSL phase, blue shading for the FM phase, and orange shading for the Z2QSL phase, with an inner white region indicating the vicinity of the classical limit at J±=
+> 0. The red solid line marks the critical point J±,c=0.07076 between the FM and Z2QSL phases in the J±>0 regime.
+
+To further investigate whether any conventional order exists in this distinct phase, we also measure the spin structure factor 
+
+S (q) in both the S ± and S z channels [see Fig. 4(b)], as well as the dimer structure factor D(q) [see Fig. 4(c)] at the rele-vant momentum points (see details in the SM [26], Sec. II). In sharp contrast to the significant Bragg peak at Γ upon en-tering the FM phase for J± > 0 (blue symbols in Fig. 4(b)), 6no significant Bragg peak is observed at any momentum point for J± < 0 in either the spin structure factor S (q) or the dimer structure factor D(q). Although the system sizes accessible in ED are limited, the absence of any Bragg peak suggests that there is no conventional order, such as magnetic order or valence bond solid order, in this distinct phase. To further probe the nature of this distinct phase, we com-pute the GMN for several representative subregions: the tri-partite bowtie-212 (green points), and tripartite hexagonal truncations—hex-212 (yellow points). The GMN analysis is shown in the Fig. 4(d). In these three regimes, the GMN exhibits distinct behaviors. For J± > 0.07076, the system enters the FM phase, where finite GMN is detected in both loopy (bowtie-212) and non-loopy (hex-212) subregions. In the intermediate range, shown as the orange shaded region in Fig. 4, the BFG model realizes a Z2 QSL described at low energies by an e ff ective four-spin exchange model. In this regime, no GMN is detected for any of the subregions consid-ered. This absence of GMN within the Z2 QSL is consistent with a minimal multipartite entangled subregion larger than the partitions accessible in our analysis [43]. By contrast, in the green shaded region of Fig. 4 (roughly J± < −0.1), the GMN for bowtie-212 emerges near J± ∼ − 0.15 and increases as J± decreases, indicating that the minimal multipartite en-tangled subregion shifts toward the bowtie geometry. Cru-cially, however, the GMN for the non-loopy hex-212 subre-gion remains zero throughout the entire J± < 0 regime, which suggests that the minimal multipartite entangled subregion in this regime is likely a loopy region, such as the bowtie-212. This observation is consistent with the conjecture that there is no non-loopy GMN in the regimes which hold gauge field descriptions, such as QSL phases [43, 58]. Taken together, the evidence from the QFI map, energy spectrum, structure factors, and GMN analysis all point to the existence of a distinct phase in the J± < 0 regime of the BFG model for J± < −0.10. Going a step further, the absence of conventional order and the emergence of multipartite en-tanglement only in loopy subregions suggest that this distinct phase may be a di ff erent type of QSL from the Z2 QSL phase, which calls for further investigation. 
+
+Discussions. — Our results show that, depending on the type of the transition, i.e., beyond-Landau or Landau type, a clear signature in the QFI scaling behavior can be used to identify the QSL state and the associated fractionalization and emer-gent gauge field structure. For a conventional Landau-type (2 +1)d XY transition, the exponent in Eq. (3) is ∆Q > 0. In contrast, for an unconventional (2 +1)d XY ∗ transition with enhanced scaling dimension due to fractionalization, the ex-ponent becomes ∆Q < 0. For ∆Q > 0 (conventional case), the critical scaling of the QFI goes one way with system size L
+
+or inverse temperature β = 1/T . For ∆Q < 0 (unconventional case), the QFI goes oppositely with L or β. This stark contrast in scaling direction bestows the dynamical scaling of the QFI with the power to distinguish novel QSLs and their unconven-tional QCPs from conventional phases. Our data confirm this signature, providing direct evidence of this distinction. Moreover, in the AFM regime of the BFG model, our ED results suggest the possible emergence of another QSL phase distinct from the Z2 QSL phase, as indicated by the QFI map, energy spectrum, structure factors, and GMN analysis, which would inspire further investigations. Finally, we emphasize that the QFI measures truly quan-tum correlations as the temperature-dependent form factor in Eq. (2) suppresses T > ω part of the structure factor. In other words, the QFI is significant only when temperature is smaller than a characteristic energy scale in the system, which corre-sponds to the quantum regime. This understanding and our demonstration of critical scaling in QFI near a beyond-Landau QCP provide useful guidance for future experimental studies of frustrated magnets such as kagome QSL candidate materi-als. 
+
+Acknowledgement—– We acknowledge inspiring discussions with William Witczak-Krempa, Shiliang Li and Cristian Batista on related topics. We acknowledge the support from the Research Grants Council (RGC) of Hong Kong (Project Nos. 17309822, C7037-22GF, 17302223, 17301924, 17301725), the ANR /RGC Joint Research Scheme sponsored by RGC of Hong Kong and French National Research Agency (Project No. A HKU703 /22) and the State Key Laboratory of Optical Quantum Materials at HKU. We thank HPC2021 sys-tem under the Information Technology Services at the Univer-sity of Hong Kong [83], as well as the Beijing Paratera Tech Corp., Ltd [84] for providing HPC resources that have con-tributed to the research results reported within this paper. Z.Z. and Y.B.K. were supported by the Natural Sciences and En-gineering Research Council of Canada (NSERC) Grant No. RGPIN-2023-03296 and the Center of Quantum Materials at the University of Toronto. Computations at the University of Toronto were performed on the Cedar and Fir clusters, which are hosted by the Digital Research Alliance of Canada. Z.Z. is further supported by the Ontario Graduate Scholarship.          
+
+> ∗These authors contributed equally to this work. [1] T.-H. Han, J. S. Helton, S. Chu, D. G. Nocera, J. A. Rodriguez-Rivera, C. Broholm, and Y. S. Lee, Nature 492 , 406 (2012). [2] M. Fu, T. Imai, T.-H. Han, and Y. S. Lee, Science 350 , 655 (2015). [3] Z. Feng, Z. Li, X. Meng, W. Yi, Y. Wei, J. Zhang, Y.-C. Wang, W. Jiang, Z. Liu, S. Li, F. Liu, J. Luo, S. Li, G. qing Zheng, Z. Y. Meng, J.-W. Mei, and Y. Shi, Chin. Phys. Lett. 34 ,077502 (2017). [4] Y. Wei, Z. Feng, W. Lohstroh, D. H. Yu, D. Le, C. dela Cruz, W. Yi, Z. F. Ding, J. Zhang, C. Tan, L. Shu, Y.-C. Wang, H.-Q. Wu, J. Luo, J.-W. Mei, F. Yang, X.-L. Sheng, W. Li, Y. Qi, Z. Y. Meng, Y. Shi, and S. Li, arXiv e-prints , arXiv:1710.02991 (2017), arXiv:1710.02991 [cond-mat.str-el]. [5] P. Khuntia, M. Velazquez, Q. Barth´ elemy, F. Bert, E. Ker-marrec, A. Legros, B. Bernu, L. Messio, A. Zorko, and P. Mendels, Nature Physics 16 , 469 (2020). [6] D. Macdougal, S. Williams, D. Prabhakaran, R. I. Bewley,
+
+7
+
+D. J. Voneshen, and R. Coldea, Phys. Rev. B 102 , 064421 (2020). [7] Z. Zeng, X. Ma, S. Wu, H.-F. Li, Z. Tao, X. Lu, X.-h. Chen, J.-X. Mi, S.-J. Song, G.-H. Cao, G. Che, K. Li, G. Li, H. Luo, Z. Y. Meng, and S. Li, Phys. Rev. B 105 , L121109 (2022). [8] E. A. Ghioldi, S.-S. Zhang, Y. Kamiya, L. O. Manuel, A. E. Trumper, and C. D. Batista, Phys. Rev. B 106 , 064418 (2022). [9] D. Chatterjee, P. Puphal, Q. Barth´ elemy, J. Willwater, S. S¨ ullow, C. Baines, S. Petit, E. Ressouche, J. Ollivier, K. M. Zoch, C. Krellner, M. Parzer, A. Riss, F. Garmroudi, A. Pus-togow, P. Mendels, E. Kermarrec, and F. Bert, Phys. Rev. B 
+
+107 , 125156 (2023). [10] Z. Zeng, C. Zhou, H. Zhou, L. Han, R. Chi, K. Li, M. Kofu, K. Nakajima, Y. Wei, W. Zhang, D. G. Mazzone, Z. Y. Meng, and S. Li, Nature Physics 20 , 1097 (2024). [11] A. O. Scheie, E. A. Ghioldi, J. Xing, J. A. M. Paddison, N. E. Sherman, M. Dupont, L. D. Sanjeewa, S. Lee, A. J. Woods, D. Abernathy, D. M. Pajerowski, T. J. Williams, S.-S. Zhang, L. O. Manuel, A. E. Trumper, C. D. Pemmaraju, A. S. Sefat, D. S. Parker, T. P. Devereaux, R. Movshovich, J. E. Moore, C. D. Batista, and D. A. Tennant, Nature Physics 20 , 74 (2024). [12] A. O. Scheie, M. Lee, K. Wang, P. Laurell, E. S. Choi, D. Pa-jerowski, Q. Zhang, J. Ma, H. D. Zhou, S. Lee, S. M. Thomas, M. O. Ajeesh, P. F. S. Rosa, A. Chen, V. S. Zapf, M. Heyl, C. D. Batista, E. Dagotto, J. E. Moore, and D. A. Tennant, arXiv e-prints , arXiv:2406.17773 (2024), arXiv:2406.17773 [cond-mat.str-el]. [13] R. Bag, S. Xu, N. E. Sherman, L. Yadav, A. I. Kolesnikov, A. A. Podlesnyak, E. S. Choi, I. da Silva, J. E. Moore, and S. Haravifard, Phys. Rev. Lett. 133 , 266703 (2024). [14] G. Zheng, Y. Zhu, K.-W. Chen, B. Kang, D. Zhang, K. Jenk-ins, A. Chan, Z. Zeng, A. Xu, O. A. Valenzuela, J. Blawat, J. Singleton, S. Li, P. A. Lee, and L. Li, Proceedings of the National Academy of Sciences 122 , e2421390122 (2025). [15] L. Han, Z. Zeng, M. Long, M. Song, C. Zhou, B. Liu, M. Kofu, K. Nakajima, P. Ste ff ens, A. Hiess, Z. Y. Meng, Y. Su, and S. Li, Phys. Rev. B 112 , 045114 (2025). [16] A. T. Breidenbach, A. C. Campello, J. Wen, H.-C. Jiang, D. M. Pajerowski, R. W. Smaha, and Y. S. Lee, Nature Physics 21 ,1957 (2025). [17] L. Savary and L. Balents, Rep. Prog. Phys. 80 , 016502 (2017). [18] Y. Zhou, K. Kanoda, and T.-K. Ng, Rev. Mod. Phys. 89 ,025003 (2017). [19] X.-G. Wen, Science 363 , eaal3099 (2019). [20] C. Broholm, R. Cava, S. Kivelson, D. Nocera, M. Norman, and T. Senthil, Science 367 , eaay0668 (2020). [21] S. Yan, D. A. Huse, and S. R. White, Science 332 , 1173 (2011). [22] S. Depenbrock, I. P. McCulloch, and U. Schollw¨ ock, Phys. Rev. Lett. 109 , 067201 (2012). [23] H. J. Liao, Z. Y. Xie, J. Chen, Z. Y. Liu, H. D. Xie, R. Z. Huang, B. Normand, and T. Xiang, Phys. Rev. Lett. 118 ,137202 (2017). [24] G.-Y. Sun, Y.-C. Wang, C. Fang, Y. Qi, M. Cheng, and Z. Y. Meng, Phys. Rev. Lett. 121 , 077201 (2018). [25] C.-J. Huang, Y. Deng, Y. Wan, and Z. Y. Meng, Phys. Rev. Lett. 120 , 167202 (2018). [26] The Supplemental Material details our QMC algorithm for the BFG model and easy plane J1-J2 model on the square lattice, the exact diagonalization calculation. [27] L. Balents, M. P. A. Fisher, and S. M. Girvin, Phys. Rev. B 
+
+65 , 224412 (2002). [28] J. Lambert and E. S. Sørensen, Physical Review B 99 , 045117 (2019). [29] J. Lambert and E. S. Sørensen, Physical Review B 102 ,224401 (2020). [30] A. Scheie, P. Laurell, A. M. Samarakoon, B. Lake, S. E. Na-gler, G. E. Granroth, S. Okamoto, G. Alvarez, and D. A. Ten-nant, Phys. Rev. B 103 , 224434 (2021). [31] A. Scheie, E. Ghioldi, J. Xing, J. Paddison, N. Sherman, M. Dupont, L. Sanjeewa, S. Lee, A. Woods, D. Abernathy, 
+
+et al. , Nat. Phys. 20 , 74 (2024). [32] P. Laurell, A. Scheie, C. J. Mukherjee, M. M. Koza, M. En-derle, Z. Tylczynski, S. Okamoto, R. Coldea, D. A. Tennant, and G. Alvarez, Physical Review Letters 127 , 037201 (2021). [33] V. Menon, N. E. Sherman, M. Dupont, A. O. Scheie, D. A. Tennant, and J. E. Moore, Physical Review B 107 , 054422 (2023). [34] A. Scheie, P. Laurell, W. Simeth, E. Dagotto, and D. A. Ten-nant, Materials Today Quantum 5, 100020 (2025). [35] P. Laurell, A. Scheie, E. Dagotto, and D. A. Tennant, Ad-vanced Quantum Technologies 8, 2400196 (2025). [36] T. Shimokawa, S. Sabharwal, and N. Shannon, arXiv:2505.11874 (2025). [37] P. Hyllus, W. Laskowski, R. Krischek, C. Schwemmer, W. Wieczorek, H. Weinfurter, L. Pezz´ e, and A. Smerzi, Phys-ical Review A—Atomic, Molecular, and Optical Physics 85 ,022321 (2012). [38] G. T´ oth, Physical Review A—Atomic, Molecular, and Optical Physics 85 , 022322 (2012). [39] J. Liu, J. Chen, X.-X. Jing, and X. Wang, Journal of Physics A: Mathematical and Theoretical 49 , 275302 (2016). [40] C. Zhou, Z. Zhou, F. Desrochers, Y. B. Kim, and Z. Y. Meng, arXiv e-prints , arXiv:2510.14813 (2025), arXiv:2510.14813 [cond-mat.str-el]. [41] S. Sabharwal, M. Gohlke, P. Skrzypczyk, and N. Shannon, “Characterizing entanglement at finite temperature: how does a ”classical” paramagnet become a quantum spin liquid?” (2025), arXiv:2511.15144 [cond-mat.str-el]. [42] L. Pezz´ e and A. Smerzi, Phys. Rev. Lett. 102 , 100401 (2009). [43] M. Song, T.-T. Wang, L. Lyu, W. Witczak-Krempa, and Z. Y. Meng, arXiv e-prints , arXiv:2509.09983 (2025), arXiv:2509.09983 [cond-mat.str-el]. [44] L. Lyu, M. Song, T.-T. Wang, Z. Y. Meng, and W. Witczak-Krempa, Phys. Rev. B 111 , 245108 (2025). [45] S. J. Avakian, T. Pereg-Barnea, and W. Witczak-Krempa, Phys. Rev. Res. 7, 023135 (2025). [46] A. C. Doherty, P. A. Parrilo, and F. M. Spedalieri, Phys. Rev. A 71 , 032333 (2005). [47] T.-T. Wang, M. Song, L. Lyu, W. Witczak-Krempa, and Z. Y. Meng, Nature Communications 16 , 96 (2025). [48] T.-T. Wang, M. Song, Z. Y. Meng, and T. Grover, PRX Quan-tum 6, 010358 (2025). [49] P. Hauke, M. Heyl, L. Tagliacozzo, and P. Zoller, Nature Physics 12 , 778 (2016). [50] S. W. Lovesey, Theory of neutron scattering from condensed matter (Oxford University Press, 1984). [51] A. T. Boothroyd, Principles of neutron scattering from con-densed matter (Oxford University Press, 2020). [52] S. T. Bramwell and B. Keimer, Nature Materials 13 , 763 (2014). [53] S. Sabharwal, T. Shimokawa, and N. Shannon, Phys. Rev. Res. 7, 023271 (2025). [54] M. Hering, F. Ferrari, A. Razpopov, I. I. Mazin, R. Valent´ ı, H. O. Jeschke, and J. Reuther, npj Computational Materials 8,10 (2022). [55] Z. Li, L. Han, Y. Sun, S. Zhang, Z. Zeng, and S. Li, Chin. 8
+
+Phys. Lett. 42 , 027504 (2025). [56] B. Jungnitsch, T. Moroder, and O. G¨ uhne, Physical Review Letters 106 , 190502 (2011). [57] M. Hofmann, T. Moroder, and O. G¨ uhne, Journal of Physics A: Mathematical and Theoretical 47 , 155301 (2014). [58] L. Lyu, D. Chandorkar, S. Kapoor, S. Takei, E. S. Sørensen, and W. Witczak-Krempa, “Multiparty entanglement loops in quantum spin liquids,” (2025), arXiv:2505.18124 [cond-mat.str-el]. [59] S. V. Isakov, Y. B. Kim, and A. Paramekanti, Phys. Rev. Lett. 
+
+97 , 207204 (2006). [60] S. V. Isakov, M. B. Hastings, and R. G. Melko, Nature Physics 
+
+7, 772 (2011). [61] S. V. Isakov, R. G. Melko, and M. B. Hastings, Science 335 ,193 (2012). [62] Y.-C. Wang, C. Fang, M. Cheng, Y. Qi, and Z. Y. Meng, arXiv e-prints , arXiv:1701.01552 (2017), arXiv:1701.01552 [cond-mat.str-el]. [63] Y.-C. Wang, X.-F. Zhang, F. Pollmann, M. Cheng, and Z. Y. Meng, Phys. Rev. Lett. 121 , 057202 (2018). [64] Y.-C. Wang, M. Cheng, W. Witczak-Krempa, and Z. Y. Meng, Nature Communications 12 , 5347 (2021). [65] Z. Y. Meng and S. Wessel, Phys. Rev. B 78 , 224416 (2008). [66] M. Hohenadler, Z. Y. Meng, T. C. Lang, S. Wessel, A. Mura-matsu, and F. F. Assaad, Phys. Rev. B 85 , 115132 (2012). [67] A. W. Sandvik, Phys. Rev. B 57 , 10287 (1998). [68] O. F. Syljuåsen, Phys. Rev. B 78 , 174429 (2008). [69] K. S. D. Beach, arXiv e-prints , cond-mat /0403055 (2004), arXiv:cond-mat /0403055 [cond-mat.str-el]. [70] A. W. Sandvik, Phys. Rev. E 94 , 063308 (2016). [71] H. Shao, Y. Q. Qin, S. Capponi, S. Chesi, Z. Y. Meng, and A. W. Sandvik, Phys. Rev. X 7, 041072 (2017). [72] C. Zhou, Z. Yan, H.-Q. Wu, K. Sun, O. A. Starykh, and Z. Y. Meng, Phys. Rev. Lett. 126 , 227201 (2021). [73] S. Sugiura and A. Shimizu, Phys. Rev. Lett. 108 , 240401 (2012). [74] S. Sugiura and A. Shimizu, Phys. Rev. Lett. 111 , 010401 (2013). [75] E. R. Gagliano and C. A. Balseiro, Phys. Rev. Lett. 59 , 2999 (1987). [76] K. A. Hallberg, Phys. Rev. B 52 , R9827 (1995). [77] P. Prelovˇ sek and J. Bonˇ ca, in Strongly Correlated Systems: Numerical Methods , Springer Series in Solid-State Sciences, Vol. 176, edited by A. Avella and F. Mancini (Springer, Berlin, Heidelberg, 2013) pp. 1–30. [78] N. Ma, G.-Y. Sun, Y.-Z. You, C. Xu, A. Vishwanath, A. W. Sandvik, and Z. Y. Meng, Phys. Rev. B 98 , 174421 (2018). [79] X. Ran, Z. Yan, Y.-C. Wang, R. Samajdar, J. Rong, S. Sachdev, Y. Qi, and Z. Y. Meng, Communications Physics 7, 207 (2024). [80] X. Ran, Z. Yan, Y.-C. Wang, J. Rong, Y. Qi, and Z. Y. Meng, Phys. Rev. B 109 , L241109 (2024). [81] X. Ran, S. Capponi, J. Rong, F. Alet, and Z. Y. Meng, Phys. Rev. Lett. 135 , 126503 (2025). [82] F. Wang, F. Pollmann, and A. Vishwanath, Phys. Rev. Lett. 
+
+102 , 017203 (2009). [83] HPC2021, Information Technology Services, The University of Hong Kong . [84] Beijing PARATERA Tech CO.,Ltd . [85] A. W. Sandvik, in AIP Conference Proceedings , Vol. 1297 (AIP, 2010) pp. 135–338. [86] H. Suwa and S. Todo, Phys. Rev. Lett. 105 , 120603 (2010). [87] H. Shao and A. W. Sandvik, Phys. Rep. 1003 , 1 (2023). [88] P. Hyllus, W. Laskowski, R. Krischek, C. Schwemmer, W. Wieczorek, H. Weinfurter, L. Pezz´ e, and A. Smerzi, Phys. Rev. A 85 , 022321 (2012). [89] T. Iitaka and T. Ebisuzaki, Phys. Rev. E 69 , 057701 (2004). [90] M. W. Long, P. Prelovˇ sek, S. El Shawish, J. Karadamoglou, and X. Zotos, Phys. Rev. B 68 , 235106 (2003). [91] A. Hams and H. De Raedt, Phys. Rev. E 62 , 4365 (2000). [92] J. Jakliˇ c and P. Prelovˇ sek, Phys. Rev. B 49 , 5065 (1994). [93] A. M. L¨ auchli, J. Sudan, and E. S. Sørensen, Phys. Rev. B 83 ,212401 (2011), arXiv:1103.1159 [cond-mat.str-el]. [94] R. R. P. Singh and D. A. Huse, Phys. Rev. B 77 , 144415 (2008), arXiv:0801.2735 [cond-mat.str-el]. [95] H. Nakano and T. Sakai, J. Phys. Soc. Jpn. 80 , 053704 (2011), arXiv:1103.5829 [cond-mat.mtrl-sci]. [96] J. Jakliˇ c and P. Prelovˇ sek, Phys. Rev. B 49 , 5065 (1994). [97] P. Prelovˇ sek and J. Bonˇ ca, in Strongly Correlated Systems: Numerical Methods , Springer Series in Solid-State Sciences, Vol. 176, edited by A. Avella and F. Mancini (Springer, 2013) arXiv:1111.5931 [cond-mat.str-el]. [98] T. Misawa, Y. Motoyama, and Y. Yamaji, Phys. Rev. B 102 ,094419 (2020), arXiv:1801.07128 [cond-mat.str-el]. [99] S. Okamoto, G. Alvarez, E. Dagotto, and T. Tohyama, Phys. Rev. E 97 , 043308 (2018), arXiv:1802.03449 [cond-mat.str-el]. [100] J. L¨ ofberg, in In Proceedings of the CACSD Conference 
+
+(Taipei, Taiwan, 2004). [101] MOSEK Optimization Toolbox for MATLAB 10.2.17 , MOSEK ApS (2024). 1(a) (b) 
+
+FIG. S1. The schematic figure of the BFG model and the J1-J2
+
+model. (a) The BFG model on the kagome lattice. The black bonds denote the Ising-type Jz coupling, while the green bonds denote the 
+
+J± coupling. (b) The easy-plane J1-J2 model on the square lattice. The black bonds denote the J1 coupling and the blue bonds denote the J2 coupling. 
+
+## Supplemental Material 
+
+I. QUANTUM MONTE CARLO 
+
+In this section, we provide technical details of the quan-tum Monte Carlo (QMC) simulations for the Balents-Fisher-Girvin (BFG) model defined in Eq. 1 of the main text as well as that of the easy-plane J1-J2 model defined in Eq. 4 of the main text. Their schematic figures of both models are shown in Fig. S1. We simulate both of them using the stochastic series expansion (SSE) QMC method with directed loop up-dates [85]. Specifically, to handle the complexity of the BFG model and enter the Z2 quantum spin liquid (QSL) regime, we decompose the Hamiltonian into five-spin operators as in Refs. [24, 62–64] and and applied the balance condition but not the detailed balance condition solution for the directed loop update process [86]. Moreover, the multi-directed loop update method is also applied in the QSL regime ( J± <
+
+0.7076)[40]. Meanwhile, the thermal annealing process is employed to further enhance the e ffi ciency of the QMC sim-ulations with the annealing step ∆β = 1 (where β is the inverse temperature) and 10,000 Monte Carlo steps at each temperature. For the easy-plane J1-J2 model, we decompose the Hamiltonian into bond (two-spin) operators and apply the conventional directed loop update process [85]. Figure S2 shows the energy per site e/N obtained from QMC simulations for the BFG model with system size L = 6at di ff erent J±. Panels (a), (b), and (c) correspond to J± =
+
+0.05, 0 .06, and 0 .07, respectively. The dashed lines repre-sent the temperature scale of entering the Z2 QSL state ( T ∼
+
+J2
+
+> ±
+
+). e/N decreases as the temperature decreases and enters a plateau below the temperature scale of T ∼ J2
+
+> ±
+
+, indicating the system enters the Z2 QSL phase. Panel (d) shows e/N as a function of temperature T in the FM phase ( J± > 0.07076). 10 −3 10 −2                 
+
+> −0.255
+> −0.254
+> e/N
+> T= 0 .05 2
+> (a)
+> J±=0.05 10 −310 −210 −1
+> −0.262
+> −0.260
+> −0.258
+> −0.256
+> T= 0 .06 2
+> (b)
+> J±=0.07 10 −310 −210 −1
+> T
+> −0.262
+> −0.260
+> −0.258
+> e/N
+> T= 0 .07 2
+> (c)
+> J±=0.07 10 −310 −210 −1
+> T
+> −0.28
+> −0.26
+> −0.24 (d)J±=0.08
+> J±=0.09
+> J±=0.10
+
+FIG. S2. The energy per site e/N obtained from QMC simulation for L = 6. Panels (a), (b) and (c) correspond to J± = 0.05, 0 .06 and 0.07, respectively. The dashed lines represent the temperature scale of entering the Z2 QSL state ( T ∼ J2
+
+> ±
+
+). And panel (d) shows the e/N
+
+as a function of temperature T in the FM phase ( J± > 0.07076). 
+
+Here, e/N also decreases as the temperature decreases, reflect-ing the FM order at low temperatures in a finite size. During the QMC simulations, we also measure the imaginary-time spin-spin correlation functions ⟨S α 
+
+> q
+
+(τ)S α
+
+> −q
+
+(0) ⟩
+
+at various momentum points q and imaginary times τ [24, 72, 78]. To access the real-frequency dynamics, we employ stochastic analytic continuation (SAC) [67, 71, 72, 87] to extract the dynamical spin structure factor (DSSF) Aα(q, ω )from the imaginary-time data. The quantum Fisher informa-tion (QFI) density fQ is then computed using the obtained DSSF according to Eq. 2. The QFI is employed to quantify the entanglement proper-ties of a given state, as it provides a lower bound on multipar-tite entanglement, also known as entanglement depth [34, 53, 88]. For a collective generator O = PNi=1 Oi with local eigen-value range ∆λ = λmax − λmin , the entanglement depth can be detected by the following criterion: nQFI( O) : = fQ(O)(∆λ)2 > m =⇒ entanglement depth ≥ m + 1,
+
+(S1) where nQFI denotes the normalized QFI. This criterion im-plies that the state is at least a ( m + 1)-producible state [30, 34, 37–39]. Figure S3 presents the QFI density fQ obtained from QMC simulations for the BFG model with system size L = 6 at dif-ferent momentum points q as a function of J± and temperature 
+
+T . Panels (a-d) correspond to the S ± channel at momentum points Γ, Γ′, M, and K, respectively. Panels (e-f) correspond to the S z channel at momentum points Γ′ and K, respectively. In all panels, fQ increases as the temperature decreases. The QFI density fQ in the S ± channel at the Γ point (panel (a)) shows the highest value among all channels and momentum points, indicating the dominant role of fQ since QFI reflects the lower bound of multipartite entanglement in the system. Also, this channel serves as a good probe to observe the ther-mal phase diagram of the BFG model since the order vector is 210 −3
+
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(a) QMC , S ±, Γ
+
+> 1.02.03.04.05.0
+
+(b) QMC , S ±, Γ′
+
+> 1.02.03.04.05.0
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(c) QMC , S ±, M 
+
+> 1.02.03.0
+
+(d) QMC , S ±, K 
+
+> 1.02.03.0
+> 0.04 0 .05 0 .06 0 .07 0 .08 0 .09 0 .10
+> J±
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(e) QMC , S z, Γ′
+
+> 0.20.40.60.8
+> 0.04 0 .05 0 .06 0 .07 0 .08 0 .09 0 .10
+> J±
+
+(f ) QMC , S z, K 
+
+> 0.10.20.3
+
+FIG. S3. The QFI density fQ in the S ± channel obtained from QMC as a function of J± and temperature T with system size L = 6 at di ff erent momentum points: (a) q = Γ , (b) q = Γ ′, (c) q = M and (d) 
+
+q = K. And panels (e-h) are the S z channel at the momentum points (e) q = Γ ′ and (f) q = K.
+
+at Γ point for the FM phase. Meanwhile, with respect to the ED results shown in Fig. 2 of the main text, we include the QMC results for the S ± channel at momentum point Γ′ and 
+
+S z channel at momentum point K in the main text to compare with the ED results. The other momentum points and channels are provided here for completeness. To provide comprehensive results of the scaling behavior of the QFI, we also plot the finite size scaling following the formula that fQ = L∆Q ϕ(1 /b) with fixing T = 1/(bL ) and 
+
+fQT ∆Q = (T L )∆Q ϕ(T L ) at the critical point Jc,± = 0.07076 and ∆Q = −0.495 in Fig. S4. Figure S4 shows the scaling behavior of QFI density fQ at momentum points Γ (a-c), Γ′
+
+(d-f), and M (g-i). For (a,d,g), fQ is plotted as a function of 
+
+L with fixed T = 1/(bL ) and b ranging from 20 to 50. For (b,e,h), fQ is plotted as a function of LT . For (c,f,i), fQT −0.495 
+
+is plotted as a function of LT . The data are for system sizes ranging from L = 6 to L = 12, with β ∈ [100 , 400]. The orange solid lines correspond to a power-law with exponent 
+
+−0.495 ((2 +1)d XY ∗ beyond-Landau QCP), while the blue dashed lines correspond to an exponent of 0 .96 ((2 +1)d XY Landau QCP). As shown in these figures, the QFI density fQ
+
+at Γ point follows the expected scaling behavior with exponent 
+
+−0.495, while the QFI density fQ at Γ′ and M points deviate from such scaling behavior, indicating that the dominant con-tribution to the QFI at the critical point arises from the Γ point. Finally, in the Figure S5, the scaling behavior of the fQ is plotted as a function of L with fixed T = 1/(bL ) and b ranging from 2 to 4 for S ± channel at M = (π, π ) points. Here, system size L ranges from 6 to 12 with the same as the BFG model. As b increases, the temperatures for these system sizes also decrease and the values of fQ increase. The data follow a power-law behavior with an estimated exponent of 0 .96, and the quality of the fit improves for larger b. Therefore, in the main text, we choose b = 4 to show the scaling behavior of fQ
+
+for the easy-plane J1-J2 model at the XY critical point. 
+
+II. EXACT DIAGONALIZATION 
+
+Our finite-temperature exact diagonalization calculations are based on the microcanonical thermal pure quantum (mTPQ) formulation [73, 74, 89–91]. We begin from an 
+
+T → ∞ random vector in the working Hilbert space, 
+
+|ψ0⟩ =
+
+X
+
+> i
+
+ci|i⟩, (S2) where {ci} are independent random complex coe ffi cients. Given a Hamiltonian H, the kth mTPQ state is obtained by repeatedly applying an energy-shifted Hamiltonian and renor-malizing at each step, 
+
+|ψk⟩ = (L − H) |ψk−1⟩∥(L − H) |ψk−1⟩∥ , L > Emax (H), (S3) where Emax (H) is the largest eigenvalue of H. The internal energy at iteration k is estimated as 
+
+Ek = ⟨ψk|H|ψk⟩⟨ψk|ψk⟩ , (S4) and the corresponding inverse temperature is approximated by [73, 74] 
+
+βk ≃ 2kL − Ek
+
+, (S5) noting that k scales extensively with system size for fixed β.In the thermodynamic limit, a single realization of |ψk⟩ is typ-ical and reproduces equilibrium expectation values, so static observables are evaluated as 
+
+⟨O⟩βk ≈ ⟨ψk|O|ψk⟩⟨ψk|ψk⟩ . (S6) We therefore leverage this formalism to extract the specific heat via evaluating ⟨H2⟩βk − E2 
+
+> k
+
+. For finite clusters, we average over 8 independent random seeds to reduce residual statistical fluctuations. We evaluate finite-temperature spectra from the mTPQ state 
+
+|ψk⟩ via the broadened resolvent associated with an operator 
+
+O [77, 92], 
+
+GO(z; βk) = ⟨ψk|O † (z − eH)−1O| ψk⟩⟨ψk|ψk⟩ , (S7) where eH ≡ H − E, z = ω + iη. η > 0 sets the Lorentzian broadening, and E is taken to be the energy of the ground state, which gives the correct energy o ff set for the spectrum. In practice, the ground state energy is obtained via a separate Lanczos process. The corresponding spectral density is 
+
+IO(ω; βk) = − 1
+
+π Im GO(ω + iη; βk). (S8) 35.0 10.0 15.0 
+
+> fQF I
+
+(a)         
+
+> QMC Γ b= 30 S±
+> QMC Γ b= 40 S±
+> QMC Γ b= 50 S±
+
+10 1
+
+10 2
+
+10 3
+
+> fQF I T −0.495
+
+(c) QMC Γ L=6 S±   
+
+> QMC Γ L=8 S±
+> QMC Γ L=10 S±
+> QMC Γ L=12 S±
+
+1.0 2.0 3.0 4.0 5.0 
+
+> fQF I
+
+(d)         
+
+> QMC Γ ′b= 30 S±
+> QMC Γ ′b= 40 S±
+> QMC Γ ′b= 50 S±
+
+10 1
+
+10 2
+
+> fQF I T −0.495
+
+(f ) QMC Γ ′ L=6 S±      
+
+> QMC Γ ′L=8 S±
+> QMC Γ ′L=10 S±
+> QMC Γ ′L=12 S±
+
+6 8 10 12 
+
+L
+
+1.0 2.0 3.0 4.0 5.0 
+
+> fQF I
+
+(g)         
+
+> QMC M b = 30 S±
+> QMC M b = 40 S±
+> QMC M b = 50 S±
+
+10 −2 10 −1
+
+LT 
+
+10 1
+
+10 2
+
+> fQF I T −0.495
+
+(i) QMC M L=6 S±         
+
+> QMC ML=8 S±
+> QMC ML=10 S±
+> QMC ML=12 S±
+
+10 0
+
+10 1
+
+> fQF I
+
+(b) QMC Γ L=6 S±   
+
+> QMC Γ L=8 S±
+> QMC Γ L=10 S±
+> QMC Γ L=12 S±
+
+10 0
+
+10 1
+
+> fQF I
+
+(e) QMC Γ ′ L=6 S±      
+
+> QMC Γ ′L=8 S±
+> QMC Γ ′L=10 S±
+> QMC Γ ′L=12 S±
+
+10 −2 10 −1
+
+LT 
+
+10 0
+
+10 1
+
+> fQF I
+
+(h) QMC M L=6 S±         
+
+> QMC ML=8 S±
+> QMC ML=10 S±
+> QMC ML=12 S±
+
+FIG. S4. The scaling behavior of QFI density fQ is shown at momentum points Γ (a-c), Γ′ (d-f), and M (g-i). For (a,d,g), fQ is plotted as a function of L with fixed T = 1/(bL ). For (b,e,h), fQ is plotted as a function of LT . For (c,f,i), fQT −0.495 is plotted as a function of LT . The data are for system sizes ranging from L = 6 to L = 12, with β ∈ [100 , 400]. The orange solid lines correspond to a power-law with exponent 
+
+−0.495 ((2 +1)d XY ∗ beyond-Landau QCP), while the blue dashed lines correspond to an exponent of 0 .96 ((2 +1)d XY Landau QCP). 6 8 10 12 
+
+## L
+
+## 5.0 15.0 20.0 
+
+> fQF I
+
+QMC M b = 2 J2/J 1 = 2 .735 S±
+
+QMC M b = 3 J2/J 1 = 2 .735 S±
+
+QMC M b = 4 J2/J 1 = 2 .735 S±
+
+FIG. S5. The QFI density fQ obtained from QMC on the J1-J2 model as a function of system size L and temperature T = 1/(bL ) at q = M,with L ranging from 6 to 10 and b ranging from 2 to 5. 
+
+Define the Lanczos seed and its prefactor 
+
+| f0⟩ = O| ψk⟩∥O| ψk⟩∥ , μ0 ≡ ∥O| ψk⟩∥ 2
+
+⟨ψk|ψk⟩ . (S9) Applying the Lanczos tridiagonalization to eH with starting vector | f0⟩ yields a tridiagonal representation characterized by diagonal coe ffi cients {an} and o ff -diagonal coe ffi cients 
+
+{bn+1} [75–77]. In this basis, the Krylov-space approximation to the re-solvent matrix element takes the standard continued-fraction form [75, 76] 
+
+GO(z; βk) ≈ μ0
+
+1
+
+z − a0 − b21
+
+z − a1 − b22
+
+z − a2 − . . ., (S10) which is truncated after a finite number of Lanczos steps nL.Equations (S8) and (S10) then give IO(ω; βk) directly. We implement the above mTPQ–Lanczos workflow with GPU acceleration on a 27-site (3 × 3) kagome torus with peri-odic boundary conditions. Among Ns = 27 kagome tori, this geometry is commonly used as a high-symmetry cluster with comparatively large shortest winding loops (torus diameters), which helps mitigate—though does not eliminate—finite-size artifacts. Such artifacts are known to be particularly pro-nounced on the Kagome lattice, where gaps and low-energy spectra can vary substantially across cluster shapes and sizes [93–95]. In addition, typicality-based finite-temperature estimators rely on stochastic sampling over random initial vectors; at fi-nite size, this induces a seed-to-seed spread that is expected to be largest near thermal crossover regimes [40, 96–98]. In our microcanonical implementation, finite-T dynamical response functions are evaluated from a single appropriately chosen energy-window state; this approach becomes exact in the ther-modynamic limit and yields increasingly smooth spectra with 410 −3
+
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(a) ED , S ±, Γ
+
+> 0.40.81.21.62.02.42.8
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(b) ED , S ±, Γ′
+
+> 0.40.81.21.62.02.42.8
+> J±
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(c) ED , S ±, K 
+
+> 0.40.81.21.62.02.4
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(d) ED , S z, Γ′     
+
+> 0.20.40.60.81.0
+> −0.40 −0.20 −0.10 00.05 0.10
+> J±
+> 10 −3
+> 10 −2
+> 10 −1
+> 1
+> T
+
+(e) ED , S z, K 
+
+> 0.20.40.60.81.0
+
+FIG. S6. The QFI density fQ obtained from ED on the BFG model as a function of both temperature T and J± for system size Lx × Ly =
+
+3 × 3 at momentum points (a) S ± at Γ, (b) S ± at Γ′, and (c) S ± at 
+
+K. Meanwhile, panels (d) and (e) show the QFI density fQ in the S z
+
+channel at momentum points Γ′ and K, respectively. 
+
+increasing system size, while smaller clusters can retain resid-ual statistical fluctuations [90, 99]. Consistent with these ex-pectations, we find S (q, ω ; T ) (and the QFI derived from it) to be stable over most temperatures, with the largest variance confined to an intermediate crossover window. We therefore report data averaged over 16 independent mTPQ realizations. The energy and specific heat per site, Cv, obtained from exact diagonalization on the L = 3 × 3 cluster are shown in Fig. S9 for representative values of J±, with the insets high-lighting the lowest-temperature Cv peak. The di ff erent pan-els correspond to distinct regimes of the phase diagram: (a) a putative distinct QSL, (b) the crossover out of the Z2 QSL, (c,e) the Z2 QSL, (d) the Ising limit ( J± = 0), and (f) the FM phase. In contrast to the FM phase, whose specific heat ex-hibits a pronounced peak associated with the onset of FM or-der, the Z2 QSL regime in panels (c,e) displays a characteristic two-peak structure, reflecting crossover scales associated with spinon and vison excitations. At lower J±, however, this two-peak structure becomes progressively suppressed and even-tually evolves into a three-peak profile, suggesting the emer-
+
+FIG. S7. ED results of the specific heat density Cv/N on the AFM kagome model. (a) presents Cv/N as a function of both J± and tem-perature T , while (b) shows line cuts of (a) at J± = −0.05 for the 
+
+Z2 QSL phase regime, at J± = −0.15 in the crossover region, and at J± = −0.40 for the green regime. The low-temperature (second) peak in (a) is highlighted by the white circle point while the high-temperature (first) peak is marked by the black triangle point. 0 1 2              
+
+> ω/J zz
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> (a) J±=−0.3
+> 012
+> ω/J zz
+> (b) J±=−0.05
+> 012
+> ω/J zz
+> (c) J±= 0 .03
+
+FIG. S8. Dynamical spin structure factor S zz (q = K, ω ) at T = 0.001 for J± = −0.30 , −0.05 , 0.03 (a,b,c) 
+
+gence of a phase distinct from the conventional Z2 QSL. This interpretation is consistent with our complementary analyses based on the QFI and GMN. Finally, the low-energy spectrum in Fig. 4 is computed us-ing the Krylov Schur algorithm per total S z sector per momen-tum symmetry sector. In addition to Fig. 4 in the main text, we also present the dynamical spin structure factor S zz (q = K, ω, T = 0.001) for 
+
+J± = −0.30, −0.05, and 0 .03, corresponding respectively to the distinct spin-liquid regime and the Z2 spin-liquid regime, as shown in Fig. S8. In the Z2 spin-liquid regime, the ⟨S zS z⟩
+
+channel is expected to probe gapped vison excitations. Con-sistent with this expectation, for J± = −0.05 and J± = 0.03 the spectrum exhibits a pronounced low-frequency peak. By contrast, deep in the J± = −0.30 regime, this clear vison-like signature disappears, and the spectrum instead becomes broad, with substantial weight extending to higher frequen-cies. This qualitative change is consistent with the picture that the emergent gauge structure in this phase di ff ers from the Z25bowtie-vison structure supported in the BFG model.  
+
+> III. GENUINE MULTIPARTITE NEGATIVITY
+
+A foundational concept in multipartite quantum systems is the distinction between separable and entangled states. Con-sider a pure quantum state |ψ⟩ of n parties living in the com-posite Hilbert space H = H1 ⊗· · · ⊗H n. The state is fully sep-arable if it can be expressed as a simple tensor product of the states of its individual subsystems: |ψ⟩ = |ψ1⟩⊗| ψ2⟩⊗· · ·⊗| ψn⟩.Any pure state that cannot be written in this factorized form is, by definition, entangled. Moving beyond simple entangle-ment, a more complex structure arises in systems with three or more parties: genuine multipartite entanglement (GME). A state possesses GME if it is not biseparable. A state is con-sidered biseparable if it can be expressed as a probabilistic mixture of states, where each state in the mixture is sepa-rable across at least one possible bipartition of the system. For instance, in a three-party system involving subsystems 
+
+A, B, and C, a biseparable state ρbsep takes the general form: 
+
+ρbsep = p1ρsep  
+
+> A|BC
+
++ p2ρsep  
+
+> B|AC
+
++ p3ρsep 
+
+> C|AB
+
+. Here, each ρsep is a state that is separable with respect to a specific cut (e.g., A sepa-rated from the combined BC system), and pi are probabilities summing to one. A state that cannot be represented in this convex-sum form is genuinely multipartite entangled. To quantify GME, one can use computable entanglement monotones. One such measure is the Genuine Multipartite Negativity (GMN) [56, 57]. The construction of GMN be-gins with the concept of negativity for a single bipartition. For any given division of the total system into two parts, M
+
+and its complement M, the negativity is defined as NM|M (ρ) = 
+
+> 12
+
+(|ρTM |1 − 1). This value is calculated from the partial trans-pose of the density matrix ρ with respect to the subsystem M,where | · | 1 denotes the trace norm. A positive negativity in-dicates entanglement across that specific partition. From this, we define the minimum negativity, Nmin (ρ), as the smallest negativity found across all possible bipartitions of the system: 
+
+Nmin (ρ) = min M|M NM|M (ρ). This quantity essentially captures the “weakest link” of entanglement in the state. However, for mixed states, this minimum negativity is not by itself a perfect entanglement monotone. To address this, the GMN, denoted as N(ρ), is formally defined through a convex-roof extension of the minimum negativity: 
+
+N(ρ) = min  
+
+> pk,ρ k
+
+X
+
+> k
+
+pk Nmin (ρk) , (S11) where the minimization is performed over all possible decom-positions of the state ρ into an ensemble of pure states pk, ρ k
+
+such that ρ = Pk pkρk. This optimization ensures that the measure properly accounts for the convex structure of the set of separable states. A key feature of GMN is that a positive value, N(ρ) > 0, serves as a su ffi cient condition for the pres-ence of genuine multipartite entanglement. It is important to note, however, that this condition is not necessary; some GME states may have a GMN of zero. For the simpler case of a two-party system, the GMN simplifies and becomes equivalent to the standard negativity measure. A significant advantage of Genuine Multipartite Negativity (GMN) is that its value, as defined in Eq. (S11), can be de-termined e ffi ciently by solving a specific type of optimization problem known as a semidefinite program (SDP). This com-putational method circumvents the challenging minimization over all pure state decompositions. The SDP formulation for the GMN of a given state ρ is expressed as follows: 
+
+N(ρ) = − min tr( ρW)subject to W = Pm + QTm
+
+> m
+
+0 ⩽ Pm
+
+0 ⩽ Qm ⩽ I for all bipartitions m | ¯m
+
+(S12) In this formulation, the minimization is performed over the operator W, which acts as an entanglement witness. The con-straints dictate that this witness must be decomposable across every possible bipartition m| ¯m of the system. Specifically, for each bipartition, W must be expressible as the sum of a posi-tive semidefinite operator Pm and the partial transpose of an-other operator Qm. The operator Qm is itself constrained to be positive semidefinite and bounded by the identity opera-tor I. The notation A ⩾ B means that the operator A − B is positive semidefinite, and Tm denotes the partial transposition with respect to one of the subsystems in the bipartition m| ¯m.For the practical computation of the GMN, our methodol-ogy is adapted from the MATLAB package pptmixer, origi-nally introduced in Ref. [56]. The original constraint Pm ⩽ I
+
+is removed as suggested in Ref. [57] for a more direct and physically meaningful interpretation of the measure. We adopt the YALMIP toolbox [100] as a high-level mod-eling interface. For the numerical solution of these optimiza-tion problems, we employ the high-performance MOSEK solver [101]. Figure S10 presents the GMN for the BFG model under ad-ditional partition schemes (beyond those in the main text) on an L = 3 × 3 cluster. In addition to this multipartite entangle-ment measure, we also show the bipartite negativity for two and four adjacent spins. The bipartite negativity for four adja-cent spins forming a hexagon remains zero near J± = 0 within the Z 2 QSL phase. A finite value emerges around J± ≈ − 0.1as J± becomes more negative. This onset coincides with that of the tripartite bowtie GMN presented in the main text, pro-viding further evidence for a phase transition. For the tripartite GMN shown in Fig. S10, we do not detect any finite signal in the QSL phases at negative J±, including the “loopy hexagon” partition, although such contributions do appear in the ferromagnetic phase. 6(a) (d) (b) (e) (c) (f) 
+
+FIG. S9. The energy per site and the specific heat Cv for di ff erent J±. Panels (a)-(d) correspond to J± = −0.4, −0.2, −0.05, and 0 .0, respectively, while (e) and (f) correspond to J± = 0.05 and 0 .2, respectively. The insets of each panel show the zoomed energy behavior corresponding to the lowest specific heat peak. Panel (a) is in the distinct QSL regime while (b) is in the crossover from the Z2 QSL phase to the distinct QSL regime. Panels (c) and (e) are in the Z2 QSL phase while (f) is in the FM phase. Panel (d) refers to the Ising limit ( J± = 0). Bipartite: Tripartite: 
+
+FIG. S10. The GMN for the BFG model evaluated across di ff erent partition schemes on an L = 3 × 3 cluster. The inset illustrates the various partitions, with the color of each scheme matching its corre-sponding curve in the main plot.

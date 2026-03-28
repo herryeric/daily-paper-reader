@@ -1,0 +1,616 @@
+Title: Path Integral Monte Carlo on a Sphere
+
+URL Source: https://arxiv.org/pdf/2603.22338v1
+
+Published Time: Wed, 25 Mar 2026 00:02:19 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# Path Integral Monte Carlo on a Sphere 
+
+Riccardo Fantoni ∗
+
+Universit` a di Trieste, Dipartimento di Fisica, strada Costiera 11, 34151 Grignano (Trieste), Italy 
+
+(Dated: March 25, 2026) We solve numerically exactly a simple toy model to quantum general relativity or more properly to path integral on a curved space. We consider the thermal equilibrium of a quantum many body problem on the sphere, the surface of constant positive curvature. We use path integral Monte Carlo to measure the kinetic energy, the internal energy and the static structure of a bosons, fermions and anyons fluid at low temperatures on the sphere. For bosons we also measure the superfluid fraction and compare its behavior at the critical temperature with the universal jump predicted by Nelson and Kosterlitz in flat space in the thermodynamic limit at the superfluid phase transition. For fermions and anyons it is necessary to use the restricted path integral recipe in order to overcome the sign problem. Even if this recipe is exact for the non interacting fluid it reduces to just an approximation for an interacting system. And we make the example of the electron gas at low temperature. Snapshots of the many body path configuration during the evolution of the computer experiment show that the “speed” of the single particle path near the poles slows down as a consequence of the “hairy ball theorem” of Poincar´ e. The influence of curvature on the thermodynamic and structural properties of the many body fluid is also studied. 
+
+Keywords: Path Integral; Monte Carlo; Sphere; Quantum Fluid; Bosons; Fermions; Anyons; Thermodynam-ics; Structure; Superfluidity; Sign Problem 
+
+CONTENTS 
+
+I. Introduction 2II. Many body path integral on a Riemannian manifold 3III. The sphere 5IV. Non interacting bodies 7A. Distinguishable bodies 7B. Identical bodies 9Bosons 9Fermions 9Anyons 11 V. Electron gas 13 VI. Conclusions 13 A. The transition displacement move 14 B. The transition bridge move 15 C. Braids sampling 16 Author declarations 16 Conflicts of interest 16 Data availability 16 Funding 16 References 16  
+
+> ∗
+
+riccardo.fantoni@scuola.istruzione.it 
+
+> arXiv:2603.22338v1 [cond-mat.quant-gas] 21 Mar 2026
+
+2 
+
+> I. INTRODUCTION
+
+One of the greatest challenges of today physics is the problem of putting together the quantum theory with the theory general relativity, or from the mathematical side we are looking forward to a bridge between the functional integral underlying the time evolution in a Hilbert space and the Riemannian manifold underlying the support of differential geometry or more generally differential topology. We are still at the beginning of this ambitious project and from this point of view any simple, yet well defined, physical model at the intersection of these two theories is certainly valuable, especially so if the model can be solved exactly from a mathematical point of view [1, 2]. Guided by this motivation some years ago we studied the statistical physics problem of an electron gas at finite, non zero temperature on the surface of a sphere [3, 4], the surface of constant positive curvature and probably the simplest of all Riemannian manifolds. Similar studies on the Haldane sphere had already been tried but at zero temperature [5–7]. And at high temperature, at a special value of the Coulomb coupling constant, in the non quantum regime, on several different (curved) surfaces: the plane [8–11], the cylinder [12, 13], the sphere [14–17], the pseudosphere [18–20], and the Flamm paraboloid [21, 22]. Here we want to examine carefully the case of a many body system on a sphere at finite, non zero low temperature, i.e. in its quantum regime. The thermal equilibrium properties of the many body system will be captured by a path integral description of its density matrix on the sphere. The bodies that form the statistical physics model can be described either as distinguishable or as identical. In their description as identical bodies we can further distinguish between whether they obey to Bose-Einstein statistics or if they obey to Fermi-Dirac statistics according to their wave function transformation property under their permutation. If additionally they are described as identical and impenetrable bodies they will obey to anyonic statistics according to their wave function imaginary time braiding evolution. The braid group was introduced in 1925 by Emil Artin [23]. All these descriptions bring to different statistical physics and thermodynamic properties when the many body system is in its low temperature quantum regime, and they merge at high temperature [24]. On the other side, already the simple sphere has some quite delicate features as, for example, the hairy ball theorem ,according to which her Euler class is the obstruction to her tangent planes, the tangent bundle , 1 having always a non vanishing fiber , or hair, for any section 2. The theorem was first proven by Henri Poincar´ e for the sphere in 1885 [25], and extended to higher even dimensions in 1912 by Luitzen Egbertus Jan Brouwer [26]. The theorem has been expressed colloquially as “you can’t comb a hairy ball flat without creating a cowlick”. If f is a continuous function that assigns a vector in the three dimensional space to every point r on a sphere such that f (r) is always tangent to the sphere at r, then there is at least one pole , a point where the field vanishes, i.e. an r such that f (r) = 0. Every zero of a vector field has a (non-zero) index 3, and it can be shown that the sum of all of the indexes at all of the zeros must be two, because the Euler characteristic of the sphere is two. Therefore, there must be at least one zero. This is a consequence of the Poincar´ e-Hopf theorem . The theorem was proven for two dimensions by Henri Poincar´ e and later generalized to higher dimensions by Heinz Hopf [27]. In particular we expect that even a single free particle in thermal equilibrium at low temperature on the sphere have a path which will be subject to some peculiar topological features [28]. The question of the influence on the statistical physics properties of a quantum many body fluid of the curvature of the supporting Riemannian surface is not straightforward. In fact already for a single free particle the phase space dynamics on a sphere is generally not ergodic since her trajectories, the geodesics, may be confined to invariant tori, but the picture dramatically changes on a pseudosphere, the surface of constant negative curvature, as was proven by Emil Artin in 1924 [29], where geodesics diverge [19, 30]. This makes the quantum version of this system a paradigmatic model of quantum chaos. We then here plan to study this preliminary simple toy model of a quantum many body fluid on a sphere, which nonetheless does not allow for an analytic exact solution, with the instrument of Path Integral Monte Carlo (PIMC) [31] which is able to extract exact numerical properties of the statistical physics model. It certainly is gratifying to know that at least this simple toy model of statistical general relativity [32–34] can be solved exactly at least numerically.                    
+
+> 1A particular fiber bundle .
+> 2In topology, a cross section of a fiber (tangent) bundle space, B×Fis a graph over the base space B, in this case the sphere. A choice of a tangent vector to any point of the sphere is a section of the tangent bundle of the sphere.
+> 3The index of a bilinear function/al is the dimension of the space on which it is negative definite. In the context of vector fields on a Riemannian manifold the index is equal to +1 around a source or a sink, and more generally equal to ( −1) karound a saddle that has
+> kcontracting dimensions and n−kexpanding dimensions.
+
+3
+
+II. MANY BODY PATH INTEGRAL ON A RIEMANNIAN MANIFOLD 
+
+Throughout the whole paper we will denote with a bold face letter a point on the d dimensional Riemannian manifold M . Greek indexes run over the d space dimensions. Roman indexes are used either for a particle label or for an imaginary timeslice label in the path integral discretization. We use Einstein summation convention of tacitly assuming a sum over repeated greek indexes. A many body system is composed of N distinguishable particles of mass m and spin s with positions in R =(r1, r2, . . . , rN ) = ( {ri}) where each position vector ri = ( r1 
+
+> i
+
+, r 2 
+
+> i
+
+, . . . , r di ) = ( {rαi }) in d dimensions. On a Riemannian manifold M of dimension d and metric tensor gαβ (r), the geodesic distance between two infinitesimally close points 
+
+R and R′ is d˜s2(R, R ′) = ∑Ni=1 ds 2(ri, r′
+
+> i
+
+) where ds 2(r, r′) = gαβ (r)( r − r′)α(r − r′)β . Moreover, ˜gμν (R) = gα1β1 (r1) ⊗ . . . ⊗ gαN βN (rN ), (2.1) ˜g(R) = 
+
+> N
+
+∏
+
+> i=1
+
+det || gαiβi (ri)|| , (2.2) where || ˜gμν || is a matrix made of N diagonal blocks || gαi βi || with i = 1 , 2, . . . , N . The Laplace-Beltrami operator on the manifold of dimension dN is ∆R = ˜ g−1/2∇μ(˜ g1/2 ˜gμν ∇ν ), (2.3) where ∇ = ∇R, ˜ gγν is the inverse of ˜ gγν , i.e. ˜ gμγ ˜gγν = δμν the Kronecker delta. We will first assume free , non interacting bodies, with an Hamiltonian H that reduces to the one of the free gas in flat space. For the sake of simplicity 4 we will choose 
+
+H = −λ∆R, (2.4) with λ = ℏ2/2m.For interacting bodies we will then have more generally 
+
+H = −λ∆R + V (R), (2.5) where V (R) is the physical potential energy of the system, that we here assume only a function of the particles positions and bounded from below. The density matrix ρ of the system obeys to Bloch equation 
+
+∂ρ (t)
+
+∂t = −H ρ(t), (2.6) 
+
+ρ(0) = 1 1, (2.7) where t is the imaginary time with dimension of the reciprocal of energy and 1 1 the identity matrix. The position representation of the density matrix is then obtained from ρ(R, R ′; t) = 〈R|ρ(t)|R′〉 with 〈R|R′〉 = δ(R − R′)/√˜g(R)where δ is a dN dimensional Dirac delta function. In the small imaginary time τ limit the position representation of the density matrix is 
+
+ρ(R, R ′; τ ) ∝ ˜g(R)−1/4√D(R, R ′; τ ) ˜ g(R′)−1/4eλτ R(R)/6e−S (R,R ′ ;τ ), (2.8) where R is the scalar curvature of the manifold 5, S the action, and D the van Vleck’s determinant [36, 37] 
+
+Dμν = −∇ μ∇′ 
+
+> ν
+
+S (R, R ′; τ ), (2.9) det || Dμν || = D(R, R ′; τ ), (2.10) where ∇ = ∇R and ∇′ = ∇R′ . This determinant is the Jacobian of the transformation from the initial conditions given by fixing the pair of momentum and coordinate to the boundary conditions given by specifying the pair of initial and final coordinates needed in the path integral formulation. For the density matrix (2.8) the volume element   
+
+> 4This is a delicate point especially for what concerns ordering ambiguities [1]. We here appeal to simplicity.
+> 5The factor depending on the curvature of the manifold is due to Bryce DeWitt [35]. For a space of constant curvature there is clearly no effect, as the term due to the curvature just leads to a constant multiplicative factor that has no influence on the measure of the various observables.
+
+4for integration is √˜g(R) dR . We will consider the W (R) = − ln[ √˜g(R)] /τ as an effective geometrical potential . The two factors ˜ g−1/4 are needed in order to have for the density matrix a bidensity for which the boundary condition to Bloch equation is simply a Dirac delta function ρ(R, R ′; 0) = δ(R − R′). The square root of the van Vleck determinant factor takes into account the density of paths among the minimum extremal region for the action (see Chapter 12 of Ref. [37]). For the action S , the kinetic-action K , and the inter-action U we have 6
+
+S (R, R ′; τ ) = K (R, R ′; τ ) + U (R, R ′; τ ), (2.11) 
+
+K (R, R ′; τ ) = dN 
+
+2 ln(4 πλτ ) + d˜s2(R, R ′)
+
+4λτ . (2.12) In particular the kinetic-action is responsible for a diffusion of the random walk with a single particle variance equal to σ2 
+
+> αβ
+
+(r) = 2 λτ /g αβ (r). The inter-action is defined as U = S − K and for potential energies bounded from below one can resort to the Trotter formula [38] to reach the primitive approximation 7
+
+U (R, R ′; τ ) = τ [V (R) + V (R′)] /2. (2.13) For non interacting bodies U = 0. Note that, even to lowest order in R − R′ 8, the path integral in the curved manifold for the non interacting system will not coincide with the one in flat space since it is not possible with a change of coordinates to simply remove the metric factor from both d˜s2 and the volume element of integration, if not only locally. In fact this would require a non coordinate basis [39]. Given then an observable O we can determine its thermal average at an absolute temperature T from 
+
+〈O〉 = gstr {ρ(β)O}/Z N , (2.14) 
+
+ZN = gstr {ρ(β)}, (2.15) where β = 1 /k BT with kB Boltzmann constant, tr {. . . } is the trace over the spatial variables, ZN the canonical partition function, gs = 2 s + 1 is the spin degeneracy, and we assumed the Hamiltonian independent from spin. For 
+
+identical bodies the spin-statistics theorem of quantum field theory, dictates that in spatial dimension bigger than two, particles with integer spin are bosons (obeying Bose-Einstein statistics, symmetric wavefunctions), while half-integer spin particles are fermions (obeying Fermi-Dirac statistics, antisymmetric wavefunctions). In dimension two anyonic statistics are also possible for identical and impenatrable bodies [40]. In this work, for bosons we will just consider the spinless s = 0 case, for fermions the spin s = 1 /2 fully polarized case, with only one spin species, either all bodies spin up or all bodies spin down, and for anyons we make no assumption on their spin. In any case the measure (2.14) of the various thermodynamic or structural observables will not depend on gs.The position representation of the density matrix at an imaginary time t = β is obtained through a path integral 
+
+ρ(R, R ′; β) = 〈R|ρ(β)|R′〉 =
+
+∫ M−1∏
+
+> k=0
+
+[ρ(Rk, R k+1 ; τ ) dR k ] δ(R0 − R)δ(RM − R′) dR M , (2.16) where we have discretized the imaginary time β into M timeslices with a small timestep τ = β/M . The many body path R(t) is consequently discretized in M beads Rk = ( {ri,k }) = ( {rαi,k }) at each timeslice k = 1 , 2, . . . , M . We will also call link a pair of contiguous beads. Note that in order to measure an observable through Eq. (2.14) it is necessary to consider closed paths such that R(t + β) = R(t), or rings on the manifold M .For identical bodies, if they satisfy to the Bose-Einstein statistics one needs to symmetrize the distinguishable density matrix, if they satisfy to the Fermi-Dirac statistics one needs to antisymmetrize it [41]. In these cases we can then write 9
+
+ρ±(R, R ′; β) = 1
+
+N !
+
+∑
+
+> P
+
+sgn( P)ρ(PR, R ′; β), (2.17) sgn( P) = ( ±1) ∑Nν=1 (ν−1) Cν , (2.18) where P is any permutation of the N particles such that PR = ( rP1, rP2, . . . , rPN ), with sign sgn( P). Any permutations can be broken into cycles P = {Cν } where Cν is the number of cycles of length ν in P. In the sum over          
+
+> 6The expression for Kis the one of Eq. (24.16) of Ref. [37] to lowest order in R−R′.
+> 7See Ref. [31] for a numerical analysis of the accuracy of this approximation and for its possible refinements.
+> 8For next orders corrections see for example Ref. [28].
+> 9One can symmetrize or antisymmetrize respect to the first, the second or both the arguments of the distinguishable density matrix. We here choose the first case.
+
+5the permutations one should use a +1 for the symmetrization necessary for bosons and −1 for the antisymmetrization necessary for fermions, in sgn( P). An even (odd) permutation has sgn( P) = +1( −1) and an even (odd) number of exchanges of a pair of particles. On a surface, d = 2, for impenetrable identical bodies, one can also have anyonic statistics [40]. In this case it is necessary to consider, more generally, 
+
+ρν (R, R ′; β) = ∑
+
+> α∈BN
+
+Re[ χ(α)]˜ ρα(R, R ′; β), (2.19) 
+
+χ({paths R(t) with n braids among the pairs of single particle paths r(t)}) = e−iνnπ , (2.20) where BN is the infinite braid group which admits an infinite number of unitary one dimensional representations χ,a phase factor, parametrized by an arbitrary number ν which determines the statistics and ˜ ρα is the distinguishable density matrix obtained from paths of kind α only. Clearly for ν = 0 (mod 2) we recover the Bose-Einstein statistics and for ν = 1 (mod 2) the Fermi-Dirac statistics. So we will be interested in values of 0 < ν < 1. The braid group is the fundamental group of the quotient space ( S2N − ∆) /S N where S2 is the (two) sphere, ∆ = {R | ri = rj for some i 6 = j}, and SN is the group of permutation of N bodies. We then see how paths R(t)with different numbers of crossings between single particle paths r(t) belong to different homotopy classes and one cannot be deformed continuously into the other. Therefore in order to take care of the density matrix of identical impenetrable bodies it is necessary to sum over all the topologically disjoint homotopy classes as is done in Eq. (2.19). If ν is rational, i.e. for fractional statistics , the phase factor will be periodic in n and for irrational ν, it will not. For a two dimensional electron gas in a transverse magnetic field the role of the Landau level [42] filling factor 
+
+is played by the statistics ν [5, 6] and certain fractional values for ν serve to explain the fractional quantum Hall effect . In particular R. Laughlin [43] proposed an ansatz for the variational ground state of the jellium in a transverse magnetic field when the filling factor is ν = 1 /p with p an odd integer. In his construction of the ground state trial wave function the exact analytic solution for the partition function of the one component (non quantum) plasma at a special value of the coupling constant [10, 30] played a fundamental role. In this work we will not worry about introducing a magnetic field but we will study the case of the electron gas where the electrons, fermions, interact with a Coulomb pair potential on the manifold (see Section V). We will now choose a particularly simple Riemannian manifold: the sphere!  
+
+> III. THE SPHERE
+
+A sphere of radius a is the (see 1839 Minding theorem and 1899 Liebmann theorem [44]) surface, d = 2, 10 of constant positive scalar curvature 2 /a 2 so that R = 2 N/a 2. Her metric is ds 2 = gαβ dr αdr β = a2(dθ 2 + cos 2 θ dϕ 2), 
+
+> 11
+
+. The polar angle r1 = θ ∈] − π/ 2, π/ 2] and the azimuthal angle r2 = ϕ ∈] − π, π ] are the contravariant coordinates of the position vector r ∈ C , a point of the sphere, with C =] − π/ 2, π/ 2] ×] − π, π ] the single particle positions space. So that θ = 0 is the equator and θ = ±π/ 2 are the poles . On the sphere √g(r) = a2| cos θ| and in the small τ → 0limit 12 ˜g(R)−1/4√D(R, R ′; τ ) ˜ g(R′)−1/4 → (1 /2λτ )N . So we see how both the curvature term and the van Vleck factor, being constant, simply drop off from the measure of the various observables of Eq. (2.14). The position of a particle on the sphere in the three dimensional Euclidean space embedding the sphere is 
+
+
+
+x = a cos θ cos ϕy = a cos θ sin ϕz = a sin θ
+
+(3.1) and the particle path on it is q(t) = ( x(t), y (t), z (t)). The geodesic distance between particles ri and rj is 
+
+sij = s(ri, rj ) = a arccos [sin( r1 
+
+> i
+
+) sin( r1 
+
+> j
+
+) + cos( r1 
+
+> i
+
+) cos( r1 
+
+> j
+
+) cos( r2 
+
+> i
+
+− r2 
+
+> j
+
+)] , (3.2) whereas the Euclidean distance is 
+
+dij = d(ri, rj ) = a
+
+√
+
+2(1 − ˆqi · ˆqj ) = 2 a sin[arccos(ˆ qi · ˆqj )/2] ., (3.3)                        
+
+> 10 So it is conformally flat as any Riemannian manifold of dimension d≤3.
+> 11 Note that in the kinetic action of the path integral Monte Carlo calculation it is crucial to use consistently either ds 2(r,r′) = gαβ (r)( r−
+> r′)α(r−r′)βor ds 2(r,r′) = gαβ (r′)( r−r′)α(r−r′)β.
+> 12 Remember that the metric tensor is covariantly cosntant.
+
+6where ˆ qi = qi/a is the versor that from the center of the sphere points towards the center of the ith particle. We use the Metropolis algorithm [45, 46] to evaluate the average of Eq. (2.14). In order to explore ergodically the positions space r = ( θ, ϕ ) ∈ C to sample the distinguishable density matrix we use the transition displacement move described in Appendix A. In order to sample the permutation sum of Eq. (2.17) needed for identical bodies we use a transition move combination of 2 Brownian bridges between unlike bodies as described in Appendix B. To construct a single Brownian bridge it is essential to map, project, the sphere on a flat coordinate system. Our choice is presented in Appendix B. Perform the Gaussian bridge move in the projection flat space and then map it back to the sphere. The Metropolis algorithm will then allow to sample the high temperature density matrix whose kinetic action is not purely Gaussian on the sphere, due to the metric tensor appearing in d˜s2 13 .In order to sample the sum over the homotopy classes of Eq. (2.19) needed for identical (impenetrable) bodies we use a combination of bridge and displacement transition moves as described in Appendix C. Note that the displacement moves can be freely substituted by moves of bridges connecting only like bodies. But we found it convenient to use both moves for three reasons: (i) a Monte Carlo method usually becomes more efficient if implemented through a rich menu of different moves; (ii) from a purely formal point of view, one starts from simple single bead moves and only later builds more complex many beads moves; (iii) since the single bead displacement move is simple to construct it can serve as a test for more elaborated many beads moves. We will work in the canonical ensemble with fixed number of particles N , surface area A = 4 πa 2, surface density 
+
+σ = N/ 4πa 2, and absolute temperature T = 1 /k B β. In our simulations we will only consider the m = 1 case. The many body system degeneracy parameter is Θ = T /T D where the degeneracy temperature TD = σℏ2/mk B
+
+> 14
+
+. For temperatures higher than TD, Θ ≫ 1, quantum effects are not very important and the distinction between distinguishable particles, bosons, fermions, or anyons is lost. We will treat both the non interacting fluid V = 0 and the Coulomb fluid 
+
+V (R) = ∑
+
+> i<j
+
+e2
+
+dij 
+
+, (3.4) where e is the unit of charge and we are assuming that the particles, moving on the sphere, interact with the three dimensional pair Coulomb potential in terms of the Euclidean distance (3.3) between two electrons 15 . The Coulomb coupling constant is Γ = βe 2/a 0rs with a0 = ℏ2/me 2 the Bohr radius and rs = (4 πσ )−1/2/a 0 the Wigner-Seitz radius. At weak coupling, Γ ≪ 1, the plasma becomes weakly correlated. Choosing length in units of the Wigner-Seitz radius, 
+
+a0rs = a/ √N , and energy in units of Rydberg, Ry = ℏ2/2ma 20, we have λ = 1 /r 2 
+
+> s
+
+, Γ = β(2 /r s), and Θ = (2 πr 2 
+
+> s
+
+)/β .We then see that the kinetic energy scales as 1 /r 2 
+
+> s
+
+and the potential energy as 1 /r s so that the electron gas will approach the ideal gas limit at low rs or high surface densities σ. In this work we will instead choose everywhere natural units, with ℏ = kB = 1. Apart from thermodynamic properties like the kinetic energy per particle eK and the potential energy per particle 
+
+eV 16 we will also measure structural properties like the radial distribution function , g(r) = 〈O〉. For it we may use the following histogram estimator, 
+
+O(R; r) = ∑
+
+> i6=j
+
+1]r−∆/2,r +∆ /2] (dij )
+
+N n id (r) , (3.5) where ∆ is the histogram bin, 1 ]a,b ](x) = 1 if x ∈]a, b ] and 0 otherwise, and 
+
+nid (r) = N
+
+[( r + ∆ /2
+
+2a
+
+)2
+
+−
+
+( r − ∆/2
+
+2a
+
+)2]
+
+, (3.6) is the average number of particles on the spherical crown ] r −∆/2, r +∆ /2] for the ideal gas of density σ. We have that 
+
+σ2g(r) gives the probability, that sitting on a particle at r, one finds another particle at r′ with r = d(r, r′) ∈ [0 , 2a]. Note that √2a2 is the Euclidean distance between a pole and a point on the equator. Alternatively one could           
+
+> 13 We tried to avoid passing back and forth through the projection mapping but with no results. In fact in order to be able to construct a Brownian bridge it is necessary to connect particles several timeslices apart. And their geodesic distance sij does not reduce to a simple quadratic form.
+> 14 This is the temperature at which the size of a single particle path, in absence of interaction, i.e. the thermal wavelength (2 λβ )1/2,equals the separation between single particle paths, i.e. roughly σ−1/2. Below this temperature it is possible for single particle paths to link up exchanging their end points.
+> 15 Note that this is not the only possible choice since we could as well choose particles “living in” [47] the surface of the sphere as done for example in Ref. [19, 21, 22] (for other surfaces) or particle “moving on” the sphere but interacting with the two dimensional logarithmic Coulomb potential with the Euclidean distance as done for example in Ref. [14, 30].
+> 16 The estimators for these observables are carefully described in Ref. [31].
+
+7consider a radial distribution function defined through the geodesic distance r = s(r, r′) ∈ [0 , πa ] where one chooses 1]r−∆/2,r +∆ /2] (sij ) in Eq. (3.5) with an appropriate normalization 17 .For eK and eV we will use the direct estimator described in Ref. [31] applied to our action of Eq. (2.11). So that the kinetic energy per particle eK = 〈K(Rk, R k+1 ; τ )〉/N with K(R, R ′; τ ) = N/τ − ˜gμν (R)( R − R′)μ(R − R′)ν /4λτ 2
+
+and the physical potential energy per particle eV = 〈V (Rk)〉/N . During the simulation we will also measure the effective geometrical potential energy per particle eW = 〈W (Rk )〉/N . For bosons we will also measure the superfluid fraction from the area estimator of Eqs. (4.1)-(4.2). In Table I we list some case studies treated in our computer experiments. In all cases we use M = 50 timeslices and a surface density σ = 1 /10 π.
+
+TABLE I. Cases treated in our simulations: a the sphere radius, N the number of particles, β the inverse temperature, 
+
+eK = 〈K〉/N the kinetic energy per particle from the thermodynamic estimator as explained in Ref. [31], eV = 〈V 〉/N the physical potential energy per particle, and eW = 〈W 〉/N the geometrical potential energy per particle. The other quantities were introduced in the main text. In the statistics column “d” stands for distinguishable, “b” for bosons, “f” for fermions, and “a” for anyons. The statistics ν ∈ [0 , 1] is also reported. We chose natural units with ℏ = kB = 1. The simulation lasted more than 10 8 Monte Carlo steps where one step is made of a displace move of all the beads of a single particle path as described in Appendix A and a bridge move as described in Appendix B. Case F was the most computationally expensive and took roughly 4 weeks of computer time. 
+
+case statistics M N a a0rs β Γ Θ N e K N e V −N e W
+
+A d 50 10 5 √5/2 10 0 π 1.094(3) 0 148.39(5) 
+
+B b ν = 0 50 10 5 √5/2 100/3 0 3π/ 10 0.222(2) 0 44.46(1) 
+
+C f ν = 1 50 10 5 √5/2 100/3 0 3π/ 10 0.901(4) 0 44.47(1) 
+
+D a ν = 1 /2 50 10 5 √5/2 100/3 0 3π/ 10 0.848(5) 0 44.43(1) 
+
+E a ν = 1 /3 50 10 5 √5/2 100/3 0 3π/ 10 0.945(5) 0 44.64(1) 
+
+F f ν = 1 50 15 5√3/2 √5/2 100/3 20 √10 e2/3 3π/ 10 1.655(4) 13.984(1) 75.232(8) 
+
+G f ν = 1 50 10 5 √5/2 100/3 20 √10 e2/3 3π/ 10 1.133(4) 7.070(1) 44.202(8) 
+
+H f ν = 1 50 5 5/√2 √5/2 100/3 20 √10 e2/3 3π/ 10 0.543(3) 2.0572(7) 16.952(8) 
+
+. . . 
+
+IV. NON INTERACTING BODIES 
+
+Here we will study non interacting bodies with Γ = 0 or more generally V = 0. We are not aware of any analytic exact solution even for this simple case on the sphere. Whereas the flat case can be studied in closed form, but only in the grand canonical ensemble [48, 49]. 
+
+A. Distinguishable bodies 
+
+Here we use the Metropolis algorithm with the transition displacement moves of Eqs. (A1) and (A2) or equivalently bridge moves of Eqs. (B1) and (B2) but between like particles. In Fig. 1 we show a snapshot during the simulation for distinguishable non interacting particles with M = 50 , N =10 , a = 5 , β = 10. Many snapshots of the paths configurations during the simulation showed that the simulation “speed” of the beads of the paths near the poles gets small 18 . This is a consequence of the hairy ball theorem mentioned in the introduction. In fact each link of the single particle paths r(t) belongs to the tangent bundle of the sphere. In Fig. 2 we show the radial distribution function, calculated by averaging the estimator of Eq. (3.5), for a gas of 
+
+N = 10 distinguishable non interacting particles on a sphere of radius a = 5 at an inverse temperature β = 10. We         
+
+> 17 In Ref. [3] we used the Euclidean distance.
+> 18 In fact we have two different contributions responsible for this behavior: The gfactor in the integration measure and the metric gμν in the kinetic action. These cannot be removed with a change of coordinates since it would require a non coordinate basis [39].
+
+8
+
+FIG. 1. Snapshot of the macroscopic path during the simulation for N = 10 non interacting distinguishable particles with 
+
+M = 50 , a = 5 , β = 10. Case A in Table I. The simulation started with all bodies distributed uniformly randomly on the equator. The different paths have different colors. In the left panel the top view and in the right panel the front view. In the simulation we measured eK = 〈K 〉 = 1 .089(4). Reducing β each path shrinks and tends to form a ring enclosing less amount of area. 
+
+used M = 50 with only the displace move of appendix A (this was used for Fig. 1) and with both the displacement move and the bridge move of Appendix B. From the figure we see how both the simulation with only the displacement move and the one with both the displacement and the bridge move give the expected result g(r) = 1 − 1/N , where the 1 /N term takes care of the finite size of the system, for any M . This is a strong test on the correctness of our bridge move. We are then ready to use it for the permutations sampling necessary for identical particles. We will do this in the next section. 
+
+0.6 
+
+0.8 
+
+1.0 
+
+1.2 
+
+0 1 2 3 4 5 6 7 8 9 10 
+
+> g(r)
+
+r
+
+> displace
+> displace+bridge
+> 1−1/N
+
+FIG. 2. The radial distribution function for the non interacting distinguishable particles gas with N = 10 on a sphere of radius 
+
+a = 5 at an inverse temperature β = 10. We use M = 50 (case A in Table I) with only the displace move of appendix A and with both the displace and the bridge move as described in Appendix B. The dashed line is for g(r) = 1 − 1/N = 0 .9. 9 
+
+> B. Identical bodies
+
+Here we use the Metropolis algorithm with the transition displacement moves of Eqs. (A1) and (A2) and bridge moves of Eqs. (B1) and (B2) between unlike particles as described in Appendix B to produce the necessary particles exchanges. 
+
+> Bosons
+
+Given the superfluid density σs and the normal fluid density σn = 1 − σs, the area estimator for the superfluid fraction is given by [31, 50] 
+
+fs = σs
+
+σ = 1 − σn
+
+σ = 2m〈A 2〉
+
+βλI c
+
+, (4.1) where, if ǫ is the Levi-Civita antisymmetric symbol, 
+
+A = 1
+
+2
+
+∑
+
+> i,k
+
+ǫαβ (ri,k +1 − rk)α(ri,k +2 − rk+1 )β
+
+√
+
+g(ri,k +1 ), (4.2) is the area occupied by all the single particle paths and Ic is the classical moment of inertia of the spherical shell that we will take as a fit parameter so that lim β→∞ fs = 1. In Ref. [51] Nelson and Kosterlitz use renormalization method of Ref. [52] to study the behavior of the superfluid density defined in Ref. [53] at the superfluid phase transition. They found that the superfluid density σs undergoes a universal jump equal to, ∆σs = m2
+
+β
+
+2
+
+π , (4.3) at the critical temperature, Tc, for the superfluid phase transition. This was also observed experimentally [54] for 
+
+> 4
+
+He films. In the present language this says that the average squared area has a jump of ( Ic/σ )/2π at the transition. Naturally the phase transition can only occur in the thermodynamic limit which in our case would correspond to the case of a degenerate sphere of an infinite radius, i.e. flat. In Fig. 3 we show the superfluid fraction of Eq. (4.1) for the condensate of non interacting bosons with N =10 , a = 5, M = 50. From the figure we see how the transition from fs = 0 at high temperature to fs = 1 at low temperature occurs in a temperature interval ∆ T ≈ 3 and fs ≈ 1 is reached at the critical condensation temperature 
+
+T ≈ TD = 0 .0318 as expected. In Fig. 4 we show a snapshot during the simulation for bosons non interacting particles with M = 50 , N = 10 , a =5, β = 100 /3. We see how the system forms 5 permutation cycles corresponding to different colors. In Fig. 5 we show the radial distribution function, calculated by averaging the estimator of Eq. (3.5), for the bosons non interacting gas with N = 10 on a sphere of radius a = 5 at an inverse temperature β = 100 /3 with 
+
+M = 50. This is the same configuration used for Fig. 1 but at a lower temperature. The bump at r = 0 is a consequence of condensation predicted by the Bose-Einstein statistics which requires a symmetric density matrix respect to permutaion of any two particles. Bosons like themselves [55] but on a sphere if they like themselves near contact they must form a hole on the opposite point. 
+
+> Fermions
+
+Fermions properties cannot be calculated exactly with path integral Monte Carlo because of the fermions sign problem [41, 56]. We then have to resort to an approximate calculation. The one we chose was the Restricted Path Integral (RPIMC) approximation [3, 41, 55, 56] with a “free fermions restriction”. The trial density matrix used in the restriction is chosen as the one reducing to the ideal density matrix in the limit of t ≪ 1 and is given by the following explicit analytic expression, 
+
+ρ0(R′, R ; t) ∝ det 
+
+∣∣∣∣∣∣∣∣e− s2(r′ 
+
+> i ,rj)
+> 4λt
+
+∣∣∣∣∣∣∣∣ . (4.4) Note that here we need the geodesic distance between two particles on the sphere, s2(r′, r), that in the t ≪ 1 limit reduces to ds 2(r′, r) = gαβ (r)( r − r′)α(r − r′)β .10 
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+1.2 
+
+0.0 1.0 2.0 3.0 4.0 5.0 
+
+> fs
+
+T
+
+FIG. 3. The supefluid fraction (4.1) for the condensate of non interacting bosons with N = 10 , a = 5 , M = 50. In this case 
+
+τ ≤ 0.4 and Tc = TD ≈ 0.0318. The universal jump in fs which would be expected at the superfluid phase transition is (4 m2Tc/σ )/2π ≈ 0.636. 
+
+FIG. 4. Snapshot of the macroscopic path during the simulation for N = 10 non interacting bosons with M = 50 , a = 5 , β =100 /3. Case B in Table I. The simulation started with all bodies distributed uniformly randomly on the equator. Paths corresponding to different permutations cycles have different colors. In the left panel the top view and in the right panel the front view. In the simulation we measured eK = 〈K 〉 = 0 .224(2). Reducing β each path shrinks and tends to form a ring enclosing less amount of area. 
+
+The restricted path integral identity that we will use states [41, 56] 
+
+ρ−(R′, R ; β) ∝
+
+∫ √˜g′′ dR ′′ ρ−(R′′ , R ; 0)˜ ργ0(R′′ )(R′, R ′′ ; β), (4.5) where ˜ ργ0(R′′ )(R′, R ′′ ; β) is the distinguishable density matrix and the subscript means that we restrict the path integration in (2.16) to paths starting at R′′ , ending at R′, and avoiding the nodes of ρ0, i.e. to the reach of R′′ ,
+
+γ0(R′′ ). R′′ will be called the reference point determining the reach. The nodes are on the reach boundary ∂γ 0. The 11 weight of the walk is ρ−(R′′ , R ; 0) = det || δ(r′′  
+
+> i
+
+− rj )|| . Note that, in imposing the restriction it is convenient to imagine an infinitely positive external potential which will prevent a transition move R → R′ such that ρ0(R′, R ; τ ) < 0 19 .It is clear that the contribution of all the paths for a single element of the density matrix will be of the same sign, thus solving the sign problem; positive if ρ−(R′′ , R ; 0) > 0, negative otherwise. On the diagonal any density matrix is positive and on the path restriction ρ−(R′, R ; β) > 0, then only even permutations, those with sgn( P) = +1, are allowed, since ρ−(PR, R ; β) = sgn( P)ρ−(R, R ; β). It is then possible to use a bosons calculation to get the fermions case. Clearly the restricted path integral identity with the free fermions restriction becomes exact if we simulate free fermions, but otherwise is just an approximation. The restriction implementation is rather simple: we just reject the move whenever the proposed path is such that the ideal fermion density matrix (4.4) calculated between the reference point and any of the time slices subject to newly generated particles positions has a negative sign. So in correspondence of each displace move of Appendix A or bridge move of Appendix B it is necessary to calculate M determinants of order N . For this reason the method becomes unfeasible to treat systems with very many particles. To increase the acceptances in the restrictions, we found it convenient to choose the reference point time slice randomly, i.e. we choose an integer random number between 1 and M , say m, and the reference point is chosen to be R = Rm, before each move. This is allowed because we are free to perform a translation in the β-periodic imaginary thermal time. In Fig. 5 we show the radial distribution function, calculated by averaging the estimator of Eq. (3.5), for the non interacting, fully polarized fermions gas with N = 10 on a sphere of radius a = 5 at an inverse temperature β = 100 /3with M = 50. This is case C of Table I. The well at r = 0 is a consequence of Pauli exclusion principle predicted by the Fermi-Dirac statistics which requires an antisymmetric density matrix respect to permutaion of any two particles. This well is usually called exchange hole . Fermions dislike themselves [55] but on a sphere if they dislike themselves at one point they must form a bump on the opposite point. A simple sum rule in this case requires g(0) = 0 since the the density matrix for coincident particles is singular and its determinant must be zero.                            
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 012345678910
+> g(r) r
+> bosons
+> fermions
+> 1−1/N
+> FIG. 5. The radial distribution function for the non interacting bosons and fermions gas with N= 10 on a sphere of radius
+> a= 5 at an inverse temperature β= 100 /3 with M= 50. Case B and C in Table I respectively. The dashed line is for
+> g(r) = 1 −1/N = 0 .9. The bump at r= 0 for bosons is a manifestation of their tendency to like themselves. The exchange hole at r= 0 for fermions is a manifestation of their tendency to dislike themselves due to the Pauli exclusion principle and it requires g(0) = 0.
+> Anyons
+
+Here we use the Metropolis algorithm with the transition displacement moves of Eqs. (A1) and (A2) and the swap moves of Eqs. (B1) and (B2) between two particles, as described in Appendix C, counting at each move the number of single particles crossings n in the newly generated path R.   
+
+> 19 So that a move that changes the sign of ρ0are rejected in the Metropolis scheme.
+
+12 For example, from Eqs. (2.19)-(2.20) follows that, for ν = 1 /2, Re[ χ(α)] = 
+
+{
+
+(−1) k n = 2 k
+
+0 n = 2 k + 1 k = 0 , 1, 2, 3, . . . (4.6) We then see that in order to calculate ρ1/2 necessary to simulate anyonic statistics for ν = 1 /2, one can simply use the RPIMC described above, in order to get rid of the sign problem, i.e. a bosonic PIMC with a restriction based on the nodes of the reference trial density matrix of Eq. (4.4), as for fermions. But now, after the Metropolis acceptance, we simply have to additionally throw away those moves that generate an odd number n of single particles crossings, i.e. when n = 1 (mod 2). In order to count the number n of braids we can proceed as described in Appendix C. Once again, as long as we have no interaction between the anyonic particles this scheme is expected to give rise to an exact computation. On the other hand we suspect that fractional statistics ν = q/p with 0 < q < p and p > 2 will give rise to fluids with different structure. For example, for ν = 1 /3 we find Re[ χ(α)] = 
+
+
+
+(−1) k n = 3 k
+
+(−1) k cos( π/ 3) n = 3 k + 1 (−1) k cos(2 π/ 3) n = 3 k + 2 
+
+k = 0 , 1, 2, 3, . . . (4.7) and the ρ2/3 should differ from the ρ1/3. To simulate the ν = 1 /3 case we have to use again the RPIMC, in order to get rid of the sign problem, but now, differently from the ν = 1 /2 case, we have to weight each ˜ ρα with the correct factor, according to (4.7): 1 for n = 3 k and 1 /2 otherwise. So that, after the Metropolis acceptance, if n = 0 (mod 3) we do nothing and if n 6 = 0 (mod 3) we additionally throw away the moves with probability 1 /2. In Fig. 6 we show the radial distribution function, calculated by averaging the estimator of Eq. (3.5), for the non interacting ν = 1 /2 and ν = 1 /3 anyons gas with N = 10 on a sphere of radius a = 5 at an inverse temperature 
+
+β = 100 /3 with M = 50. These are cases D and E of Table I. We compare them with the radial distribution for non interacting fermions already shown in Fig. 5. From the comparison we can say that we observe a slight diminution of the exchange hole as we move from (fermions) ν = 1 to (anyons) ν = 1 /2 to (anyons) ν = 1 /3. Moreover we find 
+
+g1/3(0) > g 1/2(0) > g −(0) = 0, where we indicate with gν the radial distribution function for statistics ν. The kinetic energy of the (anyons) ν = 1 /2 case is smaller than the one for ν = 1 (fermions) and the one of the ν = 1 /3 case is bigger than the one for ν = 1.                                       
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 012345678910
+> g(r) r
+> free anions ν=1/3
+> free anions ν=1/2
+> free fermions ν=1
+> 1−1/N
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.0 0.5 1.0 1.5 2.0
+> FIG. 6. The radial distribution function for the non interacting ν= 1 /2 and ν= 1 /3 anyons gas with N= 10 on a sphere of radius a= 5 at an inverse temperature β= 100 /3 with M= 50. Case D and E in Table I respectively. The dashed line is for
+> g(r) = 1 −1/N = 0 .9. From the inset we see how the structure of the free ν= 1 /2 anyons develops a slightly smaller exchange hole than fermions and the exchange hole of the free ν= 1 /3 anyons is slightly smaller than the one of the free ν= 1 /2 anyons.
+
+It would also be interesting to explore other rational cases ν = q/p with 0 < ν < 1 and see whether their structure differs in any way from the irrational cases. 13  
+
+> V. ELECTRON GAS
+
+In this section we will study an electron gas, i.e. fermions interacting through the Coulomb potential of Eq. (3.4) with e = 1. We will only consider the fully polarized case where the density matrix is antisymmetric respect to permutation of any two particles. In this case we are unable to solve exactly the problem not even numerically with PIMC due to the fermions sign problem described above. We will then use the RPIMC with the ideal free fermions restriction based on the nodes of the reference density matrix of Eq. (4.4). This strategy, which is exact for non interacting fermions, is here expected to become a better approximation at high density and high temperature, i.e. when correlation effects are weak. We simulated cases F, G, H of Table I where we keep constant the thermodynamic properties of the electron gas of temperature, T = 3 /100, and surface density, σ = 1 /10 π, and increase gradually the radius of the sphere 
+
+a = 5 /√2, 5, 5√3/2. From a comparison of the results for the thermodynamic properties of the many body system we see that the kinetic energy per particle remains approximately constant whereas the potential energy per particle diminishes as the curvature increases. In Fig. 7 we show the radial distribution function for the electron gas of cases F, G, and H in Table I where we keep the surface density constant changing the number of particles N = 5 , 10 , 15 respectively. From the figure we see how the gas develops a correlation hole at r = 0 in addition to the exchange hole already shown in Fig. 5. The radial distribution function raises from g(0) = 0 at contact developing oscillations beyond a certain distance r >
+
+∼ rN around 
+
+g = 1. From the comparison between cases F, G, and H we see how the exchange-correlation hole tends to increase as the curvature increases at constant surface density and at the same time r5 ≈ r10 ≈ r15 ≈ 4.5 and the oscillations tend to curl either upward or downward in a neighborhood of r = 2 a.                              
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 012345678910 11 12
+> g(r) r
+> N=5
+> N=10
+> N=15
+> 1
+> FIG. 7. The radial distribution function for the fully polarized electron gas interacting through the Coulomb potential of Eq. (3.4) with e= 1. We show cases F, G, and H of Table I at constant σ= 1 /10 πand N= 5 ,10 ,15 electrons respectively, at an inverse temperature β= 100 /3 with M= 50. As the curvature increases at constant density, near contact the exchange-correlation hole tends to increase its extend and the long range oscillations around g(r) = 1 tend to to curl either upward or downward in a neighborhood of the ending point at r= 2 a.
+> VI. CONCLUSIONS
+
+In this work we studied the effect of a constant positive curvature on a two dimensional quantum many body fluid. This is the simplest case that can be thought of in an exploration of the influence of curvature on the surface where the bodies move. At sufficiently low temperature quantum effects become important and the fluid will behave differently depending on the statistics ruling the bodies. The statistics depends on the transformation property of the many body wavefunction under exchange of two bodies. If the bodies are distinguishable the wavefunction and its transformed will be different, if they are identical the transformed wavefunction can only be plus or minus the original wavefunction. The plus will be for bodies obeying to Bose-Einstein statistics and the minus for bodies obeying 14 to the Fermi-Dirac statistics. If the identical bodies are also impenetrable the transformed wavefunction can more generally be the original wavefunction times a phase factor eiνπ , since, on a surface, exchanging the two particles by a clockwise rotation of π around their center of mass is a topologically and physically distinct operation than rotating counterclockwise. In this case the bodies are said to obey to the anyonic statistics, where the statistics is determined by the phase ν. For ν = 0 (mod 2) one recovers the bosonic statistics and for ν = 1 (mod 2) the fermionic statistics. While for bosons and fermions just the permutation of the particles in their initial and final configuration in imaginary time matters, for anyons it is also necessary to specify how the different trajectories wind or braid around each other during their imaginary time evolution. In other words the imaginary time evolution of the particles matters and cannot be neglected. The representation of the permutation group must be replaced by the one of the braid group. We made some computer experiments for each one of these cases using a PIMC algorithm different from the one previously used in Ref. [3, 4]. For the sign problem hidden in the Fermi-Dirac and the anyonic statistics we then used the RPIMC method. We studied both the case of the non interacting bodies and for the fermions case the electron gas with a three dimensional pair Coulomb interaction depending on the Euclidean distance between two electrons. In each case we measured the kinetic energy, the potential energy, and the radial distribution function. The pair correlation function of non interacting fermions displays, at contact, the exchange hole and the one of the electron gas displays the exchange-correlation hole. While fermions dislike themselves due to the Pauli exclusion principle, bosons like themselves and form a condensate. This is reflected in a bump in the pair correlation function at contact. For bosons we also measured the superfluid fraction using an area estimator devised by Pollock and Ceperley. Even if on a finite sphere we clearly cannot reach the thermodynamic limit, the universal jump predicted by Nelson and Kosterlitz at the suerfluid phase transition still gives some indications of the behavior of the superfluid fraction at the critical temperature. The effect of curvature is then made manifest by comparing with similar studies in a flat Euclidean space in 3 dimensions [55, 57] (compare for example our Fig. 5 with Fig. 3 in Ref. [55]) or in 2 dimensions [58–60]. Here we compared the electron gas at the same thermodynamic conditions of temperature and surface density on spheres of different radii. From the results of our computer experiments for cases F, G, and H of Table I we see that changing the curvature at constant density affects both the extent of the exchange correlation hole at contact and the oscillations at large distance. As the curvature increases the exchange-correlation hole tends to increase and the oscillations tend to curl either upward or downward at the pole opposite to contact. The kinetic energy per particle remains approximately constant upon changing the curvature whereas the physical and geometrical potential energy per particle diminish as the curvature increases. During our simulations we made various snapshots of the many body path configuration and we noticed that the simulation “speed” of the beads of the single particle paths in proximity of the poles diminishes. We explained this occurrence as a consequence of the metric tensor properties which affect both the kinetic action and the path integral measure. A consequence of the “hairy ball theorem” which cannot be removed with a change of coordinates. For the case of anyons we only considered the fractional statistics ν = 1 /2 and ν = 1 /3 in the non interacting case. We found that the structure of the ideal anyons present an exchange hole that gets smaller moving from fermions with ν = 1 to anyons with ν = 1 /2 and from anyons with ν = 1 /2 to anyons with ν = 1 /3. The kinetic energy of the 
+
+ν = 1 /2 is smaller than the one for ν = 1 and the one of the ν = 1 /3 is bigger than the one for ν = 1. It would be interesting to understand whether in the transition from a rational to an irrational statistics, there is any macroscopic observable change in the structure of the anyons fluid or in his thermodynamic properties. In future computer experiments we plan to measure the effect of curvature on the pressure of the fluid as was done analytically in the non quantum case in Ref. [19]. 
+
+> Appendix A: The transition displacement move
+
+In order to explore the θ and ϕ positions space C =] − π/ 2, π/ 2] ×] − π, π ] on the sphere it is convenient to propose the following displacement transition move for each particle in a randomly chosen bead of the many body path 
+
+θnew = θold + ∆ θ (η − 1/2) , (A1) 
+
+ϕnew = ϕold + ∆ ϕ(η − 1/2) , (A2) where η ∈ [0 , 1] is a uniform pseudo random number and ∆ θ and ∆ ϕ are two positive quantities measuring the 
+
+θ-displacement and the ϕ-displacement respectively. This transition move can bring rnew out of C so it is also necessary to bring it back into C enforcing periodic boundary conditions ϕ = ϕ + 2 π and θ = θ + π with the following subsequent chain of transformations 
+
+{
+
+θnew → θnew − π NINT (θnew /π ),ϕnew → ϕnew − 2π NINT (ϕnew /2π), (A3) 15 where NINT is the nearest integer function. One can easily convince himself that this chain does not alter the uniformity of the probability distribution of rnew in C .Note that the metric enters the free particle variance since it is not possible by a change of coordinates to remove it both from the kinetic-action and from the integration measure √g(r) dr, if not only locally. In order to take care of the metric factor in the integration measure it is convenient to introduce an effective/external single particle geometrical potential − ln √g(r)/τ .In the simulation we choose ∆ θ and ∆ ϕ so to have acceptance ratios as close as possible to 1 /2 in the accep-tance/rejection rule for the random walk transition displacement moves of the Metropolis algorithm. The transition probability distribution function for the displacement move of the Metropolis algorithm will be uniform so it will drop out of the acceptance probability distribution function. 
+
+Appendix B: The transition bridge move 
+
+In order to take into account the particles permutations it is necessary to construct two Brownian bridges between two different 20 randomly chosen particles in two randomly chosen many body beads to generate an exchange between the two particles. With one bridge we connect particle 1 on bead Ri to particle 2 on bead Rj and with the other we connect particle 2 on bead Ri to particle 1 on bead Rj with i < j . This will produce an exchange of particles 1 and 2. The Brownian bridge between particle 1 at r1,i and particle 2 at r2,j is built through the following multislice transition move [31], 
+
+xnew ,i = x1,i (B1) 
+
+xnew ,k = xnew ,k −1 + x2,j − xnew ,k −1
+
+j − k + 1 + ξ k = i + 1 , . . . , j (B2) where x = ( X , Y ) is a two dimensional vector on a flat space and ξ is a random number with a Gaussian probability distribution 21 with zero mean and variance σ2(j − k)/(j − k + 1) where σ2 = 2 λτ is the diagonal free particle variance. We will then first perform a direct mapping θ → X and ϕ → Y . Then the bridge move of Eqs. (B1)-(B2). And finally we go back to the sphere with the inverse mapping X → θ and Y → ϕ. We will then have a direct mapping of the many body system R → X = ( x1, x2, . . . , xN ) = ( {xi}) and an inverse mapping X → R back on the sphere. The Metropolis (rejection) method can sample any probability distribution provided that the transition rule satisfies detailed balance and ergodicity. The Metropolis algorithm is a particular way of ensuring that the transition rule satisfies detailed balance. It does this by splitting the transition probability into an “a priori” sampling distribution 
+
+T (s → s′) (which is a probability distribution that we can sample) and an acceptance probability A(s → s′) where 0 ≤ A ≤ 1. 
+
+P (s → s′) = T (s → s′)A(s → s′), (B3) In the generalized Metropolis procedure [46], trial moves are accepted according to: 
+
+A(s → s′) = min[1 , q (s → s′)] , (B4) where 
+
+q(s → s′) = π(s′)T (s′ → s)
+
+π(s)T (s → s′) . (B5) where π ∝ e−S is the action probability distribution in the s = ( {Rk}, P) configurations space. The transition probability corresponding to the move of Eqs. (B1)-(B2) is then given by 
+
+T (snew → sold )
+
+T (sold → snew ) ∝ exp 
+
+[ j∑
+
+> k=i+1
+
+(Xnew ,k − Xnew ,k −1)2/4λτ −
+
+> j
+
+∑
+
+> k=i+1
+
+(Xold ,k − Xold ,k −1)2/4λτ 
+
+]
+
+. (B6) So we start from Rold map it to Xold , on the direct mapping flat space perform the Browninan bridge move, accept or reject the transition according to the probability (B4) to find Xnew , and finally inverse map it back to Rnew on the   
+
+> 20 A bridge between the same particle can still be used to sample the density matrix of distinguishable particles as can be done with the displacement move of Appendix A.
+> 21 This can be generated with the Box-Muller algorithm [46] for example.
+
+16 sphere. Ergodicity in Y would be lost only if we are exactly on a pole. But this is always prevented on a computer due to the finite arithmetic! Moreover since we have ergodicity everywhere in X it will always be possible to escape a pole by moving along X .In order to produce an exchange of two particles 1 and 2 one needs a combination of two bridge transitions as described above. Any permutation can be reached through a two particles exchange so the bridge transition move allows to sample the sum in Eq. (2.17). 
+
+> Appendix C: Braids sampling
+
+In order to sample the sum in Eq. (2.19) one needs a move able to bring the path R(t) from one homotopy class to another. And a way to understand to which homotopy class the path belongs after each move. This will allow one to determine to which ˜ ρα he is contributing at each accepted transition move. A path R(t) made of closed distinct single particle paths, r(0) = r(β), on a sphere, can only have an even number 
+
+n of two particles crossings, i.e. of braids. Allowing for particles exchanges n can be any integer. If two different particles, say 1 and 2, have m crossings between timeslices ki and kf , an acceptance of the swap move described in Appendix B, will necessarily result in a single crossing if m is even, and consequently n → n − m + 1, or to no crossing at all, if m is odd, and consequently n → n − m.We see then how we can use the swap move to jump from any homotopy class to any other. And within an homotopy class α we can then act with the displace move described in Appendix A to sample ˜ ρα.In order to count the number of crossings between particles 1 and 2 between timeslices ki and kf it is necessary to count the number of times in which r1,k = r2,k for k ∈ [ki, k f ]. In order to take into account of this crossing condition in the discretized imaginary time one can for example determine when both rα 
+
+> 1,k
+
+− rα 
+
+> 2,k
+
+for α = 1 , 2 change sign or are zero, varying k. Counting the number n of braids reached in the path R(t) allows to asses to which path homotopy class one is contributing in the density matrix. So at each move we need to count the number of crossings n in the whole many body path Rk from ki = 0 to kf = M .
+
+> AUTHOR DECLARATIONS Conflicts of interest
+
+None declared. 
+
+> Data availability
+
+The data that support the findings of this study are available from the corresponding author upon reasonable request. 
+
+> Funding
+
+None declared.      
+
+> [1] J. R. Klauder and R. Fantoni, The Magnificent Realm of Affine Quantization: valid results for particles, fields, and gravity, Axioms 12 , 911 (2023). [2] R. Fantoni, Unifying Classical and Quantum Physics - How classical and quantum physics can pass smoothly back and forth
+> (Springer, New York, 2025). [3] R. Fantoni, One-component fermion plasma on a sphere at finite temperature, Int. J. Mod. Phys. C 29 , 1850064 (2018). [4] R. Fantoni, One-component fermion plasma on a sphere at finite temperature. The anisotropy in the paths conformations, J. Stat. Mech. , 083103 (2023). [5] G. O. V. Melik-Alaverdian, N. E. Bonesteel, Fixed-phase diffusion Monte Carlo study of the quantum-Hall effect on the Haldane sphere, Physica E 1, 138 (1997). [6] G. O. V. Melik-Alaverdian, N. E. Bonesteel, Quantum Hall Fluids on the Haldane Sphere: A Diffusion Monte Carlo Study, Phys. Rev. Lett. 79 , 5286 (1997).
+
+17 
+
+[7] N. E. B. V. Melik-Alaverdian, G. Ortiz, Quantum Projector Method on Curved Manifolds, Phys. Rev. Lett. 10.48550/arXiv.cond-mat/0001121 (1997), arXiv:cond-mat/0001121. [8] J. Ginibre, Statistical Ensembles of Complex, Quaternion, and Real Matrices, J. Math. Phys. 6, 440 (1965). [9] M. L. Metha, Random Matrices (Academic, New York, 1967). [10] B. Jancovici, Exact Results for the Two-Dimensional One-Component Plasma, Phys. Rev. Lett. 46 , 386 (1981). [11] A. Alastuey and B. Jancovici, On the classical two-dimensional one-component Coulomb plasma, J. Phys. (France) 42 , 1 (1981). [12] P. Choquard, Helv. Phys. Acta 54 , 332 (1981). [13] P. Choquard, P. J. Forrester, and E. R. Smith, The two-dimensional one-component plasma at Γ = 2: The semiperiodic strip, J. Stat. Phys. 33 , 13 (1983). [14] J. M. Caillol, Exact results for a two-dimensional one-component plasma on a sphere, J. Phys. (France) - Lett. 42 , L (1981). [15] G. T´ ellez and P. J. Forrester, Exact Finite-Size Study of the 2D OCP at Γ = 4 and Γ = 6, J. Stat. Phys. 97 , 489 (1999). [16] B. Jancovici, Pressure and Maxwell Tensor in a Coulomb Fluid, J. Stat. Phys. 99 , 1281 (2000). [17] R. P. Salazar and G. T´ ellez, Exact Energy Computation of the One Component Plasma on a Sphere for Even Values of the Coupling Parameter, J. Stat. Phys. 164 , 969 (2016). [18] B. Jancovici and G. T´ ellez, Two-Dimensional Coulomb Systems on a Surface of Constant Negative Curvature, J. Stat. Phys. 91 , 953 (1998). [19] R. Fantoni, B. Jancovici, and G. T´ ellez, Pressures for a One-Component Plasma on a Pseudosphere, J. Stat. Phys. 112 , 27 (2003). [20] B. Jancovici and G. T´ ellez, Charge Fluctuations for a Coulomb Fluid in a Disk on a Pseudosphere, J. Stat. Phys. 116 , 205 (2004). [21] R. Fantoni and G. T´ ellez, Two dimensional one-component plasma on a Flamm’s paraboloid, J. Stat. Phys. 133 , 449 (2008). [22] R. Fantoni, Two component plasma in a Flamm’s paraboloid, J. Stat. Mech. , P04015 (2012). [23] E. Artin, Theory of Braids, Annals of Mathematics 48 , 101 (1947). [24] R. Fantoni, J. W. O. Salari, and B. Klumperman, The structure of colloidosomes with tunable particle density: Simulation vs experiment, Phys. Rev. E 85 , 061404 (2012). [25] H. Poincar´ e, Sur les courbes d ´finies par les ´ quations diff´ rentielles, Journal de Math´ ematiques Pures et Appliqu´ es 4, 167 (1885). [26] L. E. J. Brouwer, ¨Uber Abbildung von Mannigfaltigkeiten, Mathematische Annalen 71 , 97 (1912). [27] H. Hopf, Vektorfelder in n-dimensionalen Mannigfaltigkeiten, Math. Ann. 96 , 209 (1926). [28] F. Bastianelli and O. Corradini, On the simplified path integral on spheres, Eur. Phys. J. C 77 , 731 (2017). [29] E. Artin, Ein mechanisches System mit quasi-ergodischen Bahnen, Abh. Math. Sem. d. Hamburgischen Universit¨ at 10.1007/BF02954622 (1924). [30] R. Fantoni, Plasma living in a curved surface at some special temperature, Physica A 177 , 524 (2019). [31] D. M. Ceperley, Path integrals in the theory of condensed Helium, Rev. Mod. Phys. 67 , 279 (1995). [32] R. Fantoni, Statistical Gravity through Affine Quantization, Quantum Rep. 6, 706 (2024). [33] R. Fantoni, Statistical Gravity and entropy of spacetime, Stats 8, 23 (2025). [34] R. Fantoni, Statistical Gravity, ADM splitting, and Affine Quantization, Gravitation and Cosmology 31 , 568 (2025). [35] B. S. DeWitt, Dynamical Theory in Curved Spaces. I. A Review of the Classical and Quantum Action Principles, Rev. Mod. Phys. 29 , 377 (1957). [36] J. H. V. Vleck, The Correspondence Principle in the Statistical Interpretation of Quantum Mechanics, Proc Natl Acad Sci U S A 14 , 178 (1928). [37] L. S. Schulman, Techniques and Applications of Path Integration (John Wiley & Sons, Technion, Haifa, Israel, 1981) chapter 24. [38] H. F. Trotter, On the Product of Semi-Groups of Operators, Proc. Am. Math. Soc. 10 , 545 (1959). [39] C. W. Misner, K. S. Thorne, and J. A. Wheeler, Gravitation (W. H. Freeman, San Francisco, 1973). [40] A. Lerda, Anyons. Quantum Mechanics of Particles with Fractional Statistics (Springer-Verlag, Berlin, 1992). [41] D. M. Ceperley, Path integral Monte Carlo methods for fermions, in Monte Carlo and Molecular Dynamics of Condensed Matter Systems , edited by K. Binder and G. Ciccotti (Editrice Compositori, Bologna, Italy, 1996). [42] L. D. Landau and E. M. Lifshitz, Quantum mechanics , Course of Theoretical Physics, Vol. 3 (Butterworth Heinemann, 1977) translated from the Russian by J. B. Sykes and M. J. Kearsley, edited by E. M. Lifshitz and L. P. Pitaevskii. Section 
+
+§111, 112. [43] R. B. Laughlin, Anomalous quantum Hall effect: An incompressible quantum fluid with fractionally charged excitations, Phys. Rev. Lett. 50 , 1395 (1983). [44] A. Gray, Modern Differential Geometry of Curves and Surfaces with Mathematica , 2nd ed. (CRC press, 1997) §28.4 “Hilbert’s Lemma and Liebmann’s Theorem” pp. 652-654. [45] N. Metropolis, A. W. Rosenbluth, M. N. Rosenbluth, A. M. Teller, and E. Teller, Equation of state calculations by fast computing machines, J. Chem. Phys. 1087 , 21 (1953). [46] M. H. Kalos and P. A. Whitlock, Monte Carlo Methods (John Wiley & Sons Inc., New York, 1986). [47] E. A. Abbott, Flatland: A Romance of Many Dimensions (Seeley & Co., London, 1884). 18 
+
+[48] R. P. Feynman, Statistical Mechanics: A Set of Lectures , Frontiers in Physics, Vol. 36 (W. A. Benjamin, Inc., 1972) notes taken by R. Kikuchi and H. A. Feiveson, edited by Jacob Shaham. [49] R. Fantoni, Thermodynamic limit of the free electron gas on a circle, The Physics Educator 6, 2450012 (2024). [50] E. L. Pollock and D. M. Ceperley, Path-integral computation of superfluid densities, Phys. Rev. B 36 , 8343 (1987). [51] D. R. Nelson and J. M. Kosterlitz, Universal Jump in the Superfluid Density of Two-Dimensional Superfluids, Phys. Rev. Lett. 39 , 1201 (1977). [52] J. U. Jos´ e, L. P. Kadanoff, S. Kirkpatrick, and D. R. Nelson, Renormalization, vortices, and symmetry-breaking pertur-bations in the two-dimensional planar model, Phys. Rev. B 16 , 1217 (1977). [53] R. P. Feynmann, Application of Quantum Mechanics to Liquid Helium, Prog. Low Temp. Phys. 1, 17 (1955). [54] J. Bishop and J. D. Reppy, Study of the Superfluid Transition in Two-Dimensional 4He Films, Phys. Rev. Lett. 40 , 1727 (1978). [55] R. Fantoni, Jellium at finite temperature, Mol. Phys. 120 , 4 (2021). [56] D. M. Ceperley, Fermion Nodes, J. Stat. Phys. 63 , 1237 (1991). [57] R. Fantoni, Jellium at finite temperature using the restricted worm algorithm, Eur. Phys. J. B 94 , 63 (2021). [58] B. Tanatar and D. M. Ceperley, Ground State of the Two-dimensional Electron Gas, Phys. Rev. B 39 , 5005 (1989). [59] W. R. Magro and D. M. Ceperley, Ground State Properties of the Two-Dimensional Bose Coulomb Liquid, Phys. Rev. Lett. 10.1103/PhysRevLett.73.826 (1994). [60] M. C. Gordillo and D. M. Ceperley, Path-integral calculation of the two-dimensional 4He phase diagram, Phys. Rev. B 58 , 6447 (1998).
