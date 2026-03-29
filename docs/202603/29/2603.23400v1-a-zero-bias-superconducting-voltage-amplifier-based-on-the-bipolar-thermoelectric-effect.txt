@@ -1,0 +1,536 @@
+Title: A Zero-Bias Superconducting Voltage Amplifier Based on the Bipolar Thermoelectric Effect
+
+URL Source: https://arxiv.org/pdf/2603.23400v1
+
+Published Time: Wed, 25 Mar 2026 01:40:08 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# A Zero-Bias Superconducting Voltage Amplifier Based on the Bipolar Thermoelectric Effect 
+
+G. Trupiano, G. De Simoni, and F. Giazotto 
+
+NEST, Istituto Nanoscienze-CNR and Scuola Normale Superiore, Piazza S. Silvestro 12, I-56127 Pisa, Italy 
+
+(*Corresponding author: giacomo.trupiano@sns.it) We introduce a zero-bias superconducting voltage amplifier that harvests energy from a thermal gradient by exploiting negative differential resistance (NDR) in an asymmetric tunnel junction. The device is based on an asymmetric superconductor–insulator–superconductor (SIS) junction with an energy-gap ratio of ∆1/∆2 =
+
+0.5, connected in series with a load resistor. Owing to the superconducting bipolar thermoelectric effect, the current–voltage characteristic of the junction exhibits a region of NDR, in which the net current flows opposite to the applied voltage. This mechanism enables voltage amplification in the absence of any external electrical bias, relying solely on the temperature difference between the electrodes ( TH ≃ 1 K, TB ≃ 20 mK). Numerical simulations predict a voltage gain of 20 dB, a 1 dB compression point at an input amplitude of 2 μV, and a total harmonic distortion below −50 dB. The input-referred noise is approximately 1 nV /√Hz, with an associated thermal load on the order of nanowatts. The frequency response is broadband from near DC, with a −3 dB cutoff around 180 MHz, set by the RC time constant of the junction. Using Al-, Al-Cu-, and AlO x-based technologies, the amplifier is compatible with conventional superconducting circuit fabrication processes. These findings demonstrate that thermoelectric superconducting junctions can deliver bias-free voltage amplification from near DC up to ∼ 200 MHz, making them promising candidates for transition-edge sensor readout, quantum circuit instrumentation, and low-frequency cryogenic signal processing. 
+
+I. INTRODUCTION 
+
+Cryogenic amplification is a critical component of signal readout for quantum devices, superconducting detectors, and nanoscale sensors operating at millikelvin temperatures. Ex-isting superconducting amplifier technologies are predomi-nantly based on flux-sensitive or current-biased architectures, each optimized for distinct frequency regimes. Supercon-ducting quantum interference device (SQUID) amplifiers of-fer low-noise gain for low-frequency signals. However, they function intrinsically as flux-to-voltage transducers and con-sequently require magnetic coupling to the input signal [1]. At microwave frequencies, Josephson parametric amplifiers (JPAs) [2] and traveling-wave parametric amplifiers (TW-PAs) [3] can realize noise performance approaching the quan-tum limit, yet are typically constrained to relatively narrow operational bandwidths and depend on current or flux cou-pling to the input. In contrast, superconducting amplifiers that provide direct voltage input and output over the DC-100 MHz range remain comparatively underexplored. This frequency band is tech-nologically relevant for a variety of applications, including multiplexed cryogenic detector readout [4], transition-edge sensors [4, 5], superconducting single-photon detectors [6], and nanomechanical resonators [7]. Low-frequency cryo-genic amplification in these contexts is conventionally real-ized using semiconductor-based electronics. Such amplifiers typically exhibit input-referred voltage noise on the order of 1 nV /√Hz with bandwidths extending from DC to several megahertz, but they dissipate power at the milliwatt level. As a result, they are generally placed in the 4 K stage of the di-lution refrigerators rather than in the millikelvin stage [8–11]. This architecture increases wiring complexity and introduces additional parasitic capacitance between the device under test and the first amplification stage. A superconducting voltage amplifier capable of operating directly at millikelvin temper-atures, with nanowatt-level power dissipation, would enable fully integrated cryogenic instrumentation while preserving low-noise performance. Voltage amplification based on negative differential resis-tance (NDR) is a well-established principle in semiconductor device physics. A prototypical implementation is the resonant tunneling diode (RTD) [12], in which quantum-mechanical resonant tunneling through a double-barrier heterostructure gives rise to an NDR region in the current-voltage charac-teristic ( I–V ), thus allowing voltage gain in an appropriate voltage-divider configuration. However, RTDs require a finite direct-current (DC) bias to operate in the NDR regime, result-ing in static power dissipation and rendering them unsuitable for integration at the millikelvin stage. The device introduced in this work leverages an analogous NDR mechanism realized in a superconducting tunnel junction, with two crucial distinc-tions: first, the NDR region is centered at zero applied bias, such that no DC power is dissipated at the operating point; second, the energy required for amplification is provided by a thermal gradient rather than an externally applied electrical bias. Here, we introduce a zero-bias superconducting voltage amplifier that takes advantage of the bipolar thermoelec-tric effect [13–17] in asymmetric superconductor-insulator-superconductor tunnel junctions (SIS). The device operates without any applied DC bias, and the amplification mecha-nism converts low-frequency input voltage modulations into AC output signals, while ensuring minimal power dissipation at millikelvin temperatures. The underlying operating prin-ciple is to maintain one electrode at an elevated electronic temperature ( ∼ 1 K), while the other remains thermalized in the 20 mK cryogenic bath. Under these nonequilibrium ther-mal conditions, the combined effect of the asymmetric super-conducting density of states and thermal broadening enhances the quasiparticle tunneling rate across the junction. For volt-ages approaching the difference between the superconducting 
+
+> arXiv:2603.23400v1 [cond-mat.supr-con] 24 Mar 2026
+
+2(b) (a) (c) 
+
+Figure 1. Device concept and operating principle. (a) Device schematic. The amplifier comprises an asymmetric superconduc-tor–insulator–superconductor (SIS) tunnel junction (Al /AlO x/Al-Cu) connected in series with a load resistor RL. The superconducting energy gaps of the two electrodes are ∆2(T = 0) = 0.20 meV and ∆1(T = 0) = 0.10 meV, respectively. A thermal gradient ( TH ≃ 1 K, TB = 20 mK) provides the driving energy, such that the device operates as a bias-free voltage divider. (b) Energy-band diagram illustrating the superconduct-ing bipolar thermoelectric effect. The combination of gap asymmetry ( ∆1/∆2 = 0.5) and thermal gradient ( TH ≫ TB) ensures the condition 
+
+∆2(TH ) > ∆1(TB). Thermal broadening of the quasiparticle distribution in the hot electrode leads to an effective alignment of quasiparticle energies with the gap-edge density-of-states (DOS) singularities in the cold electrode. This specific energy alignment induces a net charge current flowing opposite to the applied voltage for |V | ≲ ∆2(TH ) − ∆1(TB), thereby yielding a negative absolute resistance ( IV < 0) and a negative differential resistance rd = ( dI/dV )−1 < 0 at zero applied bias. (c) Voltage amplification mechanism. The current–voltage ( I–V )characteristic of the junction (blue curve) intersects the load line determined by RL (red line) at a zero-bias operating point. A small AC input signal Vin modulates this operating point, giving rise to an amplified output voltage Vout . The corresponding voltage gain is given by 
+
+GV = |rd |/(|rd | − RL), with GV > 1 for RL < |rd |. The amplification process is fully powered by the thermal gradient; no external DC power is required. 
+
+energy gaps of the two electrodes, this asymmetry generates a current that flows opposite to the applied voltage, thereby giving rise to a negative absolute and differential resistance region (d V /dI < 0). When placed in series with a load resis-tor, the junction provides voltage amplification in a voltage-divider configuration without an external bias source. The experimental feasibility of the proposed device is sub-stantiated by previous work: the superconducting bipolar ther-moelectric effect has been demonstrated in analogous asym-metric junctions [14], with an estimated thermal load not ex-ceeding ∼ 1 nW, which remains well within the cooling power of conventional dilution refrigerators. In addition, the con-stituent materials and fabrication processes are based on Al, Al-Cu, and AlO x, all of which are standard in superconduct-ing circuit technology [18]. Numerical simulations indicate a voltage gain of 20 dB with microvolt input saturation, to-tal harmonic distortion below −50 dB for input amplitudes up to 1 μV, input-referred noise below 1 nV/ √Hz, and an op-erational bandwidth extending from near DC up to approxi-mately 180 MHz. The device is designed to operate at bath temperatures in the range 20-250 mK and is fully compatible with state-of-the-art aluminum-based superconducting circuit fabrication processes. 
+
+II. DEVICE MODEL 
+
+The device comprises an asymmetric superconduc-tor–insulator–superconductor (SIS) tunnel junction connected in series with a load resistor RL, as illustrated in Fig. 1(a). The junction is realized by combining a pure aluminum elec-trode ( ∆2 = 0.20 meV, Tc,2 = 1.3 K) with an aluminum–copper proximity bilayer ( ∆1 = 0.10 meV, Tc,1 = 0.65 K), separated by an AlO x tunnel barrier. This architecture yields a gap ratio 
+
+∆1(0)/∆2(0) = 0.5, which is in the vicinity of the theoretically predicted optimal regime for the bipolar thermoelectric effect and has been subsequently experimentally validated in asym-metric superconducting tunnel junctions [13–15]. Compara-ble performance is achieved over a broader range of gap ra-tios, ∆1(0)/∆2(0) ∼ 0.4–0 .8, provided that the device param-eters are appropriately rescaled. In the following, we adopt 
+
+∆1(0)/∆2(0) = 0.5 as a representative example. The electrode with a reduced superconducting gap is im-plemented using an Al–Cu proximity bilayer, whose super-3conducting critical temperature and energy gap are tunable by appropriately choosing the thicknesses of the individual lay-ers. Such bilayer systems have been extensively investigated and experimentally characterized, demonstrating reliable and controllable suppression of the superconducting gap within aluminum-based nanofabrication platforms [5, 14, 15, 19]. In operation, the aluminum electrode is heated to TH ∼ 1 K, while the bilayer is thermally anchored to the bath at temper-ature TB. The input signal Vin is applied to the series combina-tion of the junction and the load, and the output voltage Vout 
+
+is measured across the junction. DC bias is not applied. Thermal gradients of comparable magnitude have already been experimentally demonstrated in superconducting tunnel junctions employing quasiparticle injection heaters [14, 15]. In those devices, the electronic temperature of one supercon-ducting electrode was raised to approximately 1 K, while the counter-electrode remained near the bath temperature. Al-though the junction resistance in the present design is lower, thus improving heat transport through the tunnel barrier, the associated additional heat leakage can be mitigated by in-tegrating normal-metal quasiparticle traps or cooling fins on top of the cold junction electrode, a strategy routinely imple-mented in superconducting microcoolers [18, 20–23] and co-herent caloritronic devices [24–26]. Zero-voltage bias constitutes the intrinsic operating point of the device. This obviates the need for an external DC bias-ing network and the corresponding power dissipation at mil-likelvin temperatures: the amplification process is driven ex-clusively by the imposed thermal gradient, with a power bud-get constrained to the nanowatt scale at most [14, 15] due to the heaters necessary to increase the electronic temperature of the hot electrode. Because the I–V characteristic (Eq. 1) is an odd function of the applied voltage, the zero-bias oper-ating point is located at the center of the negative-resistance region. This symmetry guaranties the cancelation of all even-order harmonic distortion components, thereby enhancing lin-earity and maximizing the allowable symmetric input excur-sion before the onset of compression. As a result, zero-voltage bias yields an optimal compromise between gain and dynamic range and is adopted as the default operating condition for all analyzes reported in this work. The quasiparticle tunneling current through an SIS junction is given by [13, 18] 
+
+IT (VT , TB, TH ) = 1
+
+eR T 
+
+> Z+∞
+> −∞
+
+N1(ε, TB) N2(ε − eV T , TH )
+
+× [ f (ε − eV T , TH ) − f (ε, TB)] dε, (1) where RT is the tunnel resistance in the normal-state, 
+
+N1,2(E, T ) are the normalized Bardeen-Cooper-Schrieffer (BCS) superconducting densities of states (DOS) of the two electrodes, and f (E, T ) = [ 1 + exp (E/kBT )] −1 is the Fermi-Dirac distribution at temperature T . The normalized BCS den-sity of states is given by 
+
+Ni(ε, T ) = Re 
+
+ ε + iΓi
+
+q
+
+(ε + iΓi)2 − ∆2 
+
+> i
+
+(T )
+
+ , (2) where ∆i is the energy gap of electrode i and Γi is a phe-nomenological Dynes broadening parameter accounting for finite quasiparticle states within the gap. The temperature de-pendence of the gap is obtained from the approximated BCS self-consistency equation [27] 
+
+∆i(T ) ≃ ∆i(0) tanh 1.74 
+
+r Tc,i
+
+T − 1
+
+!
+
+, (3) where Tc,1 = 0.65 K and Tc,2 = 1.3 K. Both ∆1(TB) and ∆2(TH )
+
+are evaluated at their respective electrode electronic tempera-tures. For a junction area of 1 μm2, we assume a tunnel resis-tance RT = 100 Ω and capacitance CT = 50 fF. Therefore, the specific values are ρT = 100 Ω μm2 and cT = 50 fF /μm2,typical values for relatively high-transparency SIS junctions [28]. The Dynes broadening parameters are set to Γ1,2 =
+
+0.075 ∆1,2(0) to ensure stable amplifier operation. By smooth-ing the gap-edge DOS divergence, this level of broadening prevents the I-V characteristic from developing sharp peaks that could lead to multiple load-line intersections. Such in-tersections would create stable fixed points in regions of pos-itive differential resistance, trapping the operating point, and quenching the NDR. The chosen Γ ensures a monotonic I-V
+
+slope throughout the NDR region, guaranteeing a unique so-lution for RL < |rd |. Experimentally, these broadening levels and the suppression of the Josephson current (neglected here) can be achieved in high-transparency tunnel junctions under weak magnetic fields [14, 15] or at high temperatures [29, 30]. The bipolar thermoelectric effect, schematically illustrated in Fig. 1(b), is based on an asymmetry between the supercon-ducting energy gaps ( ∆1(0) < ∆2(0)) in combination with a strong temperature gradient ( TH ≫ TB), such that ∆2(TH ) >
+
+∆1(TB). For small positive bias voltages (0 < eV ≲ ∆2(TH ) −
+
+∆1(TB)), thermal broadening in the hot electrode populates the quasiparticle states above ∆2 in a manner that brings them into energetic alignment with the sharp DOS singularity at the gap edge of the cold electrode. This alignment permits quasiparti-cles in these thermally excited states to tunnel resonantly into the DOS peak, thereby generating a net charge current that flows opposite to the applied bias. Due to particle–hole sym-metry, this counter-propagating current is preserved upon re-versal of the bias polarity, resulting in IV < 0 for both pos-itive and negative voltages. The subsequent inversion of the current–voltage characteristic produces a negative absolute re-sistance ( V /I < 0), as well as a negative differential resistance (rd = ( dI/dV )−1 < 0), in the vicinity of zero bias. The amplification mechanism is schematically illustrated in Fig. 1(c). The I–V characteristic of the junction exhibits a re-gion of negative differential resistance in the vicinity of zero bias. The load resistor RL defines a load line whose slope in-tersects the I–V characteristic at the quiescent operating point at zero bias. A small superimposed AC input signal Vin in-duces perturbations of this operating point along the load line, thus generating a correspondingly modulated and amplified output voltage Vout across the junction. Since the circuit oper-40.9 1.0 1.1 0.05 0.10 0.15 0.20 0.25 0.30 0.35 TH (K) TB (K)     
+
+#     
+
+# 0.0
+
+# 0.5
+
+# 1.0
+
+# G
+
+# (0)(mS)
+
+#       0 2 5 5 0
+
+#     
+
+#    
+
+# 0
+
+# 50
+
+# 100
+
+> I
+> T
+> (nA)
+
+# V
+
+T
+
+# (
+
+# μV )
+
+T
+
+> B
+
+(mK):
+
+20
+
+100
+
+200
+
+250
+
+300
+
+T
+
+> H
+
+=1.00K
+
+# (a)
+
+#       0 2 0 4 0
+
+#    
+
+#    
+
+# 0
+
+# 20
+
+# 40
+
+> I
+> T
+> (nA)
+
+# V
+
+T
+
+# (
+
+# μV )
+
+T
+
+> H
+
+(K):
+
+0.90
+
+0.95
+
+1.00
+
+1.05
+
+1.10
+
+1.15
+
+T
+
+> B
+
+=20mK
+
+# (b)
+
+# (c)
+
+Figure 2. Current–voltage characteristics and differential conductance as functions of temperature. (a) Current–voltage ( I–V ) characteristics as a function of the bath temperature TB at fixed hot-electrode temperature TH = 1 K. For TB < 0.3 K, the I–V curves display a region of negative differential conductance extending over the bias interval |VT | ≲ ∆2(TH ) − ∆1(TB). This region vanishes for TB ≳ 0.3 K, in correspondence with the suppression of the bipolar thermoelectric effect. (b) I–V characteristics as a function of the hot-electrode temperature TH at fixed 
+
+TB = 20 mK. The occurrence of negative differential conductance is highly sensitive to TH : for TH ≳ 1.1 K, the superconducting gap ∆2(TH )
+
+is substantially suppressed, whereas for TH ≲ 0.9 K, thermal broadening is insufficient to significantly populate quasiparticle states above the gap edge. Optimal device performance is achieved at TH ≃ 1 K with TB = 20 mK. (c) Zero-bias conductance map G(0) as a function of TH and 
+
+TB. The blue region ( G(0) < 0) indicates the amplification regime associated with negative differential conductance, whereas the red region corresponds to the positive-conductance regime, in which the thermoelectric response is effectively quenched. 
+
+ates as a voltage divider, the voltage gain can be written as 
+
+GV = |rd ||rd | − RL
+
+, (4) where rd = ( dI/dV )−1 < 0 denotes the differential resistance, evaluated at zero bias. The gain exceeds unity when the con-dition |rd | > RL is satisfied, in which case the energy required for amplification is provided solely by the thermal gradient, rather than by an external DC bias source. The dependence of the junction I–V characteristics and the zero-bias conductance G(0) on the electrode temperatures is presented in Fig. 2. Figure 2(a) displays the probe cur-rent IT as a function of the probe voltage VT at a fixed hot-electrode temperature TH = 1 K, for bath temperatures TB that range from 20 mK to 300 mK. A region of negative differ-ential resistance (NDR) is observed for TB ≲ 300 mK, with an associated voltage interval |VT | ≲ |∆2(TH ) − ∆1(TB)| that monotonically decreases as TB increases. In contrast, at fixed 
+
+TB = 20 mK, the NDR exhibits a pronounced dependence on 
+
+TH , as shown in Fig. 2(b). For TH ≲ 0.9 K, thermal broadening of the quasiparticle energy distribution is insufficient to give rise to a well-defined NDR region, whereas for TH ≳ 1.15 K, the superconducting gap ∆2(TH ) is substantially suppressed, thus quenching the effect. This thermal balance is summa-rized in Fig. 2(c), where the space of operational parameters corresponding to G(0) < 0 is delineated by the temperature constraints required to sustain both an adequate quasiparticle population and the inequality ∆2(TH ) > ∆1(TB). On this ba-sis, TH ≃ 1 K and TB = 20 mK are identified as the optimal operating conditions for the results reported in this work. The frequency response and dynamical behavior of the am-plifier are obtained by numerically integrating the full nonlin-ear circuit equation 
+
+CT ˙VT (t) = Vin (t) −VT (t)
+
+RL
+
+− IT (VT , TB, TH ), (5) where Vin (t) = V0 sin (ωt) denotes a purely AC input signal with zero DC offset, IT (VT , TB, TH ) represents the complete nonlinear tunneling current as defined in Eq. 1, and VT (t) is the time-dependent output voltage across the junction. The voltage gain and harmonic spectrum are subsequently de-termined from the steady-state temporal evolution of VT (t).5This approach intrinsically captures both saturation phenom-ena and the RC roll-off associated with CT , without resorting to small-signal linearization, and is employed to obtain all re-sults presented in Fig. 3 and Fig. 4. The input-referred voltage noise, 
+
+q
+
+Sin  
+
+> V
+
+, is evaluated at the zero-bias operating point. In this analysis, two independent current-noise contributions are considered: the shot noise gen-erated by the tunnel junction and the Johnson–Nyquist noise associated with the load resistor. The shot noise of the tun-nel junction is computed using the full bidirectional tunneling rates [18, 31, 32] as 
+
+Sshot  
+
+> I
+
+(VT ) = 2
+
+RT
+
+Z +∞
+
+> −∞
+
+N1(ε, TB) N2(ε − eV T , TH )
+
+×  f (ε − eV T , TH ) 1 − f (ε, TB)
+
++ f (ε, TB) 1 − f (ε − eV T , TH ) dε, (6) which explicitly incorporates contributions from both forward and backward tunneling processes. The Johnson–Nyquist noise of the load resistor is given by Sload  
+
+> I
+
+= 4kBTL/RL, where 
+
+TL denotes the electronic temperature of the resistor RL. The value of TL depends on the physical location of RL within the cryogenic environment, as will be discussed in detail below. The total current-noise spectral density, Stot  
+
+> I
+
+= Sshot  
+
+> I
+
++ Sload  
+
+> I
+
+, is converted to an output-voltage noise spectral density through the circuit admittance according to 
+
+SV (ω) = Stot 
+
+> I
+
+g2eff + ( ωCT )2 , (7) where geff = 1/RL + gd is the effective conductance at the op-erating point, and gd = dIT /dVT V =0 < 0 is the differential conductance of the junction. The input voltage-noise spec-tral density is then obtained by normalizing with respect to the squared voltage gain, resulting in Sin  
+
+> V
+
+(ω) = SV (ω)/G2 
+
+> V
+
+.Two additional noise contributions are neglected in this anal-ysis: the heat-current fluctuations and the heat–charge-current cross-correlator associated with the tunnel junction [18, 31, 32]. This approximation is justified under the assumption that both electrodes remain in local thermal equilibrium at their re-spective temperatures TH and TB. This assumption is equiva-lent to requiring that the thermal capacitances of the electrodes are sufficiently large such that temperature fluctuations can be neglected and the corresponding thermal susceptibilities, 
+
+χth 
+
+> 1,2
+
+(ω) = 1
+
+> gth 1,2+iωCth 1,2
+
+, effectively vanish. Here, gth 1,2 denotes the thermal conductance and Cth 1,2 the thermal capacitance of each electrode, respectively. 
+
+III. RESULTS AND DISCUSSION 
+
+The performance of the amplifier is quantitatively speci-fied in terms of its voltage gain GV , input saturation level 
+
+V−1dB , linearity expressed by the total harmonic distortion 
+
+LT HD , frequency response, and input-referred voltage noise spectral density 
+
+q
+
+Sin  
+
+> V
+
+.1.0 1.2 1.4 1.6 1.8 2.0 10 20 30 40 GV (dB) RL (k Ω)
+
+G
+
+V
+
+# (a)
+
+# (b)
+
+## 0
+
+## 5
+
+## 10
+
+## 15
+
+V
+
+-1dB
+
+> V
+> -1dB
+> (
+> μV )
+
+## 0.0
+
+## 0.5
+
+## 1.0
+
+## 1.5
+
+## 2.0
+
+## 40
+
+## 60
+
+## 80
+
+## 100
+
+> L
+> THD
+> (dB)
+
+# V
+
+in
+
+# (
+
+# μV )
+
+T
+
+> B
+
+(mK):
+
+20
+
+100
+
+150
+
+200
+
+250
+
+Figure 3. Figures of merit: gain, saturation, and linearity. (a) Voltage gain GV (blue) and 1 dB compression point V−1dB (red) as functions of load resistance RL at TB = 20 mK and TH = 1 K. The gain is given by GV = |rd |/(|rd | − RL), where rd = ( dI /dV )−1 ≃ − 2000 Ω.As RL approaches |rd |, the gain diverges, whereas the 1 dB com-pression point tends to zero. The vertical dashed line indicates the chosen operating point RL = 1800 Ω, which yields GV ≃ 20 dB and V−1dB ≃ 2 μV. (b) Linearity metric LTHD as a function of in-put amplitude Vin for RL = 1800 Ω at several bath temperatures. The quantity LTHD is defined as −20 log 10 
+
+ q
+
+∑∞ 
+
+> i=2
+
+A2 
+
+> i
+
+/A1
+
+, where Ai de-note the output harmonic amplitudes. Linearity deteriorates with in-creasing drive amplitude. In contrast, increasing bath temperature improves linearity due to the reduction of gain, which suppresses nonlinear distortion. The non-monotonic features originate from a cancellation of the third-order harmonic contribution to the total har-monic distortion (see Appendix A). 
+
+The trade-off between voltage gain and dynamic range is illustrated in Fig. 3(a), which presents GV and the 1 dB com-pression point V−1dB as functions of the load resistance RL at 
+
+TB = 20 mK and TH = 1 K. As RL approaches the magnitude of the differential resistance, |rd | ≃ 2000 Ω, the gain increases sharply in accordance with Eq. 4, whereas V−1dB decreases to-ward zero. In the limit RL → | rd |, the gain formally diverges while the linear input range vanishes. The selected operating point, RL = 1800 Ω (indicated by the vertical dashed line), represents a compromise, yielding a voltage gain of approxi-mately 20 dB and a 1 dB compression point of approximately 2 μV. This operating point is adopted throughout this work. The linearity of the amplifier is characterized by the total 6harmonic distortion (THD), defined as 
+
+LT HD = −20 log 10 
+
+q
+
+∑∞ 
+
+> i=2
+
+A2
+
+> i
+
+A1
+
+ , (8) where Ai denotes the amplitude of the i-th output harmonic, obtained from the fast Fourier transform (FFT) of the output signal. Larger values of LT HD correspond to lower distortion. Figure 3(b) presents LT HD as a function of the input amplitude 
+
+Vin for RL = 1800 Ω, a hot-electron temperature TH = 1 K, and bath temperatures TB in the range 20 mK–250 mK. In the low-amplitude regime, LT HD exceeds 100 dB, indicating that distortion is negligibly small under small-signal conditions. As Vin is increased, LT HD decreases, reflecting the onset of saturation and the consequent degradation of linearity. An in-crease in TB improves linearity, as the reduction of the thermo-electric response lowers the gain and consequently suppresses nonlinear distortion, although at the expense of reduced am-plification. The non-monotonic features observed at interme-diate input amplitudes are attributed to the crossover between third- and fifth-order harmonic contributions, as detailed in Appendix A. The frequency response of the amplifier is presented in Fig. 4(a), where the voltage gain GV is plotted as a function of frequency f for several values of bath temperature TB, at fixed hot temperature TH = 1 K and load resistance RL = 1800 Ω.The gain remains approximately constant from near-DC up to a −3 dB cutoff frequency of about 180 MHz, which is deter-mined by the RC time constant of the tunnel junction. The gain decreases monotonically with increasing TB, in agree-ment with the previously discussed temperature dependence of the differential resistance rd : as the bath temperature in-creases, the bipolar thermoelectric effect weakens, resulting in an increase of |rd | and a corresponding reduction of GV
+
+towards unity. This cutoff can be derived analytically from the equivalent circuit model. In particular, the junction ca-pacitance CT is periodically charged and discharged through the parallel combination of RL and |rd |, leading to an effec-tive time constant τ = CT RL|rd ||rd |− RL and an associated −3 dB cutoff frequency 
+
+f−3dB = 12πτ = |rd | − RL
+
+2πCT RL|rd | . (9) For RL = 1800 Ω, |rd | ≃ 2000 Ω, and CT = 50 fF, we ob-tain f−3 dB ≃ 180 MHz, in good agreement with the simu-lated cutoff frequency. It is important to note that in the limit RL → | rd |, where the small-signal gain formally diverges, the bandwidth simultaneously collapses, i.e., f−3 dB → 0. Consequently, the condition that maximizes gain inherently minimizes bandwidth, such that the gain–bandwidth product 
+
+GV f−3 dB = 12πCT RL ≃ 1.8 GHz remains constant and is deter-mined solely by the junction capacitance and the load resis-tance. The input-referred voltage noise spectral density, 
+
+q
+
+Sin V , is presented in Fig. 4(b) for three different configurations of the load resistor operated at different temperatures. When RL0510 15 20 TB (mK):  20  100  150  200  250 GV (dB) 10 310 410 510 610 710 810 90246 S V i n ( n V /  H z )
+
+# f
+
+# (Hz) R L
+
+at
+
+T
+
+: 3 0 0 K
+
+4K
+
+20mK
+
+# (a)
+
+# (b)                           
+
+> Figure 4. Frequency response: gain and input-referred voltage noise. (a) Voltage gain GVas a function of frequency ffor various bath temperatures TBat fixed TH=1 K and RL=1800 Ω.The re-sponse is broadband, starting near DC, with a −3 dB cutoff at around 180 MHz, set by the junction RC time constant. Increasing TBsup-presses the thermoelectric response, leading to an increase in |rd|and a corresponding reduction in gain. (b) Input-referred voltage noise spectral density
+> q
+> Sin
+> Vas a function of frequency for different load re-sistor temperatures. For an on-chip resistor at TB=20 mK, the noise is predominantly determined by shot noise originating from the hot electrode, resulting in
+> q
+> Sin
+> V=0.86 nV/ √Hz. As the load resistor temperature is increased, its Johnson noise contribution eventually becomes the dominant component of the total noise floor. The noise spectrum is essentially frequency-independent from near-DC up to the amplifier bandwidth, beyond which it rolls off.
+
+is integrated on-chip and thermally anchored to the mixing chamber at T = 20 mK, the Nyquist–Johnson noise associ-ated with RL = 1800 Ω is negligible compared to the shot noise generated by the heated electrode at TH = 1 K. Under these conditions, the input-referred voltage noise remains ap-proximately constant at 
+
+q
+
+Sin V = 0.86 nV/ √Hz from near-DC up to the bandwidth limit. When RL is instead mounted at the 4 K temperature stage, its Johnson noise becomes comparable to the junction shot noise, leading to an increase in the total input-referred noise floor to about 1 .1 nV/ √Hz. These noise levels are consistent with those reported for state-of-the-art cryogenic semiconductor amplifiers [33, 34]. At room tem-perature ( T = 300 K), the thermal noise of RL dominates the noise budget, yielding 
+
+q
+
+Sin V = 5.6 nV/ √Hz. Across all con-figurations, the noise spectral density remains approximately 7frequency-independent from near DC and exhibits a roll-off at frequencies exceeding the amplifier RC cutoff. Taken to-gether, these results indicate that positioning RL in the mil-likelvin or 4 K stage is essential to maintain near-optimal noise performance. We note that replacing, for example, 
+
+RL with a cryo-CMOS transistor operated at the 4 K stage would enable in situ tuning of the load impedance, thereby allowing real-time optimization of the gain–saturation and gain–bandwidth trade-off while preserving comparable noise performance.  
+
+> IV. CONCLUSION
+
+In conclusion, we have demonstrated a zero-bias supercon-ducting voltage amplifier that operates on thermally induced negative differential resistance in asymmetric SIS junctions. By harnessing the bipolar thermoelectric effect in a junction characterized by a zero-temperature gap ratio ∆1(0)/∆2(0) = 
+
+0.5 and subject to a temperature gradient from TH ≃ 1 K to 
+
+TB ≃ 20 mK, the device realizes voltage amplification with-out the need for DC bias power. The structure, compris-ing aluminum and aluminum–copper electrodes separated by an AlO x tunnel barrier, is fully compatible with standard aluminum-based superconducting fabrication processes. Numerical simulations indicate a voltage gain of 20 dB with a 1 dB compression point occurring at an input amplitude of 2 μV, while maintaining total harmonic distortion below 
+
+−50 dB for sub-microvolt input levels. When the load resistor is thermally anchored either on-chip or at the 4 K stage, the re-sulting input-referred noise spectral density is approximately 1 nV /√Hz, which is comparable to that of state-of-the-art cryogenic semiconductor amplifiers. In addition, the device demonstrates a broadband frequency response extending from near-DC, with a −3 dB cutoff frequency around 180 MHz. These characteristics render the device well-suited for cryo-genic detector readout and for low-noise measurements of mesoscopic quantum systems. More broadly, bias-free super-conducting voltage amplification at millikelvin temperatures has the potential to complement cryogenic semiconductor am-plifiers operating at 4 K, thereby enabling more compact and highly integrated cryogenic instrumentation. Future research will focus on experimental verification and quantitative per-formance benchmarking. 
+
+> ACKNOWLEDGEMENTS
+
+We acknowledge F. Antola and A. Braggio for their in-sightful and stimulating discussions. The authors gratefully acknowledge partial financial support from the PNRR MUR project PE0000023-NQSTI. 
+
+> DATA AVAILABILITY
+
+Data supporting the findings of this article are openly avail-able [35]. 
+
+> Appendix A: Linearity analysis
+
+The non-monotonic features in Fig. 3(b) arise from a cance-lation of the third harmonic contribution to the total harmonic distortion at a specific input amplitude value. To understand this, we expand the quasi-static transfer function Vout (Vin ) in a Taylor series around the zero-bias operating point: 
+
+Vout (Vin ) = a1Vin + a3V 3 
+
+> in
+
++ a5V 5 
+
+> in
+
++ . . . (A1) Only odd-order terms appear, as required by the odd sym-metry of the I-V characteristic at zero bias. For a sinusoidal input Vin (t) = A sin (ωt), trigonometric identities yield the am-plitudes of the fundamental and odd harmonics at the output: 
+
+H1(A) = a1A + 34 a3A3 + 58 a5A5 , (A2) 
+
+H3(A) = 14 a3A3 + 516 a5A5 , (A3) 
+
+H5(A) = 116 a5A5 . (A4) At small amplitudes, H3 ∝ A3 dominates the distortion and 
+
+LT HD decreases monotonically as A increases, as expected for a weakly nonlinear amplifier. The behavior becomes richer at intermediate amplitudes due to the sign structure of the Taylor coefficients. For the transfer function Vout (Vin ) of this device, 
+
+a3 < 0 and a5 > 0 As a result, the two contributions to H3 in Eq. A3 have opposite signs and cancel at the amplitude 
+
+Apeak =
+
+r
+
+− 4a3
+
+5a5
+
+, (A5) where H3 reaches a local minimum. At this specific amplitude the third harmonic is suppressed, and the total distortion is temporarily dominated by H5 ∝ A5, which is smaller than H3
+
+would have been without cancelation. This produces the local maximum in LT HD visible in Fig. 3(b). Beyond Apeak , both H3
+
+and H5 grow with increasing amplitude. The non-monotonic jump is therefore a direct consequence of the opposite signs of 
+
+a3 and a5, which in turn reflect the specific shape of the NDR region of the I-V characteristic. The validity of this quasi-static analysis is confirmed by two complementary approaches. First, a linear regression of the transfer function Vout (Vin ) over a sliding amplitude window shows that the coefficient of determination R2 reaches a local maximum near Apeak , consistent with the temporary restora-tion of linearity due to the cancelation of H3. Second, the har-monic amplitudes H1, H3, and H5 are extracted directly from the Fast Fourier Transform (FFT) of the full nonlinear ODE solution of Eq. 5, confirming both the amplitude dependence and the location of the cancelation peak Apeak .8
+
+[1] J. Clarke and A. I. Braginski, The SQUID Handbook: Funda-mentals and Technology of SQUIDs and SQUID Systems , Vol. 1 (Wiley-VCH, 2004). [2] M. Castellanos-Beltran and K. Lehnert, Widely tunable para-metric amplifier based on a superconducting quantum interfer-ence device, Applied Physics Letters 91 , 083509 (2007). [3] C. Macklin, K. O’Brien, D. Hover, M. Schwartz, V. Bolkhovsky, X. Zhang, W. Oliver, and I. Siddiqi, Anear–quantum-limited Josephson traveling-wave parametric amplifier, Science 350 , 307 (2015). [4] K. D. Irwin and G. C. Hilton, Transition-edge sensors, in Cryo-genic Particle Detection (Springer, 2005) pp. 63–149. [5] M. De Lucia et al. , Transition edge sensors: Physics and appli-cations, Instruments 8, 47 (2024). [6] A. N. McCaughan, Readout architectures for superconducting nanowire single photon detectors, Superconductor Science and Technology 31 , 040501 (2018). [7] K. L. Ekinci and M. L. Roukes, Nanoelectromechanical sys-tems, Review of Scientific Instruments 76 , 061101 (2005). [8] S. I. Woods, J. E. Proctor, A. W. Smith, and T. M. Jung, High-gain cryogenic amplifier assembly employing a commercial cmos operational amplifier, Review of Scientific Instruments 
+
+86 , 073102 (2015). [9] V. V. Zavjalov, A. M. Savin, and P. J. Hakonen, Cryogenic dif-ferential amplifier for nmr applications, Journal of Low Tem-perature Physics 195 , 72 (2019). [10] A. S. Sidorenko, Cryogenic low-noise amplifiers for measure-ments with superconducting detectors, Beilstein Journal of Nanotechnology 11 , 1316 (2020). [11] B. Patra, R. M. Incandela, J. P. G. van Dijk, H. A. R. Homulle, L. Song, M. Shahmohammadi, R. B. Staszewski, A. Vladimirescu, M. Babaie, F. Sebastiano, and E. Charbon, Cryo-cmos circuits and systems for quantum computing appli-cations, IEEE Journal of Solid-State Circuits 53 , 309 (2018). [12] L. Chang, L. Esaki, and R. Tsu, Resonant tunneling in semicon-ductor double barriers, Applied Physics Letters 24 , 593 (1974). [13] G. Marchegiani, A. Braggio, and F. Giazotto, Nonlinear ther-moelectricity with electron-hole symmetric systems, Physical Review Letters 124 , 106801 (2020). [14] G. Germanese, F. Paolucci, G. Marchegiani, A. Braggio, and F. Giazotto, Bipolar thermoelectric josephson engine, Nature Nanotechnology 17 , 1084 (2022). [15] G. Germanese, F. Paolucci, G. Marchegiani, A. Braggio, and F. Giazotto, Phase control of bipolar thermoelectricity in Josephson tunnel junctions, Physical Review Applied 19 ,014068 (2023). [16] F. Antola, A. Braggio, G. De Simoni, and F. Giazotto, Tunable thermoelectric superconducting heat pipe and diode, Supercon-ductor Science and Technology 37 , 115023 (2024). [17] F. Antola, G. D. Simoni, F. Giazotto, and A. Braggio, Quan-tum bipolar thermoelectricity (2025), arXiv:2508.03219 [cond-mat.mes-hall]. [18] F. Giazotto, T. T. Heikkilä, A. Luukanen, A. M. Savin, and J. P. Pekola, Opportunities for mesocooling in superconductive de-vices, Reviews of Modern Physics 78 , 217 (2006). [19] F. Paolucci, N. Ligato, V. Buccheri, G. Germanese, P. Virta-nen, and F. Giazotto, Hypersensitive tunable josephson escape sensor for gigahertz astronomy, Phys. Rev. Appl. 14 , 034055 (2020). [20] J. P. Pekola, T. Heikkilä, A. Savin, J. Flyktman, F. Giazotto, and F. Hekking, Limitations in cooling electrons using normal-metal-superconductor tunnel junctions, Physical review letters 
+
+92 , 056804 (2004). [21] S. Tirelli, A. Savin, C. P. Garcia, J. P. Pekola, F. Beltram, and F. Giazotto, Manipulation and generation of supercurrent in out-of-equilibrium<? format?> josephson tunnel nanojunc-tions, Physical review letters 101 , 077004 (2008). [22] O. Quaranta, P. Spathis, F. Beltram, and F. Giazotto, Cooling electrons from 1 to 0.4 k with v-based nanorefrigerators, Ap-plied Physics Letters 98 (2011). [23] G. Trupiano, G. De Simoni, and F. Giazotto, Quasiparticle-injection superconducting microwave relaxation oscillator, Phys. Rev. Appl. 23 , 014046 (2025). [24] A. Fornieri and F. Giazotto, Towards phase-coherent caloritron-ics in superconducting circuits, Nature nanotechnology 12 , 944 (2017). [25] A. Fornieri, G. Timossi, P. Virtanen, P. Solinas, and F. Gia-zotto, 0– π phase-controllable thermal josephson junction, Na-ture nanotechnology 12 , 425 (2017). [26] G. F. Timossi, A. Fornieri, F. Paolucci, C. Puglia, and F. Gia-zotto, Phase-tunable josephson thermal router, Nano Letters 18 ,1764 (2018). [27] F. Gross, B. S. Chandrasekhar, D. Einzel, K. Andres, P. J. Hirschfeld, H. R. Ott, J. Beuers, Z. Fisk, and J. L. Smith, Anomalous temperature dependence of the magnetic field pen-etration depth in superconducting UBe13, Z. Phys. B 64 , 175 (1986). [28] S. V. Lotkhov, E. M. Tolkacheva, D. V. Balashov, M. I. Khabipov, F.-I. Buchholz, and A. B. Zorin, Low hysteretic be-havior of Al/AlOx/Al Josephson junctions, Appl. Phys. Lett. 
+
+89 , 132115 (2006). [29] F. P. Milliken, R. H. Koch, J. R. Kirtley, and J. R. Rozen, The subgap current in nb/alox/nb tunnel junctions, Applied Physics Letters (2004). [30] J. P. Pekola, V. F. Maisi, S. Kafanov, N. Chekurov, A. Kemp-pinen, Y. A. Pashkin, O.-P. Saira, M. Möttönen, and J. S. Tsai, Environment-assisted tunneling as an origin of the dynes den-sity of states, Phys. Rev. Lett. 105 , 026803 (2010). [31] D. Golubev and L. Kuzmin, Nonequilibrium theory of a hot-electron bolometer with normal metal-insulator-superconductor tunnel junction, J. Appl. Phys. 89 , 6464 (2001). [32] G. Trupiano, G. D. Simoni, and F. Giazotto, Thermally mod-ulated sinis transconductance amplifier, Phys. Rev. Appl. , (2025). [33] B. A. Ivanov and L. S. Kuzmin, Ultra-low-noise cryogenic sige transistor amplifier, Review of Scientific Instruments 82 ,104705 (2011). [34] V. V. Zavjalov, A. M. Savin, and P. J. Hakonen, Cryogenic dif-ferential amplifier for nmr applications, Journal of Low Tem-perature Physics 195 , 72 (2019). [35] G. Trupiano, Raw data of zero-bias superconducting voltage amplifier based on the bipolar thermoelectric josephson effect, 10.5281/zenodo.19070947 (2026).

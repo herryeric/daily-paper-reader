@@ -1,0 +1,1149 @@
+Title: Characterization and Comparison of Energy Relaxation in Fluxonium Qubits
+
+URL Source: https://arxiv.org/pdf/2603.23636v1
+
+Published Time: Thu, 26 Mar 2026 00:10:21 GMT
+
+Number of Pages: 25
+
+Markdown Content:
+# Characterization and Comparison of Energy Relaxation in Fluxonium Qubits 
+
+Kate Azar, 1, 2, 3, ∗ Lamia Ateshian, 2, 3 Mallika T. Randeria, 1 Ren´ ee DePencier Pi˜ nero, 1 Jeffrey M. Gertler, 1
+
+Junyoung An, 2, 3 Felipe Contipelli, 1 Leon Ding, 2, 4, † Michael Gingras, 1 Kevin Grossklaus, 1 Max Hays, 2
+
+Thomas M. Hazard, 1 Junghyun Kim, 2, 3 Bethany M. Niedzielski, 1 Hannah Stickler, 1 Kunal L. Tiwari, 1 Helin Zhang, 2
+
+Jeffrey A. Grover, 2 Jonilyn L. Yoder, 1 Mollie E. Schwartz, 1 William D. Oliver, 2, 4, 3 and Kyle Serniak 1, 2, ‡
+
+> 1
+
+Lincoln Laboratory, Massachusetts Institute of Technology, Lexington, MA 02421, USA 
+
+> 2
+
+Research Laboratory of Electronics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA 
+
+> 3
+
+Department of Electrical Engineering and Computer Science, Massachusetts Institute of Technology, Cambridge, MA 02139, USA 
+
+> 4
+
+Department of Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA 
+
+(Dated: March 26, 2026) Fluxonium superconducting qubits have demonstrated long coherence times and high single- and two-qubit gate fidelities, making them a favorable building block for superconducting quantum processors. We investigate the dominant limitations to fluxonium qubit energy relaxation time 
+
+T1 using a set of eight planar, aluminum-on-silicon qubits. We find that a circuit-based model for capacitive dielectric loss best captures the frequency dependence of T1, which we analyze within both a two-level and a six-level energy relaxation model. We convert the measured T1 into an effective capacitive quality factor Qeff C to compare qubits on equal footing, accounting for independently estimated contributions from 1 /f flux noise and radiative loss to the control and readout circuitry. We apply this methodology to compare qubits from two fabrication processes: a baseline process and one that applies a fluorine-based wet treatment prior to Josephson junction deposition. We resolve a small improvement of (13.8 ± 8.4)% in the process mean Qeff C , indicating that the fluorine treatment may have reduced loss from the metal-substrate interface, but did not address the primary source of loss in these fluxonium qubits. 
+
+I. INTRODUCTION 
+
+Superconducting qubits are a promising platform for future quantum computing applications [1, 2]. Most re-cent advances toward utility-scale superconducting pro-cessors have been based on the transmon qubit [3–6], a weakly anharmonic LC oscillator realized by a Joseph-son junction (JJ) inductor. Though demonstrations with transmon qubits have been promising, alternative circuits with intrinsic resilience to noise and higher fidelity of op-erations are also being pursued. The fluxonium qubit [7] is one such alternative, a circuit comprising a capacitor, JJ, and linear inductor in parallel. Fluxonium-based ar-chitectures have been used to realize millisecond coher-ence times [8–10], fast single-qubit gates with fidelities exceeding 0.9999 [10–12], and two-qubit gates with fi-delities above 0.999 [10, 13, 14]. Identifying dominant decoherence channels is key to improving superconducting qubit coherence and is a clear avenue toward higher gates fidelities. Over the past decade, studies have indicated that fluxonium coherence times are limited by a variety of mechanisms including dielectric loss, likely from charge-coupled environmental two level systems (TLS) [15–20]; 1 /f flux noise [17, 19]; and quasiparticles [8]; depending on device parameters and the materials used to construct the qubits. In partic-ular, the materials and processing associated with JJ fab-    
+
+> ∗kazar@mit.edu
+> †Present address: Google Quantum AI, Cambridge, MA, USA
+> ‡kyle.serniak@ll.mit.edu
+
+rication [21–26] are expected to play a strong role in the performance of fluxoniums with JJ-array-based superin-ductors [27, 28]. Leveraging data from multiple qubits in conjunction with modifications to materials process-ing can validate process improvements and elucidate pro-cess reproducibility, for which consistency will be key for building utility-scale quantum processors [15, 29]. Qubit-design and materials-process studies have primarily used transmon qubits [26, 30–33], with fewer examples utiliz-ing multiple fluxonium qubits [15, 34, 35]. In this Article, we investigate the frequency depen-dence of the energy relaxation time T1 of eight fluxonium qubits. To identify the dominant source of loss, we model the effects of various energy-relaxation mechanisms, ac-commodating for population-transfer dynamics outside of the computational basis of the qubit [19]. Over a ma-jority of the tunable frequency range, we find the trend in T1 to be well described by a circuit model for capaci-tive dielectric loss. Accounting for the contributions from 1/f flux noise and radiative loss to the microwave en-vironment, we transform T1 into an effective capacitive dielectric quality factor Qeff C . For each fluxonium tested, we observe frequency-dependent variation of Qeff C consis-tent with limitation from TLS defects, and with our ex-perimental protocol determining the mean Qeff C to within approximately ±20%. We use this metric to compare qubits fabricated with two distinct fabrication processes, with one recently shown to improve the metal-substrate interface underneath the Josephson junctions of trans-mon qubits resulting in a 2 × improvement of their quality factor [26]. Comparing fluxonium fabricated with these different processes, we resolve a statistically significant 
+
+> arXiv:2603.23636v1 [quant-ph] 24 Mar 2026
+
+2𝜆𝜆 /4           
+
+> 100 μm
+> Charge bias
+> Flux bias Normal metal
+> Fluxonium
+> Readout resonator (a)
+> 5μm
+> (b) (c)
+> Φext
+> Signal Amp.  (mV )
+> (e)
+> 𝜔𝜔 01 /2𝜋𝜋
+> 𝜔𝜔 02 /2𝜋𝜋
+> 𝜔𝜔 03 /2𝜋𝜋
+> 𝜔𝜔 04 /2𝜋𝜋
+> 𝜔𝜔 05 /2𝜋𝜋
+> 𝜔𝜔 res /2𝜋𝜋 (𝜔𝜔 res +𝜒𝜒 1)/ 2𝜋𝜋
+> (𝜔𝜔 res +𝜒𝜒 0)/ 2𝜋𝜋
+> (d)
+
+Figure 1. Device design summary. (a) Optical micrograph of a representative fluxonium circuit used in this study, with key elements highlighted in color. (b) Circuit schematic with colors corresponding to those in (a). (c) Scanning electron micrograph of the qubit JJs from (b). (d) Dressed resonator frequency versus applied magnetic flux bias for qubit B1. The dressed readout resonator frequency for the qubit in ground ωres + χ0 and first excited state ωres + χ1 are overlaid. (e) Qubit drive frequency 
+
+ωdr /2π versus applied magnetic flux bias for qubit B1. Overlaid transitions out of the qubit ground state are highlighted in color, with bare resonator frequency ωres /2π in dark gray. 
+
+difference in the Qeff C means of (13.8 ± 8.4)%, indicat-ing that the metal-substrate interface was improved, but was not the predominant interface contributing to the energy relaxation rate in these fluxoniums. The method-ology and analysis used here is extensible to comparisons of any superconducting qubit designs or fabrication pro-cesses, the optimization of which is critical for the devel-opment of more performant superconducting quantum processors. 
+
+II. DEVICE DESIGN AND FABRICATION 
+
+The fluxonium circuit [7] is modeled by the Hamilto-nian ˆH = 4 EC ˆn2 − EJ cos ˆ φ + 12 EL
+
+
+
+ˆφ − 2π Φext 
+
+Φ0
+
+2
+
+, (1) which contains an energy term for each of the elements in the circuit. Here, EJ = ICΦ0/(2 π) is the Josephson energy of the JJ, where Φ 0 = h/ (2 e) is the supercon-ducting magnetic flux quantum and IC is the JJ critical current, which depends on its size. EC = e2/(2 CΣ) is the single-electron charging energy, where CΣ is the total ca-pacitance shunting the JJ. Finally, EL = Φ 20/(4 π2LA)is the inductive energy, where in our devices LA is the inductance of the JJ array that we use to construct this element. The operator ˆ φ represents the phase drop across JJ, and is canonically conjugate to the reduced charge ˆ n.By threading an externally applied magnetic flux Φ ext 
+
+through the loop formed by the JJ and linear inductor, the eigenenergies, eigenstates, and transition matrix ele-ments of the circuit are varied. In order to differentiate qubit designs and the two fab-rication processes, we label each qubit with a letter and a number (e.g., “ A1”). The letter in the fluxonium labels denotes one of two different fabrication processes. All qubits in this work are fabricated using an aluminum-based process on 50 mm intrinsic silicon wafers. In both process versions, an Al film is deposited on a pre-cleaned wafer and patterned to form all device compo-nents: microwave control lines, readout resonators, and qubit shunt capacitors. The qubit JJs are deposited via shadow evaporation, using a Ge-based mask patterned for Dolan-bridge style Al-AlOx-Al JJs [36]. We fabri-cate the single JJ branch and an array of 151 series JJs [Fig. 1(c)] this way, where the series JJs are used as the fluxonium inductor, which we approximate as a linear inductance. Our fabrication processes were introduced in Ref. [26], which in part motivated this experiment. In process A,referred to as the process-of-record (POR) in Ref. [26], the surface of the exposed Si and patterned Al base metallization is cleaned before JJ deposition with an Ar ion mill to remove surface oxides and organic contami-nants. This recipe was shown to leave Ge-based dry-etch byproducts on the Si surface under the JJ bridge, which were interpreted to be limiting the performance of trans-mon qubits made using this process. In process B (la-beled “E” in Ref. [26]), an additional fluorine-based wet etch (commercially available Transene Silox Vapox III) 3                                                                                                                                                                                            
+
+> Process Design EJ/h EC/h EL/h ωres /2πg/ 2πκ/ 2πχ01 /2π ω 01 /2π√AΦT1TR2TE2
+> (GHz) (GHz) (GHz) (GHz) (MHz) (MHz) (MHz) (GHz) (μΦ0/√Hz) (μs) (μs) (μs)
+> A13.54 1.05 0.53 7.090 124 0.25 1.44 0.362 10.4 124 ±18 46 ±8112 ±15
+> A23.94 1.04 0.53 7.182 124 0.17 1.63 0.279 5.3 157 ±39 77 ±9144 ±8
+> A34.38 1.02 0.53 7.273 123 0.34 1.80 0.214 4.3 138 ±40 76 ±897 ±11
+> A45.41 1.00 0.53 7.297 124 0.27 2.29 0.115 6.4 404 ±40 107 ±25 154 ±22
+> A57.11 0.95 0.53 7.500 120 0.60 2.20 0.042 2.4 129 ±16 43 ±15 66 ±15
+> B13.15 1.04 0.50 7.039 118 0.29 1.11 0.427 5.2 85 ±112 54 ±20 86 ±34
+> B23.52 1.04 0.51 7.126 120 0.30 1.30 0.343 5.7 104 ±13 32 ±457 ±4
+> B33.81 1.03 0.50 7.229 120 0.35 1.39 0.284 4.3 325 ±27 120 ±13 137 ±5Table I. Summary of measured device parameters. Hamiltonian energies, the bare resonator frequency ωres /2π, and qubit-resonator coupling g/ 2πare extracted from measurements of single- and two-tone spectroscopy a function of Φ ext [Fig. 1(d, e)]. The linewidth of the readout resonator κ/ 2π, the relative dispersive shift χ01 /2πof the qubit on the resonator, qubit frequency
+> ω01 /2π, as well as the means and standard deviations of repeated coherence measurements of T1,TR2, and TE2are reported at Φext /Φ0= 0 .5. √AΦis the extracted flux noise amplitude at 1 Hz.
+
+was added after the milling step to clean the substrate without removing the Al base metallization. This pro-cess was shown to reduce the presence of Ge byproducts and other surface residues. This process was found to provide a 2 × improvement in the transmon qubit quality factor compared to the process A.The number in the qubit label denotes a distinct single JJ size used to set the qubit EJ. The size and number of the array JJs used for the linear inductance, the design of coplanar shunt capacitor pads, charge and flux control lines, and the geometry of the ground plane were identical for all qubits. As such, all qubits were designed to have nominally the same EC and EL (Table I), though EC
+
+decreases slightly with increasing EJ (corresponding to an increased JJ size and therefore increased parallel-plate capacitance of the JJ). Each qubit is capacitively coupled to its own readout resonator [Fig. 1(a,b)], which in turn is inductively coupled to a shared microwave feedline. The qubits characterized in this study are from three unique chips, two fabricated on the same wafer with pro-cess A (one chip with A1, A2, and A3, the other with 
+
+A4 and A5) and one fabricated on a separate wafer with process B. The design of qubit A5 was identical to the device reported in Ref. [19], and all qubits share similar-ities with the qubit designs in Ref. [37]. Both references utilize devices fabricated using process A, albeit drawing from different wafers and fabrication runs.  
+
+> III. QUBIT CHARACTERIZATIONS
+
+We utilize standard microwave control and dispersive-readout techniques (see Appendix IX for details). For all measurements, we apply flux bias using a global coil as opposed to the on-chip line, which we cap with a 50 Ω termination at the mixing chamber stage of the dilution refrigerator [Appendix IX]. All devices include a TiPt patch labeled “Normal metal” in Fig. 1(a), which we use to prevent screening currents in the ground plane induced by the magnetic field bias. We obtain the resonator and qubit parameters by fit-ting single- and two-tone spectroscopy [Fig. 1(d,e)] mea-surements versus applied magnetic flux bias to extract the bare resonator frequency ωres /2π, qubit-resonator coupling rate g, and qubit energy scales EJ, EC, and 
+
+EL [Table I, Appendix X]. We also report the resonator linewidth κ/ 2π, relative dispersive shift of the qubit on the resonator χ01 /2π, and qubit transition frequency 
+
+ω01 /2π at Φ ext /Φ0 = 0.5 [Table I]. We characterize 
+
+T1 as a function of Φ ext for each qubit [Fig. 2 and Appendix X B]. Around Φ ext /Φ0 = 0 .5, we performed interleaved measurements of T1, the Ramsey dephas-ing time T R2 , and the echo dephasing time T E2 [Appen-dices X B, X C]. The average and standard deviation of all coherence measurements taken at Φ ext /Φ0 = 0 .5 are sum-marized in Table I. We use the measurements of T1 and 
+
+T E2 taken away from Φ ext /Φ0 = 0 .5, where we assume the qubit dephasing to be limited by 1 /f flux noise, to extract the flux noise amplitude √AΦ [Table I]. We solve the echo pure dephasing rate 1 /T E 
+
+> ϕ
+
+= |∂ω 01 /∂ Φext |pAΦln(2) for 
+
+√AΦ, where |∂ω 01 /∂ Φext | is the slope of the qubit tran-sition frequency as a function of applied magnetic flux bias [38]. We observe a wide range of √AΦ for these nominally identical designs, which we are able to par-tially attribute to noise from our instrumentation [Ap-pendix X D].  
+
+> IV. MODELING ENERGY RELAXATION
+
+To identify the loss limiting the measured T1, we con-sider various noise sources modeled perturbatively using Fermi’s golden rule and compare to our data. The re-4Dielectric                      
+
+> QPs, single JJ
+> Radiative
+> 1/ 𝑓𝑓 flux noise QPs, array
+> Data Total
+> Figure 2. Measured T1(gray points) versus ω01 /2πfor qubit
+> B1, with predicted T1due to individual noise models (see Fig. 12 for all qubits). Solid lines show predictions for a six-level description of the loss model. Dashed lines show the predictions for a two-level description of the loss model. 1 /f
+> flux noise and radiative losses are calculated using the mea-sured qubit parameters (Table I). The dielectric loss model assumes Qeff Cof 3 .11 ×10 5, with ϵ= 0 .25. The quasiparticle models assume xQP of 1 ×10 −9. The total line represents the six-level description of T1due to all included noise sources. All models assume an effective qubit temperature of 40 mK and an effective resonator temperature of 65 mK.
+
+laxation rate 1 /T 1 is P 
+
+> λ
+
+Γλ 
+
+> 1
+
+, with λ indexing the noise sources [Appendix XI]. We consider an extension of usual models, allowing for population dynamics to exist beyond the first two qubit energy levels, a consideration recently shown to be relevant for fluxonium [19][Appendix XII]. We solve for the time-dependent qubit population vec-tor ⃗p(τ ) under the differential equation ddτ ⃗p(τ ) = B⃗p(τ ), where the transition matrix is 
+
+B =
+
+
+
+− NP
+
+> i̸=1
+
+Γ0→i Γ1→0 · · · ΓN →0
+
+Γ0→1 − NP
+
+> i̸=1
+
+Γ1→i · · · ...... ... . . . ΓN →N −1
+
+Γ0→N Γ1→N · · · − NP
+
+> i̸=N
+
+ΓN →i
+
+
+
+, (2) and elements Γ i→j are the transition rates from state |i⟩
+
+to state |j⟩. The solution to the differential equation is ⃗p(τ ) = exp( Bτ )⃗p(0). We fit the decay of the population within the first six levels of the fluxonium back to thermal equilibrium to an exponential to obtain the relaxation time [Appendix XII]. To model our data, we consider energy relaxation from capacitively-coupled dielectric loss, 1 /f flux noise, quasi-particles near the single JJ and within the JJ array, and radiative loss to the control and readout circuitry. Rep-resentative curves for both a traditional two-level and the six-level description of each considered loss model are shown in Fig. 2. We find the model for dielectric loss best describes our data over a majority of the frequency range [Appendix XII B]. For this mechanism, we utilize a phenomenological circuit model that can account for loss caused by imperfect materials, interface oxides, and the average behavior of environmental TLS. For this we con-sider Johnson-Nyquist voltage noise across a resistance in parallel to the qubit capacitance, giving rise to energy relaxation rate [39, 40] ΓC1 = 16 EC
+
+ℏQC
+
+|⟨ 0|ˆn|1⟩| 2coth 
+
+ ℏω01 
+
+2kBT
+
+
+
+, (3) where QC is 1 /tan( δ), and tan( δ) is the materials loss tan-gent [Appendix XI A 1]. Motivated by other literature, we include a phenomenological frequency dependence of the quality factor [15, 18, 19, 41], where we define 
+
+Q′
+
+> C
+
+(ωij /2π) = Qeff C
+
+ 6 × 10 9
+
+ωij /2π
+
+ϵ
+
+. (4) We find this modification describes the data better than a frequency-independent model [Appendix XIII C]. In general the prediction of the six-level description of T1 processes is similar to the two-level description, with the exception of Purcell loss. We favor the use of the better motivated, multi-level model in all subsequent analysis. For all models we assume an effective qubit temperature of 40 mK [42, 43] and an effective resonator temperature of 65 mK [44, 45].  
+
+> V. DATA PROCESSING
+
+We observe TLS signatures in the frequency depen-dence of T1 and a general trend consistent with the ca-pacitive dielectric loss model. This motivates us to pri-marily use this model to quantify qubit performance. In service of this, we first account for contributions to the T1
+
+from our models for 1 /f flux noise and radiative loss to the microwave environment [Appendix XI A 3], using our independent characterizations of each qubit described in Sec. III [Appendix XII B]. We exclude data for which the combined prediction from 1 /f flux noise and radiative losses is greater than 10% of the measured decay rate. To account for T1 dependence on Hamiltonian parame-ters, we choose to then recast our data into Qeff C [Fig. 3(c), Appendix XIII B]. We additionally accommodate for the effect the resonator Lamb shift due to qubit population in higher levels in our model (an effect not included on the for the T1 curves in Figs. 2 or 3), which we detail further in Appendix XII A. We sample T1 more finely in frequency near the Φext /Φ0 = 0 and Φ ext /Φ0 = 0 .5 biases. In these re-gions, we generally observe fine structure, which we at-tribute to TLSs [Fig. 3(b)]. To mitigate bias associated 5(a)  (c)  
+
+> Mean
+> Point number
+> Data
+> 𝜖𝜖 = 0.25
+> Data
+> (b)
+> 𝑄𝑄 Ceff
+> Point number > 1
+
+Figure 3. Transformation of T1 into Qeff C for qubit B1. (a) T1 versus qubit transition frequency, with curve for our multilevel model for capacitive loss, using Q′
+
+> C
+
+(ωij ) according to Eq. (4) with ϵ = 0 .25 and Qeff C = 3 .11 × 10 5, the qubit mean Qeff C discussed in Section VI. (b) Zoom-in of boxed data in panel (a) where T1 was more finely sampled, additionally visualizing the binned averaging applied to the dataset. Vertical lines indicate the boundaries of adjacent bins, with the right side y-axis corresponding to the number of points within each bin. (c) Extracted Qeff C versus qubit transition frequency for the binned T1 values. Green shading indicates frequencies where the number of points per bin was greater than 1, and the Qeff C is calculated from an averaged 
+
+T1 value. 
+
+with potential oversampling of TLSs, we apply a binned average to the dataset of 8 MHz width corresponding to the approximate average full-width-at-half maximum of the observed TLS features. The frequency spacing between T1 samples is greater than the bin width for a majority of the frequency tuning range [Fig. 3(c) and Ap-pendix XIII A]. With this analysis procedure, we do not distinguish TLS from any background sources of capaci-tive dielectric loss. Here, the mean, median, and distri-bution of measured Qeff C serve as metrics that can be used to compare qubits and fabrication processes inclusive of TLS effects. Though Qeff C could in principle have differ-ent frequency dependence across qubits and fabrication processes, we use the value of ϵ that best describes the combined dataset of eight qubits, ϵ = 0 .25, in all analysis for consistency [Appendix XIII C]. 
+
+VI. RESULTS 
+
+We compare the distributions of Qeff C for each qubit, plotted in Fig. 4(a). The distributions contain largely overlapping Qeff C values, and are non-Gaussian dis-tributed. Though the binning protocol reduces point-to-point correlations caused by TLSs, we do still observe some structure in the binned T1 [Fig. 3(b)]. We attribute the uniqueness of the distributions and approximately two order of magnitude range in the Qeff C values to the unique spectra and finite number of TLSs that couple to each qubit, which we are not able to fully mitigate in this analysis. We therefore do not expect these distributions to be identical, which limits the applicability of many sta-tistical tests of similarity. We report the mean, median, and standard deviation of Qeff C for each qubit in Table II. While the median is practically useful for predicting char-acteristic qubit performance, we choose to apply an inter-Process A  Interquartile Range   
+
+> Process B Median Mean
+> (a) (b)
+
+Figure 4. Extracted Qeff C distributions. (a) Individual qubit 
+
+Qeff C distributions, where the area of each distribution is nor-malized to show the percent of counts at each Qeff C . Blue color corresponds to qubits fabricated with process A; red corresponds to process B. Shaded regions within individual distributions represent the interquartile range of the dataset. Overlaid teal and gray lines mark the mean and median of each distribution, respectively. (b) Combined distributions of qubits A1, A2, and A3 labeled as Process A (dark blue), and 
+
+B1, B2, and B3 (Process B, dark red) are used to compare like designs across fabrication processes. 
+
+pretable statistical test, Welch’s t-test [46], to compare the means between qubits and fabrication processes. We justify use of this test based on applicability of the cen-tral limit theorem to bounded distributions and the as-sumption that our binning procedure sufficiently reduces point-to-point correlations in the data. We use Welch’s t-test to calculate the 95% self-confidence interval [Appendix XV] for each distribution, which bounds the sensitivity of the test: we cannot on av-erage resolve differences in the mean smaller than approx-imately ±17% of an individual qubit’s mean [Table II]. 6                                                               
+
+> Qubit Mean Qeff CMedian Qeff CStd. Qeff C,σ95% CI
+> A12.32 ×10 51.98 ×10 51.59 ×10 5±16%
+> A22.68 ×10 52.47 ×10 51.96 ×10 5±20%
+> A32.17 ×10 51.91 ×10 51.34 ×10 5±16%
+> A41.75 ×10 51.57 ×10 51.13 ×10 5±19%
+> A51.16 ×10 51.03 ×10 50.81 ×10 5±17%
+> B13.11 ×10 52.79 ×10 52.03 ×10 5±10%
+> B22.10 ×10 51.41 ×10 52.06 ×10 5±20%
+> B32.81 ×10 52.31 ×10 52.14 ×10 5±15%
+> A2.37 ×10 52.00 ×10 51.65 ×10 5±10%
+> B2.75 ×10 52.19 ×10 52.11 ×10 5±8% Table II. Summary for individual and combined process Qeff C
+> distributions. Means, medians, and standard deviations σ
+> of each distribution are reported. We also report the 95% confidence interval (CI) of the mean as returned by Welch’s t-test for each distribution as compared to itself, expressed as a percent of the distribution mean.
+
+To compare qubits we compute the pairwise confidence interval [see Appendix XV, Table III]. We find some dis-tributions appear to be similar and some to be statis-tically different. Comparing designs within the same fabrication process (qubits A1, A2, A3, A4, and A5), a weak trend in the mean as a function of EJ emerges across otherwise highly overlapped distributions. This could possibly be attributed to the increased capacitance from the small junction as its size was increased to vary 
+
+EJ [Appendix XVI]. Based on observed TLS densities and effective quality factors of typical shadow-evaporated Al/AlOx/Al JJs [21, 24] this trend is expected; however, further experiments are needed to definitively quantify the small JJ contribution to dielectric loss in our fluxo-nium qubits. To compare fabrication processes, we combine the Qeff C
+
+distributions of A1, A2, and A3 and separately those of the identically designed qubits B1, B2, and B3 [Fig. 4, Table III]. We exclude A4 and A5 from this comparison, as we did not test qubits from process B targeting the same values of EJ. We find these two composite distribu-tions to be statistically different, with a 95% confidence interval indicating that the mean of distribution of com-bined B qubits is higher by (13 .8 ± 8.4)% of the mean of the corresponding combined A qubits [Appendix XV, Table IV]. This indicates that the pad etch treatment of process B did slightly improve the effective materials quality of our fluxoniums compared to process A (pre-sumably from removing residues at the metal-substrate interface). However, the large overlap between the pro-cess Qeff C distributions and the small difference in the distribution means suggests the metal-substrate interface underneath the JJs is not the primary contributor to dis-sipation in these qubits. In Appendix XVII, we verify that consideration of a frequency-independent QC does not qualitatively change this result. In Appendix XVIII, we show that this result is also preserved when consider-ing the traditional two-level model of qubit energy relax-ation.  
+
+> VII. CONCLUSIONS AND OUTLOOK
+
+We have examined the frequency dependence of T1 for eight planar, aluminum-on-silicon, fluxonium qubits sam-pling from two distinct fabrication processes. We employ a multilevel model of the energy relaxation dynamics, and find the frequency dependence of T1 is well modeled by a combination of capacitive dielectric loss, radiative loss to the microwave environment, and 1 /f flux noise. Using these three loss models and accounting for the frequency dependence of the qubit transition matrix elements, we convert T1 into a capacitive quality factor Qeff C to com-pare qubits. Our results indicate that microwave loss associated with the metal-substrate interface underneath the flux-onium JJs do not play as limiting a role in energy re-laxation as it did for transmons using the same materi-als processing [26]. We hypothesize that the many JJs comprising the linear inductance of the fluxonium play a role in the reduction of relative Qeff C (approximately 3.48 × 10 5 for these fluxoniums as opposed to approxi-mately 6 .6 × 10 6 for the transmons in Ref. [26], both ap-plying a frequency independent capacitive loss model [see Appendix XVII]). Taken together, these results point to the metal-air interface or the JJ barrier itself as the main host of fluxonium-limiting TLSs. Additional stud-ies seeking to understand the microscopic nature of TLSs will be key to future mitigation strategies and improving superconducting qubit performance. While our characterization technique does not probe the microscopic properties of the TLSs directly, it con-solidates their effects into simple metrics—the Qeff C distri-bution means and 95% confidence intervals—with which we compare qubits. Combining data from three qubits per process, we find the 95% confidence interval compar-ing the composite distributions to themselves is on the order of ±10% or less of their respective means. Mea-suring more qubits would further reduce our estimation error, at the expense of additional measurement time. This low estimation error indicates that our protocol is sensitive to relatively small changes in performance and can be used in future experiments as an effective probe of new materials, fabrication processes, and qubit designs.  
+
+> VIII. ACKNOWLEDGMENTS
+
+The authors would like to thank A. Almanakly, R. As-souly, W. P. Banner, J. Cummings, A. Di Paolo, A. L. Emser, G. Holland, A. Kou, J. F. Marques, X. Miloshi, and S. K. Tolpygo for valuable assistance and techni-7cal discussions. This research was funded in part under Air Force Contract No. FA8702-15-D-0001. L. A. ac-knowledges support from the NSF Graduate Research Fellowship and from the Laboratory for Physical Sci-ences Doc Bedard Fellowship. M. H. is supported by an appointment to the Intelligence Community Postdoc-toral Research Fellowship Program at the Massachusetts Institute of Technology administered by Oak Ridge In-stitute for Science and Education (ORISE) through an interagency agreement between the U.S. Department of Energy and the Office of the Director of National Intelli-gence (ODNI). J. A. and J. K. acknowledge support from the Korea Foundation for Advances Studies (KFAS). The views and conclusions contained herein are those of the authors and should not be interpreted as necessarily rep-resenting the official policies or endorsements, either ex-pressed or implied, of the U.S. Government.  
+
+> APPENDICES IX. EXPERIMENTAL SETUP
+
+This experiment was performed in a BlueFors XLD1000 dilution refrigerator used to cool the qubits to a temperature of approximately 12 mK. Devices were wire-bonded into gold-plated copper packages and mounted to a cold finger, which is connected to the mixing chamber stage of the cryostat. The samples are shielded with three layers of magnetic shielding at the mixing chamber stage. The innermost shield is made of aluminum, the middle shield of tin-plated copper, and the outer shield is made of Ammuneal A4K. The dc flux bias is supplied by a coil mounted to the lid of the package, current biased by a Yokogowa GS200 operating in voltage mode, filtered at room temperature by a homemade 10 Hz low-pass RC filter with a 10 kΩ series resistance. Twisted pair lines connect the dc bias to the sample coil. On-chip flux bias lines were present but not used in this experiment. All unused bias lines (charge and flux) were capped with 50 Ω terminations away from the qubit package, at the mixing chamber stage. For microwave qubit control, signals were generated by single-sideband mixing of Keysight PXIe M3202A 1 GSa/s arbitrary waveform generators with a Rohde and Schwarz SGS100A SGMA RF source. Readout sig-nals were generated by single-sideband mixing of PXIe Keysight M3202A 1 GSa/s arbitrary waveform genera-tors with a Keysight MXG microwave signal generator. All ac control and readout signals were attenuated with 60 dB of attenuation distributed throughout the fridge temperature stages, and filtered with a 12 GHz low-pass filter [Fig. 5]. All control electronics are synchronized with a 10 MHz SRS Rb clock. Output signals were amplified first by a traveling wave parametric amplifier (TWPA) [47] made by MIT Lincoln Laboratory, pumped by a Rohde and Schwarz SGS100A SGMA RF source. Signals were further amplified by a RF Source               
+
+> 50 K
+> 4 K
+> 800 mK
+> 12 mK
+> Coil
+> Low Pass Filter
+> DC Source LO
+> IQIQ Mixer Amplifier
+> Directional Coupler
+> 30 dB
+> Attenuator
+> 20 dB
+> Attenuator
+> 10 dB
+> Attenuator
+> LO
+> Circulator
+> TWPA
+> HEMT
+> MITEQ
+> SRS
+> 300 K
+> IQ
+> LO
+> LO
+> IQ
+> ADC
+> LO
+> IQ
+> 50 Ω
+> LO
+> IQ
+> LO
+> IQ
+> 12 GHz
+> 12 GHz
+> 12 GHz
+> 12 GHz
+> 12 GHz
+> 10 Hz
+> AWG AWG AWG AWG
+> Figure 5. Wiring diagram of experimental setup. Unused qubit control lines (here on the lower side of the sample chip) are connected to the 12 mK stage and capped with 50 Ω terminations, not pictured.
+
+LNF high electron mobility transistor (HEMT) amplifier at the 4 K stage, and again at room temperature with a MITEQ amplifier, and finally by Stanford Research Systems SR445A amplifier, before being detected by a Keysight M3102A digitizer.  
+
+> X. DEVICE CHARACTERIZATION
+
+We model the coupled qubit-resonator system with the Hamiltonian, ˆH = ˆHqubit + ˆHres + ˆHint . Here, ˆHqubit is given by Eq. 1, the bare resonator Hamiltonian is ˆHres = ℏωres (ˆ a†ˆa + 1 /2) , (5) 8𝐴𝐴𝐴              
+
+> 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐵𝐵 𝐴 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐴𝐴𝐴 𝐴𝐴𝐴
+> (𝜔𝜔 res +𝜒𝜒 1)/ 𝐴 𝜋𝜋
+> (𝜔𝜔 res +𝜒𝜒 0)/ 𝐴 𝜋𝜋
+> Figure 6. Readout resonator spectroscopy as a function of applied magnetic flux bias, with theory lines for the sum of bare resonator frequency and dispersive shifts ( ωres +χ0)/2πand ( ωres +χ1)/2πoverlaid. Here, we vary the y-axis across plots to accommodate the unique resonator frequencies, while the x-axis is shared. The color bar is also shared across all plots.
+
+and the interaction Hamiltonian between the qubit and resonator is ˆHint = ℏgˆn(ˆ a + ˆ a†). (6) The coupling constant g = ωres Cc
+
+> CΣ
+
+pπZ 0/R q , where the characteristic impedance of the readout resonator 
+
+Z0 = 50 Ω, and Rq = h/ (2 e)2 is the resistance quan-tum. The frequency shift of the resonator due to the qubit occupying state |i⟩ (otherwise referred to as the dispersive shift or Lamb shift), is then given by [48] 
+
+χi = X
+
+> i̸=j
+
+2g2|⟨ i|ˆn|j⟩| 2ωij 
+
+ω2 
+
+> ij
+
+− ω2res 
+
+(7) which is the basis for the dispersive measurement scheme employed in this work. We show the readout response around the resonator frequency versus applied flux bias for all qubits in Fig. 6, which we fit to Eq. 7 to extract the bare resonator fre-quency ωres and qubit-resonator coupling rate g/ 2π [Ap-pendix X]. We additionally show the measured qubit fre-quency ω01 /2π, with the overlay as predicted by each qubit’s Hamiltonian parameters in Fig. 7.  
+
+> A. Heralded Measurement
+
+When the qubit transition energy ℏω01 becomes small relative to the thermal energy scale kB T , the equilib-rium population in |1⟩ reduces readout contrast. In our experiment, at qubit transition frequencies of ≈ 1 GHz and below, a heralded measurement scheme is used for all qubit characterizations [49]. In this scheme, a qubit pre-measurement m1 is performed before the experiment qubit control pulses and is then correlated with a post-measurement m2 to determine the change in qubit state as a result of the control pulses. A wait time of 5 μs(> 5/κ for all readout resonators) is added between m1
+
+and any qubit control pulses to allow for measurement photons to dissipate. To determine the results in this heralded scheme, the averaged correlation function of the two measurements ⟨m1m2⟩ is fit to a function specific to each measurement.   
+
+> B. T1Measurements
+
+For each T1 measurement, the qubit and resonator sys-tem was characterized at the corresponding flux bias, ac-cording to the methods described in Appendix X. By applying a cosine pulse sideband modulated to drive the qubit frequency on the charge bias line, the population in the qubit |0⟩ and |1⟩ states is inverted, after which the population is allowed to freely decay for a variable amount of time prior to measurement. The delay times were spaced logarithmically for each T1 trace to capture the wide distribution of decay times. The resultant signal decay curve was fit to an exponential function to extract 
+
+T1, with error bars corresponding to one standard de-viation of error as output from our fitting protocol. We exclude from our analysis any T1 measurements for which this error bar was greater than twice the value of the T1
+
+time, which indicates a failure of our automated calibra-tion routine. The measured T1 versus ω01 /2π are shown in Fig. 8 for all fluxoniums measured.  
+
+> C. Dephasing Measurements
+
+At Φ ext /Φ0 = 0 .5, we characterize the Ramsey and echo dephasing times of each qubit, where each measure-ment utilized a heralding pre-measurement. To measured 9𝐴𝐴𝐴     
+
+> 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐵𝐵 𝐴 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐴𝐴𝐴 𝐴𝐴𝐴
+
+Figure 7. Qubit transition frequency ω01 /2π versus applied magnetic flux Φ ext . Points indicate measured frequencies, and the line is the calculated frequency from the qubit Hamiltonian parameters listed in Table I. 𝐴𝐴𝐴     
+
+> 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐵𝐵 𝐴 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐴𝐴𝐴 𝐴𝐴𝐴
+
+Figure 8. Measured T1 for all qubits as a function of transition frequency ω01 /2π. Gaps in measured data correspond to regions where the relative dispersive shift between qubit and readout resonator approached zero or diverged, reducing measurement SNR (see Fig. 6). 
+
+the Ramsey dephasing, we apply a resonant π/ 2-pulse to create an equal superposition state, wait for a vari-able delay time, and then apply a second resonant π/ 2-pulse (with variable phase to induce oscillations, as op-posed to a real frequency detuning) before dispersively measuring the qubit state. The Echo dephasing time is characterized similarly, adding a π-pulse centered be-tween the pair of π/ 2 pulses. The measurements are fit to ⟨m1(τ )m2(τ )⟩ = A × exp( −τ /T {R,E } 
+
+> 2
+
+) × cos( ωτ + ϕ). The average and standard deviations of repeated mea-surements of the Ramsey and Echo dephasing times T R2
+
+and T E2 , are reported in Table I. 
+
+D. Characterizing Aϕ
+
+To characterize the flux noise amplitude of each qubit, repeated interleaved measurements of T1 and T E 
+
+> ϕ
+
+were taken over a narrow range around Φ ext = 0 .5Φ 0. Away from Φ ext = 0 .5Φ 0, where we expect the dephasing to be limited by 1 /f flux noise, the data from the spin-echo ex-periments were fit with a decay envelope ⟨m1(τ )m2(τ )⟩ =
+
+A × exp[ −τ / (2 T1) − (τ /T E 
+
+> ϕ
+
+)2] × cos( ωτ + ϕ). In this fit function, T1 was constrained to the value obtained from the immediately preceding measurement. As shown in Fig 9, we analyze the dependence of Γ E 
+
+> ϕ
+
+= 1 /T E 
+
+> ϕ
+
+on the absolute value of the qubit spectrum slope in flux, where we expect Γ E 
+
+> ϕ
+
+= | ∂ω ∂Φ |pAϕln(2). We fit the data to a lin-ear function to extract pAϕ. Given that dephasing in this model vanishes at Φ ext /Φ0 = 0 .5 where ∂ω ∂Φ = 0, the fit enforces an intercept with the origin [38]. Measure-ments at Φ ext = 0 .5Φ 0 where we do not expect dephasing to be limited by first-order flux noise were not included in the linear fit. We observe a wide range of pAϕ across the fluxoni-ums [Fig 9]. Noise that couples to the qubit from the flux bias coil and from defects in the microscopic envi-ronment contribute to this flux noise. We used a voltage source with an inline 10 kΩ resistor as an effective cur-rent supply for our bias coil for all measurements. Noise 10 𝐴𝐴𝐴  𝐵𝐵 𝐴  𝐴𝐴𝐴  𝐵𝐵 𝐴                      
+
+> 𝐵𝐵𝐵 𝐴𝐴 𝐵 𝐴𝐴𝐴 𝐴𝐴𝐴
+> 𝐴𝐴 𝜙𝜙 =𝐴 0.𝐵 8𝐴𝐴 𝜙𝜙 =𝐴 .𝐴 9
+> 𝐴𝐴 𝜙𝜙 =𝐴 .𝐴𝐴 𝐴𝐴 𝜙𝜙 = 6. 𝐵 9𝐴𝐴 𝜙𝜙 =𝐴 .𝐵𝐴
+> 𝐴𝐴 𝜙𝜙 =𝐴 .𝐴 8𝐴𝐴 𝜙𝜙 =𝐴 .70
+> 𝐴𝐴 𝜙𝜙 =𝐴 .𝐵𝐵
+
+Figure 9. Measured Γ Eϕ versus external flux sensitivity for all qubits with linear fit used to extract pAϕ for each qubit. We note that the y-axes are shared across all plots, however the x-axis varies as was necessary to accommodate each qubit’s unique transition spectrum and the range over which Γ Eϕ was characterized. 
+
+Figure 10. Extracted pAϕ versus V0, the voltage applied to the global bias coil required to bias the fluxonium to Φ ext =Φ0.
+
+from our instrumentation would appear as correlation be-tween pAϕ and the effective coupling of the bias line to the qubit (larger coupling corresponds to lower voltage periodicity, which we report in units of V / Φ0). Fig. 10 shows the flux noise amplitude Aϕ versus the voltage pe-riodicity for each qubit. We observe a weak correlation between the voltage periodicity and the extracted flux noise amplitude, indicating that global bias noise is not itself sufficient to describe the variation in pAϕ.
+
+XI. MODELING T1
+
+Fermi’s golden rule is used to model the transition rate between two qubit energy eigenstates |i⟩, |j⟩, under the influence of a perturbatively treated noise source [50], which is given by Γλ = 2
+
+ℏ2 |⟨ i| ˆDλ|j⟩| 2Sλ(ωij ). (8) Here, Sλ(ωij ) = 12
+
+R ∞−∞ ⟨λ(0) λ(t) + λ(t)λ(0) ⟩e−iω ij tdt ,which is the symmetrized, two-sided power spectrum of the time-fluctuating noise λ(t), and ℏωij is the transition energy between the eigenstates |i⟩ , |j⟩. The coupling of this noise to the qubit system is generically described by a linear interaction term in the Hamiltonian of the form ˆDλλ(t). The qubit susceptibility to different noise sources is contained within the transition matrix element 
+
+|⟨ i| ˆDλ|j⟩| 2.
+
+A. Circuit Models of Loss 
+
+For circuit-based models of dissipation, we model noise as a fictitious resistor in the qubit circuit. Under this class of models, the power spectrum is obtained by considering either voltage fluctuations across a resistor in parallel to the qubit circuit, or current fluctuations through a resistor in series with a qubit circuit element. Following the Caldeira-Leggett model, the symmetrized noise spectra for Johnson-Nyquist voltage and current fluctuations are, respectively [39, 40, 51], 
+
+SV (ωij ) = ℏωij Re[ Z(ωij )]coth 
+
+ ℏωij 
+
+2kB T
+
+
+
+, (9) and 
+
+SI (ωij ) = ℏωij Re[ Y (ωij )]coth 
+
+ ℏωij 
+
+2kB T
+
+
+
+, (10) where Z(ωij ) is the impedance of our effective circuit and 
+
+Y (ωij ) = 1 /Z (ωij ) is the admittance. 
+
+1. Capacitive Dielectric Loss 
+
+Lossy dielectric materials that couple to the electric field of the qubit via the operator 2 eˆn are modeled in this work as Johnson-Nyquist voltage noise across the qubit capacitor. The relevant impedance for the voltage noise spectrum is calculated from the parallel capacitive and resistive branches, Z(ωij ) = ( iω ij CΣ + 1 /R )−1. All 11 other qubit elements are treated as perfect and lossless in this model. We substitute the quality factor for a parallel resonance circuit, QC = ωij RC Σ [52], into our impedance expression to obtain Z(ω) = 1  
+
+> QCωij CΣ
+
+. To-gether this gives the energy relaxation rate [53], ΓC1 = 16 EC
+
+ℏQC
+
+|⟨ 0|ˆn|1⟩| 2coth 
+
+ ℏω01 
+
+2kB T
+
+
+
+. (11) where QC indicates the quality factor of the lossy ca-pacitor. Though the construction of this model typically assumes quality factor of the circuit to be frequency inde-pendent, we lift this assumption (Eq. 4), which we find better describes our data along the lines of other litera-ture [15, 17–19, 41]. We do not explicitly model the fine frequency structure associated with TLSs, and instead use the frequency dependent effective quality factor Qeff C
+
+in our main analysis to characterize and compare qubits.  
+
+> 2. Inductive Loss
+
+Dual to the capacitive loss model is a phenomenologi-cal model for lossy dielectric materials that couple to the magnetic field of the qubit through the operator ϕ0 ˆφ,where ϕ0 = Φ 0/2π are modeled in this work as Johnson-Nyquist current noise through a series resistive element. In this work we instead consider of two microscopically motivated models — 1 /f flux noise and QP tunneling through JJ array — instead of this phenomenological in-ductive loss model. For more details on this inductive circuit loss model, see Refs. [13, 16, 19, 53] and refer-ences therein.  
+
+> 3. Spontaneous Emission to Control and Readout Circuits
+
+We utilize circuit-based models for loss through the charge and flux control lines, as well as for resonance-enhanced (Purcell) emission through the readout res-onator, described in detail here. 
+
+Charge control line: We model radiative loss to the charge control line as voltage noise from a 50 Ω environ-ment coupled to the qubit across the capacitance between the control line and the qubit, Cd. The relaxation rate is written as [11, 19, 54] Γcd 1 = 16 ECC2d
+
+ℏ2e2 |⟨ 0|ˆn|1⟩| 2coth 
+
+ ℏω01 
+
+2kBT
+
+
+
+. (12) From finite element simulations, Cd is estimated to be 20 aF, which is used for all qubits. From the qubit Hamiltonian parameters, the coupling capacitance, and assumed qubit effective temperature, we calculate the contribution of this mechanism to all qubit T1 times in our dataset. This mechanism is accounted for in the main text comparative analysis, as well as in two-level level analysis detailed in Appendix XVIII. 
+
+Flux control line: Analogous to the charge control line, we model radiative loss to the flux control line as current noise from a 50 Ω environment coupled induc-tively via the mutual inductance between the control line and the qubit Md. Combined with the current noise spec-trum, this gives the relaxation rate [19], Γfd 1 = 8π2E2LM 2d
+
+ℏ2Φ20
+
+|⟨ 0| ˆφ|1⟩| 2coth 
+
+ ℏω01 
+
+2kBT
+
+
+
+. (13) The flux line design and loop area for all qubits in this dataset is identical to that in Ref. [19], with a mutual inductance Md = Φ 0/21 .5 mA used for all qubits in this dataset [19]. From the qubit Hamiltonian parameters, the mutual inductance, and the assumed qubit effective temperature, we numerically exactly calculate the con-tribution of this mechanism to all qubit T1 times in our dataset. This mechanism is accounted for in the main text comparative analysis, as well as in the N = 2 level analysis detailed in Appendix XVIII. 
+
+Readout Resonator: 𝜆𝜆 /4     
+
+> 𝑀𝑀 𝐿𝐿 1𝐿𝐿 2
+> 𝑍𝑍 0
+> 𝑍𝑍 0
+> 𝐶𝐶 c
+> Figure 11. Effective circuit diagram used for calculation of Purcell loss. Purple elements correspond to the fluxonium qubit circuit, red elements correspond to the readout res-onator, and green elements correspond to the microwave feed-line.
+
+We utilize a circuit based model for Purcell decay through the readout resonator, in contrast to other mod-els in literature that treat the resonator quantum me-chanically [13]. This was chosen to more accurately model the frequency dependence of the coupling between all qubit levels and the resonator. We model the readout resonator as a λ/ 4 transmission line with characteristic impedance Z0 = 50 Ω, capacitively coupled on one end to the qubit and inductively coupled to the feedline on the other. The feedline is modeled as an infinitely long transmission line via termination with a 50 Ω resistor on either end [Fig. 11]. The relaxation rate due to this mechanism is written as [19] ΓP1 = 8e2ω01 
+
+ℏ
+
+ Cc
+
+CΣ
+
+2
+
+|⟨ 0|ˆn|1⟩| 2Re[ Zin (ω01 )]coth 
+
+ ℏω01 
+
+2kB T
+
+
+
+(14) where the coupling capacitance Cc = ℏgC Σ
+
+> 2eω res
+
+q π 
+
+> 2ℏZ0
+
+, and 
+
+CΣ is the total qubit capacitance. Zin (ω01 ) is the input impedance of the lossy environment the of the feedline filtered by the readout resonator, as seen by the qubit. 12 For the mode with frequency ωres , Zin is written as 
+
+Zin (ω) = Z0
+
+ω2M 2 cot( πω  
+
+> 2ωres
+
+) + 2 jZ 20
+
+2Z20 cot( πω  
+
+> 2ωres
+
+) + jω 2M 2 , (15) where M is the mutual inductance between the resonator and feedline [52]. Assuming this coupling is weak such that ωM ≪ Z0, we rewrite Eq. 15 as 
+
+Zin (ω) ≈ 1 
+
+> ω2res M2
+> Z30
+
++ 2jπω 
+
+> 2ωres Z0
+
+= 11/R + 2 jωC . (16) where by matching terms with the parallel RLC circuit, we find R = Z30 /ω 2res M 2, and C = π/ 2ωres Z0. The qual-ity factor is defined as Q = ωRC , which for the obtained values of R and C can be rewritten as 
+
+Q = πZ 20
+
+2ω2res M 2 . (17) We do not directly measure the mutual inductance be-tween the readout resonator and the feedline, but we do measure the resonator quality factor, Qres = ωres /κ ,which we use as a substitute for the mutual inductance (assuming that the resonator is over-coupled to the feed-line), 
+
+M = Z0
+
+ωres 
+
+r π
+
+2Qres 
+
+. (18) For qubits with transition frequencies within 1 GHz of their readout resonator frequencies, we find Purcell loss through the readout resonator becomes strong enough to limit the T1 in addition to capacitive dielectric loss. Under a six-level model for this mechanism, the limit to 
+
+T1 is stronger across the qubit tuning range than in a two-level model, with features corresponding to higher qubit transitions crossing the resonator (see solid red curves in Fig. 12).  
+
+> B. Quasiparticle-Induced loss
+
+Here we model energy relaxation due to nonequilib-rium quasiparticles tunneling across the qubit junctions. We first assume the energy hierarchy, εQP , ℏωij ≪ ∆, where εQP is the characteristic energy of the quasipar-ticles, ℏωij is the qubit transition energy, and ∆ is the superconducting gap. In this low energy regime, we ad-ditionally assume that the qubit energy is larger than the quasiparticle energy, which allows us to simplify the noise spectral density to [8, 55] 
+
+SQP (ωij ) = xQP 
+
+8EJ
+
+πℏ
+
+s
+
+2∆ 
+
+ℏωij 
+
+. (19) The consequence of this assumption is that quasiparti-cles can only relax the qubit, and not excite it as they do not have the requisite energy. We reintroduce this possibility into the quasiparticle noise spectral density by adding a contribution reduced by a Boltzmann fac-tor eℏωij /k B T , consistent with detailed balance. The loss from quasiparticles tunneling across the junction couples via the sin( ˆ φ/ 2) operator, which combined with the noise spectrum gives the relaxation rate [8, 55] ΓQP 1 = 16 EJxQP 
+
+πℏ
+
+r 2∆ 
+
+ℏω01 
+
+|⟨ 0|sin( ˆ φ/ 2) |1⟩| 2(1 + eℏω01 /k B T ),
+
+(20) where xQP is the normalized quasiparticle density. For quasiparticles tunneling in the JJ array inductor, we sum the contribution from each JJ, each with corresponding phase drop ˆ φ/N array where Narray is the total number of JJs in series. As Narray is typically large (in our case 151), we approximate sin ˆ φ ≈ ˆφ to get the rate, ΓQP ,A1 = 2ELxQP 
+
+πℏ
+
+r 2∆ 
+
+ℏω01 
+
+|⟨ 0| ˆφ|1⟩| 2(1 + eℏω01 /k B T ). (21) Assuming a spatially homogeneous, normalized QP density xQP , a value of 1 × 10 −6 or higher would be required for tunneling through the single JJ branch to describe the measured T1. This required quasiparticle density is significantly larger than reported in recent mea-surements [56, 57]. The same xQP predicts a T1 due to QP tunneling in the inductor JJs that underestimates the data at low transition frequencies. The array tunneling model can align with the data at low frequencies using an xQP = 1 × 10 −8 or less, for which QP tunneling across the single JJ branch would not be limiting. At these fre-quencies, we continue to see signatures of dielectric loss limitation (TLS-like features), indicating that limitation from quasiparticles is unlikely. Therefore, we assume QP tunneling to be a negligible effect in all analysis.   
+
+> C. 1/f flux noise
+
+To model 1 /f flux noise, we consider fluctuations in flux bias coupling to the fluxonium Hamiltonian [Eq. 1], which couple to the qubit through the inductor via the operator ϕ0 ˆφ. We write the power spectrum of this noise as 
+
+SΦ(ωij ) = 
+
+ 2πA ϕ
+
+ωij 
+
+α
+
+(22) where Aϕ is the noise amplitude referenced at 1 Hz [29, 58]. The method used to extract Aϕ is described in detail in Appendix X D, assuming α = 1. The energy relaxation rate is written as ΓΦ1 = 4 π
+
+ 2πE L
+
+ℏΦ0
+
+2
+
+|⟨ 0| ˆφ|1⟩| 2 Aϕ
+
+ω01 
+
+(23) where temperature dependence of this model in included implicitly in the value of Aϕ [17, 19]. 13   
+
+> XII. N-LEVEL ENERGY RELAXATION MODEL A. Modeling energy relaxation dynamics
+
+Qubit population transfer through higher energy levels has been shown to be relevant to relaxation of qubits with energy splitting on the order of kBT or other times when higher levels are populated [19, 59, 60]; we re-summarize this analysis below. We consider the population dynam-ics using the time evolution of the population vector ⃗p,which tracks six lowest energy levels of the circuit (af-ter which we see the results from our modeling converge, for all qubits). The vector ⃗p evolves under the equation 
+
+> ddτ
+
+⃗p(τ ) = B⃗p(τ ) [19]. The matrix B is defined as 
+
+B =
+
+
+
+− NP
+
+> i̸=1
+
+Γ0→i Γ1→0 · · · ΓN →0
+
+Γ0→1 − NP
+
+> i̸=1
+
+Γ1→i · · · ...... ... . . . ΓN →N −1
+
+Γ0→N Γ1→N · · · − NP
+
+> i̸=N
+
+ΓN →i
+
+
+
+(24) where elements Γ i→j are transition rates from state |i⟩ to state |j⟩, where at present we are considering the transi-tions induced by a single loss model. The solution to the differential equation is ⃗p(τ ) = e Bτ⃗p(0) = V e Sτ V −1⃗p(0), where B is diagonalized by V SB −1. Here S is a diagonal matrix of real eigenvalues associated with the columns of matrix V , which are composed of the eigenvectors of B.The population evolves according to each eigenmode of B as ⃗p(τ ) = c 0⃗v 0 + c1⃗v 1e−γ1τ + ...c N⃗v N e−γN τ (25) with 
+
+
+
+c0 c1 · · · cN
+
+T
+
+= V⃗p(0), being the coefficients of the initial state in the eigenbasis of B. We use an equi-librium state as the initial state of the system ⃗p(0) with occupation probabilities given by the Boltzmann distri-bution, assuming a temperature of 40 mK. We invert the population between the first two states and solve for the time evolution of ⃗p(τ ) back to the equilibrium state. With higher energy levels allowed to participate in pop-ulation dynamics, T1 maintains it’s definition of being the timescale upon which a perturbed qubit population returns to thermal equilibrium, however these higher lev-els can introduce interesting effects. The solution to this model is by definition non-exponential, however our mea-sured decay envelopes do not noticeably deviate from an exponential shape (this is further discussed and quanti-fied in Appendix 15). We find for the Hamiltonian pa-rameters of the qubits in this dataset, it is important to consider the multi-rate nature of this model to ac-curately capture the qubit population dynamics. Fur-thermore, we find a consequential impact on the decay signal from the higher-state Lamb shifts of the readout resonator, which also requires an accounting of all system rates to model. Due to the range of Hamiltonian parame-ters and observed impact of the readout resonator on the extracted decay timescale, we follow a protocol distinct from that [19], where the eigenvalue of the mode with greatest overlap with the initial state of the system was chosen as the decay rate. In this work, we solve the rate matrix differential equa-tion for ⃗p(τ ). Using the extracted qubit Hamiltonian pa-rameters and qubit-resonator coupling, we also calculate the Lamb shifts of the resonator due to qubit popula-tion in each considered energy level. We find resonator response for each qubit state |i⟩ according to 
+
+Si
+
+> 21
+
+(ω) = 1 − QLoad /Q Coup 
+
+1 + 2iQ Load ∆ωi
+
+> ωres +χi
+
+, (26) where QLoad and QCoup are the loaded and coupling Qsof the resonator, respectively, and ∆ ωi is the difference between the probe frequency ω and the dressed frequency of the resonator ωres + χi. For this modeling, we make the assumption that QLoad = QCoup = ωres /κ , and that we probed the resonator at frequency ( ωres + χ0)/2π
+
+The location in IQ space of each higher state frequency of our resonator can then be calculated via Eq. 26. To match experiment, we then rotate the simulated response to maximize signal contrast ( Si
+
+> 21 ,rot
+
+). Finally, we calcu-late an expected T1 decay signal as 
+
+s(τ ) =  
+
+> N=6
+
+X
+
+> i
+
+pi(τ )Re {Si
+
+> 21 ,rot
+
+} , (27) where pi(τ ) is the population in the ith state as a function of the T1 measurement delay time, and Si 
+
+> 21
+
+is the rotated location of the state in the IQ plane. We fit s(τ ) to an exponential to extract the expected decay rate. To simulate a T1 time informed by multiple loss chan-nels, the architecture outlined previously is extended by summing the rate matrices Btot = P 
+
+> m
+
+Bm, m repre-sents each included loss model. This is analogous to sum-ming the rates due to each loss mechanism in an two-level model, where Γ tot 1 = P 
+
+> m
+
+Γm 
+
+> 1
+
+. For the main text compar-isons, we sum loss matrices for capacitive dielectric loss, 1/f flux noise, and radiative losses to the microwave en-vironment to describe the T1 (and calculate Qeff C ) of each qubit in the dataset.    
+
+> B. Identifying Limiting T1Mechanisms
+
+In Figure 12, we show the measured T1 for all qubits with each coherence model we consider overlaid. For the six-level models we do not include the effect of the res-onator Lamb shift on the T1, and instead fit the decay of p1(t) to an exponential. We use the device specific measured parameters for our models of 1 /f flux noise and Purcell loss, summarized in Table I. We assume an 
+
+xQP of 1 × 10 −9 for models of quasiparticle tunneling for 14 each device. The dielectric loss model uses the mean Qeff C
+
+reported in II and ϵ = 0 .25. We see that the capacitive dielectric loss describes the data over a majority of the qubits frequency tuning range. For some qubits, limitation from 1 /f flux noise or Purcell losses are more prevalent in certain regions of the flux range, particularly for qubits A1, A4, and A5.  
+
+> XIII. DATA PROCESSING
+
+In this section we describe the data processing done to convert the measured T1 times to the Qeff C distributions used in the main text for all comparisons.  
+
+> A. Binned Average
+
+As described in the main text, we apply an 8 MHz binned average to the T1 data across the frequency tuning range of each device. The binned average reduces the influence of potential oversampling of specific TLSs on the data analysis by averaging over these features. The window size of 8 MHz was chosen as the average observed TLS feature full-width-at-half-maximum. The binning primarily affects data taken near Φext /Φ0 = 0 and 0 .5. We summarize the number of T1
+
+samples and the number of points remaining after the 8 MHz binned average is applied for each qubit in Table VI. We see that a majority of the frequency tunable range for each qubit is not impacted by the binning [Fig. 13].   
+
+> B. Converting to Qeff C
+
+To extract Qeff C , we solve the differential equation for population evolution using a rate matrix composed of multiple loss models Btot = P 
+
+> m
+
+Bm, where indices m
+
+represent each loss model. At this stage of the anal-ysis, we only include losses in the matrix Btot due to 1 /f flux noise, radiative emission to the microwave environment, and capacitive dielectric loss. We uti-lize scipy.optimize.minimize [61] with the Nelder-Mead method [62, 63] to solve for Qeff C from our measured T1.We define our cost function as squared difference be-tween the predicted T1 from a trial Qeff C and the measured 
+
+T1. We exclude data points limited significantly by flux noise and/or radiative losses, defined in this analysis by whether the contributions from those models are greater than 10% of the measured rate. We then assume the re-maining data is representative of the capacitive dielectric loss. The number of points in the final Qeff C distribution for each qubit is summarized in VI. Flux noise at low frequencies as well as radiative losses through the read-out resonator are both limiting for qubits A4 and A5 in the dataset, and commensurately they have the fewest number of points remaining after this processing in their 
+
+Qeff C distributions [Fig. 13, Table VI].    
+
+> C. Frequency Dependence of the Qeff CDistributions
+
+To find the ϵ in Eq. 4 that best describes the entire dataset, we calculate Qeff C for each qubit using varying ϵ
+
+from -1 to 1 in steps of 0.05. For each qubit at each ϵ, we calculate log 10 (Qeff C )−log 10 (Qeff C ), where Qeff C is the mean of the qubit Qeff C distribution. We minimize the variance of this parameter combining data from all qubits over the range of tested epsilons to find the best fit, ϵ = 0 .25. We plot the Qeff C distributions with this best epsilon versus the qubit transition frequency in Fig. 13. Though we use the same frequency dependence for each qubit in the main text analysis, we note that each qubit has a unique frequency dependence, varying be-tween ϵ = −0.15 and ϵ = 0 .50. We show the best ϵ for each qubit for both the six-level analysis and for a two-level analysis in Fig. 14. Most qubits in the dataset show an increase in the average extracted Qeff C from high to low transition frequency, however, this trend is broken by qubit B2. We note that applying the globally opti-mized ϵ = 0 .25 does not seem to significantly decrease the applicability of this model given the spread of mea-sured Qeff C as a function of qubit frequency. Though the frequency trend in Qeff C is not universal across all devices, by fitting the entire dataset together we are able to com-pare the distributions on equal footing and mitigate fit bias from qubits with less data at low frequency.  
+
+> XIV. VALIDATION TESTS FOR SIX-LEVEL RELAXATION MODEL
+
+Here, we justify the application of exponential decay fit functions to our dataset under the six-level model of population dynamics.  
+
+> A. Quantifying exponential dynamics
+
+Deviation from exponential decay was not observed in this experiment. It is of note, however, that multi-exponential decay dynamics have been observed in other fluxonium coherence studies in literature [8, 15]. Follow-ing Ref. [19], to quantify our expectations of exponential behavior under a six-level treatment of the population dynamics, we calculate a vector quantity ⃗ δ, defined as ⃗δ =⃗p(0) − c 0⃗v 0 − ck, max ⃗v k, max . (28) Here, we subtract from our equilibrium population vector ⃗p(0) the contributions of the steady state, or “stationary mode” c0⃗v 0, and the most dominant mode ck, max ⃗v k, max .We define the eigenvectors to have unit length, such that || ⃗v i|| = 1. The most dominant mode is defined as the eigenmode of the rate matrix with the greatest overlap with the initial state of the system, k, max = argmax i̸=0 |ci|2, and should be most characteristic of the decay of ⃗p(t). Though the main text does not use the 15 Dielectric QPs       
+
+> Radiative 1/ 𝑓𝑓 flux
+> QPs, array
+> Data Total
+> 𝐴𝐴𝐴 𝐵𝐵 𝐴 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐴𝐴𝐴 𝐴𝐴𝐴 𝐵𝐵𝐵 𝐴𝐴 𝐵
+
+Figure 12. Measured T1 versus ω01 /2π for each qubit. Note that each subplot’s x axis is varied to accommodate each qubit’s frequency tuning range. The y axis range is shared for all plots. Overlay lines show predicted T1 due to different models. Solid lines indicate models for which a six-level treatment is considered, dashed lines indicate a two-level treatment. All models assume an effective qubit temperature of 40 mK and an effective resonator temperature of 65 mK. 1 /f flux noise, Purcell loss, and dielectric loss curves use qubit specific parameters summarized in Tables I, II. The phenomenological frequency dependence is used for the dielectric loss model, with ϵ = 0 .25. Quasiparticle models assume xQP = 1 × 10 −9.𝐴𝐴𝐴     
+
+> 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐵𝐵 𝐴 𝐴𝐴𝐴 𝐵𝐵 𝐴
+> 𝐴𝐴𝐴 𝐴𝐴𝐴
+
+Figure 13. Extracted Qeff C data used in the main text, for each qubit, versus qubit transition frequency. The dielectric loss model includes the frequency dependence according to Eq. 4 with ϵ = 0 .25. Green vertical shaded regions indicate areas where more than one T1 data point was within the same bin. In those regions, the Qeff C is calculated from the bin average T1 value. 
+
+decay rate of the most dominant mode as the T1 of the system, we find this method useful to quantify the contri-bution of all matrix modes to the decay dynamics, which we use to understand how applicable an exponential fit to the population decay is to our system. The vector ⃗ δ contains the population in the nondomi-nant, non-steady state modes of the system. The length of ⃗ δ is 
+
+M =
+
+sX
+
+> i
+
+δ2 
+
+> i
+
+, (29) which is used as a quantitative metric to benchmark the exponential behavior of our system. For each device we 16 
+
+Figure 14. Extracted frequency dependence of the Qeff C dis-tributions, ϵ, under the six-level model (circles) and 2-level model (diamonds), for each qubit. 
+
+calculate the decay rates γi, the vector overlaps |ci|, and the length of ⃗ δ, M, across the flux tuning range [Fig. 15]. We use a rate matrix accommodating for capacitive di-electric loss with the device average Qeff C , ϵ = 0 .25, 1 /f 
+
+flux noise, and radiative losses to the microwave environ-ment. At the greatest values of M for each device, we examine the decay of p1(τ ) and compare it to a single exponential decay curve. Across all qubits in this study, our model does not pre-dict a significant deviation from exponential decay even at the least exponential (highest M value) flux bias, where we show an exponential fit to the decay of p1 at that bias to confirm [Fig. 15(c) inset]. This is consistent with our observations of exponential behavior in experiment. 
+
+B. Effect of population leakage on dispersive T1
+
+measurements 
+
+Here, we discuss the importance of the inclusion of the Lamb shifts in the simulation of the energy relaxation dynamics. We plot the relative error as the T1 extracted from a single exponential fit to p1 (dark gray curve in Fig. 16(a(iii))), here labeled T1, minus the decay rate as extracted from a single exponential fit to s(τ ) (our sim-ulated signal influenced by the resonator, corresponding to the black dashed curve in Fig. 16(a(iii)))), here T ′′  
+
+> 1
+
+,divided by T1 [Fig. 16(b)]. We see the highest relative error values being between bias values of Φ ext /Φ0 = 0 and ≈ 0.2 [Fig. 16(a(iii), b)], with a maximum error of about 15% observed for qubit B2. This high relative er-ror indicates that it is indeed necessary to consider the response of the readout resonator for these qubit param-eters. Though qubits with different Hamiltonian param-eters may be less sensitive to this effect [19], we choose to apply the same model considerations to all qubits in this dataset. (a) 
+
+> (b)
+> (c)
+> 𝐴𝐴𝐴
+
+Figure 15. Quantifying exponential behavior under the six-level model for energy relaxation. Calculations use the Hamil-tonian parameters of the qubit with least exponential behav-ior (highest M value), A3. (a) Decay rates γi of each rate matrix normal mode versus flux. The rate associated with most dominant mode, γmax is shown with a black dashed line. (b) Overlap with the initial state of each normal mode of the rate matrix. Largest overlap |cmax | shown with black dashed line. (c) M metric versus flux, where high values correspond to less exponential behavior, and low values correspond to more exponential behavior. The maximum M value is high-lighted in red. The vertical shaded region corresponds to the least exponential region (this is symmetric in flux, though we only shade the region within Φ ext /Φ0 = 0 , 0.5), as determined by the maximum value of M. Inset shows the decay of p1 at the flux with the highest M value, with gray dashed overlay corresponding to a single exponential fit of the decay of p1(t). 
+
+C. Effect of population leakage on heralded T1
+
+measurements 
+
+In this section, we address the potential error in our measured T1 data due to population leakage outside the first two energy levels of the qubit, assuming the data was measured with the heralded scheme described in Ap-pendix X A. To model this, we fit an exponential func-tion to the decay p1(τ ) under two cases: total population misassignment to the |0⟩ state of the qubit, and total population misassignment to the |1⟩ state of the qubit. 17 0.185 Φ00.185 Φ0             
+
+> 0.185 Φ0
+> 𝑇𝑇 1
+> 10.22 ( 𝜇𝜇 s)
+> 𝑇𝑇 1′− 𝑇𝑇 1/𝑇𝑇 1
+> 𝑇𝑇 1′′ − 𝑇𝑇 1/𝑇𝑇 1
+> 𝐸𝐸 1
+> 𝐸𝐸 2
+> 𝐸𝐸 3
+> 𝐸𝐸 4
+> 𝐸𝐸 5
+> 𝐸𝐸 0
+> max( 𝑇𝑇 1′− 𝑇𝑇 1/𝑇𝑇 1)
+> max( 𝑇𝑇 1′′ − 𝑇𝑇 1/𝑇𝑇 1)
+> 𝐵𝐵𝐵
+> (a)
+> (b)
+> (c)
+> (i) (ii) (iii)
+> 𝑝𝑝 0
+> 𝑝𝑝 1
+> 𝑝𝑝 2
+> 𝑝𝑝 3
+> 𝑝𝑝 4
+> 𝑝𝑝 5
+> 𝑝𝑝 0
+> 𝑝𝑝 1′𝑠𝑠 𝜏𝜏
+
+Figure 16. Simulating the effect of state misassignment of higher level populations under different measurement tech-niques. Calculations shown are for the qubit with highest observed relative errors, B2. (a) Comparison of extracted 
+
+T1 times under different methods. (i) Full population evolu-tion at Φ ext /Φ0 = 0 .185, the flux with highest relative error for heralded measurements. Dashed line is an exponential fit to the decay of p1, with the plot title corresponding to the extracted decay timescale. (ii) Decay of p0, p1 with all higher state population assigned to p1 at at Φ ext /Φ0 = 0 .185. Plot title corresponding to the extracted decay timescale from an exponential fit to p1. (iii) Decay of signal s(τ ) at the bias with highest relative error for dispersive measurements, Φext /Φ0 = 0 .185. The dark gray curve (behind the orange points) corresponds to the T1 as extracted from fitting the decay of p1 (where p1 is not shown), to compare with the dashed black curve exponential fit of s(τ ). (b) Relative er-ror versus flux for the two measurement techniques. Black dashed line indicates 1% relative error. (c) Energy spectrum of qubit B2 for the first N = 6 levels. The vertical shaded re-gion corresponds to the biases with the highest relative errors, as observed in panel (b). This is symmetric in flux, though we only shade between Φ ext /Φ0 = 0 , 0.5. 
+
+In the case where all higher level population is assigned to the |0⟩ state, the decay of p1 is unaffected and the sin-gle exponential fit used to extract T1 is identical to the case of perfect population assignment. We therefore com-pare the values of extracted T1 as obtained from fitting 
+
+p1 with and without all higher level populations assigned to p1 [Fig. 16(a(ii))]. We plot the relative error as the T1
+
+extracted from a single exponential fit to p1 with perfect population assignment, here labeled T1, minus the de-cay rate as extracted from a single exponential fit to p1
+
+with all higher state populations misassigned to it T ′
+
+> 1
+
+, di-vided by T1 [Fig. 16(b)]. We see a relative error of up to 13% due to population misassignment in this measure-ment scheme, with the largest relative errors occurring between Φ ext /Φ0 = 0 and 0.3. Heralded measurements were used in this experiment when the qubit transition energy ℏω01 became small rela-tive to the thermal energy kBT , around ω01 /2π ≈ 1 GHz, or 0 .7 ⪆ Φext /Φ0 ⪆ 0.3 on the qubits in this dataset. In that region, the relative error from population misassign-ment in this scheme is significantly lower, on the order of 1%. Though population misassignment could have oc-curred in this measurement scheme, we conclude that it is likely a small effect on the measured T1 values. We therefore choose to neglect the impact of this error in our analysis. 
+
+XV. STATISTICAL TESTING 
+
+We use statistical testing to quantitatively compare the Qeff C distributions. As our distributions are non-Gaussian distributed, a natural choice would be to use a non-parametric test such as the Kolmogorov-Smirnov (KS) [64, 65] test or the Mann-Whitney U (MWU) [66]. Crucially, however, the presence of TLS features that will be unique to each qubit’s local microscopic environment implies that the underlying distributions of Qeff C in the well-sampled limit will never be identical qubit-to-qubit. Because of this, we choose to apply statistical compar-ison methods that do not rely on the assumption that the all moments of the compared distributions are iden-tical. This criterion rules out the KS test, which does have this hypothesis. The MWU test would still be an appropriate choice, however for distributions with non-identical shapes it’s comparison of distribution medians is less interpretable. Given the variation we observe in our distributions, we favor using Welch’s two-sided t-test for its interpretability as a comparison of means. Welch’s two-sided t-test is a statistical test compar-ing the difference in means of two distributions, without assuming that the two distributions have equal variance [46]. The test calculates the test statistic t0, defined as 
+
+t0 = ¯x1 − ¯x2
+
+q σ21 
+
+> n1
+
++ σ22
+
+> n2
+
+, (30) where ¯ x1 and ¯ x2 are the means of compared distributions, 
+
+σ21 and σ22 are their variances, and n1 and n2 are the number of their samples. The test also calculates the degrees of freedom ν, de-fined in this case as 
+
+ν = ( σ21 
+
+> n1
+
++ σ22 
+
+> n2
+
+)2( σ21  
+
+> n1)2
+> n1−1
+
++ ( σ22 
+
+> n2)2
+> n2−1
+
+(31) 18 Using the t-statistic and the degrees of freedom, the p-value is calculated from the t-distribution probability density function (PDF), given by 
+
+f (t, ν ) = Γ( ν+1 2 )
+
+√πν Γ( ν 
+
+> 2
+
+) (1 + t2
+
+ν )−(ν+1) /2, (32) where Γ is the gamma function. The t-distribution PDF is a symmetric function about t = 0, greatly resembling a bell curve of mean zero and variance one, but typically with more weight in the tails of the distribution. As ν
+
+increases, the t-distribution PDF approaches the normal distribution. The p-value is calculated as the integral of the t-distribution PDF, f (t, ν ), from values of ±t0 to ±∞ .Graphically, it is the area in the tails of the distribu-tion, defined for the regions above t0 and below −t0. If a distribution is compared to itself under this test, the t-statistic t0 = 0, and the p-value would therefore be equal to 1. For two distinct distributions, a small p-value indi-cates that the observed difference between the distribu-tions is unlikely to be random, indicating that according to the test, their underlying distributions are different. It is additionally insightful to calculate the confidence interval (CI) of the t-statistic: the range of values ex-pected to contain the true t0 of the distribution, to a set degree of confidence. The CI is calculated as 
+
+±tα/ 2,ν ×
+
+s
+
+σ21
+
+n1
+
++ σ22
+
+n2
+
+(33) where tα/ 2 is the critical t value associated with a set level of confidence (1 − α) × 100%, for a PDF corresponding to ν degrees of freedom. The critical t value is the value at which the associated PDF has the integrated area α/ 2under its curve in the regions defined as above the value 
+
+tα/ 2 and below the values -tα/ 2.A CI that contains the value zero indicates that to the set level of confidence, the test cannot claim that their means are distinct. A CI containing zero will correspond to a p-value above the threshold corresponding the same set confidence level. A CI that contains only negative or only positive values indicates that the compared sam-ple distribution means are different up to the confidence value of the test. Negative (positive) values indicate the mean of distribution 1 is less (more) than the mean of distribution 2. We report here the test details for pairwise compar-isons of all qubits. We show the p-values, t-statistic, and degrees of freedom for this comparison in Fig 17 and 95% CIs in Table III. CIs for each pairwise comparison are reported as a percent of the mean of the column qubit 
+
+Qeff C distribution. We note that we observe CI that are generally wide compared to this mean, indicating that the test cannot easily distinguish between qubits. Taken together, the p-values and CIs indicate that Welch’s t-test identifies differences between distributions as small as approximately 20% of a qubit’s mean. From these fea-tures, we conclude that our analysis protocol is sensitive (a)            
+
+> (b)
+> (c)
+> Figure 17. Supplemental parameters from Welch’s t-test for pairwise comparisons of all qubit Qeff Cdistributions in the main text [Fig. 4]. (a) P-values for all pairwise comparisons. For a 95% threshold, a p-value of 0.05 or greater indicates similarity in mean according to this test. Values lower than 0.05 indicates that this test finds the distribution means to be distinct. Values less than 0.01 are reported here as 0.0. (b) t-statistic t0for all pairwise comparisons. We note that the matrix is symmetric about the diagonal if the t0value is multiplied by -1. (c) Degrees of freedom νfor all pairwise comparisons.
+
+19 
+
+A1 A2 A3 A4 A5 B1 B2 B3
+
+A1 0±16% -13 ±17% 7±17% 33 ±20% 100 ±26% -25 ±11% 11 ±19% -18 ±14% 
+
+A2 15 ±20% 0±20% 23 ±21% 53 ±26% 131 ±35% -14 ±14% 28 ±23% -5 ±17% 
+
+A3 -6 ±16% -19 ±17% 0±16% 24 ±19% 87 ±24% -30 ±11% 4±18% -23 ±13% 
+
+A4 -25 ±15% -35 ±17% -20 ±16% 0±19% 50 ±23% -44 ±10% -17 ±18% -38 ±13% 
+
+A5 -50 ±23% -57 ±15% -47 ±13% -34 ±16% 0±17% -63 ±9% -45 ±16% -59 ±11% 
+
+B1 34 ±15% 16 ±17% 43 ±15% 78 ±19% 168 ±23% 0±10% 48 ±18% 10 ±13% 
+
+B2 -10 ±17% -22 ±18% -3 ±18% 20 ±22% 81 ±28% -33 ±12% 0±20% -26 ±15% 
+
+B3 21 ±17% 5±18% 30 ±17% 61 ±21% 142 ±28% -9 ±12% 34 ±20% 0±15% Table III. Confidence interval of 95% significance level for Welch’s t-test pairwise comparison of devices in main text. Intervals are reported as the percentage of the column qubit’s Qeff C distribution mean, where negative (positive) values indicate the row qubit mean is lower (higher) than the column qubit mean. 
+
+enough to resolve differences at this level, and that the distribution of Qeff C between qubits are quite similar. We also compare between fabrication processes using the combined distributions of qubits A1, A2, and A3as one distribution ( A123), and the combined distribu-tions of qubits B1, B2, and B3 as the other distribution (B123). We report the 95% confidence intervals for these comparisons in Table IV. We additionally report that for this comparison, the p-value was 0.001, the t-statistic 
+
+t0 = −3.22, and ν = 889 .6. This indicates that the pad etch treatment of Process B only slightly improves the mean Qeff C as compared to Process A.
+
+A BA 0±10% -16.0 ±9.7% 
+
+B 13.8 ±8.4% 0±8% Table IV. Confidence interval of 95% significance level for Welch’s t-test pairwise comparison of combined process distri-butions in main text. Intervals are reported as the percentage of the column qubit’s Qeff C distribution mean, where negative (positive) values indicate the row qubit mean is lower (higher) than the column qubit mean. 
+
+XVI. Qeff C DEPENDENCE ON PJJ 
+
+Here, we investigate whether there is a trend in the mean Qeff C with the area of the small JJ, expressed as its percent contribution to the total qubit capacitance PJJ .To calculate PJJ , we assume a junction specific capaci-tance of 49 fF /μ m2 as extracted by Ref. [37] for qubits utilizing the same fabrication process as our process A.Across designs 1-5, the single junction size of the qubit was varied to give the range in EJ reported in Table I. The varied range in EJ corresponds to approximately an 11-18% range of the single junction contribution to the total qubit circuit capacitance. We plot the extracted 𝟏𝟏𝟏𝟏𝟏𝟏 × 𝟏𝟏 𝟏𝟏 𝟑𝟑              
+
+> 𝟑𝟑 𝟏𝟏 ×𝟏𝟏 𝟏𝟏 𝟑𝟑
+> 𝟏𝟏𝟏𝟏 ×𝟏𝟏 𝟏𝟏 𝟑𝟑
+> 𝟑𝟑 ×𝟏𝟏 𝟏𝟏 𝟑𝟑
+> 𝟏𝟏 ×𝟏𝟏 𝟏𝟏 𝟑𝟑
+> 𝐴𝐴𝐴 𝐴𝐴𝐴 𝐴𝐴𝐴 𝐴𝐴𝐴 𝐴𝐴𝐴
+> Mean
+> Median Interquartile range
+
+Figure 18. Qubit Qeff C distributions versus small JJ partici-pation ratio. The area of each distribution is normalized to show the percent of counts at each Qeff C . Horizontal lines for different values of QJJ are meant to guide the eye. 
+
+Qeff C distributions versus their small JJ capacitance par-ticipation ratio in Fig. 18. Modeling the total qubit quality factor Qeff C as 1/Q eff C = PJJ /Q JJ + (1 − PJJ )/Q other , (34) where QJJ is the materials quality factor of the junction and Qother the materials quality factor of the rest of the circuit, we map between our measured distributions and the QJJ , assuming Qother ≫ QJJ . Lines to guide the eye for different values of QJJ are included in Fig. 18. We observe a weak trend in the distribution maximum 
+
+Qeff C , as well as the distribution mean with the junction capacitance participation ratio. This is somewhat ex-pected — there will be a contribution from the metal-substrate interface that was nominally improved by Pro-cess B in this study that scales with JJ size, and other measurements of JJ barrier quality give similar effective 
+
+QJJ [24]. We note that qubits A1, A 2, and A3 were fab-ricated on the same sample, with A4, A 5 on a second sample, both from the same wafer. We do not expect a high variation in performance from sample to sample on 20 the same wafer in our fabrication process. We note that this study did not seek to quantify the single-junction branch contribution to the qubit Qeff C specifically. 
+
+XVII. COMPARISON ASSUMING FREQUENCY INDEPENDENT Qeff CProcess A  Interquartile Range   
+
+> Process B Median Mean
+> (a) (b)
+
+Figure 19. Frequency independent Qeff C analysis: qubit Qeff C
+
+distributions, where under Eq. 4, ϵ = 0. The area of each dis-tribution is normalized to show the percent of counts at each 
+
+Qeff C . (a) Individual qubit Qeff C distributions. Blue color cor-responds to qubits fabricated with process A; red corresponds to process B. Shaded regions within individual distributions represent the interquartile range of the dataset. Overlaid teal and gray lines mark the mean and median of each distribu-tion, respectively. (b) Combined distributions of qubits A1, 
+
+A2, and A3 marked as Process A (dark teal), and B1, B2, and B3 (Process B, dark red) are used to compare like de-signs across fabrication processes. 
+
+In the main text and the majority of analysis, we choose to add a phenomenological frequency depen-dence to the dielectric quality factor introduced in lit-erature [15, 17, 18, 41] as it appears to better agree with our data. Here, we compare the distributions of qubit 
+
+Qeff C without this frequency dependence. We perform the identical analysis described in the main text and Appendices XIII, XIII A, XV, substituting 
+
+ϵ = 0 into Eq. 4. The means, medians, standard devi-ations, and self confidence intervals for individual qubit distributions and the combined process distributions are reported in Table XVII. We see generally higher values of each mean, consistent with the understanding that the value of ϵ used in the main text decreases the Qeff C values near Φ ext /Φ0 = 0 .5. We apply Welch’s t-test to these distributions, calculating the 95% CI of the distributions as compared to themselves to obtain an average test sen-sitivity of ±18% of an individual qubit’s mean [XVIII]. Combining the distributions of A1, A 2, A 3 and 
+
+B1, B 2, B 3 we compare the two fabrication processes used in this study. Welch’s t-test reports these distri-butions to be different, with a 95% confidence interval indicating that mean of distribution of B qubits is higher by 16 .2 ± 11 .0% of the mean of the corresponding A
+
+Qubit Mean Qeff C Median Qeff C σ 95% CI 
+
+A1 2.90 ×10 5 2.44 ×10 5 2.05 ×10 5 ± 17% 
+
+A2 3.80 ×10 5 3.19 ×10 5 3.33 ×10 5 ± 24% 
+
+A3 2.73 ×10 5 2.14 ×10 5 1.95 ×10 5 ± 18% 
+
+A4 2.26 ×10 5 1.93 ×10 5 1.52 ×10 5 ± 20% 
+
+A5 1.41 ×10 5 1.26 ×10 5 0.99 ×10 5 ± 17% 
+
+B1 4.12 ×10 5 3.58 ×10 5 2.84 ×10 5 ± 11% 
+
+B2 2.56 ×10 5 1.91 ×10 5 2.36 ×10 5 ± 18% 
+
+B3 3.78 ×10 5 2.79 ×10 5 3.49 ×10 5 ± 18% 
+
+A 3.11 ×10 5 2.44 ×10 5 2.50 ×10 5 ± 12% 
+
+B 3.61 ×10 5 2.75 ×10 5 2.99 ×10 5 ± 9% Table V. Frequency independent Qeff C analysis: Qeff C distribu-tion summary for each qubit and for the combined process distributions, with ϵ = 0. Means, medians, and standard de-viations σ of each qubit distribution are reported. 95% confi-dence interval (CI) of the mean as returned by Welch’s t-test for each Qeff C distribution as compared to itself, expressed as a percent of the distribution mean. This interval demonstrates the sensitivity with which this method can be used to resolve differences between distributions. 
+
+qubits. This is consistent with the main text result that process B did marginally reduce the loss from the metal-substrate interface, but that this interface is not the dom-inant limitation to the performance of these fluxoniums. 
+
+XVIII. COMPARISON USING A 2-LEVEL MODEL 
+
+The analysis presented in the main text utilizes a six-level model to describe the energy relaxation dynamics in the fluxonium qubits. For comparison with literature, here we perform the identical analysis assuming the pop-ulation dynamics remain solely within the qubit states 
+
+|0⟩ and |1⟩.We again apply the 8 MHz binned average to the dataset, and transform the downselected dataset into a two-level Qeff C . As done in the main text, we again com-bine three models to describe the measured T1 versus de-vice transition frequency: capacitive dielectric loss, 1 /f 
+
+flux noise, and radiative loss to the microwave environ-ment. We invert the following addition of rates, Γmeas 1 = Γ C1 + Γ Φ1 + Γ P1 + Γ cd 1 + Γ fd 1 (35) where Γ meas 1 the measured relaxation rate, to solve for 
+
+Qeff C (contained within Γ C1 ). We find under this model that a phenomenological frequency dependence of the quality factor as described by Eq. 4 describes the data best. We remove points for which the predicted rate from the combination of the two-level models for flux noise and radiative losses is greater than 10% of the measured rate. 21 All remaining data is assumed to be limited by capacitive dielectric loss. We find that ϵ = 0 .2 best describes the extracted Qeff C for all qubits, which is slightly different than the ϵ = 0 .25 that fits the dataset under the six-level analysis. The number of points in the distributions before and after the binning is applied is the same as in the case of the N-level analysis. We re-summarize the number of points at each analysis step in VI. A main difference in this analysis from that in the main text is the shape and magnitude of the limitation due to Purcell loss through the readout resonator, though we see no difference in the number of points included between our two model descriptions [Fig. 12]. 
+
+Qubit #T1 #Post-binning #6-level Qeff C #2-level Qeff C
+
+A1 209 144 137 137 
+
+B1 530 314 314 314 
+
+A2 155 107 104 104 
+
+B2 398 188 188 188 
+
+A3 257 120 118 119 
+
+B3 427 213 211 211 
+
+A4 221 102 93 93 
+
+A5 270 135 130 130 Table VI. Total number of T1 measurements taken across the flux range of each qubit, number of T1 points after 8 MHz binned average, number of points in each extracted multi-level Qeff C distribution, and in the two-level Qeff C distributions. Fewer points in the Qeff C column than the “Post-binning” col-umn indicate that some points were limited by the models used for 1 /f flux noise or spontaneous emission to the con-trol lines. Differences in the six-level Qeff C and two-level Qeff C
+
+indicate that the model description is important for classify-ing whether points are limited by the dielectric loss model, according to the imposed rate requirements detailed in the text. 
+
+The distributions are then compared to each other us-ing Welch’s t-test (Fig. 20). We observe similar results to the main text under this two-level analysis. The ex-tracted Qeff C distributions are again largely overlapped and non-Gaussian distributed, with a measured range of similar width. We calculate the 95% self-CI of the distri-butions and obtain an average test sensitivity of ±17% of an individual qubit’s mean [XVIII]. Comparing designs within process A, we observe a similar, weak trend in the 
+
+Qeff C mean with EJ as shown for the six-level model in Appendix XVI. Again we combine the distributions of A1, A 2, and A3and those of B1, B 2, and B3 to compare the like designs across fabrication processes. Welch’s t-test finds these two composite distributions to be distinct, with a 95% confidence interval that the mean of distribution of B
+
+qubits is higher by 16 .6 ± 9.8% of the mean of the cor-responding A qubits. Under this analysis, we again see 
+
+Qubit Mean Qeff C Median Qeff C σ 95% CI 
+
+A1 2.23 ×10 5 1.97 ×10 5 1.43 ×10 5 ± 15% 
+
+A2 2.66 ×10 5 2.39 ×10 5 1.98 ×10 5 ± 20% 
+
+A3 2.00 ×10 5 1.83 ×10 5 1.22 ×10 5 ± 16% 
+
+A4 1.58 ×10 5 1.28 ×10 5 1.11 ×10 5 ± 20% 
+
+A5 0.90 ×10 5 0.75 ×10 5 0.65 ×10 5 ± 18% 
+
+B1 3.00 ×10 5 2.54 ×10 5 2.05 ×10 5 ± 11% 
+
+B2 2.07 ×10 5 1.35 ×10 5 2.05 ×10 5 ± 20% 
+
+B3 2.67 ×10 5 2.17 ×10 5 2.10 ×10 5 ± 15% 
+
+A 2.28 ×10 5 2.00 ×10 5 1.57 ×10 5 ± 10% 
+
+B 2.66 ×10 5 2.09 ×10 5 2.10 ×10 5 ± 10% Table VII. Two-level analysis: Qeff C distribution summary for each qubit and for the combined process distributions. Means, medians, and standard deviations σ of each qubit distribu-tion are reported. 95% confidence interval (CI) of the mean as returned by Welch’s t-test for each Qeff C distribution as compared to itself, expressed as a percent of the distribution mean. This interval demonstrates the sensitivity with which this method can be used to resolve differences between distri-butions. Process A  Interquartile Range   
+
+> Process B Median Mean
+> (a) (b)
+
+Figure 20. Two-level analysis: Comparison of the extracted 
+
+Qeff C distributions. The area of each distribution is normalized to show the percent of counts at each Qeff C . (a) All individ-ual qubit Qeff C distributions. Blue distributions correspond to qubits fabricated with process A, pink distributions cor-respond to process B. Shaded regions within device distribu-tions represent the interquartile range of the dataset, with overlaid teal and gray lines marking the mean and median of each distribution, respectively. (b) Combined distributions of qubits A1, A2, and A3, marked as Process A (dark blue), and 
+
+B1, B2, and B3 (Process B, dark pink) are used to compare like designs across fabrication processes. 
+
+that the process B did reduce the loss from the metal-substrate interface as compared to process A. This small improvement indicates that the metal-substrate interface is not dominating the dissipation in these fluxonium. Though this analysis utilizes a less well motivated de-scription of the decay dynamics than in the main text, 22 we obtain results consistent with the main text conclu-sions. 23 
+
+[1] M. Kjaergaard, M. E. Schwartz, J. Braum¨ uller, P. Krantz, J. I.-J. Wang, S. Gustavsson, and W. D. Oliver, Superconducting qubits: Current state of play, Annual Review of Condensed Matter Physics 11 (2020). [2] A. Blais, A. L. Grimsmo, S. M. Girvin, and A. Wallraff, Circuit quantum electrodynamics, Rev. Mod. Phys. 93 ,025005 (2021). [3] J. Koch, T. M. Yu, J. Gambetta, A. A. Houck, D. I. Schuster, J. Majer, A. Blais, M. H. Devoret, S. M. Girvin, and R. J. Schoelkopf, Charge-insensitive qubit design de-rived from the cooper pair box, Phys. Rev. A 76 , 042319 (2007). [4] F. Arute, K. Arya, R. Babbush, D. Bacon, J. C. Bardin, R. Barends, R. Biswas, S. Boixo, F. G. S. L. Brandao, D. A. Buell, B. Burkett, Y. Chen, Z. Chen, B. Chiaro, R. Collins, W. Courtney, A. Dunsworth, E. Farhi, B. Foxen, A. Fowler, C. Gidney, M. Giustina, R. Graff, K. Guerin, S. Habegger, M. P. Harrigan, M. J. Hartmann, A. Ho, M. Hoffmann, T. Huang, T. S. Humble, S. V. Isakov, E. Jeffrey, Z. Jiang, D. Kafri, K. Kechedzhi, J. Kelly, P. V. Klimov, S. Knysh, A. Korotkov, F. Kostritsa, D. Landhuis, M. Lind-mark, E. Lucero, D. Lyakh, S. Mandr` a, J. R. Mc-Clean, M. McEwen, A. Megrant, X. Mi, K. Michielsen, M. Mohseni, J. Mutus, O. Naaman, M. Neeley, C. Neill, M. Y. Niu, E. Ostby, A. Petukhov, J. C. Platt, C. Quin-tana, E. G. Rieffel, P. Roushan, N. C. Rubin, D. Sank, K. J. Satzinger, V. Smelyanskiy, K. J. Sung, M. D. Tre-vithick, A. Vainsencher, B. Villalonga, T. White, J. Z. Yao, P. Yeh, A. Zalcman, H. Neven, and J. M. Marti-nis, Quantum supremacy using a programmable super-conducting processor, Nature 574 , 505 (2019). [5] G. Q. AI, Suppressing quantum errors by scaling a sur-face code logical qubit, Nature 614 , 676 (2023). [6] G. Q. AI and Collaborators, Quantum error correc-tion below the surface code threshold, Nature 638 , 920 (2025). [7] V. E. Manucharyan, J. Koch, L. I. Glazman, and M. H. Devoret, Fluxonium: Single cooper-pair cir-cuit free of charge offsets, Science 326 , 113 (2009), https://www.science.org/doi/pdf/10.1126/science.1175552. [8] I. M. Pop, K. Geerlings, G. Catelani, R. J. Schoelkopf, L. I. Glazman, and M. H. Devoret, Coherent suppres-sion of electromagnetic dissipation due to superconduct-ing quasiparticles, Nature 508 , 369 (2014). [9] A. Somoroff, Q. Ficheux, R. A. Mencia, H. Xiong, R. Kuzmin, and V. E. Manucharyan, Millisecond coher-ence in a superconducting qubit, Phys. Rev. Lett. 130 ,267001 (2023). [10] L. Ding, M. Hays, Y. Sung, B. Kannan, J. An, A. Di Paolo, A. H. Karamlou, T. M. Hazard, K. Azar, D. K. Kim, B. M. Niedzielski, A. Melville, M. E. Schwartz, J. L. Yoder, T. P. Orlando, S. Gustavsson, J. A. Grover, K. Serniak, and W. D. Oliver, High-fidelity, frequency-flexible two-qubit fluxonium gates with a transmon coupler, Phys. Rev. X 13 , 031035 (2023). [11] H. Zhang, S. Chakram, T. Roy, N. Earnest, Y. Lu, Z. Huang, D. K. Weiss, J. Koch, and D. I. Schuster, Universal fast-flux control of a coherent, low-frequency qubit, Phys. Rev. X 11 , 011010 (2021). [12] D. A. Rower, L. Ding, H. Zhang, M. Hays, J. An, P. M. Harrington, I. T. Rosen, J. M. Gertler, T. M. Haz-ard, B. M. Niedzielski, M. E. Schwartz, S. Gustavsson, K. Serniak, J. A. Grover, and W. D. Oliver, Suppressing counter-rotating errors for fast single-qubit gates with fluxonium, PRX Quantum 5, 040342 (2024). [13] H. Zhang, C. Ding, D. Weiss, Z. Huang, Y. Ma, C. Guinn, S. Sussman, S. P. Chitta, D. Chen, A. A. Houck, J. Koch, and D. I. Schuster, Tunable inductive coupler for high-fidelity gates between fluxonium qubits, PRX Quantum 
+
+5, 020326 (2024). [14] W.-J. Lin, H. Cho, Y. Chen, M. G. Vavilov, C. Wang, and V. E. Manucharyan, 24 days-stable cnot-gate on fluxonium qubits with over 99.9 fidelity, arXiv (2024), 2407.15783. [15] L. B. Nguyen, Y.-H. Lin, A. Somoroff, R. Mencia, N. Grabon, and V. E. Dirac, High-coherence fluxonium qubit, Phys. Rev. X 9, 041041 (2019). [16] T. M. Hazard, A. Gyenis, A. Di Paolo, A. T. Asfaw, S. A. Lyon, A. Blais, and A. A. Houck, Nanowire superin-ductance fluxonium qubit, Phys. Rev. Lett. 122 , 010504 (2019). [17] H. Sun, F. Wu, H.-S. Ku, X. Ma, J. Qin, Z. Song, T. Wang, G. Zhang, J. Zhou, Y. Shi, H.-H. Zhao, and C. Deng, Characterization of loss mechanisms in a flux-onium qubit, Phys. Rev. Appl. 20 , 034016 (2023). [18] W. Ardati, S. L´ eger, S. Kumar, V. N. Suresh, D. Nico-las, C. Mori, F. D’Esposito, T. Vakhtel, O. Buisson, Q. Ficheux, and N. Roch, Using bifluxon tunneling to protect the fluxonium qubit, Phys. Rev. X 14 , 041014 (2024). [19] L. Ateshian, M. Hays, D. A. Rower, H. Zhang, K. Azar, R. Assouly, L. Ding, M. Gingras, H. Stickler, B. M. Niedzielski, M. E. Schwartz, T. P. Orlando, J. I. j. Wang, S. Gustavsson, J. A. Grover, K. Serniak, and W. D. Oliver, Temperature and magnetic-field dependence of energy relaxation in a fluxonium qubit, arXiv (2025), 2507.01175 [quant-ph]. [20] Z.-T. Zhuang, D. Rosenstock, B.-J. Liu, A. Somoroff, V. E. Manucharyan, and C. Wang, Non-markovian re-laxation spectroscopy of fluxonium qubits, arXiv (2025), arXiv:2503.16381 [quant-ph]. [21] J. M. Martinis, K. B. Cooper, R. McDermott, M. Stef-fen, M. Ansmann, K. D. Osborn, K. Cicak, S. Oh, D. P. Pappas, R. W. Simmonds, and C. C. Yu, Decoherence in josephson qubits from dielectric loss, Phys. Rev. Lett. 
+
+95 , 210503 (2005). [22] W. D. Oliver and P. Welander, Materials in supercon-ducting quantum bits, MRS Bulletin 38 , 816 (2013). [23] A. Dunsworth, A. Megrant, C. Quintana, Z. Chen, R. Barends, B. Burkett, B. Foxen, Y. Chen, B. Chiaro, A. Fowler, R. Graff, E. Jeffrey, J. Kelly, E. Lucero, J. Y. Mutus, M. Neeley, C. Neill, P. Roushan, D. Sank, A. Vainsencher, J. Wenner, T. C. White, and J. M. Mar-tinis, Characterization and reduction of capacitive loss induced by sub-micron josephson junction fabrication in superconducting qubits, Applied Physics Letters 111 ,10.1063/1.4993577 (2017). [24] H. Mamin, E. Huang, S. Carnevale, C. Rettner, N. Arel-lano, M. Sherwood, C. Kurter, B. Trimm, M. Sandberg, R. Shelby, M. Mueed, B. Madon, A. Pushp, M. Stef-24 
+
+fen, and D. Rugar, Merged-element transmons: Design and qubit performance, Physical Review Applied 16 ,10.1103/physrevapplied.16.024023 (2021). [25] A. Bilmes, S. Volosheniuk, A. V. Ustinov, and J. Lisen-feld, Probing defect densities at the edges and in-side josephson junctions of superconducting qubits, npj Quantum Information 8, 10.1038/s41534-022-00532-4 (2022). [26] M. A. Gingras, B. M. Niedzielski, K. A. Grossklaus, D. Miller, F. Contipelli, K. Azar, L. D. Burkhart, G. Calusine, D. Davis, R. D. Pi˜ nero, J. M. Gertler, T. M. Hazard, C. F. Hirjibehedin, D. K. Kim, J. M. Knecht, A. J. Melville, C. O’Connell, R. A. Rood, A. Sabbah, H. Stickler, J. L. Yoder, W. D. Oliver, M. E. Schwartz, and K. Serniak, Improving transmon qubit performance with fluorine-based surface treatments, arXiv (2025), 2507.08089. [27] N. A. Masluk, I. M. Pop, A. Kamal, Z. K. Minev, and M. H. Devoret, Microwave characterization of josephson junction arrays: Implementing a low loss superinduc-tance, Phys. Rev. Lett. 109 , 137002 (2012). [28] M. T. Bell, I. A. Sadovskyy, L. B. Ioffe, A. Y. Kitaev, and M. E. Gershenson, Quantum superinductor with tunable nonlinearity, Phys. Rev. Lett. 109 , 137003 (2012). [29] F. Yan, S. Gustavsson, A. Kamal, J. Birenbaum, A. P. Sears, D. Hover, T. J. Gudmundsen, D. Rosenberg, G. Samach, S. Weber, J. L. Yoder, T. P. Orlando, J. Clarke, A. J. Kerman, and W. D. Oliver, The flux qubit revisited to enhance coherence and reproducibility, Nature Communications 7, 12964 (2016). [30] A. P. M. Place, L. V. H. Rodgers, P. Mundada, B. M. Smitham, M. Fitzpatrick, Z. Leng, A. Premkumar, J. Bryon, A. Vrajitoarea, S. Sussman, G. Chenga, T. Madhavan, H. K. Babla, X. H. Le, Y. Gang, B. J¨ ack, A. Gyenis, N. Yao, R. J. Cava, N. P. de Leon, and A. A. Houck, New material platform for superconducting trans-mon qubits with coherence times exceeding 0.3 millisec-onds, Nature Communications 12 , 1779 (2021). [31] M. V. P. Alto´ e, A. Banerjee, C. Berk, A. Hajr, A. Schwartzberg, C. Song, M. Alghadeer, S. Aloni, M. J. Elowson, J. M. Kreikebaum, E. K. Wong, S. M. Griffin, S. Rao, A. Weber-Bargioni, A. M. Minor, D. I. Santiago, S. Cabrini, I. Siddiqi, and D. F. Ogletree, Localization and mitigation of loss in niobium superconducting cir-cuits, PRX Quantum 3, 020312 (2022). [32] M. P. Bland, F. Bahrami, J. G. C. Martinez, P. H. Preste-gaard, B. M. Smitham, A. Joshi, E. Hedrick, A. Pakpour-Tabrizi, S. Kumar, A. Jindal, R. D. Chang, A. Yang, G. Cheng, N. Yao, R. J. Cava, N. P. de Leon, and A. A. Houck, 2d transmons with lifetimes and coherence times exceeding 1 millisecond, Nature 647 , 343–348 (2025). [33] A. A. Murthy, M. Bal, M. J. Bedzyk, H. Cansizoglu, R. K. Chan, V. Chandrasekhar, F. Crisa, A. Datta, Y. Deng, C. D. M. Diaz, V. P. Dravid, D. A. Garcia-Wetten, S. Garattoni, S. Ghimire, D. P. Goronzy, S. de Graaf, S. Haeuser, M. C. Hersam, P. Hopkins, D. Isheim, K. Joshi, R. Kim, S. Kolachina, C. J. Kopas, M. J. Kramer, E. O. Lachman, J. Lee, P. G. Lim, A. Lunin, W. Mah, J. Marshall, J. Y. Mutus, J.-S. Oh, D. Olaya, D. P. Pappas, J. mok Park, R. Prozorov, R. dos Reis, D. N. Seidman, Z. Sung, M. Tanatar, M. J. Walker, M. Wisne, J. Wang, H. Wu, L. Zhou, S. Zhu, A. Grassellino, and A. Romanenko, Identifying materials-level sources of performance variation in superconducting transmon qubits, arXiv (2025), 2503.14424 [quant-ph]. [34] R. Gao, F. Wu, H. Sun, J. Chen, H. Deng, X. Ma, X. Miao, Z. Song, X. Wana, F. Wang, T. Xia, M. Ying, C. Zhang, Y. Shi, H.-H. Zhao, and C. Deng, The effects of disorder in superconducting materials on qubit coher-ence, Nature Communications 16 (2025). [35] F. Wang, K. Lu, H. Zhan, L. Ma, F. Wu, H. Sun, H. Deng, Y. Bai, F. Bao, X. Chang, R. Gao, X. Gao, G. Gong, L. Hu, R. Hu, H. Ji, X. Ma, L. Mao, Z. Song, C. Tang, H. Wang, T. Wang, Z. Wang, T. Xia, H. Xu, Z. Zhan, G. Zhang, T. Zhou, M. Zhu, Q. Zhu, S. Zhu, X. Zhu, Y. Shi, H.-H. Zhao, and C. Deng, High-coherence fluxonium qubits manufactured with a wafer-scale-uniformity process, Phys. Rev. Appl. 23 , 044064 (2025). [36] G. J. Dolan, Offset masks for lift-off photoprocessing, Ap-plied Physics Letters 31 , 337 (1977). [37] M. T. Randeria, T. M. Hazard, A. Di Paolo, K. Azar, M. Hays, L. Ding, J. An, M. Gingras, B. M. Niedzielski, H. Stickler, J. A. Grover, J. L. Yoder, M. E. Schwartz, W. D. Oliver, and K. Serniak, Dephasing in fluxonium qubits from coherent quantum phase slips, PRX Quan-tum 5, 030341 (2024). [38] J. Braum¨ uller, L. Ding, A. P. Veps¨ al¨ ainen, Y. Sung, M. Kjaergaard, T. Menke, R. Winik, D. Kim, B. M. Niedzielski, A. Melville, J. L. Yoder, C. F. Hirjibehedin, T. P. Orlando, S. Gustavsson, and W. D. Oliver, Charac-terizing and optimizing qubit coherence based on squid geometry, Phys. Rev. Appl. 13 , 054079 (2020). [39] H. Nyquist, Thermal agitation of electric charge in con-ductors, Phys. Rev. 32 , 110 (1928). [40] A. O. Caldeira and A. J. Leggett, Quantum tunnelling in a dissipative system, Annals of Physics 149 , 374 (1983). [41] C. Wang, C. Axline, Y. Y. Gao, T. Brecht, Y. Chu, L. Frunzio, M. H. Devoret, and R. J. Schoelkopf, Sur-face participation and dielectric loss in superconducting qubits, Appl. Phys. Lett. 19 , 107 (16) (2015). [42] K. Geerlings, Z. Leghtas, I. M. Pop, S. Shankar, L. Frun-zio, R. J. Schoelkopf, M. Mirrahimi, and M. H. Devoret, Demonstrating a driven reset protocol for a supercon-ducting qubit, Phys. Rev. Lett. 110 , 120501 (2013). [43] X. Y. Jin, A. Kamal, A. P. Sears, T. Gudmundsen, D. Hover, J. Miloshi, R. Slattery, F. Yan, J. Yoder, T. P. Orlando, S. Gustavsson, and W. D. Oliver, Thermal and residual excited-state population in a 3d transmon qubit, Phys. Rev. Lett. 114 , 240501 (2015). [44] A. P. Sears, A. Petrenko, G. Catelani, L. Sun, H. Paik, G. Kirchmair, L. Frunzio, L. I. Glazman, S. M. Girvin, and R. J. Schoelkopf, Photon shot noise dephasing in the strong-dispersive limit of circuit qed, Phys. Rev. B 86 ,180504 (2012). [45] F. Yan, S. Gustavsson, J. Bylander, X. Jin, F. Yoshihara, D. G. Cory, Y. Nakamura, T. P. Orlando, and W. D. Oliver, Rotating-frame relaxation as a noise spectrum analyser of a superconducting qubit undergoing driven evolution, Nature Communications 4 (2013). [46] B. L. WELCH, The generalization of ‘student’s’ problem when several different population varlances are involved, Biometrika 34 , 28 (1947). [47] C. Macklin, K. O’Brien, D. Hover, M. E. Schwartz, V. Bolkhovsky, X. Zhang, W. D. Oliver, and I. Sid-diqi, A near–quantum-limited josephson traveling-wave parametric amplifier, Science 350 , 307 (2015), https://www.science.org/doi/pdf/10.1126/science.aaa8525. 25 
+
+[48] V. E. Manucharyan, N. A. Masluk, A. Kamal, J. Koch, L. I. Glazman, and M. H. Devoret, Evidence for coherent quantum phase slips across a josephson junction array, Phys. Rev. B 85 , 024521 (2012). [49] K. Serniak, M. Hays, G. de Lange, S. Diamond, S. Shankar, L. D. Burkhart, L. Frunzio, M. Houzet, and M. H. Devoret, Hot nonequilibrium quasiparticles in transmon qubits, Phys. Rev. Lett. 121 , 157701 (2018). [50] P. A. M. Dirac, The quantum theory of the emission and absorption of radiation, Proc. R. Soc. Lond. A 114 
+
+(1927). [51] M. H. Devoret, Quantum fluctuations in electrical cir-cuits, Les Houches, Session LXIII 7, 133 (1995). [52] D. M. Pozar, Microwave engineering , 4th ed. (Wiley, Hoboken, NJ, 2012). [53] C. Smith, Design of Protected Superconducting Qubits ,Phd thesis, Yale (2019). [54] V. E. Manucharyan, Superinductance , Phd thesis, Yale (2012). [55] G. Catelani, R. J. Schoelkopf, M. H. Devoret, and L. I. Glazman, Relaxation and frequency shifts induced by quasiparticles in superconducting qubits, Phys. Rev. B 
+
+84 , 064517 (2011). [56] K. Serniak, S. Diamond, M. Hays, V. Fatemi, S. Shankar, L. Frunzio, R. Schoelkopf, and M. Devoret, Direct disper-sive monitoring of charge parity in offset-charge-sensitive transmons, Phys. Rev. Appl. 12 , 014052 (2019). [57] T. Connolly, P. D. Kurilovich, S. Diamond, H. Nho, C. G. L. Bøttcher, L. I. Glazman, V. Fatemi, and M. H. Devoret, Coexistence of nonequilibrium density and equi-librium energy distribution of quasiparticles in a super-conducting qubit, Phys. Rev. Lett. 132 , 217001 (2024). [58] F. Yan, J. Bylander, S. Gustavsson, F. Yoshihara, K. Harrabi, D. G. Cory, T. P. Orlando, Y. Nakamura, J.-S. Tsai, and W. D. Oliver, Spectroscopy of low-frequency noise and its temperature dependence in a superconduct-ing qubit, Phys. Rev. B 85 , 174521 (2012). [59] Y. Yu, W. D. Oliver, J. C. Lee, K. K. Berggren, L. S. Levitov, and T. P. Orlando, Multi-photon, multi-level dynamics in a superconducting persistent-current qubit, arXiv (2005). [60] C. T. Hann, S. S. Elder, C. S. Wang, K. Chou, R. J. Schoelkopf, and L. Jiang, Robust readout of bosonic qubits in the dispersive coupling regime, Phys. Rev. A 
+
+98 , 022305 (2018). [61] P. Virtanen, R. Gommers, T. E. Oliphant, M. Haber-land, T. Reddy, D. Cournapeau, E. Burovski, P. Pe-terson, W. Weckesser, J. Bright, S. J. van der Walt, M. Brett, J. Wilson, K. J. Millman, N. Mayorov, A. R. J. Nelson, E. Jones, R. Kern, E. Larson, C. J. Carey, ˙I. Po-lat, Y. Feng, E. W. Moore, J. VanderPlas, D. Laxalde, J. Perktold, R. Cimrman, I. Henriksen, E. A. Quintero, C. R. Harris, A. M. Archibald, A. H. Ribeiro, F. Pe-dregosa, P. van Mulbregt, and SciPy 1.0 Contributors, SciPy 1.0: Fundamental Algorithms for Scientific Com-puting in Python, Nature Methods 17 , 261 (2020). [62] J. A. Nelder and R. Mead, A Simplex Method for Func-tion Minimization, Comput. J. 7, 308 (1965). [63] F. Gao and L. Han, Implementing the nelder-mead sim-plex algorithm with adaptive parameters, Computational Optimization and Applications 51 , 259 (2012). [64] A. Kolmogorov, Sulla determinazione empirica di una legge di distribuzione, Giornale dell’Istituto Italiano degli Attuari 4, 83 (1933). [65] N. Smirnov, Table for estimating the goodness of fit of empirical distributions, The Annals of Mathematical Statistics 19 , 279 (1948). [66] H. B. Mann and D. R. Whitney, On a test of whether one of two random variables is stochastically larger than the other, The Annals of Mathematical Statistics 18 , 50 (1947).

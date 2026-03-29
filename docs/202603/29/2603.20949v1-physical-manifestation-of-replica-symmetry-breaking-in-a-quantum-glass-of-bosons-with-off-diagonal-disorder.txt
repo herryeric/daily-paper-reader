@@ -1,0 +1,865 @@
+Title: Physical manifestation of replica symmetry breaking in a quantum glass of bosons with off-diagonal disorder
+
+URL Source: https://arxiv.org/pdf/2603.20949v1
+
+Published Time: Tue, 24 Mar 2026 00:58:33 GMT
+
+Number of Pages: 7
+
+Markdown Content:
+## Physical manifestation of replica symmetry breaking in a quantum glass of bosons with off-diagonal disorder 
+
+Anna M. Piekarska ∗ and Tadeusz K. Kopeć 
+
+Institute of Low Temperature and Structure Research, Polish Academy of Sciences, Okólna 2, 50-422 Wrocław, Poland 
+
+Glassiness occurs when disorder and frustration cause local degrees of freedom to freeze despite the lack of long-range order. In systems of interacting bosons, such glassiness may involve a purely quantum degree of freedom—local phases of particle wave functions—partly analogous to spins in spin glasses. However, experimental identification of such phases is difficult because it requires prohibitively long measurement times or recourse to the elusive Edwards-Anderson order parameter. Moreover, the off-diagonal character of the phase makes it seemingly even harder to capture via typical observables. To address this issue, we study a system of strongly interacting bosons with random hoppings that features off-diagonal glassiness exhibiting replica symmetry breaking (RSB). We find that the glass phase is compressible, which distinguishes it from the Mott insulator. Thus, we establish a direct correspondence between phase-based glassy order and a measurable density-based thermodynamic observable. We use a framework adopted from spin glasses, including the replica trick within the one-step RSB scheme, to obtain meaningful results in the glass phase and to characterize the order parameters, RSB structure, slow relaxation, and compressibility. Glassiness in particle systems could thus be experimentally identified via measurements of compressibility, such as probing density fluctuations or the particle-number response to a trapping potential. 
+
+Introduction. — Glasses with quenched disorder, particu-larly quantum glasses, have recently seen a revival of interest across various directions. The original classical [1–4] and quantum spin-glass [5–7] problems are receiving new solu-tions [8] and recognition [9]. New research branches are also emerging, uncovering glassy physics in fields such as random lasers [10, 11], boson glasses [12, 13], or superglasses [14, 15]. Finally, the rise of quantum simulation is opening new avenues for revisiting glasses experimentally [16–19]. Quenched off-diagonal disorder in such systems, i.e., static randomness in couplings that frustrates the studied degrees of freedom, leads to a rugged free energy landscape with multiple metastable quasi-equilibria. There, relaxation requires thermal fluctua-tions or tunneling through energy barriers, making it extremely slow and dependent on the initial state. Due to this, both theo-retical descriptions and experimental probing of such systems are notoriously difficult. The progress in understanding spin-glass physics has been marked by three milestones: introduction of the Edwards-Anderson (EA) order parameter [20], the Sherrington-Kirkpatrick (SK) model [21] that provided a simple description of the phenomenon, and the replica symmetry breaking (RSB) scheme [22, 23] that fully solved the SK model. The earlier replica-symmetric (RS) approach provided a correct descrip-tion of the disordered phase but broke down in describing the glass. The RSB construction, apart from fixing this issue, has also broadened the understanding of glassiness, provid-ing a physical interpretation of the replicas [24], which can be thought of as hierarchically organized metastable states. Despite the SK model being solved by RSB, the physical im-plications remain an area of active research [8]. Moreover, due to the complexity of RSB, its application to other models is not straightforward and requires simplifications or substantial computational effort [8]. Glasses are an example of a complex system, i.e., a system characterized by nonlinearity, emergence, spontaneous order, or feedback loops [25]. Similarities between various types of complex systems give hope that a breakthrough in one could advance others, even in distant fields. For example, research-ing glasses might help in understanding protein folding, which, like glasses, is governed by rugged free-energy landscapes and exhibits the slow dynamics resulting from them [26]. Another example of such a system of current interest is neural net-works, with their underlying minimization problem directly mapping to the spin glass Hamiltonian [27]. Interest in glassy physics has spiked again after Parisi received the 2021 No-bel prize [9]. This recent surge can leverage the enormous progress in computational and experimental capabilities com-pared to the 1980s. For example, the rise of quantum simu-lation [28] has provided the means to study models that were previously inaccessible to computational treatment. Another direct and new realization of glassy phases can be found in ran-dom lasers, where random scattering of light leads to a glassy state of photons, facilitating the observation of RSB [11]. Although the majority of the theoretical work on glasses has concerned the classical case, the influence of quantum effects cannot be neglected, as they lead to significant renor-malization of critical temperatures and relaxation times by allowing tunneling, and enable quantum phase transitions [29– 31]. However, the quantum case has proven to be much more challenging, often requiring heavy numerical support due to non-commuting Hamiltonian terms. With current computa-tional resources, they regain attention as previously intractable problems become accessible. Apart from studying quantum counterparts of classical models, gaining insights into purely quantum systems without classical counterparts is no less im-portant. In this context, the search for novel glassy phases involving freezing in previously unexplored degrees of free-dom aligns with the broader research frontier on nontrivial correlated phases of matter. Among the testbeds for discovering novel phases, quan-tum simulators play a significant role as they pave the way 1
+
+> arXiv:2603.20949v1 [cond-mat.dis-nn] 21 Mar 2026
+
+for shaping system potential energy or arranging sites in ar-bitrary configurations. This allows realizing various models, from basic solid-state theory all the way to exotic artificial models or known models in otherwise unphysical parame-ter regimes [32]. For example, in optical lattices, precisely arranged laser beams create lattices of chosen dimensional-ity [33] resembling solids. They can be populated with both fermionic and bosonic atomic isotopes, allowing the study of a wide range of models. Such systems feature tunable in-teractions that extend to the regime of strong correlations, offering insights into the superfluid-Mott insulator phase tran-sition [34]. Quantum simulators not only control interactions, energy scales, and system geometry, but also facilitate the in-troduction of disorder into the system [35]. In this way, one can study a system of (bosonic) particles subjected to disorder in a controlled manner. This setting has produced the Bose glass, an amorphous state of bosons in which diagonal site disorder leads to an insulating state, with localization preventing superfluidity. It has been widely studied in the context of dirty bosons [36], and later revisited thanks to quantum simulator platforms [37]. While it exhibits glassy features such as slow dynamics, it is not generally considered a glass in the strict Parisi-type sense used here. Although a formulation introducing an EA-like order parameter defined in terms of density fluctuations ex-ists [38], it captures persistent correlations rather than frozen local degrees of freedom, in strong contrast to the glassiness considered here. The fundamental difference stems from the diagonal disorder in the Bose glass, as opposed to the off-diagonal disorder considered here. This distinction is simi-lar to that between random-field magnetic systems [39] and random-bond systems—spin glasses. Glassiness in bosonic systems is appealing, as it offers rich physical intuitions and a well-established experimental setting. As expected for systems analogous to spin glasses, their treat-ment is challenging, leaving them less explored. This connec-tion, however, promises the opportunity to integrate the rich physics of quenched disorder, frustration, and RSB into the realm of bosons, where these can be confronted with interac-tions and superfluidity [12], and where the complex RSB struc-ture can be explored not merely as a theoretical concept, but as a physical reality within the reach of current experiments. The resulting combination could be simulated in an optical lattice. A setup for measuring overlap functions, a building block of the EA order parameter, has been proposed [40] even before such a bosonic glass with off-diagonal disorder was consid-ered [13]. The system has thus far been studied in the RS approximation only, insufficient to properly describe the glass phase, and therefore requires further examination via RSB. In this work, we consider a system of strongly interacting bosons with random tunneling amplitudes that can be realized in an optical lattice and features a glass phase with RSB in which bosonic phases are frozen. We describe the system using the Bose-Hubbard model with the hopping term being a random variable with zero mean. This choice allows us to focus solely on the glassy physics without accounting for the competition from superfluidity [12]. The latter cannot emerge in this setting, as it requires breaking the 𝑈 (1) symmetry through the mean hopping amplitude. The glass we consider can be characterized using an EA order parameter QEA = [|⟨ 𝑎 𝑖 ⟩| 2], with 𝑎 𝑖 representing the annihilation of a boson in site 𝑖 in the systems, while ⟨·⟩ and [·] 
+
+denote thermodynamic and disorder averages, respectively. It captures the freezing of local boson phases, a natural analog of the spin-glass order parameter with connections to the concept of phase glasses [41–43]. We solve the model using a scheme based on the SK ap-proach to spin glasses [21], which can be extended to off-diagonal quantum glasses of bosons [13]. Starting from the disorder-averaged (quenched) free energy of the system, we employ the replica trick to make the averaging feasible and ob-tain a replicated system allowing for RSB emergence. From the saddle-point solution in the thermodynamic limit, we recover a set of self-consistent equations describing an effective classi-cal problem. We solve these equations numerically within the one-step replica symmetry breaking (1-RSB) approximation. We observe the phase transition between the glass and dis-ordered phases. In characterizing the phases, we focus par-ticularly on the physics of the unstable glass phase. We an-alyze the order parameters and RSB structure, and find long relaxation times. Our central result is that the glass phase is compressible. This leads to a striking realization that a zero-mean random tunneling, primarily affecting the phases of wave functions, results in a physically distinct response in particle density compared to that of the Mott insulator, the state of the system under the same parameters in the absence of randomness. 
+
+Model. — We describe the system using a variant of the Bose-Hubbard Hamiltonian [36] adapted to our problem, 
+
+𝐻 =∑︁ 𝑖< 𝑗 
+
+𝐽 𝑖 𝑗 
+
+
+
+𝑎 † 
+
+> 𝑖
+
+𝑎 𝑗 + 𝑎 † 
+
+> 𝑗
+
+𝑎 𝑖 
+
+
+
++ 𝑈 
+
+2∑︁ 𝑖 
+
+ˆ𝑛 𝑖 ( ˆ𝑛 𝑖 − 1) − 𝜇 ∑︁ 𝑖 
+
+ˆ𝑛 𝑖 , (1) where 𝑖 = 1 . . . 𝑁 numbers sites, and ˆ𝑛 𝑖 = 𝑎 † 
+
+> 𝑖
+
+𝑎 𝑖 . The first term describes hopping between sites 𝑖 and 𝑗 , with a Gaussian-distributed zero-mean hopping integral 𝐽 𝑖 𝑗 with variance 𝐽 /𝑁 .The second term represents the on-site interaction, and the third accounts for the chemical potential. In derivations, we switch to the quasi-momentum and quasi-position operators 
+
+ˆ𝑃 = i(𝑎 † − 𝑎 )/ √2, ˆ𝑄 = (𝑎 † + 𝑎 )/ √2 with eigenvalues 𝑝 , 𝑞 .To solve this model, we follow the SK scheme [21], known from spin-glass systems, adapted to quantum systems [30, 31] and subsequently to bosonic quantum systems [13]. We start with the free energy averaged over quenched disor-der [𝐹 ] = −( 1/𝛽 ) [ ln Tr exp (− 𝛽𝐻 )] . The replica trick, 
+
+[𝐹 ] = lim 𝑛 →0 ([ 𝑍 𝑛 ] − 1)/ 𝑛 [20], facilitates the averaging and introduces replicas labeled by an index 𝛼 = 1 . . . 𝑛 , with the replicated Hamiltonian 𝐻 repl = 𝐻 𝑃 + 𝐻 𝑄 + 𝐻 𝑛 ,, where 
+
+𝐻 𝑃 = P𝛼 
+
+P𝑖< 𝑗 𝐽 𝑖 𝑗 ˆ𝑃 𝑖 𝛼 ˆ𝑃 𝑗 𝛼 , 𝐻 𝑄 = P𝛼 
+
+P𝑖< 𝑗 𝐽 𝑖 𝑗 ˆ𝑄 𝑖 𝛼 ˆ𝑄 𝑗 𝛼 ,
+
+𝐻 𝑛 = (𝑈 /2) P𝑖 𝛼 ˆ𝑛 2 
+
+> 𝑖 𝛼
+
+−( 𝜇 +𝑈 /2) P𝑖 𝛼 ˆ𝑛 𝑖 𝛼 . To handle the quan-tum nature of the Hamiltonian, we apply the Trotter-Suzuki formula [44], which introduces an index 𝑘 = 1 . . . 𝑀 . Finally, 2we perform Gaussian averaging, take the thermodynamic limit, and apply the saddle point method to find the effective free en-ergy. A detailed derivation of the above steps can be found in Ref. 12. At this point, the effective free energy reads 
+
+F =∑︁  
+
+> 𝑘 𝛼𝑘 ′𝛼 ′
+
+
+
+2𝜆 2  
+
+> 𝑘 𝛼𝑘 ′𝛼 ′
+
++ 12
+
+
+
+𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′
+
+2
+
+−ln Tr exp (− 𝛽 H), (2) with an effective Hamiltonian 
+
+− 𝛽 H = 𝐽 𝛽 𝑀 ∑︁ 𝑘 𝛼𝑘 ′ 𝛼 ′
+
+"
+
+𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′
+
+
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ ) 
+
+> 𝛼 ′
+
++ 𝑞 (𝑘 ) 
+
+> 𝛼
+
+𝑞 (𝑘 ′ )
+
+> 𝛼 ′
+
+
+
++ 𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′ 𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑞 (𝑘 ′ )
+
+> 𝛼 ′
+
+#
+
++ M𝑝𝑞 , (3) where M𝑝𝑞 = Q𝑖 M(𝑖 ) 
+
+> 𝑝𝑞
+
+is a product of matrix elements, 
+
+M(𝑖 ) 
+
+> 𝑝𝑞
+
+= Y
+
+> 𝑘 𝛼
+
+D
+
+𝑝 (𝑘 ) 
+
+> 𝑖 𝛼
+
+𝑒 − 𝛽𝐻𝑛  
+
+> 2𝑀
+
+𝑞 (𝑘 )
+
+> 𝑖 𝛼
+
+ED 
+
+𝑞 (𝑘 ) 
+
+> 𝑖 𝛼
+
+𝑒 − 𝛽𝐻𝑛  
+
+> 2𝑀
+
+𝑝 (𝑘 +1)
+
+> 𝑖 𝛼
+
+E
+
+, (4) while 𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′ and 𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′ are variables introduced in the sad-dle point method, defined self-consistently as 
+
+𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′ = 𝐽 𝛽 
+
+2𝑀 
+
+D
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ )
+
+> 𝛼 ′
+
+E
+
+, 𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′ = 𝐽 𝛽 𝑀 
+
+D
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑞 (𝑘 ′ )
+
+> 𝛼 ′
+
+E
+
+, (5) with thermal averages taken with the effective Hamiltonian, 
+
+⟨A⟩ = (1/𝑍 )Tr A exp (− 𝛽 H).The variables 𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′ and 𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′ have a different physical meaning depending on whether 𝛼 = 𝛼 ′ or not. Thus, we explicitly split them, defining new variables 
+
+𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′ = 𝐽 𝛽 
+
+2𝑀 
+
+h
+
+R𝑘𝑘 ′ 𝛿 𝛼𝛼 ′ + ( 1 − 𝛿 𝛼𝛼 ′ )Q𝛼𝛼 ′
+
+i
+
+, (6a) 
+
+𝜆 𝑃𝑄 𝑘 𝛼𝑘 ′ 𝛼 ′ = 𝐽 𝛽 𝑀 
+
+h
+
+U𝑘𝑘 ′ 𝛿 𝛼𝛼 ′ + ( 1 − 𝛿 𝛼𝛼 ′ )U𝛼𝛼 ′
+
+i
+
+. (6b) Here, R𝑘𝑘 ′ are the dynamic self-interactions, diagonal in 𝛼 
+
+and dependent on |𝑘 − 𝑘 ′ |, while Q𝛼𝛼 ′ are defined for 𝛼 ≠ 𝛼 ′
+
+and independent of 𝑘 and 𝑘 ′. U𝑘𝑘 ′ and U𝛼𝛼 ′ are defined analogously. To take the limit 𝑛 → 0 and recover the quenched free energy, an assumption about the Q𝛼𝛼 ′ matrix is necessary. The simplest one is the replica-symmetric approximation, in which Q𝛼𝛼 ′ = 𝑞 , previously considered in this system [12]. Here, we go beyond this approximation and explore the 1-RSB solution, which should yield more accurate results in the glassy phase at the cost of increased complexity in the derivation and of close-to-prohibitively expensive numerical calculations. In the 1-RSB approximation, we assume 
+
+Q𝛼𝛼 ′ =
+
+
+
+0 for 𝛼 = 𝛼 ′,𝑞 1 for ⌈ 𝛼 𝑚 ⌉ = ⌈ 𝛼 ′ 
+
+> 𝑚
+
+⌉,𝑞 0 otherwise ,
+
+(7) where 𝑚 is the parameter specifying the block size in replica space, indicating a cluster in the configuration space, while 
+
+𝑞 1 and 𝑞 0 are intra- and inter-cluster overlaps, respectively. Treating U𝛼𝛼 ′ analogously, we introduce variables 𝑢 0, 𝑢 1.We handle the free energy and self-consistent equations within a standard 1-RSB scheme (see Appendix A for details), and arrive at 
+
+F = 12
+
+ 𝐽 𝛽 𝑀 
+
+2∑︁ 
+
+> 𝑘𝑘 ′
+
+
+
+R2 
+
+> 𝑘𝑘 ′
+
++ U2
+
+> 𝑘𝑘 ′
+
+
+
+− 1
+
+𝑚 
+
+∫
+
+D𝑧 ln 
+
+∫
+
+D𝑦𝑍 𝑚 
+
++ 12 (𝐽 𝛽 )2 (𝑚 − 1)𝑞 21 − 𝑚𝑞 20 + ( 𝑚 − 1)𝑢 21 − 𝑚𝑢 20
+
+, (8) where we have defined 
+
+∫
+
+D𝑦 ≡
+
+> ∞
+
+∭
+
+> −∞
+
+d𝑦 𝑃 d𝑦 𝑄 d𝑦 𝐵 exp 
+
+
+
+−𝑦 2 
+
+> 𝑃
+
+− 𝑦 2 
+
+> 𝑄
+
+− 𝑦 2
+
+> 𝐵
+
+
+
+, (9) and 𝑦 𝑃 (𝑦 𝑄 ; 𝑦 𝐵 ) is a field coupled to terms involving 
+
+P𝛼 𝑃 𝛼 (P𝛼 𝑄 𝛼 ; P𝛼 𝑃 𝛼 + 𝑄 𝛼 ) introduced in the Hubbard-Stratonovich transformation [45], and analogously for 𝑧 .The final form of the effective Hamiltonian reads 
+
+− 𝛽 H = 𝐽 𝛽 𝑀 ∑︁ 𝑘 
+
+"√︁ 
+
+2(𝑞 0−𝑢 0)  𝑧 𝑃 𝑝 𝑘 +𝑧 𝑄 𝑞 𝑘 
+
++√︁ 2𝑢 0𝑧 𝑆 ( 𝑝 𝑘 +𝑞 𝑘 )+√︁ 2(𝑞 0 − 𝑢 0)  𝑧 𝑃 𝑝 𝑘 + 𝑧 𝑄 𝑞 𝑘 
+
+ +√︁ 2𝑢 0𝑧 𝑆 ( 𝑝 𝑘 + 𝑞 𝑘 )
+
+#
+
++ 12
+
+ 𝐽 𝛽 𝑀 
+
+2∑︁ 
+
+> 𝑘𝑘 ′
+
+"
+
+(R𝑘𝑘 ′ − 𝑞 1)( 𝑝 𝑘 𝑝 𝑘 ′ + 𝑞 𝑘 𝑞 𝑘 ′ )+ 2(U𝑘𝑘 ′ − 𝑢 1) 𝑝 𝑘 𝑞 𝑘 ′
+
+#
+
+, (10) and the self-consistent equations are 
+
+R𝑘𝑘 ′ =
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 𝑝 𝑘 ′ ⟩] 𝑦 , (11a) 
+
+U𝑘𝑘 ′ =
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 𝑞 𝑘 ′ ⟩] 𝑦 , (11b) 
+
+𝑞 1 = 1
+
+𝑀 2∑︁ 𝑘𝑘 ′
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 ⟩⟨ 𝑝 𝑘 ′ ⟩] 𝑦 , (11c) 
+
+𝑞 0 = 1
+
+𝑀 2∑︁ 𝑘𝑘 ′
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 ⟩] 𝑦 [⟨ 𝑝 𝑘 ′ ⟩] 𝑦 , (11d) 
+
+𝑢 1 = 1
+
+𝑀 2∑︁ 𝑘𝑘 ′
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 ⟩⟨ 𝑞 𝑘 ′ ⟩] 𝑦 , (11e) 
+
+𝑢 0 = 1
+
+𝑀 2∑︁ 𝑘𝑘 ′
+
+∫
+
+D𝑧 [⟨ 𝑝 𝑘 ⟩] 𝑦 [⟨ 𝑞 𝑘 ′ ⟩] 𝑦 , (11f) where we have defined 
+
+[A]𝑦 ≡
+
+∫ D𝑦 A𝑍 𝑚 
+
+∫ D𝑦𝑍 𝑚 . (12) Finally, we solve them numerically, as outlined in Appendix B. 
+
+Glass order parameters. — We first study the 1-RSB compo-sition of the Q𝛼𝛼 ′ matrix in the glass phase. It is parametrized by the order parameters 𝑞 1 and 𝑞 0, as well as the parameter 
+
+𝑚 that controls the split between the former two. The order 3U/J = 0.01 1 2 4 60.00 0.05 0.10 0.15 0.20 0 0.2 0.4 0.6 0.8 1                                  
+
+> μ/U= 0.0
+> mT/Tc00.2 0.4 0.6 0.8 1
+> μ/U= 0.4
+> T/TcFIG. 1. Temperature dependence of parameter 𝑚 at various values of the chemical potential 𝜇 /𝑈 (panels) and inverse disorder 𝑈 /𝐽 (point shapes), as marked on the plots. Lines are to guide the eye only. 00.2 0.4 0.6 0.8 100.2 0.4 0.6 0.8 1
+> μ/U= 0.0
+> q 1, q0
+> T/Tc00.2 0.4 0.6 0.8 1
+> μ/U= 0.4
+> T/Tc
+> U/J= 0.01 1246
+> q1
+> q0fill:
+> FIG. 2. Temperature dependence of order parameters 𝑞 1(full sym-bols) and 𝑞 0(open symbols) at various values of the chemical poten-tial 𝜇 /𝑈 (panels) and inverse disorder 𝑈 /𝐽 (point shapes), as marked on the plots. Lines are to guide the eye only.
+
+parameter QEA is defined as max (Q𝛼𝛼 ′ ) [23], which in 1-RSB equals 𝑞 1. We study the dependence of these parameters on the reduced temperature 𝑇 /𝑇 c. First, we focus on 𝑚 , depicted in Fig. 1 at several values of 𝜇 /𝑈 and 𝑈 /𝐽 . The behavior is qualitatively similar across all parameter sets and is lobe-shaped. The curves approach zero near 𝑇 = 𝑇 c, exhibit a clear maximum at around 𝑇 /𝑇 c ≈ 0.6, and again trend towards zero at 𝑇 = 0, which, however, is not reachable due to the increasing Trotter error [46]. This is consistent with the behavior of 𝑚 in spin-glasses [47, 48]. At fixed 𝜇 /𝑈 , as 𝑈 /𝐽 increases, indicat-ing that the system exhibits more local density correlations, the values of 𝑚 decrease, and the curve becomes more asymmet-ric. This indicates an interplay between density fluctuations, suppressed by interactions, and phase freezing, reflected in changing RSB structure. A similar scenario was present in a quantum spin glass [48], where the driving factor was the transverse field 𝛥 , responsible for introducing quantumness to the system. We might conclude that the nature of the studied glass phase approaches that of a spin glass as 𝑈 /𝐽 → 0. Ad-ditionally, at 𝜇 /𝑈 = 0 the curve saturates as 𝑈 /𝐽 increases, as the system is already locked to degenerate sectors of 0 and 1 particles per site, while at 𝜇 /𝑈 = 0.4 the decrease continues, since the system can access more sectors. Above 𝑈 /𝐽 ⪆ 8,there is no glass at any temperature [13]. Next, we turn our attention to the glass order parameters 𝑞 1
+
+and 𝑞 0. Their dependence as a function of 𝑇 /𝑇 c for the same set of 𝜇 /𝑈 and 𝑈 /𝐽 is shown in Fig. 2. The general qualitative behavior mimics that of spin glasses again: both parameters start at zero at 𝑇 = 𝑇 c and increase as the temperature de-creases, with 𝑞 0 < 𝑞 1. Here, at 𝜇 /𝑈 = 0.4, where interaction effects are more pronounced, we again observe their interplay with glassiness. Both 𝑞 1 = QEA and 𝑞 1 − 𝑞 0 decrease, the for-mer quantifying the strength of phase freezing and the latter the degree of RSB, revealing a competition between density fluctuations and off-diagonal glassiness. 00.02 0.04 0.06 0.08 0.1 0.12 0.14 0 0.02 0.04 0.06 0.08 0.1 0.12                  
+
+> J/U= 0.01
+> J/U= 0.13
+> J/U= 0.16 clean
+> κUT/U
+> DI GL
+> FIG. 3. Compressibility 𝜅𝑈 as a function of temperature 𝑘 B𝑇 /𝑈
+> for 𝐽 /𝑈 =0.01 ,0.13 ,0.16 . Full symbols indicate the glassy phase, while open symbols stand for the disordered one. The dashed line shows a prediction of 𝛽 exp (− 𝛽𝜇 )for a clean system. Lines are to guide the eye only.
+
+Compressibility. — In the limit of no disorder, 𝐽 /𝑈 → 0,we recover the clean system behavior at zero hopping. In this regime, only the disordered phase survives. At sufficiently low temperatures, this phase is the incompressible Mott insulator phase. As the disorder increases, the glass phase emerges. In Fig. 3, we plot the compressibility 𝜅 = 𝜕 ⟨𝑛 ⟩/ 𝜕𝜇 as a function of 𝑇 /𝑈 , at fixed 𝜇 /𝑈 = 0.4, and for three values of 𝐽 /𝑈 .At nearly zero disorder, 𝐽 /𝑈 = 0.01 , the system remains in the disordered phase throughout the plotted range. The com-pressibility vanishes as 𝑇 → 0, as expected for the (almost) clean system. The temperature dependence is also very close to that of the clean system 𝜅 (𝛽 ) = 𝛽 exp (− 𝛽𝜇 /𝑈 ) with a gap 𝜇 /𝑈 . At the highest disorder considered, 𝐽 /𝑈 = 0.16 ,the system remains in the glassy phase. The compressibility dependence is significantly different, with a low-𝑇 plateau, in-dicating non-zero compressibility at 𝑇 → 0. For intermediate disorder, 𝐽 /𝑈 = 0.13 , the system crosses the phase transition at 𝑇 /𝑈 ≈ 0.7, which is accompanied by a pronounced change in the trend. The high-𝑇 part of the curve seems to be decreas-ing to 𝜅 = 0, but with the onset of glassiness, the curve turns upwards, and approaches a 𝜅 ≠ 0 plateau as 𝑇 → 0. With this, we find a direct correspondence between compressibility and glassiness, and thus RSB. It is nontrivial, as 𝜅 = 𝛽 (⟨ 𝑛 2⟩ − ⟨ 𝑛 ⟩2)
+
+probes density fluctuations (diagonal sector of the Fock space), while glassiness involves the freezing of the bosonic phase (off-diagonal sector). It has been, however, signaled by the 4interplay of interactions and glassiness in Figs. 1 and 2. 00.2 0.4 0.6 0.8 11.2 1.4 1.6 0 1 2 3DI              
+
+> Rkk' |k-k'| J/U= 0.01 0123DI
+> |k-k'| J/U= 0.10 0123GL
+> |k-k'| J/U= 0.13 0123GL
+> |k-k'| J/U= 0.16
+
+FIG. 4. Self-correlations R𝑘𝑘 ′ as a function of |𝑘 − 𝑘 ′ | at 𝑇 /𝑈 = 0.05 
+
+and varying values of 𝐽 /𝑈 , as marked on the plots. The lower two values of 𝐽 /𝑈 lie within the disordered phase, while the higher two are in the glassy phase. In the glass, QEA is marked with dashed lines. Lines are to guide the eye only. 
+
+Self-interactions. — The dynamic self-interactions R𝑘𝑘 ′
+
+are a discrete equivalent of the autocorrelation function 
+
+⟨𝑎 (𝜏 )𝑎 † (0)⟩ depending only on the difference |𝑘 − 𝑘 ′ |, which is a counterpart of the imaginary Matsubara time 𝜏 . At 
+
+𝑇 = 0, the asymptote of the correlation function is ex-pected to coincide with QEA [45], [⟨ 𝑎 † (𝜏 )𝑎 (0)⟩] = [|⟨ 𝑎 ⟩| 2] + [⟨ 𝛿𝑎 † (𝜏 )𝛿𝑎 (0)⟩] 𝜏 →∞ 
+
+−−−−→ [|⟨ 𝑎 ⟩| 2] = QEA . In the discrete case, the asymptote can be recovered at |𝑘 − 𝑘 ′ | = 𝑀 /2. In Fig. 4, we present R𝑘𝑘 ′ as a function of |𝑘 − 𝑘 ′ | at four values of 𝐽 /𝑈 ,two in the disordered phase and two in the glassy phase. For the latter two, we also plot the corresponding value of QEA .As expected, the correlations decay to the value of QEA , but do not fully saturate at finite temperature, due to an upper bound on imaginary-time 𝜏 ≤ 𝛽 . The persistence of low-frequency (long-time) correlations indicates the presence of memory in the system, associated with the frozen bosonic phases. 
+
+Discussion. — We have studied a phase transition to a non-ergodic glass phase in a system of interacting bosons with random hopping, employing the 1-RSB approach, which is essential for obtaining meaningful results in the RSB phase. The phase involves random freezing of bosonic phases char-acterized by the EA order parameter. We have analyzed the behavior of the order parameters of the system and found lim-iting connections to spin glasses, quantum spin glasses, and clean Bose-Hubbard systems. We have shown a straightfor-ward distinction between the Mott-insulator and glass phases based on the zero-temperature limit of compressibility that is finite in the glass phase. This central result is not obvious, as it relates a global density response to the freezing of local phases, involving operators that are diagonal and off-diagonal in the Fock basis, respectively. Compressibility is routinely measured in optical lattice experiments, typically aimed at distinguishing between Mott insulator and superfluid phases. In contrast, conventional methods for identifying glassiness are more complex, as they require dealing with real replicas or prohibitively long measurement times. Thus, our results pro-vide an experimentally well-established method for identifying glassiness. 
+
+Appendix A: Derivations.— We plug the 𝜆 𝑘 𝛼𝑘 ′ 𝛼 ′ decomposition from Eqs. (6a)-(6b) into the free energy in Eq. (2), with the goal of transforming the expressions in a way that permits taking the 𝑛 → 0 limit. The effective Hamiltonian in Eq. (3) contains three terms of similar structure. We handle all of them in a similar way, for example ∑︁  
+
+> 𝑘 𝛼𝑘 ′𝛼 ′
+
+Q𝛼𝛼 ′ 𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ ) 
+
+> 𝛼 ′
+
+=∑︁ 
+
+> 𝑘𝑘 ′
+
+
+
+𝑞 0∑︁ 𝛼𝛼 ′
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ ) 
+
+> 𝛼 ′
+
++ ( 𝑞 1 − 𝑞 0)∑︁ 
+
+> 𝑏
+
+∑︁ 𝛼𝛼 ′ ∈𝑏 
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ ) 
+
+> 𝛼 ′
+
++ (− 𝑞 1)∑︁ 𝛼 
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
+𝑝 (𝑘 ′ )
+
+> 𝛼
+
+
+
+= 𝑞 0
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+2
+
++ ( 𝑞 1 − 𝑞 0)∑︁ 
+
+> 𝑏
+
+∑︁ 
+
+> 𝑘
+
+∑︁ 𝛼 ∈𝑏 
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+2
+
++ (− 𝑞 1)∑︁ 𝛼 
+
+∑︁ 
+
+> 𝑘
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+2
+
+, (A1) where 𝑏 (1 ≤ 𝑏 ≤ 𝑚 ) numbers the blocks of the Q𝛼𝛼 ′ matrix and 𝛼 ∈ 𝑏 means that index 𝛼 belongs to block 𝑏 , or, mathematically, that ⌈( 𝑏 − 1)𝑛 /𝑚 ⌉ ≤ 𝛼 ≤ ⌈ 𝑏𝑛 /𝑚 ⌉. Next, we group the terms by the character of their 𝛼 -dependence and rearrange them such that each term is a squared sum, for example 
+
+𝑞 0
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+2
+
++𝑞 0
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑞 (𝑘 )
+
+> 𝛼
+
+2
+
++2𝑤 0
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+ ∑︁ 
+
+> 𝑘 𝛼
+
+𝑞 (𝑘 )
+
+> 𝛼
+
+
+
+= (𝑞 0−𝑤 0)
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑝 (𝑘 )
+
+> 𝛼
+
+2
+
++( 𝑞 0−𝑤 0)
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑞 (𝑘 )
+
+> 𝛼
+
+2
+
++𝑤 0
+
+∑︁ 
+
+> 𝑘 𝛼
+
+𝑝 (𝑘 ) 
+
+> 𝛼
+
++∑︁ 
+
+> 𝑘 𝛼
+
+𝑞 (𝑘 )
+
+> 𝛼
+
+2
+
+.
+
+(A2) Finally, we use the Hubbard-Stratonovich transformation and introduce a set of fields that decouple these squared sums, for 5example 
+
+exp 12
+
+ 𝐽 𝛽 𝑀 
+
+2 
+
+𝑑 0
+
+∑︁ 
+
+> 𝛼
+
+𝑃 𝛼 
+
+2
+
++∑︁ 
+
+> 𝑏
+
+𝑑 01 
+
+∑︁ 
+
+> 𝛼 ∈𝑏
+
+𝑃 𝛼 
+
+2
+
+− 𝑑 1∑︁ 𝛼 
+
+𝑃 2
+
+> 𝛼
+
+ !
+
+= 1
+
+√𝜋 
+
+> ∞
+
+∫
+
+> −∞
+
+d𝑧 e−𝑧 2
+
+exp 
+
+ 𝐽 𝛽 𝑀 𝑧 √︁ 2𝑑 0∑︁ 𝛼 
+
+𝑃 𝛼 
+
+ Y
+
+> 𝑏
+
+1
+
+√𝜋 
+
+> ∞
+
+∫
+
+> −∞
+
+d𝑦 𝑏 e−𝑦 2 
+
+> 𝑏
+
+exp 𝐽 𝛽 𝑀 𝑦 𝑏 √︁ 2𝑑 01 ∑︁ 𝛼 ∈𝑏 
+
+𝑃 𝛼 
+
+!
+
+exp − 12
+
+ 𝐽 𝛽 𝑀 
+
+2
+
+𝑑 1∑︁ 𝛼 
+
+𝑃 2
+
+> 𝛼
+
+!
+
+=
+
+∫
+
+D𝑧 Y
+
+> 𝑏
+
+∫
+
+D𝑦 𝑏 
+
+Y
+
+> 𝛼 ∈𝑏
+
+exp 𝐽 𝛽 𝑀 𝑧 √︁ 2𝑑 0 𝑃 𝛼 + 𝐽 𝛽 𝑀 𝑦 𝑏 √︁ 2𝑑 01 𝑃 𝛼 − 12
+
+ 𝐽 𝛽 𝑀 
+
+2
+
+𝑑 1∑︁ 𝛼 
+
+𝑃 2
+
+> 𝛼
+
+!
+
+, (A3) where we have introduced 𝑃 𝛼 ≡ P𝑘 𝑝 (𝑘 ) 
+
+> 𝛼
+
+, 𝑑 01 ≡ 𝑞 1 − 𝑞 0 − 𝑤 1 + 𝑤 0, 𝑑 0 = 𝑞 0 − 𝑞 1 and 𝑑 1 = 𝑞 1 − 𝑤 1. This form is now suitable to take the 𝑛 → 0 limit using 
+
+∫
+
+D𝑧 𝑃 
+
+∫
+
+D𝑧 𝑄 
+
+∫
+
+D𝑧 𝐵 
+
+Y
+
+> 𝑏
+
+∫
+
+D𝑦 𝑃𝑏 
+
+∫
+
+D𝑦 𝑄𝑏 
+
+∫
+
+D𝑦 𝐵𝑏 
+
+Y
+
+> 𝛼 ∈𝑏
+
+Tr exp  −𝛽  𝐻 𝑃𝑏 𝛼 + 𝐻 𝑄𝑏 𝛼 + 𝐻 𝐵𝑏 𝛼 + 𝐻 0
+
+ 
+
+=
+
+∫
+
+D𝑧 𝑃 
+
+∫
+
+D𝑧 𝑄 
+
+∫
+
+D𝑧 𝐵 
+
+∫ 
+
+D𝑦 𝑃 
+
+∫
+
+D𝑦 𝑄 
+
+∫
+
+D𝑦 𝐵 
+
+
+
+Tre −𝛽𝐻 𝑚  𝑛 𝑚 
+
+, (A4) where −𝛽𝐻 𝑃𝑏 𝛼 is the exponent from the final expression in Eq. (A3), 𝐻 𝑄𝑏 𝛼 and 𝐻 𝐵𝑏 𝛼 are analogous expressions stemming from sums of 𝑞 (𝑘 ) 
+
+> 𝛼
+
+and 𝑝 (𝑘 ) 
+
+> 𝛼
+
++ 𝑞 (𝑘 ) 
+
+> 𝛼
+
+respectively, 𝐻 0 is the part that does not depend on 𝛼 and −𝛽𝐻 is the final effective Hamiltonian that can be found in Eq. (10). 
+
+Appendix B: Numerical calculations.— The self-consistent equations (11a)-(11f) are solved numerically for fixed values of 𝑇 , 𝑈 , 𝜇 , and 𝐽 : We assume starting values for the left-hand-side variables and, repeatedly, use these to calculate the right-hand-side expressions, which are then used as new values of the variables in question. The calculation of the right-hand-side expressions presents two numerical challenges that must be optimized: the computation of integrals ∫ D𝑧 and ∫ D𝑦 and the calculation of the partition function 𝑍 .Each of the symbols ∫ D𝑧 , ∫ D𝑦 represents a triple integral, which requires the calculation of six nested integrals in total. This puts the main focus on reducing the number of evalu-ation points for each integral. The integrals ∫ D𝑧 and ∫ D𝑦 
+
+can be efficiently approximated using the Gaussian quadrature method [49]. We conducted a convergence study of various observables as a function of the number of integration points and found that subsequent integers alternate in approximating the observables from above and below, with improving accu-racy. We observed that the average of the 𝑛 - and 𝑛 + 1-point integrals provides accuracy similar to a 2𝑛 -point calculation. Thus, the results shown in the paper are calculated using 6 and 
+
+7 integration points and then averaged, resulting in errors on the order of 1% . It is often beneficial to treat a multiple integral as a whole, rather than as a sequence of nested integrals, as we are doing here. However, the Gaussian quadrature method of-fers no straightforward generalization to multiple dimensions. Nevertheless, we examined several ideas in this regard, but none proved fruitful. To calculate the partition function, we need to sum over all possible sets of variables {𝑝 1, 𝑝 2, . . . , 𝑝 𝑀 , 𝑞 1, 𝑞 2, . . . , 𝑞 𝑀 }.The sets of eigenvalues of the operators ˆ𝑃 and ˆ𝑄 (or, equiva-lently, ˆ𝑛 ) are infinite, necessitating the truncation of the Hilbert space. The natural truncation is to limit the ˆ𝑛 basis and remain within low values of the chemical potential 𝜇 , as this reduc-tion has physical meaning. However, the number of summands in the partition function remains exponential, which makes it very large, even when considering only a few particles per site. One might attempt to use the Monte Carlo summation method. However, unlike in the usual case, the summands might be complex or negative. This gives rise to the severe sign problem [50], which renders the Monte Carlo method unsuitable for this calculation. Thus, we must resort to direct summation. We settle on a basis of up to 2 particles per site, allowing us to obtain results at 𝜇 /𝑈 ≤ 1 with reasonable ac-curacy. This truncation leaves us with 9𝑀 summands in the partition function. 
+
+Acknowledgments. — Calculations have been partially car-ried out using resources provided by Wroclaw Centre for Net-working and Supercomputing ( http://wcss.pl ), grant No. 449.    
+
+> ∗a.piekarska@intibs.pl [1] B. Lacroix-A-Chez-Toine, Y. V. Fyodorov, and P. Le Doussal, J. Stat. Phys. 191 , 11 (2024). [2] J. Yeo and M. A. Moore, Phys. Rev. E 108 , 054134 (2023). [3] I. Paga, Q. Zhai, M. Baity-Jesi, E. Calore, A. Cruz, L. A. Fernandez, J. M. Gil-Narvion, I. G.-A. Pemartin, A. Gordillo-Guerrero, D. Iñiguez, A. Maiorano, E. Marinari, V. Martin-Mayor, J. Moreno-Gordo, A. Muñoz-Sudupe, D. Navarro, R. L. Orbach, G. Parisi, S. Perez-Gaviro, F. Ricci-Tersenghi, J. J. Ruiz-
+
+6Lorenzo, S. F. Schifano, D. L. Schlagel, B. Seoane, A. Taran-con, R. Tripiccione, and D. Yllanes, J. Stat. Mech. 2021 , 033301 (2021). [4] M. A. Moore and N. Read, Phys. Rev. Lett. 120 , 130602 (2018). [5] M. Tikhanovskaya, S. Sachdev, and R. Samajdar, PRX Quantum 
+
+5, 020313 (2024). [6] N. Kavokine, M. Müller, A. Georges, and O. Parcollet, Phys. Rev. Lett. 133 , 016501 (2024). [7] C. Baldwin and B. Swingle, Phys. Rev. X 10 , 031026 (2020). [8] P. Charbonneau, E. Marinari, M. Mézard, G. Parisi, F. Ricci-Tersenghi, G. Sicuro, and F. Zamponi, Spin glass theory and far beyond , edited by P. Charbonneau (World Scientific Publishing Co. Pte. Ltd, Singapore, 2023). [9] G. Parisi, Rev. Mod. Phys. 95 , 030501 (2023). [10] G. Gradenigo, F. Antenucci, and L. Leuzzi, Phys. Rev. Research 
+
+2, 023399 (2020). [11] N. Ghofraniha, I. Viola, F. D. Maria, G. Barbarella, G. Gigli, L. Leuzzi, and C. Conti, Nat. Commun. 6, 6058 (2015). [12] A. M. Piekarska and T. K. Kopeć, Phys. Rev. B 105 , 174203 (2022). [13] A. M. Piekarska and T. K. Kopeć, Phys. Rev. Lett. 120 , 160401 (2018). [14] G. Biroli, C. Chamon, and F. Zamponi, Phys. Rev. B 78 , 224306 (2008). [15] K.-M. Tam, S. Geraedts, S. Inglis, M. J. P. Gingras, and R. G. Melko, Phys. Rev. Lett. 104 , 215301 (2010). [16] R. M. Kroeze, B. P. Marsh, D. Atri Schuller, H. S. Hunt, A. N. Bourzutschky, M. Winer, S. Gopalakrishnan, J. Keeling, and B. L. Lev, Science 389 , 1122 (2025). [17] B. P. Marsh, R. M. Kroeze, S. Ganguli, S. Gopalakrishnan, J. Keeling, and B. L. Lev, Phys. Rev. X 14 , 011026 (2024). [18] R. Harris, Y. Sato, A. J. Berkley, M. Reis, F. Altomare, M. H. Amin, K. Boothby, P. Bunyk, C. Deng, C. Enderud, S. Huang, E. Hoskinson, M. W. Johnson, E. Ladizinsky, N. Ladizinsky, T. Lanting, R. Li, T. Medina, R. Molavi, R. Neufeld, T. Oh, I. Pavlov, I. Perminov, G. Poulin-Lamarre, C. Rich, A. Smirnov, L. Swenson, N. Tsai, M. Volkmann, J. Whittaker, and J. Yao, Science 361 , 162 (2018). [19] P. Rotondo, E. Tesio, and S. Caracciolo, Phys. Rev. B 91 , 014415 (2015). [20] S. F. Edwards and P. W. Anderson, J. Phys. F: Met. Phys. 5, 965 (1975). [21] D. Sherrington and S. Kirkpatrick, Phys. Rev. Lett. 35 , 1792 (1975). [22] G. Parisi, Phys. Lett. A 73 , 203 (1979). [23] G. Parisi, Phys. Rev. Lett. 43 , 1754 (1979). [24] M. Mézard, G. Parisi, N. Sourlas, G. Toulouse, and M. Virasoro, Phys. Rev. Lett. 52 , 1156 (1984). [25] D. Stein and C. Newman, Spin Glasses and Complexity (Primers in Complex Systems) (Princeton University Press, 2013). [26] E. A. Galpern, H. Jaafari, C. Bueno, P. G. Wolynes, and D. U. Ferreiro, Proc. Natl. Acad. Sci. 121 , e2400151121 (2024). [27] A. Choromanska, M. Henaff, M. Mathieu, G. Ben Arous, and Y. LeCun, in Proceedings of the Eighteenth International Con-ference on Artificial Intelligence and Statistics , Proceedings of Machine Learning Research, Vol. 38, edited by G. Lebanon and S. V. N. Vishwanathan (PMLR, San Diego, California, USA, 2015) pp. 192–204. [28] I. M. Georgescu, S. Ashhab, and F. Nori, Rev. Mod. Phys. 86 ,153 (2014). [29] W. Wu, B. Ellman, T. F. Rosenbaum, G. Aeppli, and D. H. Reich, Phys. Rev. Lett. 67 , 2076 (1991). [30] A. J. Bray and M. A. Moore, J. Phys. C 13 , L655 (1980). [31] K. D. Usadel, Nucl. Phys. B 5, 91 (1988). [32] P. Nataf and C. Ciuti, Nat. Commun. 1, 72 (2010). [33] D. Jaksch, C. Bruder, J. I. Cirac, C. W. Gardiner, and P. Zoller, Phys. Rev. Lett. 81 , 3108 (1998). [34] M. Greiner, O. Mandel, T. Esslinger, T. W. Hänsch, and I. Bloch, Nature 415 , 39 (2002). [35] L. Fallani, C. Fort, and M. Inguscio, in Advances In Atomic, Molecular, and Optical Physics (Elsevier, 2008) pp. 119–160. [36] M. P. A. Fisher, P. B. Weichman, G. Grinstein, and D. S. Fisher, Phys. Rev. B 40 , 546 (1989). [37] H. Gimperlein, S. Wessel, J. Schmiedmayer, and L. Santos, Phys. Rev. Lett. 95 , 170401 (2005). [38] S. J. Thomson and F. Krüger, Europhys. Lett. 108 , 30002 (2014). [39] Y. Imry and S.-k. Ma, Phys. Rev. Lett. 35 , 1399 (1975). [40] S. Morrison, A. Kantian, A. J. Daley, H. G. Katzgraber, M. Lewenstein, H. P. Büchler, and P. Zoller, New J. Phys. 10 ,073032 (2008). [41] T. K. Kopeć and J. V. José, Phys. Rev. B 52 , 16140 (1995). [42] D. Dalidovich and P. Phillips, Phys. Rev. Lett. 89 , 027001 (2002). [43] J. Wu and P. Phillips, Phys. Rev. B 73 , 214507 (2006). [44] M. Suzuki, Comm. Math. Phys. 51 , 183 (1976). [45] S. Sachdev, Quantum Phases of Matter (Cambridge University Press, 2023). [46] M. Suzuki, Phys. Lett. A 113 , 299 (1985). [47] G. Parisi, J. Phys. A: Math. Gen. 13 , 1101 (1980). [48] G. Büttner and K. D. Usadel, Phys. Rev. B 42 , 6385 (1990). [49] R. E. Greenwood and J. J. Miller, Bull. Am. Math. Soc. 54 , 765 (1948). [50] A. M. Piekarska and T. K. Kopeć, Acta Phys. Pol. A 135 , 78 (2019). 
+
+7
