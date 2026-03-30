@@ -1,0 +1,499 @@
+Title: Benchmarking the accuracy of superconducting pair-pair correlations within Constrained Path Quantum Monte Carlo
+
+URL Source: https://arxiv.org/pdf/2603.25858v1
+
+Published Time: Mon, 30 Mar 2026 00:08:16 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Benchmarking the accuracy of superconducting pair-pair correlations within Constrained Path Quantum Monte Carlo 
+
+Jodie Roberts 1, Beau A. Thompson 2, and R. Torsten Clay 2∗
+
+> 1
+
+Department of Engineering Science and Mechanics, Pennsylvania State University, University Park, PA 16802 and 
+
+> 2
+
+Department of Physics & Astronomy, and HPC 2 Center for Computational Sciences, Mississippi State University, Mississippi State, MS 39762 
+
+(Dated: today) Ground state properties of the Hubbard model are of fundamental importance to understand the mechanism of unconventional superconductivity in the high-T c cuprates and other materials. One of the most powerful numerical methods for strongly interacting models is quantum Monte Carlo, which however faces a fundamental limitation, the Fermion sign problem. The sign problem can be mitigated using approximate methods such as Constrained Path Monte Carlo, but additional approximations must be made in order to measure different observables, particularly for operators that do not commute with the Hamiltonian. We examine critically the most commonly used approx-imation, back propagation, as well as a recently proposed constraint release measurement technique. In comparisons with a variety of systems that can be solved numerically exactly by other methods, we find that back propagation tends to underestimate superconducting pair-pair correlations. The constraint release technique can provide accurate results, with the disadvantages that it much more computationally expensive and reintroduces the sign problem. 
+
+I. INTRODUCTION 
+
+The Hubbard model has played a central role in the theory of strongly correlated materials [1]. It has been widely used as a base theoretical model for unconven-tional superconductors, including the high-T c cuprates [2] and the organic charge-transfer solid superconductors [3]. Numerical many-body methods have been essential to understanding its properties [4], and in turn, the study of the Hubbard model has driven the development of these methods. Among many-body methods, quantum Monte Carlo (QMC) is one of the most used [5]. The primary limiting factor for QMC studies of the Hubbard model is the Fermion sign problem, which leads to an exponential loss of precision with increasing lattice size, inverse temperature, and interaction strength [6, 7]. Constrained Path Monte Carlo (CPMC) is a QMC method that mitigates the sign problem [8, 9]. Based on the auxiliary field determinant Monte Carlo method [5], CPMC provides an efficient although approximate solution to the sign problem by using a trial wavefunc-tion. While the error introduced by the trial function is unknown, one can in principal improve the results by us-ing a more complex trial function. Ground state energies from CPMC compare well against known exact values and other methods [9, 10]. Because of this, CPMC has been widely used to study superconducting pairing in Hubbard models [9, 11–21]. The earliest CPMC calcu-lations found no evidence for superconductivity (SC) in the doped Hubbard model on a square lattice [11, 13], confirmed by later calculations [19]. Beyond the square lattice, interactions were found to enhance SC near quar-ter or three-quarter filling in anisotropic triangular [16]  
+
+> ∗r.t.clay@msstate.edu
+
+and other frustrated lattices [17, 18]. Recent CPMC cal-culations using with boundary-condition averaging have suggested that SC is present in the thermodynamic limit in the lightly doped Hubbard model with next-nearest neighbor hopping [20]. A question of central importance is how accurate are methods like CPMC. Most tests of accuracy have fo-cused on comparisons of the ground state energy between CPMC, other methods, and exact results. While this is useful, correlated many-body states are often separated by very small energy differences that are difficult to re-solve. Energy comparisons are also complicated by the fact that CPMC is not a variational method, with the energy calculated by CPMC being below the true ground state energy [22]. In this work we examine critically the accuracy of CPMC in calculating correlation functions, specifically the equal-time superconducting pair-pair cor-relation. In order to calculate correlation functions of op-erators that do not commute with the Hamiltonian, an additional approximation, back propagation [9, 23], must be used. We compare this with the recently proposed constraint release method [24]. We will show that over a wide variety of lattices and parameters, CPMC with back propagation tends to underestimate the magnitude of superconducting pair-pair correlations. Below in Section II we define the model and pairing observables we measure, and briefly review the CPMC method and the back propagation and constraint release techniques. In Section III we present computational re-sults for several systems, include one dimension, two-leg ladders, the square lattice, and the anisotropic triangular lattice. We also demonstrate a technique for generating high accuracy trial wavefunctions which can in princi-ple be systematically improved using the Path Integral Renormalization Group (PIRG) method [25–27]. Section IV summarizes our findings. 
+
+> arXiv:2603.25858v1 [cond-mat.str-el] 26 Mar 2026
+
+2
+
+II. MODEL AND METHODS A. Hubbard model and observables 
+
+We consider the Hubbard model with Hamiltonian ˆH = − ∑
+
+> 〈ij 〉,σ
+
+tij (c† 
+
+> i,σ
+
+cj,σ + H.c. ) + U ∑
+
+> i
+
+ni, ↑ni, ↓. (1) In Eq. 1, c† 
+
+> i,σ
+
+creates an electron of spin σ on site i and 
+
+ni,σ = c† 
+
+> i,σ
+
+ci,σ . U is the onsite Coulomb interaction. In the first sum, 〈ij 〉 denotes all bonds of the lattice. While we will consider several possible lattice structures, in each case we give energies in units of the largest hopping in-tegral tij .In addition to measurements of the ground state en-ergy, we consider measurements of the equal-time super-conducting pair-pair correlation. We define the singlet pair creation operator as ∆† 
+
+> i
+
+= 1
+
+√2 (c† 
+
+> i1,↑
+
+c†  
+
+> i2,↓
+
+− c† 
+
+> i1,↓
+
+c†
+
+> i2,↑
+
+), (2) which creates a singlet pair on sites i1 and i2. The pair-pair correlation is then 
+
+P (r ≡ | ri − rj |) = 1
+
+2 〈∆† 
+
+> ri
+
+∆rj + ∆ ri ∆† 
+
+> rj
+
+〉. (3) SC in a two-dimensional (2D) system requires long-range order in P (r) at zero temperature, with P (r) reaching a finite value as r → ∞ . On a 2D lattice the appropriate pair creation operator is a superposition of four nearest-neighbor pairs, ∆† 
+
+> r
+
+= N
+
+> 4
+
+∑
+
+> ν=1
+
+gν (c†
+
+> r,↑
+
+c† 
+
+> r+r(ν),↓
+
+− c†
+
+> r,↓
+
+c†
+
+> r+r(ν),↑
+
+). (4) In Eq. 4, N is a normalization factor and gν a rela-tive phase. gν are all positive for s-wave pairing, while for dx2−y2 pairing gν ={+1 , −1, +1 , −1} corresponding to 
+
+r(ν) = {ˆx, ˆy, −ˆx, −ˆy}. We further define the average long-range pair-pair correlation, ¯P = 1
+
+Np
+
+∑
+
+> ri>2
+
+P (ri). (5) In ¯P only correlations beyond a minimum distance of two lattice units are considered. The normalization Np
+
+is the number of correlations that satisfy ri > 2. Because pair-pair correlations are much stronger at very short dis-tances, ¯P is a useful quantity to evaluate the tendency towards superconductivity on finite lattices [16]. 
+
+B. Constrained Path Monte Carlo 
+
+We only briefly review the CPMC method here, as further details are available in the literature [9, 23, 24]. In CPMC the ground state wavefunction is represented as a sum over random walkers, 
+
+|Ψ0〉 = ∑
+
+> i
+
+wi|φi〉, (6) with each walker in the ensemble having a weight wi and Slater determinant wavefunction |φi〉. |φi〉 actually rep-resents a direct product of independent spin up and spin down determinants; for clarity we suppress the spin in-dices below. CPMC is a projector technique where the ground state wavefunction |Ψ0〉 is projected from an ini-tial state |Ψi〉 in imaginary time, 
+
+|Ψ0〉 = lim  
+
+> β→∞
+
+e−β( ˆH−E0)|Ψi〉, (7) with E0 a trial energy. The exponential of ˆH is dis-cretized typically with a second-order Trotter approxi-mation, 
+
+e−∆τ ˆH ≈ e−∆τ / 2 ˆK e−∆τ ˆU e−∆τ / 2 ˆK , (8) where ˆK and ˆU are the hopping and interaction parts of Eq. 1 respectively, and ∆ τ is the imaginary time step. While the exponential of ˆK can be calculated exactly, the interaction term is transformed using a Hubbard-Stratonovich transformation, 
+
+e−∆τ Un i↑ni↓ = e−∆τ U (ni↑+ni↓)/2 ∑
+
+> xi=±1
+
+1
+
+2 eγx i(ni↑ −ni↓),
+
+(9) with cosh γ = e∆τ U/ 2. An open-ended random walk is then performed on each random walker, where the value of the field xi at each site is selected via impor-tance sampling weighted by the overlap of |φi〉 with a trial wavefunction, 〈Ψt|φi〉. The projection in imaginary time is subjected to the constraint 〈Ψt|φi〉 > 0, with random walkers removed from the ensemble if their over-lap becomes negative. The trial wavefunction |Ψt〉 thus plays a critical role in the method. We will assume that 
+
+|Ψi〉 = |Ψt〉 and that |Ψt〉 is a sum of individual Slater determinants, 
+
+|Ψt〉 =
+
+> Nt
+
+∑
+
+> k
+
+ck|φtk〉. (10) 
+
+C. Mixed estimator 
+
+Several techniques are used to measure observables in CPMC. The fundamental problem is that to measure the expectation value of a general operator in the ground state wavefunction, 〈 ˆO〉 = 〈Ψ0| ˆO| Ψ0〉, two independent stochastic samples of |Ψ0〉 would be required [22], which is not feasible in practice. In the case where ˆO commutes with ˆH, the mixed estimator can be used, 
+
+〈 ˆO〉 ≈ 1
+
+Nm
+
+> Nm
+
+∑
+
+> m=1
+
+∑ 
+
+> i
+
+wmi 〈Ψt| ˆO| φi〉
+
+∑ 
+
+> i
+
+wmi
+
+(11) 3In Eq. 11, Nm is the total number of measurements and 
+
+wmi is the weight of the ith walker. Such measurements are taken periodically in imaginary time and binned in order to decrease correlations. It has been observed that even with simple choices for |Ψt〉, such as a single-determinant non-interacting wavefunction, CPMC using the mixed estimator can calculate energies with errors of a few percent [9]. One important limitation of the mixed energy estimate is that it is not variational [22].  
+
+> D. Back propagation
+
+In practice, Eq. 11 can only be used for ˆO = ˆH; for other operators it produces very inaccurate results. For all other expectation values, the back propagation (BP) scheme is used [9, 23]. In BP, 〈Ψt| in Eq. 11 is modified with a string of propagators, 
+
+〈 ˆO〉 ≈ 1
+
+Nm
+
+> Nm
+
+∑
+
+> m=1
+
+∑ 
+
+> i
+
+wmi 〈Ψt|e−β ˆH ˆO| φ0 
+
+> i
+
+〉
+
+∑ 
+
+> i
+
+wmi
+
+. (12) Here β = NBP ∆τ where NBP is the number of time steps over which BP is performed. BP is implemented on top of the open-ended random walk of the CPMC method [9, 23]. At the start of a BP measurement, the Slater determinants for each walker are saved as |φ0 
+
+> i
+
+〉.Then over the next NBP Monte Carlo steps the Hubbard-Stratonovich fields xi are saved. To perform the mea-surement, the individual propagators making up e−β ˆH
+
+are applied to |Ψt〉 in the reverse order using the saved 
+
+xi. The weights wmi in Eq. 12 are the current weights of each walker when each measurement is taken. BP in-troduces unknown errors into the measurements, because the overlap constraint imposed on walkers is not necessar-ily valid in the reverse direction [23]. NBP must be large enough to ensure 〈Ψt|e−β ˆH is distinct from 〈Ψt|. Larger 
+
+NBP however decreases the number of measurements and increases statistical errors.  
+
+> E. Constraint release
+
+Constraint release (CR) is a third measurement esti-mator that can in principal correct for the systematic error introduced by the constrained path approximation. We use the CR algorithm described in Reference [24]. The CR algorithm is based on the zero temperature pro-jector quantum Monte Carlo [5], where expectation val-ues are evaluated as 
+
+〈 ˆO〉 ≈ 〈ΨL|e−(β−τ ) ˆH ˆOe−τ ˆH |ΨR〉
+
+〈ΨL|e−(β−τ ) ˆH e−τ ˆH |ΨR〉 . (13) 
+
+|ΨL〉 and |ΨR〉 are trial wavefunctions, and convention-ally |ΨL〉 = |ΨR〉. τ controls the length of projection in imaginary time applied to |ΨL〉 and |ΨR〉, with τ = β/ 2when the same trial wavefunction is used for both |ΨL〉
+
+and |ΨR〉. As with CPMC, e−(β−τ ) ˆH and e−τ ˆH are bro-ken into slices of imaginary time ∆ τ and Eq. 9 is used to replace the interactions with Hubbard-Stratonovich fields. Eq. 13 is estimated using Monte Carlo sampling, 
+
+〈 ˆO〉 ≈ 
+
+∑
+
+> x
+
+〈s(x) ˆO(x)〉
+
+∑
+
+> x
+
+〈s(x)〉 . (14) In Eq. 14, x represents the configuration of Hubbard-Stratonovich fields in Eq. 13 on all lattice sites and imag-inary time slices. The Monte Carlo weight of x, W (x), is given by the determinant of the matrices in the denom-inator of Eq. 13 [5]. In general, the weight W (x) can become negative. The Monte Carlo sampling in Eq. 14 is done with respect to |W (x)|, with s(x) the sign of W (x). While the zero temperature projector method in prin-ciple gives exact ground-state values for large enough β
+
+(assuming the trial functions are not orthogonal to |Ψ0〉), it suffers from the Fermion sign problem where 〈s(x)〉
+
+becomes small, requiring an increasingly large number of Monte Carlo samples to evaluate Eq. 14. The sign prob-lem becomes intractable with larger β, increasing system size, and stronger interactions. One way to mitigate the sign problem in Eq. 13 is to improve the trial wavefunctions |ΨL〉 and |ΨR〉, so that a smaller imaginary projection time β is required to project out the ground state. This is the basis for the CR tech-nique for CPMC [24]. In this method, |ΨL〉 = |Ψt〉 and 
+
+|ΨR〉 = |φ0 
+
+> i
+
+〉, where |φ0 
+
+> i
+
+〉 is the saved Slater determinant of random walker i as in Eq. 12. Because |φ0 
+
+> i
+
+〉 comes from the CPMC ensemble of walkers representing the ground state |Ψ0〉, it is expected that |〈 Ψ0|φ0 
+
+> i
+
+〉| > |〈 Ψ0|Ψt〉| and the sign problem encountered in Eq. 13 will be less severe than if |Ψt〉 were used for both |ΨL〉 and |ΨR〉. This also suggests that the optimum choice of τ is τ < β/ 2, which we will demonstrate in Section III. The CR estimate we use is given by [24] 
+
+〈 ˆO〉 ≈ 1
+
+NmNm∑
+
+> m=1
+
+∑ 
+
+> i
+
+wmi
+
+∑ 
+
+> x
+
+s(x)〈Ψt|e−(β−τ ) ˆH ˆOe−τ ˆH |φ0 
+
+> i
+
+〉
+
+∑ 
+
+> i
+
+wmi
+
+∑
+
+> x
+
+〈s(x)〉 .
+
+(15) In Eq. 15, the fields x are initialized to their value in the original CPMC path, as in the BP technique. In principle CR corrects for the unknown error in CPMC measure-ments due to the approximate nature of the constraint, at the cost of reintroducing the Fermion sign problem. One disadvantage compared to BP is that CR introduces more parameters for each measurement: τ and the num-ber of Monte Carlo updates used to evaluate 〈x〉. The principal disadvantage of using CR in actual calculations is that it is far slower than BP, because for every measure-ment, a separate Monte Carlo calculation must be done to sample over the fields 〈x〉. The increased computa-tional time can however be offset by parallel computing, which is simple to implement for Monte Carlo methods. 4                        
+
+> 510 15 r
+> 0.0001 0.001 0.01 0.1 |P(r)|
+> 00.01 0.02 0.03 0.04
+> ∆τ
+> -16.4 -16.3 -16.2 E
+> FIG. 1. (color online) Pair-pair correlation for nearest-neighbor pairs, P(r), versus distance rfor a 32-site one-dimensional lattice with open boundary conditions, 28 par-ticles, and U=8. The x’s are exact results calculated using DMRG; circles are calculated using CPMC with BP. The inset shows the convergence of the CPMC mixed energy estimator versus the imaginary time step ∆ τ. The line is a quadratic fit to the CPMC data; the x at ∆ τ=0 is the energy calculated by DMRG.
+> III. RESULTS
+
+In this section we present comparisons of CPMC with exact results on a variety of different lattices: one dimen-sion, two-leg ladders, and periodic 2D clusters both with and without lattice frustration.  
+
+> A. One dimension
+
+In one dimension (1D) with only nearest-neighbor hop-ping it has been observed that the constrained path ap-proximation is exact [22, 28]. When compared with nu-merically exact Stochastic Series Expansion (SSE) QMC results, CPMC produces identical results within statis-tical error for the mixed estimator energy when using a free-electron trial function [28]. This remains true when nearest-neighbor Coulomb interactions are considered in addition to U [28]. In 1D all matrix elements of the hop-ping term of Eq. 1 have the same sign, except for hopping across the boundary in the case of periodic boundary con-ditions. The additional sign from particle interchange in the boundary hopping is positive for odd (even) Nσ
+
+in periodic (anti-periodic) boundary conditions. These sign properties allow other QMC methods, such as SSE, to be free from the sign problem in 1D, and suggests that in CPMC any trial wavefunction with the correct number of particles will produce an exact constraint pro-vided a periodic (anti-periodic) boundary is assumed for odd (even) Nσ . In Fig. 1 we show CPMC data for a 32 site 1D chain with open boundaries and U = 8, using the U = 0 wavefunction for |Ψt〉 and 3200 random walk-ers. We calculated numerically exact results for the same                 
+
+> 4812
+> r
+> 0.0001 0.001 0.01
+> P(r)  01234
+> β
+> 00.5 1<S>
+> FIG. 2. (color online) Pair-pair correlation P(r) versus dis-tance rfor a 32-leg ladder with open boundary conditions, 56 particles, and U=4. The x’s are numerically exact DMRG results, open circles are CPMC with BP, and filled squares are CPMC with CR. Both BP and CR used β=3. The inset shows βdependence of the average sign in the CR measure-ments.
+
+system using the Density Matrix Renormalization Group (DMRG) method and the ITensor library [29]. As shown in the inset of Fig. 1, the mixed energy, when extrapo-lated to remove Trotter error, is numerically exact. It is less clear if in 1D the BP technique of using imaginary-time reversed constrained paths is exact. As a sensitive test, we measure P (r) for singlet nearest-neighbor pairs ( i1 = i and i2 = i+ 1 in Eq. 2). We fix site 
+
+i=5 in Eq. 3 and vary j. Fig. 1 compares |P (r)| calcu-lated by DMRG and CPMC. The CPMC results were for ∆τ =0.05 and a BP imaginary time of β=2. The CPMC agrees very well with the exact DMRG result over three orders of magnitude. This strongly suggests that the BP approximation is exact in this case. It is not clear how-ever, whether this is the case whenever the constraint is exact, or is only a property of the more restrictive 1D case.  
+
+> B. Two leg ladders
+
+The two leg rectangular ladder is useful test case be-cause while a sign problem does occur for QMC methods, highly accurate DMRG results are also available. Doped two-leg ladders are also known to have rung-singlet pair-pair correlations that decay with distance as power laws, with dominant pairing correlations [30]. The appropriate pair creation operator is defined as Eq. 2, with sites i1
+
+and i2 belonging to a single ladder rung. Fig. 2 shows 
+
+P (r) for an open boundary 32-rung ladder with 56 par-ticles ( 1 
+
+> 8
+
+doping) and U = 4. Here P (r) is measured from the 8th rung of the lattice. We again use the non-interacting wavefunction for |Ψt〉. For the CPMC cal-culations we used 6400 random walkers and ∆ τ = 0 .01. Each CR measurement used τ = β/ 4 and 200 sweeps 5
+
+U trial function Evar % rel. err. Emix % rel. err. 
+
+4 free electron 9.4 -0.0018(4) 
+
+8 free electron 34.3 -0.0415(7) 
+
+8 QP-PIRG 3.1 -0.0044(3) 
+
+TABLE I. Relative errors in the variational energy, Evar =
+
+〈Ψt| ˆH|Ψt〉, and mixed energy estimates for free electron and QP-PIRG trial wavefunctions for the 4 ×4 lattice with 10 par-ticles. CPMC results used ∆ τ =0.01. Numbers in parentheses are estimated uncertainties. 
+
+through the Hubbard-Stratonovich variables x. The first 25 “warmup” sweeps were discarded before taking mea-surements. The average sign during the CR is shown in the inset of Fig. 2. As shown in Fig. 2, CPMC using BP underestimates the long-range P (r) in this system by nearly an order of magnitude, while CR produces much more accurate results. We did find the sign problem to have a significant effect however, and for stronger inter-actions ( U =8) for this lattice, the average sign became too small to use CR. 
+
+C. Square lattice 
+
+The square periodic lattice has been studied by many works using the CPMC method [9–11, 19]. Here we ex-amine the 4 ×4 square lattice which can be solved exactly. We take Ne=10 particles, which is a closed-shell filling in the noninteracting limit. For this system, the constrained path approximation using the single-determinant free electron wavefunction for |Ψt〉 is very accurate, with mixed energy estimates accurate to a fraction of a percent (see Table I). In this calculation we used 1600 random walkers and ∆ τ =0.01 to minimize Trotter error. Besides the free electron determinant, we tested a second trial wavefunction constructed using the PIRG method [25–27]. PIRG is a variational method in which the ground state wavefunction is approximated by a finite sum of L Slater determinants: 
+
+|Ψ0〉 ≈ 
+
+> L
+
+∑
+
+> i=1
+
+ci|φi〉. (16) The PIRG algorithm optimizes ci and the coefficients within each determinant |φi〉 through repeated applica-tions of exp( −∆τ ˆH), selecting the Hubbard-Stratonovich field xi for each interaction that minimizes the variational energy [25, 26]. The finite basis size can be corrected for by repeating the calculation for increasing L and ex-trapolating expectation values versus the energy variance ∆E = ( 〈 ˆH2〉 − 〈 ˆH〉2)/〈 ˆH〉2. Advantages of PIRG are that it is exact for U = 0, it has no sign problem, and it is variational. The primary disadvantages are the rapid increase of the L needed to describe the wavefunction with increasing U , and poor computational scaling with respect to system size.      
+
+> 0123
+> β
+> 0246
+> P % rel. err.  123
+> β
+> 00.5 1<S>
+
+FIG. 3. (color online) Percent relative error in the average long-range dx2−y2 pair-pair correlation ¯P versus β for the 4×4 lattice with 10 electrons, U =4, and ∆ τ =0.01. Circles and filled squares are BP and CR estimates with τ = β/ 2, respectively. Both used the free electron trial function. The inset shows the average sign for the CR estimate.      
+
+> 0123
+> β
+> -10 010
+> P % rel. err.  123
+> β
+> 00.5 1<S>
+
+FIG. 4. (color online) ¯P versus β for for the 4 ×4 lattice with 10 electrons, U =8, and ∆ τ =0.01. Open (filled) symbols are BP (CR) estimates. Filled squares are CR estimates with 
+
+τ = β/ 2, while filled diamonds used τ = β/ 4. Dashed lines indicate the QP-PIRG rather than free electron trial function. The inset shows the average sign for the CR estimate using the free electron trial function. 
+
+A significant improvement is to incorporate spin and spatial symmetries [27]. In this “QP-PIRG” approach, projection operators are used to symmetrize the calcu-lation of expectation values and overlaps between two determinants [27]. For the square lattice we used transla-tional and D 4 point group symmetries. We also imposed spin parity symmetry, which separates states into either even or odd total spin S. For L = 1 the QP-PIRG vari-ational energy for U = 8 is accurate to within 3.1% (see Table I). We calculated the pair-pair correlation for dx2−y2 sym-metry. We report the average long-range pair-pair corre-lation ¯P as defined in Eq. 5. Fig. 3 shows ¯P as a function of β for U =4 as estimated by BP and CR. These results used the free electron wavefunction for |Ψt〉. For U =4 and β &1 the BP estimate is quite accurate, but when examined closely trends below the exact value as β in-creases. For U =8 the relative error in the mixed energy using the free electron trial function is still much less than 1% (see Table I), but the error in the BP estimate 6of ¯P is far larger (see Fig. 4). These results also show the importance of considering the β dependence of BP mea-surements. BP underestimates pairing by around 10% in this case for large β. For small β, BP overestimates pairing (BP and CR become equivalent to the mixed es-timator for β → 0). While BP produces the exact answer for β ∼ 1 
+
+> 2
+
+, it is impossible in the general case to predict the precise β giving the most accurate results. Com-pared to BP, we find that the CR estimate of ¯P con-verged to within statistical error of the exact value for 
+
+β ∼ 3 for both U =4 and U =8. As in Section III B, each constrained release measurement used 200 total sweeps. In the CR measurement the average sign does fall with increasing β, but in this case remained large enough that essentially exact results can be obtained at U =8. In Fig. 4 we show two different choices for τ (see Eq. 15), either τ = β/ 2 or τ = β/ 4. We found that 
+
+τ ≈ β/ 4 produced more accurate results which converged slightly faster with increasing β. This can be understood from Eq. 13, where in the constrained release measure-ment |ΨL〉 = |Ψt〉 and |ΨR〉 = |φ0 
+
+> i
+
+〉. Because |φ0 
+
+> i
+
+〉 is expected to be a better representation of |Ψ0〉 than |Ψt〉,it is then better to perform a longer imaginary time pro-jection in Eq. 13 to the left of ˆO than to its right. Op-timizing τ can be a significant improvement when using CR, especially in cases where the maximum β attainable is limited by the sign problem. We also considered whether improving |Ψt〉 gave more accurate BP results. Fig. 4 also shows BP and CR esti-mates of ¯P using the QP-PIRG L = 1 wavefunction as 
+
+|Ψt〉. Including both spatial and spin-parity symmetries, this is a 256 determinant trial function for the 4 ×4 lattice (16 N symmetries with N the number of sites). As shown in Table I, this improves the variational energy of |Ψt〉
+
+and the mixed energy estimate by an order of magnitude. BP and CR estimates both improve at small β. This is expected, since in the mixed estimate limit of β → 0 both 
+
+〈Ψt| and |φi〉 should be more accurate representations of 
+
+|Ψ0〉. Surprisingly, for larger β, the improved trial func-tion did not improve the BP results. The more accurate trial function did slightly improve the CR results, but at the expense of a significantly longer calculation.  
+
+> D. Anisotropic triangular lattice
+
+The anisotropic triangular lattice consists of a square lattice with nearest-neighbor bonds t, with an additional next-nearest-neighbor bond t′ across one of the diago-nals of each plaquette of the lattice. The limit t′=t cor-responds to the triangular lattice. The half-filled Hub-bard model on this lattice has been used to model the conducting layers of some organic charge-transfer solid superconductors (see for example [31]). At half filling the non-interacting band is degenerate for square peri-odic clusters, so a multi-determinant |Ψt〉 is required to preserve the translational invariance of CPMC results. We again used a QP-PIRG trial function using transla-                                                  
+
+> UQP-PIRG L=1 Evar % rel. err. CPMC
+> 1-53.44055(2) 0.05722(4) -53.44054(1)
+> 2-45.705(2) 0.708(4) -45.70346(4)
+> 3-38.810(5) 2.93(1) -38.7891(1)
+> 4-32.80(2) 8.06(6) -32.7108(3)
+> 5-27.502(8) 13.70(3) -27.511(1)
+> TABLE II. Ground state energy results versus Ufor the 6 ×6half-filled anisotropic triangular lattice with t′=0.5. The sec-ond column are variance-extrapolated QP-PIRG results, col-umn three the QP-PIRG variational error for L= 1, and column four CPMC results using the L=1 QP-PIRG wave-function for |Ψt〉. CPMC results used ∆ τ=0.01 and the mixed estimator. QP-PIRG results are variance extrapolated with a linear least-squares fit using the three largest Lwavefunc-tions. Numbers in parentheses are estimated uncertainties.
+> 00.01 0.02 0.03 0.04 0.05
+> ∆E
+> -28 -26 -24 E
+> 12345U
+> 00.005 0.01 0.015 0.02
+> P
+> (a) (b)
+> FIG. 5. (color online) (a) Variance extrapolation of the energy using the QP-PIRG method for the half-filled 6 ×6 anisotropic lattice with t′= 0 .5 and U=5. The line is a quadratic least-squares fit. (b) Average long-range dx2−y2pair-pair correla-tion versus Uon the 6 ×6 anisotropic triangular lattice with
+> t′=0.5. X’s, circles, and filled squares were calculated using extrapolated QP-PIRG, CPMC with BP, and CPMC with CR, respectively. CPMC results used ∆ τ=0.05.
+
+tions, C2v point group symmetries, and spin parity (8 N
+
+total symmetries). Extrapolated QP-PIRG results allow comparison to essentially exact results for systems larger than can be solved exactly [32]. For a 6 ×6 lattice with 
+
+t′=0.5 and U ≤ 5 we used QP-PIRG with L up to 1024. A typical extrapolation of the ground state energy ver-sus energy variance is shown in Fig. 5(a), where data points correspond to L of 1024, 512, 256, 128, 64, and 32. For CPMC, we again used the L=1 QP-PIRG wave-function for |Ψt〉. For the 6 ×6 lattice this trial function is composed of 288 total determinants. The table in Fig. 5 compares the energy calculated by QP-PIRG and CPMC as well as the variational energy of |Ψt〉.Fig. 5(b) shows results for the dx2 −y2 ¯P as a function 7of U . ¯P decreases continuously with increasing U , imply-ing that the ground state does not have superconducting order [32]. As in Section III C, we found that the CPMC BP estimate had converged for β &2; in Fig. 5(b) we used ∆ τ =0.05 and β = 2. The CR results used β = 2 and τ = β/ 4 and agreed very well with extrapolated QP-PIRG. Compared to QP-PIRG, BP again underesti-mated ¯P , with the discrepancy growing with increasing 
+
+U .
+
+IV. CONCLUSIONS 
+
+The calculation of correlation functions within CPMC depends on additional approximations beyond the as-sumption of a trial wavefunction to control the sign prob-lem. Through CPMC results for several different lattices, we have shown that the BP technique underestimates su-perconducting pair-pair correlations, and in general be-comes more unreliable at larger U . Our results also show that improving the quality of the trial function does not necessarily improve the β extrapolated BP estimate, a further major disadvantage. The CR technique however can be essentially exact, provided the sign problem does not prevent its use. For the two-leg ladder CR calcu-lations were not possible with U & 6 due to the sign problem. On the other hand, the region of interesting physics in the anisotropic triangular lattice for t′=0.5 is near the metal-insulator transition at U ∼ 5 [32], which as we show in Section III D, can be accessed using CR. Furthermore, while it is computationally expensive, our results show that improved |Ψt〉 do lead to more accu-rate results with CR. Because CR is far slower than BP, further work in optimizing the additional parameters it introduces (for example the number of sweeps over x, the number of warmup sweeps, and τ ) would be useful. An additional technique we did not explore was the possibil-ity of only releasing part of the fields x, keeping the rest at their initial value from the CPMC path [24]. Such a measurement would be essentially a hybrid between BP and CR. Regarding the search for SC in Hubbard-type models, an alternate technique to direct calculation of supercon-ducting pair-pair correlations is to calculate the energy as a function of an assumed pairing field [19, 20]. While these results have suggested long-range SC in the frus-trated 2D lattice [20], it would be desirable to confirm SC through calculation of pair-pair correlations as well. Our finding that BP tends to underestimate pair-pair corre-lations suggests that prior CPMC calculations of pairing should be revisited. 
+
+ACKNOWLEDGMENTS 
+
+This work was supported by the US National Science Foundation Division of Materials Research under grant number 2348712. 
+
+[1] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, The Hubbard model, Annu. Rev. Condens. Matter Phys. 13 ,239 (2022). [2] B. Keimer, S. A. Kivelson, M. R. Norman, S. Uchida, and J. Zaanen, From quantum matter to high-temperature superconductivity in copper oxides, Nature 518 , 179 (2015). [3] R. T. Clay and S. Mazumdar, From charge- and spin-ordering to superconductivity in the organic charge-transfer solids, Phys. Rep. 788 , 1 (2019). [4] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, The Hubbard model: a computational perspec-tive, Annu. Rev. Condens. Matter Phys. 13 , 275 (2022). [5] J. Gubernatis, N. Kawashima, and P. Werner, Quantum Monte Carlo methods algorithms for lattice models (Cam-bridge University Press, Cambridge, 2016). [6] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Numerical study of the two-dimensional Hubbard model, Phys. Rev. B 40 ,506 (1989). [7] M. Imada and Y. Hatsugai, Numerical studies on the Hubbard model and the t-J model in one- and two-dimensions, J. Phys. Soc. Jpn. 58 , 3752 (1989). [8] S. Zhang, J. Carlson, and J. E. Gubernatis, Constrained Path Monte Carlo Method for Fermion Ground States, Phys. Rev. Lett. 74 , 3652 (1995). [9] S. Zhang, J. Carlson, and J. E. Gubernatis, Constrained path Monte Carlo method for fermion ground states, Phys. Rev. B 55 , 7464 (1997). [10] M. Qin, H. Shi, and S. Zhang, Benchmark study of the two-dimensional Hubbard model with auxiliary-field quantum Monte Carlo method, Phys. Rev. B 94 , 085103 (2016). [11] S. Zhang, J. Carlson, and J. E. Gubernatis, Pairing cor-relations in the two-dimensional Hubbard model, Phys. Rev. Lett. 78 , 4486 (1997). [12] M. Guerrero, J. E. Gubernatis, and S. Zhang, Quantum Monte Carlo study of hole binding and pairing correla-tions in the three-band Hubbard model, Phys. Rev. B 
+
+57 , 11980 (1998). [13] M. Guerrero, G. Ortiz., and J. E. Gubernatis, Correlated wave functions and the absence of long-range order in numerical studies of the Hubbard model, Phys. Rev. B 
+
+59 , 1706 (1999). [14] M. Guerrero, G. Ortiz, and J. E. Gubernatis, Pairing correlations in the attractive Hubbard model on chains, ladders, and squares, Phys. Rev. B 62 , 600 (2000). [15] Z. B. Huang, H. Q. Lin, and J. E. Gubernatis, Quantum Monte Carlo study of spin, charge, and pairing corre-lations in the t-t ′-U Hubbard model, Phys. Rev. B 64 ,205101 (2001). [16] N. Gomes, W. W. De Silva, T. Dutta, R. T. Clay, and S. Mazumdar, Coulomb enhanced superconducting pair 8
+
+correlations in the frustrated quarter-filled band, Phys. Rev. B 93 , 165110 (2016). [17] W. W. De Silva, N. Gomes, S. Mazumdar, and R. T. Clay, Coulomb enhancement of superconducting pair-pair cor-relations in a 3 
+
+> 4
+
+-filled model for κ-(BEDT-TTF) 2 X, Phys. Rev. B 93 , 205111 (2016). [18] R. T. Clay, N. Gomes, and S. Mazumdar, Theory of triangular lattice quasi-one-dimensional charge-transfer solids, Phys. Rev. B 100 , 115158 (2019). [19] M. Qin, C.-M. Chung, H. Shi, E. Vitali, C. Hubig, U. Schollw¨ ock, S. R. White, and S. Zhang, Absence of superconductivity in the pure two-dimensional Hubbard model, Phys. Rev. X 10 , 031016 (2020). [20] H. Xu, C.-M. Chung, M. Qin, U. Schollw¨ ock, S. R. White, and S. Zhang, Coexistence of superconductivity with par-tially filled stripes in the Hubbard model, Science 384 ,eadh7691 (2024). [21] C. Chen, C. Chen, K. Li, X. Sui, W. Long, H. Yang, and B. Huang, Enhancement of dominant dxy -wave pairing in the overdoped Hubbard model with next-nearest hopping 
+
+t′, Phys. Rev. B 112 , 115148 (2025). [22] J. Carlson, J. E. Gubernatis, G. Ortiz, and S. Zhang, Is-sues and observations on applications of the constrained-path Monte Carlo method to many-fermion systems, Phys. Rev. B 59 , 12788 (1999). [23] M. Motta and S. Zhang, Computation of ground-state properties in molecular systems: Back-propagation with auxiliary-field Quantum Monte Carlo, J. Chem. Theory Comput. 13 , 5367 (2017). [24] Z.-Y. Xiao, H. Shi, and S. Zhang, Interfacing branching random walks with Metropolis sampling: Constraint re-lease in auxiliary-field quantum Monte Carlo, J. Chem. Theory Comput. 19 , 6782 (2023). [25] M. Imada and T. Kashima, Path-integral renormalization group method for numerical study of strongly correlated electron systems, J. Phys. Soc. Jpn. 69 , 2723 (2000). [26] T. Kashima and M. Imada, Magnetic and metal-insulator transitions through bandwidth control in two-dimensional Hubbard models with nearest and next-nearest neighbor transfers, J. Phys. Soc. Jpn. 70 , 3052 (2001). [27] T. Mizusaki and M. Imada, Quantum-number projection in the path-integral renormalization group method, Phys. Rev. B 69 , 125110 (2004). [28] R. T. Clay, A. W. Sandvik, and D. K. Campbell, Possible exotic phases in the one-dimensional extended Hubbard model, Phys. Rev. B 59 , 4665 (1999). [29] M. Fishman, S. R. White, and E. M. Stoudenmire, The ITensor software library for tensor network calculations, SciPostPhys. Codebases 4 (2022). [30] M. Dolfi, B. Bauer, S. Keller, and M. Troyer, Pair cor-relations in doped Hubbard ladders, Phys. Rev. B 92 ,195139 (2015). [31] K. Kanoda and R. Kato, Mott physics in organic conduc-tors with triangular lattices, Annu. Rev. Condens. Matter Phys. 2, 167 (2011). [32] S. Dayal, R. T. Clay, and S. Mazumdar, Absence of long-range superconducting correlations in the frustrated 1 
+
+> 2
+
+-filled band Hubbard model, Phys. Rev. B 85 , 165141 (2012).

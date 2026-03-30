@@ -1,0 +1,637 @@
+Title: Symmetric Mass Generation Transition and its Nonequilibrium Critical Dynamics in a Bilayer Honeycomb Lattice Model
+
+URL Source: https://arxiv.org/pdf/2603.22736v1
+
+Published Time: Wed, 25 Mar 2026 00:32:10 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+## Symmetric Mass Generation Transition and its Nonequilibrium Critical Dynamics in a Bilayer Honeycomb Lattice Model 
+
+Zhi-Xuan Li 1,2, Yin-Kai Yu 3,4, Zi-Xiang Li 3,4,∗ and Shuai Yin 1,2†
+
+> 1
+
+School of Physics, Sun Yat-sen University, Guangzhou 510275, China 
+
+> 2
+
+Guangdong Provincial Key Laboratory of Magnetoelectric Physics and Devices, School of Physics, Sun Yat-sen University, Guangzhou 510275, China 
+
+> 3
+
+Beijing National Laboratory for Condensed Matter Physics & Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China and 
+
+> 4
+
+University of Chinese Academy of Sciences, Beijing 100049, China 
+
+(Dated: March 25, 2026) Symmetric mass generation (SMG) transitions defy the conventional Landau-Ginzburg-Wilson paradigm by opening a many-body gap without spontaneous symmetry breaking or topological order, attracting intense interest across particle physics and condensed matter physics. Here, we utilize unbiased quantum Monte Carlo simulations to investigate the equilibrium and nonequilibrium critical dynamics of the SMG transition in a bilayer honeycomb lattice model. We unambiguously confirm the existence of an SMG transition at 𝐽 c = 2.584 (8) that separates the Dirac semimetal phase from a symmetry-preserving SMG phase. High-precision extraction of the critical exponents reveals a novel universality class that profoundly departs from mean-field theory. We then extend our study to the nonequilibrium regime, exploring the driven dynamics of the SMG transition. Notably, despite the breakdown of the prerequisites for the celebrated Kibble-Zurek mechanism, the nonequilibrium SMG transition still follows the generalized finite-time scaling. By bridging equilibrium criticality and nonequilibrium dynamics, our work uncovers the universal critical properties of SMG transitions, providing a solid theoretical basis for future experimental studies of SMG physics. 
+
+Introduction —The origin of mass ranks among the core issues in fundamental physics. Within the framework of tra-ditional theories, spontaneous symmetry breaking plays a pivotal role: bosons gain mass through the well-known Higgs mechanism, whereas fermions acquire mass via the sponta-neous symmetry breaking of bosonic fields whose nonzero expectation value imparts mass to fermions through Yukawa coupling [ 1 ]. Symmetric mass generation (SMG) offers a novel mechanism for fermions to acquire mass without breaking any symmetries [ 2 ]. Furthermore, the SMG phase transition represents a fermionic version of the deconfined quantum critical point [ 3, 4], wherein the dominant fluctuations are fractionalized degrees of freedom, transcending the conven-tional Landau-Ginzburg-Wilson (LGW) paradigm of phase transitions [ 5 , 6]. Accordingly, SMG and its critical behavior have garnered growing attention in recent years, particularly within the fields of particle physics and condensed matter physics [2–4, 7–26]. Lattice models provide powerful platforms for investigating SMG transitions [7–11]. However, despite extensive research, the existence and precise nature of these transitions remain controversial in microscopic models. In particular, based on the variational Monte Carlo (VMC) method, the bilayer honeycomb lattice model was predicted to host a SMG transition between the Dirac semimetal (DSM) phase and the symmetric insulat-ing phase [ 7]. However, the VMC approach relies strongly on the choice of the variational trial state, which may introduce unquantified systematic biases into the resulting predictions. Furthermore, the universal critical exponents governing this putative SMG transition remain largely unresolved. There-fore, an unbiased and systematic investigation of this model is imperative to advance our fundamental understanding of SMG physics, potentially catalyzing the establishment of a generalized theory of quantum criticality beyond the LGW paradigm. Meanwhile, nonequilibrium critical dynamics not only serves as a key research topic in fundamental statistical physics but also plays a vital role in the preparation and realization of novel quantum states of matter [ 27 – 30 ]. A typical kind of nonequilibrium dynamics involves linearly tuning a parameter to cross the critical point. In conventional symmetry-breaking phase transitions, the celebrated Kibble-Zurek mechanism (KZM) [ 31 , 32 ] and its full scaling form generalization, known as finite-time scaling (FTS) [ 33 –37 ], have established a general mechanism for driven dynamics and sparked extensive research and generalization [ 38 – 73 ]. However, because the origin KZM and FTS are rooted in the paradigm of spontaneous symmetry breaking (SSB), their applicability to SMG transitions remains an open and important question. Therefore, given the funda-mental significance of both SMG transitions and the KZM, an in-depth investigation into the nonequilibrium dynamics of SMG transitions is highly demanded. In this Letter, we employ unbiased determinant quantum Monte Carlo (DQMC) simulations [ 74 – 77 ] to systematically study the bilayer honeycomb lattice model with interlayer spin coupling at half-filling. By performing comprehensive numeri-cal calculations, we determine the ground-state phase diagram of the model and identify a phase transition between the Dirac semimetal (DSM) phase and a symmetric gapped phase. Cru-cially, we find that this transition proceeds without any signature of spontaneous symmetry breaking, as explicitly illustrated in Fig. 1, allowing us to unambiguously infer that the underly-ing driving mechanism is SMG. In addition, we determine the correlation length exponent 𝜈 and the anomalous dimension of the fermion 𝜂 as 𝜈 = 0.945 (5) and 𝜂 = 0.11 (2), respectively. We find that these exponents differ significantly from previous 
+
+> arXiv:2603.22736v1 [cond-mat.str-el] 24 Mar 2026
+
+2Jc/t 
+
+SMG insulator DSM  J/t 
+
+weak interaction  strong interaction      
+
+> FIG. 1. Sketch of the phase diagram. The system undergoes a phase transition from DSM to SMG insulator phase at 𝐽 c=2.584 (8). In the weak-interaction regime ( 𝐽 < 𝐽 c), the system is in the DSM phase and hosts gapless Dirac fermions. In the strong-interaction regime (𝐽 > 𝐽 c), the fermions acquire an energy gap, driving the system into the SMG phase. The interlayer spin interaction causes interlayer spin singlets (orange ellipse), without breaking the symmetry of the system.
+
+theoretical predictions, calling for further investigations of the corresponding analytical theories. Beyond equilibrium studies, we further extend our investi-gation to the nonequilibrium regime by exploring the driven critical dynamics of the SMG transition. Note that the con-ventional KZM is rooted in the symmetry-breaking paradigm, wherein the key dynamical scale is set by the separation of topological defects at the intersections of different broken-symmetry domains [ 31 , 32 ]. Surprisingly, we find here that the FTS persists across the SMG phase transition, despite the complete absence of spontaneous symmetry breaking. On this basis, we generalize the KZM/FTS framework to nonequilib-rium processes associated with SMG phase transitions for the first time. This extension not only validates the universality of KZM/FTS beyond conventional symmetry-breaking scenarios but also provides a novel theoretical framework for characteriz-ing nonequilibrium SMG dynamics in lattice systems. 
+
+Model —We consider a bilayer honeycomb lattice model with antiferromagnetic interlayer spin interactions at half-filling. The Hamiltonian is expressed as follows [7]: 
+
+𝐻 = −𝑡 ∑︁   
+
+> ⟨𝑖 𝑗 ⟩𝜎𝑙
+
+(𝑐 † 
+
+> 𝑖 𝜎𝑙
+
+𝑐 𝑗 𝜎𝑙 + h.c. ) + 𝐽 ∑︁ 
+
+> 𝑖
+
+𝑺 𝑖, 1 · 𝑺 𝑖, 2, (1) where 𝑡 and 𝐽 denote the hopping amplitude and interaction strength, respectively. 𝑐 † 
+
+> 𝑖 𝜎𝑙
+
+(𝑐 𝑖 𝜎𝑙 ) represents the creation (annihilation) operator with spin polarization 𝜎 = ↑, ↓ and layer index 𝑙 = 1, 2. ⟨𝑖 𝑗 ⟩ denotes a pair of nearest-neighbor sites, while 𝑺 𝑖,𝑙 is defined as 𝑺 𝑖,𝑙 = 12 𝑐 † 
+
+> 𝑖 𝛼𝑙
+
+𝝈 𝛼𝛽 𝑐 𝑖𝛽𝑙 with 𝝈 =
+
+(𝜎 𝑥 , 𝜎 𝑦 , 𝜎 𝑧 ) being the Pauli matrices. In the following, 𝑡 is fixed to be unity. Crucially, this model is free from the fermion sign problem, enabling large-scale DQMC simulations to extract its ground-state properties in an unbiased manner [10, 78, 79]. As shown in Fig. 1, considering different values of 𝐽 /𝑡 , when 
+
+𝐽 /𝑡 → 0, the system is in the DSM phase, where gapless Dirac fermions are present. As 𝐽 /𝑡 → ∞ , the gapless Dirac fermions acquire a gap, leading the system to an insulating state known as the SMG insulator, for which the ground state wave function is |𝜓 ⟩ = Î𝑖 (𝑐 †
+
+> 𝑖 1↑
+
+𝑐 † 
+
+> 𝑖 2↓
+
+− 𝑐 †
+
+> 𝑖 1↓
+
+𝑐 †
+
+> 𝑖 2↑
+
+)| 0⟩. Since this transition occurs without breaking any symmetries of the model, a direct transition between these two phases is, by definition, an SMG transition. However, although the VMC results suggest that this model undergoes an SMG transition, the VMC approach is inherently biased, as it relies strongly on the choice of the variational trial state. Consequently, the presence of an intervening symmetry-breaking phase cannot be definitively ruled out. Specifically, the primary candidate suggested by mean-field analysis is the interlayer exciton condensation (EC) order [ 7, 26 ], whose order parameter is defined as 𝜙 EC ≡Í𝑖 𝜎 (−) 𝑖 𝑐 †
+
+> 𝑖 𝜎 1
+
+𝑐 𝑖 𝜎 2, where 𝑖 is even (odd) for sublattice A (B). 
+
+Equilibrium criticality —Firstly, we explore the ground state properties of this model (1) via the DQMC method. In contrast to VMC used in Ref. [ 7], the QMC approach employed here is unbiased. If a SMG phase transition exists, there is no corresponding order parameter to characterize it. Thus, the single-particle energy gap Δsp becomes an important indicator for characterizing this phase transition. In the thermodynamic limit, Δsp = 0 indicates that the system is in the DSM phase, whereas Δsp > 0 signifies a transition to the SMG insulator phase. For finite-size systems, one can construct a dimensionless quantity as 𝐿 𝑧 Δsp with 𝑧 = 1 being the dynamic exponent to probe the critical point. According to the general scaling theory, near the critical point 𝐽 c, 𝐿 𝑧 Δsp should satisfy 
+
+𝐿 𝑧 Δsp = F (( 𝐽 − 𝐽 c)𝐿 1/𝜈 ), (2) in which F is the scaling function and 𝜈 is the correlation length exponent. When 𝐽 = 𝐽 c, 𝐿 𝑧 Δsp is a constant independent of 
+
+𝐿 , allowing us to precisely pinpoint the location of the critical point. To extract Δsp , we numerically compute the single-particle imaginary-time Green’s function 𝐺 (𝑲 , 𝜏 ) = ⟨𝑐 𝑲 (𝜏 )𝑐 † 
+
+> 𝑲
+
+(0)⟩ ,in which 𝑲 denotes the momentum of the Dirac point. For sufficiently large 𝜏 , 𝐺 (𝑲 , 𝜏 ) satisfies 𝐺 (𝑲 , 𝜏 ) ∝ 𝑒 −Δsp (𝑲 ) 𝜏 .Accordingly, Δsp can be obtained by performing an exponential fit to 𝐺 (𝑲 , 𝜏 ) (see details in the Supplementary Materials [ 80 ]). The numerical results are shown in Fig. 2 (a), in which curves of 𝐿 𝑧 Δsp versus 𝐽 for different 𝐿 almost intersect at a single crossing point, demonstrating that a phase transition indeed occurs at the critical point 𝐽 c = 2.584 (8).We proceed to determine the critical exponents associated with this quantum phase transition. First, the correlation length exponent 𝜈 is obtained via a finite-size scaling analysis of the single-particle gap, Δsp . By rescaling the data according to the ansatz 𝐿 𝑧 Δsp = 𝑓 (( 𝐽 − 𝐽 c)𝐿 1/𝜈 ), we tune 𝜈 to achieve the best data collapse for different system sizes 𝐿 . As illustrated in Fig. 2 (b), this procedure yields 𝜈 = 0.945 (5). Second, we determine the anomalous dimension 𝜂 by computing the fermion correlation function at the critical point, 𝐽 c = 2.584 (8).This function, defined as 𝐺 AB (𝐿 ) ≡ 𝐿 −2 Í𝑟 ′ ⟨ ˆ𝑐 † 
+
+> B,𝑟 ′+𝑟 𝑚
+
+ˆ𝑐 A,𝑟 ′ +
+
+h.c. ⟩ for sublattices A and B at maximum separation 𝑟 𝑚 =
+
+(𝐿 /2, 𝐿 /2) [81 ], is expected to decay as a power law. A fit of 32.50 2.55 2.60 2.65 
+
+J
+
+> 1.5  2.0  2.5
+> Lz sp
+
+(a)         
+
+> L= 9
+> L= 12
+> L= 15
+> L= 18
+> 21012
+
+(J Jc)L1/ 
+
+> 1.5  2.0  2.5
+> Lz sp
+
+(b)       
+
+> L= 9
+> L= 12
+> L= 15
+> L= 18
+> 814 20
+
+L
+
+> 0.01  0.02
+> GAB
+
+(c) J = 2.584 
+
+FIG. 2. Determination of critical point and critical properties. (a) The crossing point of 𝐿 𝑧 Δsp as a function of 𝐽 for various 𝐿 determines the critical point 𝐽 c = 2.584 (8). (b) The correlation-length exponent 𝜈 is estimated to be 𝜈 = 0.945 (5) from the scaling collapse of the rescaled curves of 𝐿 𝑧 Δsp versus (𝐽 − 𝐽 c)𝐿 1/𝜈 . (c) The fermion correlation function 𝐺 AB at 𝐽 c = 2.584 (8) is shown as a function of system size 𝐿 on a log-log scale. Power-fitting gives the anomalous dimension 𝜂 as 𝜂 = 0.11 (2).2.5 3.0 3.5 4.0 
+
+J
+
+> 0.25  0.75  1.25
+> REC
+
+(a)   
+
+> 00.04 0.08
+
+L 1
+
+> 0 0.05  0.1
+> SEC
+
+(b)           
+
+> L= 9
+> L= 12
+> L= 15
+> L= 18
+> L= 21
+> J= 2.72
+> J= 2.76
+> J= 2.8
+> J= 2.84 J= 2.84
+
+FIG. 3. Exclusion of the exciton order. (a) The correlation-length ratio for the exciton order 𝑅 EC as a function of 𝐽 is shown for different system sizes. The lack of crossings in these curves suggests that no phase transition to long-range EC order occurs. (b) The extrapolated results of the exciton structure factor 𝑆 EC show that the structure factor tends to zero for 𝐽 > 𝐽 c.
+
+our numerical data to the scaling relation 𝐺 AB (𝐿 ) ∝ 𝐿 − ( 2+𝜂 ) ,shown in Fig. 2 (c), gives an anomalous dimension of 𝜂 =
+
+0.11 (2).With the critical properties established, the key open question is the nature of this phase transition and whether it corresponds to the SMG transition. The mean-field theory suggests that the leading alternative to the SMG transition is the EC transition [ 7]. To elucidate the mechanism of the observed phase transition, we examine the correlation-length ratio of the EC order parameter, defined as 𝑅 EC ≡ 𝑆 EC (𝒒 )/ 𝑆 EC (𝒒 + Δ𝒒 ) − 1, where 𝑆 EC is the structure factor (the detailed definition is given in the Supple-mentary Materials [ 80 ]), 𝒒 = 0 and Δ𝒒 = (2𝜋 /𝐿, 2𝜋 /𝐿 ). If the observed transition were an EC transition, the dimensionless ratio 𝑅 EC would exhibit a crossing at 𝐽 c for different system sizes 𝐿 . However, as shown in Fig. 3 (a), 𝑅 EC displays no such crossing behavior. Rather, 𝑅 EC monotonically decreases with increasing 𝐿 , providing compelling evidence for the absence of EC long-range order. This result clearly demonstrates that the observed phase transition is not an EC transition. Additionally, Fig. 3 (b) shows the 𝑆 EC for 𝐽 > 𝐽 c. We find that all extrapolated 
+
+𝑆 EC for 𝐿 → ∞ converge to zero, further suggesting the lack of EC order within this region. In addition, in the Supplementary Materials [ 80 ], we exclude other possible orders by using a similar procedure. These results demonstrate that the observed quantum phase transition is not driven by a mechanism of spontaneously symmetry breaking and is therefore an SMG transition. 
+
+Nonequilibrium criticality —Then, we turn to the driven crit-ical dynamics of the SMG transition in model (1). The original KZM focus on the driven dynamics in LGW phase transitions characterized by spontaneously symmetry breaking and predicts the scaling behaviors of the driving-induced topological de-fects, located at the intersections of different broken-symmetry domains, on the driving rate after the quench [ 31 , 32 ]. As a generalization, the FTS theory shows that the general scaling behaviors exist for other quantities in the whole driven pro-cess [ 33 –36 ]. Although the original KZM and FTS are based on the adiabatic-impulse scenario, which typically requires a gapped initial state to ensure the existence of an adiabatic stage before the system enters the impulse regime near the critical point, it has recently been shown that in symmetry-breaking phase transitions in Dirac systems, the KZM and FTS still hold when the initial state is the gapless DSM phase [ 55 , 56 ]. Here, we investigate whether the FTS remains applicable to the SMG transition. We focus on the dynamic scaling behaviors of the fermion correlation function 𝐺 AB (𝐿 ). In the initial DSM phase, the 410 2 10 1 10 0
+
+R
+
+> 10  4 10  3 10  2
+> GAB
+
+(a) Fit   
+
+> 10 110 210 3
+
+RL r
+
+> 1.8  2 2.2
+> GAB L2 +
+
+(b) (RL r)r  
+
+> 202
+
+(J Jc)L1/ 
+
+> 2.02  2.06  2.1
+> GAB L2 +
+
+(c) L = 14         
+
+> L= 20
+> L= 26 L= 26
+> 14 20 26 L
+> 0.003  0.006  GAB
+> GAB L2
+> Data
+
+FIG. 4. Nonequilibrium dynamic scaling of the SMG transition. (a) Log-log plots of 𝐺 AB versus the driving rate 𝑅 for different 𝐿 at 
+
+𝐽 c = 2.584 (8). The inset in (a) shows 𝐺 AB ∝ 𝐿 −2 at 𝑅 = 0.4 , as indicated by the dash-dotted line. For 𝐿 = 20 , the power-law fit (black solid line) gives 𝐺 AB ∝ 𝑅 0.048 (6) , with an exponent close to 𝜂 /𝑟 = 0.053 . (b) In log-log coordinates, the rescaled curves of 𝐺 AB 𝐿 2+𝜂 versus 𝑅𝐿 𝑟 
+
+collapse onto a single curve, which has a slope close to 𝜂 /𝑟 (dashed line). (c) Rescaled curves of 𝐺 AB 𝐿 2+𝜂 versus (𝐽 − 𝐽 c)𝐿 1/𝜈 for a fixed 
+
+𝑅𝐿 𝑟 = 463 .92 and different 𝐿 collapse onto a single curve. 
+
+dimension of 𝐺 AB (𝐿 ) is [𝐺 AB ] = 2 and 𝐺 AB (𝐿 ) ∝ 𝐿 −2;while at the critical point, the dimension [𝐺 AB ] = 2 + 𝜂 . For driven dynamics to the critical point, when the driving rate 𝑅 
+
+is large, the initial state information should still be preserved at the critical point, making 𝐺 AB (𝐿 ) ∝ 𝐿 −2. Therefore, the residual anomalous dimension 𝜂 in [𝐺 AB ] should manifest as the dependence on the driving rate 𝑅 . Accordingly, for large 𝑅 ,the dynamic scaling relation of 𝐺 AB (𝐿 ) at the critical point 𝐽 c
+
+should satisfy 
+
+𝐺 AB (𝑅, 𝐿 ) ∝ 𝐿 −2 𝑅 𝜂 𝑟 , (3) where 𝑟 = 𝑧 + 1/𝜈 is the dimension of 𝑅 . In addition, for small 
+
+𝑅 , the equilibrium scaling 𝐺 AB (𝐿 ) ∝ 𝐿 −2− 𝜂 must be restored. This requires that 𝐺 AB (𝑅, 𝐿 ) should obey the scaling form 
+
+𝐺 AB (𝑅, 𝐿 ) = 𝐿 −2− 𝜂 F1 (𝑅𝐿 𝑟 ), (4) in which F1 (𝑅𝐿 𝑟 ) should satisfy F1 (𝑅𝐿 𝑟 ) ∝ ( 𝑅𝐿 𝑟 ) 𝜂 /𝑟 for large 𝑅 .Fig. 4 (a) shows the numerical results of the curve of 𝐺 AB (𝐿 )
+
+versus 𝑅 for different 𝐿 at 𝐽 c. Fit with a power function on the curve for 𝐿 = 20 shows that 𝐺 AB (𝑅, 𝐿 ) ∝ 𝑅 0.048 (6) , in which the exponent is close to 𝜂 /𝑟 = 0.053 (10 ) with 𝜂 = 0.11 and 
+
+𝜈 = 0.945 determined above as inputs. In addition, for a large 
+
+𝑅 , the inset shows that 𝐺 AB (𝐿 ) ∝ 𝐿 −2. Combining all these results, we thereby establish the validity of Eq. (3). Then, by rescaling 𝐺 AB and 𝑅 as 𝐺 AB 𝐿 2+𝜂 and 𝑅𝐿 𝑟 , respectively, we find that the rescaled curves match with each other, as shown in Fig. 4 (b), confirming Eq. (4). In addition, for large 𝑅 , from Fig. 4 (b), we find the scaling function F1 (𝑅𝐿 𝑟 ), which is just the rescaled curve, satisfies a power law with the exponent close to 𝜂 /𝑟 , confirming that F1 (𝑅𝐿 𝑟 ) ∝ 𝑅 𝜂 /𝑟 .To further reveal the dynamic scaling, we now turn to the off-critical-point effects in the whole driven process. For 𝐺 AB ,the FTS analysis predicts that the scaling form should obey 
+
+𝐺 AB (𝑅, 𝐿, 𝐽 − 𝐽 c) = 𝐿 −2− 𝜂 F2 [𝑅𝐿 𝑟 , (𝐽 − 𝐽 c)𝐿 1/𝜈 ], (5) To examine Eq. (5), we fix 𝑅𝐿 𝑟 to be a constant and calculate the fermion correlation function for different (𝐽 − 𝐽 c). By rescaling 𝐺 AB and (𝐽 − 𝐽 c) by 𝐿 2+𝜂 and 𝐿 1 
+
+> 𝜈
+
+respectively, as shown in Fig. 4 (c), we find that the rescaled curves collapse onto each other, thereby confirming Eq. (5). These results are twofold in their significance. First, they successfully generalize the KZM/FTS framework to the SMG phase transition, which lacks a symmetry-breaking order parameter. Second, they provide decisive and independent support to the validity of the critical point and exponents derived from equilibrium analyses. 
+
+Discussion —The conventional KZM relies fundamentally on the phase transition mechanism of spontaneous symmetry breaking. In fact, the driving-induced length scale 𝜉 𝑑 ∝ 𝑅 −1/𝑟 ,a key quantity in the KZM, just quantifies the typical spacing of topological defects at the intersections of distinct broken-symmetry domains. However, although no symmetry breaking is present in the SMG phase transition, the dynamic scaling behaviors shown above demonstrate that 𝜉 𝑑 nonetheless still exists. This poses a key conceptual question: what is the physical meaning of 𝜉 𝑑 ?To address this question, we resort to the putative field theory describing the SMG phase transition. In usual symmetry-breaking phase transitions, the order-parameter field provides the fundamental critical fluctuations. In contrast, it was shown that the fundamental building blocks of the field theory describ-ing the SMG phase transition are the fractionalized bosonic and fermionic partons, arising from the decomposition of physical fermions, together with the emergent gauge field [ 3 , 4]. This suggests that 𝜉 𝑑 may characterize the typical fluctuation scales of these fractionalized excitations under external driving. By identifying this scale, we thereby develop a nonequilibrium approach for probing the hidden characteristic length associated with fractionalization. 
+
+Summary —In this paper, we utilize QMC to comprehen-sively investigate the properties of the bilayer model (1) on the honeycomb lattice. Our results provide unambiguous evidence for the existence of an SMG phase transition in model (1), 5ruling out the possibility of a phase transition associated with any symmetry-breaking phase. Additionally, we determine the critical exponents 𝜈 = 0.945 (5) and the anomalous dimension 
+
+𝜂 = 0.11 (2). Notably, these values deviate significantly from those obtained via VMC methods, highlighting the need for further investigation within a field-theoretic framework. Moreover, by studying the driven critical dynamics of the SMG phase transition, our work firmly establishes that FTS is not tied to the symmetry-breaking mechanism; instead, here it provides a dynamic approach to quantify the fluctuation scales of fractionalized excitations, constituting a notable general-ization of the traditional KZM. Consequently, our findings represent a fundamental advance in the nonequilibrium dynam-ics of phase transitions beyond the LGW framework. 
+
+Note added —Upon completing this work, we became aware of interesting related papers by He, You, and Xu that focus on the equilibrium criticality in the same model [ 82 , 83 ]. Consistent equilibrium results are obtained therein. 
+
+Acknowledgments —We would like to thank Yuan-Yao He and Wei-Xuan Chang for helpful discussions. Zhi-Xuan Li and S. Yin are supported by the National Natural Science Foundation of China (Grants No. 12222515 and No. 12075324). Y. K. Yu and Zi-Xiang Li are supported by Beijing Natural Science Foundation (F251001), the National Natural Science Foundation of China (No.12347107 and No.12474146) and the New Cornerstone Investigator Program. S. Yin is also supported by Research Center for Magnetoelectric Physics of Guangdong Province (Grant No. 2024B0303390001), the Guangdong Provincial Key Laboratory of Magnetoelectric Physics and Devices (Grant No. 2022B1212010008), and the Science and Technology Projects in Guangzhou City (Grant No. 2025A04J5408).  
+
+> ∗
+
+zixiangli@iphy.ac.cn  
+
+> †
+
+yinsh6@mail.sysu.edu.cn [1] S. Weinberg, The Quantum Theory of Fields, Vol. 2: Modern Applications (Cambridge University Press, Cambridge, 1996). [2] J. Wang and Y.-Z. You, Symmetry 14 (2022). [3] Y.-Z. You, Y.-C. He, C. Xu, and A. Vishwanath, Phys. Rev. X 8,011026 (2018). [4] Y.-Z. You, Y.-C. He, A. Vishwanath, and C. Xu, Phys. Rev. B 
+
+97 , 125112 (2018). [5] T. Senthil, A. Vishwanath, L. Balents, S. Sachdev, and M. P. A. Fisher, Science 303 , 1490 (2004). [6] T. Senthil, L. Balents, S. Sachdev, A. Vishwanath, and M. P. A. Fisher, Phys. Rev. B 70 , 144407 (2004). [7] W. Hou and Y.-Z. You, Phys. Rev. B 108 , 125130 (2023). [8] Y.-Y. He, H.-Q. Wu, Y.-Z. You, C. Xu, Z. Y. Meng, and Z.-Y. Lu, Phys. Rev. B 94 , 241111 (2016). [9] K. Slagle, Y.-Z. You, and C. Xu, Phys. Rev. B 91 , 115121 (2015). [10] W.-X. Chang, S. Guo, Y.-Z. You, and Z.-X. Li, arXiv:2311.09970 (2023). [11] S. Guo, W.-X. Chang, Y.-Z. You, and Z.-X. Li, arXiv:2601.13108 (2026). [12] Y. BenTov, J. High Energ. Phys. 2015 , 34 (2015). [13] Y.-Z. You and C. Xu, Phys. Rev. B 91 , 125147 (2015). [14] M. Zeng, Z. Zhu, J. Wang, and Y.-Z. You, Phys. Rev. Lett. 128 ,185301 (2022). [15] V. Ayyar and S. Chandrasekharan, Phys. Rev. D 93 , 081701 (2016). [16] V. Ayyar and S. Chandrasekharan, Phys. Rev. D 96 , 114506 (2017). [17] J. Wang and X.-G. Wen, Phys. Rev. Res. 2, 023356 (2020). [18] D. Tong, J. High Energ. Phys. 2022 , 1 (2022). [19] C. Wang, A. C. Potter, and T. Senthil, Science 343 , 629 (2014). [20] Y. Xu and C. Xu, arXiv:2103.15865 (2021). [21] D.-C. Lu, M. Zeng, J. Wang, and Y.-Z. You, Phys. Rev. B 107 ,195133 (2023). [22] D.-C. Lu, M. Zeng, and Y.-Z. You, Phys. Rev. B 108 , 205117 (2023). [23] M. Zeng, Z. Zhu, J. Wang, and Y.-Z. You, Phys. Rev. Lett. 128 ,185301 (2022). [24] A. Hasenfratz and O. Witzel, arXiv:2511.22678 (2025). [25] N. Butt, S. Catterall, and A. Hasenfratz, Phys. Rev. Lett. 134 ,031602 (2025). [26] D.-C. Lu, M. Li, Z.-Y. Zeng, W. Hou, J. Wang, F. Yang, and Y.-Z. You, arXiv:2308.11195 (2023). [27] J. Dziarmaga, Adv. Phys. 59 , 1063 (2010). [28] A. Polkovnikov, K. Sengupta, A. Silva, and M. Vengalattore, Rev. Mod. Phys. 83 , 863 (2011). [29] L. D’Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, Adv. Phys. 
+
+65 , 239 (2016). [30] A. Mitra, Annu. Rev. Condens. Matter Phys. 9, 245 (2018). [31] T. W. B. Kibble, Journal of Physics A: Mathematical and General 
+
+9, 1387 (1976). [32] W. H. Zurek, nature 317 , 505 (1985). [33] F. Zhong and Z. Xu, Phys. Rev. B 71 , 132402 (2005). [34] S. Gong, F. Zhong, X. Huang, and S. Fan, New J. Phys. 12 ,043036 (2010). [35] B. Feng, S. Yin, and F. Zhong, Phys. Rev. B 94 , 144103 (2016). [36] Y. Huang, S. Yin, B. Feng, and F. Zhong, Phys. Rev. B 90 ,134108 (2014). [37] S. Yin, P. Mai, and F. Zhong, Phys. Rev. B 89 , 094108 (2014). [38] W. H. Zurek, U. Dorner, and P. Zoller, Phys. Rev. Lett. 95 ,105701 (2005). [39] J. Dziarmaga, Phys. Rev. Lett. 95 , 245701 (2005). [40] A. Polkovnikov, Phys. Rev. B 72 , 161201 (2005). [41] C.-W. Liu, A. Polkovnikov, and A. W. Sandvik, Phys. Rev. B 89 ,054307 (2014). [42] C.-W. Liu, A. Polkovnikov, and A. W. Sandvik, Phys. Rev. Lett. 
+
+114 , 147203 (2015). [43] S. Yin, G.-Y. Huang, C.-Y. Lo, and P. Chen, Phys. Rev. Lett. 118 ,065701 (2017). [44] Y. Li, Z. Zeng, and F. Zhong, Phys. Rev. E 100 , 020105 (2019). [45] C. B ¨auerle, Y. M. Bunkov, S. N. Fisher, H. Godfrin, and G. R. Pickett, Nature 382 , 332 (1996). [46] V. M. H. Ruutu, V. B. Eltsov, A. J. Gill, T. W. B. Kibble, M. Krusius, Y. G. Makhlin, B. Pla c¸ ais, G. E. Volovik, and W. Xu, Nature 382 , 334 (1996). [47] R. Monaco, J. Mygind, and R. J. Rivers, Phys. Rev. Lett. 89 ,080603 (2002). [48] K. Lee, S. Kim, T. Kim, and Y. Shin, Nature Physics (2024). [49] S. Deng, G. Ortiz, and L. Viola, Europhysics Letters 84 , 67008 (2009). [50] C. De Grandi, V. Gritsev, and A. Polkovnikov, Phys. Rev. B 81 ,012303 (2010). [51] A. Chandran, A. Erez, S. S. Gubser, and S. L. Sondhi, Phys. Rev. B 86 , 064304 (2012). [52] A. Keesling, A. Omran, H. Levine, H. Bernien, H. Pichler, S. Choi, R. Samajdar, S. Schwartz, P. Silvi, S. Sachdev, P. Zoller, 6
+
+M. Endres, M. Greiner, V. Vuleti ´c, and M. D. Lukin, Nature 
+
+568 , 207 (2019). [53] C. De Grandi, A. Polkovnikov, and A. W. Sandvik, Phys. Rev. B 
+
+84 , 224303 (2011). [54] Y.-R. Shu, S.-K. Jian, A. W. Sandvik, and S. Yin, Nat. Commun. 
+
+16 , 3402 (2025). [55] Z. Zeng, Y.-K. Yu, Z.-X. Li, and S. Yin, Phys. Rev. B 112 ,L060301 (2025). [56] Z. Zeng, Y.-K. Yu, Z.-X. Li, Z.-X. Li, and S. Yin, Nat. Commun. 
+
+16 (2025). [57] K. Du, X. Fang, C. Won, C. De, F.-T. Huang, W. Xu, H. You, F. J. G ´omez-Ruiz, A. del Campo, and S.-W. Cheong, Nature Physics 
+
+19 , 1495 (2023). [58] B. Ko, J. W. Park, and Y. Shin, Nature Physics 15 , 1227 (2019). [59] S. Maegochi, K. Ienaga, and S. Okuma, Phys. Rev. Lett. 129 ,227001 (2022). [60] S. Ebadi, T. T. Wang, H. Levine, A. Keesling, G. Semeghini, A. Omran, D. Bluvstein, R. Samajdar, H. Pichler, W. W. Ho, S. Choi, S. Sachdev, M. Greiner, V. Vuleti ´c, and M. D. Lukin, Nature 595 , 227 (2021). [61] L.-Y. Qiu, H.-Y. Liang, Y.-B. Yang, H.-X. Yang, T. Tian, Y. Xu, and L.-M. Duan, Sci. Adv. 6, eaba7292 (2020). [62] S. Ebadi, A. Keesling, M. Cain, T. T. Wang, H. Levine, D. Blu-vstein, G. Semeghini, A. Omran, J.-G. Liu, R. Samajdar, X.-Z. Luo, B. Nash, X. Gao, B. Barak, E. Farhi, S. Sachdev, N. Gemelke, L. Zhou, S. Choi, H. Pichler, S.-T. Wang, M. Greiner, V. Vuleti ´c, and M. D. Lukin, Science 376 , 1209 (2022). [63] S. Sunami, V. P. Singh, D. Garrick, A. Beregi, A. J. Barker, K. Luksch, E. Bentine, L. Mathey, and C. J. Foot, Science 382 ,443 (2023). [64] B.-W. Li, Y.-K. Wu, Q.-X. Mei, R. Yao, W.-Q. Lian, M.-L. Cai, Y. Wang, B.-X. Qi, L. Yao, L. He, Z.-C. Zhou, and L.-M. Duan, PRX Quantum 4, 010302 (2023). [65] L. W. Clark, L. Feng, and C. Chin, Science 354 , 606 (2016). [66] M. Kolodrubetz, B. K. Clark, and D. A. Huse, Phys. Rev. Lett. 
+
+109 , 015701 (2012). [67] M. Dupont and J. E. Moore, Phys. Rev. B 106 , L041109 (2022). [68] A. Polkovnikov and V. Gritsev, Nature Physics 4, 477 (2008). [69] M. Deng, Z. Sun, and F. Li, Phys. Rev. Lett. 134 , 010409 (2025). [70] T.-L. Wang, Y.-F. Jiang, and S. Yin, Chin. Phys. Lett. 42 , 110001 (2025). [71] H. Wang, X. Li, and C. Li, Nat. Commun. 16 , 10584 (2025). [72] J. Soto Garcia and N. Chepiga, Phys. Rev. B 110 , 125113 (2024). [73] H.-B. Zeng, C.-Y. Xia, and A. del Campo, Phys. Rev. Lett. 130 ,060402 (2023). [74] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Phys. Rev. D 24 , 2278 (1981). [75] J. E. Hirsch, D. J. Scalapino, R. L. Sugar, and R. Blankenbecler, Phys. Rev. Lett. 47 , 1628 (1981). [76] F. Assaad and H. Evertz, “World-line and determinantal quantum monte carlo methods for spins, phonons and electrons,” in 
+
+Computational Many-Particle Physics , edited by H. Fehske, R. Schneider, and A. Weiße (Springer Berlin Heidelberg, Berlin, Heidelberg, 2008) pp. 277–356. [77] Z.-X. Li and H. Yao, Annu. Rev. Condens. Matter Phys. 10 , 337 (2019). [78] C. Wu and S.-C. Zhang, Phys. Rev. B 71 , 155115 (2005). [79] Z.-X. Li, Y.-F. Jiang, and H. Yao, Phys. Rev. Lett. 117 , 267002 (2016). [80] See Supplementary Material for details of the determinant Quan-tum Monte Carlo method, analysis of CDW, SDW, and SC orders, and examples of determining the single-particle gap. The Supplementary Material includes Refs. [10, 76]. [81] K. Seki, Y. Otsuka, S. Yunoki, and S. Sorella, Phys. Rev. B 99 ,125145 (2019). [82] C.-H. He, Y.-Z. You, and X. Y. Xu, arXiv:2603.18278 (2026). [83] C.-H. He, Y.-Z. You, and X. Y. Xu, arXiv:2603.18285 (2026). Supplementary Materials for 
+
+## Symmetric Mass Generation Transition and its Nonequilibrium Critical Dynamics in a Bilayer Honeycomb Lattice Model 
+
+First, we provide the details of the determinant quantum Monte Carlo (DQMC) method employed to calculate the observables in the ground state and those for the driven dynamics (Supplementary Note 1). Second, we present the structure factors and correlation-length ratios for charge density wave (CDW), spin density wave (SDW), and superconductivity (SC) orders. These results demonstrate the absence of phase transitions to CDW, SDW, and SC order (Supplementary Note 2). Finally, we also show examples of how the single-particle gap is determined (Supplementary Note 3). 
+
+SUPPLEMENTARY NOTE 1: DETERMINANT QUANTUM MONTE CARLO 
+
+In this paper, we use DQMC to study the ground state properties and nonequilibrium processes in interacting fermion systems. The ground state expectation value of an observable ˆ𝑂 can be obtained by projecting a trial wave function |Ψ𝑇 ⟩ along the imaginary time axis. When the projection time Θ is long enough, the trial initial state can be projected to the ground state, 
+
+|Ψ0⟩ ∝ lim  
+
+> Θ→∞
+
+𝑒 −Θ ˆ𝐻 |Ψ𝑇 ⟩. The expectation value of the ground state observables can be expressed as follows: 
+
+⟨ ˆ𝑂 ⟩ = ⟨Ψ0 | ˆ𝑂 |Ψ0⟩⟨Ψ0 |Ψ0⟩ = lim 
+
+> Θ→∞
+
+⟨Ψ𝑇 |𝑒 −Θ ˆ𝐻 ˆ𝑂𝑒 −Θ ˆ𝐻 |Ψ𝑇 ⟩⟨Ψ𝑇 |𝑒 −2Θ ˆ𝐻 |Ψ𝑇 ⟩ . (S1) In this work, we set 2 Θ = 2𝐿 + 6 to guarantee the convergence to the ground state. To accurately implement the projection, the Trotter decomposition is used to discretize the imaginary time. The form of the Trotter decomposition is: 
+
+𝑒 −Θ ˆ𝐻 = (𝑒 −Δ𝜏 ˆ𝐻 𝐼 𝑒 −Δ𝜏 ˆ𝐻 𝑡 )𝑀 , (S2) where Δ𝜏 = Θ 
+
+> 𝑀
+
+is set to 0 .025, which is small enough to guarantee numerical convergence. In addition, the Hubbard-Stratonovich (HS) transformation is required to decouple the fermionic interaction. To apply the HS transformation, the interaction term of the model is written as follows: ˆ𝐻 𝐼 = 𝐽 ∑︁ 
+
+> 𝑖
+
+𝑺 𝑖, 1 · 𝑺 𝑖, 2 =∑︁ 
+
+> 𝑖
+
+𝐽 
+
+4 [( 𝑆 𝑧 𝑖 1 + 𝑆 𝑧 𝑖 2)2 + ( 𝑆 𝑥 𝑖 1 + 𝑆 𝑥 𝑖 2)2 + ( 𝑆 𝑦 𝑖 1 + 𝑆 𝑦 𝑖 2)2 − ( 𝑆 𝑧 𝑖 1 − 𝑆 𝑧 𝑖 2)2 − ( 𝑆 𝑥 𝑖 1 − 𝑆 𝑥 𝑖 2)2 − ( 𝑆 𝑦 𝑖 1 − 𝑆 𝑦 𝑖 2)2]. (S3) In the simulation, for a single term in Eq. (S3), we use the discrete HS transformation [76]: 
+
+𝑒 Δ𝜏𝑊𝑂 2
+
+=∑︁ 
+
+> 𝑙 =±1,±2
+
+𝛾 (𝑙 )𝑒   
+
+> √Δ𝜏𝑊 𝜂 (𝑙 )𝑂
+
++ O( Δ𝜏 4), (S4) where 𝑊 = 𝐽 /4 and 𝑂 denotes the quadratic term in Eq. (S3), 𝛾 (𝑙 ) and 𝜂 (𝑙 ) have the following values: 𝜂 (± 1) = ±√︃ 2(3 − √6),
+
+𝜂 (± 2) = ±√︃ 2(3 + √6), 𝛾 (± 1) = 1 + √6/3, 𝛾 (± 2) = 1 − √6/3. After the HS transformation, the interaction term is expressed as: 
+
+𝑒 −Δ𝜏 ˆ𝐻 𝐼 =
+
+Ö
+
+> 𝜎 1=𝑥,𝑦,𝑧
+
+∑︁ 𝑙 𝜎 11 =±1,±2
+
+𝛾 (𝑙 𝜎 1 
+
+> 1
+
+)𝑒 ˆℎ𝜎 11
+
+
+
+×
+
+Ö
+
+> 𝜎 2=𝑥,𝑦,𝑧
+
+∑︁ 𝑙 𝜎 22 =±1,±2
+
+𝛾 (𝑙 𝜎 2 
+
+> 2
+
+)𝑒 ˆℎ𝜎 22
+
+
+
+, (S5) where ˆℎ𝜎 1 
+
+> 1
+
+=√︃ Δ𝜏 𝐽  
+
+> 4𝜂
+
+(𝑙 𝜎 1 
+
+> 1
+
+)( 𝑆 𝜎 1 
+
+> 𝑖 1
+
+− 𝑆 𝜎 1 
+
+> 𝑖 2
+
+), ˆℎ𝜎 2 
+
+> 2
+
+= 𝑖 √︃ Δ𝜏 𝐽  
+
+> 4𝜂
+
+(𝑙 𝜎 2 
+
+> 2
+
+)( 𝑆 𝜎 2 
+
+> 𝑖 1
+
++ 𝑆 𝜎 2 
+
+> 𝑖 2
+
+). Then, using DQMC, we can calculate the physical observables. For the driven dynamics, we need to prepare an appropriate initial state |Ψ0⟩ and then linearly vary the interaction strength 𝐽 
+
+with imaginary time. In this work, we prepare the DSM initial state with 𝐽 0 = 0 and drive the system to cross the critical point by changing 𝐽 as 𝐽 = 𝐽 0 + 𝑅𝜏 . The expectation value of the observable ˆ 𝑂 is: 
+
+⟨ ˆ𝑂 (𝜏 )⟩ = ⟨Ψ(𝜏 )| ˆ𝑂 |Ψ(𝜏 )⟩ ⟨Ψ(𝜏 )| Ψ(𝜏 )⟩ (S6) 
+
+= ⟨Ψ0 |𝑒 −Θ ˆ𝐻 𝑈 † (𝜏, 0) ˆ𝑂𝑈 (𝜏, 0)𝑒 −Θ ˆ𝐻 |Ψ0⟩⟨Ψ(𝜏 )| Ψ(𝜏 )⟩ , (S7) 8where |Ψ(𝜏 )⟩ = 𝑈 (𝜏, 0)| Ψ0⟩, with 𝑈 (𝜏, 0) = T 𝑒 − ∫ 𝜏       
+
+> 0𝑑 𝜏 ′𝐻 (𝜏 ′)
+
+and T represents the time-ordering operator. 
+
+SUPPLEMENTARY NOTE 2: THE RESULTS OF STRUCTURE FACTORS AND CORRELATION-LENGTH RATIOS 
+
+In the main text, we present the results for the correlation-length ratio of the EC order, based on the corresponding structure factor defined as 𝑆 EC ≡ 𝐿 −2𝑑 Í𝑖, 𝑗 (−) 𝑖 + 𝑗 
+
+D 
+
+𝑐 †
+
+> 𝑖 ↑1
+
+𝑐 𝑖 ↑2 + 𝑐 †
+
+> 𝑖 ↓1
+
+𝑐 𝑖 ↓2
+
+  
+
+𝑐 †
+
+> 𝑗 ↑1
+
+𝑐 𝑗 ↑2 + 𝑐 †
+
+> 𝑗 ↓1
+
+𝑐 𝑗 ↓2
+
+E 
+
+𝑒 i𝒒 · ( 𝒓 𝑖 −𝒓 𝑗 ) , where 𝑖 ( 𝑗 ) is even (odd) for sublattice A (B) and 𝒒 = 0. Here, we supplement the results for the structure factors of other potential long-range orders and the corresponding correlation-length ratios. The structure factor is defined as follows: 
+
+𝑆 (𝒒 ) ≡ 1
+
+𝐿 2𝑑 ∑︁ 𝑖, 𝑗 
+
+⟨𝐴 𝑖 𝐴 𝑗 ⟩𝑒 i𝒒 · ( 𝒓 𝑖 −𝒓 𝑗 ) , (S8) where 𝐴 𝑖 ( 𝐴 𝑗 ) denotes the field operator and 𝒒 is the momentum. We calculate the structure factors for CDW, SDW and SC orders at 𝒒 = 0 as shown in Fig. S1 (a)-(c). Their field operators are defined as [10]: 
+
+𝐴 CDW (𝑖 ) ≡ (−) 𝑖 ∑︁ 
+
+> 𝑙
+
+(𝑐 † 
+
+> 𝑖 ↑𝑙
+
+𝑐 𝑖 ↑𝑙 + 𝑐 † 
+
+> 𝑖 ↓𝑙
+
+𝑐 𝑖 ↓𝑙 ), (S9) 
+
+𝐴 SDW (𝑖 ) ≡ (−) 𝑖 ∑︁ 
+
+> 𝑙
+
+(𝑐 † 
+
+> 𝑖 ↑𝑙
+
+𝑐 𝑖 ↑𝑙 − 𝑐 † 
+
+> 𝑖 ↓𝑙
+
+𝑐 𝑖 ↓𝑙 ), (S10) 
+
+𝐴 SC (𝑖 ) ≡ 𝑐 †
+
+> 𝑖 ↑1
+
+𝑐 † 
+
+> 𝑖 ↓2
+
+− 𝑐 †
+
+> 𝑖 ↓1
+
+𝑐 †
+
+> 𝑖 ↑2
+
+, (S11) where 𝑙 = 1, 2 represents the index of the layer and 𝑖 is even (odd) for sublattice A (B). In addition, in Fig. S1 (d)-(f) we show the correlation-length ratio of different system sizes, which is defined as: 
+
+𝑅 (𝐿 ) ≡ 𝑆 (𝒒 , 𝐿 )
+
+𝑆 (𝒒 + Δ𝒒 , 𝐿 ) − 1, (S12) 2.5 3.0 3.5 4.0 
+
+J
+
+> 0.02  0.04
+> SCDW
+
+(a)     
+
+> 2.50 2.75 3.00 3.25 3.50
+
+J
+
+> 0.02  0.04
+> SSDW
+
+(b)    
+
+> 2.5 3.0 3.5 4.0
+
+J
+
+> 0.04  0.10
+> SSC
+
+(c)    
+
+> 2.5 3.0 3.5 4.0
+
+J
+
+> 0.04  0.08
+> RCDW
+
+(d)     
+
+> 2.50 2.75 3.00 3.25 3.50
+
+J
+
+> 0.04  0.08
+> RSDW
+
+(e)    
+
+> 2.5 3.0 3.5 4.0
+
+J
+
+> 0.25  0.75
+> RSC
+
+(f) L = 9     
+
+> L= 12
+> L= 15
+> L= 18 L= 18
+
+FIG. S1. Exclusion of CDW, SDW, and SC orders. The results of the structure factors (a) -(c) and correlation-length ratios (d) -(f) for CDW, SDW and SC as a function of 𝐽 is shown for different system sizes. The lack of crossings in the curves of the correlation-length ratio suggests that no phase transition to long-range CDW, SDW, and SC order occurs. 90 0.04 0.08 
+
+L 1
+
+> 0 0.02  0.04
+> SCDW
+
+(a)          
+
+> J= 2.6
+> J= 2.72
+> J= 2.84
+> J= 3.0
+> J= 3.2
+> J= 3.4
+> J= 3.6
+> 00.04 0.08
+
+L 1
+
+> 0 0.02  0.04
+> SSDW
+
+(b)          
+
+> J= 2.6
+> J= 2.72
+> J= 2.84
+> J= 3.0
+> J= 3.2
+> J= 3.4
+> J= 3.6
+> 00.04 0.08
+
+L 1
+
+> 0 0.05  0.1
+> SSC
+
+(c)     
+
+> J= 2.72
+> J= 2.76
+> J= 2.8
+> J= 2.84
+
+FIG. S2. The extrapolated results of the structure factors for CDW, SDW, and SC. The structure factors for 𝐽 > 𝐽 c are extrapolated as a function of 𝐿 −1, and the extrapolated values tend to zero within the error bar in the thermodynamic limit. 
+
+where Δ𝒒 = ( 2 𝜋 𝐿 , 2 𝜋 𝐿 ). The correlation-length ratios for CDW, SDW, and SC orders as a function of 𝐽 are shown for different system sizes in Fig. S1 (d)-(f). The lack of crossings in these curves suggests that no phase transition to long-range CDW, SDW, and SC order occurs. To further investigate whether spontaneous symmetry breaking occurs, we compute the structure factors of CDW, SDW, and SC orders for different system sizes in the region of 𝐽 > 𝐽 c, and the extrapolations of these structure factors to the thermodynamic limit are shown in Fig. S2 (a)-(c). All extrapolated values tend to zero within the error bar. These results suggest the absence of long-range order corresponding to CDW, SDW, and SC during the phase transition. 
+
+SUPPLEMENTARY NOTE 3: SINGLE-PARTICLE GAP FROM IMAGINARY-TIME GREEN’S FUNCTION 0 2 4 6 8
+
+> 0.0  0.5  1.0  1.5
+> ln G(K, )
+
+(a)     
+
+> 02468
+> 0.5  0.0  0.5  1.0  1.5
+> ln G(K, )
+
+(b)    
+
+> L= 9
+> L= 12 L= 12
+
+FIG. S3. Determination of single-particle gap. ln 𝐺 (𝑲 , 𝜏 ) as a function of imaginary time 𝜏 . (a) For 𝐽 = 2.4 in the DSM phase, the single-particle gaps are determined to be Δsp = 0.148 (1) for 𝐿 = 9 and 0.099 (1) for 𝐿 = 12 . The red dashed line and blue dashed line represent the fitted lines for 𝐿 = 9 and 𝐿 = 12 , respectively. (b) For 𝐽 = 2.68 in the SMG phase, the single-particle gaps are determined to be 
+
+Δsp = 0.254 (2) for 𝐿 = 9 and 0.202 (1) for 𝐿 = 12 . The red dashed line and blue dashed line represent the fitted lines for 𝐿 = 9 and 𝐿 = 12 ,respectively. 
+
+As discussed in the main text, the single-particle gap Δsp can be obtained from the imaginary-time Green’s function 𝐺 (𝑲 , 𝜏 ).For sufficiently large 𝜏 , 𝐺 (𝑲 , 𝜏 ) satisfies 𝐺 (𝑲 , 𝜏 ) ∝ 𝑒 −Δsp (𝑲 ) 𝜏 .Fig. S3 (a) and (b) show ln 𝐺 (𝑲 , 𝜏 ) as a function of imaginary time 𝜏 for different system sizes at 𝐽 = 2.4 in the DSM phase and 𝐽 = 2.68 in the SMG phase, respectively. By performing a linear fit to ln 𝐺 (𝑲 , 𝜏 ), the single-particle gaps Δsp are determined as 0 .148 (1) and 0 .099 (1) for 𝐿 = 9 and 𝐿 = 12 at 𝐽 = 2.4, respectively. Following the same procedure, at 𝐽 = 2.68, the corresponding values of Δsp for 𝐿 = 9 and 𝐿 = 12 are 0 .254 (2) and 0 .202 (1), respectively.

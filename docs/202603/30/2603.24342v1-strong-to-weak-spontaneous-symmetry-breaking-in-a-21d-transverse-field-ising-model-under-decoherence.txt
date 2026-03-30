@@ -1,0 +1,1295 @@
+Title: Strong-to-Weak Spontaneous Symmetry Breaking in a $(2+1)$D Transverse-Field Ising Model under Decoherence
+
+URL Source: https://arxiv.org/pdf/2603.24342v1
+
+Published Time: Thu, 26 Mar 2026 01:10:24 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Strong-to-Weak Spontaneous Symmetry Breaking in a (2 + 1) D Transverse-Field Ising Model under Decoherence 
+
+Yi-Ming Ding, 1, 2, 3 Yuxuan Guo, 4, ∗ Zhen Bi, 5, 6, † and Zheng Yan 1, 2, ‡
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+State Key Laboratory of Surface Physics and Department of Physics, Fudan University, Shanghai 200438, China 
+
+> 4
+
+Department of Physics, University of Tokyo, 7-3-1 Hongo, Bunkyo-ku, Tokyo 113-0033, Japan 
+
+> 5
+
+Department of Physics , The Pennsylvania State University , University Park , Pennsylvania , 16802 , USA 
+
+> 6
+
+Center for Theory of Emergent Quantum Matter , Institute for Computational and Data Sciences ,
+
+The Pennsylvania State University , University Park , Pennsylvania , 16802 , USA 
+
+Decoherence in many-body quantum systems can give rise to intrinsically mixed-state phases and phase transitions beyond the pure-state paradigm. Here we study the (2 + 1)D transverse-field Ising model subject to a strongly Z2-symmetric decoherence channel, with a focus on strong-to-weak spontaneous symmetry breaking (SWSSB). This problem is challenging because the relevant transitions occur in the strong-decoherence regime, beyond the reach of perturbative expansions around the pure-state limit, while conventional quantum Monte Carlo (QMC) methods are hampered by the need to access nonlinear observables and by the sign problem. We overcome these difficulties by developing a QMC algorithm that efficiently evaluates nonlinear R´ enyi-2 correlators in higher dimensions, complemented by an effective field-theoretic approach. We show that the decohered state realizes a rich mixed-state phase diagram governed by an effective 2D Ashkin–Teller theory. This theory enables analytical predictions for the mixed-state phases and the universality classes of the phase boundaries, all of which are confirmed by large-scale QMC simulations. 
+
+Introduction .- In recent years, rapid advances in quan-tum simulation platforms have brought nonequilibrium quantum matter to the forefront of condensed matter physics [1–4]. In these systems, unavoidable coupling to the environment induces decoherence, which can qualita-tively reshape collective behavior and give rise to novel mixed-state phases and phase transitions in interacting many-body systems [5–42]. A central question is how symmetry and symmetry breaking, a basic organizing principle of quantum phases of matter [43–45], generalize to open quantum systems. Here one must distinguish be-tween strong and weak symmetry [46–48]. A mixed state with strong symmetry is analogous to a canonical ensem-ble with fixed symmetry charge, whereas a mixed state with weak symmetry is analogous to a grand-canonical ensemble, in which different symmetry charges are mixed while the full density matrix remains symmetric. Ac-cordingly, strong symmetry has a direct pure-state ana-log, whereas weak symmetry is meaningful only for mixed states. This distinction gives rise to strong-to-weak spon-taneous symmetry breaking (SWSSB), in which strong symmetry is lost while weak symmetry remains [6, 7, 13– 17, 19–21, 23–25, 39, 40, 49–65]. It is a genuinely mixed-state form of order, with no counterpart in pure states. Compared with conventional spontaneous symmetry breaking (SSB), diagnosing SWSSB requires nonlinear probes. Faithful order parameters include the fidelity and R´ enyi-1 correlators [15, 66, 67], which obey the sta-bility theorem of two-way connectivity via symmetric short-depth quantum channels, but are generally diffi-cult to evaluate in many-body systems. By contrast, the R´ enyi-2 correlator, defined through a doubled pure-state representation via the Choi-Jamiolkowski isomor-phism [68, 69], provides a practical proxy for detecting SWSSB [6, 14]. Its advantage lies in both numerical and experimental accessibility: evaluating fidelity or R´ enyi-1 correlators requires canonical purification and thus full state tomography, whereas R´ enyi-2 observables can be ef-ficiently measured using modern techniques such as clas-sical shadow tomography [17, 70, 71]. Importantly, the R´ enyi-2 correlator is well suited for numerical approaches such as tensor-network methods based on matrix product states (MPS) in a doubled Hilbert space [19–22]. However, these methods are largely restricted to one dimension and become chal-lenging in higher dimensions. Quantum Monte Carlo (QMC) methods, by contrast, are naturally suited for large-scale simulations and largely independent of spa-tial dimension. Recent work has explored Monte Carlo sampling of SWSSB in specific models that admit clas-sical stochastic representations [72]. However, a general QMC framework for directly computing the R´ enyi-2 cor-relator in interacting quantum systems, without relying on mapped classical representations, remains lacking. In this Letter, we develop a QMC framework for evaluat-ing the R´ enyi-2 correlator in the quantum Ising model, thereby filling this methodological gap and enabling unbi-ased large-scale simulations of decohered quantum states and SWSSB in arbitrary spatial dimensions. As an illustrative example, we investigate the (2 + 1)D transverse-field Ising model (TFIM) subject to a strongly 
+
+Z2-symmetric decoherence channel. Despite its simplic-ity, the mixed-state phase diagram of this system re-mains largely unexplored except in the product-state 
+
+> arXiv:2603.24342v1 [quant-ph] 25 Mar 2026
+
+2limit [15]. By combining a field-theoretical approach with our newly developed QMC techniques, we characterize the decohered Ising ground states across various param-eter regimes. Our field-theoretical framework maps the effective defect action to the (1+1)D Ashkin-Teller model [73], predicting three distinct phases and identifying the universality classes of the phase transitions as well as the tricritical point. All these analytical predictions are firmly corroborated by large-scale simulations enabled by our QMC framework. 
+
+Setup .- We investigate the phase diagram of the deco-hered ground state of the TFIM as a function of Ising interaction and decoherence strength. Specifically, we consider a L × L 2D square lattice of spins with periodic boundary conditions described by the Hamiltonian H =
+
+−J P 
+
+> ⟨ij ⟩
+
+ZiZj − P 
+
+> i
+
+Xi, where Zi and Xi are Pauli oper-ators, and ⟨ij ⟩ denotes the nearest-neighbor bonds. The quantum critical point is located at Jc ≈ 0.328474 [74], which corresponds to a 3D Ising conformal field theory (CFT). When J < J c, the system is in a paramagnetic phase, and the ground state ρ0 has a global strong Z2
+
+symmetry under the symmetry operator X ≡ Q 
+
+> i
+
+Xi.When J > J c, the strong Z2 symmetry is spontaneously broken to the trivial group, leading to a ferromagnetic order, as characterized by the linear order parameter 
+
+C(0) ≡ lim |i−j|→∞ Tr( ρ0ZiZj ) = O(1). By applying the decoherence channel E = Q 
+
+> ⟨ij ⟩
+
+E⟨ij ⟩
+
+to ρ0, we obtain ρ = E[ρ0], where each local channel preserves the strong Z2 symmetry and is defined as 
+
+E⟨ij ⟩[ρ0] = 
+
+
+
+1 − p
+
+2
+
+
+
+ρ0 + p
+
+2 ZiZj ρ0ZiZj , p ∈ [0 , 1] . (1) We study the phase diagram of ρ as a function of the decoherence strength p and the coupling J. To do so, we first introduce several diagnostics for the distinct mixed-state phases. Under the Choi-Jamiolkowski isomorphism [68, 69], density matrix ρ = P 
+
+> s,s ′
+
+ρss ′ |s⟩⟨ s′| is mapped onto a pure state |ρ⟩⟩ = P 
+
+> s,s ′
+
+ρss ′ |s⟩a |s′⟩∗ 
+
+> b
+
+in a doubled Hilbert space, where a and b label the two replicas. The symme-try of the system is given by ( Za 
+
+> 2
+
+× Zb
+
+> 2
+
+) ⋊ ZH 
+
+> 2
+
+, where Za/b 
+
+> 2
+
+encode the strong symmetry in doubled space, while ZH
+
+> 2
+
+arises from Hermiticity and is strictly preserved. This symmetry structure allows two patterns of SSB [6]: com-plete breaking of Za 
+
+> 2
+
+× Zb
+
+> 2
+
+, or partial breaking to the di-agonal subgroup Zdiag 2 , corresponding to SWSSB. To di-agnose the presence of SWSSB, we compute the R´ enyi-2 correlator C(2) ≡ lim |i−j|→∞ Tr( ρZ iZj ρZ iZj )/Tr( ρ2). A nonzero C(2) signals spontaneous breaking of the strong symmetry, but by itself does not diagnose the fate of the weak symmetry in the Choi doubled space. To distinguish between the two symmetry-broken pat-terns, we also introduce the R´ enyi-2 linear order correla-tor C(1) ≡ lim |i−j|→∞ Tr( ρ2ZiZj )/Tr( ρ2). At the Choi-state level, C(1) = lim |i−j|→∞ ⟨⟨ ρ|Za/b i Za/b j |ρ⟩⟩ /⟨⟨ ρ|ρ⟩⟩ is the natural linear order parameter, which is nonzero only when the Za 
+
+> 2
+
+× Zb 
+
+> 2
+
+symmetry is completely broken, indi-cating the absence of weak symmetry in the Choi state. The three correlators C(0) , C(1) , and C(2) probe symmetry-breaking structure with increasing sensitivity to the Choi-state representation of ρ. Among them, C(0) 
+
+diagnoses symmetry breaking directly at the level of the density matrix and therefore determines whether weak symmetry is broken. By contrast, C(1) and C(2) are non-linear probes, sensitive to order that survives only in the doubled-state description. This clarifies the seemingly paradoxical regime C(1) ̸ = 0 but C(0) = 0: the density matrix itself remains weakly symmetric, while the asso-ciated Choi state still carries a finer symmetry-breaking structure. Compared with C(0) , the correlator C(1) en-hances the dominant contributions to ρ and thus serves as a more sensitive probe of this hidden order. How-ever, a nonzero C(1) should be understood as signaling symmetry breaking in the associated Choi doubled state, and not necessarily spontaneous symmetry breaking of the mixed state in the strict sense. We nevertheless refer to the regime with C(1) ̸ = 0 and C(0) = 0 as the R´ enyi-2 spontaneous symmetry breaking (R2-SSB) regime. In contrast, when C(2) ̸ = 0 but C(1) = 0, the order is break-ing Za/b  
+
+> 2
+
+down to Zdiag 2 in the Choi state; we call this the R´ enyi-2 strong-to-weak spontaneous symmetry break-ing (R2-SWSSB) regime. Thus, the hierarchy of C(0) ,
+
+C(1) , and C(2) distinguishes ordinary symmetry break-ing of ρ from progressively finer symmetry-breaking in its Choi-state representation. 
+
+Quantum Monte Carlo method .- Although the finite-temperature Gibbs state or ground state of a quantum Hamiltonian can be efficiently simulated using standard QMC methods based on imaginary-time path integral or series expansion [75–83], directly implementing the local channel E⟨ij ⟩ is nontrivial. In spin-1 /2 models, the com-putational basis is typically chosen as the local Z basis 
+
+{| s⟩} with s ∈ { 0, 1}⊗N , where |0⟩ ≡ |↑⟩ and |1⟩ ≡ |↓⟩ .The difficulty arises because operators such as ZiZj in Eq. (1), when acting within this computational basis, generically induce the notorious sign problem. To circumvent this issue, we rewrite the local channel 
+
+E⟨ij ⟩ in Eq. (1) as E⟨ij ⟩[ρ0] = P 
+
+> k
+
+Mkρ0M † 
+
+> k
+
+, where 
+
+M0 = p1 − p 1i1j ,M1 = √p 1i1j + ZiZj
+
+2 , M2 = √p 1i1j − ZiZj
+
+2 . (2) Then, the action of E⟨ij ⟩ on a general density matrix ρ0 =P 
+
+> s,s ′
+
+⟨s|ρ0|s′⟩ | s⟩ ⟨ s′| can be written as E⟨ij ⟩[ρ0] = σ1 +σ2,where 
+
+σ1 ≡ 1 − p
+
+2
+
+X
+
+> s
+
+X
+
+> s′
+
+X
+
+> W
+
+⟨s|ρ0W W |s′⟩ | s⟩ ⟨ s′| , (3) 
+
+σ2 ≡ p X
+
+> s
+
+X
+
+> s′
+> ij
+
+X
+
+> W
+
+⟨s|ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | s⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W, (4) 3(a) Initial state (c) (b) After one local channel (e) After the full channel (d) (f) State simulated by QMC                   
+
+> FIG. 1. Graphical representation of the density matrix in the evolution picture, with propagation from the ket to the bra index in the computational basis. (a) Initial state ρ0. (b) State after a single local channel. (c, d) Two contributions σ1and
+> σ2in E⟨ij ⟩[ρ0] = σ1+σ2shown in (b). The yellow diamond in (d) denotes a Kronecker tensor enforcing identical spin states on sites iand jalong four time directions. (e) State after the full channel. (f) Contracting two copies of ρ=E[ρ0] yields ρ2.Further contracting the bra and ket indices gives Tr( ρ2), which can be simulated by QMC to evaluate R´ enyi-2 observables.
+
+and W ∈ { 1i1j , X iXj }. For convenience, we decompose each basis state |s⟩ = ⊗k |sk⟩ as |s⟩ ≡ | sij ⟩ ⊗ | sij ⟩, where 
+
+|sij ⟩ ≡ | si⟩ ⊗ | sj ⟩ denotes the local degrees of freedom on sites i and j, and |sij ⟩ ≡ ⊗ k̸ =i,j |sk⟩ represents the remaining degrees of freedom. A more detailed derivation of Eqs. (3) and (4) can be found in the Supplemental Material [84]. The essential idea of QMC is to sample matrix el-ements of ρ0 ∝ e−βH with weights Ws,s ′ ∝ ⟨ s|ρ0|s′⟩,without storing the full density matrix [30, 85–87]. As 
+
+ρ0 represents imaginary-time evolution [Fig. 1(a)], dif-ferent matrix elements correspond to different temporal boundary conditions. In particular, sampling ⟨s|ρ0|s⟩ im-poses periodic boundary conditions by identifying the bra and ket states, yielding the standard partition function 
+
+Z = Tr( e−βH ). We note that matrix elements in σ1 and 
+
+σ2 can be interpreted similarly [Fig. 1(b)-(d)]. Without loss of generality, we choose a counterclockwise time ori-entation. For σ2, the resulting time contour for sij has a figure-eight topology, and the orientation is taken along the outer loop. The four-leg vertices in Fig. 1(d) connect spin variables of sites i and j on different time branches and correspond to a rank-four Kronecker tensor. By iteratively applying the local channel E⟨ij ⟩, one ob-tains the decohered state ρ = E[ρ0], whose matrix ele-ments admit a similar graphical representation, as illus-trated in Fig. 1(e). In the same spirit, one may consider 
+
+ρ2 =  E[ρ0]2. Imposing periodic boundary conditions along the time direction then allows the quantity Tr( ρ2)to be interpreted as a generalized path integral and evalu-ated within QMC, as shown in Fig. 1(f). Particularly, the quantities C(1) and C(2) for diagnosing SWSSB can be estimated using simple diagonal measurements by simu-lating Tr( ρ2). Further details, including a discussion of the polynomial (and thus efficient) complexity of our al-gorithm, are provided in the Supplemental Material [84]. Finally, we emphasize that the QMC framework in-troduced here is general and applies to any initial state 
+
+ρ0 that can be prepared with standard QMC methods, including Gibbs states, ground states, and mixed states obtained by tracing out environmental degrees of free-dom, and is not restricted to the TFIM considered here. 
+
+Phase diagram and field theory analysis .- Using the di-agnostics introduced above, we map out the phase dia-gram of the model in the plane of Ising interaction and decoherence strength. As shown in Fig. 2, the model ex-hibits a rich phase structure, including a strongly sym-metric phase, an R2-SWSSB phase, an R2-SSB phase, and an ordinary SSB phase. All phase boundaries are continuous transitions. In particular, the symmetric-to-R2-SWSSB boundary and the R2-SWSSB-to-R2-SSB boundary are both in the 2D Ising universality class. Moreover, the two phase transitions merge in part of the phase diagram into a critical line with continuously vary-ing exponents. To determine the phase boundaries, we consider the generalized Binder ratios [88]. For example, the Binder ratio associated with C(2) is defined as 
+
+R(2) ≡
+
+P 
+
+> i,j,k,l
+
+Tr( ρZ iZj ZkZlρZ iZj ZkZl)[P 
+
+> i,j
+
+Tr( ρZ iZj ρZ iZj )] 2 . (5) Crossings of R(2) for different system sizes locate the critical point. If the strong Z2 symmetry is preserved, 
+
+R(2) → 3, whereas R(2) → 1 when it is broken. Simi-lar ratios R(α) can be defined for other C(α) using the corresponding two- and four-point correlators. We perform finite-size scaling to determine the uni-versality classes of the phase boundaries in Fig. 2. Be-fore the red and blue boundaries merge, we find that the correlation-length exponent ν along both boundaries is 40.0 0.1 0.2 0.3 0.4
+
+J
+
+> 0.00.20.40.60.81.0
+> p
+
+Strongly Symmetric R2-SWSSB R2-SSB  Ordinary SSB    
+
+> Critical for C(0)
+> Critical for C(1)
+> Critical for C(2)
+
+FIG. 2. Phase diagram of the decohered ground state of the 2D TFIM under the quantum channel E. Markers denote crit-ical points obtained from QMC simulations associated with the corresponding order parameters. For ground-state prepa-ration, we take β = 2 L, and verify convergence. The strongly symmetric phase is characterized by C(α) = 0 for α = 0 , 1, 2; the R2-SWSSB phase by C(2) ̸ = 0 and C(0) = C(1) = 0; the R2-SSB phase by C(1) , C (2) ̸ = 0 with C(0) = 0; and the ordi-nary SSB phase by C(α)̸ = 0 for all α = 0 , 1, 2. 
+
+consistent with the 2D Ising universality class. Fig. 3(a) shows an example at J = 0 .1, where tuning p crosses the red critical boundary at pc ≈ 0.355. Finite-size scal-ing yields an excellent data collapse with ν ≈ 0.998 ≈ 1[Fig. 3(b)]. Similar behavior is observed for the other phase boundary, and a representative example is pre-sented in the End Matter. By contrast, as the two bound-aries merge, the critical behavior changes qualitatively, with the correlation-length exponent deviating from the Ising value (as will be demonstrated below). To under-stand these results, we next develop an effective field-theoretical analysis. One can formulate the problem of decoherence on the ground state of the transverse-field Ising model in the path-integral formalism, where the ground state is pre-pared by imaginary-time evolution and the decoherence is encoded as an interaction along a codimension-one tem-poral defect [6, 89]. This leads to the effective action 
+
+Seff [ϕa, ϕ b] = SIsing [ϕa] + SIsing [ϕb] + Sint [ϕa, ϕ b]. (6) The bulk corresponds to a standard ϕ4 action 
+
+SIsing [ϕ] = 12
+
+Z
+
+d2xdz  ∂μϕ∂ μϕ + m2ϕ2 + λϕ 4 , (7) while the interaction induced by the decoherence only exists on a temporal defect: 
+
+Sint [ϕa, ϕ b] = − 12
+
+Z
+
+d2xdzδ (z)  ˜m  ϕ2 
+
+> a
+
++ ϕ2
+
+> b
+
+ + tϕ 2
+
+> a
+
+ϕ2
+
+> b
+
+ .
+
+(8) This interaction arises from coarse-graining the mi-croscopic interaction in the doubled space coming from the decoherence Vint = 2δ(z) tanh −1[p/ (2 −0.32 0.34 0.36 0.38 
+
+> p
+> 1.01.52.0
+> R(2) (p, L )
+
+(a)          
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+> −202(p−pc)L1/ν /p c
+> 1.01.52.0
+> R(2) (p, L )
+
+(b)       
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+> 0.28 0.29 0.30
+> J
+> 12
+> R(1) (J, L )
+
+(c)          
+
+> L= 12
+> L= 16
+> L= 20
+> L= 24
+> −505(J−Jc)L1/ν /J c
+> 12
+> R(1) (J, L )
+
+(d)     
+
+> L= 12
+> L= 16
+> L= 20
+> L= 24
+
+FIG. 3. Binder ratios R(α) as functions of system size L
+
+and tuning parameters J or p. (a) At fixed J = 0 .1, the curves cross at pc ≈ 0.355. (b) Corresponding data collapse of R(2) (p, L ), yielding ν ≈ 0.998 ≈ 1. (c) At fixed p = 0 .3, the crossing occurs at Jc ≈ 0.29, close to the tricritical point. (d) Data collapse using the expected exponent ν = 2 /3, with all curves collapsing near criticality, in agreement with theory. 
+
+p)] P 
+
+> ⟨i,j ⟩
+
+Zai Zaj Zbi Zbj , implying ˜ m, t ∝ tanh −1[p/ (2 − p)], see Supplemental Material [84] for a detailed derivation. In the bulk ordered phase ( m2 < 0), the Za 
+
+> 2
+
+× Zb
+
+> 2
+
+symmetry is broken completely, and the resulting order is stable against symmetric finite-depth quantum chan-nels. The system therefore lies in an ordinary SSB phase. In contrast, when the bulk is disordered ( m2 > 0), its finite correlation length implies that the bulk induces only short-range interactions on the defect, allowing for a much richer defect phase structure tuned by decoher-ence. The corresponding effective theory is equivalent to that of the 2D Ashkin-Teller model: 
+
+Seff [φa, φ b] = 
+
+Z
+
+d2x
+
+ 12
+
+X
+
+> α=a,b
+
+
+
+∂μφα∂μφα + m2eff φ2
+
+> α
+
++ ˜λφ 4
+
+> α
+
+
+
+− ˜tφ 2
+
+> a
+
+φ2
+
+> b
+
+
+
++ · · · (9) where m2eff = m(2 m − ˜m), ˜λ = λm/ 2 and ˜ t = tm 2. We explicitly demonstrate this by integrating out the bulk fields in the path integral; detailed derivations are pro-vided in the Supplemental Material [84]. In the bulk disordered phase, the effective 2D Ashkin–Teller action (9) captures three distinct phases (see Supplemental Material [84] for a Landau–Ginzburg analysis). For m2eff > 0 and t is small compared to λ/m ,no symmetry is broken, and the system is in a trivial sym-metric phase. When m2eff < 0 and the inter-replica cou-pling t is relatively small compared to λ/m , the Ashkin-Teller model enters the ferromagnetic phase (R2-SSB). This corresponds to the complete breaking of the Za 
+
+> 2
+
+×Zb
+
+> 2
+
+symmetry to the trivial group. The third regime is the 5Baxter phase (R2-SWSSB), which emerges when t is suf-ficiently large. In this phase, the Za 
+
+> 2
+
+× Zb 
+
+> 2
+
+symmetry is partially broken down to the diagonal subgroup Zdiag 2 .In particular, this field-theoretical analysis accounts for the meeting of these three phases at a tricritical point, in excellent agreement with the phase diagram in Fig. 2. Within the 2D Ashkin–Teller description, the transi-tions from the trivial to the Baxter phase (red boundary in Fig. 2) and from the Baxter to the ferromagnetic phase (blue boundary) correspond to sequential breaking of two independent Z2 symmetries. Both transitions thus be-long to the 2D Ising universality class, consistent with our numerical results. More intriguingly, the direct transi-tion between the strongly symmetric and R2-SSB phases (where the red and blue boundaries overlap in Fig. 2) is governed by a compact boson CFT with a continuously tunable parameter, leading to continuously varying criti-cal exponents along the phase boundary. Representative numerical results are presented in the End Matter. Furthermore, the tricritical point where the strongly symmetric, R2-SWSSB, and R2-SSB phases meet is de-scribed by the 2D 4-state Potts CFT [90]. The critical be-havior is governed by the leading relevant energy-density operator ε with scaling dimension ∆ ε = 1 /2, yielding 
+
+ν = 1 /(2 − ∆ε) = 2 /3, while the subleading operator ε′
+
+is marginal with ∆ ε′ = 2. Although the tricritical point is difficult to locate precisely, data in its vicinity [Fig. 3(c), (d)] exhibit an excellent collapse with the expected ex-ponent, supporting the Potts CFT description. When SIsing is tuned to the critical point, the bulk correlation length diverges, which induces long-range in-teractions on the defect, invalidating the Ashkin-Teller description. Instead, this regime can be analyzed using conformal perturbation theory. Additional details and numerical confirmation are provided in the End Matter. 
+
+Conclusions and outlook .- In this Letter, we propose a general QMC framework for evaluating nonlinear R´ enyi-2 correlators in decohered quantum many-body sys-tems, filling a key methodological gap and enabling un-biased large-scale simulations of SWSSB in higher di-mensions. Combined with effective field-theoretical anal-ysis, we systematically study the (2 + 1)D TFIM un-der a strongly Z2-symmetric decoherence channel, reveal-ing a rich mixed-state phase diagram with three distinct phases: a strongly symmetric phase, a R2-SWSSB phase with partial symmetry breaking, and an R2-SSB phase with complete symmetry breaking in the doubled space. Our field-theoretical approach provides a unified un-derstanding of these phases and their transitions. Away from the Ising quantum critical point, the effective de-fect theory is governed by the 2D Ashkin–Teller model, leading to Ising-type transitions, a line of continuously varying criticality described by a compact boson CFT, and a tricritical point in the 2D 4-state Potts universality class. At the underlying quantum critical point, decoher-ence acts as a relevant defect perturbation, immediately driving the system into the R2-SSB phase with distinct critical scaling. These analytical predictions are in quan-titative agreement with our QMC results. Beyond the present model, our QMC and field the-ory framework opens several promising directions. It en-ables unbiased large-scale studies of mixed-state phases and phase transitions in a broad class of interacting sys-tems, including higher dimensions, frustration, topologi-cal order, and continuous symmetries. It also naturally generalizes to a wide range of decoherence channels, in-cluding those preserving strong continuous symmetries and combinations of distinct channels. Moreover, com-bined with recent advances in QMC [91–98], our frame-work can be extended to other nonlinear probes, such as entanglement entropy [8, 99], entanglement R´ enyi neg-ativity [8, 13, 100, 101], coherent information [13, 102], and (conditional) mutual information [23], implemented via appropriate spacetime boundary conditions among replicas based on the graphical evolution picture intro-duced here. These capabilities provide a powerful route to uncover and characterize new forms of mixed-state collective phenomena in the future. 
+
+Acknowledgments .- We thank Chong Wang, Yijian Zou and Yuto Ashida for helpful discussions. Y.G. is finan-cially supported by the Global Science Graduate Course (GSGC) program at the University of Tokyo. This project is supported by the Scientific Research Project (No. WU2025B011) and the Start-up Funding of West-lake University. The authors thank the IT service office and the high-performance computing center of Westlake University.                       
+
+> ∗yuxguo2024@g.ecc.u-tokyo.ac.jp
+> †zjb5184@psu.edu
+> ‡zhengyan@westlake.edu.cn [1] I. M. Georgescu, S. Ashhab, and F. Nori, Quantum sim-ulation, Rev. Mod. Phys. 86 , 153 (2014). [2] M. Saffman, Quantum computing with neu-tral atoms, National Science Review 6,24 (2018), https://academic.oup.com/nsr/article-pdf/6/1/24/38915067/nwy088.pdf. [3] J. Preskill, Quantum computing in the nisq era and be-yond, Quantum 2, 79 (2018). [4] B. Zeng, X. Chen, D.-L. Zhou, and X.-G. Wen, in Quan-tum Information Meets Quantum Matter: From Quan-tum Entanglement to Topological Phases of Many-Body Systems (Springer New York, New York, NY, 2019). [5] J. Y. Lee, Y.-Z. You, and C. Xu, Symmetry protected topological phases under decoherence, Quantum 9, 1607 (2025), arXiv:2210.16323 [cond-mat.str-el]. [6] J. Y. Lee, C.-M. Jian, and C. Xu, Quantum criticality under decoherence or weak measurement, PRX Quan-tum 4, 030317 (2023). [7] R. Ma and C. Wang, Average symmetry-protected topo-logical phases, Phys. Rev. X 13 , 031016 (2023). [8] Y. Zou, S. Sang, and T. H. Hsieh, Channeling quantum
+
+6
+
+criticality, Phys. Rev. Lett. 130 , 250403 (2023). [9] A. Moharramipour, L. A. Lessa, C. Wang, T. H. Hsieh, and S. Sahu, Symmetry-enforced entanglement in max-imally mixed states, PRX Quantum 5, 040336 (2024). [10] K. Su, N. Myerson-Jain, C. Wang, C.-M. Jian, and C. Xu, Higher-form symmetries under weak measure-ment, Phys. Rev. Lett. 132 , 200402 (2024). [11] Y. Guo and Y. Ashida, Two-dimensional symmetry-protected topological phases and transitions in open quantum systems, Phys. Rev. B 109 , 195420 (2024). [12] Z. Yan, L. Pollet, J. Lou, X. Wang, Y. Chen, and Z. Cai, Interacting lattice systems with quantum dissipation: A quantum monte carlo study, Phys. Rev. B 97 , 035148 (2018). [13] R. Fan, Y. Bao, E. Altman, and A. Vishwanath, Diag-nostics of mixed-state topological order and breakdown of quantum memory, PRX Quantum 5, 020343 (2024). [14] P. Sala, S. Gopalakrishnan, M. Oshikawa, and Y. You, Spontaneous strong symmetry breaking in open sys-tems: Purification perspective, Phys. Rev. B 110 ,155150 (2024). [15] L. A. Lessa, R. Ma, J.-H. Zhang, Z. Bi, M. Cheng, and C. Wang, Strong-to-weak spontaneous symmetry break-ing in mixed quantum states, PRX Quantum 6, 010344 (2025). [16] C. Zhang, Y. Xu, J.-H. Zhang, C. Xu, Z. Bi, and Z.-X. Luo, Strong-to-weak spontaneous breaking of 1-form symmetry and intrinsically mixed topological or-der, Phys. Rev. B 111 , 115137 (2025). [17] N. Sun, P. Zhang, and L. Feng, Scheme to detect the strong-to-weak symmetry breaking via randomized measurements, Phys. Rev. Lett. 135 , 090403 (2025). [18] B. Min, Y. Zhang, Y. Guo, D. Segal, and Y. Ashida, Mixed-state phase transitions in spin-holstein models, Phys. Rev. B 111 , 115123 (2025). [19] Y. Guo, S. Yang, and X.-J. Yu, Quantum strong-to-weak spontaneous symmetry breaking in decohered one-dimensional critical states, PRX Quantum 6, 040311 (2025). [20] Y. Guo and S. Yang, Strong-to-weak spontaneous symmetry breaking meets average symmetry-protected topological order, Phys. Rev. B 111 , L201108 (2025). [21] T. Orito, Y. Kuno, and I. Ichinose, Strong and weak symmetries and their spontaneous symmetry breaking in mixed states emerging from the quantum ising model under multiple decoherence, Phys. Rev. B 111 , 054106 (2025). [22] Y. Guo and S. Yang, Quantum criticality in open quan-tum systems from the purification perspective (2026), arXiv:2602.21979 [quant-ph]. [23] S. Sang and T. H. Hsieh, Stability of mixed-state quan-tum phases via finite markov length, Phys. Rev. Lett. 
+
+134 , 070403 (2025). [24] L. Chen, N. Sun, and P. Zhang, Strong-to-weak symme-try breaking and entanglement transitions, Phys. Rev. B 111 , L060304 (2025). [25] R. Ma and A. Turzillo, Symmetry-protected topologi-cal phases of mixed states in the doubled space, PRX Quantum 6, 010348 (2025). [26] R. Ma, J.-H. Zhang, Z. Bi, M. Cheng, and C. Wang, Topological phases with average symmetries: The deco-hered, the disordered, and the intrinsic, Phys. Rev. X 
+
+15 , 021062 (2025). [27] Y. Guo, J.-H. Zhang, H.-R. Zhang, S. Yang, and Z. Bi, Locally purified density operators for symmetry-protected topological phases in mixed states, Phys. Rev. X 15 , 021060 (2025). [28] T. D. Ellison and M. Cheng, Toward a classification of mixed-state topological orders in two dimensions, PRX Quantum 6, 010315 (2025). [29] L. A. Lessa, M. Cheng, and C. Wang, Mixed-state quantum anomaly and multipartite entanglement, Phys. Rev. X 15 , 011069 (2025). [30] Y.-M. Ding, Z. Liu, X. Tian, Z. Wang, Y. Zhu, and Z. Yan, Mixed-state measurement-induced phase transitions in imaginary-time dynamics (2026), arXiv:2511.04402 [quant-ph]. [31] S. Sang, Y. Zou, and T. H. Hsieh, Mixed-state quantum phases: Renormalization and quantum error correction, Phys. Rev. X 14 , 031044 (2024). [32] T. Rakovszky, S. Gopalakrishnan, and C. von Keyser-lingk, Defining stable phases of open quantum systems, Phys. Rev. X 14 , 041031 (2024). [33] S. Sang, L. A. Lessa, R. S. K. Mong, T. Grover, C. Wang, and T. H. Hsieh, Mixed-state phases from local reversibility (2025), arXiv:2507.02292 [quant-ph]. [34] M. B. Hastings, Topological order at nonzero tempera-ture, Phys. Rev. Lett. 107 , 210501 (2011). [35] Z. Wang and L. Li, Anomaly in open quantum systems and its implications on mixed-state quantum phases, PRX Quantum 6, 010347 (2025). [36] P.-S. Hsin, Z.-X. Luo, and H.-Y. Sun, Anomalies of aver-age symmetries: entanglement and open quantum sys-tems, Journal of High Energy Physics 2024 , 134 (2024). [37] Y. Xu and C.-M. Jian, Average-exact mixed anoma-lies and compatible phases, Phys. Rev. B 111 , 125128 (2025). [38] L. Li, Z. Bi, and W. Cao, Generalized symmetry-protected topological phases in mixed states from gaug-ing dualities (2026), arXiv:2603.17282 [cond-mat.str-el]. [39] N. Ziereis, S. Moudgalya, and M. Knap, Strong-to-weak symmetry breaking phases in steady states of quantum operations (2025), arXiv:2509.09669 [cond-mat.stat-mech]. [40] L. S´ a and B. B´ eri, Exactly solvable dissipative dynam-ics and one-form strong-to-weak spontaneous symmetry breaking in interacting two-dimensional spin systems, Phys. Rev. B 112 , 144311 (2025). [41] Q. Wang, R. Vasseur, S. Trebst, A. W. W. Ludwig, and G.-Y. Zhu, Decoherence-induced self-dual criticality in topological states of matter (2025), arXiv:2502.14034 [quant-ph]. [42] S.-T. Zhou, M. Cheng, T. Rakovszky, C. von Keyser-lingk, and T. D. Ellison, Finite-temperature quantum topological order in three dimensions, Phys. Rev. Lett. 
+
+135 , 040402 (2025). [43] L. D. Landau, On the theory of phase transitions. I., Phys. Z. Sowjet. 11 , 26 (1937). [44] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cam-bridge University Press, 2011). [45] J. McGreevy, Generalized symmetries in condensed matter, Annual Review of Condensed Matter Physics 
+
+14 , 57 (2023). [46] B. Buˇ ca and T. Prosen, A note on symmetry reductions of the lindblad equation: transport in constrained open spin chains, New Journal of Physics 14 , 073007 (2012). [47] V. V. Albert and L. Jiang, Symmetries and conserved quantities in lindblad master equations, Phys. Rev. A 7
+
+89 , 022118 (2014). [48] S. Lieu, R. Belyansky, J. T. Young, R. Lundgren, V. V. Albert, and A. V. Gorshkov, Symmetry breaking and error correction in open quantum systems, Phys. Rev. Lett. 125 , 240405 (2020). [49] Y. Bao, R. Fan, A. Vishwanath, and E. Altman, Mixed-state topological order and the errorfield double formu-lation of decoherence-induced transitions, arXiv (2023), 2301.05687. [50] O. Ogunnaike, J. Feldmeier, and J. Y. Lee, Unify-ing Emergent Hydrodynamics and Lindbladian Low-Energy Spectra across Symmetries, Constraints, and Long-Range Interactions, Phys. Rev. Lett. 131 , 220403 (2023), arXiv:2304.13028 [cond-mat.str-el]. [51] J.-H. Zhang, C. Xu, and Y. Xu, Fluctuation-dissipation theorem and information geometry in open quantum systems (2024), arXiv:2409.18944 [quant-ph]. [52] J. Kim, E. Altman, and J. Y. Lee, Error threshold of syk codes from strong-to-weak parity symmetry break-ing (2024), arXiv:2410.24225 [quant-ph]. [53] S. Lu, P. Zhu, and Y.-M. Lu, Bilayer construction for mixed state phenomena with strong, weak symme-tries and symmetry breakings (2024), arXiv:2411.07174 [cond-mat.str-el]. [54] D. Gu, Z. Wang, and Z. Wang, Spontaneous symmetry breaking in open quantum systems: strong, weak, and strong-to-weak (2024), arXiv:2406.19381 [quant-ph]. [55] Y. Kuno, T. Orito, and I. Ichinose, Strong-to-weak sym-metry breaking states in stochastic dephasing stabilizer circuits, Phys. Rev. B 110 , 094106 (2024). [56] X. Huang, M. Qi, J.-H. Zhang, and A. Lucas, Hydrody-namics as the effective field theory of strong-to-weak spontaneous symmetry breaking, Phys. Rev. B 111 ,125147 (2025). [57] R. Luo, Y.-N. Wang, and Z. Bi, Topological hologra-phy for mixed-state phases and phase transitions, PRX Quantum 6, 040358 (2025). [58] Y. Liu and Y. Zou, Polynomial-time certification of fi-delity for many-body mixed states and mixed-state uni-versality classes (2026), arXiv:2601.13333 [quant-ph]. [59] Y. Zhang, T. H. Hsieh, Y. B. Kim, and Y. Zou, Probing mixed-state phases on a quantum computer via renyi correlators and variational decoding (2025), arXiv:2505.02900 [quant-ph]. [60] J.-H. Zhang, Y. Qi, and Z. Bi, Fidelity strange correla-tors for average symmetry-protected topological phases (2025), arXiv:2210.17485 [cond-mat.str-el]. [61] Z. Song and J.-H. Zhang, Strong-to-weak spontaneous symmetry breaking of higher-form non-invertible sym-metries in kitaev’s quantum double model (2025), arXiv:2509.24179 [quant-ph]. [62] X. Feng, Z. Cheng, and M. Ippoliti, Hardness of ob-serving strong-to-weak symmetry breaking, Phys. Rev. Lett. 135 , 200402 (2025). [63] J. Hauser, K. Su, H. Ha, J. Lloyd, T. G. Kiely, R. Vasseur, S. Gopalakrishnan, C. Xu, and M. P. A. Fisher, Strong-to-weak symmetry breaking in open quantum systems: From discrete particles to continuum hydrodynamics (2026), arXiv:2602.16045 [quant-ph]. [64] C. Shu, K. Zhang, and K. Sun, Universal dynamical scaling of strong-to-weak spontaneous symmetry break-ing in open quantum systems (2026), arXiv:2603.06363 [cond-mat.mes-hall]. [65] Y.-H. Chen and T. Grover, Zipping many-body quan-tum states: a scalable approach to diagonal entropy (2025), arXiv:2502.18898 [quant-ph]. [66] Z. Weinstein, Efficient detection of strong-to-weak spon-taneous symmetry breaking via the r´ enyi-1 correlator, Phys. Rev. Lett. 134 , 150405 (2025). [67] Z. Liu, L. Chen, Y. Zhang, S. Zhou, and P. Zhang, Diag-nosing strong-to-weak symmetry breaking via wightman correlators, Communications Physics 8, 274 (2025). [68] M.-D. Choi, Completely positive linear maps on com-plex matrices, Linear Algebra and its Applications 10 ,285 (1975). [69] A. Jamiolkowski, Linear transformations which preserve trace and positive semidefiniteness of operators, Reports on Mathematical Physics 3, 275 (1972). [70] S. Aaronson and G. N. Rothblum, Gentle measure-ment of quantum states and differential privacy, in Pro-ceedings of the 51st Annual ACM SIGACT Symposium on Theory of Computing , STOC 2019 (Association for Computing Machinery, New York, NY, USA, 2019) p. 322–333. [71] H.-Y. Huang, R. Kueng, and J. Preskill, Predicting many properties of a quantum system from very few measurements, Nature Physics 16 , 1050 (2020). [72] J. Hauser, K. Su, H. Ha, J. Lloyd, T. G. Kiely, R. Vasseur, S. Gopalakrishnan, C. Xu, and M. P. A. Fisher, Strong-to-weak symmetry breaking in open quantum systems: From discrete particles to continuum hydrodynamics (2026), arXiv:2602.16045 [quant-ph]. [73] M. Kohmoto, M. den Nijs, and L. P. Kadanoff, Hamil-tonian studies of the d = 2 ashkin-teller model, Phys. Rev. B 24 , 5229 (1981). [74] H. W. J. Bl¨ ote and Y. Deng, Cluster monte carlo sim-ulation of the transverse ising model, Phys. Rev. E 66 ,066110 (2002). [75] N. Prokof’Ev and B. Svistunov, “worm” algorithm in quantum monte carlo simulations, Physics Letters A 
+
+238 , 253 (1998). [76] A. W. Sandvik, Stochastic series expansion method with operator-loop update, Phys. Rev. B 59 , R14157 (1999). [77] A. W. Sandvik, Stochastic series expansion method for quantum ising models with arbitrary interactions, Phys. Rev. E 68 , 056701 (2003). [78] O. F. Sylju˚ asen and A. W. Sandvik, Quantum monte carlo with directed loops, Phys. Rev. E 66 , 046701 (2002). [79] M. Boninsegni, N. Prokof’ev, and B. Svistunov, Worm algorithm for continuous-space path integral monte carlo simulations, Phys. Rev. Lett. 96 , 070601 (2006). [80] R. G. Melko, Stochastic series expansion quantum monte carlo, in Strongly Correlated Systems: Numerical Methods , edited by A. Avella and F. Mancini (Springer Berlin Heidelberg, Berlin, Heidelberg, 2013) pp. 185– 206. [81] Z. Yan, Y. Wu, C. Liu, O. F. Sylju˚ asen, J. Lou, and Y. Chen, Sweeping cluster algorithm for quantum spin systems with strong geometric restrictions, Phys. Rev. B 99 , 165135 (2019). [82] Z. Yan, Global scheme of sweeping cluster algorithm to sample among topological sectors, Phys. Rev. B 105 ,184432 (2022). [83] Z. Yan, R. Samajdar, Y.-C. Wang, S. Sachdev, and Z. Y. Meng, Triangular lattice quantum dimer model with variable dimer density, Nature communications 13 ,5799 (2022). 8
+
+[84] See Supplemental Material for the derivation of σ1
+
+and σ2, details of the QMC algorithm, and the field-theoretical derivation of the 2D defect action, which in-cludes Refs. [76, 77, 80, 106–109]. [85] B.-B. Mao, Y.-M. Ding, Z. Wang, S. Hu, and Z. Yan, Sampling reduced density matrix to extract fine lev-els of entanglement spectrum and restore entanglement hamiltonian, Nature Communications 16 , 2880 (2025). [86] Z. Wang, Z. Wang, B.-B. Mao, and Z. Yan, Generalized reduced-density-matrix quantum monte carlo gives ac-cess to more, arXiv preprint arXiv:2603.10948 (2026). [87] B.-B. Mao, Z. Wang, B.-B. Chen, and Z. Yan, Detect-ing the emergent continuous symmetry of criticality via a subsystem’s entanglement spectrum, Physical Review Letters 136 , 046401 (2026). [88] K. Binder, Critical properties from monte carlo coarse graining and renormalization, Phys. Rev. Lett. 47 , 693 (1981). [89] S. J. Garratt, Z. Weinstein, and E. Altman, Measure-ments conspire nonlocally to restructure critical quan-tum states, Phys. Rev. X 13 , 021026 (2023). [90] G. Delfino and P. Grinza, Universal ratios along a line of critical points. the ashkin–teller model, Nuclear Physics B 682 , 521 (2004). [91] R. G. Melko, A. B. Kallin, and M. B. Hastings, Finite-size scaling of mutual information in monte carlo sim-ulations: Application to the spin- 12 xxz model, Phys. Rev. B 82 , 100409 (2010). [92] R. R. P. Singh, M. B. Hastings, A. B. Kallin, and R. G. Melko, Finite-temperature critical behavior of mutual information, Phys. Rev. Lett. 106 , 135701 (2011). [93] J. D’Emidio, Entanglement entropy from nonequilib-rium work, Phys. Rev. Lett. 124 , 110602 (2020). [94] Y.-M. Ding, J.-S. Sun, N. Ma, G. Pan, C. Cheng, and Z. Yan, Reweight-annealing method for evaluating the partition function via quantum monte carlo calcula-tions, Phys. Rev. B 110 , 165152 (2024). [95] J. D’Emidio and A. W. Sandvik, Entanglement entropy and deconfined criticality: Emergent so(5) symmetry and proper lattice bipartition, Phys. Rev. Lett. 133 ,166702 (2024). [96] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Bipartite reweight-annealing algorithm of quan-tum monte carlo to extract large-scale data of entangle-ment entropy and its derivative, Nature Communica-tions 16 , 5880 (2025). [97] P. S. Tarabunga and Y.-M. Ding, Bell sampling in quan-tum monte carlo simulations, Phys. Rev. Lett. 135 ,200403 (2025). [98] Y.-M. Ding, Y. Tang, Z. Wang, Z. Wang, B.-B. Mao, and Z. Yan, Tracking the variation of entanglement r´ enyi negativity: A quantum monte carlo study, Phys. Rev. B 111 , L241108 (2025). [99] R. Ma, Exploring critical systems under measure-ments and decoherence via keldysh field theory (2023), arXiv:2304.08277 [quant-ph]. [100] K.-L. Cai and M. Cheng, Entanglement negativity in decohered topological states (2026), arXiv:2602.16597 [cond-mat.str-el]. [101] T.-C. Lu, Disentangling transitions in topological order induced by boundary decoherence, Phys. Rev. B 110 ,125145 (2024). [102] Z. Wang, R. Fan, T. Wang, S. J. Garratt, and E. Alt-man, Fractional quantum Hall states under density de-coherence, arXiv (2025), 2510.08490. [103] Z. Komargodski and D. Simmons-Duffin, The Random-Bond Ising Model in 2.01 and 3 Dimensions, J. Phys. A 
+
+50 , 154001 (2016), arXiv:1603.04444 [hep-th]. [104] S. El-Showk, M. F. Paulos, D. Poland, S. Rychkov, D. Simmons-Duffin, and A. Vichi, Solving the 3d ising model with the conformal bootstrap ii. c-minimization and precise critical exponents, Journal of Statistical Physics 157 , 869 (2014). [105] W. Zhu, C. Han, E. Huffman, J. S. Hofmann, and Y.-C. He, Uncovering conformal symmetry in the 3d ising transition: State-operator correspondence from a quantum fuzzy sphere regularization, Phys. Rev. X 13 ,021009 (2023). [106] B. B. Beard and U.-J. Wiese, Simulations of discrete quantum systems in continuous euclidean time, Phys. Rev. Lett. 77 , 5130 (1996). [107] N. Kawashima and K. Harada, Recent developments of world-line monte carlo methods, Journal of the Physical Society of Japan 73 , 1379 (2004). [108] R. H. Swendsen and J.-S. Wang, Nonuniversal critical dynamics in monte carlo simulations, Phys. Rev. Lett. 
+
+58 , 86 (1987). [109] Y. Aoun, M. Dober, and A. Glazman, Phase Diagram of the Ashkin–Teller Model, Commun. Math. Phys. 405 ,37 (2024). 
+
+END MATTER Weak symmetry and the R´ enyi-2 linear correlator 
+
+To illustrate that C(1) may not be a faithful diagnos-tic of weak symmetry breaking in the mixed state, we construct a diagonal density matrix in the local Z basis: 
+
+ρ = 14
+
+
+
+|0⟩⊗N ⟨0|⊗N + |1⟩⊗N ⟨1|⊗N 
+
++ 14M
+
+> M
+
+X
+
+> α=1
+
+
+
+|ψα⟩ ⟨ ψα| + X |ψα⟩ ⟨ ψα| X
+
+
+
+,
+
+(10) where X := Q 
+
+> i
+
+Xi, and {| ψα⟩} satisfy ZiZj |ψα⟩ =
+
+− | ψα⟩. By construction, ρ is normalized and has a global weak Z2 symmetry. A direct calculation gives C(0) = 0 but C(1) = ( M −
+
+1) /(M + 1). Thus, for M > 1, C(1) ̸ = 0 despite C(0) = 0, showing that C(1) , while natural as a linear order param-eter at the Choi-state level, does not provide a faithful diagnostic of weak symmetry breaking in mixed states. 
+
+Phase transition between R2-SSB and R2-SWSSB 
+
+In this subsection, we show a representative example of the numerical results on blue critical boundary in Fig. 2, associated with the R´ enyi-2 linear order parameter C(1) .We fix p = 0 .6 and tune J. Fig. 4 shows crossings of the Binder ratio R(1) for different system sizes, from which we 9extract the critical point Jc ≈ 0.27 and the correlation-length exponent ν ≈ 0.98 ≈ 1, consistent with the 2D Ising universality class. This provides further numerical support for the Ising nature of the blue phase boundary discussed in the main text. 0.26 0.28 0.30 0.32 
+
+> J
+> 1.01.52.0
+> R(1) (J, L )
+
+(a)          
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+> 024(J−Jc)L1/ν /J c
+> 1.01.52.0
+> R(1) (J, L )
+
+(b)     
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+
+FIG. 4. An example for the blue critical boundary in Fig. 2. At fixed p = 0 .6, we tune J and evaluate the Binder ratio 
+
+R(1) . (a) Crossings of R(1) (J, L ) for different system sizes locate the critical point at Jc ≈ 0.27. (b) Finite-size scaling yields an excellent data collapse with ν ≈ 0.98, close to the expected Ising value ν = 1. 
+
+Decoherence at Ising criticality 0.00 0.05 0.10 
+
+> p
+> 1.41.61.82.0
+> R(1) (p, L )
+
+(a)            
+
+> L= 16
+> L= 20
+> L= 24
+> L= 32
+> −10 010 20 30 (p−pc)L1/ν /p c
+> 1.41.61.82.0
+> R(1) (p, L )
+
+(b)       
+
+> L= 16
+> L= 20
+> L= 24
+> L= 32
+> 0.00 0.05 0.10
+> p
+> 2.02.53.0
+> R(2) (p, L )
+
+(c)         
+
+> L= 16
+> L= 20
+> L= 24
+> L= 32
+> 010 (p−pc)L1/ν /p c
+> 2.02.53.0
+> R(2) (p, L )
+
+(d)     
+
+> L= 16
+> L= 20
+> L= 24
+> L= 32
+
+FIG. 5. Binder ratios R(α) as functions of system size L and tuning parameters J and p. Results for α = 0 are shown in (a, b), and for α = 1 in (c, d). We fix J = 0 .328474. (a, c) show R(α) versus the decoherence rate p for different L,exhibiting crossings that locate the critical points, while (b, d) show the corresponding data collapse using ν = 1 .70. The crossing points are pc ≈ 0.01 in (a) and pc ≈ 0.04 in (c). 
+
+We now analyze the regime in which the bulk is tuned to criticality, such that the defect is coupled to a 3D Ising CFT. In this case, the effective description in terms of a 2D short-range Ashkin-Teller model breaks down due to the emergence of long-range interactions. We therefore analyze this regime using conformal perturbation theory [103]. The leading relevant perturbation on the defect is given by 
+
+− ˜m
+
+Z
+
+d2x dz δ (z) ( εa + εb), (11) where ε denotes the energy-density operator. Given the scaling dimension ∆ ε ≈ 1.41 < 2 for the 3D Ising uni-versality class [104, 105], this perturbation is relevant. It drives the theory into the R2-SSB phase, breaking 
+
+Za 
+
+> 2
+
+× Zb 
+
+> 2
+
+down to the trivial group. Consequently, the phase transition occurs exactly at p = 0, characterized by the critical exponent ν = 1 /(2 − ∆ε) ≈ 1.70. To verify this numerically, we fix J = 0 .328474 ≈
+
+Jc [74] and vary p, measuring both the R´ enyi-2 linear Binder ratio R(1) and the R´ enyi-2 Binder ratio R(2) . As shown in Fig. 5(a, c), finite-size effects near criticality induce a systematic drift of the crossing points at fixed 
+
+J = Jc, yielding pc ≈ 0.01 for R(1) and pc ≈ 0.04 for 
+
+R(2) . Nevertheless, we find that with increasing system size the crossings move consistently toward the expected 
+
+pc = 0. The finite-size scaling analysis using the theoretical ex-ponent ν = 1 .70 yields a clear and good data collapse [Fig. 5(b), (d)], capturing the overall scaling behavior across the accessible system sizes. This provides strong evidence that the numerical results are consistent with the field-theoretical prediction. Independent fits give 
+
+ν ≈ 2.23 for R(1) and ν ≈ 1.87 for R(2) , with the latter already close to the expected value. The larger deviation in R(1) can be attributed to stronger finite-size effects and statistical fluctuations. Overall, these results support the expected universality class, with remaining discrepancies attributable to finite-size corrections for system sizes up to 32 × 32. 
+
+Continuously varying critical exponents 
+
+In this subsection, we present representative numerical results for the overlapping critical boundary in Fig. 2, separating the strongly symmetric and R2-SSB phases, where the critical behavior is expected to exhibit contin-uously varying exponents. We fix p = 0 .1 and p = 0 .2, and tune J to probe the phase transitions, as shown in Fig. 6. For p = 0 .1and p = 0 .2, crossings of the Binder ratio R(1) (J, L ) lo-cate the transition points at Jc ≈ 0.327 and Jc ≈ 0.318, respectively. Performing finite-size scaling around these points yields correlation-length exponents ν ≈ 0.658 and 
+
+ν ≈ 0.691, demonstrating a clear dependence of the crit-ical exponent on p and providing direct numerical evi-dence for continuously varying criticality along this phase boundary. 10 0.30 0.32 0.34 0.36 
+
+J
+
+12
+
+> R(1) (p, L )
+
+(a)     
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+
+−5 0 5 10 (J − Jc)L1/ν /J c
+
+12
+
+> R(1) (p, L )
+
+(b)     
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+
+0.30 0.32 0.34 
+
+J
+
+12
+
+> R(1) (p, L )
+
+(c)     
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+
+−5 0 5(J − Jc)L1/ν /J c
+
+12
+
+> R(1) (p, L )
+
+(d)     
+
+> L= 8
+> L= 12
+> L= 16
+> L= 20
+
+FIG. 6. Representative examples along the overlapping crit-ical boundary separating the strongly symmetric and R2-SSB phases in Fig. 2. At fixed p = 0 .1 [(a), (b)] and p = 0 .2[(c), (d)], we tune J and evaluate the Binder ratio R(1) . (a), (c) Crossings of R(1) (J, L ) for different system sizes locate the critical points at Jc ≈ 0.327 ( p = 0 .1) and Jc ≈ 0.318 (p = 0 .2). (b), (d) Finite-size scaling yields good data col-lapse with ν ≈ 0.658 ( p = 0 .1) and ν ≈ 0.691 ( p = 0 .2), demonstrating continuously varying critical exponents along this phase boundary. 1
+
+# Supplemental Material for “Strong-to-Weak Spontaneous Symmetry Breaking in a (2 + 1) D Transverse-Field Ising Model under Decoherence” 
+
+Yi-Ming Ding, Yuxuan Guo, Zhen Bi, and Zheng Yan 
+
+DERIVATION OF EQS. (3) AND (4) 
+
+The local channel is E⟨ij ⟩ = P 
+
+> k
+
+MkρM † 
+
+> k
+
+. Here, we rewrite Mk defined in Eq. (2) as 
+
+M0 = p1 − p 1i1j , (S1) 
+
+M1 = √p
+
+
+
+|0i0j ⟩ ⟨ 0i0j | + XiXj |0i0j ⟩ ⟨ 0i0j | XiXj
+
+
+
+, (S2) 
+
+M2 = √p
+
+
+
+|0i1j ⟩ ⟨ 0i1j | + XiXj |0i1j ⟩ ⟨ 0i1j | XiXj
+
+
+
+. (S3) For a computational basis state |s⟩ = ⊗k |sk⟩, we decompose it as 
+
+|s⟩ ≡ | sij ⟩ ⊗ | sij ⟩ , (S4) where 
+
+|sij ⟩ ≡ | si⟩ ⊗ | sj ⟩ , |sij ⟩ ≡ ⊗ k̸ =i,j |sk⟩ . (S5) Accordingly, the density matrix ρ0 can be expanded as 
+
+ρ0 = X
+
+> s,s ′
+
+⟨s|ρ0|s′⟩ | s⟩ ⟨ s′| = X
+
+> s,s ′
+
+⟨sij , s ij |ρ0|s′ 
+
+> ij
+
+, s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ s′ 
+
+> ij
+
+, s ′ 
+
+> ij
+
+| . (S6) We first evaluate the contribution from M1:1
+
+p M1ρ0M † 
+
+> 1
+
+= |0i0j ⟩ ⟨ 0i0j | ρ0 |0i0j ⟩ ⟨ 0i0j | + |0i0j ⟩ ⟨ 0i0j | ρ0 |1i1j ⟩ ⟨ 1i1j |
+
++ |1i1j ⟩ ⟨ 1i1j | ρ0 |0i0j ⟩ ⟨ 0i0j | + |1i1j ⟩ ⟨ 1i1j | ρ0 |1i1j ⟩ ⟨ 1i1j | .
+
+(S7) Using the decomposition above, this can be rewritten as 1
+
+p M1ρ0M † 
+
+> 1
+
+= X 
+
+> sij ∈{ 00 ,11 }
+
+X 
+
+> sij ,s ′
+> ij
+
+⟨sij , s ij |ρ0|sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+|
+
++ X 
+
+> sij ∈{ 00 ,11 }
+
+X 
+
+> sij ,s ′
+> ij
+
+⟨sij , s ij |ρ0XiXj |sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+| XiXj
+
+≡ X 
+
+> sij ∈{ 00 ,11 }
+
+X 
+
+> sij ,s ′
+> ij
+
+X   
+
+> W∈{ 1i1j,X iXj}
+
+⟨sij , s ij |ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W. 
+
+(S8) Similarly, for M2 one obtains 1
+
+p M2ρ0M † 
+
+> 2
+
+= X 
+
+> sij ∈{ 01 ,10 }
+
+X 
+
+> sij ,s ′
+> ij
+
+X   
+
+> W∈{ 1i1j,X iXj}
+
+⟨sij , s ij |ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W. (S9) Combining all contributions, we finally arrive at 
+
+E⟨ij ⟩[ρ0] = X
+
+> k
+
+MkρM k = (1 − p)ρ0 + p X
+
+> sij
+
+X 
+
+> sij ,s ′
+> ij
+
+X
+
+> W
+
+⟨sij , s ij |ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W, (S10) where sij ∈ { 0, 1}⊗2, sij , s ′ 
+
+> ij
+
+∈ { 0, 1}⊗(N −2) , and W ∈ { 1i1j , X iXj }. Using Eq. (S6), we rewrite Eq. (S10) as 2
+
+ρ ≡ E ⟨ij ⟩[ρ0] = σ1 + σ2, (S11) where 
+
+σ1 ≡ 1 − p
+
+2
+
+X
+
+> s
+
+X
+
+> s′
+
+X
+
+> W
+
+⟨s|ρ0W W |s′⟩ | s⟩ ⟨ s′| , (S12) 
+
+σ2 ≡ p X
+
+> sij
+
+X 
+
+> sij ,s ′
+> ij
+
+X
+
+> W
+
+⟨sij , s ij |ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | sij , s ij ⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W
+
+= p X
+
+> s
+
+X
+
+> s′
+> ij
+
+X
+
+> W
+
+⟨s|ρ0W |sij , s ′ 
+
+> ij
+
+⟩ | s⟩ ⟨ sij , s ′ 
+
+> ij
+
+| W. (S13) 
+
+> QUANTUM MONTE CARLO ALGORITHM
+
+In this section we describe how to simulate a quantum state ρ0 under a single local decoherence channel E⟨ij ⟩,corresponding to the state in Fig. 1(b), using QMC, provided that the state ρ0 itself can be simulated by QMC. The generalization to the full channel E = Q 
+
+> ⟨ij ⟩
+
+E⟨ij ⟩ in Fig. 1(e) is straightforward and therefore omitted for brevity. For illustrations, we take ρ0 = e−βH to be the unnormalized Gibbs state of a Hamiltonian H, which can be obtained from finite-temperature QMC simulations. For sufficiently large β, ρ0 approximates the ground state. More generally, ρ0 may represent a mixed state obtained by tracing out environmental degrees of freedom, and the same implementation of the decoherence channel described below applies as well. To compute linear observables of ρ, we introduce the generalized partition function Tr( ρ) ≡ Tr( σ1) + Tr( σ2). (S14) Within QMC, the trace is evaluated by sampling configurations in a generalized configuration space. Therefore, Tr( ρ)can be viewed as an extended ensemble composed of two sectors associated with the statistical weights of Tr( σ1) and Tr( σ2). By allowing stochastic transitions between these sectors, the simulation dynamically switches between them, so that at any given QMC step, only one of the two contributions needs to be evaluated. Figs. S1(a) and (b) show the evolution pictures (generalized path integral representations) for Tr( σ1) and Tr( σ2), respectively. These diagrams are obtained by contracting the bra and ket indices in Figs. 1(c) and (d), with the time orientation to be counterclockwise without loss of generality. For a fixed W in each QMC configuration, the spin states propagate along the directed time contour by W operators and the imaginary-time propagation operator ρ0.(a) (b)  
+
+> FIG. S1. Graphical representation of (a) Tr( σ1) and (b) Tr( σ2) in the evolution picture, with propagation from the ket to the bra index in the computational basis.
+
+Consider a configuration in one of the sectors. Note that the spin variables sij , starting from the initial time slice, always encounter an even number of operators W ∈ { 1i1j , X iXj } before the application of the imaginary-time propagation operator ρ0 = e−βH . Consequently, the spin configuration immediately before and after ρ0 remains the same. The QMC updates associated with ρ0 are therefore identical to those used in conventional QMC simu-lations and can be sampled using standard techniques such as the world-line method (based on the Trotter-Suzuki decomposition) [106, 107] or the stochastic-series-expansion (SSE, based on a Taylor expansion) method [76, 77, 80]. For updates of the W operators, the two W operators must be updated simultaneously so that they are either both 
+
+1i1j or both XiXj , according to Eqs. (3) and (4). For example, within the SSE formulation, this constraint can be 3incorporated into the Swendsen-Wang-like cluster updates (commonly used for the TFIM, Z2 lattice gauge theory, Heisenberg model, etc.) [77, 108] with the following additional rules: 
+
+• (Update for W operators.) Before growing a cluster to perform the off-diagonal update, each W operator randomly selects one of the branching choices that determines how the cluster lines enter and exit, as illustrated in Fig. S2. For the two W operators, there are four possible combinations: ( A, A ), ( A, B ), ( B, A ), and ( B, B ). Since in practice ( A, B ) and ( B, A ) are treated in the same way, as shown Fig. S3, only three distinct cases need to be discussed. 𝟙 𝟙                 
+
+> Branching choice A
+> 𝟙 𝟙
+> Branching choice B
+> FIG. S2. Two branching choices when a cluster line (red) encounters a Woperator. We follow the standard SSE notation:
+> |0⟩is represented by an empty circle and |1⟩by a solid circle. The time direction is horizontal, and the blue square denotes the
+> Woperator that propagates the spin states from one side to the other. Case (A, A) Case (B, B) Case (A, B)
+> FIG. S3. Three cases in the cluster update of the Woperators on sites iand j. The spacetime slice shown corresponds to the region inside the dashed purple square in Fig. S1(a). The red and blue lines denote cluster lines belonging to different clusters.
+
+Here we take Tr( σ1) in Fig. S1(a) as an example, and one can similarly discuss Tr( σ2): 
+
+– Case (A, A ). The two W operators belong to at most two independent clusters, whose cluster lines are denoted by the red and blue lines, respectively. Each cluster is flipped with a probability determined by the Metropolis algorithm, by comparing the configuration weights before and after the flip. For the TFIM, for example, this probability is 1 /2. 
+
+– Case (B, B ). There are also at most two independent clusters. Note that if a cluster line enters a spin on the leftmost side, it must correspondingly reappear on the rightmost side to ensure the construction of a complete blue cluster. 
+
+– Case (A, B ). There is only one cluster. This cluster involves all eight spins associated with the two W
+
+operators; therefore, regardless of whether the cluster is flipped, the W operators remain unchanged in this cluster update. 
+
+• (Sector update.) To switch between the two sectors, a spin configuration must be compatible with both sectors. In particular, in the Tr( σ2) sector the Kronecker tensor imposes the constraint that the spins from the four time directions are identical for sites i and j. Therefore, if the spins sij from the four time directions are equal, the sector update proceeds as follows: 
+
+– If the configuration lies in the sector of Tr( σ1), we switch to Tr( σ2) by inserting the Kronecker tensor that identifies the four time directions at lattice sites i and j, with probability 
+
+P (σ1 → σ2) = min 
+
+
+
+1, 1 − p
+
+2p
+
+
+
+. (S15) 
+
+– If the configuration lies in the sector of Tr( σ2), we switch to Tr( σ1) by removing the Kronecker tensor with probability 
+
+P (σ2 → σ1) = min 
+
+
+
+1, 2p
+
+1 − p
+
+
+
+. (S16) 4The same framework allows the simulation of Tr( ρ2), enabling the evaluation of nonlinear two-copy observables such as the R´ enyi-2 correlator C(2) and the R´ enyi-2 linear correlator C(1) . This corresponds to sampling an extended ensemble with four sectors Tr( ρ2) = Tr( σ21 ) + Tr( σ1σ2) + Tr( σ2σ1) + Tr( σ22 ). (S17) The associated path-integral representations follow analogously, as shown in Fig. 1(f), and the QMC updates are implemented in the same manner. Because the computational basis is chosen to be the Z basis, both C(1) and 
+
+C(2) correspond to diagonal measurements when sampling Tr( ρ2), and can therefore be evaluated with efficiency comparable to conventional QMC simulations. In closing, we discuss the computational complexity of the QMC scheme introduced here. In our generalized path-integral formulation, the effective imaginary-time extent receives two contributions: the physical inverse temperature β
+
+and an additional term proportional to the number of bonds Nb = Θ( Ld) arising from W -operator insertions, where d
+
+is the spatial dimension. As a result, the total imaginary-time length scales as Θ(max {β, L d}). Consequently, the cost of a single Monte Carlo sweep is proportional to the spacetime volume (or configuration size) V ∼ O   max {β, L d} Ld.Therefore, the overall computational complexity follows the same scaling as in standard QMC approaches, with 
+
+V replacing the usual spacetime volume, and remains polynomial in system size and inverse square of the error tolerance. Correspondingly, evaluating R´ enyi-2 observables requires only a constant (factor of two) overhead compared to conventional linear observables, as the simulation involves two replicas of the system. 
+
+> DERIVATION OF THE EFFECTIVE 2D DEFECT ACTION
+
+In this section, we explicitly integrate out the massive bulk degrees of freedom to derive the effective two-dimensional action on the defect. We start with the bulk action for a single replica ϕ (omitting the replica index a, b for brevity), treating the λϕ 4 term as a perturbation. The quadratic part of the bulk action is 
+
+S0[ϕ] = 
+
+Z
+
+d2xdz 
+
+ 12 ∂iϕ∂ iϕ + 12 (∂z ϕ)2 + 12 m2ϕ2
+
+
+
+, (S18) where xi (xi=x,y) denotes the coordinates strictly parallel to the defect , and z is the perpendicular coordinate. The defect is located at z = 0. To integrate out the bulk at tree level, we solve the classical equation of motion (EOM) for the bulk field in the region z̸ = 0: (−∂i∂i − ∂2 
+
+> z
+
++ m2)ϕ(xi, z ) = 0 . (S19) Performing a Fourier transform along the defect directions, ϕ(xi, z ) = R d2k 
+
+> (2 π)2
+
+eik ixi ˜ϕ(ki, z ), the EOM decouples for each momentum mode kμ:(−∂2 
+
+> z
+
++ k2 + m2) ˜ϕ(ki, z ) = 0 , (S20) where k2 = kiki. Requiring the field to decay at z → ±∞ , the solution is given by separation of variables: ˜ϕ(ki, z ) = φ(ki)e−√k2+m2|z|, (S21) where φ(ki) ≡ ˜ϕ(ki, z = 0) is the boundary field strictly confined to the defect. To evaluate the effective action for the defect field, we substitute the classical solution back into the bare quadratic action S0. Using integration by parts, the action can be rewritten as 
+
+S0[ϕ] = 12
+
+Z
+
+d2x
+
+"Z 0−
+
+> −∞
+
+dz +
+
+Z ∞
+
+> 0+
+
+dz 
+
+# ∂i(ϕ∂ iϕ) + ∂z (ϕ∂ z ϕ) − ϕ(∂i∂iϕ + ∂2 
+
+> z
+
+ϕ − m2ϕ2) . (S22) Since the classical profile strictly satisfies the EOM ( −∂i∂i − ∂2 
+
+> z
+
++ m2)ϕ = 0 in the bulk ( z̸ = 0), the last term in the integrand vanishes identically. Assuming the field decays to zero at z → ±∞ , the integration over z leaves only the boundary terms at the defect z = 0: 
+
+S0[ϕ] = 12
+
+Z
+
+d2x ϕ(xi, 0) ∂z ϕ(xi, 0−) − ϕ(xi, 0) ∂z ϕ(xi, 0+) . (S23) 5Transforming to momentum space along the defect directions, we use the classical profile ˜ϕ(ki, z ) = φ(ki)e−√k2+m2|z|.The normal derivatives at the two sides of the defect are 
+
+∂z ˜ϕ(ki, 0+) = −pk2 + m2φ(ki), (S24) 
+
+∂z ˜ϕ(ki, 0−) = + pk2 + m2φ(ki). (S25) Substituting these derivatives back into the boundary action, the discontinuity of the derivative across z = 0 yields a factor of 2 √k2 + m2, which precisely cancels the 1 /2 prefactor. Thus, we obtain the effective quadratic action for the boundary field φ:
+
+S(0) eff [φ] = 
+
+Z d2k
+
+(2 π)2 φ(−ki)pk2 + m2φ(ki). (S26) In the trivial bulk phase where m > 0, the bulk correlation length ξ = 1 /m is finite. For low-energy fluctuations on the defect ( k ≪ m), we can expand the non-local kinetic kernel as √k2 + m2 ≈ m + k2 
+
+> 2m
+
++ O(k4). Transforming back to real space, the effective quadratic action becomes local: 
+
+S(0) eff [φ] ≈
+
+Z
+
+d2x
+
+ 12m ∂iφ∂ iφ + mφ 2
+
+
+
+. (S27) To account for the bulk interactions, we evaluate the tree-level contribution of the bulk λϕ 4 term using the low-energy classical profile ϕ(xi, z ) ≈ φ(xi)e−m|z|. This approximation is equivalent to neglecting derivative interactions generated by the integration over the bulk, which are strictly irrelevant in the renormalization group sense and do not affect the low-energy universal behavior. Integrating over the perpendicular coordinate z yields 
+
+Z
+
+d2x
+
+Z ∞−∞ 
+
+dz λ 
+
+
+
+φ(xi)e−m|z|4
+
+=
+
+Z
+
+d2x λ
+
+2m φ4(xi). (S28) Physically, the factor of 1 /m reflects the bulk correlation length ξ, indicating that only the bulk degrees of freedom within a distance ξ from the defect effectively participate in the interaction. Here we derive the effective boundary action Sint [ϕa, ϕ b] from the microscopic interaction Vint =2δ(z)u P 
+
+> ⟨i,j ⟩
+
+Zai Zaj Zbi Zbj , where u ≡ tanh −1[p/ (2 − p)]. In the continuum limit, the lattice spin operator Zi maps to the scalar field ϕ(x). Using the operator product expansion (OPE), the nearest-neighbor spin product can be expanded in terms of the identity and the energy density operator ϵ(x) ∝ ϕ2(x). Thus, we write the coarse-grained bond operator as ZiZj ≃ C0 + C1ϕ2(x), with C0,1 being non-universal constants. Applying this to both replicas a and b, the four-spin interaction becomes: 
+
+Zai Zaj Zbi Zbj ≃ C20 + C0C1
+
+ ϕ2 
+
+> a
+
++ ϕ2
+
+> b
+
+ + C21 ϕ2
+
+> a
+
+ϕ2 
+
+> b
+
+. (S29) Taking the continuum limit P 
+
+> ⟨i,j ⟩
+
+→ 1
+
+> a2
+
+R d2x and dropping the trivial constant shift C20 , the continuous interaction action Sint = − R dzV int takes the form: 
+
+Sint ≃ − 2ua2
+
+Z
+
+d2xdzδ (z) C0C1
+
+ ϕ2 
+
+> a
+
++ ϕ2
+
+> b
+
+ + C21 ϕ2
+
+> a
+
+ϕ2
+
+> b
+
+ . (S30) Comparing this with the phenomenological 2D Ashkin-Teller boundary action, 
+
+Sint [ϕa, ϕ b] = −
+
+Z
+
+d2xdzδ (z)  ˜m  ϕ2 
+
+> a
+
++ ϕ2
+
+> b
+
+ + tϕ 2
+
+> a
+
+ϕ2
+
+> b
+
+ , (S31) we can explicitly match the coefficients to find ˜ m = 2 C0C1u and t = 2 C21 u.To bring the effective action into the standard canonical form, we rescale the boundary field as φ −→ √mφ , which normalizes the kinetic term to 12 ∂iφ∂ iφ. Under this rescaling, the effective quartic coupling becomes ˜λ = λm/ 2. Restoring the replica indices a, b , we arrive at the full effective 2D action: 
+
+Seff [φa, φ b] = 
+
+Z
+
+d2x
+
+ X
+
+> α=a,b
+
+12
+
+
+
+∂iφα∂iφα + m2eff φ2 
+
+> α
+
++ ˜λφ 4
+
+> α
+
+
+
+− ˜tφ 2
+
+> a
+
+φ2
+
+> b
+
+ , (S32) 6where m2eff = m(2 m − ˜m) incorporates the bare mass and the defect potential ˜m, ˜ t = tm 2. This is exactly the continuum field theory of the 2D Ashkin-Teller model. Based on the effective 2D Ashkin-Teller action derived above, we can understand the phase diagram using Landau Ginzburg mean-field theory. The exact phase diagram can be found in [109], where, upon a 90 ° rotation, it matches our results precisely. Assuming uniform field configurations, the Landau free energy density is given by the potential terms of the effective action: 
+
+f (φa, φ b) = 12 m2eff (φ2 
+
+> a
+
++ φ2 
+
+> b
+
+) + 12 ˜λ(φ4 
+
+> a
+
++ φ4 
+
+> b
+
+) − ˜tφ 2
+
+> a
+
+φ2 
+
+> b
+
++ O(φ3
+
+> a
+
+φ3 
+
+> b
+
+), (S33) The ground state is determined by minimizing the free energy density. The extremum conditions ∂f /∂φ a = 0 and 
+
+∂f /∂φ b = 0 yield the equations of state: 
+
+φa(m2eff + 2 ˜λφ 2 
+
+> a
+
+− 2˜ tφ 2 
+
+> b
+
+) = 0 , (S34) 
+
+φb(m2eff + 2 ˜λφ 2 
+
+> b
+
+− 2˜ tφ 2
+
+> a
+
+) = 0 . (S35) By solving these equations, we identify three distinct physical regimes, which perfectly correspond to the phases observed in our QMC simulations: 
+
+1. Trivial Symmetric Phase: When m2eff > 0 and ˜λ > ˜t , the only real solution is the trivial vacuum: 
+
+⟨φa⟩ = ⟨φb⟩ = 0 . (S36) In this regime, the system is in the strongly symmetric phase, and no symmetry is broken. This corresponds to the region where both the TFIM J and the decoherence strength p are small. 
+
+2. R2-SSB Phase: When m2eff < 0 , the trivial vacuum becomes unstable. If the inter-replica coupling t is positive and relatively small, the system prefers to develop nonzero vacuum expectation values (VEVs) for both replicas simultaneously to minimize the −tφ 2
+
+> a
+
+φ2 
+
+> b
+
+interaction. The minimum occurs at: 
+
+⟨φa⟩2 = ⟨φb⟩2 = −m2eff 
+
+2˜λ − 2˜ t = ˜m − 2mλ − 2tm . (S37) In this phase, both ⟨φa⟩̸ = 0 and ⟨φb⟩̸ = 0, which implies that the Za 
+
+> 2
+
+× Zb 
+
+> 2
+
+symmetry is completely broken down to the trivial group. Both the linear order parameter C(1) and the R´ enyi-2 order parameter C(2) are nonzero. Crucially, the ferromagnetic phase is stable only when the inter-replica coupling satisfies t < λ/ 2m. Near the bulk critical point ( J → Jc), the small mass gap m yields a large t, stabilizing this phase over a wide range of p. Conversely, deeper in the trivial phase (large m), achieving negative m2eff requires a large decoherence strength p. Since t grows monotonically with p, it inevitably exceeds λ, violating the stability condition. Consequently, for sufficiently small J,the ferromagnetic phase is entirely preempted, and the system transitions directly into the Baxter phase. 
+
+3. R2-SWSSB phase: As the decoherence strength p increases, the inter-replica coupling t becomes sufficiently large. In the Ashkin-Teller model, a large t renders the ferromagnetic phase unstable, as it strongly binds the fluctuations of the two replicas. Consequently, the naive Landau-Ginzburg description is not positive definite and hence becomes inadequate. To properly capture the physics in this regime, one must include higher-order interaction terms and consider the composite field σ ∼ φaφb as the relevant order parameter. In this phase, the strong inter-replica coupling prevents the individual fields from acquiring a vacuum expectation value ( ⟨φa⟩ = ⟨φb⟩ = 0), but their composite operator acquires a nonzero expectation value: 
+
+⟨φaφb⟩̸ = 0 . (S38) This composite order parameter breaks the full Za 
+
+> 2
+
+× Zb 
+
+> 2
+
+symmetry but strictly preserves the diagonal subgroup 
+
+Zdiag 2 (under which φa → − φa and φb → − φb simultaneously). Consequently, the linear order parameter vanishes (C(1) = 0), while the R´ enyi-2 order parameter remains nonzero ( C(2) ̸ = 0), marking the hallmark of the SWSSB phase.

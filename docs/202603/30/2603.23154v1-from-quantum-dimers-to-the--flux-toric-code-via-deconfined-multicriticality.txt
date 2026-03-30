@@ -1,0 +1,1238 @@
+Title: From Quantum Dimers to the $\pi$-flux Toric Code via Deconfined Multicriticality
+
+URL Source: https://arxiv.org/pdf/2603.23154v1
+
+Published Time: Wed, 25 Mar 2026 01:10:37 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# From Quantum Dimers to the π-flux Toric Code via Deconfined Multicriticality 
+
+Ankush Chaubey, 1, ∗ Sergej Moroz, 2, 3, † and Subhro Bhattacharjee 1, ‡
+
+> 1
+
+International Centre for Theoretical Sciences, Tata Institute of Fundamental Research, Bengaluru 560089, India. 
+
+> 2
+
+Department of Engineering and Physics, Karlstad University, Karlstad, Sweden. 
+
+> 3
+
+Nordita, KTH Royal Institute of Technology and Stockholm University, Stockholm, Sweden. 
+
+(Dated: March 25, 2026) Two-dimensional Rokhsar-Kivelson (RK) dimer models on bipartite lattices are generally limited to translation-symmetry-broken dimer crystals. We introduce a tensor-product regularisation of the dimer Hilbert space that yields a qubit Hamiltonian interpolating from the RK model to the π-flux toric code, thereby accessing a deconfined Z2 topological liquid. In this framework, the Z2 liquid descends from a multicritical U (1) spin liquid through condensation of a charge-2 Higgs field, thus avoiding confinement. Using iDMRG together with low-energy field theory, we determine a phase diagram containing two continuous quantum phase transitions—a 3D XY ∗ transition between the 
+
+Z2 liquid and the columnar/plaquette-VBS, and a quantum Lifshitz transition between two dimer crystals—alongside a first-order transition between the staggered crystal and the Z2 liquid. Our field theory suggests a deconfined multicritical point described by an Abelian Higgs model with dynamical critical exponent, z = 2, where the three transitions meet, highlighting the interplay of fractionalisation and emergent gauge fluctuations. 
+
+I. INTRODUCTION 
+
+Quantum dimer models (QDM) are interesting plat-forms for stabilizing unconventional correlated phases and phase transitions [1–4]. In the context of spin sys-tems, dimer models can arise in frustrated spin-1/2 anti-ferromagnets where the spins locally minimize energy by forming spin singlets (dimers) [3, 5, 6], while the spinful excitations remain gapped. Such dimer models can also appear as an effective low-energy description of a variety of other systems, such as that of hard-core bosons [7–9] and, more recently, Rydberg atom arrays [10–16]. A paradigmatic Hamiltonian describing the low-energy physics of such dimers was introduced by Rokhsar and Kivelson in 1988 [17] on the square lattice in search of a short-ranged resonating valence bond (RVB) liq-uid [1, 3, 18, 19] in the context of cuprate superconduc-tors. Disappointingly, however, the simple nearest neigh-bour RK model as well as related SU(N) spin models fail to realise such a liquid phase on the square and other two-dimensional bipartite lattices [17, 20, 21], limiting their applicability to the physics of cuprate superconductiv-ity envisaged as a doped RVB [22]. Indeed, subsequent extensive investigations of the RK model and its vari-ous extensions on different lattices [23–26] in two dimen-sions show that they typically have an extended Z2 RVB liquid phase on non-bipartite lattices along with (sponta-neously) lattice translation symmetry broken dimer crys-tal phases dubbed valence bond solids (VBS) [4, 27, 28]. However, on bipartite lattices, the liquid, if at all present, is fine-tuned to the special point in the parameter space – dubbed the RK point – whence the ground state is given by an equal superposition of all dimer coverings [17, 29]    
+
+> ∗ankush.chaubey@icts.res.in
+> †sergej.moroz@kau.se
+> ‡subhro@icts.res.in
+
+while dimer crystals of different types extend over the rest of the phase diagram [17, 20, 30, 31]. In sharp contrast to the RK models, topologically or-dered Z2 liquids are obtained on square and other bi-partite (and non-bipartite) lattices in a different class of exactly solvable qubit Hamiltonians – the toric code model [32]. The ground state and excitations of these Z2
+
+liquids are effectively described as gapped Ising electric and magnetic charges of a deconfined phase of a IGT. In this paper, we construct and analyze a simple mi-croscopic spin-1/2 Hamiltonian on a square lattice that amalgamates the phenomenology of the QDMs – the dimer crystals with critical liquid at the RK point, as well as allows for the extended Z2 liquid, as in the toric code model. Such a microscopic Hamiltonian provides rich settings for unconventional topological quantum phases as well as Landau forbidden quantum transitions [33, 34] and hence an interesting playground for realising them in engineered platforms [10–16]. Key to our construction is a particular qubit regularisa-tion of the QDM to obtain a generalised spin-1/2 Hamil-tonian (Eq. (8)) that reduces to the QDM and the toric code in appropriate limits. A combination of analytical and numerical results lead to a rich phase diagram that is illustrated in Fig. 1, consisting of the Z2 topologi-cal liquid and two confined symmetry broken phases – the staggered VBS (s-VBS) and the columnar/plaquette VBS (c/p-VBS) (Fig. 3). Notably, on a torus, the c/p-VBS and the s-VBS belong to different winding number sectors – while the former lies in a zero tilt (winding number per unit length) sector, the latter belongs to the maximally tilted sector [23, 35]. Our Density-Matrix renormalisation Group (DMRG) calculations on an infinitely long cylinder with finite perimeter efficiently capture the two dimer crystals via their respective order parameters and the Z2 liquid via the topological entanglement entropy. Combining this with the correlation length data, we approximately locate 
+
+> arXiv:2603.23154v1 [cond-mat.str-el] 24 Mar 2026
+
+2           
+
+> FIG. 1. Schematic phase diagram of the model defined by the Hamiltonian in Eq. (8) exhibiting three major phases:
+> Z2topologically ordered (TC π), c/p-VBS and s-VBS, sepa-rated by three phase boundaries – (i) 3D XY ∗critical line between the c/p-VBS and the Z2liquid, (ii) a quantum Lif-shitz transition between the two VBSs, and (iii) first-order transition between the s-VBS and Z2liquid. All these phase transitions meet at a multicritical point. The yellow shaded region corresponds to a small region of possible incommen-surate VBS phase with a finite tilt expected from the field theory. The question mark (“?”) for the tilted VBS indicates that the present numerics do not provide conclusive evidence for this phase.
+
+the position of the phases and various phase transitions. A convenient starting point to understand the phase transitions – several of them Landau-forbidden – are the two anyonic excitations of the Z2 liquid stabilised in the toric code limit of our microscopic Hamiltonian (Eq. (8))-the bosonic Z2 electric and magnetic charges with mutual semionic statistics [32]. While these charges are gapped in the topological liquid, the electric charges condense in some parameter regime, resulting in VBS order. The exact nature of the VBS order depends on the momen-tum of the soft electric modes. The basic building block of the various critical theories is obtained from the tran-sition between the Z2 liquid and the c/p-VBS that is brought about by the condensation of a pair of soft elec-tric modes [36–38] at commensurate momenta. These soft modes transform (projectively) under various micro-scopic lattice symmetries to lead to an enhanced O(2) symmetry at low energy continuum limit at the critical point such that the transition between the Z2 liquid and the c/p-VBS is described by an Abelian Higgs model with a mutual U (1) Chern-Simons term and belongs to a 3D XY ∗ universality class [36, 37]. The obtained Abelian Higgs model, however, has a much more general applicability, and, when supple-mented with the right projective symmetry, allowed higher order gradient terms (Eq. (27)) – the so-called Lifshitz terms – can describe the transition between var-ious VBS crystal phases. In fact, in the regime domi-nated by the phase fluctuation of the soft electric mode, our field theory reduces to the critical theories derived starting with the height model representations of the QDM [25, 26, 35, 39]. As a consequence, in this regime, our results agree with earlier works [25, 26]– the transi-tion between the two dimer crystals can generically occur either via a direct first-order transition or multiple steps with VBS phases having intermediate tilt via continu-ous quantum Lifshitz transition and the first-order line with the quantum Lifshitz lines being separated by an RK point, see Fig. 8. We expect that for our specific mi-croscopic model, we should see the multi-step transition as indicated in the Fig. 1 and argued below. However, in our DMRG calculations—limited by the finite circum-ference of the cylinder—we do not observe any definitive signatures of a partially tilted phase or an incomplete 
+
+devil’s staircase , as argued in Refs. 25 and 26. Neverthe-less, a narrow parameter window between the c/p-VBS and s-VBS phases suggests the presence of a partially tilted VBS phase, highlighted by the yellow shaded re-gion in Fig. 1. Further, the same Lifshitz terms, in an appropriate regime, lead to the deviation of the momenta of the soft electric modes away from the c/p-VBS and lead to a di-rect first-order transition between the Z2 liquid and VBSs with finite tilt, including the maximally tilted s-VBS, as shown in Fig. 1. The continuum Abelian Higgs theory, consistent with symmetries of the microscopic model, allows for a decon-fined multicritical point, obtained by tuning two coupling constants, where the three transition lines meet; see Figs. 1 and 8– (i) the 3D XY ∗ line between the Z2 liquid and the c/p-VBS, (ii) the continuous (2 + 1) D quantum Lif-shitz transition between the c/p-VBS (with zero tilt) and VBS with finite tilt, and, (iii) the first-order transition between the Z2 liquid and the s-VBS. At this point, a gapless multicritical U (1) liquid is realised with dynam-ical critical exponent, z = 2, somewhat similar to the RK point, but distinct from it. From the perspective of the multicritical U (1) liquid, the Z2 liquid is naturally obtained, as we show, by condensation of the charge-two Higgs scalar [40] which is dual to the electric charges of the toric code. On the other hand, the two dimer crys-tals correspond to the two different confined phases of the critical U (1) liquid [35, 39, 41]. The resultant physics fall beyond the purview of the standard Landau-Ginzburg-Wilson paradigm of critical phenomena and provide a concrete mechanism to stabilise a Z2 liquid in the vicin-ity of the dimer manifold on a bipartite lattice. The rest of the paper is organised as follows. In Sec. II, starting with the RK model, we write down a spin-1/2 Hamiltonian which interpolates between the RK quan-tum dimer limit and the toric code with a background 
+
+π-flux. We also discuss analytically tractable corners of the phase diagram. In Sec. III, we report results of our numerical DMRG simulations performed on infinite cylinders, which provide a quantitative confirmation of the phase diagram shown in Fig. 1. In Sec. IV, we de-velop a low-energy field theory that captures all quantum 3       
+
+> FIG. 2. Mapping between dimers and Ising variables (Eq. (3) ) : The red bonds with curly (dotted) lines repre-sent the presence (absence) of dimers (Eq. (1)) residing on a square lattice. The black curly (solid) bonds represent Ising variable Z=−1( Z= +1) on bonds of the dual lattice.
+
+phases and associated phase transitions. We draw our conclusions and provide an outlook in Sec. V. Various technical details are summarised in the appendices.  
+
+> II. THE MODEL AND ITS LIMITS
+
+Central to the richness of the QDMs is the fact that the dimer Hilbert space does not have a tensor product structure. This arises from the fact that each spin can be a part of one dimer. Indeed, on a square lattice with 
+
+N sites, the number of hard-core dimer coverings scales as ∼ (1 .339) N [42, 43]. The dimer models are described in terms of dimer numbers, nIJ = 0 , 1, on each bond connecting the sites I and J on a lattice (see Fig. 2), such that the single dimer attached to each site I is given by the constraint 
+
+X
+
+> J∈I
+
+nIJ = 1 ∀ I, (1) where the sum is over all the sites, J, connected to I
+
+on the lattice. On a square lattice, the typical local dimer dynamics, maintaining the above constraint and the topological sectors [23], is captured by the paradig-matic RK Hamiltonian [17] 
+
+HDimer = −Γ X  
+
+| ⟩⟨ | + | ⟩⟨ |
+
+
+
++ Ω X  
+
+| ⟩⟨ | + | ⟩⟨ |
+
+
+
+, (2) where the first (second) term provides kinetic (potential) energy to the dimers. To generalize the above dimer model on the square lattice (drawn in red dotted lines in Fig. 2), we associate with each bond where a dimer resides, an Ising spin Zij =
+
+±1, where ij refers to the uniquely associated bond of the dual square lattice (shown in black), such that 
+
+nIJ = 1 − Zij 
+
+2 . (3) The single-dimer constraint Eq. (1), expressed in terms of the Ising spins, becomes 
+
+X
+
+> ⟨ij ⟩∈ □
+
+Zij = 2 , (4) where the sum is over each elementary dual square pla-quette enclosing one site of the direct lattice. The QDM Hamiltonian (2), written in terms of the Ising spins, then takes the form 
+
+HDimer = − Γ X
+
+> i
+
+Y
+
+> j∈i
+
+Xij 
+
++ Ω4
+
+X
+
+> i
+
+[(1 − Zi−ˆx,i )(1 − Zi+ˆ x,i )+(1 − Zi−ˆy,i )(1 − Zi+ˆ y,i )] , (5) where Xij anticommutes with Zij and induces spin flips. The constraint in Eq. (4) can now be implemented by adding an energy-cost term to the Hamiltonian of the form 
+
+Hconstraint = κ X
+
+> □
+
+Y
+
+> ⟨ij ⟩∈ □
+
+Zij − J X
+
+> ⟨ij ⟩
+
+Zij , (6) where both κ, J > 0 with κ ≫ J. The first term, in the limit κ → ∞ , enforces π-flux 
+
+Y
+
+> ⟨ij ⟩∈ □
+
+Zij = −1, (7) on each dual-lattice plaquette. From Eq. (3), this corre-sponds to having one or three dimers per site of the direct lattice. This degeneracy is lifted by the second term in Eq. (6), leaving only one dimer per site. Throughout this work, we set κ, Γ > 0. Putting everything together results in the spin-1 /2Hamiltonian 
+
+H = Hconstraint + HDimer . (8) This resulting qubit Hamiltonian has a tensor product Hilbert space and incorporates the dimer regime ( κ ≫
+
+J ≫ Γ, Ω) discussed above, with the point Γ = Ω = 0 corresponding to the classical dimer model with a macro-scopically degenerate ground-state manifold. Also, a fi-nite J allows for the mixing between the one and the three-dimer states. Along the Γ = 0 and Ω > 0 line, the model re-mains classical, but, the extensively degenerate classical dimer manifold splits energetically favouring the stag-gered configurations (Fig. 3(a)) locally characterised by Q 
+
+> ⟨ij ⟩∈ □
+
+Zij = −1 and (1 − Zi,i −n)(1 − Zi,i +n) = 0, where 
+
+n ∈ { ˆx, ˆy}. Notably, in this classical limit, the domain 4  
+
+> FIG. 3. Different dimer crystals: (a) staggered, (b) (ver-tical) columnar, and (c) plaquette VBSs.
+
+walls of such staggered arrangements are free of energy cost, leading to a sub-extensively degenerate staggered manifold characterised by local s-VBS order (Fig. 3(a)) with domain walls. Quantum fluctuation (Γ ̸ = 0) lead to order-by dis-order resulting in dimer crystals. This is expected as QDMs of bipartite lattices are described by pure com-pact U (1) gauge theories [40, 44], which, in (2+1) dimen-sions are always confined [41]. Thus, in the dimer regime (Γ /J, Ω/J ≪ 1), we get a s-VBS phase (Fig. 3a) when the potential term dominates ( Ω > Γ), and c/p-VBSs (Figs. 3b and 3c) when kinetic term dominates (Γ > Ω). The two crystal phases are separated by a phase tran-sition corresponding to the RK point as indicated in Fig. 1. Indeed, on taking (Γ /J, Ω/J ) → (0 , 0) at finite Γ and Ω via κ, J → ∞ [45], we recover the QDM described by the RK Hamiltonian (Eq. (2)) to the leading order in perturbation theory in Γ /J and Ω /J from Eq. (8). Thus, on approaching the origin along the Γ = Ω line, we reach an RK point that corresponds to the infinitely fine-tuned gapless U (1) liquid (with quadratically dispersing pho-tons) that describes a deconfined quantum phase transi-tion between the c/p-VBS and the s-VBS [24, 29, 35, 39]. In principle, as pointed out in Refs. 25 and 26, the transition between the zero tilt c/p-VBS and the maxi-mally tilted s-VBS need not be direct and can be inter-vened by a series of intermediate tilt VBS phases via an incomplete devil’s staircase. Our numerics (see below) indicate a very small sliver where both the s-VBS and c/p-VBS order parameters are zero, but limitations of fi-nite size and aspect ratio cannot reveal the nature of this phase and its fate in the thermodynamic limit– in par-ticular, if it corresponds to a series of VBS phases with intermediate tilt. This is also expected from the per-turbation theory in Γ /J and Ω /J around the RK point, which leads to subleading corrections to the RK Hamil-tonian and hence destroying the fine-tuning needed to achieve the ground state RK wave-function. On the other hand, for κ, Γ ≫ J, Ω, the Hamiltonian (Eq. (8)) reduces to the toric code model [32] 
+
+HTC =κ X
+
+> □
+
+Y
+
+> ⟨ij ⟩∈ □
+
+Zij − Γ X
+
+> i
+
+Y
+
+> j∈i
+
+Xij 
+
+ , (9) that realises the Z2 topological liquid as an exact ground state since the two sets of terms (stabilisers) in the above Hamiltonian commute. The two kinds of gapped bosonic excitations – magnetic and electric – obtained by violat-ing the first and second stabilisers, respectively, see each other as sources of the π-flux. The resulting mutual any-onic statistics manifests Z2 quantum topological order with four-fold degenerate ground state on a torus. Hence, in the toric code limit in the ground state, one finds 
+
+Y
+
+> ⟨ij ⟩∈ □
+
+Zij = −1 ∀ □ (10) and 
+
+Y
+
+> j∈i
+
+Xij = +1 ∀ i, (11) We refer to this as the π-flux toric code (TC π ), since each electric charge experiences a π-flux when going around a closed contour containing an odd number of plaquettes. This leads to momentum fractionalisation for the electric charge, but not for the magnetic charge. This should be distinguished from the “odd” toric code studied recently in Ref. 46, where both plaquettes and stars have negative vacuum expectation values. In the rest of this paper, we focus on the κ → ∞ 
+
+limit of the above Hamiltonian, which imposes the hard 
+
+π-flux constraint (10), resulting in infinite energy cost of magnetic charges while the electric charges have energy of order Γ. The quantum phase diagram becomes a function of two dimensionless parameters that we choose to be Γ/J and Ω /J in Fig. 1. Moving away from the TC limit along the Ω = 0line, the finite J term acts as a Zeeman field that makes the electric charges dynamic, resulting in a dis-persion with bandwidth of order J. For J ∼ Γ, the electric charges condense. Due to the background π-flux seen by the electric charges, upon condensation [47] two finite-momentum soft modes develop, leading to a translation-symmetry-broken phase, namely the c/p-VBS. The critical theory describes a Landau-forbidden continuous phase transition between a topologically or-dered Z2 liquid phase and a translation-symmetry-broken c/p-VBS. After duality transformation (Appendix B), the lattice model reduces to the frustrated Ising model whose phase transition belongs to the 3D XY ∗ universal-ity class [36] as discussed below. The gapped Z2 topological phase is clearly stable to turning on small Ω. However, deep inside the Z2
+
+liquid, increasing Ω eventually leads to the potential-energy–dominated s-VBS phase through a first-order phase transition (see below). The remarkable stability of the s-VBS at large Ω /J for all values of Γ /J , as well as its eventual first-order transition to the topological liquid, can be traced to the absence of Γ perturbation-induced local dynamics within the s-VBS phase. Finally, we notice that the constraint (10) corresponds to the odd Ising Gauss law on the original lattice, shown in red in Fig. 2. Owing to a quantum anomaly associated 5with translational symmetry, the odd Ising gauge the-ory (IGT) on a square lattice cannot support a trivially gapped phase with a unique ground state [48]. This ob-struction is clearly reflected in the phase diagram shown in Fig. 1. Having fleshed out the limits and the general structure of the phase diagram, we now turn to numerical simula-tions to obtain a quantitative confirmation of the phases as well as the associated phase transition lines.  
+
+> III. NUMERICAL RESULTS
+
+We performed infinite DMRG (or iDMRG) calcula-tions in the infinite cylinder geometry using the tensor network Python (TeNPy) library [49]. In this approach, the two-dimensional lattice sites are mapped onto a one-dimensional infinite chain by using a “snake” path that traverses the cylinder circumference. This mapping al-lows us to exploit the efficiency of DMRG in one dimen-sion, while still capturing the essential two-dimensional physics on a cylinder of finite circumference. The iDMRG algorithm [50] works directly in the thermodynamic limit. Rather than simulating a finite system, the method op-timises the tensors of an infinite Matrix Product State (iMPS) with a repeating unit cell. A key advantage of iDMRG is the ability to extract physical quantities from the MPS representation of the ground state. One of them is the MPS correlation length ξ, which can be obtained from the eigenvalue spectrum of the MPS transfer ma-trix [51]. The MPS correlation length determines the decay of the slowest decaying correlation function [49]. Since ξ diverges in gapless systems, we can identify quan-tum critical points by observing peaks in ξ that grow with the MPS bond dimension, χ. This provides a clear signature of criticality without requiring further system details. In our numerical simulations, we work on an infi-nite cylinder of circumference equal to four links, Ly = 4. We set κ = 10 as the largest coupling constant. In ad-dition, we fixed J = 1 and varied the parameters Γ and Ω. We computed different observables in the ground state, including the correlation length, ξ, the entanglement en-tropy, S, of a bipartite cut of the cylinder, VBS order parameters, and the mean value of the star operator 
+
+Ostar = 1
+
+N
+
+X
+
+> i
+
+⟨Y
+
+> j∈i
+
+Xij ⟩, (12) where the summation is carried out over a unit cell, cho-sen to be 4 × 4 in our simulations. N denotes the number of sites in the unit cell. All VBS order parameters can be extracted from the following expression 
+
+O(q, n) = 1
+
+N
+
+X
+
+> r
+
+eiq·r⟨Zr,r+n⟩, (13) where, q = ( qx, q y ) is the wave vector within the Brillouin zone and n is a real space lattice vector. Specifically,                         
+
+> (a) (b)
+> (c) (d)
+> FIG. 4. iDMRG scans of the phase diagram of Eq.
+> (8) in the Γ/J −Ω/J plane for an infinite cylinder of circumference, Ly= 4 :(a) correlation length, ξ, (b) bipar-tite von-Neumann entanglement entropy, S, (c) s-VBS order parameter Ostag (Eq. (15)), (d) c/p-VBS order parameter
+> Ocol/plaq (Eq. (16)). We take κ= 10, J= 1 and the iDMRG bond dimension, χ= 300. The red dots indicate the points where the c/p-VBS order parameter vanishes, while the yel-low dots denote the locations of discontinuities in the s-VBS order parameter. These points are obtained from various cuts discussed below.
+
+the two components of the s-VBS order parameter and the magnitude of the order parameter are respectively defined by 
+
+O1(2) = O(q = ( π, π ), n = ˆx(ˆy)) (14) and 
+
+Ostag =
+
+q
+
+O21 + O22 . (15) While the c/p-VBS order parameter is given by 
+
+O3 = O(q = (0 , π ), n = ˆx), O4 = O(q = ( π, 0) , n = ˆy)
+
+Ocol /plaq =
+
+q
+
+O23 + O24 . (16) Two-dimensional scans of the correlation length, en-tanglement entropy and two VBS order parameters are il-lustrated in Fig. 4. We clearly observe phase boundaries separating three phases sketched in Fig. 1. In particu-lar, the staggered (columnar/plaquette) order parameter is non-zero for Γ < (>)Ω in the dimer limit. While the s-VBS phase persists for larger Ω /J , the c/p-VBS gives 6                    
+
+> FIG. 5. iDMRG data along the Ω = 0 line for an infinite cylinder with circumference Ly= 4 ,κ= 10 and J= 1
+> (bond dimension χ= 250 ): (a) Correlation length ξand bipartite von-Neuman entanglement entropy, S. (b) c/p-VBS order parameter Ocol /plaq (Eq. (16)), s-VBS order parameter
+> Ostag (Eq. (15)), and the mean value of the star operator
+> Ostar .
+
+way to the Z2 liquid at larger Γ /J . After summarizing the numerically obtained phase diagram, we now delve into the details of various parts of it.     
+
+> A. Ω≪Γ:π-flux toric code in longitudinal Zeeman field
+
+We start with the Ω = 0 line, where the Hamiltonian (Eq. (8)) reduces to the π-flux toric code in the presence of a longitudinal Zeeman field. The non-trivial many-body entangled nature of the toric code phase is evident from Fig. 5(a), where we plot the bipartite von-Neumann entanglement entropy as a function of Γ /J . Its satura-tion value at large Γ approaches ( Ly −1) log 2 [52], the en-tanglement entropy of the toric code under a bipartition that divides the infinite cylinder into two half-cylinders. In Fig. 5(a), we also plot the correlation length, ξ, as a function of Γ /J . The peak signals a phase transition from the c/p-VBS to the Z2 topological liquid. Fig. 5(b) shows the behaviour of the VBS order pa-rameters: the c/p-VBS order parameter acquires a non-zero value at small Γ /J regime and vanishes at large Γ/J in the toric code phase. Indeed, the c/p-VBS or-der parameter turns on at the same point as the peak of the correlation length, as is evident from the plot. The smooth change of the c/p-VBS order parameter near the phase transition indicates its possible continuous nature.            
+
+> (a) (b)
+> (c) (d)
+> FIG. 6. iDMRG data ( Ly= 4 , κ = 10 , J = 1 , χ = 300 )for Ω̸= 0 cuts : Columnar/plaquette and staggered order parameters (b-d) for three cuts highlighted in the contour plot (a) of the correlation length (Fig. 4(a)).
+
+The s-VBS order parameter, on the other hand, is zero throughout the parameter range. To obtain additional insights, we also plot the expec-tation value of the vertex operator, Ostar . Deep in-side the topological liquid phase (Γ ≫ J), it saturates to unity, indicating the absence of electric charges (Ap-pendix B). By decreasing Γ /J , the expectation value decreases smoothly, indicating proliferation of electric charges. Due to the non-trivial nature of the phase tran-sition, this local expectation value does not constitute an order parameter that can diagnose the transition.       
+
+> B. VBS crystals in Γ,Ω≪Jregime: columnar/plaquette vs staggered order
+
+Now we investigate VBS orders away from the Ω = 0 line. Specifically, in Fig. 6 we plot the colum-nar/plaquette and staggered order parameters following three cuts illustrated in panel (a). For the cuts (b) and (c), we clearly observe a transition from the staggered to columnar/plaquette order as the parameter Γ /J is increased. While the staggered order parameter under-goes a discontinuous jump, the columnar/plaquette or-der parameter builds up continuously. While this di-chotomy is a hallmark of the deconfined RK criticality on the square bipartite lattice [23], we notice that there is a tiny parameter window – noticeable in Fig. 6(b,c) (see also Appendix A) between the columnar and stag-gered phases. Because our present numerics is limited by the small cylinder circumference, we cannot defini-7           
+
+> FIG. 7. The location of the phase transitions: (a) Con-tour plot of the correlation length obtained from iDMRG with bond dimensions χ= 300 on an infinite cylinder with
+> Ly= 4 , κ = 10 , J = 1. (b, c, d) Correlation length for three vertical cuts for bond dimensions χ= 300 ,350 ,400.
+
+tively exclude two possibilities: One is the appearance of VBS phases with intermediate tilts, as predicted in Refs. [25, 26], which is also consistent with the field the-ory developed in this work (see Sec. IV) based on the soft electric modes of the Z2 liquid. The alternative in-teresting possibility is the intermediate phase with Z2
+
+topological order connected smoothly to the π-flux toric code. As one increases the slope of the cut, see panel (d) in Fig. 6, the intermediate c/p-VBS phase disappears, giving rise to a direct first-order transition from the s-VBS to the Z2 topological phase.  
+
+> C. Phase transitions
+
+To obtain more information about phase transitions, we analyse the iDMRG correlation length in Fig. 7. The cut (b) exhibits a peak whose height increases with bond dimension, χ, indicating a continuous phase transition between the c/p-VBS and s-VBS phase. In panel (c), in addition to this phase transition, a new peak emerges at higher Ω /J whose moderate height does not change appreciably with increasing bond dimension. This is in-terpreted as the first-order phase transition separating Z2
+
+topologically ordered or s-VBS phases. Noticeably, the peak at lower Ω /J , which is a continuation of the peak in (b), retains its second-order character, but broadens. In light of the discussion above, within the present resolu-tion of our numerics, we cannot rule out a multiple-step transition between the zero tilt c/p-VBS and the maxi-mally tilted s-VBS. At larger values of Γ /J , one can ob-serve in panel (d) broadening due to the Z2 topologically ordered phase that is separated from the c/p-VBS and s-VBS phases by a continuous and discontinuous tran-sition, respectively (see Appendix A for more detailed analysis). The above iDMRG studies, while limited by system size (in the transverse direction), indicate that the con-tinuous quantum Lifshitz line of transition [25, 26, 35, 39] between the c/p-VBS and the s-VBS with possibly a thin sliver of VBS phases with intermediate tilt. This line and the line corresponding to the continuous transition be-tween the Z2 topological liquid and the c/p-VBS meet at a multicritical point and give rise to the first-order transi-tion line between the s-VBS and the topological liquid as indicated in Fig. 1. While further numerical studies are needed to clarify the eventual fate of the phase transition lines and the multicritical point, it is useful to consider the possible nature of the critical theory that describes the phase diagram.  
+
+> IV. THE FIELD THEORY FOR THE PHASES AND THE TRANSITION
+
+Having obtained the numerical phase diagram, we now turn to the field theory for the phases and the phase tran-sitions. We start deep inside the Z2 liquid. As noted earlier, the Zeeman term, J, gives dynamics to the elec-tric charges, eventually leading to their condensation to produce the dimer orders. To obtain the continuum field theory, it is useful to introduce the Z2 electric charge field manifestly, and this can be obtained by casting the Hamiltonian (6) in terms of an IGT with dynamic electric charges hopping in the background of π-flux. At Ω = 0, the effective Hamiltonian, after duality transformation, is given by the fully frustrated nearest neighbour Ising model in the transverse field (see Appendix B for details). On the other hand, the QDM on the square lattice is best captured using a compact U (1) lattice gauge theory with Eq. (1) being the electric Gauss’s law [35, 40, 44]. Such a 
+
+U (1) compact QED is always confining in (2+1) dimen-sions [41], with the dimer crystals being the confining phases and the RK point being a fine-tuned deconfined 
+
+U (1) liquid [23, 35]. Below, we show that all the above aspects can be explained systematically by starting with the right (projective) symmetry allowed action for the soft electric modes supplemented with the Ising Chern-Simons term that implements the mutual semionic statis-tics between the electric and magnetic charges of the Z2
+
+liquid. The starting point of our analysis is to write the toric code in π-flux as an IGT coupled to electric charges [53] that reduces to the nearest neighbour (on the Ω = 0 line) fully frustrated transverse-field Ising model with the J
+
+term leading to hopping of electric charges. This is done in Appendix B. The “paramagnetic” phase of this model 8corresponds to the Z2 liquid with gapped electric (and magnetic) charges. Upon increasing J, the dispersion of the electric charges develops two soft modes with ampli-tudes given by a pair of real fields [36] (ϕ1(x), ϕ 2(x)) (17) at momenta (0 , 0) and (0 , π ) (in the particular gauge choice of Fig. 10 that implements the π-flux) and trans-form under a projective representation of the underlying lattice symmetries [36, 53, 54] as detailed in Table I of Appendix B. It is useful to combine the two real soft modes to obtain a single complex boson Φ = ϕ1 + iϕ 2 = |Φ|eiθ . (18) As detailed in Appendix C, by starting from these soft modes coupled with Ising gauge fields, we obtain the con-tinuum low-energy field theory given by the 3D Euclidean action in continuum 
+
+S0 = SΦ[a] + Sm[b] + SCS [a, b ] + Ssym [Φ] , (19) where 
+
+SΦ[a] = 
+
+Z
+
+d2xdτ 
+
+ 12 |(∂0 − ia 0)Φ |2 + η
+
+2 |(∇ − ia)Φ |2
+
+
+
++
+
+Z
+
+d2xdτ 
+
+h r
+
+2 |Φ|2 + u
+
+4 |Φ|4i
+
++ 1
+
+e2
+
+Z
+
+d2xdτ (∂μaν − ∂ν aμ)2 (20) is the action for the electric charges coupled to the dy-namic gauge field aμ. We have separated the spatial and temporal directions of the kinetic term for later conve-nience to access the Lifshitz transition between the dif-ferent VBS phases. Similarly, Sm[b] corresponds to the action for bosonic magnetic charge coupled to the dynamic U (1) gauge field 
+
+bμ. It has the same structure as LΦ, albeit with different coupling constants. However, since the magnetic charges are always gapped in the limit of κ → ∞ of the mi-croscopic model, we only write the Maxwell term of the action given by 
+
+Sm[b] = 1
+
+e2
+
+Z
+
+d2xdτ (∂μbν − ∂ν bμ)2. (21) The third piece of the action, 
+
+SCS = i ϵμνλ 
+
+π
+
+Z
+
+d2xdτ a μ∂ν bλ (22) is the mutual Chern-Simons term [53, 55–57] that im-poses the mutual semionic statistics between the electric and magnetic charges. As we shall see below, in the rest of this discussion, the effect of the CS term is mostly to fix the right topological degeneracy in the Z2 liquid state. Finally, Ssym [Φ] denotes the microscopic symmetry al-lowed terms under which the soft modes are invariant (see Table I). On the square lattice, the lowest order contri-bution is given by [36] 
+
+Ssym [Φ] = −w
+
+Z
+
+d2xdτ |Φ|8 cos(8 θ) (23) which destroys the electric charge conservation and hence reduces the symmetry of the above action from O(2) to 
+
+Z8. Clearly, this term allows for the simultaneous cre-ation/annihilation of eight electric charges. Noticeably, the CS term, capturing the semionic statistics, shows that such an event corresponds to the change of flux of bμ
+
+by 4 units and hence corresponds to quadrupoled instan-ton events for bμ [48]. Indeed such quadrupoled monopole creation/annihilation operators are allowed [41] by the symmetry of the square lattice [35, 44, 54, 58] and 
+
+Ssym [Φ] can alternatively be written as 
+
+Ssym [Φ] ∼ − w
+
+Z
+
+d2xdτ  M4 
+
+> b
+
++ c .c. , (24) where Mb annihilates a bosonic monopole of bμ with the identification 
+
+Mb ∼ ei2θ (25) where the symbol ∼ refers to the fact that the two op-erators have the same symmetry quantum numbers and scaling dimension [44, 54]. Once Φ condenses, the sign of w chooses the colum-nar ( w > 0) or plaquette ( w < 0) order via the order parameters (O3, O 4) ∼ (ϕ21 − ϕ22, 2ϕ1ϕ2) = |Φ|2(cos 2 θ, sin 2 θ) (26) This leads to the identification of the monopole operator (25) with the exponential of the height field representa-tion of the dimer model [21, 35, 40, 44]. Note that the same continuum action (19) can be obtained via a mutual 
+
+U (1) Chern-Simons theory formulation [53, 57]. To complete the effective theory, the above action (19) needs to be supplemented with a Lifshitz term given by the Lagrangian 
+
+Sl[Φ] = η2
+
+2
+
+Z
+
+d2xdτ |(∇ − ia)2Φ|2
+
++ λ2
+
+2
+
+Z
+
+d2xdτ [( ∂1 − ia 1)2Φ∗][( ∂2 − ia 2)2Φ] + c .c.}
+
+(27) with η2, λ 2(> 0) are the coupling constants of the two terms allowed by the PSG. Therefore, the total action is given by 
+
+S = S0 + Sl (28) This allows us to incorporate the Lifshitz transition when η ∼ Γ − Ω [35] changes sign, as we explain below. We now analyse the mean field phase diagram of this action that results in Fig. 8. 9                               
+
+> FIG. 8. The mean field phase diagram obtained from the low-energy field theory (Eq. (28) ): The Z2liquid dominates the region where η, r > 0, whence the soft electric modes are gapped. The zero tilt c/p-VBS is obtained by condensing the electric soft modes ( r < 0) for η > 0 via a 3D XY ∗transition (blue solid line). The s-VBS, on the other hand, is obtained for η, r ≪0. On crossing the η= 0 line from the η > 0 side, there is a transition between the zero tilt c/p-VBS to the maximally tilted s-VBS phase. This transition can happen in two ways [25, 26] as indicated – The red dotted line is a first-order transition between the c/p-VBS and the s-VBS phases while the red solid line denotes a continuous quantum Lifshitz transition between the c/p-VBS and VBS phase with finite tilt (The black arrow indicates the expected increase in the tilt [25, 26]) with the RK point being the multicritical point in between. Various other first-order phase transitions are denoted in dashed lines as indicated – e.g. , the transition between the Z2liquid and the s-VBS is given by Eq. (45). The brown point at the origin ( η, r ) = (0 ,0) is the multicritical point where the two continuous transition lines – Lifshitz line, the 3D XY ∗line – meet to give rise to a first-order transition line between the Z2liquid and the s-VBS phase. This phase diagram should be compared with the microscopic model phase diagram in Fig. 1.
+> A. Phases and phase transitions
+
+In the above field theory (Eq. (28)), the electric soft modes are gapped for r > 0 and can be integrated out, resulting in the pure U (1) × U (1) CS theory. This is nothing but the Z2 liquid with a 4-fold degenerate ground state on a torus. Alternatively, as shown in Appendix C, the action, S0, in Eq. (19) without the monopole terms is dual to a charge-2 Higgs scalar coupled to the U (1) gauge field (Eq. (C21)). In this dual description, the Z2 liquid is obtained via condensation of the charge-2 Higgs scalar, whence the gauge group reduces to Z2 [37, 40] and the topological liquid represents the deconfined phase of this IGT. Within the mean field, this Z2 liquid is obtained for r, η > 0 as shown in the phase diagram in Fig. 8. Tuning r from positive to negative, the electric charges condense, leading to the symmetry breaking. For η > 0, the higher order gradient term in Eq. (27) are irrelevant and thus η2, γ and λ can be set to zero. Therefore, the transition driven by r, in this regime, is given by the Abelian Higgs model with 8-fold anisotropy due to the w
+
+term. However, the anisotropy is dangerously irrelevant at the transition [36] and the critical theory is given by an Abelian Higgs model and belongs to the 3D XY ∗ uni-versality class as indicated in Fig. 8. The dangerously irrelevant term, however, chooses the columnar (plaque-tte) VBS for w > 0 as signaled by the order parameter in Eq. (26). Sitting inside the zero tilt c/p-VBS (for r < 0, η > 0), it is useful to consider tuning η across zero to a negative value. This leads to the transition between the zero tilt c/p-VBS phase (for η ≫ 0) to the maximally tilted s-VBS (for η ≪ 0). However the tilt can change continuously and this, as we show now, in general mediates an intricate multi-step transition, as indicated in Fig. 8. Deep inside the Higgs phase ( r ≪ 0) the amplitude fluctuations, |Φ|, are frozen leading to the mean field ac-tion 
+
+Seff [r ≪ 0] = 12
+
+Z
+
+d2xdτ ηa2 + η2a4 + 2 λ2a21a22
+
+ |Φ|2
+
++ Ssym [Φ] (29) where we have used the gauge transformation 
+
+aμ → aμ + ∂μθ (30) and the photon of a is gapped out via the usual Higgs mechanism. Similarly, because the monopoles of bμ
+
+are condensed (Eq. (25)), the corresponding photon is gapped due to the dual Higgs mechanism (confinement). For w = 0, the minimum of the above effective action (Eq. (29)) is obtained for ¯a1 = ±¯a2 (31) with 
+
+a2 =
+
+( 0 η > 0q |η| 
+
+> 4η2+2 λ2
+
+η < 0 (32) Note that the CS term goes to zero for a constant aμ.The effect of w̸ = 0 is obtained by noting that in the Higgs phase, aμ is a pure gauge due to the Meissner effect. We then have ¯aμ = ∂μθ ⇒ θ(x) = ¯ a · x + θ0 (33) such that the minima of the phase is chosen via Ssym [Φ] through the minimization of 
+
+Ssym [Φ] = −w|Φ|8
+
+Z
+
+d2xdτ cos(8¯ a · x + 8 θ0). (34) 10 Therefore, for η > 0 the minima are given by ¯ a = 0 giving rise to a zero tilt sector, i.e. , c/p-VBS order as given by Eq. (26). On the other hand, for η < 0 we get ¯a̸ = 0 and a finite tilt sector is chosen [25] in the field theory with the tilt related to the expectation value of ¯ a.The critical theory for the transition between the zero tilt and the finite tilt VBS phases in this regime ( r ≪
+
+0) can be obtained by restoring the low energy phase fluctuations in the above mean field action via Eq. (33). The effective low-energy theory is given by ˜S = ˜S0 + ˜Sl (35) with ˜S0 = 12
+
+Z
+
+d2xdτ (∂0θ)2 + η(∇θ)2 − w|Φ|6 cos(8 θ) (36) and ˜Sl = 12
+
+Z
+
+d2xdτ 
+
+h
+
+η2
+
+ ∇2θ2 + λ2(∂21 θ)( ∂22 θ)
+
+i
+
++ 12
+
+Z
+
+d2xdτ η2(∇θ)4 + λ2(∂1θ)2(∂2θ)2 . (37) where we have absorbed the overall |Φ|2 in the coupling constants. This is precisely the action obtained from the height model representation with the height field being proportional to 2 θ [25, 26, 29, 35, 39]. For η̸ = 0, the field theory is always in the confining phase [25, 26, 35, 39, 41] while there is a transition for η = 0 albeit with renormalisation due to interactions. For η = 0, the dynamic critical exponent is z = 2 [25, 26, 35, 39] for the Gaussian theory, and the monopoles can become irrelevant. The irrelevance of the monopoles can be obtained from the scaling dimension of eiθ for the free Lifshitz field theory gotten by collecting the Gaussian terms of Eq. (35) for η = 0, i.e. ,˜Sg = 12
+
+Z
+
+d2xdτ 
+
+h
+
+(∂0θ)2 + η2
+
+ ∇2θ2 + λ2(∂21 θ)( ∂22 θ)
+
+i
+
+(38) The equal time correlator in the presence of the anisotropy, λ2, to the leading order, is given by (details in Appendix C 1) 
+
+⟨einθ x e−inθ 0 ⟩ ∼ 1
+
+|x|n2α (39) where n ∈ Z and 
+
+α = 18π2√η2
+
+4
+
+p1 + ϵ/ 4 K
+
+ ϵ
+
+4 + ϵ
+
+
+
+= f (ϵ)8π2√η2
+
+(40) is the effective coupling constant with ϵ = λ2/η 2. Now for the w term to be irrelevant [25], we want α > 18 , or, 
+
+f (ϵ)
+
+√η2
+
+> π 2 ⇒ 0 < η 2 < f 2(ϵ)
+
+π2 (41) where f (0) = 2 π and decreases monotonically with ϵ. It is therefore interesting to note that the window of cou-pling constants where the quadrupoled monopoles are ir-relevant decreases as λ2/η 2 increases. More specifically lim  
+
+> ϵ→∞
+
+f (ϵ) ∼ 8
+
+√ϵ ln ϵ (42) Thus, the regime over which the monopoles are irrele-vant shrinks to zero as ϵ → ∞ . Therefore, the increase in the anisotropy decreases the regime over which the Lif-shitz criticality is stable to the monopole proliferation. This is due to the decrease in the scaling dimension of 
+
+eiθ with increasing anisotropy. When such monopoles are relevant, it leads to a first-order transition between the c/p-VBS (for η > 0) to s-VBS (for η < 0). Within the regime where the monopoles are irrelevant, the effect of the interaction, given by (from Eq. (35)), 
+
+Sint =
+
+Z
+
+d2xdτ 
+
+h η2
+
+2
+
+(∂1θ)4 + ( ∂2θ)4
+
++ λ2 + 6 η2
+
+2 (∂1θ)2(∂2θ)2
+
+
+
+(43) can be considered with perturbative RG. Indeed Ref. 25 and 26 calculated the RG flow of the two coupling con-stants to one loop to indicate that except for further fine tuning of the ratio of the two interactions, the Gaussian critical theory is unstable and there is a generic first-order transition [59] between the c/p-VBS phase and the s-VBS phase that ends at the RK point. Beyond the RK point, the columnar/plaquette order gives way to a finite (non-maximal) tilt phase via a continuous transition at the quantum Lifshitz line characterised by η = 0– albeit with renormalisation. Beyond this, the tilt changes via an incomplete devil staircase, ultimately giving way to the s-VBS phase via a first-order phase transition. This is indicated for the r ≪ 0 regime of the Fig. 8. The above conclusion based on the phase fluctuation is strictly valid when r ≪ 0 and hence breaks down on approaching r ∼ 0 when the amplitude fluctuations of the soft electric modes can no longer be neglected. This can lead to a major departure from the conclusion of the above analysis based on Ref. 25 and 26. However, before we turn to this issue, let us consider the quadrant with 
+
+r > 0 but η < 0. For this, we consider the position of the minima of the quadratic part of the action (Eq. (19) and 27). Neglecting the gauge fluctuations and the temporal fluctuations of Φ, the mean field free energy in momen-tum space is given by 12
+
+Z
+
+d2q ηq2 + η2q4 + r |Φ( q)|2. (44) Such that the momentum of the soft modes, q0(= ¯ a), is given by Eq. (32). These soft modes condense, for η < 0for 
+
+r ∼ η2
+
+η2
+
+(45) 11 as given by the dashed line in Fig. 8. Thus, the Z2
+
+liquid gives way to a condensate of the electric charges at q0 – a VBS phase – on crossing this line. Due to the fluctuations near the transition, we expect this transition to be first-order. The above first-order line then ends at ( η, r ) = (0 , 0) with the 3D XY ∗ continuous transition line as well as the Lifshitz transition line between the c/p-VBS and the finite tilt phase as indicated in the Fig. 8. In principle, the finite tilt phase can extend above the r = 0 line, albeit for r < η2 
+
+> η2
+
+, and surround the multicritical point, but our numerical calculations (also see the discussion below) indicate that such a region is very small as schematically indicated in the figure. The multicritical point at ( η, r ) = (0 , 0) is therefore obtained by a z = 2 anisotropic Abelian Higgs theory given by Eq. (19) and (27).  
+
+> B. Applicability of the field theory to the microscopic model
+
+Having fleshed out the details of the field theory, we now briefly summarise the applicability of the field the-ory (Fig. 8) to the microscopic model (Eq. (8)) and the resultant phase diagram (Fig. 1) in the light of the nu-merical results discussed in Sec. III. We can tune the microscopic model (8) to the RK point by approaching the origin in the phase diagram shown in Fig. 1 along the line Γ /J = Ω /J . This can be achieved by tuning J → ∞ while keeping Γ and Ω finite, since the higher-order terms generated in perturbation theory, of order O(Γ 2/J ) or higher, vanish in this limit. As a result, we are left with the RK Hamiltonian given in Eq. (2) at Γ = Ω. This leads us to the identification of the RK point of Fig. 8 with the origin of Fig. 1. Moving away from the RK point, the Lifshitz transi-tion line emerges, as shown in Fig. 8. This transition is manifested in Fig. 6(b,c) by a continuous increase of the c/p-VBS order parameter. Further, as commented in Sec. III, the thin sliver where both the order parameters are zero may allow for an intermediate finite tilt phase in accordance with the field theory (see Fig. 8). This is also very indirectly supported by the broad correlation length peak for the corresponding window as shown in Fig. 7. While the scope of the present numerics is limited, the above observations are prima facie consistent with the prediction of the field theory presented above. Indeed, a soft mode analysis of the electric modes at finite but small Ω/J (see Appendix B 2) suggests that the position of the soft modes changes continuously away from the c/p-VBS for finite tilt VBS phases within Gaussian approxima-tion. Upon further decreasing J, the Lifshitz transition line meets both the first-order transition from the Z2 liq-uid to the s-VBS phase and the 3D XY ∗ transition from the c/p-VBS phase to the Z2 liquid at a multicritical point (see Fig. 1). This multicritical point corresponds to the origin in Fig. 8. Finally, beyond the multicritical point, the transition between the Z2 liquid and the s-VBS appears to be strongly first-order, and the tilt almost immediately locks to the maximal value (corresponding to the s-VBS phase) as is evident from Fig. 7(d) and the discussion therein.  
+
+> V. SUMMARY AND OUTLOOK
+
+In this work, we have studied a particular qubit reg-ularisation of the QDM on the square lattice that con-tinuously interpolates the physics of the dimer models with that of the Z2 topological liquid as realised in the toric code with π-flux. This qubit regularisation allows for mixing the one-dimer and three-dimer manifolds with a controlled energy cost. The emergent Z2 liquid is inti-mately connected to this mixing that allows for condensa-tion of a charge-2 Higgs scalar in the U (1) theory, usually realised as the effective description of the dimer model on a bipartite lattice [40, 44, 54]. The resultant phase di-agram illustrated in Fig. 1 appears to be very rich and in particular realises an extended Z2 liquid phase and its transition to the dimer crystal via interesting quantum phase transitions. Recent experimental works have successfully realised the toric code and diagnosed its associated Z2 topolog-ical order across diverse quantum platforms [12–14, 60]. That includes the realisation of the toric code ground state and the demonstration of anyon braiding statistics on superconducting processors [61], the demonstration of topological Z2 spin liquid in Rydberg atom arrays [62], and the deterministic preparation of the toric code on a torus using mid-circuit measurements and feed-forward on a trapped-ion quantum computer [63]. Our qubit regularisation of the quantum dimer model opens a path towards its realisation with current quantum technologies that could shed additional light on how the fine-tuned RK 
+
+U (1) spin liquid transitions into the Z2 topological liquid quantum phase. Central to the structure of the phase diagram is a multicritical U (1) liquid with dynamic critical exponent, 
+
+z = 2, that emanates from the RK point. Various phases are naturally understood as instabilities of this U (1) liq-uid. It would be interesting to investigate in detail the fate of the multicritical point and nearby phases and phase transitions on square and other two-dimensional lattices. 
+
+> ACKNOWLEDGMENTS
+
+The authors thank Kedar Damle, Souvik Kundu, Sounak Biswas and Sthitadhi Roy for useful discussions. The authors acknowledge STINT (Stiftelsen f¨ or inter-nationalisering av h¨ ogre utbildning och forskning) for funding via the Internationalisation Initiation grant. AC and SB thank Karlstad University for hospitality, and the Department of Atomic Energy, Government of In-dia, under project no. RTI4019 and RTI4013. SM ac-12 knowledges ICTS for hospitality. The authors would like to thank the ICTS program - Generalised symmetries and anomalies in quantum phases of matter 2026 (code: ICTS/ GSYQM2026/01). SM is supported by Veten-skapsr˚ adet (2021-03685) and Nordita. AC and SM thank Carl Tryggers Stiftelse (CTS 24:3607) for funding their research. SB gratefully acknowledges funding by the Swarna Jayanti fellowship of SERB-DST (India) Grant No. SB/SJF/2021-22/12; DST, Government of India (Nano mission), under Project No. DST/NM/TUE/QM-10/2019 (C)/7. The numerical simulations were per-formed on the BOSON-1 workstation at ICTS. 
+
+> Appendix A: Further numerical data
+
+In this appendix, we present further numerical details of the iDMRG calculations. In particular, we provide the plots for the two order parameters, Ocol/plaq (Eq. (16)) and Ostag (Eq. (15)), along with Ostar evaluated along the vertical cuts, including those shown in Fig. 7 of the main text. As illustrated in the lower panels of Fig. 9, for small values of Γ /J , the system undergoes a direct transition from the c/p-VBS phase to the s-VBS phase as a func-tion of Ω /J , as evident from Fig. 9(b). At large Γ /J 
+
+corresponding to panel (d) and (e), an intermediate win-dow corresponding to a Z2 liquid emerges where both order parameters vanish leading to a sequence of transi-tions from the c/p-VBS phase to the Z2 liquid and sub-sequently to the staggered phase. The former transition corresponds to the 3D XY ∗, while the latter is a first-order transition from the Z2 liquid to the s-VBS phase, as discussed in the main text. At the first-order tran-sition from the Z2 liquid to the staggered phase, Ostar 
+
+shows an abrupt drop, which arises from the absence of local dimer dynamics in the staggered phase. For com-pleteness, we also plot the correlation length ξ together with the order parameters in Fig. 9. It is clear that the phase transition points identified from the order parame-ters are consistent with those obtained from the correla-tion length. At intermediate Γ /J corresponding to panel (c), the peak corresponding to the first order transition between the Z2 liquid and the s-VBS is no longer vis-ible, but there is a small region where both Ostag and 
+
+Ocol/plaq are zero. Our present numerics cannot deter-mine whether this region survives in the thermodynamic limit of the two dimensional lattice. 
+
+> Appendix B: The Ising gauge theory formulation
+
+Following Refs. [53, 64–66], the Hamiltonian in Eq. (6) can be mapped to a model of IGT with Ising electric charges as 
+
+Zij = τ xi ρzij τ xj , Xij = ρxij , (B1) where τ xi creates Ising (electric) charges on the sites and 
+
+ρzij are the Ising gauge fields (hence ρxij is the electric field). The above redundant representation is subject to Gauss’s law constrained on every site 
+
+Y
+
+> i∈i
+
+ρxij = τ zi , (B2) where (1 − τ zi )/2 is the electric charge density. Using this, the Hamiltonian in Eq. (6) is written as (up to a constant) 
+
+H =κ X
+
+> 2
+
+Y
+
+> ij ∈2
+
+ρzij − Γ X
+
+> i
+
+τ zi −
+
+
+
+J + Ω2
+
+ X
+
+> ⟨ij ⟩
+
+τ xi ρzij τ xj
+
++ Ω4
+
+X
+
+> i
+
+X
+
+> α=ˆx,ˆy
+
+τ xi ρzi,i +αρzi+α,i +2 ατ xi+2 α
+
+ . (B3) Therefore in the limit of κ → ∞ , we have the π-flux constraint 
+
+Y
+
+> ij ∈2
+
+ρzij = −1 ∀ 2 (B4) In terms of the IGT, the Ising electric charges, created by τ xi and obeying Gauss’s law (B2), hop on the sites of the dual square lattice (Fig. 2) in a background π-flux through each plaquette. The amplitude for nearest neighbour (NN) and third nearest neighbour (3NN) hop-ping are −(J + Ω /2) and Ω /4, respectively. Also note that ρzij commutes with the Hamiltonian, such that the gauge fields do not have independent dynamics.   
+
+> 1. Ω = 0 line
+
+For κ → ∞ and Ω = 0, Eq. (B3) reduces to the NN fully frustrated transverse-field Ising model on the square lattice 
+
+Heff = − Γ X
+
+> i
+
+τ zi − J X
+
+> ⟨ij ⟩
+
+τ xi ρzij τ xj (B5) where the frustration originates from π-flux condition in Eq. (B4). The phase diagram was obtained in Ref. 36. We choose a particular gauge (Fig. 10) to implement the π-flux. For J = 0, the ground state is an electric charge vacuum which is a topological liquid correspond-ing to the π-toric code. Note that the above gauge, on a 2-tori, chooses one of the topologically degenerate ground states of the toric code depending on the size of the sys-tem and boundary conditions. A finite J leads to hopping of the electric charges while the magnetic charges are still gapped. In the above gauge, the soft modes of the dispersing electric charges can be obtained by diagonalising the hopping term within a soft spin analysis. Choosing a two-site unit cell as 13 
+
+FIG. 9. Vertical cuts for the iDMRG data for Ly = 4 , χ = 300 , κ = 10 , J = 1 : (a) Contour plot of the correlation length (same as Fig. 4(a)). (b, c, d, e) Correlation length ξ for two different bond dimensions and order parameters at χ = 400 along the vertical cuts shown in panel (a). 
+
+FIG. 10. Schematic diagram for the choice of gauge to im-plement the π-flux condition (B2) for the IGT. The dashed (solid) red (black) link corresponds to ρzij = −1(+1) in Eq. (B3). The two-site unit-cell consists of one site each from the two sublattices marked as A and B.
+
+shown in the Fig. 10, the soft mode quadratic Hamil-tonian is given by 
+
+Hτ = X
+
+> k
+
+τ x(k)T M (k) τ x(−k) (B6) where (B7) 
+
+τ x(k) = τ xA(k) τ xB (k)T , (B8) 
+
+M (k) = J
+
+ −2 cos ky −(1 + e2ik x )
+
+−(1 + e−2ik x ) 2 cos ky
+
+
+
+(B9) Here, kx ∈ [−π/ 2, π/ 2] and ky ∈ [−π, π ] belong to the magnetic Brillouin zone. The dispersion of the two eigen-modes of the above Hamiltonian is 
+
+Eτ (k)± = ±2J
+
+q
+
+cos 2(kx) + cos 2(ky ) (B10) which has minima at ( kx, k y ) = (0,0) and (0, π). The cor-responding (un-normalised) eigenvectors at these minima are 
+
+λ{0,0} =
+
+1 + √21
+
+
+
+, λ{0,π } =
+
+ 11 + √2
+
+
+
+(B11) Therefore, the explicit soft-mode expansion of the elec-14 
+
+ϕ Tx Ty Rπ Ref x C4 TR 
+
+ϕ1 ϕ2 ϕ1 ϕ1 ϕ1 ϕ1+ϕ2√2 ϕ1
+
+ϕ2 ϕ1 -ϕ2 ϕ2 ϕ2 ϕ1−ϕ2√2 ϕ2
+
+Φ = ϕ1 + iϕ 2 iΦ∗ Φ∗ Φ Φ eiπ/ 4Φ∗ Φ∗
+
+TABLE I. The transformation of the two soft modes under square lattice symmetries: Tx(Ty ) is unit lattice translation along the x(y) direction, Rπ represents a rotation by π about the site, Ref x corresponds to a reflection about the y axis, C4
+
+denotes the 4-fold rotation about a lattice site and TR is time reversal. 
+
+tric charges is given by 
+
+ τ xA(x, y )
+
+τ xB (x, y )
+
+
+
+= ϕ1(x, y ) λ{0,0} + ϕ2(x, y ) eiπy λ{0,π }
+
+(B12) where ϕ1 and ϕ2 are the corresponding amplitudes. Ac-counting for the projective representation, the symmetry transformation of the two soft modes under various lat-tice symmetries is given in Table I. 
+
+2. Ω̸ = 0 
+
+At finite Ω, the soft mode analysis for the quadratic Hamiltonian is given by Eq. (B6) where now 
+
+M (Ω , k) = ( J + Ω /2) 
+
+"
+
+−2 cos ky −(1 + e2ik x )
+
+−(1 + e−2ik x ) 2 cos ky
+
+#
+
++ Ω(cos(2 kx) + cos(2 ky )) 2
+
+"
+
+1 00 1
+
+#
+
+(B13) The spectrum is given by (instead of Eq. (B10)) 
+
+Eτ (Ω , k)± = Ω2 [cos(2 kx) + cos(2 ky )] 
+
+± 2
+
+
+
+J + Ω2
+
+ q 
+
+cos 2 kx + cos 2 ky . (B14) The two minima at (0 , 0) and (0 , π ) survive for Ω
+
+J < 22√2 − 1 ≈ 1.09 (B15) Above this, there is a continuous set of minima at (Qx, Q y ) satisfying cos 2 Qx + cos 2 Qy =
+
+ J + Ω /2Ω
+
+2
+
+(B16) such that just above the critical value, i.e. , Ω/J = 
+
+> 22√2−1
+
++ δ, the set of minima consists of a circle of ra-dius ∼ √δ around (0 , 0) or (0 , π ) for δ ≪ 1. Hence, the momentum and, therefore, the tilt changes continuously within the quadratic theory. 
+
+Appendix C: Derivation of the field theory from the soft modes 
+
+The soft modes (Eq. (17)) obtained from the anal-ysis of the IGT (Appendix B) leads to the low energy Lattice action (on the three dimensional cubic lattice in Euclidean space-time) for the soft modes allowed by the PSG (Table I) 
+
+SZ2 = − t X
+
+> ⟨ij ⟩
+
+ρzij cos ( θi − θj ) − w X
+
+> i
+
+cos(8 θi)+ iπ 
+
+4 (1 − ρzij )
+
+1 − Y
+
+> ij ∈2
+
+μzIJ 
+
+ (C1) where we have used the lattice version of Eq. (18). The first term denotes the hopping of the soft (electric mode) in the background Ising gauge field ρzij while the second term is the lowest symmetry allowed term [36, 38, 53, 67] that reduces the O(2) symmetry of the soft mode action. Finally, the third term corresponds to the Ising Chern-Simons term [38, 67] that captures the mutual semionic statistics between the electric charges and (gapped) mag-netic charges with the latter being minimally coupled to the dual Ising gauge field μzIJ on the links of the dual lattice ( i.e. , the lattice on which the dimers sit). The partition function is given by 
+
+Z = X 
+
+> {ρz}
+
+X 
+
+> {μz}
+
+Z π
+
+> −π
+
+Dθ e −S Z2 (C2) Following Refs. 38, 53, and 67 we use Villain trans-formation and Poisson re-summation formula to convert the partition function to 
+
+Z = X 
+
+> {ρz}
+
+X 
+
+> {μz}
+
+X
+
+> {L}
+
+Z π
+
+> −π
+
+Dθ e −S (1)  
+
+> Z2
+
+(C3) with the low-energy action 
+
+S(1)  
+
+> Z2
+
+= X
+
+> ⟨ij ⟩
+
+L2
+
+> ij
+
+2t + i X
+
+> ⟨ij ⟩
+
+Lij 
+
+
+
+θi − θj + π
+
+2 (1 − ρzij )
+
+
+
+− w X
+
+> i
+
+cos(8 θi) + iπ 
+
+4 (1 − ρzij )
+
+1 − Y
+
+> ij ∈2
+
+μzIJ 
+
+
+
+(C4) where Lij ∈ Z is an integer-valued field defined on the links of the lattice. Temporarily setting w = 0, we can integrate out θi to constrain X
+
+> j∈i
+
+Lij = 0 ∀ i (C5) which can be solved by introducing an integer dual gauge field, bIJ , on the links of the dual lattice via the lattice curl 
+
+Lij = ∇ × bIJ (C6) 15 such that the partition function is given by 
+
+Z = X 
+
+> {ρz}
+
+X 
+
+> {μz}
+
+X
+
+> {b}
+
+Z π
+
+> −π
+
+Dθ e −S (2)  
+
+> Z2
+
+(C7) where the action (after rearranging) is 
+
+S(2)  
+
+> Z2
+
+= X
+
+> 2
+
+(∇ × bIJ )2
+
+2t
+
++ i π
+
+2
+
+X
+
+> ⟨ij ⟩
+
+(1 − ρzij )
+
+(∇ × bIJ ) + 
+
+1 − Y
+
+> ij ∈2
+
+μzIJ 
+
+ .
+
+(C8) Now, ρzij can be integrated individually on each link of the direct lattice separately to obtain the constraint (−1) (∇× bIJ ) = Y
+
+> ij ∈2
+
+μzIJ (C9) Continuing to follow methods used in Refs. 38 and 67, we divide the integer gauge field into two parts 
+
+bIJ = 2 BIJ + βIJ (C10) where B ∈ Z keeps track of the even part and βIJ = 0 , 1is the odd part. Therefore, the above constraint becomes 
+
+μzIJ = 1 − 2βIJ (C11) Implementing the Integer constraint on the gauge field 
+
+bIJ softly via the potential 
+
+−J X
+
+> ⟨IJ ⟩
+
+cos(2 πB IJ ) = −J X
+
+> ⟨IJ ⟩
+
+μzIJ cos( πb IJ ) (C12) (with J > 0) we obtain 
+
+Z = X 
+
+> {μzIJ }
+
+Z
+
+Db e −S (3)  
+
+> Z2
+
+(C13) where 
+
+S(3)  
+
+> Z2
+
+= 12tπ 2
+
+X
+
+> 2
+
+(∇ × bIJ )2 − J X
+
+> ⟨IJ ⟩
+
+μzIJ cos( bIJ ).
+
+(C14) We have shifted bIJ → bIJ /π . We now integrate out μzIJ 
+
+per bond to obtain 
+
+Z =
+
+Z
+
+Db e −S (4)  
+
+> Z2
+
+(C15) where 
+
+S(4)  
+
+> Z2
+
+= X
+
+> 2
+
+(∇ × bIJ )2
+
+2tπ 2 − X
+
+> ⟨IJ ⟩
+
+J 2 cos(2 bIJ ) + · · · (C16) We can now extract a charge field, χI , by choosing a gauge ∇ · b = 0 such that we get 
+
+Z =
+
+Z
+
+Db e −S (5)  
+
+> Z2
+
+(C17) where 
+
+S(4)  
+
+> Z2
+
+= X
+
+> 2
+
+(∇ × bIJ )2
+
+2tπ 2 − J 2 X
+
+> ⟨IJ ⟩
+
+cos( χI − χJ + 2 bIJ )= X
+
+> 2
+
+(∇ × bIJ )2
+
+2tπ 2 − J 2 X
+
+> ⟨IJ ⟩
+
+Ψ∗ 
+
+> I
+
+ei2bIJ ΨJ + c .c.
+
+(C18) with ΨI = e−iχ I (C19) being the charge-2 boson on the sites of the lattice dual to the soft electric modes. The continuum limit can now be taken to obtain 
+
+Z =
+
+Z
+
+D2Ψ Db e −S (6)  
+
+> Z2
+
+(C20) where 
+
+S(6)  
+
+> Z2
+
+=
+
+Z
+
+d2xdτ 
+
+ 12 |(∂μ − i2b) Ψ |2 − r|Ψ|2 + u|Ψ|2
+
+
+
++
+
+Z
+
+d2xdτ 
+
+ 12 (∂0b − ∇ b0)2 + 12 (∇ × b)2
+
+
+
+.
+
+(C21) This is the Abelian Higgs model with charge-2 bosons obtained in the description of the Z2 liquids in dimer models on non-bipartite latices [40, 44]. It is convenient to dualise the above action once more with respect to the bosons, Ψ, to re-write it in terms of the soft electric modes (Eq. (17) in the main text) as can be verified [53, 57] by applying bosonic particle-vortex duality [68, 69] to Ψ, whence we get ˜S =
+
+Z
+
+d2xdτ 
+
+ 12 |(∂μ − ia μ) Φ |2 + r
+
+2 |Φ|2 + u|Φ|4
+
+
+
++
+
+Z
+
+d2xdτ 
+
+
+
+i 1
+
+π ϵμνλ aμ∂ν bλ
+
+
+
++
+
+Z
+
+d2xdτ 
+
+ 12 (∂0b − ∇ b0)2 + 12 (∇ × b)2
+
+
+
++
+
+Z
+
+d2xdτ 
+
+ 12 (∂0a − ∇ a0)2 + 12 (∇ × a)2
+
+
+
+(C22) where Φ us dual to Ψ and hence reflects the electric charge modes. This is exactly equal to the action given by Eq. (19) in the main text, except for the last term, which is the same as turning on the w̸ = 0 term in Eq. (C4). This completes our derivation of the continuum action. 16 Finally, we note that the symmetry transformation of the gauge fields under the microscopic symmetries is fully fixed by their minimal coupling to the matter field, Φ and its dual. In particular, the transformation of a is given by (see Table I for notations) is given by 
+
+Tx, T y : aμ → − aμ μ = 0 , 1, 2
+
+Rπ : a0 → a0, a 1 → − a1, a 2 → − a2
+
+Ref x : a0 → a0, a 1 → − a1, a 2 → a2 (C23) 
+
+C4 : a0 → − a0, a 1 → − a2, a 2 → a1
+
+TR : a0 → − a0, a 1 → a1, a 2 → a2
+
+1. The equal time correlator for the z = 2 Gaussian theory in Eq. 38 
+
+The Gaussian theory in Eq. (38) in Fourier space is given by ˜Sg = 12
+
+Z d2k
+
+4π2
+
+dω 
+
+2π
+
+  ω2 + η2k4 + λ2k21 k22
+
+ θk,ω θ−k,−ω
+
+(C24) Therefore, the equal time correlator including the anisotropy can be calculated as an extension of the same done in Ref. 25 as follows. 
+
+⟨θxθ0⟩ =
+
+Z d2k
+
+4π2
+
+dω 
+
+2π eik·x⟨θk,ω θ−k,−ω ⟩
+
+=
+
+Z d2k
+
+4π2
+
+dω 
+
+2π eik·x 1
+
+ω2 + η2k4 + λ2k21 k22
+
+= 12π2√η2
+
+p1 + ϵ/ 4 K
+
+ ϵ
+
+4 + ϵ
+
+
+
+×
+
+> ∞
+
+X
+
+> m=−∞
+
+"
+
+1 − p1 + ϵ/ 41 + p1 + ϵ/ 4
+
+#|m| Z ∞
+
+> 0
+
+dk k J4m(kx )(C25) where 
+
+K(a) = 
+
+Z π/ 20
+
+dθ 
+
+p1 − a sin 2 θ (C26) is the complete elliptical integral of the first kind and 
+
+Jm(a) is the Bessel function. Using 
+
+Z ∞
+
+> 0
+
+dk k J4m(kx ) = 
+
+( 14m m̸ = 0 
+
+− ln x + · · · m = 0 (C27) we get, to the leading order Eq. (39) in the main text. 
+
+[1] P. W. Anderson, Materials Research Bulletin 8, 153 (1973). [2] P. Fazekas and P. Anderson, Philos. Mag. 30 , 23 (1974). [3] S. A. Kivelson, D. S. Rokhsar, and J. P. Sethna, Phys. Rev. B 35 , 8865 (1987). [4] R. Moessner and S. L. Sondhi, Phys. Rev. Lett. 86 , 1881 (2001). [5] J. Chayes, L. Chayes, and S. Kivelson, Communications in mathematical physics 123 , 53 (1989). [6] R. Moessner and S. L. Sondhi, Progress of Theoretical Physics Supplement 145 , 37 (2002). [7] L. Balents, M. P. Fisher, and S. M. Girvin, Physical Re-view B 65 , 224412 (2002). [8] S. Isakov, S. Wessel, R. Melko, K. Sengupta, and Y. B. Kim, Physical review letters 97 , 147202 (2006). [9] K. Roychowdhury, S. Bhattacharjee, and F. Pollmann, Physical Review B 92 , 075141 (2015). [10] R. Samajdar, W. W. Ho, H. Pichler, M. D. Lukin, and S. Sachdev, Proceedings of the National Academy of Sci-ences 118 , e2015785118 (2021). [11] Z. Yan, R. Samajdar, Y.-C. Wang, S. Sachdev, and Z. Y. Meng, Nature communications 13 , 5799 (2022). [12] H. Weimer, M. M¨ uller, I. Lesanovsky, P. Zoller, and H. P. B¨ uchler, Nature Physics 6, 382 (2010). [13] A. Celi, B. Vermersch, O. Viyuela, H. Pichler, M. D. Lukin, and P. Zoller, Phys. Rev. X 10 , 021057 (2020). [14] A. W. Glaetzle, M. Dalmonte, R. Nath, I. Rousochatza-kis, R. Moessner, and P. Zoller, Phys. Rev. X 4, 041037 (2014). [15] R. Verresen, M. D. Lukin, and A. Vishwanath, Phys. Rev. X 11 , 031005 (2021). [16] Z. Zeng, G. Giudici, and H. Pichler, Phys. Rev. Res. 7,L012006 (2025). [17] D. S. Rokhsar and S. A. Kivelson, Phys. Rev. Lett. 61 ,2376 (1988). [18] P. W. Anderson, science 235 , 1196 (1987). [19] P. Fazekas and P. W. Anderson, Philosophical Magazine 
+
+30 , 423 (1974). [20] S. Sachdev, Phys. Rev. B 40 , 5204 (1989). [21] N. Read and S. Sachdev, Phys. Rev. Lett. 62 , 1694 (1989). [22] P. W. Anderson, P. Lee, M. Randeria, T. Rice, N. Trivedi, and F. Zhang, Journal of Physics: Condensed Matter 16 ,R755 (2004). [23] R. Moessner and K. S. Raman, in Introduction to frustrated magnetism: materials, experiments, theory 
+
+(Springer, 2010) pp. 437–479. [24] R. Moessner, S. L. Sondhi, and E. Fradkin, Phys. Rev. B 
+
+65 , 024504 (2001). [25] A. Vishwanath, L. Balents, and T. Senthil, Phys. Rev. B 
+
+69 , 224416 (2004). [26] E. Fradkin, D. A. Huse, R. Moessner, V. Oganesyan, and S. L. Sondhi, Phys. Rev. B 69 , 224415 (2004). [27] G. Misguich, D. Serban, and V. Pasquier, Phys. Rev. Lett. 89 , 137202 (2002). [28] R. Moessner and S. L. Sondhi, Phys. Rev. B 68 , 054405 (2003). [29] C. L. Henley, Journal of Physics: Condensed Matter 16 ,S891 (2004). [30] L. B. Ioffe and A. I. Larkin, Phys. Rev. B 40 , 6941 (1989). 17 
+
+[31] P. W. Leung, K. C. Chiu, and K. J. Runge, Phys. Rev. B 54 , 12938 (1996). [32] A. Y. Kitaev, Annals of physics 303 , 2 (2003). [33] T. Senthil, 50 Years of the Renormalization Group: Ded-icated to the Memory of Michael E Fisher , 169 (2024). [34] T. Senthil, A. Vishwanath, L. Balents, S. Sachdev, and M. P. Fisher, Science 303 , 1490 (2004). [35] E. Fradkin, Field theories of condensed matter physics 
+
+(Cambridge University Press, 2013). [36] D. Blankschtein, M. Ma, and A. N. Berker, Phys. Rev. B 
+
+30 , 1362 (1984). [37] R. A. Jalabert and S. Sachdev, Phys. Rev. B 44 , 686 (1991). [38] S. Bhattacharjee, Phys. Rev. B 84 , 104430 (2011). [39] E. Ardonne, P. Fendley, and E. Fradkin, Annals of Physics 310 , 493 (2004). [40] S. Sachdev and M. Vojta, arXiv preprint cond-mat/9910231 (1999). [41] A. Polyakov, Gauge Fields and Strings (Harwood Aca-demic, Chur, Switzerland, 1987). [42] M. E. Fisher, Physical Review 124 , 1664 (1961). [43] P. W. Kasteleyn, Physica 27 , 1209 (1961). [44] N. Read and S. Sachdev, Phys. Rev. B 42 , 4568 (1990). [45] Note that this is different from approaching the origin by by taking Γ , Ω → 0 at finite J whence we get a classical dimer model as mentioned above. Therefore the origin of the phase diagram in Fig. 1 corresponding to (Γ /J, Ω/J ) = (0 , 0) is singular. [46] U. Borla, A. De, and S. Gazit, arXiv:2507.16523 (2025). [47] At this point, we comment on the convention used in the present work relative to the existing dimer-model litera-ture. In earlier works [35, 38, 54, 67], crystalline phases are usually understood as vison condensates, where the vison corresponds to the Ising magnetic flux associated with the plaquettes of the lattice on whose bonds the dimers reside (see Fig. 2). However, these plaquettes cor-respond to sites of the dual lattice, on which—following the convention of the toric code Hamiltonian [32]—the excitations are called electric charges. It is important to keep this nomenclature in mind to avoid confusion. [48] S. Sachdev, Reports on Progress in Physics 82 , 014001 (2018). [49] J. Hauschild and F. Pollmann, SciPost Phys. Lect. Notes , 5 (2018). [50] I. P. McCulloch, arXiv preprint arXiv:0804.2509 (2008). [51] The MPS is normalised such that the absolute value of the largest eigenvalue of the transfer matrix is unity, 
+
+|λ1| = 1. In this normalisation, the MPS correlation length ξ is determined by the second-largest eigenvalue 
+
+λ2 [49] via the formula ξ = −1/ ln( |λ2|). [52] M. Hermanns, arXiv preprint arXiv:1702.01525 (2017). [53] A. Nanda, K. Dhochak, and S. Bhattacharjee, Phys. Rev. B 102 , 235124 (2020). [54] S. Sachdev and R. Jalabert, Modern Physics Letters B 
+
+4, 1043 (1990). [55] S.-P. Kou, M. Levin, and X.-G. Wen, Phys. Rev. B 78 ,155134 (2008). [56] M. Freedman, C. Nayak, K. Shtengel, K. Walker, and Z. Wang, Annals of Physics 310 , 428 (2004). [57] C. Xu and S. Sachdev, Phys. Rev. B 79 , 064405 (2009). [58] F. D. M. Haldane, Phys. Rev. Lett. 61 , 1029 (1988). [59] S. Aubry and P.-Y. Le Daeron, Physica D: Nonlinear Phenomena 8, 381 (1983). [60] H. Weimer, M. M¨ uller, H. P. B¨ uchler, and I. Lesanovsky, Quantum Information Processing 10 , 885 (2011). [61] K. Satzinger, Y.-J. Liu, A. Smith, C. Knapp, M. New-man, C. Jones, Z. Chen, C. Quintana, X. Mi, A. Dunsworth, et al. , Science 374 , 1237 (2021). [62] G. Semeghini, H. Levine, A. Keesling, S. Ebadi, T. T. Wang, D. Bluvstein, R. Verresen, H. Pichler, M. Kali-nowski, R. Samajdar, et al. , Science 374 , 1242 (2021). [63] M. Iqbal, N. Tantivasadakarn, T. M. Gatterman, J. A. Gerber, K. Gilmore, D. Gresh, A. Hankin, N. Hewitt, C. V. Horst, M. Matheny, et al. , Communications Physics 
+
+7, 205 (2024). [64] I. Tupitsyn, A. Kitaev, N. Prokof’Ev, and P. Stamp, Physical Review B—Condensed Matter and Materials Physics 82 , 085114 (2010). [65] S. Trebst, P. Werner, M. Troyer, K. Shtengel, and C. Nayak, Phys. Rev. Lett. 98 , 070602 (2007). [66] E. Quinn, S. Bhattacharjee, and R. Moessner, Phys. Rev. B 91 , 134419 (2015). [67] T. Senthil and M. P. A. Fisher, Phys. Rev. B 62 , 7850 (2000). [68] M. E. Peskin, Annals of Physics 113 , 122 (1978). [69] C. Dasgupta and B. Halperin, Physical Review Letters 
+
+47 , 1556 (1981).
