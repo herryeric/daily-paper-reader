@@ -6,73 +6,89 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-30
-- 运行时间：2026-03-30 19:58:06 UTC
+- 最新运行日期：2026-03-31
+- 运行时间：2026-03-31 20:04:53 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：23
+- 精读区：12
 - 速读区：11
 
 ### 今日简报（AI）
-今日深挖17篇物理前沿，重点攻克石墨烯超导成像与量子蒙特卡洛算法的精度极限。
-满分论文成功观测到石墨烯中的迈斯纳效应，同时CPQMC在超导关联计算上实现了关键的精度基准。
-建议重点关注实验成像技术的突破，并留意KAN网络在识别多体迁移率边中的高效表现。
-- 详情：[/202603/30/README](/202603/30/README)
+今日精选 23 篇前沿进展，深度聚焦 La3Ni2O7 镍基薄膜的非费米液体
+- 详情：[/202603/31/README](/202603/31/README)
 
 ### 精读区论文标签
-1. [Imaging the Meissner effect and local superfluid stiffness in a graphene superconductor](/202603/30/2603.25807v1-imaging-the-meissner-effect-and-local-superfluid-stiffness-in-a-graphene-superconductor)  
+1. [Non-Fermi liquid behavior in La$_3$Ni$_2$O$_7$ thin films under hydrostatic pressure](/202603/31/2603.26978v1-non-fermi-liquid-behavior-in-la3ni2o7-thin-films-under-hydrostatic-pressure)  
    标签：评分：10.0/10、query:cmp
-   evidence：石墨烯中迈斯纳效应和超流刚度的成像
-2. [Benchmarking the accuracy of superconducting pair-pair correlations within Constrained Path Quantum Monte Carlo](/202603/30/2603.25858v1-benchmarking-the-accuracy-of-superconducting-pair-pair-correlations-within-constrained-path-quantum-monte-carlo)  
+   evidence：双层镍氧化物中的非费米液体行为
+2. [Bistable Fourth Sound Resonance in Superfluid $^3$He-B due to Gap Suppression](/202603/31/2603.27131v1-bistable-fourth-sound-resonance-in-superfluid-3he-b-due-to-gap-suppression)  
+   标签：评分：10.0/10、query:cmp
+   evidence：超流氦-3中的第四声共振与能隙抑制
+3. [Quantum Vacuum Induced Macroscopic Coherence in Quantum Materials](/202603/31/2603.27053v1-quantum-vacuum-induced-macroscopic-coherence-in-quantum-materials)  
    标签：评分：9.0/10、query:cmp
-   evidence：铜氧化物Hubbard模型中的超导配对关联
-3. [Exciton dynamics and high-temperature excitonic superfluidity in S-doped graphyne](/202603/30/2603.25884v1-exciton-dynamics-and-high-temperature-excitonic-superfluidity-in-s-doped-graphyne)  
+   evidence：全息超导模型与新型配对机制
+4. [Magnetic-field-tunable commensurate multi-q charge orders on UTe2 (011) surface](/202603/31/2603.27211v1-magnetic-field-tunable-commensurate-multi-q-charge-orders-on-ute2-011-surface)  
    标签：评分：9.0/10、query:cmp
-   evidence：高温激子超流性
-4. [Contrasting Spin Excitations in Octahedral and Square-Planar n=8 Ruddlesden-Popper Nickelates](/202603/30/2603.26593v1-contrasting-spin-excitations-in-octahedral-and-square-planar-n8-ruddlesden-popper-nickelates)  
+   evidence：重费米子超导体 UTe2 中电荷序的实验 STM 研究
+5. [Distinguishing impurity-induced bound states from Majorana-like zero-energy peaks in strained CsCa2Fe4As4F2 by scanning tunneling microscopy](/202603/31/2603.27217v1-distinguishing-impurity-induced-bound-states-from-majorana-like-zero-energy-peaks-in-strained-csca2fe4as4f2-by-scanning-tunneling-microscopy)  
    标签：评分：9.0/10、query:cmp
-   evidence：探测超导与非超导镍氧化物家族中的激发态
-5. [Double-peak Majorana bound states in altermagnet--superconductor heterostructures](/202603/30/2603.25844v1-double-peak-majorana-bound-states-in-altermagnet--superconductor-heterostructures)  
-   标签：评分：8.0/10、query:cmp
-   evidence：分层磁体-超导体异质结构中的马约拉纳束缚态
-6. [Phase Coherence of Strongly Interacting Bosons in One-Dimensional Optical Lattices](/202603/30/2603.26118v1-phase-coherence-of-strongly-interacting-bosons-in-one-dimensional-optical-lattices)  
-   标签：评分：8.0/10、query:cmp
-   evidence：光学晶格中强相互作用玻色子与多体量子相
+   evidence：铁基超导体中的拓扑超导与马约拉纳零能模
+6. [Correlated charge order intertwined with time-reversal symmetry-breaking nodal superconductivity in the dual flat band kagome superconductor CeRu$_{3}$Si$_{2}$](/202603/31/2603.27408v1-correlated-charge-order-intertwined-with-time-reversal-symmetry-breaking-nodal-superconductivity-in-the-dual-flat-band-kagome-superconductor-ceru3si2)  
+   标签：评分：9.0/10、query:cmp
+   evidence：Kagome超导体中电荷序与节点超导的交织
+7. [Unified pressure and field response across distinct charge-order regimes in Ti-doped CsV$_3$Sb$_5$](/202603/31/2603.27409v1-unified-pressure-and-field-response-across-distinct-charge-order-regimes-in-ti-doped-csv3sb5)  
+   标签：评分：9.0/10、query:cmp
+   evidence：kagome超导体中电荷序与超导性的相互作用
+8. [Pumping of spin supercurrent in unitary triplet superconductors](/202603/31/2603.27945v1-pumping-of-spin-supercurrent-in-unitary-triplet-superconductors)  
+   标签：评分：9.0/10、query:cmp
+   evidence：三线态超导体中自旋超流的产生
+9. [Tomonaga-Luttinger liquid and charge-density wave in a quasi-one-dimensional material](/202603/31/2603.28186v1-tomonaga-luttinger-liquid-and-charge-density-wave-in-a-quasi-one-dimensional-material)  
+   标签：评分：9.0/10、query:cmp
+   evidence：一维电子系统中费米液体的失效
+10. [Bogoliubov flat bands in twisted layered materials](/202603/31/2603.28490v1-bogoliubov-flat-bands-in-twisted-layered-materials)  
+   标签：评分：9.0/10、query:cmp
+   evidence：d波超导体中的Bogoliubov平带
+11. [Emergence of a molecular quantum liquid in one dimension](/202603/31/2603.28635v1-emergence-of-a-molecular-quantum-liquid-in-one-dimension)  
+   标签：评分：9.0/10、query:cmp
+   evidence：一维晶格超流体与量子液体
+12. [Pattern of the Tc(p) dependence with huge "anomaly 1/8" - in new property observed in La2-xBaxCuO4 and YBa2Cu3O6+delta at room temperature](/202603/31/2603.28641v1-pattern-of-the-tcp-dependence-with-huge-anomaly-18---in-new-property-observed-in-la2-xbaxcuo4-and-yba2cu3o6delta-at-room-temperature)  
+   标签：评分：9.0/10、query:cmp
+   evidence：研究铜氧化物高温超导体的Tc依赖性和1/8异常
 
 ### 速读区论文标签
-1. [Symmetric Mass Generation Transition and its Nonequilibrium Critical Dynamics in a Bilayer Honeycomb Lattice Model](/202603/30/2603.22736v1-symmetric-mass-generation-transition-and-its-nonequilibrium-critical-dynamics-in-a-bilayer-honeycomb-lattice-model)  
+1. [Interplay of bound states in the continuum and Fano--Andreev interference in a hybrid triple quantum dot](/202603/31/2603.24863v1-interplay-of-bound-states-in-the-continuum-and-fano--andreev-interference-in-a-hybrid-triple-quantum-dot)  
    标签：评分：8.0/10、query:cmp
-   evidence：双层蜂窝晶格中的对称质量产生转变
-2. [Analysis of the singular band structure occurring in one-dimensional topological normal and superfluid fermionic systems: A pedagogical description](/202603/30/2603.26490v1-analysis-of-the-singular-band-structure-occurring-in-one-dimensional-topological-normal-and-superfluid-fermionic-systems-a-pedagogical-description)  
+   evidence：混合正规-超导系统中的安德烈夫干涉
+2. [Many-body Josephson diode effect in superconducting quantum interferometers](/202603/31/2603.25558v2-many-body-josephson-diode-effect-in-superconducting-quantum-interferometers)  
    标签：评分：8.0/10、query:cmp
-   evidence：分析超流费米系统中的奇异能带结构
-3. [Many-body mobility edges in one dimension revealed by efficient and interpretable feature-based learning with Kolmogorov-Arnold Networks](/202603/30/2603.21807v1-many-body-mobility-edges-in-one-dimension-revealed-by-efficient-and-interpretable-feature-based-learning-with-kolmogorov-arnold-networks)  
+   evidence：提出SQUID中约瑟夫森二极管效应的多体机制
+3. [Scanning tunneling microscopy study of helimagnetic monolayer CrBr2 on s-wave superconductor NbSe2: a topologically trivial system due to weak interfacial coupling](/202603/31/2603.27214v1-scanning-tunneling-microscopy-study-of-helimagnetic-monolayer-crbr2-on-s-wave-superconductor-nbse2-a-topologically-trivial-system-due-to-weak-interfacial-coupling)  
+   标签：评分：8.0/10、query:cmp
+   evidence：磁体-超导体异质结的STM研究
+4. [Electronic structure of higher-order layered palladates: La$_{n+1}$Pd$_{n}$O$_{2n+1}$ $(n = 4-7)$](/202603/31/2603.27456v1-electronic-structure-of-higher-order-layered-palladates-lan1pdno2n1-n--4-7)  
+   标签：评分：8.0/10、query:cmp
+   evidence：层状钯氧化物作为非常规超导的铜氧化物类比物
+5. [Multistage spin correlations in the $s$ = 1/2 stuffed hyper-star lattice Li$_{2}$Cu$_{2}$(MoO$_{4}$)$_{3}$](/202603/31/2603.23350v1-multistage-spin-correlations-in-the-s--12-stuffed-hyper-star-lattice-li2cu2moo43)  
    标签：评分：7.0/10、query:cmp
-   evidence：相互作用费米子系统中的多体定位
-4. [From Quantum Dimers to the $π$-flux Toric Code via Deconfined Multicriticality](/202603/30/2603.23154v1-from-quantum-dimers-to-the--flux-toric-code-via-deconfined-multicriticality)  
+   evidence：研究关联系统中的量子自旋液体和幂律行为
+6. [Correlation-Driven Orbital Order Realizes 2D Metallic Altermagnetism](/202603/31/2603.25426v1-correlation-driven-orbital-order-realizes-2d-metallic-altermagnetism)  
    标签：评分：7.0/10、query:cmp
-   evidence：二聚体模型中的拓扑液体和量子相变
-5. [A $Γ$-valley Moiré Platform for Tunable Square Lattice Hubbard Model](/202603/30/2603.23174v1-a--valley-moir-platform-for-tunable-square-lattice-hubbard-model)  
+   evidence：金属交错磁体中关联驱动的轨道序
+7. [Diffusion in interacting two-dimensional systems under a uniform magnetic field](/202603/31/2603.25659v1-diffusion-in-interacting-two-dimensional-systems-under-a-uniform-magnetic-field)  
    标签：评分：7.0/10、query:cmp
-   evidence：莫尔超晶格中的哈伯德模型模拟
-6. [Topological Filtering and Emergent Kondo Scale](/202603/30/2603.23403v1-topological-filtering-and-emergent-kondo-scale)  
+   evidence：轨道磁场中相互作用粒子的动力学
+8. [Antiferromagnetic stripe phase and large-gap insulating ground state of the correlated $\sqrt{3}\times\sqrt{3}$~R30$^{\circ}$-Sn/Si(111) single atomic layer](/202603/31/2603.26304v1-antiferromagnetic-stripe-phase-and-large-gap-insulating-ground-state-of-the-correlated-sqrt3timessqrt3r30circ-snsi111-single-atomic-layer)  
    标签：评分：7.0/10、query:cmp
-   evidence：一维狄拉克系统中的近藤效应与多体能量尺度
-7. [Dynamical magnetic breakdown and quantum oscillations from hot spot scattering](/202603/30/2603.23605v1-dynamical-magnetic-breakdown-and-quantum-oscillations-from-hot-spot-scattering)  
-   标签：评分：7.0/10、query:cmp
-   evidence：关联系统中的费米面重构与热点散射
-8. [Inequality for Strong-Weak Spontaneous Symmetry Breaking in Fermionic Open Quantum systems](/202603/30/2603.24671v1-inequality-for-strong-weak-spontaneous-symmetry-breaking-in-fermionic-open-quantum-systems)  
-   标签：评分：7.0/10、query:cmp
-   evidence：费米子量子物质和狄拉克自旋液体中的退相干
-9. [Strong-to-Weak Spontaneous Symmetry Breaking in a $(2+1)$D Transverse-Field Ising Model under Decoherence](/202603/30/2603.24342v1-strong-to-weak-spontaneous-symmetry-breaking-in-a-21d-transverse-field-ising-model-under-decoherence)  
+   evidence：原子层中莫特物理与关联效应的实验证据
+9. [Layer-Selective Proximity Symmetry Breaking Enables Anomalous and Nonlinear Hall Responses in 1H-TMD Metals](/202603/31/2603.24019v1-layer-selective-proximity-symmetry-breaking-enables-anomalous-and-nonlinear-hall-responses-in-1h-tmd-metals)  
    标签：评分：6.0/10、query:cmp
-   evidence：多体系统中的量子相变和对称性破缺
-10. [Suppression of Metallic Transport in Nitrogen-rich Two-Dimensional Transition Metal Nitrides](/202603/30/2603.24873v1-suppression-of-metallic-transport-in-nitrogen-rich-two-dimensional-transition-metal-nitrides)  
+   evidence：TMD金属中的量子几何与霍尔响应
+10. [Dynamical Response of the Kitaev Spin Liquid under Third-Nearest-Neighbor Heisenberg Interaction](/202603/31/2603.24918v1-dynamical-response-of-the-kitaev-spin-liquid-under-third-nearest-neighbor-heisenberg-interaction)  
    标签：评分：6.0/10、query:cmp
-   evidence：二维过渡金属氮化物中的输运现象
-11. [Dynamics of two particles with quasiperiodic long-range interactions](/202603/30/2603.25045v1-dynamics-of-two-particles-with-quasiperiodic-long-range-interactions)  
+   evidence：Kitaev量子自旋液体的动力学响应与相变
+11. [Quantum Thermalization beyond Non-Integrability and Quantum Scars in a Multispecies Bose-Josephson Junction](/202603/31/2603.25829v1-quantum-thermalization-beyond-non-integrability-and-quantum-scars-in-a-multispecies-bose-josephson-junction)  
    标签：评分：6.0/10、query:cmp
-   evidence：具有长程相互作用的费米子关联动力学机制
+   evidence：多组份玻色-约瑟夫森结中的量子热化研究
 
 
 <div class="dpr-home-promo-card">
