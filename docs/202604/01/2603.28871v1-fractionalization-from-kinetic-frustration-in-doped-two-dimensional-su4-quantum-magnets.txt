@@ -1,0 +1,602 @@
+Title: Fractionalization from Kinetic Frustration in Doped Two-Dimensional SU(4) Quantum Magnets
+
+URL Source: https://arxiv.org/pdf/2603.28871v1
+
+Published Time: Wed, 01 Apr 2026 00:03:47 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Fractionalization from Kinetic Frustration in Doped Two-Dimensional SU(4) Quantum Magnets 
+
+Wilhelm Kadow, 1, 2 Ivan Morera, 3 Eugene Demler, 3 and Michael Knap 1, 2 
+
+> 1
+
+Technical University of Munich, TUM School of Natural Sciences, Physics Department, 85748 Garching, Germany 
+
+> 2
+
+Munich Center for Quantum Science and Technology (MCQST), Schellingstr. 4, 80799 M¨ unchen, Germany 
+
+> 3
+
+Institute for Theoretical Physics, ETH Zurich, Wolfgang-Pauli-Str. 27, 8093 Zurich, Switzerland 
+
+(Dated: April 1, 2026) Separating electrons into emergent fractional quasiparticles is a hallmark of exotic quantum phases of matter with strong interactions. Understanding under which circumstances fractionalized excitations appear is a major conceptual challenge and can help realize long sought-after states, such as quantum spin liquids. Here, we identify a distinct mechanism for fractionalization. Starting from the plaquette-ordered ground state of an SU(4) symmetric t-J model at quarter filling on frustrated triangular lattices, we reveal a compelling interplay between order and fractionalization as a function of doping. For hole doping, we find that the kinetic frustration can be relieved by fractionalizing the holes into fermionic spinons and bosonic holons: the holons minimize their kinetic energy when the spinons form a spinon Fermi surface. We support this mechanism analytically in the large-N limit as well as numerically by simulating the SU(4) case with matrix product states on cylinder geometries and with variational Monte Carlo methods on system sizes up to 40 ×40. Conversely, electron doping drives the system into a ferromagnetic phase, akin to Nagaoka’s theorem. We discuss possible experimental realizations in moir´ e heterostructures as well as ultracold atoms, and propose dynamical probes to search for key characteristics of the fractionalized quasiparticles. 
+
+I. INTRODUCTION 
+
+The interplay of strong interactions and frustration can give rise to fractionalized excitations where electronic or spin degrees of freedom reorganize into new emergent constituents, carrying fractional quantum numbers. Famous examples are quantum spin liquids [1–4], which defy traditional ordering mechanisms but are dominated by quantum fluctuations instead. The discovery of exactly solvable models [5, 6] and the development of symmetry classifications [7, 8] establish spin liquid phases as well-defined quantum phases of matter. Spin liquids are expected in systems with strong interactions and geometric frustration, where the spins cannot simultaneously minimize all local constraints. Rather than selecting a symmetry-breaking pattern, they remain quantum-disordered and are characterized by long-range entanglement and emergent gauge fields. An important distinction is between gapped spin liquids—for instance, when spinons occupy topological bands separated by a large gap [9–14]—and gapless ones, where fractionalized excitations persist down to the lowest energies. A conceptually simple gapless scenario is a spinon Fermi surface [7, 15]. Despite substantial progress, identifying microscopic Hamiltonians that robustly realize quantum spin liquids is a key challenge. In many candidate models, spin liquids appear only in narrow regions of parameter space and compete with nearby ordered phases, and their detection is complicated by the absence of a conventional local order parameter. In particular, although the spinon Fermi surface is conceptually simple at a mean-field level within the parton framework, a physically motivated spin model in which it is numerically established as the ground state remains sought after, underscoring the delicate role of gauge fluctuations beyond mean-field theory. These challenges motivate the search for new mechanisms to stabilize these fractionalized states. In this work, we demonstrate that doping mobile charge carriers into a frustrated system with strong interactions provides an alternative route to fractionalized spin excitations. In three dimensions, it was recently argued that a related approach can stabilize an archetypal spin liquid, the resonating valence bond (RVB) state on a pyrochlore ba    
+
+> holon spinon fl avors
+> hole doping -1
+> rx
+> ry
+> 0.0 1.0 -1.0 0.0 0.5 1.0
+> ne(k)
+> c
+> Mott insulator
+
+FIG. 1. Kinetic frustration in the SU(4)-symmetric t-J model. a) In a Mott insulator with one electron per site, the SU(4)-symmetric model Eq. (2) on a triangular lattice breaks translational invariance. Hole doping this state in the limit of infinite interactions leads to a state where bosonic holons (red) move freely in an SU(4) symmetric background of fermionic spinons (four flavors represented by di ff erent shades of blue). b) SU(4) spin correlations on nearest-neighbor bonds of the doped state are antiferromagnetic. Bond colors are proportional to ⟨S i · S j⟩. c) The electronic momentum distribution ne(k) shows a large Fermi surface on top of a constant background for small hole doping δ = 1/21. Presented data are obtained with SU(4)-symmetric matrix product states with a U(1)-equivalent bond dimension of D = 36000 on infinite 5-leg cylinders (green dashed line in b). 
+
+> arXiv:2603.28871v1 [cond-mat.str-el] 30 Mar 2026
+
+2lattice [16]. Here, we investigate a two-dimensional triangular SU(4) model in the limit of strong interactions and low doping. We find that the kinetic energy of mobile holes, doped into a Mott insulator, is minimized when the SU(4) spins form a spinon Fermi surface state with fractionalized quasiparticles. We identify the main ingredients to stabilize the spinon Fermi surface: On the one hand, holes su ff er from kinetic frustration in the triangular geometry [17–21]. Not all hopping terms can be minimized simultaneously, in analogy to the geometric frustration for quantum spin liquids. On the other hand, the SU(4) symmetry crucially enhances quantum fluctuations. In fact, for the same model on a triangular lattice with SU(2) symmetry, the hole kinetic energy induces a classical antiferromagnetic order [17, 18]. On the contrary, we show analytically that in the large-N limit of hole-doped SU( N)systems, the kinetic energy is minimized by a spinon Fermi surface state. Employing unbiased numerical simulations with infinite Matrix Product States (MPS) and variational Monte Carlo (VMC) sampling, we find that the fractionalization persists robustly even for N = 4. We propose that the kinetically driven spinon Fermi surface could be realized in moir´ e heterostructures of transition-metal dichalcogenides (TMDs) and comment on possible detection via the hole spectral function or quantum oscillations. The high flexibility of these heterostructures not only enables in situ tuning of the electronic filling around the Mott insulator but can also provide additional local degrees of freedom through layer stacking. With two active layers for the electrons, the usual SU(2) spin symmetry can be increased to feature Hubbard models with approximate SU(4) symmetries [13, 22–25]. Ultracold alkaline-earth atoms [26– 28] and Rydberg tweezer arrays [29–31] o ff er alternative routes to implement similar models.   
+
+> II. KINETIC FRUSTRATION IN SU(4)-SYMMETRIC t-J
+> MODELS
+
+Motivated by the experimental realization of multilayer Hubbard models with moir´ e structures of TMD semiconductors [23], we introduce four flavors of electrons corresponding to their spin ( ↑ and ↓) and layer degrees of freedom (top t and bottom b), labeled as: 
+
+|1⟩ ≡ | t ↑⟩ , |2⟩ ≡ | t ↓⟩ , |3⟩ ≡ | b ↑⟩ , |4⟩ ≡ | b ↓⟩ . (1) Here, we mainly focus on the case of doping the Mott state of one electron per site n = 1 − δ. For strong interaction, symmetric in the layer and spin degrees of freedom, and δ = 0, the system is described by the Kugel-Khomskii model [32]. Similar to the Heisenberg model for SU(2) degrees of freedom, the Kugel-Khomskii Hamiltonian can be derived from a Schrie ff er-Wol ff transformation by expanding the underlying Hubbard model for strong interactions t/U ≪ 1 [25]: 
+
+HJ = J
+
+X
+
+> ⟨i j ⟩
+
+Si · S j + 14
+
+!
+
+(2) 
+
+= J
+
+X
+
+> ⟨i j ⟩
+
+2Si · S j + 12
+
+!
+
+2Pi · P j + 12
+
+!
+
+,
+
+on a triangular lattice with nearest neighbors ⟨i j ⟩, and the superexchange J = 4t2/U. Here, we denote the generalized SU(4) spins as Si and explicitly show the decomposition into spin and layer degrees of freedom, Si and Pi, respectively. For a single electron per site, these operators correspond to the fundamental representation of SU(4). To form a fully antisymmetric SU(4) singlet, four sites are needed, |ψasym  
+
+> i jkl
+
+⟩ =
+
+Pμνστ εμνστ |μiν jσkτl⟩ / √24. Here, Greek letters denote the four di ff erent flavors of Eq. (1) and εμνστ is the antisymmetric Levi-Civita symbol. Numerical studies of that model at filling n = 1 on the triangular lattice suggest that the ground state spontaneously breaks translational invariance towards a striped [33–35] or plaquette-ordered phase [22, 25, 36, 37]; see Fig. 1a for a sketch and Appendix A for numerical data. To introduce holes with a density δ into the system, we include empty sites |0⟩, resulting in a t-J model generalized to SU(4) degrees of freedom [38, 39]: 
+
+H = Ht + HJ , (3) with Ht = −t
+
+X
+
+> ⟨i j ⟩,α
+
+PGW 
+
+c†
+
+> iα
+
+c jα + h.c. PGW . (4) Here, α describes the four spin flavors, and the Gutzwiller projection PGW only allows singly occupied or empty sites due to the strong onsite repulsion U. HJ is given by Eq. (2). The electron operators are related to the SU(4) spins Si by 
+
+Sμ 
+
+> i
+
+= Pα,β c†
+
+> iα
+
+λμαβ ciβ, where λμ are the 15 generators of SU(4). In the following, we will focus on the limit of infinite interactions J → 0. According to Nagaoka’s theorem [40] and its extensions [41–45], doping a single hole in this limit leads to a ferromagnet on bipartite lattices. What happens on non-bipartite lattices is, in general, a more challenging question [17, 18, 46–49] and has also been recently studied experimentally [20, 21, 50–52]. The complexity of this problem arises from kinetic frustration due to the non-bipartite structure of the lattice. Consider first an SU(2) symmetric system and one hole hopping around a single triangle of a triangular lattice. The hole accumulates a phase factor of −1. As a consequence, to minimize its kinetic energy, the spins must form a singlet, compensating for this minus sign. For a single triangle, we can write the ground state as 
+
+|ψ0⟩ = (|01 s23 ⟩ + |02 s13 ⟩ + |03 s12 ⟩)/ √3 where si j describes an SU(2) singlet on sites i and j and 0 k denotes the hole on site k [20, 21, 31]. On specific geometries such as the Husimi cactus [46] or the 3D pyrochlore lattice [16], this can be achieved exactly for each triangle, but for the 2D triangular lattice, not all bonds can be simultaneously put into pairwise singlets, therefore, leading to kinetic frustration. For SU(2) symmetric models, this frustration gives rise to the 3formation of a classical antiferromagnetic state with a three-site sublattice 120 ◦ order [17, 18, 47, 49]. For SU(4) symmetry, the hole accumulates a phase factor of −1 as well when hopping around a triangle (Fig. 1a), which can be compensated by an antisymmetric spin wavefunction. Proceeding to the full 2D triangular lattice, the larger number of flavors allows the formation of a fully antisymmetric spin wavefunction for four sites, but beyond that, the system remains kinetically frustrated. To solve this problem for the SU(4) t-J model on the triangular lattice, we therefore numerically search directly for the ground state of Eq. (4) using unbiased infinite density matrix renormalization group (iDMRG) simulations on various cylinder geometries. Specifically, we focus our analysis on infinitely long cylinders with a circumference of Ly = 5 and an MPS unit cell size of 21 sites, with spiral boundary conditions (SC5); see Appendix B for details. This geometry includes several high-symmetry points in momentum space and allows for competing magnetic orders, such as 120 ◦ order or plaquette order of Eq. (2) at quarter filling. We consider a finite hole density with one hole per MPS unit cell, e.g., δ = 1/21 for the 21-site unit cell. Upon doping holes into the system, our iDMRG simulations variationally find states with antiferromagnetic nearest-neighbor SU(4) spin correlations, indicated by blue bonds ⟨S i · S j⟩ < 0 in Fig. 1b. In contrast to the plaquette states that are the ground state of the undoped model Eq. (2) at n = 1, we do not find any signs of translational symmetry breaking in the doped case. Strikingly, in Fig. 1c, the electronic momentum distribution ne(k) shows a Fermi sea of occupied states n = 1 (dark blue) with a Fermi surface that is much larger than naively expected from the low hole concentration. Instead, the Fermi surface corresponds to one-quarter filling of the free particle dispersion on the triangular lattice. Moreover, for momenta outside the Fermi sea, the electron density does not drop to zero as would be for a Fermi liquid, but instead stays at a finite value of ∼ (1 − δ) across the full Brillouin zone. 
+
+III. SPINON FERMI SURFACE STATE 
+
+To understand our numerical findings and identify the origin of the large Fermi surface, we adopt a parton picture for the holes. For general SU( N) symmetric systems in the large-
+
+N limit, parton mean-field solutions can become exact due to a suppression of gauge fluctuations with 1 /N [8]. Moreover, for the Kugel-Khomskii model in Eq. (2), it was shown that a self-consistent parton mean-field analysis can accurately capture the plaquette-ordered state [22, 25]; see also Appendix A. To derive the mean-field Hamiltonian of the t-J model in the large-N limit [53], we decompose the fermion creation operators of the underlying model into fermionic spinons f †
+
+> iα
+
+and bosonic holons bi:
+
+c† 
+
+> iα
+
+= bi f † 
+
+> iα
+
+(5) 
+
+Sμ 
+
+> i
+
+=
+
+X
+
+> α,β
+
+f †
+
+> iα
+
+λμαβ fiβ, (6) ε(k)/ t                 
+
+> 30-3 -6
+> N=4 N=8 N=16
+> Γ
+> A K M
+> bac
+> ΓAKM
+> structure factor  (k)0123456
+> D= 4000
+> D= 8000
+> D= 16000
+> D= 24000
+> D= 36000 parton mean fi eld VMC convolution spinons nsp (k)ne(k)parton mean fi eld
+
+FIG. 2. Spinon Fermi surface. a) Single-particle dispersion ε(k)and Fermi surfaces for several fillings ν = 1/N. On a triangular lattice, they are approximately circular for su ffi ciently large N. b) Aparton mean-field approach predicts that the electronic momentum distribution ne(k) is given by a convolution of the spinon Fermi surface and the holon distribution, see Eq. (10). We show mean-field values of the cylinder geometry studied numerically in Fig. 1 to facilitate their comparison. c) The SU(4) structure factor S(k) for the same geometry along distinct momentum cuts for a parton mean field (green), variational Monte Carlo (red), and MPS with several bond dimensions up to 36000 (blue). 
+
+where λμ are now the generators of SU( N). Moreover, to generalize the SU(4) case of one fermion or hole per site to SU( N), we impose the onsite constraint: 
+
+X
+
+> α
+
+f † 
+
+> iα
+
+fiα + b† 
+
+> i
+
+bi = M. (7) Here, M is the maximal number of electrons per site of the corresponding Mott insulator we want to dope. Furthermore, we define the filling factor ν = M/N. When taking the limit 
+
+N → ∞ , we can either keep M fixed or scale it proportionally to N to maintain a fixed total filling ν. Here, we stick to M = 1, ensuring that there is exactly one electron or hole per site. This corresponds to the fundamental representation of SU( N). Introducing the mean fields χi j = Pα ⟨ f † 
+
+> iα
+
+f jα⟩ and ζi j =
+
+⟨b† 
+
+> i
+
+b j⟩, we obtain the mean-field Hamiltonian for the kinetic energy in the infinitely strongly interacting limit ( J = 0): 
+
+Hmf  
+
+> t
+
+= −t
+
+X
+
+> ⟨i j ⟩
+
+ζ ji 
+
+X
+
+> α
+
+f † 
+
+> iα
+
+f jα + χi j b† 
+
+> j
+
+bi − ζ ji χi j + h.c.
+
+ . (8) In this limit, the spinons directly determine the hopping phases of the holons, and vice versa, the holons give rise to an emergent gauge field, which determines the hopping for the spinons. To counteract the kinetic frustration associated with hole doping, we search for a self-consistent solution that keeps both the holon and spinon hoppings flux-free, i.e., ζi j > 0, 
+
+χi j > 0. This minimizes the energy according to the Perron-Frobenius theorem. The optimal single-particle dispersion is shown in Fig. 2a with a minimum in the center of the Brillouin zone ε(k = Γ ) =4
+
+−6t. By fixing M = 1, increasing N leads to a smaller filling per spinon flavor, hence reducing the size of the Fermi surface. Consider the extreme case, where we have a single hole on a finite lattice and increase N until it reaches the system size 
+
+L2 −1. Then there is only a single spinon per flavor, which can hop around freely, such that its kinetic energy is optimal when 
+
+ζi j = const . > 0 for all nearest-neighbor bonds. For an evenly distributed holon at the k = Γ point, ζi j = ⟨b† 
+
+> i
+
+b j⟩ = 1/L2. With Eq. (8), this also induces a flux-free hopping for the holon, 
+
+χi j = Pα ⟨ f † 
+
+> iα
+
+f jα⟩ = 1. The total kinetic energy is: 
+
+Emf  
+
+> t
+
+= −t
+
+X 
+
+> ⟨i,j⟩
+
+(χi j ζ ji + h.c.) = −6t. (9) This is the minimal possible value for a single hole on the triangular lattice. Let us now generalize this argument to the thermodynamic limit with a finite hole density δ. The holons condense at the minimum of the triangular-lattice dispersion at k = Γ , so 
+
+⟨b† 
+
+> i
+
+⟩ = ⟨bi⟩ = √δ. This induces a uniform flux-free hopping for the spinons, which form a Fermi surface. From Fig. 2a, we see that at the considered fillings, the spinon Fermi surface is approximately circular for the triangular lattice. When each spinon flavor has a filling of (1 − δ)/N, the absolute value of the Fermi wavevector is given by kF = √4π(1 − δ)/N and we obtain for the nearest-neighbor correlations χi j :
+
+χi j =
+
+X
+
+> α
+
+⟨ f † 
+
+> iα
+
+f jα⟩ =
+
+X
+
+> α
+
+Z d2k
+
+(2 π)2 eik(ri−r j) ⟨ f † 
+
+> kα
+
+fkα⟩
+
+= N
+
+(2 π)2
+
+Z kF
+
+> 0
+
+dk 
+
+Z 2π
+
+> 0
+
+dϕ ke ik cos ϕ = kF
+
+2π J1(kF )
+
+≈ (1 − δ) for N ≫ 4π(1 − δ),
+
+where J1(kF ) is the Bessel function of the first kind. Therefore, the mean-field energy becomes Emf  
+
+> t
+
+= −t P⟨i, j⟩(1 −
+
+δ)δ ≈ − 6tL 2δ; hence, approaching the optimal kinetic energy per hole as well. The parton analysis demonstrates a possible solution for how the doped holes circumvent kinetic frustration by fractionalizing into holons and spinons, both of which are frustration-free. However, the previous considerations required the large-N limit. To determine whether N = 4 is already su ffi ciently large, we compare the predictions from the parton mean field with our unbiased iDMRG results. First, the spinon-holon decomposition readily explains the observed behavior of the electronic momentum distribution ne(k). Due to the fractionalization, ne(k) is given by a convolution: 
+
+ne(k) = 1
+
+L2
+
+X
+
+> q
+
+nsp (q) (1 + nh(k − q)) , (10) where the spinons form a Fermi surface nsp (q) = θ(q < kF )and the holons condense nh(q = Γ ) = L2δ, such that ne(k) = 1for momenta inside the spinon Fermi surface and ne(k) = 1−δ
+
+otherwise. Placing the parton mean field on the same cylinder geometry as the MPS yields a similar electron density as in the MPS simulations; compare Fig. 1b and Fig. 2b. SFS            
+
+> entanglement entropy  S
+> 0.8 1.0 1.2 1.4 1.6 5.2 5.4 5.6 5.8
+> c≈8.96 c≈3.01
+> FL
+> correlation length log ξ0
+
+FIG. 3. Central charge of quasi-1D matrix product states. We fit the central charge from the slope of Eq. (12) for infinite MPS simulations of several bond dimensions up to D = 36000 for di ff erent simulated cylinder geometries with spiral boundary conditions SC5 (dark blue) and SC3 (light blue). The insets show the allowed momenta in the hexagonal Brillouin zone (solid lines). The MPS transfer matrix yields the largest correlation lengths in the charge-neutral sector, indicated by the index ξ0. Consistent with a spinon Fermi surface (SFS; green dashed lines), each cut through the Fermi surface contributes an SU(4) fermionic mode with c = 3 to the total central charge. Contrary, a paramagnetic Fermi liquid (FL) at dopings δ = 1/21 (1 /25) would yield a central charge c = 4 for both cylinder geometries due to the small Fermi surface (red dashed lines). For better visualization, we added a constant to S for the SC3 cylinder. 
+
+Next, we check how well observables are captured by the parton mean-field ansatz, and compare the static structure factor to the MPS results: 
+
+S(k) =
+
+X 
+
+> i,j
+
+eik(ri−r j)⟨S i · S j⟩. (11) For the mean-field ansatz, the parton constraint Eq. (7) is only fulfilled on average, implying that, for i = j, the SU(4) generators do not add up to the correct constant ⟨S i⟩2mf , 15 /4. Accordingly, we rescale the mean-field structure factor to compensate for this di ff erence. As we can see in Fig. 2c, the rescaled results agree quantitatively with the MPS results along the possible momentum cuts in the Brillouin zone, shown in the inset. Furthermore, we explicitly perform a Gutzwiller projection of the spinon Fermi surface state and evaluate the SU(4) expectation values with a Variational Monte Carlo (VMC) simulation. We find that the projection does not significantly alter the structure factor. The doped states are intrinsically gapless and therefore challenging to represent with MPS, which can only represent finite correlation lengths ξ. Utilizing the full SU(4) symmetry, we perform DMRG simulations with an equivalent of a U(1) bond dimension of D = 36000 and analyze the scaling of the entanglement entropy in these states. For critical states in one dimension, the entanglement entropy scales according to [54, 55]: 
+
+S = c
+
+6 log ξ. (12) 5Here, c is the central charge of the corresponding conformal field theory. For infinite MPS, we extract the correlation length directly from the largest eigenvalue of the transfer matrix and fit the central charge by simulating several bond dimensions; see Fig. 3. Moreover, explicit quantum numbers in the MPS framework provide further information in which charge sector of the transfer matrix the largest eigenvalues can be found. In two dimensions, gapless states are not necessarily described by a conformal field theory, and therefore, not all gapless states are characterized by a central charge. However, for quasi-one-dimensional cylinder geometries that we consider numerically, we can still extract a meaningful central charge, which provides information about the number of gapless modes [56]. Crucially, this analysis reveals important di ff erences between the spinon Fermi surface state and a paramagnetic Fermi liquid of the doped holes. SU( N)-symmetric critical states in one dimension have a central charge c = N − 1 [57]. Hence, for the spinon Fermi surface with N = 4, we expect a contribution of c = 3 for each momentum cut through the large spinon Fermi surface. Depending on whether we use the 5-leg MPS cylinders SC5 (dark colors) or the 3-leg MPS cylinders SC3 (light colors), di ff erent momentum cuts in the Brillouin zone pass through the Fermi surface; see insets in Fig. 3. We observe a large central charge c ≈ 9 for the SC5 geometry, corresponding to three cuts through the spinon Fermi surface, compared to just one momentum cut for the SC3 geometry with c ≈ 3 accordingly. In contrast, for a scenario without fractionalization, the holes would form a paramagnetic Fermi liquid. The densities of δ = 1/21 and 1/25 for the two cylinder geometries would result in small Fermi surfaces (red dashed lines in the insets of Fig. 3 serve as guides to the eye). For free fermions without the constraint in Eq. (7), the central charge is c = 1 per flavor, and therefore, we would expect the single momentum cut to yield a total central charge c = 4 for both cylinder geometries in the case of a paramagnetic Fermi liquid; see also the case of particle doping with small Fermi surfaces on top of a Nagaoka ferromagnet in Appendix D. In both geometries, we find the largest correlation lengths in the ∆n = 0 charge sector rather than in ∆n = 1, indicating that spin correlations are more dominant than charge correlations, opposite to the behavior in a normal Fermi liquid. We can understand this from the parton picture as well. Since any charge correlation function will also be a convolution of the holons and spinons, we expect charge correlations to decay more quickly than spin correlations, where only the spinons are involved.  
+
+> IV. STABILITY OF THE SPINON FERMI SURFACE
+
+The infinitely strongly interacting limit of J → 0 is helpful for understanding how minimizing the kinetic energy can induce a spinon Fermi surface. Although interactions in realistic experimental scenarios can be extremely large, they will always be finite. Therefore, we investigate the stability of the spinon Fermi surface for J > 0. The competing phases are 12x12 20x20 40x40 VMC spinon Fermi surface doped plaquettes                   
+
+> hole doping  δ
+> 0.06 0.04 0.02 0.00 interaction strength t/J
+> 10 20 30 40 50
+> FIG. 4. Stability of the spinon Fermi surface state at finite t/J.
+> From variational Monte Carlo sampling (VMC), we estimate the critical hopping strengths tc/Jby analyzing the competition between kinetic energy, favoring the spinon Fermi surface, and interaction energy, favoring SU(4) plaquettes, for several dopings and system sizes (green color intensity). We estimate the phase diagram in the regime of low dopings and strong interactions. The dashed line represents a fit tc/J=const ./δ to the VMC data. For interactions
+> t/J≲1 (not shown), a full Hubbard description is necessary instead of the t-Jmodel to capture other metallic phases.
+
+directly deduced from the parton mean-field ansatz. At quarter filling ( n = 1), it was shown that a mean-field decomposition of Eq. (2) can accurately capture the plaquette state as the ground state of the Kugel-Khomskii term [22, 25]: 
+
+HJ = −J
+
+X 
+
+> ⟨i,j⟩
+
+χ ji f † 
+
+> i
+
+f j + h.c. − | χi j |2 , (13) where we assume SU(4) symmetry and therefore drop the flavor index. It was pointed out in Ref. [25] that the plaquette order arises from an instability by considering χi j < 0 in Eq. (13). Starting from a spinon Fermi surface state with the reversed sign, the system features perfectly nested Fermi surfaces with instability vectors k = M, which drive the system into a plaquette-ordered state. Therefore, for any finite 
+
+J, we have a competition between the interaction term, which prefers χi j < 0 with translation-symmetry breaking, and the kinetic term Eq. (8), which is minimized by the flux-free, uniform state χi j > 0. To analyze this instability, we employ variational Monte Carlo simulations, which explicitly perform Gutzwiller projections on the Slater determinants of the following mean-field states: 
+
+HVMC = −
+
+X
+
+> ⟨i j ⟩,α
+
+ti j f † 
+
+> iα
+
+f jα + h.c. (14) 
+
+ti j = t[1 + ηi j h], ηi j =
+
+
+
++1 ⟨i j ⟩ ∈ plaquettes 
+
+−1 ⟨i j ⟩ < plaquettes This Hamiltonian captures the spinon Fermi surface in the limit h → 0. For any finite h, a gap forms at quarter filling, and the plaquette order develops [37]. For small dopings, we compute the hole kinetic energy as well as the SU(4) spin-interaction energy for perturbations h around the spinon Fermi surface. The intuitive picture from above is reproduced. The hole kinetic energy is minimal for h = 0, i.e., when the 6spinons form a uniform state with a Fermi surface. In contrast, the interaction energy is lowered by increasing the plaquette term h, as expected from the instability of the Kugel-Khomskii model. A simple estimate of the transition between the phases is obtained from the energy increase under the quadratic gap opening with h, Eh = Eh=0 + (at δ − bJ )h2, where we obtain a and b from the VMC data. The spinon Fermi surface state is stable for ( at δ−bJ ) > 0. The estimated critical interactions depend on the doping and allow us to sketch a phase diagram; Fig. 4. At large interactions, even for low hole densities, the kinetic energy is dominant, and a spinon Fermi surface is stabilized. Lowering the interaction strength t/J
+
+drives the system into a doped version of the plaquette state to minimize the SU(4) spin interactions. Increasing the hole density from such a state will favor the kinetic energy and therefore, realize a spinon Fermi surface state again. When the interactions become too small, t/J ≲ 1, a full Hubbard model description is required to correctly describe the metallic behavior in that limit.  
+
+> V. IMPLEMENTATION AND DETECTION IN MOIR ´ EHETEROSTRUCTURES
+
+To realize the SU(4) symmetric t-J model, Eq. (4), experimentally, one needs a triangular lattice with localized SU(4) degrees of freedom and large interactions. Both arise naturally in TMD heterostructures [13, 22, 24, 25]. In a heterostructure, as in Fig. 5a, lattice mismatches create moir´ epotentials between the two outer layers, e.g., WS 2, and a di ff erent material (e.g., MoSe 2) in the middle. Alternatively, the moir´ e potentials can be generated by two twisted hBN layers, which imprint a superlattice on the nearby TMD layers [58, 59]. By appropriate gating, electrons can be tuned continuously in the two active layers. The middle layer stays charge neutral and acts as a tunneling barrier. In the described setup, the doped electrons possess both spin and layer degrees of freedom, creating the flavors for an SU(4) symmetric model. The moir´ e potential generates an e ff ective Hubbard model on a triangular lattice [60, 61]. Typical interaction strengths can be as large as U/t ≈ 200 [52] or equivalently 
+
+t/J ≈ 50, which places the t-J model well into the strongly interacting limit and within the regime where fractionalization from kinetic frustration can be realized (Fig. 4). Considering beyond-onsite interactions will lead to additional spin terms in Eq. (2) [22, 62, 63] and therefore, a di ff erent state than the plaquette state may be realized in the absence of doping. However, upon doping, these terms are suppressed compared to the kinetic energy, provided tδ ≫ J.Flexible tuning of the electron filling in these moir´ eheterostructures also allows for investigating the case of electron doping, n = 1+δ. In contrast to doping holes, there is no kinetic frustration, i.e., hopping of the additional particles around a single triangle already yields a phase +1. Therefore, the kinetic energy can be simultaneously minimized for all triangles provided the background is a uniform ferromagnet. This is the essence of Nagaoka’s theorem [40, 41], which holds for particle doping on any connected lattice and for hole doping on bipartite lattices only. Applied to the SU(4) symmetric model at finite doping densities, one flavor forms the ferromagnetic background, while the remaining three flavors form small unpolarized Fermi surfaces; see Appendix D for more details and numerical data. We will now discuss concrete experimental signatures that distinguish the fractionalized state obtained upon hole doping from competing states, such as those obtained upon particle doping or the doped plaquettes. Quantum oscillations in TMDs [64, 65] under an external magnetic field could, for example, detect the size of the Fermi surface, thereby revealing a strong asymmetry between hole and particle doping, n = 1 ± δ, and clearly contrasting the spinon Fermi surface from a conventional Fermi liquid such as the doped-plaquettes states. For instance, the De Haas–Van Alphen e ff ect predicts an oscillating behavior of the magnetic susceptibility, where the periodicity in the inverse magnetic field 1 /B is inversely proportional to the size of the Fermi surface. This behavior is sketched in Fig. 5c. For a paramagnetic Fermi liquid with a hole density δ = 1/20 away from integer filling, we expect very long oscillations in 1 /B,while for the spinon Fermi surface, all spinons contribute to yield fast oscillations. We estimate that for moir´ e periodicities of around aM ≈ 10 nm, feasible magnetic fields of up to 
+
+B = 10 T [64, 65] will be su ffi cient to detect this oscillatory behavior. Furthermore, single-particle spectral probes have been predicted to reveal fractionalized excitations in quantum spin liquids [66–71]. Due to the splitting of holes into holons and spinons, the spectral function is given as a convolution of these two. The distinct energy scales of holons and spinons enable an identification of the individual contributions [68, 69, 72] or to identify bound states [73– 75]. As a novel tool for measuring spectral functions in two-dimensional layered materials, the quantum twisting microscope (QTM) has shown promising results for single-and multilayer graphene [76, 77]. Theoretical proposals show how the QTM can be used to characterize spin-ordered [78] as well as fractionalized states [79, 80]. In Fig. 5b, we compute the mean-field hole spectral function as measured with the QTM or angle-resolved photoemission spectroscopy (ARPES) in the kinetically induced phases. We plot the energy-resolved spectrum along several momentum cuts in the Brillouin zone, including the high-symmetry points, where we focus on energies below the chemical potential −ω + μF > 0. Here, the spectra are flipped upside down such that the Fermi level is at the bottom. For the spinon Fermi surface state, the hole spectral function is given as a broad convolution of the spinons and holons: 
+
+A(k, ω ) =
+
+Z
+
+dνdq Asp (k − q, ω − ν)Ah(q, ν )
+
+=
+
+Z
+
+dq Zsp (k − q)Zh(q)δ(ω − εsp (k − q) − εh(q)) ,
+
+(15) with quasiparticle weights Zα(k). Following the parton construction in Eq. (8), we find that spinons have a dispersion 
+
+∼ tζi j ∼ tδ and holons are more dispersive ∼ tχi j ∼ t(1 − δ). 7spinon Fermi surface                      
+
+> susceptibility (arb. units) inverse magnetic fi eld 1/ B(arb. units) Fermi liquid Quantum oscillations ca
+> top layer MX 2bottom layer MX 2M'X' 2
+> εh(Γ) + εsp (k)
+> εh(k-kF) + εsp (kF)
+> b
+> moiré fi lling
+> hole energy (-ω + μ F)/ t
+> ΓMKΓ
+> 012345A(k,ω)
+> ΓΓMK0693
+> A(k,ω)
+> spinon Fermi surface
+> n= 1
+> Na gaoka ferromagnet
+
+FIG. 5. Experimental realization and signatures. a) A trilayer heterostructure of TMDs to realize an approximately SU(4)-symmetric Hubbard model. Lattice mismatches between the top and bottom layers with the middle layer generate moir´ e potentials, leading to strong interactions on a triangular lattice with electrons having spin and layer quantum numbers. b) By tuning the filling around n = 1, we predict a spinon Fermi surface on the hole-doped site, and a Nagaoka ferromagnet for the electron-doped side. The hole spectral function A(k, ω )distinguishes these two scenarios. The fractionalization in the spinon Fermi surface leads to a convolution of the spinon dispersion εsp (k) and the holon dispersion εh(k). The corresponding lines along energy minima are sketched in green and blue, respectively. In the ferromagnet, the spectrum consists of a free dispersion and a contribution from the small Fermi surfaces around the Γ point. c) Sketch of quantum oscillations to distinguish between a small Fermi surface of a paramagnetic Fermi liquid with low doping δ = 1/20 (red) and a fractionalized state with large Fermi surface (blue). 
+
+Hence, for momenta within the spinon Fermi surface, the lowest branch of the spectrum is given by the spinon dispersion, and the minimum for the holons εh(Γ) + εsp (k)(blue lines). For larger momenta, the holon momentum compensates for the di ff erence to the closest momentum of the spinon Fermi surface (green lines). This analysis is based solely on the mean-field dispersions, and the di ff erent spectral weights originate from the density of states of the holons and spinons at each momentum. Possible interactions between holons and spinons beyond the mean-field ansatz will modify the spectrum, but are suppressed with 1 /N and should qualitatively still yield the same picture. Recent numerical work on the spectral function of a chiral spin liquid has further confirmed that the parton picture captures the main spectral features well [68]. When considering particle doping, the single-hole spectral features are very distinct: the spectral function has two main contributions. The excitation can either move in the fully occupied band and thereby resolve the triangular-lattice dispersion. Alternatively, a dynamical hole can be removed from the small Fermi sea at low momenta. This reveals the small Fermi surfaces around the Γ point at low energies, but with higher intensities due to the added contributions of the three remaining flavors. 
+
+VI. OUTLOOK 
+
+The quest for fractionalized phases of matter—where microscopic degrees of freedom reorganize into emergent quasiparticles carrying fractional quantum numbers—is a central challenge in strongly correlated systems. Most routes to fractionalization build on geometric frustration and topological order. Here, we take a di ff erent perspective and present a concrete example of a two-dimensional system, where kinetic frustration and strong interactions stabilize a spinon Fermi surface upon doping holes into an SU(4) symmetric quantum magnet. From an experimental perspective, moir´ e platforms o ff er an appealing setting to study this phenomenon because of their high tunability in filling and interaction scales. A key challenge for the future will be to identify signatures of fractionalization in experimentally accessible probes, beyond the most direct (but often demanding) momentum-resolved spectral measurements. For instance, nonlinear pump-probe spectroscopy [81–83] can provide promising insights into low-lying excitations. The detection of spin liquid states in the Mott insulating regime using noise spectroscopy with nitrogen-vacancy (NV) centers in diamond has been theoretically proposed [84, 85]. We expect that this technique can also reveal a state with a kinetically induced spinon Fermi surface. Advances in the preparation and cooling of alkaline-earth atoms in optical lattices have enabled the realization of correlated Mott insulators and the observation of antiferromagnetic correlations with general SU( N) degrees of freedom [27, 86–88]. Based on our analytic arguments in the large-N limit, we expect larger values N > 4 to stabilize the spinon Fermi surface state even further. Combined with spin-resolved quantum gas microscopy [28], these systems provide a promising platform for probing the exotic spinon Fermi surface states. Two-photon Raman spectroscopy o ff ers a direct route to measuring the dynamical spin structure factor [89]. At zero doping, one expects a gap ∆, with no spectral weight below it and a sharp onset at frequencies ω ∼
+
+∆. This feature corresponds to breaking a local singlet into a triplet excitation, a magnon-like quasiparticle (triplon), which should manifest as a sharp, dispersing mode. Upon doping, however, the formation of a spinon Fermi surface leads to a closing of the gap. The sharp spectral features are then expected to broaden significantly, with a linewidth set by the size of the spinon Fermi surface, reflecting the fractionalized excitations. Momentum- and energy-resolved single-particle spectral functions are experimentally accessible as well, for example, by radio-frequency transfer into a non-interacting state [90]. 8On the theoretical level, it will be crucial to assess the stability of fractionalization from kinetic frustration against perturbations to the idealized model studied in this work, including weak breaking of SU(4) symmetry and longer-ranged interactions. Looking ahead, an important question is the generality of this phenomenon: what are the minimal requirements for kinetic frustration to favor parton fractionalization rather than conventional symmetry breaking? For example, a related phenomenon has been recently put forward for stabilizing RVB states on apyrochlore lattice [16]. Addressing these questions may help delineate a broader class of systems and materials where kinetic frustration can be harnessed for realizing fractionalized quantum matter. Interestingly, other systems, which are not inherently SU(4) symmetric, may realize a similar behavior [91]. Consider, for instance, a spin S = 3/2 system with arbitrary spin interactions: 
+
+HS =3/2 = −t
+
+X
+
+> ⟨i j ⟩,α
+
+PGW 
+
+c†
+
+> iα
+
+c jα + h.c. PGW 
+
++
+
+X
+
+> ⟨i j ⟩
+
+J1(Si · S j) + J2(Si · S j)2 + J3(Si · S j)3 + . . . , 
+
+(16) where . . . denote additional spin terms. While the spin part of the Hamiltonian is drastically di ff erent from the SU(4) case Eq. (2), the hole hopping also describes the exchange of four flavors on a triangular lattice. Therefore, in the limit of infinite interactions Ji → 0, the model obtains an enlarged SU(4) symmetry and is the same as we explore in this work, hinting at a broad applicability of the proposed mechanism. We focus on the limit of very low doping to study the eff ects of kinetic magnetism on the SU(4) spin. In this regime, we find no indication of superconductivity, see Appendix C. However, upon increasing hole doping, these systems may realize superconducting states [38, 39, 92]. Understanding the underlying mechanism of such superconducting states will be an interesting future direction. 
+
+> ACKNOWLEDGMENTS
+
+WK thanks Sunghoon Kim for insightful discussions about the nature of the plaquette states. WK and MK acknowledge support from the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy–EXC–2111–390814868, TRR 360 – 492547816, and DFG grants No. KN1254 /1-2, KN1254 /2-1, the European Union (grant agreement No. 101169765), as well as the Munich Quantum Valley (MQV), which is supported by the Bavarian state government with funds from the Hightech Agenda Bayern Plus. IM and ED acknowledge support from the SNSF project 200021-212899; the SNSF Sinergia grant CRSII–222792; NCCR SPIN, a National Centre of Competence in Research, funded by the Swiss National Science Foundation (grant number 225153); the Swiss State Secretariat for Education, Research and Innovation (contract number UeM019-1). ab                            
+
+> 1.0 0.5 0.0 -0.5 -1.0
+> Γ
+> A K MVMC
+> parton mean fi eld
+> structure factor  (k)0123456
+> ΓAKM
+> D= 4000
+> D= 8000
+> D= 16000
+> D= 24000
+> FIG. 6. MPS results at n=1.a) Nearest-neighbor SU(4) spin correlations ⟨S i·S j⟩reveal a translational symmetry-breaking ground state of 4-site plaquettes. The presented data are for an MPS with bond dimension D=24000 and a MPS unit cell consisting of eight SC5 unit cells. Bond thickness and color are proportional to
+> ⟨S i· S j⟩b) The static structure factor Skcomputed with MPS of bond dimensions up to D=24000 is similar to the one from a rescaled mean-field ansatz (green) and VMC calculations (red).
+> DATA AVAILABILITY
+
+All data, data analysis, and code for generating the data are available on Zenodo [93]. 
+
+> Appendix A: Plaquette states for the Mott insulator at quarter filling
+
+The ground state of the Kugel-Khomskii model Eq. (2) at 
+
+n = 1 has been studied in other contexts before [22, 25, 33– 37]. For small cylinder sizes, several DMRG studies have yielded di ff erent results. While for YC3 cylinders with a circumference of Ly = 3, no symmetry-breaking pattern was found, YC4 cylinders with Ly = 4 show emergent critical stripes [33, 34]. On even larger cylinders of Ly = 8, 10, the stripes turn into plaquettes [22], similar to the ones we observe on the spiral SC5 geometry with Ly = 5. These results can be understood from a mean-field instability analysis, introduced in Ref. [25]. Consider the spinon mean-field Hamiltonian of the spin interaction term: 
+
+H ˜J = − ˜J
+
+X 
+
+> ⟨i,j⟩
+
+χ ji f † 
+
+> i
+
+f j + h.c. − | χi j |2 .
+
+For uniform |χi j | at quarter filling, these states form a Fermi surface. For χi j > 0, this Fermi surface will be circular around the center of the Brillouin zone as in Fig. 2a. Conversely, for 
+
+χi j < 0, the Fermi surfaces will be split around the k = Kpoints and are perfectly nested, such that bond-density-wave instabilities occur at the k = M points of the Brillouin zone. In the 2D thermodynamic limit, these instabilities lead to plaquette order [25]. However, performing a similar analysis 9a              
+
+> rx
+> ry
+> MPS
+> AKM
+> Γ
+> b
+> MPS rx
+> ry
+> M
+> Γ
+> BSC5 SC3
+> FIG. 7. MPS on spiral cylinder geometries. a) Left: SC5 cylinder geometry with a 21-site unit cell with periodic boundary conditions along ryand infinite boundaries along rx, indicated by the dashed lines. The order of MPS sites snaking through the cylinder is shown in red. Right: Brillouin zone with allowed momenta for the SC5 cylinder, including the high symmetry points Γ,M,and K.b) The SC3 cylinder geometry with a 25-site unit cell has a smaller cylinder circumference (left), and therefore, fewer cuts through the Brillouin zone in momentum space (right).
+
+for the finite-circumference cylinders reveals that there is no such instability for the YC3 geometry and only one of the M
+
+points has an instability for the YC4 cylinder, explaining the observed DMRG results. We also note that recent large-scale variational Monte Carlo simulations indicate that within the plaquettes, the SU(4) symmetry is spontaneously broken [37]. We compare the parton approach to the infinite DMRG simulations for the SC5 geometry. We find that these cylinders also exhibit instabilities towards the translation symmetry-broken plaquette state. We can directly observe these plaquettes by computing ⟨S i · S j⟩ on nearest-neighbor bonds, see Fig. 6a. In order to get an overall SU(4) singlet with the correct instability vectors, we need to enlarge the MPS unit cell by repeating the 21-site unit cell eight times along the rx direction. Moreover, we compare the static structure factor S(k) evaluated from the MPS to that from a parton mean-field ansatz, Eq. (14), and its projected version from variational Monte Carlo (VMC). Here, we determine the strength h of the plaquette term by minimizing the SU(4) spin interaction energy on the cylinder geometry in the VMC simulations and find the minimal energy for hmin ≈ 0.25 t.The results of the parton mean field are rescaled to fit the SU(4) algebra, ⟨S i⟩2 = 15 /4, which is not enforced when the constraint Pα f † 
+
+> iα
+
+fiα = 1 only holds on average. 
+
+> Appendix B: Details on MPS simulations and cylinder geometries
+
+Simulating the SU(4) symmetric t-J model with matrix product states (MPS) on the triangular lattice is a challenging task due to the large local Hilbert space dimension d = 5correlation length  ξ                 
+
+> 1.0 1.5 2.0 2.5 3.0 15000 25000 35000 bond dimension D
+> Δn= 0
+> Δn= 1
+> Δn= 2
+> 510 15 20 25 30 50 150 250 bond dimension D
+> hole doping particle doping
+> FIG. 8. MPS correlation lengths in di ff erent charge sectors. We compute the MPS correlation lengths via the transfer matrix of the SC5 geometry in di ff erent charge sectors ∆n=0,1,2 for states with increasing bond dimensions for hole doping and particle doping.
+
+(4 flavors + empty /doubly occupied sites) and the inherently gapless nature of the states upon doping. To perform the infinite density matrix renormalization group (iDMRG) studies, we use the TeNPy [94] and MPSKit [95] libraries. In TeNPy, we allow states that break the full SU(4) symmetry. This is particularly e ffi cient for computing the ground state in the case of particle doping, where a fully polarized Nagaoka ferromagnet is realized. Instead we conserve the independent U(1) charges n, S z, Pz, and S z Pz. Fermionic exchange statistics are realized by Jordan-Wigner strings. For the hole-doping scenario, we find that the U(1) symmetries are not su ffi cient to faithfully represent the ground state. Therefore, we utilize the MPSKit library, which features non-Abelian symmetries. We conserve the total particle number n, explicit fermion parity, and the full SU(4) symmetry of the models Eqs. (2) and (4). We keep up to 2000 SU(4) multiplets, corresponding to a U(1) bond dimension of up to 36000. Compared to previous DMRG studies on the triangular lattice [33, 39], we choose di ff erent cylinder geometries with spiral boundary conditions as depicted in Fig. 7, where we impose periodic boundary conditions along ry and repeat the MPS unit cell (red) infinitely often along rx. The unit cell sizes of 21 sites and 25 sites are chosen to simulate low but finite doping of δ = 1/21 , 1/25, respectively, and allow for the surrounding SU(4) spins to form an overall singlet state, while still keeping the unit cell sizes modest, required for reasonable iDMRG update times. The SC5 geometry with 21 sites per unit cell, primarily studied in this work, has a circumference of Ly = 5 with an e ff ective MPS distance between nearest-neighbor sites that is lower than in the more often used YC4 cylinders. Additionally, the allowed momenta in the Brillouin zone include the k = K and M points. Therefore, the MPS can form plaquette states at n = 1 (compare with Appendix A) or could host the 120 ◦ order observed for doped SU(2) models. In fact, the same unit cell with 21 sites was used by Haerter and Shastry for exact diagonalization calculations [17]. 
+
+> Appendix C: Absence of superconductivity
+
+In the main text, we use the central charge to identify the nature of the doped states. This is computed as a direct 10 relation between the entanglement entropy and the correlation length of (quasi) one-dimensional critical systems, Eq. (12). While the entanglement entropy is directly obtained from the MPS singular values at each bond, the correlation length can be computed for each symmetry sector with the transfer matrix, defined for infinite MPS [96]. We show the correlation lengths ξ for di ff erent charge sectors ∆n = 0, 1, 2 in Fig. 8. For both hole doping and particle doping, ξ increases with bond dimension in all charge sectors. This indicates that all the corresponding states are gapless in each charge sector. In particular, we do not see any signs of superconducting pairs, since ξ∆n=1 > ξ ∆n=2 and both increase with bond dimension. We note that in our scenario, condensation of the bosons does not directly imply superconductivity via the Anderson-Higgs mechanism [53, 97]. To see this, we couple the holons 
+
+b to the internal gauge field aμ and to an externally applied field Aμ, so the Lagrangian is Lb ∝ | (∂μ − aμ − Aμ)b|2. The spinons fα do not carry charge and therefore only see the internal gauge field coupled with −aμ, L f ∝ Pα |(∂μ + aμ) fα|2.We can associate two gauge symmetries with aμ and Aμ.When the bosons condense, they can break one of these gauge symmetries, but the other one will still be unbroken and coupled to the gapless spinons. Hence, the electromagnetic gauge field is not necessarily gapped out. It will be an interesting direction for future investigation to determine whether larger doping or additional spin interactions can lead to a superconducting state. 
+
+Appendix D: Nagaoka ferromagnetism 
+
+In the main text, we study the e ff ect of hole doping, n =
+
+1 − δ. However, the high tunability in moir´ e heterostructures or ultracold atoms similarly allows for doping additional electrons, n = 1 + δ. Numerically, we study the e ff ect of particle doping with the same Hamiltonian as in Eq. (4), but 
+
+PGW projects onto states with exactly one or two electrons per site. For a single particle above quarter filling, the ground state is captured by Nagaoka’s theorem at infinite interaction and we hence expect a ferromagnetic ordering. Intuitively, we can understand this by looking at a single triangle. A particle hopping around this triangle yields a phase of +1, Fig. 9a. Hence, all hopping paths interfere constructively, and the kinetic energy of the additional particles is minimized by aligning all background SU(4) spins into a fully symmetric wave function. We use infinite DMRG simulations to investigate the behavior at finite electron densities n = 1 + 1/21 on the SC5 cylinder geometry; see Fig. 9. We find a Nagaoka ferromagnet, with ⟨S i · S j⟩ > 0 on all bonds. The electron density ne(k) = Pα c†
+
+> kα
+
+ckα reveals a small Fermi sea (green) 
+
+∼ δ on top of the uniform background with n = 1 (dark blue). The additional particles form three equal, small Fermi seas in the center of the Brillouin zone. The central charge is obtained from Eq. (12). We observe the same central charge 
+
+c ≈ 3 for both cylinder sizes. Since the additional particles can move around freely in a ferromagnetic background, we expect a free fermion central charge of c = 1 per flavor for each momentum cut through the Fermi sea. Therefore, one flavor forms the ferromagnetic background while the other three contribute c = 1 to the central charge. Moreover, in contrast to the hole-doping case, we find the largest eigenvalue in the ∆n = 1 charge sector of the transfer matrix, as expected from a Fermi liquid; Fig. 8. a bc          
+
+> rx
+> ry
+> 0.0 1.0 -1.0 0.0 1.0 2.0
+> ne(k)entanglement entropy  S
+> 1.6
+> 1.8 2.0 1.4 0.5 1.0 1.5 2.0 correlation length log ξ1
+> c≈3.12
+> c≈2.99
+> double occupancy FM background
+> +1
+> d
+
+FIG. 9. Nagaoka ferromagnetism for particle doping. a) 
+
+Additional particles doped above n = 1 can move around freely in a fully polarized ferromagnetic background. b) The entanglement entropy scaling from infinite MPS simulations reveals a central charge c ≈ 3 for both the SC5 and SC3 cylinder geometries (insets). This is consistent with a small Fermi surface, which c) is also directly detected by the electronic momentum distribution ne(k). 
+
+d) The nearest-neighbor correlations ⟨S i · S j⟩ are ferromagnetic, in agreement with Nagaoka’s theorem. [1] P. W. Anderson, Resonating valence bonds: A new kind of insulator?, Materials Research Bulletin 8, 153 (1973). [2] L. Savary and L. Balents, Quantum spin liquids: A review, Reports On Progress in Physics 80 , 016502 (2016). [3] J. Knolle and R. Moessner, A Field Guide to Spin Liquids, Annual Review of Condensed Matter Physics 10 , 451 (2019). [4] C. Broholm, R. J. Cava, S. A. Kivelson, D. G. Nocera, M. R. Norman, and T. Senthil, Quantum spin liquids, Science 367 
+
+(2020). [5] A. Y. Kitaev, Fault-tolerant quantum computation by anyons, Annals of Physics 303 , 2 (2003). [6] A. Kitaev, Anyons in an exactly solved model and beyond, Annals of Physics 321 , 2 (2006). [7] X.-G. Wen, Quantum orders and symmetric spin liquids, Physical Review B 65 , 165113 (2002). [8] X.-G. Wen, Quantum Field Theory of Many-Body Systems 11 
+
+(Oxford University Press, 2007). [9] V. Kalmeyer and R. B. Laughlin, Equivalence of the resonating-valence-bond and fractional quantum Hall states, Physical Review Letters 59 , 2095 (1987). [10] X. G. Wen, F. Wilczek, and A. Zee, Chiral spin states and superconductivity, Physical Review B 39 , 11413 (1989). [11] O. I. Motrunich, Orbital magnetic field eff ects in spin liquid with spinon fermi sea: Possible application to 
+
+κ−(ET) 2Cu 2(CN) 3, Physical Review B 73 , 155115 (2006). [12] S.-S. Gong, W. Zhu, J.-X. Zhu, D. N. Sheng, and K. Yang, Global phase diagram and quantum spin liquids in a spin-1/2 triangular antiferromagnet, Physical Review B 96 , 075116 (2017). [13] C. Kuhlenkamp, W. Kadow, A. Imamoglu, and M. Knap, Chiral Pseudospin Liquids in Moir´ e Heterostructures, Physical Review X 14 , 021013 (2024). [14] S. Divic, T. Soejima, V. Cr´ epel, M. P. Zaletel, and A. Millis, Chiral spin liquid and quantum phase transition in the triangular lattice hofstadter-hubbard model (2024), arXiv:2406.15348. [15] O. I. Motrunich, Variational study of triangular lattice spin-1/2 model with ring exchanges and spin liquid state in 
+
+κ−(ET) 2Cu 2(CN) 3, Physical Review B 72 , 045105 (2005). [16] C. Glittum, A. ˇ Strkalj, D. Prabhakaran, P. A. Goddard, C. D. Batista, and C. Castelnovo, A resonant valence bond spin liquid in the dilute limit of doped frustrated Mott insulators, Nature Physics 21 , 1211 (2025). [17] J. O. Haerter and B. S. Shastry, Kinetic Antiferromagnetism in the Triangular Lattice, Physical Review Letters 95 , 087202 (2005). [18] C. N. Sposetti, B. Bravo, A. E. Trumper, C. J. Gazza, and L. O. Manuel, Classical Antiferromagnetism in Kinetically Frustrated Electronic Models, Physical Review Letters 112 ,187204 (2014). [19] Z. Zhu, D. N. Sheng, and A. Vishwanath, Doped Mott insulators in the triangular-lattice Hubbard model, Physical Review B 105 ,205110 (2022). [20] M. Lebrat, M. Xu, L. H. Kendrick, A. Kale, Y. Gang, P. Seetharaman, I. Morera, E. Khatami, E. Demler, and M. Greiner, Observation of Nagaoka polarons in a Fermi– Hubbard quantum simulator, Nature 629 , 317 (2024). [21] M. L. Prichard, B. M. Spar, I. Morera, E. Demler, Z. Z. Yan, and W. S. Bakr, Directly imaging spin polarons in a kinetically frustrated Hubbard system, Nature 629 , 323 (2024). [22] Y.-H. Zhang, D. N. Sheng, and A. Vishwanath, SU(4) Chiral Spin Liquid, Exciton Supersolid, and Electric Detection in Moir´ e Bilayers, Physical Review Letters 127 , 247701 (2021). [23] Y. Xu, K. Kang, K. Watanabe, T. Taniguchi, K. F. Mak, and J. Shan, A tunable bilayer Hubbard model in twisted WSe2, Nature Nanotechnology 17 , 934 (2022). [24] S. Zhang, B. Zhou, and Y.-H. Zhang, Approximate SU(4) spin models on triangular and honeycomb lattices in twisted AB-Stacked WSe 2 homo-bilayer (2023), arXiv:2302.07750. [25] S. Kim, SU(4) Kondo lattice in semiconductor moir´ e materials, Physical Review B 113 , 035127 (2026). [26] A. V. Gorshkov, M. Hermele, V. Gurarie, C. Xu, P. S. Julienne, J. Ye, P. Zoller, E. Demler, M. D. Lukin, and A. M. Rey, Two-orbital S U(N) magnetism with ultracold alkaline-earth atoms, Nature Physics 6, 289 (2010). [27] S. Taie, E. Ibarra-Garc´ ıa-Padilla, N. Nishizawa, Y. Takasu, Y. Kuno, H.-T. Wei, R. T. Scalettar, K. R. A. Hazzard, and Y. Takahashi, Observation of antiferromagnetic correlations in an ultracold SU(N) Hubbard model, Nature Physics 18 , 1356 (2022). [28] C. Gas-Ferrer, A. Rubio-Abadal, S. Buob, L. Bezzo, J. H¨ oschele, and L. Tarruell, Spin-resolved microscopy of 87 Sr SU( N) Fermi-Hubbard systems (2026), arXiv:2603.05478. [29] M. Qiao, G. Emperauger, C. Chen, L. Homeier, S. Hollerith, G. Bornet, R. Martin, B. G´ ely, L. Klein, D. Barredo, S. Geier, N.-C. Chiu, F. Grusdt, A. Bohrdt, T. Lahaye, and A. Browaeys, Realization of a doped quantum antiferromagnet in a Rydberg tweezer array, Nature 644 , 889 (2025). [30] M. Qiao, R. Martin, L. Homeier, I. Morera, B. G´ ely, L. Klein, Y. T. Chew, D. Barredo, T. Lahaye, E. Demler, and A. Browaeys, Kinetically-induced bound states in a frustrated Rydberg tweezer array (2025), arXiv:2510.17183. [31] R. Martin, M. Qiao, I. Morera, L. Homeier, B. G´ ely, L. Klein, Y. T. Chew, D. Barredo, T. Lahaye, E. Demler, and A. Browaeys, Measuring spectral functions of doped magnets with Rydberg tweezer arrays (2026), arXiv:2602.17600. [32] K. I. Kugel’ and D. I. Khomski˘ ı, The Jahn-Teller eff ect and magnetism: Transition metal compounds, Soviet Physics Uspekhi 25 , 231 (1982). [33] A. Keselman, B. Bauer, C. Xu, and C.-M. Jian, Emergent Fermi Surface in a Triangular-Lattice SU(4) Quantum Antiferromagnet, Physical Review Letters 125 , 117202 (2020). [34] H.-K. Jin, R.-Y. Sun, H.-H. Tu, and Y. Zhou, Unveiling a critical stripy state in the triangular-lattice SU(4) spin-orbital model, Science Bulletin 67 , 918 (2022). [35] C. Zhang, H.-K. Jin, and Y. Zhou, Variational Monte Carlo approach to the SU(4) spin-orbital model on the triangular lattice, Physical Review B 109 , 125103 (2024). [36] K. Penc, M. Mambrini, P. Fazekas, and F. Mila, Quantum phase transition in the SU(4) spin-orbital model on the triangular lattice, Physical Review B 68 , 012408 (2003). [37] A. Keselman, SU(4) Heisenberg model on the triangular lattice-flavor symmetry breaking and trimerization (2023). [38] C. Xu and L. Balents, Topological Superconductivity in Twisted Multilayer Graphene, Physical Review Letters 121 , 087001 (2018). [39] J.-C. He, J. Hou, and Y. Chen, Gutzwiller approximation approach to the SU(4) t - J model, Physical Review B 105 ,245117 (2022). [40] Y. Nagaoka, Ferromagnetism in a narrow, almost half-filled s band, Physical Review 147 , 392 (1966). [41] H. Tasaki, Extension of Nagaoka’s theorem on the large-U Hubbard model, Physical Review B 40 , 9192 (1989). [42] S. R. White and I. A ffl eck, Density matrix renormalization group analysis of the Nagaoka polaron in the two-dimensional t - J model, Physical Review B 64 , 024411 (2001). [43] R. C. Newby and E. Khatami, Finite-temperature kinetic ferromagnetism in the square-lattice Hubbard model, Physical Review B 111 , 245120 (2025). [44] J. Arnold, P. Kopietz, and A. R¨ uckriegel, Strong-coupling functional renormalization group: Nagaoka ferromagnetism and non-Fermi liquid physics in the Hubbard model at U = ∞
+
+(2025), arXiv:2510.01909. [45] Y. Zhang, A. Sinha, M. M. Rams, and J. Dziarmaga, Finite temperature dopant-induced spin reorganization explored via tensor networks in the two-dimensional t− j model, Physical Review B 113 , 085113 (2026). [46] K.-S. Kim, Exact hole-induced resonating-valence-bond ground state in certain U = ∞ Hubbard models, Physical Review B 107 , L140401 (2023). [47] I. Morera, M. Kan´ asz-Nagy, T. Smolenski, L. Ciorciaro, A. Imamo˘ glu, and E. Demler, High-temperature kinetic magnetism in triangular lattices, Physical Review Research 5,L022048 (2023). [48] I. Morera, A. Bohrdt, W. W. Ho, and E. Demler, Attraction from 12 
+
+kinetic frustration in ladder systems, Physical Review Research 
+
+6, 023196 (2024). [49] S. Sherif, P. Sharma, A. Kumar, and H. J. Changlani, Haerter-Shastry kinetic magnetism and metallicity in the triangular Hubbard model (2025), arXiv:2510.18954. [50] J. P. Dehollain, U. Mukhopadhyay, V. P. Michal, Y. Wang, B. Wunsch, C. Reichl, W. Wegscheider, M. S. Rudner, E. Demler, and L. M. Vandersypen, Nagaoka ferromagnetism observed in a quantum dot plaquette, Nature 579 , 528 (2020). [51] M. Xu, L. H. Kendrick, A. Kale, Y. Gang, G. Ji, R. T. Scalettar, M. Lebrat, and M. Greiner, Frustration- and doping-induced magnetism in a Fermi–Hubbard simulator, Nature 620 , 971 (2023). [52] L. Ciorciaro, T. Smolenski, I. Morera, N. Kiper, S. Hiestand, M. Kroner, Y. Zhang, K. Watanabe, T. Taniguchi, E. Demler, and A. Imamoglu, Kinetic Magnetism in Triangular Moir´ eMaterials, Nature 623 , 509 (2023). [53] S. Sachdev, Large- N limit of the square-lattice t - J model at (1 /4 and other filling fractions, Physical Review B 41 , 4502 (1990). [54] P. Calabrese and J. Cardy, Entanglement entropy and conformal field theory, Journal of Physics A: Mathematical and Theoretical 42 , 504005 (2009). [55] F. Pollmann, S. Mukerjee, A. M. Turner, and J. E. Moore, Theory of Finite-Entanglement Scaling at One-Dimensional Quantum Critical Points, Physical Review Letters 102 , 255701 (2009). [56] S. D. Geraedts, M. P. Zaletel, R. S. K. Mong, M. A. Metlitski, A. Vishwanath, and O. I. Motrunich, The half-filled Landau level: The case for Dirac composite fermions, Science 352 , 197 (2016). [57] I. A ffl eck, Critical behaviour of SU(n) quantum chains and topological non-linear σ-models, Nuclear Physics B 305 , 582 (1988). [58] N. Kiper, H. S. Adlong, A. Christianen, M. Kroner, K. Watanabe, T. Taniguchi, and A. ˙Imamo˘ glu, Confined Trions and Mott-Wigner States in a Purely Electrostatic Moir´ ePotential, Physical Review X 15 , 011049 (2025). [59] A. B. Mhenni, E. C ¸ etiner, K. Watanabe, T. Taniguchi, J. J. Finley, and N. P. Wilson, Engineering strong correlations in a perfectly aligned dual moir´ e system (2025), arXiv:2509.13159. [60] F. Wu, T. Lovorn, E. Tutuc, and A. H. MacDonald, Hubbard Model Physics in Transition Metal Dichalcogenide Moir´ eBands, Physical Review Letters 121 , 026402 (2018). [61] Y. Tang, L. Li, T. Li, Y. Xu, S. Liu, K. Barmak, K. Watanabe, T. Taniguchi, A. H. MacDonald, J. Shan, and K. F. Mak, Simulation of Hubbard model physics in WSe 2/WS 2 moir´ esuperlattices, Nature 579 , 353 (2020). [62] N. Morales-Dur´ an, N. C. Hu, P. Potasz, and A. H. MacDonald, Nonlocal Interactions in Moir´ e Hubbard Systems, Physical Review Letters 128 , 217202 (2022). [63] L. Del Re and L. Classen, Field control of symmetry-broken and quantum disordered phases in frustrated moir´ e bilayers with population imbalance, Physical Review Research 6,023082 (2024). [64] B. A. Foutty, A. P. Reddy, C. R. Kometter, K. Watanabe, T. Taniguchi, T. Devakul, and B. E. Feldman, Magnetic Hofstadter cascade in a twisted semiconductor homobilayer, Nature Physics 21 , 1942 (2025). [65] P. X. Nguyen, R. Chaturvedi, B. Zou, K. Watanabe, T. Taniguchi, A. H. MacDonald, K. F. Mak, and J. Shan, Quantum oscillations in a dipolar excitonic insulator, Nature Materials 25 , 42 (2026). [66] D. Podolsky, A. Paramekanti, Y. B. Kim, and T. Senthil, Mott transition between a spin-liquid insulator and a metal in three dimensions, Physical Review Letters 102 , 186401 (2009). [67] E. Tang, M. P. A. Fisher, and P. A. Lee, Low-energy behavior of spin-liquid electron spectral functions, Physical Review B 
+
+87 , 045119 (2013). [68] W. Kadow, L. Vanderstraeten, and M. Knap, Hole spectral function of a chiral spin liquid in the triangular lattice Hubbard model, Physical Review B 106 , 094417 (2022). [69] W. Kadow, H.-K. Jin, J. Knolle, and M. Knap, Single-hole spectra of Kitaev spin liquids: From dynamical Nagaoka ferromagnetism to spin-hole fractionalization, npj Quantum Materials 9, 32 (2024). [70] H.-K. Jin, W. Kadow, M. Knap, and J. Knolle, Kinetic ferromagnetism and topological magnons of the hole-doped Kitaev spin liquid, npj Quantum Materials 9, 65 (2024). [71] J. H. Nyhegn, K. K. Nielsen, and G. M. Bruun, Probing a quantum spin liquid with equilibrium and nonequilibrium hole dynamics, Physical Review B 111 , 035142 (2025). [72] A. Bohrdt, D. Greif, E. Demler, M. Knap, and F. Grusdt, Angle-resolved photoemission spectroscopy with quantum gas microscopes, Physical Review B 97 , 125117 (2018). [73] A. Bohrdt, E. Demler, F. Pollmann, M. Knap, and F. Grusdt, Parton theory of ARPES spectra in anti-ferromagnetic Mott insulators, Physical Review B 102 , 035139 (2020). [74] I. Morera Navarro, C. Weitenberg, K. Sengstock, and E. Demler, Exploring kinetically induced bound states in triangular lattices with ultracold atoms: Spectroscopic approach, SciPost Physics 16 , 081 (2024). [75] J. H. Nyhegn, K. K. Nielsen, L. Balents, and G. M. Bruun, Spin-Charge Bound States and Emerging Fermions in a Quantum Spin Liquid, PRX Quantum 6, 040347 (2025). [76] A. Inbar, J. Birkbeck, J. Xiao, T. Taniguchi, K. Watanabe, B. Yan, Y. Oreg, A. Stern, E. Berg, and S. Ilani, The quantum twisting microscope, Nature 614 , 682 (2023). [77] J. Birkbeck, J. Xiao, A. Inbar, T. Taniguchi, K. Watanabe, E. Berg, L. Glazman, F. Guinea, F. Von Oppen, and S. Ilani, Quantum twisting microscopy of phonons in twisted bilayer graphene, Nature 641 , 345 (2025). [78] F. Pichler, W. Kadow, C. Kuhlenkamp, and M. Knap, Probing magnetism in moir´ e heterostructures with quantum twisting microscopes, Physical Review B 110 , 045116 (2024). [79] V. Peri, S. Ilani, P. A. Lee, and G. Refael, Probing quantum spin liquids with a quantum twisting microscope, Physical Review B 
+
+109 , 035127 (2024). [80] F. Pichler, W. Kadow, C. Kuhlenkamp, and M. Knap, Single-particle spectral function of fractional quantum anomalous Hall states, Physical Review B 111 , 075108 (2025). [81] W. Choi, K. H. Lee, and Y. B. Kim, Theory of Two-Dimensional Nonlinear Spectroscopy for the Kitaev Spin Liquid, Physical Review Letters 124 , 117205 (2020). [82] M. McGinley, M. Fava, and S. A. Parameswaran, Signatures of Fractional Statistics in Nonlinear Pump-Probe Spectroscopy, Physical Review Letters 132 , 066702 (2024). [83] B. Evrard, H. S. Adlong, A. A. Ghita, T. Uto, L. Ciorciaro, K. Watanabe, T. Taniguchi, M. Kroner, and A. ˙ Imamo˘ glu, Ac Stark Spectroscopy of Interactions between Moir´ e Excitons and Polarons, Physical Review X 15 , 021002 (2025). [84] S. Chatterjee, J. F. Rodriguez-Nieva, and E. Demler, Diagnosing phases of magnetic insulators via noise magnetometry with spin qubits, Physical Review B 99 ,104425 (2019). [85] J. Y. Khoo, F. Pientka, P. A. Lee, and I. S. Villadiego, Probing the quantum noise of the spinon Fermi surface with NV centers, Physical Review B 106 , 115108 (2022). 13 
+
+[86] S. Taie, R. Yamazaki, S. Sugawa, and Y. Takahashi, An SU(6) Mott insulator of an atomic Fermi gas realized by large-spin Pomeranchuk cooling, Nature Physics 8, 825 (2012). [87] C. Hofrichter, L. Riegger, F. Scazza, M. H¨ ofer, D. R. Fernandes, I. Bloch, and S. F¨ olling, Direct Probing of the Mott Crossover in the SU( n) Fermi-Hubbard Model, Physical Review X 6, 021030 (2016). [88] D. Tusi, L. Franchi, L. F. Livi, K. Baumann, D. Benedicto Orenes, L. Del Re, R. E. Barfknecht, T.-W. Zhou, M. Inguscio, G. Cappellini, M. Capone, J. Catani, and L. Fallani, Flavour-selective localization in interacting lattice fermions, Nature Physics 18 , 1201 (2022). [89] M. L. Prichard, Z. Ba, I. Morera, B. M. Spar, D. A. Huse, E. Demler, and W. S. Bakr, Magnon-polarons in the Fermi– Hubbard model, Nature Physics 21 , 1548 (2025). [90] P. T. Brown, E. Guardado-Sanchez, B. M. Spar, E. W. Huang, T. P. Devereaux, and W. S. Bakr, Angle-resolved photoemission spectroscopy of a Fermi–Hubbard system, Nature Physics 16 ,26–31 (2019). [91] C. Wu, HIDDEN SYMMETRY AND QUANTUM PHASES IN SPIN-3 /2 COLD ATOMIC SYSTEMS, Modern Physics Letters B 20 , 1707 (2006). [92] L. Classen, C. Honerkamp, and M. M. Scherer, Competing phases of interacting electrons on triangular lattices in moir´ eheterostructures, Physical Review B 99 , 195120 (2019). [93] W. Kadow, I. Morera, E. Demler, and M. Knap, Zenodo entry for: Fractionalization from Kinetic Frustration in Doped Two-Dimensional SU(4) Quantum Magnets (2026). [94] J. Hauschild, J. Unfried, S. Anand, B. Andrews, M. Bintz, U. Borla, S. Divic, M. Drescher, J. Geiger, M. Hefel, K. H´ emery, W. Kadow, J. Kemp, N. Kirchner, V. S. Liu, G. M¨ oller, D. Parker, M. Rader, A. Romen, S. Scalet, L. Schoonderwoerd, M. Schulz, T. Soejima, P. Thoma, Y. Wu, P. Zechmann, L. Zweng, R. S. K. Mong, M. P. Zaletel, and F. Pollmann, Tensor network Python (TeNPy) version 1, SciPost Phys. Codebases , 41 (2024). [95] M. Van Damme, L. Devos, and J. Haegeman, MPSKit, Zenodo (2025). [96] J. Hauschild and F. Pollmann, E ffi cient numerical simulations with Tensor Networks: Tensor Network Python (TeNPy), SciPost Phys. Lect. Notes , 5 (2018). [97] X. G. Wen and A. Zee, E ff ective theory of the T - and P -breaking superconducting state, Physical Review Letters 62 ,2873 (1989).

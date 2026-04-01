@@ -6,89 +6,82 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-31
-- 运行时间：2026-03-31 20:04:53 UTC
+- 最新运行日期：2026-04-01
+- 运行时间：2026-04-01 21:33:38 UTC
 - 运行状态：成功
-- 本次总论文数：23
-- 精读区：12
+- 本次总论文数：20
+- 精读区：9
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 23 篇前沿进展，深度聚焦 La3Ni2O7 镍基薄膜的非费米液体
-- 详情：[/202603/31/README](/202603/31/README)
+聚焦凝聚态物理前沿，今日深度解读 Fe3Ga 手性异常及铜氧化物超导体中电子-顺磁子耦合的突破性发现。
+重点关注 D03-Fe3Ga 中由手性异常驱动的稳健磁电阻效应，以及超快二维光谱揭示的铜氧化物中普遍存在的电子-顺磁子耦合。
+建议关注拓扑材料与高温超导机制的交叉进展，探索量子材料在未来高性能电子器件中的应用潜力。
+- 详情：[/202604/01/README](/202604/01/README)
 
 ### 精读区论文标签
-1. [Non-Fermi liquid behavior in La$_3$Ni$_2$O$_7$ thin films under hydrostatic pressure](/202603/31/2603.26978v1-non-fermi-liquid-behavior-in-la3ni2o7-thin-films-under-hydrostatic-pressure)  
+1. [Robust Flat Magnetoresistivity in D0$_3$-Fe$_3$Ga Driven by Chiral Anomaly](/202604/01/2603.29138v1-robust-flat-magnetoresistivity-in-d03-fe3ga-driven-by-chiral-anomaly)  
    标签：评分：10.0/10、query:cmp
-   evidence：双层镍氧化物中的非费米液体行为
-2. [Bistable Fourth Sound Resonance in Superfluid $^3$He-B due to Gap Suppression](/202603/31/2603.27131v1-bistable-fourth-sound-resonance-in-superfluid-3he-b-due-to-gap-suppression)  
+   evidence：极低温电阻率中非费米液体行为的实验观测
+2. [Ultrafast Two-Dimensional Spectroscopy Uncovers Ubiquitous Electron-Paramagnon Coupling in Cuprate Superconductors](/202604/01/2603.29713v1-ultrafast-two-dimensional-spectroscopy-uncovers-ubiquitous-electron-paramagnon-coupling-in-cuprate-superconductors)  
    标签：评分：10.0/10、query:cmp
-   evidence：超流氦-3中的第四声共振与能隙抑制
-3. [Quantum Vacuum Induced Macroscopic Coherence in Quantum Materials](/202603/31/2603.27053v1-quantum-vacuum-induced-macroscopic-coherence-in-quantum-materials)  
+   evidence：铜氧化物高温超导体中的电子-准磁振子耦合
+3. [Effect of pressure on the superconducting properties of Au substituted PdTe$_2$ with the CdI$_2$-type structure](/202604/01/2603.27674v1-effect-of-pressure-on-the-superconducting-properties-of-au-substituted-pdte2-with-the-cdi2-type-structure)  
    标签：评分：9.0/10、query:cmp
-   evidence：全息超导模型与新型配对机制
-4. [Magnetic-field-tunable commensurate multi-q charge orders on UTe2 (011) surface](/202603/31/2603.27211v1-magnetic-field-tunable-commensurate-multi-q-charge-orders-on-ute2-011-surface)  
+   evidence：过渡金属二碲化物超导特性及压力效应的实验研究
+4. [Comparison of Origins of Re-Entrant Supercurrents at High In-Plane Magnetic Fields in Planar InAs-Al Josephson Junctions](/202604/01/2603.28530v1-comparison-of-origins-of-re-entrant-supercurrents-at-high-in-plane-magnetic-fields-in-planar-inas-al-josephson-junctions)  
    标签：评分：9.0/10、query:cmp
-   evidence：重费米子超导体 UTe2 中电荷序的实验 STM 研究
-5. [Distinguishing impurity-induced bound states from Majorana-like zero-energy peaks in strained CsCa2Fe4As4F2 by scanning tunneling microscopy](/202603/31/2603.27217v1-distinguishing-impurity-induced-bound-states-from-majorana-like-zero-energy-peaks-in-strained-csca2fe4as4f2-by-scanning-tunneling-microscopy)  
+   evidence：约瑟夫森结中的重入超电流
+5. [Disorder-Driven Enhancement of Coulomb Repulsion Governs The Superconducting Dome in Ionic-Liquid-Gated Quasi-2D Materials](/202604/01/2603.28920v1-disorder-driven-enhancement-of-coulomb-repulsion-governs-the-superconducting-dome-in-ionic-liquid-gated-quasi-2d-materials)  
    标签：评分：9.0/10、query:cmp
-   evidence：铁基超导体中的拓扑超导与马约拉纳零能模
-6. [Correlated charge order intertwined with time-reversal symmetry-breaking nodal superconductivity in the dual flat band kagome superconductor CeRu$_{3}$Si$_{2}$](/202603/31/2603.27408v1-correlated-charge-order-intertwined-with-time-reversal-symmetry-breaking-nodal-superconductivity-in-the-dual-flat-band-kagome-superconductor-ceru3si2)  
+   evidence：准二维材料超导圆顶结构的物理机制
+6. [Generation of dipolar supersolids through a barrier sweep in droplet lattices](/202604/01/2603.29203v1-generation-of-dipolar-supersolids-through-a-barrier-sweep-in-droplet-lattices)  
    标签：评分：9.0/10、query:cmp
-   evidence：Kagome超导体中电荷序与节点超导的交织
-7. [Unified pressure and field response across distinct charge-order regimes in Ti-doped CsV$_3$Sb$_5$](/202603/31/2603.27409v1-unified-pressure-and-field-response-across-distinct-charge-order-regimes-in-ti-doped-csv3sb5)  
+   evidence：研究量子气体中的超固态和超流分数
+7. [Altermagnetic-doping interplay as a route to enhanced d-wave pairing in the Hubbard model](/202604/01/2603.29377v1-altermagnetic-doping-interplay-as-a-route-to-enhanced-d-wave-pairing-in-the-hubbard-model)  
    标签：评分：9.0/10、query:cmp
-   evidence：kagome超导体中电荷序与超导性的相互作用
-8. [Pumping of spin supercurrent in unitary triplet superconductors](/202603/31/2603.27945v1-pumping-of-spin-supercurrent-in-unitary-triplet-superconductors)  
+   evidence：通过交错磁性掺杂增强 Hubbard 模型中的 d 波配对
+8. [Pressure-enhanced superconductivity and its correlation with suppressed resistance dip in (La,Pr)3Ni2O7 films](/202604/01/2603.29531v1-pressure-enhanced-superconductivity-and-its-correlation-with-suppressed-resistance-dip-in-lapr3ni2o7-films)  
    标签：评分：9.0/10、query:cmp
-   evidence：三线态超导体中自旋超流的产生
-9. [Tomonaga-Luttinger liquid and charge-density wave in a quasi-one-dimensional material](/202603/31/2603.28186v1-tomonaga-luttinger-liquid-and-charge-density-wave-in-a-quasi-one-dimensional-material)  
+   evidence：镍氧化物薄膜中压力增强的超导性
+9. [Ground State Properties of the Doped Kitaev-Heisenberg Chain: Topological Superconducting and Mott Insulating Phases Driven by Magnetic Frustration](/202604/01/2603.29551v1-ground-state-properties-of-the-doped-kitaev-heisenberg-chain-topological-superconducting-and-mott-insulating-phases-driven-by-magnetic-frustration)  
    标签：评分：9.0/10、query:cmp
-   evidence：一维电子系统中费米液体的失效
-10. [Bogoliubov flat bands in twisted layered materials](/202603/31/2603.28490v1-bogoliubov-flat-bands-in-twisted-layered-materials)  
-   标签：评分：9.0/10、query:cmp
-   evidence：d波超导体中的Bogoliubov平带
-11. [Emergence of a molecular quantum liquid in one dimension](/202603/31/2603.28635v1-emergence-of-a-molecular-quantum-liquid-in-one-dimension)  
-   标签：评分：9.0/10、query:cmp
-   evidence：一维晶格超流体与量子液体
-12. [Pattern of the Tc(p) dependence with huge "anomaly 1/8" - in new property observed in La2-xBaxCuO4 and YBa2Cu3O6+delta at room temperature](/202603/31/2603.28641v1-pattern-of-the-tcp-dependence-with-huge-anomaly-18---in-new-property-observed-in-la2-xbaxcuo4-and-yba2cu3o6delta-at-room-temperature)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究铜氧化物高温超导体的Tc依赖性和1/8异常
+   evidence：掺杂Kitaev-Heisenberg链中拓扑超导相的理论研究
 
 ### 速读区论文标签
-1. [Interplay of bound states in the continuum and Fano--Andreev interference in a hybrid triple quantum dot](/202603/31/2603.24863v1-interplay-of-bound-states-in-the-continuum-and-fano--andreev-interference-in-a-hybrid-triple-quantum-dot)  
+1. [Controlling isomer population using a dual-oscillator infrared free-electron laser](/202604/01/2603.26473v1-controlling-isomer-population-using-a-dual-oscillator-infrared-free-electron-laser)  
    标签：评分：8.0/10、query:cmp
-   evidence：混合正规-超导系统中的安德烈夫干涉
-2. [Many-body Josephson diode effect in superconducting quantum interferometers](/202603/31/2603.25558v2-many-body-josephson-diode-effect-in-superconducting-quantum-interferometers)  
+   evidence：超流氦纳米液滴中的离子研究
+2. [Moiré and frustration physics of dipolar supersolids under periodic confinement](/202604/01/2603.27983v1-moir-and-frustration-physics-of-dipolar-supersolids-under-periodic-confinement)  
    标签：评分：8.0/10、query:cmp
-   evidence：提出SQUID中约瑟夫森二极管效应的多体机制
-3. [Scanning tunneling microscopy study of helimagnetic monolayer CrBr2 on s-wave superconductor NbSe2: a topologically trivial system due to weak interfacial coupling](/202603/31/2603.27214v1-scanning-tunneling-microscopy-study-of-helimagnetic-monolayer-crbr2-on-s-wave-superconductor-nbse2-a-topologically-trivial-system-due-to-weak-interfacial-coupling)  
+   evidence：偶极超固态与量子相的研究
+3. [Spontaneously formed excitonic density wave with vortex-antivortex lattice in twisted semiconductor bilayers](/202604/01/2603.28164v1-spontaneously-formed-excitonic-density-wave-with-vortex-antivortex-lattice-in-twisted-semiconductor-bilayers)  
    标签：评分：8.0/10、query:cmp
-   evidence：磁体-超导体异质结的STM研究
-4. [Electronic structure of higher-order layered palladates: La$_{n+1}$Pd$_{n}$O$_{2n+1}$ $(n = 4-7)$](/202603/31/2603.27456v1-electronic-structure-of-higher-order-layered-palladates-lan1pdno2n1-n--4-7)  
+   evidence：量子流体中的激子凝聚与涡旋-反涡旋晶格
+4. [Symmetry-Fractionalized Skin Effects in Non-Hermitian Luttinger Liquids](/202604/01/2603.28849v1-symmetry-fractionalized-skin-effects-in-non-hermitian-luttinger-liquids)  
    标签：评分：8.0/10、query:cmp
-   evidence：层状钯氧化物作为非常规超导的铜氧化物类比物
-5. [Multistage spin correlations in the $s$ = 1/2 stuffed hyper-star lattice Li$_{2}$Cu$_{2}$(MoO$_{4}$)$_{3}$](/202603/31/2603.23350v1-multistage-spin-correlations-in-the-s--12-stuffed-hyper-star-lattice-li2cu2moo43)  
+   evidence：强关联无能隙系统与自旋-电荷分离
+5. [Fractionalization from Kinetic Frustration in Doped Two-Dimensional SU(4) Quantum Magnets](/202604/01/2603.28871v1-fractionalization-from-kinetic-frustration-in-doped-two-dimensional-su4-quantum-magnets)  
+   标签：评分：8.0/10、query:cmp
+   evidence：强关联SU(4)磁体中电子分数化为自旋子
+6. [Double-weak-link interferometer of hard-core bosons in one dimension](/202604/01/2603.29583v1-double-weak-link-interferometer-of-hard-core-bosons-in-one-dimension)  
+   标签：评分：8.0/10、query:cmp
+   evidence：一维硬核玻色子的量子干涉
+7. [A correlated insulator at the surface of the polar metal Ca$_3$Ru$_2$O$_7$](/202604/01/2603.23657v1-a-correlated-insulator-at-the-surface-of-the-polar-metal-ca3ru2o7)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究关联系统中的量子自旋液体和幂律行为
-6. [Correlation-Driven Orbital Order Realizes 2D Metallic Altermagnetism](/202603/31/2603.25426v1-correlation-driven-orbital-order-realizes-2d-metallic-altermagnetism)  
+   evidence：极性金属系统中的电子关联
+8. [Temperature dependence of the dynamic structure factor of the electron liquid via analytic continuation](/202604/01/2603.27212v1-temperature-dependence-of-the-dynamic-structure-factor-of-the-electron-liquid-via-analytic-continuation)  
    标签：评分：7.0/10、query:cmp
-   evidence：金属交错磁体中关联驱动的轨道序
-7. [Diffusion in interacting two-dimensional systems under a uniform magnetic field](/202603/31/2603.25659v1-diffusion-in-interacting-two-dimensional-systems-under-a-uniform-magnetic-field)  
+   evidence：电子液体的动态结构因子
+9. [Berezinskii-Kosterlitz-Thouless Quantum Supercriticality in XXZ Heisenberg Spin Chain](/202604/01/2603.27789v1-berezinskii-kosterlitz-thouless-quantum-supercriticality-in-xxz-heisenberg-spin-chain)  
    标签：评分：7.0/10、query:cmp
-   evidence：轨道磁场中相互作用粒子的动力学
-8. [Antiferromagnetic stripe phase and large-gap insulating ground state of the correlated $\sqrt{3}\times\sqrt{3}$~R30$^{\circ}$-Sn/Si(111) single atomic layer](/202603/31/2603.26304v1-antiferromagnetic-stripe-phase-and-large-gap-insulating-ground-state-of-the-correlated-sqrt3timessqrt3r30circ-snsi111-single-atomic-layer)  
+   evidence：量子超临界性与BKT临界点
+10. [Superradiant Charge Density Waves in a Driven Cavity-Matter Hybrid](/202604/01/2603.28432v1-superradiant-charge-density-waves-in-a-driven-cavity-matter-hybrid)  
    标签：评分：7.0/10、query:cmp
-   evidence：原子层中莫特物理与关联效应的实验证据
-9. [Layer-Selective Proximity Symmetry Breaking Enables Anomalous and Nonlinear Hall Responses in 1H-TMD Metals](/202603/31/2603.24019v1-layer-selective-proximity-symmetry-breaking-enables-anomalous-and-nonlinear-hall-responses-in-1h-tmd-metals)  
+   evidence：过渡金属硫族化合物中集体有序和电子密度波动的研究
+11. [Heat Conduction and Energy Relaxation in an InAs Nanowire Approaching the Clean One-Dimensional Limit](/202604/01/2603.29358v1-heat-conduction-and-energy-relaxation-in-an-inas-nanowire-approaching-the-clean-one-dimensional-limit)  
    标签：评分：6.0/10、query:cmp
-   evidence：TMD金属中的量子几何与霍尔响应
-10. [Dynamical Response of the Kitaev Spin Liquid under Third-Nearest-Neighbor Heisenberg Interaction](/202603/31/2603.24918v1-dynamical-response-of-the-kitaev-spin-liquid-under-third-nearest-neighbor-heisenberg-interaction)  
-   标签：评分：6.0/10、query:cmp
-   evidence：Kitaev量子自旋液体的动力学响应与相变
-11. [Quantum Thermalization beyond Non-Integrability and Quantum Scars in a Multispecies Bose-Josephson Junction](/202603/31/2603.25829v1-quantum-thermalization-beyond-non-integrability-and-quantum-scars-in-a-multispecies-bose-josephson-junction)  
-   标签：评分：6.0/10、query:cmp
-   evidence：多组份玻色-约瑟夫森结中的量子热化研究
+   evidence：混合超导体架构下的一维电子气热传导
 
 
 <div class="dpr-home-promo-card">
