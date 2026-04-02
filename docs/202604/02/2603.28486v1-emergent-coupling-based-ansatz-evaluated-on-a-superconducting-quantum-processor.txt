@@ -1,0 +1,655 @@
+Title: Emergent-Coupling-Based Ansatz Evaluated on a Superconducting Quantum Processor
+
+URL Source: https://arxiv.org/pdf/2603.28486v1
+
+Published Time: Tue, 31 Mar 2026 02:40:29 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# Emergent-Coupling-Based Ansatz Evaluated on a Superconducting Quantum Processor 
+
+Alina Joch ,1, 2, ∗ Kevin Lively ,2, † and Benedikt Fauseweh 1, 2, ‡
+
+> 1
+
+Condensed Matter Theory, TU Dortmund University, Otto-Hahn-Straße 4, 44227 Dortmund, Germany 
+
+> 2
+
+Institute of Software Technology, German Aerospace Center (DLR), 51147 Cologne, Germany 
+
+(Dated: March 31, 2026) The performance of the variational quantum eigensolver depends critically on the choice of ansatz. In this work, we experimentally evaluate the emergent-coupling-based ansatz (ECBA), a physically motivated variational ansatz for disordered systems. The ECBA is based on a renormalization (semi-)group approach to determine the dominant effective couplings, resulting in shallow circuits that capture the essential long-range entanglement structure while balancing local correlations. We implement the ECBA on superconducting quantum processors and benchmark it on disordered Heisenberg chain models. Using classically pre-optimized parameters and error mitigation tech-niques, we study systems of up to 30 qubits and observe an experimental relative energy accuracy of 96.47% for the largest system. Furthermore, we find that the ECBA can be efficiently embed-ded on hardware with two-dimensional square-lattice connectivity. We compare to commonly used hardware efficient ans¨ atze and observe that the ECBA achieves significantly higher accuracy at a similar gate count. 
+
+I. INTRODUCTION 
+
+Simulating quantum many-body systems that are be-yond the reach of classical methods [1, 2] is a primary mo-tivation for the development of quantum computers. This capability is of particular relevance for the study of com-plex materials, chemical reactions, and strongly corre-lated quantum systems [3–6]. However, current quantum hardware operates in the noisy intermediate-scale quan-tum (NISQ) regime [7, 8], where limited qubit numbers, finite coherence times, and gate errors severely constrain the depth and complexity of executable quantum circuits. These limitations pose significant challenges for achieving accurate and scalable quantum simulations, emphasizing the crucial importance of shallow and resource-efficient quantum circuits. Among the most studied approaches for exploiting NISQ devices is the Variational Quantum Eigensolver (VQE) [9, 10], a hybrid classical–quantum algorithm that approximates ground-state properties of quantum sys-tems using parameterized quantum circuits. In VQE, a classical optimizer iteratively updates circuit parameters to minimize an energy expectation value measured on a quantum device. The practical performance of VQE is strongly influenced by hardware noise, optimization diffi-culties, and the choice of ansatz [11]. In particular, issues such as barren plateaus can severely hinder convergence, especially for deep or highly expressive circuits [12–14]. A barren plateau is a regime in which the variational en-ergy landscape becomes exponentially flat with system size, causing gradients to vanish and making variational    
+
+> ∗alina.joch@tu-dortmund.de
+> †kevin.lively@dlr.de
+> ‡benedikt.fauseweh@tu-dortmund.de
+
+optimization extremely difficult due to the large mea-surement necessary to resolve meaningful gradient esti-mates. Consequently, the design of efficient, hardware-compatible ans¨ atze remains a central challenge in VQE-based quantum simulation [15–18]. Various strategies have been proposed to improve ansatz performance [19]. Hardware-efficient ans¨ atze (HEA) [11] are tailored to the native gate sets and con-nectivity of quantum devices, thereby reducing circuit depth, but they often suffer from limited expressivity and increased susceptibility to barren plateaus. In con-trast, problem-inspired approaches such as the Varia-tional Hamiltonian Ansatz [20] aim to mimic adiabatic state preparation, potentially improving convergence, al-though at the cost of reduced flexibility or increased circuit depth. More recently, approaches such as the Quantum-optimal-control-inspired ansatz [21] have ex-plored symmetry breaking and control-theoretic concepts to enhance expressivity and optimization performance. Despite these advances, identifying ans¨ atze that simul-taneously balance expressivity, trainability, and noise re-silience remains an open problem, particularly for disor-dered systems [22, 23]. Recently, we introduced the emergent-coupling-based ansatz (ECBA), designed to capture the dominant corre-lations in disordered quantum systems using a renormal-ization group approach [24]. Here, we implement and as-sess the ECBA on a superconducting quantum processor. Benchmarking against HEA, we show that the ECBA ac-curately represents ground states of systems with up to 30 qubits while the HEA does not achieve comparable accuracy. We further realize an embedding of the ECBA on square lattice hardware and show that the long-range entanglement structure identified by a renormalization group approach can be resolved experimentally. Systems with long-range interactions and disorder rep-resent a driver in the study of strongly correlated sys-
+
+> arXiv:2603.28486v1 [quant-ph] 30 Mar 2026
+
+2tems, due to the complexity of their correlations, such as rare region effects [25], and the challenges they pose for classical simulation methods [26–34]. The central idea of ECBA is that, while in principle every qubit may interact with every other qubit, only a subset of cou-plings contributes significantly to the relevant low-energy physics. We identify these dominant couplings using a renormalization-based procedure that is well suited for disordered systems. This approach yields shallower cir-cuits while retaining the essential entanglement structure of the target states and improved performance over naive variational ans¨ atze. Such shallow circuits enable error mitigation techniques to be applied efficiently. This paper is organized as follows. In Sec. II, we in-troduce the methods used in our simulations, including a detailed description of the error mitigation techniques employed, and an overview of the employed quantum de-vices. The paper proceeds with a case study of the rain-bow chain model as an introductory example in Sec. III, followed by the more challenging random quantum criti-cal chain model in Sec. IV. For both systems, we discuss the choice of ansatz, the embedding on the hardware, and a detailed comparison of the results obtained with different ans¨ atze. We conclude our analysis in Sec. V.  
+
+> II. METHODS
+
+The VQE implementation is described in detail in Ap-pendix A. In this work, we use a pre-optimized set of pa-rameters obtained from the Python tensor-network pack-age quimb [35], meaning that the classical optimization steps have already been performed to determine the best parameters for the chosen quantum circuit. Numerical details can be found in Appendix B and code is available in Ref. [36]. We stress that the present work is con-cerned primarily with the expressivity of the ansatz, and not with its optimizability. Because the circuits stud-ied here are predominantly shallow, optimization is not expected to be a limiting factor. This is confirmed in Sec. IV, where classical simulations show that the varia-tional parameters can be optimized reliably even for rel-atively large numbers of qubits.  
+
+> A. Error Mitigation
+
+Quantum Error Mitigation (EM) is a rapidly evolving area of quantum computing which, in contrast to error correction, does not attempt to fix errors in the evolu-tion of an encoded state through active measurement and feedback. Instead, EM focuses on mitigating the effects of noise on specific expectation values through averag-ing over several modified versions of the logical circuit in combination with pre- and post-processing [37, 38]. In this study, we employ several such techniques. First, we use Pauli Twirling [39, 40] to mitigate coher-ent errors of two-qubit entangling operations by “dress-ing” each two-qubit gate in four random single-qubit Paulis, such that it remains logically unchanged. This reduces the impact of coherent noise while reducing the worst-case error rate. To address readout errors, we utilize Twirled Readout Error Extinction (TREX) [41]. This technique diagonalizes the readout error map by applying random bit-flip operations just before measure-ment, followed by inversion in post-processing. This method significantly improves the fidelity of the measure-ment process, which is crucial for accurate results. We average over 16 TREXed and twirled circuit instantia-tions, each consisting of 10,000 shots, to ensure statistical robustness. We furthermore implemented dynamical decoupling [42], which reduces unwanted crosstalk, dephasing, and decoherence by applying a sequence of single-qubit gates to idling qubits, followed by their inverses. We use a min-imal sequence of two Pauli-X gates during idle sequences. Finally, we apply digital Zero Noise Extrapolation (ZNE) [43]. This method manually boosts the noise present in the circuit through the application of logically redundant two-qubit gates, which usually account for the majority of noise on superconducting devices. By undoing and re-doing the entangling operations everywhere they appear, the base noise level, λ = 1, associated with the circuit can be amplified in increments as λ ∈ 2N + 1. An extrapola-tion to the zero-noise level λ = 0 can then be made, using an exponential noise model O(λ) = O0 exp( aλ ). These error mitigation strategies were implemented manually on top of Qiskit’s “Sampler” primitive [44].  
+
+> B. Quantum Processors
+
+We use two quantum computing devices provided by IQM, the Garnet device with 20 qubits and the Emerald device with 54 qubits. Both devices are based on super-conducting transmon qubits, which are widely used in quantum computing due to their relatively long coher-ence times and ease of manipulation. The qubits in both devices are arranged in a square lattice configuration and are connected via tunable couplers, allowing for control of qubit interactions. The systems are calibrated to sup-port Phased X Rotation (PRX) gates, which implement arbitrary X and Y rotations as native single-qubit gates (i.e., rotations of the form exp −i θ 
+
+> 2
+
+(cos ϕX + sin ϕY ))and CZ as the native two-qubit gate [45, 46]. Some im-portant hardware properties are listed in Tab. I.              
+
+> device T1T2PRX fidelity CZ fidelity Garnet 36.53 μs8.61 μs99.91 % 99.37 % Emerald 50.05 μs 15.75 μs99.94 % 99.45 %
+
+TABLE I: Median values of the T1 relaxation time, T2 coherence time (Ramsey), PRX gate fidelity, and CZ gate fidelity for the IQM Garnet and IQM Emerald devices [45, 46]. 3Qubit selection and circuit transpilation are performed using the Qiskit transpile function, based on a square lat-tice embedding. This ensures that the circuits are prop-erly optimized for the hardware architecture of the re-spective device, without requiring any SWAP gates. For the measurement process, we perform readout in the x,
+
+y, and z bases, as required for calculating the energy expectation value of the specific Hamiltonians under in-vestigation in this work.  
+
+> III. RAINBOW CHAIN
+
+As an introductory example, we consider the rainbow chain [47, 48], described by the Hamiltonian 
+
+HRC = α
+
+> n
+
+X
+
+> i=1
+
+⃗Si ·⃗ Si+1 
+
+
+
++ J
+
+> n/ 2
+
+X
+
+> i=1
+
+⃗Si ·⃗ Sn−(i−1) 
+
+
+
+, (1) where n denotes an even total number of qubits. This one-dimensional chain model can be mapped to a qubit ladder, see Fig. 1a, in which the long-range couplings are mapped to the rungs of the ladder. We set J/α = 100, i.e. with dominant long-range interactions, and analyze the effect of explicitly incorporating long-range connec-tions into the ansatz, as opposed to restricting it to short-range terms. In the rainbow-chain model, the long-range interactions are already present at the Hamiltonian level, so the dominant coupling structure is manifest from the outset.  
+
+> A. Circuit and Embedding for the Rainbow Chain
+
+We compare different ans¨ atze, each pre-optimized by classical simulation. We evaluate a linear hardware-efficient ansatz (HEA) consisting of two hardware-efficient layers in a brick wall structure, and a coupling-based ansatz (CBA) consisting of one layer including the long-range couplings of the system, one nearest-neighbor layer and a second long-range layer. One Rx and one Rz
+
+gate are added to each qubit at the end of the circuit in both cases. The ans¨ atze are depicted in Fig. 1c and Fig. 1d, respectively. Strictly speaking, our HEA does not meet the definition of hardware efficiency established in Ref. [11] because we omit ladder-rung coupling gates. This, however, is exactly the point we want to illustrate here. Our HEA labeled method attempts to force a one-dimensional layout on a system that clearly shows long-range couplings, which turns out to be far less efficient than including the natural entanglement geometry. Table II compares the number of gates, the circuit depth, and the number of variational parameters for the two ans¨ atze for 10 qubits. For accurate results, all qubit pairs acted on by two-qubit gates should be adjacent on the square lattice of the quantum processor, because nonlocal operations require additional SWAP gates and thereby lead to substantial         
+
+> ansatz # CZ gates circuit depth # parameters HEA 36 18 78 CBA 38 18 99
+
+TABLE II: Comparison of number of two-qubit gates, depth of the circuit, and number of variational parame-ters for the HEA and the CBA for 10 qubits after tran-spilation for the IQM Garnet device. errors. For the HEA, this is given by construction as two-qubit gates are only applied to neighboring qubits. The CBA, however, includes two-qubit gates between non-neighboring qubits. In the case of the rainbow chain, the embedding is straightforward by mapping the chain to a qubit ladder structure. This is visualized in Fig. 1b for 10 qubits on the IQM Garnet device.  
+
+> B. Results for the Rainbow Chain
+
+We perform simulations on a 10-qubit rainbow chain model. First, we consider ideal, noise-free VQE out-comes, which we refer to as simulation results, through-out the remainder of this work. This provides a baseline to determine the maximum accuracy the chosen ansatz can achieve on an error-free quantum device. We then evaluate the energy on the real device, where noise is present, and refer to this data as experimental results. In the case of the experimental results, we distinguish between calculations performed with and without error mitigation. For each circuit, 10,000 shots are used. Con-sequently, without error mitigation a total of 30,000 shots are performed, as we need one circuit for each measure-ment basis. In the case where error mitigation is ap-plied, each individual circuit contributing to the miti-gated value is also executed with 10,000 shots. In total, for the rainbow chain and for the random Heisenberg chain, we used 1,920,000 shots. Figure 1e evaluates the performance of the HEA and the CBA. Specifically, we plot the relative accuracy of both the experimental and simulation data with respect to the numerically computed exact solution, defined as 
+
+ϵsim ,exp = 1 − |xexact − xsim ,exp ||xexact | , (2) where xexact denotes the exact value, and xexp and xsim 
+
+refer to the values obtained on the real device (experi-ment) and the ideal noise-free VQE (simulation), respec-tively. While the CBA simulation yields highly accurate re-sults with a relative error of 10 −9, the ideal HEA simula-tion reaches an relative energy accuracy of only ∼ 60%. In Ref. [24] we show that the required number of HEA layers needed to reach accuracies comparable to those of a fixed depth CBA scales with the system size. How-ever, on the real quantum device, this increase in circuit depth amplifies the impact of gate errors and decoher-ence, leading to lower overall fidelity. The CBA achieves 4α
+
+J
+
+(a) 1 2                       
+
+> 34567
+> 8910 11 12
+> 13 14 15 16 17
+> 18 19 20
+> 01234
+> 98765
+
+(b) Rx 
+
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+
+(c) Rx
+
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rx
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+> Rz
+
+(d) Rzz HEA w /o EM Rzz CBA w /o EM Rzz HEA w / EM Rzz CBA w / EM 020 40 60 80 100  
+
+> Relative energy accuracy / %
+> simulation experiment
+
+(e) 
+
+FIG. 1: (a) Schematic illustration of the rainbow model for a system size of six qubits. The upper part shows the qubit chain, the lower part a mapping to a qubit ladder structure. (b) Example of an embedding of the rainbow chain for the CBA onto the IQM Garnet device. Blue connection lines indicate nearest-neighbor gates, green dashed lines denote long-range gates, and red numbers label the mapping of the i-th qubit of the chain to the corresponding physical qubit. (c) Hardware-efficient ansatz (HEA) consisting exclusively of single-qubit and nearest-neighbor gates, shown as an example for six qubits. (d) Coupling-based ansatz (CBA) composed of alternating layers of single-qubit gates combined with long-range two-qubit gates reflecting the coupling structure of the model and layers of single-qubit gates combined with nearest-neighbor gates. (e) Relative accuracy of the simulated (noise-free) data and the experimental data obtained for 10 qubits on the IQM Garnet device, each compared to the exact value, for both the HEA and the CBA with and without error mitigation. Error mitigation is applied only to the experimental data. comparable accuracy with fewer layers, thereby mitigat-ing the adverse effects of hardware noise. Even without error mitigation, we find that the CBA outperforms the HEA. Nonetheless, error mitigation is needed for experi-mental data to reproduce the exact value. With the CBA and error mitigation, we obtain 98 .20% ± 0.95% relative energy accuracy. 
+
+IV. RANDOM QUANTUM CRITICAL POINT MODEL 
+
+In random quantum critical qubit chains, quenched randomness drives the system towards the random-singlet phase, a critical state in which qubits pair into singlets over broadly distributed length scales rather than only between neighboring sites [49–51]. In this regime, the pattern of singlet bonds is not imposed microscopi-cally, but emerges due to bond fluctuations, leading to long-range entanglement across the entire chain [51]. We consider the random Heisenberg chain 
+
+HRH =
+
+> n
+
+X
+
+> i=1
+
+Ji⃗ Si ·⃗ Si+1 , (3) where the number of qubits n is chosen to be even and the couplings Ji > 0 are drawn from any non-singular distribution. In our case, we use the distribution 
+
+P (J) = 1
+
+δ J−1+ δ−1
+
+(4) with a disorder strength δ ≥ 1, as proposed in Ref. [52]. Larger values of δ correspond to broader coupling distri-butions and hence stronger disorder. We study several disorder realizations for different values of δ and system sizes n.The formation of nonlocal singlets can be understood within the strong disorder renormalization-group (RG) [53] framework. Iteratively, the strongest bond Ji satis-fying Ji ≫ Ji−1, J i+1 is identified, and a singlet is built between the two qubits coupled by this bond. The neigh-boring qubits of the resulting singlet are then coupled by 5        
+
+> ansatz # CZ gates circuit depth # parameters HEA 189 27 87 ECBA 189 39 87
+
+TABLE III: Comparison of number of two-qubit gates, depth of the circuit, and number of variational param-eters for the HEA and the ECBA for 30 qubits after transpiling them on the IQM Emerald device. the smaller renormalized coupling strength [51] 
+
+J′ 
+
+> i−1,i +2
+
+= Ji−1Ji+1 
+
+2Ji
+
+(5) arising from second-order perturbation theory. Repeat-ing these two steps until all qubits are paired into singlets yields an accurate approximation of the ground state of the system, with singlets connecting arbitrarily distant sites. This description becomes asymptotically exact in the limit of strong disorder and large distances. In this way, an initial state can be constructed entirely from the classical RG flow, without prior optimization on the quantum device.  
+
+> A. Circuit and Embedding for the Random Quantum Critical Point Model
+
+For the HEA Ansatz we initialize the system by form-ing singlets between nearest neighbors and thus in the 
+
+Stot = 0 symmetry sector. We then apply Uα := 
+
+Rxx Ryy Rzz gates in a brick wall structure, potentially allowing the ansatz to stay within the symmetry sector [54]. The total number of Uα gates is n−1. In the ECBA we incorporate the RG singlets into the structure of the circuit to capture the dominant couplings. First, the sin-glet initial state is formed according to the long-range interactions resulting from the RG flow, then we apply the variational circuit, which consists of two parts. In the latter part, n/ 2 Uα gates are applied to the qubits forming singlets according to the RG flow. Reference [24] showed that the performance of the ansatz improves fur-ther when RG singlets are incorporated not only in the initial state but also in the variational circuit itself. The former part consists of applying Uα gates to neighboring qubit pairs with the strongest couplings, excluding those already coupled within the RG flow. This is done until we reach a number of n/ 2 − 1 gates. This procedure allows us to balance the effects of both short- and long-range couplings in the variational circuit. Using this method, we obtain the same total number of gates and parame-ters as in the HEA, see the 30-qubit case in Tab. III, al-lowing for a direct comparison. Note that consequently, in the ECBA, gates are not applied between all nearest neighbors, as some local neighbor gates are replaced by long-range gates targeting RG singlets. The ans¨ atze are depicted in Fig. 2b and Fig. 2c, respectively. Details of the ECBA construction algorithm are provided in Ap-pendix C. When laying out the circuit onto the hardware, we want all qubit pairs acted on by two-qubit gates to be adjacent. Since the singlet pairs arise randomly from the RG flow, the mapping is not necessarily trivial as it was previously in the case of the rainbow chain. The prob-lem corresponds to a unit embedding [55, 56] of a planar graph with a maximum degree of three and no triangles. While it is not trivial to show analytically that an embed-ding is always possible, numerical tests suggest that it is feasible in practice. For systems with 20 qubits, we sam-pled 1,000,000 random configurations of RG singlet pairs, and in all cases a valid embedding was found. Similarly, for systems with 40 qubits, a valid embedding was ob-tained for all 1,000 randomly generated configurations. For these configurations, all nearest-neighbor interac-tions were included alongside the long-range couplings. In the case of the ECBA not all nearest-neighbor cou-plings are present, meaning that the graph is no longer connected, which further increases the likelihood of a fea-sible embedding. We therefore conclude that, except for potentially rare cases, a valid embedding exists for each RG configuration provided that the employed quantum device is sufficiently large. We perform experiments for a system size of 10, 20, and 30 qubits. For 10 qubits, we use the IQM Garnet device, and for 20, and 30 qubits, the larger IQM Emerald device. For example, an embedding of 20 qubits corresponding to a sampled disorder realization with δ = 2 can be seen in Fig. 2d.  
+
+> B. Results for the Random Quantum Critical Point Model
+
+We compute the optimal energy with ECBA for dif-ferent system sizes and different disorder strengths δ and compare the results with the exact value. As before, we use pre-optimized circuits and 10,000 shots per circuit for the experimental results. We first consider a system size of 10 qubits and a disorder strength of δ = 8. The exper-imental result obtained with the ECBA on the quantum processor corresponds to 101 .30% ± 0.52% of the exact value. The non-variational overshoot is due to the ZNE fitting. To investigate the scalability of the approach, we increase the system size to 20 and 30 qubits while keep-ing δ = 8. In these cases, the experimental result reaches 96 .47% ± 1.71% and 96 .41% ± 1.57% of the exact result, respectively. As shown in Ref. [24], variational circuits utilizing an RG structure achieve excellent accuracy, es-pecially at strong disorder. The relative error between the ECBA simulation and the exact solution at δ = 8 is only ∼ 10 −4.For smaller δ, however, the relative error of the ECBA simulation compared to the exact result increases. There-fore, in a final step we perform the calculation for 20 qubits and δ = 2 to investigate how the accuracy depends on disorder strength. We obtain 91 .48% ± 0.91% agree-ment of the experimental result with the exact result. 6Ji−1 Ji
+
+Jeff 
+
+Ji+1 
+
+(a) Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+(b) Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα
+
+Uα (c) 1
+
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 10
+> 11
+> 12
+> 13
+> 14
+> 15
+> 16
+> 17
+> 18
+> 19
+> 20
+> 21
+> 22
+> 23
+> 24
+> 25
+> 26
+> 27
+> 28
+> 29
+> 30
+> 31
+> 32
+> 33
+> 34
+> 35
+> 36
+> 37
+> 38
+> 39
+> 40
+> 41
+> 42
+> 43
+> 44
+> 45
+> 46
+> 47
+> 48
+> 49
+> 50
+> 51
+> 52
+> 53
+> 54
+> 15
+> 14 16
+> 13
+> 1
+> 0
+> 17
+> 12
+> 11
+> 2
+> 3
+> 9
+> 10
+> 4
+> 5
+> 8
+> 7
+> 6
+> 18
+> 19
+
+(d) HEA , n = 10 , δ = 8 , w/ EM ECBA , n = 10 , δ = 8 , w/ EM HEA , n = 20 , δ = 8 , w/ EM ECBA , n = 20 , δ = 8 , w/ EM HEA , n = 20 , δ = 2 , w/ EM ECBA , n = 20 , δ = 2 , w/ EM HEA , n = 30 , δ = 8 , w/ EM ECBA , n = 30 , δ = 8 , w/ EM 020 40 60 80 100  
+
+> Relative energy accuracy / %
+> simulation experiment
+
+(e) 
+
+FIG. 2: (a) Schematic illustration of the random quantum critical point model. The upper part depicts the RG decimation procedure: if Ji is the strongest coupling in the chain, sites i and i + 1 form a singlet (dashed line). Quantum fluctuations generate an effective interaction between sites i − 1 and i + 2 (dotted line). The lower part shows one possible configuration illustratively for six qubits, where singlets may connect arbitrarily distant sites. (b) HEA for the random chain, shown for six qubits: The initial state is constructed from singlets between neighboring qubits (dashed lines), with solid lines indicating the J couplings, followed by a layer of Uα := Rxx Ryy Rzz gates entangling the qubits in a brick wall structure. (c) ECBA for the random chain, shown for six qubits and a single realization of the RG flow. The initial state is constructed from singlets corresponding to the RG singlet pairs. The variational circuit first applies Uα gates to qubit pairs associated with the strongest couplings not forming RG singlets, followed by Uα gates acting on the RG singlet pairs. (d) Embedding of the 20 qubit configuration with disorder parameter δ = 2, used for the results shown in Figs. 2e, 4 and 5, on the IQM Emerald device. Green dashed lines indicate RG singlet pairs, blue lines denote the strongest remaining couplings not associated with RG singlets, and red numbers label the mapping from logical qubit indices to physical qubits. The long-range singlet pairs are given by (5, 8) and (0, 17). The two isolated singlets (18,19) emerge because the influence of the long-range couplings outweighs that of the couplings between the neighboring qubits (17,18). (e) Relative energy accuracy of experimental results with EM and of ideal simulated results for different system sizes and disorder parameters, each referenced to the exact ground-state energy. As expected, the accuracy is reduced for smaller δ, but the result remains close to the exact solution. Figure 2e presents these results, demonstrating also that the HEA is significantly less accurate than the ECBA. Note that we did not carry out experimental runs for this model using the HEA. Based on the previous results of the rain-bow chain, where error mitigated results closely followed the simulated ones, and given that the HEA already per-forms significantly worse than the ECBA in the present model, we do not expect noise to alter this qualitative conclusion. For the HEA, it is known that in critical systems the number of layers, and thus the circuit depth, required to achieve high accuracy scales with system size [57]. In par-ticular, once a certain system size is exceeded, a single-layer ansatz no longer provides accurate results. This behavior is evident in Fig. 2e, where the optimized HEA performs poorly for one layer. In contrast, the ECBA performs well already at a single-layer depth. To examine the dependence on system size, we plot the logarithm of the relative error as a function of system size in Fig. 3 for 
+
+δ = 8 for simulations of up to 120 qubits. The data show that the ECBA outperforms the HEA by approximately four orders of magnitude across the entire range of system 740 60 80 100 120 nbit   
+
+> −4
+> −3
+> −2
+> −1log 10 (rel )
+> HEA ECBA
+> 40 80 120 10 −1
+> 10 −2
+> 10 −3
+> Var[ ∂θ E]
+
+FIG. 3: Logarithmic value of the relative error between the respective VQE simulation and the exact result as function of the system size. The inset shows the average variance of the gradient sampled over various initial pa-rameters. The error bars indicate the variance across the different gradient components. 0 2 4 6 8 10 12 14 16 18 
+
+> j
+> 0246810 12 14 16 18
+> i
+> simulation experiment
+> −3.0
+> −2.5
+> −2.0
+> −1.5
+> −1.0
+> −0.50.00.51.0
+> Cij
+
+FIG. 4: Correlation matrix Cij for 20 qubits and δ = 2 for the ECBA. Comparison between ideal simulated results of the VQE circuit (lower left half) and experimental results (upper right half). sizes considered, without degradation as the system size increases. Because critical ground states are generally difficult to represent with shallow local circuits, whose finite depth induces an effective finite correlation length, the key observation here is that the ECBA reaches a sub-stantially higher accuracy than the HEA, consistent with the inclusion of the relevant nonlocal correlations To further examine the impact of barren plateaus, we show in the inset of Fig. 3 the variance of the energy gra-dient as a function of system size sampled over a large number of parameter initializations. A larger variance is beneficial for optimization, as nonzero gradient com-0 2 4 6 8 10 12 14 16 18 
+
+> j
+> 0246810 12 14 16 18
+> i
+> exact experiment
+> 11.5 22.5 33.5 41 − Cij
+
+FIG. 5: Correlation matrix 1 −Cij for 20 qubits and δ = 2 for the ECBA shown on a logarithmic scale. Comparison between exact (lower left half) and experimental results (upper right half). ponents provide directions along which the parameters can be updated. Previous works have shown that the gradient variance typically approaches zero as both the circuit depth and the system size increase, leading to the onset of barren plateaus [12, 58]. If one of these quan-tities is kept fixed, the variance is expected to converge to a finite value. This behavior is visible in our setup, where only a single layer is employed. We also find that the ECBA exhibits a slightly larger gradient variance than the HEA, indicating a somewhat more favorable optimization landscape already at minimal depth. At the same time, achieving comparable accuracy with the HEA would require a circuit depth that grows with sys-tem size, which in turn increases the effect of noise and barren plateaus. Note that noise does not lead to barren plateaus for shallow circuits [59]. To visualize the presence of long-range entanglement, we investigate the correlation matrix Cij = ⟨XiXj ⟩ +
+
+⟨YiYj ⟩ + ⟨ZiZj ⟩, for 20 qubits and δ = 2. Note that a single entry serves as an entanglement witness for the corresponding qubit pair when Cij < −1. In Fig. 4, we show this matrix for the experimental data obtained with the ECBA and for the VQE simulation. The heatmap clearly shows that the experimental data closely match the simulated results. The off-diagonal correlations co-incide with the long-range RG singlet pairs. In Fig. 5, we compare Cij between the experimental data of the ECBA to the exact calculation. We observe that the exact heatmap shows richer structure, with more values deviating from zero. The experimental results accurately capture the structures around the RG singlets, reproduc-ing both short- and long-range correlations very well. As expected, correlations at intermediate ranges are miss-ing, which can be attributed to the limited range of our approach, restricted to a single layer. 8Overall, the ECBA maintains robust agreement with exact calculations for systems up to 30 qubits, even in the more challenging regime of weak disorder. In con-trast the performance of the HEA degrades with system size. This suggests that the HEA is unable to capture the long-range correlations in this random quantum critical model for a single layer. This underlines the role of the ansatz, as a well-suited variational circuit is essential for achieving high accuracy.  
+
+> V. CONCLUSIONS
+
+In this work, we investigate the emergent-coupling-based ansatz (ECBA) for variational quantum simula-tions on NISQ devices. We motivate its construction in the rainbow chain model, where the relevant long-range couplings are explicitly encoded in the Hamilto-nian. This example allowed us to directly investigate how building the variational ansatz around the dominant cou-plings leads to shallow circuits that accurately reproduce the ground-state properties on superconducting quantum hardware, achieving fidelities of up to 98% after error mitigation. Building on this controlled setting, we then applied the ECBA to disordered quantum critical qubit chains, where the relevant correlations emerge only im-plicitly through the renormalization flow. Across both models, the ECBA consistently outper-forms commonly used hardware-efficient ans¨ atze (HEA) by reaching higher accuracy at a similar gate count. Our numerical simulations show that the renormalization-based structure of the ECBA enables an efficient rep-resentation of long-range entanglement in strongly disor-dered systems, and remains effective for system sizes up to the simulated 120 qubits, suggesting potential scala-bility beyond the experimental regime explored here. We further argue that the ECBA can be efficiently embedded on superconducting quantum processors with two-dimensional square lattice connectivity, making it compatible with state-of-the-art hardware architectures. The resulting reduction in circuit depth mitigates the impact of decoherence and gate errors and allows error mitigation techniques to be applied effectively, thereby extending the accessible system sizes on present-day de-vices. Beyond the specific qubit-chain models studied here, a generalization of the ECBA provides a framework for constructing variational circuits based on emergent couplings in the strong disorder renormalization group sense. Natural extensions include disordered transverse-field Ising models [31, 34], higher-dimensional lattice systems [60, 61], applications in quantum chemistry [11, 62, 63], and non-equilibrium dynamics [64, 65] where identifying dominant effective couplings may similarly enable shallow yet expressive ans¨ atze. More broadly, our results suggest that leveraging emergent coupling structures provides a systematic route to shallow circuit initialization for disordered eigenstate problems. 
+
+> ACKNOWLEDGMENTS
+
+This work has been supported by the Quantum Fellowship Program of the German Aerospace Center (DLR). We acknowledge IQM for providing access to their quantum computing resources and for their tech-nical support. This work was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foun-dation)—Project No. FA 1884/5-1. Q-Neko project has received funding from the European Union’s Hori-zon Europe research and innovation programme under Grant Agreement No. 101241875. This work was also performed for Council for Science, Technology and In-novation (CSTI), Cross-ministerial Strategic Innovation Promotion Program (SIP), “Promoting the application of advanced quantum technology platforms to social is-sues”(Funding agency: QST). We further thank E. Lobe for helpful discussions.                                 
+
+> [1] R. P. Feynman, Simulating physics with computers, International Journal of Theoretical Physics 21 ,467 (1982). [2] S. Lloyd, Universal quantum simulators, Science 273 ,1073 (1996). [3] I. Buluta and F. Nori, Quantum Simulators, Science 326 ,108 (2009). [4] K. L. Brown, W. J. Munro, and V. M. Kendon, Using Quantum Computers for Quantum Simulation, Entropy
+> 12 , 2268 (2010). [5] I. M. Georgescu, S. Ashhab, and F. Nori, Quantum sim-ulation, Rev. Mod. Phys. 86 , 153 (2014). [6] B. Fauseweh, Quantum many-body simulations on digi-tal quantum computers: State-of-the-art and future chal-lenges, Nature Communications 15 , 2123 (2024). [7] E. Knill, R. Laflamme, and W. H. Zurek, Resilient quan-tum computation: error models and thresholds, Proceed-ings of the Royal Society A: Mathematical, Physical and Engineering Sciences 454 , 365 (1998). [8] J. Preskill, Quantum Computing in the NISQ era and beyond, Quantum 2, 79 (2018). [9] M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin, S. Endo, K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L. Cincio, and P. J. Coles, Variational quantum algo-rithms, Nature Reviews Physics 3, 625 (2021). [10] A. Peruzzo, J. McClean, P. Shadbolt, M.-H. Yung, X.-Q. Zhou, P. J. Love, A. Aspuru-Guzik, and J. L. O’Brien, A variational eigenvalue solver on a photonic quantum processor, Nature Communications 5, 4213 (2014). [11] A. Kandala, A. Mezzacapo, K. Temme, M. Takita, M. Brink, J. M. Chow, and J. M. Gambetta, Hardware-efficient variational quantum eigensolver for small
+
+9
+
+molecules and quantum magnets, Nature 549 , 242 (2017). [12] J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Bab-bush, and H. Neven, Barren plateaus in quantum neural network training landscapes, Nature Communications 9,4812 (2018). [13] M. Cerezo, A. Sone, T. Volkoff, L. Cincio, and P. J. Coles, Cost function dependent barren plateaus in shal-low parametrized quantum circuits, Nature Communica-tions 12 , 1791 (2021). [14] A. Arrasmith, M. Cerezo, P. Czarnik, L. Cincio, and P. J. Coles, Effect of barren plateaus on gradient-free optimization, Quantum 5, 558 (2021). [15] C. Lyu, V. Montenegro, and A. Bayat, Accelerated varia-tional algorithms for digital quantum simulation of many-body ground states, Quantum 4, 324 (2020). [16] N. V. Tkachenko, J. Sud, Y. Zhang, S. Tretiak, P. M. Anisimov, A. T. Arrasmith, P. J. Coles, L. Cincio, and P. A. Dub, Correlation-Informed Permutation of Qubits for Reducing Ansatz Depth in the Variational Quantum Eigensolver, PRX Quantum 2, 020337 (2021). [17] Y. Zhang, L. Cincio, C. F. A. Negre, P. Czarnik, P. J. Coles, P. M. Anisimov, S. M. Mniszewski, S. Tretiak, and P. A. Dub, Variational quantum eigensolver with re-duced circuit complexity, npj Quantum Information 8,96 (2022). [18] K. Lively, T. Bode, J. Szangolies, J.-X. Zhu, and B. Fauseweh, Noise robust detection of quantum phase transitions, Phys. Rev. Res. 6, 043254 (2024). [19] J. Tilly, H. Chen, S. Cao, D. Picozzi, K. Setia, Y. Li, E. Grant, L. Wossnig, I. Rungger, G. H. Booth, and J. Tennyson, The variational quantum eigensolver: A re-view of methods and best practices, Physics Reports 986 ,1 (2022). [20] D. Wecker, M. B. Hastings, and M. Troyer, Progress to-wards practical quantum variational algorithms, Phys. Rev. A 92 , 042303 (2015). [21] A. Choquette, A. Di Paolo, P. K. Barkoutsos, D. S´ en´ echal, I. Tavernelli, and A. Blais, Quantum-optimal-control-inspired ansatz for variational quantum algorithms, Phys. Rev. Res. 3, 023092 (2021). [22] S. Liu, S.-X. Zhang, C.-Y. Hsieh, S. Zhang, and H. Yao, Probing many-body localization by excited-state varia-tional quantum eigensolver, Phys. Rev. B 107 , 024204 (2023). [23] C. Cao, Y. Zhou, S. Tannu, N. Shannon, and R. Joynt, Exploiting many-body localization for scalable varia-tional quantum simulation, Quantum 9, 1942 (2025). [24] A. Joch, G. S. Uhrig, and B. Fauseweh, Entanglement-informed construction of variational quantum circuits, Quantum Science and Technology 10 , 035032 (2025). [25] T. Vojta, Rare region effects at classical, quantum and nonequilibrium phase transitions, Journal of Physics A: Mathematical and General 39 , R143 (2006). [26] B. Paredes, F. Verstraete, and J. I. Cirac, Exploiting quantum parallelism to simulate quantum random many-body systems, Phys. Rev. Lett. 95 , 140501 (2005). [27] L. S´ anchez-Palencia and M. Lewenstein, Disordered quantum gases under control, Nature Physics 6, 87 (2010). [28] T. Vojta, Disorder in quantum many-body systems, An-nual Review of Condensed Matter Physics 10 , 233 (2019). [29] N. Defenu, T. Donner, T. Macr` ı, G. Pagano, S. Ruffo, and A. Trombettoni, Long-range interacting quantum systems, Rev. Mod. Phys. 95 , 035002 (2023). [30] A. A. Buchheit, T. Keßler, P. K. Schuhmacher, and B. Fauseweh, Exact continuum representation of long-range interacting systems and emerging exotic phases in unconventional superconductors, Phys. Rev. Res. 5,043065 (2023). [31] J. S. Zou, H. S. Ansell, and I. A. Kov´ acs, Multipartite entanglement in the random ising chain, Phys. Rev. B 
+
+106 , 054201 (2022). [32] H. Wilming, T. J. Osborne, K. S. C. Decker, and C. Kar-rasch, Reviving product states in the disordered heisen-berg chain, Nature Communications 14 , 5847 (2023). [33] Y.-T. Lin, S.-F. Liu, P. Chen, and Y.-C. Lin, Random sin-glets and permutation symmetry in the disordered spin-2 heisenberg chain: A tensor network renormalization group study, Phys. Rev. Res. 5, 043249 (2023). [34] I. A. Kov´ acs, Quantum entanglement in the multicritical disordered ising model, Phys. Rev. B 109 , 214202 (2024). [35] J. Gray, quimb: A python package for quantum informa-tion and many-body calculations, Journal of Open Source Software 3, 819 (2018). [36] A. Joch, K. Lively, and B. Fauseweh, Supplemental ma-terial: Emergent-coupling-based ansatz evaluated on a superconducting quantum processor (2026). [37] Z. Cai, R. Babbush, S. C. Benjamin, S. Endo, W. J. Hug-gins, Y. Li, J. R. McClean, and T. E. O’Brien, Quantum error mitigation, Rev. Mod. Phys. 95 , 045005 (2023). [38] S. N. Filippov, S. Maniscalco, and G. Garc´ ıa-P´ erez, Scal-ability of quantum error mitigation techniques: from util-ity to advantage (2024), arXiv:2403.13542 [quant-ph]. [39] J. J. Wallman and J. Emerson, Noise tailoring for scalable quantum computation via randomized compiling, Phys. Rev. A 94 , 052325 (2016). [40] M. Ware, G. Ribeill, D. Rist` e, C. A. Ryan, B. Johnson, and M. P. da Silva, Experimental pauli-frame random-ization on a superconducting qubit, Phys. Rev. A 103 ,042604 (2021). [41] E. van den Berg, Z. K. Minev, and K. Temme, Model-free readout-error mitigation for quantum expectation values, Phys. Rev. A 105 , 032620 (2022). [42] N. Ezzell, B. Pokharel, L. Tewala, G. Quiroz, and D. A. Lidar, Dynamical decoupling for superconducting qubits: A performance survey, Phys. Rev. Appl. 20 , 064027 (2023). [43] K. Temme, S. Bravyi, and J. M. Gambetta, Error mitiga-tion for short-depth quantum circuits, Phys. Rev. Lett. 
+
+119 , 180509 (2017). [44] A. Javadi-Abhari, M. Treinish, K. Krsulich, C. J. Wood, J. Lishman, J. Gacon, S. Martiel, P. D. Na-tion, L. S. Bishop, A. W. Cross, B. R. Johnson, and J. M. Gambetta, Quantum computing with qiskit (2024), arXiv:2405.08810 [quant-ph]. [45] Meetiqm, Meetiqm - website (2026). [46] L. Abdurakhimov, J. Adam, H. Ahmad, O. Aho-nen, M. Algaba, G. Alonso, V. Bergholm, R. Beriwal, M. Beuerle, C. Bockstiegel, A. Calzona, C. F. Chan, D. Cucurachi, S. Dahl, R. Davletkaliyev, O. Fedorets, A. G. Frieiro, Z. Gao, J. Guldmyr, A. Guthrie, J. Hassel, H. Heimonen, J. Heinsoo, T. Hiltunen, K. Holland, J. Ho-tari, H. Hsu, A. Huhtala, E. Hyypp¨ a, A. H¨ am¨ al¨ ainen, J. Ikonen, S. Inel, D. Janzso, T. Jaakkola, M. Jenei, S. Jolin, K. Juliusson, J. Jussila, S. Khalid, S.-G. Kim, M. Koistinen, R. Kokkoniemi, A. Kom-lev, C. Ockeloen-Korppi, O. Koskinen, J. Kotilahti, 10 
+
+T. Kuisma, V. Kukushkin, K. Kumpulainen, I. Kuro-nen, J. Kylm¨ al¨ a, N. Lamponen, J. Lamprich, A. Landra, M. Leib, T. Li, P. Liebermann, A. Lintunen, W. Liu, J. Luus, F. Marxer, A. M. van de Griend, K. Mitra, J. K. Moqadam, J. Mro˙ zek, H. M¨ akynen, J. M¨ antyl¨ a, T. Naaranoja, F. Nappi, J. Niemi, L. Ortega, M. Palma, M. Papiˇ c, M. Partanen, J. Penttil¨ a, A. Plyushch, W. Qiu, A. Rath, K. Repo, T. Riipinen, J. Ritvas, P. F. Romero, J. Ruoho, J. R¨ abin¨ a, S. Saarinen, I. Sagar, H. Sargsyan, M. Sarsby, N. Savola, M. Savytskyi, V. Selinmaa, P. Smirnov, M. M. Su´ arez, L. Sundstr¨ om, S. Slupi´ nska, E. Takala, I. Takmakov, B. Tarasinski, M. Thapa, J. Tiainen, F. Tosto, J. Tuorila, C. Valenzuela, D. Vasey, E. Vehmaanper¨ a, A. Veps¨ al¨ ainen, A. Vienamo, P. Vesa-nen, A. V¨ alimaa, J. Wesdorp, N. Wurz, E. Wybo, L. Yang, and A. Yurtalan, Technology and performance benchmarks of iqm’s 20-qubit quantum computer (2024), arXiv:2408.12433 [quant-ph]. [47] G. Ram´ ırez, J. Rodr´ ıguez-Laguna, and G. Sierra, Entan-glement over the rainbow, Journal of Statistical Mechan-ics: Theory and Experiment 2015 , P06002 (2015). [48] V. Alba, S. N. Santalla, P. Ruggiero, J. Rodriguez-Laguna, P. Calabrese, and G. Sierra, Unusual area-law violation in random inhomogeneous systems, Journal of Statistical Mechanics: Theory and Experiment 2019 ,023105 (2019). [49] S.-k. Ma, C. Dasgupta, and C.-k. Hu, Random Antifer-romagnetic Chain, Phys. Rev. Lett. 43 , 1434 (1979). [50] C. Dasgupta and S.-k. Ma, Low-temperature properties of the random Heisenberg antiferromagnetic chain, Phys. Rev. B 22 , 1305 (1980). [51] G. Refael and J. E. Moore, Entanglement Entropy of Random Quantum Critical Points in One Dimension, Phys. Rev. Lett. 93 , 260602 (2004). [52] N. Laflorencie, Scaling of entanglement entropy in the random singlet phase, Phys. Rev. B 72 , 140408 (2005). [53] F. Igl´ oi and C. Monthus, Strong disorder rg approach – a short review of recent developments, The European Physical Journal B 91 , 290 (2018). [54] G. Crognaletti, G. Di Bartolomeo, M. Vischi, and L. Loris Viteritti, Equivariant Variational Quantum Eigensolver to detect phase transitions through energy level crossings, Quantum Sci. Technol. 10 , 015048 (2024). [55] C. Alegria, G. D. Lozzo, G. D. Battista, F. Frati, F. Grosso, and M. Patrignani, Unit-length rectangular drawings of graphs (2024), arXiv:2208.14142 [cs.CG]. [56] J. Jaxing and M. Goretskyy, Embedding of Rigid Graphs in Grids: A Fast Special Case of Grid Embedding , Mas-ter’s thesis, Chalmers University of Technology and Uni-versity of Gothenburg, Gothenburg, Sweden (2019). [57] C. Bravo-Prieto, J. Lumbreras-Zarapico, L. Tagliacozzo, and J. I. Latorre, Scaling of variational quantum circuit depth for condensed matter systems, Quantum 4, 272 (2020). [58] Z. Holmes, K. Sharma, M. Cerezo, and P. J. Coles, Con-necting ansatz expressibility to gradient magnitudes and barren plateaus, PRX Quantum 3, 010313 (2022). [59] S. Wang, E. Fontana, M. Cerezo, K. Sharma, A. Sone, L. Cincio, and P. J. Coles, Noise-induced barren plateaus in variational quantum algorithms, Nature Communica-tions 12 , 6961 (2021). [60] I. A. Kov´ acs and F. Igl´ oi, Renormalization group study of the two-dimensional random transverse-field ising model, Phys. Rev. B 82 , 054437 (2010). [61] R. T. C. Chepuri and I. A. Kov´ acs, Complex quan-tum network models from spin clusters, Communica-tions Physics 6, 271 (2023), open access, Published: 26 September 2023. [62] P. J. J. O’Malley, R. Babbush, I. D. Kivlichan, J. Romero, J. R. McClean, R. Barends, J. Kelly, P. Roushan, A. Tranter, N. Ding, B. Campbell, Y. Chen, Z. Chen, B. Chiaro, A. Dunsworth, A. G. Fowler, E. Jef-frey, E. Lucero, A. Megrant, J. Y. Mutus, M. Neeley, C. Neill, C. Quintana, D. Sank, A. Vainsencher, J. Wen-ner, T. C. White, P. V. Coveney, P. J. Love, H. Neven, A. Aspuru-Guzik, and J. M. Martinis, Scalable quantum simulation of molecular energies, Phys. Rev. X 6, 031007 (2016). [63] C. Massobrio, J. Du, M. Bernasconi, and P. S. Salmon, Molecular dynamics simulations of disordered materials: From network glasses to phase-change memory alloys, Molecular Dynamics Simulations of Disordered Materi-als (2015). [64] B. Fauseweh and J.-X. Zhu, Digital quantum simulation of non-equilibrium quantum many-body systems, Quan-tum Information Processing 20 , 138 (2021). [65] B. Fauseweh and J.-X. Zhu, Quantum computing Floquet energy spectra, Quantum 7, 1063 (2023). 
+
+Appendix A: VQE 
+
+The Variational Quantum Eigensolver (VQE) is a quantum-classical hybrid algorithm designed to approximate the ground state of a Hamiltonian H for a system of n qubits. In the VQE, a parameterized quantum circuit is constructed, described by the unitary operator U (θ). The goal of the VQE is to optimize the parameters θ in such a way that the resulting quantum state U (θ)|0⟩⊗n provides the best approximation of the ground state of the Hamiltonian. The quality of this ansatz is quantified by the energy expectation value E(θ) = ⟨ψ(θ)|H|ψ(θ)⟩. In VQE, this cost function is evaluated on the quantum device, while a classical optimizer updates the parameters θ to minimize E(θ)in an iterative manner. The resulting optimal parameters, θopt , define the variational approximation to the ground state, |ψ(θopt )⟩ = U (θopt )|0⟩⊗n, with corresponding energy E(θopt ), which provides an upper bound to the exact ground-state energy. 11 
+
+Appendix B: Numerical Details 
+
+For the variational optimization of the tensor network state, we employ the TNOptimizer class from the quimb library, implemented in Python. We use the L-BFGS-B algorithm as the underlying optimizer and rely on JAX as the automatic differentiation backend. The variational parameters are initialized as small random numbers drawn uniformly in the range [0 , 0.05]. The optimization is performed until convergence is reached, with a tolerance of tol = 10 −6 on the change of the loss function, while other algorithmic parameters are kept at the default settings of 
+
+scipy.optimize.minimize .Exact reference values are obtained via Density matrix renormalization group (DMRG) using quimb. The Hamilto-nian is represented as a matrix product operator, and the DMRG bond dimensions are increased progressively up to 600. The DMRG calculations use a cutoff of 10 −12 , a convergence tolerance of 10 −5, and a maximum of 150 sweeps. 
+
+Appendix C: RG-Inspired Selection of Variational Couplings 
+
+The placement of the variational two-qubit gates Uα follows a two-stage procedure: (i) a RG selection of singlet pairs, and (ii) an augmentation by the strongest remaining couplings without renormalization. 
+
+Algorithm 1: RG pairing of spins 
+
+Input: Number of qubits N , random couplings J
+
+Output: List of singlet pairs PRG  
+
+> 1
+
+Initialize empty list PRG ; 
+
+> 2
+
+Jtemp ← J; 
+
+> 3
+
+I ← [0 , 1, . . . , N − 1];  
+
+> 4
+
+while I̸ = ∅ do  
+
+> 5
+
+k ← arg max i Jtemp ,i ; 
+
+> 6
+
+if |I| == 2 then  
+
+> 7
+
+Add pair ( I0, I 1) to PRG ; 
+
+> 8
+
+Remove entries 0 and 1 from I and entry 0 from Jtemp ; 
+
+> 9
+
+end  
+
+> 10
+
+else if k == 0 then  
+
+> 11
+
+Add pair ( I0, I 1) to PRG ; 
+
+> 12
+
+Remove entries k and k + 1 from I and Jtemp ; 
+
+> 13
+
+end  
+
+> 14
+
+else if k == |Jtemp | − 1 then  
+
+> 15
+
+Add pair ( Ik, I k+1 ) to PRG ; 
+
+> 16
+
+Remove entries k and k + 1 from I and Jtemp ; 
+
+> 17
+
+end  
+
+> 18
+
+else  
+
+> 19
+
+Renormalize neighboring couplings: Jtemp ,k −1 ← Jtemp ,k −1·Jtemp ,k +1  
+
+> 2Jtemp ,k
+
+; 
+
+> 20
+
+Add pair ( Ik, I k+1 ) to PRG ; 
+
+> 21
+
+Remove entries k and k + 1 from I and Jtemp ; 
+
+> 22
+
+end  
+
+> 23
+
+end  
+
+> 24
+
+return PRG ;12 
+
+Algorithm 2: Selection of strongest remaining couplings 
+
+Input: Number of qubits N , random couplings J
+
+Output: List of added pairs Padd  
+
+> 1
+
+Compute PRG with Algorithm 1;  
+
+> 2
+
+Jtemp ← J; 
+
+> 3
+
+Initialize empty list Padd ; 
+
+> 4
+
+while |Padd | < N/ 2 − 1 do  
+
+> 5
+
+k ← arg max i Jtemp ,i ; 
+
+> 6
+
+if pair (k, k + 1) ∈ PRG then  
+
+> 7
+
+Jtemp ,k ← 0;  
+
+> 8
+
+else  
+
+> 9
+
+Add ( k, k + 1) to Padd ; 
+
+> 10
+
+Jtemp ,k ← 0;  
+
+> 11
+
+end  
+
+> 12
+
+end  
+
+> 13
+
+return Padd ;
+
+Algorithm 3: Construction of the variational circuit 
+
+Input: Parameter vector θ, pairs ( PRG , P add ) 
+
+> 1
+
+Initialize parameter iterator over θ; 
+
+> 2
+
+for each pair (i, j ) in Padd do  
+
+> 3
+
+Apply Uα(i, j ; θ);  
+
+> 4
+
+end  
+
+> 5
+
+for each pair (i, j ) in PRG do  
+
+> 6
+
+Apply Uα(i, j ; θ);  
+
+> 7
+
+end

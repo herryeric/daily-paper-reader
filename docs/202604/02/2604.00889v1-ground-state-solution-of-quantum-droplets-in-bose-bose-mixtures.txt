@@ -1,0 +1,1750 @@
+Title: Ground-state solution of quantum droplets in Bose-Bose mixtures
+
+URL Source: https://arxiv.org/pdf/2604.00889v1
+
+Published Time: Thu, 02 Apr 2026 01:04:13 GMT
+
+Number of Pages: 25
+
+Markdown Content:
+GROUND-STATE SOLUTION OF QUANTUM DROPLETS IN BOSE-BOSE MIXTURES ∗
+
+WEI LIU † AND LIMIN XU ‡
+
+Abstract. In this paper, we present a systematic study on the ground state computation of quantum droplets in homonuclear Bose-Bose mixtures, governed by the extended Gross-Pitaevskii equations (eGPEs) with Lee-Huang-Yang (LHY) corrections. This model captures the formation of self-bound droplets stabilized by the delicate balance between the attractive mean-field interaction and the repulsive quantum fluctuations. We formulate dimensionless energy functionals for both the general two-component system and the reduced single-component density-locked model. To compute the ground states efficiently, we adapt and benchmark various gradient flow discretization schemes, identifying a backward-forward sine-pseudospectral scheme based on the gradient flow with Lagrange multiplier method (GFLM-BFSP) as the robust solver for our simulations. Utilizing this method, we report three main numerical observations: (i) the density-locked model is quantitatively validated as a reliable approximation for ground state properties; (ii) the dimension-dependent convergence rates of the Thomas-Fermi approximation are established in the strong-coupling regime; and (iii) the critical particle number for self-binding in free space is numerically determined, providing a precise correction to the analytical prediction by Petrov [Phys. Rev. Lett. 115, 155302 (2015)]. 
+
+Key words. quantum droplets; nonlinear Schr¨ odinger equation; extend Gross-Pitaevskii equa-tion; Ground-state solution; 
+
+AMS subject classifications. 35Q55, 35P30, 65Z05, 65M70, 81-08 
+
+1. Introduction. In 2015, Petrov [28, 29] predicted the existence of self-bound quantum droplets in binary Bose-Einstein condensates (BECs). According to mean-field theory, a mixture is expected to collapse when the inter-species attraction dom-inates the average intra-species repulsion. However, Petrov demonstrated that the system can be stabilized by an effective repulsion arising from the first beyond-mean-field correction, known as the Lee-Huang-Yang (LHY) correlation energy, thus forming stable droplets even in free space. While initially proposed for binary mixtures in free space, this concept has since been generalized to confined geometries and dipolar con-densates. To date, quantum droplets have been experimentally observed in various systems: (1) dipolar gases of Dy [18, 19, 23, 30, 34] and Er [13]; (2) homonuclear two-component mixtures of 39 K in free space [31] as well as under one- [7] or two-dimensional confinement [10]; and (3) heteronuclear mixtures such as 41 K– 87 Rb [15] and 23 Na– 87 Rb [21]. Compared to traditional BECs, quantum droplets in Bose-Bose mixtures exhibit several exotic properties. The first is the mechanism of self-evaporation [17, 28]. Un-like conventional condensates, an excited droplet tends to release particles into the background gas, while the remaining atoms relax asymptotically to the ground state of the droplet core (provided the particle number remains within a stable range). No-tably, this self-evaporation is absent in dipolar quantum droplets [3] and in the breath-ing mode of one-dimensional two-component droplets [33]. The second key property is density locking (or density balancing) [17, 20, 28]. In the ground state, the density 
+
+> ∗
+
+Submitted to the editors DATE. 
+
+Funding: This work was funded by the NSFC grant 12571448 and the Innovation Research Foundation of NUDT (202402-YJRC-XX-002). 
+
+> †
+
+College of Science, National University of Defense Technology, Changsha 410073, China (wl@nudt.edu.cn). 
+
+> ‡
+
+Corresponding author. Institute for Theoretical Sciences, Westlake University, Hangzhou, 310030, China (xulimin@westlake.edu.cn) 1
+
+> arXiv:2604.00889v1 [cond-mat.quant-gas] 1 Apr 2026
+
+2 WEI LIU, LIMIN XU 
+
+ratio between the two components is fixed to a specific value determined by the inter-action strengths; any excess atoms of either component are expelled from the droplet core to the background cloud. These unique characteristics render quantum droplets ideal platforms for benchmarking quantum many-body theories against experimental observations [1]. Consequently, the rapid experimental progress and these intriguing properties have stimulated a wave of theoretical and numerical investigations. The macroscopic properties of quantum droplets in Bose-Bose mixtures are typi-cally described by the extended Gross-Pitaevskii equation (eGPE), which is a nonlin-ear Schr¨ odinger-type equation with competing nonlinearities, derived by incorporating the Lee-Huang-Yang (LHY) correlation term into the standard Gross-Pitaevskii en-ergy functional and subsequently applying the variational principle [28]. Physically, the LHY correction arises from quantum fluctuations and provides a repulsive energy contribution proportional to n5/2 (where n is the density). This repulsion is crucial for stabilizing the system against the collapse induced by the attractive inter-species mean-field interaction, which scales as n2. The computation of the ground state for the eGPE is of fundamental importance, as it characterizes the equilibrium density profiles and stability regions of self-bound droplets—localized states that maintain a finite size in free space without any external confinement. Given the structural sim-ilarity between the eGPE and the standard GPE, the efficient numerical algorithms established for traditional BECs provide a natural starting point for our investigation. Extensive numerical studies have been devoted to computing the ground states of BECs based on the Gross-Pitaevskii theory; see, e.g., [2, 4, 5, 6, 8, 11, 12, 14, 16, 22]. Gradient flow-based methods, also known as imaginary-time propagation methods, are among the most widely used approaches for computing the ground states. Seminal works include the continuous normalized gradient flow (CNGF) introduced by Bao and Du [6], and its efficient discretization using sine-pseudospectral methods by Bao, Chern, and Lim [5]. Recently, Liu and Cai [25] proposed the gradient flow with Lagrange multiplier (GFLM) method to achieve more flexible numerical discretization by eliminating inherent temporal splitting errors in traditional normalized gradient flow methods. In contrast, numerical simulations of the eGPE for quantum droplets remain comparatively limited. Existing studies have primarily employed imaginary-time propagation [17] or Runge-Kutta methods [20], often relying on lower-order spatial discretizations. To date, a systematic evaluation of high-order spectral gradient flow algorithms has not been thoroughly conducted for quantum droplets, particularly in the challenging regime where mean-field attraction competes with LHY repulsion. In this paper, we aim to bridge this gap by establishing a systematic numeri-cal framework for quantum droplets and exploring their ground state properties. Our contributions are threefold. First, we provide a rigorous formulation of the dimension-less eGPEs and derive the reduced single-component density-locked model, clarifying the connections between different effective models. Second, we adapt and benchmark various gradient flow algorithms for this system. Through extensive comparisons, we identify the GFLM-BFSP scheme as the optimal solver, demonstrating that explicitly handling the normalization constraint is crucial for correcting time-splitting errors in the presence of LHY interactions. Third, utilizing this efficient tool, we investigate physical properties that are difficult to access analytically. We validate the accuracy of the density-locked approximation, quantify the dimension-dependent convergence rates of the Thomas-Fermi approximation (TFA), and numerically determine the pre-cise critical particle number Nc for self-binding in free space, providing a correction to previous analytical estimates based on Gaussian ansatz. The paper is organized as follows. In Section 2, we derive the dimensionless GS OF QUANTUM DROPLETS 3eGPE and discuss its reduction to lower dimensions and the density-locked model. In Section 3, we detail the CNGF and GFLM methods along with their spectral discretizations, and provide approximate initial data for different regimes. Section 4 presents the numerical results, including the performance comparison of algorithms, the validation of the density-locked model, and the investigation of physical properties such as Nc and TFA convergence. Finally, a summary is given in Section 5. 
+
+2. Extended Gross-Pitaeskii equation. 2.1. Energy functional and extended Gross-Pitaevskii equation. The energy functional of quantum droplets in Bose-Bose mixtures is given by [1, 15, 17, 20, 28] 
+
+E(ψ1, ψ 2) = 
+
+> 2
+
+X
+
+> j=1
+
+Z
+
+> R3
+
+ ℏ2
+
+2mj
+
+|∇ ψj |2 + Vj (x)nj
+
+
+
+dx + 12
+
+> 2
+
+X
+
+> j,l =1
+
+gjl 
+
+Z
+
+> R3
+
+nj nl dx(2.1) +
+
+Z
+
+> R3
+
+ELHY (n1, n 2) d x,
+
+where ℏ is the reduced Planck constant, ψj (x, t ) is the wave function of the j-th component with density nj (x, t ) = |ψj (x, t )|2, and mj is the mass of particles in the 
+
+j-th component ( j = 1 , 2). The external trapping potentials are denoted by Vj (x) =  
+
+> 12
+
+mj
+
+ ω2 
+
+> x,j
+
+x2 + ω2 
+
+> y,j
+
+y2 + ω2 
+
+> z,j
+
+z2. The intra- and inter-species coupling constants are defined as gjl = 4πℏ2ajl  
+
+> mjl
+
+, where ajj > 0 and a12 < 0 are the repulsive intra-species and attractive inter-species scattering lengths, respectively. mjl are defined as mjj = mj
+
+and m12 = 2 m1m2/(m1 + m2). The LHY correlation energy density, which accounts for quantum fluctuations, is expressed as (2.2) ELHY (n1, n 2) = 815 π2
+
+ m1
+
+ℏ2
+
+3/2
+
+(g11 n1)5/2 f
+
+ m2
+
+m1
+
+, g212 
+
+g11 g22 
+
+, g22 n2
+
+g11 n1
+
+
+
+.
+
+The dimensionless function f (z, u, x ) > 0 is defined by the integral [27] 
+
+f (z, u, x ) = 15 32 
+
+Z ∞
+
+> 0
+
+k2F(k, z, u, x ) d k, 
+
+where the integrand F takes the compact form 
+
+F(k, z, u, x ) = pλ+(k) + pλ−(k) − 1 + z
+
+2z k2 − (1 + x) + 1
+
+k2
+
+
+
+1 + x2z + 4 ux z
+
+1 + z
+
+
+
+,
+
+with the dimensionless squared eigenenergies λ±(k), obtained by diagonalizing the Bogoliubov Hamiltonian for the binary mixture, defined as 
+
+λ±(k) = 12
+
+
+
+k2 
+
+1+ xz
+
+
+
++ k4
+
+4
+
+
+
+1+ 1
+
+z2
+
+ 
+
+±
+
+s
+
+14
+
+ 
+
+k2 + k4
+
+4
+
+
+
+−
+
+ xz k2 + k4
+
+4z2
+
+ 2
+
++ k4u xz .
+
+In the regime relevant to quantum droplets, where the inter-species attraction nearly compensates the intra-species repulsion, the function f (z, u, x ) can be well approximated by f (z, u, x ) ≃ f (z, 1, x ) ≃ (1 + z3/5x)5/2 [27]. Consequently, (2.3) ELHY (n1, n 2) ≃ 256 √πℏ2
+
+15 
+
+a11 
+
+m2/51
+
+|ψ1|2 + a22 
+
+m2/52
+
+|ψ2|2
+
+!5/2
+
+.4 WEI LIU, LIMIN XU 
+
+With the explicit expression (2.3), the coupled eGPE can be then derived by utilizing the variational derivations of the total energy E(ψ1, ψ 2) with respect to ψ∗ 
+
+> 1
+
+and ψ∗ 
+
+> 2
+
+as iℏ∂tψj =
+
+− ℏ2
+
+2mj
+
+∇2 + Vj (x) + 
+
+> 2
+
+X
+
+> l=1
+
+gjl |ψl|2 + 128 √πℏ2ajj 
+
+3m2/5
+
+> j
+> 2
+
+X
+
+> l=1
+
+all 
+
+m2/5
+
+> l
+
+|ψl|2
+
+!3/2 ψj ,
+
+(2.4) where the wave functions are normalized such that R 
+
+> R3
+
+|ψj (x, t )|2dx = Nj for j = 1 , 2, with Nj the number of particles in j-th component. 
+
+2.2. Non-dimensionalization. To non-dimensionalize the eGPE (2.4) under the normalization condition, we introduce the following scaling: (2.5) ˜t = ωt, ˜x = x
+
+xs
+
+, ˜ψj (˜ x, ˜t) = x3/2 
+
+> s
+
+ψj (x, t )
+
+√N , j = 1 , 2, ˜E( ˜ψ1, ˜ψ2) = E(ψ1, ψ 2)
+
+N ℏω ,
+
+where xs =
+
+q ℏ 
+
+> m1ω
+
+is the characteristic length scale with ω > 0 a reference frequency to be determined later, and N = N1 +N2 is the total number of particles. Substituting (2.5) into (2.4) and omitting all ˜ for simplicity, we obtain the dimensionless eGPE: (2.6) i∂tψj =
+
+− εj
+
+2 ∇2 + Vj (x) + 
+
+> 2
+
+X
+
+> l=1
+
+αjl |ψl|2 + δβ j
+
+> 2
+
+X
+
+> l=1
+
+βl|ψl|2
+
+!3/2 ψj , j = 1 , 2,
+
+where the dimensionless parameters are defined as follows: 
+
+εj = m1
+
+mj
+
+, Vj (x) = 12
+
+X
+
+> ν=x,y,z
+
+γ2 
+
+> ν,j
+
+ν2, γν,j = ων,j 
+
+ω√εj
+
+, ν ∈ { x, y, z }, j = 1 , 2,αjl = 2πa jl N (εj + εl)
+
+xs
+
+, βj = ajj ε2/5
+
+> j
+
+xs
+
+, j, l = 1 , 2, δ = 128 √π
+
+3 N 3/2.
+
+The dimensionless energy (per particle) is 
+
+E(ψ1, ψ 2) = 
+
+Z
+
+> R3
+
+
+
+> 2
+
+X
+
+> j=1
+
+ εj
+
+2 |∇ ψj |2 + Vj (x)|ψj |2
+
++ 12
+
+> 2
+
+X
+
+> j,l =1
+
+αjl |ψj |2|ψl|2
+
+(2.7) + 2δ
+
+5
+
+> 2
+
+X
+
+> l=1
+
+βl|ψl|2
+
+!5/2 dx,
+
+and the normalization condition of the dimensionless wave functions becomes (2.8) 
+
+Z
+
+> R3
+
+|ψj (x, t )|2dx = Nj
+
+N , j = 1 , 2.
+
+For systems with harmonic trapping potentials (i.e., ων,j > 0, ν ∈ { x, y, z }, j = 1 , 2), we choose ω = min j=1 ,2{ωx,j , ω y,j , ω z,j } [9]. For free-space droplets (i.e., V1(x) = 
+
+V2(x) = 0), we adopt the choice used in [28]: (2.9) ω = 25 π2ℏ |δa |3
+
+384 m a 11 a22 
+
+ √a11 + √a22 
+
+6 with δa = a12 + √a11 a22 .GS OF QUANTUM DROPLETS 5
+
+Remark 2.1. We note that almost all experiments studying the dynamics of quan-tum droplets in free space begin with the ground state of a BEC in a harmonic trap, which is subsequently turned off at t = 0 to allow the system to evolve [15, 21, 31]. Therefore, in such dynamical studies, it is also natural to choose ω as the minimal frequency of the initial harmonic trap used for preparation. For compactness, particularly for the description of numerical methods, the di-mensionless eGPE (2.6) can be written in a vector form: (2.10) i ∂Ψ
+
+∂t = − 12 ε ⊙ ∇ 2Ψ + V(x) ⊙ Ψ + A(Ψ) ⊙ Ψ + B(Ψ) ⊙ Ψ,
+
+where Ψ = ( ψ1, ψ 2)T , ε = ( ε1, ε 2)T , and V(x) = ( V1(x), V 2(x)) T . The nonlinear vector functions are defined as 
+
+A(Ψ) = ( A1(Ψ) , A 2(Ψ)) T , Aj (Ψ) = 
+
+> 2
+
+X
+
+> l=1
+
+αjl |ψl|2, j = 1 , 2,(2.11a) 
+
+B(Ψ) = ( B1(Ψ) , B 2(Ψ)) T , Bj (Ψ) = δβ j
+
+> 2
+
+X
+
+> l=1
+
+βl|ψl|2
+
+!3/2
+
+, j = 1 , 2.(2.11b) Here, ⊙ denotes the Hadamard (element-wise) product between two vectors, i.e., for 
+
+U = ( u1, u 2)T and V = ( v1, v 2)T , U ⊙ V = ( u1v1, u 2v2)T .
+
+2.3. Reduction to lower dimensions under strongly anisotropic poten-tials. Under strongly anisotropic external potentials, the 3D eGPE can be approxi-mately reduced to 2D or 1D models. This reduction relies on the assumption that the time evolution does not excite degrees of freedom along the tightly confined directions, where the energy gap is much larger than the interaction energy. 
+
+Case I: Disk-shaped condensation (3D → 2D). Consider the case where the confinement along the z-axis is significantly stronger than in the transverse plane. Physically, the large trap frequency ωz creates a large energy gap between the ground state and the excited states along the z-axis. Provided the interaction energy is small compared to this gap, the dynamics along the z-direction are effectively “frozen” in the ground state. To allow for an exact reduction of the nonlinear terms, we assume the trap fre-quencies satisfy m1ωz, 1 = m2ωz, 2. In dimensionless variables, this implies that the confinement strength γz dominates over the transverse trapping frequencies (which may vanish), i.e., (2.12) γz, 1
+
+√ε1
+
+= γz, 2
+
+√ε2
+
+≡ γz ≫ γx,j , γ y,j ≥ 0, j = 1 , 2.
+
+Under this condition, the ground states of the two components along the z-direction share the same spatial profile. Based on the “frozen” assumption, we employ the separation of variables ansatz: (2.13) Ψ( x, t ) = Ψ 2(x, y, t ) ⊙ Ψho (z), Ψho (z) = ( ψho (z), ψ ho (z)) T ,
+
+where ψho (z) = ( γz 
+
+> π
+
+)1/4e− γz z 22 . Substituting (2.13) into the 3D eGPE, multiplying by Ψ ∗
+
+> ho
+
+(z) (element-wise), and integrating over z, we first obtain an intermediate equation containing the zero-point energy: (2.14) i ∂Ψ2
+
+∂t = − 12 ε ⊙ ∇ 2
+
+> ⊥
+
+Ψ2 + ( V2(x, y ) + C) ⊙ Ψ2 + A2(Ψ 2) ⊙ Ψ2 + B2(Ψ 2) ⊙ Ψ2,6 WEI LIU, LIMIN XU 
+
+where ∇2 
+
+> ⊥
+
+= ∂2 
+
+> x
+
++ ∂2 
+
+> y
+
+is the transverse Laplacian, and C = ( c1, c 2)T represents the constant energy shift from the z-confinement, with 
+
+cj =
+
+Z ∞−∞ 
+
+ εj
+
+2 |ψ′
+
+> ho
+
+(z)|2 + 12 γ2 
+
+> z
+
+z2|ψho (z)|2
+
+
+
+dz = εj γz
+
+2 , j = 1 , 2.
+
+Since the physical observables depend only on the modulus of the wave function, we can remove the constant potential term via the gauge transformation Ψ 2 → Ψ2 ⊙e−iCt.This leads to the following 2D eGPE: (2.15) i ∂Ψ2
+
+∂t = − 12 ε ⊙ ∇ 2
+
+> ⊥
+
+Ψ2 + V2(x, y ) ⊙ Ψ2 + A2(Ψ 2) ⊙ Ψ2 + B2(Ψ 2) ⊙ Ψ2.
+
+Here, the effective 2D potentials and nonlinear terms are defined as 
+
+V2(x, y ) = ( V2,1, V 2,2)T , A2(Ψ 2) = ( A2,1, A 2,2)T , B2(Ψ 2) = ( B2,1, B 2,2)T ,V2,j = 12 (γ2 
+
+> x,j
+
+x2 + γ2 
+
+> y,j
+
+y2), A2,j =
+
+> 2
+
+X
+
+> l=1
+
+α2,jl |ψ2,l |2, B2,j = δ2βj
+
+> 2
+
+X
+
+> l=1
+
+βl|ψ2,l |2
+
+!3/2
+
+with the renormalized coupling constants calculated analytically as: 
+
+α2,jl = αjl 
+
+Z ∞−∞ 
+
+|ψho (z)|4dz = αjl 
+
+r γz
+
+2π , δ2 = δ
+
+Z ∞−∞ 
+
+|ψho (z)|5dz = δ
+
+r 25
+
+ γz
+
+π
+
+3/4
+
+.
+
+Case II: Cigar-shaped condensation (3D → 1D). Consider the cigar-shaped geometry where the confinement in the transverse plane ( y-z plane) is much stronger than along the longitudinal x-axis. Similar to the disk-shaped case, we assume the trap frequencies satisfy the matching conditions m1ωy, 1 = m2ωy, 2 and m1ωz, 1 = m2ωz, 2.In dimensionless units, this implies (2.16) γy, 1
+
+√ε1
+
+= γy, 2
+
+√ε2
+
+≡ γy , γz, 1
+
+√ε1
+
+= γz, 2
+
+√ε2
+
+≡ γz , with γy , γ z ≫ γx,j ≥ 0.
+
+Assuming the transverse degrees of freedom are frozen in the ground state, we use the ansatz: (2.17) Ψ( x, t ) = Ψ 1(x, t ) ⊙ Ψho (y, z ), Ψho (y, z ) = ( ψho (y, z ), ψ ho (y, z )) T ,
+
+where the normalized transverse ground state is ψho (y, z ) = (γy γz )1/4 
+
+> √π
+
+e− γy y 2+γz z 22 .Following the same reduction procedure as in the 2D case—integrating out the y, z 
+
+coordinates and removing the constant energy shift via a gauge transformation—we derive the effective 1D eGPE: (2.18) i ∂Ψ1
+
+∂t = − 12 ε ⊙ ∂xx Ψ1 + V1(x) ⊙ Ψ1 + A1(Ψ 1) ⊙ Ψ1 + B1(Ψ 1) ⊙ Ψ1.
+
+Here, V1(x) = ( V1,1, V 1,2)T with V1,j = 12 γ2 
+
+> x,j
+
+x2. The effective interaction terms A1
+
+and B1 take the same functional forms as in Eqs. (2.16)-(2.17) but with Ψ 2 replaced by Ψ 1 and the coefficients α2,jl , δ 2 renormalized to 
+
+α1,jl = αjl 
+
+Z
+
+> R2
+
+|ψho |4dydz = αjl 
+
+√γy γz
+
+2π , δ1 = δ
+
+Z
+
+> R2
+
+|ψho |5dydz = 2δ
+
+5
+
+ γy γz
+
+π2
+
+3/4
+
+.GS OF QUANTUM DROPLETS 7
+
+Unified Form. In summary, the original 3D eGPE and the derived 2D and 1D effective models can be cast into a unified vector form: (2.19) i ∂Ψ
+
+∂t = − 12 ε ⊙ ∇ 2Ψ + Vd(x) ⊙ Ψ + Ad(Ψ) ⊙ Ψ + Bd(Ψ) ⊙ Ψ, x ∈ Rd,
+
+where ∇2 denotes the Laplacian in d dimensions ( d = 1 , 2, 3). For the 3D case (d = 3), the functions V3, A3, and B3 correspond to the original definitions in Eqs. (2.10)–(2.11). For the lower-dimensional cases ( d = 1 , 2), they correspond to the effective terms derived in Case I and Case II with renormalized coupling constants. The normalization condition remains R 
+
+> Rd
+
+|ψj |2dx = Nj /N .
+
+Remark 2.2. We clarify the validity of the dimensional reduction employed here, which depends critically on the comparison between the transverse confinement length 
+
+a⊥ and the characteristic interaction (healing) length ξ [32]. When a⊥ ≪ ξ, the ex-treme confinement alters the scattering properties, necessitating a 2D renormalization that leads to logarithmic LHY corrections ( ∼ n2 ln n) [24, 29]. In contrast, the condi-tion a⊥ ≫ ξ implies that the collision dynamics remain effectively three-dimensional. This latter case corresponds to the regime considered in our work, where we retain the 3D LHY nonlinearity ( ∼ n5/2) and perform the reduction solely by integrating out the transverse direction (under the frozen-state assumption) [24, 32]. 
+
+2.4. Single-component reduction: The density-locked model. Accord-ing to Petrov’s theory [28], a two-component mixture in the droplet regime in free space energetically favors a specific density ratio n1/n 2 = pa22 /a 11 . Physically, if the total particle numbers N1 and N2 deviate from this optimal ratio, the excess atoms are expelled from the droplet core into the background via self-evaporation, leaving a core that satisfies the locking condition (subject to a small critical deviation 
+
+∼ δa/a ii ). Therefore, in the balanced case where the global particle number ratio matches this optimal value (i.e., N1/N 2 = pa22 /a 11 ), there are no excess atoms, and the density locking condition |ψ1|2/|ψ2|2 = N1/N 2 holds globally. Assuming the two components also share the same phase, we can introduce the single-mode ansatz 
+
+ψj (x, t ) = pNj /N ψ (x, t ), which reduces the coupled system to a single effective equa-tion [20]. Although derived for free space, this reduction can also be generalized to systems under harmonic confinement [28]. Substituting this single-mode ansatz into the general energy functional (2.1) with 
+
+ELHY given in (2.3), assuming m1 = m2 = m and V1 = V2 = V , and utilizing the relation δa = a12 + √a11 a22 , the effective single-component energy functional is derived as 
+
+E(ψ) = 
+
+Z
+
+> R3
+
+ ℏ2
+
+2m |∇ ψ|2 + V (x)|ψ|2 + 4πℏ2
+
+mδa √a11 a22 
+
+(√a11 + √a22 )2 |ψ|4
+
+(2.20) + 256 √πℏ2
+
+15 m (a11 a22 )5/4|ψ|5
+
+
+
+dx.
+
+Based on the variation of this functional with respect to ψ∗, we can obtain the density-locked eGPE: (2.21) iℏ ∂ψ ∂t =
+
+
+
+− ℏ2
+
+2m ∇2 +V (x)+ 8πℏ2
+
+mδa √a11 a22 
+
+(√a11 + √a22 )2 |ψ|2 + 128 √πℏ2
+
+3m (a11 a22 )5/4|ψ|3
+
+
+
+ψ. 
+
+We apply the same non-dimensionalization scaling as in Section 2.2, i.e., t → t/ω ,
+
+x → xsx, and ψ → √N x −3/2 
+
+> s
+
+ψ with xs =
+
+q ℏ 
+
+> mω
+
+. The resulting dimensionless equation 8 WEI LIU, LIMIN XU 
+
+is (2.22) i ∂ψ ∂t =
+
+
+
+− 12 ∇2 + V (x) + α|ψ|2 + β|ψ|3
+
+
+
+ψ, 
+
+Z
+
+> R3
+
+|ψ|2dx = 1 ,
+
+where the dimensionless parameters are (2.23) α = 8πδa √a11 a22 Nxs(√a11 + √a22 )2 , β = 128 √π(a11 a22 )5/4N 3/2
+
+3x5/2
+
+> s
+
+.
+
+Here, the potential V (x) follows the definitions in the general model. Similar to the general two-component model, the 3D density-locked equation can be reduced to lower dimensions under strong confinement assumptions. By integrating out the frozen ground state coordinates, the original 3D equation and the effective 1D and 2D models can be expressed in the following unified form: (2.24) i ∂ψ ∂t =
+
+
+
+− 12 ∇2 + Vd(x) + αd|ψ|2 + βd|ψ|3
+
+
+
+ψ, x ∈ Rd,
+
+where ∇2 is the d-dimensional Laplacian. The scalar potential Vd(x) is defined as (2.25) Vd(x) = 
+
+ 
+
+> 12
+
+γ2
+
+> x
+
+x2, d = 1 , 
+
+> 12
+
+(γ2
+
+> x
+
+x2 + γ2 
+
+> y
+
+y2), d = 2 , 
+
+> 12
+
+(γ2
+
+> x
+
+x2 + γ2 
+
+> y
+
+y2 + γ2 
+
+> z
+
+z2), d = 3 .
+
+The dimension-dependent coefficients αd and βd, obtained after renormalizing the interaction strengths, are given by (2.26) αd =
+
+  
+
+> √γyγz
+> 2π
+
+α, d = 1 ,
+
+p γz 
+
+> 2π
+
+α, d = 2 ,α, d = 3 ,βd =
+
+
+
+> 25
+
+  γy γz
+
+> π2
+
+3/4 β, d = 1 ,
+
+q 25
+
+  γz
+
+> π
+
+3/4 β, d = 2 ,β, d = 3 .
+
+The normalization condition for the unified equation is R 
+
+> Rd
+
+|ψ|2dx = 1. 
+
+Remark 2.3. While the density-locked model is formally derived based on ground-state energy minimization, it is also widely employed to describe the dynamics of quantum droplets [20, 28]. The validity of this dynamical approximation rests on the assumption of “low-energy excitations,” specifically that the system evolves primar-ily through in-phase collective modes (e.g., breathing modes) where the density ratio remains locked. If the excitation energy is sufficiently high to trigger out-of-phase motion (spin modes) or significant self-evaporation, the single-component description may break down. A rigorous mathematical analysis of the error bounds for this dy-namical reduction is beyond the scope of the current study and remains an interesting topic for future research. 
+
+3. Numerical methods for ground state solutions. In this section, we present efficient numerical methods for computing the ground states of quantum droplets. While our discussion focuses on the general two-component model, the methodology applies directly to the density-locked model as a simplified case. GS OF QUANTUM DROPLETS 9
+
+3.1. Energy minimization and Euler-Lagrange equations. The ground state solution Φ g (x) is strictly defined as the minimizer of the energy functional E(Φ) under the normalization constraint: (3.1) E(Φ g ) = min  
+
+> Φ∈U
+
+E(Φ) , U =
+
+
+
+Φ = ( ϕ1, ϕ 2)T E(Φ) < ∞, ∥ϕj ∥2 = Nj
+
+N , j = 1 , 2
+
+
+
+,
+
+where the dimensionless energy functional E(Φ) is given by (3.2) 
+
+E(Φ) = 
+
+Z
+
+> Rd
+
+
+
+> 2
+
+X
+
+> j=1
+
+ εj
+
+2 |∇ ϕj |2 +Vd,j |ϕj |2
+
++
+
+> 2
+
+X
+
+> j,l =1
+
+αd,jl 
+
+2 |ϕj |2|ϕl|2 + 2δd
+
+5
+
+> 2
+
+X
+
+> l=1
+
+βd,l |ϕl|2
+
+!5/2dx.
+
+Clearly, every critical point (including the minimizer) of the energy minimization problem (3.2) satisfies the Euler-Lagrange equations: (3.3) μ ⊙ Φ( x) = − 12 ε ⊙ ∇ 2Φ( x) + Vd(x) ⊙ Φ( x) + Ad(Φ) ⊙ Φ( x) + Bd(Φ) ⊙ Φ( x),
+
+under the normalization conditions ∥ϕj ∥2 = Nj /N, j = 1 , 2. Here, Vd, Ad, Bd follow the definitions in Section 2, and the Lagrange multipliers μ = ( μ1, μ 2)T are also called the chemical potentials. When Φ is an eigenfunction, the corresponding chemical potentials μj (j = 1 , 2) can be explicitly computed as 
+
+μj (Φ) = NNj
+
+Z
+
+> Rd
+
+h εj
+
+2 |∇ ϕj |2 + Vd,j |ϕj |2 + Ad,j (Φ) |ϕj |2 + Bd,j (Φ) |ϕj |2i
+
+dx.(3.4) 
+
+Remark 3.1. We note that the nonlinear eigenvalue problem (3.3) constitutes the time-independent eGPE, which can be recovered from the time-dependent eGPE (2.19) under the stationary wave function ansatz Ψ( x, t ) = e−iμt ⊙ Φ( x). 
+
+Remark 3.2. It is worth emphasizing that for nonlinear systems, the total energy 
+
+E(Φ) is generally not equal to the sum of the chemical potentials (eigenvalues). Unlike linear problems, the ground state—defined as the global minimizer of the energy func-tional—does not necessarily correspond to the eigenstate associated with the smallest chemical potentials. Therefore, determining the ground state should be treated as a constrained optimization problem rather than merely solving for the smallest eigen-values. For the conventional two-component BEC, i.e., no B(Φ) term, the minimizer was computed by the CNGF or the imaginary time method, etc. Here we extend the CNGF and its discretization to quantum droplets in Bose-Bose mixtures. 
+
+3.2. Normalized gradient flows. We construct the following CNGF for the ground state computation: (3.5) 
+
+∂tΦ( x, t ) = 12 ε ⊙ ∇ 2Φ − Vd(x) + Ad(Φ) + Bd(Φ) − μ(Φ( ·, t ))  ⊙ Φ, t ≥ 0,
+
+Φ( x, 0) = Φ 0(x), with ∥ϕ0,j ∥2 = Nj
+
+N , j = 1 , 2,
+
+where μ(Φ( ·, t )) ensures the normalization conservation and is defined by Eq. (3.4). The CNGF satisfies the following properties. 10 WEI LIU, LIMIN XU 
+
+Theorem 3.3. Suppose Vd,j (x) ≥ 0 and the initial data Φ0 satisfies the normal-ization condition. Then the CNGF (3.5) preserves the normalization and diminishes the energy, i.e., 
+
+∥ϕj (·, t )∥2 = Nj
+
+N , t ≥ 0, j = 1 , 2,(3.6) ddt E(Φ( ·, t )) = −2
+
+> 2
+
+X
+
+> j=1
+
+∥∂tϕj (·, t )∥2 ≤ 0,(3.7) 
+
+which implies E(Φ( ·, t 1)) ≥ E(Φ( ·, t 2)) for any 0 ≤ t1 ≤ t2 < ∞.Proof. First, we verify the normalization conservation. Recall that for a complex function, ddt ∥ϕj ∥2 = R (∂tϕj ϕ∗ 
+
+> j
+
++ ϕj ∂tϕ∗ 
+
+> j
+
+)d x = 2Re R ϕ∗ 
+
+> j
+
+∂tϕj dx. Multiplying the j-th component of the CNGF Eq. (3.5) by ϕ∗ 
+
+> j
+
+, integrating over Rd, we obtain 
+
+Z
+
+> Rd
+
+ϕ∗ 
+
+> j
+
+∂tϕj dx =
+
+Z
+
+> Rd
+
+ϕ∗
+
+> j
+
+h εj
+
+2 ∇2ϕj − Vd,j ϕj − Ad,j (Φ) ϕj − Bd,j (Φ) ϕj + μj (Φ( ·, t )) ϕj
+
+i
+
+dx.
+
+Let Hj denote the nonlinear Hamiltonian operator inside the brackets (excluding 
+
+μj (Φ)). Since Hj is Hermitian (i.e., R ϕ∗Hϕ is real) and μj (Φ) is real by definition, the integral on the right-hand side is purely real. By the definition of μj (Φ) in Eq. (3.4), we have μj (Φ) =      
+
+> Rϕ∗
+> jHjϕj
+> ∥ϕj∥2
+
+, which ensures that the right-hand side of the integrated equation is exactly zero. Thus, ddt ∥ϕj ∥2 = 2Re(0) = 0, confirming Eq. (3.6). Next, we compute the time derivative of the energy functional E(Φ). Using the chain rule for complex functionals, we have ddt E(Φ) = 
+
+> 2
+
+X
+
+> j=1
+
+Z
+
+> Rd
+
+δE δϕ j
+
+∂tϕj + δE δϕ ∗
+
+> j
+
+∂tϕ∗
+
+> j
+
+!
+
+dx = 2Re 
+
+> 2
+
+X
+
+> j=1
+
+Z
+
+> Rd
+
+δE δϕ ∗
+
+> j
+
+∂tϕ∗ 
+
+> j
+
+dx.
+
+Computing the variational derivative with respect to ϕ∗ 
+
+> j
+
+yields 
+
+δE δϕ ∗
+
+> j
+
+= − εj
+
+2 ∇2ϕj + Vd,j ϕj + Ad,j (Φ) ϕj + Bd,j (Φ) ϕj , j = 1 , 2.
+
+Comparing this with the CNGF equation (3.5), we observe that ∂tϕj = − δE δϕ ∗
+
+> j
+
++
+
+μj (Φ) ϕj . Or equivalently, δE δϕ ∗
+
+> j
+
+= μj (Φ) ϕj − ∂tϕj . Substituting this back into the energy derivative gives ddt E(Φ) = 2Re 
+
+> 2
+
+X
+
+> j=1
+
+Z
+
+> Rd
+
+(μj (Φ) ϕj − ∂tϕj )∂tϕ∗ 
+
+> j
+
+dx
+
+=
+
+> 2
+
+X
+
+> j=1
+
+
+
+2μΦ,j Re 
+
+Z
+
+> Rd
+
+ϕj ∂tϕ∗ 
+
+> j
+
+dx − 2
+
+Z
+
+> Rd
+
+|∂tϕj |2dx
+
+
+
+.
+
+From the normalization conservation, we know ddt ∥ϕj ∥2 = 2Re R ϕj ∂tϕ∗ 
+
+> j
+
+dx = 0. Therefore, the first term vanishes, and we arrive at the energy diminishing property: ddt E(Φ) = −2
+
+> 2
+
+X
+
+> j=1
+
+∥∂tϕj ∥2 ≤ 0.GS OF QUANTUM DROPLETS 11 The above energy diminishing property provides a computational stability of CNGF for computing the ground states. To facilitate the implementation of the CNGF, we consider two gradient flow computational models based on discrete normalization projection. Let τ = ∆ t > 0 be the time step size and tn = nτ for n ≥ 0. 
+
+Gradient Flow with Discrete Normalization (GFDN). The GFDN method consists of two steps: first, it evolves the wave function by neglecting the normaliza-tion constraint (steepest descent of the unconstrained energy), and second, it projects the solution back onto the normalization manifold. The formulation reads (3.8) 
+
+
+
+∂tΦ( x, t ) = 12 ε ⊙ ∇ 2Φ − Vd(x) + Ad(Φ) + Bd(Φ)  ⊙ Φ, t ∈ [tn, t n+1 ),
+
+Φ( x, t n+1 ) ≜ Φ( x, t +
+
+> n+1
+
+) = 
+
+rN1
+
+Nϕ1(x, t −
+
+> n+1
+
+)
+
+∥ϕ1(·, t −
+
+> n+1
+
+)∥ ,
+
+rN2
+
+Nϕ2(x, t −
+
+> n+1
+
+)
+
+∥ϕ2(·, t −
+
+> n+1
+
+)∥
+
+!T
+
+, n ≥ 0,
+
+Φ( x, 0) = Φ 0(x), x ∈ Rd,
+
+where Φ( x, t −
+
+> n+1
+
+) is the solution of the first equation at t = tn+1 obtained from the initial value Φ( x, t n). For the linear case (i.e., without interaction terms), the GFDN ensures energy diminishing unconditionally: 
+
+Theorem 3.4 ([6]). Suppose Vd,j (x) ≥ 0 and the interactions vanish ( αjl = βj =0). The GFDN scheme (3.8) is normalization conserving and energy diminishing for any time step τ > 0 and initial data Φ0, i.e., 
+
+(3.9) E (Φ( ·, t n+1 )) ≤ E (Φ( ·, t n)) ≤ · · · ≤ E (Φ 0) , n ≥ 0.
+
+Gradient Flow with Lagrange Multiplier (GFLM). Despite the broad ef-fectiveness of GFDN, standard temporal discretizations (such as the backward-forward Euler scheme) under the GFDN framework may introduce splitting errors that pre-vent convergence to the exact ground state [16, 25]. Following [25], we propose the GFLM method for the quantum droplet system by incorporating explicit Lagrange multiplier terms into the gradient flow evolution, reading as (3.10) 
+
+∂tΦ = 12 ε ⊙ ∇ 2Φ − Vd(x) + Ad(Φ) + Bd(Φ) − μ(Φ( ·, t n))  ⊙ Φ, t ∈ [tn, t n+1 ),
+
+Φ( x, t n+1 ) ≜ Φ( x, t +
+
+> n+1
+
+) = 
+
+r N1
+
+Nϕ1(x, t −
+
+> n+1
+
+)
+
+∥ϕ1(·, t −
+
+> n+1
+
+)∥ ,
+
+r N2
+
+Nϕ2(x, t −
+
+> n+1
+
+)
+
+∥ϕ2(·, t −
+
+> n+1
+
+)∥
+
+!T
+
+, n ≥ 0,
+
+Φ( x, 0) = Φ 0(x), x ∈ Rd,
+
+where the chemical potential μ(Φ( ·, t n)) is fixed at the beginning of each time interval using the formula in Eq. (3.4). The key difference between GFDN and GFLM is the inclusion of the explicit Lagrange multiplier term μ(Φ( ·, t n)) ⊙ Φ, which helps to correct the stationary state of the discrete scheme. 
+
+3.3. Full discretization: BESP and BFSP schemes. In this subsection, we present the full discretization of the GFDN and GFLM methods using the lin-earized Backward Euler Sine-Pseudospectral (BESP) and Backward-Forward Sine-Pseudospectral (BFSP) schemes. For simplicity, we illustrate the method for the 12 WEI LIU, LIMIN XU 
+
+1D case ( d = 1) on a bounded domain [ a, b ] with homogeneous Dirichlet boundary conditions. Generalizations to 2D and 3D are straightforward via tensor products. Let M be an even positive integer, and define the spatial mesh size h = ( b − a)/M 
+
+and time step size τ = ∆ t > 0. The grid points and time steps are given by xj =
+
+a + jh (j = 0 , 1, . . . , M ) and tn = nτ (n = 0 , 1, . . . ), respectively. Let Φ nj denote the numerical approximation of Φ( xj , t n). We use the sine-spectral method for spatial discretization. The spectral second-order differential operator Dsxx acting on a vector 
+
+U = ( U0, . . . , U M )T (with U0 = UM = 0) is defined as (3.11) (Dsxx U )j = − 2
+
+M 
+
+> M−1
+
+X
+
+> l=1
+
+μ2 
+
+> l
+
+( ˆU )l sin( μl(xj − a)) , j = 1 , . . . , M − 1,
+
+where μl = πl b−a , and ( ˆU )l are the sine transform coefficients: (3.12) ( ˆU )l = 
+
+> M−1
+
+X
+
+> j=1
+
+Uj sin( μl(xj − a)) , l = 1 , . . . , M − 1.
+
+BESP Scheme for GFLM. The linearly implicit BESP scheme for GFLM is given by: (3.13) Φ∗ 
+
+> j
+
+− Φnj
+
+τ = 12 ε⊙(Dsxx Φ∗)j −V1(xj )+ A1(Φ nj )+ B1(Φ nj )⊙Φ∗ 
+
+> j
+
++μ(Φ n)⊙Φnj ,
+
+for j = 1 , . . . , M − 1, with boundary conditions Φ ∗ 
+
+> 0
+
+= Φ ∗ 
+
+> M
+
+= 0. The intermediate solution Φ ∗ is then projected to satisfy the normalization: (3.14) (ϕl)n+1  
+
+> j
+
+=
+
+r Nl
+
+N
+
+(ϕ∗ 
+
+> l
+
+)j
+
+∥ϕ∗ 
+
+> l
+
+∥h
+
+, l = 1 , 2,
+
+where ∥ · ∥ h denotes the discrete L2 norm. Eq. (3.13) constitutes a linear system for Φ ∗ with spatially variable coefficients. Solving this variable-coefficient linear sys-tem directly is computationally expensive. Therefore, we solve it iteratively using a stabilization term with the parameter γ = ( γ1, γ 2)T :Φ∗,m +1  
+
+> j
+
+− Φnj
+
+τ = 12 ε ⊙ (Dsxx Φ∗,m +1 )j − γ ⊙ Φ∗,m +1 
+
+> j
+
++ γ − V1(xj ) − A1(Φ nj ) − B1(Φ nj ) ⊙ Φ∗,m j + μ(Φ n) ⊙ Φnj ,(3.15) with Φ ∗,0 
+
+> j
+
+= Φ nj . This linear system with constant coefficients can be solved efficiently using the fast Fourier transform (FFT). 
+
+BFSP Scheme for GFLM. Taking only one iteration step ( m = 0) in Eq. (3.15) yields the BFSP scheme: Φ∗ 
+
+> j
+
+− Φnj
+
+τ = 12 ε ⊙ (Dsxx Φ∗)j − γ ⊙ Φ∗
+
+> j
+
++ γ − V1(xj ) − A1(Φ nj ) − B1(Φ nj ) ⊙ Φnj + μ(Φ n) ⊙ Φnj .(3.16) The projection step remains the same. The schemes for GFDN are obtained by simply removing the Lagrange multiplier term μ(Φ n) ⊙ Φnj .GS OF QUANTUM DROPLETS 13 
+
+Remark 3.5. Due to the competing nonlinear interactions in quantum droplets, determining an optimal stabilization parameter γ is difficult, with no theoretical guar-antee for unconditional convergence for an arbitrary time step τ . We adapt the heuris-tic strategy used in standard BECs [5]: (3.17) γl = bl 
+
+> max
+
++ bl
+
+> min
+
+2 , l = 1 , 2,
+
+where bl 
+
+> max
+
+and bl 
+
+> min
+
+denote the maximum and minimum values of the effective po-tential Vl + Al(Φ n) + Bl(Φ n), respectively. In practice, this choice effectively balances stability and efficiency. 
+
+Remark 3.6. For radially symmetric potentials V (x) = V (|x|) (including the free-space case), the ground state preserves radial symmetry. Consequently, the original 3D problem reduces to a 1D equation on the semi-infinite interval [0 , ∞). The numerical solution for this reduced system follows the standard radial discretization scheme (see, e.g., Ref. [6]), and we thus omit the implementation details here. 
+
+3.4. Choice of initial data. The gradient flow methods (GFDN and GFLM) are iterative processes that require an initial guess Φ 0(x) to start. A well-chosen initial guess is crucial for two reasons: it significantly accelerates the convergence rate, and it helps the algorithm avoid being trapped in local energy minimizers (excited states), thereby ensuring convergence to the true ground state. We provide effective initial guesses for different physical regimes as follows. 
+
+Weak-coupling regime. In the weak-coupling regime, the ground state pro-file is dominated by the kinetic energy or external potential. We typically adopt a Gaussian profile as the initial guess. 
+
+• Harmonic potential. When the system is confined by a harmonic trap, we choose the ground state of the corresponding non-interacting linear harmonic oscillator: (3.18) ϕ(0)  
+
+> j
+
+(x) = Y
+
+> ν
+
+ γν,j 
+
+π√εj
+
+1/4
+
+exp 
+
+
+
+− γν,j x2
+
+> ν
+
+2√εj
+
+
+
+, j = 1 , 2,
+
+where the product runs over the spatial dimensions ν ∈ { x, y, z }.
+
+• Free space. In the absence of external potential ( V (x) = 0), we employ a Gaussian ansatz with a tunable width σj :(3.19) ϕ(0)  
+
+> j
+
+(x) = 1(πσ 2 
+
+> j
+
+)d/ 4 exp − |x|2
+
+2σ2
+
+> j
+
+!
+
+, j = 1 , 2.
+
+The width parameters σj > 0 are chosen empirically (e.g., σj ∈ [0 .1, 5]) or determined by a continuation technique from solutions with larger particle numbers. 
+
+Strong-coupling regime. In the strong-coupling regime in free space ( V (x) = 0), we adopt the TFA. By neglecting the kinetic energy term, the ground state reduces to a uniform liquid drop with constant densities confined within a finite radius Rd:(3.20) ϕsj (x) = 
+
+(√ρj , |x| ≤ Rd,
+
+0, |x| > R d, j = 1 , 2.14 WEI LIU, LIMIN XU 
+
+The equilibrium densities ρ1 and ρ2 are determined by minimizing the bulk energy density: (3.21) 
+
+√ρ1 = − 56
+
+α11 N 21 + 2 α12 N1N2 + α22 N 22
+
+δ
+
+
+
+β1N 4/51 + β2N2N −1/51
+
+5/2 , √ρ2 = − 56
+
+α11 N 21 + 2 α12 N1N2 + α22 N 22
+
+δ
+
+
+
+β1N1N −1/52 + β2N 4/52
+
+5/2 .
+
+Consequently, the droplet radius Rd is uniquely determined by the normalization condition ∥ϕsj ∥2 = Nj /N . This Thomas-Fermi (TF) profile serves as a robust initial guess for simulations with large particle numbers. For systems with a non-vanishing potential or partial confinement, a continuation technique is often more efficient. 
+
+Remark 3.7. The validity of the TF ansatz relies on the existence of a self-bound state, which requires the mean-field attraction to balance the LHY repulsion. This imposes a strict constraint on the particle number ratio: (3.22) 
+
+> 2
+
+X
+
+> j,l =1
+
+αjl Nj Nl < 0 = ⇒ N1
+
+N2
+
+∈ −α12 − √Dα11 
+
+, −α12 + √Dα11 
+
+!
+
+,
+
+where D = α212 − α11 α22 > 0. Outside this range, the mixture cannot form a stable droplet, rendering the single-radius TF ansatz invalid. 
+
+3.5. Application to the density-locked model. Analogous to the general two-component case, the ground state solution ϕg (x) of the density-locked model is defined as the global minimizer of the energy functional: (3.23) E(ϕg ) = min  
+
+> ϕ∈S
+
+E(ϕ), S =
+
+n
+
+ϕ ∥ϕ∥2 = 1 , E (ϕ) < ∞
+
+o
+
+,
+
+where the dimensionless energy functional is (3.24) E(ϕ) = 
+
+Z
+
+> Rd
+
+ 12 |∇ ϕ|2 + Vd(x)|ϕ|2 + αd
+
+2 |ϕ|4 + 2βd
+
+5 |ϕ|5
+
+
+
+dx.
+
+Every minimizer must satisfy the corresponding Euler-Lagrange equation, which reads as the nonlinear eigenvalue problem: (3.25) μϕ (x) = − 12 ∇2ϕ(x) + Vd(x)ϕ(x) + αd|ϕ(x)|2ϕ(x) + βd|ϕ(x)|3ϕ(x),
+
+under the normalization condition ∥ϕ∥2 = 1, and the corresponding chemical potential 
+
+μ is given by (3.26) μ =
+
+Z
+
+> Rd
+
+ 12 |∇ ϕ|2 + Vd(x)|ϕ|2 + αd|ϕ|4 + βd|ϕ|5
+
+
+
+dx.
+
+The GFDN and GFLM methods introduced in Sections 3.2–3.3 can be applied directly to solve this problem by reducing the vector fields to a scalar field. Regarding the existence of ground states, we have the following result established in [26] (recall that 0 > α ∝ N, 0 < β ∝ N 3/2 according to (2.23)): 
+
+Theorem 3.8 (Existence of ground state [26]). For density-locked model in three dimension, the following hold: GS OF QUANTUM DROPLETS 15 
+
+(1) If V (x) ≥ 0 ( x ∈ R3) satisfies lim |x|→∞ V (x) = ∞, then there exists ground-state solution for (3.23) for any atomic number N .(2) If V (x) = 0 , there is a critical atomic number Nc. When N < N c, there is no ground state for (3.23) , and E(ϕ) > 0 for all ϕ ∈ S. When N > N c, there is a ground state for (3.23) . Moreover, the ground state is (up to translation) radially symmetric and there is some real number θ ∈ R such that ϕ = eiθ |ϕ| and 
+
+|ϕ(x)| > 0 for all x ∈ R3.Remark 3.9. The critical particle number Nc represents the threshold for the existence of a self-bound ground state in free space. It is important to note that analytical estimates for Nc (e.g., in [28]) typically rely on a Gaussian variational ansatz (assuming a soliton-like profile). However, such approximations may deviate from the exact value as they cannot fully capture the deformation of the wave function near the transition. We will determine the precise value of Nc numerically in Section 4. 
+
+Choice of initial data. Similar to the full two-component model, a suitable ini-tial guess is essential for efficient computation. We construct ϕ(0) (x) based on the interaction regime: (i) Weak-coupling regime. We adopt a Gaussian profile. For harmonic confine-ment, we use the ground state of the linear oscillator ϕ(0) (x) = Q
+
+> ν
+
+  γν
+
+> π
+
+1/4 e− γν x 2 
+
+> ν
+> 2
+
+.In free space ( V (x) = 0), we employ a Gaussian ansatz with a tunable width σ:
+
+ϕ(0) (x) = ( πσ 2)−d/ 4e−| x|2/(2 σ2).(ii) Strong-coupling regime. In free space, the ground state exhibits a flat-top profile. We adopt the TF ansatz: (3.27) ϕs(x) = 
+
+(√ρs, |x| ≤ Rd,
+
+0, |x| > R d.
+
+The constant amplitude is explicitly given by √ρs = −5α/ 6β (valid for α < 0, β > 0), corresponding to the equilibrium density of the uniform system. The droplet radius 
+
+Rd is determined by the normalization ∥ϕs∥2 = 1. For cases with confinement, the continuation technique described in Section 3.3 is recommended. 
+
+4. Numerical results. In this section, we present numerical results to validate the efficiency of the proposed methods and to investigate the ground state properties of quantum droplets. We use the physical parameters of a 39 K mixture [17, 31]: the scattering lengths are a11 = 69 .99 a0, a12 = −53 .37 a0, and a22 = 34 .11 a0, where a0 is the Bohr radius. 
+
+4.1. Comparison of numerical methods. We first compare the performance of different discretization schemes: GFDN-BESP, GFDN-BFSP, GFLM-BESP, and GFLM-BFSP. We consider both the density-locked model and the general two-component model in 3D. 
+
+Example 4.1 (Density-locked model). We consider the density-locked model in 3D with V (x) = 0 and N = 10 4. The computational domain is [ −32 , 32] with a mesh size h = 1 /32. The scaling frequency is ω = 50, resulting in the dimensionless parameters α = −2.5474 and β = 0 .3315 according to (2.23). The steady state is considered reached when the residual satisfies max j |ϕn+1  
+
+> j
+
+− ϕnj |/τ ≤ 10 −12 . Table 1 lists the ground state energy Eg , chemical potential μg , CPU time, and the maximum residual for different time steps τ .
+
+Example 4.2 (General two-component model). We utilize the same physical parameters but solve the general two-component eGPE. We choose V (x) = 0 and N =16 WEI LIU, LIMIN XU 
+
+Table 1: Comparison of different methods for the density-locked model (Example 4.1).                                                                                           
+
+> Method τCPU(s) EgμgResidual 1Diverged 0.5 0.53 -2.338e-01 -6.678e-01 1.881e-12 GFDN-BESP 0.1 0.90 -2.338e-01 -6.678e-01 1.413e-12 0.05 1.66 -2.338e-01 -6.678e-01 1.264e-12 0.01 6.36 -2.338e-01 -6.678e-01 1.145e-12 0.005 12.88 -2.338e-01 -6.678e-01 1.244e-12 0.5 0.09 -2.202e-01 -5.536e-01 5.440e-02 0.1 0.31 -2.330e-01 -6.426e-01 1.835e-02 0.05 0.58 -2.336e-01 -6.550e-01 9.871e-03 GFDN-BFSP 0.01 2.58 -2.338e-01 -6.652e-01 2.096e-03 0.005 5.14 -2.338e-01 -6.665e-01 1.056e-03 0.5 0.37 -2.338e-01 -6.678e-01 1.766e-12 0.1 0.66 -2.338e-01 -6.678e-01 1.227e-12 GFLM-BESP 0.05 1.15 -2.338e-01 -6.678e-01 1.164e-12 0.01 4.69 -2.338e-01 -6.678e-01 1.285e-12 0.005 8.98 -2.338e-01 -6.678e-01 1.204e-12 0.5 0.08 -2.338e-01 -6.678e-01 1.665e-12 0.1 0.28 -2.338e-01 -6.678e-01 1.254e-12 0.05 0.56 -2.338e-01 -6.678e-01 1.190e-12 GFLM-BFSP 0.01 2.60 -2.338e-01 -6.678e-01 1.258e-12 0.005 5.25 -2.338e-01 -6.678e-01 1.228e-12
+
+4 × 10 3, with the particle number ratio fixed at the optimal value N1/N 2 = pa22 /a 11 .The dimensionless coefficients are computed as α11 = 32 .6631, α12 = −24 .9068, 
+
+α22 = 15 .9185, β1 = 6 .4981 × 10 −4, β2 = 3 .1669 × 10 −4, and δ = 1 .9132 × 10 7. The convergence criterion is 1
+
+> τ
+
+P2 
+
+> j=1
+
+max l |(ϕj )n+1  
+
+> l
+
+− (ϕj )nl | ≤ 10 −12 . Table 2 presents the comparison results. From the results in Tables 1 and 2, we observe the following: (1) Efficiency: The semi-implicit BFSP schemes are significantly faster than the fully iterative BESP counterparts. (2) Accuracy: Standard GFDN-BFSP suffers from O(τ ) splitting errors, leading to large residuals. In contrast, GFLM-BFSP corrects this via the Lagrange mul-tiplier, achieving spectral accuracy comparable to BESP even with large time steps. (3) Stability: The fixed-point iteration in BESP schemes diverges for large τ (e.g., 
+
+τ = 1) due to the unbounded effective potential in quantum droplets, losing the unconditional stability found in repulsive BECs. Consequently, GFLM-BFSP is identified as the optimal solver, combining the efficiency of explicit schemes with the accuracy of implicit ones. We adopt it for all subsequent simulations. 
+
+4.2. Validation of the density-locked model. In Section 2, we reduced the coupled two-component eGPE to a single-component density-locked model under the assumption of a fixed density ratio. In this subsection, we numerically verify the accuracy of this reduction by comparing its ground state solutions with those of the full two-component model. The time step size is taken as τ = 0 .001 for subsequent experiments. GS OF QUANTUM DROPLETS 17 Table 2: Comparison of different methods for the general two-component model (Ex-ample 4.2). 
+
+Method τ CPU(s) Eg μg, 1 μg, 2 Residual 0.5 Diverged 0.1 6.71 -4.085e-02 -1.375e-01 -1.081e-01 1.305e-12 GFDN-BESP 0.05 11.24 -4.085e-02 -1.375e-01 -1.081e-01 1.336e-12 0.01 50.69 -4.085e-02 -1.375e-01 -1.081e-01 1.374e-12 0.005 91.81 -4.085e-02 -1.375e-01 -1.081e-01 1.408e-12 0.1 2.62 -4.085e-02 -1.366e-01 -1.072e-01 6.445e-04 0.05 4.62 -4.085e-02 -1.370e-01 -1.076e-01 3.269e-04 GFDN-BFSP 0.01 22.19 -4.085e-02 -1.374e-01 -1.080e-01 6.613e-05 0.005 44.30 -4.085e-02 -1.375e-01 -1.080e-01 3.311e-05 0.001 215.70 -4.085e-02 -1.375e-01 -1.080e-01 6.630e-06 0.5 Diverged 0.1 5.77 -4.085e-02 -1.375e-01 -1.081e-01 1.226e-12 GFLM-BESP 0.05 9.83 -4.085e-02 -1.375e-01 -1.081e-01 1.328e-12 0.01 43.70 -4.085e-02 -1.375e-01 -1.081e-01 1.362e-12 0.005 87.42 -4.085e-02 -1.375e-01 -1.081e-01 1.379e-12 0.1 2.96 -4.085e-02 -1.375e-01 -1.081e-01 1.368e-12 0.05 5.19 -4.085e-02 -1.375e-01 -1.081e-01 1.269e-12 GFLM-BFSP 0.01 25.68 -4.085e-02 -1.375e-01 -1.081e-01 1.313e-12 0.005 53.30 -4.085e-02 -1.375e-01 -1.081e-01 1.297e-12 0.001 268.60 -4.085e-02 -1.375e-01 -1.081e-01 1.348e-12 
+
+We define the relative errors in the wave function and the total energy as follows: 
+
+Eϕ = ∥ϕDL − ϕF ull ∥2
+
+∥ϕF ull ∥2
+
+=
+
+qR |ϕDL − ϕF ull |2dx
+
+qR |ϕF ull |2dx
+
+, EE = |EDL − EF ull ||EF ull | ,
+
+where ϕDL is the solution of the density-locked model, and ϕF ull is the profile of the first component ϕ1 from the full model (normalized to 1). The parameters for the 
+
+> 39
+
+K mixture are the same as in Example 4.1. 
+
+Example 4.3 (Accuracy test). We systematically investigate the validity of the density-locked model by comparing it with the full two-component model. We vary the trapping frequency ω, particle number N , and the interaction imbalance parameter ∆a. The ground states are computed using the GFLM-BFSP method. 
+
+(1) Dependence on confinement strength ω. We fix N = 5 × 10 4 and vary the isotropic trapping frequency ω from 0 to 2000. As shown in Fig. 1(a), the density-locked model exhibits excellent accuracy in the strong confinement regime. The energy error EE drops rapidly as ω increases and stabilizes around 10 −3. The wavefunction error Eϕ initially decreases, reaching a minimum around ω ≈ 600, and remains below 0.7% throughout the tested range. This confirms that the single-component approxi-mation is robust under tight confinement, where the density profiles are stiff. 
+
+(2) Dependence on particle number N . We fix ω = 1000 and vary N from 1 × 10 4 to 1 × 10 5. The results in Fig. 1(b) show a monotonic increase in errors as the droplet size grows. This trend is expected because larger droplets have a flatter density core (quantum droplet regime), making the transition region more sensitive to the ratio-locking approximation compared to Gaussian-like profiles. However, even for 18 WEI LIU, LIMIN XU 
+
+macroscopic droplets with N = 10 5, the relative errors remain negligible ( EE < 0.3% and Eϕ < 0.6%), validating the model for large-scale simulations. 
+
+(3) Dependence on interaction imbalance ∆a. The density-locked ansatz is derived based on a specific ratio determined by the intraspecies interactions. To test the robustness of this approximation against parameter variations, we introduce a deviation ∆ a relative to our baseline experimental configuration (i.e., a12 = abase 12 +∆a). We fix ω = 1000 , N = 5 × 10 4 and vary ∆ a from 0 to 3 a0. As illustrated in Fig. 1(c), the wavefunction error Eϕ increases almost linearly with ∆ a. This is physically consistent: as the interspecies interaction shifts away from the baseline value used to justify the locking condition, the true ground-state density ratio slightly drifts, leading to a growing discrepancy with the locked ansatz. Nevertheless, even at a significant deviation of ∆ a = 3 a0, the errors remain well-controlled ( Eϕ < 1% and EE < 4%), demonstrating that the model is sufficiently robust for parameter sweeps around the base configuration. In summary, the density-locked model provides a reliable description of the ground state properties while significantly reducing the computational cost by halving the degrees of freedom. 
+
+4.3. Ground state properties and validation of TFA. In this subsection, we investigate the ground state properties of the density-locked model across differ-ent dimensions ( d = 1 , 2, 3). We examine the transition from the weak-coupling to the strong-coupling regime by varying the particle number N . Our numerical study covers both free space ( V (x) = 0) and harmonic confinement, while the quantitative validation of the TFA focuses on the free-space limit. We compute the ground state wave function ϕg , the chemical potential μg , and the root mean square (RMS) radius rrms defined by rrms =
+
+qR 
+
+> D
+
+|x|2|ϕg (x)|2dx. The computational domain D is chosen large enough to avoid boundary effects: [ −64 , 64] for 1D, [ −32 , 32] 2 for 2D, and [ −16 , 16] 3 for 3D, with sufficiently fine meshes to ensure spatial accuracy. 
+
+Transition to the flat-top profile. Figs. 2, 3, and 4 display the ground state profiles for varying particle numbers N in both free space and harmonic traps. Aconsistent trend is observed across all dimensions: (1) For small N , the kinetic energy is comparable to the interaction energy, resulting in smooth, Gaussian-like profiles. (2) As N increases, the droplet expands (increasing rrms ) and the peak density de-creases. (3) For sufficiently large N , the kinetic energy becomes negligible. In free space, the wave function develops a distinct “flat-top” structure with a uniform bulk density matching the TFA prediction ρs = −5α/ 6β. Under harmonic confinement, the profile broadens into a TF distribution determined by the local potential. Tables 3, 4, and 5 list the quantitative properties for the free-space cases. We observe that the TFA provides an accurate estimate for μg only when N is very large. For intermediate N , finite-size effects and surface tension lead to deviations. 
+
+Convergence rate of TFA. To quantify the accuracy of the TFA in the limit 
+
+N → ∞ (free space), we calculate the errors between the numerical ground state (ϕg , μ g ) and the TF approximation ( ϕs, μ s). The convergence results are summarized in Tables 6, 7, and 8. We define the error with respect to the small parameter N . Based on the numer-ical data, we observe the following convergence laws: GS OF QUANTUM DROPLETS 19 
+
+(a) Error vs. confinement strength ω (N = 5 × 10 4, ∆a = 0). 
+
+(b) Error vs. particle number N (ω = 1000 , ∆a = 0). 
+
+(c) Error vs. interaction imbalance ∆ a (N = 5 × 10 4, ω = 1000). 
+
+Fig. 1: Accuracy validation of the single-component density-locked model compared to the full two-component GPE. The left panels show the relative energy error EE ,and the right panels show the relative L2-norm wavefunction error Eϕ. The results demonstrate that the reduced model maintains high precision ( ∼ 10 −3 relative error) across a wide range of experimentally relevant parameters. 20 WEI LIU, LIMIN XU 0 5 10 15 20 25 30 
+
+> -0.1 00.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+
+(a) Free space ( V (x) = 0) 0 5 10 15 20 25 30 35 40  
+
+> -0.05 00.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45
+
+(b) Harmonic potential ( V (x) = 12 ωr x2)
+
+Fig. 2: Ground state profiles of 1D density-locked droplets. (a) Wave function ϕg (r)in free space with scaling parameters ω = 50 and ω⊥ = 100. (b) Wave function ϕg (r)under a harmonic trap with ωr = 20 and ω⊥ = 2000. In both panels, the six curves correspond to particle numbers N starting from 2 .5 × 10 4 and doubling successively up to 8 × 10 5. The profiles with wider spatial support correspond to larger particle numbers. 
+
+• Chemical Potential: The error |μg − μs| converges at a rate of approximately 
+
+O(N −1/d ). 
+
+• Wave Function ( L2 norm): The error ∥ϕg − ϕs∥L2 converges at a rate of approximately O(N −1/(2 d)). Specifically: 
+
+• In 1D (Table 6), the L2 error decays as O(N −0.5). 
+
+• In 2D (Table 7), the chemical potential error scales as O(N −0.5), and the L2
+
+error scales as O(N −0.25 ). 
+
+• In 3D (Table 8), the chemical potential error scales as O(N −0.35 ) ≈ O(N −1/3), and the L2 error scales as O(N −0.17 ) ≈ O(N −1/6). These scaling laws suggest that the error is dominated by the surface layer of the droplet. The convergence rates reflect how the ratio of the surface layer volume to the total droplet volume scales with N in different dimensions. While these numerical findings align with physical intuition, establishing a rigorous mathematical proof for these dimension-dependent convergence rates remains an open problem for future research. 
+
+4.4. The critical particle number. As established in Theorem 3.8, a critical particle number Nc exists for the formation of a self-bound droplet in free space. When N < N c, the attractive mean-field energy is insufficient to bind the atoms against the LHY repulsion and kinetic pressure, resulting in the non-existence of a ground state. While theoretical estimates exist based on variational approximations (e.g., using Gaussian ansatz) [28], the exact value of Nc remains to be determined numerically. In this subsection, we provide a precise determination of Nc using the GFLM-BFSP method. To find the universal critical threshold independent of specific scattering lengths, we introduce a rescaled particle number eN . By choosing the scaling frequency as in GS OF QUANTUM DROPLETS 21 Table 3: Ground state properties of 1D quantum droplets in free space. ϕg (0) denotes the peak amplitude, rrms is the RMS radius, and μg is the chemical potential computed numerically compared with the TFA. 
+
+N ϕg (0) rrms μg (Num.) μg (TFA) 6 × 10 3 1.3735 0.2208 -11.4921 -13.6051 1.2 × 10 4 1.2138 0.2553 -13.4526 -13.6051 2.4 × 10 4 0.9121 0.3923 -13.6044 -13.6051 4.8 × 10 4 0.6476 0.7137 -13.6051 -13.6051 9.6 × 10 4 0.4580 1.3894 -13.6051 -13.6051 1.92 × 10 5 0.3238 2.7594 -13.6051 -13.6051 3.84 × 10 5 0.2290 5.5089 -13.6051 -13.6051 7.68 × 10 5 0.1619 11.0130 -13.6051 -13.6051 0 2 4 6 8 10 12 
+
+> 00.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+
+(a) Free space ( V (r) = 0) 0 0.5 1 1.5 2 2.5 3 3.5  
+
+> 00.5 11.5 22.5 3
+
+(b) Harmonic potential ( V (r) = 12 ωr r2)
+
+Fig. 3: Ground state profiles of 2D radially symmetric droplets. (a) Radial wave function ϕg (r) in free space with scaling parameters ω = 50 and ωz = 100. (b) Radial wave function ϕg (r) under a harmonic trap with ωr = 20 and ωz = 2000. The curves correspond to particle numbers N starting from 10 5 and doubling successively up to 2.56 × 10 7 in (a), and from 10 4 up to 1 .28 × 10 6 in (b). The profiles with wider spatial support correspond to larger particle numbers. (2.9), the dimensionless coefficients become α = −3 eN and β = 52 eN 3/2, where (4.1) eN = 5π2
+
+3√6
+
+|δa |5/2
+
+(√a11 + √a22 )5 N. 
+
+Thus, the problem is reduced to finding a critical parameter eNc such that a negative energy ground state exists if and only if eN > eNc.We perform numerical simulations by varying eN (via N ) and monitoring the final energy Efin at the termination of the algorithm. To avoid convergence to spurious positive-energy excited states (which would incorrectly imply the non-existence of a bound state), we employ a numerical continuation strategy: starting from a stable large- eN solution, we progressively decrease the particle number using the previous wave function as the initial guess. This ensures the solver remains within the basin 22 WEI LIU, LIMIN XU 
+
+Table 4: Ground state properties of 2D quantum droplets in free space. The notations are the same as in Table 3. 
+
+N ϕg (0) rrms μg (Num.) μg (TFA) 1 × 10 5 0.9874 0.4640 -13.1268 -15.3924 2 × 10 5 0.6946 0.6190 -13.8162 -15.3924 4 × 10 5 0.4873 0.8503 -14.2864 -15.3924 8 × 10 5 0.3425 1.1868 -14.6134 -15.3924 16 × 10 5 0.2411 1.6696 -14.8426 -15.3924 32 × 10 5 0.1699 2.3575 -15.0040 -15.3924 64 × 10 5 0.1199 3.3341 -15.1179 -15.3924 128 × 10 5 0.0846 4.7181 -15.1984 -15.3924 256 × 10 5 0.0598 6.6772 -15.2552 -15.3924 0 0.5 1 1.5 2 2.5 3 3.5 
+
+> 00.2 0.4 0.6 0.8 11.2
+
+(a) Free space ( V (r) = 0) 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5 
+
+> 00.1 0.2 0.3 0.4 0.5 0.6 0.7
+
+(b) Harmonic potential ( V (r) = 12 ωr r2)
+
+Fig. 4: Ground state profiles of 3D spherically symmetric droplets. (a) Radial wave function ϕg (r) in free space with scaling parameter ω = 50. (b) Radial wave function 
+
+ϕg (r) under a harmonic trap with ωr = 100. In both panels, the curves correspond to particle numbers N starting from 4 × 10 5 and doubling successively up to 1 .28 × 10 7.The profiles with wider spatial support correspond to larger particle numbers. Table 5: Ground state properties of 3D quantum droplets in free space. The notations are the same as in Table 3. 
+
+N ϕg (0) rrms μg (Num.) μg (TFA) 1 × 10 5 2.1070 0.4047 -8.6447 -17.4145 2 × 10 5 1.5357 0.4511 -10.7828 -17.4145 4 × 10 5 1.0854 0.5285 -12.3262 -17.4145 8 × 10 5 0.7603 0.6369 -13.4783 -17.4145 1.6 × 10 6 0.5319 0.7807 -14.3525 -17.4145 3.2 × 10 6 0.3726 0.9675 -15.0227 -17.4145 6.4 × 10 6 0.2614 1.2073 -15.5402 -17.4145 1.28 × 10 7 0.1837 1.5128 -15.9419 -17.4145 10 8 0.0649 2.9888 -16.6868 -17.4145 GS OF QUANTUM DROPLETS 23 Table 6: Convergence of the TFA in 1D as N → ∞ .
+
+N 6E3 1.2E4 2.4E4 4.8E4 9.6E4 Rate 
+
+∥ϕg − ϕs∥L2 7.492e-01 5.082e-01 3.580e-01 2.547e-01 1.823e-01 ≈ 0.49 Table 7: Convergence of the TFA in 2D as N → ∞ .
+
+N 1E5 2E5 4E5 8E5 16E5 32E5 Rate 
+
+|μg − μs| 2.266 1.576 1.106 7.792e-1 5.499e-1 3.885e-1 ≈ 0.50 
+
+∥ϕg − ϕs∥L2 4.623e-1 3.900e-1 3.268e-1 2.735e-1 2.312e-1 1.945e-1 ≈ 0.25 Table 8: Convergence of the TFA in 3D as N → ∞ .
+
+N 1E5 2E5 4E5 8E5 16E5 32E5 Rate 
+
+|μg − μs| 8.771 6.633 5.089 3.937 3.063 2.392 ≈ 0.35 
+
+∥ϕg − ϕs∥L2 6.929e-1 6.000e-1 5.297e-1 4.691e-1 4.154e-1 3.697e-1 ≈ 0.17 Table 9: Final energy Efin near the critical parameter eNc. The transition from stable droplet ( Efin < 0) to instability occurs around eN ≈ 22 .65.             
+
+> eN22 .60 22 .62 22 .64 22 .66 22 .68 22 .70
+> Efin 2.667e-4 1.498e-4 3.280e-5 -8.420e-5 -2.010e-4 -3.179e-4
+
+of attraction of the true ground state (as long as it exists). The transition is thus accurately identified where the computed Efin crosses from negative to positive. Table 9 presents the results near the transition point. Our numerical results indicate that the critical threshold is eNc ≈ 22 .65. This value is significantly higher than the analytical estimate eNc ≈ 18 .65 provided by Petrov [28], which was derived under a Gaussian variational approximation. Our result suggests that the Gaussian ansatz underestimates the critical number because it fails to capture the flat-top profile of the droplet near the transition. Substituting eNc ≈ 22 .65 into Eq. (4.1) yields the physical critical particle number: (4.2) Nc ≈ 3.373 × (√a11 + √a22 )5
+
+|δa |5/2 .
+
+This relationship provides a precise criterion for the formation of quantum droplets in homonuclear Bose-Bose mixtures. 
+
+5. Summary. In this paper, we have systematically studied the ground state computation of quantum droplets in homonuclear Bose-Bose mixtures. We derived the dimensionless energy functionals for both the general two-component system and the reduced density-locked model, providing a clear theoretical framework for numer-ical simulations. To compute the ground states efficiently, we adapted and compared several gradient flow discretization schemes. Our extensive numerical benchmarks demonstrate that the GFLM-BFSP method achieves the best balance between effi-ciency and accuracy. Based on this efficient solver, we conducted a series of numerical experiments to explore the physical properties of quantum droplets. We verified the 24 WEI LIU, LIMIN XU 
+
+validity of the density-locked model, showing it to be an accurate approximation for calculating ground state properties. We also provided a quantitative analysis of the Thomas-Fermi approximation, establishing its dimension-dependent convergence rates in the strong-coupling regime. Furthermore, we numerically determined the critical particle number for self-binding in free space, offering a precise correction to existing analytical estimates. This work provides a robust basis for future studies. Natural extensions include the simulation of droplet dynamics, the investigation of rotational properties and vortex formation, and the study of droplets in heteronuclear mixtures. 
+
+Acknowledgments. We would like to thank Prof. Weizhu Bao for helpful dis-cussions. We thank Westlake University HPC Center for computation support. 
+
+REFERENCES [1] F. Ancilotto, M. Barranco, M. Guilleumas, and M. Pi , Self-bound ultradilute Bose mix-tures within local density approximation , Phys. Rev. A, 98 (2018), p. 053623. [2] X. Antoine, A. Levitt, and Q. Tang , Efficient spectral computation of the stationary states of rotating Bose-Einstein condensates by preconditioned nonlinear conjugate gradient meth-ods , J. Comput. Phys., 343 (2017), pp. 92–109. [3] D. Baillie, R. Wilson, and P. Blakie , Collective excitations of self-bound droplets of a dipolar quantum fluid , Phys. Rev. Lett., 119 (2017), p. 255302. [4] W. Bao and Y. Cai , Mathematical theory and numerical methods for Bose-Einstein conden-sation , Kinet. Relat. Mod., 6 (2013), pp. 1–135. [5] W. Bao, I.-L. Chern, and F. Y. Lim , Efficient and spectrally accurate numerical methods for computing ground and first excited states in Bose–Einstein condensates , J. Comput. Phys., 219 (2006), pp. 836–854. [6] W. Bao and Q. Du , Computing the ground state solution of Bose–Einstein condensates by a normalized gradient flow , SIAM J. Sci. Comput., 25 (2004), pp. 1674–1697. [7] C. Cabrera, L. Tanzi, J. Sanz, B. Naylor, P. Thomas, P. Cheiney, and L. Tarruell ,
+
+Quantum liquid droplets in a mixture of Bose-Einstein condensates , Science, 359 (2018), pp. 301–304. [8] E. Canc` es, R. Chakir, and Y. Maday , Numerical analysis of nonlinear eigenvalue problems ,J. Sci. Comput., 45 (2010), pp. 90–117. [9] A. Cappellaro, T. Macr` ı, and L. Salasnich , Collective modes across the soliton-droplet crossover in binary Bose mixtures , Phys. Rev. A, 97 (2018), p. 053623. [10] P. Cheiney, C. R. Cabrera, J. Sanz, B. Naylor, L. Tanzi, and L. Tarruell , Bright Soliton to Quantum Droplet Transition in a Mixture of Bose-Einstein Condensates , Phys. Rev. Lett., 120 (2018), p. 135301. [11] H. Chen, G. Dong, W. Liu, and Z. Xie , Second-order flows for computing the ground states of rotating Bose-Einstein condensates , J. Comput. Phys., 475 (2023), p. 111872. [12] M. L. Chiofalo, S. Succi, and M. P. Tosi , Ground state of trapped interacting Bose-Einstein condensates by an explicit imaginary-time algorithm , Phys. Rev. E, 62 (2000), pp. 7438– 7444. [13] L. Chomaz, S. Baier, D. Petter, M. Mark, F. W¨ achtler, L. Santos, and F. Ferlaino ,
+
+Quantum-fluctuation-driven crossover from a dilute Bose-Einstein condensate to a macro-droplet in a dipolar quantum fluid , Phys. Rev. X, 6 (2016), p. 041039. [14] I. Danaila and B. Protas , Computation of ground states of the Gross-Pitaevskii functional via Riemannian optimization , SIAM J. Sci. Comput., 39 (2017), pp. B1102–B1129. [15] C. D’Errico, A. Burchianti, M. Prevedelli, L. Salasnich, F. Ancilotto, M. Modugno, F. Minardi, and C. Fort , Observation of quantum droplets in a heteronuclear bosonic mixture , Phys. Rev. Research, 1 (2019), p. 033155. [16] E. Faou and T. J´ ez´ equel , Convergence of a normalized gradient algorithm for computing ground states , IMA J. Numer. Anal., 38 (2018), pp. 360–376. [17] G. Ferioli, G. Semeghini, S. Terradas-Brians´ o, L. Masi, M. Fattori, and M. Modugno ,
+
+Dynamical formation of quantum droplets in a 39 K mixture , Phys. Rev. Research, 2 (2020), p. 013269. [18] I. Ferrier-Barbut, H. Kadau, M. Schmitt, M. Wenzel, and T. Pfau , Observation of Quantum Droplets in a Strongly Dipolar Bose Gas , Phys. Rev. Lett., 116 (2016), p. 215301. GS OF QUANTUM DROPLETS 25 
+
+[19] I. Ferrier-Barbut, M. Schmitt, M. Wenzel, H. Kadau, and T. Pfau , Liquid quantum droplets of ultracold magnetic atoms , J. Phys. B: At. Mol. Opt. Phys., 49 (2016), p. 214004. [20] T. A. Flynn, L. Parisi, T. P. Billam, and N. G. Parker , Quantum droplets in imbalanced atomic mixtures , Phys. Rev. Research, 5 (2023), p. 033167. [21] Z. Guo, F. Jia, L. Li, Y. Ma, J. M. Hutson, X. Cui, and D. Wang , Lee-Huang-Yang effects in the ultracold mixture of 23 Na and 87 Rb with attractive interspecies interactions , Phys. Rev. Research, 3 (2021), p. 033247. [22] P. Henning and E. Jarlebring , The Gross–Pitaevskii equation and eigenvector nonlinearities: Numerical methods and algorithms , SIAM Rev., 67 (2025), pp. 256–317. [23] H. Kadau, M. Schmitt, M. Wenzel, C. Wink, T. Maier, I. Ferrier-Barbut, and T. Pfau ,
+
+Observing the Rosensweig instability of a quantum ferrofluid , Nature, 530 (2016), pp. 194– 197. [24] E. H. Lieb, J. P. Solovej, R. Seiringer, and J. Yngvason , The mathematics of the Bose gas and its condensation , Springer, 2005. [25] W. Liu and Y. Cai , Normalized gradient flow with lagrange multiplier for computing ground states of Bose–Einstein condensates , SIAM J. Sci. Comput., 43 (2021), pp. B219–B242. [26] Y. Luo and A. Stylianou , On 3d dipolar Bose-Einstein condensates involving quantum fluctu-ations and three-body interactions , Discrete Contin. Dyn. Syst. Ser. B, 26 (2021), pp. 3455– 3477. [27] F. Minardi, F. Ancilotto, A. Burchianti, C. D’Errico, C. Fort, and M. Modugno ,
+
+Effective expression of the Lee-Huang-Yang energy functional for heteronuclear mixtures ,Phys. Rev. A, 100 (2019), p. 063636. [28] D. S. Petrov , Quantum mechanical stabilization of a collapsing Bose-Bose mixture , Phys. Rev. Lett., 115 (2015), p. 155302. [29] D. S. Petrov and G. E. Astrakharchik , Ultradilute low-dimensional liquids , Phys. Rev. Lett., 117 (2016), p. 100401. [30] M. Schmitt, M. Wenzel, F. B¨ ottcher, I. Ferrier-Barbut, and T. Pfau , Self-bound droplets of a dilute magnetic quantum liquid , Nature, 539 (2016), pp. 259–262. [31] G. Semeghini, G. Ferioli, L. Masi, C. Mazzinghi, L. Wolswijk, F. Minardi, M. Modugno, G. Modugno, M. Inguscio, and M. Fattori , Self-Bound Quantum Droplets of Atomic Mixtures in Free Space , Phys. Rev. Lett., 120 (2018), p. 235301. [32] E. Shamriz, Z. Chen, and B. A. Malomed , Suppression of the quasi-two-dimensional quan-tum collapse in the attraction field by the Lee-Huang-Yang effect , Phys. Rev. A, 101 (2020), p. 063628. [33] M. Tylutki, G. E. Astrakharchik, B. A. Malomed, and D. S. Petrov , Collective excita-tions of a one-dimensional quantum droplet , Phys. Rev. A, 101 (2020), p. 051601. [34] M. Wenzel, F. B¨ ottcher, T. Langen, I. Ferrier-Barbut, and T. Pfau , Striped states in a many-body system of tilted dipoles , Phys. Rev. A, 96 (2017), p. 053630.
