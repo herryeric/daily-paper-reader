@@ -1,0 +1,2046 @@
+Title: Thermal Entanglement and Out-of-Equilibrium Thermodynamics in 1D Bose gases
+
+URL Source: https://arxiv.org/pdf/2604.01157v1
+
+Published Time: Thu, 02 Apr 2026 01:31:15 GMT
+
+Number of Pages: 24
+
+Markdown Content:
+# Thermal Entanglement and Out-of-Equilibrium Thermodynamics in 1D Bose gases 
+
+Julia Mathé ,1, 2, 3, ∗ Nicky Kai Hong Li ,1, 2, 3 Pharnam Bakhshinezhad ,1, 2 and Giuseppe Vitagliano 1, 2, †
+
+> 1
+
+Technische Universität Wien, Atominstitut, Stadionallee 2, 1020 Vienna, Austria 
+
+> 2
+
+Vienna Center for Quantum Science and Technology, TU Wien, 1020 Vienna, Austria 
+
+> 3
+
+Institute for Quantum Optics and Quantum Information (IQOQI), Austrian Academy of Sciences, Boltzmanngasse 3, 1090 Vienna, Austria 
+
+We investigate entanglement in and out of equilibrium in a one-dimensional Bose gas in its low-energy Bogoliubov regime. In this Gaussian setting, the state is fully characterized by its covariance matrix, which allows us to detect and quantify entanglement using a covariance-based framework and associated entanglement monotones. For thermal states, we determine the optimal entanglement witness arising from the covariance matrix criterion and show that it has a remarkably simple mode-resolved structure: it is diagonal in the normal-mode basis and admits a simple analytic form that can be expressed as a product of only two normal-mode uncertainties. We then study out-of-equilibrium dynamics induced by unitary compression and show that entanglement can be generated even from initially separable thermal states. When the evolution is fully adiabatic, the optimal witness retains the same two-mode structure as in the thermal case. Departing from this regime, i.e., performing increasingly rapid compression, the optimal witness becomes genuinely more intricate. Our methods and results provide a unified and physically intuitive picture of how entanglement emerges and evolves in 1D quantum Bose gases, and identify an optimal witness structure relevant more broadly to the analysis of entanglement in quadratic bosonic models and its role in thermodynamic cycles. 
+
+I. INTRODUCTION 
+
+Entanglement is one of the most distinctive signatures of genuinely quantum many-body behavior, and its characteriza-tion has become a central goal in the study of both equilibrium and out-of-equilibrium systems. Beyond its foundational role, entanglement provides a natural language for quantifying the departure of a many-body state from a classical or mean-field description, especially in regimes where collective fluctuations and correlations become relevant. In this sense, entanglement is not only a resource for quantum technologies, but also a diag-nostic tool for understanding the structure of complex quantum matter [1–3]. A major difficulty, however, is that entanglement is notori-ously hard to access in realistic many-body settings, particu-larly for mixed states and in situations where only a restricted set of observables is experimentally available [4–6]. In such cases, one seeks entanglement criteria that are both physically meaningful and operationally accessible. Entanglement wit-nesses provide a natural framework in this direction: they allow one to certify entanglement from expectation values of suitable observables, without requiring full state tomography [4, 5]. Specifically, these are observables 𝑊 whose expectation value satisfies Tr (𝑊 𝜚 ) < 0 for at least one entangled state 𝜚 ∈ ENT ,while Tr (𝑊𝜎 ) ≥ 0 for all separable state 𝜎 ∈ SEP .An especially appealing perspective is to connect entangle-ment detection to quantities that are central in statistical me-chanics and thermodynamics. Over the years, several works have shown that thermodynamically relevant observables, in-cluding energy [7–12], heat capacity [13, 14], magnetic sus-ceptibilities [15, 16], and more general response functions [17– 20], can reveal the presence of entanglement in many-body   
+
+> ∗julia.mathe@tuwien.ac.at
+> †giuseppe.vitagliano@tuwien.ac.at
+
+systems. This line of thought is conceptually attractive be-cause it relates quantum correlations to measurable macro-scopic properties and suggests that entanglement may serve as an organizing principle for the interpretation of equilibrium phases and driven dynamics. It is therefore natural to consider these questions in settings that are both physically relevant and theoretically tractable, such as Gaussian many-body field theories, where entangle-ment has been studied in the ground state [21–28], in thermal equilibrium [29–33], and in certain out-of-equilibrium scenar-ios, particularly quenches [34–39]. These systems provide an especially convenient setting for formulating entanglement cri-teria directly in terms of covariance matrices [40–42], making them readily accessible across a broad range of scenarios. Yet, even in this favorable setting, it remains unclear how compli-cated the optimal witness structure is, whether entanglement can be certified from only a few observables, and how such a description extends systematically beyond equilibrium. In this context, low-energy one-dimensional Bose gases are particu-larly relevant as they admit a Gaussian low-energy description in the Bogoliubov regime, where the relevant degrees of free-dom are collective density and phase fluctuations rather than individual particles [43–45], and the state of the system is fully characterized by their covariance matrices. These questions are timely also from the experimental side. Low-dimensional cold-atom platforms can now prepare and manipulate quantum fields with remarkable control [46–49], potentially even allowing the implementation of thermody-namic cycles beyond the classical regime [50], while phase and density fluctuations can be accessed directly [51, 52]. Re-cent experiments have already probed information-theoretic properties such as mutual information and area-law behavior in quantum field simulators, demonstrating that correlation-based diagnostics are within reach [53]. This raises the broader question of whether one can develop comparably accessible entanglement-based diagnostics that remain meaningful both in equilibrium and during dynamical protocols. 
+
+> arXiv:2604.01157v1 [quant-ph] 1 Apr 2026
+
+2In this work, we study the Bogoliubov regime of a one-dimensional Bose gas using a covariance-based framework. We show that the corresponding many-body entanglement ad-mits a remarkably compact description. For thermal states, and more generally under fully adiabatic evolution, the op-timal witness is diagonal in the normal-mode basis and is determined entirely by two extremal mode uncertainties. This yields a minimal and experimentally accessible certification strategy in terms of only two variance-based observables. Be-yond equilibrium, we show that unitary compression can gen-erate entanglement even from initially separable thermal states, thereby linking many-body entanglement generation to ther-modynamic control. Our main contributions are as follows: (A) We implement a Gaussian entanglement-detection framework for equilibrium and non-equilibrium states of the discretized quadratic field theory model, based on optimal covariance-matrix witnesses. (B) For thermal states and fully adiabatic evolutions, we show that the optimal witness has a simple extremal-mode structure and can be written solely in terms of two normal-mode uncertainties. (C) We demonstrate that unitary compression can activate entanglement from initially separable thermal states at experimentally relevant temperatures in the nK regime. In Section II A, we explain how to perform the discretiza-tion of the Bogoliubov Hamiltonian, how to describe the initial thermal state (Section II B) using an orthogonal transforma-tion, and how to model unitary compression in a discretized model (Section II C). In Section II D, we discuss the covariance matrix criterion as an entanglement quantifier. By applying these methods, we find analytical results for thermal states and discuss them in detail in Section III A, followed by an extended discussion that covers the fully-adiabatic case in Section III B. In Section III C, we consider a more general quasi-adiabatic evolution and analyze the witness structure in this setting. Fi-nally, we conclude and present an outlook in Section IV.   
+
+> II. BACKGROUND AND METHODS A. Discretized description for a 1D Bose gas
+
+Our starting point is the Bogoliubov Hamiltonian that approx-imates a 1D Bose gas in a box of length 𝐿 and is given by 
+
+𝐻 B =
+
+∫ 𝐿 
+
+> 0
+
+d𝑧 
+
+ ℏ2
+
+2𝑚 ¯𝜌 (𝜕 𝑧 𝜑 )2 + ℏ2
+
+8𝑚 ¯𝜌 (𝜕 𝑧 𝛿𝜌 )2 + 𝑔 
+
+2 𝛿𝜌 2
+
+
+
+, (1) where ¯𝜌 is the mean-field density (fixed by the chemical po-tential in a grand-canonical ensemble), 𝜌 = ¯𝜌 11 + 𝛿𝜌 is the operator associated to the density, which is composed by a constant mean-field term plus the density-fluctuation opera-tor, and 𝜑 is the phase fluctuation operator. Note, that in the following, we set ℏ = 1. To model our system, one typically BEC :   
+
+> Harmonic chain :
+> FIG. 1. Discretizing a 1D BEC: Starting from the Bogoliubov Hamiltonian in Eq. (1) that describes a degenerate Bose gas in the limit of weak interactions and low density fluctuations, the discretization involves several steps. Introducing discretized density and phase operators that satisfy a rescaled commutation relation, following the procedure from Ref. [45], and neglecting the second term, we obtain a low-energy approximation that describes the Bose gas as a free phonon gas.
+
+considers Neumann open boundary conditions 1. Density and phase fluctuations are (approximately) canonically conjugated to each other, i.e., they (approximately) obey the canonical commutation relations [𝛿𝜌 (𝑧 ), 𝜑 (𝑥 )] ≃ 𝑖𝛿 (𝑧 − 𝑥 )11, which is valid in the limit of large density ¯𝜌 ≫ 1. These two canoni-cally conjugated operators arise from the polar decomposition of the atomic field operator Ψ† (𝑧 ) =√︁ 𝜌 (𝑧 ) 𝑒 −𝑖 𝜑 (𝑧 ) . See Fig. 1 for an overview of the model and Section A for further details. First, we define a lattice version of the phononic Hamilto-nian in Eq. (1), obtained by discretising the interval [0, 𝐿 ] into 
+
+𝑁 𝑝 pixels, each of size Δ = 𝐿 /𝑁 𝑝 [45], which is useful for nu-merical investigations. For fixed 𝑁 𝑝 , the index can be written as 𝑖 = 1, . . . , 𝑁 𝑝 + 1, and hence the coordinates of the dis-cretization lattice become 𝑧 𝑖 = 𝐿 𝑁 𝑝 (𝑖 − 1). These coordinates then define discretization pixels which are the closed intervals 
+
+𝐼 𝑖 = [𝑧 𝑖 , 𝑧 𝑖 +1] for 𝑖 = 1, . . . , 𝑁 𝑝 .Second, we introduce the discretized version of density and phase operators as the integration of the field operators via 
+
+ϕ𝑖 = 1
+
+Δ
+
+∫
+
+> 𝐼 𝑖
+
+d𝑧 𝜑 (𝑧 ), (2) 
+
+𝛿 ρ𝑖 = 1
+
+Δ
+
+∫
+
+> 𝐼 𝑖
+
+d𝑧 𝛿𝜌 (𝑧 ), (3) with |𝐼 𝑖 | = Δ = 𝐿 /𝑁 𝑝 . These discretized operators satisfy the rescaled canonical commutation relations (CCR): 
+
+[𝛿 ρ 𝑗 , ϕ𝑘 ] = 𝑖𝛿 𝑗 𝑘 11/Δ, (4) and by writing them in a vector of canonical coordinates, 
+
+X =
+
+
+
+𝛿 ρ1, . . . , 𝛿 ρ𝑁 𝑝 , ϕ1, . . . , ϕ𝑁 𝑝 
+
+𝑇 
+
+, (5)   
+
+> 1Note that one can also consider Dirichlet boundary conditions as an alter-native. In our system and analysis, however, not much changes between these two settings unless the number of pixels is taken to be very small.
+
+3we can write the commutation relations compactly as 
+
+[𝑋 𝑗 , 𝑋 𝑘 ] = 𝑖 Ω 𝑗,𝑘 
+
+Δ 11, (6) where Ω =   0 1
+
+> −1 0
+
+ is the canonical symplectic form. Note that in the continuum limit 𝑁 𝑝 → ∞ , the discretized operators tend to the continuous density and phase fields and the right-hand side of Eq. (4) will yield a Dirac delta. In summary, to discretize the model, we follow Ref. [45] and obtain, in the lowest-order approximation, a discretized model with a quadratic Hamiltonian 2:
+
+𝐻 ≈ Δ
+
+
+
+¯𝜌 
+
+2𝑚  
+
+> 𝑁 𝑝 −1
+
+∑︁ 
+
+> 𝑖 =1
+
+ ϕ𝑖 − ϕ𝑖 +1
+
+Δ
+
+2
+
++ 𝑔 
+
+2
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑖 =1
+
+𝛿 ρ2
+
+> 𝑖
+
+
+
+. (9) 
+
+B. Description of initial thermal state 
+
+Throughout this work, we take the initial state to be the Gibbs state of the (zero-mode regularized) discretized Hamiltonian, 
+
+𝜏 = 𝑒 −𝐻 /𝑇 
+
+Z , Z = Tr 
+
+
+
+𝑒 −𝐻 /𝑇 
+
+, (10) where we set 𝑘 𝐵 = 1. Since 𝐻 is quadratic in bosonic quadra-tures, 𝜏 is a Gaussian state and is therefore fully characterized by its first and second moments. In particular, in our case the first moments vanish, i.e., ⟨𝑋 𝑖 ⟩ = 0, and the only non-trivial object is the covariance matrix (see Section B for a brief re-view): 
+
+Γ𝑖 𝑗 = 12 ⟨𝑋 𝑖 𝑋 𝑗 + 𝑋 𝑗 𝑋 𝑖 ⟩ − ⟨ 𝑋 𝑖 ⟩⟨ 𝑋 𝑗 ⟩. (11) Compactly, the discretized Hamiltonian can be written in standard quadratic form as 
+
+𝐻 ≈ Δ
+
+2 X 𝑇 
+
+𝐻 ρ 00 𝐻 ϕ
+
+
+
+X, (12)                        
+
+> 2We mostly consider open boundary conditions of Neumann type. Since this model would feature a zero mode, we “regularize” it (i.e., eliminate the zero mode) in the numerical simulations. This can be done in a simple way, while maintaining Gaussianity, by adding a term of the form
+> 𝐻 reg =𝜇
+> 𝑁 𝑝 −1∑︁
+> 𝑖 =1
+> ϕ2
+> 𝑖 .(7) We also note that using Dirichlet-type OBC does not change our con-clusions, and in fact in some cases they provide a cleaner argument. Adiscussion of the relevance and impact of zero modes on entanglement can be found in Ref. [54]. Note also that, with respect to Eq. (1), i.e., the full Bogoliubov model, we are neglecting the second term, which contains the spatial derivative of the density fluctuations, and in the discretized model would take the form [45]
+> 𝐻 bog =−18𝑚 ¯𝜌
+> 𝑁 𝑝 −1∑︁
+> 𝑖 =2
+> 𝛿 ρ𝑖 (𝛿 ρ𝑖 +1+𝛿 ρ𝑖 −1−2𝛿 ρ𝑖 )
+> Δ2.(8) This would still fit into the Gaussian framework that we describe below. However, it is a first non-universal correction term which makes the numer-ical calculations more computationally costly and less accurate.
+
+with 
+
+𝐻 ρ = 𝑔 11, 𝐻 ϕ = ¯𝜌 𝑚 Δ2 L + 𝜇 11. (13) Here, 𝜇 ≥ 0 denotes the possible Gaussian regularization that lifts the zero mode, and L is the discrete Laplacian associated with the gradient term Í𝑁 𝑝 −1 
+
+> 𝑖 =1
+
+(ϕ𝑖 − ϕ𝑖 +1)2.In the present case, the thermal covariance matrix is block diagonal, 
+
+Γ𝜏 =
+
+Γρ (𝑇 ) 00 Γϕ (𝑇 )
+
+
+
+, (14) sharing the same structure of the Hamiltonian discussed above. Both the covariance matrix and the Hamiltonian can be de-composed into normal-mode quadratures in the following way. Starting with the Hamiltonian, one finds the orthogonal matrix 
+
+𝑂 that diagonalizes 𝐻 ϕ , and uses it to define the normal-mode quadratures ,
+
+𝜼 ρ = 𝑂 𝑇 𝜹𝝆 , 𝜼 ϕ = 𝑂 𝑇 𝜹𝝓 . (15) In the normal-mode basis, the Hamiltonian becomes 
+
+𝐻 = Δ 
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝐻 𝑘 , 𝐻 𝑘 = 12
+
+
+
+𝑔 (𝜂 ρ )2 
+
+> 𝑘
+
++ 𝜈 𝑘 (𝜂 ϕ )2
+
+> 𝑘
+
+
+
+, (16) with 𝜈 𝑘 being the eigenvalues of 𝐻 ϕ .The thermal second moments are then given by 
+
+⟨( 𝜂 ρ )2 
+
+> 𝑘
+
+⟩ = 𝜔 𝑘 
+
+2𝑔 Δ coth 
+
+ 𝜔 𝑘 
+
+2𝑇 
+
+
+
+, (17) 
+
+⟨( 𝜂 ϕ )2 
+
+> 𝑘
+
+⟩ = 𝑔 
+
+2𝜔 𝑘 Δ coth 
+
+ 𝜔 𝑘 
+
+2𝑇 
+
+
+
+, (18) where 𝜔 𝑘 = √𝑔𝜈 𝑘 . See Section C 1 for further details. 
+
+C. Compression as a time-dependent dilation 
+
+Let us now model a time-dependent length change of the trapping (box) potential of the one-dimensional (quasi-)condensate. Let 𝐿 (𝑡 ) be the time-dependent length of the box. A convenient parametrization of the compression/expan-sion is via the ratio 
+
+𝜆 (𝑡 ) := 𝐿 (0)
+
+𝐿 (𝑡 ) , (19) so that compression corresponds to increasing 𝜆 . A convenient way to account for the changing system size is to switch to a co-compressing coordinate 𝑧 ↦ → 𝑥 := 𝜆 (𝑡 ) 𝑧, such that 
+
+𝑧 = 𝑥 𝜆 (𝑡 ) , 𝜕 𝑧 = 𝜆 (𝑡 ) 𝜕 𝑥 , d𝑧 = d𝑥 𝜆 (𝑡 ) , (20) so that the spatial domain is fixed to 𝑥 ∈ [ 0, 𝐿 ] with 𝐿 = 𝐿 (0)
+
+at all times (see Section C 2). Since the canonical com-mutator involves a Dirac delta, the coordinate dilation must 4be accompanied by a field rescaling [50]. Indeed, using 
+
+𝛿 (𝑧 − 𝑧 ′) = 𝜆 (𝑡 )𝛿 (𝑥 − 𝑥 ′), one finds that defining 
+
+𝜉 (𝑥, 𝑡 ) := 1
+
+𝜆 (𝑡 ) 𝛿𝜌 
+
+ 𝑥 𝜆 (𝑡 ) , 𝑡 
+
+
+
+,𝜑 (𝑥, 𝑡 ) := 𝜑 
+
+ 𝑥 𝜆 (𝑡 ) , 𝑡 
+
+
+
+,
+
+(21) preserves the canonical structure in the fixed domain: 
+
+𝜉 (𝑥, 𝑡 ), 𝜑 (𝑥 ′, 𝑡 ) = 𝑖 𝛿 (𝑥 − 𝑥 ′). (22) In this co-compressing frame the time-dependent Hamiltonian (before discretization) becomes [50] (see Section C 2) 
+
+𝐻 (𝑡 ) =
+
+∫ 𝐿 
+
+> 0
+
+d𝑥 
+
+"
+
+¯𝜌 (0)
+
+2𝑚 𝜆 2 (𝑡 ) ( 𝜕 𝑥 𝜑 )2 + 𝑔 
+
+2 𝜆 (𝑡 ) 𝜉 2
+
+#
+
+, (23) where we used ¯𝜌 (𝑡 ) = 𝑁 /𝐿 (𝑡 ) = ¯𝜌 (0)𝜆 (𝑡 ).Once again, for our numerics we discretize the interval into 
+
+𝑁 𝑝 pixels of size Δ and define coarse-grained fields ϕ𝑖 and 
+
+𝛿 ρ𝑖 by spatial averaging over each pixel, as described earlier. The co-compressing frame formulation introduced before is particularly convenient for the discretized model. In fact, to implement a compression 𝐿 (𝑡 ) while keeping 𝑁 𝑝 fixed, one must work in a frame with a time-dependent lattice spacing 
+
+Δ(𝑡 ) = 𝐿 (𝑡 )/ 𝑁 𝑝 = Δ /𝜆 (𝑡 ) , (24) where we called Δ ≡ Δ(0) the initial lattice spacing. Defining the discrete co-compressing fields, 
+
+ξ𝑖 (𝑡 ) := 1
+
+𝜆 (𝑡 ) 𝛿 ρ𝑖 (𝑡 ), ϕ𝑖 (𝑡 ) := ϕ 𝑖 (𝑡 ), (25) one ensures that the canonical algebra is time-independent in the fixed-domain discretization, i.e., 
+
+[ξ 𝑗 (𝑡 ), ϕ𝑘 (𝑡 )] = 𝑖𝛿 𝑗 𝑘 /Δ. (26) Furthermore, we discretize the time interval, such that the overall length change 𝐿 ↦ → 𝐿 + 𝛿𝐿 is implemented in 𝑁 𝑡 small steps. Let the total compression time be 𝑡 comp and divide it into 𝑁 𝑡 steps of duration 𝛿𝑡 = 𝑡 comp /𝑁 𝑡 . At step 𝑛 (with 
+
+𝑛 = 0, . . . , 𝑁 𝑡 − 1), the total length is 𝐿 𝑛 and the pixel size is 
+
+Δ𝑛 = 𝐿 𝑛 /𝑁 𝑝 . We then update them iteratively as 
+
+𝐿 𝑛 +1 = (1 + 𝜖 ) 𝐿 𝑛 , Δ𝑛 +1 = (1 + 𝜖 ) Δ𝑛 , (27) with 𝜖 = 𝛿𝐿 /𝐿 · 1/𝑁 𝑡 ≪ 1.Thus, at step 𝑛 (with 𝑛 = 0, . . . , 𝑁 𝑡 − 1), the total length and the corresponding compression factor are 
+
+𝐿 𝑛 = 𝐿 0 (1 + 𝜖 )𝑛 , 𝜆 𝑛 = 𝐿 0
+
+𝐿 𝑛 
+
+= (1 + 𝜖 )−𝑛 ,
+
+with 𝜖 ≪ 1 being the relative length change per step (nega-tive for compression). We then approximate the dynamics by a piecewise-constant Hamiltonian, with the parameters held fixed during each interval [𝑡 𝑛 , 𝑡 𝑛 +1).The Hamiltonian generating the evolution during the 𝑛 -th step is therefore 
+
+𝐻 𝑛 = Δ
+
+2 Y 𝑇 𝑛 
+
+𝐻 (𝑛 ) 
+
+> ξ
+
+00 𝐻 (𝑛 )
+
+> ϕ
+
+!
+
+Y𝑛 , (28) with 
+
+𝐻 (𝑛 ) 
+
+> ξ
+
+= 𝑔 𝜆 𝑛 −1
+
+1 + 𝜖 11, 𝐻 (𝑛 ) 
+
+> ϕ
+
+= ¯𝜌 𝑚 Δ2
+
+𝜆 2
+
+> 𝑛 −1
+
+(1 + 𝜖 )2 L + 𝜇 11, (29) and the new vector of field operators at step 𝑛 ,
+
+Y𝑛 := (ξ1 (𝑡 𝑛 ) . . . , ξ𝑁 𝑝 (𝑡 𝑛 ), ϕ1 (𝑡 𝑛 ), . . . , ϕ𝑁 𝑝 (𝑡 𝑛 )) . (30) Accordingly, the Heisenberg equation during the 𝑛 -th Trotter interval reads 
+
+𝑑 𝑑𝑡 Y𝑛 (𝑡 ) = 𝐴 𝑛 Y𝑛 (𝑡 ), 𝐴 𝑛 := Ω𝐻 𝑛 
+
+Δ . (31) Therefore, over one step of duration 𝛿𝑡 , the covariance matrix evolves as 
+
+˜Γ𝑛 +1 = 𝑆 𝑛 ˜Γ𝑛 𝑆 𝑇 𝑛 , (32) where 𝑆 𝑛 = exp  𝐴 𝑛 𝛿𝑡  = exp 
+
+ Ω𝐻 𝑛  
+
+> Δ
+
+𝛿𝑡 
+
+
+
+, and ˜Γ𝑛 denotes the covariance matrix at step 𝑛 expressed in the mode basis Y𝑛 .Note that the passage from the physical lattice density fluctu-ations 𝛿 ρ𝑖 (𝑡 ) to the co-compressing variables ξ𝑖 (𝑡 ) in Eq. (25) corresponds to a purely local, time-dependent canonical rescal-ing, i.e., Y = 𝑅 (𝑡 )X(𝑡 ), with 𝑅 (𝑡 ) :=  𝜆 −1 (𝑡 ) 1𝑁 𝑝 
+
+ ⊕ 1𝑁 𝑝 . In particular, this is a local squeezing transformation that does not mix sites and does not introduce non-locality. As the transformation is implemented mode-by-mode in real space, it cannot generate or destroy entanglement. Thus, the system’s separability or entanglement is equivalent whether assessed from ˜Γ(𝑡 ) or from the representation expressed in the physical variables, 𝑅 (𝑡 )−1 ˜Γ(𝑡 )𝑅 (𝑡 )−𝑇 . 
+
+> D. Covariance matrix criterion as an entanglement quantifier
+
+It is well known that, especially for Gaussian states, entan-glement in bosonic systems can be certified and quantified directly from the covariance matrix. One typical example is to calculate the so-called entanglement negativity [55], which can be calculated from the symplectic eigenvalues of the co-variance matrix after partial transposition of one subsystem (cf. Section E). Another paradigmatic and powerful approach is the covariance matrix criterion (CMC) [40, 41], which works as follows in a general 𝑁 𝑝 -mode system. Let Γ𝜚 denote the covariance matrix of a state 𝜚 with respect to the canonical operator vector X = (𝑥 1, . . . , 𝑥 𝑁 𝑝 , 𝑝 1, . . . , 𝑝 𝑁 𝑝 )𝑇 satisfying the CCR, [𝑋 𝑗 , 𝑋 𝑘 ] = 𝑖 Ω 𝑗 𝑘 11, with symplectic form Ω. If 𝜚 is separable across a bipartition 𝐴 |𝐵 , i.e., 𝜚 = Í𝑘 𝑝 𝑘 ( 𝜚 𝐴 ⊗ 𝜚 𝐵 )𝑘 
+
+with 𝑝 𝑘 ⩾ 0 and Í𝑘 𝑝 𝑘 = 1, then there exist local covariance matrices 𝛾 𝐴 and 𝛾 𝐵 such that 
+
+Γ𝜚 − 𝛾 𝐴 ⊕ 𝛾 𝐵 ⪰ 0, (33) 5where 𝛾 𝐴 and 𝛾 𝐵 satisfy the Heisenberg uncertainty relation on their respective subsystems, 
+
+𝛾 𝐴 + 𝑖 Ω𝐴 ⪰ 0, 𝛾 𝐵 + 𝑖 Ω𝐵 ⪰ 0. (34) Equivalently, if no such 𝛾 𝐴 , 𝛾 𝐵 exist (i.e., if Eq. (33) is vio-lated), then 𝜚 is necessarily entangled across 𝐴 |𝐵 .Clearly, the discussion about the entanglement of a many-mode state will depend on the choice of bipartition, and certain partitions can exhibit more entanglement than others. In this context, it is worth recalling the connection with area-law be-havior of entanglement in bosonic lattice systems. For ground states of local, gapped many-body Hamiltonians, entangle-ment across a bipartition is often expected to scale primarily with the size of the boundary between the two regions, rather than with their volume. In harmonic and more general bosonic lattice models, rigorous area-law results are known for non-critical finite-range systems, and closely related bounds also exist for thermal correlations, for instance in terms of the mu-tual information [1, 56–58]. Hence, when comparing different bipartitions of a spatially local system, one generally expects the amount of detectable entanglement to depend strongly on the geometry of the cut: bipartitions with a larger interface can support larger boundary entanglement, whereas in one-dimensional gapped settings the entanglement across a con-nected cut typically remains bounded. This provides useful intuition for why some partitions are more favorable than oth-ers when assessing the total amount of entanglement. See also Section E for further details. The same idea naturally extends to multiple partitions. In our case, we consider fully separable states of 𝑁 𝑝 modes, i.e., states that can be decomposed as 
+
+𝜚 =∑︁ 
+
+> 𝑘
+
+𝑝 𝑘 ( 𝜚 1 ⊗ · · · ⊗ 𝜚 𝑁 𝑝 )𝑘 . (35) The CMC can be extended to this scenario and requires the existence of single-mode covariance matrices 𝛾 𝑗 such that 
+
+Γ𝜚 − 𝛾 1 ⊕ · · · ⊕ 𝛾 𝑁 𝑝 ⪰ 0, (36) with 𝛾 𝑗 + 𝑖 Ω ⪰ 0 for each mode 𝑗 . For general (non-Gaussian) states, this provides a necessary separability con-dition, whereas for Gaussian states, the CMC becomes both 
+
+necessary and sufficient [41]. A useful viewpoint is that the matrix inequality Eq. (36) is equivalent to a family of scalar inequalities obtained by testing against any positive semidefinite matrix 𝑍 ⪰ 0,
+
+Tr (𝑍 Γ𝜚 ) ≥ min   
+
+> {𝛾 𝑗 }
+
+Tr 
+
+
+
+𝑍 (𝛾 1 ⊕ · · · ⊕ 𝛾 𝑁 𝑝 )
+
+
+
+. (37) The optimization over admissible local covariances (subject to 𝛾 𝑗 + 𝑖 Ω ⪰ 0) can be formulated as a semidefinite program (SDP) [41], see also Section D. Importantly, the dual SDP yields an optimal positive semidefinite matrix 𝑍 opt which de-fines an entanglement witness via 
+
+⟨𝑊 ⟩𝜚 := 1 − Tr (𝑍 opt Γ𝜚 ), (38) which is negative for all fully separable states, while certifying entanglement whenever it is positive 3. Diagonalizing 𝑍 opt =
+
+Íℓ Λℓ Vℓ V† 
+
+> ℓ
+
+makes the physical content explicit: 
+
+Tr (𝑍 opt Γ𝜚 ) =∑︁ 
+
+> ℓ
+
+Var (𝑂 ℓ ), (39) where 𝑂 ℓ = √Λℓ V† 
+
+> ℓ
+
+· X are linear combinations of quadra-tures. Thus, CMC witnesses can be interpreted as optimized uncertainty relations for suitable collective quadratures. At this point, it is important to remember that in our case we work with variables that are canonical but rescaled. Hence, instead of simply applying Eqs. (33) and (36) where 𝛾 𝑗 + 𝑖 Ω ⪰
+
+0, we must consider the appropriately rescaled versions, i.e., 
+
+Γ𝜚 − 𝛾 1 ⊕ · · · ⊕ 𝛾 𝑁 𝑝 ⪰ 0, 𝛾 𝑗 + 𝑖 1
+
+Δ Ω ⪰ 0. (40) For more details, see Section D.   
+
+> III. RESULTS A. Entanglement and optimal witness of thermal states
+
+Let us first apply the covariance-matrix criterion (CMC) in Section II D to the initial Gibbs state 𝜏 of the discretized Hamiltonian 𝐻 introduced in Eqs. (12)-(29). Since the model is quadratic, 𝜏 is Gaussian and is therefore fully characterized by its covariance matrix Γ𝜏 , whose normal-mode second mo-ments are given in Eq. (17). As shown in Ref. [30] in a related framework, the Gibbs state becomes fully separable above a certain critical temperature, which can be shown in a natural way via the CMC. We now apply the SDP implementation of the CMC (cf. Sec-tion D), and in particular, from the solution to the dual problem, we obtain the optimal witness and its expectation value, which is plotted in Fig. 2 as a function of temperature. The witness in Eq. (44) can also be compared to different entanglement quan-tifiers, in particular (i) the logarithmic negativity (see Fig. 2) and (ii) an SDP that finds the optimal witness for any biparti-tion. For thermal states, these witnesses can both be computed easily for any given bipartition. Going through all bipartitions, we find that the bipartition for which maximal entanglement is detected is consistently given by the alternating or “zig-zag”-bipartition ( 𝐴 = {1, 3, 5, . . . }, 𝐵 = {2, 4, 6, . . . }) of modes for both entanglement quantifiers. Moreover, in this case, we observe that whenever Eq. (44) (which automatically detects entanglement across all bipartitions) is nonzero, so are (i) and (ii). Hence, the alternating bipartition appears to capture all the entanglement in this regime. It is also useful to write the witness in the dual CMC form. We find that 𝑍 ⪰ 0 has support only on the two extremal  
+
+> 3Note that we adopt a sign convention opposite to the standard definition of entanglement witness, essentially taking the negative of the witness as an entanglement quantifier.
+
+6               
+
+> FIG. 2. Entanglement, quantified by the optimal witness and the logarithmic negativity, as a function of temperature for thermal states of a 50 𝜇 m1D BEC of ≈6000 atoms with a fixed weak-coupling Hamiltonian. Positive values indicate the presence of entanglement. The temperature at which entanglement vanishes is marked by the dashed vertical line and coincides for both quantifiers, i.e., 𝑇 ∗=
+> 3.7896 nK (for Δ = 125 nm ≈𝜉 /2).
+
+quadratures, namely 
+
+𝑍 = diag 
+
+
+
+𝑧 𝜌 , 0, . . . , 0, 0, . . . , 0, 𝑧 𝜙 
+
+
+
+, (41) where 𝑧 𝜌 multiplies (𝜂 ρ )1 and 𝑧 𝜙 multiplies (𝜂 ϕ )𝑁 𝑝 . This form is exact for open boundary conditions of Dirichlet type and only approximately (but still almost exactly, for increasing 
+
+𝑁 𝑝 ) valid for other boundary conditions. In particular, we get 
+
+𝑧 𝜌 = 1
+
+𝑧 𝜙 
+
+=
+
+vut ⟨( 𝜂 ϕ )2 
+
+> 𝑁 𝑝
+
+⟩⟨( 𝜂 ρ )21 ⟩ , (42) and the corresponding witness expectation value is then 
+
+1 − Tr  𝑍 Γ𝜏 
+
+ = 1 − 2√︃ ⟨( 𝜂 ρ )21 ⟩ ⟨( 𝜂 ϕ )2 
+
+> 𝑁 𝑝
+
+⟩. (43) In this case, by substituting the expressions of the normal-mode second moments from Eq. (17), we are also able to de-rive the analytic form of the witness expectation value on the thermal state, which reads 
+
+⟨𝑊 (𝑇 )⟩ := 1 −√︄ 𝜔 1
+
+𝜔 𝑁 𝑝 
+
+coth 
+
+ 𝜔 𝑁 𝑝 
+
+2𝑇 
+
+
+
+coth 
+
+ 𝜔 1
+
+2𝑇 
+
+
+
+, (44) 
+
+# Discretization and entanglement 
+
+Note that the size of the discretization Δ affects our entanglement detection. Most importantly, for fixed physical length and in the limit of Δ → 0 (which im-plies 𝑁 𝑝 → ∞ ), the entanglement witness grows to its maximal value ⟨W⟩ → 1, as is shown in Appendix F 2. At the same time, in the limit of infinitesimal pixel size, it is no longer meaningful to talk about pixel-wise multipartite entanglement, and one must choose a high-momentum cutoff based on some con-crete modeling of the system that introduces a natural length scale. Hence, to have a meaningful quantifica-tion of entanglement, it is necessary to fix Δ to some appropriate value that captures the relevant physics of the system and allows for a meaningful detection. In our numerical simulations, we use the healing length 
+
+𝜉 = 1√𝑚𝑔 ¯𝜌 (cf. Eq. (A8)), which sets the natural length scale of a 1D Bose gas. We thus set our pixel size to be Δ ≲ 𝜉 . More details on the asymptotic scaling of the witness can be found in Appendix F. and which can be explained with the following heuristic ar-gument. We consider a tractable fully separable benchmark, given by site-factorized covariance matrices (see also Ref. [30] for a similar argument) 
+
+Γ0 (𝑎 ) :=
+
+> 𝑁 𝑝
+
+Ê
+
+> 𝑗 =1
+
+𝜂 0 (𝑎 ) :=
+
+> 𝑁 𝑝
+
+Ê
+
+> 𝑗 =1
+
+12
+
+𝑎 −1 00 𝑎 
+
+
+
+, 𝑎 > 0, (45) where 𝑎 is a free single-site squeezing parameter. By consid-ering this ansatz, we have that if, for some 𝑎 , one has 
+
+Γ𝜏 − 1
+
+Δ Γ0 (𝑎 ) ⪰ 0, (46) then 𝜏 is certainly not detected by the CMC, since we have found a valid lower bound from a separable covariance ma-trix. Conversely, violating Eq. (46) within the restricted family 
+
+Γ0 (𝑎 ) only shows that no identical on-site product reference of the form in Eq. (45) exists. The true optimal separable reference may, in principle, involve more general local blocks. Nevertheless, we can follow this argument to explain the analytic formula in Eq. (44) in a simple and intuitive way, as it turns out that this simple ansatz is indeed optimal or close to optimal within our framework. A key simplification of our benchmark Γ0 (𝑎 ) is that it is invariant under the orthogonal mode rotation 
+
+𝑆 := 𝑂 ⊕ 𝑂, (47) where 𝑂 is the matrix in Eq. (15) diagonalizing the phase sector. Indeed, 
+
+𝑆 𝑇 Γ0 (𝑎 )𝑆 = Γ 0 (𝑎 ) = 12 (𝑎 −11𝑁 𝑝 ⊕ 𝑎 1𝑁 𝑝 ). (48) At the same time, 𝑆 block-diagonalizes the thermal covariance matrix into independent normal-mode contributions, 
+
+𝑆 𝑇 Γ𝜏 𝑆 =
+
+> 𝑁 𝑝
+
+Ê
+
+> 𝑘 =1
+
+Γ(𝑘 ) 
+
+> 𝜏
+
+, Γ(𝑘 ) 
+
+> 𝜏
+
+=
+
+𝛼 𝑘 (𝑇 ) 00 𝛽 𝑘 (𝑇 )
+
+
+
+, (49) 7with 𝛼 𝑘 (𝑇 ) := ⟨( 𝜂 ρ )2 
+
+> 𝑘
+
+⟩ and 𝛽 𝑘 (𝑇 ) := ⟨( 𝜂 ϕ )2 
+
+> 𝑘
+
+⟩, whose expres-sions are given in Eqs. (17)-(18). Since the mode frequencies 
+
+𝜔 𝑘 = √𝑔 𝜈 𝑘 are ordered increasingly with 𝑘 , 𝛼 𝑘 (𝑇 ) is increas-ing in 𝑘 , whereas 𝛽 𝑘 (𝑇 ) is decreasing in 𝑘 .Therefore, within the benchmark family in Eq. (45), the condition in Eq. (46) is equivalent to the set of inequalities 
+
+𝛼 𝑘 (𝑇 ) · Δ ≥ 12𝑎 , 𝛽 𝑘 (𝑇 ) · Δ ≥ 𝑎 
+
+2 , 𝑘 = 1, . . . , 𝑁 𝑝 . (50) By the monotonicity of 𝛼 𝑘 and 𝛽 𝑘 in 𝑘 , it is sufficient to check only the extremal modes, 
+
+𝛼 1 (𝑇 ) ≥ 12𝑎 Δ , 𝛽 𝑁 𝑝 (𝑇 ) ≥ 𝑎 
+
+2Δ . (51) Hence, a suitable 𝑎 > 0 exists whenever 
+
+𝛼 1 (𝑇 ) 𝛽 𝑁 𝑝 (𝑇 ) = ⟨( 𝜂 ρ )21 ⟩ ⟨( 𝜂 ϕ )2 
+
+> 𝑁 𝑝
+
+⟩ ≥ 14Δ2 , (52) which gives exactly the witness in Eq. (43). Thus, within the restricted family of identical site-product references, separa-bility is controlled by the most squeezed quadratures in the two conjugate sectors: the lowest-frequency mode in the 𝜂 ρ
+
+sector and the highest-frequency mode in the 𝜂 ϕ sector. This provides a compact analytic explanation of the witness struc-ture observed numerically: within the restricted site-factorized benchmark family, the relevant CMC witness is diagonal. To conclude this discussion, it is worth noting that the ex-pectation value of this CMC witness directly provides a lower bound to an entanglement monotone known as the best separa-ble approximation (BSA) [59, 60]. It has already been shown that variance-based witnesses can provide a lower bound to the BSA in the finite-dimensional case [61, 62]. Here, we provide a simpler and more compact bound in terms of the covariance matrix also in this continuous-variable framework. See the following box as well as Section E 2. 
+
+# Lower bound to the BSA 
+
+The witness in Eq. (44), and in fact any witness found using the SDP discussed here, immediately gives a lower bound to an entanglement monotone known as the best separable approximation (BSA) [59, 60] which quantifies how well a given state 𝜚 can be represented as a convex combination of a (mixed) separable state 
+
+𝜎 and an arbitrary remainder state 𝜏 :
+
+𝐸 S 
+
+> BSA
+
+( 𝜚 ) := inf  
+
+> 𝜎 ∈SEP , 𝜏
+
+{𝜆 ∈ [ 0, 1] : 𝜚 = (1 − 𝜆 )𝜎 + 𝜆𝜏 }.
+
+Our witness is a lower bound to this measure, i.e., 
+
+𝐸 S 
+
+> BSA
+
+( 𝜚 ) ≥ max {0, ⟨𝑊 (𝑇 )⟩} ,
+
+which follows simply from the witness normalization given by Tr (𝑍 Γ𝜎 ) ≥ 1, arising naturally from the SDP. For a more detailed discussion, see Appendix E 2.  
+
+> B. Entanglement under fully adiabatic compression
+
+We now discuss how the witness structure derived for thermal states extends to a fully-adiabatic compression protocol. First of all, as the time-dependent Hamiltonian remains quadratic, the state remains Gaussian at all times. Moreover, in the per-fectly adiabatic regime, the occupation number 𝑛 𝑘 associated with the instantaneous mode operators remains constant along the protocol. Hence, an initial thermal state at 𝑡 = 0 evolves into a product of instantaneous Gaussian states with the same occupation numbers 𝑛 𝑘 , but with time-dependent eigenmode frequencies 𝜔 𝑘 (𝑡 ). As a result, at time 𝑡 , the covariance matrix in the instantaneous mode basis remains block-diagonal and retains the same functional form as the equilibrium expression, with the replacement 𝜔 𝑘 ↦ → 𝜔 𝑘 (𝑡 ).Let 𝐻 (𝑡 ) be the quadratic Hamiltonian during compression, as in Eq. (28) in the discretized model. Denote by 𝑂 the or-thogonal matrix diagonalizing the discrete Laplacian block, as in Eq. (15). For the homogeneous compression protocol considered here, the eigenvectors remain unchanged, i.e., the same 𝑂 diagonalizes the gradient block at all times, and only the corresponding eigenvalues (i.e., the normal-mode frequen-cies) vary in time. Let us now define the instantaneous normal-mode quadratures 
+
+𝜼 ρ (𝑡 ) = 𝑂 𝑇 𝛏 (𝑡 ), 𝜼 ϕ (𝑡 ) = 𝑂 𝑇 𝛟 (𝑡 ), (53) so that in this mode basis, the instantaneous Hamiltonian is a sum of uncoupled oscillators with frequencies 𝜔 𝑘 (𝑡 ) =√︁ 
+
+𝑔 𝜆 (𝑡 ) 𝜈 𝑘 (𝑡 ).Concretely, assume the initial state at 𝑡 = 0 is ther-mal, with temperature 𝑇 and mode occupations 𝑛 𝑘 =
+
+(coth (𝜔 𝑘 (0)/( 2𝑇 )) − 1)/ 2. Under perfectly adiabatic uni-tary evolution, each 𝑛 𝑘 is an adiabatic invariant. Hence, in the instantaneous mode basis, the covariance matrix at time 𝑡 
+
+remains mode-diagonal in the second moments, i.e., 
+
+Γad = 𝑆 𝑇 Γ𝑇 (𝑡 )𝑆 =
+
+> 𝑁 𝑝
+
+Ê
+
+> 𝑘 =1
+
+Γ(𝑘 ) 
+
+> 𝑇
+
+(𝑡 ), (54) where 𝑆 = 𝑂 ⊕ 𝑂 and Γ(𝑘 ) 
+
+> 𝑇
+
+(𝑡 ) = diag (𝛼 𝑘 (𝑡 ), 𝛽 𝑘 (𝑡 )) and with 
+
+𝛼 𝑘 (𝑡 ) := ⟨( 𝜂 ρ (𝑡 )) 2 
+
+> 𝑘
+
+⟩ad = 𝜔 𝑘 (𝑡 )
+
+2𝑔 Δ coth 
+
+ 𝜔 𝑘 (0)
+
+2𝑇 
+
+
+
+,𝛽 𝑘 (𝑡 ) := ⟨( 𝜂 ϕ (𝑡 )) 2 
+
+> 𝑘
+
+⟩ad = 𝑔 
+
+2𝜔 𝑘 (𝑡 )Δ coth 
+
+ 𝜔 𝑘 (0)
+
+2𝑇 
+
+
+
+.
+
+(55) From this point onward, we can follow the derivation from the previous section and again arrive at the optimal witness involving only two normal-mode quadratures: 
+
+⟨( 𝜂 ρ (𝑡 )) 21 ⟩ad ⟨( 𝜂 ϕ (𝑡 )) 2 
+
+> 𝑁 𝑝
+
+⟩ad ≥ 14Δ2 , (56) now with an explicit time-dependence 4. Consequently, the        
+
+> 4Note again that the only difference from the equilibrium case is that the occupation factors 𝑛 𝑘 are fixed by the initial thermal state, while the instan-taneous frequencies 𝜔 𝑘 (𝑡 )change during compression.
+
+8optimal witness takes a form similar to Eq. (44), i.e., 
+
+⟨𝑊 (𝑡, 𝑇 )⟩ := 1−√︄ 𝜔 1 (𝑡 )
+
+𝜔 𝑁 𝑝 (𝑡 ) coth 
+
+ 𝜔 𝑁 𝑝 (0)
+
+2𝑇 
+
+
+
+coth 
+
+ 𝜔 1 (0)
+
+2𝑇 
+
+
+
+.
+
+(57) The main insight is that in this fully adiabatic case, the dy-namics enters only through the time dependence of the mode frequencies. In particular, this already implies that adiabatic compression can generate entanglement by changing the ratio of the extremal mode fluctuations, even when starting from an initially separable state. Below, we discuss in more detail the case of small deviations from adiabaticity, where the optimal witness retains a dominant contribution similar to Eq. (57).  
+
+> C. Entanglement under quasi-adiabatic compression
+
+If the compression is not fully adiabatic but only quasi-adiabatic, the time-evolved covariance matrix becomes more complicated and also includes off-diagonal blocks, i.e., density-phase correlations. As a consequence, the analytic entanglement criteria derived in the previous sections are no longer valid; nevertheless, we can still obtain the optimal en-tanglement witness of the form in Eq. (38) by solving the SDP associated to the CMC. Exemplary results of the numerical simulations are shown in Figs. 3 and 4, including a compari-son between slower and faster dynamics. After a general numerical investigation, we find that Γ(𝑡 ), in the instantaneous eigenmode basis, is no longer diagonal but has some non-trivial structure, which depends on the bound-ary conditions. In particular, the simplest structure arises for Dirichlet boundary conditions, where we observe that 
+
+𝑆 𝑇 Γ(𝑡 )𝑆 =
+
+diag (𝑎 1, . . . , 𝑎 𝑁 ) diag (𝑐 1, . . . , 𝑐 𝑁 )
+
+diag (𝑐 1, . . . , 𝑐 𝑁 ) diag (𝑏 1, . . . , 𝑏 𝑁 )
+
+
+
+, (58) with the optimal witness matrix 𝑍 sharing a similar structure. Notably, this is a typical canonical form of Gaussian states that typically maximizes the value of entanglement monotones, as it keeps only the most relevant normal-mode correlations [42, 55]. Hence, this normal mode-construction involves only 2-by-2 matrix blocks, with correlations between the same mode 
+
+𝑘 across the two sectors, but never between different modes 
+
+𝑘, 𝑘 ′, i.e., for each mode we can consider a block, 
+
+Γ𝑘 =
+
+𝑎 𝑘 𝑐 𝑘 
+
+𝑐 𝑘 𝑏 𝑘 
+
+
+
+. (59) On the other hand, in the case of the more typical choice of Neumann boundary conditions, we find the optimal witness matrix 𝑍 in the instantaneous normal-mode basis to have a banded structure: while the main diagonal contains the largest contributions on average, the off-diagonals alternate between vanishing and non-vanishing entries. In both cases, relatively large off-diagonal contributions per-sist in general. Yet, in either case, the witness matrix has only two eigenvalues much larger than zero. In the product 
+
+𝑆 𝑇 𝑍 Γ(𝑡 )𝑆 , however, the dominant contributions to the normal-mode quadratures (in the basis of the initial thermal state) again                     
+
+> FIG. 3. Numerical results for a 50 𝜇 m1D BEC of ≈6000 atoms at 𝑇 =30 nK : Optimal entanglement witness as a function of time (in seconds) for a quasi-adiabatic compression protocol going from
+> 𝐿 0→𝐿 =0.9in 0.13 𝑠 using around 10 5Trotter steps. Positive values indicate the presence of entanglement.
+
+# Compression timescales 
+
+> Depending on the speed of the compression, entanglement can evolve in different ways.
+> FIG. 4. Optimal witness over time (in seconds) during com-pression in the case of (quasi-)adiabatic evolution (blue) and relatively fast evolution (red).
+
+correspond to the lowest- and highest-energy modes, while all other contributions are almost zero. This indicates that the role of the witness is to dominantly weight the two extremal normal-mode contributions.  
+
+> IV. CONCLUSIONS AND OUTLOOK
+
+In this work, we have investigated how entanglement can be certified and quantified in equilibrium and out-of-equilibrium states of a discretized one-dimensional Bose gas. Our ap-proach combines two ingredients: a discretized Gaussian de-scription of the low-energy field theory in terms of covariance matrices, and the optimization of covariance-matrix-based en-tanglement witnesses. This provides an operational and phys-9ically transparent route to entanglement detection in 1D Bose gases directly at the level of mode populations. From an en-tanglement point of view, it is noteworthy that this witness also provides a lower bound on an entanglement monotone, and that its value depends on the level of coarse-graining. For the initial thermal state, and more generally under fully adiabatic evolutions, we found that the optimal witness ac-quires a remarkably simple form. In these cases, the sepa-rability threshold is governed by an extremal-mode structure and can be expressed solely in terms of two normal-mode un-certainties. This reduces the complexity of the many-body witness optimization to a particularly transparent criterion and provides an intuitive picture of how entanglement is encoded in the mode-resolved fluctuations of the system. Beyond equi-librium and strict adiabaticity, we further analyzed more gen-eral quasi-adiabatic unitary protocols. There, the witness is no longer reducible to such a simple closed form, but it still exhibits a clear structure shaped by the symmetries and bound-ary conditions of the system, with the dominant contributions again tied to extremal normal modes. A central physical result of our analysis is that unitary com-pression can generate detectable entanglement even when the initial thermal state is separable. In this sense, the compression stroke does not merely reshape the spectrum of excitations, but can actively drive the system across a separability threshold. When the compressed system is subsequently brought into con-tact with a thermal environment, however, the generated entan-glement is strongly suppressed and eventually disappears, as illustrated in Fig. 5. Numerically, solving a local master equa-tion that couples all modes to a thermal bath at temperature 
+
+𝑇 𝑏 [63], we find that such thermalization eventually destroys any entanglement generated during compression. For some fixed bath-mode couplings, we observe that any entanglement generated during compression decays slower when coupling to a colder bath than to a hotter bath. Nevertheless, entanglement cannot be generated in the course of this particular thermaliza-tion protocol, irrespective of the bath temperature. This does not exclude the possibility that more sophisticated forms of dissipation could assist in entanglement generation. Overall, these findings suggest that entanglement may serve as a sensi-tive diagnostic of the interplay between coherent driving and dissipative relaxation. These observations open up a broader perspective, namely the relation between entanglement and thermodynamic pro-cesses. Understanding whether, when, and in what precise sense entanglement plays an operational role in quantum ther-modynamics remains an active and only partially understood problem [64–66]. This is especially true in genuinely many-body settings, where collective effects and dissipation can be-come relevant simultaneously [50, 67, 68]. Our results sug-gest a concrete microscopic picture of how entanglement may emerge and decay along the strokes of a thermodynamic cycle, such as the Otto cycle sketched in Fig. 6. In this context, an important open question is whether the generated entangle-ment can play an operational role, such as enhancing work extraction or cycle efficiency [69–72], or whether it should instead be regarded primarily as a by-product of many-body dynamics. 
+
+# Compression and thermalization            
+
+> After each unitary compression/expansion step, we couple our system to a hot or cold bath. In general, dissipation quickly destroys any entanglement generated during the previous step.
+> FIG. 5. Optimal witness over time (in seconds) during com-pression 𝐿 /𝐿 0=0.9and thermalization to a hot bath 𝑇 ℎ=
+> 60 nK for a BEC with initial temperature 𝑇 ℎ=30 nK . Pos-itive values indicate the presence of entanglement. (Other BEC parameters same as Fig. 3.)
+
+# Outlook on thermodynamic cycles                               
+
+> We can extend the methods and results introduced in the previous section to the study of thermodynamic processes. In the simplest case, this involves combining a unitary compression with thermalization, as illustrated in Fig. 5. More broadly, it is interesting to investigate the role of entanglement and thermodynamics in an Otto engine in a quantum many-body setting [50], as illustrated in Fig. 6.
+> FIG. 6. A 1D BEC undergoing an Otto cycle consisting of four strokes. First, the condensate undergoes unitary com-pression 𝐿 0→𝐿 (𝐴 →𝐵 ), followed by isochoric thermal-ization ( 𝐵 →𝐶 ) with a hot bath with 𝑇 ℎand local mode-bath couplings 𝛾 ℎ. This is followed by unitary expansion 𝐿 →𝐿 0
+> (𝐶 →𝐷 ), and isochoric thermalization with a cold bath 𝑇 𝑐 .The first two strokes lead to an increase in energy, while the latter two decrease it. The energy changes obey the first law of thermodynamics, i.e., 𝑑𝐸 =đ𝑄 +đ𝑊 , with đ 𝑄 =0during unitary strokes and đ 𝑊 =0during isochoric thermalization.
+
+10 One of the natural directions for future work is to establish an even more systematic connection between entanglement witnesses and thermodynamically relevant observables. In the broader literature, quantities such as energy [7, 8, 11, 12], heat capacity [14, 16], and response functions [20, 73] have al-ready been shown to provide experimentally accessible probes of many-body entanglement. Extending these connections, especially to out-of-equilibrium steady states [35, 74–76] or to settings with engineered dissipation constitutes a promising direction. Another important direction is to move beyond the present Gaussian bosonic setting. While Gaussian systems offer a par-ticularly clean arena with tractable analytics, many questions of current interest concern non-Gaussian states and models with more intricate correlation patterns. Extending the present ap-proach to non-Gaussian bosonic systems, as well as to spin and fermionic many-body models, is therefore a natural next step. Likewise, it would be valuable to explore higher-dimensional settings, where the interplay between geometry, locality, and entanglement structure can be substantially richer. Finally, another promising direction is to extend these ideas to systems with nontrivial phase diagrams, including transi-tions between phases with distinct orders and correspondingly different entanglement structures [77]. In such settings, entan-glement witnesses may provide a complementary perspective on the restructuring of correlations across phase boundaries, especially when the underlying entanglement architecture is more complex than in the simple harmonic models [1, 2]. Investigating whether witness-based diagnostics can capture such changes, both in and out of equilibrium, may help bridge the study of many-body entanglement, quantum criticality, and thermodynamic transformations in a unified framework. 
+
+ACKNOWLEDGMENTS 
+
+We thank Yuri Minoguchi, Taufiq Murtadho, Bi Hong Tiang, Nelly H.Y. Ng, and Marek Gluza, for insightful discus-sions. This research was funded in whole or in part by the Austrian Science Fund (FWF) [10.55776/P36478]. For open access purposes, the author has applied a CC BY pub-lic copyright license to any author-accepted manuscript ver-sion arising from this submission. We acknowledge finan-cial support from the Austrian Science Fund (FWF) through Grants P 35810-N and P 36633-N (Stand-Alone). G.V. also acknowledges support from the Grant No. RYC2024-048278-I funded by MCIU/AEI/10.13039/501100011033 and FSE+. We further acknowledge support from the Austrian Federal Ministry of Education, Science and Research via the Austrian Research Promotion Agency (FFG) through the project FO999921415 (Vanessa-QC) funded by the European Union—NextGenerationEU, and from the European Research Council (Consolidator grant ‘Cocoquest’ 101043705). 
+
+[1] L. Amico, R. Fazio, A. Osterloh, and V. Vedral, Entangle-ment in many-body systems, Rev. Mod. Phys. 80 , 517 (2008), arXiv:quant-ph/0703044. [2] N. Laflorencie, Quantum entanglement in condensed matter sys-tems, Phys. Rep. 646 , 1 (2016), arXiv:1512.03388. [3] S. M. Girvin and K. Yang, Modern Condensed Matter Physics 
+
+(Cambridge University Press, 2019). [4] R. Horodecki, P. Horodecki, M. Horodecki, and K. Horodecki, Quantum entanglement, Rev. Mod. Phys. 81 , 865 (2009), arXiv:quant-ph/0702225. [5] O. Gühne and G. Tóth, Entanglement detection, Phys. Rep. 474 ,1 (2009), arXiv:0811.2803. [6] N. Friis, G. Vitagliano, M. Malik, and M. Huber, Entanglement certification from theory to experiment, Nat. Rev. Phys. 1, 72 (2018), arXiv:1906.10929. [7] M. R. Dowling, A. C. Doherty, and S. D. Bartlett, Energy as an entanglement witness for quantum many-body systems, Phys. Rev. A 70 , 062113 (2004), arXiv:quant-ph/0408086. [8] G. Tóth, Entanglement witnesses in spin models, Phys. Rev. A 
+
+71 , 010301 (2005), arXiv:quant-ph/0406061. [9] O. Gühne, G. Tóth, and H. J. Briegel, Multipartite entanglement in spin chains, New J. Phys. 7, 229–229 (2005), arXiv:quant-ph/0502160. [10] O. Gühne and G. Tóth, Energy and multipartite entanglement in multidimensional and frustrated spin models, Phys. Rev. A 73 
+
+(2006), arXiv:quant-ph/0510186. [11] F. Iglói and G. Tóth, Entanglement witnesses in the 𝑥𝑦 chain: Thermal equilibrium and postquench nonequilibrium states, Phys. Rev. Res. 5, 013158 (2023), arXiv:2207.04842. [12] N. K. H. Li, X. Dai, M. H. Muñoz-Arias, K. Reuer, M. Hu-ber, and N. Friis, Detecting genuine multipartite entanglement in multi-qubit devices with restricted measurements, Nat. Com-mun. 17 , 1707 (2026), arXiv:2504.21076. [13] M. Wieśniak, V. Vedral, and i. c. v. Brukner, Heat capacity as an indicator of entanglement, Phys. Rev. B 78 , 064108 (2008), arXiv:quant-ph/0508193. [14] H. Singh, T. Chakraborty, D. Das, H. S. Jeevan, Y. Tokiwa, P. Gegenwart, and C. Mitra, Experimental quantification of en-tanglement through heat capacity, New J. Phys. 15 , 113001 (2013), arXiv:1309.7767. [15] C. Brukner and V. Vedral, Macroscopic Thermodynamical Witnesses of Quantum Entanglement (2004), arXiv:quant-ph/0406040 [quant-ph]. [16] M. Wieśniak, V. Vedral, and Č. Brukner, Magnetic susceptibility as a macroscopic entanglement witness, New J. Phys. 7, 258–258 (2005), arXiv:quant-ph/0503037. [17] O. Marty, M. Epping, H. Kampermann, D. Bruß, M. B. Ple-nio, and M. Cramer, Quantifying entanglement with scattering experiments, Phys. Rev. B 89 , 125117 (2014), arXiv:1310.0929. [18] O. Marty, M. Cramer, and M. B. Plenio, Practical entanglement estimation for spin-system quantum simulators, Phys. Rev. Lett. 
+
+116 , 105301 (2016), arXiv:1504.03572. [19] M. Cramer, M. B. Plenio, and H. Wunderlich, Measuring En-tanglement in Condensed Matter Systems, Phys. Rev. Lett. 106 ,020401 (2011), arXiv:1009.2956. [20] P. Hauke, M. Heyl, L. Tagliacozzo, and P. Zoller, Measur-ing multipartite entanglement through dynamic susceptibilities, Nat. Phys. 12 , 778–782 (2016), arXiv:1509.01739. [21] K. Audenaert, J. Eisert, M. B. Plenio, and R. F. Werner, En-tanglement properties of the harmonic chain, Phys. Rev. A 66 ,11 
+
+042327 (2002), arXiv:quant-ph/0205025. [22] A. Botero and B. Reznik, Spatial structures and localization of vacuum entanglement in the linear harmonic chain, Phys. Rev. A 70 , 052329 (2004), arXiv:quant-ph/0403233. [23] M. Cramer, J. Eisert, M. B. Plenio, and J. Dreißig, Entanglement-area law for general bosonic harmonic lattice sys-tems, Phys. Rev. A 73 , 012309 (2006), arXiv:quant-ph/0505092. [24] S. Marcovitch, A. Retzker, M. B. Plenio, and B. Reznik, Critical and noncritical long-range entanglement in Klein-Gordon fields, Phys. Rev. A 80 , 012325 (2009), arXiv:0811.1288. [25] H. Casini and M. Huerta, Entanglement entropy in free quan-tum field theory, J. Phys. A: Math. Theor. 42 , 504007 (2009), arXiv:0905.2562. [26] P. Calabrese, J. Cardy, and E. Tonni, Entanglement Negativity in Quantum Field Theory, Phys. Rev. Lett. 109 , 130502 (2012), arXiv:1206.3092. [27] P. Calabrese, J. Cardy, and E. Tonni, Entanglement negativity in extended systems: A field theoretical approach, J. Stat. Mech.: Theory Exp. 2013 (02), P02008, arXiv:1210.5359. [28] G. Di Giulio and E. Tonni, On entanglement hamiltonians of an interval in massless harmonic chains, J. Stat. Mech.: Theory Exp. 2020 (3), 033102, arXiv:1911.07188. [29] J. Anders, Thermal state entanglement in harmonic lattices, Phys. Rev. A 77 (2008), arXiv:0803.1102. [30] J. Anders and A. Winter, Entanglement and separability of quan-tum harmonic oscillator systems at finite temperature, Quantum Inf. Comput. 8, 0245 (2008), arXiv:0705.3026. [31] A. Ferraro, D. Cavalcanti, A. García-Saez, and A. Acín, Thermal Bound Entanglement in Macroscopic Systems and Area Law, Phys. Rev. Lett. 100 , 080502 (2008), arXiv:0804.4867. [32] D. Cavalcanti, A. Ferraro, A. García-Saez, and A. Acín, Distill-able entanglement and area laws in spin and harmonic-oscillator systems, Phys. Rev. A 78 , 012335 (2008), arXiv:0705.3762. [33] P. Calabrese, J. Cardy, and E. Tonni, Finite temperature entan-glement negativity in conformal field theory, J. Phys. A: Math. Theor. 48 , 015006 (2014), arXiv:1408.3043. [34] M. B. Plenio, J. Hartley, and J. Eisert, Dynamics and manipu-lation of entanglement in coupled harmonic systems with many degrees of freedom, New J. Phys. 6, 36–36 (2004), arXiv:quant-ph/0402004. [35] V. Eisler and Z. Zimborás, Entanglement negativity in the har-monic chain out of equilibrium, New J. Phys. 16 , 123020 (2014), arXiv:1406.5474. [36] A. Coser, E. Tonni, and P. Calabrese, Entanglement negativity after a global quantum quench, J. Stat. Mech.: Theory Exp. 
+
+2014 (12), P12017, arXiv:1410.0900. [37] M. Hoogeveen and B. Doyon, Entanglement negativity and en-tropy in non-equilibrium conformal field theory, Nucl. Phys. B 
+
+898 , 78–112 (2015), arXiv:1412.7568. [38] X. Wen, P.-Y. Chang, and S. Ryu, Entanglement negativity after a local quantum quench in conformal field theories, Phys. Rev. B 92 (2015), arXiv:1501.00568. [39] J. Angel-Ramelli, C. Berthiere, V. G. M. Puletti, and L. Thor-lacius, Logarithmic negativity in quantum Lifshitz theories, J. High Energy Phys. 2020 (9), arXiv:2002.05713. [40] R. F. Werner and M. M. Wolf, Bound Entangled Gaussian States, Phys. Rev. Lett. 86 , 3658 (2001), arXiv:quant-ph/0009118. [41] P. Hyllus and J. Eisert, Optimal entanglement witnesses for continuous-variable systems, New J. Phys. 8, 51 (2006), arXiv:quant-ph/0510077. [42] G. Adesso and F. Illuminati, Entanglement in continuous-variable systems: recent advances and current perspectives, J. Phys. A: Math. Theor. 40 , 7821 (2007), arXiv:quant-ph/0701221. [43] L. Pitaevskii and S. Stringari, Bose-Einstein Condensation in Dilute Gases, Oxford University Press (2003). [44] M. A. Cazalilla, R. Citro, T. Giamarchi, E. Orignac, and M. Rigol, One dimensional bosons: From condensed matter sys-tems to ultracold gases, Rev. Mod. Phys. 83 , 1405–1466 (2011), arXiv:1101.5337. [45] C. Mora and Y. Castin, Extension of Bogoliubov theory to qua-sicondensates, Phys. Rev. A 67 , 053615 (2003), arXiv:cond-mat/0212523. [46] H. Ritsch, P. Domokos, F. Brennecke, and T. Esslinger, Cold atoms in cavity-generated dynamical optical potentials, Rev. Mod. Phys. 85 , 553 (2013), arXiv:1210.0013. [47] O. Morsch and M. Oberthaler, Dynamics of Bose-Einstein con-densates in optical lattices, Rev. Mod. Phys. 78 , 179 (2006). [48] A. D. Cronin, J. Schmiedmayer, and D. E. Pritchard, Optics and interferometry with atoms and molecules, Rev. Mod. Phys. 81 ,1051 (2009). [49] I. Bloch, J. Dalibard, and W. Zwerger, Many-body physics with ultracold gases, Rev. Mod. Phys. 80 , 885 (2008), arXiv:0704.3011. [50] M. Gluza, J. Sabino, N. H. Ng, G. Vitagliano, M. Pezzutto, Y. Omar, I. Mazets, M. Huber, J. Schmiedmayer, and J. Eisert, Quantum Field Thermal Machines, PRX Quantum 2 (2021), arXiv:2006.01177. [51] M. Gluza, T. Schweigler, B. Rauer, C. Krumnow, J. Schmied-mayer, and J. Eisert, Quantum read-out for cold atomic quantum simulators, Comm. Phys, 3, 12 (2020), arXiv:1807.04567. [52] T. Murtadho, F. Cataldini, S. Erne, M. Gluza, M. Tajik, J. Schmiedmayer, and N. H. Y. Ng, Measurement of total phase fluctuation in cold-atomic quantum simulators, Phys. Rev. Re-search 7, L022031 (2025), arXiv:2408.03736. [53] M. Tajik, I. Kukuljan, S. Sotiriadis, B. Rauer, T. Schweigler, F. Cataldini, J. Sabino, F. Møller, P. Schüttelkopf, S.-C. Ji, D. Sels, E. Demler, and J. Schmiedmayer, Verification of the area law of mutual information in a quantum field simulator, Nat. Phys. 19 , 1022–1026 (2023), arXiv:2206.10563. [54] S. Aimet, P. Schmoll, J. Eisert, J. Schmiedmayer, and S. Sotiri-adis, How compactness curbs entanglement growth in bosonic systems (2026), arXiv:2603.16775 [quant-ph]. [55] G. Vidal and R. F. Werner, Computable measure of entangle-ment, Phys. Rev. A 65 , 032314 (2002), arXiv:quant-ph/0102117. [56] M. Cramer and J. Eisert, Correlations, spectral gap, and en-tanglement in harmonic quantum systems, New J. Phys. 8, 71 (2006), arXiv:quant-ph/0509167. [57] M. M. Wolf, F. Verstraete, M. B. Hastings, and J. I. Cirac, Area Laws in Quantum Systems: Mutual Information and Correla-tions, Phys. Rev. Lett. 100 , 070502 (2008), arXiv:0704.3906. [58] J. Eisert, M. Cramer, and M. B. Plenio, Colloquium: Area laws for the entanglement entropy, Rev. Mod. Phys. 82 , 277 (2010), arXiv:0808.3773. [59] M. Lewenstein and A. Sanpera, Separability and Entanglement of Composite Quantum Systems, Phys. Rev. Lett. 80 , 2261 (1998), arXiv:quant-ph/9707043. [60] S. Karnas and M. Lewenstein, Separable approximations of den-sity matrices of composite quantum systems, J. Phys. A: Math. Gen. 34 , 6919 (2001), arXiv:quant-ph/0011066. [61] M. Fadel, A. Usui, M. Huber, N. Friis, and G. Vitagliano, Entan-glement Quantification in Atomic Ensembles, Phys. Rev. Lett. 
+
+127 , 010401 (2021), arXiv:2103.15730. [62] J. Mathé, A. Usui, O. Gühne, and G. Vitagliano, Estimating en-tanglement monotones of non-pure spin-squeezed states (2025), arXiv:2504.07814 [quant-ph]. [63] F. Toscano and F. Nicacio, Thermal equilibrium in gaus-sian dynamical semigroups, Phys. Rev. A 106 (2022), 12 
+
+arXiv:2207.05151. [64] F. Binder, L. A. Correa, C. Gogolin, J. Anders, and G. Adesso, eds., Thermodynamics in the Quantum Regime: Fundamental Aspects and New Directions , Vol. 195 (Springer, Cham, 2018). [65] S. Campbell et al. , Roadmap on quantum thermodynamics, Quantum Sci. Technol. 11 , 012501 (2026), arXiv:2504.20145. [66] J. Goold, M. Huber, A. Riera, L. d. Rio, and P. Skrzypczyk, The role of quantum information in thermodynamics—a top-ical review, J. Phys. A: Math. Theor. 49 , 143001 (2016), arXiv:1505.07835. [67] L. M. Cangemi, C. Bhadra, and A. Levy, Quantum engines and refrigerators, Phys. Rep. 1087 , 1 (2024), arXiv:2302.00726. [68] V. Mukherjee and U. Divakaran, The promises and challenges of many-body quantum technologies: A focus on quantum engines, Nat. Commun. 15 , 3170 (2024), arXiv:2404.10459. [69] S. Khandelwal, N. Palazzo, N. Brunner, and G. Haack, Critical heat current for operating an entanglement engine, New J. Phys. 
+
+22 , 073039 (2020), arXiv:2003.01426. [70] D. Heineken, K. Beyer, K. Luoma, and W. T. Strunz, Quantum-memory-enhanced dissipative entanglement creation in nonequilibrium steady states, Phys. Rev. A 104 , 052426 (2021), arXiv:2008.04359. [71] G. Francesco Diotallevi, B. Annby-Andersson, P. Samuels-son, A. Tavakoli, and P. Bakhshinezhad, Steady-state entan-glement production in a quantum thermal machine with con-tinuous feedback control, New J. Phys. 26 , 053005 (2024), arXiv:2309.07696. [72] A. de Oliveira Junior, J. B. Brask, and P. Lipka-Bartosik, Heat as a Witness of Quantum Properties, Phys. Rev. Lett. 134 , 050401 (2025), arXiv:2408.06418. [73] P. Laurell, A. Scheie, E. Dagotto, and D. A. Tennant, Witnessing Entanglement and Quantum Correlations in Condensed Matter: A Review, Adv. Quantum Technol. 8 (2024), arXiv:2405.10899. [74] A. de Oliveira Junior, J. Son, J. Czartowski, and N. H. Y. Ng, Entanglement generation from athermality, Phys. Rev. Research 
+
+6, 033236 (2024), arXiv:2403.04842. [75] C. Henkel, Heat Transfer and Entanglement–Non-Equilibrium Correlation Spectra of Two Quantum Oscillators, Ann. Phys. (Berl.) 533 (2021), arXiv:2102.13559. [76] P. Lipka-Bartosik, G. F. Diotallevi, and P. Bakhshinezhad, Fundamental Limits on Anomalous Energy Flows in Corre-lated Quantum Systems, Phys. Rev. Lett. 132 , 140402 (2024), arXiv:2307.03828. [77] G. Mazza and C. Budroni, Entanglement detection in quan-tum materials with competing orders, Phys. Rev. B 111 (2025), arXiv:2404.12931. [78] L. Banchi, S. L. Braunstein, and S. Pirandola, Quantum fi-delity for arbitrary gaussian states, Phys. Rev. Lett. 115 , 260501 (2015), arXiv:1507.01941. [79] J. Watrous, The Theory of Quantum Information (Cambridge University Press, Cambridge, U.K., 2018). [80] F. G. S. L. Brandão, Quantifying entanglement with witness operators, Phys. Rev. A 72 (2005), arXiv:quant-ph/0503152. [81] R. Quesada and A. Sanpera, Best separable approximation of multipartite diagonal symmetric states, Phys. Rev. A 89 (2014), arXiv:1306.6184. [82] I. Frérot, M. Fadel, and M. Lewenstein, Probing quantum cor-relations in many-body systems: a review of scalable methods, Rep. Prog. Phys. 86 , 114001 (2023), arXiv:2302.00640. [83] J. Eisert, F. G. S. L. Brandão, and K. M. R. Audenaert, Quan-titative entanglement witnesses, New J. Phys. 9, 46 (2007), arXiv:quant-ph/0607167. [84] O. Gühne, M. Reimpell, and R. F. Werner, Estimating entan-glement measures in experiments, Phys. Rev. Lett. 98 (2007), arXiv:quant-ph/0607163. [85] O. Gühne, M. Reimpell, and R. F. Werner, Lower bounds on en-tanglement measures from incomplete information, Phys. Rev. A 77 (2008), arXiv:0802.1734. [86] K. M. R. Audenaert and M. B. Plenio, When are correlations quantum? — Verification and quantification of entanglement by simple measurements, New J. Phys. 8, 266–266 (2006), arXiv:quant-ph/0608067. [87] O. Gittsovich and O. Gühne, Quantifying entanglement with covariance matrices, Phys. Rev. A 81 (2010), arXiv:0912.3018. [88] J. I. de Vicente, Lower bounds on concurrence and separability conditions, Phys. Rev. A 75 (2007), arXiv:quant-ph/0611229. [89] H. F. Hofmann and S. Takeuchi, Violation of local uncertainty relations as a signature of entanglement, Phys. Rev. A 68 (2003), arXiv:quant-ph/0212090. [90] G. De Chiara, G. Landi, A. Hewgill, B. Reid, A. Ferraro, A. J. Roncaglia, and M. Antezza, Reconciliation of quantum local master equations with thermodynamics, New J. Phys. 20 ,113024 (2018), arXiv:1808.10450. 13 
+
+> Appendix A: Details about the Bogoliubov approximation of a 1D BEC
+
+We begin by considering the Bose gas in one dimension with delta-function interaction, which is the well-known Lieb-Liniger model in a box potential of length 𝐿 . See for example Refs. [43, 44]. In second quantization, the Hamiltonian is 
+
+𝐻 LL =
+
+∫ 𝐿 
+
+> 0
+
+d𝑧 
+
+
+
+− ℏ2
+
+2𝑚 Ψ†𝜕 2 
+
+> 𝑧
+
+Ψ + 𝑔 
+
+2 Ψ† |Ψ|2Ψ
+
+
+
+, (A1) where Ψ(𝑧 ) is the field operator that annihilates a particle at position 𝑧 , 𝑚 is the atomic mass, and 𝑔 = 2ℏ2/𝑚𝑎 is the effective 1D interaction strength that depends on the 1D scattering length 𝑎 5. As in the main text, here we set our units to ℏ = 1, but we keep the dependency on ℏ explicitly in some physical parameters. As usual, the commutation relation of the field operators is 
+
+[Ψ(𝑧 ), Ψ† (𝑧 ′)] = 𝛿 (𝑧 − 𝑧 ′). In the hydrodynamic approach, these field operators are written in the polar decomposition, 
+
+Ψ† (𝑧 ) =√︁ 𝜌 (𝑧 ) 𝑒 −𝑖 𝜑 (𝑧 ) =√︁ ¯𝜌 (𝑧 )11 + 𝛿𝜌 (𝑧 ) 𝑒 −𝑖 𝜑 (𝑧 ) , (A2) thereby introducing a phase operator 𝜑 and also expanding the density operator as 𝜌 = ¯𝜌 (𝑧 )11 + 𝛿𝜌 (𝑧 ), where ¯𝜌 (𝑧 ) = ⟨𝜌 (𝑧 )⟩ is the mean density profile, which, in the homogeneous case, reads ¯𝜌 (𝑧 ) = 𝑁 𝐿 . In this picture, the relevant operators are the density-fluctuation operator 𝛿𝜌 (𝑧 ) and the phase operator 𝜑 (𝑧 ), whose commutation relations follow from 𝑒 𝑖 𝜑 ( 𝑥 ) 𝜌 (𝑧 )𝑒 −𝑖 𝜑 ( 𝑥 ) − 𝜌 (𝑧 ) =
+
+𝛿 (𝑧 − 𝑥 ), which implies that 
+
+[𝜌 (𝑧 ), 𝑒 𝑖 𝜑 ( 𝑥 ) ] = [𝛿𝜌 (𝑧 ), 𝑒 𝑖 𝜑 ( 𝑥 ) ] = 𝑒 𝑖 𝜑 (𝑧 ) 𝛿 (𝑧 − 𝑥 ). (A3) This, in turn, implies that in the limit ¯𝜌 ≫ 1, the density and phase fluctuation fields are canonically conjugate, i.e., they obey 
+
+[𝛿𝜌 (𝑧 ), 𝜑 (𝑥 )] = 𝑖𝛿 (𝑧 − 𝑥 )11. In this representation, the operator 𝜑 plays the role of the fluid velocity potential, and the fluid velocity operator can be defined as 
+
+𝑣 := ℏ 
+
+> 𝑚
+
+𝜕 𝑧 𝜑, (A4) which brings the equations of motion into a form analogous to usual fluid equations. Note that this description is valid only for large densities, corresponding to 𝛾 = 𝑚𝑔 /ℏ2 ¯𝜌 ≪ 1, i.e., the weakly interacting regime of the model (A1). In this representation, and considering only the lowest orders in the fluctuation operators, the Hamiltonian can be written as 
+
+𝐻 B =
+
+∫ 𝐿 
+
+> 0
+
+d𝑧 
+
+ ℏ2
+
+2𝑚 ¯𝜌 (𝜕 𝑧 𝜑 )2 + 18𝑚 ¯𝜌 (𝑧 ) (𝜕 𝑧 𝛿𝜌 )2 + 𝑔 
+
+2 𝛿𝜌 2
+
+
+
+, (A5) which is the usual Bogoliubov approximation to the 1D Bose gas. The Bogoliubov Hamiltonian is quadratic in the conjugate fluctuation operators, and can thus be diagonalized by a Bogoliubov transformation 
+
+𝐻 B = 𝐸 0 +∑︁ 
+
+> 𝑘
+
+𝜖 𝑘 𝑏 † 
+
+> 𝑘
+
+𝑏 𝑘 , (A6) leading to the famous Bogoliubov energy spectrum 
+
+𝜖 𝑘 =√︂ ℏ2 𝑘 2
+
+> 2𝑚
+
+ ℏ2 𝑘 2 
+
+> 2𝑚
+
++ 2𝑔 ¯𝜌 
+
+
+
+, (A7) which is such that for low momenta 𝑘 → 0, the dispersion relation becomes linear: 𝜖 𝑘 ≃ 𝑐 0 𝑘 where 𝑐 0 =√︁ 𝑔 ¯𝜌 /𝑚 is the sound velocity in the linear regime. This means that the low-momentum excitations correspond to phonons. One can also define a characteristic length scale associated with this Bogoliubov regime, known as the healing length 
+
+𝜉 = 1
+
+√𝑚𝑔 ¯𝜌 = 1
+
+𝑚𝑐 0
+
+, (A8) which sets the scale for the transition between the single-particle regime (valid for 𝑘 ≫ 𝑚𝑐 0) and the phononic regime (valid for 
+
+𝑘 ≪ 𝑚𝑐 0) in the excitation spectrum. This linear dispersion relation can also be seen to arise directly by neglecting the second term, which contains the squared derivative of the density, and get the so-called Luttinger-liquid approximation, which describes the Bose gas as a free phonon gas and captures the most relevant contribution near the ground state. Finally, let us point out that we consider open boundary conditions here, in particular of the Dirichlet type , i.e., Ψ|𝑧 =0 =Ψ|𝑧 =𝐿 = 0, or of the Neumann type , i.e., 𝜕 𝑧 Ψ|𝑧 =0 = 𝜕 𝑧 Ψ|𝑧 =𝐿 = 0, with the latter matching experimental situations more closely.            
+
+> 5The 1D scattering length is related to the 3D scattering length 𝑎 3D by the relation 𝑎 =𝑎 2
+> ⊥/𝑎 3D , where 𝑎 ⊥=√︁ ℏ/𝑚𝜔 ⊥is the radial oscillator length arising from the trapping potential [43].
+
+14 
+
+> Appendix B: Details on Gaussian states
+
+Consider 𝑁 bosonic modes, associated with quadratures 
+
+X := (𝑥 1, 𝑥 2, . . . , 𝑥 𝑁 , 𝑝 1, 𝑝 2, . . . , 𝑝 𝑁 )𝑇 (B1) that can be seen as the 𝑁 position and momentum operators, respectively. The canonical commutation relations can be captured as [𝑋 𝑙 , 𝑋 𝑚 ] = 𝑖 Ω𝑙,𝑚 for 𝑙, 𝑚 = 1, . . . , 𝑁 , giving rise to the symplectic form 
+
+Ω = 
+
+ 0 11
+
+−11 0
+
+
+
+. (B2) Given a density matrix 𝜚 , we define the vector of mean values ¯X := ⟨X⟩𝜚 = Tr ( 𝜚 X). These are the first moments of the set of quadrature operators X corresponding to the quantum state. The second moments can be collected in the covariance matrix with entries 
+
+[Γ𝜚 ]𝑖 𝑗 := 12 ⟨𝑋 𝑖 𝑋 𝑗 + 𝑋 𝑗 𝑋 𝑖 ⟩𝜚 − ⟨ 𝑋 𝑖 ⟩𝜚 ⟨𝑋 𝑗 ⟩𝜚 . (B3) For a single mode, namely 𝑁 = 1, the diagonal elements of Γ are simply the two variances Γ1,1 = (Δ𝑥 1)2 
+
+> 𝜚
+
+and Γ2,2 = (Δ𝑝 1)2 
+
+> 𝜚
+
+.The single constraint for the real-valued matrix to correspond to a physical state is given by the Heisenberg uncertainty relation ,which can be concisely written as a semidefinite constraint as 
+
+Γ + 𝑖 Ω ⪰ 0. (B4) Of key importance in this work are bosonic Gaussian states. A general Gaussian state of 𝑁 modes is fully described by the vector of mean values and the covariance matrix corresponding to all modes. Generally, every Gaussian state with full support can be written in a form resembling thermal states of quadratic Hamiltonians, namely there exists an 𝐻 such that [78] 
+
+𝜏 [𝐻 ] = 1
+
+Z exp 
+
+
+
+− 12 (X − ¯X)𝑇 𝐻 (X − ¯X)/ 𝑇 
+
+
+
+, (B5) where 𝐻 =
+
+𝐻 𝑥 𝑥 𝐻 𝑥 𝑝 
+
+𝐻 𝑝𝑥 𝐻 𝑝 𝑝 
+
+
+
+is a real positive semidefinite 2𝑁 × 2𝑁 matrix written in block form for clarity, and 
+
+Z = Tr 
+
+h
+
+exp 
+
+
+
+− 12 (X − ¯X)𝑇 𝐻 (X − ¯X)/ 𝑇 
+
+i 
+
+=√︄ det 
+
+
+
+Γ + 𝑖 Ω
+
+2
+
+
+
+(B6) is the normalization, which can be fully determined by the covariance matrix of the Gaussian state Γ. The relation between Γ
+
+and the matrix 𝐻 appearing in the expression above is 
+
+𝐻 /𝑇 = 2𝑖 Ω arcoth (𝑖 ΓΩ ),
+
+Γ = 𝑖 Ω coth (𝑖 Ω𝐻 /( 2𝑇 )) . (B7) In turn, any generic quadratic (Hermitian) Hamiltonian can be written similarly as above, i.e., with 𝐻 being a real positive semidefinite 2𝑁 × 2𝑁 matrix. Thus, in contrast to the above matrix appearing in the expression for faithful Gaussian states, a generic quadratic Hamiltonian can also contain zero eigenvalues (and need not be diagonalizable). The (Gaussian) unitary evolution corresponding to a time-independent quadratic Hamiltonian translates into a symplectic transformation acting on the covariance matrix, given by 
+
+𝐺 (𝑡 ) = exp (Ω𝐻𝑡 ), (B8) such that the evolved covariance matrix is Γ(𝑡 ) = 𝐺 (𝑡 )Γ(0)𝐺 (𝑡 )𝑇 . A similar relation holds for the evolution with time-dependent Hamiltonians. Thus, in the framework of Gaussian states and operations, one can work directly with just the mean vector and the covariance matrix, since they jointly contain all the information that characterizes the Gaussian state. In the cases that we consider, the covariance matrix and the Hamiltonian matrix can be brought into the following form by symplectic transformations: 
+
+Γ = 𝑆 
+
+Ê
+
+> 𝑘
+
+𝛾 𝑘 112
+
+!
+
+𝑆 𝑇 , 𝐻 = 𝑆 
+
+Ê
+
+> 𝑘
+
+𝜔 𝑘 112
+
+!
+
+𝑆 𝑇 , (B9) 15 where 𝑆 is a symplectic matrix and the {𝛾 𝑘 } (respectively {𝜔 𝑘 }) are the symplectic eigenvalues , given by the eigenvalues of 
+
+|𝑖 ΩΓ | (respectively |𝑖 Ω𝐻 |). Clearly, the symplectic eigenvalues of Γ and 𝐻 are related to each other in the same relation as in Eq. (B7), e.g., for a thermal covariance matrix at inverse temperature 𝛽 −1 = 𝑇 , we have 
+
+𝛾 𝑘 = coth (𝛽𝜔 𝑘 /2), (B10) which is the usual relation between the normal mode frequencies 𝜔 𝑘 of a harmonic oscillator Hamiltonian and the corresponding covariances of its thermal state. Note that by identifying 𝛾 𝑘 = 2⟨𝑛 𝑘 ⟩ + 1, this agrees with the Bose-Einstein number distribution formula 
+
+⟨𝑛 𝑘 ⟩ = 𝑒 −𝛽 𝜔 𝑘 /( 1 − 𝑒 −𝛽 𝜔 𝑘 ). (B11) 
+
+> Appendix C: Details of the discretized model and its dynamics
+
+In this appendix, we collect the technical details of the discretized description used throughout the paper, together with the corresponding normal-mode decomposition and the implementation of the compression dynamics at the covariance-matrix level.  
+
+> 1. Discretized quadratic model
+
+We consider the coarse-grained lattice fields introduced in Section II A, 
+
+X =  𝛿 ρ1, . . . , 𝛿 ρ𝑁 𝑝 , ϕ1, . . . , ϕ𝑁 𝑝 
+
+𝑇 , (C1) which satisfy the rescaled canonical commutation relations 
+
+[𝑋 𝑗 , 𝑋 𝑘 ] = 𝑖 Ω 𝑗 𝑘 
+
+Δ 11. (C2) Accordingly, the discretized phononic Hamiltonian takes the quadratic form 
+
+𝐻 = Δ
+
+2 X 𝑇 
+
+𝐻 ρ 00 𝐻 ϕ
+
+
+
+X, (C3) where the two blocks are given by 
+
+𝐻 ρ = 𝑔 11, 𝐻 ϕ = ¯𝜌 𝑚 Δ2 L + 𝜇 11, (C4) where 𝜇 ≥ 0 is the infrared regularization parameter that lifts the zero mode whenever needed. Notably, the coarse-grained variables are not canonically normalized. If desired, one may introduce canonical lattice quadra-tures 
+
+e𝜌 𝑖 := √Δ 𝛿 ρ𝑖 , e𝜙 𝑖 := √Δ ϕ 𝑖 , (C5) for which the commutators take the standard form. In the present work, however, it is more convenient to keep the original variables and absorb the factor 1/Δ directly into the symplectic structure and into the Heisenberg equations. For open boundary conditions of Neumann type, the discrete Laplacian entering Eq. (C4) is 
+
+L =
+
+©«
+
+1 −1 0 · · · 0
+
+−1 2 −1 . . . ...
+
+0 −1 2 . . . 0
+
+... . . . . . . . . . −10 · · · 0 −1 1
+
+ª®®®®®®®®¬
+
+. (C6) This matrix represents the discrete one-dimensional Laplacian with vanishing normal derivative at the boundaries. Since 
+
+𝐻 ρ = 𝑔 11, the diagonalization problem reduces entirely to the phase block 𝐻 ϕ . Let 𝑂 ∈ O(𝑁 𝑝 ) be an orthogonal matrix such that 
+
+𝑂 𝑇 𝐻 ϕ𝑂 = diag (𝜈 1, . . . , 𝜈 𝑁 𝑝 ). (C7) 16 We then define the normal-mode quadratures by applying the same orthogonal transformation to both sectors, 
+
+𝜼 ρ = 𝑂 𝑇 𝜹𝝆 , 𝜼 ϕ = 𝑂 𝑇 𝜹𝝓 , (C8) or, componentwise, 
+
+(𝜂 ρ )𝑘 =
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑗 =1
+
+𝑂 𝑗 𝑘 𝛿 ρ 𝑗 , (𝜂 ϕ )𝑘 =
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑗 =1
+
+𝑂 𝑗 𝑘 ϕ 𝑗 . (C9) Since 𝑂 ⊕ 𝑂 is symplectic (also with respect to the rescaled symplectic form), this transformation preserves the canonical structure. With these definitions, the Hamiltonian decouples into independent harmonic modes, 
+
+𝐻 = Δ 
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑘 =1
+
+𝐻 𝑘 , 𝐻 𝑘 = 12
+
+
+
+𝑔 (𝜂 ρ )2 
+
+> 𝑘
+
++ 𝜈 𝑘 (𝜂 ϕ )2
+
+> 𝑘
+
+
+
+, (C10) with single-mode frequencies 𝜔 𝑘 = √𝑔 𝜈 𝑘 .
+
+a. Neumann OBC. For the Neumann Laplacian in Eq. (C6), the orthogonal diagonalizer is given by the discrete cosine transform 
+
+𝑂 𝑗 𝑘 =√︄ 2 − 𝛿 𝑘 1
+
+𝑁 𝑝 
+
+cos 
+
+ 𝜋 (𝑘 − 1)
+
+𝑁 𝑝 
+
+
+
+𝑗 − 12
+
+ 
+
+, 𝑗, 𝑘 = 1, . . . , 𝑁 𝑝 . (C11) The corresponding eigenvalues of L𝑁 𝑝 are 
+
+𝜆 𝑘 (L𝑁 𝑝 ) = 4 sin 2
+
+ 𝜋 (𝑘 − 1)
+
+2𝑁 𝑝 
+
+
+
+, 𝑘 = 1, . . . , 𝑁 𝑝 , (C12) and therefore, 
+
+𝜈 𝑘 = 𝜇 + ¯𝜌 𝑚 Δ2 4 sin 2
+
+ 𝜋 (𝑘 − 1)
+
+2𝑁 𝑝 
+
+
+
+. (C13) When 𝜇 = 0, the mode 𝑘 = 1 corresponds to the uniform zero mode. 
+
+b. Dirichlet OBC. For open boundary conditions of Dirichlet type, one instead imposes a vanishing field at the two endpoints. The corresponding lattice Laplacian is 
+
+LD =
+
+©«
+
+2 −1 0 · · · 0
+
+−1 2 −1 . . . ...
+
+0 −1 2 . . . 0
+
+... . . . . . . . . . −10 · · · 0 −1 2
+
+ª®®®®®®®®¬
+
+, (C14) which is diagonalized by the discrete sine transform 
+
+𝑂 (D) 
+
+> 𝑗 𝑘
+
+=√︄ 2
+
+𝑁 𝑝 + 1 sin 
+
+ 𝜋 𝑗 𝑘 𝑁 𝑝 + 1
+
+
+
+, 𝑗, 𝑘 = 1, . . . , 𝑁 𝑝 , (C15) with eigenvalues 
+
+𝜆 𝑘 (LD) = 4 sin 2
+
+ 𝜋𝑘 
+
+2(𝑁 𝑝 + 1)
+
+
+
+, 𝑘 = 1, . . . , 𝑁 𝑝 . (C16) Hence, the only difference with respect to the Neumann case lies in the choice of orthogonal diagonalizer and in the precise mode spectrum; all subsequent Gaussian and symplectic manipulations remain unchanged. Since the Hamiltonian is quadratic and block-diagonal, the covariance matrix of the Gibbs state is also block-diagonal, 
+
+Γ𝜏 =
+
+Γρ (𝑇 ) 00 Γϕ (𝑇 )
+
+
+
+. (C17) 17 In the normal-mode basis, each mode is an independent harmonic oscillator of frequency 𝜔 𝑘 , and the only nonvanishing second moments are given by 
+
+⟨( 𝜂 ρ )2 
+
+> 𝑘
+
+⟩ = 𝜔 𝑘 
+
+2𝑔 Δ coth 
+
+ 𝜔 𝑘 
+
+2𝑇 
+
+
+
+, (C18) 
+
+⟨( 𝜂 ϕ )2 
+
+> 𝑘
+
+⟩ = 𝑔 
+
+2𝜔 𝑘 Δ coth 
+
+ 𝜔 𝑘 
+
+2𝑇 
+
+
+
+. (C19) Equivalently, 
+
+Γ(modes ) 
+
+> 𝜏
+
+=
+
+> 𝑁 𝑝
+
+Ê
+
+> 𝑘 =1
+
+1
+
+Δ
+
+©«
+
+𝜔 𝑘 
+
+2𝑔 coth   𝜔 𝑘 
+
+2𝑇 
+
+ 00 𝑔 
+
+2𝜔 𝑘 
+
+coth   𝜔 𝑘 
+
+2𝑇 
+
+ª®®¬
+
+. (C20) Transformation back to the lattice basis is achieved again via the symplectic transformation 𝑆 = 𝑂 ⊕ 𝑂 . 
+
+> 2. Compression dynamics
+
+We now summarize the effective compression dynamics used in the main text. See also Ref. [50] for a discussion on this model. Let 𝐿 (𝑡 ) denote the time-dependent length of the box and define 
+
+𝜆 (𝑡 ) := 𝐿 (0)
+
+𝐿 (𝑡 ) , 𝛼 (𝑡 ) := − log 𝜆 (𝑡 ), (C21) so that compression corresponds to an increase in 𝜆 (𝑡 ).In the laboratory frame, the slowly moving boundary induces a hydrodynamic background velocity field. In the long-wavelength approximation, after linearization around the corresponding mean field, the Hamiltonian takes the form [50] 
+
+𝐻 (𝑡 ) =
+
+∫ 𝐿 (𝑡 )
+
+> 0
+
+d𝑧 
+
+"
+
+¯𝜌 (𝑡 )
+
+2𝑚 (𝜕 𝑧 𝜑 )2 + 𝑔 
+
+2 𝛿𝜌 2 + ¤𝐿 (𝑡 ) 𝑧 
+
+2𝐿 (𝑡 )
+
+
+
+𝛿𝜌 𝜕 𝑧 𝜑 + ( 𝜕 𝑧 𝜑 ) 𝛿𝜌 
+
+#
+
+. (C22) In the strictly (or quasi-) adiabatic limit, the last term is negligible, whereas away from that limit it encodes the fact that the instantaneous normal modes are continuously reshaped by the moving boundary. A convenient description is obtained by passing to the co-compressing coordinate 
+
+𝑥 = 𝜆 (𝑡 ) 𝑧, (C23) which keeps the spatial interval fixed, 𝑥 ∈ [ 0, 𝐿 ] with 𝐿 = 𝐿 (0). To preserve the canonical algebra, one must simultaneously rescale the density fluctuation field, 
+
+𝜉 (𝑥, 𝑡 ) := 1
+
+𝜆 (𝑡 ) 𝛿𝜌 
+
+ 𝑥 𝜆 (𝑡 ) , 𝑡 
+
+
+
+, 𝜑 (𝑥, 𝑡 ) := 𝜑 
+
+ 𝑥 𝜆 (𝑡 ) , 𝑡 
+
+
+
+. (C24) Then, 
+
+[𝜉 (𝑥, 𝑡 ), 𝜑 (𝑥 ′, 𝑡 )] = 𝑖 𝛿 (𝑥 − 𝑥 ′), (C25) and the Hamiltonian becomes 
+
+𝐻 (𝑡 ) =
+
+∫ 𝐿 
+
+> 0
+
+d𝑥 
+
+ ¯𝜌 (0)
+
+2𝑚 𝜆 2 (𝑡 ) ( 𝜕 𝑥 𝜑 )2 + 𝑔 
+
+2 𝜆 (𝑡 ) 𝜉 2
+
+
+
+. (C26) Thus, in the co-compressing frame, the moving-boundary problem is mapped to a quadratic Hamiltonian on a fixed domain with time-dependent couplings: the phase-gradient term scales as 𝜆 2 (𝑡 ), whereas the density block scales only as 𝜆 (𝑡 ).For numerical purposes, we discretize the fixed reference interval into 𝑁 𝑝 pixels and keep 𝑁 𝑝 constant during the protocol. The instantaneous lattice spacing is therefore 
+
+Δ(𝑡 ) = 𝐿 (𝑡 )
+
+𝑁 𝑝 
+
+= Δ
+
+𝜆 (𝑡 ) , Δ ≡ Δ(0). (C27) 18 The natural discrete counterpart of Eq. (C24) is 
+
+ξ𝑖 (𝑡 ) := 1
+
+𝜆 (𝑡 ) 𝛿 ρ𝑖 (𝑡 ), ϕ𝑖 (𝑡 ) := ϕ 𝑖 (𝑡 ), (C28) for which the rescaled canonical algebra remains time independent, 
+
+[ξ 𝑗 (𝑡 ), ϕ𝑘 (𝑡 )] = 𝑖 𝛿 𝑗 𝑘 
+
+Δ . (C29) In terms of these co-compressing lattice variables, the discretized Hamiltonian reads 
+
+𝐻 (𝑡 ) = Δ 
+
+
+
+¯𝜌 (0)
+
+2𝑚 𝜆 2 (𝑡 ) 
+
+> 𝑁 𝑝 −1
+
+∑︁ 
+
+> 𝑖 =1
+
+ ϕ𝑖 +1 − ϕ𝑖 
+
+Δ
+
+2
+
++ 𝑔 
+
+2 𝜆 (𝑡 )
+
+> 𝑁 𝑝
+
+∑︁ 
+
+> 𝑖 =1
+
+ξ 2
+
+> 𝑖
+
+
+
+, (C30) up to the same zero-mode regularization term as in the static case, if included. Equivalently, 
+
+𝐻 (𝑡 ) = Δ
+
+2 Y𝑇 (𝑡 )
+
+𝐻 ξ (𝑡 ) 00 𝐻 ϕ (𝑡 )
+
+
+
+Y(𝑡 ), (C31) where Y(𝑡 ) = (ξ1 (𝑡 ), . . . , ξ𝑁 𝑝 (𝑡 ), ϕ1 (𝑡 ), . . . , ϕ𝑁 𝑝 (𝑡 )) 𝑇 is the instantaneous set of co-compressing mode operators, and the blocks are given by 
+
+𝐻 ξ (𝑡 ) = 𝑔 𝜆 (𝑡 ) 11, 𝐻 ϕ (𝑡 ) = ¯𝜌 (0)
+
+𝑚 Δ2 𝜆 2 (𝑡 ) L + 𝜇 11. (C32) Therefore, at each frozen step of the protocol, the problem is again a quadratic Gaussian model of the same type as in equilibrium, but with time-dependent coefficients. We implement a finite compression or expansion protocol by splitting the total evolution time 𝑡 comp into 𝑁 𝑡 short intervals of duration 
+
+𝛿𝑡 = 𝑡 comp 
+
+𝑁 𝑡 
+
+. (C33) At each step 𝑛 = 0, . . . , 𝑁 𝑡 − 1, we approximate the dynamics using a piecewise-constant Hamiltonian 𝐻 𝑛 with length 𝐿 𝑛 and lattice spacing Δ𝑛 = 𝐿 𝑛 /𝑁 𝑝 . One may parametrize the infinitesimal update as 
+
+𝐿 𝑛 +1 = (1 + 𝜖 )𝐿 𝑛 , Δ𝑛 +1 = (1 + 𝜖 )Δ𝑛 , (C34) with |𝜖 | ≪ 1, so that 𝜖 < 0 corresponds to compression. Due to the 1/Δ scaling of the commutators, the Heisenberg equation for the phase-space vector Y(𝑡 ) takes the form 
+
+𝑑 𝑑𝑡 Y(𝑡 𝑛 ) = ΩΔ𝑛 
+
+𝐻 𝑛 Y(𝑡 𝑛 ) =: 𝐴 𝑛 Y(𝑡 𝑛 ). (C35) Hence, the exact propagator over one frozen step is the symplectic matrix 
+
+𝑆 𝑛 = exp ( 𝐴 𝑛 𝛿𝑡 ) = exp 
+
+ Ω𝐻 𝑛 
+
+Δ𝑛 
+
+𝛿𝑡 
+
+
+
+. (C36) The covariance matrix, expressed in the instantaneous mode basis Y(𝑡 𝑛 ), evolves by congruence, 
+
+˜Γ𝑛 +1 = 𝑆 𝑛 ˜Γ𝑛 𝑆 𝑇 𝑛 , (C37) where we used the notation [ ˜Γ𝑛 ]𝑖 𝑗 = 12 ⟨𝑌 𝑖 𝑌 𝑗 + 𝑌 𝑗 𝑌 𝑖 ⟩ − ⟨ 𝑌 𝑖 ⟩⟨ 𝑌 𝑗 ⟩ for the instantaneous co-compressing frame covariance matrix. At each step 𝑛 , one may further diagonalize the instantaneous phase block 𝐻 (𝑛 ) 
+
+> ϕ
+
+by an orthogonal matrix 𝑂 𝑛 ,
+
+𝑂 𝑇 𝑛 𝐻 (𝑛 ) 
+
+> ϕ
+
+𝑂 𝑛 = diag (𝜈 (𝑛 ) 
+
+> 1
+
+, . . . , 𝜈 (𝑛 ) 
+
+> 𝑁 𝑝
+
+). (C38) In the present case, 𝑂 𝑛 is actually independent of 𝑛 : the compression changes only the eigenvalues, not the eigenvectors, because it merely rescales the Laplacian block by the scalar factor 𝜆 2 
+
+> 𝑛
+
+and the density block by 𝜆 𝑛 . Thus, for Neumann OBC, one may use the same DCT matrix in Eq. (C11) at every step, while for Dirichlet OBC, one uses the DST matrix in Eq. (C15). 19 
+
+Remark.— Note that the passage from the physical density fluctuations 𝛿 ρ𝑖 (𝑡 ) to the co-compressing variables ξ𝑖 (𝑡 ) is a local, time-dependent squeezing, 
+
+Y(𝑡 ) = 𝑅 (𝑡 ) X(𝑡 ), 𝑅 (𝑡 ) =  𝜆 −1 (𝑡 )11 ⊕ 11. (C39) At the covariance-matrix level, this gives 
+
+˜Γ(𝑡 ) = 𝑅 (𝑡 ) Γ(𝑡 ) 𝑅 𝑇 (𝑡 ), Γ(𝑡 ) = 𝑅 −1 (𝑡 ) ˜Γ(𝑡 ) 𝑅 −𝑇 (𝑡 ). (C40) Since 𝑅 (𝑡 ) is block diagonal and local in the site partition, this transformation does not create or destroy entanglement across lattice sites.  
+
+> Appendix D: Optimal witness for detecting fixed 𝑘 -partition and full inseparability with SDP
+
+In this appendix, we will state the SDP problems for finding the optimal entanglement witness for determining the inseparability with respect to a fixed 𝑘 -partition (including full inseparability) given the covariance matrix of a multi-mode state. Note that these optimal witnesses are straightforward generalizations of the ones stated explicitly in Ref. [41] for detecting inseparability in any fixed bipartition. First of all, let us recall that a primal SDP problem takes the form following the same notation of Ref. [41]: 
+
+𝛼 := min    
+
+> x∈R𝑡
+
+c · x (D1) subject to 𝐹 0 +
+
+> 𝑡
+
+∑︁ 
+
+> 𝑖 =1
+
+𝐹 𝑖 𝑥 𝑖 ⪰ 0 , (D2) where c ∈ R𝑡 and {𝐹 𝑖 }𝑡 𝑖 =0 are Hermitian matrices. The corresponding dual problem is given by 
+
+𝛽 := max  
+
+> 𝑍
+
+− Tr (𝐹 0 𝑍 ) (D3) subject to Tr (𝐹 𝑖 𝑍 ) = 𝑐 𝑖 for 𝑖 = 1, . . . , 𝑡 , (D4) 
+
+𝑍 ⪰ 0 . (D5) Note that due to weak duality of SDP, the dual optimal solution lower bounds the primal optimal solution (i.e., 𝛼 ⪰ 𝛽 ). Furthermore, if the Slater’s condition , as stated in the following lemma, is fulfilled, then strong duality holds (i.e., 𝛼 = 𝛽 ). 
+
+Lemma 1 (Slater’s theorem for SDP [79]) . The following two statements hold for all SDPs: 1. If 𝛼 is finite (i.e., there exists a non-trivial primal feasible solution) and there exists a positive definite matrix 𝑍 ≻ 0 which satisfies all constraints in the dual problem, then 𝛼 = 𝛽 .2. If 𝛽 is finite (i.e., there exists a non-trivial dual feasible solution) and there exists a real vector x satisfying the primal constraint with strict inequality (i.e., 𝐹 0 + Í𝑡 𝑖 =1 𝐹 𝑖 𝑥 𝑖 ≻ 0), then 𝛼 = 𝛽 .
+
+To certify inseparability of an 𝑁 -mode state with respect to a fixed 𝑘 -partition of 𝑁 modes given the state’s covariance matrix 
+
+Γ, the primal SDP problem corresponding to the optimal witness can be written as: 
+
+min     
+
+> 𝛾 (1),...,𝛾 (𝑘 ),𝑥 𝑒
+
+− 𝑥 𝑒 (D6) subject to Γ − ⊕ 𝑘 𝛼 =1𝛾 ( 𝛼 ) ⪰ 02𝑁 , (D7) 
+
+⊕𝑘 𝛼 =1 𝛾 ( 𝛼 ) + ( 1 + 𝑥 𝑒 ) 𝑖𝜂 Ω ⪰ 02𝑁 , (D8) since for Γ corresponding to a separable state with respect to this 𝑘 -partition, it must satisfy Eqs. (D7)–(D8) (with 0𝑑 being a 
+
+𝑑 × 𝑑 zero matrix) for 𝑥 𝑒 = 0 so that 𝛾 ( 𝛼 ) is a covariance matrix for the 𝛼 -th partition of the 𝑁 modes and 𝜂 is a common rescaling factor of the canonical commutation relation of the conjugate quadratures (e.g., [𝛿 ρ 𝑗 , ϕ𝑘 ] = 𝑖𝛿 𝑗 𝑘 11/Δ as described in Sec. II A ⇒ 𝜂 = 1/Δ). We can combine the two inequality constraints in Eqs. (D7)–(D8) by a direct sum to get one equivalent matrix inequality constraint so that it fits the standard form of the primal SDP in Eq. (D2): 
+
+(Γ ⊕ 𝑖𝜂 Ω) + 
+
+> 𝑘
+
+∑︁ 
+
+> 𝛼 =1
+
+∑︁ 𝑖, 𝑗 ∈ I𝛼 
+
+(− 𝐹 𝑖, 𝑗 ⊕ 𝐹 𝑖, 𝑗 ) 𝛾 ( 𝛼 ) 
+
+> 𝑖, 𝑗
+
++ 𝑥 𝑒 (02𝑁 ⊕ 𝑖𝜂 Ω) ⪰ 04𝑁 , (D9) 20 where 𝐹 𝑖, 𝑗 = |𝑖 ⟩⟨ 𝑗 | + | 𝑗 ⟩⟨ 𝑖 | for 𝑖, 𝑗 ∈ { 1, . . . , 2𝑁 } and 𝛾 ( 𝛼 ) = Í𝑖, 𝑗 𝛾 ( 𝛼 ) 
+
+> 𝑖, 𝑗
+
+|𝑖 ⟩⟨ 𝑗 | is real symmetric. We detect entanglement of Γ if 
+
+𝑥 𝑒 < 0 since this corresponds to the violation of the Heisenberg uncertainty relation which ⊕𝑘 𝛼 =1𝛾 ( 𝛼 ) must fulfill if Γ is separable with respect to this 𝑘 -partition. Due to the direct sum structure of the constraint in Eq. (D9), the corresponding dual SDP problem is given by 
+
+max  
+
+> 𝑍 1,𝑍 2
+
+− Tr (Γ 𝑍 1 ⊕ 𝑖𝜂 Ω 𝑍 2) (D10) subject to Tr (𝑖𝜂 Ω 𝑍 2) = −1 , (D11) 
+
+Tr (− 𝐹 𝑖, 𝑗 𝑍 1 ⊕ 𝐹 𝑖, 𝑗 𝑍 2) = 0 ∀ 𝑖, 𝑗 ∈ I𝛼 , 𝛼 ∈ { 1, . . . , 𝑘 } , (D12) 
+
+𝑍 1, 𝑍 2 ⪰ 02𝑁 . (D13) For any Hermitian matrix 𝑍 = Re (𝑍 ) + 𝑖 Im (𝑍 ), it holds that Re (𝑍 )𝑇 = Re (𝑍 ) and Im (𝑍 )𝑇 = − Im (𝑍 ). Since Γ is real and symmetric, then 
+
+Tr (Γ 𝑍 1) = Tr {Γ [Re (𝑍 1) + 𝑖 Im (𝑍 1)]} = Tr {[ Re (𝑍 1) + 𝑖 Im (𝑍 1)] 𝑇 Γ𝑇 } = Tr {Γ [Re (𝑍 1) − 𝑖 Im (𝑍 1)]} = Tr [Γ Re (𝑍 1)] (D14) and we can simplify the dual problem as follows: 
+
+max  
+
+> 𝑍 1,𝑍 2
+
+1 − Tr (Γ Re (𝑍 1)) (D15) subject to Re (𝑍 bd 1 ) = Re (𝑍 bd 2 ) , (D16) 
+
+𝑍 1, 𝑍 2 ⪰ 02𝑁 , (D17) where 𝑍 bd = Í𝑘 𝛼 =1
+
+Í𝑖, 𝑗 ∈I𝛼 𝑍 𝑖, 𝑗 |𝑖 ⟩⟨ 𝑗 | is the result of pinching the matrix 𝑍 with respect to the 𝑘 -partition blocks. Following the same argument in Ref. [41], the state corresponding to Γ is entangled with respect to this fixed 𝑘 -partition if Tr (Γ Re (𝑍 1)) < 1.We can now easily show the following observation: 
+
+Observation 1. Strong duality holds for the SDP problems in Eqs. (D6) –(D17) that determine fixed 𝑘 -partition inseparability for any multi-mode covariance matrix Γ.
+
+We can prove this by simply observing that we can choose 𝑥 𝑒 = −1 and ⊕𝑘 𝛼 =1𝛾 ( 𝛼 ) = 02𝑁 , which is a primal feasible solution. Simultaneously, we can always find positive definite matrices 𝑍 1 = 𝑍 2 ≻ 02𝑁 which obviously fulfills the only other dual constraint in Eq. (D16). Therefore, Slater’s condition (see Lemma 1–condition 1) is satisfied and we have strong duality. Finally, let us note that detecting full inseparability is equivalent to detecting “fixed” 𝑁 -partition inseparability since there is only one 𝑁 -partition of 𝑁 modes. 
+
+> Appendix E: Entanglement measures and witnessed lower bounds in Gaussian bosonic systems
+
+Besides the covariance-matrix witnesses, we can discuss other common entanglement quantifiers. For Gaussian states, the most accessible bipartite measure is the logarithmic negativity, which is obtained from the “partially transposed" covariance matrix. At the same time, the violation of the normalized covariance-based witness can be turned into a quantitative lower bound on other entanglement monotones, in particular quite directly on the so-called best separable approximation (BSA), as we are going to discuss (see also the main text).  
+
+> 1. Logarithmic negativity for a fixed bipartition
+
+Consider a bipartition 𝐴 |𝐵 of the 𝑁 𝑝 lattice modes, with | 𝐴 | + | 𝐵 | = 𝑚 modes in the reduced subsystem under consideration. Let Υ𝐴 | 𝐵 be the corresponding reduced covariance matrix extracted from Γ𝜚 . In the situations relevant for this work, Γ𝜚 is block diagonal in the (𝜌, 𝜙 )-type quadratures, and therefore so is Υ𝐴 | 𝐵 :
+
+Υ𝐴 | 𝐵 =
+
+Υ𝜌 00 Υ𝜙 
+
+
+
+. (E1) The partial transpose with respect to 𝐵 acts in phase space by flipping the sign of the momentum-like quadratures belonging to subsystem 𝐵 . It is therefore implemented by 
+
+ΥΓ  
+
+> 𝐴 |𝐵
+
+= Π 𝐴 | 𝐵 Υ𝐴 | 𝐵 Π𝐴 | 𝐵 , Π𝐴 | 𝐵 := 1𝑚 ⊕ Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+, (E2) 21 where Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+is diagonal, with entries +1 on sites belonging to 𝐴 and −1 on sites belonging to 𝐵 .Let ˜𝜈 𝑗 denote the symplectic eigenvalues of ΥΓ 
+
+> 𝐴 |𝐵
+
+, i.e., the positive moduli of the eigenvalues of 𝑖 (𝜂 Ω)−1ΥΓ 
+
+> 𝐴 |𝐵
+
+, with the same rescaled symplectic form 𝜂 Ω used throughout the paper. Then, the logarithmic negativity across the cut 𝐴 |𝐵 is 
+
+𝐸 𝑁 ( 𝐴 |𝐵 ) =
+
+> 𝑚
+
+∑︁ 
+
+> 𝑗 =1
+
+max 
+
+
+
+0, − log 2
+
+ ˜𝜈 𝑗 
+
+𝜂 
+
+ 
+
+. (E3) Equivalently, using the block-diagonal structure of the covariance matrix, one may compute ˜𝜈 𝑗 from the ordinary eigenvalues of 
+
+Υ𝜌 Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+Υ𝜙 Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+, (E4) namely 
+
+˜𝜈 𝑗 =√︂ 𝜆 𝑗 
+
+
+
+Υ𝜌 Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+Υ𝜙 Π( 𝐴 | 𝐵 )
+
+> 𝑝
+
+
+
+. (E5) Substituting (E5) into (E3) gives the convenient formula 
+
+𝐸 𝑁 ( 𝐴 |𝐵 ) = − 12
+
+> 𝑚
+
+∑︁ 
+
+> 𝑗 =1
+
+log 2
+
+
+
+min ©«
+
+1,𝜆 𝑗 
+
+
+
+Υ𝜌 Π( 𝐴 | 𝐵 ) 
+
+> 𝑝
+
+Υ𝜙 Π( 𝐴 | 𝐵 )
+
+> 𝑝
+
+
+
+𝜂 2
+
+ª®®¬
+
+. (E6) This measure depends explicitly on the chosen bipartition. For translationally invariant equilibrium states with short-range couplings, contiguous bipartitions typically exhibit an area-law-type scaling [21, 58], whereas an alternating-site bipartition maximizes the number of cut links. Accordingly, in our setting, the alternating (“zig-zag”) bipartition is the natural candidate for the bipartition with maximal logarithmic negativity, and this is also what we observe numerically in thermal equilibrium.  
+
+> 2. CMC witness violation as a lower bound on the Best separable approximation
+
+We now turn to the best separable approximation. Let S denote a chosen convex set of fully separable states. The Best-Separable Approximation (BSA) is an entanglement monotone introduced in Refs. [59, 60] and discussed in various subsequent works [61, 80], also in the context of many-body systems [62, 81, 82]. It is defined as 
+
+𝐸 S 
+
+> BSA
+
+( 𝜚 ) := inf 
+
+n
+
+𝜆 ∈ [ 0, 1] : 𝜚 = (1 − 𝜆 )𝜎 + 𝜆𝜏, 𝜎 ∈ S, 𝜏 arbitrary 
+
+o
+
+. (E7) Thus, 𝐸 S 
+
+> BSA
+
+( 𝜚 ) is the smallest weight of an arbitrary remainder state needed in order to represent 𝜚 as a convex mixture with a fully separable state. It is well known that a lower bound on the BSA can be given from properly normalized entanglement witnesses [80, 83–86] as well as covariance-based criteria [87–89]. Here we present a more direct proof for our framework, directly connecting the optimal CMC witness to the BSA. Assume that we are given a covariance-based witness normalized in the form 
+
+𝑊 S (Γ𝜚 ) := 1 − Tr  𝑍 𝑆 Γ𝜚 
+
+, 𝑍 S ⪰ 0, (E8) with the property that 
+
+Tr  𝑍 S Γ𝜎 
+
+ ≥ 1 ∀ 𝜎 ∈ S. (E9) This is precisely the normalization naturally produced by the dual SDP in the CMC framework discussed in the main text and in Section D. Whenever 𝑊 S (Γ𝜚 ) > 0, the state is therefore not contained in S.The same witness violation immediately yields a quantitative lower bound on the BSA. Indeed, let 
+
+𝜚 = (1 − 𝜆 ) 𝜎 + 𝜆 𝜏, 𝜎 ∈ S. (E10) Due to the concavity of the covariance matrix, we have 
+
+Γ𝜚 ⪰ ( 1 − 𝜆 ) Γ𝜎 + 𝜆 Γ𝜏 . (E11) Since 𝑍 S ⪰ 0, it follows that 
+
+Tr (𝑍 S Γ𝜚 ) ≥ ( 1 − 𝜆 )Tr (𝑍 S Γ𝜎 ) + 𝜆 Tr (𝑍 S Γ𝜏 ). (E12) 22 Using Eq. (E9) and Tr (𝑍 S Γ𝜏 ) ≥ 0, we obtain 
+
+Tr (𝑍 S Γ𝜚 ) ≥ 1 − 𝜆. (E13) Rearranging gives 
+
+𝜆 ≥ 1 − Tr (𝑍 S Γ𝜚 ) = 𝑊 S (Γ𝜚 ). (E14) Minimizing over all decompositions in Eq. (E7) yields the witnessed lower bound 
+
+𝐸 S 
+
+> BSA
+
+( 𝜚 ) ≥ max 0, 𝑊 S (Γ𝜚 ) . (E15) 
+
+Appendix F: Analytic scaling of the optimal witness for thermal equilibrium 
+
+In Section III A, we established that the relevant CMC separability condition is governed by the extremal pair of normal-mode quadratures (𝜂 ρ )1 and (𝜂 ϕ )𝑁 𝑝 . More precisely, the corresponding optimal witness expectation value is 
+
+𝑊 (𝑇 ) := 1 − 2Δ√︃ ⟨( 𝜂 ρ )21 ⟩ ⟨( 𝜂 ϕ )2 
+
+> 𝑁 𝑝
+
+⟩, (F1) which becomes 
+
+𝑊 (𝑇 ) = 1 −√︄ 𝜔 1
+
+𝜔 𝑁 𝑝 
+
+coth 
+
+ 𝜔 1
+
+2𝑇 
+
+
+
+coth 
+
+ 𝜔 𝑁 𝑝 
+
+2𝑇 
+
+
+
+, (F2) using the thermal normal-mode covariances in Eq. (C18). For the open chain with Dirichlet boundary condition we have 
+
+𝜔 𝑘 = 2√︂ 𝑔 ¯𝜌 𝑚 Δ2 sin 
+
+ 𝜋𝑘 
+
+2(𝑁 𝑝 + 1)
+
+
+
+, (F3) 
+
+𝑊 (𝑇 ) = 1 − ©«
+
+sin 
+
+ 𝜋   
+
+> 2(𝑁 𝑝 +1)
+
+
+
+sin 
+
+ 𝜋 𝑁 𝑝   
+
+> 2(𝑁 𝑝 +1)
+
+ ª®®¬ 
+
+> 1/2
+
+vut
+
+coth 
+
+"
+
+1
+
+𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 Δ2 sin 
+
+ 𝜋 
+
+2(𝑁 𝑝 + 1)
+
+#
+
+coth 
+
+"
+
+1
+
+𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 Δ2 sin 
+
+ 𝜋𝑁 𝑝 
+
+2(𝑁 𝑝 + 1)
+
+#
+
+. (F4) It is convenient to introduce the shorthand 
+
+𝜃 𝑁 𝑝 := 𝜋 
+
+2(𝑁 𝑝 + 1) , 𝐴 :=√︂ 𝑔 ¯𝜌 𝑚 Δ2 . (F5) Using 
+
+sin 
+
+ 𝜋𝑁 𝑝 
+
+2(𝑁 𝑝 + 1)
+
+
+
+= cos 𝜃 𝑁 𝑝 , (F6) the witness takes the compact form 
+
+𝑊 (𝑇 ) = 1 −√︃ tan 𝜃 𝑁 𝑝 √︄ coth 
+
+ 𝐴 𝑇 sin 𝜃 𝑁 𝑝 
+
+
+
+coth 
+
+ 𝐴 𝑇 cos 𝜃 𝑁 𝑝 
+
+
+
+. (F7) We now analyze the asymptotic scaling of this expression. 
+
+1. Large-𝑁 𝑝 asymptotic behavior at fixed lattice spacing 
+
+We first consider the limit 𝑁 𝑝 → ∞ at fixed Δ. In this regime, 
+
+𝜃 𝑁 𝑝 → 0, tan 𝜃 𝑁 𝑝 ∼ 𝜃 𝑁 𝑝 , sin 𝜃 𝑁 𝑝 ∼ 𝜃 𝑁 𝑝 , cos 𝜃 𝑁 𝑝 ∼ 1. (F8) 23 Moreover, for small argument one has 
+
+coth 𝑥 ∼ 1
+
+𝑥 (𝑥 → 0). (F9) Hence 
+
+coth 
+
+ 𝐴 𝑇 sin 𝜃 𝑁 𝑝 
+
+
+
+∼ 𝑇 𝐴 𝜃 𝑁 𝑝 
+
+, coth 
+
+ 𝐴 𝑇 cos 𝜃 𝑁 𝑝 
+
+
+
+→ coth 
+
+ 𝐴 𝑇 
+
+
+
+. (F10) Substituting into (F7), the factors of 𝜃 𝑁 𝑝 cancel and one finds 
+
+𝑊 (𝑇 ) ∼ 1 −√︄ 𝑇 𝐴 coth 
+
+ 𝐴 𝑇 
+
+
+
+. (F11) Thus, for fixed lattice spacing the witness approaches a finite, 𝑁 𝑝 -independent limit. 
+
+2. Continuum limit at fixed physical length 
+
+We now consider the continuum scaling limit, defined by taking the number of pixels 𝑁 𝑝 → ∞ and the lattice spacing Δ → 0,while keeping the total physical length 𝐿 = 𝑁 𝑝 Δ fixed. In this limit, the spacing is constrained by Δ = 𝐿 /𝑁 𝑝 , and the parameter 
+
+𝐴 scales as 
+
+𝐴 = 𝑁 𝑝 
+
+𝐿 √︂ 
+
+𝑔 ¯𝜌 𝑚 . (F12) We then examine the two hyperbolic cotangents appearing in (F7). For the first one, 
+
+𝐴 𝑇 cos 𝜃 𝑁 𝑝 = 𝑁 𝑝 
+
+𝐿𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 cos 𝜃 𝑁 𝑝 −−−−−−→  
+
+> 𝑁 𝑝 →∞
+
+∞, (F13) and therefore 
+
+coth 
+
+ 𝐴 𝑇 cos 𝜃 𝑁 𝑝 
+
+
+
+→ 1. (F14) For the second one, 
+
+𝐴 𝑇 sin 𝜃 𝑁 𝑝 = 𝑁 𝑝 
+
+𝐿𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 sin 
+
+ 𝜋 
+
+2(𝑁 𝑝 + 1)
+
+
+
+−−−−−−→ 
+
+> 𝑁 𝑝 →∞
+
+𝜋 
+
+2𝐿𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 =: 𝜉 𝐿 . (F15) At the same time, 
+
+tan 𝜃 𝑁 𝑝 ∼ 𝜃 𝑁 𝑝 ∼ 𝜋 
+
+2(𝑁 𝑝 + 1) . (F16) The leading asymptotic behavior of the witness is therefore 
+
+𝑊 (𝑇 ) ∼ 1 −√︂ 𝜋 
+
+2(𝑁 𝑝 + 1) coth (𝜉 𝐿 ), 𝜉 𝐿 = 𝜋 
+
+2𝐿𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 . (F17) Using 𝑁 𝑝 = 𝐿 /Δ, this may be rewritten as 
+
+𝑊 (𝑇 ) ∼ 1 −
+
+vut 𝜋 Δ
+
+2𝐿 coth 𝜋 
+
+2𝐿𝑇 √︂ 
+
+𝑔 ¯𝜌 𝑚 
+
+!
+
+. (F18) This shows that, in the continuum limit at fixed physical length 𝐿 , the witness tends to 
+
+𝑊 (𝑇 ) −→ 1, (F19) with a leading correction of order √Δ.24   
+
+> 3. Small- and large-𝐿 regimes
+
+The asymptotic expression (F18) also makes the dependence on the system length explicit. For small 𝐿 , one has 𝜉 𝐿 ≫ 1, so that 
+
+coth (𝜉 𝐿 ) ≈ 1. Equation (F18) then reduces to 
+
+𝑊 (𝑇 ) ∼ 1 −√︂ 𝜋 Δ
+
+2𝐿 . (F20) For large 𝐿 , one instead has 𝜉 𝐿 ≪ 1, and therefore 
+
+coth (𝜉 𝐿 ) ∼ 1
+
+𝜉 𝐿 
+
+. (F21) Substituting into (F18) yields 
+
+𝑊 (𝑇 ) ∼ 1 −√︄ 𝜋 Δ
+
+2𝐿 
+
+2𝐿𝑇 𝜋 √︂ 
+
+𝑚 𝑔 ¯𝜌 = 1 −√︄ 𝑇 Δ√︂ 𝑚 𝑔 ¯𝜌 . (F22) Hence, in both regimes the witness approaches 1 as Δ → 0, consistently with the fact that the product ⟨( 𝜂 ρ )21 ⟩ ⟨( 𝜂 ϕ )2 
+
+> 𝑁 𝑝
+
+⟩
+
+vanishes in the continuum limit. 
+
+> Appendix G: Thermalization after compression
+
+Outside of the strictly adiabatic limit, the covariance matrix Γ resulting from the compression protocol is generally non-thermal and does not commute with the Hamiltonian after compression 𝐻 comp . During isochoric thermalization, the system returns to a thermal state at the respective bath temperature 𝑇 bath . In general, finding this steady state solution involves solving the Master equation for the full density matrix which is generally computationally demanding. Because the Master equation is Gaussian-preserving, we can remain in the covariance-matrix framework and consider the Lyapunov equation for the covariance matrix [63, 90], 
+
+dΓ
+
+d𝑡 = 𝐺 Γ + Γ𝐺 𝑇 + 𝐷, (G1) where 𝐺 is the drift matrix, and 𝐷 is the dissipation matrix. Note that after compression, 𝐻 comp still has one diagonal block 𝐻 𝜉 . Hence, we can again find the orthogonal-symplectic diagonalization matrix 𝑆 th from Eq. (48) using 𝐻 𝜙 , i.e., 𝜔 comp = 𝑆 𝑇  
+
+> th
+
+𝐻 comp 𝑆 th , and obtain the corresponding thermal state covariance matrix entries ⟨𝑛 2 
+
+> 𝑘
+
+⟩ using Eq. (17). Assuming a local coupling that is equal for all sites, we can construct the drift matrix as 
+
+𝐺 = Ω 𝐻 comp − 𝛾 
+
+2 1, (G2) and the dissipation matrix as 
+
+𝐷 = 𝛾𝑆 th 𝑛 2 
+
+> 𝑘
+
+𝑆 𝑇 
+
+> th
+
+, (G3) where 𝛾 is the bath coupling constant. The thermal state is then found as the steady state solution from Eq. (G1) for 𝑡 → ∞ , i.e. 
+
+dΓ∞
+
+d𝑡 = 0 → 𝐷 = −( 𝐺 Γ∞ + Γ∞𝐺 𝑇 ). (G4)

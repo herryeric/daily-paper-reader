@@ -1,0 +1,1469 @@
+Title: Parafermionic Truncated Wigner Approximation
+
+URL Source: https://arxiv.org/pdf/2603.29344v1
+
+Published Time: Wed, 01 Apr 2026 00:37:27 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+## Parafermionic Truncated Wigner Approximation 
+
+Javad Vahedi ∗ and Martin G¨ arttner †
+
+Institute of Condensed Matter Theory and Optics, Friedrich-Schiller-University Jena, Max-Wien-Platz 1, 07743 Jena, Germany 
+
+(Dated: April 1, 2026) We introduce the parafermionic truncated Wigner approximation ( pTWA), a semiclassical phase-space framework for simulating the nonequilibrium dynamics of lattice systems with fractional ex-change statistics. The method extends truncated Wigner approaches developed for bosonic and fermionic systems to Zn Fock parafermions by expressing the Hamiltonian in terms of local Hub-bard operators that form a closed Lie algebra. This representation leads to a Lie–Poisson phase-space formulation in which quantum dynamics is approximated by stochastic sampling of initial conditions followed by deterministic semiclassical evolution. We benchmark the approach in several settings, including single-site clock dynamics, the fully connected Zn clock model, long-range Z3
+
+clock chains, and disordered Z3 Fock parafermion chains. The method reproduces key features of the exact dynamics, including excitation spreading, disorder-induced suppression of transport, and the emergence of long-time imbalance plateaus. Our results demonstrate that pTWA provides a practical tool for exploring the dynamics of parafermionic systems in regimes where exact numerical methods are limited by Hilbert-space growth. 
+
+I. INTRODUCTION 
+
+Understanding nonequilibrium dynamics in interacting quantum many-body systems is a central challenge across quantum science, with implications ranging from quan-tum information processing to topological matter and emergent statistical phenomena [1–3]. The exponential growth of the Hilbert space with system size severely lim-its exact numerical simulations, motivating the develop-ment of approximate yet scalable theoretical frameworks. Tensor-network methods [4, 5] and quantum Monte Carlo approaches [6, 7] have achieved remarkable success in spe-cific regimes, but face intrinsic challenges for real-time dynamics, long-range interactions, and systems with un-conventional exchange statistics [8]. Semiclassical phase-space methods provide a com-plementary route for studying large quantum systems. Among these, the truncated Wigner approximation (TWA) maps quantum operators to classical phase-space variables whose stochastic evolution captures lead-ing quantum fluctuations [9]. Originally developed for bosonic and spin systems, TWA has enabled studies of coherence dynamics, thermalization, and correlation spreading in systems beyond the reach of exact tech-niques [10, 11]. Extending TWA beyond bosonic systems required overcoming fundamental algebraic obstacles. For fermions, the appearance of Grassmann-valued phase-space variables initially prevented direct stochastic sam-pling. This difficulty was circumvented by reformulating the dynamics in terms of fermionic bilinears that form closed Lie algebras—such as so (2 N ) or so (4 N ) in Ma-jorana representations—allowing semiclassical evolution with ordinary probability distributions [12, 13]. These   
+
+> ∗javahedi@gmail.com
+> †martin.gaerttner@uni-jena.de
+
+developments highlight the role of Lie–Poisson phase spaces as a unifying structure underlying semiclassical descriptions of non-bosonic quantum systems [14, 15]. In this work we extend this framework to Zn
+
+Fock parafermions. Parafermions interpolate between fermions ( n = 2) and more exotic fractionalized excita-tions ( n > 2), and appear in a variety of contexts includ-ing clock models, topological phases, and non-Abelian de-fects [16–19]. A defining feature of parafermionic models is the presence of nonlocal Jordan–Wigner strings imple-menting fractional exchange statistics. As a consequence, even quadratic parafermionic Hamiltonians are generally interacting in the physical degrees of freedom, posing challenges for conventional semiclassical approaches. We introduce the parafermionic truncated Wigner approximation ( pTWA) by reformulating parafermionic Hamiltonians in terms of local Hubbard operators form-ing a closed Lie algebra. This construction yields a well-defined Lie–Poisson phase space and leads to semiclassi-cal equations of motion supplemented by stochastic sam-pling of the initial quantum state. Despite the nonlocal operator structure of parafermionic models, the resulting classical equations remain local, with statistical effects entering through self-consistent mean fields. We benchmark the pTWA framework in a series of representative settings. As controlled tests we first ex-amine single-site Zn clock dynamics and the fully con-nected Zn clock model, where semiclassical dynamics becomes exact in appropriate limits. We then apply the method to interacting one-dimensional systems, in-cluding long-range Z3 clock chains and disordered Z3
+
+Fock parafermion models, where we demonstrate that 
+
+pTWA captures the qualitative features of excitation transport, disorder-induced suppression of dynamics, and long-time imbalance plateaus. Finally, simulations of 
+
+Zn Fock parafermion chains with varying local dimen-sion show systematic improvement of the semiclassi-cal description as the system approaches the classical 
+
+> arXiv:2603.29344v1 [cond-mat.str-el] 31 Mar 2026
+
+2limit. The remainder of this paper is organized as fol-lows. In Sec. II we formulate the pTWA framework and discuss the construction of the associated Lie–Poisson phase space. Section III presents benchmark tests of the method, while Sec. IV applies the approach to one-dimensional parafermionic lattice models. We conclude in Sec. V with a discussion of the implications and pos-sible extensions of the method.  
+
+> II. TRUNCATED WIGNER APPROXIMATION: FROM BOSONS AND FERMIONS TO PARAFERMIONS
+
+The Truncated Wigner Approximation (TWA) pro-vides a semiclassical framework for simulating the nonequilibrium dynamics of quantum many-body sys-tems. The central idea is to represent the quantum den-sity operator ˆ ρ via its Wigner–Weyl transform W (x, p)in a suitable phase space, and to approximate the quan-tum Liouville equation by a classical Liouville evolution of phase-space trajectories [9]. Quantum fluctuations en-ter through stochastic sampling of initial conditions from 
+
+W , while the subsequent time evolution follows the classi-cal equations of motion generated by the Weyl symbol of the Hamiltonian. This construction is exact for quadratic Hamiltonians and becomes a controlled approximation for weak nonlinearities or sufficiently short times.  
+
+> A. Bosonic phase space and Wigner sampling
+
+For bosonic systems with canonical operators ˆ ai, ˆ a†
+
+> i
+
+satisfying [ˆ ai, ˆa† 
+
+> j
+
+] = δij , the Wigner function constitutes a quasi-probability distribution over the continuous phase space of complex amplitudes αi. In truncated Wigner approximation, expectation values of symmetrically or-dered observables are obtained as phase-space averages: 
+
+⟨ ˆO(t)⟩ =
+
+Z
+
+d2Nα W (α, α ∗; 0) OW (α(t), α ∗(t)) , (1) where OW denotes the Weyl symbol of ˆO and α(t) evolves under classical equations of motion. The Poisson bracket structure, 
+
+{αi, α ∗ 
+
+> j
+
+} = iδ ij , (2) yields Hamilton’s equations, 
+
+iℏ ˙αi = ∂H W
+
+∂α ∗
+
+> i
+
+, −iℏ ˙α∗ 
+
+> i
+
+= ∂H W
+
+∂α i
+
+, (3) with HW the Weyl symbol of the Hamiltonian. Ini-tial sampling from distributions such as Gaussians corre-sponding to coherent or squeezed states allows access to quantum correlations beyond mean-field theory. Bosonic TWA has found widespread application in ultracold-atom physics, nonlinear optics, and quantum field the-ory [10, 20].   
+
+> B. Fermionic Wigner formalism ( fTWA)
+
+Extending the phase-space picture to fermions encoun-ters a fundamental difficulty: the canonical fermionic op-erators ˆ ci, ˆ c† 
+
+> i
+
+satisfy anticommutation relations {ˆci, ˆc† 
+
+> j
+
+} =
+
+δij , which implies that the natural phase-space coordi-nates are Grassmann numbers ξi, ξ∗ 
+
+> i
+
+obeying {ξi, ξ j } = 0. Grassmann-valued fields cannot be sampled using ordi-nary probability distributions, obstructing direct numer-ical implementation. Several approaches circumvent this “Grassmann ob-struction” by reformulating the fermionic dynamics in terms of bilinear operators that close under commuta-tion. One approach employs the single-particle density-matrix representation ρij = ⟨ˆc† 
+
+> j
+
+ˆci⟩, which evolves un-der an effective mean-field Hamiltonian h[ρ] with addi-tional semiclassical corrections [12, 21]. Another, more symmetric, formulation uses the antisymmetric Majo-rana correlation matrix Mab , defined from ˆ γa = ˆ ca + ˆ c†
+
+> a
+
+,yielding an so (4 N ) Lie–Poisson structure that captures fermionic semiclassics without explicit Grassmann vari-ables [13]. Both approaches effectively replace the Grass-mann phase space with a manifold of bilinear expectation values, enabling tractable semiclassical simulations of in-teracting fermionic systems.  
+
+> C. Parafermionic Wigner formalism ( pTWA)
+
+We now extend the semiclassical Wigner framework to 
+
+Zn Fock parafermions (FPFs), which generalize fermions (n = 2) to fractionalized excitations with nontrivial ex-change statistics for n > 2. Local FPF creation and an-nihilation operators f † 
+
+> j
+
+and fj obey the nilpotency con-dition 
+
+f nj = ( f † 
+
+> j
+
+)n = 0 , (4) and acquire fractional exchange phases 
+
+fj fk = ω f kfj , (j < k ), ω = e2πi/n . (5) On a single site, Fock parafermions satisfy the generalized on-site constraints 
+
+f †mj f mj + f n−mj f †(n−m) 
+
+> j
+
+= 1, m = 1 , . . . , n − 1, (6) which reduce to the canonical fermionic anticommutation relation for n = 2, but define a genuinely nonlinear on-site algebra for n > 2. As a consequence of the nonlinear on-site algebra, the operators fj and f † 
+
+> j
+
+do not generate a closed finite-dimensional Lie algebra under commutation. Commutators produce higher-order operator monomials, preventing a linear Poisson-bracket correspondence and rendering a direct semiclassical phase-space formulation in terms of parafermionic operators intractable. To overcome this difficulty, we employ the local Hub-bard operator basis (shown in Fig. 1) 
+
+Xab j = |a⟩⟨ b|, a, b = 0 , . . . , n − 1, (7) 3
+
+FIG. 1. Schematic overview of the Parafermionic Truncated Wigner Approximation ( pTWA). (a) Algebraic Mapping: The nonlinear on-site algebra of Zn Fock parafermions fj is mapped to a local Hubbard operator basis Xab j = |a⟩⟨ b|, which forms a closed sl (n) Lie algebra, enabling a well-defined phase-space formulation. (b) Initial State Sampling: Quantum fluctuations are captured by sampling initial conditions xab j (0) from either: (1) a multivariate Gaussian distribution matching the first and second quantum moments, or (2) a discrete Wigner distribution Wρ(q, p ) (for prime n) using a finite-field phase-space grid. (c) Semiclassical Evolution: Each sampled initial condition is propagated deterministically according to the classical Lie-Poisson equations of motion, ˙ xef = {xef , H W }, where the Poisson brackets are inherited from the Hubbard commutator algebra. (d) Observable Averaging: Time-dependent quantum observables ⟨O(t)⟩ are estimated by taking the ensemble average of the corresponding Weyl symbols OW over Ntraj independent classical trajectories. 
+
+which forms a complete operator basis on each site and satisfies the closed Lie algebra [Xab j , X cd j ] = δbc Xad j − δad Xcb j . (8) The Hubbard operators therefore provide a natural al-gebraic structure for a Lie–Poisson phase-space formula-tion, directly analogous to the bilinear formulations used in fermionic truncated Wigner approaches [12]. The local Zn clock operators ( Zj , X j ) can be expressed as 
+
+Zj =
+
+> n−1
+
+X
+
+> a=0
+
+ωaXaa j , Xj =
+
+> n−1
+
+X
+
+> a=0
+
+Xa+1 ,a j (mod n), (9) so any Hamiltonian written in terms of parafermions or clock variables can be rewritten entirely in the Xab j basis. This representation provides a universal starting point for a semiclassical treatment. We now define classical phase-space variables as the Wigner–Weyl symbols 
+
+xab j ≡ ⟨ Xab j ⟩W . (10) For a̸ = b these variables are generally complex, reflecting the non-Hermitian structure of the operator basis. Their dynamics follow from the Lie–Poisson bracket inherited from the Hubbard operator algebra: 
+
+{xab j , x cd k }PB = i δ jk (δbc xad j − δad xcb j ). (11) Operators on different sites Poisson-commute, while on-site variables obey a closed algebra, guaranteeing a well-defined semiclassical flow. The classical time evolution of the phase–space vari-ables xab follows from the Lie–Poisson equation ˙xef = {xef , H W } = X
+
+> ab
+
+∂H W
+
+∂x ab {xef , x ab }, (12) where the Poisson bracket is inherited directly from the Hubbard-operator commutator algebra, 
+
+{xef , x ab } = i  δf a xeb − δeb xaf  . (13) The resulting Lie–Poisson equation of motion therefore reads ˙xef = i X
+
+> ab
+
+∂H W
+
+∂x ab 
+
+ δf a xeb − δeb xaf  . (14) 4 
+
+> 1. Gaussian Wigner-function sampling
+
+Quantum fluctuations enter through stochastic sam-pling of initial conditions from the Wigner function of the chosen quantum state. For many-body systems with Zn
+
+parafermions, the exact discrete Wigner function can be cumbersome; a practical alternative is to approximate it by a multivariate Gaussian that reproduces the first and second quantum moments. For each site j, define 
+
+μab j = ⟨Xab j ⟩, Cab,cd jk = 12 ⟨{ Xab j , X cd k }⟩ − ⟨ Xab j ⟩⟨ Xcd k ⟩,
+
+(15) where {· , ·} denotes the anticommutator. The Wigner function is then approximated as a mul-tivariate Gaussian over the phase-space coordinates xab j ,with mean μab j and covariance Cab,cd jk . For off-diagonal elements a̸ = b, the real and imaginary parts of xab j
+
+are treated as independent Gaussian variables with cor-responding covariances. Initial classical trajectories xab j,α (0) are sampled from this Gaussian distribution, ensuring that the quantum first and second moments are reproduced exactly at 
+
+t = 0. The subsequent dynamics evolve each trajectory according to the Lie–Poisson equations, and ensemble av-eraging yields the semiclassical estimate 
+
+⟨O(t)⟩ ≈ 1
+
+Ntraj 
+
+> Ntraj
+
+X
+
+> α=1
+
+OW
+
+ {xab j,α (t)}. (16) This matched-moment Gaussian sampling is standard in TWA-type approaches, including bosonic and fermionic systems, and provides a computationally tractable means for simulating nonequilibrium dynamics in parafermionic chains, clock models, and other fractionalized systems.    
+
+> 2. Discrete Wigner-function sampling for Znparafermions
+
+In contrast to Gaussian Wigner sampling, which repro-duces only first and second moments, a discrete Wigner representation allows one to reproduce all operator mo-ments of the initial state whenever the Wigner function is non-negative and factorizes across sites. This idea underlies the discrete truncated Wigner approximation (DTWA) for spin-1 /2 systems [22, 23] and can be gen-eralized to parafermionic degrees of freedom whose local Hilbert space has finite dimension n.A discrete Wigner representation for finite-dimensional Hilbert spaces was developed in several stages: early constructions and systematic classification were reviewed comprehensively by Vourdas [24], while Wootters [25] in-troduced the first fully symmetric discrete Wigner func-tion for prime dimensions, later generalized using finite fields by Gibbons et al. [26] and placed on a group-theoretic foundation by Gross [27]. A crucial requirement of these constructions is the existence of a finite field Fn,which is possible only when n = pm with p prime. Adiscrete Wigner function satisfying the standard Woot-ters axioms (e.g., an n × n phase space with finite-field structure, translational covariance, and a striation– MUB correspondence) exists most naturally when the lo-cal Hilbert-space dimension is a prime or prime power, 
+
+n = pm. For composite dimensions that are not prime powers, alternative quasi-probability representations can still be constructed, but they do not simultaneously re-tain all of these properties. 
+
+Phase-space structure for prime n. For a single Zn
+
+parafermionic site, the local Hilbert space {| 0⟩, . . . , |n −
+
+1⟩} is n-dimensional, and the discrete phase space is the 
+
+n×n grid ( q, p ) ∈ Fn ×Fn. To each phase-space point one associates a Hermitian phase-point operator Aqp obeying Tr( Aqp ) = 1 , Tr( Aqp Aq′p′ ) = n δ qq ′ δpp ′ , (17) 
+
+X
+
+> q,p ∈Fn
+
+Aqp = n I. (18) For odd prime n, the unique Clifford-covariant Wigner representation [27] expresses Aqp in terms of the generalized clock and shift operators Z =Pn−1 
+
+> a=0
+
+ωa|a⟩⟨ a|, X = Pn−1 
+
+> a=0
+
+|a + 1 ⟩⟨ a|, ω = e2πi/n ,
+
+as 
+
+Aqp = 1
+
+n
+
+> n−1
+
+X
+
+> m,k =0
+
+ωpk −qm + 12 mk ZmXk. (19) Here 12 denotes the multiplicative inverse of 2 modulo n,which exists only for odd primes (Up to a choice of order-ing convention for the Heisenberg–Weyl operators ZmXk
+
+versus XkZm, which only changes the overall phase con-vention of Aqp ). The fermionic case n = 2 requires a different, but closely related, definition [25]. 
+
+Discrete Wigner function. Given a density matrix ρ
+
+on Hn, its discrete Wigner function is 
+
+Wρ(q, p ) = 1
+
+n Tr ρ A qp 
+
+, (20) a real quasi-probability distribution satisfying P 
+
+> q,p
+
+Wρ(q, p ) = 1. Wigner negativity signals non-classicality but is absent for many product states in the computational basis, allowing Wρ to serve as a classical probability distribution for sampling. 
+
+Connection to parafermionic phase-space variables. 
+
+The pTWA uses the Hubbard operators Xab = |a⟩⟨ b| as classical phase-space coordinates. For a sampled phase-space point ( q, p ), the initial classical value is obtained from the Weyl–Wigner correspondence, 
+
+xab (0) = Tr Aqp Xab  , (21) which provides the exact Wigner symbol of Xab .
+
+Factorized many-body states. If the initial state fac-torizes across sites, ρ = NLj=1 ρj , then so does its Wigner function: W (q1, p 1, . . . , q L, p L) = QLj=1 Wρj (qj , p j ). One independently samples ( qj , p j ) from each Wρj (whenever non-negative) and converts them into Hubbard coordi-nates via Eq. (21), thereby reproducing all operator mo-ments of the factorized initial state. 5
+
+Limitations and caveats. 
+
+1. Prime or prime-power dimensions only. A Wigner representation satisfying Wootters’ axioms exists only for n = pm with p prime. Composite di-mensions such as n = 6 do not admit a finite-field (Wootters/Gross) discrete Wigner representa-tion satisfying all of the standard axioms simulta-neously [27]. 2. Odd primes vs. n = 2 . The expression (19) applies only to odd primes. The n = 2 (Majorana/fermion) case uses a different Clifford frame. 3. Wigner negativity. For general states, Wρ(q, p ) may be negative, in which case discrete sampling be-comes approximate rather than exact. 4. Non-uniqueness for pm with m > 1. Finite-field embeddings for n = pm are not unique, leading to multiple admissible Wigner representations. 5. Hubbard vs. Heisenberg–Weyl basis. Phase-point operators Aqp are naturally expressed in the Heisenberg–Weyl operators ZmXk, whereas pTWA evolves Hubbard operators Xab . The mapping via Eq. (21) is exact but must be applied carefully. 
+
+Special case n = 3 . For the physically important case of Z3 parafermions, the finite-field representation (19) is equivalent to an SU(3) Wigner construction due to Klimov and de Guise [28]. In this formulation, the phase-point operators can be expressed in terms of a complete set of four mutually unbiased bases (MUBs) in dimension 3 (compatible with the SU(3) structure), providing a nat-ural geometric interpretation compatible with the Hub-bard operator basis used in pTWA. We employ this SU(3) construction for all Z3 simulations; details are given in Appendix A.      
+
+> III. BENCHMARK MODELS FOR THE pTWA A. Single-site Znclock dynamics
+
+To validate the parafermionic truncated Wigner ap-proximation ( pTWA) we first consider a minimal exactly solvable problem: the dynamics of a single Zn clock de-gree of freedom driven by a transverse field. Although this system is noninteracting, it provides a stringent benchmark because the exact solution is known analyti-cally and the local Hilbert-space dimension can be varied continuously with n. Comparing the pTWA dynamics against the exact result allows us to verify the correct-ness of the semiclassical formulation before turning to interacting many-body systems. The local Hilbert space of a Zn clock variable is spanned by 
+
+|a⟩, a = 0 , 1, . . . , n − 1. (22) 0 2 4
+
+> |m(t)|
+> 0.0 0.5 1.0
+
+## N = 30 (fixed)  
+
+> n= 3,4, … 7
+
+## time 0 2 4
+
+> |m(t)|
+> 0.0 0.5 1.0
+
+## n = 5 (fixed)                                         
+
+> N= 10,20, … 80
+> ED pTWA ED pTWA
+> FIG. 2. Benchmark of the pTWA dynamics for the fully con-nected Znclock model [Eq. (36)]. We show the time evolu-tion of the collective magnetization |m(t)|=1
+> N
+> PNi=1 ⟨Zi⟩,comparing exact diagonalization (solid lines) with pTWA re-sults (dashed lines). The system is initialized in the fully polarized clock state |0⟩⊗N.Model parameters are J= 1 .0and g/J =0.5. Top panel: convergence with increasing local clock dimension n=3,4, . . . , 7 at fixed system size
+> N= 30. Bottom panel: convergence with increasing sys-tem size N= 10 ,20 , . . . , 80 at fixed clock dimension n= 5. In both cases the agreement between pTWA and exact dy-namics improves systematically as the system approaches the semiclassical limit, either by increasing the local Hilbert-space dimension nor by increasing the number of sites N.
+
+The clock and shift operators are defined as 
+
+Z|a⟩ = ωa|a⟩, X|a⟩ = |a + 1 (mod n)⟩, (23) with ω = e2πi/n . These operators satisfy the Weyl alge-bra XZ = ωZX .To isolate the local drive dynamics, we consider the Hamiltonian 
+
+H = −g  X + X† . (24) In the Z basis this operator acts as 
+
+H|a⟩ = −g (|a + 1 ⟩ + |a − 1⟩) , (25) so the problem is equivalent to a quantum particle hop-ping on a periodic ring of n sites. Moreover the dynamics can also be obtained directly from the equation of mo-tion for the density matrix, we present the eigenmode 6solution because it provides a compact analytic expres-sion and makes the connection to tight-binding dynamics on a periodic ring explicit. 
+
+a. Exact solution. Because the Hamiltonian is translationally invariant in the clock index, it is diago-nalized by discrete Fourier modes 
+
+|km⟩ = 1
+
+√n
+
+> n−1
+
+X
+
+> a=0
+
+eik ma|a⟩, km = 2πm n , (26) where m = 0 , . . . , n − 1. Acting with the shift operator yields X|km⟩ = e−ik m |km⟩.The Hamiltonian (24) is thus diagonal in this basis, 
+
+H|km⟩ = Em|km⟩, (27) with eigenenergies Em = −2g cos( km). If the system is initialized in a clock basis state 
+
+|ψ(0) ⟩ = |a0⟩, the transition amplitude to state |a⟩ is 
+
+Aa,a 0 (t) = 1
+
+n
+
+> n−1
+
+X
+
+> m=0
+
+exp [ i 2gt cos( km)] exp [ ik m(a − a0)] .
+
+(28) The exact occupation probabilities are therefore 
+
+Pa,a 0 (t) = |Aa,a 0 (t)|2 . (29) Because of translation invariance, the dynamics depends only on the relative index r = a − a0 (mod n). Using the identity 
+
+eiz cos θ =
+
+> ∞
+
+X
+
+> ℓ=−∞
+
+iℓJℓ(z)eiℓθ , (30) one finds that the transition amplitude becomes Ar (t) = 
+
+ir Jr (2 gt ), leading to Pr (t) = J2 
+
+> r
+
+(2 gt ), which corresponds to coherent spreading on an infinite ring. 
+
+b. pTWA formulation. In the local Hubbard basis the shift operator can be written as X = Pn−1 
+
+> a=0
+
+Xa+1 ,a ,with indices understood modulo n. The Hamiltonian then takes the form 
+
+H = −g
+
+> n−1
+
+X
+
+> a=0
+
+ Xa+1 ,a + Xa,a +1  . (31) Within the pTWA framework, we introduce classical phase-space variables xab = ⟨Xab ⟩W , which can be col-lected into an n × n matrix x = ( xab ). The Weyl symbol of the Hamiltonian becomes 
+
+HW = −g
+
+> n−1
+
+X
+
+> a=0
+
+ xa+1 ,a + xa,a +1  . (32) The classical phase-space variables evolve according to Eq. 14. For the single-site Hamiltonian considered here one obtains 
+
+hba = −g (δb,a +1 + δb+1 ,a ) , (33) so that 
+
+h = −g(T + T †), (34) with Tba = δb,a +1 .Because this matrix is time independent, the classical solution can be written explicitly as 
+
+x(t) = eiht x(0) e−iht . (35) This evolution has the same structure as the unitary evo-lution of the density matrix, and in fact the phase-space variables correspond to its matrix elements, xab (t) = 
+
+⟨a|ρ(t)|b⟩.For an initial clock basis state |a0⟩ the corresponding initial phase-space configuration is xab (0) = δa,a 0 δb,a 0 ,which corresponds to a projector onto that state. In contrast to continuous bosonic Wigner representations, where uncertainty relations enforce a finite spread in phase space, the present finite-dimensional phase space associated with the Hubbard-operator algebra allows such a projector to be represented exactly by a single phase-space point. For this initial basis state the phase-space representation reduces to a single deterministic configuration, so no sampling over initial conditions is required. This absence of sampling is therefore a special property of this initial state and representation, rather than a generic feature of the pTWA. The semiclassical populations are therefore obtained from the diagonal ele-ments P pTWA  
+
+> a
+
+(t) = xaa (t). With the identification above, this corresponds to the exact occupation probabilities 
+
+Pa(t) = ⟨a|ρ(t)|a⟩, i.e., the modulus squared of the wave-function amplitudes.    
+
+> B. Fully connected Znclock model: analogue of the LMG model
+
+To further benchmark the pTWA formulation, it is use-ful to consider an interacting model in which semiclassi-cal dynamics becomes asymptotically exact. A natural choice is the fully connected Zn clock model, which plays the same role for clock variables as the Lipkin–Meshkov– Glick (LMG) model does for spin systems [29]. Like the LMG model, this system possesses permutation symme-try and reduces to a self-consistent mean-field problem in the thermodynamic limit. The model is defined by the Hamiltonian 
+
+H = − JN
+
+X
+
+> i<j
+
+
+
+ZiZ† 
+
+> j
+
++ Z† 
+
+> i
+
+Zj
+
+
+
+− g X
+
+> i
+
+
+
+Xi + X†
+
+> i
+
+
+
+, (36) where N is the number of sites. The 1 /N normalization ensures a well-defined thermodynamic limit, in analogy with the standard LMG Hamiltonian. It is convenient to introduce the collective clock oper-ator M = PNi=1 Zi. Using the identity 
+
+X
+
+> i<j
+
+
+
+ZiZ† 
+
+> j
+
++ Z† 
+
+> i
+
+Zj
+
+
+
+= X
+
+> i
+
+Zi
+
+> 2
+
+− N, (37) 7the Hamiltonian (36) can be written, up to an additive constant, as 
+
+H = − JN |M |2 − g X
+
+> i
+
+(Xi + X† 
+
+> i
+
+). (38) This form highlights the close correspondence with the LMG model, whose Hamiltonian can be written as 
+
+HLMG = − JN S2 
+
+> x
+
+− hS z , (39) with Sα = P 
+
+> i
+
+σαi . In both cases the interaction term depends only on a collective operator ( Sx for spins, M
+
+for clock variables), which implies permutation symmetry and collective dynamics. In the large-N limit the dynamics becomes mean-field exact. Introducing the order parameter m = 1
+
+> N
+
+P
+
+> i
+
+⟨Zi⟩,the interaction term generates an effective single-site Hamiltonian 
+
+HMF = −J  mZ † + m∗Z − g(X + X†). (40) Thus the many-body dynamics reduces to a self-consistent evolution of a single clock degree of freedom in the mean field produced by the collective order parame-ter m.Within the pTWA framework we again introduce clas-sical phase-space variables xab i = ⟨Xab i ⟩W , with Xab i =
+
+|a⟩i⟨b|. The Weyl symbols of the clock operators are 
+
+zi =
+
+> n−1
+
+X
+
+> a=0
+
+ωaxaa i , χi =
+
+> n−1
+
+X
+
+> a=0
+
+xa+1 ,a i . (41) The Weyl symbol of the Hamiltonian becomes 
+
+HW = − JN
+
+X
+
+> i<j
+
+ ziz∗ 
+
+> j
+
++ z∗ 
+
+> i
+
+zj
+
+ − g X
+
+> i
+
+(χi + χ∗ 
+
+> i
+
+). (42) Defining the collective field m = 1
+
+> N
+
+P 
+
+> i
+
+zi, the classical equations of motion take the form ˙ xi = i[hi, x i], with the local mean-field matrix (hi)ba = −J  m ω −a + m∗ωa δab − g (δb,a +1 + δb+1 ,a ) .
+
+(43) These equations describe a self-consistent precession of the local density xi in a collective field generated by the order parameter m. Because the interaction is in-finite range, fluctuations around the mean field vanish as 1 /N , and the semiclassical dynamics becomes exact in the thermodynamic limit. For this reason the fully connected Zn clock model provides a natural interacting benchmark for the pTWA method, analogous to the role played by the LMG model in semiclassical spin dynamics. The model contains two independent parameters con-trolling the approach to the semiclassical regime: the sys-tem size N and the local clock dimension n. The large-N
+
+limit suppresses collective fluctuations of the order pa-rameter m, rendering the mean-field description asymp-totically exact in the same way as in the LMG model. 1 3 5 7 9 11 13 time 024                                          
+
+> 𝛼 = 3.0 Exact
+> 1357911 13 024
+> 𝛼 = 3.0 pTWA
+> 1357911 13 time 024
+> 𝛼 = 1.5 Exact
+> 1357911 13 024
+> 𝛼 = 1.5 pTWA
+> site j 1357911 13 time 024
+> 𝛼 = 0.5 Exact
+> site j 1357911 13 024
+> 𝛼 = 0.5 pTWA
+> 0.0 0.5 1.0
+
+FIG. 3. Spatiotemporal propagation of a local excitation in the long-range Z3 clock chain. We show the excitation prob-ability Pexc (j, t ) = ⟨X11  
+
+> j
+
+(t) + X22  
+
+> j
+
+(t)⟩ following an initial exci-tation prepared at the center site j0 = 7 in a chain of length 
+
+L = 13. The left column shows exact quantum dynamics obtained from Krylov-based exact time evolution (ED) [30], while the right column shows semiclassical dynamics com-puted using the parafermionic truncated Wigner approxima-tion ( pTWA). Rows correspond to different interaction expo-nents: α = 3 .0 (top), α = 1 .5 (middle), and α = 0 .5 (bot-tom). For larger α, interactions are effectively short ranged and the excitation spreads outward with a visible light-cone structure. As α decreases and interactions become increas-ingly long ranged, the propagation becomes more collective and the excitation distribution remains strongly concentrated near the initially excited site. We use open boundary condi-tions. 
+
+Independently, increasing the local dimension n makes the clock degree of freedom progressively more classical, since the discrete clock states approach a continuous ro-tor variable in the limit n → ∞ .These two limits play complementary roles in validat-ing the pTWA description. For fixed small n, increasing 
+
+N reduces fluctuations around the mean-field dynamics and improves the accuracy of semiclassical approxima-tions. Conversely, for fixed system size N , increasing the local Hilbert space dimension n provides a controlled route toward a classical phase-space description. This property makes the fully connected Zn clock model par-ticularly suitable for benchmarking the pTWA method. In practice we exploit the permutation symmetry of the Hamiltonian (36) to perform exact time evolution in the totally symmetric subspace, which is the natural analogue of the Dicke sector for the LMG model. The dimension of this subspace is dim sym (N, n ) =  N +n−1
+
+> n−1
+
+,
+
+which grows polynomially with N for fixed n. This reduc-tion allows exact numerical calculations for system sizes 8up to N ∼ 80 for n ≤ 7, providing a useful benchmark against pTWA simulations. Figure 2 illustrates the accuracy of the pTWA descrip-tion for the fully connected Zn clock model. We com-pare the semiclassical dynamics of the collective order parameter mz (t) = 1
+
+> N
+
+P
+
+> i
+
+⟨Zi⟩ with exact diagonalization performed in the permutation-symmetric subspace. Two complementary routes toward the semiclassical regime are explored. In the upper panel we fix the sys-tem size ( N = 30) and increase the local clock dimension 
+
+n. As n increases the discrete clock variable approaches a continuous rotor, and the pTWA dynamics rapidly con-verges toward the exact result. In the lower panel we fix the local dimension ( n = 5) and increase the system size N . Because the interaction is fully connected, fluctuations of the collective order pa-rameter scale as 1 /√N , and the semiclassical approxima-tion becomes asymptotically exact in the thermodynamic limit. The numerical results clearly show this systematic improvement with increasing N .Together these results confirm that the pTWA formu-lation captures the semiclassical dynamics of interacting 
+
+Zn clock systems.     
+
+> IV. ONE-DIMENSIONAL LATTICE MODELS A. Long-range Z3clock chain
+
+Having validated the pTWA formulation in the ex-actly solvable single-site problem and in the mean-field–controlled fully connected clock model, we now turn to interacting one-dimensional lattice systems. As a first example we consider a long-range interacting Z3 clock chain. This model provides a minimal interacting system with a three-dimensional local Hilbert space and nontriv-ial quantum transport dynamics, while remaining sim-ple enough to permit exact numerical time evolution for moderate system sizes. The Z3 clock model is defined in terms of local clock operators Zj and shift operators Xj acting on the three-dimensional basis {| 0⟩, |1⟩, |2⟩} . These operators satisfy the Weyl algebra 
+
+Zj Xj = ωX j Zj , Z3 
+
+> j
+
+= X3 
+
+> j
+
+= I, (44) with ω = e2πi/ 3. Explicitly, 
+
+Zj =
+
+> 2
+
+X
+
+> a=0
+
+ωa|a⟩⟨ a|, Xj =
+
+> 2
+
+X
+
+> a=0
+
+|a + 1 ⟩⟨ a|, (45) where addition of indices is understood modulo 3. We consider the long-range Hamiltonian 
+
+H = − X
+
+> i<j
+
+Jij 
+
+ ZiZ† 
+
+> j
+
++ Z† 
+
+> i
+
+Zj
+
+ − gx
+
+X
+
+> j
+
+(Xj + X† 
+
+> j
+
+), (46) where the couplings decay algebraically as Jij = J/ |ri −
+
+rj |α. Throughout this work we measure energies in units of J (J ≡ 1). The exponent α interpolates between short-range interactions ( α → ∞ ) and strongly long-range regimes. The first term describes ferromagnetic interactions in the clock basis, favoring alignment of the complex clock variables Zj . The transverse-field term (fixed throughout this work to gx/J = 0 .5) generates cyclic transitions |0⟩ ↔ | 1⟩ ↔ | 2⟩ , thereby driving co-herent quantum dynamics and enabling the propagation of local excitations along the chain. To formulate the semiclassical dynamics we rewrite the Hamiltonian in the basis of local Hubbard operators 
+
+Xab j = |a⟩⟨ b|, a, b = 0 , 1, 2, (47) which form a closed su (3) Lie algebra on each site. The clock operators can be written as 
+
+Zj =
+
+> 2
+
+X
+
+> a=0
+
+ωaXaa j , (48) 
+
+Xj = X10  
+
+> j
+
++ X21  
+
+> j
+
++ X02  
+
+> j
+
+. (49) Introducing classical phase-space variables 
+
+xab j = ⟨Xab j ⟩W , (50) as discussed in Sec. II, the Weyl symbol of the Hamilto-nian becomes 
+
+HW = − X
+
+> i<j
+
+Jij 
+
+ ziz∗ 
+
+> j
+
++ z∗ 
+
+> i
+
+zj
+
+ − gx
+
+X
+
+> j
+
+ χj + χ∗
+
+> j
+
+, (51) where 
+
+zj =
+
+> 2
+
+X
+
+> a=0
+
+ωaxaa j , (52) 
+
+χj = x10  
+
+> j
+
++ x21  
+
+> j
+
++ x02  
+
+> j
+
+. (53) The classical phase-space variables evolve according to the Lie–Poisson equations inherited from the Hubbard operator algebra, ˙xef j = i X
+
+> ab
+
+∂H W
+
+∂x ab j
+
+ δf a xeb j − δeb xaf j
+
+. (54) In matrix form this equation takes the compact form ˙xj = i [hj , x j ], where the local mean-field matrix is de-fined by ( hj )ba = ∂H W
+
+> ∂x ab j
+
+.For the Hamiltonian (51), the interaction term con-tributes only diagonal elements to hj ,(hj )aa = −2 X 
+
+> k̸=j
+
+Jjk Re( ωaz∗ 
+
+> k
+
+), (55) while the transverse field generates fixed cyclic off-diagonal entries proportional to gx.The resulting classical dynamics can therefore be in-terpreted as a self-consistent precession of the local 3 × 3matrices xj in mean fields generated by the surrounding sites. 9As a first dynamical benchmark we study the propa-gation of a localized excitation. The system is initialized in a product state in which a single site j0 at the center of the chain is prepared in the excited state |1⟩, while all other sites remain in the vacuum state |0⟩. To char-acterize the spreading of the excitation we monitor the excitation density 
+
+Pexc (j, t ) = P1(j, t ) + P2(j, t ) = X11  
+
+> j
+
+(t) + X22  
+
+> j
+
+(t) , (56) which measures the probability that site j is in an excited state ( |1⟩ or |2⟩) relative to the vacuum state |0⟩. This quantity is particularly natural for the Z3 clock model because the transverse field term mixes the excited states 
+
+|1⟩ and |2⟩.Within the pTWA framework the same observable is obtained from the classical phase-space variables as 
+
+Pexc (j, t ) ≈ x11  
+
+> j
+
+(t) + x22  
+
+> j
+
+(t), and ensemble averaging over stochastic trajectories yields the semiclassical estimate of the quantum expectation value. Exact dynamics are computed using Krylov-based time evolution in the full Hilbert space of dimension 3 L. The Hamiltonian is applied matrix-free in the computational basis, exploiting the diagonal structure of the interac-tion term and the local cyclic action of the Xj operators. This implementation enables simulations of chains up to 
+
+L ≈ 15 sites, providing a controlled benchmark for the semiclassical pTWA dynamics. The spatiotemporal structure of the excitation dynam-ics is illustrated in Fig. 3, which shows the evolution of the excitation probability Pexc (j, t ) following a local ex-citation at the center of the chain. For relatively short-range interactions ( α = 3 .0) the excitation spreads outward from the initial site with a light-cone-like structure characteristic of finite-velocity propagation. As the interaction exponent decreases and the interactions become more long ranged, the spreading pattern changes qualitatively. For α = 1 .5 the propa-gation becomes more diffuse and the front is no longer sharply defined, while for α = 0 .5 the excitation remains strongly concentrated near the initially excited site over the time window considered. Long-range interactions generate weak early-time tails outside the main propa-gation front. The oscillatory features observed close to the edges of the chain originate from boundary-induced excitation and are well reproduced by pTWA. Across all regimes the pTWA captures the overall spa-tiotemporal features of the exact evolution, indicating that the semiclassical phase-space description reproduces the main qualitative aspects of transport in this system. To quantify these observations we examine two scalar observables derived from the excitation distribution. Fig-ure 4 shows the survival probability at the initial site (j0 = 7), Pexc (j0, t ), together with the mean displace-ment ¯ r(t) = P 
+
+> j
+
+|j − j0|, P exc (j, t ), which measures the spatial spreading of the excitation. For α = 3 .0 the exci-tation decays steadily from the initial site and the mean displacement grows rapidly, reflecting efficient transport across the chain. The semiclassical dynamics reproduces 0 2 4                
+
+> P exc (j 0 ,t)
+> 0.5 0.6 0.7 0.8 0.9 1.0
+> 𝛼 = 3.0
+> 024
+> r̄ (t)
+> 0510
+> 𝛼 = 3.0
+> 024
+> P exc (j 0 ,t)
+> 0.90 0.95 1.00
+> 𝛼 = 1.5
+> 024
+> r̄ (t)
+> 0.0 0.5 1.0 1.5
+> 𝛼 = 1.5
+> time 024
+> P exc (j 0 ,t)
+> 0.990 0.995 1.000
+> 𝛼 = 0.5
+> time 024
+> r̄ (t)
+> 0.0 0.1 0.2 0.3
+> 𝛼 = 0.5
+> ED Gaussian Discrete
+
+FIG. 4. Time evolution of dynamical observables following a local excitation in the long-range Z3 clock chain of length 
+
+L = 13. The system is initialized with a single excitation at the central site j0 = 7. The left column shows the survival probability Pexc (j0, t ) at the initially excited site, while the right column shows the mean displacement ¯ r(t), which quan-tifies the spatial spreading of the excitation. Rows correspond to different interaction exponents: α = 3 .0 (top), α = 1 .5(middle), and α = 0 .5 (bottom). Black curves denote exact dynamics obtained from exact diagonalization (ED), while red and blue curves show results from the parafermionic truncated Wigner approximation ( pTWA) using Gaussian and discrete Wigner-function sampling, respectively. 
+
+the early-time decay and initial growth but underesti-mates the long-time spreading observed in the exact dy-namics. At intermediate range α = 1 .5 both observ-ables exhibit weak oscillatory features. While long-range couplings enhance the spatial spread of excitations, the oscillations themselves originate from boundary-induced dynamics in the open chain, and are captured qualita-tively by the pTWA trajectories. For strongly long-range interactions α = 0 .5 the excitation spreads only weakly and the semiclassical results agree closely with the exact evolution over the entire simulated time window. The relative performance of discrete and Gaussian Wigner sampling depends somewhat on the observable. Discrete sampling tends to reproduce short-time dynamics and os-cillatory features slightly more faithfully, while Gaussian sampling provides a comparable description of integrated spreading observables such as the mean displacement. Overall, these results demonstrate that the pTWA framework provides a reliable description of the early-and intermediate-time transport dynamics in long-range 
+
+Z3 clock chains. The remaining discrepancies at long times arise primarily from the mean-field character of the semiclassical approximation rather than from the choice of Wigner sampling scheme. 10 
+
+B. Disordered Z3 Fock parafermion chain 
+
+Having established the performance of pTWA for clean long-range transport in the Z3 clock chain, we now con-sider a complementary benchmark in the presence of quenched disorder. Disordered systems provide a qual-itatively different dynamical regime: rather than ballis-tic or diffusive transport, disorder can strongly suppress propagation and lead to long-time memory of the initial state. Testing the semiclassical framework in this regime is therefore important for assessing its ability to capture disorder-induced suppression of transport and long-time memory effects in systems with fractionalized statistics. We consider a disordered Z3 Fock parafermion chain described by the Hamiltonian 
+
+H = −J X
+
+> j
+
+h
+
+(1 −g) f † 
+
+> j
+
+fj+1 +g (f † 
+
+> j
+
+)2f 2
+
+> j+1
+
++h .c.
+
+i
+
++X
+
+> j
+
+μj nj ,
+
+(57) where the local occupation operator is nj = f † 
+
+> j
+
+fj +(f † 
+
+> j
+
+)2f 2 
+
+> j
+
+. The parameter g ∈ [0 , 1] interpolates between single-particle hopping (g = 0) and coherent pair-hopping processes ( g = 1). The on-site potentials μj
+
+represent quenched disorder drawn independently from a uniform distribution μj ∈ [−W, W ]. Although the Hamiltonian (57) appears quadratic (for 
+
+g = 0) in the parafermion operators, the model is intrinsi-cally interacting due to the nontrivial exchange statistics of Fock parafermions, which are implemented through Jordan–Wigner strings. As a consequence, the hopping terms generate effective many-body interactions in the local clock representation. The resulting system is gener-ically nonintegrable and provides a natural platform for studying localization phenomena arising from fractional-ized statistics rather than conventional density–density interactions. Previous numerical studies using exact diagonaliza-tion and tensor network techniques [31, 32] have shown that the disordered Z3 Fock parafermion chain can ex-hibit localization-like behavior despite the absence of conventional density–density interactions. This makes the model a particularly stringent test for semiclassi-cal phase-space approaches, which must capture both the suppression of transport and the persistence of lo-cal memory over long times. To formulate the semiclassical dynamics within the 
+
+pTWA framework, we again rewrite the Hamiltonian in terms of local Hubbard operators Xab j = |a⟩⟨ b|, which generate the local su (3) operator algebra on each site. In this representation the parafermion operators can be expressed as fj = X01  
+
+> j
+
++ √2, X 12  
+
+> j
+
+, f † 
+
+> j
+
+= X10  
+
+> j
+
++ √2, X 21  
+
+> j
+
+,while the local density operator becomes nj = X11  
+
+> j
+
++2X22  
+
+> j
+
+. Substituting these relations into Eq. (57) yields a Hamiltonian written entirely in terms of Hubbard oper-ators, allowing the semiclassical phase-space formulation introduced in Sec. II to be applied directly. As an initial condition we consider global quenches time 0 50 100 Imbalance 0.0 0.5 1.0 gaussian   
+
+> Disorder strength  W
+> 2.5 5.0 7.5
+> W
+> 2.5 5.0 7.5
+> Ī t ∈ [2,20]
+> 0.4 0.6 0.8
+
+## time 0 50 100 Imbalance 0.0 0.5 1.0 discrete   
+
+> Disorder strength  W
+> 2.5 5.0 7.5
+> W
+> 2.5 5.0 7.5
+> Ī t ∈ [2,20]
+> 0.4 0.6 0.8
+
+FIG. 5. Disorder-averaged imbalance dynamics I(t) for the disordered Z3 Fock parafermion chain with system size 
+
+L = 12 and pair-hopping parameter g = 0 .3. The top panel shows pTWA results obtained using Gaussian Wigner sam-pling, while the bottom panel uses discrete Wigner sampling. Dashed curves correspond to pTWA trajectories and solid curves to exact diagonalization (ED) benchmarks. Colors in-dicate the disorder strength W . For weak disorder the im-balance decays rapidly toward zero, signaling efficient trans-port and ergodic relaxation. Inset: time-averaged imbalance ¯I = ⟨I (t)⟩t∈[2 ,20] as a function of disorder strength W . Black 
+
+× markers denote pTWA results and red circles show ED benchmarks, revealing a smooth crossover from ergodic trans-port at weak disorder to strongly suppressed transport at large W .
+
+from a sharp domain-wall state, 
+
+|ψ0⟩ = |1, 1, . . . , 1, 0, 0, . . . , 0⟩, (58) in which the left half of the chain is occupied and the right half is empty. This state provides a sensitive probe of transport: if particles propagate through the system the domain wall melts and the density profile gradually becomes uniform. Conversely, persistent spatial imbal-ance indicates inhibited transport and localization-like dynamics. To quantify the resulting dynamics we monitor the 11 left–right particle number imbalance 
+
+I(t) = 2
+
+L
+
+h
+
+NL(t) − NR(t)
+
+i
+
+, NL(t) = 
+
+> L/ 2
+
+X
+
+> j=1
+
+⟨nj (t)⟩,
+
+(59) with NR(t) defined analogously. By construction I(0) = 1. In ergodic regimes the imbalance decays rapidly to-ward zero as the domain wall relaxes, while a finite long-time value signals inhibited transport and localization-like dynamics. Within pTWA the same observable is evaluated from the classical phase-space variables through nj (t) ≈
+
+x11  
+
+> j
+
+(t) + 2 x22  
+
+> j
+
+(t), followed by ensemble averaging over stochastic trajectories. Comparing the time dependence of I(t) obtained from exact dynamics and semiclassical simulations therefore provides a direct test of the ability of pTWA to capture localization physics in systems with fractionalized statistics and quenched disorder. The disorder-averaged imbalance dynamics obtained from pTWA is shown in Fig. 5 for a range of disorder strengths W . At weak disorder the imbalance decays rapidly toward zero, reflecting efficient transport and melting of the initial domain-wall profile. As the disorder strength increases the relaxation becomes progressively slower and a pronounced long-time plateau emerges, in-dicating strong suppression of particle transport and per-sistent memory of the initial state [31]. To assess the accuracy of the semiclassical approach we compare the pTWA dynamics with exact diagonaliza-tion (ED) simulations for identical disorder realizations. Figure 5 shows the disorder-averaged imbalance dynam-ics obtained using two different sampling schemes within the pTWA framework: Gaussian Wigner sampling (top panel) and discrete Wigner sampling (bottom panel). In both cases the semiclassical trajectories reproduce the short-time relaxation of the imbalance and capture the systematic increase of the long-time plateau with increas-ing disorder strength. The two sampling schemes exhibit small but system-atic differences. Discrete Wigner sampling generally shows closer agreement with the ED dynamics at short times, particularly at weak disorder. This behavior arises because the discrete Wigner representation repro-duces the exact operator moments of the product ini-tial state, whereas Gaussian sampling approximates the initial Wigner function by matching only its first and second moments. Despite this approximation, Gaussian sampling captures the overall disorder dependence and long-time transport suppression across the entire disor-der range. The inset of Fig. 5 shows the time-averaged imbalance ¯I = ⟨I (t)⟩t∈[2 ,20] , obtained by averaging the imbalance over the time window t ∈ [2 , 20] as a function of disorder strength. Black × markers correspond to pTWA results, while red circles denote ED benchmarks. The data reveal a smooth crossover between an ergodic transport regime at weak disorder and a regime with strongly suppressed transport at large W , while showing that the semiclassi-cal dynamics reproduces the overall disorder dependence of the imbalance.   
+
+> C. ZnFock Parafermions chain
+
+To extend the benchmark analysis beyond the Z3 case and to explore larger local Hilbert-space dimensions, we now consider a Zn Fock parafermion chain. This model allows us to test the pTWA framework in a setting where the local dimension can be varied systematically, providing an additional route toward the semiclassical limit discussed in the previous benchmarks. The sys-tem is governed by the nearest-neighbor hopping Hamil-tonian H = −J P
+
+> j
+
+
+
+f † 
+
+> j
+
+fj+1 + h .c.
+
+
+
+, where fj denotes the Zn Fock parafermion operator. In the clock repre-sentation the hopping term becomes nonlocal due to the parafermionic exchange statistics. Using the Fradkin– Kadanoff mapping, the hopping operator can be written schematically as f † 
+
+> j
+
+fj+1 ∼ B† 
+
+> j
+
+Uj Bj+1 , where Bj and Uj
+
+are local clock operators and Uj generates the Jordan– Wigner string that encodes the fractional statistics (see Appendix B for details). For the larger local dimen-sions and system sizes considered here, exact diagonaliza-tion becomes impractical due to the rapid growth of the Hilbert space ( nL). Instead, we use time-evolving block decimation (TEBD) to obtain essentially exact quantum dynamics for chains up to L = 48 sites [33]. The system is initialized in a domain-wall product state in which the left half of the chain occupies the local state |1⟩, while the right half occupies the state |n − 1⟩.This highly inhomogeneous configuration provides a sim-ple probe of relaxation dynamics and transport across the domain wall. To characterize the spreading of correlations follow-ing the domain-wall quench, we analyze the momentum-resolved Fourier spectrum of the local occupation profile. Specifically, we compute Sa(q, t ) = 1
+
+> L
+
+P 
+
+> j
+
+eiqj ⟨Pa(j, t )⟩ 2
+
+,where Pa = |a⟩ ⟨ a| projects onto the local clock state a.This quantity measures the spectral weight of density modulations at wave vector q and therefore provides a convenient diagnostic of the momentum structure gener-ated during the relaxation process. In practice, Sa(q, t )is obtained by Fourier transforming the site-resolved oc-cupation profile ⟨Pa(j, t )⟩. In addition, we monitor the domain-wall imbalance I(t) = 1
+
+> L
+
+P 
+
+> j
+
+sj ⟨Pa(j, t )⟩ , where 
+
+sj = ±1 distinguishes the two halves of the chain. This observable quantifies the decay of the initial density step and therefore directly measures relaxation across the do-main wall. Figure 6 compares the exact time evolution obtained with TEBD to pTWA simulations using Gaussian Wigner sampling. The upper panels show the momentum-resolved Fourier spectrum Sa(q, t ) of the local occupation profile for n = 3 , . . . , 7. The semiclassical approach re-produces the qualitative momentum structure and early-time dynamics observed in the exact simulations, includ-12 0 1 2 3 4 5 6time 02468
+
+TEBD , n = 3 
+
+0 1 2 3 4 5 602468
+
+TEBD , n = 5 
+
+0 1 2 3 4 5 602468
+
+TEBD , n = 7 
+
+q
+
+0 1 2 3 4 5 6time 0510 pTWA , n = 3 
+
+q
+
+0 1 2 3 4 5 60510 pTWA , n = 5 
+
+q
+
+0 1 2 3 4 5 60510 pTWA , n = 7 
+
+> S(q)
+
+123time 0 5 10 Imbalance 0.6 0.7 0.8 0.9 1.0 
+
+Domain-wall imbalance 
+
+TEBD pTWA 
+
+n = 3 
+
+n = 4 
+
+n = 5 
+
+n = 6 
+
+n = 7 
+
+FIG. 6. Comparison of TEBD and pTWA dynamics for the Zn chain ( L = 48) initialized in a domain-wall state. Top row: Exact TEBD results for the momentum-resolved Fourier spectrum Sa(q, t ) of the local occupation profile for n = 3 , 5, 7. Middle row: Corresponding pTWA results obtained with Gaussian Wigner sampling using Ntraj = 2000 trajectories. In both approaches the dynamics is generated by the single-hopping Hamiltonian. The heatmaps show the evolution of the momentum distribution of density modulations generated during the relaxation of the domain wall. Bottom panel: Time evolution of the domain-wall imbalance I(t) for n = 3 , . . . , 7. Solid lines denote TEBD results, while dashed lines correspond to pTWA. The semiclassical approach captures the qualitative relaxation dynamics and the dependence on n, but overestimates the long-time imbalance due to its mean-field character, while short-time deviations likely arise from Gaussian Wigner sampling, which does not fully capture higher-order correlations of the domain-wall initial state, suggesting that more accurate sampling schemes such as discrete Wigner representations could improve short-time agreement. 
+
+ing the redistribution of spectral weight generated by the domain-wall quench. The lower panel shows the time evolution of the domain-wall imbalance I(t). The pTWA dynamics cap-tures the overall decay of the imbalance and the qualita-tive dependence on the clock dimension n, but system-atically predicts a slower relaxation, leading to a larger residual imbalance at long times. This deviation reflects the mean-field character of the semiclassical dynamics, which neglects higher-order quantum correlations that gradually build up during the relaxation process. We observe that the agreement be-tween pTWA and the exact dynamics becomes somewhat better for larger values of n, although this trend is not uniform across all times. Physically, increasing n en-larges the local Hilbert space and causes the discrete clock variable to approach a continuous rotor degree of freedom, thereby enhancing the validity of the semiclas-sical phase-space description. This trend is consistent with the semiclassical behavior observed in the fully con-nected Zn clock benchmark, where increasing the local dimension n provides a controlled route toward classical 13 dynamics.  
+
+> V. DISCUSSION AND OUTLOOK
+
+In this work we introduced the parafermionic trun-cated Wigner approximation ( pTWA), a semiclassical phase-space framework for simulating the nonequilibrium dynamics of systems with fractionalized exchange statis-tics. The method extends truncated Wigner approaches developed for bosonic and fermionic systems to Zn Fock parafermions by expressing the dynamics in terms of lo-cal Hubbard operators, which form a closed Lie alge-bra on each site. This representation leads naturally to a Lie–Poisson phase-space structure and avoids the Grassmann-variable complications that arise in fermionic Wigner formulations. Within this framework the quantum dynamics is ap-proximated by stochastic sampling of initial conditions in the space of classical phase-space variables xab j = ⟨Xab j ⟩W
+
+followed by deterministic evolution according to the cor-responding Lie–Poisson equations. We considered both Gaussian Wigner sampling, which reproduces the first and second moments of the quantum state, and discrete Wigner sampling based on finite-dimensional phase-space constructions. The accuracy and range of applicability of the pTWA method were examined through several benchmark prob-lems. For a single-site Zn clock system the semiclassical equations reproduce the exact quantum dynamics, pro-viding a direct consistency check of the formalism. For the fully connected Zn clock model, the natural general-ization of the Lipkin–Meshkov–Glick model, the method captures the collective mean-field dynamics and becomes asymptotically exact in the semiclassical limit. We then applied the approach to interacting one-dimensional sys-tems. For long-range Z3 clock chains the method repro-duces the qualitative features of excitation spreading and its dependence on interaction range. For disordered Z3
+
+Fock parafermion chains the pTWA dynamics captures the suppression of transport and the emergence of long-time imbalance plateaus associated with localization-like behavior. Finally, simulations of Zn Fock parafermion chains show that the agreement between pTWA and ex-act tensor-network results improves systematically as the local Hilbert space dimension n increases, approaching the semiclassical limit. These results demonstrate that the pTWA framework provides a useful and computationally efficient approach for studying the dynamics of parafermionic systems in regimes where exact numerical methods are limited by Hilbert-space growth. At the same time, the method in-herits the typical limitations of semiclassical phase-space approaches: because the dynamics is effectively mean-field in nature, long-time evolution can deviate from ex-act quantum behavior when higher-order correlations be-come important. Several directions for future work naturally follow. On the methodological side, it would be interesting to de-velop improved sampling schemes or higher-order semi-classical corrections that incorporate quantum fluctua-tions beyond the truncated Wigner approximation. Clus-ter extensions of the pTWA framework, analogous to cluster truncated Wigner methods previously applied to spin systems [11, 23], may provide a systematic way to include short-range correlations and extend the accuracy of the method to longer times. On the physical side, the phase-space formulation developed here opens the possi-bility of studying larger parafermionic systems, includ-ing higher-dimensional clock models, Floquet-driven sys-tems [34], and models hosting topological parafermion edge modes[35]. More broadly, the present work illus-trates how semiclassical phase-space methods can be ex-tended to systems with fractionalized exchange statis-tics [14, 15].  
+
+> VI. ACKNOWLEDGMENT
+
+J.V. acknowledges the Ataro Group for generously pro-viding office space and computational resources that fa-cilitated the completion of this work. M.G. is sup-ported by funding from the German Research Founda-tion (DFG) under the project identifiers 398816777-SFB 1375 (NOA) and 550495627-FOR 5919 (MLCQS), from the Carl-Zeiss-Stiftung within the QPhoton Innovation Project MAGICQ, and from the Federal Ministry of Re-search, Technology and Space (BMFTR) under project BeRyQC.  
+
+> Appendix A: SU(3) Wigner function for Z3
+> parafermions
+
+For Z3 parafermions, the local Hilbert space is three-dimensional, H3, with computational basis |0⟩, |1⟩, |2⟩.Although a discrete Wigner representation can be con-structed for any odd prime n using the finite-field ap-proach of Refs. [24–27], the Z3 case admits a particularly natural formulation based on the group SU(3). This construction, developed by Klimov and de Guise [28], expresses the Wigner function entirely in terms of pro-jectors onto the four mutually unbiased bases (MUBs) of SU(3), providing a geometrically transparent descrip-tion especially well suited to the Hubbard-operator phase space used in pTWA.  
+
+> 1. Mutually unbiased bases of SU(3)
+
+Any complete Wigner representation in dimension d
+
+requires d + 1 mutually unbiased bases when d is prime. For d = 3, these are: B(b) = { | e(b) 
+
+> k
+
+⟩ : k = 0 , 1, 2 }, b =0, 1, 2, 3, satisfying ⟨e(b) 
+
+> k
+
+|e(b′) 
+
+> k′
+
+⟩ = δbb ′ δkk ′ + (1 − δbb ′ )/√3.14 The first basis is the computational basis, 
+
+B(0) : |e(0)  
+
+> k
+
+⟩ ≡ | k⟩, k = 0 , 1, 2. (A1) For b = 1 , 2, 3, the SU(3) MUB vectors are obtained via quadratic Gauss sums: 
+
+|e(b) 
+
+> k
+
+⟩ = 1
+
+√3
+
+> 2
+
+X
+
+> n=0
+
+ω bn 2+kn |n⟩, ω = e2πi/ 3. (A2) These four bases define rank-one projectors 
+
+P (b) 
+
+> k
+
+= |e(b) 
+
+> k
+
+⟩⟨ e(b) 
+
+> k
+
+|, b = 0 , . . . , 3, k = 0 , 1, 2. (A3) Together, {P (b) 
+
+> k
+
+} provide a complete operator frame for 
+
+H3. 
+
+> 2. Striations and phase-space geometry
+
+The discrete phase space consists of pairs ( q, p ) ∈ Z3 ×
+
+Z3. Each point belongs to exactly one line in each of the four striations , defined by the affine-linear mappings 
+
+ℓ0(q, p ) = q, (A4) 
+
+ℓ1(q, p ) = p, (A5) 
+
+ℓ2(q, p ) = q + p mod 3 , (A6) 
+
+ℓ3(q, p ) = q + 2 p mod 3 . (A7) The four striations correspond exactly to the four SU(3) MUBs. Each striation consists of three parallel lines, and each line is assigned one projector from the corresponding MUB.  
+
+> 3. Phase-point operators
+
+The SU(3) phase-point operators are defined as 
+
+Aqp = 13
+
+
+
+1 +
+
+> 3
+
+X
+
+> b=0
+
+
+
+P (b) 
+
+> ℓb(q,p )
+
+− 13 I
+
+
+
+, (A8) where ( q, p ) ∈ Z23. This expression satisfies all Wigner axioms: 
+
+(i) Hermiticity Each Aqp is manifestly Hermitian. 
+
+(ii) Unit trace Tr( Aqp ) = 1.
+
+(iii) Orthogonality Tr( Aqp Aq′p′ ) = 3 δqq ′ δpp ′ .
+
+(iv) Completeness P 
+
+> q,p
+
+Aqp = 3 1.
+
+(v) SU(3) covariance Under the discrete displace-ment operators D(m, n ) = ωmn/ 2XmZn (with m, n ∈
+
+Z3), one has Aqp = D(q, p ) A00 D(q, p )†. This parallels the Weyl–Heisenberg covariance of the finite-field con-struction but is now formulated entirely within SU(3).  
+
+> 4. Wigner function and Hubbard operators
+
+Given a single-site density matrix ρ, the SU(3) Wigner function is 
+
+Wρ(q, p ) = 13 Tr[ ρ A qp ] , (A9) a real quasi-probability distribution on the 3 × 3 phase-space grid. Since the pTWA uses the Hubbard operator basis 
+
+Xab = |a⟩⟨ b| as phase-space coordinates, a sampled point (q, p ) is converted to classical initial data via 
+
+xab (0) = Tr Aqp Xab  . (A10) These values provide the exact Wigner–Weyl symbols of the Hubbard operators and satisfy all algebraic con-straints needed for the SU(3) Lie–Poisson time evolution.  
+
+> 5. Factorized many-body states
+
+For an initial many-body state ρ = NLj=1 ρj , the Wigner function factorizes: W (q1, p 1, . . . , q L, p L) =
+
+QLj=1 Wρj (qj , p j ). One samples each (qj , p j ) indepen-dently whenever Wρj (qj , p j ) ≥ 0. Substituting Eq. (A10) for each site gives initial conditions that reproduce all 
+
+operator moments of the factorized state exactly.  
+
+> 6. Relation to finite-field constructions
+
+For n = 3, Eq. (A8) is equivalent to the finite-field expression Aqp = 13
+
+P2 
+
+> m,k =0
+
+ωpk −qm + 12 mk ZmXk, but the SU(3) MUB formulation is often more natural for parafermionic systems because: 1. it makes explicit the underlying SU(3) structure of the local Hilbert space; 2. the projectors P (b) 
+
+> k
+
+correspond directly to extremal points of the Bloch-body of SU(3); 3. the mapping to Hubbard operators Xab is particu-larly simple and numerically stable. In this work, all Z3 simulations employ the SU(3) Wigner construction of Klimov and de Guise, Eqs. (A2)– (A8). This provides an internally consistent, geomet-rically natural, and computationally efficient discrete phase-space representation for parafermionic truncated Wigner dynamics.   
+
+> Appendix B: Fradkin–Kadanoff representation of the ZnFock-parafermion chain
+
+In this Appendix we rewrite the Zn Fock-parafermion Hamiltonian in terms of local operators using the 15 Fradkin–Kadanoff (FK) transformation. This represen-tation is convenient for numerical methods such as ex-act diagonalization and tensor-network algorithms, as it expresses the model as a chain of finite-dimensional on-site degrees of freedom with strictly local couplings. Al-though the benchmarks in the main text focus on the 
+
+Z3 case, the derivation presented below applies gener-ally to Zn parafermion chains. We consider a Zn Fock-parafermion chain described by the Hamiltonian 
+
+H = −J X
+
+> j
+
+h
+
+(1 − g)f † 
+
+> j
+
+fj+1 + g(f † 
+
+> j
+
+)mf mj+1 + h .c.
+
+i
+
++X
+
+> j
+
+μj nj ,
+
+(B1) where the local occupation operator isv nj =
+
+P
+
+> m
+
+(f † 
+
+> j
+
+)mf mj , g controls the relative weight of single-particle and higher-order hopping processes, and μj are site-dependent potentials. The Fock parafermion opera-tors fj are nonlocal objects from the point of view of a tensor-product lattice basis, since their exchange statis-tics is implemented through nontrivial statistical phases. For numerical implementations it is therefore advanta-geous to work with local operators acting on a finite on-site Hilbert space. The Fradkin–Kadanoff (FK) trans-formation, which can be viewed as the Zn generalization of the Jordan–Wigner mapping, achieves exactly this. It rewrites parafermion operators in terms of local clock-like operators acting on an n-dimensional on-site Hilbert space. Each lattice site j carries an n-dimensional Hilbert space spanned by occupation states 
+
+|nj ⟩, nj = 0 , 1, . . . , n − 1. (B2) We introduce two local operators Bj and Uj defined by 
+
+Bj |n1, . . . , n j , . . . , n L⟩ = |n1, . . . , n j − 1, . . . , n L⟩, (B3) 
+
+Uj |n1, . . . , n j , . . . , n L⟩ = ωnj |n1, . . . , n j , . . . , n L⟩, (B4) where 
+
+ω = e2πi/n . (B5) On the same site these operators satisfy the Zn Weyl algebra 
+
+Uj Bj = ωB j Uj , Bnj = 0 , U nj = 1. (B6) Operators acting on different sites commute. A convenient matrix representation is obtained by tak-ing 
+
+B =
+
+
+
+0 1 0 · · · 00 0 1 · · · 0... . . . ...0 0 0 · · · 10 0 0 · · · 0
+
+ , U = diag(1 , ω, ω 2, . . . , ω n−1),
+
+(B7) with Bj and Uj acting as B and U on site j and as the identity elsewhere. The Fradkin–Kadanoff mapping expresses the parafermion operators as 
+
+fj =
+
+> j−1
+
+Y
+
+> ℓ=1
+
+Uℓ
+
+!
+
+Bj , f † 
+
+> j
+
+= B†
+
+> j
+> j−1
+
+Y
+
+> ℓ=1
+
+U †
+
+> ℓ
+
+!
+
+. (B8) The string Q 
+
+> ℓ<j
+
+Uℓ is the Zn analogue of the Jordan– Wigner string and encodes the parafermionic exchange statistics. We now rewrite the hopping terms of the Hamiltonian in terms of the local operators Bj and Uj .
+
+a. Single-particle hopping. Using Eq. (B8), we ob-tain 
+
+f † 
+
+> j
+
+fj+1 = B†
+
+> j
+> j−1
+
+Y
+
+> ℓ=1
+
+U †
+
+> ℓ
+
+! jY
+
+> ℓ=1
+
+Uℓ
+
+!
+
+Bj+1 (B9) = B† 
+
+> j
+
+Uj Bj+1 , (B10) since all string operators with ℓ < j cancel pairwise. Therefore the hopping term becomes 
+
+f † 
+
+> j
+
+fj+1 + h .c. = B† 
+
+> j
+
+Uj Bj+1 + B†
+
+> j+1
+
+U † 
+
+> j
+
+Bj . (B11) 
+
+b. Pair hopping. A similar calculation gives (f † 
+
+> j
+
+)mf mj+1 = ( B† 
+
+> j
+
+)m
+
+> j−1
+
+Y
+
+> ℓ=1
+
+U †
+
+> ℓ
+
+!m jY
+
+> ℓ=1
+
+Uℓ
+
+!m
+
+Bmj+1 
+
+(B12) = ( B† 
+
+> j
+
+)mU mj Bmj+1 . (B13) Thus the pair-hopping contribution becomes (f † 
+
+> j
+
+)mf mj+1 + h .c. = ( B† 
+
+> j
+
+)mU mj Bmj+1 + ( B†
+
+> j+1
+
+)mU †mj Bmj .
+
+(B14) Collecting the results, the Hamiltonian can be written entirely in terms of local operators as 
+
+H = − J X
+
+> j
+
+h
+
+(1 − g) B† 
+
+> j
+
+Uj Bj+1 + g (B† 
+
+> j
+
+)mU mj Bmj+1 + h .c.
+
+i
+
++ X
+
+> j
+
+μj nj .
+
+(B15) 
+
+c. Numerical implementation. The local FK repre-sentation is used as the starting point for both exact di-agonalization and tensor-network simulations. For the nonequilibrium dynamics reported in the main text we evolve the initial product state using a matrix-product-state (MPS) representation and a standard real-time TEBD scheme with a second-order Suzuki–Trotter de-composition of the nearest-neighbor FK Hamiltonian. At each time step the state is truncated to a maximum bond dimension χmax , providing a controlled approximation whose accuracy can be systematically improved by in-creasing χmax and decreasing the time step δt . In the calculations shown here we used δt = 0 .05 and checked 16 that the observables of interest are converged with re-spect to both δt and χmax within the plotted time win-dow. For small system sizes we additionally compared the MPS evolution with exact diagonalization, finding excellent agreement. For this reason TEBD serves as the numerical benchmark for the larger chains considered in the main text: unlike pTWA, whose error is intrinsic to the semiclassical approximation, the TEBD error can be quantified and systematically reduced by standard con-vergence tests. 
+
+[1] A. Polkovnikov, K. Sengupta, A. Silva, and M. Vengalat-tore, Rev. Mod. Phys. 83 , 863 (2011). [2] P. Calabrese and J. Cardy, Journal of Statistical Mechan-ics: Theory and Experiment 2016 , 064003 (2016). [3] L. D’Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, Advances in Physics 65 , 239–362 (2016). [4] U. Schollw¨ ock, Annals of Physics 326 , 96–192 (2011). [5] S. Paeckel, T. K¨ ohler, A. Swoboda, S. R. Manmana, U. Schollw¨ ock, and C. Hubig, Annals of Physics 411 ,167998 (2019). [6] D. M. Ceperley, in AIP Conference Proceedings , Vol. 690 (AIP, 2003) p. 85–98. [7] R. E. V. Profumo, C. Groth, L. Messio, O. Parcollet, and X. Waintal, Physical Review B 91 , 10.1103/phys-revb.91.245154 (2015). [8] J. Eisert, M. Friesdorf, and C. Gogolin, Nat. Phys. 11 ,124 (2015). [9] A. Polkovnikov, Annals of Physics 325 , 1790 (2010), au-gust 2010 Special Issue. [10] P. B. Blakie, A. S. Bradley, M. J. Davis, R. J. Ballagh, and C. W. Gardiner, Advances in Physics 57 , 363 (2008). [11] J. Wurtz, A. Polkovnikov, and D. Sels, Annals of Physics 
+
+395 , 341–365 (2018). [12] S. M. Davidson, D. Sels, and A. Polkovnikov, Annals of Physics 384 , 128–141 (2017). [13] J. Vahedi and M. G¨ arttner (2025), in preparation. [14] A. A. Kirillov, Lectures on the Orbit Method (American Mathematical Society, 2004). [15] R. G. Littlejohn, Phys. Rep. 138 , 193 (1986). [16] F. Wilczek, Phys. Rev. Lett. 49 , 957 (1982). [17] C. Nayak, S. H. Simon, A. Stern, M. Freedman, and S. Das Sarma, Rev. Mod. Phys. 80 , 1083 (2008). [18] P. Fendley, Journal of Statistical Mechanics: Theory and Experiment 2012 , P11020 (2012). [19] J. Alicea and P. Fendley, Annual Review of Condensed Matter Physics 7, 119–139 (2016). [20] M. Hillery, R. F. O’Connell, M. O. Scully, and E. P. Wigner, Physics Reports 106 , 121 (1984). [21] A. S. Sajna and A. Polkovnikov, Physical Review A 102 ,10.1103/physreva.102.033338 (2020). [22] J. Schachenmayer, A. Pikovski, and A. M. Rey, Phys. Rev. X 5, 011022 (2015). [23] A. Braemer, J. Vahedi, and M. G¨ arttner, Phys. Rev. B 
+
+110 , 054204 (2024). [24] A. Vourdas, Reports on Progress in Physics 67 , 267–320 (2004). [25] W. K. Wootters, Annals of Physics 176 , 1–21 (1987). [26] K. S. Gibbons, M. J. Hoffman, and W. K. Wootters, Phys. Rev. A 70 , 062101 (2004). [27] D. Gross, Journal of Mathematical Physics 47 ,10.1063/1.2393152 (2006). [28] A. B. Klimov, J. L. Romero, and H. de Guise, Journal of Physics A: Mathematical and Theoretical 50 , 323001 (2017). [29] H. Lipkin, N. Meshkov, and A. Glick, Nuclear Physics 
+
+62 , 188–198 (1965). [30] J. Vahedi, SciPost Phys. Core 5, 021 (2022). [31] G. Camacho, J. Vahedi, D. Schuricht, and C. Karrasch, Phys. Rev. B 106 , 235132 (2022). [32] M. S. Bahovadinov, W. Buijsman, A. K. Fedorov, V. Gritsev, and D. V. Kurlov, Phys. Rev. B 106 , 224205 (2022). [33] G. Vidal, Phys. Rev. Lett. 91 , 147902 (2003). [34] M. Bukov, L. D’Alessio, and A. Polkovnikov, Advances in Physics 64 , 139 (2015). [35] A. Benhemou, T. Angkhanawin, C. S. Adams, D. E. Browne, and J. K. Pachos, Phys. Rev. Res. 5, 023076 (2023).

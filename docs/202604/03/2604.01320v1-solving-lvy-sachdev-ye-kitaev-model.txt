@@ -1,0 +1,3341 @@
+Title: Solving L\'{e}vy Sachdev-Ye-Kitaev Model
+
+URL Source: https://arxiv.org/pdf/2604.01320v1
+
+Published Time: Fri, 03 Apr 2026 00:04:19 GMT
+
+Number of Pages: 38
+
+Markdown Content:
+SciPost Physics Submission 
+
+# Solving L´ evy Sachdev-Ye-Kitaev Model 
+
+Budhaditya Bhattacharjee 1,2* , William. E. Salazar 3,4* , Alexei Andreanov 2,5,6 and Dario Rosa 4
+
+1 Department of Physics and Materials Science, University of Luxembourg, Ave. de la F¨ aiencerie, Luxembourg 1511 
+
+2 Center for Theoretical Physics of Complex Systems, Institute for Basic Science(IBS), Daejeon 34126, Republic of Korea 
+
+3 Center for Quantum Technology, National University of Singapore, 3 Science Drive 2, Block S15, Singapore 117543 
+
+4 ICTP South American Institute for Fundamental Research, Instituto de F´ ısica Te´ orica, UNESP - Univ. Estadual Paulista, Rua Dr. Bento Teobaldo Ferraz 271, 01140-070, S˜ ao Paulo, SP, Brazil 
+
+5 Center for Trapped Ions Quantum Science, Institute for Basic Science, Daejeon 34126, Republic of Korea 
+
+6 Basic Science Program, Korea University of Science and Technology (UST), Daejeon 34113, Republic of Korea *budhaditya.bhattacharjee@uni.lu *william esteban@u.nus.edu April 3, 2026 
+
+# Abstract 
+
+We present an exact solution in the large-N limit of the L´ evy Sachdev-Ye-Kitaev (LSYK) model introduced in Ref. [1], wherein the couplings are drawn from a L´ evy Stable distribution parameterized by a tail exponent μ ∈ [0 , 2] .Starting from the Hamiltonian and its associated partition function, we high-light the key differences from the standard Gaussian SYK model and derive the large-N Schwinger-Dyson equations via a bosonic oscillator representation of the action. These equations are solved both numerically and analytically in the large-q and infrared limits. We subsequently analyze the chaotic proper-ties of the model by computing the Krylov exponent from the large-q Green’s function and extracting the Lyapunov exponent from the 4-point function. The parameter μ continuously interpolates between a free theory at μ = 0 
+
+and the conventional, maximally chaotic Gaussian SYK model at μ = 2 , with non-maximal chaos persisting throughout the intermediate regime 0 < μ < 2.Thermodynamic quantities, including the entropy, free energy, average energy, and specific heat capacity, are computed and compared with their Gaussian SYK counterparts. The interpretations of the thermodynamics are discussed with respect to the holographic dual and non-Fermi liquid theory. Finally, we discuss an alternative representation of the LSYK model based on a distinct decomposition of the L´ evy Stable distribution, which establishes a non-trivial connection to Gaussian SYK, and provide supporting analytical and numerical results in the appendices. 
+
+1
+
+> arXiv:2604.01320v1 [hep-th] 1 Apr 2026
+
+SciPost Physics Submission 
+
+# Contents 
+
+1 Introduction 22 Hamiltonian and Partition Function 43 Bosonic Oscillators 6
+
+3.1 Static saddles 73.2 Fluctuating saddles 9
+
+4 The Schwinger-Dyson Equations 12 
+
+4.1 Large −q solution 14 4.2 The Infrared Regime 17 
+
+5 Chaos exponents at large-q 21 6 Thermodynamics 24 
+
+6.1 Large −q 25 6.2 Finite −q 26 6.3 Comments on the Bulk Dual 28 
+
+7 Conclusions 30 A Alternative Description 31 B Numerical Results 33 C The Schr¨ odinger problem 34 References 36 
+
+# 1 Introduction 
+
+The study of quantum chaos forms a central research direction in quantum mechanics, quantum field theory and quantum gravity. In quantum mechanics, the central dogma of quantum chaos is the Bohigas-Giannoi-Schmidt (BGS) conjecture [2], connecting quan-tum chaos to random matrix theory [3, 4]. The basic idea of this conjecture is that the spectral correlations in quantum systems that are “chaotic” are faithfully represented by the spectral correlations of random matrices. This has been successfully tested in a large number of systems, most notably in billiard systems demonstrating semi-classical chaos [5]. Treating the BGS conjecture as a de-facto definition of quantum chaos, it has been explored extensively in quantum many-body systems . Several distinct approaches (apart from random matrix universality) are used to study many-body chaos, such as eigenstate thermalization [6, 7], free probability [8], entanglement [9], out-of-time-ordered correlators [10] and Krylov complexity [11], among many others. A quantum mechanical many-body model that has proven to be particularly useful 2SciPost Physics Submission 
+
+in the study of many-body chaos is the Sachdev-Ye-Kitaev (SYK) model [12, 13]. This is a model described by a quenched, disordered Hamiltonian with all-to-all interacting fermions. The most extensively studied instance of the model consists of Gaussian disorder and Majorana fermions [14–17]. The unique feature of this model is that it is solvable in the 
+
+N → ∞ limit, where N is the number of Majorana fermions. This is part of the reason why the model is of significant interest also from the perspective of holography [18–20]. This model has been discussed in several comprehensive reviews [21–24]. From the perspective of many-body quantum chaos, the model and its’ modifications have been extensively studied [25–28]. For a system with N Majorana fermions, the SYK Hamiltonian is written as ˆH = i⌊q/ 2⌋
+
+q!
+
+> N
+
+X
+
+> i1,i 2,...,i q
+
+Ji1,i 2,...,i q ˆχi1 ˆχi2 · · · ˆχiq . (1) where q is an even integer denoting the number of Majorana fermions that interact in a single term of the Hamiltonian. The random interactions are denoted by Ji1,i 2,...,i q .A particularly interesting modification of the SYK model with a crossover from chaotic to integrable signatures is one with sparse couplings [25, 27]. In this variant of the model, the Gaussian interaction tensor Ji1i2··· iq comes equipped with an additional sparsity factor 
+
+p ∈ [0 , 1], where p = 0 represents no interaction and p = 1 indicates dense connectivity. In practice, every random variable Ji1i2··· iq is kept with probability p and set to zero with probability 1 − p, thus reducing the connectivity of the model. The introduction of the sparsity parameter effectively eliminates a finite fraction of interactions between the Majorana fermions, and this is found to induce non-chaotic behaviour. This comes at the cost of loosing the inherent solvability of the model in the large-N limit. An open problem was to find a model that had all the salient solvability features of the SYK model, and still featured a crossover from chaotic to integrable quantum many-body behaviour in a controlled manner by effectively emulating sparse SYK. Such model was proposed in Ref. [1]. To briefly recap, the main modification is the replacement of the Gaussian disorder Ji1i2··· iq by a L´ evy-Stable distribution. L´ evy distri-butions are known to posses fat tails (usually controlled by a parameter μ ∈ (0 , 2], where 
+
+μ = 2 is Gaussian) and therefore display large deviations in their sample sets. Treating the random realisations of the interaction in a hierarchical manner [29], it is possible to construct a scaling theory for eigenvalue correlations [1,30] which demonstrates that there is an N − dependence on values of μ that cause deviation from chaotic behaviour. This is exactly the scenario also obtained in sparse SYK with respect to the sparsity param-eter. Normalising the Hamiltonian by the largest of Ji1i2··· iq in a given realisation, an approximate sparse network is obtained since the largest values are parameterically larger 
+
+than the typical values. However, the main difference from the sparse SYK is that all-to-all models with L´ evy Stable disorder are solvable , as evidences (for example) in L´ evy Spin glass problems [31–33] suggest. In this article, we solve the L´ evy Sachdev-Ye-Kitaev model [1] in the large −N limit, for any value of the parameter μ. A brief summary of our findings is given below. 
+
+Summary 
+
+We present the solution of the L´ evy Sachdev-Ye-Kitaev model in the large −N limit and discuss several of its aspects. In Section 2, we introduce the Hamiltonian and the salient features of the disorder distribution. The partition function is derived for the Hamiltonian and the main difference from the Gaussian SYK case is highlighted. In Section 3, a method involving bosonic oscillators is introduced which casts the partition function in an 3SciPost Physics Submission 
+
+appropriate form for deriving the closed form Schwinger-Dyson equations. In Section 4, the Schwinger-Dyson equations in the large-N limit are derived from the action derived in Section. 3. The solution of the equations is found numerically, as well as analytically in the large −q and conformal (deep IR) limit. In Section 5, the Krylov exponent is evaluated from the large −q Green’s function and the Lyapunov exponent is extracted from the 4 −point function calculation. These indicators can be used to clarify the chaoticity of the model : the results are schematically represented in the Figure. 1. This schematic shows that 
+
+μ = 2 μ = 0 0 < μ < 2Free Maximal Chaos Non-maximal Chaos Figure 1: Phase diagram of the L´ evy Sachdev-Ye-Kitaev model. Top: for μ = 0 the model is free. Chaoticity increases with μ reaching maximum for μ = 2, the standard Sachdev-Ye-Kitaev model. Bottom: sparsity pattern of the model, as explained in the main text. there is a family of SYK models parameterised by a continuous parameter μ ∈ [0 , 2] 1.The model is free for μ = 0 and maximally chaotic for μ = 2 [11, 34]. The emergent sparsity structure (where only the parameterically dominant “bonds” are retained) is also presented in the schematic. The network in the schematic denotes 2 −body interactions, but the picture is easily generalised to q− body interactions. In the intermediate regime 0 < μ < 2, the model is still chaotic, but in a non-maximal sense. In Section 6, thermodynamic quantities such as entropy, free energy, average energy and specific heat capacity of the system are studied numerically and in the large −q limit. Their behaviour is also compared and contrasted with that of Gaussian SYK. We conclude by reviewing the main results and mentioning future directions in Section. 7. In the Appendix. A, we provide an alternative description of the L´ evy SYK based on a different representation of the L´ evy Stable distribution. This connects the model in a non-trivial way to Gaussian SYK. In Appendix. C, we briefly discuss the Schr¨ odinger problem that arises in the evaluation of the Lyapunov exponent. Finally, Appendix. B presents some supporting numerical results. 
+
+# 2 Hamiltonian and Partition Function 
+
+The L´ evy Sachdev-Ye-Kitaev model is described by all-to-all interacting Majorana fermions, connected via q−body interactions whose strengths are sourced from the L´ evy distribution: ˆH = i⌊q/ 2⌋
+
+q!
+
+X
+
+> I
+
+JI ΨI , (2) where JI = Ji1,i 2,...,i q is the interaction strength and Ψ I = ˆ χi1 ˆχi2 . . . ˆχiq is the q−body Majorana fermion term and each index ik ranges from 1 to N . The interaction JI is 
+
+> 1Which parameterizes the tail behaviour of the L´ evy Stable distirbution
+
+4SciPost Physics Submission 
+
+sampled from the L´ evy Stable distribution with stability index μ, which is described by the following probability density function dPμ[X] = dX
+
+2π
+
+Z
+
+dk exp ( ikX − | σk |μ) . (3) This is a special case of the L´ evy Stable distribution, which is generally defined using the following additional parameters: η ∈ [−1, 1], known as the ”skewness”, and δ ∈ R, known as the shift [35]. The full PDF is often denoted as Lμ(η, σ, δ ). We set these parameters to 0 for simplicity. As is clear, a closed-form expression for the PDF does not exist for general μ. The key feature of this distribution is that for μ < 2, the variance diverges, and for μ < 1, the mean also diverges. The tail of this distribution is captured via the power law behaviour P μ(X ≫ 1) ∼ | X|−1−μ. For a smooth flow of the scale parameter σ into the Gaussian SYK variance [15] and to ensure the extensivity of the Hamiltonian (2), we choose the factor as 
+
+σ = J
+
+ 2qN
+
+Nq
+
+ −1
+
+> μ
+
+. (4) It is convenient to write σμ = Jμ 
+
+> λN
+
+. Here we denote N =  Nq
+
+ and λ = 2qN . From the Hamiltonian Eqn. (2), the partition function Z(β), with the inverse temperature β, is evaluated. Let us write the (disorder averaged) path integral as 2
+
+⟨Z(β)⟩ = ⟨Tr exp {− β ˆH}⟩ JI . (5) It is known from the study of L´ evy spin glass [37] that Z(β) diverges for real β. The way around this problem, as discussed in Ref. [31], involves Wick rotation to imaginary tem-perature β = −ik and performing the averaging in this frame. In terms of the Grassmann fields, the imaginary temperature partition function is written as 
+
+Z(k, {JI }) = 
+
+Z
+
+Dψ exp 
+
+(Z k
+
+> 0
+
+dt −
+
+> N
+
+X
+
+> i=1
+
+12 ψi∂tψi + iH 
+
+!) 
+
+. (6) Using (2), we write it as 
+
+Z(k, {JI }) = 
+
+Z
+
+Dψ exp 
+
+(Z k
+
+> 0
+
+dt −
+
+> N
+
+X
+
+> i=1
+
+12 ψi∂tψi + i1+ ⌊q/ 2⌋ X
+
+> I
+
+JI ΨI
+
+!) 
+
+. (7) To proceed, we need to perform the ensemble average over the random Levy variables, i.e. 
+
+we need to evaluate 
+
+⟨Z(k)⟩ ≡ 
+
+Z Y
+
+> I
+
+dJI P (JI )Z(k, {JI }) . (8) To this end, we use the characteristic function of L´ evy variables, given by R dXP μ(X)eitX =exp {−| σt |μ}, which allows us to find that the averaged partition function is given by 
+
+⟨Z(k)⟩ =
+
+Z
+
+Dψ exp 
+
+(
+
+−
+
+Z k
+
+> 0
+
+dt
+
+> N
+
+X
+
+> i=1
+
+12 ψi∂tψi − X
+
+> I
+
+ σ2V (GI ) μ
+
+> 2
+
+)
+
+≡
+
+Z
+
+Dψ exp {− Sμ({ψ})} ,
+
+(9) where we define the functional V (GI ) ≡ R k 
+
+> 0
+
+dtΨI (t) 2
+
+. Note that the presence of the overall exponent μ/ 2 marks the difference from the usual, Gaussian SYK. Setting μ = 2, we recover the Gaussian SYK action [15]. Having evaluated the partition function, the Wick rotation is inverted by replacing β = ik , which gives us Sμ({ψ}) in terms of β. 
+
+> 2In this work we focus on the annealed average. The quenched average, and its comparison to the annealed one is deferred to future work [36].
+
+5SciPost Physics Submission 
+
+# 3 Bosonic Oscillators 
+
+Apart from the case μ = 2, when the model boils down to the standard SYK model, the action Sμ({ψ}) is not in a suitable form from which the SD equations can be derived. To obtain such a form, we recall the following result for bosonic modes. Consider the bosonic creation-annihilation operators a†, a endowed with the vacuum |0⟩: a |0⟩ = 0. We can construct a unitary displacement operator 3 (given a c−number z) D(z) = exp {za † − z∗a}
+
+which satisfies 
+
+⟨0| D†(z)A(a†, a )D(z) |0⟩ = A(z∗, z ) (10) for any operator A(a†, a ). For our analysis, it is convenient to consider 
+
+⟨0| A(a†, a ) |0⟩ = lim 
+
+> βc→∞
+
+Tr 
+
+
+
+e−βca†aA(a†, a )
+
+
+
+Tr  e−βca†a (11) where we have introduced another “temperature” βc. Considering A(a†, a ) = F (a†)F (a), we can write 
+
+⟨0| D†(z)F (a†)F (a)D(z) |0⟩ = lim 
+
+> βc→∞
+
+Tr 
+
+
+
+e−βc(a†−z∗)( a−z)F (a†)F (a)
+
+
+
+Tr  e−βca†a (12) This expression can now be cast in the path integral form based on bosonic coherent states 
+
+|ϕ⟩ = eϕa †
+
+|0⟩. The full expression for the same is given by 
+
+A(z∗, z ) = F (z∗)F (z) = lim 
+
+> βc→∞
+
+Z
+
+Dϕ exp {−S (ϕ, z, z ∗)} (13) where the action S is given by 
+
+S(ϕ, z, z ∗) = 
+
+Z βc
+
+> 0
+
+dτ   ¯ϕ∂ τ ϕ + |ϕ(τ ) − z|2
+
+−
+
+Z βc
+
+> 0
+
+dτ δ(τ − βc)f ( ¯ϕ(τ )) + δ(τ )f (ϕ(τ ))  . (14) Here F ≡ ef defines the function f in S.This approach can now be applied to the partition function (9) to replace the non-linear exponent exp {V μ/ 2(GI )} in (9) by an integral over bosonic modes, that is quadratic in V (GI ). This approach is similar to the Hubbard-Stratonovich method. The potential term in the action can be written as 
+
+eP      
+
+> I1
+> λN(J2V(GI)) μ
+> 2
+
+= Y
+
+> I
+
+⟨0|I D†(zI )F (a† 
+
+> I
+
+)F (aI )D(zI ) |0⟩I
+
+where F (a) = exp { 12λN a μ 
+
+> 2
+
+}, and similarly for F (a†). For each I, an oscillator aI is introduced and the parameter zI = J2V (GI ) is chosen. This is presented schematically in Fig. 2. The full vacuum is the direct product of the individual vacuum states |Ω⟩ =
+
+|0⟩ ⊗ | 0⟩ ⊗ · · · ⊗ | 0⟩. All-in-all, the full partition is written as 
+
+⟨Z(β)⟩ =
+
+Z
+
+Dψ exp 
+
+(
+
+−
+
+Z β
+
+> 0
+
+dτ
+
+> N
+
+X
+
+> i=1
+
+12 ψi∂τ ψi
+
+!) 
+
+lim 
+
+> βc→∞
+
+Z
+
+Dϕ exp −Sb,β c
+
+ { ¯ϕ, ϕ } (15)         
+
+> 3It shifts aand a†by the complex number zand z∗respectively.
+
+6SciPost Physics Submission V (GI3 ) ↔ aI3 , a †
+
+> I3
+
+V (GI1 ) ↔ aI1 , a †
+
+> I1
+
+V (GI2 ) ↔ aI2 , a †
+
+> I2
+
+Bosonic Oscillators: [aIk , a † 
+
+> Il
+
+] = δlk 
+
+Figure 2: Schematic representation of the Bosonic oscillator approach. Each colored bubble represents a collective mode V (GI ) = R ψi1 · · · ψiq dτ which are linked to Bosonic creation-annihilation pair aI , a † 
+
+> I
+
+. The hard spheres represent the Majorana fermions. where the bulk action Sb is given as 
+
+Sb,β c ({ ¯ϕI , ϕ I }) = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′   ¯ϕI ∂τ ϕI + |ϕI − J2V (GI )|2
+
+− X
+
+> I
+
+12λN
+
+Z βc
+
+> 0
+
+dτ ′ 
+
+δ(τ ′ − βc) ¯ϕ μ 
+
+> 2
+> I
+
++ δ(τ ′)ϕ μ
+
+> 2
+> I
+
+
+
+. (16) The full LSYK action is recovered only in the limit βc → ∞ . We note that, this approach is not specific to the LSYK model, but rather can be applied to any model. However, to advance further and compute anything useful, the bosonic modes ϕI have to be integrated over: the feasibility of this integration depends strongly on the details of the model. For LSYK, it is not possible to directly integrate over the fields ϕI . Therefore, we will make a choice of saddles {ϕ∗ 
+
+> I
+
+} of Sb,β c to obtain ⟨Z(β)⟩ in an appropriate form. We emphasize that while the large-N saddle point equations we derive in the following sections are exact, their solutions’ manifold is complex and requires careful analysis to characterize completely. We expect that there can potentially be a large number of distinct saddles, corresponding to solutions with distinct features. In the following sections we focus on one such saddle and discuss the physical motivation of selecting that particular saddle. 
+
+3.1 Static saddles 
+
+We begin by imposing some constraints on the bosonic oscillator modes ϕI , with regard to their distribution over the indices I, and evaluate the action. There are several possible choices: Motivated by the all-to-all interaction of the Hamiltonian, we focus on ϕI that posses an exact or approximate symmetry in the indices I. The first natural choice is to assume that ϕI = ϕ ∀ I, i.e. complete site independence. Given this assumptions, the 7SciPost Physics Submission 
+
+bulk action (16) is given by 
+
+Sb =N
+
+Z βc
+
+> 0
+
+dτ ′
+
+
+
+¯ϕ ˙ϕ + |ϕ|2 − 12λN (δ(τ ′ − βc) ¯ϕ μ 
+
+> 2
+
++ δ(τ ′)ϕ μ 
+
+> 2
+
+)
+
+
+
++ X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′  J4V (GI )2 − J2V (GI )( ϕ + ¯ϕ) (17) There is a constant piece, which is independent of τ ′ leading to the divergence lim βc→∞ 
+
+R βc 
+
+> 0
+
+dτ ′ ≡
+
+Vol(R +). With this, the bulk action can be written as 
+
+Sb = N
+
+Z βc
+
+> 0
+
+dτ ′
+
+
+
+¯ϕ ˙ϕ + |ϕ|2 − 12λN (δ(τ ′ − βc) ¯ϕ μ 
+
+> 2
+
++ δ(τ ′)ϕ μ 
+
+> 2
+
+)
+
+
+
++ X
+
+> I
+
+
+
+Vol(R +)J4V (GI )2 − J2V (GI )
+
+Z βc
+
+> 0
+
+dτ ′(ϕ + ¯ϕ)
+
+
+
+. (18) The ϕ−independent term in Eqn. (18) can be ignored for the time being since it does not appear in the saddle point equations. Additionally, note that 
+
+X
+
+> I
+
+V (GI ) = 1
+
+q!
+
+Z β
+
+> 0
+
+dτ dτ ′ X
+
+> i
+
+ψi(τ )ψi(τ ′)
+
+!q
+
+(19) 
+
+X
+
+> I
+
+V (GI )2 = 1
+
+q!
+
+Z β
+
+> 0
+
+dτ dτ ′dτ ′′ dτ ′′′ X
+
+> i
+
+ψi(τ )ψi(τ ′)ψi(τ ′′ )ψi(τ ′′′ )
+
+!q
+
+In particular, we can integrate over the terms that depend on GI , by performing the integral R Dψ over the Majorana fermions. The result of the integral on P 
+
+> I
+
+V (GI ) is defined as N V [G], by introducing the collective functional V [G]. The resulting equation for ϕ, ¯ϕ is then given by ˙ϕ(τ ′) + ϕ(τ ′) − μ
+
+4λN δ(τ ′ − βc) ¯ϕ μ 
+
+> 2−1
+
+(τ ′) − J2V [G] = 0 (20) ˙¯ϕ(τ ′) − ¯ϕ(τ ′) + μ
+
+4λN δ(τ ′)ϕ μ 
+
+> 2−1
+
+(τ ′) + J2V [G] = 0 (21) Apart from the boundary δ-function, these equations describes an asymptotically decaying mode ϕ(τ ′) ∼ e−τ ′
+
+ϕ(0) and a growing mode ¯ϕ(τ ′) ∼ eτ ′ ¯ϕ(0). The general solution for these are written as 
+
+ϕ(τ ) = v + ce −τ , ¯ϕ(τ ) = v + c′eτ . (22) Here we have used the shorthand v = J2V [G], while c, c ′ are constants. To fix these constants, we integrate Eqns. (20) and (21) across the boundary points τ ′ = βc and 0 respectively and find: 
+
+c(1 − e−βc ) = μ
+
+4λN ¯ϕ μ 
+
+> 2−1
+
+(βc) , c′(1 − eβc ) = − μ
+
+4λN ϕ μ 
+
+> 2−1
+
+(0) . (23) The above is rewritten as non-linear self-consistent conditions: 
+
+c ∼ μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+, (24) 
+
+c′eβc ∼ μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c′eβc ) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+. (25) 8SciPost Physics Submission 
+
+For this the periodic boundary conditions on the thermal circle τ ∈ [0 , β c] are applied since 
+
+ϕ are bosons. We also use the limit of large βc. The δ function discontinuity acts as a boundary divergence for ϕ, ¯ϕ → 0 and μ < 2. Using this solution of ϕ, ¯ϕ, we can evaluate the action Eqn. (18). This gives us 
+
+Sb
+
+N = −v
+
+Z βc
+
+> 0
+
+dτ ′ϕ(τ ′) + 
+
+ μ − 24λN
+
+
+
+¯ϕ μ 
+
+> 2
+
+(βc) − 12λN ϕ μ 
+
+> 2
+
+(0) + Γ . (26) Here we denote the divergent term appearing with Vol(R +) with Γ. Using Eqn. (22) and Eqn. (23), we can further write this as 
+
+Sb
+
+N = − μv 
+
+4λN ¯ϕ μ 
+
+> 2−1
+
+(βc) + 
+
+ μ − 24λN
+
+
+
+¯ϕ μ 
+
+> 2
+
+(βc) − 12λN ϕ μ 
+
+> 2
+
+(0) + Γ − v2βc . (27) This expresses the action entirely in terms of the boundary contributions. We have to evaluate the boundary fields to obtain the expression for Sb in terms of v. This results in the following expression 
+
+Sb
+
+N = μ − 24λN
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c′eβc ) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ
+
+> 2
+
++ Γ − v2βc
+
+− 12λN
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ
+
+> 2
+
+− μv 
+
+4λN
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c′eβc ) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+. (28) This expression depends on the coefficients c, c ′ which are defined recursively through Eqns. (24)-(25), and can be constructed to higher orders in powers of μ 
+
+> 4λN
+
+. The term Γ − v2βc is proportional to Vol( R+) in the limit βc → ∞ . Therefore it is divergent, which is a reflection of the fact that our choice of spatially frozen bosonic modes is too n¨ aive, particularly in ignoring fluctuations of ϕ in the “spatial” index I , which we expect to be relevant in LSYK with expected emergence of sparsity. It is straightforward to verify that in the limit μ = 2, we obtain Sβ ∼ − vλ (aside from the divergent Γ − v2βc term), as expected for Gaussian SYK. 
+
+3.2 Fluctuating saddles 
+
+Therefore “spatial” dependence on I need to be present and we introduce fluctuations to the bosonic modes: 
+
+ϕI (τ ) = ϕ(τ ) + ξI . (29) We assume that the fluctuations ξI are independent of τ : keeping them τ -dependent is equivalent to keeping all the ϕI time dependent, contrary to our expectation that permu-tation symmetry, i.e. equivalence of sites, is restored in the saddle point solution of the averaged partition function. However, since all I are statistically equivalent (on average) in Eqn. (2) (since the model is 0-dimensional) there cannot exist a global fluctuation, otherwise this symmetry is violated. This is enforced by a δ-function constraint: 
+
+X
+
+> I
+
+ξI = 0 . (30) 9SciPost Physics Submission 
+
+The constraint on ξI is incorporated in the partition function by an integral representation of the Dirac δ-function 
+
+δ X
+
+> I
+
+ξI
+
+!
+
+=
+
+Z
+
+DKe − R K P  
+
+> IξI
+
+(31) where we have introduced a Lagrange multiplier K. The full partition function is given by 
+
+⟨Z(β)⟩ =
+
+Z
+
+Dψ exp 
+
+(
+
+−
+
+Z β
+
+> 0
+
+dτ
+
+> N
+
+X
+
+> i=1
+
+12 ψi∂τ ψi
+
+!) 
+
+× lim 
+
+> βc→∞
+
+Z
+
+DϕDKDξ exp 
+
+n
+
+− ˜Sb,β c
+
+ { ¯ϕ, ϕ, ¯ξ, ξ }o
+
+(32) where the new action is ˜Sb,β c ({ ¯ϕ, ϕ, ¯ξ, ξ }) is given by ˜Sb,β c ({ ¯ϕ, ϕ, ¯ξ, ξ }) = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′  ( ¯ϕ + ¯ξI )∂τ (ϕ + ξI ) + |ϕ + ξI − J2V (GI )|2
+
+− X
+
+> I
+
+12λN
+
+Z βc
+
+> 0
+
+dτ ′ 
+
+δ(τ ′ − βc)( ¯ϕ + ¯ξI ) μ 
+
+> 2
+
++ δ(τ ′)( ϕ + ξI ) μ
+
+> 2
+
+
+
++ X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′(Kξ I + ¯K ¯ξI ) (33) The action consists of two parts: the index-independent dynamical field ϕ(τ ), ¯ϕ(τ ) and the index-dependent frozen fluctuations ξI , ¯ξI . The dynamical field part is given by ˜S(1) b,β c (ϕ, ¯ϕ) = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′
+
+
+
+¯ϕ ˙ϕ + |ϕ − J2V (GI )|2 − 12λN δ(τ ′ − βc) ¯ϕ μ 
+
+> 2
+
+− 12λN δ(τ ′)ϕ μ
+
+> 2
+
+
+
+.
+
+(34) Introducing the fluctuation ϕI → ϕ + ξI and performing a Taylor expansion. This ex-pansion is again justified by the expected restoration of the permutation symmetry in the index I after averaging over disorder. Since the simple choice of ϕI = ϕ does not produce the correct saddle, we resort to the next best choice: ξI ≪ ϕ and ∂τ ξI = 0. This ensures that dynamically all the collective modes evolve identically. The smallness of ξI
+
+also ensures that no collective mode significantly dominates over the others in the sum P 
+
+> I
+
+V μ/ 2(GI ). (ϕ + ξI ) μ 
+
+> 2
+
+∼ ϕ μ
+
+> 2
+
+
+
+1 + μξ I
+
+2ϕ +
+
+μ/ 22
+
+ ξ2
+
+> I
+
+ϕ2 + · · · 
+
+
+
+(35) gives the following frozen fluctuation action in addition to the fluctuation-free action (same as Eq. (17)) ˜S(2) b,β c ({ ¯ξ, ξ }) = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′  |ξI |2 − J2V (GI )( ξI + ¯ξI ) + X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′(Kξ I + ¯K ¯ξI )
+
+− C X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′ 
+
+δ(τ ′)ϕ μ 
+
+> 2−2
+
+(τ ′)ξ2 
+
+> I
+
++ δ(τ ′ − βc) ¯ϕ μ 
+
+> 2−2
+
+(τ ′) ¯ξ2
+
+> I
+
+
+
+. (36) 10 SciPost Physics Submission 
+
+Here K, ¯K are Lagrange multipliers, and also integrated over. The constant is C =
+
+> 12λN
+
+ μ/ 22
+
+. To deal with the frozen fluctuation modes, we can choose the saddle of (36). The saddle equations are given by 
+
+ξI − 2Cδ (τ ′ − βc) ¯ϕ μ 
+
+> 2−2
+
+(τ ′) ¯ξI + ¯K − J2V (GI ) = 0 (37) ¯ξI − 2Cδ (τ ′)ϕ μ 
+
+> 2−2
+
+(τ ′)ξI + K − J2V (GI ) = 0 (38) The solution to this pair of linear equations is 
+
+ξI = J2V (GI ) − K + 2 Cδ (τ ′ − βc) ¯ϕ μ 
+
+> 2−2
+
+(τ ′)  J2V (GI ) − ¯K (39) ¯ξI = J2V (GI ) − ¯K + 2 Cδ (τ ′)ϕ μ 
+
+> 2−2
+
+(τ ′)  J2V (GI ) − K (40) A key step in finding this relatively simple relation is to note that any term of the form 
+
+δ(τ ′)δ(τ ′ − βc) vanishes. This solution is not fully time independent, instead has bumps at τ ′ = 0 , β c. Since we eventually consider the limit βc → ∞ , the fluctuations are frozen for all 0 < τ ′ < ∞. In the limit βc → ∞ , this term (36) becomes (by solving the saddle equations for ξI , ¯ξI and K, ¯K)lim 
+
+> βc→∞
+
+˜S(2) b,β c
+
+N = −Vol( R+)J4 X
+
+> I
+
+V (GI )4 − V [G]2
+
+!
+
+. (41) The frozen condensate action ˜S(1) only depends on ϕ, and thus is identical to the previous result (28). The action (41) exactly cancels out the divergent term, and retains the regular piece. The full bulk on-shell action Sb,on −shell = ˜S(1) (ϕ, ¯ϕ) + ˜S(2) (ξ, ¯ξ) is then given by 
+
+Sb,on-shell = μ − 24λ
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c′eβc ) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ
+
+> 2
+
+− 12λ
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ
+
+> 2
+
+− μv 
+
+4λ
+
+
+
+v + μ
+
+4λN
+
+
+
+v + μ
+
+4λN (v + c′eβc ) μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+ μ 
+
+> 2−1
+
+. (42) This concludes the derivation of the bulk on-shell action in terms of the Majorana func-tional v = J2V [G]. Using this action, we derive the Schwinger-Dyson equations in the limit N → ∞ in the next section. 
+
+Comments on the choice of saddles 
+
+So far in the analysis, we have not discussed the features of the saddle manifold of the bosonic oscillator action. A detailed analysis is beyond the scope of this work. However, we can make some comments here. The motivation of choosing saddles that are invariant in the index I is two-fold. First, invariance in the index I respects the statistical independence of the (L)SYK Hamiltonian (on average) with respect the indexing rule the Majorana fermions that we choose. This is due to the fact that the model is all-to-all/0-dimensional. Second, in the Gaussian SYK there is an emergent O(N ) symmetry in the large −N limit. Since we would like to smoothly connect our solution for arbitrary μ to the Gaussian SYK at μ = 2, the simplest choice is to use a saddle that leads to an O(N ) invariant action for all μ.The choice of static saddle, while correct in the sense that it is a valid saddle of Eqn. (16), leads to a divergent contribution. The contribution at the next order is what 11 SciPost Physics Submission 
+
+we look for (which we expect to be finite), and that is obtained by imposing the frozen fluctuations ξI (which do not depend on τ ). The saddle will be stable if the Hessian of small fluctuations near the saddle is positive definite. Let us now consider a fluctuation around the saddle ϕI = ϕ + ηI . The action Eqn. (16) evaluated to second order in ηI
+
+(since the first order vanishes) is given by 
+
+δ2Sb,β c = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′ ¯ηI (∂τ ′ + 1) ηI − μ(μ − 2) 8λN
+
+
+
+( ¯ϕ(βc)) μ  
+
+> 2−2
+
+¯η2 
+
+> I
+
++ ( ϕ(0)) μ 
+
+> 2−2
+
+η2
+
+> I
+
+
+
+. (43) In the large −N limit, ¯ϕ(βc) ≈ ϕ(0) ≈ v + μ 
+
+> 4λN
+
+v μ  
+
+> 2−1
+
+∼ v. This can be inserted in Eqn. (43) to give 
+
+δ2Sb,β c = X
+
+> I
+
+Z βc
+
+> 0
+
+dτ ′ ¯ηI (∂τ ′ + 1) ηI − μ(μ − 2) v μ 
+
+> 2−2
+
+8λN
+
+ ¯η2 
+
+> I
+
++ η2
+
+> I
+
+ . (44) Note that the first term is the operator ∂τ + 1, which has eigenvalues with real part +1. This is the term that solely contributes for μ = 2. The second term is proportional to − μ(μ−2) v μ  
+
+> 2−2
+> 8λN
+
+, which is positive for μ < 2. Therefore, the Hessian of Sb,β c is positive definite (trivially in the large −N limit where the boundary term can be ignored) and the saddle is stable. This analysis serves as a heuristic justification for the choice of the saddle of the oscillator action. 
+
+# 4 The Schwinger-Dyson Equations 
+
+The next step in the analysis is to derive the Schwinger-Dyson equations for the Green’s function and self-energy. Let us recall from Gaussian SYK [15] that the procedure involves the partition function which can be written as 
+
+Z(β) = 
+
+Z
+
+Dψ exp 
+
+(
+
+− 12
+
+X
+
+> i
+
+Z β
+
+> 0
+
+dτ ψ i∂τ ψi + R X
+
+> I
+
+V (GI )
+
+!) 
+
+(45) where R is the appropriate functional form of the bulk action. Then we introduce the following resolution of identity 1 = 
+
+Z
+
+dGdΣ exp 
+
+(
+
+− N
+
+2
+
+Z
+
+dτ dτ ′ G − 1
+
+N
+
+X
+
+> i
+
+ψi(τ )ψi(τ ′)
+
+!) 
+
+. (46) This integral forces G(τ, τ ′) = 1
+
+> N
+
+P 
+
+> i
+
+ψi(τ )ψi(τ ′), allowing us to recast the function R
+
+entirely in terms of G and therefore integrate over ψi among the terms outside R. We can split the action as 
+
+Z(β) = 
+
+Z
+
+dGdΣ exp 
+
+
+
+R − N
+
+2
+
+Z
+
+dτ dτ ′ΣG
+
+
+
+×
+
+Z
+
+Dψ exp 
+
+(
+
+− 12
+
+X
+
+> i
+
+Z
+
+dτ dτ ′ψi(τ )δ(τ − τ ′)∂τ ψ(τ ) − ψi(τ )ψ(τ ′)
+
+)
+
+=
+
+Z
+
+dGdΣ exp 
+
+
+
+R − N
+
+2
+
+Z
+
+dτ dτ ′ΣG
+
+
+
+[det( ∂τ − Σ)] N/ 2, (47) and write the effective action as 
+
+Ieff = − 12 log[det( ∂τ − Σ)] − RN + 12
+
+Z
+
+dτ dτ ′ΣG , (48) 12 SciPost Physics Submission 
+
+producing the following Schwinger-Dyson equations 
+
+G = 1
+
+∂τ − Σ , Σ = 2
+
+NδR δG . (49) For the L´ evy SYK, the functional R is written as 
+
+R = −Sb,on −shell ∼ vμ/ 2
+
+λ , (50) where we have used the limit N → ∞ in Eqn. (42) to only keep the leading order terms. Recalling that v = J2N −1 P 
+
+> I
+
+V (GI ) ∼ J2 R β 
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′), we can write the functional derivative as 
+
+δR δG = μ
+
+2 Jμv μ 
+
+> 2−1
+
+Gq−1 . (51) Therefore, the Schwinger-Dyson equations can be expressed as 
+
+G(τ, τ ′) = 1
+
+δ(τ − τ ′)∂τ − Σ( τ, τ ′) , (52) Σ( τ, τ ′) = μ
+
+2 J2
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′)
+
+ μ 
+
+> 2−1
+
+Gq−1(τ, τ ′) . (53) Finally, using translation invariance: G(τ, τ ′) → G(τ − τ ′), and renaming τ − τ ′ as τ , we obtain the equations 
+
+G(τ ) = 1
+
+∂τ − Σ( τ ) (54) Σ( τ ) = μ
+
+2 J2
+
+
+
+βJ 2
+
+Z β
+
+> 0
+
+dτ G q(τ )
+
+ μ 
+
+> 2−1
+
+Gq−1(τ ) . (55) The main difference between the usual Gaussian SYK and the L´ evy SYK is the presence of the overall factor in the expression for self-energy. This factor is non-trivial: it is independent of τ , but it does depend on β. For any μ < 2, it becomes divergent for 
+
+β → 0. Let us denote this factor by Aβ .
+
+Aβ ≡ J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′) . (56) This expression simplifies for the solutions G∗, Σ∗ of the Schwinger-Dyson equations. 
+
+A μ 
+
+> 2
+> β
+
+= 2βμ lim  
+
+> τ→0+
+
+∂τ G∗(τ ) . (57) This gives an expression for the integral factor in terms of the solution of the Schwinger-Dyson equation. Using the Galitski-Migdal-Koltun sum rule, this factor can be related to the average energy: 
+
+A μ 
+
+> 2
+> β
+
+= 2βq N μ ⟨H⟩ . (58) It is straightforward to see that these results are consistent in the appropriate limits. In particular, we find that for μ = 2, the Eqns. (52-53) reduce exactly to the Gaussian SYK result [15]. For μ = 0, the theory becomes free, as is also expected from the action itself, which becomes a constant. 13 SciPost Physics Submission  
+
+> (a) (b)
+
+Figure 3: Numerical solution of the Schwinger-Dyson equations (52-53): the Green function G(θ = 2πτ β ) as a function of μ (a) and inverse temperature β (b), 
+
+J = 1. Left, (a): G(θ) tends towards the free theory solution (independent of β)for any β as μ decreases. The red curve is the Gaussian SYK result. Right, (b): 
+
+G(θ) changes strongly with β for μ close to 2. Away from μ = 2 the β-dependence of G is weaker. The Schwinger-Dyson (SD) equations Eqns. (54-55) can be solved numerically. This is achieved by transforming Eqn. (54) to the frequency domain through discrete Fourier transform at Matsubara frequency ωn = 2πβ (n + 12 ). An inverse transform gives us G(τ )through which we can evaluate Σ( τ ) using Eqn. (55). This iteration is performed recur-sively until the solution converges. We used an initial choice Gin (τ ) = 12 sgn( τ ), corre-sponding to the free theory, and computed G(τ ), Σ( τ ) via the above recursive algorithm. The numerical results for the solution of the Schwinger-Dyson equations are presented in Fig. 3. The results in Fig. 3 indicate the the solution approaches a free theory as μ
+
+decreases. Similarly, the inverse temperature β, which controls the effective interaction strength of the theory, also takes the model closer to a free theory as it decreases. 
+
+4.1 Large −q solution 
+
+Inspired by the Gaussian SYK, where analytical results are derived in the large-q limit, we present the large-q solution the SD equations Eqn. (54-55). We start with the ansatz [15], motivated by the Gaussian SYK: 
+
+G(τ ) = 12 sgn( τ )eg(τ )/(q−1) (59) Inserting this ansatz into the equation (54), the following Liouville equation is obtained 
+
+∂2
+
+> τ
+
+ 12q sgn( τ )g(τ )
+
+
+
+= μJ 2
+
+2q sgn( τ )eg(τ )
+
+ βJ 2
+
+2q
+
+Z β
+
+> 0
+
+dτ e g(τ )q/ (q−1) 
+
+ μ 
+
+> 2−1
+
+(60) The integral on the RHS is τ -independent, and can be expressed via the β-dependent constant Aβ (57). Therefore the overall equations are of the Liouville type, and can be written as 
+
+∂2
+
+> τ
+
+ 12q sgn( τ )g(τ )
+
+
+
+= μJ 2A μ 
+
+> 2−1
+> β
+
+2q sgn( τ )eg(τ ) , (61) and are solved by the usual general form of the solution 
+
+eg(τ ) = c2
+
+K2[sin( c(|τ | + τ0))] 2 . (62) 14 SciPost Physics Submission 
+
+Figure 4: Solution ν (63) as a function of J a and J b. The non-trivial dependence of ν on μ present on the plot vs. J a weakens, e.g. different curves almost collapse, on the plot vs. J a.Using the boundary conditions on the thermal circle G∗(0) = G∗(β) and introducing the parameter ν defined via c = πν/β and τ0 = β(1 − ν)/2ν, we obtain the following constraint equations for ν and K in terms of β and Jμq 
+
+ β2J2
+
+2q
+
+ μ
+
+> 2
+
+=
+
+ πν 
+
+cos( πν/ 2) 
+
+2  πν 
+
+sin( πν )
+
+ μ 
+
+> 2−1
+
+,Kμ = Jμ(πν ) μ 
+
+> 2−1
+
+2 qμ 
+
+> 2
+
+(2 tan( πν/ 2)) μ  
+
+> 2−1
+
+. (63) For μ = 2, it reduces to the condition βK = πν  
+
+> cos( πν/ 2)
+
+, fixing Kμ=2 = 
+
+> √qJ
+> 2q−12
+
+. In that limit, 
+
+ν = 1 corresponds to βK → ∞ and ν = 0 corresponds to βK = 0. For μ < 2, the LHS corresponds to the effective interaction strength raised to the power μ, and the RHS corresponds to the generalization of πν/ cos( πν/ 2) raised to power μ. It is interesting to note that for any 0 < μ ≤ 2, the limit ν → 0 (on the LHS) goes as 2 1− μ 
+
+> 2
+
+π2ν2 and therefore converges to 0. Hence ν = 0 corresponds to the free theory for any μ ∈ (0 , 2]. Similarly as ν → 1, the LHS behaves as π μ 
+
+> 2−1
+
+(1 − ν)−2(4 ν + μ(1 − ν2)). This is divergent and corresponds to a theory with divergent effective interaction strength as ν → 1 for 
+
+μ ∈ (0 , 2]. The special case μ = 0 forces ν = 0 in Eqn. (63), leading to g(τ ) = 0 and thus 
+
+G(τ ) = 12 sgn( τ ) i.e. the free theory. In order to draw a close analogy to the Gaussian SYK, we define the effective interaction strength Jμ = q1/μ J/ 2 q−12 allowing us to write the Eqn. (63) as 
+
+r μ
+
+2 μ
+
+> 2
+
+(βJμ) μ 
+
+> 2
+
+=
+
+ πν 
+
+cos( πν/ 2) 
+
+  πν 
+
+sin( πν )
+
+ μ−24
+
+. (64) This expression highlights the similarities and differences with the Gaussian SYK. We present the solution of Eqn. (64) in Fig. 4 by as a function of J a = βJμ and J b =15 SciPost Physics Submission 
+
+Figure 5: The scaling of ν (63) with β (left) and βμ/ 2 (right) vs β and J b ∼ βμ/ 2.A nearly perfect collapse is observed for the plot of ν/β ν/ 2 vs J b. The solid black line J is the limit lim β→0 ν/β for the Gaussian SYK. (βJμ)μ/ 2 = J μ/ 2 
+
+> a
+
+for different μ. Using this, we find the following expression for eg(τ )
+
+eg(τ ) =
+
+ cos   πν 
+
+> 2
+
+
+
+cos 
+
+
+
+πν 
+
+ 12 − |τ |
+
+> β
+
+ 
+
+> 2
+
+, (65) where the parameter ν is given by the solution of Eqn. (64). For the Greens’ function (65), the analytical continuation to real time is achieved by replacing |τ | by β 
+
+> 2
+
++ it . This gives us 
+
+eg(t) = cos 2( πν  
+
+> 2
+
+)cosh 2  πνt β
+
+ . (66) In the large-q limit, we can approximate eg(t)/(q−1) by 1 + g(t) 
+
+> q
+
++ · · · . This allows us to express the large-q Green’s function as 
+
+GR(t) = 12 θ(t) + 1
+
+q ln 
+
+
+
+sech 
+
+ πνt β
+
+ 
+
++ · · · . (67) This result differs from the corresponding Gaussian SYK Green’s function due to implicit dependence of ν on μ. Therefore the object of interest is the scaling of ν with μ for a fixed β. To analyze this, we first consider the related problem of the scaling of ν with β
+
+for fixed μ shown in Fig. 5. In particular this tells us about the expected behaviour of the theory in the infinite temperature limit. These results indicate that ν/β diverges as β → 0 for μ < 2 (as a function of both β
+
+and J b) while ν/β μ/ 2 converges to a constant in the same limit as a function of both β and Jb. To see this behaviour from the constraint equation (64), we consider the derivative 
+
+∂ν/∂β . It is straightforward to see that ∂ν/∂β is a positive bounded quantity for all 16 SciPost Physics Submission 
+
+ν ∈ [0 , 1] and all 0 < μ < 2. Thus ν increases monotonically with βin agreement with numerical results in Fig. 4. Additionally, the saturation of ν/β μ/ 2 for small β can also be seen by evaluating ∂(νβ −η)/∂β in the limit β → 0 for some real η. In the small μ limit, we find that 
+
+β ∂(νβ −η)
+
+∂β −−−→
+
+> β→0
+
+ μ
+
+2 − η
+
+
+
+ν1− 2ημ + · · · . (68) This converges for η ≥ μ 
+
+> 2
+
+(since ν → 0 as β → 0), and vanishes particularly fast for η = μ/ 2due to the leading order term being 0. This explains the scaling behaviour observed in Fig. 5. 
+
+4.2 The Infrared Regime 
+
+The SYK model is known to feature emergent symmetries in the infrared regime, which is achieved at strong interaction strength or large time-scales [15]. In this section, we investigate the properties of LSYK in the same regime and discuss the related symmetries and spontaneous symmetry breaking. Let us recall that the large −N effective action for LSYK is given by 
+
+Sb,on-shell 
+
+N = − 12 log[det( ∂τ − Σ)] − 12q
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′)
+
+ μ
+
+> 2
+
++ 12
+
+Z
+
+dτ dτ ′ΣG . (69) From this, we obtain the Schwinger-Dyson equations (52-53). In the limit τ ≫ J−μ
+
+(strong coupling limit), the derivative term ∂τ can be ignored and the equations become invariant under reparameterization τ → f (τ ) with a conformal dimension ∆ = 1 /q . The L´ evy contribution A μ  
+
+> 2−1
+> β
+
+is also manifestly invariant under the same reparameterization. This result is identical to that of Gaussian SYK. The conformal ans¨ atze [15] for both finite-temperature, first expression, and infinite-temperature ( β → 0) , second expression read: 
+
+Gc,β (τ ) = b
+
+ πβ sin 
+
+ πτ β
+
+
+
+> 2∆
+
+sgn( τ ) , Gc(τ ) = b
+
+|τ |2∆ sgn( τ ) . (70) This ansatz spontaneously breaks the reparameterziation symmetry down to SL (2 , R ). The finite and infinite temperatures solutions can be connected by the reparameterisation 
+
+τ → f (τ ) = tan 
+
+ πτ β
+
+
+
+. The conformal self-energy similarly has the form Σc,β (τ ) = μ
+
+2 sgn( τ )J2A μ 
+
+> 2−1
+> β
+
+bq−1π2∆( q−1) 
+
+
+
+β sin 
+
+ πτ β
+
+ 2∆( q−1) , Σc(τ ) = μ
+
+2 J2A μ 
+
+> 2−10
+
+bq−1
+
+|τ |2∆( q−1) sgn( τ ) .
+
+(71) To fix the coefficient b, we evaluate the relation R dτ ′Σ( τ1, τ ′)G(τ ′, τ 2) = −δ(τ1 − τ2), which follows from Eqn. (52) by ignoring the ∂τ term. In Fourier space this becomes simply ˜G(ω) ˜Σ( ω) = −1. We compute ˜G(ω), ˜Σ( ω) for the Matsubara frequencies on the 17 SciPost Physics Submission 
+
+thermal circle, ωn = 2πβ (n + 1 /2): ˜G(ωn) = b
+
+Z β
+
+> 0
+
+dτ
+
+ πβ sin 
+
+ πτ β
+
+
+
+> 2∆
+
+eιω nτ
+
+= 
+
+> ωn>0
+
+b
+
+4∆eiπ ∆π2∆ β1−2∆  −1 + ei(2 π∆+ βω n) Γ
+
+
+
+∆ + βω n
+
+> 2π
+
+
+
+(−1 + e4iπ ∆) Γ(2∆)Γ 
+
+
+
+−∆ + βω n 
+
+> 2π
+
++ 1 
+
+
+
+= iπb csc( π∆) 
+
+ 2πβ
+
+2∆ −1 Γ
+
+
+
+∆ + βω n
+
+> 2π
+
+
+
+Γ(2∆)Γ 
+
+
+
+1 − ∆ + βω n
+
+> 2π
+
+ . (72) Using Eqn. (72), we can also determine ˜Σ( ω) by replacing ∆ by ∆( q − 1) and the appro-priate additional factors 4. Using the conformal constraint ˜G(ω) ˜Σ( ω) = −1, we obtain the following relation for b:
+
+bq = 2
+
+πμJ 2
+
+ 12 − 1
+
+q
+
+
+
+tan 
+
+ πq
+
+
+
+A1− μ 
+
+> 2
+> β
+
+. (73) The primary difference from the usual Gaussian SYK case is the factor of A1− μ 
+
+> 2
+> β
+
+, which vanishes for μ = 2. At first glance, this makes the coefficient b dependent on β: However, we can use the conformal solution to evaluate Aβ by analytic continuation, producing the following result: 
+
+Aβ = J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gqc (τ, τ ′) = J2bqπ
+
+Z π
+
+> 0
+
+dx
+
+sin 2(x) . (74) Naturally, this expression is divergent owing to the integration from 0 to β: the conformal solution is invalid at the endpoints. Denoting the divergent integral by κ, we can write 
+
+Aβ = J2bqκ, and rewrite (73) in a β-independent form: 
+
+b qμ  
+
+> 2
+
+= 2
+
+μπJ μ
+
+ 12 − 1
+
+q
+
+
+
+tan 
+
+ πq
+
+
+
+κ1− μ 
+
+> 2
+
+, (75) This result reduces to the Gaussian SYK relation for μ = 2. We note that the divergence 
+
+κ can be controlled under appropriate regularization: We return to the Schwinger-Dyson equations Eqn. (52-53), where we focus on the coefficient of Gq−1 in the equation for Σ. The conformal solution is valid in the regime where |Σ( iω n)| ≫ | ωn|, which gives us the following lower bound on the timescale |τ − τ ′| for the IR regime 
+
+|τ − τ ′| ≫ 1
+
+J
+
+q μ 
+
+> 2
+
+A μ−24
+
+> β
+
+≡ ξ . (76) Using this limit, we can write a self-consistency equation for Aβ
+
+Aβ = bqJ2β
+
+Z β
+
+> 0
+
+dτ
+
+ πβ sin 
+
+ πτ β
+
+ 
+
+> 2
+> ξ≪| τ|∼ ϵ≪1
+
+−−−−−−−→ bqJ2β
+
+Z βξ
+
+dϵϵ2 ∼ bqJ2βξ , (77) where we have kept the UV cutoff term ξ. Inserting the expression for bq from Eqn. (73) (and writing bq as bq = cq 
+
+> J2
+
+A1− μ 
+
+> 2
+> β
+
+, introducing the factor cq for simplicity) we have the 
+
+> 4Note that the integral of Σ is divergent and so the result has to be obtained via an analytic continuation
+
+18 SciPost Physics Submission J−1 β          
+
+> UV Conformal window
+> G(τ)∼ | τ|−2∆
+> IR
+> Gaussian SYK
+> J−1
+> β2−μ
+> 2+ μβ
+> UV Conformal window
+> G(τ)∼ | τ|−2∆
+> IR
+> Lévy SYK
+> shrinks
+> Extends
+
+Figure 6: Schematic representation of the shrinking of the conformal window in the L´ evy SYK model due to L´ evy disorder. following temperature dependent scaling of Aβ and the corresponding β− dependence of the UV cutoff valid for large β and μ > 0: 
+
+Aβ ∼ β 4
+
+> μ+2
+
+
+
+cqJ
+
+r μ
+
+2
+
+ 4
+
+> μ+2
+
+=⇒ ξ ∼ β 2−μ 
+
+> 2+ μ
+
+. (78) The case of μ = 0 is trivial. This cutoff implies a shrinking conformal window (for μ < 2) for L´ evy SYK, as presented schematically in Fig. 6. With this β−dependence of the UV cutoff, we can consider fluctuations around the conformal saddle and construct the effective theory of reparmeterizations. The theory of reparametrization is one of the remarkable features of the Sachdev-Ye-Kitaev model [15], which is the primary reason for the near-conformal limit of the SYK model being dual to a Jackiw–Teitelboim gravity in 1 + 1 dimensions. The essential idea is to study the effect of reparameterization τ → f (τ ) on the full effective action Seff = N I eff 
+
+close to the conformal saddles Gc, Σc.The last two terms in Eqn. (69) are reparameterization invariant. The only non-trivial contribution coming from reparameterization is from the log det( ∂τ − Σ) = Tr log( ∂τ − Σ) term. Let us denote the reparameterized G, Σ fields as 
+
+Gf = [ f ′(τ1)f ′(τ2)] ∆Gc(f (τ1), f (τ2)) , Σf = [ f ′(τ1)f ′(τ2)] ∆( q−1) Σc(f (τ1), f (τ2)) . (79) Here Gc, Σc are the finite-temperature conformal solutions Eqn. (70)-(71) with SL (2 , R )invariance. The action Seff is evaluated at Σ f , G f . To extract the reparameterization-dependent part, consider the kinetic part of the action. 
+
+Sf = − N
+
+2 Tr log( ∂τ − Σf ) = − N
+
+2 Tr log( −Σf ) − N
+
+2 Tr log 
+
+
+
+1 − Σ−1 
+
+> f
+
+∂τ
+
+
+
+. (80) Here the first term is also reparameterization invariant. The non-trivial contribution comes from the second term. Tr log 
+
+
+
+1 − Σ−1 
+
+> f
+
+∂τ
+
+
+
+= −Tr 
+
+
+
+Σ−1 
+
+> f
+
+∂τ
+
+| {z }
+
+> =0
+
++ 12 Tr 
+
+
+
+Σ−1 
+
+> f
+
+∂τ Σ−1 
+
+> f
+
+∂τ
+
+
+
++ · · · . (81) We have to evaluate the reparameterization τ → f (τ ) of Σ −1, for which we use the condition R dτ3Σ−1(τ1, τ 3)Σ( τ3, τ 2) ∼ δ(τ1 − τ2). Using the conformal solution, we find that Σ −1 
+
+> c
+
+∝ sgn( τ )|τ |−2∆ where ∆ = 1 /q . Thus, we now have to evaluate the derivative 
+
+∂τ1 Σ−1 
+
+> f
+
+(τ1, τ 2). To capture the UV effects, we define 5 τ = τ1+τ2 
+
+> 2
+
+and ϵ = τ1 − τ2. We     
+
+> 5The translation invariance G(τ1, τ 2) = G(τ1−τ2) is broken by the reparameterization.
+
+19 SciPost Physics Submission 
+
+perform the expansion ϵ. This is evaluated as 
+
+∂τ1,2 Σ−1 
+
+> f
+
+(τ1, τ 2) = 2
+
+μJ 2B μ  
+
+> 2−1
+> β
+
+bq−1
+
+ 12
+
+∂∂τ ± ∂∂ϵ 
+
+ (f ′(τ + ϵ/ 2) f ′(τ − ϵ/ 2)) ∆
+
+
+
+β sin 
+
+h πβ (f (τ + ϵ/ 2) − f (τ − ϵ/ 2)) 
+
+i 2∆ 
+
+= 2
+
+μJ 2B μ  
+
+> 2−1
+> β
+
+bq−1
+
+ 12
+
+∂∂τ ± ∂∂ϵ 
+
+ 1
+
+ϵ2∆ 
+
+
+
+1 + ∆ϵ2
+
+6 {f, τ } + · · · 
+
+
+
+. (82) This can then be expanded to leading powers of ϵ to give the final result 
+
+∂τ1 Σ−1 
+
+> f
+
+(τ1, τ 2)∂τ2 Σ−1 
+
+> f
+
+(τ2, τ 1) ∼ 8γ2b2−2q
+
+μ2J4Bμ−2
+
+> β
+
+1
+
+ϵ2(2∆+1) 
+
+
+
+1 − (1 − ∆) 2ϵ2
+
+62 {f, τ } + · · · 
+
+
+
+. (83) Integrating this over d τ dϵ and using the same cutoff ξ, we note that the terms scale as 
+
+Z
+
+dτ1dτ2∂τ1 Σ−1 
+
+> f
+
+(τ1, τ 2)∂τ2 Σ−1 
+
+> f
+
+(τ2, τ 1)
+
+∼ (# 1)β 2μμ+2 +o(1 /q ) + (# 2)βo(1 /q ) + (# 3)β− 2μμ+2 +o(1 /q )
+
+| {z }    
+
+> ∼β2−μ
+> 2+ μR{f,τ }dτ
+
++ · · · , (84) where we have corrections of order 1 /q (= ∆) in the exponent. The coefficients, which are 
+
+β−independent are simply denoted by (# i). We also indicate the term that arises from the the Schwarzian and use the thermodynamic reparameterization f (τ ) = tan( πτ /β ) to evaluate its’ β−contribution. The 1 /q corrections will disappear in the large −q limit, as will be demonstrated by the scaling of the large −q thermodynamics. In particular, we note that the reparametrization action has the identical analytical form as the Gaussian case. The difference is in the overall factor (that we write as αS )depends on the temperature β, giving the result 
+
+Sf ∼ − N α S (μ, q, β )
+
+J μ
+
+Z
+
+dτ {f (τ ), τ } . (85) The behaviour of the factor αS can be determined numerically from the saddle solutions 
+
+G∗, Σ∗. In a related direction, we can consider the β−contributions arising from the other terms in the action. The second and third terms R ΣG and ( J2 R Gq) μ 
+
+> 2
+
+give the same β−dependence which can be computed by using the reparameterized Green’s func-tion Gf (τ1, τ 2) and expanding in orders of ϵ. Performing that expansion, we recover the expansion in β
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ1dτ2Gqf (τ1, τ 2)
+
+ μ
+
+> 2
+
+∼ (# 1)β 2μμ+2 + (# 2)β0 + (# 3)β− 2μμ+2 
+
+| {z }    
+
+> ∼β2−μ
+> 2+ μR{f,τ }dτ
+
++ · · · , (86) where we have indicated the Schwarzian contribution, which agrees with the Pfaffian term up to 1 /q corrections. Thus, the thermodynamic expansion of the free energy, in contrast with Gaussian SYK, is given by 
+
+−βF N ∼ (# 1)β 2μμ+2 + (# 2) + (# 3)β− 2μμ+2 + · · · + O(1 /q ) . (87) This scaling of the free energy (and resulting scaling of the thermodynamic energy, entropy etc.) will be investigated in further detail in Sec. 6. 20 SciPost Physics Submission 
+
+# 5 Chaos exponents at large-q
+
+The 2 − point Greens’ function GR(t) encodes information about the growth of operators (here, Majorana fermions ψi). This is extracted from the Krylov representation of operator growth [11]. It is known that for the SYK model with Green’s function of the form Eqn. 67 the Lanczos coefficients are given by 
+
+bn =
+
+( πν β
+
+p2/q + O(1 /q ) n = 1 
+
+> πν β
+
+pn(n − 1) + O(1 /q ) n > 1 . (88) Asymptotic linear growth of these coefficients bn ∼ αn corresponds to chaotic dynam-ics [11]. For such Lanczos coefficients, the quantity α = πν/β controls the rate at which 
+
+bn grows. Furthermore, the Krylov complexity of the model endowed with such Lanczos coefficients grows exponentially with the exponent 2 α, i.e. CK (t) ∼ e2αt . The analysis of quantum chaos in this model then reduces to the analysis of πν (ν, β )/β . From Eqn. (68) and Fig. 5, we note that for small βν(μ, β ) ∼ β μ 
+
+> 2
+
+, β ≪ 1 (89) Therefore lim β→0 ν/β → ∞ for any μ < 2. For finite β, we can solve Eqn (63) to determine 
+
+ν(μ, β ). The phase diagram that emerges is presented in Fig. 7 for q = 4. For the SYK model, q = 4 is a reasonably good approximation to the large −q result. We use the large −q consistency equations to solve for ν, where q does not qualitatively modify the properties of ν(μ, β ). For any fixed β > 0, the limit μ → 0 is not chaotic since ν → 0. 
+
+Figure 7: The dependence of ν(β, μ ) on the parameters β and μ is studied. In (a) the magnitude of ν is shown as a function of ν and β. In (b) the sign of the rate ∂ν/∂μ is shown (for fixed β) indicating where it increases/decreases with increasing μ. Recall that ν ∈ [0 , 1], corresponding to β ∈ [0 , ∞) for any μ.Thus α → 0, as expected from Eqn. (53) where μ → 0 corresponds to a free theory. This tells us that for the Green’s function (and equivalently for the growth exponent α), the limit μ → 0 and β → 0 do not commute lim  
+
+> μ→0
+
+lim  
+
+> β→0
+
+GR(t)̸ = lim  
+
+> β→0
+
+lim  
+
+> μ→0
+
+GR(t) . (90) The same is, in fact, true for the action Eqn. (48). The difference between the two limits in the action is of O(1). 21 SciPost Physics Submission 
+
+The operator growth is also captured by the 4 − point function of the Majorana fermions. It is known that this is given by [15] 
+
+F (τ1, τ 2, τ 3, τ 4) = 1
+
+N 2
+
+> N
+
+X
+
+> i,j =1
+
+⟨T ψ i(τ1)ψi(τ2)ψj (τ3)ψj (τ4)⟩ . (91) where T is the time-ordering operator. This can be written in the following form 
+
+F (τ1, τ 2, τ 3, τ 4) = ⟨G(τ1, τ 2)G(τ3, τ 4)⟩G, Σ = G∗(τ1, τ 2)G∗(τ3, τ 4) + O(1 /N ) (92) For the LSYK, the kernel for the ladder construction of the 4 −point function is given by 
+
+K = ( G∗ ◦ G∗)( δ2Ieff /δG 2)|G=G∗ , which is formally identical to Gaussian SYK. The main difference from Gaussian SYK occurs for the variational derivative of Ieff which gives a 
+
+μ− dependent result. This is written as 6
+
+K(τ1, τ 2; τ3, τ 4) = G(τ12 )G(τ34 )G(τ13 ) , (93) where we have the following function G(τ13 ) as 
+
+G(τ13 ) = (q − 1) μ
+
+2 J2Gq−2(τ13 )
+
+
+
+J2
+
+Z
+
+dτ dτ ′Gq(τ, τ ′)
+
+ μ 
+
+> 2−1
+
+×
+
+
+
+1 + q(μ − 2) 2( q − 1) 
+
+Gq(τ13 )
+
+R dτ dτ ′Gq(τ, τ ′)
+
+
+
+. (94) The function G(τ13 ) reduces to the Gaussian SYK case for μ = 2 and vanishes for μ = 0. The 1 /N correction is constructed by the ladder diagram approach and sums to (1 −K)−1.Without having to explicitly diagonalize the kernel, it is possible to investigate the chaos exponent in the large −q limit. Since the ladder diagram construction remains unchanged from the Gaussian SYK, we directly use the result [15] that the large −q exponent can be extracted from the real-time retarded kernel KR = GRGRGlr by finding its’ eigenfunc-tion(s) F (t1, t 2) and using the ansatz F (t1, t 2) ∼ eλL(t1+t2)/2f (t12 ). To leading order, we have GR(t) ∼ θ(t) and 
+
+Glr (t) = (q − 1) μJ 2
+
+2q−1
+
+cos 2(πν/ 2) cosh 2(πνt/β )
+
+ J2β2 sin( πν )2q−2πν 
+
+ μ 
+
+> 2−1
+
+×
+
+
+
+1 + μ − 22
+
+πν cot( πν/ 2) 2β2 cosh 2(πνt/β )
+
+
+
+. (95) We have to solve the eigenvalue equation F (t1, t 2) = R dt3dt4KR(t1, · · · , t 4)F (t1, t 2) with the exponential ansatz. This leads to the following differential equation satisfied by f (t1 −
+
+t2) ≡ f (x). 
+
+∂2
+
+> x
+
+f + s1
+
+cosh 2(x)
+
+
+
+1 + s2
+
+cosh 2(x)
+
+
+
+f (x) = 
+
+ λLβ
+
+2πν 
+
+2
+
+f (x) , (96) where the constants s1,2 are given by 
+
+s1 = β2(q − 1) μJ 2 cos 2(πν/ 2) 2q−1π2ν2
+
+ J2β2 sin( πν )2q−2πν 
+
+ μ 
+
+> 2−1
+
+= 2 μ−1 , (97) 
+
+s2 = 2 − μ
+
+4β2
+
+πν 
+
+tan( πν/ 2) . (98)       
+
+> 6Here we define τij ≡τi−τj.
+
+22 SciPost Physics Submission 
+
+Figure 8: The dependence of γ(β, μ ) and λL(β/ 2π) on the parameters β and μ
+
+is studied. In (a), we highlight the difference between λL and 2 α, in other words the non-saturation of the Q− complexity bound. In (b) we compute the OTOC exponent λL in units of 2 π/β .In the last equality for s1, we use Eqn. (63). Note that for μ = 2, s2 = 0 and s1 = 2, which makes the differential equation a P¨ oschl-Teller type Schr¨ odinger equation. This has a single bound state with eigenvalue 1, which fixes λL = 2 πν/β . In the presence of the 
+
+s2, the differential equation is more involved. The problem then reduces to the analysis of eigenvalues of a Schr¨ odinger operator. This is discessed further in Appendix C. Given the ground state eigenvalue Emin ≡ − γ2(μ, β ) of the LHS of Eqn. (96), then the chaos exponent is given by 
+
+λL ≈ 2πν β γ(μ, β ) = 2πν β
+
+p−Emin . (99) For μ = 2 .0, it is known that γ(β, 2) = 1. The expression for Emin is given by 
+
+Emin ≈
+
+(
+
+−ϵ(s1)(1 − s2) s2 < 1/2
+
+−ϵ(s1)/4s2 s2 ≥ 1/2 . (100) where ϵ(x) = (1 −√1+4 x)2 
+
+> 4
+
+. We emphasize that this is not an exact solution, but simply an approximation. However, this approximation agrees with the numerical result Emin to a high degree of accuracy. At this stage, we identify a key difference between operator growth in Gaussian and L´ evy SYK. For Gaussian SYK, it is observed that λL = 2 α. This is one of the hints of maximal chaos, since the Q− complexity bound [11] implies that λL ≤ 2α. For L´ evy SYK, we indeed find that 
+
+λL = 2πν β
+
+p−Emin ≤ 2πν β = 2 α . (101) The equality is saturated only when √−Emin = 1, which happens only for μ = 2. Here 
+
+Emin (μ, β ) is given by Eqn. (100). We present the phase diagrams of λL(β/ 2π) and γ(β, μ )in Fig. 8. In conclusion, we note that the Krylov exponent behaves as 2 α = 2 πν/β , where the effect of the L´ evy factor is implicit in the dependence of ν on μ and β. On the other hand, the Lyapunov exponent λL is further affected by the presence of the additional factor 
+
+γ = √−Emin ≤ 1 which gets suppressed further as μ → 0. Thus, we can recapitulate the results below (for finite β). 
+
+μ = 0 λL = 2 α = 0 Non-chaotic 
+
+μ = 2 λL = 2 α Maximal chaos 
+
+μ ∈ (0 , 2) λL < 2α Non-maximal chaos 23 SciPost Physics Submission 
+
+At large −β, the parameter ν → 1, giving 2 α → 2πβ and λL → 2π√−Emin  
+
+> β
+
+. The large −β
+
+expansion of ν presents corrections to the chaos exponent λL. This follows from expanding Eqn. (64). To the first few orders, the expansion behaves as 
+
+ν ∼ 1 − r1
+
+β 2μ
+
+> 2+ μ
+
++ r2
+
+β 4μ
+
+> 2+ μ
+
++ · · · . (102) Together with the previously studied scaling at small β in Eqn. (68), we can summarise the small and large −β behaviour of ν as follows 
+
+ν ∼
+
+
+
+(#) βμ/ 2 , β ≪ 11 − (#)  
+
+> β2μμ+2
+
+, β ≫ 1 (103) Similarly, using this we can determine the large −β scaling of the Lyapunov exponent λL,which behaves as 
+
+λL ∼ 2πβ 1 − (#) 
+
+β 2μμ+2 
+
+− · · · 
+
+!
+
+. (104) In the following sections, we investigate thermodynamic quantities governed by the saddle-point equation of LSYK. This scaling will control the low temperature equilibrium ther-modynamics of LSYK. 
+
+# 6 Thermodynamics 
+
+In order to compute thermodynamic quantities such as the thermal entropy or the free energy, we begin with the effective large −N action in Eqn. (48). The free energy F is defined as Ieff = βF N . Let us recall that the full Ieff can be written as 
+
+Ieff = − 12 log[det( ∂τ − Σ)] − 12q
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′)
+
+ μ
+
+> 2
+
++ 12
+
+Z
+
+dτ dτ ′ΣG . (105) Following the usual approach [15], we take a derivative of Ieff with respect to Jμ ≡ J μ 
+
+> 2
+
+.Since apriori Σ , G are independent of J, the only explicit dependence comes from the term proportional to Jμ, i.e. the second term in Eqn. (105). This gives us the equation 
+
+Jμ∂Jμ
+
+
+
+− βF N
+
+
+
+= Jμ∂Jμ
+
+J2
+
+> μ
+
+2q
+
+Z β
+
+> 0
+
+dτ dτ ′Gq(τ, τ ′)
+
+ μ
+
+> 2
+
+!
+
+. (106) Using time translation invariance we can perform one of the integrals over Gq. Using the solution of the SD equations G∗ the RHS can then be evaluated. This gives us a differential equation for F , which is then solved. To rewrite the LHS in a useful manner, the following substitution proves instrumental 
+
+Jμ∂Jμ = Jμ
+
+∂(βK )μ/ 2
+
+∂J μ
+
+∂ν ∂(βK )μ/ 2 ∂ν . (107) These equations can be solved exactly in the large −q limit, as we demonstrate in the following subsections. We also compare them with direct numerical evaluation of thermo-dynamic quantities for finite −q.24 SciPost Physics Submission 
+
+Figure 9: (Left) The behaviour of thermodynamic entropy per fermion is pre-sented as a function of Tμ = ( βJμ)−1. (Right) The behaviour of the specific heat capacity per fermion per unit temperature C(T )/T where C(T ) = CT /N , as a function of T = β−1 on the log − log scale, indicating the scaling behaviour. 
+
+6.1 Large −q
+
+Using the large −q solution of the SD equations, we obtain the relation 
+
+ν
+
+1 + πν  
+
+> 2
+
+tan   πν 
+
+> 2
+
+ ∂ν
+
+
+
+− βF N
+
+
+
+= βμ 
+
+4q lim  
+
+> τ→0+
+
+∂τ G∗(τ ) = πμν 
+
+2q2 tan 
+
+ πν 
+
+2
+
+
+
+. (108) This differs from Gaussian SYK result simply by the overall factor of μ. The solution of this differential equation is given by 
+
+− βF N = c1 + μπν 
+
+2q2
+
+
+
+tan 
+
+ πν 
+
+2
+
+
+
+− πν 
+
+4
+
+
+
+. (109) For a free theory, we expect that βF/N = ln(2) /2, and that fixes the constant c1 = ln(2) /2. Therefore the expression for the free energy is 
+
+− βF N = 12 ln(2) + μπν 
+
+2q2
+
+
+
+tan 
+
+ πν 
+
+2
+
+
+
+− πν 
+
+4
+
+
+
+. (110) As expected, at μ = 0, we recover the free theory and the Gaussian SYK result at μ = 2. The thermodynamic entropy per fermion is defined as ST 
+
+> N
+
+= (1 − β∂ β )( −βF/N ). This can be similarly evaluated to obtain the expression for the thermodynamic entropy 
+
+ST
+
+N = 12 ln(2) − μ
+
+2
+
+ πν 
+
+2q
+
+2
+
+− π(2 − μ)μν (πν + sin( πν )) tan   πν 
+
+> 2
+
+
+
+2q2(πν (μ cos( πν ) − 2) − (μ + 2) sin( πν )) . (111) In the μ = 2 case, the last term vanishes leaving the first two, which is the Gaussian SYK result. Conversely in the μ = 0 case all terms except the constant vanish, giving us the expected 12 ln(2) free theory result. The Eqn. (111) is evaluated as a function of Tμ = ( βJμ)−1 and presented in Fig. 9. From this figure, it becomes clear that as 
+
+Tμ → 0, the entropy tends to diverge for all μ < 2. However, this divergence is delayed for decreasing μ. Similarly, we can calculate the specific heat capacity CT 
+
+> N
+
+= TN 
+
+> dST
+> dT
+
+, which gives the following result 
+
+CT
+
+N = πμ 2ν sin 2   πν 
+
+> 2
+
+ csc 4(πν )2q2(−πμν cot( πν ) + μ + 2 πν csc( πν ) + 2) 3 C . (112) 25 SciPost Physics Submission 
+
+Here the function C has the expression 
+
+C =  3  μ2 − 4 − 2π2(( μ − 18) μ + 8) ν2 sin( πν ) + 8 π  μ2 + μ − 2 ν + 4 π3μν 3
+
+− 2π2(μ − 2)(5 μ + 4) ν2 sin(2 πν ) − (μ + 2)  2π2μν 2 + μ − 2 sin(3 πν )+ πν  (μ + 2) 2 − π2(μ(μ + 8) − 16) ν2 cos( πν )+ 4 πν  π2(μ − 3) μν 2 − 2μ(μ + 1) + 4  cos(2 πν )+ πν (πμν − μ − 2)( πμν + μ + 2) cos(3 πν ) , (113) which is a smooth function of ν, μ . At μ = 2, we find CT /N = 0, as expected from a free theory. This equation is evaluated and presented as a function of β−1 = T on the log − log scale in Fig. 9 (in terms of C(T ) ≡ CT /N ), which is appropriate to demonstrate the low temperature scaling behaviour of CT .
+
+6.2 Finite −q
+
+Aside from the large −q result, the analysis of the thermodynamic quantities as a function of β (or temperature) for finite −q is also discussed. For this, we begin by recalling the expression for the free energy, evaluated at the SD equation solutions G∗, Σ∗.log ZN = − 12 log[det( ∂τ − Σ)] − 12q
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq
+
+> ∗
+
+(τ, τ ′)
+
+ μ
+
+> 2
+
++ 12
+
+Z
+
+dτ dτ ′Σ∗G∗
+
+= − 12
+
+X
+
+> n
+
+log 
+
+
+
+−iω n − ˜Σ∗(ωn)
+
+
+
++ μq − 24q
+
+
+
+J2
+
+Z β
+
+> 0
+
+dτ dτ ′Gq
+
+> ∗
+
+(τ, τ ′)
+
+ μ
+
+> 2
+
+, (114) where the sum in the first term is over the Matsubara modes ωn. This can be evaluated numerically from the solution of the SD equations. For Gaussian SYK, the conformal solution and the Schwarzian action leads to the following low β expansion of log Z/N 
+
+log ZN μ=2 ∼ − βe 0 + s0 + 2πα 2
+
+> S
+
+β + · · · , (115) Numerically evaluating this using the SD equations, we can extract the behaviour of the coefficients e0, s 0, α S . . . , which will depend on μ. Furthermore, a similar expansion can be performed for the average energy per fermion, which is written as [16] 
+
+⟨H⟩
+
+N μ=2 ∼ e0 + aN T + c
+
+2 T 2 + c2T 3 + · · · , (116) where a/N is a vanishingly small coefficient and c = 4 πα 2 
+
+> S
+
+.In the L´ evy SYK, we expect modification in the β dependence. The primary modi-fication is straightforward to observe from the large −q expression(s) for −βF/N and by expanding Eqn. (64) for large −β. This gives the following expansion 
+
+ν ∼ 1 − #
+
+β 2μμ+2 
+
++ · · · , (117) which give us the following expansion for the partition function log Z/N = −βF/M 
+
+log ZN ∼ − β 2μμ+2 ˜e0 + ˜ s0 + ˜cβ 2μμ+2 
+
++ ˜c2
+
+β 4μμ+2 
+
+· · · (118) This agrees with the scaling observed from the reparameterization action in Eqn (87). Here we denote the coefficients by ˜ e0, ˜s0, ˜c . . . to distinguish them from the coefficients 26 SciPost Physics Submission 
+
+Figure 10: The behaviour of the average energy per fermion ⟨H⟩/N and log of partition function log Z/N is presented for different values of μ, by capturing their dependence (Top) on β−1 and (Bottom) on T 2μμ+2 = β− 2μμ+2 . The results here are for q = 4. in Eqn. (115). These coefficients also depend on μ, q . Similarly, we can compute the integral ( β R dτ G q)μ/ 2, which corresponds to the energy per fermion ⟨H⟩/N . This gives the following expansion 
+
+⟨H⟩
+
+N ∼ ˜e0β μ−2 
+
+> μ+2
+
++ ˜ aβ −1 + ˜ cβ −3μ−2 
+
+> μ+2
+
++ ˜ c2β −5μ−2 
+
+> μ+2
+
++ · · · . (119) Numerical results for ⟨H⟩/N and log Z/N are presented in Fig. 10 as a function of β−1
+
+and β−2μ/ (μ+2) for different values of μ. The behaviour of the coefficients ˜ e0, ˜s0, ˜c, ˜c2 is extracted from Eqn. (118) and presented in Fig. 11 by capturing their dependence on μ, q .Finally, we compute the specific heat C(T ) = T dS dT = 1 
+
+> Nd⟨H⟩
+> dT
+
+and observe its’ low temperature behaviour. From the β → 0 expansion of ⟨H⟩ and S, we expect the scaling of specific heat to behave as 
+
+C(T ) ∼ ˜c 4μμ + 2 T 2μμ+2 + ˜ e0
+
+ 2 − μ
+
+2 + μ
+
+
+
+T − 2μμ+2 + · · · . (120) This is observed for q = 4 in Fig. 12. In the limit T → 0, the L´ evy contribution T − 2μμ+2 
+
+dominates over the regular contribution T 2μμ+2 . However, the L´ evy contribution vanishes for μ = 2 and the regular contribution vanishes for μ = 0 due to the prefactors. The regular contribution gives the usual linear scaling at μ = 2. From the point of view of non-Fermi liquid theory, the ground state is exponentially degenerate i.e. S0̸ = 0. At finite but low temperature, the system explores an anomalously large portion of its state space, leading to sub-linear entropy growth ( S ∼ T ν , ν = 2μμ+1 <
+
+27 SciPost Physics Submission 
+
+Figure 11: The behaviour of the thermodynamic coefficients ˜ e0, ˜s0, ˜c and ˜ c2 from the log of partition function log Z/N is presented for different values of μ, by capturing their dependence (Left) on μ for different values of q and (Right) on q
+
+for different values of μ.
+
+Figure 12: The behaviour of the heat capacity per unit temperature is captured via (Left) its’ scaling with temperature T . (Right) The numerical scaling co-efficient for small T (denoted here by ˜Λ) is extracted and compared with the analytical expectation of −3μ−2 
+
+> μ+2
+
+.1). The effective low-energy description via the Schwarzian mode becomes increasingly rigid (indicated by the divergence of the coefficient of the Schwarzian for T → 0). The excitations cannot be described as quasiparticles since the specific heat diverges relative to the Fermi liquid expectation ( C/T → ∞ ), the spectral function is anomalous, and the system remains chaotic but with a suppressed scrambling amplitude. The parameter μ
+
+continuously tunes between the marginal Fermi liquid ( μ = 2) and a frozen phase ( μ → 0) where the ground state degeneracy dominates all thermodynamics. 
+
+6.3 Comments on the Bulk Dual 
+
+We comment on the holographic dual for L´ evy SYK under the AdS/CFT dictionary. To construct the gravity dual, we us first recall the following facts 
+
+• The Lyapnuov exponent satisfies the usual [34] bound on chaos. The sub-leading correction terms (at large −β) are different from Gaussian SYK and are given by 
+
+λL ∼ 2πβ 1 − (#) 
+
+β 2μμ+2 
+
+− · · · 
+
+!
+
+• The conformal theory in the deep IR regime has the same conformal dimension 28 SciPost Physics Submission 
+
+∆ = 1 /q as Gaussian SYK. However, the central charge depends on the temperature 
+
+β and scales as bq ∼ β2 
+
+> 2−μ
+> 2+ μ
+> 
+
+.
+
+• The Schwarzian action has the same form as the Gaussian SYK Sf ∼ C R dτ {f, τ },where the proportionality constant scales as C ∼ β 2−μ 
+
+> 2+ μ
+
+.
+
+• The leading order contribution to the free energy log Z/N appears is also modified log ZN ∼ − β 2μμ+2 ˜e0 + ˜ s0 + ˜cβ 2μμ+2 
+
++ ˜c2
+
+β 4μμ+2 
+
+· · · 
+
+The appearance of the Schwarzian in the near-IR expansion indicates that the theory is potentially holographic in nature. A general potential 2d dilaton theory has the following action [20], where the dilaton is represented by the field Φ. 
+
+I =
+
+Z
+
+> M
+
+√g(Φ R + V (Φ)) −
+
+Z
+
+> ∂M
+
+√hK . (121) The saddle equations for this action lead to the geometry R+V ′(Φ) = 0 and the dynamical equations ∇μ∇ν Φ − gμν ∇2Φ + gμν V (Φ) = 0. The solution for this general set of equations V (Φ) = −λ Φ(μ+2) /(2 μ) 0 < μ < 2
+
+T
+
+rh                       
+
+> 0
+> μ → 2, rh ∼ T
+> (JT / SYK)
+> μ= 1 ,rh∼T2/3
+> μ=12,rh∼T2/5
+> μ→0,rh∼const
+> (frozen)
+> decreasing  μ
+> High T: large rh
+> Low T: small rh
+> cool
+
+Figure 13: Schematic representation of the shrinking dual black hole picture of the LSYK model. is given by the metric d s2 = −f (Φ)d t2 + f −1(Φ)dΦ 2, where the dilaton is identified as an effective radial coordiante r = a 
+
+> 2
+
+ϕ and the metric component is f (Φ) = 4
+
+> a2
+
+R ΦΦh V ( ˜Φ)d ˜Φ. The lower bound Φ h corresponds to the radius of the black hole horizon in the dilaton gauge. Expanding near the horizon leads to the following thermodynamic relations 
+
+T = V (Φ h)2πa , S = Φh
+
+4GN
+
+, C = 14GN
+
+V (Φ h)
+
+V ′(Φ h) . (122) 29 SciPost Physics Submission 
+
+The Hawking temperature T , thermodynamic entropy S and specific heat C correspond to the thermodynamics of the black hole. From the Schwarzian theory, we recall that the coefficient of the Schwarzian [38] has the scaling C = CT ∼ T μ−2 
+
+> μ+2
+
+, which allows us to identify the following potential at the horizon Φ h
+
+V (Φ h) ∼ Φ 
+
+> μ+2 2μ
+> h
+
+. (123) The implication of this scaling for the black hole geometry is that the radius of the black hole Φ h depends upon the temperature of the boundary state (corresponding to the Hawk-ing temperature in the bulk) with a modified exponent Φh ∼ T 2μμ+2 . (124) This describes a black hole whose horizon depends weakly on the boundary theory tem-perature. See Fig. 13 for a schematic. The implication is that (at low temperatures), it requires higher temperatures for smaller μ to excite the black hole to a larger horizon. Developing a higher dimensional theory for this effective dilaton potential remains an open problem. Some potential theories could involve coupling with an operator O that scales with the radius as r(2 −μ)/(2 μ)O. This would have to be included in such a way that the IR correlator is not modified. Power law scaling of dilaton potentials are also common in hyperscaling-violating Lifschitz gravity theories [39, 40] arising from charged dilatonic black holes. Further evidence is required to establish the bulk theory rigorously, such as the full computation of the spectrum of LSYK and its’ entanglement profile (with com-parision with to the holographic entanglement [41]). A careful treatment of these aspects is beyond the scope of this work. 
+
+# 7 Conclusions 
+
+We solve for the equilibrium dynamics of the Sachdev-Ye-Kitaev model with L´ evy Stable disorder in limit of large number of fermions (large −N limit), providing a framework for analytically understanding effectively sparse SYK models. The model is controlled by a parameter μ ∈ [0 , 2] where μ = 0 corresponds to a free theory (no interactions) and μ = 2 corresponds to fully connected Gaussian SYK model. We develop a new method to extract effective dynamical correlators from formally divergent functions that are characteristic of L´ evy Stable distributions. We derive the Schwinger-Dyson equations for this model and solve them (a) numerically and (b) in the limit of large −q and (c) in the limit of strong coupling. We elucidate the phase diagram of the model. The model is found to be maximally chaotic in the μ = 2 point, free in the μ = 0 point and non-maximally chaotic for 0 < μ < 2. The chaoticity of the model in the intermediate parameter regime is quantified, by computing the chaos exponents for 2 − and 4 − point functions. Using the solution of the SD equations, we compute the equilibrium thermodynamic observables (entropy, average energy, free energy) for the model both analytically and numerically. We highlight the similarities and difference with Gaussian SYK, and comment on possible holographc dual. The model studied in this manuscript represents a non-trivial modification of the Sachdev-Ye-Kitaev model that gives rise to a chaotic →integrable crossover in the dy-namics of the model as well as temperature-modified thermodynamics. It serves, in an appropriate sense [1], as a solvable version of the sparse Sachdev-Ye-Kitaev model [27]. We emphasise that the model is purely integrable only at the point μ = 0, and therefore does not have a transition . A natural future direction is to develop such a model which 30 SciPost Physics Submission 
+
+remains solvable and demonstrates a chaotic transition. It also remains to be established whether the crossover in this model holds to higher orders in 1 /N . The thermodynamics observed in this model warrants further careful analysis, along the lines of holographic duality or non-Fermi liquid behaviour. These can be explored further by computing other holographic quantities such as entanglement, and comparing with bulk RT-surface cal-culation. Finally, several modifications of this model (coupled, dissipative, double-scaled etc.) promise interesting physics and warrant consideration. 
+
+# Acknowledgements 
+
+B.B. acknowledges financial support from the Luxembourg National Research Fund un-der the Grant No. C24/MS/18940482/STAOpen. W.E.S is supported by the CQT PhD scholarship. A.A. acknowledges the financial support from the Institute for Basic Science (IBS) in the Republic of Korea through the Project No. IBS-R024-D1. D. R. acknowl-edges FAPESP for the ICTP-SAIFR grant 2021/14335-0 and the Young Investigator grant 2023/11832-9. D.R. also acknowledges the Simons Foundation for the Targeted Grant to ICTP-SAIFR. 
+
+Author contributions A.A. and D.R. conceived the initial idea of mimicking the sparse SYK model with a L´ evy-like disorder. All the technical developments and results have been obtained, with equal contributions, by B.B. and W.E.S. All authors contributed to the writeup of the manuscript. 
+
+# A Alternative Description 
+
+In this section, we present an alternative description of the L´ evy SYK model. The eventual partition function is identical; however, the model can now be interpreted in terms of a regular Gaussian SYK. For this, we consider the Stochastic Representation of L´ evy Random Variables .
+
+Theorem (Stochastic Representation of L´ evy Distribution) .
+
+Consider a random variable X ∈ Lμ(η, γ, δ ) where μ is the stability index, γ ∈ R+ is the scale parameter, η ∈ [−1, 1] is the “skewness” parameter and δ ∈ R is a constant shift. Given this, let us construct the following 1. For ξ ∈ Z+, generate the following set of i.i.d random numbers {e1, e 2, e 3, . . . , e ξ}
+
+from the exponential distribution with unit rate (i.e. from the PDF P (X) =exp( −X)). 2. Evaluate the sum of these random numbers Γ ξ = Pξl=1 el.3. For ξ ∈ [1 , ∞), generate i.i.d random numbers Wξ from any distribution has finite moments ⟨| W |μ⟩ < ∞ (for μ̸ = 1) or ⟨| W | log |W |⟩ < ∞ (for μ = 1) . 4 Evaluate the following μ−dependent constant 
+
+kξ(μ) = 
+
+
+
+0 μ < 1D
+
+W1
+
+R |W1|/(ξ−1)  
+
+> |W1|/ξ
+
+x−2 sin( x)d x
+
+E
+
+μ = 1 
+
+− μμ−1 ⟨W1⟩ 1 < μ ≤ 231 SciPost Physics Submission + +   
+
+> lξ∼
+> √
+> Γ( ξ+2
+> μ)Γ( ξ)
+> Gaussian SYK
+
+Figure 14: Stochastic representation of L´ evy SYK model in terms a sum of infinite correlated Gaussian SYK. The Stochastic Representation theorem then implies the following result 
+
+> ∞
+
+X
+
+> ξ=1
+
+
+
+Γ−1/μ ξ Wξ − kξ(μ)
+
+ a.s. 
+
+−−→
+
+> r.v.
+
+(
+
+Lμ(η, γ, 0) ∀ μ̸ = 1 
+
+Lμ(η, γ, δ ) μ = 1 (125) where η = ⟨sign( W )|W |μ⟩⟨| W |μ⟩ and γμ = ⟨| W |μ⟩Nμ with Nμ = sin   πμ 
+
+> 2
+
+ Γ( μ) 
+
+> π
+
+and finally δ = −⟨ W log W ⟩.In other words, the theorem gives a recipe for constructing a L´ evy random variable from distributions which have finite moments. This is a realization of the Generalized Central Limit Theorem. Using this, we can rewrite the LSYK Hamiltonian as 
+
+H = X
+
+> I
+
+JI ΨI → X
+
+> I,ξ
+
+Γ−1/μ I,ξ WI,ξ ΨI , (126) which can now be used to evaluate the partition function. A schematic of this representa-tion is given in Fig. 14. The correlation length lξ is determined by l−2 
+
+> ξ
+
+∼ ⟨ Γ−1/μ ξ Γ−1/μ ξ′ ⟩ ≈ 
+
+Γ( ξ)−1Γ( ξ − 2 
+
+> μ
+
+) · · · . This let us write (after a rescaling) lξ ∼
+
+q
+
+Γ( ξ + 2 
+
+> μ
+
+)/Γ( ξ). The key point is to choose Wξ in such a way that the scale parameter γ coincides with the scale parameter of JI (which we denote by σ). It is most convenient to choose W to be Gaussian distributed with variance σW , which gives us the following relation 
+
+σμ = 2 μ 
+
+> 2
+
+σμW Γ( μ+1 2 )√π
+
+sin   μπ 
+
+> 2
+
+Γ( μ) =⇒ σW = sin   πμ 
+
+> 2
+
+Γ( μ)
+
+√π2 μ 
+
+> 2
+
+Γ( μ+1 2 )
+
+! 1
+
+> μ
+
+σ . (127) Using this, we can now write the partition function as 
+
+Z(β) = 
+
+Z
+
+Dψ exp 
+
+(Z β
+
+> 0
+
+dτ − 12
+
+X
+
+> i
+
+ψi∂τ ψi
+
+!) 
+
+exp 
+
+(
+
+−i⌊q/ 2⌋ X
+
+> I
+
+JI ΨI
+
+)
+
+=
+
+Z
+
+Dψ exp 
+
+(Z β
+
+> 0
+
+dτ − 12
+
+X
+
+> i
+
+ψi∂τ ψi
+
+!) 
+
+exp 
+
+−i⌊q/ 2⌋ X
+
+> I,ξ
+
+Γ−1/μ I,ξ WI,ξ ΨI
+
+ . (128) Here we note that the couplings are independent in the I index. However while WI,ξ is also independent in the ξ index, the Γ I,ξ are correlated with each other for different ξ
+
+values (for fixed I). The model can thus be interpreted in terms of a series of correlated Gaussian SYK models. To average the partition function in (128), we can first average 32 SciPost Physics Submission 
+
+over the i.i.d Gaussian random variables WI,ξ , which gives us the following result 
+
+⟨Z(β)⟩W = = 
+
+Z
+
+Dψ exp 
+
+(Z β
+
+> 0
+
+dτ − 12
+
+X
+
+> i
+
+ψi∂τ ψi
+
+!) 
+
+exp 
+
+
+
+σ2
+
+> W
+
+2
+
+X
+
+> I,ξ
+
+Γ−2/μ I,ξ V [GI ]
+
+ ,
+
+(129) where V [GI ] = 
+
+
+
+i⌊q/ 2⌋ R β 
+
+> 0
+
+dτ ΨI
+
+2
+
+. The next step is to average over the random variable 
+
+TI = P 
+
+> ξ
+
+Γ−2/μ I,ξ . Let the PDF of TI be denoted by f (TI ). Then we are required to perform the integral 
+
+⟨exp {vT I }⟩ TI =
+
+Z
+
+dTI f (TI ) exp {vT I }
+
+where v = σ2 
+
+> W
+> 2
+
+V [GI ]. Once again, we can use the stochastic representation (by setting 
+
+Wξ = 1), which tells us that TI is described by Lμ/ 2
+
+
+
+1, N −2/μ μ/ 2 , 0
+
+
+
+. As such, we are unable to perform the integral, since a closed-form expression is not known for the distribution of TI . The solution is to first perform a Wick rotation, setting β = −ik , which transforms 
+
+v → − v, allowing us to apply the results for the Laplace transform of L´ evy random variables. This is given as 
+
+e−sX 
+
+> X∼Lα(1 ,θ α,0)
+
+=
+
+(
+
+exp {− sec( πα/ 2)( θαs)α} α̸ = 1 exp {− 2θα 
+
+> π
+
+s log s} α = 1 (130) This allows us to evaluate 
+
+⟨exp {− vT I }⟩ TI ∼Lμ/ 2(1 ,N −2/μ μ/ 2 ,0) = exp 
+
+
+
+− sec( πμ/ 4) 
+
+Nμ/ 2
+
+vμ/ 2
+
+
+
+, (131) from which we can restore the original integral by rotating back by replacing k = iβ .Inserting the expression for v and σW in terms of σ leads to all terms canceling out, simply giving us exp {− (σ2V [GI ]) μ/ 2}. Therefore, we obtain the final action as 
+
+⟨Z(β)⟩W, Γ =
+
+Z
+
+Dψ exp 
+
+(Z β
+
+> 0
+
+dτ − 12
+
+X
+
+> i
+
+ψi∂τ ψi
+
+!) 
+
+exp 
+
+(
+
+− X
+
+> I
+
+ σ2V [GI ] μ
+
+> 2
+
+)
+
+, (132) which is the same result that we had obtained previously by the characteristic function approach. 
+
+# B Numerical Results 
+
+The large −q solution is found to agree well with the exact numerical solution of the SD equations. We present the comparison in Fig. 15. It is evident that the difference between the large −q solution and the exact numerical result decreases as q increases, which is expected. Surprisingly, the agreement also becomes better at small μ. The scaling of ν at low temperatures has also been verified numerically (by solving Eqn. (64)). The scaling exponent is extracted by fitting 1 −ν to β, and the fit is shown in Fig. 16. The discrepancy in the fit of the exponent with the analytical expectation arises from poor convergence of iterative solvers used to solve Eqn. (64) for small μ.33 SciPost Physics Submission 
+
+Figure 15: The comparison between the exact solution of the Schwinger-Dyson equations is presented with the large −q analytical solution. On the left figure, the comparison is for fixed μ and ν, but for varying q. The figure on the right presents the solution for fixed q and β but varying μ.
+
+Figure 16: The scaling of 1 −ν for large β (low temperature) is studied numerically (Left) scaling of log(1 − ν) with respect to log β indicates power-law scaling of 1−ν with a single dominant exponent. (Right) The slope of linear fit of log(1 − ν)with log β is compared with the analytical expectation − 2μμ+2 .
+
+# C The Schr¨ odinger problem 
+
+Let us consider the following Schr¨ ordinger problem 
+
+Dxf ≡ − ∂2
+
+> x
+
+f (x) + V (x)f (x) , (133) where V (x) is some potential. In the problem of interest, we have 
+
+V (x) = −2μ−1 sech 2(x)
+
+
+
+1 − 2 − μ
+
+4β2
+
+πν 
+
+tan( πν/ 2) sech 2(x)
+
+
+
+. (134) Here, we denote s1 = 2 μ−1 and s2 = (2 − μ)πν/ 4β2 tan( πν/ 2) and note that s1, s 2 ≥ 0for all values of μ, β . We note that the difference 
+
+Z
+
+(|V (x)| − V (x)) d x = s1
+
+Z
+
+> x∈Λ
+
+sech 2(x)(1 − s2 sech 2(x))d x ≥ 0 (135) where Λ = {x | sech 2(x) ≤ s−12 }. Since the integrand is positive, the potential V (x) has a finite interval where it is negative. Thus, there exists at least 1 bound state. A 0 −th 34 SciPost Physics Submission 
+
+Figure 17: The ground state eigenvalue of the Schr¨ odinger operator is evalu-ated numerically (circles) and compared with the analytical approximation (solid curves) as a function of β for multiple values of μ.order estimate of the ground state energy is Vmin = min x V (x). Differentiating V (x) tells us that 
+
+V ′(x) = −4s1s2 tanh( x)sech 2(x)
+
+
+
+sech 2(x) − 12s2
+
+
+
+, (136) which has the zeros x0 = 0 , ∞, ± arcosh( √2s2). The only non-trivial zero is the third one, which arise for s2 ≥ 12 . For s2 < 12 , the relevant zero is x0 = 0. Therefore, we have 
+
+Vmin =
+
+(
+
+−s1(1 − s2) s2 < 1/2
+
+−s1/4s2 s2 ≥ 1/2 . (137) To make the estimate agree with the μ = 2 limiting case, as well as the case where s2 = 0 but 2 > s 1 > 0, we choose the approximation to the minimum energy as 
+
+Emin =
+
+(
+
+−ϵ(s1)(1 − s2) s2 < 1/2
+
+−ϵ(s1)/4s2 s2 ≥ 1/2 . (138) where ϵ(x) = (1 −√1+4 x)2 
+
+> 4
+
+, which is the eigenvalue of the P¨ oschl-Teller problem (i.e. s2 = 0) for arbitary s1 = x. The numerical results obtained from diagonalizing the operator Dx in Eqn. (133) is compared with the approximation Eqn. (138). This is presented in Fig. 17. It is also worth noting that using the transformation u = tanh( x), one can write the eigenvalue equation as 
+
+∂u((1 − u2)∂uf ) + 
+
+
+
+s1 − s1s2(1 − u2) − α2
+
+1 − u2
+
+
+
+f = 0 , (139) where we denote the eigenvalues as E = −α2. This is the oblate spheroidal wave equation .In general, it is difficult to compute the eigenvalues for this equation analytically. However, these can be computed numerically, which we evaluate and compare with the estimate coming from Emin in Fig. 17. It is evident that the agreement is good for any μ for 
+
+β ≳ 10 −1.35 SciPost Physics Submission 
+
+# References 
+
+[1] B. Bhattacharjee, W. E. Salazar, D. Rosa and A. Andreanov, L´ evy sachdev-ye-kitaev model (2025), 2506.04343 .[2] O. Bohigas, M. J. Giannoni and C. Schmit, Characterization of chaotic quantum spectra and universality of level fluctuation laws , Phys. Rev. Lett. 52 , 1 (1984), doi:10.1103/PhysRevLett.52.1. [3] F. Haake, Quantum signatures of chaos , In Quantum Coherence in Mesoscopic Systems . Springer (1991). [4] M. L. Mehta, Random Matrices , Pure and applied mathematics: v. 142. Else-vier/Academic Press, Amsterdam, 3rd ed. edn., ISBN 0120884097 (2004). [5] T. Guhr, A. M¨ uller–Groeling and H. A. Weidenm¨ uller, Random-matrix theo-ries in quantum physics: common concepts , Physics Reports 299 (4), 189 (1998), doi:https://doi.org/10.1016/S0370-1573(97)00088-4. [6] M. Srednicki, Chaos and quantum thermalization , Phys. Rev. E 50 , 888 (1994), doi:10.1103/PhysRevE.50.888. [7] J. M. Deutsch, Eigenstate thermalization hypothesis , Reports on Progress in Physics 
+
+81 (8), 082001 (2018), doi:10.1088/1361-6633/aac9f1. [8] M. Fava, J. Kurchan and S. Pappalardi, Designs via free probability , Phys. Rev. X 
+
+15 , 011031 (2025), doi:10.1103/PhysRevX.15.011031. [9] X. Wang, S. Ghose, B. C. Sanders and B. Hu, Entanglement as a signature of quantum chaos , Phys. Rev. E 70 , 016217 (2004), doi:10.1103/PhysRevE.70.016217. [10] S. Xu and B. Swingle, Scrambling dynamics and out-of-time-ordered cor-relators in quantum many-body systems , PRX Quantum 5, 010201 (2024), doi:10.1103/PRXQuantum.5.010201. [11] D. E. Parker, X. Cao, A. Avdoshkin, T. Scaffidi and E. Altman, A universal operator growth hypothesis , Phys. Rev. X 9, 041017 (2019), doi:10.1103/PhysRevX.9.041017. [12] S. Sachdev and J. Ye, Gapless spin-fluid ground state in a random quantum heisenberg magnet , Phys. Rev. Lett. 70 , 3339 (1993), doi:10.1103/PhysRevLett.70.3339. [13] A. Kitaev, A simple model of quantum holography .[14] J. Polchinski and V. Rosenhaus, The spectrum in the sachdev-ye-kitaev model , Journal of High Energy Physics 2016 (4), 1–25 (2016), doi:10.1007/jhep04(2016)001. [15] J. Maldacena and D. Stanford, Remarks on the sachdev-ye-kitaev model , Phys. Rev. D 94 , 106002 (2016), doi:10.1103/PhysRevD.94.106002. [16] J. S. Cotler, G. Gur-Ari, M. Hanada, J. Polchinski, P. Saad, S. H. Shenker, D. Stan-ford, A. Streicher and M. Tezuka, Black Holes and Random Matrices , JHEP 
+
+05 , 118 (2017), doi:10.1007/JHEP05(2017)118, [Erratum: JHEP 09, 002 (2018)], 
+
+1611.04650 .[17] A. M. Garc´ ıa-Garc´ ıa and J. J. M. Verbaarschot, Spectral and thermodynamic properties of the sachdev-ye-kitaev model , Phys. Rev. D 94 , 126010 (2016), doi:10.1103/PhysRevD.94.126010. 36 SciPost Physics Submission 
+
+[18] Y. Sekino and L. Susskind, Fast scramblers , Journal of High Energy Physics 2008 (10), 065 (2008), doi:10.1088/1126-6708/2008/10/065. [19] S. H. Shenker and D. Stanford, Black holes and the butterfly effect , Journal of High Energy Physics 2014 (3), 67 (2014), doi:10.1007/JHEP03(2014)067. [20] T. G. Mertens and G. J. Turiaci, Solvable models of quantum black holes: a re-view on jackiw–teitelboim gravity , Living Reviews in Relativity 26 (1), 4 (2023), doi:10.1007/s41114-023-00046-1. [21] G. Sarosi, AdS 2 holography and the SYK model , In Proceedings of XIII Modave Summer School in Mathematical Physics — PoS(Modave2017) , vol. 323, p. 001, doi:10.22323/1.323.0001 (2018). [22] V. Rosenhaus, An introduction to the syk model , Journal of Physics A: Mathematical and Theoretical 52 (32), 323001 (2019), doi:10.1088/1751-8121/ab2ce1. [23] D. Chowdhury, A. Georges, O. Parcollet and S. Sachdev, Sachdev-ye-kitaev models and beyond: Window into non-fermi liquids , Rev. Mod. Phys. 94 , 035004 (2022), doi:10.1103/RevModPhys.94.035004. [24] R. Jha, Introduction to Sachdev-Ye-Kitaev Model: A Strongly Correlated System Perspective (2025), 2507.07195 .[25] M. Tezuka, O. Oktay, E. Rinaldi, M. Hanada and F. Nori, Binary-coupling sparse sachdev-ye-kitaev model: An improved model of quantum chaos and holography , Phys. Rev. B 107 , L081103 (2023), doi:10.1103/PhysRevB.107.L081103. [26] A. M. Garc´ ıa-Garc´ ıa, B. Loureiro, A. Romero-Berm´ udez and M. Tezuka, Chaotic-integrable transition in the sachdev-ye-kitaev model , Phys. Rev. Lett. 120 , 241603 (2018), doi:10.1103/PhysRevLett.120.241603. [27] A. M. Garc´ ıa-Garc´ ıa, Y. Jia, D. Rosa and J. J. M. Verbaarschot, Sparse sachdev-ye-kitaev model, quantum chaos, and gravity duals , Phys. Rev. D 103 , 106002 (2021), doi:10.1103/PhysRevD.103.106002. [28] A. Andreanov, M. Carrega, J. Murugan, J. Olle, D. Rosa and R. Shir, From dyson models to many-body quantum chaos , Phys. Rev. B 111 , 035147 (2025), doi:10.1103/PhysRevB.111.035147. [29] C. Monthus, Localization transition in random l´ evy matrices: multifractality of eigenvectors in the localized phase and at criticality , Journal of Statistical Me-chanics: Theory and Experiment 2016 (9), 093304 (2016), doi:10.1088/1742-5468/2016/09/093304. [30] A. Kutlin and I. M. Khaymovich, Anatomy of the eigenstates distribu-tion: A quest for a genuine multifractality , SciPost Phys. 16 , 008 (2024), doi:10.21468/SciPostPhys.16.1.008, 2309.06468 .[31] K. Janzen, A. K. Hartmann and A. Engel, Replica theory for levy spin glasses* ,Journal of Statistical Mechanics: Theory and Experiment 2008 (04), P04006 (2008), doi:10.1088/1742-5468/2008/04/P04006. [32] K. Janzen, A. Engel and M. M´ ezard, The l´ evy spin glass transition , Europhysics Letters 89 (6), 67002 (2010), doi:10.1209/0295-5075/89/67002. 37 SciPost Physics Submission 
+
+[33] K. Janzen, A. Engel and M. M´ ezard, Thermodynamics of the l´ evy spin glass , Phys. Rev. E 82 , 021127 (2010), doi:10.1103/PhysRevE.82.021127. [34] J. Maldacena, S. H. Shenker and D. Stanford, A bound on chaos , Journal of High Energy Physics 2016 (8), 106 (2016), doi:10.1007/JHEP08(2016)106. [35] J. P. Nolan, Univariate Stable Distributions , Springer Cham, doi:https://doi.org/10.1007/978-3-030-52915-4 (2020). [36] E. R. Anschuetz, C.-F. Chen, B. T. Kiani and R. King, Strongly interacting fermions are nontrivial yet nonglassy , Phys. Rev. Lett. 135 , 030602 (2025), doi:10.1103/cbqf-d24r. [37] I. Neri, F. L. Metz and D. Boll´ e, The phase diagram of l´ evy spin glasses , Jour-nal of Statistical Mechanics: Theory and Experiment 2010 (01), P01010 (2010), doi:10.1088/1742-5468/2010/01/P01010. [38] J. Maldacena, D. Stanford and Z. Yang, Conformal symmetry and its breaking in two-dimensional nearly anti-de sitter space , Progress of Theoretical and Experimental Physics 2016 (12), 12C104 (2016), doi:10.1093/ptep/ptw124. [39] X. Dong, S. Harrison, S. Kachru, G. Torroba and H. Wang, Aspects of holography for theories with hyperscaling violation , Journal of High Energy Physics 2012 (6), 41 (2012), doi:10.1007/JHEP06(2012)041. [40] L. Huijse, S. Sachdev and B. Swingle, Hidden fermi surfaces in com-pressible states of gauge-gravity duality , Phys. Rev. B 85 , 035121 (2012), doi:10.1103/PhysRevB.85.035121. [41] S. Ryu and T. Takayanagi, Holographic derivation of entanglement entropy from the anti–de sitter space/conformal field theory correspondence , Phys. Rev. Lett. 96 ,181602 (2006), doi:10.1103/PhysRevLett.96.181602. 38

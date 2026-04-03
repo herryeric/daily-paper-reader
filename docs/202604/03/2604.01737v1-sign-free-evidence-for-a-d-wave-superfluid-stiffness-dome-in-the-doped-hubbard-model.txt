@@ -1,0 +1,1075 @@
+Title: Sign-Free Evidence for a d-Wave Superfluid Stiffness Dome in the Doped Hubbard Model
+
+URL Source: https://arxiv.org/pdf/2604.01737v1
+
+Published Time: Fri, 03 Apr 2026 00:36:47 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+## Sign-Free Evidence for a d-Wave Superfluid Stiffness Dome in the Doped Hubbard Model 
+
+Xidi Wang 1 and H. Q. Lin 2
+
+> 1
+
+Quantum Strategics, San Diego, California 92109, USA 
+
+> 2
+
+Institute for Advanced Study in Physics and School of Physics, Zhejiang University, Hangzhou 310058, China 
+
+(Dated: April 3, 2026) We construct an effective single-particle Hamiltonian Keff from Monte Carlo–averaged matrix logarithms of the imaginary-time propagator in determinant quantum Monte Carlo (DQMC). The logarithm maps the multiplicative sign problem into an additive framework where the central limit theorem guarantees convergence, rendering Keff sign-problem-free: both sign sectors yield identical dispersions to < 1%. Keff captures the exact correlated single-particle spectrum, incorporating all self-energy effects non-perturbatively. Applied to the Hubbard model ( t′/t = −0.30, U/t = 4), 
+
+Keff reveals a d-wave pseudogap with strong nodal–antinodal dichotomy below a computational phase transition at T ∗. Three sign-free observables provide evidence consistent with spin-fluctuation pairing [14]: (i) the gap ratio Rg > 1 confirms d-wave symmetry—a temperature-independent property of the correlated band structure that provides the medium for pairing; (ii) the superfluid stiffness ρs forms a dome across doping at L = 8, 10, and 12, exceeding the Berezinskii–Kosterlitz– Thouless threshold by 5–7 × at the dome peak; (iii) S(π, π ) is approximately flat across doping, establishing that the dome originates from Fermi-surface geometry responding to uniform spin-fluctuation glue. The pseudogap grows monotonically toward half-filling while ρs forms a dome, mirroring cuprate phenomenology where Tc is limited by the superfluid density (Uemura relation). Vertex corrections remain to be quantified. 
+
+I. INTRODUCTION 
+
+The pseudogap in hole-doped cuprate superconductors—a partial suppression of the electronic density of states below a characteristic temperature 
+
+T ∗ well above the superconducting Tc—remains one of the central unsolved problems in condensed matter physics [1, 2]. Angle-resolved photoemission spec-troscopy (ARPES) reveals that the pseudogap opens preferentially at the antinodal points ( π, 0) and (0 , π )while the nodal direction (π/ 2, π/ 2) retains a sharp quasiparticle peak [3, 4]. Whether the pseudogap is a precursor to superconductivity or a competing order remains debated [5, 6]. The two-dimensional Hubbard model is widely be-lieved to capture the essential physics of the cuprate CuO 2 planes [7, 8]. Determinant quantum Monte Carlo (DQMC) provides numerically exact solutions at finite temperature [9, 10], but faces two computational bar-riers in the pseudogap regime: the fermion sign prob-lem, where ⟨sign ⟩ vanishes exponentially with system size and inverse temperature [11, 12], and a condition-number problem where the imaginary-time propagator 
+
+B(β, 0) = Q 
+
+> l
+
+Bl has condition number ∼ eβW , exceeding double precision for βW ≳ 37. Together, these barri-ers have prevented DQMC from extracting quasiparticle band structures in the correlated regime for over three decades. Modern T = 0 methods (DMRG, CPAFQMC) have established that the Hubbard model supports d-wave su-perconductivity with finite t′ [15–18], but these ground-state approaches do not yield the finite-temperature rela-tionship between the pseudogap and superconductivity. Notably, DMRG on width-8 cylinders [15] finds d-wave pairing for electron doping ( t′ > 0) but stripe order for hole doping ( t′ < 0), while AFQMC studies [16, 17] re-port competing stripe and pairing correlations whose rel-ative strength depends on t′ and system geometry. Our finite-temperature approach complements these ground-state studies by identifying the doping region where the electronic structure supports superconductivity, with-out resolving the stripe-versus-SC competition. Early DQMC studies by Scalapino, White, and Zhang [13, 14] found a growing d-wave pairing eigenvalue with decreas-ing temperature, establishing the mechanism—repulsive 
+
+U → antiferromagnetic correlations → attractive d-wave vertex—but could not access the low-temperature pseu-dogap regime. In this paper we report three advances. First, we con-struct an effective single-particle Hamiltonian Keff from the Monte Carlo–averaged logarithm of the imaginary-time propagator (Sec. II). Keff solves the condition-number problem completely and is sign-problem-free: both sign sectors yield identical dispersions to sub-percent accuracy. Second, tracking eigenvalue dynamics reveals a computational phase transition at T ∗ that sep-arates sign-conserved and sign-fluctuating regimes, with 
+
+T ∗(μ) quantitatively tracking the physical pseudogap on-set across doping (Sec. III). Third, we use sign-free ob-servables derived from Keff —the superfluid stiffness ρs
+
+and gap ratio Rg —to discover a d-wave superfluid stiff-ness dome (Sec. V), establishing superconductivity below 
+
+T ∗ without relying on sign-dependent pair susceptibili-ties. The distinct doping dependences of pseudogap and stiffness provide unbiased evidence that these are sepa-rate phenomena (Sec. VI). 
+
+> arXiv:2604.01737v1 [cond-mat.str-el] 2 Apr 2026
+
+2 
+
+> II. MODEL AND METHOD
+
+We study the Hubbard model on L × L square lattices with periodic boundary conditions, 
+
+H = −t X
+
+> ⟨ij ⟩, σ
+
+c† 
+
+> iσ
+
+cjσ −t′ X
+
+> ⟨⟨ ij ⟩⟩ , σ
+
+c† 
+
+> iσ
+
+cjσ +U X
+
+> i
+
+ni↑ni↓−μ X
+
+> i,σ
+
+niσ ,
+
+(1) with t = 1 (energy unit), t′/t = −0.30, and U/t = 4— parameters relevant to hole-doped cuprates [15, 16, 19]. The next-nearest-neighbor hopping t′ breaks particle-hole symmetry, shifting half-filling to μ/t ≈ +0 .6 and introducing a fermion sign problem at all fillings, in-cluding half-filling. (At t′ = 0, the model is sign-free at half-filling by particle-hole symmetry.) Our doping scan covers μ/t = −0.60 to −1.50, corresponding to fill-ing ⟨n⟩ ≈ 0.93–0 .99 (hole doping δ = 1–7%). Standard DQMC yields the fermion matrix M [σ] = I + Qnτ 
+
+> l=1
+
+Bl,where Bl = e−∆τ K eVl[σ] with ∆ τ = 0 .05.    
+
+> A. The Keff construction
+
+We divide the nτ = β/ ∆τ time slices into chunks of size nc and define the chunk propagator Bchunk =Q 
+
+> l∈chunk
+
+eK eVl . Taking the matrix logarithm: 
+
+Keff = − 1
+
+nc∆τ ⟨log Bchunk ⟩MC (2) Because each chunk spans only nc time slices, its con-dition number remains O(1), and the matrix loga-rithm is numerically stable. The result is a Hermi-tian single-particle Hamiltonian whose eigenvalues εk de-fine the interaction-dressed quasiparticle dispersion (Ap-pendix C). 
+
+Keff is not a mean-field approximation: it ex-tracts the dressed single-particle Hamiltonian after 
+
+the full many-body calculation, by processing exact DQMC propagators through a matrix logarithm. All many-body correlations—including those generating the pseudogap—are encoded in the Monte Carlo ensemble. This construction also differs from DMFT [21], which provides only a local self-energy; Keff yields a fully momentum-resolved Σ( k) = εk − ε0 
+
+> k
+
+on the full L × L
+
+lattice.  
+
+> B. Sign-sector decomposition
+
+The fermion sign for a given HS configuration σ is 
+
+s[σ] = sgn(det M↑[σ]·det M↓[σ]), where each determinant is individually real (since Ms is a real matrix) and the sign problem arises when their product is negative. We track the number of negative eigenvalues nneg of ( I + B↑)and ( I + B↓) combined across both spin sectors; a sign change s[σ] → − s[σ] corresponds to nneg changing by 
+
+±2, typically within a single spin determinant (consis-tent with eigenvalue pairs of the real B-matrix crossing through the negative real axis together). We run parallel DQMC replicas sorted into positive (Z+, det M↑ det M↓ > 0) and negative ( Z−) sign sectors, computing K+eff and K− 
+
+> eff
+
+independently. The combined 
+
+Keff = 12 (K+eff + K− 
+
+> eff
+
+) is the sign-problem-free effective Hamiltonian. To monitor reliability, we track the sector asymmetry |ρ+ 
+
+> s
+
+− ρ− 
+
+> s
+
+|/ max( |ρ+ 
+
+> s
+
+|, |ρ− 
+
+> s
+
+|): values exceeding 
+
+∼20% indicate that the Keff decomposition is resolving genuine sector differences. When sector asymmetry drops below ∼10%, the replicas are mixing between sectors and the results should be treated with caution (Sec. VIII).  
+
+> C. Gap extraction
+
+From Keff we compute the dispersion via Fourier trans-form, ε(k) = ⟨k|Keff |k⟩, and define: ∆AN = |ε(π, 0) | (antinodal gap) (3) ∆N = |ε(π/ 2, π/ 2) | (nodal gap) (4) The gap ratio Rg = ∆N/∆AN quantifies the nodal– antinodal dichotomy: Rg = 1 indicates an isotropic spec-trum; Rg ≫ 1 indicates strong d-wave anisotropy (antin-odal energy suppressed relative to nodal), characteristic of the pseudogap regime. Rg < 1 indicates the opposite anisotropy (nodal energy suppressed), characteristic of metallic Drude weight. For system sizes where ( π/ 2, π/ 2) does not fall on the lattice k-grid (i.e., L not divisible by 4), we evaluate ε(π/ 2, π/ 2) by direct Fourier interpola-tion ε(k) = 1
+
+> N
+
+P 
+
+> ij
+
+Keff [i, j ] eik·(rj −ri) at the exact nodal point, ensuring Rg is independent of the k-mesh geome-try.   
+
+> D. Superfluid stiffness from Keff
+
+The superfluid stiffness ρs = Ds − Λxx uses bare op-erators on dressed states (Appendix E): the diamagnetic term Ds is evaluated using bare hopping amplitudes with 
+
+Keff Fermi occupations, and the paramagnetic term Λ xx 
+
+uses bare current matrix elements in the Keff eigenbasis with the Lehmann representation. Because both terms are computed entirely from Keff —without reference to the Monte Carlo sign— ρs inherits the sign-independence of Keff .We note that this ρs omits vertex corrections from two-particle interactions. On a bare band structure at 
+
+U/t = 4, early estimates [13] found that vertex correc-tions modify Λ xx by 30–50%; more recent cluster DMFT calculations by Dong et al. [25] confirm that antifer-romagnetic fluctuations dominate the pairing vertex at intermediate coupling and provide quantitative vertex functions in the d-wave channel. However, both estimates apply to calculations on the non-interacting dispersion. 3Because Keff has already absorbed the dominant self-energy effects—Fermi surface reconstruction, pseudogap formation, bandwidth renormalization—into the dressed single-particle spectrum, the residual vertex corrections on top of Keff are expected to be substantially smaller than the 30–50% bare-band estimate. In the present work, ρs serves as a semi-quantitative probe of phase co-herence: its sign, doping dependence, and temperature evolution are physical, while absolute magnitudes should be interpreted with this caveat. 
+
+E. Simulation parameters 
+
+L = 12 ( N = 144 sites) is the primary system size, with L = 8, 10, 14, and 16 for finite-size studies. We use 8 parallel GPU replicas (4 per sign sector) with piv-oted QR (PivQR) decomposition for numerical stability, 
+
+nc = 5 chunk size, 50 warmup sweeps, and 200 mea-surements per run. Computations were performed on GPU-accelerated workstations (Appendix J). Jackknife resampling provides error estimates for all Keff observ-ables. 
+
+III. SIGN TRANSITION AND COMPUTATIONAL PHASE DIAGRAM A. The T ∗ boundary 
+
+We map the fermion sign variance Var(sign) across the (μ, T ) plane for L = 8, 12, and 16 (Fig. 1). At high temperature, Var ≈ 0: the sign is conserved (“strange metal” regime). Below a doping-dependent temperature 
+
+T ∗(μ), Var → 1: the sign fluctuates maximally (“pseu-dogap” regime). This computational boundary quanti-tatively tracks the physical pseudogap onset, consistent with the demonstration by Mondaini, Tarat, and Scalet-tar that the severity of the sign problem reflects quantum critical behavior [22, 23]. The phase diagram exhibits an asymmetry across dop-ing: on the underdoped side (near half-filling), the T ∗
+
+transition is sharp, reflecting the proximity to the an-tiferromagnetic Mott insulator with a well-defined gap scale. On the overdoped side, the transition is gradual—a crossover rather than a sharp boundary—consistent with the smooth disappearance of the pseudogap in overdoped cuprates. 
+
+B. Finite-size dependence of the T ∗ valley 
+
+The location of the T ∗ minimum shifts with system size: from μ/t ≈ − 1.4 at L = 8, to ≈ − 0.9 at L = 12, to ≈ − 0.95 at L = 16, and back to ≈ − 1.15 at L =20. Rather than converging monotonically, the valley location oscillates with L, reflecting the sensitivity of the 2.00 1.75 1.50 1.25 1.00 0.75 0.50 0.25 0.00     
+
+> Chemical Potential /t
+> 0.08
+> 0.10
+> 0.12
+> 0.14
+> 0.16
+> 0.18
+> 0.20
+> Temperature  T/t
+> Strange Metal
+> (Var(sign) 0)
+> Pseudogap
+> (Var(sign) 1)
+> Computational Phase Diagram ( L= 12 )
+> 0.00
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> Var(sign)
+
+FIG. 1. Computational phase diagram ( L = 12): Var(sign) across temperature and doping. Important: μ = 0 does not 
+
+correspond to half-filling when t′/t = −0.30; the particle-hole asymmetry from t′ shifts half-filling to μ/t ≈ +0 .6, outside the plotted range. Green (Var ≈ 0): sign conserved (strange metal/ Fermi liquid regime above T ∗). Red (Var ≈ 1): sign fluctuates maximally (pseudogap regime below T ∗). The re-gion below T ∗ is uniformly red because antiferromagnetic cor-relations are strong enough at all dopings to produce maxi-mal sign cancellations once the pseudogap opens; Var(sign) saturates at 1 and cannot resolve further structure, but the sign-free Keff observables ( Rg , ρs) do vary across this region (Fig. 3). The white contour marks T ∗(μ) at Var = 0 .5; the valley near μ/t ≈ − 0.85 to −1.00 identifies optimal doping where the pseudogap onset is lowest. 
+
+sign-problem landscape to which k-points lie near the d-wave nodes on the discrete L × L mesh. Importantly, while the doping location of the valley os-cillates, the temperature of the T ∗ minimum converges: finite-size scaling of T ∗ 
+
+> min
+
+across L = 8–24 yields T ∗/t =0.155 ± 0.010 in the thermodynamic limit (Sec. VIII). The k-mesh dependence affects the horizontal position of the dome, not its existence or its vertical (temperature) scale. A proper thermodynamic extrapolation of the val-ley location requires either tracking the valley minimum at each L or employing twist-averaged boundary condi-tions to smooth the k-mesh (Sec. VIII). 
+
+C. Correlation with physical observables 
+
+To confirm that the sign transition reflects real physics, we measured the Keff gap ratio Rg across T ∗. Above 
+
+T ∗, Rg ≈ 1 (isotropic spectrum); below T ∗, Rg deviates sharply from unity, developing strong nodal–antinodal anisotropy ( Rg ≫ 1 in the pseudogap regime at moder-ate doping). The spectral weight Tr[ G]/N drops at T ∗
+
+(correlation r = −0.77 with sign complexity), and the 
+
+d-wave pairing Pd peaks at T ∗ (r = +0 .67). The antifer-4romagnetic structure factor S(π, π ) shows a modest peak at T ∗ as a function of temperature ( r = +0 .34 with sign complexity), indicating enhanced spin fluctuations at the transition. (This temperature dependence at fixed μ is distinct from the approximate flatness of S(π, π ) across doping at fixed T < T ∗, discussed in Sec. V.)   
+
+> IV. PSEUDOGAP SPECTROSCOPY A. d-wave pseudogap
+
+At μ = −0.60 (⟨n⟩ ≈ 0.70), the Keff dispersion shows pseudogap signatures: (i) antinodal sign flip 
+
+ε(π, 0) = −0.863 < 0, indicating Fermi surface re-construction beyond a Lifshitz transition; (ii) nodal– antinodal anisotropy with Rg = 0 .71 < 1, indicating that both the nodal and antinodal energies are small at this deeply doped point (the Rg > 1 pseudogap dome lies at larger |μ|, see Sec. V); and (iii) K+eff and K− 
+
+> eff
+
+agree to 0.7% on the antinodal gap. The dressed band structure (Fig. 2) shows a momentum-dependent self-energy with 
+
+d-wave symmetry: Σ( π, 0) = −0.19 t at the antinode ver-sus Σ( π/ 2, π/ 2) = +0 .09 t at the node. While the abso-lute corrections are modest ( |Σ| ≲ 0.2t, a ∼5% shift rela-tive to the bandwidth), their momentum structure is the physically important feature: the sign change between antinode (negative Σ, pushing states toward EF ) and node (positive Σ, pushing states away from EF ) is the hallmark of d-wave Fermi-surface reconstruction driven by antiferromagnetic correlations. It is this momentum-dependent redistribution of spectral weight, not the over-all bandwidth change, that generates the pseudogap and the stiffness dome. At t′ = 0 (nested Fermi surface): 
+
+Rg = 1.001—no pseudogap, indicating that the gap anisotropy is strongly enhanced by the cuprate-like Fermi surface geometry provided by next-nearest-neighbor hop-ping.  
+
+> V. SUPERFLUID STIFFNESS DOME
+
+The principal result of this work is the observation of a d-wave superfluid stiffness dome from sign-free Keff ob-servables.  
+
+> A. Dome structure and finite-size scaling
+
+Figure 3 presents three sign-free Keff observables— ρs,
+
+Rg , and S(π, π )—across doping for L = 8, 10, and 12. A mean-field superfluid stiffness dome is observed at all three system sizes. At L = 8 [panels (a,d,g)], the dome is fully resolved from β = 4 through β = 16, with both flanks clearly vis-ible. The dome strengthens with cooling: peak ρs grows from 0 .22 ( β = 4) to 0 .66 ( β = 16) at μ/t ≈ − 1.20. Γ (π, 0) (π, π ) (π    
+
+> 2,π
+> 2)Γ
+
+k                                              
+
+> 4
+> 2
+> 0
+> 2
+> 4
+> 6
+> 8
+> ε(k) / t
+> εF
+> |εAN |= 0 .86 t
+> Σ( π, π ) = 1 .08 t
+> εnod = 0 .61 t
+> L=12 ,U/t =4 ,t′/t =−0.30 ,μ=−0.60
+> Free (density-matched)
+> Keff (U=4 t)
+> FIG. 2. Dressed quasiparticle band structure εKeff (k) (red) compared to density-matched free fermions (blue) along Γ →
+> (π, 0) →(π, π )→(π/ 2, π/ 2) →Γ on the L=12 grid. The overall bandwidth increases by ∼20% (from 8.0tto
+> ∼9.6t), but the key feature is the momentum-dependent self-energy: Σ( π, 0) = −0.19 t(antinode pushed toward EF) ver-sus Σ( π/ 2, π/ 2) = +0 .09 t(node pushed away), producing the
+> d-wave anisotropy that drives the pseudogap. Parameters:
+> U/t = 4, t′/t =−0.30, μ=−0.60, β= 24.
+
+At low temperatures ( β ≥ 12), the dome narrows as an-tiferromagnetic correlations suppress ρs on both flanks, driving it strongly negative outside the dome. At L = 10 [panels (b,e,h)], the dome is best re-solved at β ≥ 12. At β = 20, a sharp dome peaks at 
+
+μ/t ≈ − 1.10 with ρs = 0 .42, flanked by deeply negative values ( ρs ≈ − 0.1 to −0.3) on both sides—a direct mani-festation of the competition between antiferromagnetism and the dressed-particle stiffness at the dome boundary. At L = 12 [panels (c,f,i)], the dome peaks near μ/t ≈−0.85 with ρs ≈ 0.38 ( β = 12). Points where Rg < 1(outside the d-wave pseudogap region) are shown as open symbols; at these dopings the mean-field stiffness reflects metallic Drude weight rather than superconducting re-sponse. The gap ratio Rg > 1 throughout the dome at all three system sizes [panels (d,e,f)], confirming that the pseudogap has d-wave symmetry—the Fermi surface re-construction supports d-wave pairing. Importantly, Rg
+
+is a property of the normal-state band structure: Keff 
+
+captures the single-particle spectrum shaped by antifer-romagnetic correlations, but cannot encode Cooper pair-ing (the anomalous Green’s function vanishes within each HS configuration; Appendix D). Thus Rg > 1 establishes that the electronic structure is compatible with d-wave superconductivity, not that pairing has occurred. Rg in-creases monotonically toward higher doping (more nega-tive μ), with a divergence near the doping where ε(π, 0) passes through zero—a Fermi surface topology change. For system sizes not divisible by 4 ( L = 10, 14), Rg
+
+is evaluated by Fourier interpolation to the exact nodal 5point ( π/ 2, π/ 2) (Sec. II). The antiferromagnetic structure factor S(π, π ) [pan-els (g,h,i)] is approximately flat across doping at all sys-tem sizes, hovering between 0 .3 and 0 .5 with no dome structure. This establishes that the stiffness dome does not originate from a peak in AF correlations: the spin-fluctuation glue is uniformly present, and the dome shape arises from the Fermi-surface geometry selecting which doping supports d-wave phase coherence. The dome peak location oscillates with L: μ/t ≈ − 1.20 (L = 8), −1.10 ( L = 10), −0.85 ( L = 12), reflecting the sensitivity of d-wave pairing to which k-points lie near the nodes on the discrete lattice (Sec. VIII). At L = 16, the sector decomposition becomes unre-liable. Increasing to 64 replicas does not resolve this. Possible remedies are discussed in Sec. VIII. At optimal doping ( μ/t = −0.90), we have data span-ning β = 8–16 (Fig. 4). The key findings are: (i) Rg is stable at 1 .55–1 .65 across all five temperatures, varying by less than 10%—the d-wave pseudogap anisotropy is a ground-state property that saturates at T ∗ and does not evolve with further cooling. This temperature indepen-dence is consistent with ARPES observations that the antinodal pseudogap in underdoped cuprates onsets at 
+
+T ∗ and remains approximately constant down to the low-est measured temperatures [4]. The fact that Rg does not respond to the growing ρs confirms that Keff cleanly cap-tures the normal-state band structure without contami-nation from the pairing channel (Appendix D); (ii) the dressed-particle stiffness ρs computed on the Keff band structure exceeds the BKT threshold 2 T /π at all tem-peratures from β = 8 through β = 14, with the margin growing from 3 .1× (β = 8) to 7 .7× (β = 14). The growth of ρs on a frozen band structure ( Rg con-stant) arises from the thermal sharpening of the Fermi function: as β increases, the d-wave gap in the Keff spec-trum progressively suppresses low-energy particle-hole excitations that contribute to the paramagnetic current response Λ xx , thereby increasing ρs = Ds − Λxx .
+
+Dressed-particle stiffness on the exact band structure. 
+
+The ρs computed from Keff has a precise interpreta-tion: it is the diamagnetic response of dressed quasipar-ticles on the numerically exact correlated band structure. 
+
+Keff is extracted from unbiased DQMC and incorporates 
+
+all self-energy effects of the Hubbard interaction—Fermi surface reconstruction, pseudogap formation, bandwidth renormalization—into the dressed single-particle spec-trum. The stiffness formula ρs = Ds −Λxx then evaluates the current response of non-interacting fermions on this exact spectrum. An important subtlety is that the gap entering this formula is the pseudogap —a normal-state property arising from antiferromagnetic correlations— not a self-consistent pairing gap. Since the anoma-lous Green’s function vanishes within each Hubbard– Stratonovich configuration (Appendix D), Keff does not encode Cooper pairing; rather, ρs > 0 arises because the 
+
+d-wave pseudogap suppresses the paramagnetic response Λxx below the diamagnetic term Ds. The dome therefore reveals where the correlated single-particle spectrum nat-urally supports a superfluid response—a property of the dressed single-particle spectrum that identifies where the conditions for pair condensation are most favorable. Ver-tex corrections (residual two-particle scattering between 
+
+Keff quasiparticles) would provide the beyond-mean-field contribution from actual pairing. While the dressed-particle stiffness exceeds the BKT threshold by a large margin (5–7 ×), vertex corrections are omitted. Conventional estimates place such correc-tions at 30–50% for bare -band calculations at U/t =4 [13], but the corrections on top of Keff —which has al-ready absorbed the dominant self-energy effects into the dressed dispersion—may be substantially smaller. Even a 50% reduction would leave ρs at 2 .5–3 .5× above the BKT threshold, suggesting proximity to a superconduct-ing transition. We therefore report the dressed-particle BKT margin as evidence that the Keff electronic struc-ture supports superconductivity at optimal doping, while noting that a rigorous determination of Tc requires inclu-sion of vertex corrections from the pairing channel.  
+
+> VI. DISTINCT DOPING DEPENDENCES OF PSEUDOGAP AND STIFFNESS
+
+The doping and temperature dependences of Keff 
+
+observables exhibit a striking dichotomy that is con-sistent with a separation between the pseudogap and the conditions for superconductivity. The pseudogap strength (measured by Rg ) increases monotonically to-ward half-filling, following the T ∗ phenomenology of the cuprate phase diagram [20], and is temperature-independent below T ∗ (varying by < 10% from β = 4 to 20). This is consistent with Rg measuring a ground-state property of the normal-state band structure—the 
+
+d-wave pseudogap—rather than the superconducting or-der parameter. In contrast, the dressed-particle stiff-ness ρs forms a dome and grows strongly with cool-ing (Fig. 3). The antiferromagnetic structure factor 
+
+S(π, π ) is approximately flat across doping at all sys-tem sizes (Fig. 3, bottom row), indicating that the dome shape arises from the Fermi-surface geometry re-sponding to uniform spin-fluctuation glue—not from a peak in antiferromagnetic correlations. All three ob-servables are sign-problem-free. Their distinct dop-ing and temperature dependences—pseudogap (static, temperature-independent, monotonic in doping) ver-sus stiffness (temperature-dependent, dome-shaped)— suggest that these two phenomena are governed by sep-arate energy scales, mirroring the cuprate phenomenol-ogy where the pairing scale ( T ∗) and the phase coher-ence scale ( Tc) have different doping dependences [20, 24]. Whether this separation persists when vertex corrections from the pairing channel are included remains an impor-tant open question. 60.4 
+
+> 0.2
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> ρs
+
+(a) 
+
+L = 8        
+
+> β= 4
+> β= 6
+> β= 8
+> β= 10
+> β= 12
+> β= 14
+> β= 16
+> 0.4
+> 0.2
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+
+(b) 
+
+L = 10     
+
+> 0.4
+> 0.2
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> ρsopen symbols: Rg<1
+
+(c) 
+
+L = 12    
+
+> BKT: ρs= 2 T/π
+> β=8 : 0.080
+> β=10 : 0.064
+> β=12 : 0.053
+> β=14 : 0.045
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> Rg = εnod /ε AN
+> Rg= 1
+
+(d)  
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> Rg= 1
+
+(e)  
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> Rg= 1
+
+(f) 
+
+> 1.8 1.6 1.4 1.2 1.0 0.8 0.6
+> μ/t
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> S(π, π )
+
+(g) 
+
+> 1.8 1.6 1.4 1.2 1.0 0.8 0.6
+> μ/t
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+
+(h) 
+
+> 1.4 1.2 1.0 0.8 0.6
+> μ/t
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+
+(i) 
+
+Simulation of ρs, Rg, and S(π, π ) for U/t = 4 , t′/t = −0.30 
+
+FIG. 3. Three sign-free Keff observables versus μ/t for L = 8 (left), L = 10 (center), and L = 12 (right). Top row (a–c): mean-field superfluid stiffness ρs; the dome strengthens and narrows with cooling at all system sizes. Middle row (d–f): gap ratio Rg > 1 confirms d-wave pseudogap symmetry throughout the dome. Bottom row (g–i): S(π, π ) is approximately flat across doping. Open symbols in (c): points with Rg < 1, where ρs reflects metallic response rather than superconducting stiffness. Parameters: U/t = 4, t′/t = −0.30. 
+
+VII. CONNECTION TO EXPERIMENT 
+
+Nodal–antinodal dichotomy. ARPES on underdoped Bi-2212 reveals a pseudogap that opens at the antinodal points while the nodal quasiparticle remains sharp [3]. Our Rg > 1 in the dome region quantitatively captures this dichotomy and its strengthening toward half-filling. 
+
+Temperature independence of the pseudogap. ARPES experiments find that the antinodal pseudogap in under-doped cuprates onsets at T ∗ and remains approximately constant in magnitude down to the lowest measured tem-peratures [4]. Our Rg shows the same behavior: it satu-rates below T ∗ and varies by less than 10% across β = 4– 20. The temperature-independent Rg on a background of growing ρs mirrors the experimental dichotomy be-tween the pseudogap scale (set at T ∗) and the superfluid response (developing below Tc). 
+
+Pseudogap as distinct phenomenon. The monotonic in-crease of Rg (temperature-independent) versus the dome shape of ρs (temperature-dependent) parallels the ex-perimental observation that the pseudogap onset T ∗
+
+increases monotonically toward underdoping while Tc
+
+forms a dome [20]. Our results provide microscopic sup-70.05 0.10 0.15 0.20 0.25                  
+
+> T/t = 1 /β
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> ρs
+> ρsgrows with cooling
+> L= 12 ,μ/t =−0.90 ,U/t = 4 ,t′/t =−0.30
+> BKT: ρs= 2 T/π
+> ρs
+> Rg
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> Rg = εnod /ε AN
+> Rgstable ( <10% variation)
+
+FIG. 4. Temperature scan at the dome peak ( μ/t = −0.90, 
+
+L = 12). Blue circles (left axis): Rg remains stable at 1 .55– 1.65, confirming that the d-wave pseudogap is temperature-independent below T ∗. Red squares (right axis): the dressed-particle stiffness ρs grows on cooling as the Fermi function sharpens. Gray bars: BKT thresholds 2 T /π at each temper-ature. 
+
+port for this distinction within the Hubbard model: the pseudogap is a static single-particle reorganization cap-tured by Keff , while the dressed-particle stiffness reflects the Fermi-surface response to this reorganization. 
+
+Superfluid stiffness dome and implications for super-conductivity. The cuprate SC dome spans approximately 
+
+p ≈ 0.05–0 .27 in hole doping; our computational dome at L = 12 is narrower (∆ p ≈ 0.03), reflecting the finite system size, but shares the qualitative shape—metallic flanks, optimal doping peak, and suppression toward the AF boundary. The dressed-particle stiffness at the dome peak exceeds the BKT threshold by 5–7 ×. We empha-size that this ρs is a property of the normal-state spec-trum (Sec. V); the quantitative connection to the ac-tual superconducting transition requires vertex correc-tions from the pairing channel, which we identify as a priority for future work. The observation that the pseu-dogap ( Rg ) grows monotonically while ρs forms a dome is qualitatively consistent with the Uemura relation [24]— that Tc in underdoped cuprates is limited by superfluid density rather than pairing strength—and suggests that the dome shape is already encoded in the normal-state electronic structure. 
+
+VIII. DISCUSSION 
+
+Spin-fluctuation pairing mechanism. The Keff observ-ables provide independent evidence consistent with the spin-fluctuation pairing mechanism [13, 14, 25]: repul-sive U → AF correlations [ S(π, π ), uniformly present] 
+
+→ d-wave pseudogap [ Rg > 1, the medium] → dressed-particle superfluid stiffness dome [ ρs > 0, the response]. The gap ratio Rg plays the role of the medium : AF cor-relations reshape the Fermi surface into a d-wave pseu-dogap that is frozen below T ∗. The stiffness ρs is the 
+
+response : the diamagnetic weight of dressed quasiparti-cles on the Keff band structure, which grows with cooling as the Fermi function sharpens on the gapped spectrum. The d-wave pseudogap suppresses the paramagnetic cur-rent response Λ xx below the diamagnetic term Ds; the dome is thus a property of the correlated single-particle spectrum, with vertex corrections from the pairing chan-nel providing the additional beyond-single-particle con-tribution. The flatness of S(π, π ) across doping is a key finding: the spin-fluctuation pairing glue does not form a dome, so the dome in ρs originates from the momentum-dependent response of the Fermi surface to this uniform glue. The advance here is that all three links are es-tablished below T ∗ using sign-free Keff observables, in a regime previously inaccessible to DQMC. We note that our results do not adjudicate the broader debate on the nature of the ground state (d-wave SC versus stripe or-der) [16, 26], as Keff is a finite-temperature probe of the single-particle spectrum. However, the attractive d-wave vertex λd ≈ 0.9–1 .1 (Appendix G) confirms that the residual quasiparticle interaction favors pairing at all system sizes studied. 
+
+Two classes of evidence. The data exhibit a clear di-chotomy between sign-free and sign-dependent observ-ables. Keff , Rg , and ρs converge within ∼200 DQMC samples at all temperatures, including the lowest ac-cessed ( β = 16). Sign-dependent quantities such as the 
+
+d-wave pair susceptibility χdd and the pairing vertex V eff 
+
+> d
+
+(Appendix G) become progressively harder to converge as temperature decreases, with order-of-magnitude fluctua-tions at β ≥ 16. The vertex decomposition (Appendix G) reveals an attractive d-wave interaction with dimension-less coupling λd = 0 .69 at β = 20, but this quantity requires sign reweighting and is limited to β ≲ 20 with current statistics. 
+
+Reliability criterion. Since Keff is sign-independent by construction ( K+eff ≈ K− 
+
+> eff
+
+to < 1%), the sign-sector de-composition serves primarily as a validation tool rather than a physical necessity. The relevant criterion for inter-preting ρs is whether it reflects superconducting stiffness or metallic Drude weight. We use Rg > 1 as the primary indicator: within the d-wave pseudogap region ( Rg > 1), the dressed-particle stiffness measures the Meissner re-sponse on a gapped Fermi surface. Outside this region (Rg < 1), ρs reflects normal-state current-carrying ca-pacity and should not be interpreted as evidence for su-perconductivity. Points with Rg < 1 are shown as open symbols in Fig. 3. 
+
+Finite-size effects and the k-mesh. The dome peak lo-cation oscillates with system size: μ/t ≈ − 1.20 ( L = 8), 
+
+−1.10 ( L = 10), −0.85 ( L = 12), rather than converg-ing monotonically. The T ∗ valley shows the same os-cillation (Sec. III). Both effects reflect the sensitivity of 
+
+d-wave pairing to which k-points lie near the nodes and antinodes on the discrete L × L mesh. Twist-averaged boundary conditions (TABC)—averaging over twisted boundary conditions ψ(r + Lˆx) = eiθ x ψ(r) with many 
+
+θ values—would smooth the discrete k-grid into an ef-8fective continuum, eliminating both the dome shift and the Rg oscillation while remaining at computationally ac-cessible L = 12. This is the most promising near-term extension. 
+
+Paths to larger systems. The L = 16 sector instabil-ity may be addressed by (i) constrained sector sampling, which rejects HS moves that change the sector sign (intro-ducing a small, controllable bias analogous to the phase-less approximation in AFQMC); (ii) re-sorting replicas by current sign at each measurement (unbiased but nois-ier); or (iii) increasing the number of replicas beyond 64, though our tests suggest this is insufficient. 
+
+Understanding sign conservation. The observation that the fermion sign is conserved above T ∗ raises the question of why this occurs. A systematic study start-ing from the Anderson single-impurity model (which has a sign problem away from half-filling) and progres-sively enlarging the impurity cluster toward the lattice limit [27] could reveal how the sign-conserved regime emerges as spatial correlations build up. The connec-tion to continuous-time impurity algorithms, where the sign problem has been interpreted in terms of imaginary-time trajectory crossings, may provide additional insight into the mechanism. 
+
+Limitations. Keff is a static ( ω = 0), paramagnetic ef-fective Hamiltonian. Because the Keff construction aver-ages log Bchunk over all HS configurations while preserv-ing translational invariance, it cannot encode symmetry-breaking order such as antiferromagnetic zone folding or Mott gap formation. We verified this explicitly by com-puting the staggered Fourier component ⟨k + Q|Keff |k⟩
+
+with Q = ( π, π ), which would be nonzero if Keff con-tained AF zone-folding matrix elements: the staggered component remains below 3% of the diagonal disper-sion at all dopings and temperatures studied. Anti-ferromagnetic correlations enter Keff only through the momentum-dependent self-energy Σ( k) in the paramag-netic channel—the same quantity measured by ARPES above Tc—not through symmetry breaking. This scope is a feature in the dome region, where the paramag-netic correlated metal is the correct normal-state descrip-tion, but limits the method’s applicability near half-filling where AF ordering dominates. The superfluid stiffness 
+
+ρs = Ds − Λxx computed from it is the diamagnetic response of dressed quasiparticles on the exact corre-lated band structure: it captures all single-particle (self-energy) effects but omits vertex corrections from resid-ual two-particle scattering between Keff quasiparticles. Since the anomalous Green’s function vanishes within each HS configuration (Appendix D), ρs > 0 arises from the pseudogap suppressing Λ xx , not from Cooper pairing. For bare -band calculations at U/t = 4, vertex correc-tions are estimated at 30–50% [13, 25]. However, these estimates apply to the non-interacting dispersion; Keff 
+
+has already absorbed the dominant self-energy effects (Fermi surface reconstruction, pseudogap formation) into the dressed dispersion, so the residual vertex corrections are expected to be substantially smaller. Quantifying these corrections—which would include the contribution from actual pair condensation—is an important direc-tion for future work. Preliminary vertex extraction (Ap-pendix G) yields an attractive d-wave coupling λd ≈ 0.9– 1.1 at the dome peak, suggesting that vertex corrections would enhance ρs rather than suppress it; the dressed-particle stiffness may therefore be a lower bound on the true value. The qualitative features of the dome—its exis-tence, its doping dependence, its narrowing with cooling, and the AF/SC competition at its boundaries—are ro-bust predictions of the dressed single-particle spectrum, as these arise from the momentum structure of Keff and the Fermi occupation factors rather than from the abso-lute magnitude of ρs. 
+
+> IX. CONCLUSION
+
+We have introduced the effective Hamiltonian Keff ,constructed from Monte Carlo–averaged matrix loga-rithms of the DQMC imaginary-time propagator, and demonstrated its power as a sign-problem-free probe of the quasiparticle band structure in the pseudogap regime. Below a computational phase transition at T ∗—which tracks the physical pseudogap onset across doping— Keff 
+
+reveals a d-wave pseudogap with strong nodal–antinodal dichotomy directly analogous to cuprate ARPES. Three sign-free observables derived from Keff paint a consistent picture of the spin-fluctuation pairing mech-anism: (i) the gap ratio Rg > 1 confirms d-wave pseu-dogap symmetry—a temperature-independent property of the normal-state band structure that saturates at 
+
+T ∗, establishing the medium for d-wave pairing; (ii) the dressed-particle superfluid stiffness ρs forms a dome that strengthens and narrows with cooling, exceeding the BKT threshold by 5–7 × at the dome peak—establishing that the Keff electronic structure supports superconduc-tivity at optimal doping; (iii) S(π, π ) is flat across doping, confirming that the dome arises from the Fermi-surface geometry responding to uniform spin-fluctuation glue, not from a peak in antiferromagnetic correlations. The dome reflects the dressed single-particle spectrum: 
+
+ρs > 0 arises because the d-wave pseudogap in Keff sup-presses the paramagnetic current response; vertex cor-rections from the pairing channel (Cooper pair condensa-tion) would provide the additional many-body contribu-tion beyond the single-particle level. The distinct doping and temperature dependences of pseudogap ( Rg : mono-tonic, temperature-independent) and stiffness ( ρs: dome-shaped, temperature-dependent) mirror the cuprate phe-nomenology where the pairing scale grows into the un-derdoped regime while Tc is limited by the superfluid density (Uemura relation). This shows that the dome-shaped doping dependence of the superfluid response is already visible in the normal-state electronic structure. The absolute magnitude of ρs from Keff is subject to residual vertex corrections that remain to be quantified; these corrections may be smaller than conventional es-9timates since Keff has already absorbed the dominant self-energy effects. The dome peak location oscillates with system size due to discrete k-mesh effects. Twist-averaged boundary conditions to smooth the k-mesh, ver-tex corrections to include the pairing channel, and Lee– Yang zero analysis to independently locate the phase boundary are natural next steps. A particularly promis-ing direction is solving the BCS gap equation directly on the Keff spectrum using the extracted d-wave cou-pling λd: preliminary calculations on the Keff dressed dispersion with the measured λd ≈ 0.9–1 .1 yield Tc/t 
+
+in the range 0 .01–0 .07 depending on doping, consistent with cuprate energy scales and confirming that the com-bination of exact correlated band structure and measured pairing vertex can close the loop to an explicit supercon-ducting gap ∆( k). A detailed account of the BCS gap solution on Keff , including the full Tc(μ) dome and the momentum-resolved gap function, will be reported sepa-rately. 
+
+ACKNOWLEDGMENTS 
+
+X.W. thanks Quantum Strategics Inc. for financial sup-port. H.Q.L. acknowledges financial support from Grant No. 2022YFA1402701. Computations used GPU cloud computing resources. 
+
+[1] T. Timusk and B. Statt, Rep. Prog. Phys. 62 , 61 (1999). [2] B. Keimer, S. A. Kivelson, M. R. Norman, S. Uchida, and J. Zaanen, Nature 518 , 179 (2015). [3] A. Damascelli, Z. Hussain, and Z.-X. Shen, Rev. Mod. Phys. 75 , 473 (2003). [4] I. M. Vishik, Rep. Prog. Phys. 81 , 062501 (2018). [5] M. R. Norman, D. Pines, and C. Kallin, Adv. Phys. 54 ,715 (2005). [6] P. A. Lee, N. Nagaosa, and X.-G. Wen, Rev. Mod. Phys. 
+
+78 , 17 (2006). [7] P. W. Anderson, Science 235 , 1196 (1987). [8] F. C. Zhang and T. M. Rice, Phys. Rev. B 37 , 3759 (1988). [9] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Phys. Rev. D 24 , 2278 (1981). [10] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Phys. Rev. B 40 ,506 (1989). [11] E. Y. Loh, Jr., J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Phys. Rev. B 41 , 9301 (1990). [12] M. Troyer and U.-J. Wiese, Phys. Rev. Lett. 94 , 170201 (2005). [13] D. J. Scalapino, S. R. White, and S. C. Zhang, Phys. Rev. Lett. 68 , 2830 (1992). [14] D. J. Scalapino, Rev. Mod. Phys. 84 , 1383 (2012). [15] H.-C. Jiang and T. P. Devereaux, Science 365 , 1424 (2019). [16] M. Qin et al. , Phys. Rev. X 10 , 031016 (2020). [17] H. Xu et al. , Science 384 , adh7691 (2024). [18] D.-W. Qu et al. , Phys. Rev. Lett. 134 , 116502 (2025). [19] R. T. Scalettar et al. , Phys. Rev. B 40 , 197 (1989). [20] J. L. Tallon and J. W. Loram, Physica C 349 , 53 (2001). [21] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozenberg, Rev. Mod. Phys. 68 , 13 (1996). [22] R. Mondaini, S. Tarat, and R. T. Scalettar, Science 375 ,418 (2022). [23] R. Mondaini, S. Tarat, and R. T. Scalettar, Phys. Rev. B 107 , 245144 (2023). [24] Y. J. Uemura et al. , Phys. Rev. Lett. 62 , 2317 (1989). [25] X. Dong, L. Del Re, A. Toschi, and E. Gull, Proc. Natl. Acad. Sci. USA 119 , e2205048119 (2022). [26] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, Annu. Rev. Condens. Matter Phys. 13 , 239 (2022). [27] J. E. Gubernatis, N. Kawashima, and P. Werner, Quan-tum Monte Carlo Methods: Algorithms for Lattice Models 
+
+(Cambridge University Press, Cambridge, 2016). 10 
+
+Appendix A: DQMC Formalism and the Numerical Stability Problem 1. Hubbard Model Parameters 
+
+We study the two-dimensional Hubbard model on L×L
+
+square lattices with periodic boundary conditions: 
+
+H = −t X
+
+> ⟨i,j ⟩,σ
+
+c† 
+
+> iσ
+
+cjσ −t′ X
+
+> ⟨⟨ i,j ⟩⟩ ,σ
+
+c† 
+
+> iσ
+
+cjσ +U X
+
+> i
+
+ni↑ni↓−μ X
+
+> i,σ
+
+niσ 
+
+(A1) with t = 1 (energy unit). Parameters used: 
+
+• Pseudogap spectroscopy (Secs. IV–VI of the main text): t′/t = −0.30, U/t = 4, L = 12, ∆ τ = 0 .05 
+
+• Sign-transition analysis (Sec. III of the main text): 
+
+t′/t = −0.25, U/t = 4, L = 8–24, ∆ τ = 0 .1
+
+2. DQMC Framework 
+
+In DQMC, the partition function is: 
+
+Z = X
+
+> {σ}
+
+det M↑[σ] · det M↓[σ] (A2) where the fermion matrix for spin s is: 
+
+Ms[σ] = I +
+
+> nτ
+
+Y
+
+> l=1
+
+B(s) 
+
+> l
+
+(A3) and each time-slice propagator is: 
+
+B(s) 
+
+> l
+
+= e−∆τ K · diag 
+
+
+
+eασ il
+
+
+
+(A4) with cosh( α) = e∆τ U/ 2 and K the hopping matrix. 
+
+3. Two Independent Numerical Problems 
+
+It is essential to distinguish: 
+
+4. Condition Number Explosion 
+
+The B-matrix product B(β, 0) has eigenvalue ratio: 
+
+λmax /λ min ∼ eβW (A5) where W ≈ 8t + 4 |t′| ≈ 9.2 is the bandwidth. At β = 16 (T /t = 0 .063): cond[ B(β, 0)] ∼ e16 ×9.2 ∼ 10 64 , vastly exceeding double precision ( ∼ 10 16 ). The imaginary-time Green’s function G(τ ) =[B−1(τ, 0) + B(β, τ )] −1 requires summing matrices with wildly different scales. No algebraic rearrangement can recover the O(1) precision lost when B(β, τ ) overwhelms 
+
+B−1(τ, 0) by factors of 10 50 . This is why standard DQMC codes could measure equal-time observables ( Pd,
+
+S(π, π )) but could not measure quasiparticle dispersions 
+
+ε(k) at low temperatures. 
+
+Appendix B: QDT Stabilization of the Equal-Time Green’s Function 
+
+While G(τ ) is exponentially unstable, the equal-time Green’s function G(τ = 0) = ( I + B(β, 0)) −1 is computed stably using the QDT decomposition [10, 11]—standard practice since the late 1980s. The B-chain is segmented into blocks of nsafe slices (typically 8–10), each with moderate condition number (∼ ensafe ∆τ W ≈ 150). These are folded into a running decomposition: 
+
+B(β, 0) = Q · D · T (B1) where Q is orthogonal, D = diag( d1, . . . , d N ) carries the exponential scales, and T is upper triangular or orthog-onal. The key insight is that D can be stored in log space: log dnew  
+
+> i
+
+= log |Rnew  
+
+> ii
+
+| + log dold  
+
+> i
+
+(B2) This is additive . Each segment contributes log |Rii | ≈ ±nsafe ∆τ ε i, so log di = P 
+
+> s
+
+log |R(s) 
+
+> ii
+
+| ≈ βε i grows lin-early with β—stable for any temperature. Given the QDT, the stable equal-time Green’s function is: 
+
+G(0) = ( I+QDT )−1 =
+
+
+
+D−1large QT + Dsmall T
+
+−1
+
+D−1large QT
+
+(B3) where Dlarge = diag(max( di, 1)), Dsmall =diag(min( di, 1)). The matrix being inverted is well-conditioned because large di are cancelled by D−1large and small di by Dsmall .
+
+1. Pivoted QR vs. SVD 
+
+The T factor’s conditioning depends on the factoriza-tion method: For SVD, T = V T is orthogonal at every stage. For pivoted QR, the column permutation ensures T grows at most polynomially. Our production code uses GPU-batched SVD with CPU pivoted QR as a validation ref-erence. 
+
+Appendix C: The Keff Log-Space Averaging Method 1. Key Insight and Mathematical Foundations 
+
+The QDT stores the diagonal scales D in log space, but discards the off-diagonal structure. The Keff method extends the log-space treatment to the full chunk ma-trix, capturing the complete single-particle Hamiltonian including hopping and self-energy. To see why this works, consider the logarithm of a single time-slice propagator Bs(τ ) = e−∆τ V s(τ )e−∆τ K .By the Baker–Campbell–Hausdorff formula: log Bs(τ ) = −∆τ (K + Vs(τ )) + O(∆ τ 2) (C1) 11 
+
+Problem Origin Affects Our solution Condition number Multiplying B-matrices G(τ ), ε(k), ρs Keff log-space averaging Fermion sign det( M↑M↓) < 0 All observables Sign-sector decomposition Method T conditioning Stable at any β? Speed SVD (GPU batched) cond( T ) = 1 always Yes Fast Pivoted QR (CPU) cond( T ) = O(nseg ) Yes Moderate Non-pivoted QR (GPU) cond( T ) can blow up β ≲ 15 only Fast 
+
+For the chunk-averaged logarithm (averaging over blocks of nc consecutive slices), we define: 
+
+Keff = − 1
+
+nc∆τ ⟨log Bchunk ⟩σ,l (C2) where Bchunk = Bl+nc−1 · · · Bl+1 Bl is the product over 
+
+nc consecutive slices and the average runs over all chunks and all MC samples. Because each chunk spans only nc slices, its condition number is O(1) ( ∼ enc∆τ W ≈ 10 for nc = 5), and the matrix logarithm is numerically stable. 
+
+Remark. —Keff is the generator of the averaged prop-agator, not the average of the generator. The crucial mathematical property is that the logarithm converts the multiplicative fluctuations of B (which produce the sign problem) into additive fluctuations of log B (which aver-age smoothly by the central limit theorem). This is why 
+
+Keff is sign-independent while ⟨G⟩ is not. 
+
+Solution (Practical Algorithm). 
+
+1. Accumulate ⟨log Bchunk ⟩ over Monte Carlo samples 2. Extract Keff = −⟨ log Bchunk ⟩/∆τchunk 
+
+3. Compute dispersion in the eigenbasis of Keff 
+
+2. Keff as a Dressed Single-Particle Hamiltonian 
+
+The eigenvalues of Keff define a dressed quasiparticle dispersion. Because Keff is an N × N Hermitian matrix that respects the lattice symmetries, it can be Fourier-transformed to momentum space: 
+
+ε(k) = 1
+
+N
+
+X
+
+> i,j
+
+Keff (i, j ) eik·(ri−rj ) (C3) In the non-interacting limit (U = 0), Keff reduces to the bare kinetic matrix K, and ε(k) reduces to the tight-binding band ε0(k) = −2t(cos kx + cos ky ) −
+
+4t′ cos kx cos ky − μ. The self-energy encoded in Keff is Σ( k) ≡ ε(k) − ε0(k)—a static ( ω = 0), fully momentum-resolved self-energy that single-site DMFT cannot cap-ture but that is essential for describing the pseudogap. 
+
+3. Properties of Keff 
+
+1. Real and Hermitian : ∥Im( Keff )∥/∥Re( Keff )∥ <
+
+10 −4 verified at all parameters. 2. Includes interaction effects : Keff ̸ = K be-cause the MC averaging incorporates the HS-field-mediated self-energy: Keff ≈ K + Σ static .3. Bandwidth renormalization : At U/t = 4, the bandwidth increases from 8.0 (free) to ∼9.6 ( ∼20% enhancement). 4. Sign-independent : Both sign sectors yield Keff 
+
+eigenvalues agreeing to < 1% at all parameters. 
+
+4. Gap Extraction via Direct Fourier Transform 
+
+The quasiparticle dispersion is obtained directly: 
+
+ε(k) = ⟨k|Keff |k⟩ = 1
+
+N
+
+X
+
+> i,j
+
+Keff [i, j ] eik·(rj −ri) (C4) This replaces the standard approach of fitting 
+
+G(k, τ ) ∼ e−∆( k)τ , which suffers from three compound-ing bugs at low temperature: (a) occupied states are in-visible ( G → 0, positive slope clipped to ∆ = 0); (b) off-grid k-points mix eigenstates; (c) near EF , opposing exponentials cancel. The direct FT of Keff circumvents all three. 
+
+Validation. At U = 0, the FT of Kbare matches the ex-act free-fermion dispersion to machine precision (10 −15 ). At U = 0 .01, Keff reproduces the exact dispersion to 0.3%. 
+
+5. Stable G(τ ) Propagation 
+
+Once Keff = V · diag( εn) · V T is diagonalized, the imaginary-time Green’s function is computed in the eigenbasis using log-sum-exp: 
+
+Gnn (τ ) = e− max( an,b n)
+
+ean−max( an,b n) + ebn−max( an,b n) (C5) where an = τ ε n and bn = ( τ − β)εn. This is stable for 
+
+any β.12 
+
+Appendix D: Proof: Anomalous Green’s Function Vanishes Within Single HS Configurations 
+
+A key property of the HS decomposition is that within any single configuration σ, the spin-up and spin-down sectors factorize completely. The anomalous Green’s function: 
+
+Fij [σ] = ⟨ci↑cj↓⟩σ = 0 (D1) vanishes identically —not as a fluctuation average, but as a mathematical identity. This is because: 1. Each HS configuration defines independent fermion matrices M↑[σ] and M↓[σ]. 2. The single-particle Green’s functions G↑ and G↓ are computed independently. 3. Wick’s theorem applied to the factorized mea-sure gives only normal contractions ( ⟨c†↑c↑⟩, ⟨c†↓c↓⟩); cross-spin anomalous contractions ( ⟨c↑c↓⟩) vanish because c↑ and c↓ live in different Hilbert spaces within a single HS configuration. 
+
+Consequence for Keff : Since Keff is constructed from MC-averaged logarithms of single-spin propagators, it in-herits this property. Keff is a normal (single-particle, single-spin) operator that cannot encode pairing. Pairing information resides in inter-configuration correlations— how the ensemble weights different HS fields—and is therefore intrinsically sign-dependent. This is the mathematical foundation for the separation of pseudogap (from Keff , sign-independent) and pair-ing (from Pd, sign-dependent) demonstrated in the main text. 
+
+Appendix E: Measurement Formulas 
+
+The Green’s function convention throughout is the 
+
+hole propagator : Gσ (i, j ) = ⟨ciσ c† 
+
+> jσ
+
+⟩. The particle propagator (occupation matrix) is ( I − G)ij = ⟨c† 
+
+> iσ
+
+cjσ ⟩.
+
+1. d-Wave Pairing Susceptibility Pd
+
+Pd = 1
+
+N
+
+X
+
+> i,j
+
+X
+
+> δ,δ ′
+
+gδ gδ′ [I − G↑]ji [I − G↓]j+δ′, i +δ (E1) where gδ = +1 for δ = ±ˆx and −1 for δ = ±ˆy. The sum includes i = j. The factors are ( I − G), the parti-cle propagator—using G instead introduces a qualitative error that reverses the sign of P eff  
+
+> d
+
+.The effective pairing susceptibility is: 
+
+P eff  
+
+> d
+
+= P DQMC  
+
+> d
+
+− P 0 
+
+> d
+
+(μeff ) (E2) where P 0 
+
+> d
+
+is computed at an effective μ matching the interacting density. 
+
+2. Antiferromagnetic Structure Factor 
+
+The antiferromagnetic structure factor at wavevector 
+
+Q = ( π, π ) is 
+
+S(π, π ) = 1
+
+N
+
+X
+
+> i,j
+
+(−1) xi+yi+xj +yj ⟨Sz (i)Sz (j)⟩ (E3) where ( xi, y i) are the integer lattice coordinates of site 
+
+i, so that ( −1) xi+yi = eiQ·ri is the staggered (sublat-tice) phase factor. The spin-spin correlator is evaluated via the off-diagonal Wick contraction: ⟨Sz (i)Sz (j)⟩ = 
+
+> 14
+
+[m(i)m(j) − G↑(i, j )G↑(j, i ) − G↓(i, j )G↓(j, i )] where 
+
+m(i) = n↑(i) − n↓(i). 
+
+3. Superfluid Stiffness from Keff 
+
+The stiffness ρs = Ds − Λxx uses bare operators, dressed states :
+
+Ds = − 2
+
+N
+
+X
+
+> ⟨ij ⟩x
+
+tbare  
+
+> ij
+
+(δx ij )2 nKeff  
+
+> ij
+
+(E4) where nKeff  
+
+> ij
+
+= [ I−GKeff ]ij with GKeff computed from Keff 
+
+eigenstates and Fermi occupations. The sum includes both NN x-bonds ( −t, δx = ±1) and all four NNN bonds (−t′, δx = ±1). The paramagnetic term uses the Lehmann representa-tion: Λxx = 2
+
+N
+
+X
+
+> n,m
+
+|jnm |2 wnm (E5) where jnm = ⟨n|jx|m⟩ are bare current matrix elements in the Keff eigenbasis, and wnm = ( fn − fm)/(εm − εn)for n̸ = m, wnn = βf n(1 − fn). 
+
+Important caveat: The stiffness computed from Keff 
+
+is a mean-field estimate that omits vertex corrections from two-particle interactions. In the Hubbard model at U/t = 4, such corrections can modify Λ xx by 30– 50% [13]. Absolute magnitudes of ρKeff  
+
+> s
+
+should therefore be interpreted with caution. However, the sign , doping dependence , and temperature evolution of ρs are physical, as these qualitative features are unlikely to be reversed by vertex corrections. A systematic treatment of vertex corrections to ρs within the Keff framework is a natural extension of this work. 13 
+
+Appendix F: Algorithms 
+
+Algorithm 1 Accumulate log Bchunk during DQMC sampling 
+
+Require: HS field σ[N, n τ ], chunk size nc, propagator e−∆τ K 
+
+Ensure: Accumulated log B matrix  
+
+> 1:
+
+log B sum ← 0N ×N 
+
+> 2:
+
+nchunks ← ⌊ nτ /n c⌋ 
+
+> 3:
+
+for c = 0 to nchunks − 1 do  
+
+> 4:
+
+Bchunk ← IN 
+
+> 5:
+
+for l = c · nc to ( c + 1) · nc − 1 do  
+
+> 6:
+
+Bchunk ← e−∆τ K · diag( eασ [: ,l ]) · Bchunk  
+
+> 7:
+
+end for  
+
+> 8:
+
+log B ← logm (Bchunk ) 
+
+> 9:
+
+if max |Im(log B)| < 0.5 then  
+
+> 10:
+
+log B sum ← log B sum + Re(log B) 
+
+> 11:
+
+end if  
+
+> 12:
+
+end for  
+
+> 13:
+
+return log B sum /n chunks 
+
+Algorithm 2 Compute Keff and quasiparticle dispersion 
+
+Require: Accumulated log B total , sample count ns, chunk size nc, ∆ τ , lattice size L
+
+Ensure: Keff , dispersion ε(k) 
+
+> 1:
+
+Keff ← − log B total /(ns · nc · ∆τ ) 
+
+> 2:
+
+Keff ← 12 (Keff + KT 
+
+> eff
+
+) ▷ Symmetrize  
+
+> 3:
+
+εn, V ← eigh (Keff ) 
+
+> 4:
+
+for each k = (2 πi kx /L, 2πi ky /L ) do  
+
+> 5:
+
+ϕk(i) ← ei(kxxi+ky yi)/√N 
+
+> 6:
+
+ε(k) ← Re[ ϕ†
+
+> k
+
+Keff ϕk] 
+
+> 7:
+
+end for  
+
+> 8:
+
+Gap ratio: Rg = |ε(kN , k N )|/|ε(π, 0) |
+
+Appendix G: Bethe–Salpeter Vertex Extraction 
+
+The Keff framework enables extraction of the d-wave pairing vertex V eff  
+
+> d
+
+via a Bethe–Salpeter decomposition. Using Keff as the dressed single-particle baseline, one separates the band-structure contribution χ0 
+
+> dd
+
+(sign-free, computable from Keff alone) from the residual pairing interaction V eff  
+
+> d
+
+(sign-dependent): χ−1 
+
+> dd
+
+= ( χ0
+
+> dd
+
+)−1 − V eff  
+
+> d
+
+,yielding the dimensionless coupling λd = V eff  
+
+> d
+
+χ0
+
+> dd
+
+.Across all three system sizes ( L = 8, 10, 12), the vertex extraction at the dome peak yields λd ≈ 0.9– 1.1 for β ≤ 14, where sign reweighting of χdd remains statistically stable. The coupling is consistently positive (V eff  
+
+> d
+
+> 0), confirming that the residual interaction be-tween Keff quasiparticles is attractive in the d-wave chan-nel. At higher β, χdd passes through divergences that produce large fluctuations in λd, limiting reliable extrac-tion to β ≲ 14. The attractive sign of V eff  
+
+> d
+
+has an important impli-cation for the dressed-particle stiffness discussed in the main text: vertex corrections from an attractive d-wave interaction would enhance the superfluid stiffness by fur-ther suppressing Λ xx beyond the pseudogap suppression already captured by Keff . The dressed-particle ρs re-ported in this work is therefore a lower bound on the full stiffness that includes pairing vertex corrections. A de-tailed account of the vertex extraction, its convergence properties, and the quantitative correction to ρs will be reported separately. 
+
+Appendix H: Summary of Novel Contributions 
+
+To clarify what is new in this work versus what is es-tablished in the literature, we provide the following sum-mary. 
+
+Established results that we build upon: (i) Antifer-romagnetic spin fluctuations favor d-wave pairing in the Hubbard model [13, 14, 25]. (ii) The pseudogap has d-wave symmetry and opens at T ∗ as observed by ARPES [3, 4]. (iii) The antinodal pseudogap is ap-proximately temperature-independent below T ∗ in un-derdoped cuprates [4]. (iv) S(π, π ) is present near half-filling in DQMC simulations [10]. (v) The superfluid stiff-ness ρs = Ds − Λxx is the standard Kubo formula for the Meissner response [13]. (vi) Tc ∝ ρs(0) in underdoped cuprates (Uemura relation) [24]. (vii) Whether the 2D Hubbard model has a d-wave SC ground state remains debated [16, 26]. 
+
+New methodology: (i) The effective Hamiltonian Keff ,constructed from Monte Carlo–averaged matrix loga-rithms of the DQMC imaginary-time propagator. This maps the multiplicative sign problem into an additive framework, yielding the numerically exact correlated single-particle spectrum sign-problem-free. (ii) PivQR decomposition for numerically stable extraction of Keff 
+
+at low temperatures ( β ≤ 20). (iii) Fourier interpola-tion of Keff eigenvalues to exact high-symmetry k-points (resolving the Rg artifact for L mod 4 ̸ = 0). 
+
+New physics results: (i) The dressed-particle super-fluid stiffness dome: ρs computed on the exact Keff band structure forms a dome across doping at L = 8, 10, and 12, mapped over a range of temperatures from β = 4 to β = 20. No previous study has computed ρs versus doping from the exact correlated band structure in the pseudogap regime. (ii) The temperature independence of Rg (<10% variation from β = 4 to 20), quantifying the pseudogap as a ground-state property of the normal-state band structure from unbiased DQMC. (iii) The ex-plicit demonstration that S(π, π ) is flat across doping while ρs forms a dome—on the same Keff framework, at the same parameters—providing direct evidence that the dome shape originates from the Fermi-surface geom-etry rather than from a peak in antiferromagnetic corre-lations. (iv) The connection between the dome and the Uemura relation: the large, monotonic pseudogap ( Rg )versus the dome-shaped stiffness ( ρs) shows that the pair-ing scale and the phase coherence scale are governed by separate physics, with ρs limiting Tc at underdoping. (v) Bethe–Salpeter vertex extraction yielding attractive d-wave coupling λd ≈ 0.9–1 .1 at the dome peak across all 14 system sizes, implying that the dressed-particle ρs is a lower bound on the full stiffness. 
+
+> Appendix I: Sector Stability Analysis
+
+The reliability of Keff observables depends on the sign-sector decomposition maintaining distinct Z+ and Z− en-sembles throughout the measurement phase. We quan-tify this via two diagnostics. 
+
+Instantaneous sign. At each measurement step, we re-compute the fermion sign s = sgn(det M↑ det M↓) for ev-ery replica and average within each sector. If the sector decomposition is working, replicas assigned to Z+ should consistently have s = +1, giving ⟨s⟩Z+ ≈ +1; replicas in 
+
+Z− should have s = −1, giving ⟨s⟩Z− ≈ − 1. When both sector averages drift toward zero, the replicas have lost their sector identity: Monte Carlo updates have carried them across the sign boundary, and both sectors are sam-pling the same mixed-sign distribution. At that point, the K+eff vs K− 
+
+> eff
+
+decomposition is no longer meaningful. 
+
+Sector asymmetry. The relative difference |ρ+ 
+
+> s
+
+−
+
+ρ− 
+
+> s
+
+|/ max( |ρ+ 
+
+> s
+
+|, |ρ− 
+
+> s
+
+|) directly measures whether Keff is re-solving distinct physics in the two sectors. At L = 12, this asymmetry exceeds 20% for β ≤ 12 at the dome peak, but drops below 15% for β ≥ 14. At L = 16, the asymmetry is < 10% at all parameters tested, including with 64 replicas (32 per sector). This analysis provides a transparent, data-driven cri-terion for which Keff results should be considered quanti-tatively reliable. All ρs values reported in the main text satisfy the > 20% asymmetry criterion unless explicitly noted. 
+
+> Appendix J: Computational Details
+
+All simulations use a GPU-accelerated DQMC code implemented in PyTorch, with batched matrix operations across parallel replicas. The pivoted QR decomposition is performed on CPU; all other operations (sweeps, Green’s function updates, Keff accumulation) run on GPU. Pro-duction runs used NVIDIA RTX 4090 (24 GB) and RTX 5090 (32 GB) GPUs via cloud computing. Typical wall times per 200-measurement run range from 0.3–1 h at 
+
+L = 12 to 1–3 h at L = 16 ( β = 8).

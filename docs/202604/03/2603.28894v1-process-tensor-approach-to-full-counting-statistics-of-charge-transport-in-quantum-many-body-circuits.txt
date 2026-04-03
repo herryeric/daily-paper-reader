@@ -1,0 +1,1037 @@
+Title: Process-tensor approach to full counting statistics of charge transport in quantum many-body circuits
+
+URL Source: https://arxiv.org/pdf/2603.28894v1
+
+Published Time: Wed, 01 Apr 2026 00:07:43 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Process-tensor approach to full counting statistics of charge transport in quantum many-body circuits 
+
+Hari Kumar Yadalam ∗ and Mark T. Mitchison †
+
+Department of Physics, King’s College London, Strand, London, WC2R 2LS, United Kingdom and School of Physics, Trinity College Dublin, Dublin 2, Ireland 
+
+We introduce a numerical tensor-network method to compute the statistics of the charge trans-ferred across an interface partitioning an interacting one-dimensional many-body lattice system with 
+
+U (1) symmetry. Our approach is based on a matrix-product state representation of the process ten-sor (also known as influence functional or influence matrix) describing the effect of the bulk system on the degrees of freedom at the interface, allowing us to evaluate a multi-time correlation function that yields the moment-generating function of charge transfer. We develop a scheme to truncate non-Markovian correlations which preserves the proper normalization of the process tensor and ensures the correct physical properties of the generating function. We benchmark our approach by simulat-ing magnetization transport within the Heisenberg spin-1 /2 XXZ brickwork circuit model at infinite temperature. Our results recover the correct transport exponent describing ballistic, superdiffu-sive, and diffusive transport in different regimes of the model. We also demonstrate anomalous transport encoded by a self-similar scaling form of the moment-generating function outside of the ballistic regime. In particular, we confirm the breakdown of Kardar-Parisi-Zhang universality in higher-order transport cumulants at the isotropic point. Our work paves the way for process-tensor descriptions of non-Markovian open quantum systems to address current fluctuations in strongly interacting systems far from equilibrium.  
+
+> Keywords: Full Counting Statistics, Quantum Transport, Quantum Circuits, Process Tensors, Temporal Matrix Product States, Heisenberg XXZ Model.
+
+I. INTRODUCTION 
+
+Understanding the dynamics of excitations in quantum many-body systems is a central question in modern the-oretical physics. The most straightforward experimental probe of these excitations is to measure how the sys-tem responds to external perturbations, such as currents induced by external field gradients [ 1, 2]. In the well-studied linear-response regime, fluxes are proportional to the applied field, with coefficients determined by current-current correlation functions that encode information on a subclass of excitations in the system [ 3–5]. These trans-port coefficients can be used to identify distinct univer-sality classes, e.g. the low-frequency behavior of the con-ductivity determines whether transport is subdiffusive, diffusive, superdiffusive, or ballistic. Transport phenomena also open a vital window on uni-versal physics far from equilibrium. In one-dimensional (1D) spin chains with nearest-neighbor interactions, a panoply of different high-temperature transport proper-ties have been found within and beyond linear response, depending on symmetries, integrability, and nonequilib-rium boundary conditions [ 6, 7]. These discoveries have been driven, on the one hand, by experiments on con-trolled quantum many-body systems [ 8–11 ] and, on the other hand, by novel theoretical developments including tensor-network methods [ 12 –17 ] and the framework of generalized hydrodynamics [ 18 –21 ]. The rise of digital    
+
+> ∗hari kumar.yadalam@kcl.ac.uk
+> †mark.mitchison@kcl.ac.uk
+
+quantum simulation has also sparked new interest in un-derstanding transport within quantum circuits evolving in discrete time, which may either replicate [ 22 ] or radi-cally depart [ 23 –29 ] from their continuous-time counter-parts. However, recent results have demonstrated that aver-age currents are insufficient to characterize universality classes of high-temperature transport in 1D [ 30 –33 ]. Fo-cus has therefore shifted to the fluctuations encoded in the full counting statistics (FCS) of conserved charges. While these fluctuations have long been studied in quan-tum optics and mesoscopic electron transport [ 34 –38 ], FCS can now be probed directly in isolated quantum many-body lattice systems via site-resolved measure-ments [ 32 , 39 –41 ]. In this context, traditional weak-coupling approximations do not apply and thus predict-ing the FCS in quantum many-body systems remains a challenging theoretical problem, not least because FCS is defined by a multi-time measurement, i.e., it is not a standard observable. Important analytical results have recently been obtained in particular limits of strong inter-actions or large spatiotemporal scales [ 31 , 42 –46 ], but nu-merical methods remain indispensable for analyzing the microscopic physics from first principles [ 31 , 33 , 47 , 48 ]. In this work, we introduce a general tensor-network al-gorithm for computing the fluctuating charge transferred across an interface partitioning a 1D quantum many-body lattice with U (1) symmetry. By interpreting the interface as an open quantum system, we recast FCS as the contraction of so-called process tensors represent-ing the influence of the environments on either side of the interface. The process tensor—the most general de-scription of local, multi-time operations on a quantum 
+
+> arXiv:2603.28894v1 [quant-ph] 30 Mar 2026
+
+2system [ 49 , 50 ]—underpins numerous tensor-network al-gorithms to simulate non-Markovian dissipation [ 51 –58 ]and local observables in isolated lattice models [ 59 –63 ]. Here, we adopt the light-cone folding algorithm [ 64 , 65 ]to efficiently represent each process tensor as a tempo-ral matrix product state (MPS). The bond dimension of this MPS quantifies environmental memory [ 66 ], which is expected to grow slowly with time for integrable sys-tems [ 67 –71 ] and also some chaotic systems under appro-priate coarse-graining [ 72 , 73 ]. To capture these memory effects efficiently at long timescales, we develop an orig-inal MPS compression scheme that preserves the proper normalization of each process tensor, which may be of in-dependent interest, e.g., for boundary impurity problems with a single environment. To showcase our approach, we study magnetisation transport across a discrete-time quantum circuit version of the spin-1 /2 XXZ model at infinite temperature, mo-tivated by recent experiments [ 32 , 39 ]. Analogous to its continuous-time counterpart [ 18 ], the XXZ circuit ex-hibits ballistic, superdiffusive, and diffusive transport de-pending on the anisotropy parameter, ∆ [ 22 ]. Of par-ticular interest is the isotropic point ∆ = 1, where the conductance is superdiffusive [ 10 , 11 , 39 , 74 ], consistent with the celebrated Kardar-Parisi-Zhang (KPZ) univer-sality class [ 75 , 76 ]. Our results show that KPZ universal-ity breaks down for infinite-temperature cumulants above second order, corroborating recent experimental [ 32 ] and theoretical [ 33 ] findings. We also find ballistic transport with approximately Gaussian fluctuations for |∆| < 1and diffusive transport with highly non-Gaussian fluctu-ations for |∆| > 1. Outside of the ballistic regime, we show that the moment-generating function adopts a self-similar scaling form which implies the breakdown of the large-deviation principle, signalling that both diffusion and superdiffusion in this model are highly anomalous. We note that Ref. [ 33 ] recently introduced a comple-mentary numerical method to compute FCS in many-body lattices and applied it to the infinite-temperature XXZ model. In Ref. [ 33 ], however, the time-dependent cumulant generating function is represented in terms of a matrix-product operator (MPO) that is evolved by conventional tensor-network time propagation methods. The accuracy of this MPO representation is limited by operator entanglement [ 77 ], which is expected to grow at most logarithmically in integrable systems and linearly in nonintegrable ones [ 78 ]. By contrast, the efficiency of our temporal MPS representation is limited by the growth of so-called temporal entanglement. While early evidence suggests that temporal entanglement should scale simi-larly to local operator entanglement in a given model [ 67 –
+
+70 , 79 ], recent work has found slow temporal entangle-ment growth in nonintegrable systems under certain con-ditions [ 71 , 73 , 80 ], suggesting that our approach could be applied to study fluctuating charge transport beyond integrable parameter regimes. We also note two previ-ous works that have used process tensors to numerically compute the FCS of dissipative energy transfer, albeit in the different context of open quantum systems coupled to noninteracting environments [ 81 , 82 ]. By establishing that a similar philosophy is fruitful in the many-body context, we hope that our work will inspire further appli-cations of process-tensor methods in the nonequilibrium thermodynamics of strongly correlated systems. We begin by introducing the general problem of FCS in quantum circuits in Sec. II , before describing our process-tensor methodology and MPS compression scheme in Sec. III . Results for the XXZ circuit model are presented in Sec. IV , where we compute the evolution of a local magnetisation correlator as well as the FCS, computing charge cumulants up to sixth order for different values of the anisotropy parameter and timestep. We provide over-all conclusions and an outlook on future work in Sec. V.Numerical convergence analysis is delegated to the ap-pendix.  
+
+> II. QUANTUM CIRCUIT MODEL AND FULL COUNTING STATISTICS
+
+We consider an infinite 1D lattice of qudits evolv-ing under a unitary brickwork circuit with U (1) sym-metry. Brickwork circuits are fundamental models of nonequilibrium many-body physics with local interac-tions, which can also be interpreted as a Trotter-Suzuki approximation of continuous-time Hamiltonian dynamics with nearest-neighbour couplings [ 83 , 84 ]. The Hilbert space of the model system is H = ⊗ 
+
+> l∈Z
+
+Hl, where each of the local spaces Hl is isomorphic to Cd, with d the lo-cal qudit dimension. The evolution operator for a single time step is given by 
+
+U = UeUo, (1) where Ue/o correspond to unitary gates that act on all even/odd bonds of the lattice, being given by 
+
+Ue = ∏
+
+> l∈Z
+
+U2l, 2l+1 
+
+Uo = ∏
+
+> l∈Z
+
+U2l−1,2l. (2) The two-site qudit gates Ul,l +1 act non-trivially on the two site Hilbert space Hl
+
+⊗ Hl+1 . We assume that the two site gates and hence the circuit commute with a local conserved charge 
+
+M = ∑
+
+> l∈Z
+
+Ml, (3) which generates the U (1) symmetry. We are interested in studying the transport of the con-served charge across a (fictitious) interface at site j = 0, which separates two semi-infinite halves of the lattice to the left ( j ≤ 0) and right ( j > 0). To quantify this, we consider the probability that a quantity of charge q is 3transferred from right to left after n timesteps, P(q, n ). This probability is defined by a two-point measurement protocol [ 36 , 85 –87 ], wherein the charge difference oper-ator ∆ M = ∑ 
+
+> l≤0
+
+Ml − ∑ 
+
+> l> 0
+
+Ml is projectively measured at the initial and final times, yielding eigenvalues δm i and 
+
+δm f as outcomes, respectively. The charge transported from right to left is q = δm f − δm i, which is distributed according to 
+
+P(q, n ) = ∑ 
+
+> δm f,δm i
+
+δ(q − (δm f − δm i)) ×
+
+Tr 
+
+[
+
+Πδm f UnΠδm i ρ(0)Π δm i U†n]
+
+, (4) where Π δm is the projection operator into the eigenspace of ∆ M with eigenvalue δm and ρ(0) is the initial state. For computations, it is convenient to work with the Fourier transform of P (q, n ): the moment-generating function 
+
+Z(λ, n ) = 
+
+∫ ∞−∞ 
+
+dq e iλq P(q, n ), (5) where λ is called the counting field. The cumulants of q,denoted κr, are generated according to 
+
+κr(n) = ( −i)r ∂r
+
+∂λ r ln Z(λ, n )
+
+∣∣∣∣λ=0 
+
+, (6) e.g., κ1 = 〈q〉 is the mean charge transfer, κ2 = 〈q2〉−〈 q〉2
+
+is the variance, and so on. Assuming that [ ρ(0) , ∆M] = 0, so the initial measurement does not perturb the state, Eqs. ( 4) and ( 5) yield 
+
+Z(λ, n ) = Tr 
+
+[
+
+eiλ ∆MUne−iλ ∆Mρ(0) U†n]
+
+. (7) For concreteness, we consider an infinite-temperature ini-tial state, ρ(0) = ⊗ 
+
+> n∈Z I
+> d
+
+, where I is the identity opera-tor. It is convenient to work in a vectorized or folded rep-resentation using the map |k〉〈 l| → | l〉∗|k〉, where the as-terisk denotes complex conjugation in the computational basis [ 38 ]. The vectorized moment-generating function for an infinite-temperature state is then given by 
+
+Z(λ, n ) = ( I| ei λ 
+
+> 2∆M
+
+Une−i λ 
+
+> 2∆M
+
+|I ), (8) where |I ) = ⊗ 
+
+> j∈Z
+
+|I 1) is a product of maximally en-tangled pairs |I 1) = 1√d
+
+∑d−1 
+
+> k=0
+
+|k〉| k〉, i.e., the vectorized local infinite temperature state at each site. Moreover, 
+
+U = U∗ ⊗U is the vectorized representation of the unitary superoperator U ⋆ U†, while ∆ M = ∆ M∗ ⊗ I + I ⊗ ∆M
+
+is the vectorized superoperator {∆M, ⋆ }.Now, note that the charge difference ∆ M only changes when a charge moves across the left-right interface. This fact is reflected by the commutation relation [∆ M, Uj,j +1 ] = [ M0 − M1, Uj,j +1 ] ∝ δj0. Exploiting this relation in Eq. ( 7) yields 
+
+Z(λ, n ) = (I|U nλ |I ), (9) where Uλ = U∗
+
+> +λ
+
+⊗ U−λ with Uλ = Ue,λ Uo, with 
+
+Ue,λ = eiλ (M0 −M1)U0,1e−iλ (M0 −M1) ∏ 
+
+> j6=0
+
+U2j, 2j+1 . (10) That is, the counting field λ “tilts” the two-site unitary gate U0,1 coupling the two halves of the system, while all other gates are left unchanged. For the infinite lattice, Eq. ( 9) can be represented diagrammatically [ 83 , 84 ] as 
+
+Z(λ, n ) = , (11) with time increasing from bottom to top. Blue and red circles represent gates acting on odd-even and even-odd neighbouring sites, respectively. Small black pins rep-resent the vectorized local infinite temperature density matrix at each site. Yellow circles represent the tilted unitary superoperator on sites j = 0 , 1. Owing to the unitarity and unitality of the local two-site gates, 
+
+= = (12) an exact light cone structure emerges [ 64 , 65 , 83 , 84 ], which simplifies the network to 
+
+Z(λ, n ) = . (13) A similar diamond-shaped network arises for any initial product state of the form ρ(0) = ⊗ 
+
+> j∈Z
+
+ρj so long as the condition [ Mj + Mj+1 , ρ j ⊗ ρj+1 ] = 0 is satisfied.   
+
+> III. COMPUTATIONAL METHODOLOGY A. Computing FCS with temporal MPS
+
+Due to the exact light cone structure, the computation of the generating function is reduced to the contraction of the finite tensor network in Eq. ( 13 ). Nevertheless, exact contraction of this network has an exponential computa-tional cost in the depth of the circuit, n. Conventional tensor-network algorithms such as time-evolving block decimation (TEBD) [ 88 –92 ] would contract from bottom to top, i.e., sequentially in time, while approximating the intermediate state Umλ |I ) generated after m layers as an 4MPS with finite bond dimension and thus limited spatial correlations. This would reduce the complexity of a sin-gle evaluation of Z(λ, n ) to quadratic in the circuit depth 
+
+n. Nevertheless, a different network must be contracted for each value of λ to compute the full statistics, which can be prohibitively expensive for large circuit depths. Here we take a different approach, borrowing ideas from the temporal MPS literature [ 57 , 59 –65 ]. We in-terpret the central two sites as an open quantum system and construct tensors representing the influence of its en-vironment to the left and right. That is, the computation of the generating function is interpreted as follows: 
+
+Z(λ, n ) = . (14) The tensors in the red and blue boxes are variously dubbed influence functionals [ 93 ], influence matrices [ 61 ], or process tensors [ 49 ]. By approximating each tensor as a finite bond dimension MPS, 
+
+≈ ≈ . (15) the computation of the generating function is rewritten as 
+
+Z(λ, n ) = . (16) A key advantage of this approach is that the temporal MPSs are independent of the counting field and therefore need to be constructed only once for a given environment. Thus, the generating function Z(λ, n ) at timestep n is reconstructed by repeating the contraction in Eq. ( 16 )while varying λ in the tilted unitary (yellow circles). A similar construction can be used to compute other multi-time correlation functions, as shown already in Ref. [ 59 ]. Consider the two-time correlation function at infinite temperature for a local observable O supported on site j = 0: 
+
+〈O(n)O(0) 〉 = ( I|OU n O|I ), (17) where O = O∗ ⊗ I is the superoperator describing multi-plication by O from the left. In diagrammatic notation this can be expressed as 
+
+〈O(n)O(0) 〉 =
+
+= ≈ , (18) where the small yellow circles indicate the superopera-tor O inserted into the circuit. On the second line of Eq. ( 18 ), the first equality results from the exact light-cone structure while the second equality results from the MPS approximation. In fact, the same temporal MPS can describe any multi-time operation on the central subsystem. Indeed, the free horizontal legs of the MPS in Eq. ( 15 ) are of dimension d2. There are two free legs for each odd-even layer of the circuit, which together have dimension d4 and thus span the space of superoperators acting on a single qudit at each timestep. For example, these superopera-tors could be elements of a quantum instrument, whose contraction with the temporal MPS yields the probabil-ity of obtaining a given sequence of measurement out-comes [ 50 ]: it is in precisely this sense that we refer to these objects as process tensors. The vertical bonds of the temporal MPS are of dimension χ and describe the propagation of information forward in time via the en-vironment, i.e. non-Markovianity or temporal entangle-ment. The bond dimension χ can also be interpreted as the effective dimension of the environment seen by the system [ 49 , 50 , 57 , 63 , 66 ]. Since the exact bond dimen-sion grows exponentially with circuit depth, the accu-racy of our MPS approximation scheme rests upon effi-ciently truncating χ to a tractable value, while retaining the most important information about the environmental influence, as we now elaborate. 5 
+
+> B. MPS truncation scheme
+
+The left and right process tensors individually obey the following normalization conditions: 
+
+≈ = 1 , ≈ = 1 .
+
+(19) At the level of the circuit, these conditions follow from trace preservation, e.g., as can be seen by applying Eq. ( 12 ) repeatedly to the right-hand side. At the level of the process tensor, this condition describes a “no-intervention” instrument, whose unique “outcome” (i.e., nothing) occurs with probability one. We therefore refer to this as the no-intervention normalization. Maintaining this normalization is important to preserve the physical properties of the generating function, e.g. Z(0 , n ) = 1. We note that alternate normalization conditions appro-priate for computing the local correlator of a fixed oper-ator have been explored in Refs. [ 60 , 64 , 70 ]. We now present a numerical algorithm for computing temporal MPS representations while enforcing Eqs. ( 19 )at each step. Our algorithm draws its inspiration from the light-cone transverse folding approach [ 59 –62 , 64 ] and the density matrix truncation algorithm [ 94 ]. Below, we present the construction of the left temporal matrix prod-uct state; the right state can be obtained similarly. The algorithm starts with the process for time step n = 1, 
+
+,
+
+and iteratively constructs the MPS for the next time step by applying a spatial layer of gates to the MPS generated at the previous step. For example, passing from n = 4 to 
+
+n = 5 we have 
+
+≈ , (20) where the right-hand side is an MPS compressed to a given bond dimension χ. Standard MPS compression routines would either perform singular value decomposi-tion (SVD) at each bond and discard the smallest sin-gular values or use variational optimization to find the closest MPS with bond dimension χ [90 ]. However, this direct compression would generally violate the non-intervention normalization ( 19 ). Following Ref. [ 94 ], therefore, we first exploit the gauge freedom of the MPS representation to transform to a dif-ferent basis, thus identifying those singular values that can be truncated without affecting the overall normaliza-tion. To describe this, we start from the no-intervention normalization condition after a single spatial layer of gates is applied: 1 = = , (21) where the final equality expresses the normalization as the contraction of the tensor network on the left with a “no-intervention” MPS on the right. Now, consider truncation of the bond after applying the second gate from the top. We first apply the gate and do the exact SVD without truncation: 
+
+> SVD
+
+= . (22) Inserting this into the normalization condition ( 21 ) gives 
+
+= 1 . (23) The dangling legs of the triangular tensors (above and below the diamond) index the basis states of the temporal bond. By an appropriate basis transformation, we single out a new basis vector that contributes to the contraction in Eq. ( 21 ), while all other orthogonal basis vectors do not. This is done by inserting unitaries and their inverses into the virtual bonds of the temporal matrix product 6state, as follows: 
+
+= 1 . (24) The unitaries U and V are defined by a QR decomposi-tion of the “temporal environments” above and below the chosen bond. In this example, the future environment is decomposed as 
+
+= . (25) As a consequence of the QR decomposition, the small yellow circle is a vector of the form u = ( u1, 0, 0, · · · ) with only its first element nonzero, while the yellow square is a unitary matrix U . The past environment decomposes similarly as 
+
+= . (26) Inserting these into Eq. ( 24 ) gives 
+
+= 1 . (27) Since only the first elements of the vectors u and v are nonzero, only the (1 , 1) matrix element of U ΛV con-tributes to the no-intervention normalization. Hence, truncating the matrix U ΛV =
+
+((1 , 1) 
+
+B
+
+)
+
+in the com-plementary block B does not affect the normalization of the process tensor. This can be achieved by trun-cated singular value decomposition of B, i.e, U ΛV ≈((1 , 1) ¯U ¯Λ ¯V
+
+)
+
+, as  
+
+> approximate SVD of B
+
+≈ . (28) This decomposition yields a truncated MPS which ex-actly preserves normalization, since 
+
+= 1 . (29) In summary, the two-site approximate gate application is 
+
+≈ ≡ , (30) where the last equality follows by contracting the tensors within the black boxes to form the updated local tensors of the MPS. A similar truncation is carried out at each two-site gate, sweeping from bottom to top, thus com-pleting the MPS growth step shown in Eq. ( 20 ). This growth is then iterated until the desired number of time steps n is reached. Once MPS representations for the left and right process tensors are obtained, we contract with the tilted unitary to obtain the moment generating function as in Eq. ( 16 ).  
+
+> IV. APPLICATION TO MAGNETIZATION TRANSPORT IN THE XXZ CIRCUIT MODEL
+
+We now apply our methodology to study magneti-zation transport in the brickwork spin- 1 
+
+> 2
+
+XXZ circuit model [ 22 , 32 , 33 ]. The local dimension is d = 2, with two-site gates given by 
+
+Ul,l +1 = e−iJ (Xl Xl+1 +YlYl+1 )−iJ ′ZlZl+1 , (31) 7                                          
+
+> 10 010 110 2
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 010 110 2
+> 10 -2
+> 10 -1
+> 10 0
+> 10 010 110 2
+> 10 -2
+> 10 -1
+> 10 0
+> FIG. 1. Local magnetization auto-correlator 〈Z0(n)Z0(0) 〉as function of circuit depth nfor various ( J,J′) parameters indicated in the legends that define the two-site gates of the spin-1
+> 2brickwork XXZ circuit model. Coloured lines with markers indicate the correlators obtained using the methodology presented in Sec. III . Left, middle and right panels display the local correlators respectively in the ballistic, super-diffusive and diffusive transport regime of the circuit. Black lines indicate power-law fits to the data, and the respective exponents are displayed in the plot legends. Throughout this work, we use bond dimension
+> χ= 2 10 in the ballistic regime (left panel) and χ= 2 11 in the superdiffusive and diffusive regime (middle and right panels, respectively).
+
+where Xl, Y l, Z l are Pauli matrices at site l, and J , J ′
+
+are coupling parameters. The conserved charge in this model is the total magnetization 
+
+M = ∑
+
+> l
+
+Ml = ∑
+
+> l
+
+Zl. (32) It is well established that the average magnetization transport in this model shows qualitatively different be-havior depending on the value of the anisotropy parame-ter, ∆ = J ′/J , mirroring the behavior of the continuous-time model (obtained in the limit J → 0 for fixed ∆) [ 22 ]. At the free-fermion point, ∆ = 0, transport is ballistic as expected for a clean, noninteracting model. Magneti-zation transport remains ballistic for all positive values of ∆ < 1, becomes superdiffusive at the isotropic point ∆ = 1, and is then diffusive for ∆ > 1. In the following, we use the XXZ circuit as a testbed to explore FCS in these different transport regimes with our method, recov-ering results in agreement with recent experimental [ 32 ]and numerical [ 33 ] investigations.  
+
+> A. Local magnetization correlator
+
+As an initial benchmark, we first compute the lo-cal magnetization correlator 〈Z0(n)Z0(0) 〉. Such mag-netization correlators have recently been probed exper-imentally in various digital quantum simulation plat-forms [ 11 , 32 , 95 –97 ]. Asymptotically, the local corre-lator is expected to decay as a power law with the circuit depth, 〈Z0(n)Z0(0) 〉 ∝ n− 1 
+
+> z
+
+, where the exponent z iden-tifies the transport universality class [ 6, 98 ]. Specifically, 
+
+z = 1 signifies ballistic transport and z = 2 signifies dif-fusive transport, with intermediate values of 1 < z < 2corresponding to superdiffusive transport, while z > 2defines the subdiffusive regime. Fig. 1 displays the infinite-temperature correlator com-puted using the methodology presented in Sec. III , for various coupling parameters ( J , J ′) spanning the bal-listic, superdiffusive, and diffusive regimes. One notable feature in the left panel of Fig. 1 is the oscillatory be-havior of the local correlator in the free-fermion limit where J ′ = 0, which we attribute to the finite band-width induced by the discrete lattice. These oscillations are quickly damped in the presence of interactions be-tween magnetic excitations ( J ′ 6 = 0), and for finite val-ues of J ′ < J we observe the expected smooth alge-braic decay of the correlator at long times, with ballistic exponent z ≈ 1 obtained from a power-law fit of the data. At the isotropic point where J ′ = J , the circuit model has enhanced SU (2) symmetry and is expected to display super-diffusive transport with KPZ exponent 
+
+z = 3 /2 [ 30 , 99 , 100 ]. Our results for the isotropic point are presented in the middle panel of Fig. 1, and after a few transient circuit layers we observe approximate alge-braic decay of the correlator. The fitted exponents are close to the KPZ value, with the best agreement seen for smaller values of J . Finally, the right panel of Fig. 1
+
+shows the local correlator in the diffusive regime, with 
+
+J ′ = 2 J = 1 /2. We extract an exponent z ≈ 1.7 from a fit of the data up to numerically accessible timescales. The exponents fitted from the correlator in Fig. 1 show discrepancies from their expected values, especially in the diffusive regime and for larger J . We attribute this pri-marily to the slow relaxation of the system, which pre-vents us from obtaining a reliable power-law fit on acces-sible simulation times. Naturally, we observe the slowest relaxation in the diffusive regime, which was also seen 8                                              
+
+> 10 010 110 2
+> 10 -1
+> 10 0
+> 10 1
+> 10 010 110 2
+> 10 -1
+> 10 0
+> 10 1
+> 10 010 110 2
+> 10 -1
+> 10 0
+> 10 010 110 2
+> 012
+> 10 010 110 2
+> 012
+> 10 010 110 2
+> 012
+> FIG. 2. Second cumulant κ2(n) of the magnetization transported across the interface as a function of the circuit depth nfor the same choice of the parameters as in Fig. 1. Colored lines with markers indicate the numerical data obtained from the moment generating function as described in Sec. III and the black lines indicate power-law fits to the data with the corresponding exponents indicated in the legends. Insets show the local time-dependent exponent for J= 1 /4 [Eq. ( 33 )], which converges to the expected value (horizontal black line) for ballistic, superdiffusive, or diffusive transport in each of the three regimes.
+
+previously in Ref. [ 33 ]. As discussed in the next section, the FCS results in Fig. 2 provide a more accurate indi-cator of the transport exponent, showing that z indeed converges to its expected values at late timescales. All results displayed in Fig. 1 are well converged with respect to the bond dimension χ, and we have also checked that our simulations reproduce exact results at the free-fermion and dual-unitary points. See the Ap-pendix for detailed numerical benchmarking and con-vergence analysis. We find that convergence is most resource-intensive for larger values of J and in the diffu-sive or superdiffusive regimes, where bond dimensions of up to χ = 2 11 are needed to obtain convergence, whereas results in the ballistic regime are well converged for much smaller values of χ. This suggests an intriguing connec-tion between the efficiency of the temporal MPS repre-sentation and the hydrodynamic properties of the under-lying model.  
+
+> B. FCS of magnetization transport
+
+To characterize the transported magnetization, we now present results for the time-dependent cumulants com-puted from Eq. ( 6) using the method described in Sec. III .Due to the left-right reflection symmetry of the initial infinite-temperature state, the odd cumulants identically vanish. The first nontrivial cumulant is therefore the variance κ2, while higher-order deviations from Gaus-sianity are captured by the kurtosis γ4 = κ4/ (κ2)2 and sextosis γ6 = κ6/ (κ2)3.Fig. 2 shows the variance as a function of circuit depth, with the same parameters and color scheme as in Fig. 1.We observe power-law growth of the variance in time, 
+
+κ2(n) ∝ n1/z . Fits to the data indicate that the transport exponent z is close to its expected values for ballistic (z = 1), superdiffusive (1 < z < 2) or diffusive ( z = 2) behavior. In all three regimes, the cleanest convergence of the transport exponent occurs for the smallest value of J = 1 /4 that we consider. To make this convergence clear, the inset of Fig. 2 shows the local time-dependent exponent z(n) defined by [ 33 ]1
+
+z(n) = ∆ log κ2(n)
+
+∆ log n , (33) with ∆ f (n) = f (n + 1) − f (n) the difference operator. In the right panel of Fig. 2 regime, we see that z(n) contin-ues to decrease over almost 100 circuit layers, as a con-sequence of the slow relaxation in the diffusive regime. Next, we probe the Gaussianity of the FCS by plotting the kurtosis and sextosis of the distribution in Figs. 3
+
+and 4, respectively. Note that, while our results for the variance are well converged with bond dimension up to circuit depths of n = 100, the results for kurtosis in the diffusive regime and the sextosis in both diffusive and superdiffusive regimes are sensitive to reductions in χ
+
+after n ∼ 64 layers (we use a maximum bond dimension of 
+
+χ = 2 11 ). See the Appendix for the detailed convergence analysis. In the ballistic regime (left panels of Figs. 3 and 4), both the kurtosis and the sextosis converge to a value near zero at long times, consistent with asymptotically Gaussian fluctuations. At the isotropic point (middle panels of Figs. 3 and 4), the long-time kurtosis is small and negative, consistent with a weakly non-Gaussian asymptotic distribution. Notably, here the kurtosis re-mains far from the predictions of the Tracy-Widom [ 101 ]or Baik-Rains [ 102 ] distributions within the KPZ univer-sality class [ 103 ]. In the diffusive regime (right panels of Figs. 3 and 4), the kurtosis and sextosis continue to grow monotonically at the longest accessible times, indicating strongly non-Gaussian fluctuations [ 31 ]. We note that these results are fully consistent with those found via a 9               
+
+> 10 010 110 2
+> -0.6 -0.4 -0.2 00.2 0.4
+> 10 010 110 2
+> -0.4 -0.2 00.2 0.4
+> 10 010 110 2
+> -0.5 00.5 11.5
+
+FIG. 3. Kurtosis γ4 = κ4/κ 22 of the magnetization transported across the interface as a function of the circuit depth n, for the same parameters as in Figs. 1 and 2. Horizontal dashed lines indicate predictions for the Gaussian distribution, i.e., γ4 = 0. At the isotropic point (middle panel) we additionally display predictions for two non-Gaussian distributions in the KPZ universality class: the Baik-Rains and Tracy-Widom (TW) distributions.                
+
+> 10 010 110 2
+> -0.1 00.1 0.2 0.3 0.4
+> 10 010 110 2
+> -0.1 -0.05 00.05 0.1 0.15 0.2
+> 10 010 110 2
+> -5 -4 -3 -2 -1 01
+
+FIG. 4. Sextosis γ6 = κ6/κ 32 of the magnetization transported across the interface as a function of the circuit depth n, for the same parameters as in Figs. 1–3. The Gaussian sextosis of γ6 = 0 is indicated by the horizontal dashed lines. 
+
+different method in Ref. [ 33 ], and in particular they con-firm the breakdown of the KPZ and diffusive universality classes in higher-order FCS of the XXZ circuit model. Perhaps the clearest demonstration of this anomalous transport is given by Fig. 5, where we directly plot the cumulant-generating function. For J ′ < J , we see that ln Z(λ, n )/n is independent of n, indicating the large-deviation form Z(λ, n ) ∼ e−nF (λ) as expected from the ballistic macroscopic fluctuation theory [ 42 , 104 , 105 ] and from space-time duality arguments [ 43 ]. However, for 
+
+J ′ ≥ J , we instead see scaling collapse to the functional form Z(λ, n ) = Z(λn 1/2z ), with z = 3 /2 at the isotropic point and z = 2 in the diffusive regime, consistent with previous results [ 31 , 33 ]. Referring to Eq. ( 6), this scaling form implies that the asymptotic cumulants scale differ-ently with time at each order, as κr (n) ∼ nr/ 2z . This fur-ther implies that the kurtosis and sextosis ratios should eventually tend to constants, although this would occur beyond the numerically accessible timescales shown in Figs. 3 and 4, especially in the diffusive regime. 
+
+V. CONCLUSIONS 
+
+In this work, we presented an efficient computational methodology for simulating full counting statistics of con-served charge transport under quantum circuit dynamics. By focusing on the transport of charge across an inter-face, we interpret the dynamics at the interface as an open quantum system problem, thus allowing us to ex-ploit an MPS representation of the process tensors that encode the environment’s influence. Inspired by Ref. [ 94 ], we developed a novel truncation scheme to preserve the proper normalization of the process tensor, which differs from standard pure MPS truncation methods [ 90 ] and is also distinct from other truncation schemes recently introduced for light-cone folding algorithms [ 60 , 64 , 70 ]. As we have shown, extraction of the moment generat-10 
+
+0 1 2
+
+00.1 0.2 0.3 0.4    
+
+> 16 32 48 64
+
+0 2 4 6 8
+
+02468   
+
+> 16 32 48 64
+
+0 2 4 600.5 11.5 22.5 33.5                          
+
+> 16 32 48 64
+> FIG. 5. Cumulant-generating function ln Z(λ, n ) for the magnetization transported across the interface as a function of the counting field λfor various circuit depths nindicated in the colorbars. We use the same parameters and color scheme as all previous figures. In the ballistic transport regime (left panel), the cumulant generating function shows a large-deviation form,
+> Z(λ, n ) = e−nF(λ), where the function F(λ) depends on the circuit parameters ( J,J′) but not on the circuit depth n. In the superdiffusive (middle panel) and diffusive (right panel) regimes, we see scaling collapse when plotting the cumulant generating function as a function of λn 1/2z, indicating a self-similar form Z(λ, n ) = Z(λn 1/2z) with the exponents z= 3 /2 and z= 2, respectively.
+
+ing function requires evaluation of a genuinely multi-time correlation function at the interface. In this sense, the computation of FCS pushes the process-tensor repre-sentation to its limits, whereas the majority of previous applications have focused on computing few lower-order correlation functions [ 57 , 106 , 107 ]. To benchmark the performance of our method, we ap-plied it to study magnetization transport in the XXZ cir-cuit model, across ballistic, superdiffusive, and diffusive regimes. We were able to reproduce the expected trans-port exponent z describing the charge variance κ2 in each case, with the cleanest convergence found for small val-ues of J . Outside of the ballistic regime, we also demon-strated the self-similar scaling form of the moment gen-erating function, Z(λ, n ) = Z(λn 1/2z ), confirming the anomalous nature of subballistic transport in this inte-grable circuit model. These simulations show that our process-tensor ap-proach to FCS is competitive with the state-of-the-art tensor-network methodology introduced recently in Ref. [33 ], obtaining similar results and reach-ing timescales beyond those accessible through state-vector time evolution by classical computation or recent quantum-simulator experiments [ 32 ]. Unlike our method which is limited by the growth of temporal entanglement within the process tensor, the approach of Ref. [ 33 ] is limited by the growth of operator entanglement of a spe-cific unitary operator: the symmetry transformation gen-erated by the conserved charge. The efficiency of both methods in this case is not surprising: temporal entan-glement and local operator entanglement are both ex-pected to grow sublinearly for integrable systems, and any homogeneous brickwork qubit circuit with U (1) sym-metry is integrable [ 108 ]. More generally, scaling of lo-cal operator entanglement has recently been argued to be the key factor determining simulation complexity for Heisenberg-picture evolution [ 77 ] as well as for temporal MPS representations of local correlation functions [ 70 ]. Nevertheless, much remains to be understood about the connection between temporal and operator entanglement and the fundamental limitations of the process-tensor ap-proach to local dynamics in many-body systems. We are especially motivated in this regard by recently discovered exact solutions for the process tensor [ 109 , 110 ] even in nonintegrable models [ 71 , 80 , 111 ], and the demonstra-tion that non-Markovianity can be significantly reduced by temporal coarse-graining [ 72 , 73 ]. A particularly interesting question for further investi-gation, therefore, is whether a systematic coarse-graining of the process tensor, e.g., such as the one introduced in Ref. [112 ], can be used to efficiently capture hy-drodynamic transport properties at even longer times than are currently accessible by our approach. We note that our normalization-preserving truncation algorithm can be generalized to preserve other quantities as well, e.g., few-point temporal correlators, which may be use-ful to retain relevant hydrodynamic information at long times, analogous to the density-matrix truncation ap-proach [ 94 ]. Moreover, our method can be straightfor-wardly generalized to describe continuous-time dynam-ics within the Trotter-Suzuki approximation, dissipative processes within the bulk (either real or artificially intro-duced to improve efficiency [ 15 ]), and out-of-equilibrium initial conditions. Exploiting internal symmetries and time-translation invariance [ 56 , 58 ] to improve numerical efficiency are also natural next steps. 11 
+
+ACKNOWLEDGEMENTS 
+
+We thank Bruno Bertini and Juan P. Garrahan for helpful discussions. This work was supported by the Royal Society via the University Research Fellowship 
+
+URF-T-261001 . We acknowledge the ToCQS group com-puting node (KESHA) and King’s Computational Re-search, Engineering and Technology Environment (CRE-ATE) for computational resources. 
+
+VI. APPENDIX A. Free fermions 
+
+At J ′ = 0, the brickwork qubit XXZ circuit becomes a match gate circuit, with the two site qubit gates given by, Unn +1 = e−iJ (Xn Xn+1 +Yn Yn+1 ). Local correlator and moment generating function for this match gate circuit can be computed exactly in polynomial time in circuit depth, by using Jordan-Wigner transformation and re-sultant gaussianity of dynamics and initial state. It is also important to realize that, owing to exact light cone structure, both the local correlator and the generating function for a lattice of size 2 N gives same result as in the thermodynamic limit for circuit of depth upto N .For the match gate case, we can use the Jordan-Wigner transformation from qubit operators to fermion operators as, 
+
+Xl = eiπ ∑l−1 
+
+> l′=−N+1
+
+[
+
+c† 
+
+> l
+
++ cl
+
+]
+
+Yl = −ie iπ ∑l−1  
+
+> l′=−N+1
+
+[
+
+c† 
+
+> l
+
+− cl
+
+]
+
+Zl = 2c† 
+
+> l
+
+cl − 1, (34) where cl and ( c† 
+
+> l
+
+) are fermionic annihilation and creation operator at site l ∈ {− N + 1 , −N + 2 , · · · , N, N } for the lattice of length 2 N . With this the circuit unitary for a one time step in fermion representation can be written as, 
+
+U = UoUe
+
+Ue = ⊗
+
+> n∈even
+
+e−2iJ (c† 
+
+> ncn+1 +c†
+> n+1 cn
+
+)
+
+Uo = ⊗
+
+> n∈odd
+
+e−2iJ (c†
+
+> ncn+1 +c†
+> n+1 cn
+
+).
+
+(35) The local Z correlator can be evaluated as follows, 
+
+〈Z0(n)Z0(0) 〉
+
+= 〈
+
+(
+
+2c†
+
+> 0
+
+(n)c0(n) − 1
+
+) ( 
+
+2c†
+
+> 0
+
+(0) c0(0) − 1
+
+)
+
+〉
+
+= 4〈c†
+
+> 0
+
+(n)c0(n)c†
+
+> 0
+
+(0) c0(0) 〉 − 4〈c†
+
+> 0
+
+(0) c0(0) 〉 + 1 = 4〈c†
+
+> 0
+
+(n)c0(0) 〉〈 c0(n)c†
+
+> 0
+
+(0) 〉 + 4 〈c†
+
+> 0
+
+(0) c0(0) 〉2
+
+−4〈c†
+
+> 0
+
+(0) c0(0) 〉 + 1 = 4〈c†
+
+> 0
+
+(n)c0(0) 〉〈 c0(n)c†
+
+> 0
+
+(0) 〉, (36) where to arrive at the second equality, we used time translation invariance, and to arrive at third, Wick’s the-orem is invoked [ 113 , 114 ], and the last invokes the cor-relator in infinite temperature state 〈c†
+
+> m
+
+(0) cn(0) 〉 = δmn  
+
+> 2
+
+.Using the identity, 
+
+ei ∑Ll,l ′=1 Oll ′ c†  
+
+> lcl′
+
+cme−i ∑Ll,l ′=1 Oll ′ c†  
+
+> lcl′
+
+=
+
+> L
+
+∑
+
+> n=1
+
+[e−iO ] 
+
+> mn
+
+cn,
+
+(37) and it’s conjugate, along with the zero time correlator in the infinite temperature state gives, 
+
+〈Z0(n)Z0(0) 〉 = | [Un]00 |2, (38) where U is a single particle evolution operator defined as, 
+
+U = UeUo
+
+Uo = ⊕
+
+> n∈odd
+
+e−2iJ [|n〉〈 n+1 |+|n+1 〉〈 n|]
+
+Ue = ⊕
+
+> n∈even
+
+e−2iJ [|n〉〈 n+1 |+|n+1 〉〈 n|],
+
+(39) with {| l〉 ≡ c† 
+
+> l
+
+|Φ〉 : l ∈ {− N + 1 , −N + 2 , · · · , N }} span-ning the single particle Hilbert space of fermions (with the vacuum state |Φ〉). Similarly, the moment generating function for this match gate circuit can be obtained by using the determi-nant formula [ 115 ], Tr 
+
+[
+
+ei ∑Ll,l ′ =1 O(1)    
+
+> ll ′c†
+> lcl′
+
+· · · ei ∑Ll,l ′ =1 O(K)  
+
+> ll ′c†
+> lcl′
+
+]
+
+= det 
+
+[
+
+I + eiO(1) 
+
+· · · eiO(K) ]
+
+, (40) the moment generating function can be rewritten as fol-lows, 
+
+Z(λ, n ) = 1
+
+24N +2 Tr 
+
+[
+
+ei λ 
+
+> 2T
+
+Une−i λ 
+
+> 2T
+
+U−n]
+
+= det 
+
+[ 1
+
+2
+
+(
+
+I + ei λ  
+
+> 2T
+
+Une−i λ  
+
+> 2T
+
+U−n)]
+
+, (41) where T =
+
+[∑0  
+
+> l=−N+1
+
+c† 
+
+> l
+
+cl − ∑Nl=1 c† 
+
+> l
+
+cl
+
+]
+
+and T =
+
+∑0  
+
+> l=−N+1
+
+|l〉〈 l| − ∑Nl=1 |l〉〈 l|.12                            
+
+> 10 010 110 2
+> 10 -4
+> 10 -3
+> 10 -2
+> 10 -1
+> 10 0
+> 10 010 110 2
+> 10 0
+> 10 1
+> 10 010 110 2
+> -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0
+> 10 010 110 2
+> -0.2 00.2 0.4 0.6
+> 32 64 128 256 512 1024
+
+FIG. 6. Benchmarks for the local correlator (first panel), second cumulant (second panel), excess kurtosis (third panel) and sextosis (fourth panel) for the spin- 1 
+
+> 2
+
+XXZ brickwork circuit at Free fermion point, ( J , J ′) = ( 1 
+
+> 4
+
+, 0). Grey dashed line with circular markers indicate the results obtained from exact numerics from match-gate correspondence discussed here and red markers of different shades indicate the results obtained using the methodology presented in this work with different temporal bond dimensions, more redder indicates results obtained with larger bond dimensions (colorbar). In this free fermion limit, though accurate computation of local correlator needs larger bond dimensions, the full counting statistics results converge to exact numerical results with as small as χ = 2 5 bond dimension. 
+
+B. Dual Unitary Circuits 
+
+At J = π 
+
+> 4
+
+, the two site gates Unn +1 are dual unitary. In Dual unitary circuits composed of two-site gates, in-dividual two site gates satisfy unitarity and unitality in the spatial direction [ 83 , 116 , 117 ], i.e., 
+
+= = . (42) Using these identities iteratively, exact left and right in-fluence matrices can be obtained as product states, i.e., matrix product states with bond dimension one. These are respectively given as, 
+
+= = . (43) Using these exact expressions for the influence matrices gives the following expression for the moment generating function, 
+
+Z(λ, n ) = = = , (44) which in algebraic form is given as, 
+
+Z(λ, n ) = 
+
+ Tr 
+
+[
+
+eiλ (M0 −M1)U01 e−iλ (M0 −M1)U†
+
+> 01
+
+]
+
+d2
+
+
+
+> n
+
+,
+
+(45) which for the brickwork XXZ circuit at the dual unitary point ( J = π 
+
+> 4
+
+) is given by, 
+
+Z(λ, n ) = 
+
+[ 1 + cos λ
+
+2
+
+]n
+
+. (46) It is interesting to note that, the full counting statistics at the dual unitary line is independent of J ′.Similarly, using the above expression for the exact in-fluence matrix, the local magnetization correlator is given by 〈Z0(n)Z0(0) 〉 = δn0, consistent with the well known fact that the correlation functions in dual unitary circuits are non-zero only on the light cone. Although not shown, it is worth noting that our numer-ical simulation of the influence matrices does converge to the maximally mixed state as shown above and hence are consistent with the analytical results presented above. 
+
+C. Numerical convergence analysis 
+
+Exact numerical results can be obtained with exact in-fluence matrices, whose matrix product state representa-tion needs exponential in the circuit depth. The numeri-cal methodology presented in the main text approximates the influence matrices with a matrix product state with a fixed bond-dimension, this leads to errors in the observ-ables presented. We do not aim to track the truncation 13 
+
+10 0 10 1 10 2
+
+10 -4 
+
+10 -3 
+
+10 -2 
+
+10 -1 
+
+10 0     
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+10 -3 
+
+10 -2 
+
+10 -1 
+
+10 0     
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+10 -2 
+
+10 -1 
+
+10 0     
+
+> 32 64 128 256 512 1024 2048
+
+FIG. 7. Local magnetization correlator ( 〈Z0(n)Z0(0) 〉) as a function of circuit depth ( n) for varying values of bond dimensions (χ) used for numerical simulation (colorbars). 
+
+10 0 10 1 10 2
+
+10 0
+
+10 1     
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+10 0
+
+10 1     
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+10 0
+
+10 1     
+
+> 32 64 128 256 512 1024 2048
+
+FIG. 8. Second cumulant of magnetisation transferred across the interface ( κ2(n)) as a function of circuit depth ( n) for varying values of bond dimensions ( χ) used for numerical simulation (colorbars). 
+
+error, as it is subtle with non-hermitian gate application, which is the case in transverse network contraction. In-stead, the numerical results are converged by increasing bond dimension. The local correlator, second cumulant, excess kurtosis and sextosis are presented in Figs. ( 7,8,9 & 10 ) for all the parameter regimes considered (except at J ′ = 0) for in-creasing bond dimensions. A key point to note that, the results converge best in the ballistic regime, where the lo-cal correlator converges upto the circuit depths n = 10 2
+
+with bond dimension χ ∼ 28, the cumulants converge must faster at bond dimension χ ∼ 26. In the super-diffusive regime, the local correlator and second cumulant converge at χ ∼ 29 for upto n = 10 2. Converging higher cumulants requires larger bond dimensions, χ > 210 . Dif-fusive regime is the hardest to obtain converged results. Though the local correlator and second cumulant con-verge at around χ ∼ 210 , the excess kurtosis and sexto-sis could only be converged reasonably for circuit depths 
+
+n ∼ 64 with χ = 2 11 .At J ′ = 0, observables are also compared against nu-merically exact method exploiting the correspondence to match gate circuit and using free fermion methods in Fig. ( 6). For this case, first few cumulants obtained with bond dimension as small as χ = 2 5. The local correla-tor ( 〈Z0(n)Z0(0) 〉) also converges with increasing bond dimensions upto the circuit depth n = 10 2 considered in this work. 
+
+[1] D. Forster, Hydrodynamic fluctuations, broken symme-try, and correlation functions (WA Benjamin, Inc., Reading, MA, 1975). 14 
+
+10 0 10 1 10 2
+
+-0.3 -0.2 -0.1 0     
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+-0.2 -0.1 00.1      
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+-0.2 00.2 0.4 0.6      
+
+> 32 64 128 256 512 1024 2048
+
+FIG. 9. Excess kurtosis of magnetisation transferred across the interface ( γ4(n)) as a function of circuit depth ( n) for varying values of bond dimensions ( χ) used for numerical simulation (colorbars). 
+
+10 0 10 1 10 2
+
+-0.1 00.1 0.2 0.3 0.4      
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+-0.1 -0.05 00.05 0.1 0.15 0.2      
+
+> 32 64 128 256 512 1024 2048
+
+10 0 10 1 10 2
+
+-5 -4 -3 -2 -1 01     
+
+> 32 64 128 256 512 1024 2048
+
+FIG. 10. Sextosis of magnetisation transferred across the interface ( γ6(n)) as a function of circuit depth ( n) for varying values of bond dimensions ( χ) used for numerical simulation (colorbars). [2] G. Mazenko, Nonequilibrium statistical mechanics 
+
+(John Wiley & Sons, 2006). [3] R. Kubo, Journal of the Physical Society of Japan 12 , 570 (1957) .[4] R. Kubo, M. Yokota, and S. Nakajima, 
+
+Journal of the Physical Society of Japan 12 , 1203 (1957) .[5] S. R. De Groot and P. Mazur, Non-equilibrium thermo-dynamics (Courier Corporation, 2013). [6] B. Bertini, F. Heidrich-Meisner, C. Karrasch, T. Prosen, R. Steinigeweg, and M. ˇZnidariˇ c, 
+
+Rev. Mod. Phys. 93 , 025003 (2021) .[7] G. T. Landi, D. Poletti, and G. Schaller, 
+
+Rev. Mod. Phys. 94 , 045006 (2022) .[8] S. Hild, T. Fukuhara, P. Schauß, J. Zeiher, M. Knap, E. Demler, I. Bloch, and C. Gross, 
+
+Phys. Rev. Lett. 113 , 147205 (2014) .[9] P. N. Jepsen, J. Amato-Grill, I. Dimitrova, W. W. Ho, E. Demler, and W. Ketterle, Nature 588 , 403 (2020) .[10] A. Scheie, N. E. Sherman, M. Dupont, S. E. Nagler, M. B. Stone, G. E. Granroth, J. E. Moore, and D. A. Tennant, Nature Physics 17 , 726 (2021) .[11] N. Keenan, N. F. Robertson, T. Murphy, S. Zhuk, and J. Goold, npj Quantum Information 9, 72 (2023) .[12] T. Prosen and M. ˇZnidariˇ c, 
+
+Journal of Statistical Mechanics: Theory and Experiment 2009 , P0 
+
+[13] T. Prosen, Phys. Rev. Lett. 106 , 217206 (2011) .[14] T. Prosen, Phys. Rev. Lett. 107 , 137201 (2011) .[15] T. Rakovszky, C. W. von Keyserlingk, and F. Pollmann, 
+
+Physical Review B 105 , 075131 (2022) .[16] M. Yao, A. Lingenfelter, R. Belyansky, D. Roberts, and A. A. Clerk, Phys. Rev. Lett. 134 , 130404 (2025) .[17] V. Popkov and T. Prosen, 
+
+Phys. Rev. Lett. 135 , 070401 (2025) .[18] B. Bertini, M. Collura, J. De Nardis, and M. Fagotti, 
+
+Phys. Rev. Lett. 117 , 207201 (2016) .[19] B. Doyon, Lecture notes on Generalised Hydrodynamics 
+
+(SciPost, 2020) p. 18. [20] F. H. Essler, Physica A: Statistical Mechanics and its Applications 6
+
+[21] B. Doyon, S. Gopalakrishnan, F. Møller, J. Schmiedmayer, and R. Vasseur, 
+
+Phys. Rev. X 15 , 010501 (2025) .15 
+
+[22] M. Ljubotina, L. Zadnik, and T. Prosen, 
+
+Phys. Rev. Lett. 122 , 150605 (2019) .[23] L. M. Sieberer, T. Olsacher, A. Elben, M. Heyl, P. Hauke, F. Haake, and P. Zoller, 
+
+npj Quantum Information 5, 78 (2019) .[24] M. Heyl, P. Hauke, and P. Zoller, 
+
+Science Advances 5, eaau8342 (2019) .[25] K. Chinni, M. H. Mu˜ noz Arias, I. H. Deutsch, and P. M. Poggi, PRX Quantum 3, 010351 (2022) .[26] E. Vernier, B. Bertini, G. Giudici, and L. Piroli, 
+
+Phys. Rev. Lett. 130 , 260401 (2023) .[27] A. Summer, A. Nico-Katz, S. Dooley, and J. Goold, 
+
+Anomalous transport in U(1)-symmetric quantum circuits 
+
+(2024), arXiv:2411.14357 [quant-ph] .[28] F. H¨ ubner, E. Vernier, and L. Piroli, 
+
+SciPost Phys. 18 , 135 (2025) .[29] C. Kargi, A. Manatuly, L. M. Sieberer, J. P. Dehollain, F. Henriques, T. Olsacher, P. Hauke, M. Heyl, P. Zoller, and N. K. Langford, Quantum 9, 1924 (2025) .[30] S. Gopalakrishnan and R. Vasseur, 
+
+Reports on Progress in Physics 86 , 036502 (2023) .[31] S. Gopalakrishnan, A. Morningstar, R. Vasseur, and V. Khemani, Phys. Rev. B 109 , 024417 (2024) .[32] E. Rosenberg, T. I. Andersen, and R. Samajdar et al. ,
+
+Science 384 , 48 (2024) .[33] A. Valli, C. P. Moca, M. A. Werner, M. Ko-rmos, ˇZ. Krajnik, T. Prosen, and G. Zar´ and, 
+
+Phys. Rev. Lett. 135 , 100401 (2025) .[34] L. S. Levitov and G. B. Lesovik, 
+
+JETP Letters 58 , 225 (1993) .[35] L. S. Levitov, H. Lee, and G. B. Lesovik, 
+
+Journal of Mathematical Physics 37 , 4845 (1996) .[36] M. Esposito, U. Harbola, and S. Mukamel, 
+
+Rev. Mod. Phys. 81 , 1665 (2009) .[37] Y. V. Nazarov, Quantum noise in mesoscopic physics ,Vol. 97 (Springer, 2012). [38] G. T. Landi, M. J. Kewming, M. T. Mitchison, and P. P. Potts, PRX Quantum 5, 020201 (2024) .[39] D. Wei, A. Rubio-Abadal, B. Ye, F. Machado, J. Kemp, K. Srakaew, S. Hollerith, J. Rui, S. Gopalakr-ishnan, N. Y. Yao, I. Bloch, and J. Zeiher, 
+
+Science 376 , 716 (2022) .[40] J. F. Wienand, S. Karch, A. Impertro, C. Schweizer, E. McCulloch, R. Vasseur, S. Gopalakrishnan, M. Aidelsburger, and I. Bloch, 
+
+Nature Physics 20 , 1732 (2024) .[41] L. K. Joshi, F. Ares, M. K. Joshi, C. F. Roos, and P. Cal-abrese, Phys. Rev. Lett. 135 , 160601 (2025) .[42] B. Doyon and J. Myers, 
+
+Annales Henri Poincar´ e 21 , 255 (2020) .[43] B. Bertini, P. Calabrese, M. Collura, K. Klobas, and C. Rylands, Phys. Rev. Lett. 131 , 140401 (2023) .[44] E. McCulloch, J. De Nardis, S. Gopalakrishnan, and R. Vasseur, Phys. Rev. Lett. 131 , 210402 (2023) .[45] K. Fujimoto, T. Ishiyama, T. Kurose, T. Yoshimura, and T. Sasamoto, 
+
+Exact Anomalous Current Fluctuations in Quantum Many-Body Dynamics 
+
+(2026), arXiv:2602.24008 [cond-mat] .[46] T. Yoshimura, ˇZ. Krajnik, A. Bastianello, and E. Ilievski, 
+
+Anomalous hydrodynamic fluctuations in the quantum XXZ spin chain 
+
+(2026), arXiv:2602.24242 [cond-mat] .[47] R. Samajdar, E. McCulloch, V. Khe-mani, R. Vasseur, and S. Gopalakrishnan, 
+
+Phys. Rev. Lett. 133 , 240403 (2024) .[48] A. Urilyon, R. Vasseur, S. Gopalakrishnan, and J. De Nardis, arXiv preprint arXiv:2603.02171 
+
+10.48550/arXiv.2603.02171 (2026). [49] F. A. Pollock, C. Rodr´ ıguez-Rosario, T. Frauen-heim, M. Paternostro, and K. Modi, 
+
+Phys. Rev. A 97 , 012127 (2018) .[50] S. Milz and K. Modi, PRX Quantum 2, 030201 (2021) .[51] A. Strathearn, P. Kirton, D. Kilda, J. Keeling, and B. W. Lovett, Nature Communications 9, 3322 (2018) .[52] M. R. Jørgensen and F. A. Pollock, 
+
+Phys. Rev. Lett. 123 , 240602 (2019) .[53] M. Cygorek, M. Cosacchi, A. Vagov, V. M. Axt, B. W. Lovett, J. Keeling, and E. M. Gauger, 
+
+Nature Physics 18 , 662 (2022) .[54] J. Thoenniss, M. Sonner, A. Lerose, and D. A. Abanin, 
+
+Phys. Rev. B 107 , L201115 (2023) .[55] J. Thoenniss, A. Lerose, and D. A. Abanin, 
+
+Phys. Rev. B 107 , 195101 (2023) .[56] V. Link, H.-H. Tu, and W. T. Strunz, 
+
+Phys. Rev. Lett. 132 , 200403 (2024) .[57] J. Keeling, E. M. Stoudenmire, M.-C. Banuls, and D. R. Reichman, arXiv preprint arXiv:2509.07661 
+
+10.48550/arXiv.2509.07661 (2025). [58] M. Sonner, V. Link, and D. A. Abanin, 
+
+Phys. Rev. Lett. 135 , 170402 (2025) .[59] M. C. Ba˜ nuls, M. B. Hastings, F. Verstraete, and J. I. Cirac, Phys. Rev. Lett. 102 , 240603 (2009) .[60] M. B. Hastings and R. Mahajan, 
+
+Phys. Rev. A 91 , 032306 (2015) .[61] A. Lerose, M. Sonner, and D. A. Abanin, 
+
+Phys. Rev. X 11 , 021040 (2021) .[62] M. Sonner, A. Lerose, and D. A. Abanin, 
+
+Annals of Physics 435 , 168677 (2021) , special issue on Philip W. Anderson. [63] S. Cerezo-Roquebr´ un, A. Bou-Comas, J. T. Schnei-der, E. L´ opez, L. Tagliacozzo, and S. Carignano, Frontiers in Quantum Science and Technology 4,
+
+10.3389/frqst.2025.1568471 (2025). [64] M. Fr´ ıas-P´ erez and M. C. Ba˜ nuls, 
+
+Phys. Rev. B 106 , 115117 (2022) .[65] A. Lerose, M. Sonner, and D. A. Abanin, 
+
+Phys. Rev. B 107 , L060305 (2023) .[66] M. Cygorek and E. M. Gauger, 
+
+SciPost Phys. 18 , 024 (2025) .[67] A. Lerose, M. Sonner, and D. A. Abanin, 
+
+Phys. Rev. B 104 , 035137 (2021) .[68] G. Giudice, G. Giudici, M. Sonner, J. Thoen-niss, A. Lerose, D. A. Abanin, and L. Piroli, 
+
+Phys. Rev. Lett. 128 , 220401 (2022) .[69] A. Foligno, T. Zhou, and B. Bertini, 
+
+Phys. Rev. X 13 , 041008 (2023) .[70] S. Carignano, C. R. Marim´ on, and L. Tagliacozzo, 
+
+Phys. Rev. Res. 6, 033021 (2024) .[71] H.-R. Wang, I. Vilkoviskiy, and D. A. Abanin, arXiv preprint arXiv:2510.21927 10.48550/arXiv.2510.21927 
+
+(2025). [72] P. O’Donovan, N. Dowling, K. Modi, and M. T. Mitchison, arXiv preprint arXiv:2502.13930 
+
+10.48550/arXiv.2502.13930 (2025). [73] I. Vilkoviskiy, M. Sonner, Q. C. Huang, W. W. Ho, A. Lerose, and D. A. Abanin, arXiv preprint arXiv:2511.03846 10.48550/arXiv.2511.03846 (2025). [74] M. Ljubotina, M. ˇZnidariˇ c, and T. Prosen, 16 
+
+Nature Communications 8, 16117 (2017) .[75] M. Kardar, G. Parisi, and Y.-C. Zhang, 
+
+Phys. Rev. Lett. 56 , 889 (1986) .[76] M. Ljubotina, M. ˇZnidariˇ c, and T. Prosen, 
+
+Phys. Rev. Lett. 122 , 210602 (2019) .[77] N. Dowling, Classical Simulability from Operator Entanglement Scaling 
+
+(2026), arXiv:2603.05656 [quant-ph] .[78] T. Prosen and M. ˇZnidariˇ c, 
+
+Phys. Rev. E 75 , 015202 (2007) .[79] J. Yao and P. W. Claeys, 
+
+Phys. Rev. Res. 6, 043077 (2024) .[80] H.-R. Wang, X.-Y. Yang, and Z. Wang, 
+
+Phys. Rev. Lett. 133 , 170402 (2024) .[81] M. Popovic, M. T. Mitchison, A. Strathearn, B. W. Lovett, J. Goold, and P. R. Eastham, 
+
+PRX Quantum 2, 020338 (2021) .[82] M. Shubrook, M. Cygorek, E. Gauger, J. Iles-Smith, and A. Nazir, arXiv preprint arXiv:2512.16823 
+
+10.48550/arXiv.2512.16823 (2025). [83] B. Bertini, P. W. Claeys, and T. Prosen, arXiv preprint arXiv:2505.11489 10.48550/arXiv.2505.11489 (2025). [84] B. Bertini, arXiv preprint arXiv:2601.22375 
+
+10.48550/arXiv.2601.22375 (2026). [85] H. Tasaki, arXiv preprint cond-mat/0009244 
+
+10.48550/arXiv.cond-mat/0009244 (2000). [86] J. Kurchan, arXiv preprint cond-mat/0007360 
+
+10.48550/arXiv.cond-mat/0007360 (2000). [87] M. Campisi, P. H¨ anggi, and P. Talkner, 
+
+Rev. Mod. Phys. 83 , 771 (2011) .[88] G. Vidal, Phys. Rev. Lett. 93 , 040502 (2004) .[89] F. Verstraete, J. J. Garc´ ıa-Ripoll, and J. I. Cirac, 
+
+Phys. Rev. Lett. 93 , 207204 (2004) .[90] U. Schollw¨ ock, Annals of Physics 326 , 96 (2011) , jan-uary 2011 Special Issue. [91] E. M. Stoudenmire and S. R. White, 
+
+New Journal of Physics 12 , 055026 (2010) .[92] S. Paeckel, T. K¨ ohler, A. Swoboda, S. R. Manmana, U. Schollw¨ ock, and C. Hubig, 
+
+Annals of Physics 411 , 167998 (2019) .[93] R. Feynman and F. Vernon, 
+
+Annals of Physics 24 , 118 (1963) .[94] C. D. White, M. Zaletel, R. S. K. Mong, and G. Refael, 
+
+Phys. Rev. B 97 , 035127 (2018) .[95] Y.-H. Shi, Z.-H. Sun, Y.-Y. Wang, Z.-A. Wang, Y.-R. Zhang, W.-G. Ma, H.-T. Liu, K. Zhao, J.-C. Song, G.-H. Liang, Z.-Y. Mei, J.-C. Zhang, H. Li, C.-T. Chen, X. Song, J. Wang, G. Xue, H. Yu, K. Huang, Z. Xiang, K. Xu, D. Zheng, and H. Fan, 
+
+Nature Communications 15 , 7573 (2024) .[96] K. Kumaran, M. Sajjan, B. Pokharel, K. Wang, J. Gibbs, J. Cohn, B. Jones, S. Mostame, S. Kais, and A. Banerjee, arXiv preprint arXiv:2503.14371 
+
+10.48550/arXiv.2503.14371 (2025). [97] Y.-T. Lee, B. Pokharel, J. Cohn, A. Schleife, and A. Banerjee, Phys. Rev. Lett. 136 , 050603 (2026) .[98] J. Sirker, Transport in one-dimensional integrable quantum systems 
+
+(SciPost, 2020) p. 17. [99] V. B. Bulchandani, S. Gopalakrishnan, and E. Ilievski, 
+
+Journal of Statistical Mechanics: Theory and Experiment 2021 , 084 
+
+[100] S. Gopalakrishnan and R. Vasseur, 
+
+Annual Review of Condensed Matter Physics 15 , 159 (2024) .[101] C. A. Tracy and H. Widom, 
+
+Communications in Mathematical Physics 159 , 151 (1994) .[102] J. Baik and E. M. Rains, 
+
+Journal of Statistical Physics 100 , 523 (2000) .[103] M. Pr¨ ahofer and H. Spohn, 
+
+Journal of Statistical Physics 115 , 255 (2004) .[104] J. Myers, M. J. Bhaseen, R. J. Harris, and B. Doyon, 
+
+SciPost Phys. 8, 007 (2020) .[105] G. Del Vecchio Del Vecchio and B. Doyon, 
+
+Journal of Statistical Mechanics: Theory and Experiment 2022 , 053 
+
+[106] R. de Wit, J. Keeling, B. W. Lovett, and A. W. Chin, 
+
+Phys. Rev. Res. 7, 013209 (2025) .[107] M. Garbellini, K. Mickiewicz, V. Link, A. Eisfeld, and W. T. Strunz, 
+
+Uniform process tensor approach for the calculation of multi-time c 
+
+(2026). [108] M. ˇZnidariˇ c, U. Duh, and L. Zadnik, 
+
+Phys. Rev. B 112 , L020302 (2025) .[109] K. Klobas, M. Vanicat, J. P. Garrahan, and T. Prosen, 
+
+Journal of Physics A: Mathematical and Theoretical 53 , 335001 (20 
+
+[110] I. Vilkoviskiy and K. Matirko, 
+
+Properties of the temporal transfer matrix in integrable Floquet circ 
+
+(2025). [111] J. Li, R. L. Jack, B. Bertini, and J. P. Garrahan, 
+
+Physical Review B 111 , 024309 (2025) .[112] N. Dowling, K. Modi, R. N. Mu˜ noz, S. Singh, and G. A. L. White, Phys. Rev. X 14 , 041018 (2024) .[113] G. C. Wick, Phys. Rev. 80 , 268 (1950) .[114] A. Kamenev, Field theory of non-equilibrium systems 
+
+(Cambridge University Press, 2023). [115] I. Klich, arXiv preprint cond-mat/0209642 (2002). [116] B. Bertini, P. Kos, and T. Prosen, 
+
+Phys. Rev. Lett. 123 , 210601 (2019) .[117] S. Gopalakrishnan and A. Lamacraft, 
+
+Phys. Rev. B 100 , 064309 (2019) .
