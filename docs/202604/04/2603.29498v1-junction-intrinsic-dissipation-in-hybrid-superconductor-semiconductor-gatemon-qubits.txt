@@ -1,0 +1,253 @@
+Title: Junction-Intrinsic Dissipation in Hybrid Superconductor-Semiconductor Gatemon Qubits
+
+URL Source: https://arxiv.org/pdf/2603.29498v1
+
+Published Time: Wed, 01 Apr 2026 00:49:32 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Junction-Intrinsic Dissipation in Hybrid Superconductor–Semiconductor Gatemon Qubits 
+
+Zhenhai Sun, 1, ∗ David Feldstein-Bofill, 1 Ksenia Shagalov, 1 Amalie T. J. Paulsen, 1 Casper Wied, 1 Shikhar Singh, 1 Brian D. Isakov, 2 Jacob Hastrup, 1 Christopher W. Warren, 1
+
+Svend Krøjer, 1 Anders Kringhøj, 1 Andr´ as Gyenis, 2, 3 and Morten Kjaergaard 1, †
+
+> 1
+
+NNF Quantum Computing Programme, Niels Bohr Institute, University of Copenhagen, Denmark 
+
+> 2
+
+Department of Electrical, Computer & Energy Engineering, University of Colorado Boulder, Boulder, CO 80309, USA 
+
+> 3
+
+Department of Physics, University of Colorado Boulder, Boulder, CO 80309, USA 
+
+(Dated: April 1, 2026) Superconducting transmon qubits based on hybrid superconductor–semiconductor Josephson junctions (gatemons) offer gate tunability, but their relaxation times remain well below those of state-of-the-art transmons, and the origin of this discrepancy is not fully understood. Here, we co-fabricate gatemons and SIS-junction transmons with nominally identical circuit layouts, gate di-electrics, and control lines, so that the Josephson element is the only intentional distinction. Across multiple chips, transmons in this architecture reach relaxation times in the tens of microseconds, whereas gatemons saturate in the few-microsecond range. Using the transmons as on-chip references, we construct a loss budget including Purcell decay, spontaneous emission through the control line, and internal dielectric loss, and find that the corresponding T1 limits exceed all measured gatemon values by more than an order of magnitude. Temperature-dependent T1 measurements follow a common quasiparticle-activation model and yield similar superconducting gaps for S–Sm–S and SIS junctions, indicating that the reduced gatemon coherence is dominated by additional temperature-independent, junction-intrinsic dissipation. 
+
+I. INTRODUCTION 
+
+Superconducting circuits are a central platform for quantum information processing, quantum sensing, and quantum-limited amplification [1–9]. In these circuits, Josephson junctions provide the nonlinearity required to define and control qubits. To date, the leading super-conducting qubit architectures are based on conventional superconductor–insulator–superconductor (SIS) Joseph-son junctions. Building on this platform, state-of-the-art transmon qubits now achieve relaxation times in the mil-lisecond regime [10–14]. These advances rely on mature junction fabrication, careful control of dielectric partic-ipation, and systematic mitigation of known loss chan-nels [15, 16]. An alternative route employs hybrid superconduc-tor–semiconductor–superconductor (S–Sm–S) junctions. In such junctions, Andreev bound states with trans-mission probabilities τi give rise to a nonsinusoidal en-ergy–phase relation 
+
+E(ϕ) = −∆ X
+
+> i
+
+q
+
+1 − τi(Vg ) sin 2(ϕ/ 2) , (1) where ∆ is the superconducting gap and Vg is a gate volt-age that modifies the density of states at the semiconduc-tor part of the junction. This enables in-situ gate tunabil-ity of the Josephson energy and access to rich mesoscopic   
+
+> ∗zhenhai.sun@nbi.ku.dk
+> †mkjaergaard@nbi.ku.dk
+
+physics using circuit QED techniques. Hybrid junctions have been used to realize gate-tunable transmons (gate-mons) [17–19], fluxonium qubits [20], and Andreev spin qubits [21, 22]. Despite this promise, gatemons have so far exhibited relaxation times T1 that are systematically shorter than those of state-of-the-art transmons. The best reported gatemons reach T1 ∼ 30 μs [23, 24], while most devices show T1 ≲ 10 μs [25, 26]; in stark contrast to modern transmon based devices. The physical origin of this per-formance gap remains unclear. Previous gatemon stud-ies have primarily focused on device demonstration, gate tunability and stability, and integration into cQED archi-tectures [17–19, 27–31], while systematic investigations of relaxation mechanisms are scarce [32]. In contrast, ex-tensive work on SIS-based transmons has identified dom-inant loss channels such as Purcell decay [33], dielectric loss associated with substrates and interfaces [15, 16], and quasiparticle poisoning [34–36]. A direct, controlled comparison between gatemons and transmons that share the same materials stack, cir-cuit layout, and control-line architecture is therefore needed to disentangle junction-specific dissipation from losses associated with substrate, interfaces, or fabrication flow. In particular, hybrid S–Sm–S junctions may ex-hibit a smaller induced gap than the parent superconduc-tor [37, 38] and finite subgap conductance [39–41], both of which can modify quasiparticle dynamics and could introduce additional relaxation channels. Isolating these effects from more standard superconducting qubit loss mechanisms is essential for assessing the ultimate coher-ence potential of hybrid superconductor–semiconductor qubits. 
+
+> arXiv:2603.29498v1 [quant-ph] 31 Mar 2026
+
+2In this work, we investigate the persistent discrep-ancy that gatemon qubit relaxation times remain sig-nificantly shorter than those of state-of-the-art transmon qubits. To isolate the cause of this difference, we co-fabricate gatemon and transmon devices on the same high-resistivity silicon chips with identical circuit designs, fabrication steps, and gate dielectric layers (Fig. 1(a–c)), with the only intentional distinction being the Josephson junction. We implement a gatemon-optimized XYZ-style control-line architecture [42] for both qubit types and de-sign the gatemon gate layout to reconcile strong DC tun-ability with suppressed spontaneous emission. Within this co-integrated platform, we systematically compare 
+
+T1 across multiple chips and material stacks, construct a loss budget using the transmons as on-chip references, and perform temperature-dependent T1 measurements on paired devices. We find that Purcell decay, gate-line spontaneous emission, internal dielectric loss, and thermally activated quasiparticles cannot account for the short gatemon T1. Instead, our results point to addi-tional, temperature-independent dissipation intrinsic to the S–Sm–S junction. 
+
+II. CO-DESIGN OF GATEMON AND TRANSMON QUBITS 
+
+Our experimental platform employs full-shell InAs/Al nanowire-based gatemons [17, 19, 25, 43] since they can be fabricated on the same high-resistivity silicon sub-strates with identical process flow to conventional pla-nar transmons. This choice embeds both qubit types in the same Si-based, highly optimized transmon technol-ogy stack, so that any coherence differences can be at-tributed primarily to the semiconducting Josephson junc-tion rather than to the surrounding materials or fabrica-tion flow. By contrast, in other S–Sm–S implementa-tions, such as 2DEG-based junctions, the Josephson ele-ment resides in a III–V heterostructure with a different substrate and dielectric [27, 28, 32]. In those systems, any difference in T1 would inevitably convolve junction-specific loss with changes in substrate and interface loss, obscuring the junction’s intrinsic contribution. In our nanowire implementation, co-fabricated transmons on the same chip serve as on-chip reference qubits that share the same materials stack, circuit geometry, and control lines, suppressing chip-to-chip variability and providing a benchmark that isolates loss channels specific to the S–Sm–S gatemon junction. Figure 1(a) shows an optical image of a representative sample from our study. Fabrication details are provided in Appendix. C. The exactly identical device layouts of the gatemon and the transmon-with-a-gatemon-design are shown in Fig. 1(b) and (c). We emphasize that the microwave drive line for the transmon (Fig. 1(c)) shares the same geometry and dielectric atomic layer deposition (ALD) stack as the combined drive- and gate-line of the gatemon. For the transmon, this line is used purely for (b) (d) : Purcell loss : spontaneous emission   
+
+> : quasiparticle poisoning (c)
+> : internal loss : S-Sm-S-specific loss
+> Vg
+> (a)
+> VgGatemon Transmon (Gatemon style) InAs
+
+FIG. 1. (a) Optical image of the device containing both gate-mon (left) and transmon (right) qubits. Meandered readout resonators are capacitively coupled to the qubit islands for dispersive readout. The transmons and gatemons share an identical circuit layout, including the X-shaped qubit capac-itor and drive/gate lines and fabrication steps, ensuring a comparable electromagnetic environment. The zoom-in im-ages of the Josephson junction areas, highlighted in blue and red, are shown in (b) and (c) for the gatemon and trans-mon, respectively. (b) The gatemon employs a superconduc-tor–semiconductor–superconductor (S–Sm–S) hybrid Joseph-son junction based on InAs/Al nanowires. One segment of the Al shell is selectively etched to form the S–Sm–S weak link, as shown in the inset. (c) The transmon uses a conventional superconductor–insulator–superconductor (SIS) Josephson junction. Gate dielectric HfO x (orange) is applied to both qubits to compare device performance under as sim-iliar conditions as possible. (d) The primary loss mechanisms under investigation: the Purcell effect, spontaneous emission, internal loss, quasiparticle poisoning, and possible S–Sm–S-junction-specific loss, with corresponding relaxation rates la-beled as Γ Pur , Γ spont , Γ int , Γ QPP , and Γ SSmS .
+
+microwave control, as the qubit frequency is fixed by a single SIS junction without a SQUID loop, whereas for the gatemon the same layout provides both DC gating and microwave drive. Using an identical line geometry and dielectric environment for both qubit types ensures that any observed difference in T1 cannot be ascribed to differences in control-line coupling or spontaneous-emission engineering, but instead reflects the distinct Josephson elements and their coupling to the same envi-ronment. The detailed optimization of this gate-line ge-ometry, including its XYZ-style [42] implementation for gatemons and the resulting spontaneous-emission limit, 3is discussed in Sec. IV and illustrated in Fig. 4. 
+
+III. BENCHMARKING OF CO-INTEGRATED GATEMONS AND TRANSMONS 
+
+We now turn to the measured energy relaxation times. We first characterize the relaxation times T1 of both fixed-frequency transmons and gatemons as a function of qubit frequency fq , with all measurements performed in a dilution refrigerator at a base temperature of approx-imately 30 mK. Representative energy-relaxation traces are shown in Figs. 2(a,b). For the transmon, we ob-tain T1 = 25 .8 μs at fq = 4 .21 GHz, while the gatemon measured on the same platform yields T1 = 4 .5 μs at 
+
+fq = 3 .70 GHz. To move beyond single-device examples, we fabricate and characterize several chips and summarize the result-ing T1 values in Fig. 2(c). Each data point represents a time average over multiple T1 measurements (at least 15 minutes) to account for temporal fluctuations. In to-tal, we study four transmons and five gatemons on three Al-film chips, with two transmons and two gatemons co-located on the same chip (Chip 2). We also include three additional gatemons fabricated on a NbTiN film (Chip 4), a material platform that has previously been used for high-coherence transmon [44–46]. In the resulting data set, aluminum transmons in this architecture routinely reach T1 values in the tens of microseconds, with the best device achieving T1 = 71 .6 μs, whereas gatemon T1
+
+values cluster in the few-microsecond range, with a maxi-mum of T1 = 9 .1 μs (independent of Al or NbTiN ground plane material), corresponding to roughly a factor-of-six between the best performers in each family. Within this co-integrated platform, the only inten-tional difference between gatemons and transmons is the Josephson junction (S–Sm–S nanowire vs. SIS tunnel), while the capacitor geometry, substrate, gate dielectric, control lines, and readout resonators are shared. The sys-tematic T1 offset observed in Fig. 2(c) therefore points to additional dissipation channels associated with the hy-brid S–Sm–S junction, rather than differences in sub-strate loss, circuit layout, or control-line engineering. In the following, we therefore quantitatively evaluate the expected contributions from Purcell decay, spontaneous emission through the control lines, internal dielectric loss, and thermal quasiparticle poisoning, and show that their combined effect cannot account for the observed discrep-ancy in T1, implying an additional loss channel intrinsic to the S–Sm–S junction. 
+
+IV. LOSS BUDGET IN GATEMON QUBITS 
+
+We next analyze the individual contributions to gate-mon relaxation by constructing a loss budget for a rep-resentative device, as summarized in Fig. 3. We plot the recorded T1 values of a representative device, as a (a) (b) (c)   
+
+> Transmon (gatemon style) T1=25.8 μs Gatemon T1=4.5 μs extrapolation for transmons extrapolation for gatemons
+
+FIG. 2. Comparison of relaxation times between trans-mons and gatemons. (a) Energy relaxation measurement of a representative transmon. (b) Energy relaxation mea-surement of a representative gatemon at similar qubit fre-quencies to the fixed-frequency transmon in panel (a). Both qubits are located on the same chip (Chip 2). (c) Summary of 
+
+T1 times for all measured devices across four different chips. Chips 1–3 are fabricated using aluminum films, and Chip 4 uses a NbTiN film. Qubits on the same chip are indicated by the same marker shape, while different colors are used to distinguish individual qubits. The qubits are grouped into three categories: aluminum transmons, aluminum gatemons, and NbTiN gatemons, each represented by a distinct color palette. The red dashed line shows the extrapolated T1 limit for a transmon with a constant quality factor Q = 2 πf T 1,while the shaded region indicates the expected T1 range for the best-performing gatemon extrapolated across frequencies. 
+
+function of qubit frequency fq (blue circles). The qubit relaxation time can be expressed in terms of the quality factor 
+
+Q = 2 πf q T1 = 2 πf q
+
+ 1Γ1
+
+
+
+, (2) where Γ 1 is the total energy decay rate. Assuming in-dependent loss channels, the total quality factor can be written as 1
+
+Qtot 
+
+= 1
+
+QPur 
+
++ 1
+
+Qspont 
+
++ 1
+
+Qint 
+
++ 1
+
+QQPP 
+
++ · · · , (3) where QPur , Qspont , Qint , and QQPP denote the contribu-tions from Purcell decay, spontaneous emission through external lines, internal (dielectric and conductor) loss, and quasiparticle poisoning, respectively. In the follow-ing, we estimate each term and compare the correspond-ing limits to the measured gatemon T1.4T1,Pur T1,spont T1,int T1,tot TLS T 1,phenom ~
+
+FIG. 3. Gatemon relaxation time as a function of qubit frequency fq . Dashed lines indicate the expected limits from Purcell decay, spontaneous emission through the gate line, and internal loss. The solid line shows the combined theoret-ical limit. The pronounced dip near 6 .43 GHz corresponds to the readout resonator frequency. The reduction in T1 around 4.5 GHz is attributed to a spurious two-level system (TLS), and is not a generic feature of our devices. 
+
+The Purcell effect arises from enhanced spontaneous emission due to the coupling between the qubit and the readout resonator. In the dispersive regime, the Purcell-limited relaxation time is given by 
+
+T1,Pur = (ωq − ωr )2
+
+κg 2
+
+> qr
+
+, (4) where ωq = 2 πf q is the qubit frequency, ωr = 2 πf r is the readout resonator frequency, κ = ωr /Q r is the resonator energy decay rate, and gqr is the qubit–resonator cou-pling strength [33]. From our measurements we estimate 
+
+κ/ 2π ≈ 0.87 MHz and gqr /2π ≈ 35 MHz. Substituting these values into Eq. (4) shows that T1,Pur exceeds 300 μsover the range fq ∈ [3 , 5] GHz, plotted as a dotted lines in Fig. 3. Another dissipation channel arises from capacitive cou-pling between the gate (or drive) line and the qubit, lead-ing to spontaneous emission into the external control cir-cuitry. The associated relaxation time can be written as 
+
+T1,spont = Cq
+
+Re[ Y (ωq )] , (5) where Cq is the total qubit capacitance and Y is the ad-mittance to the control line as seen by the qubit [47]. In gatemons, a gate electrode must already be brought close to the junction to control the carrier density, so it is natural to use the same line for both DC tuning and microwave drive, provided this can be done with-out introducing a severe T1 penalty. Implementing such XYZ-style control is more challenging than in SIS-based transmons, because the gate electrode must be brought (c) XY Z 
+
+> Ground shielding (a) (b) Gate line 235 μm ALD
+
+FIG. 4. Detailed gatemon qubit design. (a) Repre-sentative optical image of a gatemon qubit from this work. The gate line is placed 235 μm away from the qubit capac-itor (blue). Zoom in of the dashed box region is shown in (b). This segment of the gate line is designed to be 200 nm wide. The ground plane is brought along with the gate line, the ground shielding, to shield the qubit from this line. (c) Circuit diagram of the qubit. The single gate line is in close proximity to the junction for effectively tuning the Josephson energy ( Z control), and serve as a drive line ( XY control) via optimized coupling capacitance to the qubit (see text for details). 
+
+into close proximity ( ≲ 100 nm) to the junction to effi-ciently modulate the carrier density in the semiconduc-tor. To reconcile strong DC tunability with controlled AC coupling at qubit frequencies, without introducing a prohibitive spontaneous-emission limit on T1, we redesign the gate layout as shown in Figs. 4(a-c). We implement three modifications to reduce the parasitic capacitance while maintaining gate proximity to the junction. First, the distance between the X-shaped qubit capacitor and the gate line is increased to more than 200 μm. Second, the gate line is patterned to be ∼ 200 nm wide near the qubit capacitor. Third, the ground plane is brought along with the gate line to shield the qubit from the gate-line electric field, as shown in Fig. 4(b). With these optimizations, we perform electromagnetic simulations and find a coupling capacitance of Cc =0.19 fF and frequency-dependent admittance Y (ωq). The corresponding spontaneous emission limit is above 30 μsover the frequency range fq ∈ [3 , 5] GHz. This maintains the relaxation times of the device while preserving the DC control of the carrier density in the nanowire. The third channel we consider is internal loss origi-nating from dielectric and conductor dissipation in the capacitor, substrate, interfaces, and gate dielectric. Be-cause the gatemon and transmon qubits share an identi-cal circuit geometry and materials stack—including the ALD gate dielectric—their electric-field distributions and participation ratios in the various materials are effec-tively the same. This design parity allows us to use the co-fabricated transmons as direct probes of the in-ternal quality factor for this stack. At the measured 5transmon frequencies (around 3 .4 GHz and 4 .2 GHz), the relaxation times are predominantly limited by internal loss, from which we extract an average internal quality factor Qint ≈ 0.93 × 10 6. The corresponding internal-loss limit for the gatemon is then 
+
+T1,int = Qint 
+
+2πf q
+
+, (6) which yields expected lifetimes in the tens-of-microseconds range over the frequencies of interest, shown as dashed-dotted lines in Fig. 3. Combining these three contributions according to Eq. (3) gives the total expected relaxation time T1,tot for the gatemon, shown as the solid line in Fig. 3. Across the full frequency range, including away from the narrow dip associated with a strongly coupled two-level system, this predicted lifetime remains well above all experimentally observed gatemon T1 values, demonstrating that Purcell decay, gate-line spontaneous emission, and internal loss are insufficient to account for the measured relaxation and that an additional, yet unidentified loss channel must be present in the S–Sm–S junction. To quantify how large such an additional loss channel must be, we extend Eq. (3) by adding a phenomenolog-ical, frequency-independent term 1 /Q phenom to the to-tal quality factor. The corresponding relaxation time 
+
+eT1,phenom is plotted as the gray curve in Fig. 3. For the representative device shown, choosing Qphenom ≈
+
+2.5 × 10 5 brings the model into good agreement with the measured T1 over the full frequency range, apart from the narrow dip attributed to a strongly coupled spurious two-level system. We emphasize that the precise value of 
+
+Qphenom is device dependent and not universal; its signif-icance is that a modest additional loss channel, distinct from Purcell decay, gate-line spontaneous emission, and internal dielectric loss, is sufficient to reconcile the data with an otherwise standard loss budget. At present we do not assign a specific microscopic mechanism to Qphenom ,and instead regard it as an effective parameter capturing junction-intrinsic dissipation that is further constrained by the temperature-dependent measurements in Sec. V.    
+
+> V. TEMPERATURE DEPENDENCE OF T1FOR CO-DESIGNED GATEMON AND TRANSMON
+
+Having established that Purcell decay, gate-line spon-taneous emission, and internal loss cannot account for the short gatemon relaxation times, we next investigate relaxation due to quasiparticle poisoning (QPP). The presence of nonequilibrium quasiparticles at millikelvin temperatures is a well-known limitation for state-of-the-art transmons, and their influence on qubit relaxation has been extensively studied using, e.g., direct parity-switching measurements [36, 48–51], intentional quasi-particle injection [52–55], and temperature-dependent 
+
+T1 measurements [36, 49, 56, 57]. Direct qubit parity-switching techniques have recently been applied to gate-                       
+
+> FIG. 5. Qubit relaxation times T1as a function of temperature. T1measurements for a gatemon (blue) and a transmon (red) from Chip 2 at different temperatures. The gatemon is measured at two different qubit frequencies, 3.70 GHz and 4 .04 GHz. At base temperature (30 mK), the transmon exhibits a relaxation time of approximately 25 μs, while the gatemon shows T1≈4.5μs and T1≈2.7μs for the high- and low-frequency configurations, respectively. The dashed lines are fits using a quasiparticle poisoning model,
+> T1(T) = Γ0+ ( p8∆ hf q/h )p2πk BT / ∆e−∆/(kBT)−1, where Γ0is the temperature-independent decay rate, kBis the Boltz-mann constant, and ∆ is the superconducting gap.
+
+mons as well [58, 59]. Yet, to our knowledge, system-atic measurements of T1 as a function of temperature in gatemons have not yet been reported. Compared with SIS Josephson junctions, S–Sm–S junctions rely on in-duced superconductivity in the semiconductor [60, 61], which could, in principle, exhibit a smaller superconduct-ing gap than the parent superconductor. Moreover, such hybrid junctions are known to host finite in-gap (subgap) conductance [37, 40, 62], even when the superconduc-tor–semiconductor nanowires are epitaxially grown for improved interface quality as the nanowire in the present work [37]. Both effects can modify quasiparticle dynam-ics and introduce additional dissipation channels, moti-vating a dedicated temperature study. We perform temperature-dependent measurements on a gatemon and a transmon co-fabricated on the same chip (Chip 2), as shown in Fig. 5. The transmon has a fixed frequency of fq = 4 .21 GHz, while the gatemon is tuned to two nearby operating points at fq = 4 .04 GHz and fq = 3 .70 GHz. At each temperature, we raise the mixing-chamber setpoint, allow the system to equilibrate, and then record multiple T1 traces for both devices. Both qubits exhibit a temperature-independent T1 plateau at low temperatures, followed by a pronounced decrease at elevated temperatures, consistent with thermally acti-vated quasiparticles. The QPP-induced relaxation rate is proportional to the quasiparticle density 
+
+xqp (T ) = xne +
+
+r 2πk BT
+
+∆ e− ∆ 
+
+> kBT
+
+, (7) 6where xne is the nonequilibrium quasiparticle population at the base temperature, kB is the Boltzmann constant, and ∆ is the superconducting gap. In the limit of EJ ≫
+
+EC, the temperature dependence of the relaxation time can be modeled as 
+
+T1(T ) = 1Γ0 +
+
+√8∆ hf q
+
+> h
+
+q 2πk BT 
+
+> ∆
+
+e− ∆
+
+> kBT
+
+, (8) where Γ0 collects all temperature-independent decay channels [63]. Explicitly, Γ 0 includes residual Purcell decay, internal loss, spontaneous emission through the control lines, relaxation due to nonequilibrium quasi-particles, Γ0,ne = xne 
+
+p8∆ hf q /h , and any additional temperature-independent loss specific to the junction. Fitting the transmon and gatemon data to Eq. (8) yields 1 /Γ0 = 2 .03(3) μs and ∆ /h = 55 .2(3) GHz for the gatemon at fq = 4 .04 GHz, and 1 /Γ0 = 23(1) μs and ∆/h = 48 .8(3) GHz for the transmon. Thus, the ex-tracted superconducting gap of the S–Sm–S junction is comparable to that of the SIS junction within the un-certainties of the fit, consistent with expectations. The temperature dependence of T1 for both devices is well captured by the same quasiparticle-activation form, indi-cating that the thermally generated quasiparticles affect the two qubits in a quantitatively similar way. These ob-servations suggest that a substantially smaller induced gap in the hybrid junction, or a qualitatively different thermal quasiparticle population, is not the primary ori-gin of the shorter gatemon T1.The key difference between the two devices is instead encoded in the temperature-independent term Γ 0. At base temperature, the transmon exhibits T1 ≈ 23 μs, whereas the gatemon saturates at T1 ≈ 4.6 μs and T1 ≈
+
+2.0 μs for the two operating points, captured by a sig-nificantly larger Γ 0 for the gatemon. One possible ex-planation for the larger Γ 0 is that the S–Sm–S junction has a substantially higher excess nonequilibrium quasi-particle density. In the case where Γ 0 is dominated by nonequilibrium quasiparticles, we can calculate the cor-responding upper bound of xne ∼ 10 −5, which is several orders of magnitude higher than the standard transmons. To directly measure the density of excess quasiparticles, a Ramsey-style experiment with offset-charge-sensitive gatemons can provide more information about the ex-act number of xne in future work [36]. Another possible candidate for high Γ 0 is quasiparticle tunneling medi-ated by the residual subgap density of states [26, 41], which can originate from the imperfect transparency of the S-Sm interface [37]. Those residual low-energy sub-gap states potentially enhance the quasiparticle tunnel-ing rate, thereby providing another channel for energy dissipation. Further investigations of subgap states and interface engineering in S–Sm–S junctions will further disentangle these contributions.  
+
+> VI. CONCLUSION
+
+We have carried out a systematic investigation of en-ergy relaxation in hybrid superconductor–semiconductor gatemons using co-fabricated SIS-junction transmons as on-chip references. By realizing both qubit types on the same high-resistivity silicon substrates, with nominally identical circuit layouts, gate dielectrics, control lines, and readout resonators, we isolate the Josephson ele-ment as the only intentional distinction. Across multiple chips and material platforms, transmons in this architec-ture reach relaxation times in the tens of microseconds, whereas gatemons saturate in the few-microsecond range, revealing a robust gap in T1 between the two qubit fam-ilies. Using the transmons to benchmark standard loss chan-nels, we construct a loss budget for one of our repre-sentative gatemons that includes Purcell decay, spon-taneous emission through the optimized control line, and internal dielectric loss. The corresponding lim-its remain well above all measured gatemon T1 val-ues, showing that these mechanisms cannot explain the observed relaxation. By augmenting this budget with a single phenomenological, frequency-independent loss term associated with the S–Sm–S junction, we ob-tain a curve that reproduces a representative gatemon 
+
+T1, showing that the presence of a modest additional junction-specific loss channel is sufficient to explain the data even though its microscopic origin remains unre-solved. Temperature-dependent T1 measurements on paired gatemon–transmon devices are described by the same quasiparticle-activation model and yield compara-ble superconducting gaps for the S–Sm–S and SIS junc-tions, ruling out a substantially reduced induced gap as the primary source of the shorter gatemon lifetimes. The remaining discrepancy appears as a larger temperature-independent decay rate for the gatemon, pointing to ad-ditional dissipation channels intrinsic to the hybrid junc-tion. A potential interpretation is that relaxation limita-tions in gatemons arise from junction-intrinsic mecha-nisms such as finite subgap conductance and imperfect superconductor–semiconductor interfaces, which provide a residual in-gap density of states and low-energy ex-citations [26, 28, 64]. Improving hybrid qubit coher-ence will therefore most likely require engineering cleaner interfaces, suppressing subgap conductance, and incor-porating quasiparticle-management strategies [65, 66], potentially using larger-gap superconductors. The co-integrated gatemon–transmon platform introduced here provides a blueprint for quantitatively benchmarking junction-intrinsic dissipation in future hybrid supercon-ducting qubits. 7
+
+> ACKNOWLEDGMENTS
+
+We acknowledge helpful discussions with Karsten Flensberg, Benjamin Levitan, and Alexandre Blais. We also gratefully acknowledge nanowire growth from Pe-ter Krogstrup and fabrication assistance from Sangeeth Kallatt and Smitha Nair Themadath. This research was supported by the Novo Nordisk Foundation (grant no. NNF22SA0081175), the NNF Quantum Computing Programme (NQCP), Villum Foundation through a Villum Young Investigator grant (grant no. 37467), the Innovation Fund Denmark (grant no. 2081-00013B, DanQ), the U.S. Army Research Office (grant no. W911NF-22-1-0042, NHyDTech), by the Eu-ropean Union through an ERC Starting Grant, (grant no. 101077479, NovADePro), and by the Carlsberg Founda-tion (grant no. CF21-0343). Any opinions, findings, con-clusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of Army Research Office or the US Govern-ment. Views and opinions expressed are those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council. Nei-ther the European Union nor the granting authority can be held responsible for them. Finally, we gratefully ac-knowledge Lena Jacobsen for program management sup-port.   
+
+> Appendix A: T1of the optimized transmons
+
+In our experiment, we also include transmons with a standard design, in which the coupling capacitance of the gate (drive) line and qubit is 0 .01 fF. As shown in Fig. 6, the two transmons on Chip 1 exhibit T1 = 77 .6 μs and 
+
+T1 = 93 .8 μs at fq = 3 .308 GHz and fq = 3 .320 GHz, respectively. Two transmons on Chip 2 are measured to have T1 = 26 .9 μs and T1 = 18 .4 μs at fq = 4 .12 GHz and 
+
+fq = 4 .28 GHz, respectively.   
+
+> Appendix B: T1temperature dependence of other devices
+
+The T1 temperature dependence of another gatemon and another transmon from Chip 2 is measured and plot-ted in Fig. 7. The transmon shows T1 = 17 .9 μs at 
+
+fq = 4 .147 GHz and the gatemon shows T1 = 0 .69 μsat fq = 4 .342 GHz, when measured at base temperature. Fitting the data to Eq. (8) gives ∆ /h = 46 .7(4) GHz and ∆/h = 50 .8(6) GHz for the transmon and gatemon, re-spectively. Those parameters fall into the same range as the devices in the main text.                                          
+
+> FIG. 6. Relaxation times of optimized transmons. Two transmons with an optimized design on Chip 1 (marked as squares) are measured to have T1= 77 .6μs and T1= 93 .8μsat fq= 3 .308 GHz and fq= 3 .320 GHz, respectively. Two transmons with an optimized design on Chip 2 (marked as diamonds) are measured to have T1= 26 .9μs and T1= 18 .4μsat fq= 4 .12 GHz and fq= 4 .28 GHz, respectively.
+> FIG. 7. Qubit relaxation times T1as a function of tem-perature. T1measurements for another gatemon (blue) and another transmon (red) from Chip 2 at different tempera-tures. At base temperature, the transmon shows T1= 17 .9μsat fq= 4 .147 GHz, while the gatemon shows T1= 0 .69 μsat fq= 4 .342 GHz. The dashed lines represent fits to the quasiparticle poisoning model, the same as the one used in the main text. Fitting the data gives ∆ /h = 46 .7(4) GHz and ∆/h = 50 .8(6) GHz for the transmon and gatemon, respec-tively.
+> Appendix C: Fabrication recipe
+
+The high-resistivity silicon wafer was first dipped into hydrofluoric acid (HF) to remove native oxide before be-ing loaded into the Plassys MEB550S. Titanium is de-posited with substrate shutter closed to get better vac-cum in the chamber (this step is implemented before all the aluminum evaporations). A thin film of 200 nm Al was subsequently evaporated onto the silicon substrate 8at a rate of 0 .2 nm /s. The wafer was then diced into 1 cm × 1 cm chips. The control circuitry was defined on the deposited Al film using electron-beam lithogra-phy (EBL), followed by a wet-etching process utilizing a Transene aluminum etchant D solution. The narrow part (200 nm) of the gate line was deposited with a lift-off procedure. The gate dielectric HfO x of 15 nm was grown with atomic layer deposition (ALD) on top of the gate line. After the fabrication of the circuit, the Al/AlO x/Al SIS Josephson junctions were fabricated with a stan-dard Manhattan-style double-angle evaporation process for the transmons. Here, a double-layer resist stack con-sisting of MMA EL 13 (bottom layer) and CSAR 9 (top layer) was used to provide sufficient stack thickness and resist undercut. The first junction electrode, consisting of 35 nm of aluminum, was oxidized in situ at a pres-sure of 120 mbar for six minutes in the Plassys system, followed by the evaporation of a 125 nm aluminum layer to form the second junction electrode. The InAs/Al full-shell nanowires were deterministically placed on the chip with a micro-manipulator. Both the nanowires and the SIS Josephson junction were galvanically connected to the rest of the circuitry via argon ion milling followed by Al evaporation. The S–Sm–S Josephson junctions were subsequently formed by wet etching away a nom-inal 200 nm opening in the Al shell on the nanowire. 
+
+> Appendix D: Fridge wiring
+
+Measurements were carried out in an Oxford Instru-ments Triton cryofree dilution refrigerator. The dilution fridge wiring used to measure Chip 3 and Chip 4 is the same as in this reference [31]. The fridge wiring diagram used to measure Chip 1 and Chip 2 is shown in Fig. 8. The DC gate voltage is filterd by QFilter-II low-pass fil-ter with cutoff frequency 65 kHz. The qubit drive signal and readout signal are combined with a microwave split-ter at room temperature. The two signals are attenuated and filtered in the fridge before reaching the feedline on the chip. The outcoming readout signal goes through two isolators in series and is amplified by high electron mobility transistor (HEMT) before getting out from the fridge. The chips are wire-bonded and mounted inside the QCage. The aluminum shieldings of the QCage can provide magnetic shielding to the qubits. PT1 PT2 still 20 mK                          
+
+> DC loom Drive+readout-in
+> QFilter-II
+> Readout-out HEMT Puck assembly
+> 10dB  6dB  20dB  10dB 10dB K/L S&N 10 GHz
+> Eccosorb CR110
+> 0dB
+> Device QCage 100 mK
+> FIG. 8. Dilution fridge wiring diagram. The DC signal (gate voltage) is filtered by QFilter-II compact low-pass filter (65 kHz) and connected to the gatemon gate line. The qubit drive and readout signals are attenuated by attenuators (blue) and filterd by low-pass filters (light blue) before reaching to the feedline on the chip. The outcoming readout signal goes through two isolators and is amplified by high electron mo-bility transistor (HEMT, red). The chip is wire-bonded and mounted inside the QCage with aluminum shielding. [1] Y. Nakamura, Y. A. Pashkin, and J. S. Tsai, Nature 398 ,786 (1999). [2] M. H. Devoret and R. J. Schoelkopf, Science 339 , 1169 (2013). [3] M. Kjaergaard, M. E. Schwartz, J. Braum¨ uller, P. Krantz, J. I.-J. Wang, S. Gustavsson, and W. D. Oliver, Annual Review of Condensed Matter Physics 11 ,369–395 (2020). [4] S. Danilin and M. Weides, Quantum sensing with super-conducting circuits (2021). [5] S. Wolski, D. Lachance-Quirion, Y. Tabuchi, S. Kono, A. Noguchi, K. Usami, and Y. Nakamura, Physical Re-view Letters 125 (2020). [6] C. Macklin, K. O’Brien, D. Hover, M. E. Schwartz, V. Bolkhovsky, X. Zhang, W. D. Oliver, and I. Siddiqi, Science 350 , 307 (2015).
+
+9
+
+[7] J. Wang, K. Peng, J. M. Knecht, G. D. Cunningham, A. E. Lombo, A. Yen, D. A. Zaidenberg, M. Gingras, B. M. Niedzielski, H. Stickler, K. Sliwa, K. Serniak, M. E. Schwartz, W. D. Oliver, and K. P. O’Brien, arXiv:2503.11812 (2025). [8] B. J. Chapman, E. I. Rosenthal, J. Kerckhoff, B. A. Moores, L. R. Vale, J. A. B. Mates, G. C. Hilton, K. La-lumi` ere, A. Blais, and K. W. Lehnert, Phys. Rev. X 7,041043 (2017). [9] T. C. White, J. Y. Mutus, I.-C. Hoi, R. Barends, B. Campbell, Y. Chen, Z. Chen, B. Chiaro, A. Dunsworth, E. Jeffrey, J. Kelly, A. Megrant, C. Neill, P. J. J. O’Malley, P. Roushan, D. Sank, A. Vainsencher, J. Wenner, S. Chaudhuri, J. Gao, and J. M. Martinis, Applied Physics Letters 106 , 242601 (2015). [10] M. P. Bland, F. Bahrami, J. G. C. Martinez, P. H. Preste-gaard, B. M. Smitham, A. Joshi, E. Hedrick, A. Pakpour-Tabrizi, S. Kumar, A. Jindal, R. D. Chang, A. Yang, G. Cheng, N. Yao, R. J. Cava, N. P. de Leon, and A. A. Houck, Nature 647 , 343 (2025). [11] J. Bizn´ arov´ a, A. Osman, E. Rehnman, L. Chayanun, C. Kriˇ zan, P. Malmberg, M. Rommel, C. Warren, P. Dels-ing, A. Yurgens, J. Bylander, and A. Fadavi Roudsari, npj Quantum Information 10 (2024). [12] V. V. Sivak, A. Eickbusch, B. Royer, S. Singh, I. Tsiout-sios, S. Ganjam, A. Miano, B. L. Brock, A. Z. Ding, L. Frunzio, S. M. Girvin, R. J. Schoelkopf, and M. H. Devoret, Nature 616 , 50–55 (2023). [13] A. P. M. Place, L. V. H. Rodgers, P. Mundada, B. M. Smitham, M. Fitzpatrick, Z. Leng, A. Premkumar, J. Bryon, A. Vrajitoarea, S. Sussman, G. Cheng, T. Mad-havan, H. K. Babla, X. H. Le, Y. Gang, B. J¨ ack, A. Gye-nis, N. Yao, R. J. Cava, N. P. de Leon, and A. A. Houck, Nature Communications 12 (2021). [14] F. Berritta, J. Benestad, J. A. Krzywda, O. Krause, M. A. Marciniak, S. Krøjer, C. W. Warren, E. Hogedal, A. Nylander, I. Ahmad, A. Osman, J. Bizn´ arov´ a, M. Rommel, A. Fadavi Roudsari, J. Bylander, G. Tan-credi, J. Danon, J. Hastrup, F. Kuemmeth, and M. Kjaergaard, arXiv:2506.09576 (2025). [15] I. Siddiqi, Nature Reviews Materials 6, 875 (2021). [16] C. Wang, C. Axline, Y. Y. Gao, T. Brecht, Y. Chu, L. Frunzio, M. H. Devoret, and R. J. Schoelkopf, Applied Physics Letters 107 (2015). [17] T. Larsen, K. Petersson, F. Kuemmeth, T. Jespersen, P. Krogstrup, J. Nyg˚ ard, and C. Marcus, Physical Review Letters 115 (2015). [18] G. de Lange, B. van Heck, A. Bruno, D. J. van Woerkom, A. Geresdi, S. R. Plissard, E. P. A. M. Bakkers, A. R. Akhmerov, and L. DiCarlo, Phys. Rev. Lett. 115 , 127002 (2015). [19] L. Casparis, M. R. Connolly, M. Kjaergaard, N. J. Pear-son, A. Kringhøj, T. W. Larsen, F. Kuemmeth, T. Wang, C. Thomas, S. Gronin, G. C. Gardner, M. J. Manfra, C. M. Marcus, and K. D. Petersson, Nature Nanotech-nology 13 , 915–919 (2018). [20] W. M. Strickland, B. H. Elfeky, L. Baker, A. Maiani, J. Lee, I. Levy, J. Issokson, A. Vrajitoarea, and J. Sha-bani, PRX Quantum 6 (2025). [21] M. Hays, V. Fatemi, D. Bouman, J. Cerrillo, S. Dia-mond, K. Serniak, T. Connolly, P. Krogstrup, J. Nyg˚ ard, A. Levy Yeyati, A. Geresdi, and M. H. Devoret, Science 
+
+373 , 430–433 (2021). [22] M. Pita-Vidal, A. Bargerbos, R. ˇZitko, L. J. Splitthoff, L. Gr¨ unhaupt, J. J. Wesdorp, Y. Liu, L. P. Kouwenhoven, R. Aguado, B. van Heck, A. Kou, and C. K. Andersen, Nature Physics 19 , 1110–1115 (2023). [23] F. Luthi, T. Stavenga, O. W. Enzing, A. Bruno, C. Dickel, N. K. Langford, M. A. Rol, T. S. Jespersen, J. Nyg˚ ard, P. Krogstrup, and L. DiCarlo, Phys. Rev. Lett. 120 , 100502 (2018). [24] A. Purkayastha, A. Sharma, P. J. Patel, A.-H. Chen, C. P. Dempsey, S. Asodekar, S. Sinha, M. Tomasian, M. Pendharkar, C. J. Palmstrøm, M. Hocevar, K. Zuo, M. Hatridge, and S. M. Frolov, arXiv:2508.04007 (2025). [25] L. Casparis, T. W. Larsen, M. S. Olsen, F. Kuemmeth, P. Krogstrup, J. Nyg˚ ard, K. D. Petersson, and C. M. Marcus, Phys. Rev. Lett. 116 , 150505 (2016). [26] A. Kringhøj, T. W. Larsen, O. Erlandsson, W. Uilhoorn, J. Kroll, M. Hesselberg, R. McNeil, P. Krogstrup, L. Cas-paris, C. Marcus, and K. Petersson, Physical Review Ap-plied 15 (2021). [27] A. Hertel, M. Eichinger, L. O. Andersen, D. M. van Zan-ten, S. Kallatt, P. Scarlino, A. Kringhøj, J. M. Chavez-Garcia, G. C. Gardner, S. Gronin, M. J. Manfra, A. Gye-nis, M. Kjaergaard, C. M. Marcus, and K. D. Petersson, Physical Review Applied 18 (2022). [28] O. Sagi, A. Crippa, M. Valentini, M. Janik, L. Baghumyan, G. Fabris, L. Kapoor, F. Hassani, J. Fink, S. Calcaterra, D. Chrastina, G. Isella, and G. Katsaros, Nature Communications 15 (2024). [29] H. Riechert, S. Annabi, A. Peugeot, H. Duprez, M. Han-tute, K. Watanabe, T. Taniguchi, E. Arrighi, J. Gries-mar, J.-D. Pillet, and L. Bretheau, Nature Communica-tions 16 (2025). [30] H. Zheng, L. Y. Cheung, N. Sangwan, A. Kononov, R. Haller, J. Ridderbos, C. Ciaccia, J. H. Ungerer, A. Li, E. P. Bakkers, A. Baumgartner, and C. Sch¨ onenberger, Nano Letters 24 , 7173 (2024). [31] D. Feldstein-Bofill, Z. Sun, C. Wied, S. Singh, B. D. Isakov, S. Krøjer, J. Hastrup, A. Gyenis, and M. Kjaer-gaard, Phys. Rev. Appl. 24 , 044099 (2025). [32] W. M. Strickland, L. J. Baker, J. Lee, K. Dindial, B. H. Elfeky, P. J. Strohbeen, M. Hatefipour, P. Yu, I. Levy, J. Issokson, V. E. Manucharyan, and J. Shabani, Phys. Rev. Res. 6, 023094 (2024). [33] A. A. Houck, J. A. Schreier, B. R. Johnson, J. M. Chow, J. Koch, J. M. Gambetta, D. I. Schuster, L. Frunzio, M. H. Devoret, S. M. Girvin, and R. J. Schoelkopf, Phys. Rev. Lett. 101 , 080502 (2008). [34] G. Catelani, R. J. Schoelkopf, M. H. Devoret, and L. I. Glazman, Physical Review B 84 (2011). [35] G. Catelani, S. E. Nigg, S. M. Girvin, R. J. Schoelkopf, and L. I. Glazman, Physical Review B 86 , 184514 (2012). [36] K. Serniak, M. Hays, G. de Lange, S. Diamond, S. Shankar, L. D. Burkhart, L. Frunzio, M. Houzet, and M. H. Devoret, Phys. Rev. Lett. 121 , 157701 (2018). [37] W. Chang, S. M. Albrecht, T. S. Jespersen, F. Kuem-meth, P. Krogstrup, J. Nyg˚ ard, and C. M. Marcus, Na-ture Nanotechnology 10 , 232–236 (2015). [38] M. Valentini, O. Sagi, L. Baghumyan, T. de Gi-jsel, J. Jung, S. Calcaterra, A. Ballabio, J. Aguil-era Servin, K. Aggarwal, M. Janik, T. Adletzberger, R. Seoane Souto, M. Leijnse, J. Danon, C. Schrade, E. Bakkers, D. Chrastina, G. Isella, and G. Katsaros, Nature Communications 15 (2024). 10 
+
+[39] C.-X. Liu, F. Setiawan, J. D. Sau, and S. Das Sarma, Phys. Rev. B 96 , 054520 (2017). [40] S. Takei, B. M. Fregoso, H.-Y. Hui, A. M. Lobos, and S. Das Sarma, Phys. Rev. Lett. 110 , 186803 (2013). [41] V. Levajac, J. Y. Wang, C. Sfiligoj, et al. , Nature Com-munications 14 , 6647 (2023). [42] R. Manenti, E. A. Sete, A. Q. Chen, S. Kulshreshtha, J.-H. Yeh, F. Oruc, A. Bestwick, M. Field, K. Jackson, and S. Poletto, Applied Physics Letters 119 (2021). [43] A. Kringhøj, L. Casparis, M. Hell, T. W. Larsen, F. Kuemmeth, M. Leijnse, K. Flensberg, P. Krogstrup, J. Nyg˚ ard, K. D. Petersson, and C. M. Marcus, Phys. Rev. B 97 , 060508 (2018). [44] A. Bruno, G. de Lange, S. Asaad, K. L. van der Enden, N. K. Langford, and L. DiCarlo, Applied Physics Letters 
+
+106 (2015). [45] C. E. Murray, Materials Science and Engineering: R: Re-ports 146 , 100646 (2021). [46] A. Nersisyan, S. Poletto, N. Alidoust, R. Manenti, R. Renzas, C.-V. Bui, K. Vu, T. Whyland, Y. Mohan, E. A. Sete, S. Stanwyck, A. Bestwick, and M. Reagor, Manufacturing low dissipation superconducting quantum processors (2019). [47] M. Neeley, M. Ansmann, R. C. Bialczak, M. Hofheinz, N. Katz, E. Lucero, A. O’Connell, H. Wang, A. N. Cle-land, and J. M. Martinis, Phys. Rev. B 77 , 180508 (2008). [48] L. Sun, L. DiCarlo, M. D. Reed, G. Catelani, L. S. Bishop, D. I. Schuster, B. R. Johnson, G. A. Yang, L. Frunzio, L. Glazman, M. H. Devoret, and R. J. Schoelkopf, Phys. Rev. Lett. 108 , 230509 (2012). [49] D. Rist` e, C. C. Bultink, M. J. Tiggelman, R. N. Schouten, K. W. Lehnert, and L. DiCarlo, Nature Communications 
+
+4 (2013). [50] J. Krause, G. Marchegiani, L. Janssen, G. Catelani, Y. Ando, and C. Dickel, Phys. Rev. Appl. 22 , 044063 (2024). [51] T. Connolly, P. D. Kurilovich, S. Diamond, H. Nho, C. G. L. Bøttcher, L. I. Glazman, V. Fatemi, and M. H. Devoret, Phys. Rev. Lett. 132 , 217001 (2024). [52] S. Diamond, V. Fatemi, M. Hays, H. Nho, P. D. Kurilovich, T. Connolly, V. R. Joshi, K. Serniak, L. Frun-zio, L. I. Glazman, and M. H. Devoret, PRX Quantum 
+
+3, 040304 (2022). [53] C. H. Liu, D. C. Harrison, S. Patel, C. D. Wilen, O. Rafferty, A. Shearrow, A. Ballard, V. Iaia, J. Ku, B. L. T. Plourde, and R. McDermott, Phys. Rev. Lett. 
+
+132 , 017001 (2024). [54] R. Benevides, M. Drimmer, G. Bisson, F. Adinolfi, U. v. L¨ upke, H. M. Doeleman, G. Catelani, and Y. Chu, Phys. Rev. Lett. 133 , 060602 (2024). [55] C. Larson, E. Yelton, K. Dodge, K. Okubo, J. Batarekh, V. Iaia, N. Kurinsky, and B. Plourde, PRX Quantum 6,030339 (2025). [56] X. Pan, Y. Zhou, H. Yuan, L. Nie, W. Wei, L. Zhang, J. Li, S. Liu, Z. H. Jiang, G. Catelani, L. Hu, F. Yan, and D. Yu, Nature Communications 13 (2022). [57] J. M. Martinis, M. Ansmann, and J. Aumentado, Phys. Rev. Lett. 103 , 097002 (2009). [58] W. Uilhoorn, J. G. Kroll, A. Bargerbos, S. D. Nabi, C.-K. Yang, P. Krogstrup, L. P. Kouwenhoven, A. Kou, and G. de Lange, arXiv:2105.11038 (2021). [59] O. Erlandsson, D. Sabonis, A. Kringhøj, T. W. Larsen, P. Krogstrup, K. D. Petersson, and C. M. Marcus, Phys. Rev. B 108 , L121406 (2023). [60] C. W. J. Beenakker, Phys. Rev. B 46 , 12841 (1992). [61] R. Aguado, Applied Physics Letters 117 (2020). [62] S. Vaitiek˙ enas, G. W. Winkler, B. van Heck, T. Karzig, M.-T. Deng, K. Flensberg, L. I. Glazman, C. Nayak, P. Krogstrup, R. M. Lutchyn, and C. M. Marcus, Sci-ence 367 (2020). [63] L. I. Glazman and G. Catelani, SciPost Phys. Lect. Notes , 31 (2021). [64] S. Vaitiek˙ enas, M.-T. Deng, J. Nyg˚ ard, P. Krogstrup, and C. M. Marcus, Phys. Rev. Lett. 121 , 037703 (2018). [65] A. Bargerbos, L. J. Splitthoff, M. Pita-Vidal, J. J. Wes-dorp, Y. Liu, P. Krogstrup, L. P. Kouwenhoven, C. K. Andersen, and L. Gr¨ unhaupt, Physical Review Applied 
+
+19 (2023). [66] M. McEwen et al. , Physical Review Letters 133 , 240601 (2024).
