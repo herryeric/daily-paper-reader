@@ -1,0 +1,990 @@
+Title: SesQ: A Surface Electrostatic Simulator for Precise Energy Participation Ratio Simulation in Superconducting Qubits
+
+URL Source: https://arxiv.org/pdf/2603.28524v1
+
+Published Time: Tue, 31 Mar 2026 02:34:39 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+> 1
+
+# SesQ: A Surface Electrostatic Simulator for Precise Energy Participation Ratio Simulation in Superconducting Qubits 
+
+Ziang Wang , Shuyuan Guan , Feng Wu , Xiaohang Zhang , Qiong Li , Jianxin Chen , Xin Wan, Tian Xia ,Hui-Hai Zhao 
+
+Abstract —An accurate and efficient numerical electromagnetic model for superconducting qubits is essential for characterizing and minimizing design-dependent dielectric losses. The energy participation ratio (EPR) is the commonly adopted metric used to evaluate these losses, but its calculation presents a severe multiscale computational challenge. Conventional finite element method (FEM) requires 3D volumetric meshing, leading to prohibitive computational costs and memory requirements when attempting to capture singular electric fields at nanometer-thin material interfaces. To address this bottleneck, we pro-pose SesQ, a surface integral equation simulator tailored for the precise simulation of the EPR. By applying discretization on 2D surfaces, deriving a semi-analytical multilayer Green’s function, and employing a dedicated non-conformal boundary mesh refinement scheme, SesQ accurately resolves singular edge fields without an explosive growth in the number of unknowns. Validations with analytically solvable models demonstrate that SesQ accelerates capacitance extraction by roughly two orders of magnitude compared to commercial FEM tools. While achieving comparable accuracy for capacitance extraction, SesQ delivers superior precision for EPR calculation. Simulations of practical transmon qubits further reveal that FEM approaches tend to significantly underestimate the EPR. Finally, the high efficiency of SesQ enables rapid iteration in the layout optimization, as demonstrated by minimizing the EPR of the qubit pattern, establishing the simulator as a powerful tool for the automated design of low-loss superconducting quantum circuits. 
+
+Index Terms —energy participation ratio, superconducting quantum devices, electromagnetic simulation, surface integral equation. 
+
+I. I NTRODUCTION 
+
+The performance of a superconducting quantum processor is fundamentally governed by two critical metrics: the number of qubits and the fidelity of quantum operations. Achieving high fidelities, which is crucial for fault-tolerant quantum 
+
+Corresponding authors: Jianxin Chen (e-mail chen-jianxin@tsinghua.edu.cn), Tian Xia (e-mail tianxia.ui@gmail.com) and Hui-Hai Zhao (e-mail zhaohuihai@iqubit.org) F. Wu, S. Guan and H.-H Zhao are with Zhongguancun Laboratory, Beijing, China. Z. Wang and X. Wan are with Zhejiang Institute of Modern Physics and Zhejiang Key Laboratory of Micro-nano Quantum Chips and Quantum Control, Zhejiang University, Hangzhou 310027, China. S. Guan and Q. Li are with School of Cyberspace Science, Faculty of Computing, Harbin Institute of Technology, Harbin 150000, China. J. Chen is with Department of Computer Science and Technology, Tsinghua University, Beijing 100084, China. T. Xia is an independent researcher. X. Zhang is with the Institute for Brain Research, Advanced Interfaces and Neurotechnologies, Shenzhen Medical Academy of Research and Translation, Shenzhen, 518100 China. 
+
+computing, relies heavily on high-coherence qubits. Therefore, extending coherence time by carefully minimizing energy losses is a central task for improving quantum hardware performance. Among the various implementations of superconducting qubits, the transmon has emerged as the most widely adopted qubit architecture [1]. The dominant decoherence source of a transmon qubit is the surface dielectric loss, which originates from the two-level system (TLS) [2], [3], [4] defects resid-ing within the nanometer-thin contaminated substrate-metal (SM), metal-air (MA), and substrate-air (SA) interfaces [5]. Therefore, the ability to accurately predict and minimize the coupling between the qubit’s electric field and these lossy interfacial regions is a critical task in the quantum chip design. The macroscopic quantity used to model this coupling is the energy participation ratio (EPR) [3], [6], which is defined as the fraction of the electric energy within the interfaces to the total energy of the electric field in the whole space. The TLS defects are known to absorb qubit energy via the interactions between the qubit and the oscillating electric field [7]. The primary approach to enhance the interface quality is through improving the fabrication processes to reduce the density of TLSs. However, under certain fabrication condi-tions, one can also adjust the footprint or shape [3], [8] of the superconductors to minimize the TLS excitation by reducing the EPR. Extensive experimental studies have verified that changes in the EPR—often achieved by systematically varying the geometries of superconducting qubits and resonators—can significantly affect the coherence time of the device [3], [5], [9], [10], [11]. Consequently, an accurate simulation of the EPR is essential for low-loss chip design. However, this simu-lation presents a severe multiscale computational challenge. It requires calculating the electric field energy within interface layers of thickness less than a few nanometers, while qubit dimensions span hundreds of micrometers. Compounding this difficulty, the electric field exhibits a singularity at the edges of superconducting films, where the interfacial energy density reaches its maximum [12], [13]. Hence, it is essential to bring an accurate multiscale electromagnetic simulator into the design and simulation of qubits [14], [15]. Previous approaches to estimating the EPR generally fall into two categories, each with distinct limitations. The first category involves analytical modeling, such as the confor-mal mapping techniques demonstrated in [16], [17]. While these methods provide rapid calculations and physical in-
+
+> arXiv:2603.28524v1 [quant-ph] 30 Mar 2026 2
+
+tuition for standard structures like the coplanar waveguide (CPW), they are difficult to generalize to the complex and arbitrary geometries of typical qubit designs. The second category relies on numerical simulators, primarily the Finite Element Method (FEM). While FEM can handle arbitrary geometries, it may fail to accurately simulate the nanometer-scale interfaces. Capturing the singular fields at the edges requires an exponentially dense volumetric mesh, which leads to prohibitive computational costs and memory requirements. Ref. [3] proposed a manual divide-and-conquer strategy with heuristic scaling to simulate the EPR for various shapes of transmon qubits, which has been adopted by a few subsequent numerical studies [8], [18], [11], [19]. This procedure involves dividing the original problem into a few 2D and 3D FEM simulations with special treatments for boundary singularities. These separated solutions are then combined by matching the boundary conditions to form an overall solution. In this manner, the multiscale problem is divided into a few mono-scaled problems, which helps to substantially reduce the computational costs and memory requirements. However, the division scheme can be arbitrary or design-dependent, and the combination of the separate solutions is also prone to uncontrollable errors. Alternatively, if the FEM is directly applied to arbitrary qubits for 3D simulations, we found that it is difficult to suppress the errors to below 10% with affordable simulation costs. In this paper, we present a solution to this simulation bottleneck: SesQ, a surface integral equation simulator tailored for the precise simulation of the EPR. Unlike the FEM, which requires meshing the entire 3D volume, our approach utilizes the Surface Integral Equation (SIE) method. This reduces the problem dimensionality, requiring discretization only on the quasi-2D superconducting layers. By combining this with a dedicated non-conformal boundary mesh refinement scheme, we can capture the singular electric field at conductor edges with high precision without the significant growth in the num-ber of unknowns. As a result, the EPR simulation problems, usually of a multiscale nature, can be addressed by SesQ in a single-step simulation, which avoids manual intervention and uncontrollable errors in the divide-and-conquer scheme. We demonstrate that SesQ offers a dual advantage of speed and accuracy. It accelerates both capacitance extraction and the calculation of the EPR by orders of magnitude compared to the FEM. While achieving comparable accuracy for capacitance extraction, SesQ delivers superior precision for the EPR calcu-lations, enabling the efficient optimization of superconducting chip layout designs to minimize the dielectric loss. The remainder of this paper is organized as follows. Sec-tion II details the methods, including the formulation of the integral equation method, the derivation of the Green’s func-tion for multilayer space, and the mesh refinement techniques. Section III presents a few numerical results, including valida-tions against the analytical solutions and comparisons with the FEM simulations for capacitance extractions and the EPR calculations, the EPR calculations of realistic qubit designs, and qubit pattern optimization for the EPR minimization. Finally, Sec. IV concludes this paper. II. M ETHOD 
+
+A. Integral Equation Method 
+
+The integral equation method, also known as the method of moments (MoM), is widely used in computational electromag-netics [20], [21]. The MoM transforms the governing integral equations into a system of linear equations by discretizing the unknown physical quantities—such as surface charge density in electrostatics—into a finite set of basis functions. A signifi-cant advantage of the MoM is that it requires discretization only on the surfaces where the sources reside, rather than throughout the entire 3D volumetric domain. This effectively reduces the dimensionality of the problem and significantly decreases the number of unknowns. This method is particularly useful for electromagnetic prob-lems in open environments because the Green’s function can be found analytically [22]. 
+
+B. Governing Equation at the Electrostatic Limit 
+
+At the electrostatic limit ( ω → 0), the equation that governs the relation between the charge density distribution ϱ(r) and the scalar potential ϕ(r) is given by 
+
+∇ · ϵr (r)∇ϕ(r) = − 1
+
+ϵ0
+
+ϱ(r), (1) where ϵ0 is the permittivity of free space, and ϵr (r) is the inhomogeneous relative permittivity of the medium. The Green’s function for the governing equation (1), de-noted by G(r, r′), is the potential response to a source point 
+
+r′ and is the solution to the following equation: 
+
+∇ · ϵr (r)∇G(r, r′) = − 1
+
+ϵ0
+
+δ(r − r′), (2) where δ(r − r′) is the Dirac delta function. In free space, the Green’s function has a simple analytical form: 
+
+G(r, r′) = 14πϵ 0|r − r′| . (3) In a two-layer structure, with ϵr = ϵ1 for z > 0 and ϵr = ϵ2
+
+for z < 0, and enforcing that the source points r′ reside only on the z = 0 plane, the Green’s function can be derived using the method of image charges, which yields: 
+
+G(r, r′) = 14πϵ 0ϵeff |r − r′| , (4) where the effective relative permittivity is ϵeff = ( ϵ1 + ϵ2)/2.The above Equations (3) and (4) are two of the simplest forms of the Green’s function for such open environments. Alternatively, we will derive other useful forms of the Green’s function in Section II-C. Applying Green’s second identity to (1) and (2), and restrict-ing the solution domain to the surface, the governing surface integral equation can be found as: 
+
+Z
+
+> S
+
+d2r′G(r, r′)q(r′) = ϕ(r), (5) where the integration is over the superconductor surfaces S,and q(r′) is the surface charge density at the source point r′.Equation (5) simply indicates that the scalar potential is the 3
+
+Fig. 1: Schematic of an L-layer structure defined in cylindrical coordinates (ρ, z ). The system consists of multiple regions with varying permittivities (from ϵ1 to ϵL), bounded by a semi-infinite top layer and bottom layer. A superconductor surface is situated at the interface z = 0 , where a source point charge 
+
+q(ρ′, z ′) is placed. The electrostatic potential ϕ(ρ, z ) can be calculated at any location in the system, depicted here as being inside the l-th layer. summed contribution from all the charges on the superconduc-tors. In a realistic problem, the potentials are usually assigned, and the charge distribution becomes the unknown. They hence form an integral equation, which is the premise for the method of moments capacitance extractor. 
+
+C. Multilayer Green’s function at electrostatics 
+
+In this section, we discuss a general method to compute the multilayer Green’s function using Hankel transforms [22], [23]. We will show that the Green’s function of a multilayer structure is governed by the Hankel transform [24], which could be reduced to the two-layer form (4). Moreover, a set of numerical procedures is provided for solving the surface integral equation (5) efficiently and robustly. A real quantum device (e.g., flip-chip) is a stacked planar structure, as depicted in Fig. 1, with the thickness of the superconductive films much smaller than the size of the stackup heights and the planar structures. We can then assume the thickness of the films to be zero. Therefore, the charges that reside on the superconductor surfaces are considered located at the interface between two adjacent dielectric layers. This assumption motivates us to use the multilayer Green’s function to solve this problem. In the derivation of the multilayer Green’s function, the spectral differential equation approximation method (SDEAM) was proposed to get the spectral domain and spatial domain solution [23], [25]. By following a similar procedure, we can compute the Green’s function in two steps: 1) The Hankel transform is applied to the Poisson equation in the spatial domain, yielding a 1D ordinary differen-tial equation with an analytic solution for the spectral Green’s function. To incorporate the singularity extrac-tion method, we divide the spectral Green’s function into the primary field contribution and the residual scattered field. 2) We compute the spatial Green’s function term of the primary field through analytic Hankel transform. The spatial term of the residual scattered field is computed using the Ogata quadrature method [26], a robust and efficient numerical algorithm for computing the Hankel transform. In our problem, as in Fig. 1, each planar medium is assumed to be isotropic. We establish a cylindrical coordinate system with radial distance ρ and axial coordinate z; the azimuth φ
+
+is omitted due to the isotropic nature of each layer. In the cylindrical coordinate system, we can rewrite the integral equation in (5) as: 
+
+Z
+
+> S
+
+dρ ′dz ′G(ρ, z ; ρ′, z ′)q(ρ′, z ′) = ϕ(ρ, z ), (6) where the integration is performed over the superconducting surfaces S. With electrostatic Green’s function G(ρ, z ; ρ′, z ′)
+
+and the applied potential ϕ(ρ, z ), the charge distribution 
+
+q(ρ′, z ′) is to be solved. The source point is located on one of the interfaces at z′
+
+with its radial distance ρ′ being zero. We can simplify the notation by reducing G(ρ, z ; ρ′, z ′) to G(ρ, z ; z′) without loss of generality. The spatial domain Green’s function satisfies Poisson’s equation with a delta-function source: 
+
+∇2G(ρ, z ; z′) = − 1
+
+ϵ0ϵr (z)
+
+δ(ρ)2πρ δ(z − z′). (7) We designate the transformation pair using the common no-tation: F (ρ) H
+
+←→ ˜F (λ). After applying the Hankel transform of the form: 
+
+˜F (λ) = H{ F (ρ)} =
+
+Z ∞
+
+> 0
+
+F (ρ)J0(λρ )ρdρ, (8) we obtain the governing ordinary differential equation as 
+
+ϵr (z) d2
+
+dz 2 ˜G(z, λ ; z′)−λ2ϵr (z) ˜G(z, λ ; z′) = − δ(z − z′)2πϵ 0
+
+, (9) where ˜G(z, λ ; z′) is the spectral domain Green’s function. Boundary conditions at the l-th dielectric interface between layers l and l + 1 are described as 
+
+
+
+˜G|z+
+
+> int ,l
+
+= ˜G|z−
+
+> int ,l
+
+,ϵl+1 
+
+d ˜Gdz z+
+
+> int ,l
+
+= ϵl
+
+d ˜Gdz z−
+
+> int ,l
+
+, (10) where ϵl, ϵ l+1 are the permittivity at l-th layer and ( l+1)-th layer, respectively. Additionally, the Green’s function vanishes at infinity for the top and bottom dielectric layers, as specified by Coulomb’s interaction, shown as, 
+
+˜G|z=−∞ = ˜G|z=+ ∞ = 0 . (11) The solution for the spectral domain Green’s function in each layer is represented as ˜Gl = aleλz + ble−λz with two unknown coefficients al and bl. Thus, the complete solution for the multilayer structure problem can be converted into a 2L-dimensional linear system, where the 2L bound-ary conditions determine a unique solution. The coefficients 4
+
+al(ϵ1, ..., ϵ L, s 2, ..., s L−1) and bl(ϵ1, ..., ϵ L, s 2, ..., s L−1) are functions of the dielectric permittivity ϵl and height sl for each layer l.One advantage of the method is its analytical applicability. When the source and field are within the same interface, we extract the primary field Green’s function ˜Gprm from the spectral domain Green’s function, while the residual term is referred to as the scattered field Green’s function ˜Gsct  
+
+> l
+
+. The primary field and scattered field functions satisfy 
+
+˜Gprm  
+
+> l
+
+= 14πϵ 0ϵeff 
+
+> l
+
+e−λ|z−z′|
+
+λ ,
+
+˜Gsct  
+
+> l
+
+= ˜Gl − ˜Gprm  
+
+> l
+
+,
+
+(12) where ϵeff  
+
+> l
+
+is the effective dielectric permittivity of l-layer, which satisfies ϵeff  
+
+> l
+
+= ( ϵl + ϵl+1 )/2. We account for the 1/r 
+
+singularity, where r = p(z − z′)2 + ρ2.Applying the inverse Hankel transform, we derive the spatial Green’s function for the primary field shown as 
+
+Gprm  
+
+> l
+
+= H−1{ ˜Gprm  
+
+> l
+
+} = 14πϵ 0ϵeff 
+
+> l
+
+1
+
+pρ2 + ( z − z′)2 . (13) The Green’s function Gprm  
+
+> l
+
+mirrors the electrostatic Green’s function in the two-layer structure. The Ogata quadrature method can be used to efficiently compute the Hankel trans-form H−1{ ˜Gsct  
+
+> l
+
+}, resulting in the total field Green’s function as 
+
+Gl = Gprm  
+
+> l
+
++ Gsct  
+
+> l
+
+. (14) 
+
+D. Discretization 
+
+In numerical electromagnetic (EM) simulators, it is gener-ally required to discretize geometries into elements. One of the key advantages of the surface integral equation (SIE) method is that only the conductor surfaces, where the unknowns reside, need to be discretized. As a result, the 2D discretization significantly reduces both the discretization and computational costs. For the multilayer structures at the electrostatic limit, the dielectric materials are piecewise homogeneous, and the in-homogeneity only exists at the medium interfaces. These properties are absorbed into the multilayer Green’s function. The physical quantities of interest, ϱ(r′), reside only on the surfaces of the conductors. Therefore, surface discretization is sufficient to represent the distributions of these physical quantities. By discretizing the surfaces into triangle elements {Tj },the unknown in (5), the surface charge density q(r′), can be written as: 
+
+q(r′) = 
+
+> N
+
+X
+
+> j=1
+
+aj hj (r′), (15) where N is the total number of triangle elements, and hj (r′)
+
+is called the basis function on Tj .The simplest basis function, also called the pulse basis function, is represented as: 
+
+hj (r′) = 
+
+( 1 
+
+> Aj
+
+, if r′ ∈ Tj ,
+
+0, otherwise , (16) where Aj is the area of Tj . The definitions of the unknown and the basis function in (15) and (16) indicate that q(r′) is approximated as uniformly distributed over each Tj . Conse-quently, the variation of q(r′) is fully captured by the changes in aj across Tj . From (15) and (16), we see that ai represents the total charge on Ti. Therefore, the geometries must be finely discretized in regions where the surface charge density varies rapidly, which sets the mesh density requirements for a given problem. Finally, the equation (5) is tested using Galerkin’s method, i.e., multiplying the equation by the basis functions hi(r) and integrating over Ti. Then (5) becomes: 
+
+Z
+
+> Ti
+
+drhi(r)
+
+> N
+
+X
+
+> j=1
+
+aj
+
+Z
+
+> Tj
+
+dr′G(r, r′)hj (r′) = 
+
+Z
+
+> Ti
+
+drhi(r)ϕ(r),
+
+(17) for ∀ i ∈ [1 , N ]. This can be reduced to a matrix equation representation: 
+
+G · q = ϕ, (18) where the matrix and the vector elements can be expressed as: 
+
+G 
+
+> ij
+
+=
+
+Z
+
+> Ti
+
+drhi(r)
+
+Z
+
+> Tj
+
+dr′G(r, r′)hj (r′), (19) 
+
+[ϕ]i =
+
+Z
+
+> Ti
+
+drhi(r)ϕ(r), (20) 
+
+[q]j = aj . (21) Now the Green’s function is represented in the basis of hj (r).The assignment of the potential excitation ϕ(r) is converted into the elements of vector ϕ, and the unknown surface charge density is cast into the amplitude vector q.We introduce the singularity extraction method to develop a robust numerical approach. The singularity term (or primary field) is proportional to 1/|r − r′|, which takes a similar form to the two-layer structure (4). Therefore, the matrix element in (19) corresponds to the interaction between Ti and Tj ,which never vanishes. Hence, the matrix G is always dense, which becomes a bottleneck when scaling up the maximum simulation size. On the other hand, the matrix elements are singular if the two triangles Ti and Tj overlap, i.e., i = j. In order to accurately evaluate these elements, singularity extraction techniques [27] must be again applied to the near-interaction matrix elements. Specifically, the strongly singular part of the primary field of the multilayer Green’s function is analyti-cally isolated and integrated over the source element, while the remaining smoothly varying non-singular difference is evaluated numerically using standard quadrature. For other far-interaction matrix elements, standard numerical integration with quadrature rules can be used. 
+
+E. Charge Neutrality and Capacitance Matrix 
+
+The matrix equation in (18) with the matrix and vector elements defined in (19) and (20) is an ill-conditioned system due to the lack of a definition for the total charge at infinity. In principle, the total charge at infinity should be zero, which implies that the total charge vanishes in this problem [28] 5
+
+[29]. The ill-conditioning can be fixed by adding the charge neutrality constraint: X
+
+> i
+
+ai = 0 . (22) One way to apply the charge neutrality constraint is to first subtract the N -th equation in (18) from each of the other N −1
+
+equations. Denoting the elements of the new matrix G′ and the new potential vector ϕ become: 
+
+ϕ′ 
+
+> i
+
+= [ ϕ]i − [ϕ]N ,
+
+h
+
+G′i
+
+> ij
+
+= G 
+
+> ij
+
+− G 
+
+> N j
+
+, for i < N, (23) which designates the N -th element as the reference. We then replace the N -th equation with the constraint from (22), yielding ϕ′ 
+
+> N
+
+= 0 ,
+
+h
+
+G′i
+
+> N j
+
+= 1 , for all j. (24) Finally, a modified well-conditioned matrix equation can be formulated as: 
+
+G′ · q = ϕ′. (25) The capacitance matrix can be easily computed after solving (25). The elements of the capacitance matrix C are defined as: 
+
+C 
+
+> pq
+
+= Qp
+
+Vq Vk =0 for k̸ =q
+
+, (26) where the matrix indices p and q denote the indices of the conductive objects. Each column of C corresponds to the charge amplitude on the objects under a certain excitation condition ϕ′. From (25), assigning the potential Vq is equivalent to setting the right-hand side ϕ′ as follows: 
+
+([ϕ]′ 
+
+> i
+
+= 1 , if Ti ∈ object q, 
+
+[ϕ]′ 
+
+> j
+
+= 0 , if Tj /∈ object q. (27) The charge vector q can then be solved. The total charge on object p is the sum of the charges on the corresponding triangle elements: 
+
+Qp = X
+
+> l
+
+[q]l , for Tl ∈ object p. (28) Therefore, completely filling the capacitance matrix is equiva-lent to solving (25) with multiple right-hand sides and finding the total charge on each conductor. 
+
+F. Surface Dielectric Participation Ratio 
+
+By solving for q in (25), the electric field at an arbitrary point r can be expressed as: 
+
+E(r) = −∇ ϕ(r) = −
+
+> N
+
+X
+
+> j=1
+
+aj
+
+Z
+
+> S
+
+dr′∇G(r, r′)hj (r′). (29) Then the total energy within a volume Ω is: 
+
+U = 12
+
+Z
+
+> Ω
+
+drϵ(r)|E(r)|2. (30) 
+
+Fig. 2: The cross-section of the dielectric loss interfaces. The structure consists of a substrate-metal interface (SM) sandwiched between a substrate and a superconducting metal conductor. The metal conductor is encapsulated by metal-air interfaces (MA, MA-I, and MA-II), while the surrounding regions are covered by substrate-air interfaces (SA). The coordinate system indicates the x, y, and z axes, with the 
+
+y-axis oriented into the plane. In the superconducting quantum circuit (SQC), the relax-ation of superconducting qubits and resonators through dielec-tric losses is attributed to the coupling between the electro-magnetic qubit mode and the two level system (TLS) [2], par-ticularly at the interfaces of superconductors and dielectrics. The relaxation rate Γ at zero temperature due to the dielectric losses at these interfaces is expressed as: 
+
+Γ = ωq
+
+X
+
+> i
+
+Pi tan δi, (31) where ωq is the qubit frequency, tan δi characterizes the intrinsic dielectric loss of the i-th interface, and Pi is the EPR, defined as the fraction of the electric energy within the lossy dielectric volume Ωi to the total energy in the entire volume 
+
+Ω:
+
+Pi =
+
+R 
+
+> Ωi
+
+drϵ(r)|E(r)|2
+
+R 
+
+> Ω
+
+drϵ(r)|E(r)|2 , (32) where the total energy can be calculated with the total charge on the superconductor Q and the assigned potentials V :
+
+Z
+
+> Ω
+
+drϵ(r)|E(r)|2 = QV. (33) where the total energy in the denominator can be calculated with the charges Qk and assigned potentials Vk of all super-conductors without volume integration: 
+
+Z
+
+> Ω
+
+drϵ(r)|E(r)|2 = X
+
+> k
+
+QkVk. (34) The energy in Ωi then needs to be computed numerically for arbitrary structures. The lossy dielectric interfaces of interest are shown in Fig. 2, including substrate-metal (SM), substrate-air (SA), and metal-air (MA) interfaces. Noting that the thickness of the metal is usually much smaller than the size of the structure, the electric field energy within the volume of MA-I and MA-II in Fig. 2 contributes less than 2% of the total contributions from the MA volume [16]. Therefore, we can simplify the evaluation of the EPR by ignoring the contributions from these two interfaces and approximating the thickness of the metal as zero. 6
+
+Fig. 3: The simplified cross-section for the simulation. The thickness of the metal is approximated as zero. The dielectric constants of the SM and SA interfaces are assumed to be the same as the substrate, while the MA interface is assumed to be air. To further simplify the calculations to be treated with SIE, we treat the substrate layer as infinitely thick and wide, i.e., the electromagnetic field underneath the substrate is infinites-imally small, and the field is well confined near the supercon-ductor. This assumption becomes valid if the gaps between the conductors are much smaller than the substrate thickness, and the strong-field regions are far from the boundaries. To avoid over-complicating the Green’s function due to the very thin ( ∼ nm) dielectric interfaces, the dielectric constants of the SM and SA interfaces are assumed to be the same as the substrate, while the MA interface is assumed to be air. The simplified cross-section is shown in Fig. 3. Although the dielectric constants of these interfaces are ignored, we can take them into account when computing the electrical energy within the volumes by matching the boundary conditions [16]. With these assumptions, we treat the problem in the electro-static limit. Directly plugging (14) into (19) yields the matrix equation (25) to be solved. 
+
+G. Boundary Singularities 
+
+At the edges and corners of the conductors, the charge den-sity becomes singular under the electrostatic excitations [30]. This makes it difficult to calculate the charges and field accu-rately using numerical methods. One approach to mitigating this accuracy issue is to apply the h-refinement near the boundary, i.e., discretizing the boundary region with dense meshes, to approximate the singular charge density. However, it may not always be feasible to generate a conformal mesh with a large size gradient between adjacent triangle elements. Meanwhile, the dramatic increase in the number of triangle elements makes it computationally costly. Fortunately, the basis function, as defined in (16), does not necessarily require the mesh to be conformal. Hence, we can start from a coarse mesh, and apply a few techniques to refine the mesh near the edges with an affordable increase in the number of unknowns. The first technique is the homogeneous mesh refinement, which breaks a boundary triangle into four smaller ones, as depicted in Fig. 4. Multiple levels of refinement can be adopted using this scheme. The generated mesh is non-conformal since only the boundary triangles are refined. An apparent advantage of this technique is that the size of the triangle element reduces exponentially as it gets closer to the 
+
+Fig. 4: Homogeneous mesh refinement on a boundary triangle. Each triangle is refined into four congruent triangles, where the extra three vertices reside at the center of the edges. Multiple levels of refinement can be applied. 
+
+Fig. 5: Boundary layer refinement of a boundary triangle. The height of each refined triangle ti decreases exponentially to capture the singularity accurately. boundary, which is favorable to approximately capture the increment of charge density towards the boundary. Meanwhile, the mesh quality is well controlled as the aspect ratio of the refined triangles is the same as the original. However, it is impractical to apply this refinement to many levels: the number of triangle elements increases exponentially with the number of refinements, thereby significantly increasing the computational cost. A remedy to avoid the exponential increases in the number of triangle elements is to utilize a boundary layer mesh. As depicted in Fig. 5, only the boundary layer triangles are refined into a stack of small triangles with a height of tn. A constant ratio tn−1/t n can be easily assigned so that the triangle size reduces exponentially towards the boundary while the number of triangles increases linearly. One of the drawbacks of this technique is that the aspect ratio is not maintained. With the above two techniques, we can first apply the ho-mogeneous mesh refinement with only a few levels to a coarse mesh. The mesh sizes decrease exponentially, and the charge density variations along both lateral and normal directions can be well approximated. After that, a boundary layer refinement can be applied to the outermost boundary layer to aggressively refine the mesh along the normal direction. This refinement is suitable for problems with conductors on a planar surface, where the charge density varies rapidly along the normal direction of the boundary, while the lateral variations are much slower. This treatment of the boundary mesh can be regarded as a local mesh refinement method: the discretization is sig-nificantly improved in the region where the unknowns vary rapidly. The effectiveness of this method will be shown later in Section III. 7
+
+H. Energy Integration 
+
+With (29), (30) and (32), one can evaluate the electric energy 
+
+Ui in Vi in order to find the EPR. Assuming the thickness of the contaminated dielectrics is δ, (30) can be written as: 
+
+Ui =
+
+Z δ
+
+> 0
+
+dzu i(z), (35) where ui(z) is the surface energy density: 
+
+ui(z) = 12
+
+Z
+
+dx 
+
+Z
+
+dyϵ (x, y, z )|E(x, y, z )|2. (36) From the boundary condition of the electric field: at z = 0 ,where the conductor resides, the surface charge density is proportional to the normal electric field, and the tangential electric field vanishes. Therefore, the integral 
+
+Z
+
+dx 
+
+Z
+
+dyE z (x, y, 0) ∝ Qtotal , (37) which converges. However, the electric field is singular at the boundary of the conductor, which results in a divergent ui(z =0) due to the square of the electric field. Therefore, regardless of the thickness δ, it is not valid to approximate the energy integral in (35) as δu i(z = 0) .An appropriate calculation of the integral in (35) should avoid the evaluation at the singular point at z = 0 , while ac-curately capturing the converged integral. Using the Legendre-Gauss quadrature [31], ui(z) is evaluated only at a set of roots of the n-th Legendre polynomial zk where 0 < z k < δ , such that: 
+
+Ui ≈ X
+
+> k
+
+wkui(zk), (38) with wk being the weighting factor at the quadrature point zk.III. N UMERICAL RESULTS 
+
+In this section, we present a comprehensive validation of the proposed method using two distinct test cases: a double-layer (2-L) structure and a triple-layer (3-L) structure. For the 2-L case, we employ a coplanar capacitor (CPC) positioned at the interface between an air layer and a substrate layer. In this configuration, the Green’s function satisfies a simple form, G ∼ 1/|r − r′|, where the electric field induced by the source points scales as E ∼ r/|r|3. However, both the Green’s function and the electric field exhibit singularities at the metal edges. Consequently, the 2-L structure serves as an ideal platform to validate our singularity extraction method and numerical robustness. For the 3-L case, we construct a grounded coplanar waveg-uide (GCPW) model. In this setup, the conductors are de-posited on a central substrate, while the upper and lower semi-infinite regions are filled with air. This model rigorously tests the efficiency and accuracy of the EM simulator, as the electric field distribution becomes complex. Moreover, the multilayer Green’s function must be employed to account for the effects arising from the layered structure. Since no closed-form solution exists for the multilayer Green’s function in the spatial domain, we employ various numerical techniques to accelerate the calculation, including Ogata quadrature, lookup 
+
+Fig. 6: A coplanar capacitor with the geometry denoted by a,
+
+b and L. The central region with length L0 consists of the SM interface (blue) and the SA interface (pink). Triangles showing the non-uniform mesh discretization. tables, etc. The 3-L example serves to validate the efficiency of the multilayer Green’s function implementation. To establish a reference for the numerical method, we derive the analytical capacitance and the EPR using the conformal mapping method. Furthermore, the capacitance and the EPR are calculated via the Finite Element Method (FEM) using ANSYS Maxwell [32] to facilitate a fair comparison between our proposed method (SesQ) and a general-purpose electro-static simulation suite. We demonstrate that both the capacitance and the EPR can be calculated accurately and efficiently through SIE. Notably, the accuracy of the EPR calculation is significantly improved compared to FEM simulations using ANSYS Maxwell. Subse-quently, this method is applied to the design of floating qubit patterns to achieve reduced EPRs. All simulations were performed on a workstation equipped with an Intel Xeon Platinum 8580 CPU @ 2.50 GHz (60 cores) and 384 GB memory. 
+
+A. Validation by CPC 
+
+To numerically validate the proposed method, we select a Coplanar Capacitor (CPC) as a benchmark, as the analytical solution for its electric field can be derived using the conformal mapping technique [16]. Although the analytical solution strictly applies to an infinitely long CPC, a sufficiently long finite structure yields an electric field at the center L0 that effectively matches the analytical solution, as illustrated in Fig. 6. We term this strategy the de-embedding technique, which suppresses the end effects arising from the finite trun-cation of the simulation boundaries. It is important to note that while only the central region is selected for field evaluation, the entire length L must be included as source points to ensure high numerical accuracy. Then the solved charges on the conductor pads can be used to extract the capacitance and the EPR, as discussed in Section II-E and II-F. The analytical expression of the capacitance [33], contributed by the electric field in both the air and dielectric regions, takes the form: 
+
+Ccpc = 12 ϵ0(ϵsub + 1) K(k′)
+
+K(k) , (39) where K(k) is the complete elliptic integral of the first kind 1,     
+
+> 1Note that in most numerical packages, the complete elliptic integral of the first kind is implemented as K(m)with m=a2/b 2.8
+
+with the argument k = a/b and complementary argument k′ =√1 − k2. By assuming thin metal thickness, the EPR at the SM interface can be found [16]: 
+
+PSM 
+
+ δa
+
+
+
+≈ δaϵ2
+
+> sub
+
+ϵc(ϵsub + 1) 12(1 − k)K(k′)K(k)
+
+·
+
+
+
+ln 4a(1 − k)
+
+δ(1 + k) − k ln k
+
+1 + k + 1 
+
+
+
+,
+
+(40) where δ and ϵc are the thickness and the dielectric constant of the contamination interface. Since in Fig. 6, only the central slot between the conductors is taken into account as the SA interface, the EPR at SA interface should be evaluated by matching the boundary conditions [12], [16], [17], [34]. By applying the FEM / SIE methods and the analytical expressions, we simulate CPCs on a silicon substrate ( ϵsub 
+
+= 11.9) with L = 800 μm and L0 = 100 μm for a few combinations of a and b. Different mesh densities are applied to each of the combinations to study the convergences. In this study, we quantify the cost of the numerical methods by the simulation wall time. As shown in Fig. 7, the capacitance converge rapidly to the simulation time with the proposed SIE method and moderately with the FEM method. This is as expected, since the Galerkin’s method is of second order accuracy due to its variational form [35], [20]. Note that, for the FEM results, we only take the last adaptive simulation time into account for a fair comparison. The actual FEM total time cost, including the adaptive meshing process and iterative simulation steps, is roughly three times of the recorded simulation time. 
+
+Fig. 7: The convergence of the capacitance simulated by the FEM method (diamonds) and the proposed SIE method (circles) to the analytical values (dotted lines). The CPCs are deposited on a silicon substrate ( ϵsub = 11.9) for three geo-metric configurations: (a, b ) = (10 , 15) μm (blue), (5 , 15) μm(green), and (5 , 30) μm (purple). The red dotted lines indicate a 1% absolute relative error boundary. The FEM method achieves an accuracy of 1% in approximately 160 s, whereas the SIE method requires roughly 3 s. However, to achieve a good convergence of the EPR re-quires more effort. We apply the electrostatic FEM simulator to such a configuration: A CPC with L = 800 μm, L0 = 100 
+
+μm and the contamination interfaces of δ = 3 nm. Both the substrate and the contamination dielectric constant are assumed to be ϵsub = ϵc = 11 .9 without loss of generality. 
+
+Fig. 8: Comparison of EPR convergence at the SM interface using FEM and SIE. The simulated convergence behaviors of the FEM (diamonds) and SIE (circles) are validated against analytical values (dotted lines) for CPCs on a silicon substrate (ϵsub = 11 .9). A contamination layer ( ϵc = 11 .9) with a thickness of δ = 3 nm is evaluated across three geomet-ric configurations: (a, b ) = (10 , 15) μm (blue), (5 , 15) μm(green), and (5 , 30) μm (purple). The red dotted line indicates a 1% relative error boundary, and the yellow dotted line indicates a 15% relative error boundary. Notably, the FEM fails to converge due to memory exhaustion after approximately 6700 s with an accuracy of about 15% , whereas the SIE achieves the same accuracy in roughly 30 s, demonstrating a computational speedup of two orders of magnitude. The ultra-thin contamination interfaces are meshed with fine tetrahedrons in order to obtain an accurate electric energy par-ticipated within the volumes. At the same time, however, the number of unknowns grows significantly due to the multiscale nature of the problem, which prevents further mesh refinement at the interfaces. As a result, the computational cost becomes an obvious bottleneck. Not only is the time cost high, but also the huge memory cost, while our workstation has insufficient memory to get converged results. As shown in Fig. 8 (a), the FEM simulation results converge slowly to the analytical values, and it takes roughly an hour to achieve 15% accuracy. Again, only the last adaptive simulation time is counted. The same example, as a comparison, is simulated with the proposed SIE method with non-conforming mesh refinements. An initial two-level homogeneous refinement, as in Fig. 4, is first applied to the boundary triangles. Then, boundary layer mesh refinement, as in Fig. 5, is adopted with varying tN .The resultant mesh is densely meshed near the boundary while the number of unknowns increases moderately. In Fig. 8 (b), we show the convergence of the EPR at the SM interface. The simulation time covers all the time consumption to get the EPRs. By comparing Fig. 8 (a) with Fig. 8 (b), we can conclude that, to get solutions with an accuracy of 15% ,roughly 200 times acceleration can be achieved with the proposed method. 9
+
+B. Validation by Grounded CPW 
+
+Although the 2-L CPC example validates the efficiency and accuracy of the proposed SIE method, the Green’s function in the 2-L case simplifies to the 1/r form. Therefore, a 3-L model with analytical solutions for both capacitance and participation ratio is essential to rigorously validate the correctness of the multilayer Green’s function and the corresponding numerical approaches. A Grounded Coplanar Waveguide (GCPW) is 
+
+Fig. 9: 3D view of a grounded coplanar waveguide (GCPW) geometry. The structure consists of a central signal line sepa-rated by gaps from two semi-infinite ground conductor planes on the top surface of a dielectric substrate, with an additional continuous ground conductor plane on the bottom surface. The Cartesian coordinate system indicates the transverse ( x) and normal ( z) directions. The central region (pink) with length of 
+
+L0 consists of the superconducting surface (yellow) and the substrate (blue). selected as the benchmark example, as its analytical solutions for capacitance and electric field can be derived using the conformal mapping technique. Since these analytical solu-tions apply to infinitely long structures, we introduce a de-embedding technique to ensure that the numerical solutions from finite-length (truncated) models converge to the analytical results of the infinite case. The GCPW model is shown in Fig. 9. The specific parameters of the layer stack are used to con-struct a Green’s function database, following the methodology discussed in Section II-C and Appendix A. Consequently, all medium properties and boundary conditions are encapsulated within the Green’s function. The remaining procedures—such as discretization, enforcement of charge neutrality, and the solution of the matrix equation—remain identical to those in the 2-L case. Once the surface charges on the conductor are solved, they can be used to compute the capacitance. The analytical expression for the total capacitance is provided by Ghione [36] and takes the following form: 
+
+Cgcpw = 2 ϵ0ϵout 
+
+K(k)
+
+K(k′) + 2 ϵ0ϵin 
+
+K(k1)
+
+K(k′
+
+> 1
+
+) , (41) where the geometric arguments are defined as k = a/b and 
+
+k1 = tanh[ πa/ (2 h)] / tanh[ πb/ (2 h)] . Here, h denotes the thickness of the intermediate substrate (with permittivity ϵin ), which is sandwiched between the signal/ground lines and the bottom ground plane. The top and bottom mediums outside the intermediate layer extend to infinity with the same permittivity 
+
+ϵout (= 1 if surrounded by air). Effectively, this structure can be modeled as two capacitors in parallel [37], [38], representing the contributions from the upper air half-space and the intermediate substrate layer, respectively. Furthermore, we employ the SIE to compute the electric field, incorporating the multilayer Green’s function formula-tion. For validation, the electric field is also derived using conformal mapping. It is important to note that the analytical expressions differ depending on whether the field point is located within or outside the intermediate layer [39]. In the region exterior to the intermediate layer (i.e., the upper semi-infinite air space), the electric field takes the form: 
+
+Eout (ζ) = ϕ0 · bK(k′)1
+
+p[ζ2 − a2][ ζ2 − b2] , (42) where ϕ0 is the scalar potential of the signal line, and the complex plane is defined as ζ = x + iz .Conversely, within the intermediate layer, the electric field is given by: 
+
+Ein (ζ) = ϕ0π cosh( πa  
+
+> 2h
+
+) sinh( πb  
+
+> 2h
+
+)2hK (k′
+
+> 1
+
+)
+
+· 1
+
+q
+
+[cosh 2( πζ  
+
+> 2h
+
+) − cosh 2( πa  
+
+> 2h
+
+)][cosh 2( πζ  
+
+> 2h
+
+) − cosh 2( πb  
+
+> 2h
+
+)] 
+
+.
+
+(43) We focus on the EPR at the SM interface, where the electric field satisfies Eq. (43). Hence, we derive a closed-form EPR solution for the grounded CPW structure (details see Appendix B), which is expressed as: 
+
+La = 4he π sinh 
+
+ πa h
+
+ 1 − k1
+
+1 + k1
+
+,
+
+Lb = 4he π exp 
+
+
+
+− πb h
+
+
+
+sinh 
+
+ πb h
+
+ 1 − k1
+
+1 + k1
+
+,PSM (δ) ≈ ϵ0ϵ2
+
+> in
+
+δϵcCgcpw 
+
+· πh[k′
+
+> 1
+
+K(k′
+
+> 1
+
+)] 2
+
+ 1sinh( πa h )
+
+
+
+ln La
+
+δ + πa h
+
+
+
++ 1sinh( πb h ) ln Lb
+
+δ
+
+#
+
+,
+
+(44) where e is Euler’s number, and δ and ϵc denote the thickness and dielectric constant of the contamination interface, respec-tively. Eqn. (44) provides a fast and robust method to compute EPR. The formula is validated through a semi-analytical approach utilizing numerical integration via QUADPACK [40]. The comparison of the EPR between the semi-analytical method and the closed-form is shown in Table I. Utilizing the FEM / SIE methods and the derived analytical approach, we simulate grounded CPWs on a silicon substrate (ϵsub = 11 .9) surrounded by air. The simulations are conducted 10 
+
+TABLE I: Comparison of the participation ratio ( PSM ) cal-culated by the semi-analytical method and the closed-form formula ( a = 5 μm, b = 30 μm, δ = 3 ×10 −3 μm, ϵsub = 11 .9,unit: ×10 −4).                      
+
+> Method h(μm)
+> 25 35 45 100 Semi-Analytical 7.15503 6.71921 6.55110 6.40298 Closed-Form 7.15514 6.71930 6.55118 6.40305 Abs. Diff. 1.09e-4 8.83e-5 7.87e-5 6.62e-5 Rel. Diff. (%) 1.52e-3 1.31e-3 1.20e-3 1.03e-3
+
+with a model length of L = 800 μm and a central region length L0 = 100 μm across various combinations of geometric parameters a, b, and h. To investigate convergence behavior, varying mesh densities are applied to each configuration. As illustrated in Fig. 10, the capacitance calculated using the proposed SIE method converges rapidly with respect to simulation time, whereas the FEM method exhibits a more moderate convergence rate. 
+
+Fig. 10: The convergence of the capacitance simulated by the FEM method (diamonds) and the proposed SIE method (circles) to the analytical values (dotted lines). The GCPWs are deposited on a silicon substrate ( ϵsub = 11.9) for a =5 μm, b = 30 μm and four intermediate layer thicknesses: 
+
+h = 25 μm (blue), h = 35 μm (green), h = 45 μm(purple), h = 100 μm (orange). The red dotted line indicates a 1% relative error boundary. The FEM method achieves 1% accuracy in approximately 130 s, whereas the SIE method requires roughly 10 s. Achieving convergence for the multilayer EPR calculation is computationally demanding, not only due to the multiscale computational challenge, but also due to the scattered field coming from the bottom ground plane. While the FEM ap-proach necessitates a fine volumetric meshing of tetrahedrons within the intermediate layer, the SIE method requires meshing only along the 2D conductor surfaces. As shown in Fig. 11, the FEM solution struggles to converge to the analytical result. Even when exhausting the available memory resources, the relative error remains approximately 15% . Conversely, SIE achieves the same accuracy in roughly 50 s, demonstrating a computational speedup of two orders of magnitude. 
+
+Fig. 11: Comparison of EPR convergence at the SM interface using FEM and SIE. The simulated convergence behaviors of the FEM (diamonds) and SIE (circles) are validated against analytical values (dotted lines) for GCPWs with a = 5 μm, 
+
+b = 30 μm, on a silicon substrate ( ϵsub = 11 .9). A contam-ination layer ( ϵc = 11 .9) with a thickness of δ = 3 nm is evaluated across four different layer thickness configurations: 
+
+h = 25 μm (blue), h = 35 μm (green), h = 45 μm (purple), 
+
+h = 100 μm (orange). The red dotted line indicates a 1% rela-tive error boundary, and the yellow dotted line indicates a 15% relative error boundary. Notably, the FEM fails to converge due to memory exhaustion after approximately 6000 s with an accuracy of 15% , whereas the SIE achieves the same accuracy in roughly 100 s, demonstrating a computational speedup of two orders of magnitude. 
+
+C. 2D Transmon 
+
+To demonstrate the proposed method using quantum de-vices, we investigate three types of transmons, as shown in Fig. 12, which are the 2D interdigital transmon, the 2D dumb-bell transmon, and the 3D dumbbell transmon. The interdigital transmon structure distributes more energy at the substrate-metal (SM) interface [41]. This type of qubit possesses a larger PSM , which is tunable over a wide range by adjusting the spacing and number of fingers. In contrast, the dumbbell transmon exhibits a significantly lower PSM . Consequently, the EPR in our study is adjustable within a large range. 
+
+Fig. 12: Layout of typical transmon qubits with different types: (a) 2D interdigital, (b) 2D dumbbell, and (c) 3D dumbbell. The yellow area is the TiN base layer, and the blue area is the sapphire substrate. Layout images are rendered from the simulation GDSII files. Simulation model parameters are derived from mate-rial characterizations using transmission electron microscopy 11 
+
+(TEM) in [42]. TEM images reveal an approximately 1 nm thick disordered layer between the TiN film and the sapphire substrate. Accordingly, we set the thickness of the SM inter-face to tSM = 1 nm and its permittivity to ϵc = 10 .15 ϵ0 in the numerical simulations. We apply both numerical methods to three types of practical transmon qubit designs, denoted as transmon (a), (b), and (c). Simulations utilize the commercial FEM simulator Ansys Maxwell and the proposed SIE method. For the FEM simu-lations, adaptive mesh refinement is enabled with an energy error convergence target of 0.02%. For the SIE method, the surface mesh undergoes non-conformal refinement near the edges to capture the charge distribution. Table II presents a comparison of the primary components of the capacitance matrices calculated by the two methods. The transmons investigated in this section primarily consist of two plates of a shunting capacitor, denoted as qa and qb. 2D transmon along with the surrounding ground conductor gnd, but 3D transmon not. The two plates are connected by a Josephson junction. We extract the mutual capacitance between the qubit shunting capacitor plates ( Cqa,qb ) and the capacitance of each plate to ground ( Cqa,gnd and Cqb,gnd ) from the capacitance matrix. The table indicates a high degree of agreement between the SIE and FEM methods in capacitance calculations, with relative errors remaining within 1%. This agreement demonstrates that both methods exhibit comparable consistency in capacitance solutions. TABLE II: Comparison of capacitance matrix components and relative errors calculated by the proposed SIE method and the FEM simulator for three transmon designs.                                   
+
+> Device Method Cqa,qb (fF) Cqa,gnd (fF) Cqb,gnd (fF) Transmon (a) SIE 54.80 79.65 72.64 FEM 54.90 79.68 72.67 Diff. (%) 0.18 0.04 0.04 Transmon (b) SIE 41.90 119.82 119.87 FEM 42.27 119.40 119.44 Diff. (%) 0.88 -0.35 -0.46 Transmon (c) SIE 95.75 --FEM 94.95 --Diff. (%) -0.84 --
+
+Table III details the comparison of the EPR at the SM interface ( PSM ). To analyze the sources of dielectric loss more comprehensively, we decompose the total participation ratio 
+
+Ptotal into contribution components from different conductor surfaces, specifically Pqa , Pqb , and Pgnd .Several observations arise from the results in Table III. First, the total participation ratio calculated by the SIE method is higher than the FEM results in all test cases, exhibiting a difference of approximately 30%. Because transmon qubits possess strong fringing field effects, the SIE method captures the electric field singularity at the edges more accurately through its non-conformal mesh and analytical integral solu-tion [27]. In contrast, the FEM method relies on volumetric meshes and tends to underestimate the energy participation at the edges without extreme mesh refinement. Furthermore, the contribution of the ground plane ( Pgnd )is non-negligible in certain designs such as transmon (a) TABLE III: Comparison of the participation ratio ( PSM ) and its components calculated by the proposed SIE method and the FEM simulator (unit: ×10 −4). Ptotal values computed by SIE come from [42].                                           
+
+> Device Method Pqa Pqb Pgnd Ptotal [42] Transmon (a) SIE 1.04 0.98 0.10 2.12 FEM 0.70 0.67 0.06 1.43 Diff. (%) -32.52 -32.62 -31.77 -32.52 Transmon (b) SIE 0.23 0.23 0.05 0.51 FEM 0.17 0.17 0.03 0.36 Diff. (%) -26.79 -27.38 -39.64 -28.39 Transmon (c) SIE 0.17 0.17 -0.33 FEM 0.12 0.12 -0.24 Diff. (%) -28.44 -28.44 --28.44
+
+and transmon (b). The SIE method accurately calculates the electric field energy contribution from this region. These results indicate that traditional FEM simulations may underestimate EPR when evaluating the qubit electric field. The SIE method proposed in this work provides a more con-servative and potentially better converged evaluation approach. To demonstrate the relationship between EPR and exper-imental coherence times in real quantum devices, Ref. [42] utilized titanium nitride (TiN) superconducting film transmon qubits on sapphire substrates as an experimental platform. In that study, the authors systematically fabricated multiple sets of transmon qubits on the same batch of TiN base layer, successfully characterized the quality factors of qubits versus 
+
+PSM and estimated the loss tangent at the SM interface. 
+
+D. Optimization of Rectangular Qubit Pattern 
+
+In [5], the authors reported engineering the EPR through qubit pattern designs. In that work, the EPR was spanned over a wide range to highlight the dielectric losses for material interface studies. In this work, we optimize the qubit pattern to improve the EPR, thereby demonstrating the capability to optimize qubit layouts efficiently. The capacitive energy Ec =
+
+e2/(2 C) is usually a constraint in the design, where C is the capacitance across the Josephson junction in the effective qubit circuit model [43]. We start with a 3D dumbbell transmon consisting of two identical rectangular pads separated by a fixed distance, there is an optimal aspect ratio that minimizes the EPR [3]. Instead of having charges concentrated in the adjacent regions, charges spread out owing to the large partial capacitance contribution from the more distant pad regions. 
+
+Fig. 13: Schematic diagram of the rectangular qubit structure. The design is parameterized by the inner edge width W , the inter-pad gap distance D, and the pad extent H.12 
+
+Fig. 14: The EPR at the SM interface of the design with 
+
+Ec/h = 1 .8 GHz for various values of aspect ratio H/W . The solid blue curve illustrates the variation of PSM highlighting a distinct minimum. A vertical dashed purple line denotes the location of an aspect ratio of 1. The minimum PSM value of 
+
+0.27 × 10 −4 is reached at H/W = 4 .78 , indicated by the orange triangle. The inset illustrates the layout of the qubit at this optimized aspect ratio. The numerical simulations are performed on the rectangular qubit with fixed D = 8 μm and Ec/h = 1 .8 GHz. For a given inner edge width W , a specific value of pad extent H can be found that meets the target Ec. It is again assumed that the dielectric constants of the silicon substrate and contamination interface are ϵsub = ϵc = 10 .15 and the interface thickness δ
+
+is 1 nm. As shown in Fig. 14, the optimal rectangular qubit design achieves a minimum PSM of 0.27 × 10 −4 at an aspect ratio of approximately 4.78. The inset illustrates the qubit layout at this optimized geometry. This successful EPR minimiza-tion demonstrates SesQ’s high efficiency in facilitating rapid iterative layout optimization. IV. C ONCLUSION 
+
+In this paper, we present SesQ, a highly efficient SIE simulator tailored for evaluating the EPR of superconduct-ing qubits. By applying 2D surface discretization, utilizing the semi-analytical multilayer Green’s function, and employ-ing non-conformal boundary mesh refinement, the proposed method overcomes the severe multiscale computational bot-tlenecks of the conventional FEM simulators. This integral equation approach efficiently captures singular charge density distributions at superconductor edges without an explosive growth in unknowns. Validations against analytical models demonstrated that SesQ achieves computational accelerations of around two orders of magnitude compared to FEM tools in capacitance extraction. The simulator provides a much more reliable and better-converged evaluation of the EPR, which FEM simula-tion results tend to underestimate. The simulator’s efficiency enables rapid iterative layout optimizations, as demonstrated by the EPR minimization of a rectangular qubit. Future work will extend the SIE simulator to efficiently simulate magnetic fields. While the magnetostatic field is governed by the vector Poisson equation and its complete solution requires a dyadic Green’s function, the ρ- and z-components of the Green’s function in multilayer structures can be reduced to the same form as in the electrostatic case. By assigning an excitation current density, the vector magnetic potential can be computed using the numerical techniques developed in this work. Consequently, the inductance and magnetic field distribution can be accurately computed, allow-ing the multiscale bottlenecks traditionally encountered when computing the magnetic field participation ratio to be mitigated using this SIE approach. Moreover, this work lays the foundation for an end-to-end simulation pipeline. The proposed simulator can be straightfor-wardly embedded into an automatic differentiation framework. By developing differentiable operators for mesh generation and surface integral equations, gradients can be computed efficiently via backpropagation. Moving forward, this will enable the use of gradient-based optimizers to significantly accelerate iterative layout optimization. ACKNOWLEDGMENT 
+
+This work is supported by Zhongguancun Laboratory and National Key Research and Development Program of China (Grant No. 2025YFE0200900). Z. W. and X. W. acknowledge the partial support from the National Key Research and De-velopment Program of China (2021YFA1401902). Part of this work was done when Z.W. was visiting Tsinghua University. We thank Ran Gao, Kun Ding, Shaowei Li, and Chen Zha for providing valuable suggestions. Z. W., F. W., X. T. and H.-H. Z. would like to thank their former colleagues at the Alibaba Quantum Laboratory for helpful discussions. APPENDIX APREPARING THE GREEN ’S FUNCTION DATABASE 
+
+Recalling the form of the integral equation (5), the integra-tion is performed over the superconductor surfaces S for all source points. Consequently, many instances of the Green’s function are evaluated repeatedly for the same distances. Due to the high computational cost of evaluating the multilayer Green’s function using numerical integration methods, it is highly beneficial to cache the Green’s function points in a database. During the construction of the integral equation matrix, if G(ρ, z ; z′) falls within the cached distance range of the database, we can rapidly evaluate it using a fast interpolation method rather than executing the full numerical procedure again. APPENDIX BDERIVATION OF ENERGY PARTICIPATION RATIO APPROXIMATION FORMULA 
+
+Based on the conformal mapping method, the electric field of grounded CPW is analytically solvable, which takes the forms (42) and (43). We derive an approximate closed-form 13 
+
+EPR solution using the electric field within the intermediate layer. To simplify the derivation, dimensionless variables X =
+
+πx/ (2 h), A = πa/ (2 h), and B = πb/ (2 h) are introduced. The electric field distribution Ein (ζ) along the interface z → 0,can be written as: 
+
+A0 = ϕ0π cosh A · sinh B
+
+2hK (k′
+
+> 1
+
+) ,Ein (ζ) ≈ A0
+
+1
+
+q
+
+[cosh 2 X − cosh 2 A][cosh 2 X − cosh 2 B]
+
+,
+
+(45) where k1 is the geometric argument of the intermediate region, and K(k′
+
+> 1
+
+) is the complete elliptic integral of the first kind. At a small height z close to the interface (satisfying z ≪
+
+a, b, h ), the square of the electric field modulus θ(x, z ), can be approximated as: 
+
+θ(x, z ) ≈ A20
+
+(cosh 2 B − cosh 2 X)(cosh 2 A − cosh 2 X) . (46) Since the electric field exhibits singularities at the conductor edges x → a and x → b, direct integration is rather difficult. Therefore, a singularity extraction method is employed. Using a partial fraction expansion: 
+
+θ(x, z ) ≈ Cpre 
+
+ 1cosh 2 A − cosh 2 X − 1cosh 2 B − cosh 2 X
+
+
+
+,
+
+(47) where the prefactor is 
+
+Cpre = A20
+
+cosh 2 B − cosh 2 A . (48) Near the signal line edge ( x → a), the primary integral contribution comes from the singular term. The singular part 
+
+θsa(x, z ) can be expressed as: 
+
+θsa(x, z ) ≈ Cpre 
+
+1cosh 2 A − cosh 2 X . (49) Integrating the singular term over the non-singular region 
+
+[0 , a − δ] gives, 
+
+Z a−δ
+
+> 0
+
+θsa(x, z )dx = 2hC pre 
+
+π sinh(2 A) ln 
+
+ 2h sinh(2 A)
+
+πδ 
+
+
+
+, (50) the z-regularized integral of the singular portion over region 
+
+[a − δ, a ] evaluates to 
+
+Z aa−δ
+
+θsa(x, z )dx = 2hC pre 
+
+π sinh(2 A) ln 
+
+ 2δz
+
+
+
+. (51) Hence, summing two regions yields the cancellation of the arbitrary cutoff δ. Combining it with the integration result of the non-singular term, yields the total contribution at the signal line edge: 
+
+Z a
+
+> 0
+
+θa(x, z )dx ≈ 2hC pre 
+
+π
+
+ 1sinh(2 A) ln 
+
+ 4h sinh(2 A)
+
+πz 
+
+
+
++ 1sinh(2 B) ln sinh( B − A)sinh( B + A)
+
+
+
+.
+
+(52) Similarly, near the ground plane edge ( x → b), integrating singular term θsb (x, z ) over the interval [b, +∞) and combining the contributions of the singular and non-singular terms yields: 
+
+Z ∞
+
+> b
+
+θb(x, z )dx ≈
+
+2hC pre 
+
+π ·
+
+ 1sinh(2 A)
+
+
+
+2A + ln sinh( B − A)sinh( B + A)
+
+
+
++ 1sinh(2 B) ln 
+
+ 4h exp( −2B) sinh(2 B)
+
+πz 
+
+ 
+
+.
+
+(53) Combining the integration results from both parts provides the total surface energy density function Θ( z) as it varies with depth z,
+
+Θ( z) = 
+
+Z a
+
+> 0
+
+θa(x, z )dx +
+
+Z ∞
+
+> b
+
+θb(x, z )dx 
+
+
+
+, (54) note that the factor of 2 from the left/right geometric symmetry of the GCPW cancels out with the 1/2 from the electric energy density formula. To calculate the energy participation ratio, the total energy Utot = Cgcpw ϕ20/2 is introduced. Substituting Cpre and simplifying using the geometric rela-tion: sinh( B − A)sinh( B + A) = 1 − k1
+
+1 + k1
+
+, (55) the participation ratio density satisfies: 
+
+r(z) = ϵ0ϵ2
+
+> in
+
+Θ( z)
+
+ϵcUtot 
+
+= ϵ0ϵ2
+
+> in
+
+ϵcCgcpw 
+
+· πh[k′
+
+> 1
+
+K(k′
+
+> 1
+
+)] 2
+
+Λa(z)sinh( πa h ) + Λb(z)sinh( πb h )
+
+!
+
+,
+
+(56) where Λa(z) and Λb(z) satisfy: 
+
+Λa = ln 
+
+ 4h sinh( πa h )
+
+πz 
+
+
+
++ ln 
+
+ 1 − k1
+
+1 + k1
+
+
+
++ πa h ,
+
+Λb = ln 4h exp  − πb h
+
+ sinh( πb h )
+
+πz 
+
+!
+
++ ln 
+
+ 1 − k1
+
+1 + k1
+
+
+
+.
+
+(57) Finally, integrating over a thin surface layer of thickness δ,
+
+PSM (δ) ≈
+
+Z δ
+
+> 0
+
+r(z)dz, (58) yields the analytical expression for the energy participation ratio of the surface interface. REFERENCES [1] J. Koch, T. M. Yu, J. Gambetta, A. A. Houck, D. I. Schuster, J. Majer, A. Blais, M. H. Devoret, S. M. Girvin, and R. J. Schoelkopf, “Charge-insensitive qubit design derived from the cooper pair box,”                         
+
+> Phys. Rev. A,vol. 76, p. 042319, Oct 2007. [Online]. Available: https://doi.org/10.1103/PhysRevA.76.042319 [2] J. M. Martinis, K. B. Cooper, R. McDermott, M. Steffen, M. Ansmann, K. D. Osborn, K. Cicak, S. Oh, D. P. Pappas, R. W. Simmonds, and C. C. Yu, “Decoherence in Josephson Qubits from Dielectric Loss,”
+> Phys. Rev. Lett. ,vol. 95, no. 21, p. 210503, nov 2005. [Online]. Available: https://doi.org/10.1103/PhysRevLett.95.210503 [3] C. Wang, C. Axline, Y. Y. Gao, T. Brecht, Y. Chu, L. Frunzio, M. H. Devoret, and R. J. Schoelkopf, “Surface participation and dielectric loss in superconducting qubits,” Appl. Phys. Lett. , vol. 107, no. 16, p. 162601, 2015. [Online]. Available: https://doi.org/10.1063/1.4934486 14
+
+[4] C. M¨ uller, J. H. Cole, and J. Lisenfeld, “Towards understanding two-level-systems in amorphous solids: insights from quantum circuits,” 
+
+Rep. Prog. Phys. , vol. 82, no. 12, p. 124501, Oct. 2019. [Online]. Available: https://doi.org/10.1088/1361-6633/ab3a7e [5] J. M. Gambetta, C. E. Murray, Y. K. Fung, D. T. Mcclure, O. Dial, W. Shanks, J. W. Sleight, and M. Steffen, “Investigating surface loss effects in superconducting transmon qubits,” IEEE Trans. Appl. Supercond. , vol. 27, no. 1, pp. 1–5, 2017. [Online]. Available: https://doi.org/10.1109/TASC.2016.2629670 [6] Z. K. Minev, Z. Leghtas, S. O. Mundhada, L. Christakis, I. M. Pop, and M. H. Devoret, “Energy-participation quantization of josephson circuits,” npj Quantum Inf. , vol. 7, no. 1, p. 131, 2021. [Online]. Available: https://doi.org/10.1038/s41534-021-00461-8 [7] J. Lisenfeld, A. Bilmes, A. Megrant, R. Barends, J. Kelly, P. Klimov, G. Weiss, J. M. Martinis, and A. V. Ustinov, “Electric field spectroscopy of material defects in transmon qubits,” npj Quantum Inf. , vol. 5, no. 1, p. 105, Nov. 2019. [Online]. Available: https://doi.org/10.1038/s41534-019-0224-1 [8] S. Eun, S. H. Park, K. Seo, K. Choi, and S. Hahn, “Shape optimization of superconducting transmon qubits for low surface dielectric loss,” 
+
+Journal of Physics D: Applied Physics , vol. 56, no. 50, p. 505306, sep 2023. [Online]. Available: https://doi.org/10.1088/1361-6463/acf7cf [9] J. Gao, M. Daal, A. Vayonakis, S. Kumar, J. Zmuidzinas, B. Sadoulet, B. A. Mazin, P. K. Day, and H. G. Leduc, “Experimental evidence for a surface distribution of two-level systems in superconducting lithographed microwave resonators,” Appl. Phys. Lett. , vol. 92, no. 15, p. 152505, Apr. 2008. [Online]. Available: https://doi.org/10.1063/1. 2906373 [10] O. Dial, D. T. McClure, S. Poletto, G. A. Keefe, M. B. Rothwell, J. M. Gambetta, D. W. Abraham, J. M. Chow, and M. Steffen, “Bulk and surface loss in superconducting transmon qubits,” Supercond. Sci. Technol. , vol. 29, no. 4, p. 044001, Apr. 2016. [Online]. Available: https://doi.org/10.1088/0953-2048/29/4/044001 [11] S. Ganjam, Y. Wang, Y. Lu, A. Banerjee, C. U. Lei, L. Krayzman, K. Kisslinger, C. Zhou, R. Li, Y. Jia, M. Liu, L. Frunzio, and R. J. Schoelkopf, “Surpassing millisecond coherence in on chip superconducting quantum memories by optimizing materials and circuit design,” Nat. Commun. , vol. 15, no. 1, p. 3687, May 2024. [Online]. Available: https://doi.org/10.1038/s41467-024-47857-6 [12] J. Wenner, R. Barends, R. C. Bialczak, Y. Chen, J. Kelly, E. Lucero, M. Mariantoni, A. Megrant, P. J. J. O’Malley, D. Sank, A. Vainsencher, H. Wang, T. C. White, Y. Yin, J. Zhao, A. N. Cleland, and J. M. Martinis, “Surface loss simulations of superconducting coplanar waveguide resonators,” Appl. Phys. Lett. , vol. 99, no. 11, p. 113513, sep 2011. [Online]. Available: https://doi.org/10.1063/1.3637047 [13] J. M. Martinis, “Surface loss calculations and design of asuperconducting transmon qubit with tapered wiring,” npj Quantum Inf. , vol. 8, no. 1, p. 26, Mar. 2022. [Online]. Available: https://doi.org/10.1038/s41534-022-00530-6 [14] S. T. Elkin, G. Khan, E. Forati, B. W. Langley, D. Timucin, R. Molavi, S. Sussman, and T. E. Roth, “Opportunities and challenges of computational electromagnetics methods for superconducting circuit quantum device modeling: A practical review,” 2025. [Online]. Available: https://arxiv.org/abs/2511.20774 [15] F. Wu, J. Guo, T. Xia, L. Kong, F. Zhang, Z. Wang, A. Dai, Z. Wang, Z. Yang, H. Deng, K. Zhang, Z. Ji, Y. Feng, H.-H. Zhao, and J. Chen, “Quantum design automation: Foundations, challenges, and the road ahead,” 2025. [Online]. Available: https://arxiv.org/abs/2511.10479 [16] C. E. Murray, J. M. Gambetta, D. T. McClure, and M. Steffen, “Analytical determination of participation in superconducting coplanar architectures,” IEEE Trans. Microw. Theory Techn. , vol. 66, no. 8, pp. 3724–3733, 2018. [Online]. Available: https://doi.org/10.1109/TMTT. 2018.2841829 [17] C. E. Murray, “Analytical modeling of participation reduction in superconducting coplanar resonator and qubit designs through substrate trenching,” IEEE Trans. Microw. Theory Techn. , vol. 68, no. 8, pp. 3263–3270, Aug. 2020. [Online]. Available: https: //doi.org/10.1109/TMTT.2020.2995894 [18] S. H. Park, D. Baek, I. Park, and S. Hahn, “Design of scalable superconducting quantum circuits using flip-chip assembly,” IEEE Trans. Appl. Supercond. , vol. 33, no. 5, pp. 1–6, 2023. [Online]. Available: https://doi.org/10.1109/TASC.2023.3244142 [19] N. S. Smirnov, E. A. Krivko, A. A. Solovyova, A. I. Ivanov, and I. A. Rodionov, “Wiring surface loss of a superconducting transmon qubit,” 
+
+Sci. Rep. , vol. 14, no. 1, p. 7326, Mar. 2024. [Online]. Available: https://doi.org/10.1038/s41598-024-57248-y [20] R. F. Harrington, Field Computation by Moment Methods . Piscataway, NJ: IEEE Press, 1993. [21] W. C. Gibson, The Method of Moments in Electromagnetics . CRC Press, 2021. [Online]. Available: https://doi.org/10.1201/9780429355509 [22] W. C. Chew, Waves and fields in inhomogeneous media . IEEE Press, 1995. [23] X. Li, I. Jeffrey, M. Al-Qedra, and V. I. Okhmatovski, “Error-Controlled Static Layered-Medium Green’s Function Computation via hp -Adaptive Spectral Differential Equation Approximation Method,” IEEE Trans. Compon. Packag. Manuf. Technol. , vol. 11, no. 9, pp. 1329–1342, Sept. 2021. [Online]. Available: https: //doi.org/10.1109/TCPMT.2021.3097944 [24] K. A. Michalski and J. R. Mosig, “Multilayered media green’s functions in integral equation formulations,” IEEE Trans. Antennas Propag. , vol. 45, no. 3, pp. 508–519, 1997. [Online]. Available: https://doi.org/10.1109/8.558666 [25] X. Li, S. Zheng, I. Jeffrey, and V. I. Okhmatovski, “Closed-Form Evaluation of Mixed Potential Shielded Layered Media Green’s Functions With Spectral Differential Equation Approximation Method,” 
+
+IEEE Trans. Microw. Theory Techn. , vol. 70, no. 5, pp. 2553–2565, May 2022. [Online]. Available: https://doi.org/10.1109/TMTT.2022.3156917 [26] H. Ogata, “A numerical integration formula based on the bessel functions,” Publications of the Research Institute for Mathematical Sciences , vol. 41, no. 4, pp. 949–970, 2005. [Online]. Available: https://doi.org/10.2977/PRIMS/1145474602 [27] P. Yla-Oijala and M. Taskinen, “Calculation of CFIE impedance matrix elements with RWG and n x RWG functions,” IEEE Trans. Antennas Propag. , vol. 51, no. 8, pp. 1837–1846, aug 2003. [Online]. Available: https://doi.org/10.1109/TAP.2003.814745 [28] Z.-G. Qian and W. C. Chew, “Fast full-wave surface integral equation solver for multiscale structure modeling,” IEEE Transactions on Antennas and Propagation , vol. 57, no. 11, pp. 3594–3601, Nov. 2009. [Online]. Available: https://doi.org/10.1109/TAP.2009.2023629 [29] T. Xia, H. Gan, M. Wei, W. C. Chew, H. Braunisch, Z. Qian, K. Aygun, and A. Aydiner, “An enhanced augmented electric-field integral equation formulation for dielectric objects,” IEEE Transactions on Antennas and Propagation , vol. 64, no. 6, pp. 2339–2347, June 2016. [Online]. Available: https://doi.org/10.1109/TAP.2016.2537389 [30] J. Meixner, “The behavior of electromagnetic fields at edges,” IEEE Trans. Antennas Propag. , vol. 20, no. 4, pp. 442–446, 1972. [Online]. Available: https://doi.org/10.1109/TAP.1972.1140243 [31] M. Abramowitz and I. A. Stegun, Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables . US Government printing office, 1964. [32] Ansys, Inc., “Ansys maxwell: Low frequency electromagnetic field simulation,” 2023. [Online]. Available: https://www.ansys.com/products/ electronics/ansys-maxwell [33] I. Bahl, M. Bozzi, and R. Garg, Microstrip Lines and Slotlines, Third Edition . Artech, 2013. [34] M. Sandberg, M. R. Vissers, J. S. Kline, M. Weides, J. Gao, D. S. Wisbey, and D. P. Pappas, “Etch induced microwave losses in titanium nitride superconducting resonators,” Appl. Phys. Lett. , vol. 100, no. 26, p. 262605, 06 2012. [Online]. Available: https://doi.org/10.1063/1.4729623 [35] J. Richmond, “On the variational aspects of the moment method (electromagnetics),” IEEE Trans. Antennas Propag. , vol. 39, no. 4, pp. 473–479, 1991. [Online]. Available: https://doi.org/10.1109/8.81459 [36] G. Ghione and C. U. Naldi, “Coplanar waveguides for mmic applications: effect of upper shielding, conductor backing, finite-extent ground planes, and line-to-line coupling,” IEEE Trans. Microw. Theory Techn. , vol. 35, no. 3, pp. 260–267, 1987. [Online]. Available: https://doi.org/10.1109/TMTT.1987.1133637 [37] V. F. Hanna, “Parameters of coplanar diretional couplers with lower ground plane,” in 1985 15th European Microwave Conference , 1985, pp. 820–825. [Online]. Available: https://doi.org/10.1109/EUMA.1985. 333579 [38] Q. Li and Y. Zhang, “Analytical formulas for conductor-backed connected-ground coplanar waveguide,” in 2018 IEEE International Conference on Computational Electromagnetics (ICCEM) , 2018, pp. 1– 3. [Online]. Available: https://doi.org/10.1109/COMPEM.2018.8496585 [39] M. Gillick, I. Robertson, and J. Joshi, “Direct analytical solution for the electric field distribution at the conductor surfaces of coplanar waveguides,” IEEE Trans. Microw. Theory Techn. , vol. 41, no. 1, pp. 129–135, 1993. [Online]. Available: https://doi.org/10.1109/22.210239 [40] R. Piessens, E. de Doncker-Kapenga, C. W. ¨Uberhuber, and D. K. Kahaner, QUADPACK: A subroutine package for automatic integration .15 
+
+Springer Science & Business Media, 1983. [Online]. Available: https://doi.org/10.1007/978-3-642-61786-7 [41] J. M. Gambetta, J. M. Chow, and M. Steffen, “Building logical qubits in a superconducting quantum computing system,” npj Quantum Inf. , vol. 3, no. 1, p. 2, 2017. [Online]. Available: https://doi.org/10.1038/s41534-016-0004-0 [42] H. Deng, Z. Song, R. Gao, T. Xia, F. Bao, X. Jiang, H.-S. Ku, Z. Li, X. Ma, J. Qin, H. Sun, C. Tang, T. Wang, F. Wu, W. Yu, G. Zhang, X. Zhang, J. Zhou, X. Zhu, Y. Shi, H.-H. Zhao, and C. Deng, “Titanium nitride film on sapphire substrate with low dielectric loss for superconducting qubits,” Phys. Rev. Applied , vol. 19, p. 024013, Feb 2023. [Online]. Available: https://doi.org/10.1103/PhysRevApplied.19.024013 [43] D. Ding, H.-S. Ku, Y. Shi, and H.-H. Zhao, “Free-mode removal and mode decoupling for simulating general superconducting quantum circuits,” Phys. Rev. B , vol. 103, p. 174501, May 2021. [Online]. Available: https://doi.org/10.1103/PhysRevB.103.174501
