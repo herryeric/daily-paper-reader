@@ -1,0 +1,669 @@
+Title: Detecting Symmetry-Resolved Entanglement: A Quantum Monte Carlo Approach
+
+URL Source: https://arxiv.org/pdf/2604.02307v1
+
+Published Time: Fri, 03 Apr 2026 01:16:47 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+## Detecting Symmetry-Resolved Entanglement: A Quantum Monte Carlo Approach 
+
+Kuangjie Chen, 1, 2 Weizhen Jia, 3 Xiaopeng Li, 1, 2, 4, 5, ∗ Ren´ e Meyer, 6, 7, † and Jiarui Zhao 3, ‡
+
+> 1
+
+State Key Laboratory of Surface Physics, Institute of Nanoelectronics and Quantum Computing, Department of Physics, Fudan University, Shanghai 200438, China 
+
+> 2
+
+Shanghai Qizhi Institute and Shanghai Artificial Intelligence Laboratory, Xuhui District, Shanghai 200232, China 
+
+> 3
+
+Department of Physics, The Chinese University of Hong Kong, Sha Tin, Hong Kong SAR, China 
+
+> 4
+
+Shanghai Research Center for Quantum Sciences, Shanghai 201315, China 
+
+> 5
+
+Hefei National Laboratory, Hefei 230088, China 
+
+> 6
+
+Institute for Theoretical Physics and Astrophysics and W¨ urzburg-Dresden Cluster of Excellence ctd.qmat, Julius-Maximilians-Universit¨ at W¨ urzburg, 97074 W¨ urzburg, Germany 
+
+> 7
+
+Shanghai Institute for Mathematics and Interdisciplinary Sciences (SIMIS), Shanghai, 200433, China 
+
+Symmetry and entanglement are two fundamental concepts in quantum many-body physics. Their inter-play is captured by symmetry-resolved entanglement, which decomposes the total entanglement into contri-butions from different symmetry sectors. Computing symmetry-resolved entanglement in strongly interacting higher-dimensional quantum systems remains challenging. Here, we introduce a quantum Monte Carlo (QMC) approach for computing symmetry-resolved R´ enyi entropies (SRRE) in large-scale interacting systems by mea-suring disorder (symmetry-twisted) operators on replica manifolds and reconstructing SRRE from the corre-sponding charged moments. We apply this method to the transverse-field Ising model (TFIM) in one and two dimensions. In one dimension, we recover the conformal-field-theory prediction for the logarithmic scaling of the disorder operator and observe the expected approach to entanglement equipartition. In two dimensions, our data provide numerical evidence consistent with entanglement equipartition at the (2+1)D Ising critical point. We further apply the framework to the 1D Heisenberg chain and obtain results consistent with the expected asymptotic scaling and finite-size corrections in the U (1) -resolved sectors. Our work establishes a practical nu-merical route to symmetry-resolved entanglement in interacting lattice models and provides a useful framework for future studies beyond one dimension. 
+
+Introduction. — Entanglement entropy (EE) is a powerful probe of quantum many-body states, offering insights that transcend the paradigm of conventional order parameters [1– 3]. Its scaling with subsystem size offers an effective or-ganizing principle, uncovering universal features of distinct quantum phases. While EE typically obeys an area law in ground states of local gapped Hamiltonians [4], deviations from this behavior often signal more exotic forms of quan-tum matter. For example, topological entanglement entropy characterizes topologically ordered phases [5, 6], while log-arithmic corrections carrying universal information can arise in (1+1)D conformal field theories (CFTs), in systems with Nambu-Goldstone modes, and for entangling boundaries with corners [7–11]. As a result, entanglement scaling has be-come a valuable framework not only for classifying equilib-rium phases, but also for diagnosing nonequilibrium phenom-ena such as measurement-induced phase transitions, which emerge from the interplay between unitary evolution and local measurements [12–14]. In recent years, this framework has been extended by in-corporating the role of global symmetries, yielding the notion of symmetry-resolved entanglement [15–23], which resolves the total entanglement entropy into contributions from dif-ferent symmetry sectors, providing a more refined probe into the entanglement structure of a quantum state. A significant    
+
+> ∗xiaopeng˙li@fudan.edu.cn
+> †rene.meyer@uni-wuerzburg.de
+> ‡jiaruizhao@cuhk.edu.hk
+
+discovery in this field, rigorously established within confor-mal field theory, is the equipartition of entanglement [17, 21]. This principle states that, in certain (1+1)D CFTs, at least the leading-order contribution to the entanglement entropy is equally distributed among all symmetry sectors. Current re-search frontiers are rapidly expanding its scope to encompass systems with non-Abelian symmetries [24], entanglement dy-namics in non-equilibrium settings [25], and the resolution of multipartite entanglement [26]. Furthermore, experimen-tal proposals for measuring symmetry-resolved entanglement have begun to bridge the gap between theory and experiment, establishing it as a promising and experimentally accessible probe for quantum simulators [27]. However, while the understanding of symmetry-resolved entanglement in one-dimensional systems is now well-established, extending these insights to higher-dimensional in-teracting systems still presents a formidable challenge. Com-puting symmetry-resolved entanglement in interacting two-dimensional quantum systems remains particularly challeng-ing. Analytical approaches such as CFTs are most power-ful in (1+1)D, while numerical workhorses like exact diag-onalization are severely limited by system size. Tensor net-work methods for two-dimensional systems are often trun-cated at small bond dimensions, which limits the precision with which entanglement structures can be resolved [28–30]. Consequently, fundamental questions—such as the explicit scaling forms of symmetry-resolved entanglement with sub-system sizes and whether the entanglement equipartition per-sists at (2+1)D quantum critical points—remain largely un-explored and lack direct numerical verifications. This calls for scalable numerical methods that can access symmetry-
+
+> arXiv:2604.02307v1 [cond-mat.str-el] 2 Apr 2026
+
+2resolved entanglement in interacting systems beyond 1D. In this article, we introduce an unbiased quantum Monte Carlo (QMC) algorithm for computing symmetry-resolved R´ enyi entropies in interacting systems beyond one dimen-sion. Building on the charged-moments framework [16], we show that, in an n-replica geometry, the charged moment is related to the expectation value of a subsystem disorder op-erator, which is therefore naturally accessible to QMC sam-pling. The symmetry-resolved contribution hidden in the total R´ enyi entropy can then be obtained by Fourier transforming the charged moments, which are conjugate to the moments projected onto the corresponding symmetry sectors. The remainder of the paper is organized as follows. We first introduce the concept of symmetry-resolved entangle-ment and the equipartition of entanglement entropy. We then present our general QMC framework for computing symmetry-resolved R´ enyi entropies. Next, we briefly describe the models studied in this work, namely the 1D and 2D quan-tum Ising models and the 1D Heisenberg chain. Finally, we present the results for these models and discuss limitations and future directions. In Appendix A, we benchmark our QMC-based method against exact diagonalization. 
+
+Symmetry-Resolved Entanglement Entropy. —For a bipartite quantum system described by the density ma-trix ρ, the entanglement between subsystem A and its comple-ment ¯A is encoded in the reduced density matrix (RDM) ρA =Tr ¯Aρ. The von Neumann entropy S(vN ) 
+
+> A
+
+= −Tr( ρA ln ρA)
+
+is a well-established entanglement measure, and its gen-eralization, the n-th R´ enyi entanglement entropy S(n) 
+
+> A
+
+= 
+
+> 11−n
+
+ln Tr[ ρnA], reduces to the von Neumann entropy in the limit n → 1. If the system possesses a global symmetry with a conserved charge Q = QA +Q ¯A where Q is a sum of local op-erators, it is then straightforward to show that [ρA, Q A] = 0 ,which implies that ρA can be block-diagonalized with respect to the eigenspaces of QA. As shown in Fig. 1(a), ρA can be expressed as 
+
+ρA = M
+
+> q
+
+˜ρA(q) , (1) where ˜ρA(q) is the RDM block labeled by eigenvalue q. We can also rewrite ρA as 
+
+ρA = M
+
+> q
+
+P (q)ρA(q) , (2) where ρA(q) = ˜ρA(q)/Tr[˜ ρA(q)] is the normalized RDM block and P (q) = Tr[˜ ρA(q)] can be interpreted as the prob-ability of finding eigenvalue q in a measurement of QA. An example of P (q) for 1D Heisenberg chain with L = 768 that will be discussed later is shown in Fig. 1 (b). In analogy with the definition of R´ enyi EE S(n) 
+
+> A
+
+, the symmetry-resolved R´ enyi entropy (SRRE) in each charge sec-tor is defined as 1
+
+Sn(q) = 11 − n ln Tr[ ρA(q)n] , (3)    
+
+> 1In the following, we omit the subscript Afor simplicity. (a)
+> (b)
+> (c)
+
+FIG. 1. (a) Block-diagonal structure of ρA in the eigenbasis of the conserved charge QA. (b) Typical probability distribution P (q) = Tr[˜ ρA(q)] in the 1D Heisenberg model, with q = SzA. (c) Single-replica (upper panel) and two-replica (lower panel) configurations corresponding to the ordinary partition function Z and the replica partition function Z(2)  
+
+> A
+
+, respectively. The geometry of Z(2)  
+
+> A
+
+can be viewed as two replicas of the single-replica configuration, with re-gion A glued together along the imaginary-time direction. The dis-order operator eiαQ A is measured in the entangling region A.
+
+which also converges to the symmetry-resolved von Neumann entropy as n → 1:
+
+lim  
+
+> n→1
+
+Sn(q) = SvN (q) := −Tr[ ρA(q) ln ρA(q)] . (4) Note that for von Neumann entropy, the following decompo-sition relation holds: 
+
+S(vN ) 
+
+> A
+
+= X
+
+> q
+
+P (q)SvN (q) − X
+
+> q
+
+P (q) ln P (q) , (5) where the first term captures the contributions from individual charge sectors and the second term arises from charge fluctu-ations [27]. As discussed in [21], such a decomposition only holds for the R´ enyi entropy if equipartition of entanglement holds in the system under consideration. Symmetry-resolved entanglement has been considered in one spatial dimension for critical spin chains and Luttinger liquids in [15], for free scalars in [17] and for free fermions in [18]. Equipartition of entanglement is the observation that in these systems, at least 2 the first two terms in the UV cutoff expansion of the symmetry-resolved entanglement entropy are independent of the subregion charge. Instead, they are determined by the cen-tral charge c and the Kac-Moody level k of the underlying 
+
+U (1) k symmetry algebra alone [17], 
+
+SvN (q) = c
+
+3 ln ℓA
+
+ϵ − 12 ln 
+
+ kπ ln ℓA
+
+ϵ
+
+
+
++ O(1) . (6)    
+
+> 2In WZW models, equipartition is broken to constant order [31], and for the
+> c= 1 compact boson, equipartition was found to hold to all orders in the UV cutoff expansion upon imposing appropriate (NN and DD) boundary conditions in the BCFT framework in [21].
+
+3For U (1) k, the constant contribution in O(1) is also charge-independent, while for WZW models with symmetry group 
+
+G it depends on the dimension of the group representation chosen [31]. Equipartition up to constant order can be traced back to the structure of the U (1) k Kac-Moody algebra [32], and also holds in excited states [33]. The universality up to double-logarithmic order is tied to the twist operators [1] acquiring a universal shift in dimension after inserting the charged defect operator eiαQ A , which only depends on the structure of the symmetry algebra and the ensuing Fourier transformation to the charged partition function. On the other hand, equipartition was found to be broken in the leading or-der logarithmic term already by analysing the charged mo-ments (7) at small chemical potentials α for 2D CFTs with 
+
+W3 higher spin symmetry in [34]. The works [32, 33] also established a holographic prescription to calculate symmetry-resolved entanglement entropy in terms of a bulk gauge field Wilson line [35] via the charged moment (7) defined below. Higher order terms in the UV cutoff expansion come with positive powers of ϵℓA and are, as is the O(1) contribution, non-universal, i.e. cutoff dependent. Nevertheless, applying highly symmetric boundary conditions such as the conformal boundary conditions T = ¯T and Neumann or Dirichlet-type conditions J = ± ¯J, respectively, equipartition can be shown to hold to all orders in the UV cutoff expansion for U (1) k
+
+Kac-Moody algebra [21]. 
+
+General Methods. — Our method starts with the charged mo-ment defined as [16] 
+
+Zn(α) = Tr( ρ nA eiαQ A ) . (7) Treating α as a continuous variable in (−π, π ), the Fourier transform of Zn(α) yields 
+
+Zn(q) = 
+
+Z π
+
+> −π
+
+dα 
+
+2π e−iαq Zn(α) = Tr(Π q ρnA) , (8) where Πq is the projector onto the subspace with QA = q.For a discrete ZN symmetry, the integral in Eq. (8) is re-placed with a discrete Fourier transform 
+
+Zn(q) = 1
+
+N 
+
+> N−1
+
+X
+
+> k=0
+
+e−i 2πk N q Zn
+
+
+
+α = 2πk N
+
+
+
+= Tr(Π q ρnA),
+
+(9) where q = 0 , ..., N − 1 and α can only take discrete values 
+
+2πk/N with k = 0 , ..., N − 1.It then follows immediately that 
+
+Z1(q) = Tr(Π q ρA) ≡ P (q), (10) and 
+
+Zn(q) = P (q)n Tr[ ρA(q)n] . (11) Thus the n-th SRRE reads 
+
+Sn(q) = 11 − n ln Zn(q)
+
+Z1(q)n . (12) Based on the above equations, the core of our method is to measure Z1(α) and Zn(α) separately in QMC simulations, and then obtain Z1(q) and Zn(q) by Fourier transforming these charged moments according to Eq. (8). The main advan-tage of this approach, as we will show, is that within the QMC framework eiαQ A can be regarded as a physical observable defined on the n-sheeted Riemann surface associated with ρ nA .As a result, Zn(q) for multiple values of q can in principle be extracted from a single QMC simulation, rather than requiring a separate simulation for each q.For n = 1, the charged moment reduces to Z1(α) =Tr( ρAeiαQ A ) = ⟨eiαQ A ⟩Z , namely the expectation value of eiαQ A in the standard QMC ensemble, as illustrated in Fig. 1(c). This quantity coincides with the expectation value of the nonlocal disorder operator associated with the underly-ing symmetry, which has been extensively studied in a variety of quantum many-body systems [36–39]. In the present work, however, we use it simply as an auxiliary quantity for access-ing the SRRE. For n ≥ 2, we have 
+
+Zn(α) = Tr( ρnAeiαQ A )Tr( ρnA) Tr( ρnA) = ⟨eiαQ A ⟩Z(n)
+
+> A
+
+e(1 −n)S(n) 
+
+> A
+
+,
+
+(13) where ⟨· · · ⟩ Z(n)
+
+> A
+
+denotes the normalized expectation value in the QMC ensemble defined on the corresponding n-sheeted replica manifold. Equivalently, if Z is the ordinary partition function and Z(n) 
+
+> A
+
+denotes the partition function on the glued replica manifold, then Tr( ρnA) = Z(n) 
+
+> A
+
+/Z n. In this work we focus on the case n = 2 . The corresponding simulation is performed in a two-replica ensemble, in which subsystem A
+
+is glued together along the imaginary-time direction, as illus-trated in Fig. 1(c). According to Eqs. (8), (12), and (13), for continuous α we obtain 
+
+Sn(q) − S(n) 
+
+> A
+
+= nn − 1 ln 
+
+Z π
+
+> −π
+
+dα 
+
+2π e−iαq ⟨eiαQ A ⟩Z (14) 
+
++ 11 − n ln 
+
+Z π
+
+> −π
+
+dα 
+
+2π e−iαq ⟨eiαQ A ⟩Z(n)
+
+> A
+
+.
+
+For discrete α, we simply replace the Fourier transform in its discrete form. Since the scaling forms of S(n) 
+
+> A
+
+for a wide variety of quan-tum systems are already well understood, our task is reduced to measuring ⟨eiαQ A ⟩Z and ⟨eiαQ A ⟩Z(n)
+
+> A
+
+separately in two QMC simulations, from which the difference between the symmetry-resolved R´ enyi entropy and the total R´ enyi EE can be determined. We will denote this difference as subtracted 
+
+SRRE in the rest of the paper. When the exact values of Sn(q) are needed, S(n) 
+
+> A
+
+itself can also be computed independently using the recently developed nonequilibrium methods based on Jarzynski equality [40] within the QMC framework, which have proven to be highly efficient in both boson and fermion systems [8, 11, 41, 42]. Our methods are therefore broadly applicable in quantum Monte Carlo simulations. 
+
+Models. — The first model we consider in this work is the transverse-field Ising model (TFIM) in 1D and 2D with the 44.0 4.5 5.0 5.5 6.0 6.5 
+
+> ln( L)
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> 1.6
+> 1.8
+> ln(  X )
+
+(a)              
+
+> ln( XZ)
+> ln( XZ(2)
+> A)
+> 510 15 20 25 30 35 40 45
+> L
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> 3.5
+> 4.0
+> ln(  X )
+
+(b)         
+
+> 2.0 2.5 3.0 3.5
+> ln( L)
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> ln(  X ) aL
+> ln( XZ)
+> ln( XZ(2)
+> A)
+
+FIG. 2. Scaling of the disorder operator ⟨X⟩ in the single- and two-replica ensembles at the quantum critical point of the TFIM. (a) 1D chain of length L with a half-chain entangling region ( LA = L/ 2). The data are fitted by − ln ⟨X⟩Z = 0 .251(1) ln L + 0 .149(5) 
+
+and − ln ⟨X⟩Z(2) 
+
+> A
+
+= 0 .1242(4) ln L − 0.074(2) . (b) 2D L × L square lattice with an entangling region of size L/ 2 × L and a smooth boundary. The single-replica data are fitted by − ln ⟨X⟩Z = 0 .0762(1) L + 0 .066(2) , while the two-replica data are well described by 
+
+− ln ⟨X⟩Z(2) 
+
+> A
+
+= 0 .00793(2) L + 0 .0343(3) ln L − 0.0347(5) . The inset shows − ln ⟨X⟩ − aL versus ln L for both ensembles, where a
+
+denotes the fitted coefficient of the leading linear term. 
+
+following Hamiltonian: 
+
+H = −J X
+
+> ⟨i,j ⟩
+
+σzi σzj − h X
+
+> i
+
+σxi , (15) where ⟨i, j ⟩ refers to the nearest-neighbors and the Hamilto-nian possesses the Z2 global symmetry. The system under-goes an ordered-to-disordered phase transition when tuning the magnitude of h/J . The Z2 symmetry is spontaneously broken inside the ordered phase and maintained both at the critical point and inside the disordered phase. We perform all calculations at the corresponding critical points of the model, namely hc/J = 1 for the 1D chain and hc/J ≈ 3.044 for the square lattice [43, 44]. For the TFIM, the global Z2 spin-flip symmetry splits the Hilbert space of subsystem A into even ( q = 0) and odd (q = 1 ) parity sectors. The corresponding symmetry operator restricted to A is X = Q 
+
+> i∈A
+
+σxi . Consequently, the discrete Fourier transform in Eq. (9) reduces to two charged moments only, evaluated at α = 0 and α = π, corresponding to the identity operator and X, respectively. From the two key observables, ⟨X⟩Z and ⟨X⟩Z(2) 
+
+> A
+
+, we can reconstruct the symmetry-resolved moments for the charge sectors q = 0 , 1:
+
+Z1(q) = 12
+
+ 1 + ( −1) q ⟨X⟩Z
+
+ , (16a) 
+
+Z2(q) = 12 e−S(2) 
+
+> A
+
+ 1 + ( −1) q ⟨X⟩Z(2) 
+
+> A
+
+ . (16b) Substituting these expressions into Eq. (12) yields the closed-form result: 
+
+S2(q) − S(2)  
+
+> A
+
+= − ln 
+
+" 1 + ( −1) q ⟨X⟩Z(2) 
+
+> A
+
+ 1 + ( −1) q ⟨X⟩Z
+
+2
+
+#
+
+− ln 2 . (17) Therefore, for the Z2 TFIM, the subtracted symmetry-resolved R´ enyi entropy can be obtained directly from disorder operator expectation values measured in the single- and two-replica ensembles, without explicitly performing the Fourier transform or separately evaluating the total R´ enyi EE. The second model we consider is the spin- 12 antiferro-magnetic Heisenberg chain, whose low-energy physics is de-scribed by a (1+1) D conformal field theory. The Hamiltonian reads 
+
+H = J
+
+> N
+
+X
+
+> i=1
+
+⃗Si ·⃗ Si+1 , (18) with periodic boundary conditions, ⃗ SN +1 =⃗ S1. Although the model exhibits full SU (2) spin-rotational symmetry, in this work we focus on the U (1) subgroup corresponding to spin rotations about the z axis. The corresponding symmetry charge in subsystem A is the total magnetization, QA = SzA =P 
+
+> i∈A
+
+Szi , whose eigenvalues range from −LA/2 to LA/2.Because the subsystem charge takes discrete values on a finite lattice, the symmetry-resolved moments, and hence the sub-tracted SRRE, are reconstructed from the charged moments through a discrete Fourier inversion. 
+
+Results. — For the models introduced above, we use stochastic series expansion (SSE) quantum Monte Carlo methods [45, 46] to measure the expectation value of the disorder opera-tor separately in the single-replica and two-replica ensembles corresponding to Z and Z(2)  
+
+> A
+
+. In 1D, we consider periodic chains of length L and choose the entangling region A as a half-chain, LA = L/ 2. In 2D, we study L × L square lattices with periodic boundary conditions and take the entangling re-gion A to be a cylindrical subregion of size L/ 2 × L with a smooth (corner-free) boundary. 52 3 4 5 6 7 8
+
+> ln( L)
+> 0.8
+> 0.7
+> 0.6
+> 0.5
+> 0.4
+> S2(q) S(2)
+> A
+
+(a)            
+
+> 10 410 810 12 10 16 10 20
+> L
+> 0.8
+> 0.7
+> 0.6
+> 0.5
+> 0.4
+> S2(q) S(2)
+> A
+> q= 0
+> q= 1
+> 0100 200 300 400 500
+> L
+> 1.2
+> 1.0
+> 0.8
+> 0.6
+> 0.4
+> 0.2
+> 0.0
+> 0.2
+> 0.4
+> S2(q) S(2)
+> A
+
+(b)   
+
+> q= 0
+> q= 1
+
+FIG. 3. Asymptotic scaling of the subtracted symmetry-resolved R´ enyi entropy S2(q) − S(2)  
+
+> A
+
+in the 1D (panel (a)) and 2D (panel (b)) TFIM at their respective QCPs. Symbols denote the numerical data, while dashed lines are obtained by inserting the fitted scaling forms from Fig. 2 into Eq. (17). The inset in panel (a) shows the subtracted symmetry-resolved R´ enyi entropy in the large-L limit. 
+
+We first benchmark our algorithm on the 1D TFIM at the 
+
+(1 + 1) D Ising quantum critical point ( hc/J = 1 ), using β =4L to access ground-state properties. In the (1 + 1) D Ising CFT, the disorder operator X = Q 
+
+> i∈A
+
+σxi scales as 
+
+− ln ⟨X⟩n = 2(∆ ν + ¯∆ν )
+
+n ln L = 14n ln L, (19) where ∆ν = ¯∆ν = 1 /16 are the scaling dimensions of the disorder operator, and n denotes the R´ enyi index of the replica ensemble [16]. As shown in Fig. 2(a), the extracted logarith-mic prefactors are 0.251(1) for the single-replica ensemble (n = 1 ) and 0.1242(4) for the two-replica ensemble ( n = 2 ). These values are in excellent agreement with the exact predic-tions, 1/4 = 0 .25 and 1/8 = 0 .125 , respectively. The small deviation of the n = 2 result from the exact value is likely attributable to finite-size effects. We next study the 2D TFIM at the (2+1)D Ising quantum critical point ( hc/J ≈ 3.044 ), using β = 2 L. As shown in Fig. 2(b), for the single-replica ensemble ( n = 1 ), we find that 
+
+− ln ⟨X⟩Z follows a pure area law with a fitted coefficient of 
+
+0.0762(1) , consistent with previous work [36]. By contrast, the two-replica data ( n = 2 ) exhibit clear deviations from a pure area-law scaling, as illustrated in the inset of Fig. 2(b). Motivated by earlier studies of disorder operators at quantum critical points with rectangular subregions [36–38] 3, we find that the two-replica data are well described by an area law supplemented by a logarithmic correction, 
+
+− ln ⟨X⟩Z(2) 
+
+> A
+
+= aL + b ln L + c . (20)  
+
+> 3Logarithmic corrections are among the most common subleading terms beyond the area law and have been widely observed in the scaling of both disorder operators and entanglement entropy.
+
+We note that if such a logarithmic contribution indeed per-sists for a subregion with a smooth boundary, it would point to a nontrivial feature of (2 + 1) D conformal field theory, since smooth boundaries are not generally expected to generate log-arithmic corrections. A more detailed investigation of this is-sue is left for future work [47]. Substituting the fitted scaling functions of the ⟨X⟩Z and 
+
+⟨X⟩Z(2) 
+
+> A
+
+into Eq. (17), we obtain the subtracted SRRE for the two symmetry sectors in the 1D and 2D TFIM (Fig. 3). In 1D, the subtracted SRRE in both symmetry sectors approaches the universal value − ln 2 only extremely slowly. Extrapolation indicates that system sizes of order L ∼ 10 20 would be needed to observe clear convergence (inset of Fig. 3(a)). In contrast, in 2D the asymptotic value is reached already at L ∼ 500 .Our results therefore provide numerical evidence consistent with entanglement equipartition for the R´ enyi entropy at the Ising quantum critical points. Next, we extend our framework to systems possessing global U (1) symmetry, using the 1D Heisenberg model as a representative example. As mentioned above, we focus on the U (1) subgroup corresponding to rotations around the z-axis. In this context, the symmetry charge within the subsys-tem A is the total magnetization, QA = SzA = P 
+
+> i∈A
+
+Szi , with eigenvalues q ranging from −LA/2 to LA/2. To resolve the contributions from individual symmetry sectors, we evaluate the disorder operator ⟨eiαS zA ⟩ for LA discrete values of α uni-formly spaced in the interval (0 , π ] 4. The symmetry-resolved moments are then obtained from this cosine-transform form of the Fourier inversion.             
+
+> 4Because the subsystem-charge distribution satisfies P(q) = P(−q)due to spin-flip symmetry ( Sz→ − Sz), the characteristic function ⟨eiαS zA⟩
+> is real and even. In the numerical reconstruction, we therefore use an equivalent discrete cosine-transform form of the Fourier inversion. The full charge distribution is then recovered by symmetrization.
+
+60.0 0.2 0.4 0.6 0.8 1.0                            
+
+> /
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> ei SzA
+> (a)
+> eiSzAZ
+> eiSzAZ(2)
+> A
+> 42024
+> q
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> P(q)
+> (b) L= 64
+> L= 768
+> 4567
+> ln L
+> 0.35
+> 0.40
+> 0.45
+> 0.50
+> Var q
+> (c)
+> 1.4 1.6 1.8
+> ln(ln L)
+> 0.90
+> 0.95
+> 1.00
+> 1.05
+> Snum
+> (d)
+> 0.00 0.05 0.10 0.15 0.20 0.25 0.30
+> 1/ln L
+> 0.2
+> 0.1
+> 0.0
+> 0.1
+> S2(q) S(2)
+> A + 12 ln(ln  L)
+> (e)
+> q= 0
+> q= 1
+
+FIG. 4. Analysis of symmetry-resolved entanglement for the 1D Heisenberg model. (a) Disorder operator ⟨eiαS zA ⟩ as a function of 
+
+α in the single-replica and two-replica ensembles at L = 768 . (b) Probability distribution P (q) of the subsystem charge q for L = 64 
+
+and L = 768 . (c) Scaling of the charge variance Var q versus 
+
+ln L. The red line represents a linear fit, yielding Var q (L) =0.0547(1) ln L+0 .1334(8) . (d) Scaling of the number entropy Snum 
+
+versus ln(ln L). The red line is a linear fit, yielding Snum (L) = 0.3483(9) ln(ln L) + 0 .409(2) . (e) Finite-size scaling of the sub-tracted symmetry-resolved R´ enyi entropy, S2(q)−S(2)  
+
+> A
+
++ 12 ln(ln L),plotted as a function of 1/ ln L for the charge sectors q = 0 and 
+
+q = 1 . The dashed lines are linear extrapolations to the thermody-namic limit, 1/ ln L → 0.
+
+In (1 + 1) D CFT with a global U (1) symmetry, the SRRE follows a universal scaling behavior. For an equal bipartition of a system with length L and LA = L/ 2, it is given by [20]: 
+
+Sn(q) = S(n) 
+
+> A
+
+− 12 ln(ln L) + cn + O(1 / ln L), (21) which highlights a characteristic subleading double-logarithmic term − 12 ln(ln L), alongside strong q-dependent finite-size corrections proportional to O(1 / ln L).Our numerical results are summarized in Fig. 4. Fig-ure 4(a) shows the disorder operator ⟨eiαS zA ⟩ measured in the single- and two-replica ensembles at L = 768 . Fig-ures 4(b) and 4(c) show the subsystem-charge distribution 
+
+P (q) for L = 64 and L = 768 , and the charge variance 
+
+Var q as a function of ln L. A linear fit yields Var q (L) = 0.0547(1) ln L + 0 .1334(8) , consistent with the expected log-arithmic growth [16]. Figure 4(d) shows the number en-tropy, Snum = − P 
+
+> q
+
+P (q) ln P (q). A direct fit as a func-tion of ln(ln L) gives a slope of 0.3483(9) , indicating siz-able finite-size corrections over the accessible system sizes 5.To reduce these effects, Fig. 4(e) plots the corrected quan-tity Sn(q) − S(n) 
+
+> A
+
++ 12 ln(ln L) for the charge sectors q = 0 
+
+and q = 1 as a function of 1/ ln L. We focus on these low-est charge sectors because they carry the largest statistical weight and therefore yield the most stable numerical recon-struction. A linear extrapolation to the thermodynamic limit, 
+
+1/ ln L → 0, gives consistent intercepts for different charge sectors, supporting the scaling form in Eq. (21). 
+
+Discussions. — In summary, we have developed a scalable and unbiased quantum Monte Carlo approach for comput-ing symmetry-resolved R´ enyi entropies in interacting quan-tum many-body systems. By relating charged moments to ex-pectation values of subsystem disorder operators on replica manifolds, the method provides a practical route for com-puting symmetry-resolved entanglement in settings that are difficult to access with existing analytical and numerical ap-proaches. More broadly, it establishes a direct connection be-tween field-theoretic formulations of symmetry-resolved en-tanglement and large-scale lattice simulations. Our results provide representative benchmarks of the method in several settings. For the 1D TFIM, we recover the CFT-predicted logarithmic scaling of the disorder oper-ator. For the 1D Heisenberg chain, our data are consistent with the characteristic double-logarithmic subleading contri-bution and the O(1 / ln L) finite-size corrections associated with U (1) symmetry. In the 2D TFIM at criticality, the data are well described by an area law supplemented by a sublead-ing correction consistent with a logarithmic form within the accessible system sizes. For all models studied here, the sub-tracted SRREs in different symmetry sectors converge toward a common asymptotic value, providing numerical evidence consistent with entanglement equipartition. The present framework can be extended in several con-crete directions. A natural next step is to generalize the method from Abelian symmetries to non-Abelian ones, where symmetry resolution is organized by irreducible representa-tions rather than a single conserved charge. Such an ex-tension would make it possible to study how entanglement is distributed among different representation sectors in in-teracting lattice models. Another important direction is to apply the method to additional (2 + 1) D critical systems in order to clarify the structure of subleading corrections to symmetry-resolved entanglement and to test the robustness of entanglement equipartition beyond the Ising universality class. It would also be interesting to use this approach in sign-problem-free models with more exotic ground states, such as topological phases or deconfined quantum critical points, where symmetry-resolved entanglement may provide infor-mation that is not accessible from conventional entropy mea-sures alone. More broadly, the method provides a practical numerical tool for studying the interplay between symmetry      
+
+> 5According to the equipartition prediction, the number entropy in the thermodynamic limit is expected to exhibit the same leading behavior,
+> Snum ∼12ln(ln L), up to subleading finite-size corrections.
+
+7and entanglement in strongly correlated quantum many-body systems. 
+
+ACKNOWLEDGEMENT 
+
+We thank Meng Cheng for valuable discussions on re-lated topics. JRZ and WZJ acknowledge the support from the Research Grants Council (RGC) of Hong Kong Spe-cial Administrative Region of China (Project No. 14302725) under the scheme of General Research Fund. JRZ ac-knowledges the support from the science panel of Chi-nese University of Hong Kong (Project No. 4053733) un-der the Direct Grant scheme. We thank the Beijing PARATERA Tech CO., Ltd [48] for providing HPC re-sources that have contributed to the research results reported within this paper. XPL acknowledges the Innovation Pro-gram for Quantum Science and Technology of China (Grant No. 2024ZD0300100), the National Basic Research Pro-gram of China (Grants No. 2021YFA1400900), Shanghai Municipal Science and Technology (Grant No. 25TQ003, 2019SHZDZX01, 24DP2600100). RM acknowledges the support of the German Research Foundation (DFG) through the Collaborative Research Center ToCoTronics, Project-ID 258499086 (SFB 1170), as well as Germany’s Excellence Strategy through the W¨ urzburg-Dresden Cluster of Excellence on Complexity and Topology in Quantum Matter - ctd.qmat (EXC 2147, Project-ID 390858490). He furthermore ac-knowledges hospitality from the Shanghai Institute for Mathe-matics and Interdisciplinary Sciences (SIMIS), and associated travel support under STCSM Grant 25HB2701900. 
+
+[1] P. Calabrese and J. Cardy, Entanglement entropy and quantum field theory, J. Stat. Mech. 2004 , P06002 (2004). [2] L. Amico, R. Fazio, A. Osterloh, and V. Vedral, Entanglement in many-body systems, Rev. Mod. Phys. 80 , 517 (2008). [3] N. Laflorencie, Quantum entanglement in condensed matter systems, Phys. Rep. 646 , 1 (2016). [4] J. Eisert, M. Cramer, and M. B. Plenio, Colloquium: Area laws for the entanglement entropy, Rev. Mod. Phys. 82 , 277 (2010). [5] A. Kitaev and J. Preskill, Topological entanglement entropy, Phys. Rev. Lett. 96 , 110404 (2006). [6] S. V. Isakov, M. B. Hastings, and R. G. Melko, Topological en-tanglement entropy of a bose–hubbard spin liquid, Nature Phys. 
+
+7, 772 (2011). [7] B. Kulchytskyy, C. M. Herdman, S. Inglis, and R. G. Melko, Detecting goldstone modes with entanglement entropy, Phys. Rev. B 92 , 115146 (2015). [8] J. Zhao, B.-B. Chen, Y.-C. Wang, Z. Yan, M. Cheng, and Z. Y. Meng, Measuring R´ enyi entanglement entropy with high effi-ciency and precision in quantum Monte Carlo simulations, npj Quant. Mater. 7, 69 (2022). [9] J. Zhao, Y.-C. Wang, Z. Yan, M. Cheng, and Z. Y. Meng, Scal-ing of entanglement entropy at deconfined quantum criticality, Phys. Rev. Lett. 128 , 010601 (2022). [10] M. Song, J. Zhao, M. Cheng, C. Xu, M. M. Scherer, L. Janssen, and Z. Yang Meng, Evolution of entanglement en-tropy at SU(N) deconfined quantum critical points, Sci. Adv. 
+
+11 , adr0634 (2025). [11] J. D’Emidio, R. Or´ us, N. Laflorencie, and F. de Juan, Univer-sal features of entanglement entropy in the honeycomb hubbard model, Phys. Rev. Lett. 132 , 076502 (2024). [12] B. Skinner, J. Ruhman, and A. Nahum, Measurement-induced phase transitions in the dynamics of entanglement, Phys. Rev. X 9, 031009 (2019). [13] R. Wiersema, C. Zhou, J. F. Carrasquilla, and Y. B. Kim, Measurement-induced entanglement phase transitions in vari-ational quantum circuits, SciPost Phys. 14 , 147 (2023). [14] A. Paviglianiti and A. Silva, Multipartite entanglement in the measurement-induced phase transition of the quantum ising chain, Phys. Rev. B 108 , 184302 (2023). [15] N. Laflorencie and S. Rachel, Spin-resolved entanglement spec-troscopy of critical spin chains and luttinger liquids, J. Stat. Mech. 2014 , P11013 (2014). [16] M. Goldstein and E. Sela, Symmetry-resolved entanglement in many-body systems, Phys. Rev. Lett. 120 , 200602 (2018). [17] J. C. Xavier, F. C. Alcaraz, and G. Sierra, Equipartition of the entanglement entropy, Phys. Rev. B 98 , 041106 (2018). [18] R. Bonsignori, P. Ruggiero, and P. Calabrese, Symmetry re-solved entanglement in free fermionic systems, J. Phys. A: Math. Theor. 52 , 475302 (2019). [19] L. Capizzi, P. Ruggiero, and P. Calabrese, Symmetry resolved entanglement entropy of excited states in a cft, J. Stat. Mech. 
+
+2020 , 073101 (2020). [20] B. Estienne, Y. Ikhlef, and A. Morin-Duchesne, Finite-size cor-rections in critical symmetry-resolved entanglement, SciPost Phys. 10 , 054 (2021). [21] G. Di Giulio, R. Meyer, C. Northe, H. Scheppach, and S. Zhao, On the boundary conformal field theory approach to symmetry-resolved entanglement, SciPost Phys. Core 6, 049 (2023). [22] P. Bueno, P. A. Cano, ´ A. Murcia, and A. Rivadulla S´ anchez, Universal feature of charged entanglement entropy, Phys. Rev. Lett. 129 , 021601 (2022). [23] Y. Huang and Y. Zhou, Symmetry-resolved entanglement en-tropy in higher dimensions, JHEP 10 , 045. [24] E. Bianchi, P. Dona, and R. Kumar, Non-Abelian symmetry-resolved entanglement entropy, SciPost Phys. 17 , 127 (2024). [25] G. Parez, R. Bonsignori, and P. Calabrese, Exact quench dy-namics of symmetry resolved entanglement in a free fermion chain, J. Stat. Mech. 2021 , 093102 (2021). [26] A. Jain, Symmetry resolved multipartite entanglement entropy (2025), arXiv:2509.13410 [quant-ph]. [27] A. Lukin, M. Rispoli, R. Schittko, M. E. Tai, A. M. Kaufman, S. Choi, V. Khemani, J. L´ eonard, and M. Greiner, Probing en-tanglement in a many-body–localized system, Science 364 , 256 (2019). [28] U. Schollwoeck, The density-matrix renormalization group in the age of matrix product states, Annals Phys. 326 , 96 (2011). [29] S. Singha Roy, H. S. Dhar, A. Sen(De), and U. Sen, Tensor-network approach to compute genuine multisite entanglement in infinite quantum spin chains, Phys. Rev. A 99 , 062305 (2019). [30] D. A. Puente, E. L. Weerda, K. Schr¨ oder, and M. Rizzi, Efficient optimization and conceptual barriers in variational finite pro-jected entangled pair states, Phys. Rev. B 111 , 195120 (2025). 8
+
+[31] P. Calabrese, J. Dubail, and S. Murciano, Symmetry-resolved entanglement entropy in Wess-Zumino-Witten models, JHEP 
+
+10 , 067. [32] S. Zhao, C. Northe, and R. Meyer, Symmetry-resolved entan-glement in AdS 3/CFT 2 coupled to U(1) Chern-Simons theory, JHEP 07 , 030. [33] K. Weisenberger, S. Zhao, C. Northe, and R. Meyer, Symmetry-resolved entanglement for excited states and two entangling in-tervals in AdS 3/CFT 2, JHEP 12 , 104. [34] S. Zhao, C. Northe, K. Weisenberger, and R. Meyer, Charged moments in W 3 higher spin holography, JHEP 05 , 166. [35] A. Belin, L.-Y. Hung, A. Maloney, S. Matsuura, R. C. Myers, and T. Sierens, Holographic charged R´ enyi entropies, JHEP 12 ,059. [36] J. Zhao, Z. Yan, M. Cheng, and Z. Y. Meng, Higher-form sym-metry breaking at ising transitions, Phys. Rev. Res. 3, 033024 (2021). [37] Y.-C. Wang, M. Cheng, and Z. Y. Meng, Scaling of the disorder operator at (2 + 1) d u(1) quantum criticality, Phys. Rev. B 104 ,L081109 (2021). [38] Y.-C. Wang, N. Ma, M. Cheng, and Z. Y. Meng, Scaling of the disorder operator at deconfined quantum criticality, SciPost Phys. 13 , 123 (2022). [39] B.-B. Chen, H.-H. Tu, Z. Y. Meng, and M. Cheng, Topologi-cal disorder parameter: A many-body invariant to characterize gapped quantum phases, Phys. Rev. B 106 , 094415 (2022). [40] C. Jarzynski, Nonequilibrium equality for free energy differ-ences, Phys. Rev. Lett. 78 , 2690 (1997). [41] J. D’Emidio, Entanglement entropy from nonequilibrium work, Phys. Rev. Lett. 124 , 110602 (2020). [42] G. Pan, Y. Da Liao, W. Jiang, J. D’Emidio, Y. Qi, and Z. Y. Meng, Stable computation of entanglement entropy for two-dimensional interacting fermion systems, Phys. Rev. B 108 ,L081123 (2023). [43] H. W. J. Bl¨ ote and Y. Deng, Cluster monte carlo simulation of the transverse ising model, Phys. Rev. E 66 , 066110 (2002). [44] Z. H. Liu, G. Pan, X. Y. Xu, K. Sun, and Z. Y. Meng, Itinerant quantum critical point with fermion pockets and hotspots, Proc. Natl. Acad. Sci. U.S.A. 116 , 16760 (2019). [45] A. W. Sandvik, Stochastic series expansion method with operator-loop update, Phys. Rev. B 59 , R14157 (1999). [46] O. F. Sylju˚ asen and A. W. Sandvik, Quantum monte carlo with directed loops, Phys. Rev. E 66 , 046701 (2002). [47] K. Chen, W. Jia, X. Li, R. Meyer, M. Cheng, and J. Zhao, Scal-ing of R´ enyi disorder operators at (2+1)D conformal quantum criticality, to appear. [48] Beijing PARATERA Tech Co., Ltd., Paratera cloud platform. 9
+
+Appendix A: Benchmark of QMC Results 
+
+To verify the validity and accuracy of our stochastic series expansion QMC algorithms, we first compare the results of ⟨X⟩Z
+
+and ⟨X⟩Z(2) 
+
+> A
+
+obtained from QMC simulations at extremely low temperatures with those derived from exact diagonalization (ED) at zero temperature. The comparison is performed on both the 1D and 2D Ising models at their respective critical points. For the 1D Ising model ( hc = 1 ), we compare the ED results with our QMC results at β = 256 and L = 16 , where subsystem 
+
+A is defined as half of the periodic chain. For the 2D Ising model ( hc ≈ 3.044 ), we compare the ED results with the QMC results at Lx = Ly = 4 and β = 128 . Here, subsystem A is chosen as an (Lx/2) × Ly cylinder on an Lx × Ly torus. As shown in Table I, our QMC results agree well with the ED results within statistical errors for both the 1D and 2D Ising critical points. 
+
+TABLE I. Comparison of ED and QMC results at the 1D and 2D Ising critical points. 
+
+⟨X⟩Z ⟨X⟩Z(2) 
+
+> A
+
+1D ED 0.429185 0.761487 QMC 0.4293(2) 0.7616(1) 2D ED 0.7007641 0.9556409 QMC 0.70072(5) 0.95566(2) 
+
+We further analyze the disorder operator ⟨eiαS zA ⟩Z and ⟨eiαS zA ⟩Z(2) 
+
+> A
+
+for the 1D Heisenberg model. Comparing the ED results with our QMC data at β = 256 and L = 16 , we observe excellent agreement between the two methods, as illustrated in Fig. 5. 0 1 2 3
+
+0.5 
+
+0.6 
+
+0.7 
+
+0.8 
+
+0.9 
+
+1.0 
+
+> ei SzA Z
+
+(a) ED 
+
+QMC 
+
+0 1 2 3
+
+0.850 
+
+0.875 
+
+0.900 
+
+0.925 
+
+0.950 
+
+0.975 
+
+1.000 
+
+> ei SzA Z(2)
+> A
+
+(b) ED 
+
+QMC 
+
+FIG. 5. Comparison of ED and QMC results for the disorder operator in the 1D Heisenberg model.

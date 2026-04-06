@@ -1,0 +1,588 @@
+Title: Dissipative Floquet engineering of gapped many-body phases using thermal baths
+
+URL Source: https://arxiv.org/pdf/2604.01291v1
+
+Published Time: Fri, 03 Apr 2026 00:02:27 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Dissipative Floquet engineering of gapped many-body phases using thermal baths 
+
+Lorenz Wanckel 1, ∗ and Andr´ e Eckardt 1, †
+
+> 1
+
+Technische Universit¨ at Berlin, Institut f¨ ur Physik und Astronomie, 10623 Berlin, Germany 
+
+(Dated: April 3, 2026) Floquet engineering, the control of a quantum system by means of time-periodic driving, allows to modify the properties of the system so that it becomes described by an approximate effective time-independent Hamiltonian. However, in the presence of interactions the stabilization of inter-esting many-body ground states of such effective Hamiltonians is possible only on a certain time scale, beyond which Floquet heating sets in, as it results from unwanted driving induced resonant excitation. Moreover, already the preparation of such states is challenged by excitations due to im-perfect adiabatic dynamics, especially when a phase transition has to be passed. Here, we propose a general dissipative strategy for the preparation and stabilization of effective ground states that are protected by an energy gap. Our approach relies on coupling the driven system to a thermal bath, the properties of which are chosen so that it both suppresses Floquet heating and guides the system into a non-equilibrium steady state with a large occupation of the effective ground-state, but generally non-thermal occupations of excited states of the effective Hamiltonian. We use the Floquet-Born-Markov master equation to verify the proposed strategy for the example of a strongly driven Bose-Hubbard chain with an effective gapped Mott-insulator ground state. 
+
+I. INTRODUCTION 
+
+When applying a rapid time-periodic drive to a many-body quantum system [1–6], we can, roughly speaking, expect two effects. On the one hand, the drive modifies the system on time average. Apart from rapid oscilla-tory dynamics at the driving frequency (known as mi-cromotion), this effect can be captured by an effective time-independent Hamiltonian ˆHeff . For instance, aver-aging over the phases induced by applied modulated (and static) on-site potentials in a lattice system over one driv-ing period leads to an effective modification of tunneling matrix elements. Here an interesting application is to realize effective Hamiltonians with broken time-reversal symmetry for charge-neutral particles (such as atoms or photons in quantum simulators), as it can be achieved simply by driving the system in a fashion that differs when viewed forward or backward in time. Controlling quantum systems by means of this effect is known as Floquet engineering. Beyond simple time averaging, it can be described using systematic high-frequency expan-sions [1–3, 7]. The second effect is that the drive induces resonant transitions. For angular driving frequencies Ω that are large compared to the typical single and two-particle en-ergy scales of the Hamiltonian, such an absorption or emission of a driving quantum ℏΩ requires a substantial change of the system’s wave function (corresponding to a high-order process in perturbation theory), so that the corresponding time scale can become large. Nevertheless, in generic many-body systems these resonant processes make themselves felt eventually; this is known as Flo-quet heating [2–5, 8–13]. Even though the associated   
+
+> ∗wanckel@tu-berlin.de
+> †eckardt@tu-berlin.de
+
+heating time increases exponentially (with the order of perturbation theory) when the driving frequency is in-creased [14], it cannot become arbitrarily large. Namely, the frequency also needs to remain small compared to the large energy associated with leaving/destroying the system, such as the energy of high-lying orbital states ne-glected in a low-energy tight-binding description of a lat-tice system [15, 16]. This competition of heating effects for too low and too high frequencies, respectively, leads to an optimal window of driving frequencies [17]. Besides choosing favorable frequencies, Floquet heating can also be attenuated by exploiting the coherent suppression of dominant heating channels [18], destructive interference from two-tone driving [19], or the suppression of multi-photon transitions via spectral filtering [20]. However, in the thermodynamic limit generic isolated Floquet sys-tems are expected to approach an infinite-temperature state in the long-time limit, as a consequence of eigen-state thermalization without energy conservation [21, 22]. In recent years, such high-frequency Floquet engineer-ing has been employed successfully in different experi-mental platforms, such as ultracold atoms in optical lat-tices or photons in waveguides and superconducting cir-cuits. It was used, among others for, the control of the bosonic Mott transition [23, 24], studying frustrated tun-nel kinetics in a triangular lattice [25, 26], the realization of artificial magnetic fields and topological band struc-tures [27–32], the control of localization [20, 33], the realization of the anyon Hubbard model for two parti-cles [34, 35], as well as the preparation of “baby” frac-tional Chern insulators of up to three particles [36–38]. Recently, also the interactions between ultracold atoms were modified using the Floquet control of Feshbach res-onances [39]. However, the stabilization of correlated states of matter of more than just a few particles over a longer time remains elusive. Apart from Floquet heat-ing, here a second problem is the failure of adiabatic state preparation, not only when passing the transition to a 
+
+> arXiv:2604.01291v1 [cond-mat.quant-gas] 1 Apr 2026
+
+2new Floquet engineered phase, but also when passing resonances on the way [18]. A possible solution for the preparation and stabiliza-tion of interesting Floquet engineered states of matter is the controlled use of dissipation. For cooling a non-driven system close to its ground state, it can be coupled to a cold thermal bath or a suitable driven-dissipative environment (like in the case of laser cooling). In both cases, it is much easier for the environment to absorb energy from the system rather than to emit it to it (un-less the system has already reached a low-energy state). These strategies can, however, not simply be adapted in a straightforward fashion to Floquet engineered sys-tems, since here Floquet heating occurs also on the level of system and environment together. Namely, via the absorption of driving quanta ℏΩ, “easy” bath-induced transitions become possible that increase the energy not only in the bath, but at the same time also in the system. As a consequence of these processes, open driven systems genenerically approach steady states that are neither (in some approximate sense) thermal nor low-energy (see, e.g., Refs. [40–44]). For small Floquet systems, with an upper energy bound well below ℏΩ, these unwanted tran-sitions can, however, be suppressed by choosing also an environment with a narrow spectral width, so that even together system and bath cannot absorb a driving quan-tum ℏΩ. This strategy also works for non-interacting particles, as long as their single-particle energies, which are relevant in this case, are bounded, and it has been proposed for the stabilization of approximately thermal Floquet engineered topological insulators of free fermions [45–48]. For large, interacting systems, the above strategy for preparing approximate thermal states should fail. Yet, it has been shown in Ref. [49] for the example of a spin system that also in larger systems the resonant absorp-tion of energy can still be suppressed by a thermal bath, leading to an approximate thermal state of the effective Hamiltonian ˆHeff , as long as the system-bath coupling remains small compared to the energy level splitting of ˆHeff (see also Ref. [50]). In this approach the coupling to the environment suppresses resonant coupling within the system [51], while further conditions ensure that also bath-induced Floquet heating becomes negligible. How-ever, as we explain below, this strategy becomes difficult for the relevant case of gapped effective ground states in the regime where the bath temperature β−1 becomes small compared to the energy gap Egap .In this paper, we present a general and simple strat-egy for approximately preparing and stabilizing gapped ground states of effective Hamiltonians of interacting many-body Floquet systems via the coupling to a ther-mal bath. This includes the relevant case of topologically ordered states of matter, such as fractional Chern insu-lator phases in systems with both strong Floquet engi-neered artificial magnetic fields and strong interactions. For that purpose, we require excited states of Heff to be occupied weakly, but not to approximately follow a quasi-thermal state ∼ exp( −βH eff ). This turns out to be possible under realistic conditions in a steady state that is stabilized by a steady energy flow from the driven system into the bath. Notably, our approach does not require the system-bath coupling to be small compared to the energy level splitting of ˆHeff , making it scalable to large system sizes. We discuss and verify it for the simple example of a driven Bose-Hubbard chain at unit filling, the effective Hamiltonian of which possesses a gapped Mott-insulator ground state when interactions are strong or the tunneling is suppressed coherently by driving [23].  
+
+> II. FLOQUET ENGINEERING
+
+Consider a quantum system described by a time-periodic Hamiltonian ˆH(t) = ˆH(t + T ) = 
+
+> ∞
+
+X
+
+> μ=−∞
+
+eiμΩt ˆHμ, (1) with driving period T , angular frequency Ω = 2 π/T , and Fourier components ˆHμ = 1
+
+> T
+
+R T 
+
+> 0
+
+dt ˆH(t)e −iμΩt. It pos-sesses quasi-steady solutions (Floquet states) of the form 
+
+|ψn(t)⟩ = |un(t)⟩e−iεnt/ ℏ, with time-periodic Floquet modes |un(t)⟩ = |un(t + T )⟩ and real quasienergies εn
+
+[52]. These can be obtained by finding a gauge transfor-mation ˆHF = ˆU † 
+
+> F
+
+ˆH ˆUF − iℏ ˆU † 
+
+> F
+
+dt ˆUF with a time-periodic unitary micromotion operator ˆUF (t) = ˆUF (t+T ), so that the transformed Hamiltonian, ˆHF , becomes time inde-pendent. From the eigenvalue problem ˆHF |˜un⟩ = εn|˜un⟩,one then gets both Floquet modes |un(t)⟩ = ˆUF (t)|˜un⟩
+
+and quasienergies εn (see, e.g. Ref. [4]). The quasienergies are defined modulo ℏΩ only, so that each Floquet state generates an infinite ladder of equiv-alent modes |unm (t)⟩ = |un0(t)⟩eimΩt with quasiener-gies εnm = εn0 + mℏΩ. Plugging these solutions into the time-dependent Schr¨ odinger equation, we see that they form independent solutions of the eigenvalue prob-lem ˆQ|unm ⟩⟩ = εnm |unm ⟩⟩ , where the quasienergy op-erator ˆQ = ˆHS(t) − iℏdt acts in the extended Hilbert space of time-periodic states [53], with scalar product 
+
+⟨⟨·|·⟩⟩ = 1
+
+> T
+
+R T 
+
+> 0
+
+dt⟨·|·⟩ . We denote elements of this Floquet space by double kets, |·⟩⟩ . Using basis states |km ⟩⟩ , cor-responding to |k⟩eimΩt, where {| k⟩} is a generic basis of the original state space, one finds matrix elements 
+
+⟨⟨ k′m′| ˆQ|km ⟩⟩ = ⟨k′| ˆHm′−m|k⟩ + δm′mδk′kmℏΩ, (2) which feature a transparent block structure with re-spect to the index m. The diagonal blocks correspond to the time-averaged Hamiltonian ˆH0 shifted by mℏΩ, resembling the problem of a system with Hamiltonian ˆH0 coupled to a photon-like mode with energy mℏΩand m playing the role of a photon number (relative to a large background occupation). In this picture, the 3off-diagonal blocks described by ˆHμ̸=0 correspond to μ-“photon” processes. For a time-independent Hamilto-nian, with ˆHμ̸=0 = 0, ˆQ is block diagonal. For non-vanishing ˆHμ̸=0 , it can be block-diagonalized by a unitary rotation, which is equivalent to the above gauge transfor-mation: it provides diagonal blocks given by ˆHF and the blocks of the unitary correspond to the Fourier compo-nents of ˆUF (t) [3]. In case ℏΩ is large compared to the spectral width of ˆH0 and the coupling given by ˆHμ̸=0 , we can systemat-ically block diagonalize ˆQ by using degenerate pertur-bation theory. Choosing the “photon” energy mℏΩ as the unperturbed problem, this corresponds to a high-frequency expansion [3]. For simplicity, we will consider the leading non-trivial order for both ˆHF and ˆUF [54]: ˆHF ≃ ˆH0 ≡ ˆHeff , ˆUF ≃ e− P   
+
+> μ̸=0 eiμΩtμℏΩˆHμ
+
+≡ ˆU eff  
+
+> F
+
+. (3) Considering a higher-order approximation is technically more involved, but not conceptually. We call the approx-imate time-independent Hamiltonian effective Hamilto-nian ˆHeff . Its eigenvalue problem, ˆHeff |˜vκ⟩ = Eκ|˜vκ⟩ de-fines effective eigenstates and energies, from which we obtain approximate Floquet modes |vκ(t)⟩ = ˆU eff  
+
+> F
+
+(t)|˜vκ⟩
+
+with approximate quasienergies Eκ. The effective en-ergies Eκ correspond to the time averaged energies of these approximate Floquet states, their increase, thus, indicates heating. In an interacting many-body system, we cannot ex-pect ℏΩ to be small compared to the spectral width of ˆH0. The approximation ˆHF ≈ ˆHeff remains, however, useful, as long as ℏΩ is still large compared to the typ-ical energy scale ω ˆHμ of transitions described by ˆHμ̸=0 .For a typical many-body system with two-particle inter-actions, applying ˆHμ to a many-body wave function will change the state of one or two particles, so that ω ˆHμ re-mains intensive. Thus, the resonant μ-“photon” coupling between two eigenstates of ˆHeff that are separated in en-ergy by (about) μℏΩ will (for μ̸ = 0) be associated with tiny matrix elements of ˆH±μ only. The corresponding transitions, which describe Floquet heating, will there-fore occur only after a relatively long time scale associ-ated with Floquet heating. According to these consider-ations, in this high-frequency regime the spectrum of ˆQ
+
+can be understood as given by infinitely many copies of the spectrum of ˆHeff shifted by mℏΩ (Fig. 1), with tiny avoided crossings between states of different m (inset of Fig. 1), which describe resonant Floquet heating beyond the approximation ˆHF ≈ ˆHeff .The approximate description of a driven quantum sys-tem by the effective Hamiltonian ˆHeff obtained from low-order high-frequency expansion provides an important strategy for Floquet engineering that has been used suc-cessfully in quantum simulators of atoms and photons, as outlined in the introduction. However, combining these control strategies with strong interactions for the prepa-ration and stabilization of correlated states of matter re-mains challenging, on the one hand, due to the above-                 
+
+> FIG. 1. Sketch of a many-body quasienergy spectrum at high frequencies, using the example of the driven Bose-Hubbard model, with scaled interaction strength U/J .In a first approximation it is given by the overlapping spec-tra of ˆHeff +mℏΩ (shown with different colors for differ-ent m). For large U/J it consists of bands above a gapped ground state, corresponding to different numbers and config-urations of particle-hole excitations (as those sketched on the right) dispersed by tunneling. Resonant coupling leads to tiny avoided crossings between states of different m(inset). The dominant bath-induced transitions into and out of the m= 0 copy of the ˆHeff ground state are labeled ( a) and ( b), respec-tively.
+
+mentioned Floquet heating [55], but also due to heat-ing as a result of imperfect adiabatic state preparation when passing a phase transition. So far, only the Flo-quet control of the bosonic Mott transition for a short time [24, 56] as well as the preparation of baby fractional Chern insulator states of up to 3 particles [37, 38] have been reported.  
+
+> III. DRIVEN BOSE-HUBBARD CHAIN
+
+In the following, we will describe a strategy for the dis-sipative preparation of many-body states that appear as gapped ground states of the approximate Floquet Hamil-tonian ˆHeff . To illustrate our approach, we will consider as a simple model the driven Bose-Hubbard chain with Hamiltonian ˆHS(t) = −J X
+
+> ⟨l′l⟩
+
+eiθl′l(t)ˆb† 
+
+> l′
+
+ˆbl + U
+
+2
+
+X
+
+> l
+
+ˆnl(ˆ nl − 1) . (4) Here on-site interactions are characterized by the Hub-bard parameter U and nearest-neighbor tunneling by the amplitude J > 0 as well as by the Peierls phases 
+
+θl′l(t) = α sin(Ω t)( l′ − l), which describe a homogeneous time-periodic force with angular frequency Ω and am-plitude αℏΩ/d , with lattice constant d. The operators ˆb† 
+
+> l
+
+, ˆbl, and ˆ nl = ˆb† 
+
+> l
+
+ˆbl are creation, annihilation and num-ber operators for bosons at site l and ⟨l′l⟩ denotes pairs of neighboring sites. This model describes, for instance, atoms in optical lattices, for which a thermal environ-4ment can be realized by the coupling to atoms of a second species (see, e.g. [43]). With respect to the site-occupation Fock basis 
+
+{|{ nl}⟩} , the matrix elements of ˆHμ, as they ap-pear in Eq. (2), take the form ⟨{ n′
+
+> l
+
+}| ˆHμ|{ nl}⟩ =
+
+> U
+> 2
+
+P
+
+> l
+
+⟨{ n′
+
+> l
+
+}| ˆnl(ˆ nl − 1) |{ nl}⟩ − jsμ 
+
+P
+
+> ⟨l′l⟩
+
+⟨{ n′
+
+> l
+
+}| ˆb† 
+
+> l′
+
+ˆbl|{ nl}⟩ ,where s = +1 ( −1) for tunneling to the right (left) and 
+
+jμ ≡ JJμ(α) with Bessel function Jμ [4]. The time-averaged Hamiltonian describes a Hubbard chain ˆHeff = ˆH0 = −Jeff 
+
+X
+
+> ⟨l′l⟩
+
+ˆb† 
+
+> l′
+
+ˆbl + U
+
+2
+
+X
+
+> l
+
+ˆnl(ˆ nl − 1) , (5) with modified tunneling parameter Jeff = JJ0(α), whose absolute value drops from J for α = 0 to 0 for α ≈ 2.4. At integer filling and repulsive interactions, U > 0, its ground state undergoes a quantum phase transition from a gapless superfluid to a gapped Mott-insulator, when 
+
+U/J eff exceeds a critical parameter uc ≈ 3.3 [57]. The Floquet control of this transition at large driving frequen-cies, ℏΩ ≫ U, J , was proposed already two decades ago (including a discussion of what is now known as Floquet heating) [23] and soon after observed experimentally [24]. We focus on the deep Mott insulating regime at unit filling, U ≫ Jeff , where the effective ground state can be approximated by a product state with one particle per site [58]. Excited states are then given by particle-hole excitations (PHEs). One PHE costs an energy of about U , leading to an excitation gap. The energy of two PHEs is 2 U if they are independent and 3 U if both particle-excitations share the same site, and so on, giv-ing rise to the band structure sketched in Fig. 1. The widths of the bands result from the kinetic energy of delocalized particle and hole excitations. The resonant excitation of n particle-hole pairs leads to the aforemen-tioned avoided level crossings between states of different “photon” number m. For ℏΩ ≫ U , this corresponds to an n-th order process with small coupling matrix element 
+
+∼ Jn/(ℏΩ) n−1. 
+
+> IV. OPEN SYSTEM
+
+To stabilize the ground state against resonant heating into higher bands at the avoided crossings, the system shall be coupled weakly to a thermal environment, so that the total Hamiltonian reads ˆHtot (t) = ˆH(t) + ˆHSB +ˆHB, where the bath is modeled as a collection of non-interacting harmonic oscillators ˆHB = P 
+
+> lα
+
+ℏωαˆb†
+
+> lα
+
+ˆblα ,with ˆb† 
+
+> lα
+
+and ˆblα being the bosonic creation and anni-hilation operators at site l and mode α. The bath is in a thermal state ρB ∝ exp( −β ˆHB ) with inverse temper-ature β. The system–bath interaction is assumed to be given by ˆHSB = P 
+
+> l
+
+ˆSl ⊗ ˆBl, with system-operators ˆSl and bath operators ˆBl = P 
+
+> α
+
+cα(ˆb† 
+
+> lα
+
++ ˆblα ). For definiteness, we will consider ˆSl = ˆ nl as well as an Ohmic spectral function J(E) ≡ P 
+
+> α
+
+c2
+
+> α
+
+δ(E − ℏωα) = γE e−| E|/E cut with cutoff energy Ecut and dimensionless system-bath cou-pling strength γ.In the weak coupling regime, the dynamics of the re-duced system density matrix is governed by a Floquet-Born-Markov master equation [51, 59–62]. Expressing the system’s density operator in the Floquet basis, ˆ ρ(t) = P 
+
+> ij
+
+|ui(t)⟩ρij (t)⟨uj (t)|, it takes the form (d t + i εij /ℏ)ρij (t) = − X
+
+> kn
+
+Rinkn ρkj (t) + R∗
+
+> jknk
+
+ρin (t)
+
+−ρkn (t)[ Rnjki + R∗ 
+
+> kinj
+
+] , (6) where εij ≡ εi − εj . The dissipative processes are covered by the super-operator matrix elements 
+
+Rijkn = P 
+
+> lμ
+
+Sij 
+
+> (l)
+
+(μ)Skn ∗ 
+
+> (l)
+
+(μ)G(ε(−μ) 
+
+> nk
+
+). Here, we de-fined the Fourier components of the system coupling operators Snk  
+
+> (l)
+
+(μ) = 1
+
+> T
+
+R T 
+
+> 0
+
+⟨un(t)|ˆnl|uk(t)⟩e−iμΩtdt
+
+and the one-sided Fourier transform G(E) =R ∞ 
+
+> 0
+
+C(τ )e −iEτ / ℏdτ of the bath correlation function 
+
+C(τ ) = Tr B{ ˆBl(τ ) ˆBl ˆρB}/ℏ2, with Heisenberg operators ˆBl(τ ) = exp[i ˆHBτ / ℏ] ˆBl exp[ −i ˆHBτ / ℏ]. Moreover, 
+
+ε(−μ) 
+
+> nk
+
+= εnk − μℏΩ denote the energy change in the bath for a transition assisted by μ energy quanta from the drive. These equations were obtained employing the moderate rotating wave approximation: Assuming the driving frequency to be large compared to the system-bath coupling, the latter can be averaged over one driving period [51], making ρij (t) static in the long-time limit.  
+
+> V. DISSIPATIVE SUPPRESSION OF FLOQUET HEATING
+
+When two states of different “photon” number m are resonantly coupled and hybridize at an avoided crossing of the quasienergy spectrum (see inset of Fig. 1 and dis-cussion above), we can distinguish two different regimes with respect to the coupling to the bath [51]: In the limit of ultra-weak system–bath coupling, defined as small compared to the level splitting of the avoided crossing, the density matrix will approach diagonal form with re-spect to the hybridized “adiabatic” basis given by the (actual) Floquet states (black dashed lines in the inset of Fig. 1). In this limit the bath-induced dynamics is slow compared to Floquet heating. In the opposite regime, where the system-bath coupling is strong compared to the level splitting of the avoided crossing, it approaches diagonal form with respect to the “diabatic” basis (col-ored lines), given by states of definite “photon” number 
+
+m corresponding to the eigenstates of ˆHeff . This latter regime corresponds to a situation, where Floquet heating is suppressed by the coupling to the bath. In Ref. [49], it was shown for the example of a spin chain that this ef-fect can actually be used for stabilizing an effective Gibbs state with respect to ˆHeff at a temperature close to that of the environment (see also Ref. [50] for a more general 5discussion). Here, in turn we discuss a general strategy for achieving a large occupation of a gapped ground state of Heff . It works also in regimes, where an approximate thermal occupation is difficult to achieve, as will be de-tailed below.  
+
+> VI. SIMPLE RATE EQUATION
+
+We will now investigate the properties of the bath that are required for approximately preparing the ef-fective ground state |˜v0⟩ of ˆHeff or, more precisely, the corresponding approximate Floquet state |v0(t)⟩. We will, at this point, assume that Floquet heating is sup-pressed by sufficiently strong system-bath coupling, as discussed above. In that case, we can set up an ap-proximate Floquet-Born-Markov master equation like Eq. (6), but with respect to the approximate Floquet states |vκ(t)⟩. We, moreover, assume the effective en-ergy gap Egap that separates the effective ground state from excited states of ˆHeff to be large compared to the system-bath coupling, so that any coherences between the effective ground state and excited states decay in the long-time limit [51] and the system approaches a state 
+
+ρ = P0|v0⟩⟨ v0| + P 
+
+> κ,λ ̸=0
+
+ηκ,λ |vκ⟩⟨ vλ|, with probability 
+
+P0 of finding the system in the effective ground state. Since we are interested in the regime 1 − P0 ≪ 1 and do not require a precise description of the subspace of excited states, we, moreover, approximate ηκ,λ ≈ δκλ Pκ.In the large-system limit, where excited states approach a continuum, this approximation does not provide an ac-curate description of effective excited states, but it still serves us to estimate P0.An equation for the probabilities Pκ is obtained from a secular approximation with respect to all approximate Floquet states |vκ⟩, leading to the rate equation [50, 51] ˙Pκ = X
+
+> λ
+
+(Rκλ Pλ − Rλκ Pκ) = 0 , (7) with rates Rκλ = P 
+
+> ∆m
+
+R∆mκλ , where R∆mκλ =P 
+
+> l
+
+2πg (Eκ − Eλ + ∆ mℏΩ) |Sκλ  
+
+> (l)
+
+(∆ m)|2 is the rate for a transition with energy change Eλ − Eκ − ∆mℏΩ in the bath. Here g(E) = J(E)n(E) depends on both the bath’s spectral density J(E) ∝ γ and the temperature-dependent distribution function n(E) = 1/(e βE − 1). Moreover, the matrix elements Sκλ  
+
+> (l)
+
+(∆ m) are defined as before, but now with respect to the approximate Floquet states |vκ(t)⟩. They become small in case the effective energy differences |Eκ − Eλ| become large compared to typical (effective) energy change, ω ˆS , that can be accom-plished by applying any of the bath coupling operators ˆSl to a state. Since all terms in Eq. (7) are proportional to the system-bath coupling strength γ, its solutions are independent of it. Note that Eq. (7) is used only to esti-mate P0 in the regime where it is large. An intuitive picture for the processes with ∆ m̸ = 0 is to associate them with rates between states |vκm⟩⟩ of different “photon” number m in Floquet space. Namely, postulating the rate equation ˙P mκ = X
+
+> λ∆m
+
+[R∆mκλ P m−∆mλ − R∆mλκ P mκ ] (8) for the corresponding probabilities P mκ ∈ [0 , 1]. We re-cover equation (7) by setting 
+
+Pκ ≡ X
+
+> m
+
+P mκ . (9) This picture resembles the Floquet picture of the two-time formalism, where the coherent evolution of a sys-tem is obtained from the dynamics generated by the quasienergy operator ˆQ in Floquet space [63]. For each state κ the initial distribution of Pκ over all the “photon” numbers m can be chosen at will. For instance, one can assume the system in the zero-photon sector ( P m̸=0  
+
+> κ
+
+= 0 for t = 0) or, alternatively, distribute the probabilities equally over all “photon” numbers [ P mκ = Pκ/(2 M + 1) with m = −M, −M + 1 , . . . M and M → ∞ ]. The advantage of thinking in terms of the “photon”-number resolved rate equation (8) is that it resembles an equilibrium rate equation for states ( κ, m ) with en-ergy Eκm = Eκ + mℏΩ. Namely, for a transition (κ, m ) → (κ′, m ′) the associated energy change in the bath is given by ∆ Ebath = −(Eκ′m′ − Eκm ) and, as a consequence, the forward and backward rate obey the condition Rm−m′ 
+
+> κκ ′
+
+/R m′−mκ′κ = exp[ −β(Eκm −Eκ′m′ )]. This allows one to use (part of) our intuition for equilibrium systems. Note, however, that despite these similarities no Gibbs state is assumed for the P mκ since the energies 
+
+Eκm are not bounded from below.  
+
+> VII. BATH ENGINEERING
+
+Let us now formulate a general strategy for cooling a driven system into the gapped ground state of ˆHeff .On the basis of the rate equation, we need to sup-press transition rates Rκ0 = P 
+
+> ∆m
+
+R∆mκ0 from the ef-fective ground state to excited states relative to rates 
+
+R0κ = P 
+
+> ∆m
+
+R∆m 
+
+> 0κ
+
+for processes populating the ground state. Apart from fine tuning, there are three generic possibilities for suppressing a rate R∆mκλ : (i) The bath energy change is large compared to the bath’s spectral width, |Eλ − Eκ − ∆mℏΩ| ≫ Ecut . (ii) The bath en-ergy change is negative and large compared to the bath temperature 0 < −(Eλ − Eκ − ∆mℏΩ) ≫ β−1. (iii) The transition matrix elements in the system are suppressed, which is the case for |Eκ −Eλ| ≫ ω ˆS (as discussed above). In order to achieve a large ground-state probability 
+
+P0, we first require the bath temperature to be small compared to the energy gap, β−1 ≪ Egap . In this way all transitions from the ground state to excited states with ∆ m ≥ 0 are thermally suppressed by condition (ii). We must also suppress transitions out of the ground state to excited states at lower photon number, i.e. with 6∆m < 0. In the considered high-frequency regime, we can assume ℏΩ ≫ ω ˆS . By requiring the frequency to be large also compared to the spectral width of the bath, 
+
+ℏΩ ≫ Ecut , transitions to states at lower photon num-ber are either suppressed by (i) or (iii): Namely, tran-sitions to highly excited states with effective energies 
+
+Eκ − E0 ∼ ℏΩ, which are not necessarily suppressed by 
+
+Ecut via (i), are suppressed by small transition matrix el-ements via (iii). Transitions to lower lying excited states with Eκ − E0 ≲ ω ˆS and matrix elements that are not suppressed via (iii) are, in turn, suppressed by the bath cutoff via (i). At the same time, in order not to suppress transitions into the ground state via (i) and (iii), we also require Egap ≲ ω ˆS , E cut . All in all, these conditions stem-ming from the rate equation can be summarized as 
+
+β−1 ≪ Egap ≲ ω ˆS , E cut ≪ ℏΩ. (10) Additionally to these conditions, we also have to re-quire the system-bath-coupling strength γ to obey 
+
+γheating ≪ γ ≪ γgap , (11) where for γ = γheating and γ = γgap the system-bath cou-pling would be comparable to the energy scale of Floquet heating and the energy gap, respectively. As discussed above, this ensures, that the system-bath coupling sup-presses Floquet heating, while not hybridizing the effec-tive ground state with excited states. It is important to note that conditions (10) and (11) are much less restrictive than those required for preparing an approximate Gibbs state of ˆHeff [49, 50]. First, the system bath coupling is only needed to be small com-pared to the energy gap Egap , but not with respect to the level splittings between excited states of ˆHeff , which become exponentially small with increasing system size. Second, a thermal state would require that zero-“photon” transitions out of the ground state [which for the inter-esting regime of small temperatures β−1 ≪ Egap are sup-pressed exponentially via (ii)] are dominant compared to non-zero-“photon” transitions [which are suppressed by either (i), (ii) or (iii)], R0 
+
+> κ0
+
+≫ P 
+
+> ∆m̸=0
+
+R∆mκ0 . 
+
+> VIII. APPLICATION TO DRIVEN BOSE-HUBBARD CHAIN
+
+The proposed strategy summarized in Eqs. (10) and (11) does not rely on the details of the system. Let us now test it for the concrete example of a driven open Bose-Hubbard chain. The effective Hamiltonian is gapped in the Mott regime, for U/J eff > u c, with an energy gap 
+
+Egap ≤ U associated with the cost of creating a particle-hole excitation. Here also ω ˆS is on the order of U , since the dominant energy increase associated with applying the coupling operator ˆS is the creation of particle-hole excitations. Thus, together with the already assumed high-frequency condition for Floquet engineering, ℏΩ ≫
+
+U, J , we have already Egap ≲ ω ˆS ≪ ℏΩ and it remains                 
+
+> FIG. 2. Steady-state ground-state probability P0=⟨v0|ˆρ|v0⟩
+> for 4 particles on 4 sites, with ℏΩ=25 J,β−1=0.3J,
+> Ecut = max( U, J ), calculated using (a) the Pauli equation (7), (c,d) the Redfield equation (6) at a coupling strength
+> γ(c)= 0 .0001, γ(d)= 0 .04. The red and green lines mark the parameter regime shown in Fig. 3 for other intermediate
+> γ.The black line indicates the superfluid to Mott-insulator transition. (b) shows the ground state population in the Mott regime obtained by the two-rate model. The white areas in (d) mark regions where the Redfield equation gives non-positive density operators.
+
+to choose Ecut ≳ Egap and β−1 ≪ Egap as well as the appropriate coupling strength γ. Below we choose ℏΩ = 25 J, β−1 = 0 .3J, and Ecut = U (except for U < J , where we set Ecut = J). In Fig. 2 we plot the steady-state ground-state proba-bility P0 = ⟨v0|ˆρ|v0⟩ for a small system of four particles on four sites as a function of the dimensionless strengths of interactions, U/J , and driving, α. Above the black line, the ground state of Heff is a Mott insulator (in the thermodynamic limit). Panel (a) is obtained from the simple Pauli rate equation (7) for the approximate Flo-quet states, whereas (b,d) result from the full Redfield equation (6) for two different coupling strength, γ = 10 −4
+
+and γ = 4 · 10 −2, respectively. While the rate equation shows very good agreement with the solutions of the full equation for most of the parameters, one can note pro-nounced differences for the weaker coupling γ in the form of horizontal lines of strongly reduced ground state pop-ulation in panel (c). These lines are the result of Flo-quet heating which is not captured by the rate equation. However, we can see that for the stronger coupling γ,Floquet heating is indeed supppressed by the coupling to the bath, as these lines are hardly visible anymore in panel (d). This confirms that the strategy proposed 7         
+
+> FIG. 3. Colored lines: Same as Fig. 2(c,d), but at fixed driving strength α= 0 .5 and different couplings γ.Black line: Part of the quasienergy spectrum close to the ground state energy of the effective Hamiltonian (right axis). At the avoided crossings, the weakly coupled system shows dips in the ground state occupation, indicating Floquet heating. For stronger dissipation these dips are reduced and also displaced by the Lamb shift (the latter is exemplified by the colored shading of the same resonance at different γ).
+
+above indeed works. (Note that for a system of N parti-cles, the fidelity per particle P 1/N  
+
+> 0
+
+is, roughly, a system size independent measure for the agreement with the tar-get state.) For a closer look at the suppression of Floquet heating, we plot P0 obtained from the full Redfield equation (6) versus U/J for α = 0 .5 and different coupling strengths 
+
+γ (colored lines in Fig. 3). These correspond to cuts through Figs. 2(c,d), marked by vertical lines of the same respective color. For the weakest coupling, γ = 10 −4,we recognize the aformentioned Floquet heating as pro-nounced dips. They occur where the quasienergy corre-sponding to the ground state of ˆHeff (black line in Fig. 3) undergoes strong avoided crossings with excited states of lower “photon” number (see also Fig. 4 in an Appendix A for a plot of the full spectrum). Increasing the coupling strength, these dips are markedly reduced, corresponding to the suppression of Floquet heating. Note that they are also shifted due to the Lamb shift, as exemplarily indi-cated for one resonance by the shaded color. If Floquet heating is suppressed by a sufficiently large 
+
+γ, we have seen that the ground-state population is well described by the rate equation (7). Having a closer look at the rate equation (see Appendix B below for details), one can see that the dominant transitions into the ˆHeff 
+
+ground state are zero -“photon” processes from states with a single PHE [labeled ( a) in Fig. 1], whereas the dominant processes out of the ground state are single -“photon” (∆ m = −1) transitions to states with a single PHE [labeled ( b) in Fig. 1]. The results from this mini-mal two-rate model, plotted in Fig. 2(b), agree rather well with those for the full rate equation shown in Fig. 2(a). The occupation P0 is, thus, mainly determined by the competition of a zero- and a single-“photon” process. As a consequence, the population of the eigenstates of ˆHeff do not correspond to an approximate Gibbs state at the inverse bath temperature β. Moreover, as a result of the continuous ∆ m = −1 processes, maintaining the steady state causes a steady energy flow from the drive, through the system, into the bath, which we can interpret as Floquet heating of the bath. This emphasizes the non-equilibrium nature of the process used to approximately stabilize the effective ground state.  
+
+> IX. CONCLUSION AND OUTLOOK
+
+We have proposed a general strategy for the dissipa-tive preparation of gapped ground states of Floquet en-gineered approximate effective Hamiltonians of interact-ing Floquet systems, as they result from low-order high-frequency expansions. This is achieved by the coupling to a low-temperature bath of narrow spectral width and intermediate system-bath coupling strength, which cor-responds to a realistic scenario for experimental realiza-tions. Such an environment suppresses coherent reso-nant excitations out of the effective ground state (Flo-quet heating) and, at the same time, induces incoherent transitions that strongly favor the population of the effec-tive ground state. We test this strategy for the example of a Bose-Hubbard chain. For that purpose, we compute the steady state of the full Floquet-Born-Markov master equation and compare it to simplified rate equations. Our strategy can also be used for the preparation of other, more interesting gapped ground states of ef-fective Floquet engineered Hamlitonians, such as corre-lated topologically ordered fractional Chern insulators. It should, moreover, not rely on small system sizes and, thus, work also for large systems. This provides an advantage compared to adiabiatic preparation schemes, which not only suffer from Floquet heating, but also from excitations that are created when passing a quan-tum phase transition in the ground state of the effective Hamiltonian (as well as when passing Floquet resonances [18]). However, the numerical simulation of such larger systems using the full Born-Markov master equation (6), as it is required to describe the suppression of Floquet heating, is extremely challenging. Already deriving this equation requires computing the full quasienergy spec-trum and, since it is not of Lindblad form, it cannot simply be solved by standard quantum trajectory ap-proaches. This challenges already the classical simulation of minimal realizations of few-particle fractional Chern insulators. However, our approach can readily be tested and used experimentally in quantum simulators. For ex-ample in a system of ultracold atoms, where a thermal bath of narrow spectral width can be realized by a sec-ond atomic species in a narrow band of an optical lattice potential. 8
+
+ACKNOWLEDGMENTS 
+
+We thank Alexander Schnell for insightful discussions. This work was supported by the Deutsche Forschungs-gemeinschaft (DFG, German Research Foundation) via the Research Unit FOR 5688 (Project No. 521530974) and by Berlin Quantum, an initiative endowed by the Innovation Promotion Fund of the city of Berlin. 
+
+[1] N. Goldman and J. Dalibard, Periodically driven quan-tum systems: Effective hamiltonians and engineered gauge fields, Phys. Rev. X 4, 031027 (2014). [2] M. Bukov, L. D’Alessio, and A. Polkovnikov, Universal high-frequency behavior of periodically driven systems: From dynamical stabilization to Floquet engineering, Ad-vances in Physics 64 , 139 (2015). [3] A. Eckardt and E. Anisimovas, High-frequency approx-imation for periodically driven quantum systems from a Floquet-space perspective, New J. Phys. 17 , 093039 (2015). [4] A. Eckardt, Colloquium: Atomic quantum gases in pe-riodically driven optical lattices, Rev. Mod. Phys. 89 ,011004 (2017). [5] T. Oka and S. Kitamura, Floquet Engineering of Quan-tum Materials, Annual Review of Condensed Matter Physics 10 , 387 (2019). [6] C. Weitenberg and J. Simonet, Tailoring quantum gases by Floquet engineering, Nature Physics 17 , 1342 (2021). [7] T. Mikami, S. Kitamura, K. Yasuda, N. Tsuji, T. Oka, and H. Aoki, Brillouin-wigner theory for high-frequency expansion in periodically driven systems: Application to floquet topological insulators, Phys. Rev. B 93 , 144307 (2016). [8] S. A. Weidinger and M. Knap, Floquet prethermalization and regimes of heating in a periodically driven, interact-ing quantum system, Scientific Reports 7, 45382 (2017). [9] M. Reitter, J. N¨ ager, K. Wintersperger, C. Str¨ ater, I. Bloch, A. Eckardt, and U. Schneider, Interaction de-pendent heating and atom loss in a periodically driven optical lattice, Phys. Rev. Lett. 119 , 200402 (2017). [10] K. Singh, C. J. Fujiwara, Z. A. Geiger, E. Q. Sim-mons, M. Lipatov, A. Cao, P. Dotti, S. V. Rajagopal, R. Senaratne, T. Shimasaki, M. Heyl, A. Eckardt, and D. M. Weld, Quantifying and controlling prethermal non-ergodicity in interacting floquet matter, Phys. Rev. X 9,041021 (2019). [11] K. Wintersperger, M. Bukov, J. N¨ ager, S. Lellouch, E. Demler, U. Schneider, I. Bloch, N. Goldman, and M. Aidelsburger, Parametric instabilities of interacting bosons in periodically driven 1d optical lattices, Phys. Rev. X 10 , 011030 (2020). [12] T. N. Ikeda and A. Polkovnikov, Fermi’s golden rule for heating in strongly driven Floquet systems, Phys. Rev. B 104 , 134308 (2021). [13] A. Rakcheev and A. M. L¨ auchli, Estimating heating times in periodically driven quantum many-body sys-tems via avoided crossing spectroscopy, Phys. Rev. Res. 
+
+4, 043174 (2022). [14] D. A. Abanin, W. De Roeck, and F. Huveneers, Expo-nentially Slow Heating in Periodically Driven Many-Body Systems, Phys. Rev. Lett. 115 , 256803 (2015). [15] M. Weinberg, C. ¨Olschl¨ ager, C. Str¨ ater, S. Prelle, A. Eckardt, K. Sengstock, and J. Simonet, Multiphoton interband excitations of quantum gases in driven optical lattices, Phys. Rev. A 92 , 043621 (2015). [16] C. Str¨ ater and A. Eckardt, Interband Heating Pro-cesses in a Periodically Driven Optical Lattice, Zeitschrift Naturforschung Teil A 71 , 909 (2016). [17] G. Sun and A. Eckardt, Optimal frequency window for Floquet engineering in optical lattices, Phys. Rev. Res. 
+
+2, 013241 (2020). [18] A. Eckardt and M. Holthaus, Avoided-Level-Crossing Spectroscopy with Dressed Matter Waves, Phys. Rev. Lett. 101 , 245302 (2008). [19] K. Viebahn, J. Minguzzi, K. Sandholzer, A.-S. Walter, M. Sajnani, F. G¨ org, and T. Esslinger, Suppressing dis-sipation in a floquet-hubbard system, Phys. Rev. X 11 ,011057 (2021). [20] T. Shimasaki, M. Prichard, H. E. Kondakci, J. E. Pagett, Y. Bai, P. Dotti, A. Cao, A. R. Dardia, T.-C. Lu, T. Grover, and D. M. Weld, Anomalous localization in a kicked quasicrystal, Nature Physics 20 , 409 (2024). [21] A. Lazarides, A. Das, and R. Moessner, Equilibrium states of generic quantum systems subject to periodic driving, Phys. Rev. E 90 , 012110 (2014). [22] L. D’Alessio and M. Rigol, Long-time behavior of isolated periodically driven interacting lattice systems, Phys. Rev. X 4, 041048 (2014). [23] A. Eckardt, C. Weiss, and M. Holthaus, Superfluid-Insulator Transition in a Periodically Driven Optical Lat-tice, Phys. Rev. Lett. 95 , 260404 (2005). [24] A. Zenesini, H. Lignier, D. Ciampini, O. Morsch, and E. Arimondo, Coherent Control of Dressed Matter Waves, Phys. Rev. Lett. 102 , 100403 (2009). [25] A. Eckardt, P. Hauke, P. Soltan-Panahi, C. Becker, K. Sengstock, and M. Lewenstein, Frustrated quantum antiferromagnetism with ultracold bosons in a triangular lattice, EPL (Europhysics Letters) 89 , 10010 (2010). [26] J. Struck, C. ¨Olschl¨ ager, R. Le Targat, P. Soltan-Panahi, A. Eckardt, M. Lewenstein, P. Windpassinger, and K. Sengstock, Quantum Simulation of Frustrated Classical Magnetism in Triangular Optical Lattices, Sci-ence 333 , 996 (2011). [27] M. Aidelsburger, M. Atala, S. Nascimb` ene, S. Trotzky, Y.-A. Chen, and I. Bloch, Experimental Realization of Strong Effective Magnetic Fields in an Optical Lattice, Phys. Rev. Lett. 107 , 255301 (2011). [28] M. Aidelsburger, M. Atala, M. Lohse, J. T. Barreiro, B. Paredes, and I. Bloch, Realization of the Hofstadter Hamiltonian with Ultracold Atoms in Optical Lattices, Phys. Rev. Lett. 111 , 185301 (2013). [29] G. Jotzu, M. Messer, R. Desbuquois, M. Lebrat, T. Uehlinger, D. Greif, and T. Esslinger, Experimental realization of the topological Haldane model with ultra-cold fermions, Nature 515 , 237 (2014). [30] M. Aidelsburger, M. Lohse, C. Schweizer, M. Atala, J. T. Barreiro, S. Nascimb` ene, N. R. Cooper, I. Bloch, and N. Goldman, Measuring the Chern number of Hofstadter bands with ultracold bosonic atoms, Nature Phys 11 , 162 9
+
+(2015). [31] M. E. Tai, A. Lukin, M. Rispoli, R. Schittko, T. Menke, Dan Borgnia, P. M. Preiss, F. Grusdt, A. M. Kaufman, and M. Greiner, Microscopy of the interacting Harper– Hofstadter model in the two-body limit, Nature 546 , 519 (2017). [32] M. Tarnowski, F. N. ¨Unal, N. Fl¨ aschner, B. S. Rem, A. Eckardt, K. Sengstock, and C. Weitenberg, Measur-ing topology by dynamics: Chern number from linking number (2017), arXiv:1709.01046. [33] P. Dotti, Y. Bai, T. Shimasaki, A. R. Dardia, and D. M. Weld, Measuring a localization phase diagram controlled by the interplay of disorder and driving, Phys. Rev. Res. 
+
+7, L022026 (2025). [34] J. Kwan, P. Segura, Y. Li, S. Kim, A. V. Gorshkov, A. Eckardt, B. Bakkali-Hassani, and M. Greiner, Real-ization of 1D Anyons with Arbitrary Statistical Phase (2023), arXiv:2306.01737. [35] B. Bakkali-Hassani, J. Kwan, P. Segura, Y. Li, I. Tesfaye, G. Valent´ ı-Rojas, A. Eckardt, and M. Greiner, Reveal-ing Pseudo-Fermionization and Chiral Binding of One-Dimensional Anyons using Adiabatic State Preparation (2026), arXiv:2602.20421. [36] A. G. Grushin, A. G´ omez-Le´ on, and T. Neupert, Floquet fractional chern insulators, Phys. Rev. Lett. 112 , 156801 (2014). [37] J. L´ eonard, S. Kim, J. Kwan, P. Segura, F. Grusdt, C. Repellin, N. Goldman, and M. Greiner, Realization of a fractional quantum Hall state with ultracold atoms, Nature 619 , 495 (2023). [38] C. Wang, F.-M. Liu, M.-C. Chen, H. Chen, X.-H. Zhao, C. Ying, Z.-X. Shang, J.-W. Wang, Y.-H. Huo, C.-Z. Peng, X. Zhu, C.-Y. Lu, and J.-W. Pan, Realization of fractional quantum Hall state with interacting photons, Science 384 , 579 (2024). [39] A. Guthmann, F. Lang, L. M. Kienesberger, S. Barbosa, and A. Widera, Floquet-Engineering of Feshbach Reso-nances in Ultracold Gases (2025), arXiv:2503.05454. [40] H.-P. Breuer, W. Huber, and F. Petruccione, Quasista-tionary distributions of dissipative nonlinear quantum os-cillators in strong periodic driving fields, Phys. Rev. E 
+
+61 , 4883 (2000). [41] R. Ketzmerick and W. Wustmann, Statistical mechanics of floquet systems with regular and chaotic states, Phys. Rev. E 82 , 021114 (2010). [42] D. Vorberg, W. Wustmann, R. Ketzmerick, and A. Eckardt, Generalized Bose-Einstein Condensation into Multiple States in Driven-Dissipative Systems, Phys. Rev. Lett. 111 , 240405 (2013). [43] A. Schnell, L.-N. Wu, A. Widera, and A. Eckardt, Floquet-heating-induced Bose condensation in a scarlike mode of an open driven optical-lattice system, Phys. Rev. A 107 , L021301 (2023). [44] O. Matsyshyn, J. C. W. Song, I. S. Villadiego, and L.-k. Shi, Fermi-dirac staircase occupation of floquet bands and current rectification inside the optical gap of metals: An exact approach, Phys. Rev. B 107 , 195135 (2023). [45] T. Iadecola, T. Neupert, and C. Chamon, Occupation of topological Floquet bands in open systems, Phys. Rev. B 
+
+91 , 235133 (2015). [46] K. I. Seetharam, C.-E. Bardyn, N. H. Lindner, M. S. Rudner, and G. Refael, Controlled Population of Floquet-Bloch States via Coupling to Bose and Fermi Baths, Phys. Rev. X 5, 041050 (2015). [47] T. Qin, A. Schnell, K. Sengstock, C. Weitenberg, A. Eckardt, and W. Hofstetter, Charge density wave and charge pump of interacting fermions in circularly shaken hexagonal optical lattices, Phys. Rev. A 98 , 033601 (2018). [48] A. Schnell, C. Weitenberg, and A. Eckardt, Dissipative preparation of a Floquet topological insulator in an op-tical lattice via bath engineering, SciPost Phys. 17 , 052 (2024). [49] T. Shirai, J. Thingna, T. Mori, S. Denisov, P. H¨ anggi, and S. Miyashita, Effective Floquet–Gibbs states for dis-sipative quantum systems, New J. Phys. 18 , 053008 (2016). [50] T. Mori, Floquet States in Open Quantum Systems, An-nual Review of Condensed Matter Physics 14 , 35 (2023). [51] D. W. Hone, R. Ketzmerick, and W. Kohn, Statistical mechanics of Floquet systems: The pervasive problem of near degeneracies, Phys. Rev. E 79 , 051129 (2009). [52] J. H. Shirley, Solution of the Schr¨ odinger Equation with a Hamiltonian Periodic in Time, Phys. Rev. 138 , B979 (1965). [53] H. Sambe, Steady States and Quasienergies of aQuantum-Mechanical System in an Oscillating Field, Phys. Rev. A 7, 2203 (1973). [54] Here the approximation of ˆHF corresponds to a lower order than that for ˆUF . This is fine. As long as further corrections to ˆHF remain small and do not describe qual-itatively new effects, we can approximately neglect them. [55] The mitigation of Floquet heating by increasing Ω is lim-ited, as for too large Ω new heating channels open, given by transitions to highly excited orbitals frozen out in the undriven system [17]. [56] H. Lignier, C. Sias, D. Ciampini, Y. Singh, A. Zen-esini, O. Morsch, and E. Arimondo, Dynamical Control of Matter-Wave Tunneling in Periodic Potentials, Phys. Rev. Lett. 99 , 220403 (2007). [57] S. Ejima, H. Fehske, and F. Gebhard, Dynamic properties of the one-dimensional Bose-Hubbard model, EPL 93 ,30002 (2011). [58] N. Elstner and H. Monien, Dynamics and thermodynam-ics of the Bose-Hubbard model, Phys. Rev. B 59 , 12184 (1999). [59] R. Bl¨ umel, A. Buchleitner, R. Graham, L. Sirko, U. Smi-lansky, and H. Walther, Dynamical localization in the microwave interaction of Rydberg atoms: The influence of noise, Phys. Rev. A 44 , 4521 (1991). [60] S. Kohler, T. Dittrich, and P. H¨ anggi, Floquet-Markovian description of the parametrically driven, dissipative har-monic quantum oscillator, Phys. Rev. E 55 , 300 (1997). [61] M. Grifoni and P. H¨ anggi, Driven quantum tunneling, Physics Reports 304 , 229 (1998). [62] H.-P. Breuer and F. Petruccione, The Theory of Open Quantum Systems (Oxford University Press, 2002). [63] H. Breuer and M. Holthaus, Quantum phases and landau-zener transitions in oscillating fields, Physics Let-ters A 140 , 507 (1989). 
+
+Appendix A: Full spectrum 
+
+Figure 4 shows the ground state population P0 for 
+
+γ = 10 −4 and α = 0 .5 together with the full quasienergy spectrum of the driven Bose-Hubbard chain (see Fig. 4). 10 
+
+Appendix B: Two-rate model 
+
+In the Mott regime, U/J eff > uc, the rates R∆mκλ 
+
+decay exponentially with the number of (“photon”-assisted) tunneling processes required to connect two states. Therefore, the dynamics involving the effective ground state are dominated by two main transitions, la-beled ( a) and ( b) in Fig. 1. The a-process connects the ground state to states with a single PHE via a single “photon”-free (∆ m = 0) tunneling event. The b-process connects the ground state to the first excited band in the photon subspace below (∆ m = −1) via a “photon”-assisted hop. At low temperatures, β−1 ≪ Egap , a is unidirectional toward the ground state and constitutes the dominant cooling channel, and b is unidirectional to-ward the excited state and represents the main heating channel. As all the different photon subspaces are equiv-alent, the a and b transitions form a closed loop. In the following we estimate the approximate coupling matrix elements Sκλ  
+
+> (l)
+
+(μ) for these two processes. Deep in the Mott regime at unit filling, we can treat the tunnel kinetics as a perturbation, so that in the leading zeroth order the ground state of ˆHeff is a product state with one particle per site, 
+
+|˜vG⟩(0) = |1, 1, . . . , 1⟩. (B1) Zeroth order (unperturbed) excited states are given by states with PHE excitations on top of this state. States with a single PHE, 
+
+|˜vl1,l 2 ⟩(0) = 1
+
+√2 a† 
+
+> l1
+
+al2 |˜vG⟩(0) , (B2) with particle and hole sitting next to each other, i.e. 
+
+|l1 − l2| = 1, are coupled to the ground state by a single tunneling process. The coupling to other unperturbed states is of higher order. The above mentioned processes (a) and ( b) correspond to such leading-order transitions to states with a single PHE. In order to compute the transition rates 
+
+R∆mκλ = X
+
+> l
+
+2πg (Eκ − Eλ + ∆ mℏΩ) |Sκλ  
+
+> (l)
+
+(∆ m)|2 (B3) for the processes ( a) and ( b), with g(E) = J(E)n(E), with thermal occupation function n(E) = 1 /(e βE − 1) and spectral density J(E) = γE e−| E|/E cut of the bath, we have to evaluate the matrix elements 
+
+Sκλ  
+
+> (l)
+
+(μ) = 1
+
+T
+
+Z T
+
+> 0
+
+⟨vκ(t)|ˆnl|vλ(t)⟩e−iμΩtdt (B4) for the approximate Floquet states |vG(t)⟩(ν) =ˆU eff  
+
+> F
+
+(t)|˜vG⟩(ν) and |vl1,l 2 (t)⟩(ν) = ˆU eff  
+
+> F
+
+(t)|˜vl1,l 2 ⟩(ν).At large driving frequencies, ℏΩ ≫ ˆHμ we can expand the exponential in the effective micromotion operator (3) to obtain ˆU eff  
+
+> F
+
+(t) ≃ 1 − X
+
+> μ̸=0
+
+eiμΩt
+
+μℏΩ ˆHμ, (B5) where ˆHμ = − P 
+
+> ⟨l′l⟩
+
+jsμ ˆb† 
+
+> l′
+
+ˆbl, s = +1 ( −1) for tunneling to the right (left) and jμ = JJμ(α). This yields the coupling matrix elements of the on-site density operator between the approximate Floquet modes 
+
+> (0)
+
+⟨vl1,l 2 (t)|ˆni|vG(t)⟩(0) ≈ √2 X
+
+> μ̸=0
+
+jsμ 
+
+μℏΩ eiμΩt(δil 1 − δil 2 ).
+
+(B6) We can read of the Fourier components and identify the full coupling matrix elements for the photon-assisted tun-neling process ( b) in Fig. 1, 
+
+S(b) ∼ √2 JJ1(α)
+
+ℏΩ . (B7) The corresponding matrix element for the zero-“photon” process ( a), vanishes between the unperturbed states. Therefore, we take into account also the lead-ing correction with respect to the tunneling term of the effective Hamiltonian Eq. (5), 
+
+|˜vl1,l 2 ⟩(1) = |˜vl1,l 2 ⟩(0) − √2 JJ0(α)
+
+U |˜vG⟩(0) , (B8) 
+
+|˜vG⟩(1) = |˜vG⟩(0) + √2 JJ0(α)
+
+U |˜vl1,l 2 ⟩(0) , (B9) where we have neglected admixtures of states to |˜vG⟩(1) ,with two PHE as well as with a single PHE excitation but 
+
+|l1 − l2| ≥ 2, as they are irrelevant for the calculation of 
+
+S(a). Taking into account only zero’th order micromotion ˆU eff  
+
+> F
+
+≃ 1, we find in leading order in J,
+
+> (1)
+
+⟨vl1,l 2 (t)|ˆni|vG(t)⟩(1) ≈ √2 JJ0(α)
+
+U (δil 1 − δil 2 ), (B10) yielding the matrix element for process ( a), 
+
+S(a) ∼ √2 JJ0(α)
+
+U . (B11) To estimate the ground-state population, we retain only the a- and b-processes with transition energies ∆Ea ∼ U and ∆ Eb ∼ ℏΩ − U . This gives the esti-mate for the cooling rate, defined as the total rate for transitions from those excited state with a single PHE with |l1 − l2| = 1 to the ground state 
+
+Rcool = g(−U ) |S(a)|2 + g(ℏΩ − U ) |S(b)|2 (B12) as well as the total heating rate for reverse transitions, 
+
+Rheat = g(U ) |S(a)|2 + g(U − ℏΩ) |S(b)|2. (B13) 11 
+
+FIG. 4. Same as Fig. 3, but P0 is only shown for γ = 10 −4 (red line) and the full quasienergy spectrum is plotted (black lines). 
+
+For the true eigenstates of ˆHeff in the first excited band of a single PHE, both particle and hole are delocalized as a result of tunneling. They can, roughly, be thought of as coherent superpositions of states |˜vl1,l 2 ⟩(0) with ar-bitrary |l1 − l2|. Their total number is Nex = L(L − 1), for a system of L sites. Assuming the fraction of states with |l1 − l2| = 1 that couple to the grounds state, the number of which is N ′ 
+
+> ex
+
+= 2( L − 1), to be roughly equal for all eigenstates of the first band, we expect rates Rcool N ′
+
+> ex
+
+/N ex and Rheat N ′
+
+> ex
+
+/N ex for each of the true eigenstates. Taking into account only processes ( a) and (b), the population of each excited state is then deter-mined by the ground state population and the ratio of heating and cooling rate, so that the factors N ′
+
+> ex
+
+/N ex 
+
+drop out, 
+
+Pex = Rheat 
+
+Rcool 
+
+P0. (B14) Together with the normalization condition P0 +Nex Pex =1, we finally obtain 
+
+P0 = 11 + Nex Rheat /R cool 
+
+. (B15) This is the result plotted in Fig. 2(b). It provides rather good qualitative agreement with the more accurate re-sults shown in the other panels.
