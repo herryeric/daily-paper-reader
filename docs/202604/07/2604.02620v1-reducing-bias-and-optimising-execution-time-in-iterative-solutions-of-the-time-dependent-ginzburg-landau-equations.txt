@@ -1,0 +1,281 @@
+Title: Reducing Bias and Optimising Execution Time in Iterative Solutions of the Time Dependent Ginzburg Landau Equations
+
+URL Source: https://arxiv.org/pdf/2604.02620v1
+
+Published Time: Mon, 06 Apr 2026 00:21:00 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Reducing Bias and Optimising Execution Time in Iterative Solutions of the Time Dependent Ginzburg Landau Equations 
+
+## E. R. Di Lascio 
+
+> erlascio@protonmail.com
+
+## April 6, 2026 
+
+Abstract 
+
+The importance of simulating pinning arrays in superconducting samples for the increase of critical currents has been increasing in the last few years. Since the Time Dependent Ginzburg Landau (TDGL) can be more accurate than alternative methodologies, the simulation procedures involving it are critical to design devices that can sustain higher critical currents and, therefore, to the field of applied superconductivity. In this article, a simple novel algorithm is presented for the reduction of bias and optimisation of execution time in iterative time dependent simulations, applied to TDGL solutions of superconducting samples. Taking a time series approach to the magnetic response of the sample, stationary solutions are found for each step in the evolution of the applied external field, leading to bias reduction and minimisation of iterations needed to be spent at each step in the applied field. The results are presented for a pure superconductor, in a framework of simulations via link variable technique, with simple Euler algorithm for the solution in time, but the implementation can be adapted easily to deal with adaptive step size solutions or semi-implicit methods, which are not exempt from the bias and iterations tradeoff. 
+
+# 1 Introduction 
+
+The field of applied superconductivity is contin-uously benefited from improvements in sample preparations that lead to greater critical currents. As examples, new thin film samples standing higher critical currents have been developed, and the ex-tension to superconducting magnets could follow. The importance of simulations to the goal of op-timisation of critical currents is ever increasing, as the pinning arrays in superconducting samples show promising results and the increasing complex-ity of the pinning centres arrangements demand multiplied efforts. This task is far more easily ac-complished computationally. In order to meet the challenge of providing ac-curate results to optimisation of critical currents, the methodology has to be chosen carefully and its limitations have to be taken into account. The effectiveness of the application of the Time Dependent Ginzburg Landau (TDGL) equations to the description of superconductors and hybrid sam-ples is well established for a long time now and still they preserve a great relevance and are vastly em-ployed in current research, with examples including comparisons of numerical with experimental results [1], [2]. The TDGL equations are coupled partial differ-ential equations for both the magnetic potential and the superconducting order parameter. They have many numerical methods of solution. This ar-ticle focuses on one method which has been widely applied, the link variable technique (see, for exam-ple, a short review in [1], the original in [3] with an-other version in [4]), but the results presented here should be applicable to other iterative methodolo-gies. It is a quite efficient and flexible methodology, al-lowing for various parameterisations. It is however relatively high in time consumption when applied 1
+
+> arXiv:2604.02620v1 [cond-mat.supr-con] 3 Apr 2026
+
+to calculation of magnetic response of a sample to a time dependent applied field, partially due to the many iterations required for the physical accuracy and numerical stabilisation at each step of the evo-lution of field or current. So it is desirable (and indeed feasible) to reduce the number of iterations spent on stabilisation. On the other hand, the lack of sufficient itera-tions until stabilisation at each step in the applied field leads to biases in the estimation of magnetic response, leading to unrealistic conclusions. The iterative numerical simulations of time de-pendent physical systems depend, among many other things, on the time interval for each itera-tion, as well as on the time scales of the internal system and of the external influence. The efficiency of a numerical algorithm to solve the differential equations lead to less time com-sumption indeed, but nonetheless, to achieve nu-merical stabilisation of the solution throughout the sample and indeed to accurately infer the magnetic response of the sample, many iterations (however efficient) will be spent. This is so because each it-eration represents a discrete step in time. Being so, and knowing that the physical nature of the sample (subject to magnetic after effect, for exam-ple) requires a finite time interval to present a sta-ble magnetic response, as well as the finite size of the sample requires that a finite amount of time be spent on the propagation of a new value of applied magnetic field from the border to the centre of the sample, no matter how efficient a numerical algo-rithm for the solution of the differential equations is, it is necessary to spend iterations in the physical and numerical stabilisation of the system, at each new value of the applied field. The original algorithm [3] proposed the use of 10 5 iterations at each step in the magnetic field evolution as a sufficient quantity for the numerical stabilisation. In order to improve accuracy in simulated results, this article studies the extent to which the choice of step can lead to bias in the results, and an al-ternative choice criterion is proposed. The main goal is to provide accurate results in the description of superconducting and hybrid samples, enabling a realistic optimisation of critical currents, thus con-cretely contributing to applied superconductivity. This article presents results of a study on the nec-essary number of iterations until stabilisation in a variety of cases, allowing the definition of some re-quirements on criteria for finishing any step and proceeding to the next in the field or current evo-lution. The consequences of applying insufficient number of iterations are explored. After obtaining these results, some possible cri-teria are discussed, leading to the choice of one which is simple and effective, resulting in a novel algorithm for identification of stabilisation. This is then applied to the study of the magnetisation of the sample and the critical current evolution as function of the magnetic field. The results are compared with some other re-sults originated from the application of the simple original criterion, demonstrating the significance of the proposed algorithm for both the efficiency of the execution and for the reliability of the results, avoiding biases in the curves of magnetisation and critical current and simultaneously optimising the number of iterations. 
+
+# 2 Specification 
+
+The TDGL equations are coupled partial differen-tial equations for both the magnetic potential and the superconducting order parameter. Here, only the solutions will be presented, as they are neces-sary for implementation of the algorithm and study of the physical properties. The relevant steps to obtaining these solutions can be found in reference [1]. The dependence in time is expanded iteratively. Using the simple Euler method for the solution in time, the iterative solutions are given by: ∆j (t + δt ) = ∆ j (t) + Fj
+
+> ∆
+
+(t)δt, (1) 
+
+U jk x (t + δt ) = U jk x (t) exp( Fjk Ux (t)δt ), (2) 
+
+U jm y (t + δt ) = U jm y (t) exp( Fjm Uy (t)δt ), (3) where: 
+
+Fj
+
+> ∆
+
+(t) ≡ 1
+
+12 
+
+[
+
+U kj x (t)∆ k (t) − 2∆ j (t) + U ij x (t)∆ i(t)
+
+a2
+
+> x
+
+++ U mj y (t)∆ m(t) − 2∆ j (t) + U gj y (t)∆ g (t)
+
+a2
+
+> y
+
+−−(1 − T )( |∆j (t)|2 − νj )∆ j (t)
+
+]
+
++ ˜fj (t), (4) 2Fjk Ux (t) ≡ − i(1 − T )Im {∆∗
+
+> k
+
+(t)U jk x (t)∆ j (t)} − −
+
+( κ2
+
+a2
+
+> y
+
+)
+
+[U kn y (t)U nm x (t)U mj y (t)U jk x (t) ··U kh y (t)U hg x (t)U gj y (t)U jk x (t) − 1] , (5) 
+
+Fjm Uy (t) ≡ − i(1 − T )Im {∆∗
+
+> m
+
+(t)U jm y (t)∆ j (t)} − −
+
+( κ2
+
+a2
+
+> x
+
+)
+
+[U ml x (t)U li y (t)U ij x (t)U jm y (t) ··U mn x (t)U nk y (t)U kj x (t)U jm y (t) − 1] . (6) The relation of these variables to the magnetic induction is given by: Bz = 1
+
+ia xay
+
+(U jk x U kn y U nm x U mj y − 1) . (7) The applied magnetic field and current are intro-duced in the sample through boundary conditions: (H2 − H1) × ˆn = K, (8) Assuming vacuum outside, B2 = H2. Therefore, the external influence of magnetic field and surface current are introduced by substituting the relevant product of link variables in the plaquette just out-side the sample with the applied field and surface current. Another boundary condition is necessary, the re-quirement of zero normal supercurrent at the bor-der, leading to: ∆j = U kj x ∆k. (9) Once more, for proper replication and details concerning the discretisation of space and deduc-tion of these results, one should consult [1]. In order to obtain the time evolution of the mag-netisation or a critical current curve as the ap-plied magnetic field is varied, it is necessary to wait some time for the new value of the field, applied as boundary conditions, to reach the whole bulk of the sample, which evidently takes longer for big-ger samples. This is a numerical restriction on the solution of the equations. A physical restriction comes from the magnetic after-effect (see, for example [5]), given cases in which the magnetisation reaction is delayed with respect to variations in the applied field. After an abrupt change in the field, such as those simulated by applying field steps, the magnetisation suffers an abrupt change as well, but continues to change slowly afterwards. Both of these restrictions on the time necessary before moving on to the next step in applied field occur simultaneously and are inseparable in the framework of the numerical simulations. So, in or-der to achieve a stabilisation within a given step, one must wait the time necessary for evanescence of both numerical conformation and magnetic after effects. The state thus reached might resemble a plateau, with a constant level of magnetisation. Or it could be something more like an oscilatory steady state. In the case of type II superconductors, for given applied field and current, there is a vortex dynam-ics within the sample. In some cases, it might be observable as an oscilatory behaviour of the mag-netisation, due to vortices moving in, out or within the sample, subjected also to surface barrier effects [6]. Therefore a proper algorithm should not be re-stricted to the reaching of constant values of the magnetisation, but instead it should be aimed at finding stationary states. So, it is henceforth de-fined the stabilisation of the step as the reaching of a stationary state (see, for example [7]) of magneti-sation for given applied magnetic field and electric current. Given that definition, unit root processes (such as a random walk) will be disconsidered for the pur-poses of the algorithm and the stationarity test will be restricted to testing the presence of a trend in data. Should any relevant unit root process ap-pear, the algorithm is easily adapted including, for example, the augmented Dickey-Fuller test ([8], see also [7]). But most likely it is that the simulation is falling outside the limits of validity of either the solution methodology (in this case the link variable tech-nique with simple Euler method) or the parame-ters of the TDGL equations. Should this not be the case, it could result possibly interesting new physics. But in any case, for finite time series sam-ples, unit root and trend stationary tests can have arbitrarily low power [9], meaning that trend sta-tionary or unit root process can become indistin-guishable on the basis of a finite sample. Therefore, the choice of trend stationary is based both on this empirical character and on a theoretical expecta-3tion of the sufficiency of local deterministic trends in the description of the evolution of the magnetic response of the material, until the reaching of sta-bilisation. The evolution in time of the magnetisation, or equivalently of the magnetic induction of the sam-ple, is better understood following an example. In figure 1, the applied magnetic field in time is shown, along with the averaged magnetic induction in the sample (whence one can calculate the magnetisa-tion). 
+
+> 0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.0x10 0
+> 5.0x10 4
+> 1.0x10 5
+> 1.5x10 5
+> 2.0x10 5
+> 2.5x10 5
+> 3.0x10 5
+> 3.5x10 5
+> 4.0x10 5
+> Magnetic Field Time
+> Magnetic Induction
+> Applied Magnetic Field
+
+Figure 1: (Colour online) Magnetic induction evo-lution with step = 2 · 10 6 iterations. The samples were taken as consisting of 95 points in each direction, with a total of 9025 points. The Ginzburg-Landau parameter was κ = 2 .0, the lat-tice parameters were taken as ax = ay = 0.5, the normalised temperature T = 0.5, magnetic field step δH = 0.05, Euler algorithm interval 
+
+δt = 0 .015. Each pair of values of applied magnetic field and current has been sustained for 2 ·10 6 iterations (the original algorithm proposed the use of 10 5 as suffi-cient), this number will be refered to as the size of the step. In the first 4 · 10 6 iterations the applied magnetic field was held equal to zero, and the ap-plied current was raised from zero to its final value (0.5) in two steps. From the figure 1 one can immediately identify one important characteristic of the algorithm: the size of the steps should be variable. This is not the same as what is usually called adaptative time step, as the time step in the solution of the differ-ential equations (Euler) is kept the same. It could also change, but that is not what is important here because it would give no information as to when could a value on the applied external influence be changed, since the response of the sample is already representative. To gain further insight, one may loosely classify the time evolution in four types. The first, observed in the interval 9 · 10 4 to 1 .2 · 10 5 (in units of t0) of figure 1, shows a steep rise in B and then a smooth steady state, with a time trend very close to zero. The second, from time 2 .7 · 10 5 to 3 .0 · 10 5, shows a similar situation, but in this case, before the steady state is reached there is a decrease in B after the first steep rise (the B values overshoot the equilib-rium value). The third, time 1 .8 · 10 5 to 2 .1 · 10 5, is related to an oscilatory steady state. After the steep rise from the former step, the step is considered stabilised when it evolves around an average value with a def-inite standard deviation, in which case it follows a stationary time series. The fourth, observed in time interval from 1 .5 · 10 5 to 1 .8 · 10 5, evolves in a non stationary way for a great part of the step, show-ing a slower but persistent rise, which eventually, with enough iterations, reaches a plateau. In this step it is necessary to wait much more iterations than the first 10 5 for the system to stabilise ( > 10 6
+
+iterations, the 3 · 10 4 units of time of the step are equivalent to 2 · 10 6 iterations). Therefore one can see that a definition of stabil-isation based on stationarity of time series is more aligned with the time evolution of the system, in a sense that the states in the final stage of evolution of magnetisation for a given value of applied field can all be accomodated within the definition. The output of an algorithm for identifying stabil-isation in the framework of simulation of magneti-sation is used to determine when to stop a given step and move on to the next, which amounts to let the simulation evolve for a number of iterations and iteratively test the stationarity hypothesis un-til it is reached. To assess the importance of accuracy in this case, it is relevant to evaluate the two possible outcomes of the choice of a wrong number of iterations. The first is that of a sub-optimal number of iter-ations. As can be observe from figure 1, for many steps, even with 10 4 iterations the stabilisation is already reached (for some it takes of the order of 10 3 iterations). So the original prescription of 10 5
+
+4iterations for each step wastes a great number of iterations, consuming a lot more time to finish sim-ulations. The second consequence is far more dangerous, as not waiting enough iterations can lead to biases in the evolution of the field. The problem arises as the last value, or even an average, is taken as representative of the step, for a given applied field and current. To illustrate with an example, figure 2 shows the extreme case of reducing the number of iterations to 10 2. As can be seen in comparison with the evolution of figure 1, the magnetic induc-tion is severely biased if one takes the last value as representative of the step. 
+
+> 0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.0x10 0
+> 2.0x10 0
+> 4.0x10 0
+> 6.0x10 0
+> 8.0x10 0
+> 1.0x10 1
+> 1.2x10 1
+> 1.4x10 1
+> 1.6x10 1
+> 1.8x10 1
+> 2.0x10 1
+> Magnetic Field Time
+> Magnetic Induction
+> Applied Magnetic Field
+
+Figure 2: (Colour online) Magnetic induction evo-lution with step = 10 2 iterations. To compare distinct possible values of the mag-netic response of the sample, independently of the number of iterations, it is more convenient to work with the magnetisation: 
+
+M = Bavg − H0
+
+4π . (10) In figure 3, the magnetisation is shown for the same sample simulated with step size from 10 2 to 2 · 10 6. Error bars are displayed only for the second half of the iterations for the case of step size 2 · 10 6.This is so because those values are the reference and the goal of the comparison is to evaluate if, substituting the reference value with those resulting of the alternative step size, the resulting values are compatible. Therefore, the variance of the other candidate simulations, with distinct step sizes, are of no relevance for this analysis. These error bars represent the confidence level of 0 .999, thus a z-score of 3.29053.        
+
+> -0.01
+> -0.008
+> -0.006
+> -0.004
+> -0.002
+> 0
+> 00.1 0.2 0.3 0.4 0.5
+> MH
+> 2.10 6
+> 10 610 5
+> 10 410 3
+> 10 2
+
+Figure 3: (Colour online) Magnetisation for dis-tinct step sizes. As can be seen, up to applied field of H = 0 .1, step sizes of the order of 10 3 are enough to avoid bias. From there up to about 0 .25, it takes roughly 10 6 iterations. Therefore, the original proposed fixed step size of 10 5 leads to significant bias in this interval. For H ≈ 0.3, steps of the order of 10 4
+
+are sufficient. Hence, both at the beginning and at the end of the time evolution of the applied field, there is a waste of iterations spent on achieving stabilisation. Taking the above analysis and the generality of the concept of stationarity of time series as the cri-terium for ending a step in applied field or cur-rent, one can proceed to the formulation of the al-gorithm. From a minimum number of iterations one can calculate a moving average and the corresponding variance. Also, identifying a local trend in data can give information related to the stage of evolution at each step. The variable step size until stabilisation is also addresed by the process of hypothesis testing of a local trend, as the step is ended as new values are reached that fall into the confidence interval of the given moving average. The algorithm is quite simple. In broad lines it is: at each new step in magnetic field or current, acumulate enough points in the time series, calcu-late the moving average of the average magnetic induction (or the magnetisation) until there is no significant trend in data, then move on to the next 5step. That all is constrained to satisfy the two con-ditions: avoid bias and minimise the number of iterations necessary to stabilisation. In that, the details become important. The figure 4 shows the details from figure 1, for H = 0 .35, whence one can observe that even with a moving average including 10 3 points, due to the critical points in the succes-sive peaks and to the multiple frequencies present in the oscillatory behaviour, a zero slope line can be found that is far from stabilisation, as the av-erages in successive samples of thousands of points can be of distinct levels, and smaller samples can easily lead to statistically significant differences in averages for adjacent time intervals.       
+
+> 0.338
+> 0.339
+> 0.340
+> 0.341
+> 0.342
+> 0.343
+> 0.344
+> 0.345
+> 0.346
+> 0.347
+> 270000 275000 280000 285000 290000 295000 300000
+> Bavg
+> t/t 0
+> Bavg
+
+Figure 4: (Colour online) Detailed view of the step 
+
+H = 0 .35 of the field of figure 1. To overcome this, for each step, there is a first trend calculated and when this reaches either a zero slope or a predetermined limit of iterations, another accumulation starts, to allow the calculation of a second moving average, to be considered represen-tative of the steady state. Finding the first zero slope trend line helps to minimise the number of iterations, because if the first peak has been found faster, the algorithm will use less iterations to cal-culate the second moving average. If no peak has been found before the limit is reached, the processes within the sample are more complex and demand more iterations to be properly simulated (and ef-fectively more time to reach stabilisation). The significance level is considered the same in calculating both slopes and testing H0 : β = 0, where Bavg = α + βt . As empirically observed, the algorithm is, in effect, little sensitive to variations in this value, but it should be high in order to be more conservative in finding the zero trend line. This is so because the null hypothesis is of a null coefficient, so the smaller the significance level, the harder it is to reject H0, in which case we accept more easily that β = 0 and so the false negative rate tends to increase. The significance level is studied further on, but first it is necessary to introduce the algorithm in full details, showing all of its parameters and their significance, allowing for replication and eventually further discussions with other groups or even new improvements. Given a initial state (usually taken as a zero field cooled state) with zero applied field and current, apply the first step of field or current, depending on the simulation procedure desired, and start iterat-ing the solutions to the TDGL equations following equations 1 to 3, accumulating every point up to a lower limit L1.It is instructive to try different possible values. Along the development of this study, the value of 
+
+L1 = 10 4 has been found to be enough for the first moving average of the step. This value was ob-tained by calibration using many simulations, but it could be subjected to more calibrations still, should the need arise. Therefore, the justification for this particular value is taken a posteriori from the com-parison with the resulting stabilisation values, but it can be considered relatively conservative. The goal with this first sample of size L1 is, besides increasing efficiency by removing from the analysis an initial steep increase, the minimisation of type II error, by avoiding the initial peak to which the curves are typically subjected after the steep increse that follows a change in the step. This mitigates the risk of not rejecting the null hypoth-esis in a part of the sample which tends to decrease and then to enter an oscillatory state. Depending on its size, in this region the moving window passes through points which give a zero slope line, simply because of the critical point present in the peak. In passing the first peak and reaching a typically oscil-latory regime, the algorithm also becomes more ef-ficient by cutting the initial phase of growth, which is evidently far from stabilisation. After this limit has been reached, start calculat-ing the trend in time, that is, fit a function of the 6form: 
+
+Bavg = α + βt (11) to the data. This should be repeated as every new point is obtained, for the time sample of fixed size 
+
+L1. As each new β is calculated, it should be tested for significance. When deemed insignificant, or in the case of reaching an upper limit of total num-ber of iterations for the first trend test in that step (not the value used in the moving average) L2 with all coefficients calculated leading to rejection of H0,the accumulation of points should start again, for the second moving average of the step. It could be taken L2 = 10 5, the value used in the present analysis, but it is also a little conservative, mean-ing spending possibly a little more iterations than strictly necessary to achieve stabilisation (but mit-igating the risk of bias in a higher false negative rate). This accumulation should be carried on until the time sample size (number of iterations available to calculate the trend) after the first part ended (the first iterations were discarded, for they probably carry a strong initial trend), is equal either to the number of the first iteration for which the trend was first compatible with zero or to the limit L2.That will be the sample size for calculation of the trend test that is representative of the stabilisation. Once this accumulation reaches the defined size, the window moves including every new point gen-erated and excluding the most ancient of the time sample, again testing the significance of the time trend. The step in field or current ends when this trend is first found insignificant, or a second up-per limit is reached (based on empirical studies, 
+
+L3 = 2 · 10 6 was used, but this is conservative and could be reduced depeding on the simulation). As the step is ended, the final value is taken to be representative of the average magnetic induction in the sample. This is better than to use the mov-ing average as a representative value, because this avoids inconsistences between the magnetic induc-tion calculated and the underlying order parameter and link variable values for every point in the dis-crete space. Then the next value of applied field or current in the simulation process is applied and the algorithm starts over again. 
+
+# 3 Results 
+
+Once the detailed algorithm was explained, allow-ing the replication of the results, it is important to evaluate the influence of the significance level chosen for hypothesis testing. Figure 5 shows the simulation of six different curves, for the same sim-ulation parameters, with distinct significance lev-els, along with the reference values (2 · 10 6 as step size, the error bars are the same as described for figure 3). The test applied was a student’s t test, following the algorithm described above.        
+
+> -0.007
+> -0.006
+> -0.005
+> -0.004
+> -0.003
+> -0.002
+> -0.001
+> 0
+> 0.001
+> 00.1 0.2 0.3 0.4 0.5 0.6
+> MH
+> SL = 0.01
+> SL = 0.05
+> SL = 0.2
+> SL = 0.8
+> SL = 0.95
+> SL = 0.99 2x10 6
+
+Figure 5: (Colour online) Simulation with the pro-posed algorithm using distinct significance levels. As can be observed, the difference among values from each curve, for the same value of applied field, is of little significance. One could take the signif-icance level to 0.95 or higher (rejecting H0 only if the p-value of the t test is greater than 0.95). However, due to the little difference observed, the simulations presented further on were calculated on the level of 0.8. With the algorithm described and its parameters set, one can proceed to study the consequences of its application on the simulation process of super-conducting samples, that is, validate the theoretical statistical deduction with simulated data. As seen before, in figure 1, with 2 · 10 6 iterations, steady state has been reached in all steps studied (up to and a little above the critical field). Further on, the corresponding values of magnetisation are considered as reference (the last value in the time series before moving to the next step). The values of average magnetic induction ob-7tained with the algorithm should be compared with the reference values. The intervals until stabilisa-tion are much shorter however, difficulting the di-rect comparisons of the time series for Bavg . There-fore, once again it is best to recourse to comparisons between magnetisation values. Figure 6 shows the magnetisation curves ob-tained from the reference values, those obtained using the algorithm and the original prescription of 10 5 iterations until stabilisation. These curves are presented for zero and 0.5 applied current. The temperature is maintained at 0 .5. Higher temper-atures (up to 0.99) were evaluated throughout the study, but as these make the critical field and cur-rent much higher, the distinguishing features of a superconductor, regarding the magnetisation, tend to be much less pronounced, so the results were omitted.       
+
+> -0.012
+> -0.01
+> -0.008
+> -0.006
+> -0.004
+> -0.002
+> 0
+> 0.002
+> 00.1 0.2 0.3 0.4 0.5 0.6
+> MH
+> I = 0.0, T = 0.5, Alg.
+> I = 0.5, T = 0.5, Alg.
+> I = 0.0, T = 0.5, 2x10 6
+> I = 0.5, T = 0.5, 2x10 6
+> I = 0.0, T = 0.5, 10 5
+> I = 0.5, T = 0.5, 10 5
+
+Figure 6: (Colour online) Comparison of the pro-posed algorithm results, reference values and orig-inal step size, with and without applied current. For the results of the proposed algorithm, all val-ues of the magnetisation are very close to the ref-erence. As for the original proposition of using 10 5
+
+iterations per step, it can be observed that it lead to bias. The presence of applied current tends to increase the level of bias, but this may be depen-dent of the characteristics of the sample, such as the presence of defects. Hence, one may infer that in studying critical currents it is crucial to avoid using a lower number of iterations (such as 10 5) until sta-bilisation for some values of the applied magnetic field. As for the other characteristic introduced by the new algorithm, the reduction in number of itera-tions and in time of execution, the table 1 shows the results for the comparison of the reference val-ues (2 · 10 6 iterations) with those from the new al-gorithm. Along with the number of iterations, it is shown the relative difference from the reference values (denoted Diff. (ref.) in table). Table 1: Detailed step sizes and relative differences from reference values for simulations with I = 0.5 at T = 0.5 with the proposed algorithm. 
+
+H Bavg Niter Diff. (ref.) 
+
+0.05 0.01 45131 < 0.01% 
+
+0.10 0.02 55910 < 0.01% 
+
+0.15 0.09 2000000 −2.38% 
+
+0.20 0.17 343132 −0.64% 
+
+0.25 0.22 227738 < 0.01% 
+
+0.30 0.28 144285 −0.15% 
+
+0.35 0.34 96010 0.57% 
+
+0.40 0.40 159720 −0.17% 
+
+0.45 0.45 73988 0.45% 
+
+0.50 0.50 55087 0.54% 
+
+As can be seen, the new algorithm reduces the bias to insignificant values from the reference. The total number of iterations for the steps presented in table 1 is 3329407, whereas with the original pre-scription of constant interval of 10 5 iterations the total is 1200000, between a third and a half. How-ever, the present algorithm has reduced bias con-siderably (the step for H = 0 .15, with the original algorithm leads to an average magnetic induction of 0.058, that is little superior to half the value of reference 0.094). To obtain such reduction in bias with a constant interval, it would take 2 .4 · 10 7 it-erations, more than seven times the value obtained with the algorithm. One can see also that for many steps, the number of iterations necessary is reduced to below the original prescription. Another important point is that with fine tun-ning of the parameters, including significance level and the size of the first moving window as well as the size of the second moving window, the algo-rithm could outperform even the original prescrip-tion, both in number of iterations and in bias re-duction. However, the most serious point is the re-duction of bias, which leads to more accurate simu-lations. So the values for the parameters that were 8presented in this article are those which give a ro-bust prescription, leading to minimisation of bias without letting the number of iterations necessary for that becoming too high. 
+
+# 4 Conclusion 
+
+As was shown thoughout this article, the prescrip-tion of a constant interval for the stabilisation of the simulation step can lead to bias due to insuffi-cient number of iterations and yet, in a same simu-lation, lead to a great number of iterations wasted unnecessarily. The proposed algorithm was deduced and tested under extreme conditions considering the parame-ters of validity of the Time Dependent Ginzburg Landau equations. It solved the problem of bias introduced in the estimation of the magnetisation by exploring the fact that the intervals in which the time evolu-tion of the average magnetic induction is non-stationary are limited and the characteristic of this non-stationarity is consistent with a deterministic time trend. So, by introducing the concept of stationarity of the time series and statistical significance into the direct determination of the step size, it could be en-sured that when the trend is insignificant the sys-tem has stabilised, and there is no need for spend-ing further iterations on stabilisation, because the value reached should be statistically compatible with the value obtained from waiting a huge num-ber of iterations. In other words, the algorithm is based on the fact that, when no time trend is significant in the evolution of magnetic induction, the stabilisation of the step has been reached. This can be applied in obtaining more efficient and very importantly, unbiased, simulations, lead-ing to an increased incentive for the use of the TDGL equations, which is desirable when substi-tuting some approximate classical models of vortex dynamics, which in turn should lead to more pre-cise conclusions, while at the same time, becoming more efficient. 
+
+# References 
+
+[1] De Lascio, E. R., Cornejo, D. R., Physica C, 
+
+546 , 11, 2018. [2] Sabatino, P., et al. , J. Appl. Phys., 108 , 053906, 2010. [3] Kato, R., Enomoto, Y., Maekawa, S., Phys. Rev. B, 47 , 13, 8016, 1993. [4] Gropp, W. D., et al. , J. Comput. Phys., 123 ,254, 1996. [5] Getzlaff, M., Fundamentals of Magnetism ,Springer-Verlag, D¨ usseldorf, 2008. [6] Bean, C. P., Livingston, J. D., Phys. Rev. Lett., 
+
+12 , 14, 1964. [7] Hamilton, J. D., Time Series Analysis , Prince-ton University Press, Princeton, 1994. [8] Dickey, D. A., Fuller, W. A., J. Am. Stat. As-soc., 74 , 366, 427, 1979. [9] Cochrane, J. H., J. Econ. Dyn. Control, 15 , 275, 1991. 9

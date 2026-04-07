@@ -1,0 +1,541 @@
+Title: A Top-Loading Point-Contact Spectroscopy Probe with In-Situ Sample Exchange for Dilution Refrigerators
+
+URL Source: https://arxiv.org/pdf/2604.03821v1
+
+Published Time: Tue, 07 Apr 2026 00:49:45 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+A Top-Loading Point-Contact Spectroscopy Probe with In-Situ Sample Exchange for Dilution Refrigerators 
+
+Ghulam Mohmad, Atanu Mishra, and Goutam Sheet ∗
+
+Department of Physical Sciences, Indian Institute of Science Education and Research (IISER) Mohali, Sector 81, S. A. S. Nagar, Manauli, P.O. 140306, India 
+
+We report the design and implementation of a point-contact spectroscopy (PCS) system integrated with a dilution refrigerator, enabling measurements down to 30 mK. The setup employs a needle-anvil geometry with a cryogenic piezo-driven nanopositioner for in-situ formation of mesoscopic point contacts. We discuss the thermal anchoring strategies that enable efficient cooling of the probe to ultra-low temperatures and reliable measurements. We also address positioner-related challenges and the solutions implemented to ensure stable operation at millikelvin temperatures. The performance of the probe is demonstrated through point contact spectroscopy on Ta-doped TiSe 2 (Ta xTi 1−xSe 2,
+
+x = 0 .2), a superconductor with Tc ≈ 2.3 K. The spectra exhibit well-defined superconducting features that systematically diminish with increasing temperature and magnetic field. The platform provides a robust and versatile tool for spectroscopic investigations of superconductors and other quantum materials at millikelvin temperatures and high magnetic fields. 
+
+I. INTRODUCTION 
+
+Point contact spectroscopy (PCS) is a transport spec-troscopic technique that probes energy dependent quasi-particle scattering within a confined constriction between two conductors. The technique relies on the semiclassical description of the flow of charges through a small orifice connecting two bulk conductors. When a bias voltage 
+
+V is applied across the contact, charges injected from one electrode acquire excess energy eV . This provides energy-resolved information. For a circular constriction of radius a, the nature of transport depends on the ratio a/l , where l is the elec-tronic mean free path. In the ballistic limit a ≪ l, elec-trons traverse the contact without momentum relaxation. The resistance is then given by the Sharvin expression [1, 2]. 
+
+RS = 2he2
+
+1(kF a)2 , (1) which depends only on the Fermi wave vector kF and the contact geometry. Under bias, the electron distribution inside the constriction becomes anisotropic and nonequi-librium. The current is carried by electrons occupying a restricted solid angle in momentum space defined by the contact aperture. If inelastic scattering processes are present, electrons crossing the constriction may lose energy by exciting elementary modes of the system. The probability of backscattering then becomes energy dependent. Within the semiclassical framework developed by Yanson [3], the nonlinear correction to the ballistic current is directly re-lated to the energy dependent inelastic scattering rate. One obtains  
+
+> ∗goutam@iisermohali.ac.in
+
+d2IdV 2 ∝ ddE 
+
+ 1
+
+τ (E)
+
+
+
+> E=eV
+
+, (2) where τ (E) is the inelastic relaxation time. For electron–phonon interaction, 1
+
+τ (E) ∝
+
+Z E
+
+> 0
+
+α2F (ω) dω, (3) so that 
+
+d2IdV 2 ∝ α2F (eV ). (4) Here α2F (ω) is the Eliashberg electron–phonon spec-tral function [4, 5]. Peaks in d2I/dV 2 therefore occur at voltages corresponding to phonon energies ℏω = eV .The voltage axis directly maps onto excitation energy. This establishes PCS as a true quasiparticle scattering spectroscopy. The same principle applies to other inelastic chan-nels. In magnetic materials, scattering from magnons produces conductance features at characteristic magnon energies[6]. In Kondo systems, spin fluctuation scatter-ing modifies the low bias conductance[7]. In rare earth compounds, crystal field excitations give rise to identifi-able spectral structures. In each case, PCS measures how the energy dependent scattering rate modifies transport through the constriction. When a ∼ l, transport enters the diffusive regime. Both ballistic and resistive contributions appear, and the resistance follows the Wexler interpolation formula [2] 
+
+RP C = RS + Γ( l/a ) ρ
+
+2a , (5) where ρ is the bulk resistivity and Γ( l/a ) is a slowly vary-ing function of order unity. Inelastic processes still influ-ence the nonlinear conductance, although multiple elastic scattering events broaden the spectral features. 
+
+> arXiv:2604.03821v1 [cond-mat.supr-con] 4 Apr 2026
+
+2In the thermal regime a ≫ l, electrons undergo many scattering events within the constriction. Joule heat-ing dominates transport. The effective local temperature satisfies approximately[4] 
+
+T 2eff = T 20 + V 2
+
+4L , (6) where T0 is the bath temperature and L is the Lorenz number. Nonlinearities in this limit reflect temperature dependent resistivity. This regime is useful for identifying phase transitions and critical phenomena. Therefore, in point contact spectroscopy, the applied voltage fixes the quasiparticle energy scale. Inelastic scattering at that energy modifies the current. By ana-lyzing the nonlinear I-V characteristics and their deriva-tives, one extracts the characteristic energy scales of ele-mentary excitations coupled to electrons. The technique does not measure band dispersion, it measures energy dependent quasiparticle scattering. Among various applications of point contact spec-troscopy, point-contact Andreev reflection spectroscopy (PCAR) has become particularly important for prob-ing metal-superconductor interfaces[4, 8–10]. It gives important information about the superconducting en-ergy gap and its momentum-space symmetry[11, 12], spin polarization in ferromagnets[13–15], and exotic states in topological materials[16]. The method is based on the phenomenon of Andreev reflec-tion, first proposed by Andreev in 1964[17], which governs charge transport across a normal metal-superconductor (N-S) interface. PCAR spectroscopy has been widely employed to study elemental and complex superconductors[18], including conventional and unconventional superconductors[11, 19], multigap superconductors[20, 21], heavy-fermion systems[22], half-metallic ferromagnets[23–25],topological superconductor [26],Dirac semimetal [27, 28], and other strongly cor-related electron systems. More recently, point-contact spectroscopy helped realization of novel tip-induced su-perconducting (TISC) phases that appear in a confined region under the point contacts and are confirmed by spectroscopic measurements[18, 26, 29]. Thus, point con-tact spectroscopy is powerful tool for studying various exotic properties of quantum materials. In many modern quantum materials, the relevant exci-tation energies lie in the sub millielectronvolt range. To resolve such features, thermal broadening must be min-imized so that kB T ≪ eV . This requirement motivates measurements in dilution refrigerators, where millikelvin temperatures and high magnetic fields enable high reso-lution mapping of quasiparticle scattering processes and collective excitations. In this work, we present a detailed description of the instrumentation and data acquisition procedures for a point-contact spectroscopy setup capable of operating at ultra-low temperatures down to 30 mK using a dilution refrigerator (DR).   
+
+> II. POINT CONTACT SPECTROSCOPY SET UP A. Fabrication of point contacts
+
+Point-contact spectroscopy relies on the formation of a mesoscopic constriction between a metallic tip and a conducting sample. Several methods have been devel-oped to create such contacts, each with definite advan-tages depending on the experimental requirements. The most commonly employed techniques are the mechanical needle-anvil method and the soft point-contact technique [8, 30], schematically illustrated in Fig. 1. In the soft point-contact technique [Fig. 1(b)], a small droplet of conductive silver paint or paste is mounted be-tween a fine metallic wire (typically gold) and the sam-ple surface. Once it is cured, this droplet forms multiple parallel conductive nano-channels through which electric current can be injected. This gives a stable electrical con-tact without applying significant physical pressure to the sample. The effective contact diameter and consequently the contact resistance can be modified by applying con-trolled current or voltage pulses, which either destroy existing conduction paths or create new ones at the junc-tion. While this method is largely non-destructive and provides excellent mechanical stability, it offers limited control over the contact diameter. Achieving a purely ballistic contact regime involves multiple trials and is not always guaranteed. On the other hand, the mechan-ical needle-anvil technique [Fig. 1(a)] employs a sharp metallic tip that is brought into direct contact with the sample surface using a precision positioning mechanism. Traditionally, differential screw mechanisms were used for this purpose, but modern experiments, specifically under sub-kelvin temperatures, piezoelecctric nanoposi-tioners are used. Such cryogenic piezo-driven positioners provide highly reproducible motion with step sizes on the order of a few nanometers even at ultra-low temper-atures. This helps in a fine and continuous control of the contact resistance thereby enabling controlled tran-sition between different regimes of mesoscopic transport. These advantages make the needle-anvil method very at-tractive. Other techniques for forming point contacts in-clude lithographically defined point contacts [31], which also offer precise geometrical control but require exten-sive sample preparation. Here, we employ the needle–anvil method using a cryo-genic piezoelectric nanopositioner. Detailed discussions of the design and implementation of the PCS setup, the PCS electrical measurement , and the data analysis pro-cedure are provided in the following sections.  
+
+> B. Design and Implementation of a Needle–Anvil Setup for dilution fridge
+
+The PCS setup was installed in a wet dilution refriger-ator (Janis Research, USA). The base temperature of the 3V I
+
+> 
+
+V I
+
+(a) (b) 
+
+> Tip
+> Conductive
+> silver paste
+> 
+
+# V IV I
+
+> Sample
+> Tip
+> FIG. 1. Schematic of point contacts. (a) Needle–anvil tech-nique; (b) Soft point contact.
+
+dilution refrigerator (DR) at the mixing chamber plate is 30 mK, while the sample temperature reaches approx-imately 35 mK, as measured by a calibrated ruthenium oxide thermometer mounted near the sample stage. The cryostat is integrated with a cryogenic reliquefier (Cry-omagnetics) to reduce liquid helium consumption. Fur-thermore, the reliquefier and the dilution gas handling system, which are major sources of mechanical vibration, are both electrically and mechanically isolated to achieve a low-noise background. In the Janis DR system, to minimize the effective ther-mal load, the cryostat wiring is made resistive and ther-mally anchored at multiple stages of the DR. This results in a resistance of approximately R ∼ 150 Ω between the electrical feedthrough port at the top of the cryostat and the shuttle. This presents two major challenges: (a) The piezoelectric actuator cannot be efficiently driven through such a highly resistive path and would otherwise require prohibitively high voltages to achieve even small displacements, and (b) High-voltage operation in an ultra-low-temperature environment can introduce undesirable heating due to current dissipation along the resistive wiring, thereby disturbing the millikelvin temperature sta-bility. To overcome these challenges, we adopted special strate-gies and enabled low-voltage piezo actuation through the given resistive path. In the following subsections, we will discuss the hardware design and adaptation of a con-ventional piezo-walker to mitigate the issues mentioned above.  
+
+> 1. The Shuttle
+
+To enable efficient sample and tip exchange with-out warming the entire cryostat, the system is designed around a top-loading interchangeable shuttle concept. The shuttle, shown in Fig. 2(h), is a compact module hav-ing an assembly designed for reliable operation down to 30 mK and under high magnetic fields. The body of the shuttle is machined from oxygen-free high-conductivity (OFHC) copper to ensure excellent thermal conductivity and efficient thermal anchoring to the mixing chamber. It hosts a sample stage consisting of a printed circuit board (PCB), a thermometer, a heater, and a piezo-walker for vertical tip positioning. The piezo-driven walker is rigidly mounted on a gold-coated OFHC copper plate as shown in Fig. 2(f), to ensure both thermal and mechanical sta-bility. Electrical isolation between the walker and the tip holder is achieved using a 2 mm thick teflon spacer, while the tip holder is fixed to the spacer using Stycast epoxy, as shown in Fig. 2(d,e,f). All electrical connections are routed through a micro-D connector at the base of the shuttle to the room-temperature electronics, as shown in Fig. 2(g).  
+
+> 2. Adaptation of the piezo-walker to the environment
+
+The Attocube piezo-walker operates via a ”slip–stick” mechanism. The walker is driven by a sawtooth wave-form ( f = 200 Hz) generated by an Attocube piezo con-troller (ANC300) . In an ideal scenario (i.e., when there is little to no resistive path between the piezo-walker and the voltage source), the slow ramp of the waveform pro-duces a sticking phase, while the rapid drop generates a strong inertial “kick” that triggers the slip event. How-ever, due to the finite resistance of the wiring, the voltage across the piezo, V(t), is governed by. 
+
+RC dV (t)
+
+dt + V (t) = Vin (t), (7) where the piezo behaves as a capacitor ( C ∼ 1 μF at room temperature), giving a time constant τ ≈ 150 μs. To overcome this resistive path and to mitigate heating issues when driving the piezo-walker at high voltages, the static friction between the walker and the monorail shaft was manually reduced. This adjustment also lowers the dynamic friction, enabling the piezo-walker to oper-ate effectively at lower drive voltages, which is necessary for such ultra-low-temperature environments. Fig. 3(a) shows a comparison between the applied waveform Vin (t)(red) and the measured voltage at the piezo terminals 
+
+V (t) (blue) at room temperature (in the regime where the walker is already in motion, i.e., after reducing the clamping force or friction). Clearly, a distortion of the waveform is observed. The fast falling edge of the applied signal exhibits a voltage drop of ∆ V ≈ 19 .65 V within 4(a) (b) 
+
+> Differential
+> pumping port
+> Shuttle Grabber
+> O-rings
+> Sample manipulator
+> Fixed part
+> Manipulator  Shuttle lock/ unlock control
+
+(d) 
+
+(f) 
+
+(e) 
+
+> Teflon
+> Sliding Sample
+> stage
+> Tip
+
+(g) 
+
+> Copper Base
+> Piezo-walker
+> Tip holder
+> Piezo-walker
+> LL chamber
+
+(c) 
+
+> To IVC
+> Differential
+> pumping
+> port
+> Manipulator
+> Shuttle
+> Grabber
+> LL chamber
+> LC pumping port
+
+(h) 
+
+FIG. 2. The shuttle and nano-positioner are designed for operation at ultra-low-temperature. (a) Schematic of the manipulator with load-lock chamber. (b) Detailed transparent view of the differential pumping section. (c) Real image of the load-lock chamber. (d,e) The sample–tip assembly mounted on the piezowalker, which is mounted on an OFHC-grade copper base. (f) Zoomed view of real image of the mounted piezowalker with the tip–sample assembly inside the shuttle. (g) View of shuttle micro-D connector. (h) Complete shuttle (left) and corresponding real image (right). 
+
+∆t ≈ 10 μs, corresponding to 
+
+dV in 
+
+dt ∼ 2 × 10 6 V/s, (8) whereas at the piezo terminals the same transition is broadened to ∆ V ≈ 16 .68 V over ∆ t ≈ 690 μs, yield-ing 
+
+dV dt ∼ 2.4 × 10 4 V/s. (9) This nearly two orders of magnitude reduction demon-strates the strong suppression of high-frequency compo-nents due to RC filtering. The displacement of the piezo is given by x(t) =
+
+deff V (t), and the inertial force responsible for slip is: 
+
+Fin (t) = m d eff 
+
+d2V (t)
+
+dt 2 . (10) where m is the mass of the moving stage, including the tip and tip-holder and deff stands for the effective piezo-electric coefficient. Slip occurs only when this inertial force exceeds the static friction force Fs:
+
+m d eff 
+
+d2V (t)
+
+dt 2 > F s. (11) Before the clamp is loosened or friction is reduced , the static friction Fs is large enough that the above condition is not satisfied at any point during the cycle, resulting in a purely stick regime with no net motion. The data shown in Fig. 3(a) correspond to the case where the clamping force is reduced such that Eq. (11) is satisfied over a finite time interval within each cycle. To note, even in the walking regime, the rounded wave-form implies that the condition for slip is fulfilled only over a restricted time window ∆ tslip ≪ T :50 1 2 3 4 5 6 7 8 9 10                     
+
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> Voltage(V)
+
+300K 
+
+(a) 
+
+(b) 
+
+(c) 
+
+20V 
+
+30V 
+
+40V           
+
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> Piezo Voltge(V)  Dt=690 ms,
+> DV=16.68V
+> (7.05,0.374)
+> (7.04,19.99)
+
+(2.7,2.62) 
+
+(2.01,19.3) 
+
+Dt=10 ms
+
+DV=19.65V 
+
+Time(mS)                               
+
+> Piezo  Voltage(V)
+> Time(500μs/div)
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> 012345678910
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+
+(b) 
+
+Time(mS) 
+
+20V 
+
+4K 35V 
+
+40V 
+
+> 20V,200Hz
+> Time(500μs/div)
+> 2.3V
+> 19.4V
+> 34mV
+> 20V
+> 6V
+> 10V
+
+Time(mS) 
+
+FIG. 3. (a) Applied 20 V, 200 Hz ,sawtooth waveform (red line) and measured voltage across the piezo terminals (blue line), showing the reduced voltage across the piezo due to wire resistence. (b) Equivalent simulated circuit diagram and simulated circuit response showing the input sawtooth signal (top-right ) and voltage across the equivalent capacitor (bottom). (c) Voltage across the piezo-terminal at different sawtooth voltages (20V, 30V/35V, 40V) at 300 K (top panel) and 4 K ( bottom panel) temperatures. 
+
+∆tslip =
+
+
+
+t ∈ [0 , T ] m d eff 
+
+d2V (t)
+
+dt 2 > F s
+
+
+
+. (12) Once slip is initiated, the motion is governed by the kinetic friction force Fk, with Fk < F s. However, reduc-ing the clamping force simultaneously lowers both Fs and 
+
+Fk. As a result, although motion becomes possible, the maximum force that can be sustained by the walker is limited by the static friction[32], 
+
+Fmax ≲ Fs. (13) This introduces an inherent trade-off: loosening the clamp facilitates motion under reduced excitation con-ditions but reduces the load-bearing capability of the walker and limits the maximum force applied by the tip to the sample. The degree of waveform distortion is further influenced by the temperature dependence of the piezoelectric ca-pacitance. As the temperature decreases, the dielectric constant of the piezoelectric material is reduced, lead-ing to a decrease in capacitance and, consequently, a re-duction in the RC time constant. This improves the electrical bandwidth of the system. This effect is experi-mentally observed in Fig. 3(c), where the waveform mea-sured at low temperature exhibits significantly sharper edges compared to room temperature, indicating reduced distortion. From Eq. (7), a decrease in capacitance di-rectly enhances both dV dt and d2Vdt 2 at the piezo. This increases the inertial force and expands the fraction of the cycle over which the slip condition is satisfied. Thus, in addition to mechanical tuning of friction, the intrin-sic reduction of capacitance at low temperature provides a natural mechanism for improving slip–stick efficiency, partially compensating for the limitations imposed by the series resistance of the cryogenic wiring. Therefore, we have successfully adapted the piezo walker to function reliably at ultra-low temperature condition of DR. 6 
+
+> 3. Room-Temperature Shuttle Transfer and Docking Procedure
+
+The transfer of the shuttle from room temperature to the mixing chamber is a critical process accomplished by a dedicated top-loading system, which consists of a ver-tical manipulator, load-lock (LL) chamber, and a gate valve separating the LL from the DR’s inner vacuum chamber (IVC) schematically shown in Fig. 2(a,b,c). The procedure begins by mounting the fully assembled shuttle onto the shuttle grabber at the head of the manipulator. The manipulator is a long, hollow stainless steel tube that provides the rigid mechanical link needed for precise ver-tical insertion. The LL chamber was pumped down to a pressure of 1 × 10 −5 mbar, matching the high vacuum inside the DR’s IVC. Once this vacuum is achieved, the gate valve is opened. The manipulator is then slowly lowered using a pulley system. During this descent, a critical differential pumping mechanism is employed: aroughing pump connected to a port between two Viton O-rings on the manipulator shaft shown in Fig. 2(b), re-moves any minute amount of air that might be dragged down by the moving shaft, ensuring that the vacuum of the DR space is maintained . Successful docking of the shuttle into its receptacle at the bottom of the mixing chamber is confirmed by monitoring the resistance of a sensor or jump in mixing chamber temperature. The sample is mounted on a dedicated sample stage within the shuttle. It is affixed using GE varnish (GE Varnish C5-101, Oxford), which provides excellent elec-trical insulation while maintaining good thermal conduc-tivity, ensuring that the sample is well thermalized. The sample stage is equipped with a resistive heater and a calibrated ruthenium oxide (RuO) temperature sensor for local temperature control and monitoring. For PCS measurements, metallic tips of 0.25 mm diameter are pre-pared ex-situ, either by electrochemical etching or by me-chanical cutting at an angle, as shown in Fig. 4.  
+
+> FIG. 4. Real image of a 0.25 mm diameter Ag tip (left) used for PCS, and the tip aligned on top of a sample (right).
+> 4. Thermalization
+
+After docking, the manipulator is separated from the shuttle and withdrawn back into the LL chamber, and the gate valve is closed. The insertion of the warm shuttle (at room temperature) inevitably causes a transient temper-ature rise in the mixing chamber and other stages of the DR. To accelerate re-cooling, a mechanical heat switch is engaged, thermally connecting the mixing chamber stage to the 4 K liquid helium bath. This allows the entire insert, including the shuttle, to equilibrate to approxi-mately 4 K within a few hours. Once this temperature is reached, the heat switch is disengaged, and further cooling to the base temperature of 30 mK is achieved through the condensation of the 3He– 4He mixture. To suppress thermal radiation, two shutters attached to the DR’s heat-switch shaft, one located below the IVC flange and another at the still chamber, are kept closed.  
+
+> C. Electrical Measurements
+
+Point-contact Andreev reflection (PCAR) measure-ments were performed using a standard AC modulation technique with a lock-in amplifier (SR830 DSP, Stanford Research Systems). The SR830 served a dual role, pro-viding both the AC excitation signal (from its internal oscillator) and the DC bias voltage (via its auxiliary out-put). An adder circuit and active voltage-to-current (V-I) converter , schematically shown in Fig. 5, was used to combine the AC and DC voltages and convert the summed voltage into a current bias. The modulated cur-rent consisted of a small AC current Iac superimposed on a DC current Idc , which was then passed through the point contact. The tip-sample contact was established by driving the piezowalker via the Attocube ANC300 piezo-controller, enabling precise and controlled variation of the contact size. The DC voltage V developed across the point contact was measured directly by a digital multi-meter (DMM, Keithley 2000). Simultaneously, the AC voltage response was measured by the lock-in amplifier. The first harmonic response of the lock-in ( V (1 ω)) is pro-portional to the differential resistance dV dI of the junction. The underlying principle is as follows: using a current bias of the form 
+
+I(t) = Idc + I0 cos( ωt ), I0 ≪ Idc 
+
+the voltage across the junction, V = V (I), can be ex-panded in a Taylor series about Idc :
+
+V (t) = V (Idc + I0 cos ωt )
+
+≈ V (Idc ) + dV dI Idc 
+
+I0 cos ωt + 12
+
+d2VdI 2 Idc 
+
+I20 cos 2 ωt 
+
+The lock-in amplifier referenced at the fundamental fre-quency ω measures a signal proportional to the first-7Lock-In Amplifier  
+
+> V-I converter
+> ac dc
+
+## II 
+
+> dc
+
+## V
+
+> ac
+
+## V
+
+> Adder
+> Piezo
+> Walker
+> DMM Piezocontroller  wire
+
+## R
+
+> 
+
+V Sample 
+
+Tip 
+
+> 
+
+I
+
+> 
+
+V
+
+> 
+
+I                
+
+> 246810 12 14
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> Voltage(V)
+> Time(ms)
+> 012345678910 11 12 13 14 15
+> 0
+> 5
+> 10
+> 15
+> 20
+> V(Volt)
+> T(ms)
+
+FIG. 5. Schematic of the point-contact Andreev reflection (PCAR) measurement setup using a lock-in based modulation technique. 
+
+harmonic coefficient: 
+
+V (1 ω) ∝ dV dI Idc 
+
+Iac .
+
+Consequently, the differential resistance is given by  
+
+> dV dI Idc
+
+∝ V (1 ω)/I ac , and the differential conductance, which is the quantity of primary interest in PCAR spec-troscopy, is simply its reciprocal: 
+
+dI dV Idc 
+
+= dV dI Idc 
+
+!−1
+
+.
+
+In the small-modulation limit, where Iac is sufficiently small, higher-order terms are negligible, and the first-harmonic signal accurately represents dV /dI . The second-harmonic component at 2ω, proportional to 
+
+d2V /dI 2, can be monitored to assess nonlinearity or the effects of finite modulation. In PCAR measurements, the effective energy resolution is limited by both thermal broadening and the modulation amplitude; therefore, the modulation amplitude Iac is typically chosen such that 
+
+Iac · RN ≲ kB Te , where RN is the normal-state resistance of the junction and e is the electron charge. All data acquisition was automated via a General Purpose Interface Bus (GPIB) and Ethernet connec-tion using a TCP/IP interface, controlled by a custom LabVIEW-based program. The software provides an in-teractive graphical user interface (GUI), shown in Fig. 6, through which all measurement parameters—including temperature, magnetic field, and bias ranges—can be set and monitored. 
+
+FIG. 6. A LabVIEW-based, user-friendly, interactive graph-ical user interface for automated PCAR measurement and control. 
+
+D. Data Analysis 
+
+The quantitative interpretation of PCAR mea-surements is commonly based on the Blon-der–Tinkham–Klapwijk (BTK) theory [33], which describes transport across normal-metal–superconductor (N–S) interfaces by introducing a dimensionless inter-facial barrier parameter Z. This parameter accounts for the probability of Andreev reflection versus ordinary reflection at the interface. Extensions of the original BTK model have been developed to incorporate ad-ditional physical effects relevant to realistic materials. These include the incorporation of spin polarization 
+
+P for ferromagnetic materials [34], a quasiparticle lifetime broadening parameter Γ to account for inelastic scattering and finite quasiparticle lifetimes [35], and extensions for multiband superconductivity [36]. These models enable a detailed and quantitative analysis of experimental conductance spectra. To analyze our data, the measured differential con-ductance ( dI/dV ) spectra are first normalized to their high-bias value. Theoretical dI/dV curves are then generated using the appropriate BTK-based model and fitted to the experimental data. The key fitting parameters include the superconducting energy gap ∆, the effective junction temperature T (which accounts for thermal broadening), the barrier strength Z, the quasiparticle broadening parameter Γ, and the spin polarization P , where applicable. The fit is optimized to extract these physical parameters, providing insight into the superconducting and electronic properties of the material under study. 8
+
+III. RESULTS AND DISCUSSION 
+
+Using this setup, the PCAR measurements were per-formed on a single crystal of tantalum-doped titanium diselenide (Ti 1−xTa xSe 2, x = 0 .2) with a silver tip. Ti-tanium diselenide (TiSe 2) is a layered transition-metal dichalcogenide that exhibits a well-known charge den-sity wave (CDW) transition near ∼ 200 K [37]. In its pristine form, TiSe 2 is a semimetal or a small band-gap semiconductor, and extensive studies have focused on un-derstanding the origin of the CDW state and its relation-ship with excitonic and electron–phonon interactions[38]. When electron doping is introduced, such as through ele-mental substitution, intercalation, or pressure, the CDW order can be weakened or suppressed, often giving rise to new electronic phases including superconductivity[39, 40]. Here, we present PCAR measurements on Ta-doped TiSe 2, synthesized elsewhere [41], with a superconduct-ing transition temperature Tc = 2 .2 K. Figure 7(a) shows the PCAR conductance spectra obtained in the ballistic regime showing Andreev peaks. (b) Conductance spec-tra fitted with the BTK model (black line). Figure 7(c) shows the spectrum in the thermal regime, and its tem-perature dependence is presented in Fig. 7(d). The tem-perature dependence of the thermal spectra shows that the superconducting spectral features gradually diminish with increasing temperature and disappear completely at 
+
+T = 2 .2 K, consistent with the bulk Tc of the material. All the spectra are normalized with respect to the con--2.0 -1.5 -1.0 -0.5 0.0 0.5 1.0 1.5 2.0                           
+
+> 0.92
+> 0.94
+> 0.96
+> 0.98
+> 1.00
+> 1.02
+> 1.04
+> (dI/dV) N
+> V(mV)
+> -2.0 -1.5 -1.0 -0.5 0.0 0.5 1.0 1.5 2.0
+> 0.92
+> 0.94
+> 0.96
+> 0.98
+> 1.00
+> 1.02
+> 1.04
+> 1.06
+> 1.08
+> (dI/dV) N
+> V (mV)
+> Exp.
+> BTK-Fit
+> (b)
+> T=45mK
+> RN=22.62 Ω
+> T=100mK
+> RN=22.62Ω
+> Andreev Peak
+> (a)
+> V(mV)
+> -2.0 -1.5 -1.0 -0.5 0.0 0.5 1.0 1.5 2.0
+> 0.9
+> 1.0
+> 1.1
+> 1.2
+> 1.3
+> 1.4
+> 1.5
+> 1.6
+> (dI/dV) N
+> V(mV)
+> V (mV)
+> 21
+> (d)
+> T=100mK
+> RN=28 Ω
+> (c)
+> Critical current dip
+> -2.5 -2.0 -1.5 -1.0 -0.5 0.0 0.5 1.0 1.5 2.0 2.5
+> 0.9
+> 1.0
+> 1.1
+> 1.2
+> 1.3
+> 1.4
+> 1.5
+> 1.6
+> 100mK
+> 300mK
+> 400mK
+> 600mK
+> 700mK
+> 800mK
+> 900mK
+> 1K
+> 1.1K
+> 1.2K
+> 1.3K
+> 1.4K
+> 1.5K
+> 1.7K
+> 2K
+> 2.2K
+> (dI/dV) N
+> V (mV)
+
+FIG. 7. PCAR spectra of Ag/Ta-TiSe 2 .(a) Normalized con-ductance spectra obtained in the ballistic regime.(b) Normal-ized conductance spectra (red circles) and the corresponding BTK fit (black line). (B) Normalized thermal conductance spectra. (d) Temperature dependence of the thermal spec-trum. 
+
+ductance at higher bias, i.e., 
+
+ dI dV 
+
+
+
+N
+
+= dI/dV 
+
+(dI/dV )|V ≫∆/e 
+
+,
+
+where ∆ is the superconducting energy gap. 
+
+IV. CONCLUSION 
+
+We have successfully integrated a point-contact spec-troscopy (PCS) setup with a top-loading dilution refrig-erator, enabling stable measurements at ultra-low tem-perature. The system employs a needle-anvil geometry driven by a cryogenic piezo-nanopositioner, which allows 
+
+in-situ formation of mesoscopic point contacts with pre-cise control over the contact resistance. To overcome the limitations imposed by high-resistance cryostat wiring, we implemented a strategy to reduce mechanical friction in the slip-stick mechanism. These measures permit reli-able piezo operation at reduced voltages, ensuring mini-mal heating and stable millikelvin temperatures. The performance of the setup was validated by PCAR measurements on a Ta-doped single crystal TiSe 2 (Tc ≈
+
+2.3 K). The obtained conductance spectra clearly re-solve the superconducting gap, and the spectral features systematically diminish with increasing temperature con-sistent with the bulk superconducting transition. This demonstrates the capability of the instrument to perform high-resolution quasiparticle scattering spectroscopy in the millikelvin regime. 
+
+ACKNOWLEDGMENTS 
+
+We thank Dr. Ravi Prakash Singh, IISER Bhopal, for providing the single crystals of Ti 1−xTa xSe 2. G.M. thanks the University Grants Commission (UGC), Gov-ernment of India, for the Senior Research Fellowship (SRF). A.M. thanks IISER Mohali for the Senior Re-search Fellowship (SRF).We also thank Anmol Anand for his involvement in the early stages of this work. G.S. ac-knowledges financial assistance from the Science and En-gineering Research Board (SERB), Govt. of India (grant number: CRG/2021/006395). The metallic body of the shuttle and manipulator was designed in collaboration with Janis Research Company, USA. The authors declare no competing financial interests. 9
+
+[1] V. Popov and V. Gorbunov, Sov. Phys. J 16 , 517 (1963). [2] G. Wexler, Proceedings of the Physical Society 89 (1966). [3] I. Yanson, Soviet Journal of Experimental and Theoreti-cal Physics 39 , 506 (1974). [4] A. Duif, A. Jansen, and P. Wyder, Journal of Physics: Condensed Matter , 3157 (1989). [5] D. Daghero and R. Gonnelli, Superconductor Science and Technology 23 , 043001 (2010). [6] Y. G. Naidyuk and I. K. Yanson, Point-contact spec-troscopy , Vol. 145 (Springer, 2019). [7] A. Jansen, A. van Gelder, P. Wyder, and S. Strassler, Journal of Physics F: Metal Physics 11 (1981). [8] Y. G. Naidyuk and I. Yanson, in Point-Contact Spec-troscopy (Springer, 2005). [9] N. Groll, M. J. Pellin, J. F. Zasadzinksi, and T. Proslier, Review of Scientific Instruments 86 (2015). [10] P. Samuely and P. Szab´ o, Low Temperature Physics 49 ,761 (2023). [11] R. Gonnelli, D. Daghero, D. Delaude, M. Tortello, G. Ummarino, V. Stepanov, J. Kim, R. Kremer, A. Sanna, G. Profeta, et al. , Physical Review Letters 
+
+100 , 207004 (2008). [12] D. Daghero, M. Tortello, G. Ummarino, and R. Gonnelli, Reports on Progress in Physics 74 , 124509 (2011). [13] M. Shiga, N. Nishimura, Y. Inagaki, T. Kawae, H. Kam-bara, and K. Tenya, in Journal of Physics: Conference Series , Vol. 807 (IOP Publishing, 2017). [14] G. Woods, R. Soulen Jr, I. Mazin, B. Nadgorny, M. Osof-sky, J. Sanders, H. Srikanth, W. Egelhoff, and R. Datla, Physical Review B—Condensed Matter and Materials Physics 70 , 054416 (2004). [15] D. Rana, M. Bhakar, B. G, S. Bera, N. Saini, S. K. Prad-han, M. Mondal, M. Kabir, and G. Sheet, Physical Re-view B 107 , 224422 (2023). [16] K. Borisov, C.-Z. Chang, J. Moodera, and P. Stamenov, Physical Review B 94 , 094415 (2016). [17] A. F. Andreev, Journal of Experimental and Theoretical Physics 46 , 1823 (1964). [18] M. Monish, N. S. Mehta, G. Mohmad, and G. Sheet, Journal of Applied Physics 138 (2025). [19] Y. Miyoshi, Y. Bugoslavsky, and L. F. Cohen, Phys. Rev. B 72 , 012502 (2005). [20] P. Szab´ o, P. Samuely, J. Kaˇ cmarˇ c´ ık, T. Klein, J. Marcus, D. Fruchart, S. Miraglia, C. Marcenat, and A. Jansen, Physical Review Letters 87 , 137005 (2001). [21] M. Tortello, D. Daghero, G. Ummarino, V. Stepanov, J. Jiang, J. Weiss, E. Hellstrom, and R. Gonnelli, Phys-ical Review Letters 105 , 237002 (2010). [22] W. Park, J. L. Sarrao, J. D. Thompson, and L. Greene, Physical Review Letters 100 , 177001 (2008). [23] S. K. Upadhyay, A. Palanisami, R. N. Louie, and R. Buhrman, Physical Review Letters 81 , 3247 (1998). [24] Y. Ji, G. Strijkers, F. Yang, C. Chien, J. Byers, A. Anguelouch, G. Xiao, and A. Gupta, Physical Re-view Letters 86 , 5585 (2001). [25] B. Nadgorny, I. Mazin, M. Osofsky, R. Soulen Jr, P. Broussard, R. Stroud, D. Singh, V. Harris, A. Ar-senov, and Y. Mukovskii, Physical Review B 63 , 184433 (2001). [26] S. Lee, V. Stanev, X. Zhang, D. Stasak, J. Flowers, J. S. Higgins, S. Dai, T. Blum, X. Pan, V. M. Yakovenko, 
+
+et al. , Nature 570 , 344 (2019). [27] L. Aggarwal, A. Gaurav, G. S. Thakur, Z. Haque, A. K. Ganguli, and G. Sheet, Nature materials 15 , 32 (2016). [28] H. Wang, H. Wang, H. Liu, H. Lu, W. Yang, S. Jia, X.-J. Liu, X. Xie, J. Wei, and J. Wang, Nature materials 15 ,38 (2016). [29] M. Monish, N. S. Mehta, M. Garg, and G. Sheet, arXiv preprint arXiv:2506.10670 (2025). [30] G. Sheet, S. Mukhopadhyay, and P. Raychaudhuri, Phys-ical Review B 69 , 134507 (2004). [31] J. Van Ruitenbeek, A. Alvarez, I. Pieyro, C. Grahmann, P. Joyez, M. Devoret, D. Esteve, and C. Urbina, Review of Scientific Instruments 67 , 108 (1996). [32] P. Das, S. Dutta, K. KS, J. Jesudasan, and P. Raychaud-huri, Review of Scientific Instruments 95 (2024). [33] G. Blonder, m. M. Tinkham, and T. Klapwijk, Physical Review B 25 , 4515 (1982). [34] G. Strijkers, Y. Ji, F. Yang, C. Chien, and J. Byers, Physical Review B 63 , 104510 (2001). [35] R. C. Dynes, V. Narayanamurti, and J. P. Garno, Phys-ical Review Letters 41 , 1509 (1978). [36] X. Chen, M. Konstantinovi´ c, J. Irwin, D. Lawrie, and J. Franck, Physical Review Letters 87 , 157002 (2001). [37] F. J. Di Salvo, D. Moncton, and J. Waszczak, Physical Review B 14 , 4321 (1976). [38] K. Rossnagel, Journal of Physics: Condensed Matter 23 ,213001 (2011). [39] E. Morosan, H. W. Zandbergen, B. Dennis, J. Bos, Y. Onose, T. Klimczuk, A. Ramirez, N. Ong, and R. J. Cava, Nature Physics 2, 544 (2006). [40] A. F. Kusmartseva, B. Sipos, H. Berger, L. Forro, and E. Tutiˇ s, Physical Review Letters 103 , 236401 (2009). [41] P. Manna, S. Sharma, T. Agarwal, S. Srivas-tava, P. Mishra, and R. Singh, arXiv preprint arXiv:2511.00605 (2025).

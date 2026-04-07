@@ -1,0 +1,804 @@
+Title: BosonFlow: A C++ codebase for dynamic fRG and single-boson exchange in correlated fermion systems
+
+URL Source: https://arxiv.org/pdf/2604.04232v1
+
+Published Time: Tue, 07 Apr 2026 01:27:18 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+SciPost Physics Codebases Submission 
+
+# BosonFlow: A C++ codebase for dynamic fRG and single-boson exchange in correlated fermion systems 
+
+Aiman Al-Eryani 1, Miriam Patricolo 3, Kilian Fraboulet 2,3,4 
+
+1 Theoretical Physics III, Ruhr-University Bochum, 44801 Bochum, Germany 
+
+2 Max-Planck-Institut für Festkörperforschung, Heisenbergstraße 1, 70569 Stuttgart, Germany 
+
+3 Institute of Information Systems Engineering, Vienna University of Technology, 1040 Vienna, Austria 
+
+4 Institut für Theoretische Physik and Center for Quantum Science, Universität Tübingen, Auf der Morgenstelle 14, 72076 Tübingen, Germany * aiman.al-eryani@rub.de April 7, 2026 
+
+# Abstract 
+
+We present a unified C++ implementation of the functional renormalization group and the parquet equations within the single-boson exchange formalism for several paradigmatic tight-binding and impurity models at equilibrium. The implementation computes the full dynamic vertex and self-energies, with momentum dependence treated using a truncated unity framework. We im-plement multiple self-energy flow equations, cutoff schemes, and extensions ranging from the dynamical functional renormalization group to multiloop flow equations that incorporate cutoffs in both the propagator and the interaction. The codebase serves as a reference for recent developments in the fRG and par-quet methods for correlated electron systems and provides a flexible foundation for developing new many-body approaches and extensions. 
+
+# Contents 
+
+1 Introduction 22 Fermionic functional renormalization group and its single-boson ex-change implementation 43 Applications 74 Usage 8
+
+4.1 Installation and Prerequisites 94.2 Technical parameters and Model Selection 94.2.1 Core flow and solver choices 10 4.2.2 Choosing a model 10 4.2.3 SBE-specific flags and approximations 12 4.2.4 Multiloop calculations 12 4.2.5 Momentum and frequency grids 13 4.2.6 Example representative calculation 14 4.3 Runtime Parameters and Execution 14 1
+
+> arXiv:2604.04232v1 [cond-mat.str-el] 5 Apr 2026
+
+SciPost Physics Codebases Submission 
+
+4.4 Output Structure and Data Access 14 4.4.1 Momentum- and Frequency-Resolved Plots 16 
+
+5 Implementation details 18 
+
+5.1 Overview and High-Level Design 18 5.2 Models 19 5.2.1 Initialization 19 5.2.2 Indices, not coordinates 20 5.2.3 Model couplings 20 5.2.4 Writing a new model 21 5.3 State and RHS Classes 22 5.3.1 States 22 5.3.2 Right-hand sides 22 5.4 Observables and HDF5 Output 23 5.4.1 Observable containers and update logic 23 5.4.2 Adding new observables 24 5.5 Flow Schemes 24 5.5.1 Choosing the flow 24 5.5.2 Flow-dependent propagators 24 5.5.3 Adding a new cutoff scheme 24 
+
+6 Conclusion and outlook 25 References 26 
+
+# 1 Introduction 
+
+The physics of strongly correlated electron systems is characterized by a rich variety of competing orders, where magnetic, charge-density-wave, and superconducting phases often emerge in close proximity. A proper theoretical understanding of these materials requires many-body methods that can treat different scattering instabilities in a diagrammatically unbiased way. Furthermore, the extended nature of low-energy excitations (i.e., the Fermi-surface) poses an additional formidable challenge, in that these low-energy excitations need to be captured by coupling functions (with momentum and frequency dependencies) rather than coupling constants. Approaches based on the functional Renormalization Group (fRG) [1–7] and the parquet equations [8–12] have emerged as powerful tools for this purpose, as they allow for the unbiased treatment of fluctuations across multiple channels of the vertex functions. However, the numerical implementation of these methods is hindered by the high di-mensionality of the two-particle vertex, which depends on three independent frequency and momentum arguments (for systems with translational invariance and energy conser-vation). In-so-far, researchers have been forced into a computational trade-off: neglecting frequency dependence to achieve high momentum resolution for lattice systems, or neglect-ing momentum dependence to resolve the full dynamics of impurity models. The neglect of frequency dependence carries profound qualitative implications; omitting vertex dynamics often leads to an unphysical overestimation of critical temperatures for phase transitions. More fundamentally, the dynamic (i.e., frequency-dependent) vertex and self-energy are 2SciPost Physics Codebases Submission 
+
+essential for capturing quasi-particle lifetimes and non-Fermi-liquid behavior, such as the pseudogap phenomenon observed in the two-dimensional Hubbard model. Furthermore, resolving the frequency axis is required for a consistent treatment of retarded interactions, ensuring that the dynamic renormalization of mediators, such as phonons, is handled on an equal footing with electronic scattering. The current ecosystem of open-source tools provides different strategies to address these challenges. High-performance libraries like divERGe [13] utilize the Truncated Unity (TU) framework [14–16] to enable fRG calculations on arbitrary lattices and are excellent for the qualitative instability analysis of sophisticated many-orbital models. However, divERGe currently relies on a static vertex approximation, limiting its ability to resolve the ver-tex content on the frequency axis. Conversely, the KeldyshQFT [17] codebase provides a sophisticated implementation of multiloop fRG and the self-consistent parquet equations directly in real frequencies. While powerful, KeldyshQFT is presently restricted to impurity models, such as the single-impurity Anderson model, as the inclusion of momentum depen-dence for lattice systems remains a significant computational hurdle. For lattice models that do include frequency dependencies, the Truncated Unity Parquet Solver (TUPS) [18] provides a numerical iterative solution to the parquet equations using a standard parquet decomposition. Another recent work is the DiFfRG codebase [19], which however is geared more towards high-energy applications that do not support a Fermi-surface. In this work, we present BosonFlow , a C++ codebase designed for quantitatively accu-rate calculations through the resolution of full dynamic vertex structures in lattice models. The framework serves both as a tool for controlled many-body calculations and as a refer-ence and benchmark for future implementations, with a particular focus on the quantitative study of paradigmatic SU (2) -invariant single-orbital models. In contrast to TUPS, which employs a parquet decomposition, BosonFlow is based on the single-boson exchange (SBE) formulation [20] of the functional renormalization group [21, 22]. Combined with a trun-cated unity treatment of momentum dependence, this approach enables the computation of dynamic vertices and self-energies on the Matsubara axis. The code provides a flexible environment for exploring different approximations, self-energy flow equations and cutoff schemes. It includes, as an option, the multiloop fRG framework [23–27], which removes the unphysical regulator dependence characteristic of conventional one-loop truncations. In addition, BosonFlow offers tools for detailed vertex and self-energy diagnostics and includes an interpolating flow for DMF 2RG [28, 29], en-abling the incorporation of correlated starting points for the fRG flow based on dynamical mean-field theory [30–32]. The framework further incorporates several recent methodological developments, in-cluding the G+U flow scheme [33], in which both bare propagators and bare interactions are dressed with regulators. This extends the multiloop fRG approach and notably allows for efficient temperature scans for systems involving electron-phonon couplings. 
+
+BosonFlow supports calculations at finite temperature for a broad class of models, both in the thermodynamic limit and on finite lattices. It involves notably the two-dimensional square-lattice Hubbard model [34–37], a paradigmatic model used, e.g., for the description of high-temperature superconductivity in cuprates [38–41]. BosonFlow also includes the Hubbard atom [34] and chain [42], the two-dimensional triangular-lattice Hubbard mod-els [34–36,43,44], and Anderson-type impurity systems [45]. Extensions involving phonons are also available, such as the two-dimensional Hubbard–Holstein model [46, 47] and the Anderson–Holstein impurity model [48,49]. In addition, the code features a self-consistent SBE-parquet solver, providing an alternative to flow-based approaches and a platform for benchmarking dynamic vertex effects in correlated electron systems. 3SciPost Physics Codebases Submission 
+
+# ∂ΛΣ = V
+
+> ∂ΛG−10,Λ
+
+# ∂ΛV = V
+
+> ∂ΛG−10,Λ
+
+# V
+
+Figure 1: Schematic representation of the flow equations underlying the one-loop fRG. These equations represent the evolution of vertex functions (the self-energy 
+
+Σ and the two-particle vertex V ) with a flow parameter Λ introduced in the bare propagator of the theory G0 (G0 → G0,Λ). The squares represent the two-particle vertex V , whereas the solid black lines correspond to the full propagator G and the dashes denote insertions of the derivatives ∂ΛG−10,Λ, as indicated on the diagrams. 
+
+# 2 Fermionic functional renormalization group and its single-boson exchange implementation 
+
+To study competing orders in fermionic systems, the most common fRG implementation is the one-loop fRG [2, 6], whose flow equations are depicted diagrammatically in Fig. 1. This scheme is in practice limited to weak or intermediate couplings. However, extensions have been designed to treat strong-coupling regimes. In that respect, one can mention the DMF 2RG [21, 28, 29, 50], which merges DMFT with fRG in such a way that the fRG equations are solved using DMFT results as initial conditions. Furthermore, to improve the accuracy of the fermionic fRG beyond the conventional one-loop implementation, one can also consider the multiloop fRG [23–25] that introduces loop corrections derived from the Bethe-Salpeter equations [51]. The generic form of the flow equations underlying the aforementioned fermionic fRG approaches (one-loop or multiloop fRG, DMF 2RG or weak-coupling fRG) for lattice models (which rely on translational invariance and energy conservation) is: 
+
+∂ΛΣ( k1) = RHS Σ[k1; Σ , V ; ˙Σ, ˙V ], (1a) 
+
+∂ΛV (k1, k 2, k 3) = RHS V [k1, k 2, k 3; Σ , V ; ˙Σ, ˙V ], (1b) where the external indices include spatial momenta and Matsubara frequencies, i.e. ki =(ki, ν i) (i = 1 , 2, 3). Here, Σ and V are respectively the self-energy and the two-particle vertex of the studied system. The latter is essential for the study of competing insta-bilities as susceptibilities can be extracted from V via, e.g., Bethe-Salpeter equations. The functionals RHS Σ and RHS V involve integrals/sums over momenta and frequen-cies, with integrands depending on both Σ and V . Although not specified explicitly in Eqs. (1), we note that these integrands also depend on ∂ΛG−10,Λ (within the one-loop fRG) or ∂ΛG−1 = ∂ΛG−10,Λ − ∂ΛΣ (within the multiloop fRG), where G0,Λ is the regulated bare propagator which defines the flow scheme (since the flow parameter Λ is originally intro-duced via the substitution G0 → G0,Λ in conventional fRG approaches 1).   
+
+> 1Within the G+Uflow scheme mentioned previously [33], a regulator is also introduced in the bare
+
+4SciPost Physics Codebases Submission 
+
+V  
+
+> 22′
+> 1′1
+
+=
+
+λph 
+
+wph 
+
+λph   
+
+> 22′
+> 1′1
+
++ λph 
+
+wph λph   
+
+> 22′
+> 1′1
+
++ λpp 
+
+wpp 
+
+λpp   
+
+> 22′
+> 1′1
+
++ X
+
+> r=ph,ph,pp
+
+Mr  
+
+> 22′
+> 1′1
+
++ I2PI   
+
+> 22′
+> 1′1
+
+− 3  
+
+> 22′
+> 1′1
+
+Figure 2: Single-boson exchange decomposition of the two-particle vertex V . Each diagram correspond to a four-point object with respect to spatial momenta kα,Matsubara frequencies να and spin indices σα, i.e., α = ( kα, ν α, σ α) with α =1, 2, 1′, 2′. The last term −3U is a double-counting correction that removes the bare interaction U included by convention as leading order to each single-boson exchange contribution of the first line. The differential equations (1) are therefore integro-differential equations, and their ac-curate treatment requires specific numerical approaches in the C++ BosonFlow codebase 
+
+presented in this article. As mentioned previously, BosonFlow can treat one-loop and mul-tiloop fRG equations, within DMF 2RG but also within conventional flow schemes. These “conventional flow schemes” refer to the Ω-flow [14], the temperature flow [52] and the in-teraction flow [53], where the flow parameter Λ corresponds to a frequency, a temperature scale and the interaction strength, respectively. As opposed to DMF 2RG, these conven-tional flow schemes rely on uncorrelated starting points for the flow with initial conditions inferred, e.g., from the non-interacting or the classical theory. The heart of the numerical treatment of Eqs. (1) is the description of the two-particle vertex V (k1, k 2, k 3), which is a highly complicated object. For the lattice models con-sidered in BosonFlow , it depends on three spatial momenta and three frequencies, i.e., 
+
+V = V (k1, k 2, k 3) where the momenta ki = ( ki, ν i) (i = 1 , 2, 3) contain each a spatial momentum and a frequency. In practice, the vertex V is thus often decomposed into sev-eral objects such that the differential equation (1b) is in practice replaced by other flow equations. In that respect, the C++ BosonFlow codebase uses the SBE decomposition of 
+
+V [20], which is shown in Fig. 2. Within the SBE framework, part of the contributions to the vertex V is parametrized in terms of bosonic propagators wr and fermion-boson vertices λr (also called Hedin vertices) and their conjugates λr, where r corresponds to either the particle-hole (ph ), particle-hole-crossed (ph ) or the particle-particle (pp ) channels. These three channels originally label the two-particle-reducible (2PR) diagrams of V depending on the nature of the two propagator lines 2 that can be cut to split the diagram into two disconnected parts. For the               
+
+> interaction U(via the substitution U→UΛ) such that the multiloop flow equations involve both ∂ΛG−1
+> and ∂ΛUin that case.
+> 2By definition, the diagrams assigned to the ph ,ph and pp channels contain two transverse antiparallel, two antiparallel and two parallel lines that can be cut to split them into two disconnected parts. See
+
+5SciPost Physics Codebases Submission 
+
+> Param.
+
+r ph ph pp 
+
+Qr k1 − k1′ k1 − k2′ k1 + k2
+
+Ωr ν1 − ν1′ ν1 − ν1′ ν1 + ν2
+
+kr k2 k2 k2
+
+νr ν2 + ⌊Ωph /2⌋ ν2 + ⌊Ωph /2⌋ ν2 − ⌈ Ωpp /2⌉
+
+k′ 
+
+> r
+
+k1′ k2′ k2′
+
+ν′ 
+
+> r
+
+ν1′ + ⌊Ωph /2⌋ ν2′ + ⌊Ωph /2⌋ ν2′ − ⌈ Ωpp /2⌉
+
+Table 1: Conventions used in BosonFlow for the spatial momenta and the Mat-subara frequencies for the two-particle vertex V , and for the objects wr, λr and 
+
+Mr introduced within its SBE decomposition (see Fig. 2), in each diagrammatic channel r (with r = ph, ph, pp ). Note that ⌈... ⌉ and ⌊... ⌋ round their argument up and down to the nearest bosonic Matsubara frequency, respectively. SBE decomposition, this translates into single-boson exchange contributions with bosons with different momenta, i.e., k1 − k1′ , k1 − k2′ and k1 + k2 in the ph , ph and pp channels, respectively. It is thus natural to introduce different momentum and frequency conventions 
+
+for objects related to one of these three channels. Those used in BosonFlow are defined by Tab. 1. Only part of the 2PR diagrams contributing to V can be interpreted as single-boson exchange processes, which correspond to the so-called U -reducible diagrams that can be split into two disconnected parts by cutting a bare interaction U . The remaining 2PR contributions correspond to multiboson exchange processes and are assigned to the multi-boson rest functions Mr. Finally, the diagrams that are two-particle-irreducible (i.e., not 2PR) are encompassed in the irreducible vertex I2PI . We note that, within both the one-loop and multiloop fRG approaches, the parquet approximation is used for conventional flow schemes 3, which implies that I2PI is set to the bare interaction of the studied model (I2PI = U ). Hence, within the SBE approach, the one-loop and multiloop fRG rely on flow equations for bosonic propagators, fermion-boson vertices and multiboson rest func-tions. The heart of the motivation for this substitution is that bosonic propagators wr
+
+and fermion-boson vertices λr all possess a simpler frequency and momentum structure compared to the original vertex V (k1, k 2, k 3). We indeed have wr(Qr) and λr(Qr, k r) for 
+
+r = ph, ph, pp , with Qr = ( Qr, Ωr) and k(′) 
+
+> r
+
+= ( k(′) 
+
+> r
+
+, ν (′) 
+
+> r
+
+) (see Tab. 1). The multiboson rest functions Mr(Qr, k r, k (′) 
+
+> r
+
+) however still depend on three momenta and three frequencies, so the efficiency of the SBE approach depends on our ability to neglect these objects. The quality of this approximation has been studied within the one-loop and the multiloop fRG in Refs. [22, 27]. It should also be noted that, for models involving retarded or non-local 4 interactions, the bare interaction exhibits non-trivial momentum or frequency dependencies, which in-duces more involved momentum or frequency structures of wr and λr. To retain the efficiency of the SBE approach, a redefinition of bosonic propagators, fermion-boson ver-   
+
+> Refs. [26, 27, 33, 54] for more details on this point.
+> 3Note the exception of the DMF 2RG where it is set to its DMFT value, i.e., I2PI =I2PI DMFT .
+> 4“Non-local” interactions refer here to interactions between electrons on different sites.
+
+6SciPost Physics Codebases Submission 
+
+tices and multiboson rest functions was proposed in Refs. [55,56] based on a diagrammatic criterion called B-reducibility. This amounts to splitting the bare interaction U into a bosonic part Br and a fermionic part Fr:
+
+U (Qr, k r, k ′
+
+> r
+
+) = Br(Qr) + Fr(Qr, k r, k ′
+
+> r
+
+). (2) The bosonic bare interaction Br thus contain all terms depending only on the bosonic momentum of their respective channel. The bosonic propagators wr and fermion-boson vertices λr can then be used to parametrize only the diagrams that can be split into two disconnected parts by cutting a bosonic interaction Br, hence the notion of B-reducibility. The bosonic propagators, fermion-boson vertices and multiboson rest functions considered in BosonFlow are based on those generalized definitions. Furthermore, each of these ver-tices are four-point objects with respect to spin indices, wr;σ1′ σ2′ |σ1σ2 , λr;σ1′ σ2′ |σ1σ2 and 
+
+Mr;σ1′ σ2′ |σ1σ2 . Since BosonFlow focuses on SU (2) -spin-symmetric systems only a few of those components are actually finite and independent. By selecting the relevant spin com-ponents in the ph , ph and pp channels [26, 27, 33], one can introduce the so-called physical channels, coined as magnetic ( M), density ( D) and superconducting ( SC ). Each of these new channels have their own bosonic propagator, fermion-boson vertex and multiboson rest function in such a way that the SBE scheme allows for replacing Eqs. (1) by the following differential equations: 
+
+∂ΛΣ( k) = RHS Σ[k; Σ , w X, λ X, M X], (3a) 
+
+∂ΛwX(Q) = RHS wX [Q; Σ , w X, λ X, M X], (3b) 
+
+∂ΛλX(Q, k ) = RHS λX [Q, k ; Σ , w X, λ X, M X], (3c) 
+
+∂ΛMX(Q, k, k ′) = RHS MX [Q, k, k ′; Σ , w X, λ X, M X], (3d) for X = M , D, SC . Eqs. (3) correspond to the generic form of the flow equations treated in BosonFlow . We stress again that the objects wX, λX and MX are obtained from specific spin components of wr, λr and Mr and their exact definitions can be found in Refs. [27,33]. The exact form of Eqs. (3) can be found in Ref. [22] for the one-loop fRG. For the multiloop fRG, dependenc on derivatives is also included in the right hand-side. Their expressions can be found in Ref. [27], and in Ref. [33] for the extension based on the G+U flow scheme. 
+
+# 3 Applications 
+
+BosonFlow has already been applied to several correlated-electron models. It started with an analysis of the two-dimensional square-lattice Hubbard model with the one-loop fRG [22], focused on the merits of the SBE formulation. This study focused on the weak-coupling regime regime of this model, at temperatures above the pseudo-critical antifer-romagnetic transition of the one-loop fRG. This transition is an artifact of the one-loop approximation, and produces a long-range order in a two-dimensional system at finite temperature that is in principle forbidden by the Mermin–Wagner theorem [57–59]. An important finding reported in Ref. [22] is that, in the vicinity of the pseudo-critical transi-tion, only the magnetic bosonic propagator wM(Q) exhibits diverging behavior whereas the other objects appear to remain finite. This makes it easier to describe the sharp momen-tum features inherent to diverging behavior, considering that bosonic propagators wX(Q)
+
+have a much simpler momentum dependence compared to the original two-particle vertex 
+
+V (k1, k 2, k 3). Furthermore, Ref. [22] also finds that the contribution of the multiboson rest function appears to be negligible in most of the studied regimes (weak couplings for 7SciPost Physics Codebases Submission 
+
+temperatures above the pseudo-critical transition), which implies that V (k1, k 2, k 3) is effi-ciently described by the simpler objects wX(Q) and λX(Q, k ). These conclusions highlights the advantage of the SBE formulation of the (one-loop) fRG and lay the foundation for subsequent work based on BosonFlow .The natural next step consists in performing similar investigations within the multiloop fRG, which is know to provide quantitatively for two-dimensional lattice systems at weak coupling [60]. Furthermore, multiloop fRG results coincide with the parquet approximation at loop convergence [23,61], which is known to be consistent with the Mermin–Wagner theo-rem [11,62]. In that sense, the multiloop fRG cures the artificial long-range order produced by the one-loop approximation. The multiloop fRG equations in the SBE framework were originally developed in diagrammatic channels in Ref. [26]. Subsequent projects based on 
+
+BosonFlow were carried out by reformulating the multiloop SBE fRG equations in physical channels [27,63], which provide a compact formulation for SU (2) -spin-symmetric systems. First, self-energy flow equations were derived from the Schwinger-Dyson equation for each physical channel ( X = M , D, SC ) and rewritten explicitly in terms of bosonic propagators and fermion-vertices [63], thus providing a simpler reformulation of the Schwinger-Dyson equation in previous multiloop fRG studies [60,64]. Ref. [63] also analyzed in particular how the different channel representations of the Schwinger-Dyson equation thus obtained are affected by form-factor truncations. This was achieved by studying the pseudogap open-ing in the two-dimensional square-lattice Hubbard model, with numerical results produced with BosonFlow . As a next step, the multiloop fRG equations for bosonic propagators, fermion-boson vertices and multiboson rest functions were reformulated also in terms of physical channels in Ref. [27]. These equations were implemented in BosonFlow and an analysis of the corresponding numerical results showed that the parquet approximation is accurately reproduced at loop convergence without multiboson rest functions. This high-lights that, within the multiloop fRG, the two-particle vertex V (k1, k 2, k 3) can also be efficiently described by simpler objects within the SBE framework. The aforementioned studies were performed for the conventional two-dimensional square-lattice Hubbard model. For application to models with extended or non-local interactions that respect the role of the rest function as a residual of essential bosonic fluctuations, the SBE had to be generalized in terms of the B + F-splitting of the bare interaction mentioned previously with Eq. (2). This generalization is built in BosonFlow , and was applied to thoroughly study the extended Hubbard and Hubbard–Holstein models within the one-loop fRG in Refs. [55, 56], with SBE-inspired fluctuation diagnostics. More re-cently, the work of Ref. [33] generalized the multiloop fRG within the SBE framework with the G+U flow scheme introduced in Sec. 1, thus allowing for the implementation of temperature flows for systems with electron-phonon couplings. In that context, BosonFlow 
+
+has been employed to produce benchmark calculations for the Anderson impurity model and a temperature-flow application to the Anderson–Holstein impurity model, an impurity model involving an electron-phonon coupling. In a recent clarification of the question of whether multiloop fRG and the parquet approximation satisfy the Hohenberg-Mermin-Wagner theorem, self-consistent calculations with BosonFlow were also used to perform numerical fits for the anomalous dimension [62]. 
+
+# 4 Usage 
+
+Performing a calculation with BosonFlow is fairly straightforward. After cloning and set-ting up the github repository in https://github.com/AG-Andergassen/BosonFlow.git –see repository page for more details – and ensuring the required dependencies are installed, 8SciPost Physics Codebases Submission 
+
+the user: 1. Sets technical parameters and flags (solution strategy, approximations, details on fre-quency boxes and momentum meshes, approximations ..etc) within the file config. mk .2. Builds the code by executing e.g. make run -j . A resulting binary is then produced. 3. Executes the built binary with desired giving an output directory and further model parameters as command line arguments. Resulting observables and flowing objects are outputted in HDF5 files. The following subsections summarize the required software dependencies, some of the important compile-time options and the available runtime parameters, and the structure of the generated output. More details can be found in BosonFlow ’s github webpage. 
+
+4.1 Installation and Prerequisites 
+
+BosonFlow requires a compiler that supports C++20 (gcc ≥ 13 or LLVM ≥ 16 ) together with the external libraries listed in Table 2. On HPC clusters these are typically loaded via an environment manager (such as modules ) or package managers (such as spack ). 
+
+Library Minimum version Purpose 
+
+Boost 1.66 ODE solver (odeint) and utilities FFTW3 3.3.8 Fast Fourier transforms for bubble convolutions HDF5 1.10.3 Persistent storage and results of calculations Eigen3 3.3.7 Linear algebra operations and matrices OpenMP — Multi-threaded parallelization (recommended) Table 2: Required external dependencies. The standard build procedure, which produces an optimised multi-threaded binary at 
+
+./bin/run , is  
+
+> 1make clean && make run -j
+
+which builds with gcc . Additional build targets are available: make runclang com-piles with Clang/LLVM and often improves code generation, while make dbg and make dbgclang produce debug builds with bounds checking and threading disabled, suitable for use with the debuggers gdb and lldb respectively. We have found that Clang/LLVM produces the more optimized binaries. 
+
+4.2 Technical parameters and Model Selection 
+
+All compile-time flags are specified in config.mk . These specify various technical param-eters of the calculations. For clarity, it is useful to group them into: (i) flow and solver choices, (ii) physical model selection, (iii) SBE-specific flags and approximation, (iv) mul-tiloop corrections, (v) grid parameters and performance flags. Within some groups the flags are mutually exclusive; only one must be enabled at a time, while in others they act as complementary tools. 9SciPost Physics Codebases Submission 4.2.1 Core flow and solver choices 
+
+The most consequential decisions concern the solver strategy and the choice of the flow scheme, as these shape the entire numerical approach. The solver strategy is mutually ex-clusive: FLOW_EQUATION_METHOD performs an ODE-based fRG flow, while SELF_CONSISTENT_METHOD 
+
+uses solves the SBE equations by fixed point iteration [65]. The choice of a G-flow scheme 
+
+is likewise mutually exclusive and determines the type of regulator/cutoff implemented on the propagator; the available options are OMEGA_FLOW introduced in Ref. [14], INT_FLOW in-troduced in Ref. [53], TEMP_FLOW introduced in Ref. [52]. More details can also be found in Ref. [27]. Additionally and independently, one may specify a U -flow scheme which dictate how the the bare interaction will flow, as introduced in Ref. [33]. The ACTUAL_U _FLOW 
+
+scheme implements a simple interpolation of the bare interaction from 0 to its full value, whereas the FREE_U_FLOW allows for more sophisticated model-dependent deformation of the interaction. In that case, one needs to implement additional functions in the model class. Currently, the FREE_U_FLOW flag is usable if used together with the TEMP_FLOW flag with the Anderson impurity Holstein model, which implements a correct temperature flow even though the model has a retarded interaction. See Ref. [33] for more details. One may also turn on only the ACTUAL_U_FLOW flag without any of the G-flow flags. The self-energy treatment can be chosen as SELFEN_FLOW for the standard one-loop flow in the flow equation solution strategy, or as SELFEN_SDE_SBE_ ∗ for a channel-specific SDE/SBE [66], where ∗ stands for one of the magnetic, density, or superconducting channels for any of the two solution strategies. If none of these flags are chosen, then the self-energy is neglected. When doing a self-consistent calculation, the SELFEN_FLOW flag is unused, and one must employ one of the three SDE forms of the self-energy. Table 3 summarises the mutually exclusive strategy flags, and Table 4 covers other tuning and resolution options. 
+
+Group Flag Effect 
+
+Solver FLOW_EQUATION_METHOD ODE-based fRG integration 
+
+SELF_CONSISTENT_METHOD Fixed-point iteration 
+
+G-flows OMEGA_FLOW Frequency regulator 
+
+INT_FLOW Interaction flow (through G)
+
+TEMP_FLOW Temperature flow 
+
+U -flows ACTUAL_U_FLOW Interaction flow (through U )
+
+FREE_U_FLOW Interaction flow (freely defined through model) Self-energy SELFEN_FLOW Standard one-loop flow 
+
+SELFEN_SDE_SBE_MAGNETIC SDE/SBE, magnetic channel 
+
+SELFEN_SDE_SBE_DENSITY SDE/SBE, density channel 
+
+SELFEN_SDE_SBE_SUPERCONDUCTING SDE/SBE, SC channel Table 3: Strategy and formulation flags (mutually exclusive within each group). 
+
+4.2.2 Choosing a model 
+
+The physical model is selected through the macro THE_MODEL_VAL , which accepts the iden-tifiers listed in Table 5. Lattice models include on-site interaction U , nearest-neighbour hopping t, and optional longer-range terms. Holstein variants add electron–phonon cou-pling characterized by a coupling strength g0 and a phonon frequency ω0. The long-range variant adds a screened Coulomb interaction, while the Anderson impurity models couple a (singly) impurity site to a bath defined by a hybridization function. For an overview of model parameters, pass the –help option as a command line argument to the built binary. 10 SciPost Physics Codebases Submission Flag Effect 
+
+K_DIM_VAL Number of momentum grid points in each dimen-sion 
+
+COUNT_VAL Frequency grid box multiplier 
+
+FORMFACTOR_SHELL_COUNT_VAL Shell count for form-factor models; set to 1 for atom/impurity models 
+
+P_IN_K_VAL Multiplier for a finer momentum grid in each dimen-sion, for the integration of the bubble functions 
+
+STATIC_CALCULATION Neglects frequencies of the vertex and the self-energy 
+
+MULTILOOP Utilize multiloop RHS 
+
+EXTRA_LOOP_NUM_VAL When multiloop RHS is used, specifies additional vertex loops (0 = 1-loop+Katanin, 1 = 2-loop, . . . ) 
+
+SBEa_APPROXIMATION Enables the SBEa approximation by neglecting the rest-function flow in flow-equation mode 
+
+SBEb_APPROXIMATION Rest function is neglected prior to computing the flow equations 
+
+SET_MIXED_BUBBLES_TO_ZERO Approximates bubble components off-diagonal in form-factors to zero; reducing computational cost 
+
+FIX_FILLING Pin filling to its initial value by self-consistently ad-justing the chemical potential 
+
+PRECOMPUTE_STATE_PROJECTIONS Precomputes form-factor projections; trades mem-ory for speed 
+
+UTILIZE_ALGEBRAIC_SYMMETRIES Exploits algebraic (spin/frequency) symmetries to reduce the number of independently evaluated in-dices; highly recommended 
+
+UTILIZE_LATTICE_SYMMETRIES Exploits lattice point-group symmetries to further reduce the independent index set; highly recom-mended 
+
+MULTIFILE_OUTPUT Writes output to multiple files (one per flow step) 
+
+AUTORESUME_CALCULATION Restarts calculation from the last outputted step 
+
+MICKY_MOUSE Debug mode with minimal grid parameters; not for production Table 4: Some relevant resolution and run-control flags. 
+
+Identifier Description 
+
+HubbardAtom ✓ Single-site Hubbard atom 
+
+AndersonImpurity ✓ Anderson impurity with hybridisation bath 
+
+AndersonImpurityHolstein ✓ Anderson impurity + Holstein phonons 
+
+SquareHubbard ✓ Square-lattice Hubbard model 
+
+SquareHubbardHolstein ✓ Square Hubbard + Holstein phonons 
+
+SquareHubbardLongRange Square Hubbard + screened Coulomb 
+
+TriangularHubbard Triangular-lattice Hubbard model 
+
+ChainHubbard 1D chain Hubbard model 
+
+FCCHubbard FCC-lattice Hubbard model Table 5: Available models for THE_MODEL_VAL . Models that have been tested thor-oughly are marked with “ ✓”. 11 SciPost Physics Codebases Submission 4.2.3 SBE-specific flags and approximations 
+
+Several compile-time flags are specifically relevant within the treatment of the flow equa-tions in the SBE formalism. In particular, enabling SBEa_APPROXIMATION disables the flow of the multiboson rest function. The flag SBEb_APPROXIMATION goes further by eliminating multi-boson contributions entirely. In the self-consistent solution strategy however, both flags identically leave out the computation of the rest function. Notably, whereas both approximations maintain the same computational reduction, the SBEa approximation still contains partial differentiated multi-boson contributions implicit through the flow of the fermion-boson vertices, and so remains a superior approximation available only through fRG; see Ref. [22]. Several additional flags allow for further approximations, such as NO_HEDIN_VERTEX_FLOW ,which freezes the fermion-boson vertex at its bare value and disables its flow, or 
+
+SET_MIXED_BUBBLES_TO_ZERO which forces mixed bubble cross terms to zero. The 
+
+PRECOMPUTE_STATE_PROJECTIONS flag when enabled precomputes the form-factor projec-tion matrices trading memory for performance. 
+
+4.2.4 Multiloop calculations 
+
+Solving the multiloop fRG flow equations is done by enabling the MULTILOOP flag. In-ternally, this switches to a multiloop RHS class which can handle the calculation of the multiloop corrections. Then, EXTRA_LOOP_NUM_VAL specifies the number of extra loop cor-rections beyond the base scheme. When the standard SELFEN_FLOW flag is selected, the self-energy is computed from the conventional one-loop flow equation using the four-point vertex. Alternatively, one of the Schwinger–Dyson variants, SELFEN_SDE_SBE_MAGNETIC , SELFEN_SDE_SBE_DENSITY ,or SELFEN_SDE_SBE_SUPERCONDUCTING , may be chosen. In that case, the self-energy is reconstructed from the corresponding Schwinger–Dyson equation within the single-boson-exchange formalism. The parameter EXTRA_LOOP_NUM_VAL determines the highest loop correction to be in-cluded. For EXTRA_LOOP_NUM_VAL =0, only the one-loop contribution together with the Katanin correction is retained. For EXTRA_LOOP_NUM_VAL =1, the two-loop vertex correction is added. Values EXTRA_LOOP_NUM_VAL ≥ 2 include three-loop and higher-loop corrections systematically. When EXTRA_LOOP_NUM_VAL > 0, the code performs a self-consistent inner loop at each RG step in order to iteratively refine the self-energy together with the multiloop vertex corrections. Details can be found in Ref. [27]. Put briefly, each RG step proceeds as follows. First, the one-loop right-hand sides for the vertex and self-energy are evaluated. The propagators are then updated using the Katanin correction, and the relevant particle-particle and particle-hole bubble diagrams are computed and cached. The algorithm subsequently enters a self-consistency loop, in which the multiloop vertex corrections are constructed from these bubbles and, if applicable, the self-energy is updated according to the selected Schwinger–Dyson equation. After each update, convergence is checked against ABS_ERROR_SELFENERGY_ITERATIONS_VAL defined in config.mk . The iteration is repeated until convergence is reached or until the maximum number of iterations specified by SELFENERGY_ITERATIONS_MAX_VAL is attained. The flow then advances to the next RG scale. At each loop order ℓ ≥ 2, the code monitors convergence using the thresholds 
+
+ERR_LOOP_ABS_VAL and ERR_LOOP_REL_VAL . By default, the multiloop calculation termi-nates early once the norm of the current loop correction falls below the prescribed thresh-old. This behavior can be disabled with FORCE_CALCULATE_ALL_MULTILOOP_CORRECTIONS ,12 SciPost Physics Codebases Submission                                  
+
+> Object Bosonic frequency Fermionic frequency Bosonic momentum Fermionic mo-mentum / form factors
+> Σ,˙Σ∅20( COUNT_VAL )∅(K_DIM_VAL )d
+> Π,˙Π128( COUNT_VAL ) + 1 128( COUNT_VAL )(K_DIM_VAL ×PX_IN_KX_VAL )dff.
+> w,˙w(ℓ)128( COUNT_VAL ) + 1 ∅(K_DIM_VAL )d+refinement ∅
+> λ,˙λ(ℓ)4( COUNT_VAL ) + 1 4( COUNT_VAL )(K_DIM_VAL )d+refinement ff.
+> M,˙M(ℓ)4( COUNT_VAL ) + 1 2( COUNT_VAL )(K_DIM_VAL )d+refinement ff.
+
+Table 6: Frequency, momentum, and form-factor resolution used in the parametrization of the objects in relation to the technical parameters in 
+
+config.mk . Within truncated-unity [14, 16], bosonic transfer momenta are dis-cretized on Brillouin-zone grids, while fermionic momentum dependence is rep-resented through a small form-factor basis (“ff.”). For the self-energy, fermionic momenta are resolved directly on the coarse (K_DIM_VAL )d grid. which forces the evaluation of all loop orders up to EXTRA_LOOP_NUM_VAL . This option is mainly useful for diagnostics and convergence studies. Finally, we note that the Katanin correction mentioned above is enabled by default with the MULTILOOP flag at all loop orders, but it can be omitted by enabling the NO_KATANIN 
+
+flag found in config.mk .
+
+4.2.5 Momentum and frequency grids 
+
+The numerical resolution is determined primarily by K_DIM_VAL , COUNT_VAL , PX_IN_KX_VAL ,and FORMFACTOR_SHELL_COUNT_VAL . These control the momentum discretisation, Matsubara-frequency resolution, and form-factor shell size, respectively. More specifically, K_DIM_VAL sets the number of points per dimension of the coarse momentum grid used for vertex and self-energy parametrization. In addition, the code uses a refined momentum grid with K_DIM_VAL ×PX_IN_KX_VAL points per dimension. This finer grid enters bubble integrations (see the Π, ˙Π row in Table 6), where particle-particle and particle-hole bubbles develop increasingly sharp structures near the Fermi surface as the temperature is lowered. Additional refinement at selected local points in the Brillouin zone can be specified through command line arguments to the binary. Table 1 summarizes, for each object, which frequency boxes are used and whether mo-menta are represented on the coarse bosonic grid, the refined bubble grid, or through fermionic form factors (“ff.”). This reflects the truncated-unity representation, where fermionic momentum dependence is projected onto a compact form-factor basis. The en-tries marked “ + refinement” indicate the supplemented by the aforementioned additional refinement points. The parameter FORMFACTOR_SHELL_COUNT_VAL further specifies the number of form-factor shells included in the truncated unity treatment of secondary fermionic momenta. For models on the square lattice, magic values such as 1.3 indicate including only three: 
+
+s-wave + two p-wave form factors, whereas 1.5 includes only two: the s-wave and the 
+
+d-wave form factors. For models without spatial structure, such as the Hubbard atom or Anderson impurity, FORMFACTOR_SHELL_COUNT_VAL is taken to be 1 (i.e. only the on-site form factor is included). 13 SciPost Physics Codebases Submission 4.2.6 Example representative calculation 
+
+A representative config.mk configuration for a square-Hubbard 1ℓ+Katanin fRG calcula-tion with a frequency cutoff function involves the following              
+
+> 1#...
+> 2CFLAGS += -D FLOW_EQUATION_METHOD
+> 3CFLAGS += -D THE_MODEL_VAL=SquareHubbard
+> 4CFLAGS += -D COUNT_VAL=5
+> 5CFLAGS += -D K_DIM_VAL=16
+> 6CFLAGS += -D P_IN_K_VAL=5
+> 7CFLAGS += -D FORMFACTOR_SHELL_COUNT_VAL=1.0
+> 8CFLAGS += -D OMEGA_FLOW
+> 9CFLAGS += -D SELFEN_FLOW
+> 10 CFLAGS += -D MULTIFILE_OUTPUT
+> 11 CFLAGS += -D EXTRA_LOOP_NUM_VAL=0
+> 12 CFLAGS += -D SPLIT_SUSC_CONTRIBUTIONS
+> 13 #...
+
+The specified resolution is sufficient to perform calculations at inverse temperature βt = 10 .This will lead additionally to a run performing fluctuation diagnostics of the susceptibility (as done e.g. in Ref. [56]) and to output this in the observables. 
+
+4.3 Runtime Parameters and Execution 
+
+The compiled binary is invoked as  
+
+> 1./bin/run output_directory [options]
+
+where output_directory is a positional argument specifying a directory where the re-sulting HDF5 files will be written. All physical parameters carry sensible model-dependent defaults, Table 7 lists the most commonly used runtime options. Example executions for the square Hubbard model are    
+
+> 1./bin/run ./results/run1 --beta 10.0 --uint 3.0 --mu -1.0
+> 2./bin/run ./results/run2 --beta 8.0 --uint 2.5 \
+> 3--refine-at idx_00:0.02 --refine-at idx_pipi:0.015
+
+The –refine-at option accepts a label:radius format, where label identifies a Brillouin-zone symmetry point (e.g. idx_00 for Γ = (0 , 0) , idx_pipi for M = ( π, π ),
+
+idx_ppi_0 for X = ( π, 0) ) and radius ∈ [0 , 1] specifies the refinement region (in percent) in momentum space. This allows targeted improvement of momentum resolution near points of physical interest, such as van Hove singularities or ordering wavevectors. For parameter scans, independent runs can be launched in parallel with a simple shell loop:      
+
+> 1for U in 1.0 2.0 3.0 4.0 5.0; do
+> 2mkdir -p "results/U_${U}"
+> 3./bin/run "./results/U_${U}" --beta 10.0 --u "$U" --mu -0.5 &
+> 4done
+> 5wait
+
+4.4 Output Structure and Data Access 
+
+BosonFlow writes its results in HDF5 format. With MULTIFILE_OUTPUT enabled, the output directory contains a sequence of numbered snapshot files ( 0.h5 , 1.h5 , . . . ), which store intermediate states of the flow at different scales, and Params.h5 , which collects the main 14 SciPost Physics Codebases Submission Option Description Models 
+
+–beta FLOAT Inverse temperature β = 1 /T All 
+
+–uint FLOAT On-site interaction U All 
+
+–mu FLOAT Chemical potential μ All 
+
+–filling FLOAT Target filling used for initial chemical-potential adjustment; if omitted, filling follows μ
+
+All 
+
+–u-prime FLOAT Nearest-neighbour interaction U ′ Square,Triangular, Chain 
+
+–t-prime FLOAT hopping t′ Square,Triangular, FCC 
+
+–t-prime-prime FLOAT hopping t′′ Triangular, FCC 
+
+–g0 FLOAT Electron–phonon coupling g0 Holstein variants 
+
+–omega0 FLOAT Phonon frequency ω0 Holstein variants 
+
+–D FLOAT Bath half-bandwidth Anderson impurity 
+
+–delta0 FLOAT Hybridisation strength ∆0 Anderson impurity variants 
+
+–dos-type <BOX|CONST> type of Hybridisation function Anderson impurity variants 
+
+–refine-at label:r Refine grid near symmetry point Lattice models 
+
+–help Print options and defaults All Table 7: Selected runtime parameters and their applicability. parameters used for the run. If the vertex grows unboundedly during the flow, signaling either a physical instability or divergence in the fixed point iteration, the solver stops and writes a file with the suffix _DIVERGENT.h5 . When SPLIT_SUSC_CONTRIBUTIONS is enabled, the susceptibility output is further decomposed into individual channel contributions, which facilitates identification of the dominant fluctuation mode. Compile-time flags also affect the output filenames by encoding parameter choices used in the run. The HDF5 file is organized into the groups Sig , lambda_func , w_func , and Flow_obs .The group Sig stores the self-energy on the fermionic frequency and momentum grids, together with the corresponding grids in fgrid and momgrid . The real and imaginary parts are stored separately as Sig/RE and Sig/IM .The group lambda_func contains the channel-resolved fermion-boson vertices in the density, magnetic, and superconducting channels. Their real and imaginary parts are stored separately as RE_D , IM_D , RE_M , IM_M , RE_SC , and IM_SC . The associated bosonic and fermionic frequency grids and the momentum grid are stored in bgrid , fgrid , and 
+
+momgrid .The group w_func stores the corresponding bosonic propagators, again resolved into density, magnetic, and superconducting channels and split into real and imaginary parts. Its associated bosonic frequency and momentum grids are stored in w_func/bgrid and 
+
+w_func/momgrid .Postprocessed two-particle observables are collected in Flow_obs , which includes po-larization functions in Postprocessing_Polarisation_info , susceptibilities in 
+
+Postprocessing_Susc_info , s-wave projected susceptibilities in S_Wave_Susc_info , and decompositions of the fermion-boson vertices in Postprocessing_Lambda_info . For all these quantities, real and imaginary parts are stored separately using the prefixes RE_ and 
+
+IM_ . For example, the magnetic susceptibility is stored as RE_Susc_m and IM_Susc_m .The momentum grids are also stored explicitly as datasets named momgrid . These grids 15 SciPost Physics Codebases Submission 
+
+are represented as two-component momentum points, while the frequency grids are stored separately as fgrid for fermionic frequencies and bgrid for bosonic frequencies. HDF5 files can be read in most popular languages (e.g. Python, MATLAB, or Julia). A minimal Python to read the real and imaginary parts of the self-energy using the h5py 
+
+module is             
+
+> 1import h5py
+> 2import matplotlib.pyplot as plt
+> 34with h5py.File( 'results/final.h5 ','r') as f:
+> 5fermionic_frequency_grid = f[ 'Sig/fgrid ']
+> 6sigma_real = f[ 'Sig/RE '][:,0,0,0] #frequency_idx, momentum_idx, spin_idx, spin_idx
+> 7sigma_imaginary = f[ 'Sig/IM '][:,0,0,0] # 0 momentum idx always corresponds to zero momentum
+> 8plt.plot(fermionic_frequency_grid, sigma_real, "x-")
+> 9plt.plot(fermionic_frequency_grid, sigma_imaginary, "+-")
+> 10 plt.show()
+
+4.4.1 Momentum- and Frequency-Resolved Plots 
+
+Beyond direct inspection of individual datasets, the HDF5 output can be easily used to extract one-dimensional cuts from the full multidimensional data. In momentum-resolved plots, one usually does not display an observable against the raw momentum-point in-dex, but instead evaluates it along a physically meaningful path through the Brillouin zone, typically a high-symmetry path such as Γ-X-M-Γ. The corresponding sequence of momentum-point indices can be read from Params.h5 , matched to the momentum grid stored in final.h5 , and converted into a one-dimensional coordinate given by the cumu-lative distance along the path. The observable is then evaluated at each point of this trajectory, for example at fixed bosonic Matsubara frequency Ω = 0 in the case of a static susceptibility. This representation makes the momentum structure of the quantity directly visible and allows one to identify the wave vectors at which fluctuations are strongest. Frequency-resolved plots can be constructed analogously by fixing a momentum point and evaluating the observable on the Matsubara-frequency grid. For the self-energy, for example, one typically selects representative momentum points, such as the antinodal point 
+
+(π, 0) and the nodal point (π/ 2, π/ 2) , and then plots either Re Σ( ν, k) or Im Σ( ν, k) as a function of the Matsubara frequency ν. However, since the momentum-resolved self-energy is stored on a discrete Brillouin-zone grid, the mapping between array index and physical momentum is read from the dataset Sig/momgrid , whose entry momgrid[i] gives the pair 
+
+(kx, k y) associated with momentum index i. Nodal and antinodal cuts are then obtained by selecting the indices whose momentum coordinates correspond to the desired points of the Brillouin zone. An example of a momentum-resolved postprocessing workflow and the corresponding plot is shown below.              
+
+> 1import h5py
+> 2import numpy as np
+> 3import math
+> 4import matplotlib.pyplot as plt
+> 56# Read final output and parameter file
+> 7with h5py.File("results/final.h5", "r") as f, h5py.File("results/Params.h5", "r") as p:
+> 89# Momentum grid from final.h5
+> 10 momgrid = np.array(f["w_func/momgrid"])
+> 11 12 # High-symmetry path Gamma-X-M-Gamma from Params.h5
+> 13 path_indices = np.array(p["Model/Special_paths/path_Gamma_X_M"])
+> 14 15 # Construct the cumulative distance along the path
+> 16 path_momenta = momgrid[cleaned_path]
+> 17 xaxis = np.zeros(len(path_momenta))
+
+16 SciPost Physics Codebases Submission  
+
+> 18
+
+for i in range(1, len(path_momenta)):  
+
+> 19
+
+dk = path_momenta[i] - path_momenta[i - 1]  
+
+> 20
+
+xaxis[i] = xaxis[i - 1] + math.sqrt(dk[0]**2 + dk[1]**2)  
+
+> 21 22
+
+# Example: static magnetic susceptibility along the path  
+
+> 23
+
+chi_m_re = np.array(f["Flow_obs/Postprocessing_Susc_info/RE_Susc_m"])  
+
+> 24
+
+omega_index = 0  
+
+> 25
+
+chi_path = chi_m_re[omega_index, cleaned_path]  
+
+> 26 27
+
+# Plot  
+
+> 28
+
+plt.plot(xaxis, chi_path, marker="o", linewidth=0.8)  
+
+> 29
+
+plt.xticks(  
+
+> 30
+
+[0.0, math.pi, 2.0 * math.pi, 2.0 * math.pi + math.sqrt(2.0 * math.pi**2)],  
+
+> 31
+
+[r"$\Gamma$", "X", "M", r"$\Gamma$"]  
+
+> 32
+
+) 
+
+> 33
+
+plt.ylabel(r"$\chi^{\mathrm M}(\mathbf{Q},\Omega=0)$")  
+
+> 34
+
+plt.xlabel(r"momentum path")  
+
+> 35
+
+plt.tight_layout()  
+
+> 36
+
+plt.show() 
+
+17 SciPost Physics Codebases Submission 
+
+# 5 Implementation details 
+
+In this section, we give a technical overview of the implementation details and architec-ture of the code. A lot can be learned by inspecting src/start.cpp (where the main 
+
+function of the C++ program is located) and include/start.h . The code starts by ini-tializing the model, grids, symmetry containers, flow-scheme, input-output (I/O), state and a right-hand side (RHS) object. The model layer specifies the lattice geometry and bare interactions; the frequency-scheme layer constructs Matsubara grids, form factors, and projection matrices; symmetry initialization and interpolation setup jointly reduce the number of required evaluations. The flow-scheme layer then registers the regulator choice and propagator functions. Observable tracking is configured, and finally the solver (either ODE integration or self-consistent iteration) is executed, with the persistent HDF5 output recording the evolving self-energy Σ and SBE vertex components wX, λ X , M X alongside derived observables. 
+
+5.1 Overview and High-Level Design 
+
+A central design principle we followed in BosonFlow is the Separation of Concerns (SoC) principle, where the program is divided into distinct parts, each responsible for certain aspect of the program. In particular, the three main physics inputs — the model, the regulator, and the solution method — have implementations which details are abstracted from each other and from the state and RHS implementations. 1. The model is primarily responsible for the lattice geometry and interactions. Model classes define the lattice, the Brillouin zone, the single-particle dispersion ϵk, and the bare two-particle interaction in both the full-vertex and SBE-channel forms. They carry no knowledge of the flow scheme, the frequency grid layout, or how the equa-tions are solved. Their static Init() method populates all geometry data structures once at startup; after that, every other part of the code calls model class members through static class members. Model-specific parameters (such as a Hubbard U ,next-nearest neighbor hopping t′, electron-phonon coupling g0, phonon frequency ω0,. . . etc) are set through compile-time macro values that are set at startup from the command-line arguments. Nearly every class in the codebase is a class template parametrized by a Model type. This type argument propagates model-specific compile-time constants — spatial di-mension ( Model::dim ), number of momentum points, the number of form-factors, and array sizes derived from K_DIM_VAL , COUNT_VAL , and FORMFACTOR_SHELL_COUNT_VAL 
+
+respectively — into state containers, RHS functors, bubble arrays, symmetry maps, truncated unity interchannel projection matrices, I/O routines and so on. 2. The flow scheme (through the fRGFlowScheme<Model> class) is responsible only for the choice and implementation of the regulators. It implements the scale-dependent bare propagator G0,Λ for each of the available schemes. In addition, it implements further related objects such as the dressed propagator GΛ and the single-scale prop-agator SΛ. A suitably re-scaled “physical” propagator is also specified that can be used, for example, to calculate the filling at intermediate stages of the flow. For some cutoff schemes, tail-correction asymptotics used in bubble frequency sums are also implemented. The choice of scheme — such as those listed in table 3 — is registered once at startup via the UseFlow(G_FlowSchemeName::*) method of the class in the  
+
+> main
+
+function of the program. Optionally, a flowing bare interaction UΛ can be en-abled independently through specifying a U_FlowSchemeName::* argument, resulting 18 SciPost Physics Codebases Submission 
+
+in the addition of ˙B and ˙F contributions to the flow equations without changing anything else. In principle, there is no hard limitation to what combination of G-and U -flow schemes can be used together. The only requirement is that they share the same parametrization of the flow parameter t.3. The solver choice is determined largely by the choice of the RHS ( rhs_*_t<Model, state_t> class ) and the state ( state_*_t<Model> class) classes. If one enables the flag FLOW_EQUATION_METHOD , an ODE solver calls rhs_*_t::operator(state, ..., t) 
+
+at each step of the flow and passes the returned derivative state to the adaptive step-size controller. On the other hand, for SELF_CONSISTENT_METHOD , where the SBE equations are solved self-consistently, in each iteration vertex(...) and selfenergy (...) methods are called to update the vertex and self-energy components separately to allow finer control over vertex and self-energy convergence. Crucially, the same 
+
+> state_*_t
+
+, observer_*_t , and I/O classes are used in both cases — the solver choice affects only the iteration logic in src/start.cpp .This three-way separation means that extending any of the three — whether adding a new lattice model, a new cutoff scheme, or a new solution strategy/RHS — does not require touching the other components, enabling “modularity” of the code. 
+
+5.2 Models 
+
+All major components of the code are templated on a Model type chosen at compile time by the THE_MODEL_VAL preprocessor flag set in config.mk , see Table 5. A new model is created by writing a class that inherits from Hubbard<dim> , where dim 
+
+is the spatial dimension. The Hubbard<dim> itself inherits from an AbstractModel class, from which more general models can be written. The model is selected at compile time via the THE_MODEL_VAL preprocessor flag; once set, the entire rest of the code is templated on that type and model-specific data — spatial dimension, coarse and fine momentum counts, form-factor count — propagates automatically into the state containers, RHS functors, symmetry maps, and I/O routines, without any further changes. 
+
+5.2.1 Initialization 
+
+A concrete model’s Init() method takes no arguments and is responsible for building all geometry. It constructs the lattice basis vectors ( basis_t<dim> ), the point-group matrices grouped into conjugacy classes, and optionally a map of named special momentum points and paths used for output. These objects, together with an optional refine_at_points 
+
+map for grid refinement and optional extra form factors, are forwarded to Hubbard<dim>:: Init(...) :  
+
+> 1Hubbard<dim>::Init(basis, point_group, special_points_coords,
+> 2special_paths_coords, refine_at_points, extra_form_factors);
+
+This function handles each of the following constructions: the real-space lattice, the coarse and fine Brillouin-zone meshes, the point-group action in momentum-index space, the form-factor container, form-factor symmetry maps, Fourier-transform weights, and the coarse-to-fine and fine-to-coarse momentum-index maps. Thus, implementing a new lattice model does not require re-specifying any of these objects: one only needs to inherit from Hubbard <dim> and call its Init() function from the model’s own Init() method. Other metadata such as the human-readable name and a list of parameter–value pairs for the output file are provided via the static methods GetName() and GetParamNameValuePairs() .19 SciPost Physics Codebases Submission 5.2.2 Indices, not coordinates 
+
+An important design principle that we followed is that all model-level functions are called with discrete integer indices; the rest of the code never handles actual momentum co-ordinates. Outisde of the model class, a momentum argument is a flat index idx_K 
+
+into the coarse momentum-space (e.g. Brillouin zone) mesh; a fermionic frequency ar-gument is an index idx_w into the Matsubara grid; a form-factor argument is a flat in-dex idx_m . When an actual coordinate is genuinely needed inside the model, it is re-covered locally via GetMomentumCoordFromCoarseIdx(idx_K) for coarse-grid momenta or 
+
+GetMomentumCoordFromFineIdx(idx_p) for fine-grid momenta. Coordinate arithmetic such as adding two momenta or taking the negative is likewise performed similar member func-tions of the model class, which which take indices as arguments and return indices corre-sponding to the momentum point that result from the operation. This abstraction is what allows the same flow equations to run on a zero-dimensional impurity and a two-dimensional lattice model without any modification at the level of the RHS. This highlights one way in which the SoR principle manifests itself in the code design. 
+
+5.2.3 Model couplings 
+
+Each model is additionally characterized by its bare couplings; namely the dispersion, which defines its bare propagator G0, and the bare vertex, expressed through the splitting 
+
+BX + FX.
+
+Dispersion. The single-particle dispersion is specified through two functions. The pri-mary one, E(int idx_p, int idx_w) , takes a fine-grid momentum index and a Matsubara frequency index and returns the bare dispersion. Although most models are frequency-independent and ignore idx_w , the argument is included in the signature so that models coupled to a bath (such as the Anderson-impurity model) can be supported without chang-ing any calling code. In practice, models precompute the dispersion on the fine momentum grid during Init() and let E(...) perform a simple lookup 5.
+
+Bare two-particle interaction. The model provides the bare interaction in several representations corresponding to the different objects in the SBE channel decomposition. In the model implementation, it is specified by defining     
+
+> 1static double vertex_4pt_bare(
+> 2int idx_w1_in, int idx_w2_in, int idx_w1_out, int idx_w2_out,
+> 3int idx_p1_in, int idx_p2_in, int idx_p1_out, int idx_p2_out,
+> 4int s1_in, int s2_in, int s1_out, int s2_out);
+
+which takes all four fermionic frequency and fine-grid momentum indices together with spin/orbital labels 6. Even here, no coordinates appear; if the physical formula involves a transferred momentum K, the model computes the corresponding index internally using model methods such as SumFineMomentaIdxes(...) and GetNegativeFineMomentumIdx(...) 
+
+and recovers the coordinate with GetMomentumCoordFromFineIdx(...) only when necessary.  
+
+> 5A second function,
+
+E_of_p_coord(coord_t<dim>) , takes an actual momentum coordinate rather than an index; it is used only in debugging branches of the code, where bubbles are computed using adaptive continuous integration over the Brillouin zone rather than a sum over grid points.   
+
+> 6Although, as of yet, the code does not support multiband models or models that are not SU (2) -spin invariant, so the last four arguments are currently ignored in all currently available models. The code also does not use the fourth incoming/outgoing arguments since these would otherwise be fixed by momentum and energy conservation.
+
+20 SciPost Physics Codebases Submission 
+
+The bosonic bare vertices BX for each channel have names ending in _bos . They are specified by defining    
+
+> 1static double B_sc(int idx_W, int idx_K,
+> 2int idx_w, int idx_m,
+> 3int idx_wp, int idx_mp);
+
+and analogously for channels D and M. Here idx_W and idx_K are the bosonic transfer frequency and momentum indices, idx_w and idx_wp are the fermionic relative-frequency indices, and idx_m , idx_mp are form-factor indices. The dependence on the form-factor indices is essential: BX is already projected into the form-factor basis. Given the purely bosonic nature of BX, this function returns a non-zero value only when idx_m ,idx_mp ̸ = 0 .The fermionic bare vertices FX follow an identical signature but carry the suffix _ferm :   
+
+> 1static double F_sc(int idx_W, int idx_K,
+> 2int idx_w, int idx_m,
+> 3int idx_wp, int idx_mp);
+
+and analogously for D and M. Like the bosonic contributions, these functions are projected into the form-factor basis and therefore depend on idx_m and idx_mp . In models with nearest-neighbor density-density interactions, for instance, the FX functions are diagonal in form-factor space and non-zero only for first-shell indices. 
+
+Double-counting terms. To construct the B-irreducible vertex — stored in the SBE state and accessed via state.B_irreducible_vertex_sc(...) , state.B_irreducible_vertex_d (...) , state.B_irreducible_vertex_m(...) — one needs the double-counting contributions from the SBE decomposition [33]. These are provided by the model via vertex_DC_sc (...) , vertex_DC_d(...) , and vertex_DC_m(...) , each with the same index signature as the bosonic channel objects. Since the double-counting terms live in the same projected representation, they also carry form-factor indices idx_m and idx_mp . For a model with a density-density bare interaction, the double-counting term is canonically trivial, namely minus two times the local part of the interaction; see also discussion in [55]. 
+
+Local component of the vertex. The model class also provides the local compo-nent of the bare interaction through two overloads of vertex_local_part_bare(...) . One overload takes the channel-projected indices (idx_W, idx_w, idx_m, idx_wp, idx_mp) , and the other takes the full set of four fermionic frequency–momentum–spin indices as in 
+
+> vertex_4pt_bare(...)
+
+. These are used in postprocessing for fluctuation diagnostics. We briefly note that one may additionally define flowing bare vertices specific to the model it-self. If available, these then specify how the bare vertex flows when the FREE_U_FLOW scheme is used. This has been used in the Holstein Anderson-impurity model to design a tempera-ture flow, see Ref. [33] as well as the files include/models/anderson_impurity_holstein. h, include/models/anderson_impurity_holstein.cpp and src/models/anderson_impurity_ holstein_flowing.cpp for details. 
+
+5.2.4 Writing a new model 
+
+Once the class header and its corresponding .cpp file are ready, the header should be included in include/models/concrete_available_models.h . The model can then be selected at compile time in config.mk via the flag -DTHE_MODEL_VAL=MyModel , where MyModel 
+
+is the model class name. Because every other part of the code is templated on the model type, a correctly implemented model immediately becomes available for all flow-equation 21 SciPost Physics Codebases Submission 
+
+types, frequency-grid settings, output routines, and solver strategies without any further modifications. 
+
+5.3 State and RHS Classes 
+
+An instance of a state class stores the running many-body objects (primarily the self-energy 
+
+Σ and the SBE objects wX, λX, MX) as a high dimensional vector, whereas an instance of an RHS class is a functor that computes either the state derivative for a flow equation or the next iterate in a self-consistency cycle. 
+
+5.3.1 States 
+
+On the state side, state_vector_frg_base_t<Model, OtherTypes...> is the base class tem-plate. It stores the self-energy and the chemical-potential shift (determined such that the filling remains fixed), while the variadic template parameter OtherTypes... allows addi-tional state components to be appended in a flexible way. The components of the state (self-energies or SBE objects) are represented by instances of a gf type, a lightweight wrapper around boost::multiarray . The gf container is based on a publicly available header-only implementation with convenience functions for symmetry reduction [67], which we adopt with some modifications. Variants of this container have also been used in the  
+
+> TRIQS
+
+library [68], and a Julia implementation focused on Matsubara-frequency objects is available in the package MatsubaraFunctions.jl [69]. The SBE state, state_frg_sbe_t<Model, OtherTypes...> , builds on this base by adding 
+
+w, λ, M , and free-energy objects. The bosonized variant extends it further by adding “bosonic propagators” w_M and “fermion-boson” vertices lambda_M from which the rest func-tions MX can be reconstructed, see Refs. [21,22]. This provides a natural extension strategy in which new state classes can reuse existing ones and simply extend them with new com-ponents. The chosen state type (determined by the selected flag combination) is then used for both the physical state and its derivative. States are initialized with state.init_bare () which sets the components to the bare values, whereas state derivatives are typically initialized with init_zero() . For interpolating schemes (such as in DMF2RG), the state can be initialized from reference DMFT input. For resumed calculations, the FileIO layer can restore the state from intermediate HDF5 files. The commonly used state classes currently in use provide convenience methods that can be used for the RHS calculation or observables. For example, the state implements methods to construct SBE objects such as the full vertex and the irreducible vertices, and to compute inter-channel projections. For the latter, these methods make direct use of precomputed TU projection matrices, which are implemented separately in the static class 
+
+> TUProjections<Model>
+
+.If one wants to add a new state member, the idea then is conceptually simple. One over-loads the state and supplements the variadic template parameter with new corresponding  
+
+> gf
+
+types. One overloads the initialization and optionally writes new accessor methods. 
+
+5.3.2 Right-hand sides 
+
+Implementations of RHS classes follow a hierarchy: A base class rhs_frg_base_t<Model, state_t> provides general methods that are used throughout the code, such as the cal-culation of bubbles as convolutions of two propagators. Note that they are templated on the Model and the state classes. Further RHS classes inherit from this base class and implement the RHS calculations. An RHS class is primarily a functor, meaning that it defines the method 22 SciPost Physics Codebases Submission  
+
+> 1void operator()(const state_t& old_state, state_t& dstate_over_dt, double t).
+
+It implements an RHS that generically depends on a flow parameter, the state and the state derivative. The state-derivative dstate_over_dt is typically only needed in multiloop schemes, where the RHS also depends on derivatives of the state (e.g. already at the level of the Katanin substitution, ˙Σ is needed). For example, rhs_sbe_1lfrg_t builds on the base class with one-loop SBE flow logic, and rhs_sbe_mfrg_t extends it with multiloop-specific correction members, bookkeeping, and methods for computing higher-loop corrections. This inheritance chain keeps multiloop complexity out of the one-loop core while still reusing all the shared machinery. An important design detail is that all physics equations of the RHS are implemented separately from the rest in the rhs_*_eval.tpp files. In this way, the physics equations are separated from the program control flow, and can be altered or investigated separately. When an RHS functor is executed, the common pattern is first to compute all bub-bles or bubble derivatives. Then individual calls are made to evaluate the RHS of each state variable. Here, OpenMP parallelization is used to evaluate the separate indices while exploiting symmetries (implemented in the Symmetries*<Model> classes) by calling  
+
+> init_batched(...)
+
+or init_batched_at_sampling_indices(...) , then, if the log-frequency spacing of frequencies flag is enabled, fill the remaining points via interpolators (init_batched_at_interpolating_indices(...) ). Implementing a new RHS amounts simply to adding another class to this hierarchy, following the same conventions as above: it should inherit from the appropriate base class. Additionally, the control flow should remain in the main rhs_*.tpp file, while the physics equations should be kept in a dedicated *_eval file; symmetry-batched evaluation and the existing bubble/projection utilities should be reused, and the type alias rhs_t should be defined in start.h when the corresponding preprocessor flag is enabled. Model informa-tion, form-factor projection matrices, and symmetry structure remain reusable across all RHS variants. 
+
+5.4 Observables and HDF5 Output 
+
+The observer class serves two roles. During an fRG run, observer_frg_t is called at ac-cepted integration steps and checks whether any component of the vertex has diverged (signaling an instability). Second, it stores an instance of the observables_t class (tem-plated on both the model and the state), which is responsible for calculating and storing observables, e.g., from the state. Outputting the observables is then delegated to the FileIO class, which writes observables data to a HDF5 file. The FileIO, as its name suggests, is responsible for both writing and reading HDF5 files. 
+
+5.4.1 Observable containers and update logic 
+
+The common observable container is observables_frg_common_t<Model, state_t> which contains basic observables such as the filling and the current scale. The class is inherited by  
+
+> observables_frg_sbe_t<Model, state_t>
+
+which introduces SBE related observables. There are two types of observables contained in two containers: one returned by the static method 
+
+> ObservablesListToTrack()
+
+, which stores information about individual observables, and the other returned by GroupObservablesListToTrack() , whose entries describe groups of related observables that are written separately into HDF5 groups. At initialization, data containers are allocated and then populated each time the update(...) method is called. Additional observables calculated from an RHS class rhs_postproc_sbe_t include more 23 SciPost Physics Codebases Submission 
+
+heavy observables calculated from integral equations such as full susceptibility matrices and the constituents entering fluctuation diagnostics. 
+
+5.4.2 Adding new observables 
+
+Adding a new observable is done in three steps. First, it must be added to the tracking list in the SetToTrackAllAvailableObservables() method; this includes specifying the name of the observable, its type, dimension and name (to be used in the HDF5 output path). Then the observable calculation must be implemented in the update(...) .
+
+5.5 Flow Schemes 
+
+All flow schemes are implemented in the static class fRGFlowScheme<Model> , which is tem-plated on the same Model . Its role is limited to the scale dependence of the propagators and related flow-dependent quantities. 
+
+5.5.1 Choosing the flow 
+
+The central call for “choosing” a flow is the following method called during startup:  
+
+> 1fRGFlowScheme<Model>::UseFlow(G_FlowSchemeName g_scheme, U_FlowSchemeName u_scheme);
+
+called in start.cpp . It selects two parts of the flow independently. The G_FlowSchemeName 
+
+choice determines how the propagators are cut off, in particular the flowing Green’s func-tion G, its “physically rescaled” variant G_latt , and the single-scale propagator S. The  
+
+> U_FlowSchemeName
+
+choice determines how the bare interaction is scaled during the flow through functions such as U_MultiplicativeCutoff(...) and its derivative. In this way, one may combine a propagator cutoff with an interaction cutoff while keeping the same abstract flow parameter t.Importantly, UseFlow simply registers the corresponding member functions so that the rest of the code can always call the same interface. The solver and RHS therefore do not need to know which specific flow scheme has been chosen, in line with the SoR principle. 
+
+5.5.2 Flow-dependent propagators 
+
+The flow-scheme dependent propagator functions are called with a fermionic frequency index idx_w , a fine-grid momentum index idx_p as well as the flow parameter t, the self-energy, and the chemical-potential shift. At this stage, the flow-scheme code makes direct use of model information. In particular, when the Green’s function is constructed, the underlying dispersion enters through the model, namely via Model::E(...) . Thus the flow scheme controls how the cutoff enters the propagator, while the model still provides the dispersion. 
+
+5.5.3 Adding a new cutoff scheme 
+
+Adding a new cutoff scheme can be done almost exclusively within the fRGFlowScheme< Model> class. One introduces the methods implementing the flowing propagator G, the single-scale propagator S, as well as G_latt . Optionally, one may add the asymptotic tail functions for the bubbles, which improve the accuracy of the Matsubara sums in the evaluation of the RHS. Next, one adds a new case to a switch statement found in the  
+
+> UseFlow
+
+method so that these functions are selected when the corresponding enum value is chosen. New U-flow schemes can be implemented similarly. 24 SciPost Physics Codebases Submission 
+
+# 6 Conclusion and outlook 
+
+We have presented BosonFlow , a C++ implementation of the functional renormalization group (fRG) within the single-boson exchange (SBE) formulation, providing a unified and flexible platform for quantitatively accurate calculations of dynamic vertex structures and self-energies in lattice fermion systems and for the development of new approximations, which yield to the physical transparency in the vertex constituents presented in the SBE decomposition. By combining the truncated-unity treatment of momentum dependence with the natural classification of frequency asymptotic classes present in the single-boson exchange decomposition of the vertex, the codebase addresses a critical computational bottleneck: it enables the simultaneous resolution of both momentum and frequency de-pendencies that have traditionally forced a costly trade-off in fRG applications. Our imple-mentation emphasizes separation of concerns, with distinct modules for model specification, flow-scheme selection, state management, and observable calculation. This architectural principle ensures that extensions to new models, approximation schemes, or solution meth-ods require minimal disruption to the existing codebase. Looking forward, the BosonFlow provides a robust platform for continued methodolog-ical development. Promising directions include the utilization of efficient frequency bases such as intermediate representation (IR) [70, 71] and the discrete Lehmann representation (DLR) [72,73], treatment of orbital dependence, and exploration and development of more efficient approximations to the SBE rest functions. Furthermore, development of new flow schemes, such as a finite-temperature adapted sharp cutoffs [74], and interpolation flow schemes that take into account correlated starting points from both the bare propagator or the bare interaction, are in principle straightforward, and worth investigating. In the future, we wish to address many of these problems. The BosonFlow codebase is released as open source to serve both as a reference im-plementation for the fRG and SBE methods and as a foundation for future research in quantitative studies of strongly correlated quantum systems. 
+
+# Acknowledgement 
+
+The authors thank F. Domizio, H. Essl, M. Gievers, F. Giuseppe, A. Kauch, N. Gneist, M. Krämer, L. Philoxene, J. Profe, N. Ritz, D. Villardi, M. Wallerberger, and A. Walther for discussions, collaborations on related projects, and useful comments during the devel-opment of BosonFlow .We acknowledge S. Heinzelmann, C. Hille, A. Tagliavini, and N. Wentzell for their contributions to an earlier functional renormalization group codebase in the past in the group of S. Andergassen, which informed the design of the current implementation. A. A.-E. thanks M. Scherer for discussions, collaboration on related projects, and for providing the environment to conduct this research. We thank S. Andergassen for discussions and continuous feedback throughout the de-velopment of BosonFlow through various application projects. 
+
+Funding information A.A.-E. acknowledges funding from the Deutsche Forschungs-gemeinschaft (DFG, German Research Foundation) under Project No. 277146847 (SFB 1238, project C02). K.F. acknowledges financial support from the Austrian Science Fund (FWF) 10.55776/I6946 and from the DFG within the research unit FOR 5413/1 (Grant No. 465199066). 25 SciPost Physics Codebases Submission 
+
+# References 
+
+[1] C. Wetterich, Exact evolution equation for the effective potential , Physics Letters B 
+
+301 (1), 90 (1993), doi:10.1016/0370-2693(93)90726-x. [2] T. R. Morris, The Exact Renormalization Group and Approximate Solu-tions , International Journal of Modern Physics A 09 (14), 2411 (1994), doi:10.1142/S0217751X94000972, https://doi.org/10.1142/S0217751X94000972 .[3] U. Ellwanger, Flow equations for N point functions and bound states , Z. Phys. C -Particles and Fields 62 , 503 (1994), doi:10.1007/BF01555911. [4] J. Berges, N. Tetradis and C. Wetterich, Non-perturbative renormalization flow in quantum field theory and statistical physics , Physics Reports 363 (4), 223 (2002), doi:https://doi.org/10.1016/S0370-1573(01)00098-9, Renormalization group theory in the new millennium. IV. [5] B. Delamotte, An Introduction to the Nonperturbative Renormalization Group , pp. 49–132, Springer Berlin Heidelberg, Berlin, Heidelberg, ISBN 978-3-642-27320-9, doi:10.1007/978-3-642-27320-9_2 (2012). [6] W. Metzner, M. Salmhofer, C. Honerkamp, V. Meden and K. Schönhammer, Func-tional renormalization group approach to correlated fermion systems , Rev. Mod. Phys. 
+
+84 , 299 (2012), doi:10.1103/RevModPhys.84.299. [7] N. Dupuis, L. Canet, A. Eichhorn, W. Metzner, J. M. Pawlowski, M. Tissier and N. Wschebor, The nonperturbative functional renor-malization group and its applications , Physics Reports 910 , 1 (2021), doi:https://doi.org/10.1016/j.physrep.2021.01.001, The nonperturbative functional renormalization group and its applications. [8] C. De Dominicis and P. Martin, Stationary Entropy Principle and Renormalization in Normal and Superfluid Systems. I. Algebraic Formulation , Journal of Mathemat-ical Physics 5(1), 14 (1964), doi:10.1063/1.1704062, https://doi.org/10.1063/1. 1704062 .[9] C. De Dominicis and P. Martin, Stationary Entropy Principle and Renormalization in Normal and Superfluid Systems. II. Diagrammatic Formulation , Journal of Mathe-matical Physics 5(1), 31 (1964), doi:10.1063/1.1704064, https://doi.org/10.1063/ 1.1704064 .[10] N. E. Bickers and S. R. White, Conserving approximations for strongly fluctuating electron systems. II. Numerical results and parquet extension , Phys. Rev. B 43 , 8044 (1991), doi:10.1103/PhysRevB.43.8044. [11] N. E. Bickers and D. J. Scalapino, Critical behavior of electronic parquet solutions ,Phys. Rev. B 46 , 8050 (1992), doi:10.1103/PhysRevB.46.8050. [12] N. E. Bickers, Self-Consistent Many-Body Theory for Condensed Matter Systems ,In Sénéchal D., Tremblay A.-M., Bourbonnais C. (eds), Theoretical Methods for Strongly Correlated Electrons, CRM Series in Mathematical Physics . Springer, New York (2004). 26 SciPost Physics Codebases Submission 
+
+[13] J. B. Profe, D. M. Kennes and L. Klebl, divERGe implements various Ex-act Renormalization Group examples , SciPost Phys. Codebases p. 26 (2024), doi:10.21468/SciPostPhysCodeb.26. [14] C. Husemann and M. Salmhofer, Efficient parametrization of the vertex function, Ω
+
+scheme, and the t, t ′
+
+Hubbard model at van Hove filling , Phys. Rev. B 79 , 195125 (2009), doi:10.1103/PhysRevB.79.195125. [15] W.-S. Wang, Y.-Y. Xiang, Q.-H. Wang, F. Wang, F. Yang and D.-H. Lee, 
+
+Functional renormalization group and variational Monte Carlo studies of the elec-tronic instabilities in graphene near 14 doping , Phys. Rev. B 85 , 035414 (2012), doi:10.1103/PhysRevB.85.035414. [16] J. Lichtenstein, D. Sánchez de la Peña, D. Rohe, E. Di Napoli, C. Honerkamp and S. Maier, High-performance functional Renormalization Group calculations for interacting fermions , Computer Physics Communications 213 , 100 (2017), doi:https://doi.org/10.1016/j.cpc.2016.12.013. [17] N. Ritz, A. Ge, E. Walter, S. Aguirre, J. von Delft and F. B. Kugler, KeldyshQFT: A C++ codebase for real-frequency multiloop functional renormalization group and parquet computations of the single-impurity Anderson model , The Journal of Chemical Physics 161 (5), 054118 (2024), doi:10.1063/5.0221340. [18] C. J. Eckhardt, C. Honerkamp, K. Held and A. Kauch, Truncated unity parquet solver ,Phys. Rev. B 101 , 155104 (2020), doi:10.1103/PhysRevB.101.155104. [19] F. R. Sattler and J. M. Pawlowski, Diffrg: A discretisation framework for functional renormalisation group flows (2024), 2412.13043 .[20] F. Krien, A. Valli and M. Capone, Single-boson exchange decomposition of the vertex function , Phys. Rev. B 100 , 155149 (2019), doi:10.1103/PhysRevB.100.155149. [21] P. M. Bonetti, A. Toschi, C. Hille, S. Andergassen and D. Vilardi, Single-boson exchange representation of the functional renormalization group for strongly interacting many-electron systems , Phys. Rev. Research 4, 013034 (2022), doi:10.1103/PhysRevResearch.4.013034. [22] K. Fraboulet, S. Heinzelmann, P. M. Bonetti, A. Al-Eryani, D. Vilardi, A. Toschi and S. Andergassen, Single-boson exchange functional renormalization group application to the two-dimensional Hubbard model at weak coupling , Eur. Phys. J. B 95 , 202 (2022), doi:10.1140/epjb/s10051-022-00438-2. [23] F. B. Kugler and J. von Delft, Multiloop Functional Renormalization Group That Sums Up All Parquet Diagrams , Phys. Rev. Lett. 120 , 057403 (2018), doi:10.1103/PhysRevLett.120.057403. [24] F. B. Kugler and J. von Delft, Multiloop functional renormalization group for general models , Phys. Rev. B 97 , 035162 (2018), doi:10.1103/PhysRevB.97.035162. [25] F. B. Kugler and J. von Delft, Derivation of exact flow equations from the self-consistent parquet relations , New Journal of Physics 20 (12), 123029 (2018), doi:10.1088/1367-2630/aaf65f. [26] M. Gievers, E. Walter, A. Ge, J. von Delft and F. B. Kugler, Multiloop flow equations for single-boson exchange fRG , Eur. Phys. J. B 95 , 108 (2022), doi:10.1140/epjb/s10051-022-00353-6. 27 SciPost Physics Codebases Submission 
+
+[27] K. Fraboulet, A. Al-Eryani, S. Heinzelmann, A. Kauch and S. Andergassen, Multi-loop functional renormalization group from single bosons , arXiv:2512.11190 (2025), doi:10.48550/arXiv.2512.11190. [28] C. Taranto, S. Andergassen, J. Bauer, K. Held, A. Katanin, W. Metzner, G. Rohringer and A. Toschi, From Infinite to Two Dimensions through the Functional Renormalization Group , Phys. Rev. Lett. 112 , 196402 (2014), doi:10.1103/PhysRevLett.112.196402. [29] D. Vilardi, C. Taranto and W. Metzner, Antiferromagnetic and d-wave pairing correlations in the strongly interacting two-dimensional Hubbard model from the functional renormalization group , Phys. Rev. B 99 , 104501 (2019), doi:10.1103/PhysRevB.99.104501. [30] W. Metzner and D. Vollhardt, Correlated Lattice Fermions in d = ∞ Dimensions ,Phys. Rev. Lett. 62 , 324 (1989), doi:10.1103/PhysRevLett.62.324. [31] A. Georges, G. Kotliar, W. Krauth and M. J. Rozenberg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions , Rev. Mod. Phys. 68 , 13 (1996), doi:10.1103/RevModPhys.68.13. [32] G. Rohringer, H. Hafermann, A. Toschi, A. A. Katanin, A. E. Antipov, M. I. Katsnel-son, A. I. Lichtenstein, A. N. Rubtsov and K. Held, Diagrammatic routes to nonlocal correlations beyond dynamical mean field theory , Rev. Mod. Phys. 90 , 025003 (2018), doi:10.1103/RevModPhys.90.025003. [33] A. Al-Eryani, M. Gievers and K. Fraboulet, Functional renormalization with inter-action flows: A single-boson exchange perspective and application to electron-phonon systems , arXiv:2511.17697 (2025), doi:10.48550/arXiv.2511.17697. [34] J. Hubbard, Electron Correlations in Narrow Energy Bands , Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences 276 (1365), 238 (1963), doi:10.1098/rspa.1963.0204. [35] J. Kanamori, Electron Correlation and Ferromagnetism of Transition Metals , Progress of Theoretical Physics 30 (3), 275 (1963), doi:10.1143/PTP.30.275, https:// academic.oup.com/ptp/article-pdf/30/3/275/5278869/30-3-275.pdf .[36] M. C. Gutzwiller, Effect of Correlation on the Ferromagnetism of Transition Metals ,Phys. Rev. Lett. 10 , 159 (1963), doi:10.1103/PhysRevLett.10.159. [37] Y. Zhang and J. Callaway, Extended Hubbard model in two dimensions , Phys. Rev. B 
+
+39 , 9397 (1989), doi:10.1103/PhysRevB.39.9397. [38] P. W. Anderson, The Resonating Valence Bond State in La 2CuO 4 and Super-conductivity , Science 235 (4793), 1196 (1987), doi:10.1126/science.235.4793.1196, 
+
+https://www.science.org/doi/pdf/10.1126/science.235.4793.1196 .[39] F. C. Zhang and T. M. Rice, Effective Hamiltonian for the superconducting Cu oxides ,Phys. Rev. B 37 , 3759 (1988), doi:10.1103/PhysRevB.37.3759. [40] M. Qin, T. Schäfer, S. Andergassen, P. Corboz and E. Gull, The Hubbard Model: A Computational Perspective , Annual Review of Condensed Matter Physics 13 (Volume 13, 2022), 275 (2022), doi:https://doi.org/10.1146/annurev-conmatphys-090921-033948. 28 SciPost Physics Codebases Submission 
+
+[41] D. P. Arovas, E. Berg, S. A. Kivelson and S. Raghu, The Hubbard Model ,Annual Review of Condensed Matter Physics 13 (Volume 13, 2022), 239 (2022), doi:https://doi.org/10.1146/annurev-conmatphys-031620-102024. [42] E. H. Lieb and F. Y. Wu, Absence of Mott Transition in an Exact Solution of the Short-Range, One-Band Model in One Dimension , Phys. Rev. Lett. 20 , 1445 (1968), doi:10.1103/PhysRevLett.20.1445. [43] R. R. dos Santos, Attractive Hubbard model on a triangular lattice , Phys. Rev. B 48 ,3976 (1993), doi:10.1103/PhysRevB.48.3976. [44] P. Sahebsara and D. Sénéchal, Hubbard Model on the Triangular Lat-tice: Spiral Order and Spin Liquid , Phys. Rev. Lett. 100 , 136402 (2008), doi:10.1103/PhysRevLett.100.136402. [45] P. W. Anderson, Localized Magnetic States in Metals , Phys. Rev. 124 , 41 (1961), doi:10.1103/PhysRev.124.41. [46] T. Holstein, Studies of polaron motion: Part I. The molecular-crystal model , Annals of Physics 8(3), 325 (1959), doi:https://doi.org/10.1016/0003-4916(59)90002-8. [47] J. K. Freericks and M. Jarrell, Competition between Electron-Phonon At-traction and Weak Coulomb Repulsion , Phys. Rev. Lett. 75 , 2570 (1995), doi:10.1103/PhysRevLett.75.2570. [48] R. E. Lagos, The Holstein–Anderson impurity model , Journal of Magnetism and Magnetic Materials 226-230 , 103 (2001), doi:https://doi.org/10.1016/S0304-8853(01)00106-8, Proceedings of the International Conference on Magnetism (ICM 2000). [49] A. C. Hewson and D. Meyer, Numerical renormalization group study of the Anderson-Holstein impurity model , Journal of Physics: Condensed Matter 14 (3), 427 (2001), doi:10.1088/0953-8984/14/3/312. [50] A. A. Katanin, Extended dynamical mean field theory combined with the two-particle irreducible functional renormalization-group approach as a tool to study strongly cor-related systems , Phys. Rev. B 99 , 115112 (2019), doi:10.1103/PhysRevB.99.115112. [51] E. E. Salpeter and H. A. Bethe, A Relativistic Equation for Bound-State Problems ,Phys. Rev. 84 , 1232 (1951), doi:10.1103/PhysRev.84.1232. [52] C. Honerkamp and M. Salmhofer, Temperature-flow renormalization group and the competition between superconductivity and ferromagnetism , Phys. Rev. B 64 , 184516 (2001), doi:10.1103/PhysRevB.64.184516. [53] C. Honerkamp, D. Rohe, S. Andergassen and T. Enss, Interaction flow method for many-fermion systems , Phys. Rev. B 70 , 235115 (2004), doi:10.1103/PhysRevB.70.235115. [54] F. B. Kugler, Renormalization group approaches to strongly correlated electron sys-tems , Ph.D. thesis, Ludwig-Maximilians-Universität München (2019). [55] A. Al-Eryani, S. Heinzelmann, K. Fraboulet, F. Krien and S. Andergassen, Screen-ing and effective RPA-like charge susceptibility in the extended Hubbard model ,arXiv:2412.07323 (2024), doi:10.48550/arXiv.2412.07323. 29 SciPost Physics Codebases Submission 
+
+[56] A. Al-Eryani, S. Andergassen and M. M. Scherer, Intertwined fluctuations and isotope effects in the Hubbard-Holstein model on the square lattice from functional renormal-ization , Phys. Rev. Res. 7, 043052 (2025), doi:10.1103/6vyb-h379. [57] N. Mermin and H. Wagner, Absence of Ferromagnetism or Antiferromagnetism in One- or Two-Dimensional Isotropic Heisenberg Models , Phys. Rev. Lett. 17 , 1133 (1966), doi:10.1103/PhysRevLett.17.1133. [58] P. Hohenberg, Existence of Long-Range Order in One and Two Dimensions , Phys. Rev. 158 , 383 (1967), doi:10.1103/PhysRev.158.383. [59] S. Coleman, There are no Goldstone bosons in two dimensions , Commun. Math. Phys. 31 , 259 (1973), doi:https://doi.org/10.1007/BF01646487. [60] C. Hille, F. B. Kugler, C. J. Eckhardt, Y.-Y. He, A. Kauch, C. Honerkamp, A. Toschi and S. Andergassen, Quantitative functional renormalization group de-scription of the two-dimensional Hubbard model , Phys. Rev. Res. 2, 033372 (2020), doi:10.1103/PhysRevResearch.2.033372. [61] A. Tagliavini, C. Hille, F. B. Kugler, S. Andergassen, A. Toschi and C. Hon-erkamp, Multiloop functional renormalization group for the two-dimensional Hubbard model: Loop convergence of the response functions , SciPost Phys. 6, 009 (2019), doi:10.21468/SciPostPhys.6.1.009. [62] A. Al-Eryani, Diagrammatic bosonisation, aspects of criticality, and the Hohenberg-Mermin-Wagner Theorem in parquet approaches , Eur. Phys. J. B 99 , 19 (2026), doi:10.1140/epjb/s10051-026-01134-1. [63] M. Patricolo, M. Gievers, K. Fraboulet, A. Al-Eryani, S. Heinzelmann, P. M. Bonetti, A. Toschi, D. Vilardi and S. Andergassen, Single-boson exchange formulation of the Schwinger-Dyson equation and its application to the functional renormalization group ,SciPost Phys. 18 , 078 (2025), doi:10.21468/SciPostPhys.18.3.078. [64] C. Hille, D. Rohe, C. Honerkamp and S. Andergassen, Pseudogap opening in the two-dimensional Hubbard model: A functional renormalization group analysis , Phys. Rev. Res. 2, 033068 (2020), doi:10.1103/PhysRevResearch.2.033068. [65] F. Krien, A. Kauch and K. Held, Tiling with triangles: parquet and GW γ methods unified , Phys. Rev. Res. 3, 013149 (2021), doi:10.1103/PhysRevResearch.3.013149. [66] M. Patricolo, A. Al-Eryani, K. Fraboulet and S. Andergassen, Self-energy flow and pseudogap in the DMF 2RG (in preparation). [67] N. Wentzell, gf_container , GitHub repository (2016). [68] O. Parcollet, M. Ferrero, T. Ayral, H. Hafermann, I. Krivenko, L. Messio and P. Seth, 
+
+Triqs: A toolbox for research on interacting quantum systems , Computer Physics Communications 196 , 398–415 (2015), doi:10.1016/j.cpc.2015.04.023. [69] D. Kiese, A. Ge, N. Ritz, J. von Delft and N. Wentzell, Matsubarafunctions.jl: An equilibrium green’s function library in the julia programming language , SciPost Physics Codebases (2024), doi:10.21468/scipostphyscodeb.24. [70] H. Shinaoka, J. Otsuki, M. Ohzeki and K. Yoshimi, Compressing green’s function using intermediate representation between imaginary-time and real-frequency domains ,Phys. Rev. B 96 , 035147 (2017), doi:10.1103/PhysRevB.96.035147. 30 SciPost Physics Codebases Submission 
+
+[71] N. Chikano, J. Otsuki and H. Shinaoka, Performance analysis of a physically con-structed orthogonal representation of imaginary-time green’s function , Phys. Rev. B 
+
+98 , 035104 (2018), doi:10.1103/PhysRevB.98.035104. [72] J. Kaye, K. Chen and O. Parcollet, Discrete lehmann representation of imaginary time green’s functions , Phys. Rev. B 105 , 235115 (2022), doi:10.1103/PhysRevB.105.235115. [73] J. Kaye, K. Chen and H. U. Strand, libdlr: Efficient imaginary time calculations using the discrete lehmann representation , Computer Physics Communications 280 , 108458 (2022), doi:10.1016/j.cpc.2022.108458. [74] T. Enss, V. Meden, S. Andergassen, X. Barnabé-Thériault, W. Metzner and K. Schön-hammer, Impurity and correlation effects on transport in one-dimensional quantum wires , Physical Review B 71 (15) (2005), doi:10.1103/physrevb.71.155401. 31

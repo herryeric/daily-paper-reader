@@ -1,0 +1,722 @@
+Title: Probing excited-state quantum phase transitions with trapped cold ions
+
+URL Source: https://arxiv.org/pdf/2603.28509v2
+
+Published Time: Tue, 07 Apr 2026 00:16:03 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Probing excited-state quantum phase transitions with trapped cold ions 
+
+Marek Kuchaˇ r∗
+
+Czech Academy of Sciences, Institute of Scientific Instruments, Kr´ alovopolsk´ a 147, 61264 Brno, Czech Republic and Charles University, Faculty of Mathematics and Physics, Ke Karlovu 2, 12000, Prague, Czech Republic 
+
+Michal Macek †
+
+Czech Academy of Sciences, Institute of Scientific Instruments, Kr´ alovopolsk´ a 147, 61264 Brno, Czech Republic 
+
+(Dated: April 7, 2026) We propose concrete protocols to realize quantum criticality due to excited-state quantum phase transitions (ESQPTs) experimentally in presumably the simplest and most resilient system involving a single trapped ion oscillating in a radio-frequency Paul trap. We identify a specific class of excited states of the Extended Rabi Model (ERM) Hamiltonian, which occur between two critical ESQPT energies of the model in its (anti)Jaynes-Cummings superradiant phase. Properties of these states motivate the definition of several ESQPT witness observables. We study their critical scaling behaviors as well as various distinct state evolutions by driving the system across the quantum criticalities by changing the qubit-phonon coupling strength linearly in time at different finite rates. A mapping of the theoretical control parameters of the ERM to the experimental parameters of a trapped ion setup is provided, and simulations are performed for values referencing existing state-of-the-art setups, addressing both unitary state evolutions as well as relevant open-system corrections. 
+
+I. INTRODUCTION 
+
+Phase transitions represent critical phenomena, in which equilibrium structure of the system undergoes abrupt (non-analytical) changes as a function of temper-ature or other control parameters and occur in a vast variety of dynamical systems across all scientific disci-plines [1]. Quantum phase transitions (QPTs) provide a specific example, in which the abrupt change occurs due to quantum fluctuations and affects the quantum ground state of the system at zero temperature [2, 3], as no-ticed first by Hertz [4]. Numerous extensions of QPTs to non-equilibrium systems, including Dynamical Quantum Phase Transitions (DQPTs) [5], or to criticalities involv-ing the systems’ excited spectrum, like the Excited-State Quantum Phase Transitions (ESQPTs) [6–8] have re-cently been proposed theoretically, while efforts for con-ceptual unification of the various approaches are under way [9]. While DQPTs have already attracted consider-able experimental interest, with the first experiments re-alizing the transverse-field Ising Hamiltonian in trapped ion chains [10, 11], the criticalities due to ESQPTs have so far been experimentally untouched. Perhaps closest to experimental realization so far is the proposal for detect-ing ESQPTs in spinor Bose-Einstein condensates [12]. Profound changes induced by ESQPT quantum critical-ity, including new forms of state manipulation and abrupt generation of various types of quantum entanglement can have implications for, and eventually practical use in emerging quantum technologies, especially metrology [13] and sensing [14, 15].   
+
+> ∗Electronic address: marek.kuchar@isibrno.cz
+> †Electronic address: michal.macek@isibrno.cz
+
+Individual trapped cold ions [16] provide arguably the simplest and most controllable physical platform to re-alize quantum critical phenomena. Quite remarkably, as shown first by Hwang et al. [17], quantum criticality can be realized by even a single quantum bit (qubit, realized by two internal states of the ion) interacting with a sin-gle continuous degree of freedom—in this case the ion’s one-dimensional motional mode (phonon). Signatures of the quantum criticality are in this case realized not in the infinite-size thermodynamic limit, but in the limit of in-finite ratio between the qubit and the phonon excitation energies [17]. Interaction of the qubit with the phonon is described by the Rabi (R), or in simpler cases by the Jaynes-Cummings (JC), or anti-Jaynes-Cummings (aJC) Hamiltonians. Experimental realization of the Rabi interaction with sufficient ’strength’ (sufficiently strong coupling between the qubit and the phonon degrees of freedom) to address the criticalities is however not straightforward. In typi-cal cold-ion setups using radio-frequency Paul traps com-bined with several cooling and driving laser fields, the high-intensity laser fields lead to breaking of the Lamb-Dicke approximation and introduce higher-order qubit-phonon interactions beyond the Rabi interaction. Apractical protocol enabling to generate a ‘synthetic’ Rabi Hamiltonian in regimes of strong interaction (ultra/deep strong interaction, USC/DSC), however without address-ing the possible quantum criticalities, was identified re-cently by Pedernales et al. in [18]. The protocol uses a combination of driving lasers suitably detuned from the so-called red and blue motional sidebands of the ion. This protocol was later explicitly used for the experimen-tal demonstration of the QPT in the ground state of the Rabi Hamiltonian using an 171 Yb + ion in a Paul trap [19] driven using relatively slow, and linear-in-time protocols of changing the qubit-phonon interaction parameters. 
+
+> arXiv:2603.28509v2 [quant-ph] 3 Apr 2026
+
+2In this paper, we propose experimentally feasible driv-ing protocols to realize the ESQPT quantum criticali-ties in the spectrum of a single cold trapped ion and identify classes of criticality-related excited states with possible applications in quantum sensing [20]. We work out in detail the expected behaviors of several “ESQPT-witnesses” observables under these driving protocols. At-tention is paid to concrete technical parameters of state-of-the-art experimental setups, in particular the 40 Ca +
+
+ion trap operated at ISI Brno. The structure of the paper is as follows: In Sec. II, we map the control parameters of the extended Rabi Hamiltonian of Ref. [21] to experimental parameters of a typical radio-frequency Paul trap and the driving laser frequencies; in Sec. III, we review the QPT and ES-QPT structure of the extended Rabi model Hamilto-nian; in Sec. IV we highlight a specific class of excited states of the time-independent Hamiltonian based on which we define ESQPT-witness observables; in Sec. V we overview different time-dependent driving protocols and propose observables suitable as experimental wit-nesses of the QPTs and ESQPTs in the driven system under unitary evolution; in Sec. VI, we consider the non-unitary (open-system) evolution with experimentally rel-evant sources of dissipation within an appropriate mas-ter equation framework, and compare the Rabi flops ex-pected to be observed in states, which experienced dif-ferent QPT/ESQPT phases; finally in Sec. VII, we bring the conclusions.  
+
+> II. EXTENDED RABI HAMILTONIAN IN TRAPPED COLD ION EXPERIMENTS
+
+In order to quantize the motion of a charged ion in the radio-frequency Paul trap, we adapt the reference oscil-lator representation [16]. The Heisenberg-picture equa-tion of motion admits a Floquet-type solution with com-ponents oscillating at the secular frequency ν, superim-posed with multiples of the trap driving radio frequency 
+
+ωrf ≫ ν, representing the micromotion. Micromotion is usually neglected entirely, but it may be included at lowest order as an effective weakening of the coupling. The ion’s two-level structure with energy separation 
+
+ℏω0, valid under near-resonant driving, can be coupled to the motional degree of freedom by applying external laser field [22, 23]. The qubit-motion interaction can be expanded into individual ωj components in terms of Rabi frequencies Ω j , which represent the magnitudes of the qubit-state transition matrix elements. The interaction Hamiltonian becomes: ˆH(i)(t) = ℏˆσx
+
+X
+
+> j
+
+Ωj eiϕ j ei(kj ·ˆr−ωj t) + H . c. , (1) with ˆ σi denoting the Pauli matrices, kj the wave vec-tor of the j-th coupling field component, and the sum running over all frequencies present, which must satisfy 
+
+|ω0 − ωj | ≪ ω0.Rotating to the interaction picture with respect to the sum of the two-level and motional non-interacting Hamil-tonians results in two pairs of terms. Rapidly oscillating terms ∝ e±i(ωj +ω0) can be neglected via the first rotating-wave approximation (RWA), and we are left with ˆH(1) int (t) = ℏ
+
+2 ˆσ+
+
+X
+
+> j
+
+Ωj ei[ϕj −(ωj −ω0)t+ηj (ˆa(t)+ˆ a†(t))] + H . c. , 
+
+(2) where ˆ a(t) = ˆ ae −iνt is the bosonic annihilation operator and ηj = kj
+
+pℏ/(2 mν ) is the Lamb-Dicke parameter. It represents the maximal shift of the coupling-field phase over the extent of the ion’s trajectory and is usually con-sidered small, allowing for an expansion of the exponen-tial. Additionally, the restriction placed on the coupling-field frequencies, which stems from the first RWA, allows us to approximate ηj ≈ η ≡ η(ω0). In the Lamb-Dicke regime, where we neglect O(η2)terms in (2), one can reduce the interaction to vari-ous known models through an optimal choice of cou-pling frequencies ωj and subsequent omission of the re-maining oscillating terms via a second round of RWAs. Examples include the carrier resonance ( ω1 = ω0), the Jaynes-Cummings and anti-Jaynes-Cummings models (ω1 = ω0 ∓ ν, corresponding to the first red and blue sideband resonances, respectively), and the Rabi model (ω1 = ω0 − ν, ω2 = ω0 + ν), which requires bichromatic coupling. Outside the Lamb-Dicke regime, one can even realize effective motional squeezing [24] by coupling to both second sidebands ( ω1 = ω0 − 2ν, ω2 = ω0 + 2 ν), provided we initially prepare the qubit in an equally weighted superposition, e.g. in an eigenstate of the σx
+
+operator. However, in order to reach the strong-coupling regimes necessary to study the QPT and ESQPT criticalities, we need to adapt the detuned-coupling approach proposed in [18], which has been experimentally realized to examine the ground-state QPT in the standard Rabi model [19]. In the case of the Rabi model, this approach involves detuned bichromatic coupling to the first sidebands via frequencies ω1 = ω0 − ν + δr and ω2 = ω0 + ν + δb, where 
+
+δr,b ≪ ν represent detunings from resonance. The sec-ond RWA reduction, assuming constant phase matching, yields ˆH(2) int (t) = ℏη
+
+2 ˆσ+
+
+ Ω1ˆae −iδ r t + Ω 2ˆa†e−iδ bt + H .c. (3) We can rotate this Hamiltonian into a time-independent one if we define the artificial non-interacting Hamiltonian ˆH0 = − ℏ(δr + δb)4 ˆσz + ℏ(δr − δb)2 ˆa†ˆa . (4) By performing this incomplete rotation back to the Schr¨ odinger picture and not imposing the condition of equal Rabi frequencies for the individual sideband driv-3ings, we can map the trapped-ion system onto the ex-tended Rabi model (ERM) [21] ˆH = ˆH0+ℏΛ
+
+ 1 + δ
+
+2
+
+ ˆσ+ˆa + ˆ σ−ˆa† + 1 − δ
+
+2
+
+ ˆσ+ˆa† + ˆ σ−ˆa
+
+,
+
+(5) where Λ = η(Ω 1 + Ω 2)/2 , δ = (Ω 1 − Ω2)/(Ω 1 + Ω 2) . (6) We further adjust the model parameters in (5) in order to provide a clearer interpretation when analyzing the criticalities present. By demanding ( δr + δb) < 0 and 
+
+δr > δ b, we obtain the naturally expected behavior in ˆH0
+
+and can define a characteristic energy scale 
+
+ε = ℏ
+
+2
+
+q
+
+δ2 
+
+> b
+
+− δ2 
+
+> r
+
+, (7) the effective system size [17][21] ∆ = ( δb + δr )/(δb − δr ) , (8) and the rescaled coupling strength 
+
+λ = 2Λ /
+
+q
+
+δ2 
+
+> b
+
+− δ2 
+
+> r
+
+. (9) In terms of the spin-1 /2 operators ˆJi = ˆ σi/2, we arrive at the final version of the ERM Hamiltonian ˆh = 1
+
+ε√∆ˆH = ˆJz + 1∆ ˆa†ˆa +
+
+λ
+
+√∆
+
+ 1 + δ
+
+2
+
+ ˆJ+ˆa + ˆJ−ˆa†
+
++ 1 − δ
+
+2
+
+ ˆJ+ˆa† + ˆJ−ˆa
+
+
+
+.
+
+(10) Here δ ∈ (−1, 1) interpolates from the aJC regime (δ = −1), through the standard Rabi regime ( δ = 0) to the JC regime ( δ = 1), and corresponds precisely to the Hamiltonian of Eq. (5) in [21] with μ = 0 (the parity-conserving case). Required values of the param-eters of Eqs. (6)-(9) and the conditions for their real-ization, demonstrating in particular when the ESQPT criticalities are experimentally feasible, are discussed in Appendix C.  
+
+> III. QPT AND ESQPT IN SYSTEMS INVOLVING A SINGLE TRAPPED ION
+
+Key signature of ESQPT criticalities in systems with 
+
+f = 1 degree of freedom—such as described by the Hamil-tonian (10)—are divergences (or discontinuities/jumps) in the semiclassical energy level density ρ(E, λ ) at spe-cific excitation energy Ecrit and/or at critical values of the control parameters λcrit . For a comprehensive review and classification of ESQPTs, see [6]. The model (10) allows to control and study the finite size scaling and the type of criticality [2, 3], which can be adjusted in state-of-the-art experimental trapped ion setups via Eq. (8). Before analyzing concrete ESQPT-witness observables, dependent on ∆ of Eq. (8), let us for convenience reca-pitulate the phase structure of the model derived in [21]: The semiclassical Hamiltonian h(λ, δ ) corresponding to the extended Rabi model (10) is obtained if we ex-pand the bosonic operators as ˆ a = ( mν ˆx + iˆp)/√2mℏν
+
+and rescale ˆx′ = ˆxpmν/ (∆ ℏ) and ˆp′ = ˆ p/ √∆mℏν.This leads to the canonical commutation relation [ˆ x′, ˆp′] = i/ ∆. Therefore, the motional classical limit can be realized in the ∆ → ∞ limit, where the coordinate and momentum operators may be treated as classical phase-space coordinates. A semiclassical counterpart of (10) is then given by 
+
+h(x′, p ′, m ′) = x′2 + p′2
+
+2 + m′p2λ2(x′2 + δ2p′2) + 1 ,
+
+(11) where m′ = ±1/2 are the eigenvalues of the projected quasispin operator ˆJ′ 
+
+> z
+
+= n · ˆJ . The parameter m′
+
+distinguishes two classically non-interacting subsystems. When searching for stationary points, one quickly con-cludes that the m′ = +1 /2 subsystem has only a global minimum at (x′, p ′) = (0 , 0) for arbitrary λ , δ and therefore does not exhibit any criticality. The struc-ture and character of the stationary points present in the m′ = −1/2 subsystem dictate the phase structure of the system. Thus, from the perspective of the ESQPT analysis, the ERM restricted to m′ = −1/2 is a one-dimensional ( f = 1) system. While the ground state QPTs in (10) and (11) involve transitions between the normal (N) and superradiant (S) phases, occurring at λc ≡ 1 (independent of δ), the ES-QPTs provide a richer set of options, with possible co-existence of two types of superradiant phases in the ex-citation spectrum: the Rabi (S1) and Jaynes-Cummings (S2) superradiant phases. As done first in [21], these are best characterized by stability of the phonon vacuum state, which changes along two additional critical lines 
+
+λ0 ≡ 1/|δ|, for positive/negative δ, respectively. We re-plot ‘the ESQPT phase diagram’ for convenience in Fig. 1 (panel a): In a fixed interaction-type regime ( δ = const .), we can classify the motion-qubit coupling strength phases as follows: 
+
+• λ ∈ [0 , 1) - Normal (weakly interacting) phase N :The only stationary point is the global minimum at the origin ( x′, p ′) = (0 , 0) corresponding to the bosonic vacuum at energy evac ≡ − 1/2. 
+
+• λ ∈ (1 , 1/|δ|) - First (Rabi) superradiant phase S1 : Two stationary points located at (±x′
+
+> c
+
+, p ′) ≡
+
+ ±λ√2
+
+ 1 − λ−41/2 , 0
+
+
+
+repre-sent degenerate global minima at energy 
+
+emin = − 14 (λ2 + λ−2). The origin ( x′, p ′) = (0 , 0) becomes a saddle point accompanied by a loga-rithmic divergence of the semiclassical density of states [6] at the energy evac , which represents the (only) ESQPT criticality in the S1 phase. 4
+
+• λ ∈ (1 /|δ|, ∞) - Second (Jaynes-Cummings) super-radiant phase S2 : Two degenerate global minima are given by the same expressions as in the S1 phase, while two energetically degenerate saddle points arise at ( x′, ±p′
+
+> c
+
+) ≡
+
+
+
+0, ±λδ √2
+
+1 − (λδ )−41/2
+
+and lead to a logarithmic divergence of the semiclassical density of states at energy 
+
+esad (λ, δ ) ≡ − 14
+
+(λδ )2 + ( λδ )−2; For |δ| < 1, this energy represents the lower-lying ESQPT criticality in the S2 phase. For |δ| = 1 (pure JC or aJC Hamiltonian), the energies esad and emin 
+
+coalesce [mexican-hat form of (11) related to U(1) symmetry of (10)], and this ESQPT vanishes. The origin turns into a local maximum, leading to a non-analytic drop in the density of states [6] at 
+
+evac , which represents the higher-lying ESQPT criticality in the S2 phase. An example is given in Fig. 1 (b) for δ = 0 .5 and λ = 4, where the development of the non-analytic behaviors at the two ESQPT energies, evac (jump) and esad 
+
+(log-divergence) with increasing ∆ is seen. As the semiclassical Hamiltonian (11) is δ ↔ − δ sym-metric, so is the ESQPT phase structure. To eventually account for finite-size differences in the respective quan-tum systems (10), we denote the anti-Jaynes-Cummings superradiant phase by S2’, in line with Ref. [21]. De-tailed properties of the system in the S2 and S2’ phases are further discussed in the Appendix A. 
+
+FIG. 1: (a) Different qubit-phonon interaction phases of the semiclassical ERM Hamiltonian (11) in the ( λ, δ ) plane. The individual colored regions represent areas with different phonon-vacuum properties. The red horizontal line at δ = 0 .5represents our choice of typical parameter-space path. Red point at ( λ, δ ) = (4 , 0.5) corresponds to parameters, for which we plot the Gaussian-smoothed densities of states (b) for dif-ferent system sizes ∆. Horizontal dashed lines in (b) indicate local maximum (orange), saddle point (black) and global min-imum (purple) of the classical Hamiltonian. abc
+
+FIG. 2: Level dynamics of the ERM Hamiltonian (10), with system size ∆ = 15 as a function of interaction strength λ
+
+for (a) δ = 0, (b) δ = 0 .5 and (c) δ = 1. Red levels indi-cate eigenstates with negative parity and gray levels indicate eigenstates with positive parity with respect to the total num-ber of excitations. The orange line represents the energy of the non-interacting ground state. The purple dot at λc indi-cates the ground-state QPT, and the subsequent purple line 
+
+emin represents the ground-state energy. In (b), the black dot at λ0 and the subsequent black line esad indicate the second ESQPT energy, resulting from the transition to the second superradiant phase S2. In panel (c) λ0 = λc and esad = emin .
+
+IV. WITNESSES OF ESQPTS: TIME-INDEPENDENT HAMILTONIAN 
+
+Non-analytic behaviors of ρ(e, λ ) at ESQPT critical values of ecrit ∈ { esad , e vac } and λcrit ∈ { λc, λ 0} are not 5directly observable experimentally. Thus we aim here to identify concrete ESQPT witnesses for experiments with trapped ion setups described by the Hamiltonian of Eq. (10) with finite effective system size ∆ < ∞, Eq. (8), generalizing the protocols used in the first experimental demonstration of the ground-state QPT in the pure Rabi model in [19]. In Fig. 2, we show all possible scenarios for develop-ment of QPT and ESQPT criticalities of Eq. (10). The Figure displays λ-dependent ‘level dynamics’ of the pure Rabi model with δ = 0 (panel a), the ERM with δ = 0 .5(b), and the pure Jaynes-Cummings model (c) along the same range of λ ∈ [0 , 4] and with a matching (moder-ate) system size ∆ = 15. Spectra in (a) and (b) en-ter the first (Rabi) superradiant phase S1 at a finite-size corrected ˜λc ≳ λc, as a result of which opposite-parity mergers occur approximately at the ESQPT energy evac ,accompanied by a rapid drop of the ground-state energy with increasing λ due to the QPT. The JC spectrum (c) lacks the S1 phase and enters at ˜λc ≳ λc the S2 su-perradiant phase, instead. The ERM spectrum (b) dis-plays both the S1 and S2 superradiant phases: the sec-ond ESQPT is formed for ˜λ0 ≳ λ0 at energy esad (λ, δ ). The corresponding spectrum contains only S1-type ex-citations for e < e sad (λ, δ ) and S2-type of excitations for e > e sad (λ, δ ). Note that the Hamiltonian (10) with general δ possesses a discrete Z2 symmetry with respect to the parity operator ˆP = ( −1) ˆn+ ˆJz +1 /2. Additionally, in the δ = ±1 cases (panel c), the symmetry group ex-tends to a continuous U (1), allowing for a simple ana-lytic solution and a large number of direct crossings of the same parity in the coupling-dependent level dynam-ics en(λ) [25, 26]. In contrast, the level crossings of the same parity shown in Fig. 2 (a) and (b) are all avoided. The only direct crossings allowed by symmetry are those of opposite parity states. Key difference between the ESQPT scenarios in pan-els (a) and (b) of Fig. 2, is the appearance of a spe-cific class of eigenstates, denoted hereafter as S2 emer-gent states , for λ ≳ ˜λ0 in the S2 phase between the two 1 2 3 4λ
+
+- 2.0 
+
+- 1.5 
+
+- 1.0 
+
+- 0.5 0.0 0.5 1.0 e (λ) SE ( e, λ)  
+
+> ln (2)
+
+00.2 0.4 0.6 0.8 1.0       
+
+> FIG. 3: Level dynamics as in Fig. 2 (b), but color-coded by the qubit-motion entanglement entropy SE[23]. SEis normalized by its maximal value of ln(2).
+
+ESQPT energies e ∈ [esad (λ, δ ), e vac ]: The S2 emergent states correspond to the subset of energy levels with rela-tively low negative ∂e ∂λ (for both parities), which undergo sharply avoided level-crossings with the remaining sub-set of ‘background levels’ with relatively much steeper negative ∂e ∂λ . The class of S2 emergent states involves in particular the slightly modified phonon vacuum ( ∂e ∂λ ≈ 0for λ ≳ ˜λ0), stabilization of which in the S2 phase was observed in [21]. Let us note in passing that for δ < 0an analogous class of S2’ emergent states exists between 
+
+e ∈ [esad (λ, δ ), e vac ] for λ ≳ ˜λ0, however, it does not contain the stabilized vacuum (cf. Appendix A). The coexistence of the S2 emergent states and the remain-ing ‘background states’ is actually most clearly visible in the λ ≳ ˜λc spectrum of the pure JC model (panel c): Here however the lower energy bound for their occurrence does not constitute an ESQPT, as it coincides with the ground state energy itself. Furthermore, we note that the S2 emergent states also constitute the only negative en-ergy eigenstates without (nearly) maximal qubit-motion entanglement in the λ ≥ ˜λ0 and e ∈ [esad (λ, δ ), e vac ] spec-tral region. We show this in Fig. 3, which displays the ’spectral dynamics’ from Fig. 2 (b) color-coded by the bipartite entanglement entropy [23]. Criticalities of the system translate to interesting be-havior of the expectation values of specifically chosen ob-servables, displayed in the so-called Peres lattices [27]. Natural observables of choice correspond to operators in-variant with respect to the evolution-picture rotations performed in the ERM mapping procedure, namely ˆ n, ˆJz
+
+or functions thereof. Furthermore, since the (ES)QPTs have been found as criticalities of a classical phase-space Hamiltonian, we also discuss selected states’ Wigner functions, defined as 
+
+Wρ(x′, p ′) = ∆
+
+π
+
+Z
+
+> R
+
+⟨x′ − y′|ˆρm|x′ + y′⟩e2i∆y′p′
+
+dy ′ , (12) where ˆ ρm = Tr q |ψ⟩⟨ ψ| is the reduced density operator of the motional degree of freedom. In Fig. 4, panels (a) and (b), we show in particular the Peres lattice of the boson number operator ˆ n for 
+
+δ = 0 (panel a) and δ = 0 .5 (b). The set of points 
+
+{(⟨ˆn⟩i, e i)}Ni=0 , where i runs over the system’s eigen-states |ψi⟩, is in both cases plotted for λ = 4, i.e. in the S1 for (a) and S2 for (b), and for a system size ∆ = 15. Examples of significant Wigner functions of the ERM eigenstates, for the same parameters as in the Peres lattice (panel b), are shown in panels (c-h), color-coded and shown on top of the contour-lines of the corresponding classical Hamiltonian (11). The Wigner function for the ground-state (d) shows that the state is equally split into the double-well minima determined by the classical Hamiltonian, and from the Peres lat-tice we see that ⟨ˆn⟩gs /∆ = x2 
+
+> c
+
+/2 is satisfied. Since the 
+
+δ = 0 .5, λ = 4 system is already deep within S2, evac 
+
+corresponds to the local maximum of (11) and esad is a saddle point of (11). We find specific Peres lattice points in (b) in the ( esad , e vac ) interval with significantly 6              
+
+> FIG. 4: Expectation values of the phonon-number operator
+> ⟨ˆn⟩in eigenstates of the Hamiltonian (10) with ∆ =15,
+> λ= 4 and δ= 0 (panel a) and δ= 0 .5 (b) with six selected states’ Wigner functions in panels (c) - (h). The vertical axes in (a) and (b) display the eigenvalues, and the horizontal axes show the mean number of phonons in the correspond-ing parity-distinguished eigenstate (gray for positive parity, red for negative parity). The orange dashed horizontal line marks the non-interacting ground-state energy [semiclassical saddle point in (a) and local maximum in (b)], the purple horizontal line marks the ground-state energy (semiclassical minimum) and the purple vertical line marks the correspond-ing phonon number. The black horizontal line in (b) marks the second ESQPT energy (semiclassical saddle point) and its vertical counterpart likewise displays the corresponding phonon number. States shown in (c) - (h) are indicated in (b), and their Wigner functions are displayed along with con-tours of the classical Hamiltonian h(x′, p ′,−1/2) (11).
+
+lower values of ⟨ˆn⟩ than their neighbors in the spec-trum; an approximate bound for which can be deter-mined as ⟨ˆn⟩ ≤ ⟨ ˆn⟩sad = ∆ p2 
+
+> c
+
+/2 (shown in b). These correspond precisely to the S2 emergent states bound by the semiclassical maximum [35]. Their Wigner functions are shown in panels (c), (e) and (g), in order of decreas-ing energy starting from the stabilized vacuum. They approximately follow the contours of the classical Hamil-tonian around the x = p = 0 local maximum, which are elongated in the p-direction. The Wigner functions of the S2 emergent states are thus squeezed in the direction of the x-axis. Note that in (a), the evac ESQPT is a saddle point and therefore shows a behavior similar to esad in (b), however the absence of the second ESQPT point for-bids any additional structure to form in (a) and we show it here for brief comparison. Finally, we display the state (f), which is localized near the ERM saddle points and constitutes a border between the S2 emergent states and the eigenstates, corresponding to the ‘background levels’ discussed above, coexisting with them in energy and lo-calized toward the outer edge of the Hamiltonian profile; An example of such state is the Wigner function (h) at approximately evac .Distinctive properties of the S2- and S2’-emergent states, differentiating them markedly from other eigen-states of the ERM Hamiltonian (10) allow to construct experimentally relevant ESQPT-witness observables and are of significant consequence in critical driving proto-cols, as will be detailed in the following Sections.  
+
+> V. WITNESSES OF ESQPTS: TIME-DEPENDENT PROTOCOLS
+
+In order to effectively analyze the phase structure of the system under discussion, we must be able to recog-nize the dynamical signatures imprinted on a given state during its evolution through critical points as the inter-action strength increases. At the same time, we aim to address the influence of the rate of increase of the inter-action strength on the suitability of a given protocol for studying either ground-state QPT or the ESQPT criti-calities. The problem of interest is therefore to solve the time-dependent Schr¨ odinger equation 
+
+i ddτ |ψ(τ )⟩ = ˆh(τ )|ψ(τ )⟩ , |ψ(0) ⟩ = |ψ0⟩ , (13) where 
+
+τ = εt √∆/ℏ (14) is a rescaled (characteristic) evolution duration. The time dependence in the Hamiltonian (10) is assumed to enter through the interaction strength λ(τ ) = λf τ /τ f ,where τf is the interaction onset time, which determines its rate of increase. Since the temporal rescaling cor-responds to multiplying by the qubit frequency in the rotated evolution frame, τf /(2 π) represents the number of complete oscillations in this frame. Unless specified otherwise, in this paper, the initial state coincides with the non-interacting ground state [36] 
+
+|ψ0⟩ = | ↓ , 0⟩ . (15) The results presented in connection with time-dependent protocols are best understood in terms of the so-called strength functions (or local densities of states), which can be defined as 
+
+P (e) = X
+
+> i
+
+|⟨ ψi(λf )|ψ(τf )⟩| 2 δ(e − ei(λf )) . (16) 7a
+
+# b
+
+FIG. 5: Strength functions, Eq. (16), in instantaneous quench protocols ( τf = 0) corresponding to a sudden increase of the interaction parameter to λf = 4 at (a) δ = 0 and (b) δ = 0 .5, for different system sizes ∆. Horizontal dashed lines indicate the semiclassical critical points: local maximum [ evac in (b)], saddle point [ esad in (b) and evac in (a)], and global minimum (emin ). 
+
+These functions illustrate the probability distribution of the state prepared at τf across the eigenstates of the Hamiltonian at the final interaction strength λf .To demonstrate the significance of the S2 emergent states bound to semiclassical local maximum, at first we compare the strength functions corresponding to instan-taneous ( τf = 0) protocols in Fig. 5. For varying system sizes ∆ and identical interaction parameters λf = 4 and 
+
+δ = 0 in panel (a), δ = 0 .5 in (b), we observe the pro-jections of ψ0, Eq. (15), onto the eigenstates of the final Hamiltonian. The results in (b) confirm that stabiliza-tion of ψ0 occurs in S2, and a set of emergent states with non-zero projection onto ψ0 is found in the energy in-terval ( esad , e vac ). Below esad , in the region of S1-type excitations, the overlap is continuously suppressed with decreasing energy in a manner similar to the behavior of the strength function below evac in (a). As the sys-tem size ∆ increases, the number of the S2 emergent states grows, and those with significant ψ0 projections are pushed closer to evac . In Fig. 5, we also see states at pos-
+
+FIG. 6: Strength functions, Eq. (16), resulting from linear-interaction-ramp driving protocols (a) with column-wise dif-fering finite durations τf but with matching ERM parame-ters ∆ = 15, λf = 4 and δ = 0. Panels in the lower half display λ(τ )-parametrized evolutions of key quantities dur-ing the driving, namely the expectation values of (b) the time-dependent Hamiltonian, (c) the boson-number operator, (d) the quasispin operator and (e) the bosonic vacuum pro-jector (or the ψ0 survival probability). Orange and purple dashed lines in (a) and (b) are the semiclasically determined saddle-point and global minimum energies, respectively. Pur-ple dashed line in (c) is the expected ground-state bosonic population. 
+
+itive energies that are localized near the origin of phase space, but they correspond to the semiclassical Hamilto-nian of the second subsystem with m′ = +1 /2. In pro-tocols with finite duration, these positive-energy states decay first, and the trapping of the strength function oc-curs only at the aforementioned S2 emergent states (see below). In Figures 6 and 7, we show the results of two sets of linear driving protocols with matching system sizes ∆ = 15, target interaction strengths λf = 4 and δ = 0 in Fig. 6 and δ = 0 .5 in Fig. 7. Strength functions are shown in both figures for 6 different values of protocol duration τf ranging from instantaneous quenches with 
+
+τf = 0 (leftmost in panels a) to τ (max)  
+
+> f
+
+= 500 π (right-8   
+
+> FIG. 7: Same as in Fig. 6 but with the δ= 0 .5 interaction regime. In (a) and (b), the orange dashed lines therefore now represent the semiclassically determined local maximum en-ergy and the black dashed lines the saddle point. The bosonic population assigned to the saddle-point phase-space coordi-nates is shown as the black dashed line in (c).
+
+most in panels a). The slowest protocols correspond to near-adiabatic drive for both the δ = 0 and δ = 0 .5 cases shown. The significance of the cascade of emergent states in the interval ( esad , e vac ) lies in their ability to dynam-ically capture the wave function during driving from ψ0
+
+of Eq. (15). The strength functions corresponding to the standard Rabi model steadily proceed toward the ground state as τf increases. In contrast, in the extended Rabi model, where evac is a semiclassical maximum, trapping between ESQPT energies occurs and naturally hinders adiabatic behavior. To achieve truly adiabatic evolu-tion in such a driving regime, the increase of interaction strength - especially in the ( ˜λc, ˜λ0) interval - must be suf-ficiently slow, allowing the wave function to leave the evac 
+
+region and avoid the subsequently stabilized vacuum and the other S2 emergent states. Driving protocols with a sufficiently fast transition to S2 are therefore particularly suitable for probing the spectral region between ESQPTs, as the wave function is naturally trapped there. The lower halves of Figures 6 and 7 show the time-dependent expectation values of the instantaneous Hamiltonian ⟨ˆh⟩(τ ), the phonon number ⟨ˆn⟩(τ ), the qubit orientation ⟨ ˆJz ⟩(τ ), and the projection P0(τ ) onto ψ0
+
+(survival probability) for each set of protocols in pan-els (b)-(e), respectively. In the δ = 0 .5 case, there ex-ists a theoretical (critical) duration ˜ τf , for which both the ⟨ˆh⟩(τ ) and ⟨ˆn⟩(τ ) curves approximately follow the characteristics of the saddle point in S2, thus the lower ESQPT critical energy esad . Protocols in which the in-teraction strength increases at a rate slower than this supposed threshold are not well suited to probe the ES-QPT region, but are feasible for observing ground-state QPT effects [19]. Based on the above observations, we infer that the main quantities to serve as ESQPT wit-nesses are the mean phonon population ⟨ˆn⟩ and the vac-uum survival probability P0. For τf < ˜τf , we observe only a moderate increase in mean phonon numbers ⟨ˆn⟩
+
+in protocols ending within S2/S2’ phases (cf. Figs. 6and 7, panels c). Furthermore, among the δ = 0 .5 pro-tocols shown in Fig. 7, only the slowest protocol with 
+
+τf = 500 π allows the state to adapt fully to S1, so that the vacuum contribution is erased; in all other protocols, a nonzero projection onto the vacuum state P0 persists in S2, in contrast to the standard Rabi protocols, where the vacuum eventually always tends to decay (cf. Figs. 6 and 7, panels e).  
+
+> VI. SUITABLE EXPERIMENTAL OBSERVABLES
+
+In this section, we discuss influences due to realistic de-coherence and dephasing typical of the current state-of-the-art experimental setups for the extended Rabi model in Paul trap setups similar to Innsbruck/Brno trap [34] (using 40 Ca +) and the Tsinghua trap [19] (using 171 Yb +). We conclude the section by proposing experimentally ver-ifiable dependencies of ESQPT witnesses. The inevitable coupling of the trapped ion to the envi-ronment implies that, in order to make realistic predic-tions about experimental outcomes, we must prescribe a suitable master equation to describe the evolution of the open quantum system. Since a trapped ion is gen-erally weakly coupled to its environment [23], which can be considered Markovian (memoryless), we employ the Lindblad master equation in the Schr¨ odinger picture 
+
+ddt ˆρs(t) = − i
+
+ℏ
+
+h ˆHs(t), ˆρs(t)
+
+i
+
++ L [ˆ ρs(t)] , (17) where the Lindblad superoperator L takes the form 
+
+L [ˆ ρs(t)] = X
+
+> j
+
+
+
+ˆLj ˆρs(t) ˆL† 
+
+> j
+
+− 12
+
+n ˆL† 
+
+> j
+
+ˆLj , ˆρs(t)
+
+o
+
+, (18) with ˆLj representing individual dissipators acting on the density matrix of the system ˆ ρs and { ˆA, ˆB} = ˆA ˆB + ˆB ˆA
+
+denoting the anticommutator. 9Environmental effects that should be taken into ac-count in a comprehensive error analysis include [23]: 
+
+• Motional dephasing : ˆLm = √2Γ m ˆa†ˆa, arising from (trap) secular-frequency noise. 
+
+• Heating and damping : ˆLh = √γn th ˆa†,ˆLd = pγ(nth + 1) ˆ a, which result from inco-herent energy exchange with the environment. This form models the environment as a large thermal bath with a population nth , coupled to the system at a characteristic rate γ.
+
+• Qubit dephasing : ˆLq = p2Γ q ( ˆJz + 1 /2), stemming from laser-field and magnetic-field fluctuations af-fecting the ion’s internal states. Furthermore, we note that the omission of the qubit-relaxation dissipator ˆLr ∝ ˆJ− is justified by the fact that the qubit excited-state lifetime in a trapped ion is ex-pected to be much longer than the characteristic experi-mental timescales (unlike, for example, in superconduct-ing circuits [28]). Equation (17) can be transformed in accordance with the evolution-frame rotations performed in Sec. II., since these modify the prescribed dissipators only by a phase factor. As a result, we can define ˆlj =
+
+ ε√∆
+
+> ℏ
+
+−1/2 ˆLj ,which leads to 
+
+ddτ ˆρ(τ ) = −iˆh(τ )ˆ ρ(τ ) + iˆρ(τ )ˆh†(τ ) + X
+
+> j
+
+ˆlj ˆρ(τ )ˆl† 
+
+> j
+
+, (19) where ˆh(τ ) = ˆh(τ ) − i
+
+> 2
+
+P 
+
+> j
+
+ˆl† 
+
+> j
+
+ˆlj is an effective non-Hermitian Hamiltonian. Separating the master equation into non-Hermitian Hamiltonian propagation and quan-tum jump term motivates the Monte Carlo wave-function method [29] for its solution, which we discuss in more de-tail in the Appendix B. Making predictions about a realistic linear-interaction-ramp protocol requires us to determine sideband-drive detunings δr,b and maximal Rabi frequencies ηΩ(max)  
+
+> r,b
+
+as well as the ramp duration tf and the above mentioned characteristic dephasing and heating rates. Since the rates of environmentally caused motional decoherences scale at least as √n (and up to n2) for the nth-Fock components in ˆ ρ, obtaining precise phonon-basis statis-tics can be challenging. Therefore, we propose the pro-jection of the final state on the vacuum to be the main experimentally observable witness of ESQPT. Experimental post-driving state diagnostics that yield phonon statistics can be performed by measuring blue-sideband-driven Rabi oscillations and fitting the obtained curve [19, 26]. To simplify the data-fitting procedure, before the diagnostic drive, it is customary to project the state of the system on the qubit-down state, all the while preserving the motional degree of freedom unaf-fected. Note, however, that this projection, although cru-cially simplifying the process of obtaining phonon-basis statistics, non-trivially alters the state and e.g. erases qubit-motion entanglement. In context of the Hamilto-a
+
+# b
+
+# c
+
+FIG. 8: Rabi oscillations numerically obtained by evolv-ing a blue-sideband interaction at fixed Rabi frequency 
+
+ηΩ2 = 2 π × 2.4 kHz. Initial states are the qubit-down pro-jected results of linear-interaction-ramp protocols simulated for matching experimental parameters δr = −2π × 3.6 kHz, 
+
+δb = −2π × 4.1 kHz, ηΩ(max) 1 = 2π × 5.87 kHz and 
+
+ηΩ(max) 2 = 2 π × 1.96 kHz, but for different Rabi frequency on-set durations (a) tf = 1 .3 ms, (b) tf = 2 .6 ms, (c) tf = 6 .5 ms. Corresponding ERM parameters are ε/ ℏ = 2 π × 0.98 kHz, ∆ = 15 .4, λ(max) = 4.0 and δ = 0.5, along with the rescaled durations (a) τf /(2 π) = 5, (b) τf /(2 π) = 10, (c) 
+
+τf /(2 π) = 25. Dashed curves correspond to Schr¨ odinger-equation evolution (13) both during the ERM protocol and the diagnostic blue-sideband drive. Full curves display correc-tions stemming from the Lindblad master equation (19) again both during the protocol and the diagnostic drive. Consid-ered environmental effects and their estimated rates include motional dephasing with Γ −1 
+
+> m
+
+= 100 ms, qubit dephasing with Γ−1 
+
+> q
+
+= 10 ms and motional heating rate γn th = 3 .3 s −1.10 nians we discussed in Sec. II., the blue-sideband drive corresponds to (3) with δr,b = 0 and Ω 1 = 0. Each indi-vidual n-phonon component adds to the Rabi oscillations through a ηΩ2
+
+√n + 1-frequency contribution with ampli-tude equal to the population pn. Extracting the vacuum population, in particular, requires only the ’contrast’ of such Rabi oscillations at longer driving times. The vac-uum contribution possesses the longest-coherence-time component, due to its natural dephasing resilience. For a set of model-suitable and experimentally feasible parameters, we show in Fig. 8 the post-interaction-ramp Rabi oscillations at fixed blue-sideband Rabi frequency for three different protocol durations τf /2π = 5 , 10 , 25 in panels (a-c), respectively, with prediagnostic qubit-down projection. The Appendix C further elaborates upon our specific choice of parameters and their possible adjust-ments with respect to preserving the same ERM Hamil-tonian through (6)-(9). Comparison of results obtained by solving the Schr¨ odinger equation (dashed lines) and the Lindblad master equation (solid lines) shows that, for a state-of-the-art trapped ion setup, environmental effects can be neglected when only the vacuum contribu-tion is extracted. Moreover, the qubit-down projection before the diagnostic blue-sideband drive removes the ini-tial phase mismatch, acquired due to environmental ef-fects during the critical-driving protocol. The remain-ing non-unitary effects are then the overall damping and decoherence of higher Fock components, especially pro-nounced for longer protocols (panel c), neither of which impacts significantly the total contrast (width of ⟨ ˆJz ⟩(t)oscillations) determining the sought after vacuum contri-bution. Generalization of the results presented in Figures 6 (e) and 7 (e) to different τf , δ and ∆ provides theoretical predictions for a feasible experimental verification of the ESQPT signatures in the ERM. For the initial state ψ0 of Eq. (15) undergoing a linear-interaction-ramp protocol reaching a fixed λf in an ERM defined by system size ∆ and interaction regime δ, the τf -dependence of the vac-uum population is uniquely determined by the encoun-tered critical points. In accordance with the post-driving measurement, we define the down-projected vacuum pop-ulation ˜P0(τf ) = P0(τf )/⟨ ˆP↓(τf )⟩, where P0(τf ) is the survival probability at the end of the interaction ramp. The division by qubit-down population results from the prediagnostic projection. Figure 9 shows ˜P0(τf ) resulting from solutions of (13) for different δ ≥ 0 interaction regimes and fixed ∆ = 15 .4, 
+
+λf = 4. Since the semiclassically determined ground-state energy and phase-space position ( x = ±xc, p = 0) are independent of δ and |⟨ ψgs |ψ0⟩| 2 ≈ 0 at λ = 4 (see Fig. 5), the decay of ˜P0 is a necessary condition for high-fidelity adiabatic evolution regardless of the specific 
+
+δ. The immediate consequence of Fig. 9 is then the demonstration of the drastic increase with δ in the lower-threshold duration below which the adiabatic behavior is forbidden by the ESQPT structure. More generally, the variation of ˜P0(τf ) with δ becomes abrupt when we cross 0.5 1 5 10 50 100 0.0 0.2 0.4 0.6 0.8 1.0 
+
+τ f /( 2π)
+
+P
+
+ 0 (τ f )
+
+δ
+
+0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9               
+
+> FIG. 9: Vacuum populations of the down-projected states resulting from linear-interaction-ramp protocols (13) depend-ing on protocol duration τf. States |ψ(τf)⟩are obtained for ∆ = 15 .4 and final interaction strength λf= 4, but for var-ious δ≥0, which color-code the individual curves. Regimes
+> δ∈ { 0,0.5}are highlighted by line thickness and points cor-responding to Rabi oscillations in Fig. 5 are marked.
+
+the finite-size corrected S2 boundary. As a result of the wave function being trapped by the emergent states, we see plateaus and local maxima in ˜P0(τf ) for δ ≳ λ−1 
+
+> f
+
+,the limit of which is ˜P0(τf ) = 1 for δ = 1 as ψ0 (15) is uncoupled by the pure Jaynes-Cummings interaction. Finite-size scaling behavior of the rich ESQPT struc-ture in the ERM can be studied from the same depen-dencies for a fixed interaction regime and varying system size. In Fig. 10, we show the ˜P0(τf ) curves for fixed 
+
+λf = 4, δ = 0 .5 but for different ∆. Although the limit-ing classical evolution ∆ → ∞ is again ˜P0(τf ) = 1, since 
+
+h(0 , 0, m ′) in (11) represents a stationary point regard-less of λ(τ ) or δ, we see in Fig. 10 that the finite width of the Wigner function in the examined ∆-range eventually still leads to the ˜P0(τf ) decay. However, a key aspect of the finite-size scaling of ˜P0(τf ) is the increasing height of the peaks associated with the trapping of the wave func-tion and the general shift toward larger values of τf in accordance with the classical limit.  
+
+> VII. CONCLUSIONS
+
+We have shown that the externally driven Extended Rabi Hamiltonian, using protocols linear in time and with adjustable speed, enables experimental realization and study of ESQPT criticalities accompanying the ground state QPT between the normal and superradi-ant phases. In the control parameter region correspond-ing to the superradiant phases of the model Hamilto-nian, the excited superradiant phase of the (anti) Jaynes-Cummings type S2 (S2’) occurs energy-wise above the Rabi superradiant phase S1, and the transition be-tween these phases can be detected by addressing sev-eral ESQPT-witness observables: (i) the vacuum survival 11 0.5 1 5 10 50 100 
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+τ f /( 2π)
+
+P
+
+ 0 (τ f )
+
+Δ
+
+515 30 45 60 75 90        
+
+> FIG. 10: Same as in Fig. 9, but for fixed δ= 0 .5 for various system sizes 5 ≤∆≤90. Regime ∆ = 15 is highlighted by line thickness.
+
+probability, (ii) expectation value of the phonon num-ber operator, (iii) the quasispin projection operator. All of them can be extracted from experimentally recorded Rabi oscillations. On top of the vacuum stabilization under sudden quenches identified in [21], the key new contribution of this paper is the identification of a family of ‘S2-emergent states’, which are addressed by driving protocols at finite speed. The emergent states share a non-zero projection onto the vacuum | ↓ , 0⟩ itself, however their occurrence is not limited to the energy of the stationary point of the Hamiltonian at the origin, but spans the whole energy range precisely between the two critical ESQPT energies 
+
+evac and esad . In the phase space, their Wigner functions are concentrated around the local maximum of the semi-classical Hamiltonian at the origin (at the upper ESQPT energy evac ) up to the location of the saddle points (lower ESQPT energy esad ) and squeezed in the x−direction. Thus, by carefully adjusting the driving protocol speed, population of the S2 (S2’) emergent states allow to probe both ESQPT criticalities. In other words, they represent a fingerprint for entering the excited superradiant (a)JC phases S2 and S2’. Considering the typical properties of current state-of-the-art ion trap setups, we have shown that the non-Hermitian effects (dissipation, dephasing) contribute only weakly to the overall signatures of the criticality. We have studied here the particular and model specific signatures of ESQPT quantum criticality in the simplest possible setting of a single cold trapped ion, realizing the ERM Hamiltonian. We have shown that the plen-titude and robustness of the S2 emergent states of the ERM allows to experimentally realize ESQPTs, similar to ground state QPTs with the trapped ion setup [19]. This opens up a particularly interesting possibility of high-fidelity preparation of a ‘near-saddle-point’ emer-gent state, which would provide an improvement in dis-placement sensing applications with respect to typically used non-Gaussian (multiple Fock) states [20], especially in the context of the developing field of critical quantum sensing [15]. In more general terms, we believe that the conceptual simplicity of the ESQPT approach (based es-sentially on determining the unstable equilibria of the semiclassical limit in the control parameter and exci-tation energy spaces) to quantum criticalities provides an intuitive roadmap for quantum state preparation and manipulation with interesting opportunities in diverse quantum technology, metrology, and sensing applications based on quantum critical phenomena [13–15, 20] in par-ticular with cold trapped ions, but also other setups, e.g. using the superconducting circuits [31–33].  
+
+> VIII. ACKNOWLEDGMENTS
+
+We thank P. Cejnar, P. Str´ ansk´ y, L. Slodiˇ cka, V. ˇSvarc, T. M. Pham, O. ˇC´ ıp, A. ˇCepil, O. ˇCernot´ ık, and R. Filip for insightful discussions and comments. This work was supported by the Czech Ministry of Education, Youth and Sports, project No. CZ.02.01.01/00/22 008/0004649 (QUEENTEC). Authors also acknowledge the project 23FUN03 HIOC, which has received funding from the Eu-ropean Partnership on Metrology, co-financed from the European Union’s Horizon Europe Research and Innova-tion Programme and by the Participating States. M.K. acknowledges partial support by the Czech Science Foun-dation project No. 25-16056S. 
+
+> Appendix A: Characteristics of the Excited Superradiant (anti) Jaynes-Cummings phases S2 and S2’
+
+In this section, we further address the presence and na-ture of the S2 (and S2’) emergent states of (10). From the phase-space viewpoint, their Wigner functions are largely trapped by the semiclassical-Hamiltonian separatrix in the region of the local maximum. Thus far, we have fo-cused on the fact that the result of this trapping is a significantly lower bosonic population compared to their spectral neighbors. This energetic proximity of states with very different spatial characteristics can be under-stood analytically from the Jaynes-Cummings and anti-Jaynes-Cummings models, where the critical semiclassi-cal Hamiltonian assumes the Mexican-hat shape (ERM saddle points are lost to the axially symmetric minimum). The Hamiltonian (10) restricted to |δ| = 1 couples only states within two-dimensional subspaces of the original Hilbert space and can therefore be analytically solved. The resulting spectrum is 
+
+σsign( δ) =
+
+
+
+− sign( δ)2
+
+
+
+∪
+
+ 2n + 1 2∆ ± rn
+
+2
+
+∞
+
+> n=0
+
+, (A1) where rn =
+
+r 1−sign( δ)∆ ∆
+
+2
+
++ 4 λ2 n+1 ∆ . The eigenvalue 
+
+−sign( δ)/2 is derived from the fact that the qubit-down vacuum and the qubit-up vacuum are uncoupled for δ = 1 and δ = −1, respectively. 12 The mean bosonic populations in the δ = ±1 eigen-states corresponding to (A1) are convex combinations of 
+
+n and n + 1. The connection we want to emphasize is that in S2/S2’, for every e ∈ (emin , e vac ), we can find two separate circles described by h(px2 + p2) = e in the classical phase space. One of these circles will be closer (at every point) to the origin than the emin -circle, and the other will be farther away. Similarly, for each such energy, we can find two real numbers ˜ n1,2 ≥ 0 by inverting (A1), which satisfy ˜ n1 ≤ nmin ≤ ˜n2, where 
+
+nmin labels the infimum of σsign( δ). In the ∆ ≫ 1 case there are eigenvalues en1 and en2 arbitrarily close to e
+
+and ⟨ˆn⟩ψn1 ≤ ⟨ ˆn⟩ψnmin ≤ ⟨ ˆn⟩ψn2 . The eigenstates with 
+
+⟨ˆn⟩ lower than the ground state are the emergent states in the δ = ±1 regimes. This intuition behind emergent states is slightly al-tered when we reintroduce the saddle points present at ( x′, p ′) = (0 , ±pc) in δ /∈ { 0, ±1} cases. The ap-proximate bound for distinguishing emergent states in the ( esad , e vac ) interval becomes ⟨ˆn⟩ψ ≲ ∆p2 
+
+> c
+
+/2, which is demonstrated in Fig. 4 (b). The classical phase-space analogy can be utilized to approximate the num-ber of emergent states at a given (λ, δ ). We re-call the m′ = −1/2 semiclassical Hamiltonian (11) in S2/S2’ (λ > 1/|δ|). By transitioning to polar coordi-nates ( x′, p ′) → (r cos φ, r sin φ), we find that for each 
+
+e ∈ (esad , e vac ) there exist two solutions r±(φ, e ) to 
+
+h(r, φ ) = e. Each of these solutions prescribes a closed curve in the region of phase space bounded by the sep-aratrix ( r+ outward and r− inward), which merges with the separatrix when e → esad . Therefore, we can define the inner and outer phase-space volumes 
+
+v±(λ, δ ) = 
+
+Z evac 
+
+> esad
+
+de 
+
+Z 2π
+
+> 0
+
+dφf ±(φ, e ) , (A2) where f ± = r± ∂h ∂r 
+
+  r±, φ )|−1. Integration in (A2) can be carried out exactly, and it is possible to roughly esti-mate the number of emergent states v−∆/(2 π) and also its ratio to the number of ’background’ states v−/v + be-tween ESQPT energies even for moderate ∆. However, note that for systems outside the ∆ ≫ 1limit, the symmetry in ±δ is broken. In particular, the 
+
+δ < 0 spectra show primary stabilization of the qubit-up vacuum even for λ < λ c as opposed to the δ > 0cases that we focus on in the article. Emergent states still occur when δ < 0, but we will observe one at the 
+
+evac energy and of the qubit-down vacuum type only as the result of ∆-asymptotics and not the direct stabiliza-tion beyond finite-size corrected ˜λ0 as we saw in Figs 2 (b), 4 (b), 4 (c), 5 (b). This consequence of broken ±δ
+
+symmetry needs to be understood when we predict the number of emergent states for ∆ ≲ 10 2 from the clas-sical approaches presented. On the other hand, δ < 0finite-duration interaction ramps to S2’ provide a unique possibility of avoiding the S2 vacuum stabilization at evac 
+
+and accessing the next (wider) emergent state with high fidelity. 1 2 3 4 50.0 0.2 0.4 0.6 0.8 1.0 
+
+# λδ
+
+# v - / v +
+
+# 00.1 0.4 0.7 1.0   
+
+> FIG. 11: Color-coded map of the inner and outer phase-space volumes ratio ( v−/v +)( λ, δ ) defined through (A2). The defi-nition is valid only for λ > 1/|δ|.
+
+We conclude this section by showing the (λ, δ )-dependence of the ratio v−/v +, defined in (A2), as a 2D colored map in Fig. 11. It can be proved that v− = v+
+
+in the limit λ → (1 /δ )+, but it is apparent that the share of emergent states quickly drops, when one moves above the δ = 1 /λ curve, which is required for finite ∆ observa-tions. Results based on phase-space volumes that predict the number of emergent states as Ne/∆ = v−/(2 π) and the number of ’background’ states as Nn/∆ = v+/(2 π)were tested. From numerical diagonalization of (10) for 
+
+λ = 4 and δ = 0 .5 in the range ∆ ∈ [20 , 800], we val-idated the predictions of (A2), v−(4 , 0.5) .
+
+= 2 π · 0.210 and v+(4 , 0.5) .
+
+= 2 π · 1.335 . The eigenstates were clas-sified according to the ⟨ˆn⟩ψ /∆ ≷ p2 
+
+> c
+
+/2 criterion, and the resulting relative errors of the classical phase-space pre-dictions are approximately 4 .8 % for ∆ = 20 and 0 .6 % for ∆ = 800. 
+
+> Appendix B: Solving the Lindblad master equation
+
+Here, we further elaborate upon the Monte Carlo wave function (MCWF) method utilized for solving (19) and first introduced in [29]. The crucial advantage of apply-ing this method, is that one works only with individual wave functions, which is preferable to the entire density matrix for large systems in terms of computational mem-ory. Eq. (19) admits a formal solution in the form of a series ˆ ρ(τ ) = P∞ 
+
+> n=0
+
+ˆρ(n)(τ ). If we define ˆ u(τ, τ 0) as the so-lution to ∂τ ˆu(τ, τ 0) = −iˆh(τ )ˆ u(τ, τ 0), ˆ u(τ0, τ 0) = 1, then we can write a recurrent relation ˆρ(0) (τ ) = ˆ u(τ, 0)ˆ ρ(0)ˆ u†(τ, 0) ,
+
+ˆρ(1) (τ ) = X
+
+> j1
+
+Z τ
+
+> 0
+
+dτ 1 ˆu(τ, τ 1) ˆlj1 ˆρ(0) (τ1) ˆl† 
+
+> j1
+
+ˆu†(τ, τ 1) ,
+
+ˆρ(n)(τ ) = X
+
+> jn
+
+Z τ
+
+> 0
+
+dτ n ˆu(τ, τ n) ˆljn ˆρ(n−1) (τn) ˆl† 
+
+> jn
+
+ˆu†(τ, τ n) .
+
+(B1) 13 Individual terms ˆρ(n) represent the non-Hermitian Hamiltonian evolution of ˆρ(0) = P 
+
+> k
+
+pk|ϕk⟩⟨ ϕk| in between n quantum jumps realized by the acting of dissipators {ˆlji }ni=1 at all possible ordered times 
+
+{τi}ni=1 ⊂ (0 , τ ). The MCWF method produces N independent trajec-tories |ϕ(i)(τ )⟩, where the initial states are sampled from ˆρ(0) eigenstates with respect to their probabilities. In ac-cordance with (B1), each trajectory samples a uniformly distributed random number ξ1 ∈ (0 , 1), which determines the time of the first jump through ξ1 = S(τ1, 0), where 
+
+S(τn+1 , τ n) = ⟨ϕ(i)(τn)|ˆu†(τn+1 , τ n)ˆ u(τn+1 , τ n)|ϕ(i)(τn)⟩.If ξ1 < S (τf , 0), then no jump occurs, otherwise at ob-tained τ1, a specific event j1 is sampled with respect to the instantaneous rates γ(i) 
+
+> j1
+
+(τ1) = ⟨ϕ(i)(τ1)|ˆl†
+
+> j1
+
+ˆlj1 |ϕ(i)(τ1)⟩
+
+and quantum jump |ϕ(i)(τ1)⟩ → ˆlj1 |ϕ(i)(τ1)⟩/
+
+q
+
+γ(i) 
+
+> j1
+
+(τ1) is performed. The evolution then proceeds in the same way by sampling ξ2 and taking the normalized post-jump state as the state entering S(τ2, τ 1) until we reach 
+
+ξn < S (τf , τ n−1). The solution to (19) can then be ap-proximated by averaging ˆ ρ(τ ) ≈ 1
+
+> N
+
+PNi=1      
+
+> |ϕ(i)(τ)⟩⟨ ϕ(i)(τ)|⟨ϕ(i)(τ)|ϕ(i)(τ)⟩
+
+.In principle, arbitrary accuracy in the es-timation of ˆρ(τ ) can be reached by increas-ing N . However, we are primarily interested in evaluating time-dependent expectation values 
+
+⟨ ˆA⟩(τ ) = Tr(ˆ ρ(τ ) ˆA) ≈ 1
+
+> N
+
+PNi=1       
+
+> ⟨ϕ(i)(τ)|ˆA|ϕ(i)(τ)⟩⟨ϕ(i)(τ)|ϕ(i)(τ)⟩
+
+. The deviation of obtained expectation values from the exact results can be estimated from the CLT as 
+
+σN (τ ) ≈ σA(τ )
+
+√N =
+
+s
+
+⟨ ˆA2⟩(τ ) − ⟨ ˆA⟩2(τ )
+
+N , (B2) where ˆA and ˆA2 are again averaged over all MCWF tra-jectories sampled. Therefore, convergence of the method depends on the observable ˆA of interest and, in general, the method yields better results for non-local operators. For a more detailed discussion, we refer to [29]. In Tab. 1, we compare selected aspects of the (13) and (19) evolutions at the end of linear-interaction ramps corresponding to the parameters in Fig. 8. We list the post-protocol mean bosonic populations ⟨ˆn⟩, mean qubit orientations ⟨ ˆJz ⟩ and down-projected vacuum popula-tions ˜P0. For each of these observables, we evaluated the ’Schr¨ odinger’ and ’Lindblad’-acquired mean values, as well as the mean relative errors (MRE) obtained by averaging N independent MCWF trajectories 
+
+√N η (L) 
+
+> A
+
+(N ) ≈
+
+q
+
+⟨ ˆA2⟩(τf ) − ⟨ ˆA⟩2(τf )
+
+⟨ ˆA⟩(τf ) . (B3) 
+
+Appendix C: Discussion of suitable experimental parameters 
+
+In the following, we examine in greater detail the re-lationship between the model (10) and the experimental parameters (6)-(9). We will justify our choice of values for the relevant quantities by referring to two highly sig-nificant works in the field of QPT studies on trapped ions [18, 19]. The theoretical approach, introduced in [18], in which the driving fields are detuned from the first sidebands by δr,b —an approach that allows critical phenomena to be achieved experimentally, as demonstrated in [19] for 171 Yb +—is valid only for |δr,b | ≪ ν. The val-ues for which [19] report their results correspond to 0.022 ≳ |δr,b |/ν ≳ 0.008 . In our case, we assume an ax-ial mode ν ≈ 2π · 1.0 MHz for the 40 Ca + ion (based on the setup in ISI Brno [34]), and thus, in the simulations preceding Rabi oscillations in Fig. 8, we use the values of |δr,b |/ν ≈ 0.004 . In the expressions for the model pa-rameters, detunings enter into λ, ∆, and ε. Dynamical manipulation of δr,b to adjust λ in time is therefore not suitable, as it would result in a change in the system size and the characteristic energy (time) scale. Therefore, the highest possible stability of δr,b is desired in order to ob-tain a fixed value of ∆. The sources and impact of δr,b 
+
+fluctuations, including the relative error η∆ ≲ 0.07, are discussed in [19]. However, the advantage of measuring the projected vacuum population to study the ESQPT structure, as opposed to the phonon population to study ground state QPT, is the significantly lower noise sensi-tivity in the value of ∆. The maximum values of the sideband Rabi frequencies within a given protocol are then the experimental param-eter of choice for determining the maximum value of the interaction strength λf . The stable ratio of the compo-nents in bichromatic driving then ensures a stable inter-action regime quantified by δ, which was experimentally set to |δ| ≲ 0.02 in [19], and it is natural to expect similar 
+
+TABLE I: Selected observables and MRE (B3) correspond-ing to final states obtained by (13) evolutions (indexed by S) and N MCWF trajectories (indexed by L) through different-duration τf interaction ramps matching Fig. 8 model and en-vironmental parameters. 
+
+Obs./ (τf , N ) (10 π, 50 · 10 3) (20 π, 25 · 10 3) (50 π, 2.5 · 10 3)˜P (S)0 0.704 0.485 0.207 ˜P (L)0 0.703(1) 0.478(2) 0.211(8) 
+
+η(L) 
+
+> P0
+
+(N ) 0.312 /√N 0.803 /√N 1.84 /√N
+
+⟨ˆn⟩(S) 2.54 16.7 62.5 
+
+⟨ˆn⟩(L) 2.47(1) 15 .5(1) 60 .1(9) 
+
+η(L) 
+
+> n
+
+(N ) 1.30 /√N 1.36 /√N 0.753 /√N
+
+⟨ ˆJz ⟩(S) −0.4095 −0.3079 −0.1302 
+
+⟨ ˆJz ⟩(L) −0.4057(5) −0.301(1) −0.122(4) 
+
+η(L) 
+
+> Jz
+
+(N ) 0.254 /√N 0.684 /√N 1.70 /√N14 fluctuations for asymmetric sideband drive ( δ̸ = 0). In [18], numerical simulations were also performed for the symmetric case Ω 1(t) = Ω 2(t), but for the resonant drive of the red sideband, δr = 0, and thus ∆ = 1 through (8). The resulting system was then fundamentally lim-ited by finite-size scaling, and therefore it was neces-sary to simulate even the ground state QPT for the high value of λf ≈ 4.53 achieved for ηΩ(max) 1,2 ≈ 2π · 4.08 kHz and δb = −2π · 1.8 kHz. These values are considered for 40 Ca + and served as our inspiration; however, ad-justments for a higher value of ∆ and non-zero δ were necessary to address the criticality of interest, as we see from Figs. 9 and 10. In [19] for 171 Yb +, the utility of ∆ scaling was experimentally verified, specifically for the values 5 .0 ≲ ∆ ≲ 25 .0 and ηΩ(max) 1,2 ≈ 2π · 14 .2 kHz, which correspond to λf ≈ 1.42, which proved sufficient for ground-state QPT. Finally, we turn to the expressions (7), (9) for ε and λ,respectively, and note that scaling the absolute value of detunings affects not only the validity of the RWA and the Rabi frequencies required to maintain a constant λ,but also the characteristic energy (time) scale ε. This ef-fect is most pronounced in the conversion between labora-tory time t and the characteristic time τ (14). While the actual duration of the protocol tf determines the conse-quences of environmental effects—of which [19] considers only motional decoherence (cf. the overview below (18) and the caption of Fig. 8) with 0 ≤ Γ−1 
+
+> m
+
+≲ 5.5 ms—it is τf
+
+that determines the unitary evolution itself. In [18], nei-ther dissipation nor decoherence are considered and the hereby hinted interplay is therefore lost; however, in [19], the relatively large value of ε/ ℏ ≈ 2π·10 .0 kHz is reached, directly impacting the τ (t) conversion (14). Thus, the system adapts to QPT on the timescale of tf ≈ 5.0 ms, since it converts to τf ≈ 200 π. This effect is in part due to the significant system size ∆ = 25, the scaling impact of which provides the optimal combination for ground state QPT observation (requiring smaller λf ) without ex-posing the system to noticable environmental effects. In our case, we retain a lower value of ε/ ℏ ≈ 2π · 0.98 kHz similar to [18], since the environmental effects are even then negligible for the desired relatively low τf and pro-jected vacuum population measurements. Further scal-ing of the detunings to achieve larger ε through (7) would reduce the λf achievable with the same Rabi frequencies through (9). 
+
+[1] R. V. Sol´ e, Phase Transitions , Princeton University Press (2011). [2] L. D. Carr, Understanding Quantum Phase Transitions ,CRC Press (2010). [3] S. Sachdev, Quantum Phase Transitions , 2nd edition, Cambridge University Press (2011). [4] J. A. Hertz, Phys. Rev. B 14, 1165 (1976). [5] M. Heyl, Rep. Prog. Phys. 81 054001 (2018). [6] P. Cejnar, P. Str´ ansk´ y, M. Macek and M. Kloc, J. Phys. A: Math. Theor. 54, 133001 (2021). [7] P. Cejnar, M. Macek, S. Heinze, J. Jolie, J. Dobeˇ s, J. Phys. A: Math. Gen. 39 , L515-L521 (2006). [8] P. Cejnar and P. Str´ ansk´ y, Phys. Rev. E, 78 , 031130, (2008). [9] ´A. L. Corps, A. Rela˜ no and J. C. Halimeh, Phys. Rev. Research, 6, 043080 (2025). [10] J. Zhang et al., Nature 551 , p. 601–604 (2017). [11] P. Jurcevic et al., Phys. Rev. Lett. 119 , 080501 (2017). [12] P. Feldmann, C. Klempt, A. Smerzi, L. Santos and M. Gessner, Phys. Rev. Lett. 126 , 230602 (2021). [13] I. Fr´ erot and T. Roscilde, Phys. Rev. Lett. 121 , 020402, (2018). [14] G. Beaulieu et al., PRX QUANTUM 6, 020301 (2025). [15] G. Mihailescu, U. Alushi, R. Di Cania, S. Felicetti and K. Gietka, quant-phys 2510.02035, (2025). [16] D. Leibfried, R. Blatt, C. Monroe and D. Wineland, Rev. Mod. Phys. 75 , 281 (2003). [17] Hwang, M. J., Puebla, R., & Plenio, M. B., Phys. Rev. Lett., 115 , 180404, (2015). [18] J. S. Pedernales, I. Lizuain, S. Felicetti, G. Romero, L. Lamata and E. Solano, Sci. Rep. 5, 15472 (2015). [19] M.-L. Cai et al., Nat. Comm. 12, 1126 (2021). [20] L. Podhora et al., Phys. Rev. Lett. 129 , 013602 (2022). [21] Str´ ansk´ y, P., Cejnar, P., Filip, R., Physical Review A 
+
+104 , 053722, (2021) [22] D. F. James, Appl. Phys. B 66 : 181-190, (1998). [23] C. Gardiner and P. Zoller, The Quantum World of Ultra-Cold Atoms and Light, Book I-III , Imperial Col-lege Press,London, (2014). [24] C. Huerta Alderete, M. P. Morales Rodr´ ıguez, and B. M. Rodr´ ıguez-Lara. Sci.Rep. 9: 2734, (2019). [25] D. Braak, Phys. Rev. Lett. 107 , 100401, (2011). [26] D. Lv, et al., Phys. Rev. X 8, 021027, (2018). [27] A. Peres, Phys. Rev. Lett. 53 , 1711 (1984). [28] I. Pietik¨ ainen, et al., PRX Quantum 5, 040307, (2024) [29] K. Mølmer, Y. Castin, and J. Dalibard, JOSA B, 10 ,524-538, (1993). [30] M. Macek and A. Leviatan, Ann. Phys. 351 , 302 (2014). [31] J. Ch´ avez-Carlos et al., npj Quantum Information 9, 76 (2023). [32] F. Iachello et al.,J. Phys. A: Math. Theor. 56 495305 (2023). [33] F. Iachello et al., J. Phys. A: Math. Theor. 57 415302 (2024). [34] P. Obˇ sil, et al., Rev. Sci. Instrum. 90 , 083201 (2019). [35] The S2 and S2’ excited phases for |δ|̸ = 1 in fact display remnants of U(1) symmetry of the (a)JC Hamiltonians, endowed with the unusual kinetic term H ∝ − p2 locally around x = p = 0 related to the (locally) Mexican-hat-form of the semiclassical (a)JC Hamiltonians of Eq. (11). A more rigorous interpretation possibly in terms of quasi-and partial dynamical symmetries is an interesting open question [30]. [36] By choosing the non-interacting ground state, we do not imply that it is optimal for application of all the discussed critical phenomena in quantum state manipulation, how-ever, it is definitely the best state for acquiring a proof of concept experimentally due to its enhanced dephasing 15 
+
+resilience, e.g. compared to higher Fock states. Detailed optimization of the protocols and initial states will be given in a subsequent publication.
