@@ -1,0 +1,323 @@
+Title: From Ferrimagnetic Insulator to superconducting Luther-Emery Liquid: A DMRG Study of the Two-Leg Lieb Lattice
+
+URL Source: https://arxiv.org/pdf/2604.05027v1
+
+Published Time: Wed, 08 Apr 2026 00:03:02 GMT
+
+Number of Pages: 7
+
+Markdown Content:
+# From Ferrimagnetic Insulator to superconducting Luther-Emery Liquid: A DMRG Study of the Two-Leg Lieb Lattice 
+
+Alexander Nikolaenko 1 and Subir Sachdev 1, 2 
+
+> 1
+
+Department of Physics, Harvard University, Cambridge MA 02138, USA 
+
+> 2
+
+Center for Computational Quantum Physics, Flatiron Institute, 162 5th Avenue, New York, NY 10010, USA 
+
+Motivated by recent experiments on ultracold, fermionic, spin-1/2 6Li atoms in the Lieb lattice at various Hubbard repulsion U and filling fractions n (Lebrat et al. arXiv:2404.17555), we conduct a density matrix renormalization group (DMRG) analysis of the Hubbard model on a two-leg Lieb ladder. At half-filling, we find a ferrimagnetic Mott insulating ground state, consistent with Lieb’s theorem. Away from half-filling, the state with finite total spin ⃗ S2̸ = 0 , and zero charge gap, persists down to filling nc ≈ 2/3. For lower, incommensurate fillings, the system is described by a Luttinger liquid with one charge and one spin mode. Intriguingly, in the small window close to the onset of ferromagnetic order at nc = 2 /3, we identify a superconducting Luther-Emery phase, suggesting 
+
+sxy −wave pairing. 
+
+I. INTRODUCTION 
+
+The Hubbard model is one of the simplest yet most powerful models in condensed matter physics, capturing a wide range of strongly correlated phenomena. Under the Hubbard interaction, a noninteracting metal could develop charge, spin or superconducting orders, undergo a Mott transition, or even give rise to exotic fractional-ized states such as spin liquid. There has been an ex-tensive effort to understand the ground state of the two dimensional Hubbard model over the last 40 years, see Ref. [1, 2] for recent reviews. While early studies focused on the Hubbard model on the square lattice, recent attempts have been made to understand the fascinating physics of the Hubbard model on other geometries, such as the triangular lattice [3], the Kagome lattice [4]. In this paper, we study the Hubbard model on the Lieb lattice - a two-dimensional bipartite lattice that can be constructed by removing every fourth site from a square lattice, see Fig. 1. The Lieb lattice has attracted considerable interest within the scientific community, as it provides a valuable starting point for describing high-temperature cuprate superconductors. The key physics in those materials arises from the CuO 2 planes, where the copper atoms are arranged in the square lattice, while the oxygen atoms sit on the bonds, forming the Lieb lattice pattern. The mini-mal tight-binding model for cuprates involves overlapping Cu dx2−y2 orbitals and O px, p y orbitals, as was originally proposed by Emery [5]. The Emery model has been ex-tensively studied in the context of cuprate physics [6–8] using the DMRG approach. Recent advances in ultracold atom experiments have also opened a pathway toward re-alizing and simulating such multi-orbital lattice models in optical lattices [9]. These studies primarily focused on the parameter regime relevant to cuprate supercon-ductors, including a finite charge transfer gap between p
+
+and d sites as well as distinct hopping amplitudes and Hubbard interactions on the two sublattices. Beyond its relevance to cuprate superconductors, the model has opened a direct pathway to the physics of strongly interacting electrons. It was originally explored by Lieb [10], who rigorously showed that the ground state of any bipartite lattice at half-filling with positive Hub-bard interaction strength U > 0 has a nonzero total spin s = ( |B| − | A|)/2, where |A|, |B| denote the num-ber of sites in the two sublattices. The Lieb lattice has 
+
+|B| = 2 |A| so the ground state at half-filling is ferrimag-netic: it has antiferromagnetic local ordering and nonzero total spin. Beyond conventional ferromagnetic and anti-ferromagnetic orders, there has been growing interest in more exotic magnetic states such as altermagnetism [11], exhibiting vanishing net magnetization and momentum space spin splitting. Such an order can be realized on the Lieb lattice with minimal modifications [12]. The magnetic instabilities of the Lieb lattice at half-filling are closely connected to the presence of a flat band in its tight-binding spectrum at U = 0 . The suppression of kinetic energy enhances the role of interactions, leading to strongly correlated behavior. Thus, flat-band models have become central to the study of magnetism, uncon-ventional superconductivity, and topological phases [13– 
+
+FIG. 1. Geometry and boundary conditions of the Hubbard model on a Lieb lattice. A unit cell contains three sites as shown by red rounded square. Different bonds are shown by the dashed black lines. The lattice dimensions are Lx = 4 
+
+and Ly = 2 unit cells. Periodic boundary conditions (PBC) are applied in the y-direction, indicated by the faded top row which is equivalent to the bottom row. 
+
+> arXiv:2604.05027v1 [cond-mat.str-el] 6 Apr 2026
+
+2    
+
+> FIG. 2. Phase diagram of the model as a function of filling nfor the Hubbard interaction U= 16 .
+
+15]. Recently, it has become possible to realize flat-band models in moiré materials such as twisted bilayer graphene. In these systems, nearly flat moiré bands host a variety of unconventional phases [16–18]. Beyond the flat-band limit, it is also important to con-sider the behavior of the system in the vicinity of a mag-netic quantum phase transition. In strongly correlated systems, the region near a transition between magneti-cally ordered and paramagnetic phases is often charac-terized by enhanced fluctuations, which can give rise to competing and intertwined orders. In particular, criti-cal fluctuations near such transitions can mediate effec-tive attractive interactions between electrons, potentially leading to enhanced superconductivity [19, 20]. A significant step forward has been made in realizing flat-band electronic models using ultracold atoms in op-tical lattices [21, 22]. In particular, a recent experiment by Lebrat et al. [23] showed the signatures of the ferri-magnetic state at half-filling in a multi-band Hubbard model in an optical Lieb lattice, using fermionic lithium-6 atoms. They further shed light on what happens away from half-filling, reporting a doubling of the compress-ibility curve at strong interactions. Motivated by the experimental findings and supported by theoretical insights, we performed a Hartree-Fock analysis of the Hubbard model on the Lieb lattice at quarter filling [24]. We find that at U > U c ≈ 4 the system develops magnetic order: initially forming a spi-ral state, then evolving into a canted phase with increas-ing U , and ultimately becoming fully ferromagnetic at large U . This magnetically polarized state naturally ac-counts for the doubling in compressibility observed in experiments. We further explored alternative routes for explaining the experimental data, including possible elec-tron fractionalization and the emergence of a Z2 spin-liquid phase. While Hartree-Fock calculations could be performed for large lattice sizes, they often overestimate ordering tendencies, and typically perform poorly for strongly-interacting systems, particularly in the vicinity of quan-tum critical points where fluctuations become dominant. Therefore, in this work we will try to understand the physics of Hubbard model on the two-leg Lieb lattice us-ing the DMRG [25] method. The paper is organized as follows: in Section II, we introduce the model and the geometry; in Section III, we describe the phase diagram at strong Hubbard interac-tion as a function of filling and explain it using the weak coupling limit. Finally, in Section IV, we discuss the emerging superconducting Luther Emery phase, analyz-ing correlation lengths and pairing symmetries as well as its stability at weak coupling. We conclude in Section V and provide technical details in Appendix A.  
+
+> II. MODEL
+
+We study the Hubbard model on a two-leg Lieb ladder shown in Fig. 1. The Hamiltonian reads 
+
+H = −t X
+
+> ⟨i,j ⟩,σ
+
+
+
+c† 
+
+> iσ
+
+cjσ + h.c. 
+
+
+
++ U X
+
+> i
+
+ni↑ni↓ (1) Here c† 
+
+> iσ
+
+creates a fermion with spin σ =↑, ↓ on site 
+
+i, and niσ = c† 
+
+> iσ
+
+ciσ . The hopping amplitude t connects 0.0 0.2 0.4 0.6 0.8 1.0 0.00 0.02 0.04 0.06 0.08 0.10 n
+
+L x = 10 
+
+L x = 20 
+
+0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 n                  
+
+> S 2 / s max  ( s max  + 1 )
+> FIG. 3. Total spin S2normalized by smax (smax + 1) , where
+> smax =LxLy/2.The blue and yellow curves correspond to
+> Lx= 10 and Lx= 20 , respectively, calculated at a bond dimension of χ= 2000 and U= 16 . The inset shows a mag-nified view of the same data.
+
+3n = 1 / 3n = 1 / 6n = 1 / 20.0 0.5 1.0 1.5 2.0 
+
+- 3
+
+- 2
+
+- 10123  
+
+> kx
+
+/π 
+
+> E k 0.0 0.1 0.2 0.3 0.4 0.5
+> Δ C
+> n
+
+= 1 / 2n = 1 / 3n = 1 / 6           
+
+> 0.1 0.2 0.3 0.4 0.5 0.6 0.00 0.02 0.04 0.06 0.08
+> Δ S
+> 0.1 0.2 0.3 0.4 0.5 0.6 0.0 0.5 1.0 1.5 2.0 2.5 3.0 ncn
+
+= 1 / 2n = 1 / 3n = 1 / 6na ) b ) d ) 
+
+> c
+
+)                       
+
+> FIG. 4. (a) The dispersion of 2-ladder Lieb lattice with U= 0 . Green, red, and purple dashed lines correspond to commensurate fillings n= 1 /2,1/3, and 1/6, respectively. Charge (b) and spin (c) gaps as a function of filling nat U= 16 . The blue, orange, and black lines correspond to Lx= 10 ,Lx= 20 and extrapolation to Lx→ ∞ . (d) Central charge as a function of filling at
+> U= 16 extracted via iDMRG on with a unit cell of length Lx= 10 . Maximum bond dimension used is χ= 3000 .
+
+nearest neighbors of the Lieb lattice geometry, and U > 0
+
+denotes the on-site repulsion. The unit cell consists of three sites, shown by the red rounded square in Fig. 1. The ladder has Lx unit cells in the x-direction and Ly unit cells in the y-direction. Due to exponentially growing complexity with Ly , we restrict ourselves to the two-leg Lieb ladder with Ly = 2 .The total number of sites is Ntot = 3 LxLy . We define the filling as n = Ne/N tot , where Ne is the number of electrons; thus half-filling corresponds to n = 1 .We impose periodic boundary conditions (PBC) along the y-direction. For finite DMRG we use open boundary conditions along x-direction, on systems up to Lx = 30 
+
+with bond dimensions up to χ = 4000 . For infinite DMRG (iDMRG), we use periodic boundary conditions (PBC) along x-direction with a unit cell up to Lx = 10 
+
+and bond dimensions up to χ = 8000 . 
+
+> III. PHASE DIAGRAM
+
+In this section, we determine the ground-state phase diagram of the two-leg Lieb ladder as a function of filling 
+
+n at strong interaction U = 16 . Before discussing each phase in more detail, we provide a brief overview of the phase diagram shown in Fig. 2. At filling n = 1 , we find a ferrimagnetic insulator con-sistent with Lieb’s original prediction [10]. The total spin remains non-zero in the region n ∈ (2 /3, 1) until it van-ishes at smaller n. In the small region close to the fer-rimagnetic phase ( n ∈ (0 .55 , 2/3) ), we find a supercon-ducting Luther-Emery phase, which will be the primary focus of our subsequent analysis. The remainder of the phase diagram for fillings n ∈ (0 , 0.55) consists of a para-magnetic phase, characterized as a Luttinger liquid with one charge and one spin mode (C1S1). Finally, at the commensurate fillings n = 1 /6 and 1/2, we find a Mott insulator with one spin mode (C0S1), while at n = 1 /3,we find a Mott insulator with a spin gap (C0S0). We now turn to a detailed discussion of each of these phases.    
+
+> A. S2
+> tot ̸= 0 phase
+
+Lieb showed [10] that at half-filling, the system has a total nonzero spin S2 
+
+> max
+
+= smax (smax + 1) with smax =
+
+LxLy /2 for arbitrary Hubbard interaction strength U .However, there are no rigorous statements away from half-filling, and the fate of the ferromagnetism is gen-erally unclear. Fig. 3 shows the total spin, normalized by the value S2 
+
+> max
+
+at half-filling. As expected, at n = 1 ,the total spin coincides with the value predicted by Lieb. Away from half-filling, the total spin quickly decreases and becomes on the order of S2/S 2 
+
+> max
+
+≲ 0.1. Ferromag-netic order is detected for all fillings above n > n c, where 
+
+nc = 2 /3. The presence of ferromagnetism is closely linked to the flat bands observed in the non-interacting system at these fillings. In this regime, DMRG conver-gence becomes challenging, and large bond dimensions are necessary to achieve accurate results.  
+
+> B. Commensurate fillings
+
+To explain the rest of the phase diagram at n < 2/3
+
+as the system enters the paramagnetic region, it is in-structive to start with the non-interacting limit U = 0 .In this case, the tight-binding spectrum can be found exactly. It has two bonding and antibonding bands 
+
+E0(kx) = ±p2t(3 + cos kx), Eπ (kx) = ±p2t(1 + cos kx)
+
+as well as two flat bands at E(kx) = 0 [24, 26]. Fig. 4(a) shows the dispersion of the 2-leg Lieb lattice in momentum space. In the incommensurate case, the system has only one pair of Fermi points and the resulting 4phase is the C1S1 Luttinger liquid with one charge and one spin mode. At commensurate fillings n = 1 /2 and n = 1 /6 the chemical potential lies in the middle of the Eπ (kx) and 
+
+E0(kx) bands, correspondingly, see Fig. 4(a). In this regime, the momentum kF = π/ 2 is commensurate with the reciprocal lattice wavevector and the Umklapp pro-cesses at 4kF are allowed [27]. Once the interaction is introduced, the phase is unstable to developing a charge gap. At the commensurate filling n = 1 /3, the chemical po-tential lies in between the filled E0(kx) and empty Eπ (kx)
+
+band. The particle-hole excitations carry the momenta 
+
+kx = π/ 2 and have quadratic dispersion E ∼ δk 2
+
+> x
+
+. The phase is not described by a Luttinger liquid but instead is a quantum critical point with z = 2 [28]. The diverg-ing density of states makes the system highly unstable to interactions. Note, that in two dimensions the quadratic band touching leads to a plethora of interesting phases, such as Quantum Spin Hall, nematic and spin-ordered phases [29, 30]. However, in our case, the quadratic band touching is specific only to the 2-leg ladder and disap-pears once Ly > 2.Fig. 4(b) shows the charge gap as a function of filling once the strong interaction U = 16 is introduced. It is defined as ∆c = ( E(Ne + 2) + E(Ne − 2) − 2E(Ne)) /2,where E(Ne) is the ground state energy and Ne is the total number of electrons. At the commensurate fillings 
+
+n = Z/6 the charge gap becomes finite, as expected from the previous analysis at U → 0.Fig. 4(c) shows the spin gap ∆S = E(Sz = 1) −E(Sz =0) , where E(Sz ) is the ground state energy in the sector with total spin Sz . At fillings n = 1 /6 and n = 1 /2 no spin gap develops, as the system is similar to the attrac-tive 1d Hubbard model. At filling n = 1 /3 there is a small, but finite spin gap on the order of ∆S ≈ 0.03 . Fi-nally, as the filling approaches the ferromagnetic phase, another finite spin gap develops. It would be discussed extensively in the next section. In Fig. 4(d), we computed the total central charge at different fillings, using iDMRG [25] on a periodic ladder with Lx = 10 unit cells, see Appendix A for technical de-tails. As expected, at incommensurate fillings the phase is C1S1 with central charge c = 2 . At commensurate fillings n = 1 /6 and n = 1 /2 the charge mode becomes gapped and the phase is C0S1 with c = 1 . At n = 1 /3
+
+both charge and spin modes are gapped and the phase is a Mott insulator C0S0 with c = 0 . We also note that as we approach the ferromagnetic critical point nc = 2 /3
+
+the central charge increased c > 2, which we attribute to the slow convergence of the entanglement entropy in the presence of the nearly-flat bands.  
+
+> IV. SUPERCONDUCTING PHASE
+
+While most of the phase diagram can be understood from the non interacting limit U → 0, the discovery of the Lx=30   
+
+> Lx
+
+= 20   
+
+> Lx
+
+= 10 L x  ∞       
+
+> 0.40 0.45 0.50 0.55 0.60 0.00 0.02 0.04 0.06 0.08 0.10 n
+> Δ s
+> Lx
+
+= 10   
+
+> Lx
+
+= 20 L x = 30 L x  ∞     
+
+> 510 15 20 0.00 0.02 0.04 0.06 0.08 0.10 U
+> Δ sb
+
+)
+
+> a
+
+)                    
+
+> FIG. 5. (a) The spin gap as a function of filling nat fixed interaction strength U= 16 . (b) The spin gap as a function of
+> Uat fixed filling n= 0 .6. Results are shown for system sizes
+> Lx= 10 (blue), 20 (yellow), and 30 (green). The black dashed line represents the extrapolation to Lx→ ∞ .Calculations were performed using a maximum bond dimension of χ=3000 to ensure convergence.
+
+spin gap close to the ferromagnetic phase is surprising. Fig. 5(a) shows the spin gap as a function of filling for system sizes up to Lx = 30 . In the region n ∈ (0 .55 , 2/3) 
+
+there is a clear gap on the order of ∆S ≈ 0.03 .Fig. 5(b) shows the spin gap as a function of Hubbard interaction U for filling n = 0 .6 close to the critical point 
+
+nc = 2 /3. As we decrease U , the spin gap increases, until it rapidly jumps to zero at U ≲ 6. We also find that at lower fillings, such as n = 0 .56 , a relatively strong interaction ( U ≳ 10 ) is required to open a finite spin gap. These results indicate that the spin gap is intrinsically linked to the strong-interaction regime in the vicinity of the quantum critical point (QCP). To understand whether the superconducting or density fluctuations dominate inside the superconducting phase, one has to analyze the decay of the correlation functions. We found that the in finite DMRG the boundary effects are quite strong, and large system sizes are needed to reach definitive conclusions. Therefore, we directly ana-lyzed the correlation lengths extracted from iDMRG [25], using the transfer matrix method in a specific sector, see Appendix A for details. Fig. 6 shows the decay of the inverse correlation length 5                                      
+
+> FIG. 6. Inverse correlation lengths as a function of inverse bond dimension χ−1for three different fillings: (a) n≈0.583 with
+> Lx= 8 and Ne= 28 , (b) n≈0.611 with Lx= 6 and Ne= 22 , and (c) n≈0.633 with Lx= 10 and Ne= 38 .The blue, yellow, green, and red lines correspond to the pairing ( ξp), density ( ξns ), spin ( ξs), and charge ( ξc) correlation lengths, while the dashed lines correspond to extrapolation to χ→ ∞ .Calculations were performed using iDMRG with a maximum bond dimension of χ= 8000 at fixed interaction strength U= 16 .
+
+as a function of the inverse bond dimension for three fillings close to the critical point nc = 2 /3 inside the spin-gap phase. At n ≈ 0.583 all correlation lengths di-verge as bond dimension increases, which implies that the spin gap is very small. Furthermore, density correla-tion length is bigger than the pairing correlation length, therefore, the leading instability is charge density wave. As we increase the filling, the pairing correlation length exceeds the charge correlation length ξp > ξ ns , which means that the charge Luttinger parameter Kc > 1 and superconducting fluctuations dominate. Fig. 6(c) shows the correlation lengths at n ≈ 0.633 
+
+deep in the spin gap phase in proximity to the QCP. The spin ( ξs) and charge ( ξc) correlation lengths saturate, since the corresponding operators are short-ranged. We note, that the resulting spin correlation length ξ∞ 
+
+> s
+
+≈ 54 ,where ξ∞ is the correlation length obtained from extrap-olation to χ → ∞ , see dashed lines of Fig. 6(c). This means that one has to go to a very large system sizes to observe the spin gap in the finite DMRG methods. In contrast, the density ( ξns ) and pairing ( ξp) correla-tion lengths diverge, and pairing correlation length is the biggest one: ξ∞ 
+
+> p
+
+/ξ ∞ 
+
+> c
+
+≈ 4.1 and ξ∞ 
+
+> p
+
+/ξ ∞ 
+
+> ns
+
+≈ 2.1. This clear hierarchy of correlation lengths provides strong evidence that this region of the phase diagram is a superconduct-ing Luther-Emery liquid. Finally, we study the real space behavior of the pair-ing correlation function. The spin-singlet pair opera-tor between sites i and j is defined as ∆ij = ci↑cj↓ −
+
+ci↓cj↑ and the pairing correlation function is P Sαβ (x) = 
+
+⟨∆†
+
+> α
+
+(x)∆ β (0) ⟩, where α and β define the bond. Fig. 7 shows the decay of the pairing correlation function on different bonds. We find that the strongest supercon-ducting correlations are on the h and u bonds which link 
+
+px and py sites, see Fig. 1 for an illustration of the ge-ometry. Furthermore, P Shh (x) = P Suu (x) = P Shu (x) sug-gesting an sxy -wave symmetry. We also observed that the spin-triplet operator ∆Tij = ci↑cj↓ + ci↓cj↑ and the corresponding triplet correlation function decays much faster than the singlet one for all relevant bonds, making 
+
+p-wave pairing an unlikely scenario. We note, that near a ferromagnetic QCP, the pair-ing interaction is usually attractive in the p-wave chan-nel, while near an antiferromagnetic QCP with a single Fermi surface the pairing interaction is attractive in the d-channel [20]. However, the Lieb lattice has ferrimag-netic order with both types of correlations present; there-fore, the dominant superconducting channel could differ from the earlier established results. Furthermore, quasi-aa 
+
+uu 
+
+hh 
+
+hu 
+
+0 10 20 30 40 0.0 0.5 1.0 1.5 xP αβ                                    
+
+> S (x ),10  -4
+> FIG. 7. The spin-singlet correlation function PSαβ (x)at filling
+> n≈0.63 close to the critical point. The bond ais between the dand pxsite. The bond his between pxand pysite inside the unit cell, while the bond uis rotatted 90 ◦with respect to bond h. Calculations were performed using iDMRG on a unit cell Lx= 10 with Ne= 38 electrons, hubbard interaction
+> U= 16 and bond dimension χ= 4000 .
+
+62D geometry could promote nematic instability, which is usually dominant in all channels. Therefore, more work is needed to establish the true character and the leading pairing channel near the magnetic QCP.  
+
+> V. CONCLUSION
+
+In the present work we studied a Hubbard model on a two-leg Lieb lattice as a function of Hubbard interaction 
+
+U and electron filling n. At half-filling, the system devel-ops a ferrimagnetic order, consistent with Lieb’s original prediction. Away from half-filling, the ground state is metallic with the total spin S2 
+
+> tot
+
+different from zero. The ferromagnetic order eventually disappears at n < 
+
+2/3 giving rise to a Luttinger liquid. Its properties are generally explained from the weak-coupling limit: in par-ticular it is demonstrated that such Liquid has one charge and one spin mode. Furthermore, at commensurate fill-ings n = 1 /6 and n = 1 /2 the charge mode becomes gapped, while the spin mode remains gapless. Note that such behavior is consistent with Lieb–Schultz–Mattis [31], since the extended unit cell has one or three elec-trons and thus a fully symmetric, nondegenerate, gapped state is forbidden. At n = 1 /3 both spin and charge modes become gapped and the resulting state is an insu-lator. Interestingly, in the narrow doping range around nc =2/3 we find a Luther Emery phase with a finite spin gap. Using iDMRG we studied the correlation lengths in this phase and identified superconductivity as the leading in-stability. Furthermore, by looking at pairing correlations in real space, we revealed that they are strongest on the bonds between px and py sites, and the corresponding superconducting order parameter has sxy symmetry. We believe this work provides an important step to-ward understanding the full two-dimensional phase dia-gram of the Hubbard model on the Lieb lattice. In partic-ular, the experimental realization of this model in optical lattices offers a controlled platform for testing our predic-tions. Furthermore, recent advances in Neural Quantum States [32, 33] open promising avenues for accessing the full two-dimensional limit. Finally, developing an ana-lytical understanding of the emergent superconductivity near the ferrimagnetic critical point, as well as clarify-ing the specific role of flat bands, remains an important direction for future research. 
+
+> ACKNOWLEDGMENTS
+
+We are grateful to Anant Kale, Yahui Zhang, Clemens Kuhlenkamp, Andrey Chubukov and Nishchhal Verma for useful discussions. This research was supported by the U.S. National Science Foundation grant No. DMR 2245246 and by the Simons Collaboration on Ultra-Quantum Matter which is a grant from the Simons Foun-dation (651440, S.S.). 
+
+> Appendix A: DMRG details
+
+The DMRG calculation were performed using TeNPy library (version 0.10.0) [25]. The bond dimension χ var-ied from 500 to 3000 for finite DMRG and from 500 to 
+
+8000 for iDMRG with the number of sweeps nsweeps = 20 .The maximum discarded weight was below 10 −5 and the energy converged to 10 −8 between the sweeps. The correlation lengths were computed using iDMRG from the eigenvalue spectrum of the transfer matrix, re-solved in fixed symmetry sectors labeled by (δQ, δS z ).For instance, the charge correlation length ( ξc) is ex-tracted from the sector (δQ, δS z ) = (1 , 1) , which corre-sponds to operators carrying one unit of charge and spin projection Sz = 1 , such as c↑(x). Table I lists the symme-try sectors used to extract the various correlation lengths, together with representative operators associated with each sector. As finite bond dimension χ introduces an effective in-frared cutoff, the extracted correlation length ξχ will al-ways be finite in any numerical calculation. In the Lut-tinger liquid phase, all correlation length diverge ξ ∝ χκ
+
+as the bond dimension increases. Inside the spin gap phase, the charge and spin correlation lengths remain fi-nite, while the density and pairing correlation lengths still diverge, the ratio between them determines whether the system is unstable towards a superconductor or a charge density wave.                      
+
+> sector (δQ, δS z)Correlation length Operator
+> (0 ,0) ξns N(x)(0 ,2) ξsS+(x)(1 ,1) ξcc↑(x)(2 ,0) ξp∆S(x)(2 ,2) ξt∆T(x)
+> TABLE I. Charge sectors, corresponding correlation lengths, and operators.
+
+The central charge was found via iDMRG [25] using the entanglement entropy of a half-infinite chain S = 
+
+> c
+> 6
+
+ln[ ξ(χ)] , where ξ(χ) is the largest correlation length at a fixed bond dimension χ [34, 35].     
+
+> [1] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, An-nual Review of Condensed Matter Physics 13 , 239 (2022). [2] M. Qin, T. Schäfer, S. Andergassen, P. Corboz, and
+
+7
+
+E. Gull, Annual Review of Condensed Matter Physics 
+
+13 , 275 (2022). [3] A. Szasz, J. Motruk, M. P. Zaletel, and J. E. Moore, Physical Review X 10 , 021042 (2020). [4] H. J. Liao, Z. Y. Xie, J. Chen, Z. Y. Liu, H. D. Xie, R. Z. Huang, B. Normand, and T. Xiang, Phys. Rev. Lett. 118 ,137202 (2017). [5] V. J. Emery, Phys. Rev. Lett. 58 , 2794 (1987). [6] H.-C. Jiang and T. P. Devereaux, arXiv e-prints ,arXiv:2309.11786 (2023). [7] S. Jiang, D. J. Scalapino, and S. R. White, Phys. Rev. B 
+
+108 , L161111 (2023). [8] L. Yang, T. P. Devereaux, and H.-C. Jiang, Phys. Rev. B 110 , 014511 (2024). [9] H. Lange, L. Qiu, R. Groth, A. von Haaren, L. Mus-carella, T. Franz, I. Bloch, F. Grusdt, P. M. Preiss, and A. Bohrdt, Realizing the emery model in optical lattices for quantum simulation of cuprates and nickelates (2026), arXiv:2603.11037 [cond-mat.quant-gas]. [10] E. H. Lieb, Phys. Rev. Lett. 62 , 1201 (1989). [11] L. Šmejkal, J. Sinova, and T. Jungwirth, Phys. Rev. X 
+
+12 , 040501 (2022). [12] D. S. Antonenko, R. M. Fernandes, and J. W. F. Vender-bos, Phys. Rev. Lett. 134 , 096703 (2025). [13] D. Leykam, A. Andreanov, and S. Flach, Advances in Physics X 3, 1473052 (2018). [14] N. B. Kopnin, T. T. Heikkilä, and G. E. Volovik, Phys. Rev. B 83 , 220503 (2011). [15] E. J. Bergholtz and Z. Liu, International Journal of Mod-ern Physics B 27 , 1330017 (2013). [16] Y. Cao, V. Fatemi, S. Fang, K. Watanabe, T. Taniguchi, E. Kaxiras, and P. Jarillo-Herrero, Nature (London) 556 ,43 (2018). [17] L. Balents, C. R. Dean, D. K. Efetov, and A. F. Young, Nature Physics 16 , 725 (2020). [18] Z. Lu, T. Han, Y. Yao, Z. Hadjri, J. Yang, J. Seo, L. Shi, S. Ye, K. Watanabe, T. Taniguchi, and L. Ju, Nature (London) 637 , 1090 (2025). [19] D. J. Scalapino, Rev. Mod. Phys. 84 , 1383 (2012). [20] A. Abanov and A. V. Chubukov, Phys. Rev. B 102 ,024524 (2020). [21] S. Taie, H. Ozawa, T. Ichinose, T. Nishio, S. Nakajima, and Y. Takahashi, Science Advances 1, e1500854 (2015). [22] G.-B. Jo, J. Guzman, C. K. Thomas, P. Hosur, A. Vish-wanath, and D. M. Stamper-Kurn, Phys. Rev. Lett. 108 ,045305 (2012). [23] M. Lebrat, A. Kale, L. Haldar Kendrick, M. Xu, Y. Gang, A. Nikolaenko, S. Sachdev, and M. Greiner, arXiv e-prints (2024). [24] A. Nikolaenko, P. M. Bonetti, A. Kale, M. Lebrat, M. Greiner, and S. Sachdev, Phys. Rev. B 112 , 045129 (2025). [25] J. Hauschild and F. Pollmann, SciPost Phys. Lect. Notes , 5 (2018). [26] J. Herzog-Arbeitman, J. Yu, D. Călugăru, H. Hu, N. Reg-nault, O. Vafek, J. Kang, and B. A. Bernevig, Phys. Rev. B 112 , 125128 (2025). [27] T. Giamarchi, Quantum Physics in One Dimension (Ox-ford University Press, 2003). [28] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cam-bridge University Press, 2011). [29] K. Sun, H. Yao, E. Fradkin, and S. A. Kivelson, Phys. Rev. Lett. 103 , 046811 (2009). [30] I. F. Herbut and L. Janssen, Phys. Rev. Lett. 113 , 106401 (2014). [31] E. Lieb, T. Schultz, and D. Mattis, Annals of Physics 16 ,407 (1961). [32] G. Carleo and M. Troyer, Science 355 , 602 (2017). [33] H. Lange, A. Van de Walle, A. Abedinnia, and A. Bohrdt, Quantum Science and Technology 9, 040501 (2024). [34] F. Pollmann, S. Mukerjee, A. M. Turner, and J. E. Moore, Phys. Rev. Lett. 102 , 255701 (2009). [35] P. Calabrese and J. Cardy, Journal of Statistical Mechan-ics: Theory and Experiment 2004 , 06002 (2004).

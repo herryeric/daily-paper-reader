@@ -1,0 +1,807 @@
+Title: Proton Quantum Effects in H$_3$S Electronic Structure: A Multicomponent DFT study via Nuclear-Electronic Orbital Method
+
+URL Source: https://arxiv.org/pdf/2604.04860v1
+
+Published Time: Tue, 07 Apr 2026 02:05:03 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+Proton Quantum Effects in H 3S Electronic Structure: A Multicomponent DFT study via Nuclear-Electronic Orbital Method 
+
+Jianhang Xu and Aaron M. Schankler 
+
+Department of Chemistry, University of North Carolina at Chapel Hill, Chapel Hill, North Carolina 27599, USA 
+
+Yosuke Kanai ∗
+
+Department of Chemistry, University of North Carolina at Chapel Hill, Chapel Hill, North Carolina 27599, USA and Department of Physics and Astronomy, University of North Carolina at Chapel Hill, Chapel Hill, North Carolina 27599, USA 
+
+(Dated: April 7, 2026) We investigate the impact of the quantum effects of protons on the electronic structure of high-pressure H 3S, a benchmark hydrogen-rich superconductor with a critical temperature ( Tc) exceeding 200 K. Using Nuclear-Electronic Orbital Density Functional Theory (NEO-DFT), we treat hydrogen nuclei quantum mechanically on the same footing as electrons within a first-principles framework. Our calculations reveal that nuclear quantum effects (NQEs) induce subtle modifications to the electronic band structure and density of states (DOS) near the Fermi energy, including features associated with van Hove singularities. However, the resulting changes in the DOS would increase 
+
+Tc by only a few percent. On the other hand, calculations of the phonon dispersion with the NEO-DFT method show large changes in the hydrogen-dominated phonons that arise from a stiffening of the S-H bonds due to NQEs. These findings imply that the experimentally observed reduction in Tc
+
+upon deuteration arises predominantly from changes in the phonon properties while NQEs-induced modifications to the electronic structure itself are minimal. 
+
+I. INTRODUCTION 
+
+First-principles theory for accurately predicting the superconducting properties of real materials has ad-vanced substantially in recent years, particularly for con-ventional phonon-mediated superconductors [1–5]. The foundational Bardeen-Cooper-Schrieffer (BCS) theory highlights the importance of electron-phonon interaction and the electronic density of states (DOS) at the Fermi level in enabling Cooper pairing for superconductivity [6]. Building upon this framework, Migdal-Eliashberg theory provides a quantitative description of supercon-ductivity such that the critical temperature can be com-puted with key parameters from density functional the-ory (DFT) and density functional perturbation theory (DFPT). Ongoing efforts continue to refine this theoret-ical framework by incorporating strong-coupling correc-tions [7], quantum anharmonic phonon effects [8], and improved descriptions of the Coulomb interaction [9], etc. Sulfur hydride (H 3S) is a paradigmatic example of how first-principles theory provided a quantitative prediction of superconductivity. In 2004, Ashcroft argued that hydrogen-dominant materials could be suitable candi-dates for high-Tc phonon-mediated superconductors due to the light mass of hydrogen and the resulting strong electron-phonon coupling, particularly under high pres-sure [10]. A decade later, Duan et al. applied an evo-lutionary structure search combined with DFT calcula-tions to identify the Im ¯3m phase of H 3S as a stable high-temperature superconductor under high pressure [11]. Using the Allen-Dynes equation, a modified McMillan  
+
+> ∗ykanai@unc.edu
+
+equation, they estimated a superconducting critical tem-perature ( Tc) in the range of 191 K to 204 K at around 200 GPa. This theoretical prediction was soon confirmed experimentally by Drozdov et al. in 2015, who reported superconductivity at 203 K under similar conditions [12]. Recent experimental confirmations include even the di-rect measurement of the temperature-dependent super-conducting gap [13]. As expected for H 3S where phonons are responsible for pairing of electrons as Cooper pairs, the critical temperature is lowered significantly when deuterated (i.e., D 3S) [14]. The semi-empirical McMillan formula directly relates Tc to the electron-phonon (el-ph) coupling parameter λ and the logarithmic average of the phonon frequencies ωlog , which are both obtained from Eliashberg spectral function, α2F , and the phonon fre-quencies. In recent years, Migdal-Eliashberg (ME) the-ory based on the Green’s function formalism uses α2F to compute the superconducting gap to determine Tc from first principles [3, 15]. According to these theoretical for-mulations, a significant reduction in Tc is expected upon deuteration. H 3S has served as a benchmark for examin-ing and refining first-principles computational methods for predicting superconductivity [14, 16–21]. With the small mass of hydrogen atoms, nuclear quan-tum effects (NQEs) represent another key feature of hydrogen-rich materials like H 3S. The zero-point energy (ZPE) has been shown to significantly impact the phase and structural stability of H 3S and to be responsible for the unique symmetry of the S-H-S bonds [14, 22–25]. In our earlier work [26], the proton NQEs were found to change the electronic structure details of hydrogen boride sheets, which also possess the same unique H-bridging bonds (B-H-B); the band structure and the density of states (DOS) are noticeably altered. We also note that deuteration is known to shift and reshape the DOS in 
+
+> arXiv:2604.04860v1 [physics.comp-ph] 6 Apr 2026
+
+2organic solids experimentally [27]. In addition to the mass-related renormalization of properties like electron-phonon coupling [28], Tc change from deuteration could also result partly from the electronic structure changes due to NQEs. The Eliashberg spectral function is pro-portional to the electronic DOS at the Fermi level, N (ϵF ), and the well-known Allen-Dynes limit of the strong cou-pling directly relates the transition temperature to the DOS via Tc ∝ pN (ϵF ) [29]. The effect of proton quan-tization in first-principles calculations is particularly rel-evant for H 3S because its high Tc has been attributed in part to the presence of van Hove singularities (vHS) near the Fermi energy in the DOS [18]. These singularities enhance the DOS and contribute to stronger electron-phonon coupling near the Fermi level, but they are also sensitive to details of the electronic structure. Whether and to what extent NQEs, including the correlation be-tween electrons and quantum-mechanical protons, alter these key electronic structure features is an open ques-tion. Previous studies have examined NQEs in hydride su-perconductors primarily through perturbative zero-point renormalization of the electronic structure within the Born-Oppenheimer framework [24]. To our knowledge, a fully self-consistent, multicomponent first-principles treatment in which quantum protons explicitly enter the ground-state energy functional, has not been ap-plied to address this lingering question from electronic structure theory. The multicomponent DFT [30, 31] provides an ideal theoretical formalism, allowing us to transcend the usual Born-Oppenheimer approximation in describing the quantum-mechanical correlation be-tween electrons and protons. The nuclear-electronic or-bital (NEO) method [32, 33] provides a particularly con-venient approach for implementing the multicomponent DFT within the Kohn-Sham (KS) ansatz [34, 35]. In the NEO-DFT approach, selected nuclei are treated quan-tum mechanically on the same footing as electrons, and their wavefunctions are solved self-consistently within the multicomponent KS formalism [30, 31]. The correla-tion between electrons and quantum protons is taken into account via the electron-proton correlation func-tional [35, 36], which goes beyond the classical electro-static interaction. The NEO method naturally takes into account the nuclear quantum effects, including delocal-ization and zero-point energy, while retaining a similar computational cost to standard DFT [37]. It has been successfully used for molecular systems to study vari-ous properties such as proton affinity and proton-coupled electron transfer [38]. More recently, it has also been adapted for studying extended periodic condensed-phase systems [26]. In this work, we apply our newly developed NEO-DFT method to study the electronic structure of high-pressure H3S in the Im ¯3m phase using both hydrogen (H) and deuterium (D) nuclei. The remainder of this paper is or-ganized as follows. In Sec. II, we briefly introduce the periodic NEO-DFT method and describe the computa-  
+
+> FIG. 1. Crystal structure of H 3S in Im ¯3mspace group, hav-ing the conventional face-centered cubic unit cell. The large yellow spheres represent classical sulfur atoms, and the pink isosurfaces depict the quantum proton density obtained from NEO-DFT calculations.
+
+tional details. In Sec. III, we present and analyze nuclear quantum effects and isotope effects on the electronic band structure, the density of states (DOS), and the Fermi sur-face. We also discuss the role of electron-proton correla-tion in NEO-DFT and examine the localization behavior of H and D nuclei, as well as the proton quantization effects on phonons, before concluding in Sec. IV.   
+
+> II. THEORETICAL METHOD A. NEO-DFT Method
+
+As discussed in Ref. 26, the NEO approach enables us to formulate multicomponent DFT via a set of cou-pled electron-nucleus KS equations. We select hydrogen atomic nuclei in H 3S as quantum particles, and they are modeled quantum-mechanically on an equal footing as electrons. For brevity, let us refer to the H atom nuclei as protons, even though deuteration is also considered in this work. The coupled KS equations are ˆHe
+
+> k
+
+ψei, k(re) = 
+
+
+
+− 12 ∇2 + U e
+
+> eff
+
+(re)
+
+
+
+ψei, k = ϵei, kψei, k(re),
+
+ˆHpψpj (rp) = 
+
+
+
+− 12M p ∇2 + U p
+
+> eff
+
+(rp)
+
+
+
+ψpj = ϵpj ψpj (rp),
+
+(1) where M p is the proton mass, ψei, k, ψpj and ϵei, k, ϵpj are the KS orbitals and eigenvalues, respectively. The su-perscript e, p denotes the electronic and protonic subsys-3tems. The effective potentials Ueff are defined as 
+
+U e
+
+> eff
+
+(re) = − Vext (re) − V e
+
+> es
+
+(re) − V p
+
+> es
+
+(re)+ δE e
+
+> xc
+
+[ρe]
+
+δρ e (re) + δE epc [ρe, ρ p]
+
+δρ e (re),U p
+
+> eff
+
+(rp) = Vext (rp) + V e
+
+> es
+
+(rp) + V p
+
+> es
+
+(rp)+ δE p
+
+> xc
+
+[ρp]
+
+δρ p (rp) + δE epc [ρe, ρ p]
+
+δρ p (rp),
+
+(2) where Vext , V e
+
+> es
+
+, and V p 
+
+> es
+
+denote the electrostatic po-tentials of the classical nuclei, electrons, and quantum protons, respectively. Ee 
+
+> xc
+
+and Ep 
+
+> xc
+
+are the exchange-correlation (XC) energy functionals for the electronic and the protonic subsystems. Eepc represents the electron-proton correlation energy, which is given as a functional of both the electronic and protonic densities in multi-component DFT [38–41]. Generally speaking, the KS wave functions for quantum protons are highly localized in real space such that Brillouin zone (BZ) integration can be safely neglected for the protonic subsystem [26]. For D 3S calculations, the proton mass is replaced with that of the deuterium in Eq. 1.  
+
+> B. Computational Details
+
+We used the experimental crystal structure of H 3S in the Im ¯3m phase with a lattice constant of 2.98504 ˚ A, corresponding to a pressure of 200 GPa (see Fig. 1) [12], for all standard DFT and NEO-DFT calculations of H 3S and its isotopologue D 3S. All simulations were carried out using our periodic NEO-DFT implementa-tion within the all-electron FHI-aims code [26, 42, 43]. For the electronic subsystem, we employed the PBE [44] exchange-correlation (XC) functional with the interme-diate numeric atom-centered orbitals (NAO) basis set and the intermediate numerical integration grid setting [42]. Self-consistent field (SCF) calculations were per-formed using a 0.0172 eV Fermi smearing (correspond-ing to the Fermi-Dirac distribution at approximately 200 K) and an 11 ×11 ×11 Monkhorst-Pack k-point grid for Brillouin zone sampling. Due to the presence of van Hove singularities, the electronic DOS was evaluated on a denser 110 ×110 ×110 k-point grid using the tetrahedron method. (see Supplemental Materials [45] for additional convergence tests) For the protonic subsystem, we used the Hartree-Fock exact exchange for the XC approximation and the PB4-F2 Gaussian-type basis set [46]. Using only the exact proton-proton exchange is justified because the proton correlation terms are typically negligible even in molecu-lar systems like H 2 where the equilibrium bond length is 
+
+∼0.74 ˚ A as discussed in literature [37, 47]. In comparison, in H 3S at this high pressure, the nearest H-H distance is ∼1.5 ˚ A. The electron-proton correlation was approxi-mated using the local density approximation (LDA)-like epc17-2 functional [38, 39]. The quantum protons were taken to be in their stationary ground state. The Debye temperature of H 3S ( ∼1500 K) is reported to be much higher than Tc [48], implying that hydrogen atoms tend to occupy their quantum-mechanical ground state even at ∼200K. Using the constrained-NEO (CNEO) method [49–51], we also found that the Feynman-Hibbs centroid potential [52] shows a single minimum with a rather large force constant for the quantum protons at the midpoint of the S-H-S coordinate. This is also consistent with hav-ing all the corresponding phonons being in their lowest eigenstate at 200 K (see Supplemental Materials [45] for details). Additionally, we examine how the quantum nature of the proton modifies the phonons in H 3S. We calcu-lated the phonon dispersions of H 3S at 200 GPa with the finite-displacement method using both standard DFT and NEO-DFT calculations. Following previous studies [8, 14], the calculations were performed with a 4 × 4 × 4supercell and a 6 × 6 × 6 Monkhorst-Pack k-point grid. Because of the high symmetry of the Im ¯3m structure, only two distinct atomic displacements (one hydrogen and one sulfur atom) were required to construct the full Hessian matrix using finite displacements, which was sub-sequently analyzed with the phonopy package [53]. For the standard DFT calculations, we employed the same computational setting as used for the electronic-structure calculations. The NEO-DFT phonon calculations used identical parameters, except that the displaced hydrogen atom was treated as a quantum proton within the con-strained NEO-DFT framework [49–51], while all other nuclei were treated as classical particles.   
+
+> III. RESULTS AND DISCUSSION A. Quantum Protons
+
+We start by examining the basic properties of the quantum protons obtained in our NEO-DFT calcula-tions. The expectation values of the position opera-tor, ⟨ˆr⟩, for all protons remain centered between the two sulfur atoms; the quantum proton treatment main-tains the high-symmetry Im ¯3m phase observed with clas-sical protons. In systems with soft potential energy sur-faces or reduced lattice symmetry, NQEs often lead to spontaneous symmetry breaking or off-center localiza-tion of light nuclei [54, 55]. However, in high-pressure H3S, the Feynman-Hibbs centroid potential shows a steep and symmetric single-well potential for quantum protons between two sulfur atoms (see Supplemental Materials [45]). The steep slope of the quantum potential, with the strongly confined proton wavefunctions, effectively suppresses the symmetry-breaking quantum fluctuations, helping to preserve the high symmetry of the lattice. Table I summarizes spatial spreads and eigenvalues of quantum H/D nuclei as well as the zero-point ener-gies. Let us first discuss the results without the electron-proton correlation included. The spread of the quan-tum H/D orbital is defined as ⟨r2⟩ − ⟨ ˆr⟩2, and their 4Energy (eV)      
+
+> Energy (eV)
+> FIG. 2. Left panel: Species-projected electronic band structures of H 3S at 200 GPa, calculated with the 11 ×11 ×11 Monkhorst-Pack k-point grid using standard DFT (black), NEO-DFT with deuterium (blue), and hydrogen (red). The color scale indicates the contributions from hydrogen or deuterium atoms to the electronic states. A van Hove singularity is visible along the high symmetry path from Hto N. Right panel: Enlarged view of the band structure in the shaded region near the Fermi energy, from -2 eV to 2 eV.
+
+small values indicate strong localization of quantum nu-clei within the crystal lattice. This observation further justifies the Γ-point-only calculation for quantum nuclei. As expected, the lighter hydrogen nuclei exhibit larger spreads of 0.009 ˚ A2 compared to 0.006 ˚ A2 for deuterium, reflecting their greater quantum delocalization. These re-sults reflect the stronger quantum effects of hydrogen rel-ative to deuterium, consistent with its smaller mass and greater nuclear delocalization. Because they are quite localized and sufficiently far from each other, the three protonic Kohn-Sham states are degenerate with an eigen-value of -21.734 eV in H 3S. For deuterium, the eigenval-ues are lowered to -22.339 eV. Taking into account the quantum-mechanical correla-tion among electrons and protons further modifies the properties of quantum nuclei. As noted above, we used the particular LDA-type approximation, epc17-2 [39], for the electron-proton correlation (epc) functional in the multicomponent DFT. As shown in Table I, the electron-proton correlation increases the spatial spread of the pro-ton density from 0.009 ˚ A2 to 0.020 ˚ A2 and slightly raises the protonic Kohn-Sham eigenvalues from −21.734 eV to −21.645 eV. This behavior reflects that the electron-proton correlation slightly softens the effective potential experienced by the protons and leads to their delocal-           
+
+> TABLE I. List of calculated proton properties. Spread refers to the spatial spread of the proton probability density in ˚ A2.Protonic eigenvalues and zero-point energies (ZPE) are given in eV. For the calculations with the electron-proton correla-tion (epc), the epc17-2 approximation was used. Spread Eigenvalue ZPE H3S w/o epc 0.00895 −21 .734 1.149 H3S w/ epc 0.02002 −21 .645 0.389 D3S w/o epc 0.00617 −22 .339 0.843
+
+ization. Table I also lists the zero-point energy (ZPE), defined here as the total energy difference between stan-dard DFT and NEO-DFT calculations, divided by the number of quantum nuclei, ∆ E/n p. As previously dis-cussed for NEO calculations [37, 56], the epc functional is essential for an accurate estimate of ZPE, yielding 0.389 eV per proton. Despite its importance for ZPE, we did not observe meaningful differences in the band structure and DOS between the calculations with and without the epc functional contribution (see Supplemental Materials [45] for details). This shows that, for H 3S at 200 GPa, the electron-proton correlation has only minor effects on electronic structure. For the deuterium, the epc func-tional would need to be derived differently from that for proton, and the larger mass of deuterium leads to signifi-cantly reduced quantum delocalization, making electron-nuclear quantum correlation effects even less important. Therefore, the electron-proton correlation is not included in the calculations for discussing the electronic structure in the following section.  
+
+> B. Electronic structure
+
+The calculated band structures of H 3S are shown in Fig. 2. All the band structures obtained from standard DFT as well as from NEO-DFT calculations for H 3S and D3S are individually shown for detailed analysis in the Supplemental Materials [45]. The results agree with ex-isting works of the Im ¯3m phase at 200 GPa [11, 16, 18]. The species-projected bands show significant hydrogen character in the energy window from -10 eV to 5 eV, as indicated by the color scale. In this energy range, the electronic states exhibit strong hybridization between sulfur and hydrogen, with hydrogen contributions reach-ing up to 70%. A van Hove singularity is observed near 5DOS (states /(eV unit cell)) 
+
+Energy (eV)   
+
+> FIG. 3. Electronic DOS of H 3S at 200 GPa, calculated using a 110 ×110 ×110 Monkhorst-Pack k-point grid using standard DFT (black), NEO-DFT with deuterium (blue), and hydro-gen (red). The inset shows an enlarged view of van Hove singularities near the Fermi energy.
+
+the Fermi energy, in agreement with its proposed role in enhancing the electron-phonon coupling and thus high Tc
+
+of H 3S as discussed in Ref. 18. Nuclear quantum effects of protons introduce subtle modifications to the electronic band structure in the NEO-DFT calculations. The right panel of Fig. 2 shows an enlarged view of the band structure near the Fermi energy from -2 to 2 eV. The NQE-induced changes are particularly evident around the high-symmetry Γ point, where hydrogen contributions dominate. Notably, the vertex at the Γ point at around 1 eV above the Fermi energy becomes more pronounced (i.e., from black lines to red lines) when NQEs are included, although the BCS critical temperature would not be affected appreciably by such changes far from the Fermi energy. The bands near the van Hove singularity, seen between H and N high-symmetry points, are particularly relevant in the context of BCS superconductivity. They are shifted upward in energy when NQEs are taken into account, but only very slightly, which is consistent with the finding in the earlier work using a perturbative approach [24]. For deuterium (blue lines), these changes are less pronounced compared to hydrogen, reflecting its reduced quantum delocaliza-tion due to the larger nuclear mass. The corresponding electronic density of states (DOS) is shown in Fig. 3. The overall shape of DOS agrees well with existing DFT studies from the literature [16–18]. Fig. 3 also shows a zoomed-in view of the DOS near the Fermi energy, ϵF . In the vicinity of ϵF , one can observe two distinct features associated with the two van Hove singularities [18] at approximately 0.0 eV and −0.3 eV. With NQEs, the DOS slightly moves toward higher en-ergy, and the DOS near ϵF increases in the NEO-DFT calculation. For the deuterium, the changes in DOS are qualitatively similar but smaller in magnitude, as ex-pected. This observation is consistent with the previous work employing the perturbative treatment of NQEs on the electronic structure [24]. At the same time, while Ref. 24 reported reshaping of the DOS near the Fermi level, the changes observed here primarily manifest as small shifts. As a result of NQEs, the integrated DOS within ±0.1 eV of the Fermi level, N (ϵF ), increases by ap-proximately 6.9% for hydrogen and 5.0% for deuterium. This enhancement corresponds to an estimated 2.5% to 3.4% increase in the superconducting critical tempera-ture Tc under the Allen-Dynes limit of the strong cou-pling. For the typical Tc of ∼200 K reported for H 3S[13], these NQE-induced DOS changes would translate to an increase in Tc of only approximately 5 K. This differ-ence is significantly smaller than uncertainties that stem from other approximations typically adopted in calcu-lating the critical temperature from first-principles the-ory, like the constant-DOS approximation and the semi-empirical Coulomb pseudopotential. Figure 4 (a) and (b) show the calculated Fermi sur-face of H 3S from the standard DFT calculation and the NEO-DFT calculation with quantum protons, respec-tively. The Fermi surfaces exhibit multiple intercon-nected sheets and pockets that are characteristic of the metallic phase. Blue regions correspond to areas where the Fermi velocity, dϵ/d k, approaches zero, highlighting the saddle points associated with van Hove singularities. While the overall topology of the Fermi surface remains similar, NQEs slightly blue-shift the band energies, caus-ing one saddle point along the N -H path to shift fur-ther from the Fermi energy and the other one to move closer. Figure 4 (c) shows the energy shifts induced by NQEs, ϵNEO-DFT (k) − ϵDFT (k), on the NEO-DFT Fermi surface kNEO-DFT . The pocket near Γ remains largely un-changed, but regions of small Fermi velocity (blue color areas in Fig. 4 (b)) are especially affected, as indicated by the appearance of the red regions in Fig. 4 (c). This observation underscores the influence of NQEs on the van Hove singularities and their associated peaks in the DOS, although we found the DOS changes are rather minimal in terms of the corresponding Tc changes.  
+
+> C. Phonons
+
+The phonon dispersions and phonon density of states of H 3S are shown in Fig. 5. The comparison between the standard DFT (black) and NEO-DFT results (red) closely resembles the harmonic phonon spectrum and the phonon spectrum with the quantum anharmonic cor-rection [57–59] in the literature for H 3S at compara-ble pressures [8, 14]. Note that our NEO-DFT cal-culations include the proton quantum effects through a self-consistently defined effective quantum potential [51] without relying on the Born-Oppenheimer approxima-tion, which is inherently assumed when the nuclear quan-tum effects are treated separately from the underlying 60.5M 
+
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.5M
+> 1M
+> 1.5M
+> 2M
+> 2.5M
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+
+0.00 
+
+0.35 
+
+> Energy difference (eV)
+> Fermi Velocity (arb. unit)
+
+P
+
+N
+
+H
+
+Γ
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+0.1 
+
+0.1 
+
+0.2 
+
+0.2 
+
+0.3 
+
+0.3 
+
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 0.3
+> 0.35
+
+0.00 
+
+(a) (b) (c) 
+
+FIG. 4. Fermi surface of H 3S at 200 GPa. Panels compare (a) standard DFT and (b) NEO-DFT with quantum protons. Blue regions indicate Fermi velocities approaching zero ( dϵ/d k ≈ 0). The panel (c) shows the energy difference between NEO-DFT and standard DFT, ϵNEO-DFT (k) − ϵDFT (k), on the NEO-DFT Fermi surface. Red regions in panel (c) indicate larger energy shifts caused by proton NQEs. PhDOS 
+
+> 𝜔  (meV )
+
+FIG. 5. Left Panel: Phonon dispersion of H 3S at 200 GPa obtained from standard DFT (black) and NEO-DFT (red) calculations using a 4 × 4 × 4 supercell and a 6 × 6 × 6 k-point grid. Right Panel: Corresponding phonon density of states, calculated with 1 meV Gaussian broadening. 
+
+electronic structure calculations. Despite these differ-ences in approximations involved in our NEO-DFT, the stochastic self-consistent harmonic approximation (SS-CHA) [57], and the anharmonic special displacement method (A-SDM) [58], all calculations yield remarkably similar phonon spectra. Unlike the modest impact of NQEs on the electronic structure near the Fermi level, phonon calculations including NQEs all lead to a distinct modification of the high-frequency hydrogen-dominated phonons, while the low-frequency acoustic branches as-sociated with sulfur atoms remain largely unchanged. This behavior reflects the dominant role of zero-point motion of the hydrogen-derived modes in the Im ¯3m
+
+phase; quantum fluctuations of the light hydrogen atoms effectively increase the curvature of the potential energy surface along the S-H bonds, shifting the correspond-ing phonon frequencies to higher energies, while the S-H bond-bending modes are softened. Errea et al. demon-strated that this phonon renormalization reduces the electron-phonon coupling constant λ by approximately 30%, which in turn lowers Tc by 20-25%, whereas the overall spectral shape of the phonon density of states re-tains its characteristic shape [14]. A similar conclusion was also reached in a recent work by Mishra et al. , who further incorporated electron-phonon vertex and non-adiabatic corrections and found that these effects, to-gether with nuclear quantum motion, are essential to re-produce the experimental Tc of H 3S [8]. Our NEO-DFT calculations also support these same trends, confirming that an explicit quantum treatment of the protons cap-tures the key nuclear quantum contributions of the lattice dynamics in high-pressure H 3S. 
+
+IV. CONCLUSION 
+
+Experimental measurements and confirmation of su-perconductivity under extreme conditions remain chal-lenging, and first-principles theory plays a unique role in providing both predictive insights and interpretive frameworks. The discovery of superconducting high-pressure H 3S represents a great success of the modern first-principles calculation approach for predicting the phonon-mediated BCS superconductivity. As the field continues to advance, further assessment and refinement of existing approximations are desirable for increasingly more accurate predictions. In this work, we investigated the nuclear quantum ef-fects on electronic structure-derived properties of H 3S in the Im ¯3m high-pressure phase, a particularly relevant question given the presence of unique S-H-S bridging bonds. Specifically, using the NEO-DFT method within a multicomponent Kohn-Sham framework, protons are modeled quantum mechanically on an equal footing as electrons in the first-principles calculations. We exam-ined how the quantum mechanical nature of protons in-fluences the electronic density of states (DOS), the Fermi surface, and phonons for their role in phonon-mediated BCS superconductivity. Our work showed that proton 7quantum effects introduce only modest modifications to the electronic band structure near the Fermi energy, re-sulting in a slight increase in DOS at the Fermi energy and small shifts of van Hove singularities. These changes are estimated to impact the prediction of the critical tem-perature by only a couple of percent, approximately 5 K for H 3S in the Allen-Dynes’ strong coupling limit. On the other hand, the quantum-renormalized phonon dispersion, obtained from the multicomponent DFT, shows that the quantum/anharmonicity-induced harden-ing of hydrogen-dominated phonons is essential for an accurate prediction of the critical temperature, arriving at the same conclusion as previous studies that used sep-arate methods for computing the quantum anharmonic corrections [8, 14]. While nuclear quantum effects exert only a minor influence on the electronic band structure, their dominant contribution to the isotope dependence of 
+
+Tc arises through the phonon-related properties, particu-larly through the high-frequency H-S stretching phonon and the associated electron-phonon coupling strength. The evaluation of the electron-phonon coupling within the NEO-DFT method is complicated and is beyond the scope of the present work and will be the subject of future investigation. In summary, this study establishes that the NEO-DFT method provides a unified first-principles theo-retical framework for treating coupled electron-proton quantum effects, enabling simultaneous access to both electronic and phonon properties to predict phonon-mediated BCS superconductivity in hydrogen-rich ma-terials. 
+
+ACKNOWLEDGMENTS 
+
+The work is partly funded by the National Science Foundation, under No. OAC-2209858. The Research Computing at University of North Carolina at Chapel Hill is acknowledged for providing computational re-sources. 
+
+[1] M. Calandra, M. Lazzeri, and F. Mauri, Anharmonic and non-adiabatic effects in mgb2: Implications for the iso-tope effect and interpretation of raman spectra, Phys. C, Supercond. 456 , 38 (2007). [2] I. Errea, Approaching the strongly anharmonic limit with ab initio calculations of materials’ vibrational properties– a colloquium, Eur. Phys. J. B. 89 , 237 (2016). [3] F. Giustino, Electron-phonon interactions from first prin-ciples, Rev. Mod. Phys. 89 , 015003 (2017). [4] E. Zurek and T. Bi, High-temperature superconductivity in alkaline and rare earth polyhydrides at high pressure: A theoretical perspective, J. Chem. Phys. 150 , 050901 (2019). [5] J. A. Flores-Livas, L. Boeri, A. Sanna, G. Profeta, R. Arita, and M. Eremets, A perspective on conven-tional high-temperature superconductors at high pres-sure: Methods and materials, Phys. Rep. 856 , 1 (2020). [6] J. Bardeen, L. N. Cooper, and J. R. Schrieffer, Theory of superconductivity, Phys. Rev. 108 , 1175 (1957). [7] H. Lee, S. Ponc´ e, K. Bushick, S. Hajinazar, J. Lafuente-Bartolome, J. Leveillee, C. Lian, J.-M. Lihm, F. Macheda, H. Mori, et al. , Electron–phonon physics from first principles using the epw code, Npj Comput. Mater. 9, 156 (2023). [8] S. B. Mishra, H. Mori, and E. R. Margine, Electron-phonon vertex correction effect in superconducting h3s, arXiv preprint arXiv:2507.01897 (2025). [9] C. Pellegrini and A. Sanna, Ab initio methods for super-conductivity, Nat. Rev. Phys. 6, 509 (2024). [10] N. Ashcroft, Hydrogen dominant metallic alloys: high temperature superconductors?, Phys. Rev. Lett. 92 ,187002 (2004). [11] D. Duan, Y. Liu, F. Tian, D. Li, X. Huang, Z. Zhao, H. Yu, B. Liu, W. Tian, and T. Cui, Pressure-induced metallization of dense (h2s) 2h2 with high-t c supercon-ductivity, Sci. Rep. 4, 6968 (2014). [12] A. Drozdov, M. Eremets, I. Troyan, V. Ksenofontov, and S. I. Shylin, Conventional superconductivity at 203 kelvin at high pressures in the sulfur hydride system, Nature 
+
+525 , 73 (2015). [13] F. Du, A. P. Drozdov, V. S. Minkov, F. F. Balakirev, P. Kong, G. A. Smith, J. Yan, B. Shen, P. Gegenwart, and M. I. Eremets, Superconducting gap of h3s measured by tunnelling spectroscopy, Nature 641 , 619 (2025). [14] I. Errea, M. Calandra, C. J. Pickard, J. Nelson, R. J. Needs, Y. Li, H. Liu, Y. Zhang, Y. Ma, and F. Mauri, High-pressure hydrogen sulfide from first principles: astrongly anharmonic phonon-mediated superconductor, Phys. Rev. Lett. 114 , 157004 (2015). [15] J. Carbotte, Properties of boson-exchange superconduc-tors, Rev. Mod. Phys. 62 , 1027 (1990). [16] N. Bernstein, C. S. Hellberg, M. Johannes, I. Mazin, and M. Mehl, What superconducts in sulfur hydrides under pressure and why, Phys. Rev. B 91 , 060511 (2015). [17] D. Papaconstantopoulos, B. M. Klein, M. Mehl, and W. Pickett, Cubic h 3 s around 200 gpa: An atomic hy-drogen superconductor stabilized by sulfur, Phys. Rev. B 
+
+91 , 184511 (2015). [18] Y. Quan and W. E. Pickett, Van hove singularities and spectral smearing in high-temperature superconducting h 3 s, Phys. Rev. B 93 , 104526 (2016). [19] L. Ortenzi, E. Cappelluti, and L. Pietronero, Band struc-ture and electron-phonon coupling in h 3 s: A tight-binding model, Phys. Rev. B 94 , 064507 (2016). [20] A. P. Durajski and R. Szczke´ sniak, First-principles study of superconducting hydrogen sulfide at pressure up to 500 gpa, Sci. Rep. 7, 4473 (2017). [21] R. Szczke´ sniak and A. P. Durajski, Unusual sulfur iso-tope effect and extremely high critical temperature in h3s superconductor, Sci. Rep. 8, 6037 (2018). [22] T. Jarlborg and A. Bianconi, Breakdown of the migdal approximation at lifshitz transitions with giant zero-point motion in the h3s superconductor, Sci. Rep. 6,24816 (2016). 8
+
+[23] I. Errea, M. Calandra, C. J. Pickard, J. R. Nelson, R. J. Needs, Y. Li, H. Liu, Y. Zhang, Y. Ma, and F. Mauri, Quantum hydrogen-bond symmetrization in the super-conducting hydrogen sulfide system, Nature 532 , 81 (2016). [24] W. Sano, T. Koretsune, T. Tadano, R. Akashi, and R. Arita, Effect of van hove singularities on high-t c su-perconductivity in h 3 s, Phys. Rev. B 93 , 094525 (2016). [25] R. Taureau, M. Cherubini, T. Morresi, and M. Casula, Quantum symmetrization transition in superconducting sulfur hydride from quantum monte carlo and path in-tegral molecular dynamics, Npj Comput. Mater. 10 , 56 (2024). [26] J. Xu, R. Zhou, Z. Tao, C. Malbon, V. Blum, S. Hammes-Schiffer, and Y. Kanai, Nuclear–electronic orbital ap-proach to quantization of protons in periodic electronic structure calculations, J. Chem. Phys. 156 , 224111 (2022). [27] G. Cai, Y. Li, Y. Fu, H. Yang, L. Mei, Z. Nie, T. Li, H. Liu, Y. Ke, X.-L. Wang, et al. , Deuteration-enhanced neutron contrasts to probe amorphous domain sizes in or-ganic photovoltaic bulk heterojunction films, Nat. Com-mun. 15 , 2784 (2024). [28] R. Akashi, M. Kawamura, S. Tsuneyuki, Y. Nomura, and R. Arita, First-principles study of the pressure and crystal-structure dependences of the superconduct-ing transition temperature in compressed sulfur hydrides, Phys. Rev. B 91 , 224513 (2015). [29] P. B. Allen and R. Dynes, Transition temperature of strong-coupled superconductors reanalyzed, Phys. Rev. B 12 , 905 (1975). [30] J. F. Capitani, R. F. Nalewajski, and R. G. Parr, Non-born–oppenheimer density functional theory of molecular systems, J. Chem. Phys. 76 , 568 (1982). [31] T. Kreibich and E. Gross, Multicomponent density-functional theory for electrons and nuclei, Phys. Rev. Lett. 86 , 2984 (2001). [32] S. P. Webb, T. Iordanov, and S. Hammes-Schiffer, Mul-ticonfigurational nuclear-electronic orbital approach: In-corporation of nuclear quantum effects in electronic structure calculations, J. Chem. Phys. 117 , 4106 (2002). [33] S. Hammes-Schiffer, Nuclear–electronic orbital methods: Foundations and prospects, J. Chem. Phys. 155 , 030901 (2021). [34] M. V. Pak, A. Chakraborty, and S. Hammes-Schiffer, Density Functional Theory Treatment of Electron Cor-relation in the Nuclear-Electronic Orbital Approach, J. Phys. Chem. A 111 , 4522 (2007). [35] A. Chakraborty, M. V. Pak, and S. Hammes-Schiffer, Development of Electron-Proton Density Functionals for Multicomponent Density Functional Theory, Phys. Rev. Lett. 101 , 153001 (2008). [36] T. Udagawa and M. Tachikawa, H/ d isotope effect on porphine and porphycene molecules with multicompo-nent hybrid density functional theory, J. Chem. Phys. 
+
+125 (2006). [37] F. Pavosevic, T. Culpitt, and S. Hammes-Schiffer, Mul-ticomponent quantum chemistry: Integrating electronic and nuclear quantum effects via the nuclear–electronic orbital method, Chem. Rev. 120 , 4222 (2020). [38] K. R. Brorsen, Y. Yang, and S. Hammes-Schiffer, Multi-component density functional theory: Impact of nuclear quantum effects on proton affinities and geometries, J. Phys. Chem. Lett. 8, 3488 (2017). [39] Y. Yang, K. R. Brorsen, T. Culpitt, M. V. Pak, and S. Hammes-Schiffer, Development of a practical multi-component density functional for electron-proton correla-tion to produce accurate proton densities, J. Chem. Phys. 
+
+147 , 114113 (2017). [40] K. R. Brorsen, P. E. Schneider, and S. Hammes-Schiffer, Alternative forms and transferability of electron-proton correlation functionals in nuclear-electronic orbital den-sity functional theory, J. Chem. Phys. 149 , 044110 (2018). [41] Z. Tao, Y. Yang, and S. Hammes-Schiffer, Multicom-ponent density functional theory: Including the density gradient in the electron-proton correlation functional for hydrogen and deuterium, J. Chem. Phys. 151 , 124102 (2019). [42] V. Blum, R. Gehrke, F. Hanke, P. Havu, V. Havu, X. Ren, K. Reuter, and M. Scheffler, Ab initio molecular simulations with numeric atom-centered orbitals, Com-put. Phys. Commun. 180 , 2175 (2009). [43] J. W. Abbott, C. M. Acosta, A. Akkoush, A. Ambrosetti, V. Atalla, A. Bagrets, J. Behler, D. Berger, B. Bieniek, J. Bj¨ ork, et al. , Roadmap on advancements of the fhi-aims software package, arXiv preprint arXiv:2505.00125 (2025). [44] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized gradient approximation made simple, Phys. Rev. Lett. 
+
+77 , 3865 (1996). [45] See Supplemental Material at [URL-will-be-inserted-by-publisher] for thermal distribution of protons, individual projected electronic band structures, convergence tests of k-meshes, and effects of electron-proton correlation on electronic structure. [46] Q. Yu, F. Pavoˇ sevi´ c, and S. Hammes-Schiffer, Develop-ment of nuclear basis sets for multicomponent quantum chemistry methods, J. Chem. Phys. 152 , 244123 (2020). [47] B. Auer and S. Hammes-Schiffer, Localized hartree product treatment of multiple protons in the nuclear-electronic orbital framework, J. Chem. Phys. 132 , 084110 (2010). [48] E. Talantsev, Advanced mcmillan’s equation and its ap-plication for the analysis of highly-compressed supercon-ductors, Supercond. Sci. Technol. 33 , 094009 (2020). [49] X. Xu and Y. Yang, Constrained nuclear-electronic or-bital density functional theory: Energy surfaces with nuclear quantum effects, J. Chem. Phys. 152 , 084107 (2020). [50] X. Xu and Y. Yang, Full-quantum descriptions of molec-ular systems from constrained nuclear–electronic orbital density functional theory, J. Chem. Phys. 153 , 074106 (2020). [51] S. Liu, J. Xu, and Y. Kanai, Constrained nuclear– electronic orbital method for periodic density functional theory: Application to h2 chemisorption on si (001) sur-faces, J. Chem. Phys. 163 , 084110 (2025). [52] R. Feynman, A. Hibbs, and D. Styer, Quantum Mechan-ics and Path Integrals , Dover Books on Physics (Dover Publications, 2010). [53] A. Togo, L. Chaput, T. Tadano, and I. Tanaka, Imple-mentation strategies in phonopy and phono3py, J. Phys. Condens. Matter 35 , 353001 (2023). [54] K. Wikfeldt and A. Michaelides, Communication: Ab ini-tio simulations of hydrogen-bonded ferroelectrics: Col-lective tunneling and the origin of geometrical isotope effects, J. Chem. Phys. 140 , 041103 (2014). 9
+
+[55] A. Cahlik, J. Hellerstedt, J. I. Mendieta-Moreno, M. Svec, V. M. Santhini, S. Pascal, D. Soler-Polo, S. I. Erlingsson, K. Vyborny, P. Mutombo, et al. , Significance of nuclear quantum effects in hydrogen bonded molecular chains, ACS nano 15 , 10357 (2021). [56] Z. Tao, S. Roy, P. E. Schneider, F. Pavosevic, and S. Hammes-Schiffer, Analytical gradients for nuclear– electronic orbital time-dependent density functional the-ory: Excited-state geometry optimizations and adiabatic excitation energies, J. Chem. Theory Comput. 17 , 5110 (2021). [57] I. Errea, M. Calandra, and F. Mauri, First-principles theory of anharmonicity and the inverse isotope effect in superconducting palladium-hydride compounds, Phys. Rev. Lett. 111 , 177002 (2013). [58] M. Zacharias and F. Giustino, Theory of the special dis-placement method for electronic structure calculations at finite temperature, Phys. Rev. Research 2, 013357 (2020). [59] M. Zacharias, G. Volonakis, F. Giustino, and J. Even, Anharmonic lattice dynamics via the special displace-ment method, Phys. Rev. B 108 , 035155 (2023).
