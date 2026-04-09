@@ -1,0 +1,1757 @@
+Title: Generalized hydrodynamics of free fermions under extensive-charge monitoring
+
+URL Source: https://arxiv.org/pdf/2604.05850v1
+
+Published Time: Wed, 08 Apr 2026 01:03:49 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+SciPost Physics Submission 
+
+# Generalized hydrodynamics of free fermions under extensive-charge monitoring 
+
+Pablo Bayona-Pena 1* , Michele Mazzoni 1, Lorenzo Piroli 1
+
+1 Dipartimento di Fisica e Astronomia, Universit` a di Bologna and INFN, Sezione di Bologna, via Irnerio 46, 40126 Bologna, Italy * juanpablo.bayonapen2@unibo.it April 8, 2026 
+
+# Abstract 
+
+We study transport dynamics of free fermions subject to the external mon-itoring of a conserved charge over an extensive region. Focusing on bipar-tition protocols, we consider monitoring the total particle number over half of the system, and study the profiles of local charges and currents at hydro-dynamic scales. While the Lindbladian describing the averaged dynamics is non-local, we show that the profiles can be understood in terms of localized impurities. We present a general framework based on the generalized hydro-dynamics (GHD) picture, allowing for a hybrid numerical-analytic solution of the quench dynamics at hydrodynamic scales. We illustrate our approach for domain-wall initial states, showing that monitoring leads to discontinuities in the profiles that become more pronounced as the rate increases and that lead to the absence of transport in the Zeno limit of infinite monitoring rates. Our GHD framework could be naturally extended to interacting systems, paving the way for a systematic study of transport of integrable models subject to extensive-charge measurements. 
+
+# Contents 
+
+1 Introduction 22 The setup 3
+
+2.1 The model 32.2 The nonequilibrium protocol 4
+
+3 The GHD framework 6
+
+3.1 The unitary bipartition protocol 63.2 The bipartition protocol under extensive-charge monitoring 7
+
+4 GHD solution from domain-wall initial states 10 
+
+4.1 The numerical solution 10 4.2 The merging conditions 12 4.3 The GHD solution 13 
+
+5 GHD Solution from homogeneous thermal states 15 
+
+5.1 The numerical solution 15 5.2 Merging conditions and the GHD solution 18 1
+
+> arXiv:2604.05850v1 [cond-mat.stat-mech] 7 Apr 2026
+
+SciPost Physics Submission 6 Conclusions 19 A Master Equation Derivation 20 B Technical details 20 
+
+B.1 Details on the numerical calculations 21 B.2 The merging conditions and the exact GHD solution 21 B.3 Additional numerical results 22 
+
+C GHD solution for the fully polarized state 22 References 24 
+
+# 1 Introduction 
+
+Monitoring a many-body quantum system may have drastic effects on its dynamics, lead-ing to a variety of collective phenomena that go beyond those observed in isolated systems. For instance, it has been known for a long time that monitoring may qualitatively change the transport properties of a quantum system [1–7]. For another example, a recent im-portant discovery has been the existence of exotic types of measurement-induced phase transitions characterizing the scaling of bipartite entanglement in unitary dynamics inter-spersed by local measurements [8–12]. In fact, the past decade has witnessed an increasing interest in the interplay between unitary evolution and the effects of monitoring, in large part motivated by the emergence of digital quantum platforms allowing for a variety of measurement protocols and monitored dynamics [13–18]. Generally speaking, external measurements introduce randomness in the dynamics, thus destroying any conservation law that the system may have [11]. Therefore, one typically expects that the integrability of the Hamiltonian, defined by the existence of infinitely-many conservation laws [19], does not manifests itself in any of the features of the corresponding monitored dynamics. While this is often the case, one can still consider fine-tuned measurement protocols that preserve some features of integrability in the (averaged) monitored dynamics, possibly leading to an integrable Lindbladian description [20–27]. A motivation to study these protocols lies in the peculiar features of integrable systems out of equilibrium [28], raising the question of whether the interplay between integrability and external monitoring may give rise to novel many-body effects. In this work, we focus on transport properties of integrable systems and study spe-cial types of measurement protocols that preserve integrability at large space-time scales. Transport in integrable models is by now a mature topic [29, 30]. In this context, an im-portant milestone has been the introduction of generalized hydrodynamics (GHD) [31,32], a powerful theory that allows one to describe integrable dynamics in generally inhomoge-neous settings. GHD was initially developed in the study of so-called bipartition proto-cols [29, 32, 33], which are quantum quenches where the initial state is obtained by joining together two different homogeneous states. While conceptually very simple, this setting allows one to study a variety of exotic phenomena, from super-diffusion [34,35], to univer-sal dynamical features [36, 37], and spin-charge separation effects [38, 39]. Here, we enrich the standard bipartition protocol and consider monitoring a conserved charge over a pos-sibly extensive interval. We study the averaged dynamics and focus on the profiles of the 2SciPost Physics Submission 
+
+Hamiltonian local conserved charges and the corresponding currents at large space-time scales. We mention that the hydrodynamics of integrable systems has been already explored in the context of open quantum systems. For example, it is known that continuous monitor-ing of the local occupation number for particle-preserving systems yields diffusive behavior of the corresponding density profiles in the long time regime [2, 20, 40, 41], which is closely related to the physics of classical exclusion processes [40]. On the other hand, ballistic hydrodynamics has been shown to appear as an effect of boundary driving [42], localized losses [43], or as an early time behavior that ultimately transitions to diffusive propa-gation [44]. More recently, it has been shown that GHD allows one to quantitatively describe non-integrable Lindbladian dynamics in the limit of weak dissipation [45–50]. Our work differs from previous studies in that we explore the effects of extensive charge measurements on quantum transport in bipartite settings. Concretely, we focus on the simplest case of bipartition protocols in non-interacting free fermionic systems, and consider monitoring the particle number over half of the system (note that similar measurement protocols have been recently studied in Refs. [51,52]). We introduce a general framework based on GHD that we exploit to obtain a hybrid numerical-analytic solution of the quench dynamics. We illustrate our approach for domain-wall initial states, showing that the monitoring causes discontinuities in the profiles that become more pronounced as the rate increases and that lead to the absence of transport in the Zeno limit of infinite monitoring rates. We also validate our predictions in the case where the system is initialized in a homogeneous thermal state, showing that monitoring leads to a variation of the hydrodynamic profiles. Our results pave the way for a systematic study of transport properties of integrable systems subject to extensive-charge measurements. The rest of this work is organized as follows. We begin in Sec. 2, where we discuss the model and our measurement protocol. In Sec. 3, we review the standard GHD approach to unitary bipartitioning protocols and extend it to the case of extensive-charge measure-ments. We apply this framework in Sec. 4, where we present a hybrid numerical-analytic solution for the quench protocol starting from a special domain-wall initial state. Next, in Sec. 5 we study the case of an initial homogeneous thermal states. Finally, our conclusions are presented in Sec. 6, while the most technical parts of our work are consigned to a few appendices. 
+
+# 2 The setup 
+
+2.1 The model 
+
+We consider a one-dimensional chain of 2 N fermionic modes, described by the tight-binding Hamiltonian ˆH = −J 
+
+> N−1
+
+X
+
+> j=−N
+
+h
+
+ˆc† 
+
+> j
+
+ˆcj+1 + ˆ c†
+
+> j+1
+
+ˆcj
+
+i
+
+, (1) where we assume periodic boundary conditions. We recall that ˆH is diagonalized by introducing the Fourier transform of the fermionic modes ˆ cj . We denote them by ˆ ˜ck, where we introduced the quantized momenta k = πN j, with integer j ∈ [−N, N − 1]. Denoting by |0⟩ the vacuum state, the eigenstates of ˆH are Fock states of the form |k1, . . . , k n⟩ =ˆ˜c†
+
+> k1
+
+ˆ˜c† 
+
+> k2
+
+. . . ˆ˜c† 
+
+> kn
+
+|0⟩ and correspond to eigenvalues 
+
+E =
+
+> n
+
+X
+
+> j=1
+
+ε(kj ) , (2) 3SciPost Physics Submission 
+
+where the single-particle energy is given by 
+
+ε(k) = −2J cos( k) . (3) The Hamiltonian (1) preserves the total particle number ˆQ = X
+
+> i
+
+ˆc† 
+
+> i
+
+ˆci = X
+
+> i
+
+ˆni . (4) In fact, ˆH is integrable, displaying an infinite set of local conserved operators (or charges). A complete set is given by [53] ˆQr, ± = X
+
+> x
+
+ˆq(r, ±) 
+
+> x
+
+, (5) where r ≥ 0 is an integer parameterizing the charges, while ˆq(r, +)  
+
+> x
+
+= J(ˆ c†
+
+> x
+
+ˆcx+r + ˆ c† 
+
+> x+r
+
+ˆcx) , (6) ˆq(r, −) 
+
+> x
+
+= iJ (ˆ c†
+
+> x
+
+ˆcx+r − ˆc† 
+
+> x+r
+
+ˆcx) . (7) The set { ˆQr, ±}r is complete in the sense that it spans the same operator space as the set of the occupation-number operators ˆ n(k) = ˆ ˜c† 
+
+> k
+
+ˆ˜ck [53]. Finally, we recall that the charges act diagonally on the eigenstates of the Hamiltonian 
+
+|k1, . . . , k n⟩. Namely, ˆQr,α |k1, . . . , k n⟩ =
+
+
+
+> n
+
+X
+
+> j=1
+
+q(r,α )(kj )
+
+ |k1, . . . , k n⟩ , (8) where 
+
+q(r, +) (k) = 2 J cos( rk ), (9) 
+
+q(r, −)(k) = −2J sin( rk ). (10) 
+
+2.2 The nonequilibrium protocol 
+
+In this work, we will consider bipartition protocols consisting in joining together two different initial states, and will be interested in the subsequent (monitored) nonequilibrium dynamics. The protocol is explained in the following and depicted in Fig. 1. First, we consider initializing the system in the state ˆρ0 = ˆ ρL ⊗ ˆρR , (11) where the left (right) density matrix ˆ ρL (ˆ ρR) is a function of the left (right) fermionic modes ˆ cj , with j ≤ 0 ( j > 0). We will be especially interested in the case of pure states, ˆρα = |ψα⟩ ⟨ ψα|, with α = L, R .After initialization, we let the system evolve unitarily, while continuously measuring the total particle number over an interval A, namely ˆQA = X
+
+> j∈A
+
+ˆnj . (12) The continuous charge monitoring can be modeled as the continuous limit of either a repeated weak-measurement process or a repeated projective-measurement process. Here, we consider the latter approach and study the following physical setting: After any small 4SciPost Physics Submission 
+
+Figure 1: Pictorial representation of the monitoring protocol studied in this work. The system is initially prepared in the state ρ0. Next, the system is left to evolve unitarily with Hamiltonian ˆH and hopping rate −J for a time interval ∆ t, followed by a incoherent measurement of the charge ˆQA for the right half of the system A = {x |0 < x < N }, with probability pm = γ∆t. The dynamics of the system after averaging over trajectories is given by the Lindblad equation Eq. (13). time-interval ∆ t, we perform a projective measurement of the charge ˆQA with probability 
+
+p = γ∆t, while we perform no measurement with probability 1 −p. Eventually, we take the limit ∆ t → 0, and average over all measurement outcomes. The parameter γ thus plays the role of a measurement rate. As we show in Appendix A, this dynamics is described by the Lindblad equation 
+
+∂t ˆρ(t) = −i[ ˆH, ˆρ(t)] + γ
+
+ 12π
+
+Z 2π
+
+> 0
+
+dαe iα ˆQA ˆρe −iα ˆQA − ˆρ
+
+
+
+, (13) which is valid for arbitrary choices of the interval A. In the following, we will focus on the case where A coincides with half of the system, say, the right one. This choice is natural as it respects the geometry of the bipartition protocol, but we will also comment on how the dynamics is modified if A is chosen differently. We note that a similar bipartite setting was studied in Ref. [43], which however considered a localized (single site) loss process. As we will see, our work differs from Ref. [43] also by the fact that we are interested in describing the system at large space-time scales, rather than in finding an exact solution to the microscopic dynamics. Note that measuring ˆQA is not equivalent to measuring ˆ nj over all j ∈ A. For instance, when A coincides with the whole system, ˆQA = ˆQ is conserved. Then, if we initialize the system in a state with a well-defined number of particles, measuring ˆQA does not affect the dynamics. Conversely, measuring ˆ nj over all j resets the system to a Fock state in real space. Therefore, our work differs from previous studies focusing on the monitoring of the particle number ˆ nj over extensive regions, see e.g. [54–58]. In fact, it is useful to stress that a projective measure of ˆQA does not preserve the Gaussianity of the system [59], making it difficult to investigate individual quantum trajectories. While the Hamiltonian is quadratic in the fermions, the Lindbladian (13) does not preserve the Gaussianity of the density matrix. However, its structure is such that local 5SciPost Physics Submission 
+
+correlation functions satisfy closed hierarchies of equations of motion, see Refs. [44,60–65] for a detailed discussion on the conditions under which this simplification occurs. In our case, single-body correlation functions are trivial, so that we will focus on the dynamics of the two-body correlation functions 
+
+Cn,m (t) = Tr[ˆ ρ(t)ˆ c†
+
+> n
+
+ˆcm] =: ⟨ˆc†
+
+> n
+
+ˆcm⟩t . (14) Using Eq. (13), a standard derivation yields 
+
+dC i,j 
+
+dt = iJ (Ci,j +1 + Ci,j −1 − Ci−1,j − Ci+1 ,j ) − γC i,j + γg A(i, j )Ci,j , (15) where gA(i, j ) = 1 if i, j ∈ A or i, j ∈ ¯A and gA(i, j ) = 0 otherwise. Denoting by C(t) the matrix whose elements are defined in Eq. (14), we can also rewrite the system in matrix form as 
+
+∂tC = i[H, C ] − γ(PACP ¯A + P ¯ACP A) , (16) where ( PA)m,n = δm,n if m, n ∈ A and ( PA)m,n = 0 otherwise, while P ¯A = 1 − PA.Although the system of equations (15) is not integrable, the computational cost of its numerical solution scales only polynomially, rather than exponentially, in the system size. This is a major simplification compared to typical Lindbladian dynamics, allowing us to numerically obtain C(t) up to large values of N and t by means of standard numerical methods. In the next sections we will present explicit numerical data obtained by solving Eqs. (15) and use them to study the dynamics of bipartition protocols under extensive-charge measurements. 
+
+# 3 The GHD framework 
+
+In this section, we introduce a GHD framework to analyze the dynamics of the system at large space-time scales. After recalling the standard GHD approach to bipartitioning protocols under unitary dynamics, we extend it to the case of extensive-charge monitoring. 
+
+3.1 The unitary bipartition protocol 
+
+We begin by recalling the main features of the unitary bipartition protocol and its GHD solution in integrable systems. We will only recall the aspects that are directly relevant for our work (and specialized to free fermions), referring to the literature for a more comprehensive discussion (see in particular the review [29] and references therein). After initializing the system in the bipartite state (11), an integrable system is char-acterized by the emergence of a ballistic light-cone propagating at finite velocity from the junction. After a transient time, the system locally equilibrates to space-time dependent quasi-stationary states described by a generalized Gibbs ensemble (GGE) [66] or, equiva-lently, by its quasi-particle momentum distribution functions nx,t (k). The GHD allows us to compute such functions and obtain a prediction for the space-time profiles of all local observables. In essence, the GHD approach starts from the set of continuity equations for the infinitely-many conserved charges 
+
+∂t⟨ˆq(r, ±) 
+
+> x
+
+⟩t = ⟨ ˆJ(r, ±) 
+
+> x−1
+
+⟩t − ⟨ ˆJ(r, ±) 
+
+> x
+
+⟩t , (17) where ˆJ(r, +)  
+
+> x
+
+= iJ 2 h 
+
+ˆc†
+
+> x+1
+
+ˆcx+r − ˆc†
+
+> x
+
+ˆcx+r+1 
+
+
+
++ (ˆ c†
+
+> x+r+1
+
+ˆcx − ˆc† 
+
+> x+r
+
+ˆcx+1 )
+
+i
+
+, (18) ˆJ(r, −) 
+
+> x
+
+= −J2 h 
+
+ˆc†
+
+> x+1
+
+cx+r − ˆc†
+
+> x
+
+ˆcx+r+1 
+
+
+
+− (ˆ c†
+
+> x+r+1
+
+ˆcx − ˆc† 
+
+> x+r
+
+ˆcx+1 )
+
+i
+
+, (19) 6SciPost Physics Submission 
+
+are the current densities associated with the local charges. Next, recall that, given an arbi-trary function n(k) corresponding to a GGE, the expectation values of the local densities and currents can be written as [29] 
+
+⟨ˆq(r, ±)⟩n =
+
+Z +π
+
+> −π
+
+dk q r, ±(k)n(k), (20) 
+
+⟨ ˆJ(r, ±)⟩n =
+
+Z +π
+
+> −π
+
+dk ε ′(k)qr, ±(k)n(k) , (21) where ε(k) is the single-particle energy (3). Notice that, choosing the Hamiltonian as in Eq. (1), ε′(k) = 2 J sin( k). We now assume that each mesoscopic region (or “fluid cell”) traveling at a given velocity v from the junction, equilibrates for t → ∞ to a v-dependent GGE [29]. Then, plugging Eqs. (20) and (21) into Eq. (17), and introducing the rescaled variable ζ = x/t , the continuity equations become 
+
+−ζ∂ ζ ⟨ˆq(r, ±)⟩nζ + ∂ζ ⟨ ˆJ(r, ±)⟩nζ = 0 . (22) Since Eq. (22) holds for all charges, and the charges are complete, we arrive at the GHD equation (−ζ + ε′(k)) ∂ζ nζ (k) = 0 . (23) For a fixed k, the solution to Eq. (23) is a piece-wise constant function, with a jump occurring at ζ = ε′(k). Crucially, the GHD equation (23) must be supplemented with the boundary condition lim  
+
+> ζ→+∞
+
+nζ (k) = nR(k) , lim  
+
+> ζ→−∞
+
+nζ (k) = nL(k) , (24) where nL/R (k) are the quasi-particle momentum distribution functions corresponding to the GGEs associated with the left and right initial states, respectively. Eq. (24) encodes the physical requirements that, infinitely far right (left) from the junction, the system relaxes to the GGE corresponding to a homogeneous quench from the initial state ˆ ρR
+
+(ˆ ρL). Putting all together, one arrives at the GHD solution 
+
+nζ (k) = Θ( ε′(k) − ζ)nL(k) + Θ( −ε′(k) + ζ)nR(k) , (25) where Θ( x) is the Heaviside theta function. Physical predictions for the profiles of local charges and currents can then be obtained from Eqs. (20), (21), and similarly for more general local observables. 
+
+3.2 The bipartition protocol under extensive-charge monitoring 
+
+We now present our first main result, namely we show that the GHD framework can be extended to describe the monitored dynamics introduced in Sec. 2.2. This observation is a priori non-trivial, since the charge measurements generate non-local, integrability-breaking terms in the equations for the two-point correlation functions (15). As already mentioned, the Lindbladian appearing in Eq. (13) does not display any non-trivial local conservation law. Nevertheless, we may study how the densities of the Hamiltonian charges evolve in time. From Eq. (13), an elementary calculation yields 
+
+∂t⟨ˆq(r, ±) 
+
+> x
+
+⟩ = ⟨ ˆJ(r, ±) 
+
+> x−1
+
+⟩ − ⟨ ˆJ(r, ±) 
+
+> x
+
+⟩ − γΠ(r) 
+
+> x
+
+⟨ˆq(r, ±) 
+
+> x
+
+⟩ , (26) where ˆJ(r, ±) 
+
+> x
+
+are defined in Eqs. (18), and (19), while Π(r) 
+
+> x
+
+=
+
+(
+
+1 if x ∈ {− r + 1 , . . . 0} ,
+
+0 otherwise . (27) 7SciPost Physics Submission 
+
+Note that the term proportional to γ is absent for r = 0. Eq. (26) tells us that local charges satisfy the standard continuity equation governing the unitary dynamics, up to a finite number of sink-like terms stemming from the incoherent charge measurement. Notice also that these terms are absent in the continuity equations for the charges ˆ q(0 ,+)  
+
+> x
+
+.It is therefore natural to assume that, away from the junction, one should recover a picture in terms of local quasi-stationary states described by a GGE. As in the unitary case, we then assume that, for ζ̸ = 0, each fluid cell traveling at velocity ζ from the junction equilibrates to a ζ-dependent GGE. Accordingly, Eq. (26) yields 
+
+−ζ∂ ζ ⟨ˆq(r, ±)⟩nζ + ∂ζ ⟨ ˆJ(r, ±)⟩nζ = 0 , (ζ̸ = 0) . (28) Namely, repeating the argument of the previous section, and separating the cases of posi-tive and negative values of ζ, we have the set of GHD equations (−ζ + ε′(k)) ∂ζ nζ (k) = 0 ζ > 0 , (29) (−ζ + ε′(k)) ∂ζ nζ (k) = 0 ζ < 0 . (30) For a given k, the solution to Eqs. (29), (30) is again piece-wise continuous. However, an additional discontinuity appears at ζ = 0. Quantitatively, fixing k > 0, it follows that (−ζ + ε′(k)) > 0 for ζ < 0 and so Eq. (30) implies ∂ζ nζ (k) = 0 for ζ < 0 (note that, due to the choice of the Hamiltonian, we have sign[ ε′(k)] = sign[sin( k)] = sign[ k]). Therefore, 
+
+nζ (k) is a constant for ζ < 0 and, as argued in the previous section, must be equal to 
+
+nL(k), cf. Eq. (24). Next, for ζ > 0, Eq. (29) implies that nζ (k) is piece-wise constant, with a possible discontinuity at ζ∗ = ε′(k). Again, for ζ > ζ ∗ the constant is given by 
+
+nR(k), while for 0 < ζ < ζ ∗ we have an unknown value χR(k) (not depending on ζ). Proceeding similarly for k < 0, we arrive at the formal GHD solution 
+
+nζ (k) = 
+
+(
+
+Θ( −ζ)nL(k) + Θ( ζ)Θ( ε′(k) − ζ)χR(k) + Θ( ζ − ε′(k)) nR(k) k > 0 ,
+
+Θ( ζ)nR(k) + Θ( −ζ)Θ( −ε′(k) + ζ)χL(k) + Θ( ε′(k) − ζ)nL(k) k < 0 , (31) which depends on the unknown function 
+
+χ(k) = 
+
+(
+
+χR(k) , k ≥ 0 ,χL(k) , k < 0 . (32) Eq. (31) has a very natural interpretation in terms of the so-called quasi-particle pic-ture [29, 67]. Let us focus, for instance, on k > 0, ζ > 0. Eq. (31) states that the quasi-particle content nζ (k) of the GGE coincides with nR(k) if ζ is greater than the quasi-particle velocity ε′(k) (no quasi-particle coming from the junction can contribute). Conversely, if ζ ≤ ε′(k) the rapidity distribution function is modified in a non-trivial way, since particles coming from the junction and undergoing a non-trivial evolution contribute. In fact, Eq. (31) has the same form encountered in the study of bipartition protocols with an additional Hamiltonian impurity, or defect, localized at the junction [68–75]. Intuitively, this similarity may have been expected, given the form of the continuity equations (26). We note, however, that this is not a perfect analogy as the dynamics studied here is non-unitary. In the context of Hamiltonian impurities, the unknown function χ(k) can be derived by computing the transmission and reflection coefficients in the single-particle sector, via a scattering-matrix approach [69, 74], see also [76]. This approach, however, appears problematic in our setting. The difficulty is mainly due to the fact that the two-body Lindbladian appearing in Eq. (13) is non-local and cannot be diagonalized analytically. In addition, the non-unitarity of the evolution makes it not clear how to adapt the standard 8SciPost Physics Submission 
+
+scattering-matrix approach used in previous studies to our setting. For these reasons, we have followed a different approach targeting directly the unknown function χ(k). The idea is to derive a set of merging conditions for the hydrodynamic quasi-particle distribution functions nζ (k) at ζ = 0 ±. In turn, such merging conditions provide a consistency equation for χ(k), which admits a unique solution. To be precise, consider an interval It around the origin with end points given by ±νt .Summing Eq. (26) over j ∈ It yields 
+
+> νt
+
+X
+
+> x=−νt
+
+∂t⟨ˆq(r, ±) 
+
+> x
+
+(t)⟩ = ⟨ ˆJ(r, ±)
+
+> −νt −1
+
+⟩ − ⟨ ˆJ(r, ±) 
+
+> νt
+
+⟩ − γ
+
+> 0
+
+X
+
+> x=−r+1
+
+⟨ˆq(r, ±) 
+
+> x
+
+(t)⟩ , (33) where we assumed that time is large enough, so that νt > r . Next, setting ζ = x/t , to the leading order in 1 /t we can approximate 
+
+> νt
+
+X
+
+> x=−νt
+
+⟨ˆq(r, ±) 
+
+> x
+
+(t)⟩ ≃ t
+
+Z ν
+
+> −ν
+
+dζ ⟨ˆq(r, ±)⟩ζ . (34) Therefore, taking the limit ν → 0, we obtain lim 
+
+> ν→0
+> νt
+
+X
+
+> x=−νt
+
+∂t⟨ˆq(r, ±) 
+
+> x
+
+(t)⟩ = lim 
+
+> ν→0
+
+Z ν
+
+> −ν
+
+dζ ⟨ˆq(r, ±)⟩ζ = 0 . (35) Finally, plugging this equation into Eq. (33), we arrive at the merging conditions 
+
+⟨ ˆJ(r, ±)⟩0+ − ⟨ ˆJ(r, ±)⟩0− = −γQ(r, ±) , (36) where, we define 
+
+Q(r, ±) := 
+
+> 0
+
+X
+
+> x=−r+1
+
+⟨ˆq(r, ±) 
+
+> x
+
+(∞)⟩. (37) The merging conditions feature the quantity Q(r, ±) which, in turn, depends on the initial state in a non-trivial way. Unfortunately, computing the value of Q(r, ±) is hard, representing a bottle-neck to arrive at a fully analytic solution of the quench protocol. Nevertheless, the quantities Q(r, ±) can be computed numerically solving the system of equations (15) up to late times. The numerical values computed in this way can be plugged into Eq. (36), yielding an explicit set of merging conditions that determine the function 
+
+χ(k). Before proceeding, a few comments are in order. First, we emphasize that the approach described above is hybrid, requiring to first extract some microscopic data by numerical computations (the values Q(r, ±)), and then to perform analytic calculations to solve the GHD equations under the the merging conditions (36). It is important to stress this method provides more information compared to a brute-force numerical solution to the microscopic dynamics. Indeed, the solution to Eqs. (15) only gives us access to the profiles of observables expressed in terms of two-body correlation functions. Instead, our approach yields the densities nζ (k), which completely describes the state of the system in the fluid cell traveling at speed ζ.Second, our GHD approach above gives us access to the exact profiles in the hydro-dynamic limit t, N → ∞ . In this respect, we note that obtaining an accurate numerical approximation for Q(r, ±) requires an amount of computational resources which is less than the one required to obtain an accurate prediction for the full profiles of arbitrary local observables. This will be apparent from our numerical results presented in Sec. 4.1. 9SciPost Physics Submission 
+
+Our data will generally show that at the time scales at which the profiles approach their stationary values near ζ = 0 (so that Q(r, ±) can be extracted in a reliable way), the profiles still show large finite-time effects at large distances from the origin. We also note that, in the actual implementation of the above method, one needs to introduce a cut-off rcut , because Q(r, ±) can only be computed for a finite number of values 
+
+r = 1 , . . . r cut . Then, one obtains an approximate solution χ(rcut )(k) by setting Q(r, ±) = 0 for r > r cut . As we will see, for the quench protocols that we will consider, the asymptotic expectation values of higher local charges ⟨ˆqr, ± 
+
+> x
+
+(∞)⟩ quickly vanish as r increases, so that the accuracy of χ(rcut )(k) is expected to be very high already for relatively small rcut .Finally, we highlight that, while this discussion is completely general, in some cases one may exploit additional symmetries or properties of the initial states to obtain an exact or very accurate ansatz for Q(r, ±). Alternatively, one may be able rewrite the merging conditions in such a way that the contributions from the microscopic data is small. We will follow this strategy for domain-wall initial states. In this case, we will be able to conjecture a reformulation of the merging conditions which turns out to be very accurate even without any input from microscopic data (namely, for a cut-off value rcut = 0). Before leaving this section, we mention that a similar GHD framework can be adapted for different choices of the region A. We found in particular a qualitatively similar phe-nomenology when the interval A consists of a finite number of sites (even a single one) distributed symmetrically near the junction. 
+
+# 4 GHD solution from domain-wall initial states 
+
+In this section we present a solution to the monitored dynamics starting from special families of bipartite pure initial states. We focus on states of the form 
+
+|Ψ0⟩ = |0⟩L ⊗ | ψ0⟩R , (38) where |0⟩L is the vacuum state, while |ψ0⟩R is a non-trivial product state. For concreteness, we will focus on the so-called N´ eel state 
+
+ψN  
+
+> 0R
+
+=
+
+> ⌊N/ 2⌋− 1
+
+Y
+
+> j=0
+
+ˆc†
+
+> 2j+1
+
+|0⟩ . (39) However, as we will specify later, the calculations presented here hold for more general initial states, including the fully polarized state 
+
+ψP  
+
+> 0R
+
+= 
+
+> (N−1)
+
+Y
+
+> j=1
+
+ˆc† 
+
+> j
+
+|0⟩ . (40) We note that the dynamics from such bipartite initial states have been extensively studied in the past, both for isolated and open quantum systems [20, 29, 42–44, 69, 77–83] 
+
+4.1 The numerical solution 
+
+Before illustrating our GHD approach, we present our numerical solution to the Lindblad equation (15). The profiles obtained in this way confirm the assumptions stated in the previous section, underlying the validity of the GHD framework. In addition, the numerical data will serve to test quantitatively our analytic predictions. 10 SciPost Physics Submission 0 800 1600 2400 3200         
+
+> x
+> 0
+> 100
+> 200
+> 300
+> 400
+> tJ
+> a)
+> −2−1012
+> ζ
+> 0
+> 0.3
+> 0.6
+> 0.9
+> 〈ˆq(0 , + ) 〉
+> ζ
+> b)
+> −2−1012
+> ζ
+> −0.4
+> −0.2
+> 0
+> 〈ˆJ(0 , + ) 〉
+> ζ
+> c)
+> 0
+> 0.25
+> 0.5
+> 0.75
+> 1
+> 〈ˆq(0 , + )
+> x (t)〉
+
+Figure 2: a) Non-unitary dynamics of the charge ⟨ˆq(0 ,+)  
+
+> x
+
+(t)⟩. The system is prepared in a domain-wall state given by Eq. (38). A light cone due to ballistic propagation of quasi-particles is present with front at ζ∗ = ±max( |v(k)|) = ±2J. b) Late time profile of the local charge ⟨ˆq(0 ,+)  
+
+> x
+
+(t)⟩ for ζ = x/t . Far from the propagation front ray ζ∗, the charge profile remains constant, while it displays a discontinuity at ζ = 0. c) Late time profile of the local current ⟨ ˆJ(0 ,+)  
+
+> x
+
+(t)⟩. The current is continuous for all ray values. We set J = 1, 
+
+γ = 1, L = 2 N = 4000 sites, and tJ = 400 for calculating the charge and current profiles. First, note that the initial conditions of Eqs. (15) are easily obtained from the initial state. In particular, focusing on the bipartite state defined by Eqs. (38) and (39), the initial condition corresponds to 
+
+Cx,y (0) = 
+
+(
+
+0, x, y ≤ 0,δx,y , x, y > 0 , x ≡ 0 (mod 2) . (41) As mentioned, the system (15) with initial conditions (41) can be solved via standard numerical methods. We have done so up system sizes 2 N ∼ 10000 and times t ∼ 2000, for different values of γ. Given the solution for Cx,y (t), it is immediate to obtain the profiles of local charges and currents, as they are quadratic in the fermions. An example of our data is displayed in Fig. 2. In the plots, we rescale the profiles introducing the variable ζ = x/t . We have verified an excellent data collapse as t increases, fully confirming the GHD assumptions for any value of γ. As a general feature, the plots show a discontinuity at ζ = 0, which becomes more pronounced as γ increases. Additional plots are provided in Sec. 4.3. Numerically, we observe that the profiles of some charges are identically vanishing. This observation can be explained by symmetry considerations. To do so, we first introduce the unitary and anti-unitary operators ˆU and K, respectively defined by ˆU = eiπ P 
+
+> llˆnl
+
+and K†iK = −i, where i is the imaginary unit. Then, it is easy to show that ˆΘ = ˆU K is a symmetry of the Lindbladian. Indeed, since ˆU ˆcj ˆU −1 = ( −1) j ˆcj and ˆU ˆnj ˆU −1 = ˆ nj , we obtain ˆU ˆH ˆU −1 = − ˆH, (42) ˆU ˆQA ˆU −1 = ˆQA. (43) Plugging this into the Lindbladian, we find that ˆΘL(ˆ ρ) ˆΘ−1 = −i[ ˆH, ˆΘˆ ρ ˆΘ−1] − γ
+
+Z π
+
+> −π
+
+dα 
+
+2π eiα ˆQA ˆΘˆ ρ ˆΘ−1e−iα ˆQA − ˆΘˆ ρ ˆΘ−1
+
+
+
+= L( ˆΘˆ ρ ˆΘ−1) . (44) 11 SciPost Physics Submission −8 −4 0 4 8                                    
+
+> 0.30000
+> 0.40000
+> 0.50000
+> 0.60000
+> 0.70000
+> 〈ˆq(r, +)
+> x (t)〉
+> r= 0 ,sign = +
+> −8−4048
+> -0.04000
+> 0.00000
+> 0.04000
+> r= 2 ,sign = +
+> −8−4048
+> -0.01500
+> 0.00000
+> 0.01500
+> 0.03000 r= 4 ,sign = +
+> −8−4048
+> x
+> 0.232400
+> 0.232480
+> 0.232560
+> 0.232640
+> 〈ˆq(r, −)
+> x (t)〉
+> r= 1 ,sign = −
+> −8−4048
+> x
+> 0.02400
+> 0.02600
+> 0.02800
+> 0.03000
+> r= 3 ,sign = −
+> −8−4048
+> x
+> 0.00000
+> 0.00250
+> 0.00500
+> 0.00750
+> r= 5 ,sign = −
+
+Figure 3: Values of the local charges in the NESS. The plots only show the charges that are not identically zero. The data correspond to J = γ = 1 and N = 4000, while time is taken to be tJ = 400, which is large enough that the data points appear to be converged up to a precision of at least 10 −4.Since the pure initial state ˆ ρ0 = |Ψ0⟩⟨ Ψ0|, with |Ψ0⟩ defined by Eqs. (38) and (39) is an eigenstate of ˆU , we have ˆΘˆ ρt ˆΘ−1 = ˆ ρt , (45) implying that for every observable ˆO, ⟨ ˆΘ ˆO ˆΘ−1⟩t = ⟨ ˆO⟩ t. On the other hand, from the explicit expressions Eqs. (6), (7), we obtain 
+
+⟨ ˆΘˆ q(2 r, −) 
+
+> x
+
+ˆΘ−1⟩t = −⟨ ˆq(2 r, −) 
+
+> x
+
+⟩t , (46) 
+
+⟨ ˆΘˆ q(2 r+1 ,+)  
+
+> x
+
+ˆΘ−1⟩t = −⟨ ˆq(2 r+1 ,+)  
+
+> x
+
+⟩t , (47) hence 
+
+⟨ˆq(2 r, −) 
+
+> x
+
+⟩t = ⟨ˆq(2 r+1 ,+)  
+
+> x
+
+⟩t = 0 . (48) The rest of this section is devoted to provide a prediction for the non-zero profiles, following the GHD approach developed in Sec. 3.2. In detail, after deriving an equivalent formulation of the merging conditions (36) in Sec. 4.2, we will present the full GHD solution in Sec. 4.3. 
+
+4.2 The merging conditions 
+
+As discussed in Sec. 3.2, the first step of our GHD approach is to compute the values 
+
+Q(r, ±) appearing in Eq. (36), to obtain a valid set of merging conditions. In order to find some possible hidden structure, we first study numerically the behavior of ⟨ˆq(r, ±))  
+
+> x
+
+(∞)⟩ near the origin, x = 0. Fig. 3 reports an example of our data, from which we see that the profiles ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ are approximately constant as a function of x, and in any case appear to be constant away from a finite number of points localized near the origin. This observation suggests that, for the initial state under consideration, we may be able to reformulate the merging conditions in a way that makes our approach simpler, as we explain below. 12 SciPost Physics Submission 
+
+Indeed, suppose first that the profiles ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ are exactly constant as a function of 
+
+x. The set of expectation values {⟨ ˆq(r, ±) 
+
+> x
+
+(∞)⟩} x∈Z characterize the non-equilibrium steady state (NESS) associated with the bipartition protocol, and are related to the hydrodynamic profiles via the identification [76] lim 
+
+> x→±∞
+
+⟨ˆq(r, ±) 
+
+> x
+
+(∞)⟩ = ⟨ˆq(r, ±)⟩ζ=0 ± (49) Therefore, the fact that ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ are constant implies 
+
+⟨ˆq(r, −)⟩ζ=0 − = ⟨ˆq(r, −)⟩ζ=0 + =: ⟨ˆq(r, −)⟩ζ=0 . (50) Under the same assumptions, Eq. (36) becomes 
+
+⟨ ˆJ(r, −)⟩ζ=0 + − ⟨ ˆJ(r, −)⟩ζ=0 − = −γr ⟨ˆq(r, −)⟩0. (51) From inspection of the numerical data, we found that the condition lim 
+
+> x→−∞
+
+⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ = lim 
+
+> x→+∞
+
+⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ , (52) appears to be true up to numerical precision, so that Eq. (50) is indeed verified for our initial state. Unfortunately, however, it is apparent from the data in Fig. 3 that the profiles 
+
+⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ are not constant near the origin, and so Q(r, −)̸ = r⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩. Therefore, the merging condition (51) should be replaced by 
+
+⟨ ˆJ(r, −)⟩ζ=0 + − ⟨ ˆJ(r, −)⟩ζ=0 − = −γr ⟨ˆq(r, −)⟩0 + δr . (53) The numbers δr takes into account the deviations of ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ from being a constant in the vicinity of x = 0. Eqs. (50), (53) represent the correct merging condition for our problem. As we will show in the next section, they uniquely fix the unknown function χ(k) in Eq. (32) and can therefore be considered an equivalent reformulation of Eqs. (36). As mentioned in Sec. 3.2, we will compute numerically the numbers {δr}rcut 
+
+> r=1
+
+, where 
+
+rcut is a cut-off, and set δr = 0 for r > r cut . We will then obtain a function χ(rcut )(k) for the GHD solution depending on rcut . Remarkably, we will show that χ(0) (k) is already an excellent approximation to the exact solution, and χ(rcut )(k) quickly converges as rcut is increased. This observation motivates the reformulation of the merging conditions carried out above. We refer to Appendix B.1 for details on how the numbers δr are extracted numerically. 
+
+4.3 The GHD solution 
+
+In this section, we finally provide an analytic solution for the monitored dynamics. Fol-lowing the general strategy outlined in Sec. 3.2, we determine the unknown function χ(k), appearing in the formal solution (31), using the merging conditions (50) and (53). Below, we only present the main steps of the derivation, referring to Appendix B.2 for additional detail. We begin by taking an appropriate ansatz for the unknown root density 
+
+χL(k) = nR(k) + ϕL(k) = 14π + ϕL(k), (54) 
+
+χR(k) = nL(k) + ϕR(k) = ϕR(k). (55) 13 SciPost Physics Submission 
+
+Note that this choice is natural, since it reproduces the standard result for the GGE root density in the absence of measurements. In the above expressions, nR(k) = 1 /(4 π) and 
+
+nL(k) = 0 are the root densities of the vacuum-N´ eel bipartition defined in Eqs. (38), (39). Next, we proceed by inserting the ansatz into the merging conditions (50) and (53). As shown in Appendix B.2, this yields the following two equalities 
+
+Z π
+
+> −π
+
+dk sin( rk )ϕ−(k) = 0 , (56) 
+
+−4J2
+
+Z π
+
+> −π
+
+dk sin( rk ) sin( k)ϕ−(k) − 2rγJ 
+
+Z π
+
+> 0
+
+dk sin( rk )ϕR(k) = − γJ 
+
+2π (1 − (−1) r) + δr ,
+
+(57) where we defined ϕ−(k) = Θ( k)ϕR(k) − Θ( −k)ϕL(k). Since Eq. (56) fixes the parity of 
+
+ϕ−(k), we can take the following Fourier mode expansion for ϕR(k)
+
+ϕR(k) = 
+
+> ∞
+
+X
+
+> n=1
+
+bn(γ) sin( nk ). (58) Lastly, inserting Eq. (58) in Eq. (57), standard calculations yield the following equation for the Fourier coefficients bn(γ)
+
+> ∞
+
+X
+
+> n=1
+
+bn(γ)
+
+h
+
+πrγJδ n,r − f (n)
+
+> r
+
+i
+
+= γJ (1 − (−1) r)2π − δr , (59) where 
+
+f (n) 
+
+> r
+
+= −8J2
+
+Z π
+
+> 0
+
+dk sin( rk ) sin( k) sin( nk ) . (60) This is a linear system for the coefficients bn(γ), which can be easily solved numerically by truncating the infinite sum to a certain value of n = Nmax . Once the coefficients bn(γ)are known, one has a full solution for the function χ(k). In Fig. 4, we test its validity, by comparing the corresponding profiles with those obtained by a solution to Eq. (15). The data are obtained setting Nmax = 800 with cutoff rcut = 5. We note that the plots show excellent agreement for the profiles of all local charges and currents that we have considered. We now discuss the accuracy of the solution as a function of the cutoff rcut . In Fig. 5 we report χ(rcut )(k) for increasing values of rcut . We see that the solution for rcut = 0 already provides a very good approximation. This is also apparent from the study of the profiles for increasing rcut , cf. Appendix B.3. Besides the numerical solution, we can also study Eq. (59) in the limit of large moni-toring. Dividing Eq. (59) by γ, and taking γ → ∞ , we obtain 
+
+bn(γ) = 
+
+( 1 
+
+> π2n
+
+n odd 0 else , (61) where we assumed that the numerical correction δr scales as O(1) in γ. Performing the infinite sum, we obtain 
+
+ϕR(k) = 12π2
+
+> ∞
+
+X
+
+> n=1
+
+(1 − (−1) n)
+
+n = 14π , (62) 14 SciPost Physics Submission 0.0
+
+0.1
+
+0.2
+
+0.3       
+
+> 〈ˆq(r,α )〉ζ
+> r= 1 , α =−
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−0.1
+
+0.0
+
+0.1      
+
+> r= 2 , α = +
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−0.08 
+
+0.00 
+
+0.08        
+
+> r= 3 , α =−
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−0.05 
+
+0.00 
+
+0.05       
+
+> r= 4 , α = +
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.9
+
+−0.6
+
+−0.3
+
+0.0    
+
+> 〈 ˆJ(r,α )〉ζ
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+0.0
+
+0.1
+
+0.2
+
+0.3    
+
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.15 
+
+0.00 
+
+0.15     
+
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.16 
+
+−0.08 
+
+0.00 
+
+0.08     
+
+> num , γ = 0 GHD , γ = 0
+> γ= 1 GHD , γ = 1
+
+Figure 4: Local charge and current density profiles at late times for the initial domain-wall state. The first and second rows show charge and current profiles, respectively. We set 
+
+J = 1 , γ = 0 , 1, L = 2 N = 4000 sites, tJ = 250 and correction cutoff rcut = 5. Local density profiles predictions using our GHD approach match exactly numerical results. where we used the fact that the series on the right hand side of the equality sums to π/ 2. Hence, in the Zeno-limit, the root density χ(k) = χγ (k) is given by lim 
+
+γ→∞ χLγ (k) = 0 , lim 
+
+γ→∞ χRγ (k) = 14π , (63) which coincides with the initial state root density, reflecting the freezing of the system due to the absence of transport. Finally, we comment that following a similar protocol, we can produce accurate predictions for the density profiles starting from the fully polarized state Eq. (40). Details of this calculation and numerical results are provided in Appendix C 
+
+# 5 GHD Solution from homogeneous thermal states 
+
+In this section, we study the quench from an homogeneous thermal state ˆρ0 = e−β ˆH
+
+Z , (64) where ˆH is the Hamiltonian (1), β is the inverse temperature, while Z is a normalization constant. Note that, different from the initial state (11), ˆ ρ0 is an equilibrium state for the unitary dynamics, but the monitoring introduces a non-trivial evolution. 
+
+5.1 The numerical solution 
+
+The initial conditions for Eq. (15) corresponding to Eq. (64) can be easily computed based on the exact solution of the Hamiltonian (1). In particular, we have 
+
+Cx,y (0) = 1
+
+L
+
+N −1X
+
+m=−N
+
+eik m(y−x) 11 + e−2Jβ cos( km) , (65) 15 SciPost Physics Submission 0.00                      
+
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> χ(δ)(k)
+> δ= 0 , γ = 1
+> δ= 1 , γ = 1
+> δ= 3 , γ = 1
+> δ= 5 , γ = 1
+> δ= 7 , γ = 1
+> 0.20.40.60.8
+> k/π
+> 0.0000
+> 0.0005
+> 0.0010
+> 0.0015
+> ∣∣χ(7) (k) − χ(δ)(k)∣∣
+> δ= 0 , γ = 1
+> δ= 1 , γ = 1
+> δ= 3 , γ = 1
+> δ= 5 , γ = 1
+
+Figure 5: Upper panel: Root density profile for different cutoff values rcut . Lower panel: plot of |χ(7) (k) − χ(δ)(k)| as a function of k, for increasing δ. We set J = 1 , γ = 1 , N max =800. The root density is slightly modified by inserting larger corrections. We note that, as δ increases, the maximum value of the difference |χ(7) (k) − χ(δ)(k)| decreases. where we consider periodic boundary conditions for convenience and define the wave-number km = (2 πm )/L , where we set L = 2 N . We have solved Eq. (15) with initial conditions (65) for different values of β and obtained the profiles for local charges and currents at late times. An example of our numerical data is reported in Fig. 6. The plots are reported in terms of the rescaled variable ζ = x/t , and show a clear collapse of the profiles as time increases. We see that, perhaps counterintuitively, the monitoring causes a non-trivial variation of the profiles at hydrodynamic scales. In particular, we observe that the energy current develops a discontinuity near the origin. Physically, although the charge is conserved in the bulk of the region A, the monitoring induces an effective defect at ζ = 0. In turn, the defect modifies the quasi-particle passing through the origin, changing the profiles at the hydrodynamic scales. As in the domain-wall state case, we observe that the profiles of some charges are identically vanishing. However, the vanishing profiles are the ones that were non-zero in the domain-wall case. This can be explained by the presence of a different unitary symmetry defined by the operator ˆV , such that ˆV ˆcj ˆV −1 = ( −1) j ˆc† 
+
+> j
+
+. This unitary transformation (a “staggered”particle-hole exchange) leaves the Hamiltonian invariant and adds a constant term to the partial charge ˆQA since ˆV ˆc†
+
+> j+1
+
+ˆcj ˆV −1 = −ˆcj+1 ˆc† 
+
+> j
+
+= ˆ c† 
+
+> j
+
+ˆcj+1 , (66) ˆV ˆc† 
+
+> j
+
+ˆcj ˆV −1 = 1 − ˆc† 
+
+> j
+
+ˆcj . (67) Plugging this into the Lindbladian, we find that ˆV L(ˆ ρ) ˆV −1 = L( ˆV ˆρ ˆV −1) . (68) Since ˆV commutes with the initial thermal state, from the explicit expressions Eqs. (6), 16 SciPost Physics Submission 
+
+(7), we obtain 
+
+⟨ ˆV ˆq(2 r+1 ,−) 
+
+> x
+
+ˆV −1⟩ = −⟨ ˆq(2 r+1 ,−) 
+
+> x
+
+⟩, (69) 
+
+⟨ ˆV ˆq(2 r, +)  
+
+> x
+
+ˆV −1⟩ = −⟨ ˆq(2 r, +)  
+
+> x
+
+⟩, (70) therefore 
+
+⟨ˆq(2 r+1 ,−) 
+
+> x
+
+⟩ = ⟨ˆq(2 r, +)  
+
+> x
+
+⟩ = 0 . (71) We also note that this quench displays an additional symmetry. That is, spatial in-version or parity with respect to the bond between two neighboring sites. Namely, letting ˆP ˆcj ˆP−1 = ˆ cl−j , the Hamiltonian is invariant for every choice of l due to periodic boundary conditions, ˆP ˆH ˆP−1 = ˆH. By picking l = 1 (i.e. the bond between sites 0 and +1), then 1
+
+ˆP ˆQA ˆP−1 = ˆQ ¯A ≡ ˆQ − ˆQA. (72) Hence, we find that the Lindbladian transforms as ˆPL (ˆ ρ) ˆP−1 = L( ˆP ˆρ ˆP−1) . (73) Since the initial state is U (1)-invariant, at any time the evolved state is invariant under the action of ˆP. Thus, we can combine the action of ˆV and ˆP to show that 
+
+⟨ˆq(2 r, −) 
+
+> x
+
+⟩t = −⟨ ˆq(2 r, −) 
+
+> −x
+
+⟩t , ⟨ˆq(2 r+1 ,+)  
+
+> x
+
+⟩t = ⟨ˆq(2 r+1 ,+)  
+
+> −x
+
+⟩t. (74) −6 −4 −2 0 2 4 6                       
+
+> ζ
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 〈ˆq(1 ,+) 〉ζ
+> num , t = 200
+> t= 400
+> t= 600
+> t= 800
+> −6−4−20246
+> ζ
+> −0.05
+> 0.00
+> 0.05
+> 〈 ˆJ(1 ,+) 〉ζ
+> num , t = 200
+> t= 400
+> t= 600
+> t= 800
+> β= 1 .0, r = 1 ,sign = + , γ = 1 , t ∈ { 200 ,400 ,600 ,800 }, N = 4000
+
+Figure 6: Charge and current profiles at the hydrodynamic scale for an initial homogeneous thermal state. We take the rescaling ζ = x/t for plotting profiles. a) Late time profiles of the local charge ⟨ˆq(1 ,+)  
+
+> x
+
+(t)⟩. The charge profile is continuous for all ray values. b) Late time profiles of the local current ⟨ ˆJ(1 ,+)  
+
+> x
+
+(t)⟩. Far from the propagation front ray ζ∗, the current remains constant and equal to its initial value, displaying a discontinuity at ζ = 0. We set β = 1 , J = 1 , γ = 1 , L = 2 N = 4000 sites, and tJ = {200 , 400 , 600 , 800 }.In the next subsection, we provide an analytic solution to the monitored dynamics following the general strategy outlined in Sec.3.2. In this case, we implement the merging conditions using the boundary term Q(r, ±) as defined in Eq. (37), without making any ansatz on its structure. 
+
+> 1
+
+Strictly speaking, Eq. (72) holds exactly for A = {1, . . . , N − 1} and ¯A = {− N + 2 , . . . , 0}, whereas according to the convention outlined in Sec. 2.2, ¯A = {− N, . . . , 0}. However, the reflection around the bond between ¯A and A becomes an exact symmetry in the thermodynamic limit N → ∞ .
+
+17 SciPost Physics Submission 
+
+5.2 Merging conditions and the GHD solution 
+
+Starting from the symmetry constraint stemming from the Lindbladian inversion symme-try on the local profiles, Eq. (74) tells us that in the hydrodynamic regime lim 
+
+> x→∞
+
+⟨ˆq(2 r+1 ,+)  
+
+> x
+
+(∞)⟩ = lim 
+
+> x→∞
+
+⟨ˆq(2 r+1 ,+)  
+
+> −x
+
+(∞)⟩⇒ ⟨ ˆq(2 r+1 ,+) ⟩ζ=0 + = ⟨ˆq(2 r+1 ,+) ⟩ζ=0 − . (75) In this case, we were not able to provide a GHD ansatz for the boundary terms Q(r, +). Instead we proceeded by supplementing the merging condition Eq. 36 with data from long time simulations for N = 4000 and t = 300. We use the following ansatz for the unknown root density 
+
+χL(k) = nβ (k) + ϕL(k) χR(k) = nβ (k) + ϕR(k) , (76) where 
+
+nβ (k) = 11 + e−2Jβ cos( k) (77) is the root density of the initial thermal state. Inserting the ansatz into the merging conditions (36) and (75), we obtain two equalities 
+
+Z π
+
+> −π
+
+dk cos( rk )ϕ−(k) = 0 , (78) 4J2
+
+Z π
+
+> −π
+
+dk cos( rk ) sin( k)ϕ−(k) = −γQ(r, +) (∞). (79) where ϕ−(k) is defined as in Sec. 4.3. Since Eq. (78) fixes the parity of ϕ−(k), we can take the following Fourier mode expansion for ϕR(k)
+
+ϕR(k) = 
+
+> ∞
+
+X
+
+> n=1
+
+an(γ) cos( nk ). (80) Lastly, inserting Eq. (80) in Eq. (79), standard calculations yield the following equation for the Fourier coefficients an(γ)
+
+> ∞
+
+X
+
+> n=1
+
+an(γ)g(n) 
+
+> r
+
+= Q(r, +) (∞), (81) where 
+
+g(n) 
+
+> r
+
+= 8 J2
+
+Z π
+
+> 0
+
+dk cos( rk ) sin( k) cos( nk ). (82) As for the domain-wall case, this is a linear system for the coefficients an(γ), which can be easily solved numerically by truncating the infinite sum to a certain value of n = Nmax . In Fig. 7, we test the validity of our GHD prediction, by comparing the corresponding profiles with those obtained by a solution to Eq. (15). Data are obtained by setting Nmax = 800 with cutoff rcut = 7. We note that plots show excellent agreement for the profiles of all local charges and currents that we have considered. 18 SciPost Physics Submission 0.16 
+
+0.24 
+
+0.32 
+
+0.40      
+
+> 〈ˆq(r,α )〉ζ
+> r= 1 , α = +
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−0.05 
+
+0.00 
+
+0.05       
+
+> r= 2 , α =−
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−0.08 
+
+−0.04 
+
+0.00      
+
+> r= 3 , α = +
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−0.02 
+
+0.00 
+
+0.02       
+
+> r= 4 , α =−
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.05 
+
+0.00 
+
+0.05    
+
+> 〈 ˆJ(r,α )〉ζ
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.42 
+
+−0.36 
+
+−0.30 
+
+−0.24    
+
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.05 
+
+0.00 
+
+0.05    
+
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.025 
+
+0.000 
+
+0.025 
+
+0.050    
+
+> num , γ = 1 , t = 300 GHD , γ = 1
+
+Figure 7: Charge and current profiles at the hydrodynamic scale for an initial homogeneous thermal state. The first and second rows show the charge and current profiles. We set 
+
+β = 1 , J = 1 , γ = 1 , L = 2 N = 4000 sites, tJ = 300 and cutoff rcut = 7. Local density profiles predictions using our GHD approach are in perfect agreement with the numerical results. 
+
+# 6 Conclusions 
+
+We have developed a GHD approach to describe the late time dynamics of free fermionic systems subject to continuous monitoring of a charge over an extensive region. We have shown the emergence of ballistic propagation of quasi-particles, in contrast to the well known diffusive behavior of free fermions subject to local-density monitoring [2,20,40,41]. Within the bipartition protocol, we have provided an hybrid numerical-analytic solution of the quench dynamics from some special initial states. Our solution predicts disconti-nuities in the profiles of local charges and currents, that become more pronounced as the monitoring rate increases and that lead to absence of transport in the Zeno limit of infinite monitoring rate. Our work opens several directions for future research. First, it would be important to develop a systematic approach to derive the merging conditions for arbitrary initial states. Going further, a very natural direction would be to extend our approach to the case of interacting systems. In this respect, we emphasize that, being based on the GHD, our approach is naturally tailored to be extended to interacting systems within the (thermo-dynamic) Bethe ansatz formalism [84]. Finally, since the total particle number can be efficiently measured in quantum-circuit setups [85–88], a natural question pertains to the extension of our results to discrete set-tings, which are relevant for the implementation of integrable circuits in current digital quantum platforms [89–91]. Indeed, integrable quantum circuits have been shown to dis-play interesting non-equilibrium features that go beyond those of traditional Hamiltonian models [92–102] and that can also be captured by GHD [100]. We leave these directions for future work. 19 SciPost Physics Submission 
+
+# Acknowledgements 
+
+We thank Bruno Bertini, Luca Capizzi, Federico Carollo, Maurizio Fagotti, Stefano Scopa, and Riccardo Travaglino for useful discussions. 
+
+Funding information This work was funded by the European Union (ERC, QUAN-THEM, 101114881). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. 
+
+# A Master Equation Derivation 
+
+In this appendix, we derive the equation of motion for the monitored dynamics. Because we are interested in the averaged dynamics, we will only derive the Lindbladian description. We emphasize, however, that one could also write down a stochastic equation depending on the (random) measurement outcomes and describing individual quantum trajectories [103, 104]. Recall that we are interested in the charge operator ˆQA = X
+
+> j∈A
+
+ˆnj =
+
+> |A|
+
+X
+
+> m=0
+
+m ˆΠ(A) 
+
+> m
+
+, (83) where ˆΠ(A) 
+
+> m
+
+= ( ˆΠ(A) 
+
+> m
+
+)† = ( ˆΠ(A) 
+
+> m
+
+)2 is a projector onto the eigenspace of ˆQA with eigenvalue 
+
+m and P 
+
+> m
+
+ˆΠ(A) 
+
+> m
+
+= ˆ 1. Let us denote by ˆ ρ(t) the state of the system at time t. Following the protocol explained in Sec. 2.2, we first let our system evolve unitarily up to time t + ∆ t
+
+ˆρ(t) 7 → ˆρ(t + ∆ t) = e−i ˆH∆t ˆρ(t)ei ˆH∆t . (84) Then, with probability p = γ∆t we measure the charge ˆQA. Accordingly, the averaged density matrix is transformed as ˆρ(t + ∆ t) 7 → ˆρ′(t + ∆ t) = (1 − γ∆t)ˆ ρ(t + ∆ t) + γ∆t X
+
+> m
+
+ˆΠ(A) 
+
+> m
+
+ˆρ(t + ∆ t) ˆΠ(A) 
+
+> m
+
+. (85) Expanding to the first order in ∆ t and taking the limit ∆ t → 0 yields 
+
+∂t ˆρ(t) = −i[ ˆH, ˆρ(t)] + γ X
+
+> m
+
+ˆΠ(A) 
+
+> m
+
+ˆρ(t) ˆΠ(A) 
+
+> m
+
+− ˆρ(t)
+
+!
+
+. (86) Finally, expanding ˆ ρ(t) into eigenstates of the charge operator ˆQ, it is immediate to show 
+
+X
+
+> m
+
+ˆΠ(A) 
+
+> m
+
+ˆρ(t) ˆΠ(A) 
+
+> m
+
+= 12π
+
+Z 2π
+
+> 0
+
+dαe iα ˆQA ˆρe −iα ˆQA , (87) which concludes the derivation of Eq. (13). 
+
+# B Technical details 
+
+In this appendix we provide details on the technical calculations reported in Sec. 4 20 SciPost Physics Submission 
+
+B.1 Details on the numerical calculations 
+
+In this section, we provide more details on the extraction of the microscopical data neces-sary to produce accurate profiles at large times. Using sparse matrix methods and solving Eq. (15) using a 4 point Runge-Kutta algorithm, we were able to produce numerics of systems sizes up to N = 10000. Focusing on N = 4000, we extracted the values of the correction vector δr for the N´ eel and fully polarized states as follows. First, we computed numerically an estimate for Q(r, −), for r ≤ rcut . We did this by running the numerical simulations up to times at which Q(r, −) appeared converged up to a given numerical precision. Next, we estimated numerically ⟨ˆq(r, −)⟩ζ=0 via the identification (49), by extracting ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ for x sufficiently far away from the origin. As it is apparent from Fig. 3, the values of ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ are essentially constant already for small values of x. Then, we computed 
+
+δr = Q(r, −) − r⟨ˆq(r, −)⟩ζ=0 . (88) The above procedure comes with two different sources of approximation errors. The first one is a finite-time effect, due to the fact that we estimate infinite-time quantities at finite values of t. The second one comes from estimating lim x→∞ ⟨ˆq(r, −) 
+
+> x
+
+(∞)⟩ in Eq. (49) from finite values of x. We estimated that both approximation errors are very small for the time and distances chosen, introducing errors in the profiles that are invisible at the scales of our plots. Finally, we followed a similar strategy for the homogeneous thermal case, where we extract the values of Q(r, +) directly from the covariance matrix data up to the cutoff value rcut .
+
+B.2 The merging conditions and the exact GHD solution 
+
+In this section, we provide more details for the calculations required to obtain χ(k) in Sec. 4.3. To derive Eqs. (56), (57), note that, from Eq. (31) it follows that the average of a local observable g over the GGE root density nζ (k) in the limit ζ → 0± is given by 
+
+⟨g⟩0+ =
+
+Z π
+
+> 0
+
+dk χ R(k)g(k) + 
+
+Z 0
+
+> −π
+
+dk n R(k)g(k) ,
+
+⟨g⟩0− =
+
+Z π
+
+> 0
+
+dk n L(k)g(k) + 
+
+Z 0
+
+> −π
+
+dk χ L(k)g(k) . (89) Inserting the ansatz for the root densities χR/L (k) into the merging conditions Eqs. (50), (53) and using Eq. (89), with the function g(k) read from Eqs. (20) and (21), one imme-diately obtains Eqs. (56)–(57). Lastly, a simple calculation yields for r̸ = nf (n) 
+
+> r
+
+= 16 J2 rn (1 + ( −1) r+n)
+
+n4 − 2n2(r2 + 1) + ( r2 − 1) 2 . (90) Similarly, for r = nf (n) 
+
+> n
+
+= 32 J2 n2
+
+1 − 4n2 . (91) Finally, for the homogeneous thermal case, we find 
+
+g(n) 
+
+> r
+
+= −8J2 (n2 + r2 − 1)(1 + ( −1) r+n)
+
+n4 − 2n2(r2 + 1) + ( r2 − 1) 2 . (92) 21 SciPost Physics Submission 0.00 
+
+0.08 
+
+0.16 
+
+0.24 
+
+> 〈ˆq(r,α )〉ζ
+
+r = 1 , α = −     
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−0.08 
+
+−0.04 
+
+0.00 
+
+0.04 r = 3 , α = −      
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−0.04 
+
+0.00 
+
+0.04 
+
+r = 5 , α = −     
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.9
+
+−0.6
+
+−0.3
+
+0.0     
+
+> 〈 ˆJ(r,α )〉ζ
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.15 
+
+0.00 
+
+0.15      
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.08 
+
+0.00 
+
+0.08      
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+Figure 8: Local charge and current density profiles at late times for the initial domain-wall state. The first and second rows show the charge and current profiles, respectively. We set J = 1 , γ = 0 , 1, L = 2 N = 4000 sites, tJ = 250 and cutoffs rcut = {0, 3, 5}. The accuracy of our GHD predictions against numerics increases rapidly as we increase the cutoff value rcut . Note that the only noticeable difference between profiles lies within a small neighborhood around ζ = 0. Note also that finite-time effects are visible in the profiles for r = 5, at large distances from the origin. 
+
+B.3 Additional numerical results 
+
+In this section, we provide additional numerical evidence supporting the validity of our GHD solution for the domain-wall and homogeneous thermal state presented in the main text. Fig. 8 shows the profiles of local charges and currents for several values of r for the domain-wall state case. We note that small corrections coming from microscopical details become apparent only for large values of r and within a small neighborhood of the ζ = 0 ray. Next, Fig. 9 shows the profiles of local charges and currents for several values of r for the initial homogeneous thermal state case. We note that the accuracy of our predictions improves rapidly by introducing more Q(r, +) terms. 
+
+# C GHD solution for the fully polarized state 
+
+In this appendix we present the GHD solution for a system initially prepared in a fully polarized state Eq (40). We begin by proving the boundary conditions that allow us to fix the unknown density χ(k). Using similar arguments as those described in the previous 22 SciPost Physics Submission 0.1
+
+0.2
+
+0.3
+
+0.4
+
+> 〈ˆq(r,α )〉ζ
+
+r = 1 , α = +        
+
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+−0.3
+
+−0.2
+
+−0.1
+
+0.0
+
+r = 3 , α = +        
+
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+−0.24 
+
+−0.16 
+
+−0.08 
+
+0.00 
+
+r = 5 , α = +       
+
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.05 
+
+0.00 
+
+0.05       
+
+> 〈 ˆJ(r,α )〉ζ
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.05 
+
+0.00 
+
+0.05       
+
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.025 
+
+0.000 
+
+0.025       
+
+> num , γ = 1 , t = 300 GHD , δ 1, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1 GHD , δ 7, γ = 1
+
+Figure 9: Local charge and current density profiles at late times for the initial homogeneous thermal state. The first and second rows show the charge and current profiles, respectively. We set J = 1 , γ = 1 , β = 1 , L = 2 N = 4000 sites, tJ = 250 and cutoffs rcut = {1, 3, 5, 7}.Accuracy of our GHD profiles predictions against numerics increases rapidly as we increase the cutoff value rcut .appendix, we obtain the following boundary conditions 
+
+⟨ˆq(r, −)⟩ζ=0 − = ⟨ˆq(r, −)⟩ζ=0+ =: ⟨ˆq(r, −)⟩0, (93) 
+
+⟨ ˆJ(r, −)⟩ζ=0 + − ⟨ ˆJ(r, −)⟩ζ=0 − = −γr ⟨ˆq(r, −)⟩0 + δr, (94) which are the exact same boundary conditions as for the case of the N´ eel state. Since the only difference between the N´ eel and the fully-polarized state is the initial root density in the right half, the same procedure outlined in the main text and in the appendix B applies, taking into account that nR(k) = 1 /2π. Hence, the matrix equation for the Fourier coefficients bn(γ) is given by 
+
+∞X
+
+n=1 
+
+bn(γ)
+
+h
+
+πrγJδ n,r − f (n)
+
+r
+
+i
+
+= γJ (1 − (−1) r)
+
+π + δr . (95) Fig. 10 shows excellent agreement between exact numerics and our GHD predictions for the late time profiles of several charge and current densities for several measuring rates. We truncate the infinite sum of Eq. (95) at Nmax = 800 when solving for bn(γ). 23 SciPost Physics Submission 0.00 
+
+0.15 
+
+0.30 
+
+0.45 
+
+> 〈ˆq(r,α )〉ζ
+
+r = 1 , α = −      
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−0.16 
+
+−0.08 
+
+0.00 
+
+0.08 r = 3 , α = −     
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−0.06 
+
+0.00 
+
+0.06 
+
+0.12 
+
+r = 5 , α = −     
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−1.8
+
+−1.2
+
+−0.6
+
+0.0     
+
+> 〈 ˆJ(r,α )〉ζ
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.2
+
+0.0
+
+0.2     
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+−2 −1 0 1 2
+
+ζ
+
+−0.15 
+
+0.00 
+
+0.15      
+
+> num , γ = 1 , t = 250 GHD , δ 0, γ = 1 GHD , δ 3, γ = 1 GHD , δ 5, γ = 1
+
+Figure 10: Local charge and current density profiles at late times for the initial fully-polarized state. The first and second rows show charge and current profiles, respectively. We set J = 1 , γ = 1 , L = 2 N = 4000 sites, and tJ = 250 and cutoffs rcut = {0, 3, 5}.Accuracy of our GHD profiles predictions against numerics increases rapidly as we increase the cutoff value rcut . Note that the only noticeable difference between profiles lies within a small neighborhood around ζ = 0. 
+
+# References 
+
+[1] T. Prosen and M. ˇZnidariˇ c, Matrix product simulations of non-equilibrium steady states of quantum spin chains , J. Stat. Mech. 2009 (02), P02035 (2009), doi:10.1088/1742-5468/2009/02/p02035. [2] M. ˇZnidariˇ c, Exact solution for a diffusive nonequilibrium steady state of an open quantum chain , J. Stat. Mech. 2010 (05), L05002 (2010), doi:10.1088/1742-5468/2010/05/L05002. [3] M. ˇZnidariˇ c, Dephasing-induced diffusive transport in the anisotropic heisenberg model , New J. Phys. 12 (4), 043001 (2010), doi:10.1088/1367-2630/12/4/043001. [4] T. Prosen and M. ˇZnidariˇ c, Diffusive high-temperature transport in the one-dimensional hubbard model , Phys. Rev. B 86 , 125118 (2012), doi:10.1103/PhysRevB.86.125118. [5] M. ˇZnidariˇ c and M. Horvat, Transport in a disordered tight-binding chain with dephasing , The European Physical Journal B 86 (2) (2013), doi:10.1140/epjb/e2012-30730-9. 24 SciPost Physics Submission 
+
+[6] L. Bertini, A. De Sole, D. Gabrielli, G. Jona-Lasinio and C. Landim, 
+
+Macroscopic fluctuation theory , Rev. Mod. Phys. 87 , 593 (2015), doi:10.1103/RevModPhys.87.593. [7] B. Bertini, F. Heidrich-Meisner, C. Karrasch, T. Prosen, R. Steinigeweg and M. ˇZnidariˇ c, Finite-temperature transport in one-dimensional quantum lattice mod-els , Rev. Mod. Phys. 93 , 025003 (2021), doi:10.1103/RevModPhys.93.025003. [8] Y. Li, X. Chen and M. P. A. Fisher, Quantum zeno effect and the many-body entanglement transition , Phys. Rev. B 98 , 205136 (2018), doi:10.1103/PhysRevB.98.205136. [9] Y. Li, X. Chen and M. P. A. Fisher, Measurement-driven entanglement transition in hybrid quantum circuits , Phys. Rev. B 100 , 134306 (2019), doi:10.1103/PhysRevB.100.134306. [10] B. Skinner, J. Ruhman and A. Nahum, Measurement-induced phase tran-sitions in the dynamics of entanglement , Phys. Rev. X 9, 031009 (2019), doi:10.1103/PhysRevX.9.031009. [11] M. P. Fisher, V. Khemani, A. Nahum and S. Vijay, Random quantum circuits ,Ann. Rev. Cond. Matt. Phys. 14 (1), 335 (2023), doi:10.1146/annurev-conmatphys-031720-030658. [12] A. C. Potter and R. Vasseur, Entanglement Dynamics in Hybrid Quantum Cir-cuits , In A. Bayat, S. Bose and H. Johannesson, eds., Entanglement in Spin Chains: From Theory to Quantum Technology Applications , pp. 211–249. Springer Interna-tional Publishing, Cham, ISBN 978-3-031-03998-0, doi:10.1007/978-3-031-03998-0 9 (2022). [13] J. Zhang, P. W. Hess, A. Kyprianidis, P. Becker, A. Lee, J. Smith, G. Pagano, I.-D. Potirniche, A. C. Potter, A. Vishwanath, N. Y. Yao and C. Monroe, Observation of a discrete time crystal , Nature 543 (7644), 217–220 (2017), doi:10.1038/nature21413. [14] F. Arute, K. Arya, R. Babbush, D. Bacon, J. C. Bardin, R. Barends, R. Biswas, S. Boixo, F. G. S. L. Brandao, D. A. Buell, B. Burkett, Y. Chen et al. , Quan-tum supremacy using a programmable superconducting processor , Nature 574 (7779), 505–510 (2019), doi:10.1038/s41586-019-1666-5. [15] X. Zhang, W. Jiang, J. Deng, K. Wang, J. Chen, P. Zhang, W. Ren, H. Dong, S. Xu, Y. Gao et al. , Digital quantum simulation of floquet symmetry-protected topological phases , Nature 607 (7919), 468 (2022), doi:10.1038/s41586-022-04854-3. [16] C. Noel, P. Niroula, D. Zhu, A. Risinger, L. Egan, D. Biswas, M. Cetina, A. V. Gor-shkov, M. J. Gullans, D. A. Huse et al. , Measurement-induced quantum phases real-ized in a trapped-ion quantum computer , Nature Phys. 18 (7), 760 (2022), doi:s41567-022-01619-7. [17] J. M. Koh, S.-N. Sun, M. Motta and A. J. Minnich, Measurement-induced entan-glement phase transition on a superconducting quantum processor with mid-circuit readout , Nature Phys. 19 (9), 1314 (2023), doi:10.1038/s41567-023-02076-6. [18] S. J. Evered, M. Kalinowski, A. A. Geim, T. Manovitz, D. Bluvstein, S. H. Li, N. Maskara, H. Zhou, S. Ebadi, M. Xu et al. , Probing the kitaev honey-comb model on a neutral-atom quantum computer , Nature 645 (8080), 341 (2025), doi:10.1038/s41586-025-09475-0. 25 SciPost Physics Submission 
+
+[19] J.-S. Caux and J. Mossel, Remarks on the notion of quantum integrability , J. Stat. Mech. 2011 (02), P02023 (2011), doi:10.1088/1742-5468/2011/02/P02023. [20] M. V. Medvedyeva, F. H. L. Essler and T. Prosen, Exact bethe ansatz spectrum of a tight-binding chain with dephasing noise , Phys. Rev. Lett. 117 , 137202 (2016), doi:10.1103/PhysRevLett.117.137202. [21] D. A. Rowlands and A. Lamacraft, Noisy coupled qubits: Operator spread-ing and the fredrickson-andersen model , Phys. Rev. B 98 , 195125 (2018), doi:10.1103/PhysRevB.98.195125. [22] N. Shibata and H. Katsura, Dissipative quantum ising chain as anon-hermitian ashkin-teller model , Phys. Rev. B 99 , 224432 (2019), doi:10.1103/PhysRevB.99.224432. [23] N. Shibata and H. Katsura, Dissipative spin chain as a non-hermitian kitaev ladder ,Phys. Rev. B 99 , 174303 (2019), doi:10.1103/PhysRevB.99.174303. [24] A. A. Ziolkowska and F. H. Essler, Yang-baxter integrable lindblad equations , SciPost Phys. 8, 044 (2020), doi:10.21468/SciPostPhys.8.3.044. [25] F. H. L. Essler and L. Piroli, Integrability of one-dimensional lindbladi-ans from operator-space fragmentation , Phys. Rev. E 102 , 062210 (2020), doi:10.1103/PhysRevE.102.062210. [26] B. Buˇ ca, C. Booker, M. Medenjak and D. Jaksch, Bethe ansatz approach for dissi-pation: exact solutions of quantum many-body dynamics under loss , New J. Phys. 
+
+22 (12), 123040 (2020), doi:10.1088/1367-2630/abd124. [27] M. Nakagawa, N. Kawakami and M. Ueda, Exact liouvillian spectrum of a one-dimensional dissipative hubbard model , Phys. Rev. Lett. 126 , 110404 (2021), doi:10.1103/PhysRevLett.126.110404. [28] P. Calabrese, F. H. Essler and G. Mussardo, Introduction to ‘quantum integra-bility in out of equilibrium systems’ , J. Stat. Mech. 2016 (6), 064001 (2016), doi:10.1088/1742-5468/2016/06/064001. [29] V. Alba, B. Bertini, M. Fagotti, L. Piroli and P. Ruggiero, Generalized-hydrodynamic approach to inhomogeneous quenches: correlations, entanglement and quantum ef-fects , J. Stat. Mech. 2021 (11), 114004 (2021), doi:10.1088/1742-5468/ac257d/meta. [30] J. De Nardis, B. Doyon, M. Medenjak and M. Panfil, Correlation functions and transport coefficients in generalised hydrodynamics , J. Stat. Mech. 2022 (1), 014002 (2022), doi:10.1088/1742-5468/ac3658. [31] O. A. Castro-Alvaredo, B. Doyon and T. Yoshimura, Emergent hydrodynamics in integrable quantum systems out of equilibrium , Phys. Rev. X 6, 041065 (2016), doi:10.1103/PhysRevX.6.041065. [32] B. Bertini, M. Collura, J. De Nardis and M. Fagotti, Transport in out-of-equilibrium 
+
+xxz chains: Exact profiles of charges and currents , Phys. Rev. Lett. 117 (20), 207201 (2016), doi:10.1103/PhysRevLett.117.207201. [33] L. Piroli, J. De Nardis, M. Collura, B. Bertini and M. Fagotti, Transport in out-of-equilibrium xxz chains: Nonballistic behavior and correlation functions , Phys. Rev. B 96 , 115124 (2017), doi:10.1103/PhysRevB.96.115124. 26 SciPost Physics Submission 
+
+[34] M. Ljubotina, M. ˇZnidariˇ c and T. Prosen, Spin diffusion from an inhomo-geneous quench in an integrable system , Nature Comm. 8(1), 16117 (2017), doi:10.1038/ncomms16117. [35] E. Ilievski, J. De Nardis, M. Medenjak and T. c. v. Prosen, Superdiffusion in one-dimensional quantum lattice models , Phys. Rev. Lett. 121 , 230602 (2018), doi:10.1103/PhysRevLett.121.230602. [36] D. Bernard and B. Doyon, Non-equilibrium steady states in conformal field theory , In 
+
+Ann. Henri Poincar´ e, vol. 16, pp. 113–161. Springer, doi:10.1007/s00023-014-0314-8 (2015). [37] B. Bertini, L. Piroli and P. Calabrese, Universal broadening of the light cone in low-temperature transport , Phys. Rev. Lett. 120 , 176801 (2018), doi:10.1103/PhysRevLett.120.176801. [38] M. Mesty´ an, B. Bertini, L. Piroli and P. Calabrese, Spin-charge separation effects in the low-temperature transport of one-dimensional fermi gases , Phys. Rev. B 99 ,014305 (2019), doi:10.1103/PhysRevB.99.014305. [39] S. Scopa, P. Calabrese and L. Piroli, Real-time spin-charge separation in one-dimensional fermi gases from generalized hydrodynamics , Phys. Rev. B 104 , 115423 (2021), doi:10.1103/PhysRevB.104.115423. [40] T. Ishiyama, K. Fujimoto and T. Sasamoto, Exact density profile in a tight-binding chain with dephasing noise , J. Stat. Mech. 2025 (3), 033103 (2025), doi:10.1088/1742-5468/adba43. [41] M. ˇZnidariˇ c, Exact large-deviation statistics for a nonequilibrium quantum spin chain , Phys. Rev. Lett. 112 , 040602 (2014), doi:10.1103/PhysRevLett.112.040602. [42] X. Turkeshi and M. Schir` o, Diffusion and thermalization in a boundary-driven dephasing model , Phys. Rev. B 104 (14), 144301 (2021), doi:10.1103/PhysRevB.104.144301. [43] V. Alba and F. Carollo, Noninteracting fermionic systems with localized losses: Exact results in the hydrodynamic limit , Phys. Rev. B 105 (5), 054303 (2022), doi:10.1103/PhysRevB.105.054303. [44] V. Eisler, Crossover between ballistic and diffusive transport: the quantum ex-clusion process , J. Stat. Mech. 2011 (06), P06007 (2011), doi:10.1088/1742-5468/2011/06/p06007. [45] F. Lange, Z. Lenarˇ ciˇ c and A. Rosch, Time-dependent generalized gibbs ensembles in open quantum systems , Phys. Rev. B 97 , 165138 (2018), doi:10.1103/PhysRevB.97.165138. [46] D. Rossini, A. Ghermaoui, M. B. Aguilera, R. Vatr´ e, R. Bouganne, J. Beugnon, F. Gerbier and L. Mazza, Strong correlations in lossy one-dimensional quantum gases: From the quantum zeno effect to the generalized gibbs ensemble , Phys. Rev. A 103 , L060201 (2021), doi:10.1103/PhysRevA.103.L060201. [47] L. Rosso, A. Biella and L. Mazza, The one-dimensional Bose gas with strong two-body losses: the effect of the harmonic confinement , SciPost Phys. 12 , 044 (2022), doi:10.21468/SciPostPhys.12.1.044. 27 SciPost Physics Submission 
+
+[48] F. Riggio, L. Rosso, D. Karevski and J. Dubail, Effects of atom losses on a one-dimensional lattice gas of hard-core bosons , Phys. Rev. A 109 , 023311 (2024), doi:10.1103/PhysRevA.109.023311. [49] L. Lumia, G. Aupetit-Diallo, J. Dubail and M. Collura, Accuracy of a time-dependent generalized gibbs ensemble approach under weak dissipation , Phys. Rev. A 112 ,012206 (2025), doi:10.1103/x9c1-hyxh. [50] A. March´ e, H. Yoshida, A. Nardin, H. Katsura and L. Mazza, Open quantum spin chains with non-reciprocity: a theoretical approach based on the time-dependent gen-eralized gibbs ensemble , arXiv:2601.08606 (2026). [51] L. Capizzi and R. Travaglino, Phase transitions without gap closing in monitored quantum mean-field systems , arXiv:2512.04201 (2025). [52] R. Travaglino, C. Rylands and P. Calabrese, Quench dynamics of entanglement entropy under projective charge measurements: the free fermion case , J. Stat. Mech. 
+
+2025 (12), 123101 (2025), doi:10.1088/1742-5468/ae09a0. [53] F. H. L. Essler and M. Fagotti, Quench dynamics and relaxation in isolated inte-grable quantum spin chains , J. Stat. Mech.: Theory Exp. 2016 (06), 064002 (2016), doi:10.1088/1742-5468/2016/06/064002. [54] X. Cao, A. Tilloy and A. D. Luca, Entanglement in a fermion chain under continuous monitoring , SciPost Phys. 7, 024 (2019), doi:10.21468/SciPostPhys.7.2.024. [55] O. Alberton, M. Buchhold and S. Diehl, Entanglement transition in a monitored free-fermion chain: From extended criticality to area law , Phys. Rev. Lett. 126 ,170602 (2021), doi:10.1103/PhysRevLett.126.170602. [56] M. Fava, L. Piroli, T. Swann, D. Bernard and A. Nahum, Nonlinear sigma mod-els for monitored dynamics of free fermions , Phys. Rev. X 13 , 041045 (2023), doi:10.1103/PhysRevX.13.041045. [57] I. Poboiko, P. P¨ opperl, I. V. Gornyi and A. D. Mirlin, Theory of free fermions under random projective measurements , Phys. Rev. X 13 , 041046 (2023), doi:10.1103/PhysRevX.13.041046. [58] M. Fava, L. Piroli, D. Bernard and A. Nahum, Monitored fermions with conserved u(1) charge , Phys. Rev. Res. 6, 043246 (2024), doi:10.1103/PhysRevResearch.6.043246. [59] S. Bravyi, Lagrangian representation for fermionic linear optics , arXiv preprint quant-ph/0404180 (2004). [60] B. ˇZunkoviˇ c, Closed hierarchy of correlations in markovian open quantum systems ,New J. Phys. 16 (1), 013042 (2014), doi:10.1088/1367-2630/16/1/013042. [61] S. Caspar, F. Hebenstreit, D. Mesterhazy and U.-J. Wiese, Dissipative bose–einstein condensation in contact with a thermal reservoir , New J. Phys. 18 (7), 073015 (2016), doi:10.1088/1367-2630/18/7/073015. [62] S. Caspar, F. Hebenstreit, D. Mesterh´ azy and U.-J. Wiese, Dynamics of dissipative bose-einstein condensation , Phys. Rev. A 93 , 021602 (2016), doi:10.1103/PhysRevA.93.021602. 28 SciPost Physics Submission 
+
+[63] D. Mesterh´ azy and F. Hebenstreit, Solvable markovian dynamics of lattice quantum spin models , Phys. Rev. A 96 , 010104 (2017), doi:10.1103/PhysRevA.96.010104. [64] M. Foss-Feig, J. T. Young, V. V. Albert, A. V. Gorshkov and M. F. Maghrebi, Solv-able family of driven-dissipative many-body systems , Phys. Rev. Lett. 119 , 190402 (2017), doi:10.1103/PhysRevLett.119.190402. [65] I. Klich, Closed hierarchies and non-equilibrium steady states of driven systems ,Ann. Phys. 404 , 66 (2019), doi:10.1016/j.aop.2019.02.008. [66] L. Vidmar and M. Rigol, Generalized gibbs ensemble in integrable lattice mod-els , J. Stat. Mech.: Theory Exp. 2016 (06), 064007 (2016), doi:10.1088/1742-5468/2016/06/064007. [67] P. Calabrese and J. Cardy, Evolution of entanglement entropy in one-dimensional systems , J. Stat. Mech. 2005 (04), P04010 (2005), doi:10.1088/1742-5468/2005/04/P04010. [68] A. Bastianello and A. De Luca, Nonequilibrium steady state generated by amoving defect: The supersonic threshold , Phys. Rev. Lett. 120 , 060602 (2018), doi:10.1103/PhysRevLett.120.060602. [69] M. Ljubotina, S. Sotiriadis and T. Prosen, Non-equilibrium quantum transport in presence of a defect: the non-interacting case , SciPost Phys. 6, 004 (2019), doi:10.21468/SciPostPhys.6.1.004. [70] G. D. V. D. Vecchio, A. D. Luca and A. Bastianello, Transport through in-teracting defects and lack of thermalisation , SciPost Phys. 12 , 060 (2022), doi:10.21468/SciPostPhys.12.2.060. [71] G. Gouraud, P. Le Doussal and G. Schehr, Quench dynamics of noninteracting fermions with a delta impurity , J. Phys. A: Math. Theor. 55 (39), 395001 (2022), doi:10.1209/0295-5075/accec7. [72] G. Gouraud, P. Le Doussal and G. Schehr, Stationary time correlations for fermions after a quench in the presence of an impurity , Europhysics Lett. 142 (4), 41001 (2023), doi:10.1209/0295-5075/accec7. [73] L. Capizzi, S. Scopa, F. Rottoli and P. Calabrese, Domain wall melting across a defect , Europhysics Lett. 141 (3), 31002 (2023), doi:10.1209/0295-5075/acb50a. [74] C. Rylands and P. Calabrese, Transport and entanglement across integrable im-purities from generalized hydrodynamics , Phys. Rev. Lett. 131 , 156303 (2023), doi:10.1103/PhysRevLett.131.156303. [75] L. Capizzi and V. Eisler, Entanglement evolution after a global quench across a conformal defect , SciPost Phys. 14 , 070 (2023), doi:10.21468/SciPostPhys.14.4.070. [76] B. Bertini and M. Fagotti, Determination of the nonequilibrium steady state emerging from a defect , Phys. Rev. Lett. 117 , 130402 (2016), doi:10.1103/PhysRevLett.117.130402. [77] V. Alba, Free fermions with dephasing and boundary driving: Bethe Ansatz results ,SciPost Phys. Core 8(1), 011 (2025), doi:10.21468/SciPostPhysCore.8.1.011. 29 SciPost Physics Submission 
+
+[78] T. Antal, P. L. Krapivsky and A. R´ akos, Logarithmic current fluctuations in nonequilibrium quantum spin chains , Phys. Rev. E 78 , 061115 (2008), doi:10.1103/PhysRevE.78.061115. [79] K. Sch¨ onhammer, Full counting statistics for noninteracting fermions: Ex-act results and the Levitov–Lesovik formula , Phys. Rev. B 75 , 205329 (2007), doi:10.1103/PhysRevB.75.205329. [80] K. Sch¨ onhammer, Full counting statistics for noninteracting fermions: exact finite-temperature results and generalized long-time approximation , J. Phys.: Condens. Matter 21 (49), 495306 (2009), doi:10.1088/0953-8984/21/49/495306. [81] P. E. Dolgirev, J. Marino, D. Sels and E. Demler, Non-gaussian correlations im-printed by local dephasing in fermionic wires , Phys. Rev. B 102 , 100301 (2020), doi:10.1103/PhysRevB.102.100301. [82] G. Di Fresco, Y. L. Gal, D. Valenti, M. Schir` o and A. Carollo, Entanglement growth in the dark intervals of a locally monitored free-fermion chain , arXiv:2411.13667 (2024). [83] A. Russotto, F. Ares, P. Calabrese and V. Alba, Inhomogeneous quenches and ghd in the ν = 1 qssep model , arXiv:2602.15122 (2026). [84] M. Takahashi, Thermodynamics of one-dimensional solvable models , Cambridge university press Cambridge (1999). [85] H. Buhrman, M. Folkertsma, B. Loff and N. M. Neumann, State preparation by shallow circuits using feed forward , Quantum 8, 1552 (2024), doi:q-2024-12-09-1552/. [86] L. Piroli, G. Styliaris and J. I. Cirac, Approximating many-body quantum states with quantum circuits and measurements , Phys. Rev. Lett. 133 , 230401 (2024), doi:10.1103/PhysRevLett.133.230401. [87] S. Rethinasamy, M. L. LaBorde and M. M. Wilde, Logarithmic-depth quan-tum circuits for hamming weight projections , Phys. Rev. A 110 , 052401 (2024), doi:10.1103/PhysRevA.110.052401. [88] W. Zi, J. Nie and X. Sun, Shallow quantum circuit implementation of symmetric functions with limited ancillary qubits , IEEE Trans. Comp-Aided Design Int. Circ. Syst. 44 (8), 3060 (2025), doi:10.1109/TCAD.2025.3539002. [89] A. Morvan, T. I. Andersen, X. Mi, C. Neill, A. Petukhov, K. Kechedzhi, D. A. Abanin, A. Michailidis, R. Acharya, F. Arute et al. , Formation of robust bound states of interacting microwave photons , Nature 612 (7939), 240 (2022), doi:s41586-022-05348-y. [90] K. Maruyoshi, T. Okuda, J. W. Pedersen, R. Suzuki, M. Yamazaki and Y. Yoshida, 
+
+Conserved charges in the quantum simulation of integrable spin chains , J. Phys. A: Math. Theor. 56 (16), 165301 (2023), doi:10.1088/1751-8121/acc369. [91] N. Keenan, N. F. Robertson, T. Murphy, S. Zhuk and J. Goold, Evidence of kardar-parisi-zhang scaling on a digital quantum simulator , npj Quantum Inf. 9(1), 72 (2023), doi:s41534-023-00742-4. 30 SciPost Physics Submission 
+
+[92] M. Vanicat, L. Zadnik and T. Prosen, Integrable trotterization: Local con-servation laws and boundary driving , Phys. Rev. Lett. 121 , 030606 (2018), doi:10.1103/PhysRevLett.121.030606. [93] M. Ljubotina, L. Zadnik and T. Prosen, Ballistic spin transport in a period-ically driven integrable quantum system , Phys. Rev. Lett. 122 , 150605 (2019), doi:10.1103/PhysRevLett.122.150605. [94] I. L. Aleiner, Bethe ansatz solutions for certain periodic quantum circuits , Ann. Phys. 433 , 168593 (2021), doi:10.1016/j.aop.2021.168593. [95] G. Giudice, G. Giudici, M. Sonner, J. Thoenniss, A. Lerose, D. A. Abanin and L. Piroli, Temporal entanglement, quasiparticles, and the role of interactions , Phys. Rev. Lett. 128 , 220401 (2022), doi:10.1103/PhysRevLett.128.220401. [96] P. W. Claeys, J. Herzog-Arbeitman and A. Lamacraft, Correlations and commut-ing transfer matrices in integrable unitary circuits , SciPost Phys. 12 , 007 (2022), doi:10.21468/SciPostPhys.12.1.007. [97] Y. Miao and E. Vernier, Integrable quantum circuits from the star-triangle relation ,Quantum 7, 1160 (2023), doi:10.22331/q-2023-11-03-1160. [98] E. Vernier, B. Bertini, G. Giudici and L. Piroli, Integrable digital quantum simu-lation: Generalized gibbs ensembles and trotter transitions , Phys. Rev. Lett. 130 ,260401 (2023), doi:10.1103/PhysRevLett.130.260401. [99] E. Vernier, H.-C. Yeh, L. Piroli and A. Mitra, Strong zero modes in integrable quantum circuits , Phys. Rev. Lett. 133 , 050606 (2024), doi:10.1103/PhysRevLett.133.050606. [100] F. H¨ ubner, E. Vernier and L. Piroli, Generalized hydrodynamics of integrable quan-tum circuits , SciPost Phys. 18 , 135 (2025), doi:10.21468/SciPostPhys.18.4.135. [101] C. Paletta and T. Prosen, Integrability of open boundary driven quantum circuits ,SciPost Phys. 18 , 027 (2025), doi:10.21468/SciPostPhys.18.1.027. [102] C. Paletta, U. Duh, B. Pozsgay and L. Zadnik, Integrability and charge trans-port in asymmetric quantum-circuit geometries , J. Phys. A: Math. Theor. (2025), doi:10.1088/1751-8121/ade483. [103] L. Di´ osi, N. Gisin and W. T. Strunz, Non-markovian quantum state diffusion , Phys. Rev. A 58 , 1699 (1998), doi:10.1103/PhysRevA.58.1699. [104] C. M. Caves and G. J. Milburn, Quantum-mechanical model for continuous position measurements , Phys. Rev. A 36 , 5543 (1987), doi:10.1103/PhysRevA.36.5543. 31
