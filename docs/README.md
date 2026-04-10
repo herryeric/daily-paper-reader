@@ -6,75 +6,76 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-09
-- 运行时间：2026-04-09 20:33:46 UTC
+- 最新运行日期：2026-04-10
+- 运行时间：2026-04-10 20:15:11 UTC
 - 运行状态：成功
 - 本次总论文数：18
 - 精读区：7
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度追踪 18 篇物理前沿，重点聚焦量子涡旋发射罗通（roton）的首次观测及魔角石墨烯的强关联超导研究。
-研究不仅在实验上捕捉到了量子
-- 详情：[/202604/09/README](/202604/09/README)
+今日聚焦超导领域双重突破，深度解读扭曲双层铜氧化物与镍基薄膜的最新研究成果。
+重点揭示了拓扑多组分配对机制及双层镍氧化物的三维电子结构，两项核心研究均获满分评价。
+建议关注非常规超导中的多轨道耦合与拓扑态演化，把握高温超导物理的前沿脉搏。
+- 详情：[/202604/10/README](/202604/10/README)
 
 ### 精读区论文标签
-1. [Observation of roton emission from a quantized vortex](/202604/09/2604.06498v1-observation-of-roton-emission-from-a-quantized-vortex)  
+1. [Topological multicomponent-pairing superconductivity in twisted bilayer cuprates](/202604/10/2604.08235v1-topological-multicomponent-pairing-superconductivity-in-twisted-bilayer-cuprates)  
    标签：评分：10.0/10、query:cmp
-   evidence：超流氦中量子涡旋的旋子发射
-2. [Strongly Correlated Superconductivity in Twisted Bilayer Graphene: A Gutzwiller Study](/202604/09/2604.04631v2-strongly-correlated-superconductivity-in-twisted-bilayer-graphene-a-gutzwiller-study)  
+   evidence：扭转双层铜氧化物中的多组分配对超导性
+2. [Three-Dimensional Electronic Structures in Superconducting Ruddlesden-Popper Bilayer Nickelate Films](/202604/10/2604.08430v1-three-dimensional-electronic-structures-in-superconducting-ruddlesden-popper-bilayer-nickelate-films)  
+   标签：评分：10.0/10、query:cmp
+   evidence：Ruddlesden-Popper双层镍氧化物的超导机制
+3. [Nonlinear phononics in LaFeAsO: Optical control of the crystal structure toward possible enhancement of superconductivity](/202604/10/2604.06745v1-nonlinear-phononics-in-lafeaso-optical-control-of-the-crystal-structure-toward-possible-enhancement-of-superconductivity)  
    标签：评分：9.0/10、query:cmp
-   evidence：魔角转角双层石墨烯中的强关联超导
-3. [Anisotropic hybrid stars: Interplay of superconductivity and magnetic field leading to gravitational waves](/202604/09/2604.06308v1-anisotropic-hybrid-stars-interplay-of-superconductivity-and-magnetic-field-leading-to-gravitational-waves)  
+   evidence：通过光学控制晶体结构增强 LaFeAsO 的超导性
+4. [Granular Superconductivity in La$_{2}$PrNi$_{2}$O$_{7-δ}$ Thin Films](/202604/10/2604.07807v1-granular-superconductivity-in-la2prni2o7--thin-films)  
    标签：评分：9.0/10、query:cmp
-   evidence：混合星中颜色超导与中子超流的相互作用
-4. [Directional Andreev-Reflection Signatures of Inter-Orbital Pairing in Sr$_2$RuO$_4$](/202604/09/2604.06706v1-directional-andreev-reflection-signatures-of-inter-orbital-pairing-in-sr2ruo4)  
+   evidence：双层镍氧化物薄膜中的颗粒超导性
+5. [Hubbard vs. Emery model: spectra, transport and relevance for cuprates](/202604/10/2604.08085v1-hubbard-vs-emery-model-spectra-transport-and-relevance-for-cuprates)  
    标签：评分：9.0/10、query:cmp
-   evidence：非常规超导与轨道间配对
-5. [Observation of the Ferromagnetic Kondo Effect](/202604/09/2604.07174v1-observation-of-the-ferromagnetic-kondo-effect)  
+   evidence：铜氧化物高温超导体的输运性质与模型
+6. [Co-operating multiorbital and nonlocal correlations in bilayer nickelate](/202604/10/2604.08221v1-co-operating-multiorbital-and-nonlocal-correlations-in-bilayer-nickelate)  
    标签：评分：9.0/10、query:cmp
-   evidence：奇异费米液体行为与铁磁Kondo效应
-6. [Perpendicular electric field induced $s^\pm$-wave to $d$-wave superconducting transition in thin film La$_3$Ni$_2$O$_7$](/202604/09/2604.07185v1-perpendicular-electric-field-induced-spm-wave-to-d-wave-superconducting-transition-in-thin-film-la3ni2o7)  
+   evidence：超导双层镍氧化物中的多轨道关联
+7. [Orbital-Selective $d$-wave Superconductivity in the Two-Band $t$-$J$ Model: Possible Applications to La$_3$Ni$_2$O$_7$](/202604/10/2604.08319v1-orbital-selective-d-wave-superconductivity-in-the-two-band-t-j-model-possible-applications-to-la3ni2o7)  
    标签：评分：9.0/10、query:cmp
-   evidence：双层镍氧化物La3Ni2O7中的超导转变
-7. [In-situ Observation of Magnetostriction Crossover in a Strongly Dipolar Two-Dimensional Bose Gas](/202604/09/2604.07194v1-in-situ-observation-of-magnetostriction-crossover-in-a-strongly-dipolar-two-dimensional-bose-gas)  
-   标签：评分：9.0/10、query:cmp
-   evidence：玻色气体中从超流相到正常相的磁致伸缩跨越
+   evidence：使用t-J模型研究镍氧化物La3Ni2O7中的d波超导性
 
 ### 速读区论文标签
-1. [A Note on the Resolvent Algebra and Functional Integral Approach to the Free Bose Einstein Condensation](/202604/09/2604.01424v2-a-note-on-the-resolvent-algebra-and-functional-integral-approach-to-the-free-bose-einstein-condensation)  
+1. [$\mathbb Z_{2q}$ parafermionic hinge states in a three-dimensional array of coupled nanowires](/202604/10/2604.07313v1-mathbb-z2q-parafermionic-hinge-states-in-a-three-dimensional-array-of-coupled-nanowires)  
    标签：评分：8.0/10、query:cmp
-   evidence：玻色-爱因斯坦凝聚的算符代数表述
-2. [Robust quantized thermal conductance of Majorana floating edge bands in d-wave superconductors](/202604/09/2604.05588v1-robust-quantized-thermal-conductance-of-majorana-floating-edge-bands-in-d-wave-superconductors)  
+   evidence：二阶拓扑超导体模型
+2. [Superradiance enhances and suppresses fermionic pairing based on universal critical scaling rate in two order parameters systems](/202604/10/2604.07407v1-superradiance-enhances-and-suppresses-fermionic-pairing-based-on-universal-critical-scaling-rate-in-two-order-parameters-systems)  
    标签：评分：8.0/10、query:cmp
-   evidence：打破时间反演对称性的d波超导体中的马约拉纳边缘能带
-3. [Ballistic atomic transport in narrow carbon nanotubes](/202604/09/2604.06490v1-ballistic-atomic-transport-in-narrow-carbon-nanotubes)  
+   evidence：双序参量系统中的费米子配对与临界标度
+3. [d-Wave pair density wave superconductivity in a two-orbital model](/202604/10/2604.07511v1-d-wave-pair-density-wave-superconductivity-in-a-two-orbital-model)  
    标签：评分：8.0/10、query:cmp
-   evidence：液氦-4流动的量子力学描述
-4. [Breathing Modes as a Probe of Energy Fluctuations in a Unitary Fermi Gas](/202604/09/2604.06594v1-breathing-modes-as-a-probe-of-energy-fluctuations-in-a-unitary-fermi-gas)  
+   evidence：多轨道系统中的d波对密度波超导性
+4. [Type-I and Type-II Saddle Points and a Topological Flat Band in a Bi-Pyrochlore Superconductor CsBi2](/202604/10/2604.07805v1-type-i-and-type-ii-saddle-points-and-a-topological-flat-band-in-a-bi-pyrochlore-superconductor-csbi2)  
    标签：评分：8.0/10、query:cmp
-   evidence：幺正费米气体中的能量涨落
-5. [Proximate quantum spin liquids and Majorana continua in magnetically ordered Kitaev magnets](/202604/09/2604.03099v1-proximate-quantum-spin-liquids-and-majorana-continua-in-magnetically-ordered-kitaev-magnets)  
+   evidence：Bi-烧绿石超导体CsBi2的电子结构研究
+5. [Cascade of Spin Liquids in a Bilayer Triangular-lattice Antiferromagnet Rb_2Co_2(SeO_3)_3](/202604/10/2604.03737v2-cascade-of-spin-liquids-in-a-bilayer-triangular-lattice-antiferromagnet-rb2co2seo33)  
    标签：评分：7.0/10、query:cmp
-   evidence：Kitaev 磁体中的量子自旋液体与马约拉纳准粒子
-6. [Quantum exciton solid with embedded electron-hole solids in double-layer WSe2](/202604/09/2604.03740v1-quantum-exciton-solid-with-embedded-electron-hole-solids-in-double-layer-wse2)  
+   evidence：受挫磁体中的自旋液体
+6. [Temperature evolution of orbital states with successive phase transitions in FeV2O4](/202604/10/2604.04398v1-temperature-evolution-of-orbital-states-with-successive-phase-transitions-in-fev2o4)  
    标签：评分：7.0/10、query:cmp
-   evidence：双层WSe2中激子固体的形成
-7. [Temperature evolution of orbital states with successive phase transitions in FeV2O4](/202604/09/2604.04398v2-temperature-evolution-of-orbital-states-with-successive-phase-transitions-in-fev2o4)  
+   evidence：强关联尖晶石氧化物FeV2O4中的轨道态研究
+7. [Valence Bond Glass and Glassy Spin Liquid in Disordered Frustrated Magnets](/202604/10/2604.05501v1-valence-bond-glass-and-glassy-spin-liquid-in-disordered-frustrated-magnets)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联尖晶石氧化物中的轨道态
-8. [Decoding Equilibrium and Dynamical Criticality in the 2D Topological Order](/202604/09/2604.05198v1-decoding-equilibrium-and-dynamical-criticality-in-the-2d-topological-order)  
+   evidence：受挫磁体中的量子自旋液体和集体单态激发
+8. [Quantum spin liquid ground state with the evidence of roton-like excitations at elevated temperatures in the triangular-lattice delafossite YbCuSe$_2$](/202604/10/2604.05784v1-quantum-spin-liquid-ground-state-with-the-evidence-of-roton-like-excitations-at-elevated-temperatures-in-the-triangular-lattice-delafossite-ybcuse2)  
    标签：评分：7.0/10、query:cmp
-   evidence：强相互作用拓扑序与量子相变
-9. [Fermionic mean-field dynamics for spin systems beyond free fermions](/202604/09/2604.02584v1-fermionic-mean-field-dynamics-for-spin-systems-beyond-free-fermions)  
+   evidence：量子自旋液体基态与类罗伦激发
+9. [Insulator-to-Metal Transitions Driven by Quantized Formal Polarization Mismatch](/202604/10/2604.01530v1-insulator-to-metal-transitions-driven-by-quantized-formal-polarization-mismatch)  
    标签：评分：6.0/10、query:cmp
-   evidence：关联自旋系统的费米子动力学
-10. [Generalized hydrodynamics of free fermions under extensive-charge monitoring](/202604/09/2604.05850v1-generalized-hydrodynamics-of-free-fermions-under-extensive-charge-monitoring)  
+   evidence：量子材料中的绝缘体-金属转变
+10. [Cascade of Classical Spin Liquids in a Bilayer Triangular-lattice Antiferromagnet Rb_2Co_2(SeO_3)_3](/202604/10/2604.03737v1-cascade-of-classical-spin-liquids-in-a-bilayer-triangular-lattice-antiferromagnet-rb2co2seo33)  
    标签：评分：6.0/10、query:cmp
-   evidence：自由费米子的流体力学与输运规律
-11. [Interaction-Mediated Non-Reciprocal Dynamics in Open Quantum Systems: From an Exactly Solvable Model to Generic Behavior](/202604/09/2604.07346v1-interaction-mediated-non-reciprocal-dynamics-in-open-quantum-systems-from-an-exactly-solvable-model-to-generic-behavior)  
+   evidence：三角晶格磁体中的自旋液体
+11. [Electron and phonon spectrum in a metallic nanohybrid](/202604/10/2604.04885v1-electron-and-phonon-spectrum-in-a-metallic-nanohybrid)  
    标签：评分：6.0/10、query:cmp
-   evidence：费米子晶格中的Hatsugai-Kohmoto相互作用
+   evidence：金属纳米混合材料中的电子和声子能谱
 
 
 <div class="dpr-home-promo-card">

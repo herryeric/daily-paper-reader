@@ -1,0 +1,2529 @@
+Title: Hubbard vs. Emery model: spectra, transport and relevance for cuprates
+
+URL Source: https://arxiv.org/pdf/2604.08085v1
+
+Published Time: Fri, 10 Apr 2026 01:11:03 GMT
+
+Number of Pages: 34
+
+Markdown Content:
+## Hubbard vs. Emery model: spectra, transport and relevance for cuprates 
+
+J. Vuˇ ciˇ cevi´ c1 and R. ˇZitko 2, 3 
+
+> 1
+
+Scientific Computing Laboratory, Center for the Study of Complex Systems, Institute of Physics Belgrade, University of Belgrade, Pregrevica 118, 11080 Belgrade, Serbia 
+
+> 2
+
+Joˇ zef Stefan Institute, Jamova 39, SI-1000 Ljubljana, Slovenia 
+
+> 3
+
+Faculty of Mathematics and Physics, University of Ljubljana, Jadranska 19, SI-1000 Ljubljana, Slovenia 
+
+Understanding the transport properties of cuprate superconductors is one of the central challenges in the physics of strongly correlated electrons. The most common approach is to define and solve a low-energy lattice model, but it is still unclear what the minimal model is to capture all relevant mechanisms and provide quantitative predictions. The main uncertainty concerns the choice of the orbital degrees of freedom to be included in the model, as well as the definition of the effective coupling. In this paper, we study the two most commonly considered models, namely the single-orbital Hubbard model and the three-orbital Emery model. We investigate and compare their spectral and transport properties, and find that the two models present a similar, but not the same, physical picture. We identify several strong quantitative differences which might allow one to discriminate between the two models by comparing theory with experiments. We compare our results for several physical quantities with 7 different experiments on 3 different La 2CuO 4-based cuprates, and in general find excellent agreement. The dc resistivity and the effective mass results suggest that the coupling constant in the effective Hubbard model is larger than expected. We find several more properties that are sensitive to the precise value of the coupling constant, including the critical doping for the Lifshitz transition, and the local spectral weight in the vicinity of the Fermi level; the latter provides a promising way to estimate the effective coupling constant in future photoemission experiments. 
+
+I. INTRODUCTION 
+
+Unconventional superconductivity is a strong motiva-tion to study simplified low-energy lattice models [1– 3]. Previous works have shown that the single-band Hubbard model can qualitatively describe the normal-state transport properties in several classes of uncon-ventional superconductors, including the cuprates[4], κ-organics[5–8], and moir´ e systems[9–11]. Spectral prop-erties of the cuprates are also qualitatively described by the Hubbard model, in particular the node-antinode di-chotomy in the pseudogap regime and the superconduct-ing phase[12–18]. However, more recent studies of the magnitude of the superconducting critical temperature in the cuprates have suggested that other models might be more appropriate[19–21]. One possibility is to con-sider a 3-band Emery model [19, 21–24] which includes additional orbital degrees of freedom. Another possibil-ity is to consider a more general single-band model that involves interactions beyond the local density-density coupling[25–28] included in the Hubbard model. The standard Hubbard model has been thoroughly stud-ied for many decades[29–39], but in recent years the attention has been increasingly shifting towards the Emery model [22–24, 40–53]. However, the compari-son between the results obtained in the two models has been so far performed only in a limited way[24, 45]. In particular, the transport properties of the Emery model have been studied only very recently[52], at the time of writing this manuscript. The sensitivity of cuprate compounds to doping is one of the central aspects of their physics. In the stan-dard lattice-model approach, the dopant concentration is modeled indirectly, by varying the chemical poten-tial; therefore, the carrier density becomes an input parameter of the calculation rather than the result of it[4, 9, 10, 12, 16, 23, 32, 52, 54, 55]. Yet, the re-lation between carrier density and dopant concentra-tion is not necessarily simple. For this reason, more 
+
+ab initio approaches that avoid formulating a lattice model are of great interest. For example, charge-self-consistent schemes that combine the density functional theory (DFT) and the dynamical mean field theory (DFT+DMFT[56, 57] or eDMFT [58, 59]) allow one to model the dopant concentration directly using virtual crystal approximation [59, 60]. However, charge self-consistent schemes run into the same problem of hav-ing to choose the correlated orbitals and the effective coupling constants[59]. In fact, computing the coupling constants has been one of the most difficult problems in the field, as it formally represents a quantum many-body problem in its own right [61]. Namely, downfolding an ab initio Hamiltonian to a few-band lattice model involves integrating out inter-acting degrees of freedom; the resulting action should in principle involve all possible time-dependent many-body interactions[62]. Nevertheless, the common wis-dom is that the dominant interactions can be taken as two-body, local and instantaneous (e.g., the Hub-bard interaction), and that one can choose an effec-tive coupling constant U that captures the major ef-
+
+> arXiv:2604.08085v1 [cond-mat.str-el] 9 Apr 2026
+
+2fects of the screening processes omitted in the down-folded model. Theoretical approaches to downfolding and the estimation of the effective Hubbard-U are many [27, 61, 63–81], but true control over error bars is not feasible at present. The most widely adopted way of computing U is the constrained random phase ap-proximation (cRPA)[69, 72, 74, 79, 80, 82]; it yields a frequency-dependent coupling amplitude, going from a highly renormalized small value at low frequency, to the very high bare-Coulomb value at infinite frequency. The procedure to convert this result to a single Hubbard-U
+
+value for an instantaneous interaction is not obvious[83]. The overall uncertainty is reflected in the range of U -values considered in literature: in different studies of the cuprates U has been taken to be anywhere from about 3 eV to about 14 eV [59, 84–97]. Certainly, the correct U must be material-dependent, and different models (single-band vs. three-band) require different effective values of U . The most appropriate value of 
+
+U to describe the cuprates is one of the field’s cen-tral, long-standing open questions [41]. The problem is exacerbated by the lack of clear U -sensitive features that would allow one to fix the value of U by compar-ing theoretical and experimental results. The size of the energy gap above the conduction band is one obvi-ous U -dependent feature[87, 98], but its precise relation with the value of U has not been studied systematically enough[99–101], i.e. across different models and for dif-ferent compounds. In this paper, we study the standard Hubbard and Emery models, aiming to resolve which one of these models provides the best description of the La 2CuO 4-based cuprates and to constrain the correct coupling in each case. We compute the model parameters following the stan-dard procedure of downfolding a DFT band-structure [67, 102], and we do it for the La 2CuO 4 parent com-pound. We use the method of maximally localized Wan-nier functions (MLWF) [103–105], starting from the Cu 3dx2−y2 and the appropriate O 2 p orbitals of the copper and oxygen atoms that form the copper-oxide planes. We then use DMFT with the numerical renormaliza-tion group (NRG) impurity solver [106–108] to com-pute the local spectral function and the direct-current (dc) resistivity. At the level of DMFT, the vertex cor-rections vanish[10, 109] and the dc resistivity can be computed using the Kubo bubble, without invoking ad-ditional approximations. The NRG is formulated in the real-frequency domain and thus avoids the issues of an-alytic continuation; the downside is that NRG is ap-proximate, but it has been successfully benchmarked against numerically exact methods many times in the past [32, 110–114]. Using DMFT+NRG, we scan the doping-temperature phase diagrams and generate an extensive dataset. We analyze these results and start by identifying systematic differences in the predictions of the Emery and Hubbard models. We find that there is a robust quantitative dif-ference between the local spectra in those models. Most importantly, the size of the energy gap varies with dop-ing much more strongly in the Hubbard than in the Emery model; in the Emery model it is roughly a con-stant. On the other hand, the density of states near the Fermi level has a strong dependence on the doping level, similarly in both models. We identify a qualita-tive feature, clearly evident in the case of the Hubbard model: the local density of occupied states, integrated over a small window of energy just below the Fermi level, reaches a maximum at the value of doping that is strongly dependent on U . The position of this maxi-mum, if observed in a photoemission experiment, could be used to estimate the value of the effective coupling constant. We also compute the momentum-resolved spectral func-tion and compare it directly to available angle-resolved photoemission spectroscopy (ARPES)[115–118] mea-surements, in particular Ref. 119. With both the Hub-bard and Emery models, we find good agreement, but only after broadening our results with an additional 
+
+∼0.5 eV imaginary self-energy. The need for additional broadening probably reflects the significant disorder in the cuprates[120, 121], which is not considered at the level of our (clean) lattice models. Indeed, our estimate of the elastic scattering rate due to disorder has the correct order of magnitude (about 0.17 eV-0.25 eV), but this remains a subtle issue. The broadening of spectral lines is not simply related to the transport scattering rate. We compute the dc resistivity ρdc and find that it is significantly higher in the Emery model than in the Hubbard model when the size of the energy gap in the spectral function is well matched between the two models, which is when U Hubbard ≈ 23 U Emery . Simi-lar dc resistivity in both models is only obtained when 
+
+U Hubbard ≈ 54 U Emery , but then the spectral functions are no longer similar. Interestingly, the best match-ing between the local spectra of Emery and Hubbard models at energies around the Fermi level is observed when U Hubbard ≈ U Emery . This provides a clear exam-ple where the effective scattering rate that determines the transport properties is not simply related to the width of the quasi-particle peak in the single-particle spectrum. We compare our results to the experimental mea-surements on monocrystals of Sr-doped (LSCO)[122], Ba-doped (LBCO)[123] and Ce-doped (LCCO)[124] La 2CuO 4. The Emery model ρdc results (assuming the conventional U Emery = 8 eV) have the correct magnitude and are in excellent agreement with LSCO and LBCO, but less so with LCCO. The Hubbard model resistivity is clearly too small when U Hubbard 
+
+is taken to be of order 4-5 eV, as suggested by cRPA 3estimates[94, 97, 125]. However, with a larger value of 
+
+U Hubbard ≈ 8 − 10 eV it is possible to obtain an excel-lent and very systematic agreement with experiment, for all three compounds. The agreement with LCCO, how-ever, is good only at low temperature up to about 150 K where ρdc (T ) dependence (at a fixed doping) is linear. At higher temperatures, one observes much more curved 
+
+ρdc (T ) in the experiment, which likely comes from some effects not accounted for in our theory (e.g. the effective retardation of interactions, electron-phonon coupling, or even temperature dependent effective doping, say, due to evaporation of oxygens[126]). Finally, we look at two more important quantities that have been previously studied in experiment. First, LSCO is known to undergo a Lifshitz transition (LT) at about 21% doping [127–129]; at that point, the Fermi surface changes topology, from hole-like to electron-like. We observe such a LT in our results; the precise value of doping where it occurs, δLT , depends on the coupling 
+
+U , but ostensibly not so much on the model. The de-pendence of δLT on U is relatively weak, but it can be used to narrow down the range of experimentally rel-evant U values. More importantly, both the Hubbard and the Emery model, when their parameters are fixed so that ρdc results come in agreement with the experi-ment, also (roughly) reproduce the correct value of δLT .This is a clear indication that the number of holes ( δ)in the model is equal to the dopant concentration x
+
+in the experiment, at least when it comes to LSCO. This is an important finding that justifies the lattice-model approach, as δ is not expected to be the same as 
+
+x in general, especially in more complicated multi-layer cuprates[59]. The second quantity of great interest is the effective (cy-clotron, or thermodynamic) mass, m∗ 
+
+> c
+
+. On the side of our theory, m∗ 
+
+> c
+
+can be extracted from the momentum-resolved spectral function. Again, we find that when our results for ρdc are in good agreement with experiment, the results for m∗ 
+
+> c
+
+are in good agreement with exper-iment, too, at least for LSCO. Our findings are rele-vant for the Planckian dissipation hypothesis [130–132]. This hypothesis aims to explain linear-in-temperature strange-metallic resistivity in terms of a saturated T -linear bound for the scattering rate. Multiple experi-ments on various materials [126, 133–138] have shown that in strange-metal regimes, the (inelastic) scattering rate 1 /τ indeed scales as αk BT with α around 1. From the knowledge of ρdc and m∗ 
+
+> c
+
+in our theory, we repro-duce the value α ≈ 1, but find that it is also strongly 
+
+U -dependent. This raises questions about the universal-ity of this experimentally observed phenomenon. More importantly, we find possible inconsistencies in the way the inelastic scattering rate has been extracted from ex-periment. More specifically, it appears that the effec-tive cyclotron mass appearing in the Sommerfeld ex-pression for the specific heat coefficient has been used interchangeably with the effective transport mass that appears in the Drude formula. We show with a sim-ple example that in the vicinity of a Lifshitz transition, it is not justified to identify the two effective masses. Our findings might have implications for the validity of the conclusions made in previous experimental studies of Planckian dissipation - the effective scattering rate might be as much as 5 times higher than was previously thought. Overall, our results provide a systematic assessment of how well the standard lattice models capture the spectral and transport properties of the La 2CuO 4-based cuprates. We show that quantitative agreement with ex-perimental results is possible across multiple compounds and physical quantities. Our work suggests future direc-tions for both theoretical and experimental work. Fur-ther investigations are necessary to understand our un-expected finding that a large coupling constant in the Hubbard model is needed to reproduce the experimen-tal results. On the other hand, momentum-integrated photoemission experiments could be devised to narrow down the possible values of the effective coupling in the standard Hubbard and Emery models. The rest of the paper is organized as follows. In Sec. II we describe our models and the procedure to parametrize them. In Sec. III we explain our methodol-ogy, i.e. the details of the DFT calculations we used as a starting point for our lattice models (Sec. III A), the DMFT solution of those models (Sec. III B), the com-putation of the resistivity (Sec. III C, App. C), and our approach to phase diagram scans (Sec. III D). In Sec. IV we present our numerical data. In Sec. IV A we examine the spectra of the Hubbard and Emery model and com-pare with ARPES experiments, with additional details given in App. B. In Sec. IV B we compare the resistivity between Hubbard and Emery models, and then compare our transport data with experiment in Sec. IV C. Then we study the Lifshitz transition in our data and compare to experiments in Sec. IV D. Finally, we compare our effective mass results to experiment in Sec. IV E with further details given in App. A. In Sec. V we discuss our findings in detail, connect with existing literature, and envision prospects for future work.  
+
+> II. MODELS
+
+We start by considering the crystal structure of the parent compound La 2CuO 4. There are two relevant crystal structures, usually referred to as the T and T’ structures[124, 139], shown in Fig. 1. The main dif-ference is that in the T-structure one finds “apex oxy-gens” placed just below and above the copper atoms (along the c-axis), while in the T’-structure the oxy-gens are instead found on the faces of the conventional unit cell. The T-structure is relevant for the hole-doped 4
+
+FIG. 1. Two possible crystal structures for compounds ob-tained by doping La 2CuO 4, denoted T and T’. T-structure is relevant for LSCO and LBCO; T’-structure is relevant for LCCO above about 5% doping[124]. 
+
+compounds LSCO and LBCO, while the T’-structure is relevant for the electron-doped LCCO, which goes through a structural phase transition from T to T’ at a small doping of around 5%[124]. Another subtlety is that LSCO and LBCO go through a structural phase transition at intermediate temperatures ∼ 300 K (de-pending on doping) to a slightly different crystal struc-ture, that features buckling and enlargement of the unit cell (LTO phase)[140, 141], but is overall similar to the high-temperature HTT phase that we are considering for the sake of simplicity. LBCO goes through another structural phase transition at even lower temperature 
+
+∼ 50 K and about 1/8 doping[142], but we will not be focusing on that part of the phase diagram. We take the crystal structures from The Materials Project database [143, 144], with ID’s mp-19735 for the T-structure and mp-1077929 for the T’-structure. We perform the DFT calculation using Quantum Espresso [145, 146], to obtain the electronic band structure for both crystal structures. The band structures are ob-tained with two sets of pseudopotentials (SSSP[147] and ONCV[148]) and we have found no significant difference between the respective results. The DFT bandstruc-tures are shown in Fig. 2 on the left. Using SSSP pseu-dopotentials, we were also able to compute the orbital character of the Bloch states - the contribution of the relevant Cu 3 d and O 2 p orbitals are color coded on top of the band structure in Fig. 2 (first column). We then use standard wannierization tools to obtain the param-eters for the tight-binding matrix (TB-matrix) of the 3-band Emery model (more details given in Section III A). The TB-matrix for the Hubbard model can be obtained in the same way by wannierization of a single band at the Fermi level; as expected, we find that the resulting downfolded dispersion coincides almost perfectly with the corresponding band in the 3-band Emery model. The downfolded band-structures are overlaid on top of the DFT bandstructures in Fig. 2 (second column). Formally, the Emery model Hamiltonian in the orbital basis l = 0 , 1, 2 ≡ d, p x, p y reads ˆHEmery = ˆHEmery 0 + ˆHEmery int 
+
+ˆHEmery 0 = X
+
+> σ, rr ′
+
+Ψ†
+
+> σ, r
+
+hrr ′ Ψσ, r′ (1) ˆHEmery int = U Emery X
+
+> r
+
+c†
+
+> l=0 ,↑,r
+
+c†
+
+> l=0 ,↓,r
+
+cl=0 ,↓,rcl=0 ,↑,r
+
+where r denotes the position of the unit cell (set to the position of the d-orbital within the unit cell) and σ =↑, ↓
+
+is the spin projection. For convenience, we have defined the row vector of creation operators 
+
+Ψ† 
+
+> σ, r
+
+= ( c†
+
+> l=0 ,σ, r
+
+, c †
+
+> l=1 ,σ, r
+
+, c †
+
+> l=2 ,σ, r
+
+) (2) and a 3 × 3 TB-matrix                                                     
+
+> hrr ′=
+> 
+> εdδrr ′tpd (δrr ′−δr+ex,r′)tpd (δrr ′−δr+ey,r′)
+> tpd (δrr ′−δr−ex,r′)εpδrr ′+t′
+> pp (δr+ex,r′+δr−ex,r′)tpp (δrr ′−δr+ey,r′−δr−ex,r′+δr−ex+ey,r′)
+> tpd (δrr ′−δr−ey,r′)tpp (δrr ′−δr−ey,r′−δr+ex,r′+δr+ex−ey,r′)εpδrr ′+t′
+> pp (δr+ey,r′+δr−ey,r′)
+> (3)
+
+We parametrize the TB part of the Emery model Hamil-tonian by the onsite energies εd and εp, and the hop-ping amplitudes tdp , tpp and t′
+
+> pp
+
+. The physical mean-ing of these hopping amplitudes is illustrated on Fig. 3. Surely, the non-interacting Hamiltonian resulting from the wannierization of the DFT band structure also con-tains longer-range hrr ′ components. However, for the sake of reproducibility, it is important that our models can be defined using a small set of numbers. For this reason, we truncate all longer range hoppings. This in-troduces only a minor modification of the downfolded band structure, comparable in size to the discrepancy 56
+
+> 4
+> 2
+> 024
+> E EF [eV]  (T-structure)
+
+SSSP PP's  
+
+> Cu 3 dx2y2
+> O(x) 2 px
+> O(y) 2 py
+
+ONCV PP's 
+
+> (0, 0, 0)
+> ( , 0, 0)
+> (0,  , 0)
+> ( , , 0)
+> 6
+> 4
+> 2
+> 024
+> E EF [eV]  (T'-structure)
+> (0, 0, 0) ( , 0, 0)
+> (0,  , 0)
+> ( , , 0)
+> (0, 0, 0)
+> 1-band wannierization 3-band wannierization
+
+Crystal momentum k(0, 0) ( , )(0, )( , 0) (0, 0) 
+
+k    
+
+> 2
+> 0
+> 2
+> 4
+> 6
+> E , k
+> Hubbard
+> = 2
+> = 1
+> = 0
+> d
+> (0, 0) (,)(0, )(, 0) (0, 0)
+
+k  
+
+> 2
+> 0
+> 2
+> 4
+> E , k
+> Emery
+> = 2
+> = 1
+> = 0
+> dd
+
+Edc     
+
+> (0, 0) (,)(0, )(, 0) (0, 0)
+
+k    
+
+> 3
+> 2
+> 1
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> E , k
+> Hubbard
+> (0, 0) (,)(0, )(, 0) (0, 0)
+
+k
+
+> 3
+> 2
+> 1
+> 0
+> 1
+> 2
+> 3
+> 4
+> E , k
+> Emery
+
+T
+
+T' 
+
+FIG. 2. Left: Orbital projected DFT band structure and wannierized band structures for the two possible crystal structures of La 2CuO 4-based compounds (top: T, bottom: T’). Right: non-interacting band structures for our models to be solved using DMFT; truncating long-range hoppings in the 3-band picture modifies slightly the band structure. Subtracting the double-counting shift further modifies the band structure. The single-band Hubbard model dispersion is identified with the corresponding band in the three-band model, before subtracting the double-counting shift. 
+
+FIG. 3. Illustration of the physical meaning of the tight-binding matrix elements in the Emery model. 
+
+between the DFT band structure and the original down-folded one. The computed values of the TB-parameters for both T and T’ crystal structures are summarized in Table I. 
+
+TABLE I. Tight-binding parameters for the Emery model structure εd − εp tpd tpp t′ 
+
+> pp
+
+[eV] T 2.579 1.335 0.654 0.126 T’ 1.582 1.094 0.616 0.152 
+
+We can diagonalize the non-interacting part of the Hamiltonian to obtain: ˆHEmery 0 = X
+
+> σ,α, k
+
+Eα, kd†
+
+> α,σ, k
+
+dα,σ, k (4) where α = 0 , 1, 2 enumerates the eigenbands so that 
+
+α′ > α ⇒ Eα′,k > E α, k, and k denotes the crystal momenta in the first Brillouin zone (BZ). Finally, instead of parameterizing the Hubbard model based on an independent wannierization, we adopt the dispersion relation of the highest-energy band ( α = 2) in the Emery model as the dispersion in the Hubbard model. This is a negligible modification of the single-band wannierization results, yet it allows for a more straight-forward comparison between the two models. 6The Hubbard model Hamiltonian then reads ˆHHubbard = ˆHHubbard 0 + ˆHHubbard int 
+
+ˆHHubbard 0 = X
+
+> σ, k
+
+Eα=2 ,kc†
+
+> σ, k
+
+cσ, k (5) ˆHHubbard int = U Hubbard X
+
+> r
+
+c†↑,rc†↓,rc↓,rc↑,r
+
+Note that ˆHHubbard 0 can be Fourier transformed back to the real-space basis to yield ˆHHubbard 0 = X
+
+> σ, rr ′
+
+tr−r′ c†
+
+> σ, r
+
+cσ, r′
+
+and tr−r′ will in general have infinite range, even though we have truncated the range of hopping in the corre-sponding Emery model. In both models we only keep the on-site density-density coupling, and in the Emery model, the interaction is retained only on the d-orbitals. As already mentioned, the effective coupling constants U for both models are not well known, but the common approach is to compute them approximately using cRPA. One can find a wide range of estimates in the available literature[23, 59, 84– 94, 96, 97, 149, 150], but the values appear to cluster around [23, 94–97, 125, 149] 
+
+U Hubbard = 4eV , U Emery = 8eV (6) The large difference of the coupling constant in the two effective models is easily understood—downfolding to a larger number of bands (orbitals per unit cell) yields Wannier orbitals that are more localized and thus have effectively stronger on-site couplings. However, as we will see, the half-filled T-structure Hubbard model turns out not to be a Mott insulator at U Hubbard = 4 eV, at least at the level of our DMFT solution. We will study how the results in the Hubbard model depend on the coupling constant in a large range of values, and we will consider the Emery model at U Emery = 8eV. An important subtlety in the downfolding procedure is that some effects of interactions are already included at the level of DFT calculation. Solving a downfolded model using many-body techniques can thus lead to double counting of interaction effects. This is not an is-sue in the case of the Hubbard model, but in the Emery model one needs to appropriately shift the onsite energy on the interacting d-orbital to subtract the Hartree shift that was already introduced at the level of DFT. This shift is not well known. We take the estimate from lit-erature Edc = 3 .12 eV[23], consistent with the estimate of U Emery = 8 eV that we use.   
+
+> III. METHODS A. Extraction of effective lattice-model parameters from DFT calculations
+
+The DFT bandstructures that we have downfolded (to get our effective models, as discussed in the previous section) have been obtained using Quantum Espresso. We have used SG15 ONCV PBE pseudo potentials[148]. In the calculation we have used the primitive unit cell, 6 × 6 × 6 k-points, and the kinetic energy cut-offs were set to 80 Ry and 400 Ry for the wavefunctions and charge density, respectively. We used Gaussian smearing, and 0.02 Ry spreading. For wannierization we have used RESPACK [105, 151] and have checked that 
+
+Wannier90 [152] gives the same result. In the wannier-ization we have not used the frozen window.  
+
+> B. DMFT solution for the self-energy
+
+We solve our models using DMFT. The underlying approximation is that the self-energy is fully local, Σk(ω) ≈ Σ( ω). It is computed within an effective An-derson impurity problem using NRG. NRG introduces additional approximations, but these have been shown in multiple previous works to be small by benchmark-ing with numerically exact quantum Monte Carlo im-purity solvers and other methods [32, 110, 111, 114]. The advantage of NRG is that it produces results on the real-frequency axis; in this way we avoid the ill-defined analytic continuation, which is particularly im-portant when studying dynamical response functions. We also emphasize that the DMFT treatment of the Emery model does not involve any approximations be-yond those already present in the Hubbard-model calcu-lations. For a full explanation of the DMFT and NRG methods we refer the reader to the ample literature on these subjects[35, 108, 153–155]. The solution of DMFT for the Emery model follows the following steps: 1. Choose an initial guess for the self-energy (if no better approximation is available, we start from Σdd (ω) with an approximate Hartree shift and a moderate frequency-independent imaginary part; starting from Σ dd = 0 does not converge well or at all) 2. Compute the dd -component of the lattice local Green’s function as 
+
+Gloc ,dd (ω) = 
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 Gk,dd (ω) (7) where 
+
+Gk(ω) = [( ω + μ)I3×3 − hk − Σ(ω)] −1 (8) 7is the momentum-dependent retarded Green’s function, expressed as a 3 × 3-matrix in the or-bital space. The chemical potential μ can be either preset, or tuned in this step to enforce the desired level of doping. In the same basis, the self-energy reads 
+
+Σ(ω) = 
+
+
+
+Σdd (ω) 0 00 0 00 0 0
+
+
+
+and the non-interacting Hamiltonian is given by 
+
+hk =
+
+
+
+εd 2tpd sin kx 
+
+> 2
+
+−2tpd sin ky
+
+> 2
+
+H.c. ε p + 2 t′ 
+
+> pp
+
+cos kx −4tpp sin kx 
+
+> 2
+
+sin ky
+
+> 2
+
+H.c. H.c. εp + 2 t′ 
+
+> pp
+
+cos ky
+
+ .
+
+(9) We emphasize again that εd here is shifted by the double-counting energy, Edc 
+
+3. Compute the new hybridization function using ∆( ω) = ω + μ − εd − Σdd (ω) − 1/G loc ,dd (ω)4. Solve the impurity problem with the hybridization function ∆ and compute the impurity self-energy Σimp 
+
+5. Approximate the lattice self-energy as Σ dd (ω) ≈
+
+Σimp and go to Step 2 The DMFT loop is iterated until convergence. The implementation of Step 2 is numerically non-trivial. The spectral function Im Gk,dd (ω) is in many cases very sharply peaked, and thus converging the integral over momenta in Eq. (7) is difficult. We make use of the 
+
+cubepy [156] adaptive integration library which imple-ments Genz-Malik adaptive quadrature algorithm[157] using Berntsen’s error estimation[158]. Moreover, we avoid doing the full inverse of the 3 ×3 matrix in Eq. (8), as only the dd -component is actually needed. Any other components of the Green’s function are computed only after convergence, if needed (e.g. to inspect the orbital-resolved spectral function). For Hubbard model, the computation of the local Green’s function in Step 2 is significantly simpler be-cause it is a scalar (as there is only one orbital per unit cell) and one can convert the momentum integral into a frequency integral 
+
+Gloc =
+
+Z
+
+dε ρ0(ε)
+
+ω + μ − ε − Σ( ω) (10) where ρ0(ε) is the bare density of states, computed nu-merically as 
+
+ρ0(ε) = 
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 δ(ε − Eα=2 ,k) (11) The densities of states for the two Hubbard models used in this work are shown in Fig. 4. 0.0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 
+
+[eV]  
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+
+T-struct. 0
+
+T-struct. 
+
+T'-struct. 0
+
+T'-struct. 
+
+FIG. 4. Bare density of states ρ0 and the velocity-weighted density of states Φ in the Hubbard model for the two differ-ent crystal structures. 
+
+C. Kubo bubble for the dc conductivity 
+
+We compute the conductivity using the Kubo bubble expression. This step does not introduce any addi-tional approximations beyond those we already make in DMFT and NRG. This follows from the self-energy being purely local; consequently, the vertex corrections to conductivity vanish. This was established long ago for the Hubbard model[109], and it also holds in the presence of magnetic fields[10]. However, it is not imme-diately obvious that the same line of argument applies to the Emery model. In the Hubbard model, the proof of the cancellation of the vertex corrections relies on the velocity being antisymmetric with respect to the wave vector, vk = −v−k. In the Emery model, the velocity is a matrix and we will see that some of its elements are not antisymmetric, but rather symmetric. However, the corresponding components of the Green’s function are antisymmetric and the cancellation still proceeds in much the same way as in the Hubbard model. This is summarized in the following table (AS=anti-symmetric, S=symmetric) and illustrated on Fig. 5. Note that the full vertex F is diagonal in the orbital indices (because we only keep interactions on the d-orbital) and only de-pends on the transfer momentum because of the DMFT approximation ( Fl1l2l3l4,kk ′q ≈ δl1=l2=l3=l4=dFdddd, q ). 
+
+l1, l 2 vk,l 1l2 Gk,dl 1 Gk,l 2d overall 
+
+d, d 0 S S 0
+
+d, p x S S AS AS d, p y 0 S AS 0
+
+px, p x AS AS AS AS px, p y AS AS AS AS py , p y 0 AS AS 0(12) 8
+
+FIG. 5. Illustration of the proof of the cancellation of vertex corrections in the DMFT solution of the Emery model. Spin indices are omitted for the sake of simplicity, without loss of generality. 
+
+In the Emery model, the Kubo bubble for the DC con-ductivity can be expressed as 
+
+σdc (13) = − 2e2
+
+πℏ
+
+Nlayers 
+
+c
+
+Z 2π
+
+> 0
+
+dk
+
+(2 π)2
+
+X
+
+> l1,l 2,l 3,l 4
+
+×˜vx, k,l 1l2 ˜vx, k,l 3l4
+
+Z
+
+dωIm Gk,l 2l3 (ω)Im Gk,l 4l1 (ω)n′
+
+> F
+
+(ω)where Gk is the momentum-dependent Green’s function in the orbital basis defined in Eq. (8), e is the electron charge, c is the thickness of the conventional unit cell (T-structure: 1.322 nm, T’-structure: 1.259 nm), and 
+
+Nlayers is the number of CuO 2 planes per conventional unit cell (in our case Nlayers = 2). The first derivative of the Fermi-Dirac distribution is denoted n′
+
+> F
+
+. Note that the conductivity does not explicitly involve the in-plane lattice constant a. For the sake of simplicity, through-out the paper we consider that the BZ goes from (0,0) to (2 π,2 π); We keep all the crystallographic quantities and fundamental constants in the prefactor and define the reduced velocity in the x-direction by the (matrix-valued) derivative ˜vx, k = − ℏ
+
+e (∂Ax hk)|A→0 (14) To perform this differentiation, one needs to revisit the preceding step and introduce in the TB matrix a uni-form vector potential in the x-direction Ax(q = 0). The full derivation is outlined in App. C, and here we only present the final result: ˜vx, k =
+
+
+
+0 tpd cos kx 
+
+> 2
+
+0H.c. −2t′ 
+
+> pp
+
+sin( kx) −2tpp cos kx 
+
+> 2
+
+sin ky
+
+> 2
+
+0 H.c. 0
+
+ .
+
+(15) There is an important subtlety to be considered here. To introduce the vector potential in the lattice model, we are making use of Peierls substitution[159]. This is an approximation that relies on orbitals being well lo-calized. A priori this might mean that the approach is more justified in the case of the Emery model than in the case of the Hubbard model, as the Wannier orbitals in the former are more localized. It is an important question for future work whether an improved approach can be formulated, one that avoids Peierls substitution altogether. In principle, the velocity matrix can be ob-tained at the level of DFT, in a continuous space calcu-lation, by projecting the current operator to the active subspace. Such considerations are, however, beyond the scope of the present paper. To numerically evaluate the dc resistivity via Eq. (13), we perform adaptive integration over the BZ and com-pute Green’s functions on the fly from the self-energy. The integral over frequency ω is performed using a uni-form grid within cutoffs proportional to temperature, set so that we capture 99.9% of the weight of n′
+
+> F
+
+(ω). We see in Eq. (13) that the sum over orbital indices P 
+
+> l1,..,l 4
+
+has a priori 34 = 81 terms, but many of them will not contribute, and some are connected by symme-try. Based on the form of vx, k (vx, k,ll ′ = vx, k,l ′l) and the fact that some components are zero, and making use of the symmetry Gk,ll ′ = Gk,l ′l (this can be proven by writing the matrix inverse of a symmetric matrix explic-itly, term by term), we find that the only independent non-zero terms are 
+
+l1, l 2 l3, l 4 symmetry prefactor 
+
+d, p x d, p x 2
+
+d, p x px, d 2
+
+d, p x px, p x 4
+
+d, p x px, p y 4
+
+d, p x py , p x 4
+
+px, p x px, p x 1
+
+px, p x px, p y 4
+
+px, p y px, p y 2
+
+px, p y py , p x 2(16) However, it turns out that the contributions px, p y |px, p y
+
+and px, p y |py , p x are also the same. Similarly, 
+
+d, p x|py , p x and d, p x|px, p y , as well as d, p x|d, p x and 
+
+d, p x|px, d are the same. We use these symmetries to further speed up the calculation. Note also that some components give a negative contribution to conductiv-ity. For the Hubbard model, Eq. (13) simplifies because there are no sums over orbital indices, the velocity and the Green’s function are scalars (fully analogously, ˜vx, k = ∂kx Eα=2 ,k), and the momentum integral can be further simplified by transforming it into a single inte-gral over frequency 
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 ˜v2 
+
+> x, k
+
+→
+
+Z
+
+dεΦ( ε) (17) with Φ( ε) = 
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 ˜v2
+
+> x, k
+
+δ(ε − Eα=2 ,k) (18) The velocity-weighted densities of states Φ( ε) (also known as the transport functions) for the two Hubbard 9model parametrizations used in this work are shown in Fig. 4.  
+
+> D. Definition of doping and the approach to phase diagram scans
+
+We solve the Hubbard and the Emery model on fixed chemical-potential and temperature grids. The doping level is determined a posteriori by computing the total occupancy per site per spin. In the Emery model we define 
+
+⟨nσ ⟩ ≡ X
+
+> l
+
+⟨c†
+
+> l,σ, r=0
+
+cl,σ, r=0 ⟩ (19) = − 1
+
+π
+
+X
+
+> l
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2
+
+Z
+
+dωIm Gk,ll (ω)nF(ω)and the doping level as the number of holes per site 
+
+δ ≡ 2
+
+ 52 − ⟨ nσ ⟩
+
+
+
+(20) Therefore, positive δ corresponds to hole-doping, nega-tive δ corresponds to electron-doping. As δ ∈ [−1, 1], we usually express it in terms of (signed) percentages of the maximal possible doping. Similarly, in the Hubbard model we define 
+
+⟨nσ ⟩ ≡ ⟨ c†
+
+> σ, r=0
+
+cσ, r=0 ⟩ (21) = − 1
+
+π
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2
+
+Z
+
+dωIm Gk(ω)nF(ω)and 
+
+δ ≡ 2
+
+ 12 − ⟨ nσ ⟩
+
+
+
+. (22) Since we are ultimately interested in the dc resistivity as a function of temperature at a fixed doping , we in-terpolate our results. For a fixed temperature, we first interpolate μ(⟨nσ ⟩) to get μ for the desired doping, and then do a 1D interpolation of ρdc (μ, T ) at that value of the chemical potential μ. In some cases we also perform calculation for the preset doping level, and check that the errors due to interpolation of ρdc are negligible. We do not interpolate the spectral functions; the curves shown are obtained directly from the DMFT calcula-tions. For this reason, the matching between doping values in the Hubbard and Emery models on some fig-ures will not be perfect, but the resulting mismatch does not affect the conclusions of our analyses.     
+
+> IV. RESULTS A. Hubbard vs. Emery: spectral properties
+> 1. T-structure (LSCO, LBCO)
+
+In Fig. 6 we compare the local spectral function in the Hubbard and Emery models for the hole-doped T-structure. The local spectral function is defined as: 
+
+A(ω) = − 1
+
+π
+
+X
+
+> l
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 Im Gk,ll (ω) (Emery) 
+
+A(ω) = − 1
+
+π
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 Im Gk(ω) (Hubbard) (23) Here we take U Hubbard = 5 eV and U Emery = 8 eV. For the given U Emery value, this choice of U Hubbard yields the best matching between the spectra of two models in terms of the size of the gap, as we will see. We find that for U Hubbard = 4 eV the Hubbard model is not yet a Mott insulator and does not match well the behavior of the U Emery = 8 eV Emery model at low doping values. In both models one recognizes two bands of similar shape, one around the Fermi level and one above it. The upper one is referred to as the upper Hubbard band (UHB). The one on the Fermi level is referred to as the lower Hubbard band (LHB) in the context of the Hubbard model, but as the the Zhang-Rice singlet band (ZRSB) in the context of the Emery model. The gap between the LHB and UHB in the Hubbard model is referred to as the Mott gap; the gap between the ZRSB and the UHB in the Emery model is referred to as the charge transfer gap (CTG). At finite doping and low temperature, a sharp quasi-particle (QP) peak around the Fermi level is present in both models and has a similar shape. The QP peak changes with respect to doping and temperature in a similar fashion in both models. We observe two obvious differences between the models. First, in the Hubbard model, the UHB is wider and has lower weight. Second, the size of the gap between the top two bands is not the same. We define the edges of the bands as frequencies where A(ω) drops below 0.02, and the size of a gap as the energy difference between the two edges, ∆ gap . We find that the size of the Mott gap in the Hubbard model varies with doping much more than the CTG in the Emery model, see Fig. 7(a). At low doping the Mott gap is smaller than CTG, while at high doping the Mott gap is larger than the CTG. Clearly, ∆gap is strongly dependent on U in both models; in Fig. 7 we see that the best matching in terms of ∆ gap is precisely when U Hubbard = 5 eV (given that U Emery =8 eV). In the Hubbard model, the spectral weights of the LHB and UHB add up to 1, by construction. In the Emery 10 10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0 
+
+[eV]               
+
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A( ) + const
+> LHB
+> CTB ZRSB UHB
+> LHB UHB
+> =0.0%
+> = 3.4%
+> = 6.9%
+> = 11.2%
+> = 13.1%
+> = 15.7%
+> = 20.9%
+> = 26.6%
+> = 26.2%
+> = 20.8%
+> = 16.2%
+> = 12.2%
+> = 10.3%
+> = 5.7%
+> = 3.4%
+> =0.0%
+> T= 58.0K (0.005eV)
+> 10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0
+
+[eV]     
+
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A( ) + const
+> =0.1%
+> = 1.8%
+> = 5.1%
+> = 9.3%
+> = 11.6%
+> = 14.0%
+> = 19.4%
+> = 25.2%
+> = 24.9%
+> = 19.7%
+> = 14.9%
+> = 10.7%
+> = 8.8%
+> = 3.8%
+> = 1.2%
+> = 0.0%
+> T= 580.3K (0.05eV)
+> Emery
+> Hubbard U= 5eV
+> T-structure (LSCO/LBCO)
+
+FIG. 6. Comparison of the local spectral function between the Hubbard and Emery models for the T-structure, relevant for LSCO and LBCO, at various dopings and two different temperatures. The coupling constants in the two models are: 
+
+U Hubbard = 5 eV, U Emery = 8 eV. Different bands are referred to as: lower Hubbard band (LHB), charge transfer band (CTB), Zhang-Rice singlet band (ZRSB), upper Hubbard band (UHB). 
+
+model, ZRSB and UHB weights do not add up to 1. The comparison of relevant band-weights in the two models is shown in Fig. 7(b). UHB in the Hubbard model has smaller weight compared to the Emery model, while LHB in the Hubbard model has higher weight than Emery ZRSB. At zero doping (Mott insulator) in the Hubbard model, LHB and UHB have equal weights. In the Emery model, the UHB and ZRSB have equal weights at doping of around 3%; in the undoped Mott insulator, the UHB is stronger than ZRSB, and it has a weight of precisely 1/2 (i.e., exactly one hole per cell, as expected). In Fig. 7(c) we compare the density of occupied states 11 0 10 20 
+
+Doping [%] 
+
+T = 580.3K (0.05eV)   
+
+> 010 20
+
+Doping [%] 
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> gap  [eV]
+
+(a) 
+
+T = 58.0K (0.005eV)           
+
+> Hubbard U= 4.5eV
+> Hubbard U= 5eV
+> Hubbard U= 6eV
+> Emery U= 8eV 010 20
+
+Doping [%] 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Band weight
+
+(b) 
+
+T = 58.0K (0.005eV)       
+
+> Hubbard U= 5eV
+> Emery U= 8eV
+> 010 20
+
+Doping [%] 
+
+T = 580.3K (0.05eV)    
+
+> LHB/ZRSB
+> UHB
+> LHB/ZRSB+UHB 010 20 30
+
+Doping [%] 
+
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> 0.04
+> 0.05
+> <window 00.12 eV d < ( )
+
+(c) 
+
+T = 58.0K (0.005eV)   
+
+> 010 20
+
+Doping [%] 
+
+T = 580.3K (0.05eV)       
+
+> Hubbard U= 5eV
+> Hubbard U= 8eV
+> Emery U= 8eV
+
+FIG. 7. Quantifying spectral properties in the T-structure models relevant for LSCO/LBCO: comparison between the Emery and the Hubbard model as a function of doping, for two different temperatures, and for different choices of 
+
+U Hubbard . U Emery = 8 eV everywhere. (a) Comparison be-tween the gap-size ∆ gap of the Mott gap in the Hubbard model and the charge-transfer gap in the Emery model. (b) Comparison of the spectral weight between the correspond-ing bands in two models. (c) Comparison of the occupied spectral weight just below the Fermi level, as defined in the text, ρ<
+
+> window
+
+.0 10 20 30 40 50 
+
+[%]               
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+> 0.025
+> 0.030
+> 0.035
+> 0.040
+> <window  = 00.12 eV d < ( )
+> Hubbard model for T-structure (LSCO/LBCO), T= 348K
+> 510 15
+> U[eV]
+> 20
+> 30
+> max  [%]
+> U= 4eV
+> U= 4.5eV
+> U= 5eV
+> U= 6eV
+> U= 8eV
+> U= 10eV
+> U= 12eV
+> U= 14eV
+> U= 16.3eV
+
+FIG. 8. Dependence of the occupied spectral weight just below the Fermi level, ρ<
+
+> window
+
+, in the Hubbard model for the T-structure (LSCO/LBCO), as a function of doping δ and the coupling constant U . ρ<
+
+> window
+
+(δ) reaches a maximum at 
+
+δmax (U ), denoted by colored dots, and summarized in the inset. 
+
+just below the Fermi level for the two models. The den-sity of occupied states is defined as 
+
+ρ<(ω) = 
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 ρ< 
+
+> k
+
+(ω) (24) where 
+
+ρ< 
+
+> k
+
+(ω) = Ak(ω)nF(ω) (25) 
+
+Ak(ω) = − 1
+
+π
+
+X
+
+> l
+
+Im Gk,ll (ω) (Emery) (26) 
+
+Ak(ω) = − 1
+
+π Im Gk(ω) (Hubbard) (27) and we are interested in its integral in the energy win-dow ω ∈ [−0.12 eV , 0 eV]. In both models, ρ< 
+
+> window
+
+≡
+
+R 0 
+
+> −0.12 eV
+
+dωρ <(ω) grows with doping, but in a slightly different fashion. This difference is particularly pro-nounced at low temperature. In the Hubbard model the growth between 3.5% and 21% doping is slower -
+
+ρ< 
+
+> window
+
+grows by a factor of about 1.5; in the Emery model it grows by a factor of about 3. However, this difference appears to be related more to the value of 
+
+U in the model, than to the model itself. As can be seen in Fig. 7(c) the doping dependence of ρ< 
+
+> window
+
+is much more similar between the Hubbard and the Emery model when both are evaluated for U = 8 eV. We in-spect in detail the U -dependence of ρ<
+
+> window
+
+(δ) in the Hubbard model and show the results in Fig. 8. We see that there is a pronounced maximum ρ<
+
+> window
+
+(δ) at a doping value δmax that is strongly dependent on U : this characteristic doping δmax grows roughly linearly from 12 0.5 0.4 0.3 0.2 0.1 0.0 0.1 0.2 
+
+[eV] 
+
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> 1.25
+> 1.50
+> 1.75
+> 2.00
+> < ( )+const
+> = 38.1%
+> = 22.1%
+> = 12.8%
+> = 6.0%
+> = 2.4%
+
+U = 4.5eV        
+
+> 0.5 0.4 0.3 0.2 0.1 0.0 0.1 0.2
+
+[eV] 
+
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> 1.6
+> 1.8
+> 2.0
+> = 39.6%
+> = 23.2%
+> = 12.6%
+> = 5.9%
+> = 2.0%
+
+U = 10eV        
+
+> 0.5 0.4 0.3 0.2 0.1 0.0 0.1 0.2
+
+[eV] 
+
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> 1.6
+> 1.8
+> 2.0
+> = 38.4%
+> = 22.4%
+> = 11.5%
+> = 6.4%
+> = 2.2%
+
+U = 16.3eV 
+
+Hubbard model for T-structure (LSCO/LBCO), T = 348K 
+
+FIG. 9. Density of occupied states ρ<(ω) in the Hubbard model for the T-structure (LSCO/LBCO) in the vicinity of the Fermi level, as a function of doping, and for three different values of the coupling constant. Gray circles/gray squares denote local maxima/minima in the presented frequency range and highlight that the quasi-particle peak becomes narrower with the increasing coupling constant. 0.100 0.075 0.050 0.025 0.000 0.025 0.050 0.075 0.100 
+
+[eV] 
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> 3.5
+> 4.0
+> 4.5
+> <
+> k = Node ( )
+
+(a)                     
+
+> Hubbard model + broadening, LSCO/LBCO, T= 81K U= 10eV, = 16.4%
+> 0.1 0.0 0.1
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0 = 0.5
+> U= 6eV
+> U= 10eV
+> U= 14eV
+> = 0eV
+> = 0.01eV
+> = 0.05eV
+> = 0.1eV
+> = 0.2eV
+> = 0.5eV
+> LSCO ARPES (arb. units)
+> x= 15%, T=80K 0.100 0.075 0.050 0.025 0.000 0.025 0.050 0.075 0.100
+
+[eV] 
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> <
+> k = Node ( )
+
+(b)       
+
+> Emery model + broadening, LSCO/LBCO, T= 81K U= 8eV, = 15.8%
+> = 0eV
+> = 0.05eV
+> = 0.2eV
+> = 0.6eV
+> ARPES (arb. units)
+> x= 15%, T=80K
+
+FIG. 10. Comparison of the DMFT momentum-resolved spectral function with ARPES experiment on LSCO, taken from Ref. 119. (a) Hubbard model; (b) Emery model. The spectral function is computed at the node, i.e. precisely at the Fermi surface in the θ = π/ 4 radial direction in the k-space. Different curves correspond to different levels of broadening Γ added to the theoretical results to account for disorder in real samples. The inset in (a) shows the dependence on U Hubbard for a fixed Γ. For comparison: ARPES thermal broadening at 80 K is ≈ 16 − 25 meV. 
+
+about 20% to about 40% as U is increased from 4 eV to about 16 eV. This effect is only weakly dependent on temperature (data not shown). We now look more closely at the behavior of ρ<(ω) in the vicinity of the Fermi level. This is shown in Fig. 9. We see that the value of U strongly affects the width of the quasiparticle peak. At about 22% doping, the distance between the maximum and the minimum of 
+
+ρ<(ω) (gray circle and gray square, respectively) goes from about 0.45 eV to about 0.15 eV as U is increased from from about 4 eV to about 16 eV. We believe that both Fig. 8 and Fig. 9 document strong quantitative trends that could be looked for in exper-iment to help deduce the correct effective value of U .However, we are unaware of any existing experimen-tal data that could be compared to our results directly. 13 10 5 0 5 10 
+
+[eV]                    
+
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A( ) + const
+> LHB
+> CTB
+> ZRSB
+> UHB
+> LHB UHB
+> =35.2%
+> =28.7%
+> =22.5%
+> =17.2%
+> =11.2%
+> =5.8%
+> =0.3%
+> = 0.0%
+> =5.2%
+> =10.4%
+> =17.4%
+> =22.9%
+> =28.8%
+> =35.1%
+> T= 58.0K (0.005eV)
+> 10 50510
+
+[eV]              
+
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A( ) + const
+> =32.7%
+> =25.3%
+> =18.3%
+> =12.1%
+> =6.6%
+> =1.8%
+> = 0.6%
+> = 0.0%
+> =3.3%
+> =8.8%
+> =16.3%
+> =22.1%
+> =28.2%
+> =34.7%
+> T= 580.3K (0.05eV)
+> Emery
+> Hubbard
+
+FIG. 11. Comparison of the local spectral function between the Hubbard and Emery models for the T’-structure, relevant for LCCO, at various dopings and two different temperatures. The coupling constant are taken to be U Hubbard = 4 eV, 
+
+U Emery = 8 eV. Band labels are the same as in Fig. 6. 
+
+We find ARPES results in Ref. 119 that present ρ< 
+
+> k
+
+(ω)at momenta on the Fermi surface corresponding to the node and the antinode. The measurement at tempera-ture 80 K and 15% doping shows that the node-antinode dichotomy is weak, and our local self-energy approxi-mation is expected to be reasonable in that parameter regime. In Fig. 10, we compare our results to measure-ments reported in Ref. 119 taken at the node. We find that DMFT for both models predicts much more coher-ent quasiparticles than what is observed in the experi-ment. We argue that such a discrepancy is expected due to strong disorder that is present in real samples, but not in our clean lattice-model theories. An almost per-fect agreement is obtained when we broaden our spec-14 30 25 20 15 10 5 0         
+
+> [%]
+> 0.00
+> 0.01
+> 0.02
+> 0.03
+> 0.04
+> <window 00.12 eV d < ( )
+> Hubbard model for T'-structure (LCCO), T= 348K
+> 510 15
+> U[eV]
+> 20
+> 15
+> 10
+> max  [%]
+> U= 4eV
+> U= 8eV
+> U= 12eV
+> U= 14.55eV
+
+FIG. 12. Same as Fig. 8, but for the electron-doped T’-structure (LCCO). The maxima occur at lower (absolute) values of doping. 
+
+tral function with an additional frequency-independent imaginary self-energy, Σ( ω) → Σ( ω) − iΓ, with Γ = 0.5 eV in the Hubbard model, and Γ = 0 .6 eV in the Emery model. We also note that in the case of the Hubbard model, the best agreement with experiment is obtained when we take U Hubbard = 10 eV (see inset of Fig. 15). However, it is not immediately clear whether disorder can be responsible for such a large broadening of the quasi-particle peak. In fact, if our interpretation is cor-rect, disorder is the leading cause of broadening: the imaginary part of the self-energy at zero frequency in both our models is about 0.05 eV, i.e. 10 times smaller. To try and estimate the amount of broadening one might expect due to disorder, we compute the associated elas-tic scattering rate 1 /τ . We assume the validity of the Drude formula ρdc = m∗
+
+> tr
+
+/(ne 2τ ) [160] and take into account the effective transport mass m∗
+
+> tr
+
+, the carrier density n and the residual dc resistivity ρdc (T = 0). From our DMFT calculation for the Hubbard model with U Hubbard = 6 eV and 12 eV we obtain the xx -component of the stress tensor ⟨K⟩, and extract from it the transport mass m∗
+
+> tr
+
+, again assuming the validity of the Drude formula (see App. A for details). We find that the transport mass is about 2-3 times the bare electron mass me. The electron density per unit cell per layer in the partly-filled current-carrying band is obtained using 
+
+n = (1 − δ)/(da 2) = 8 .83 × 10 27 m−3, where a is the in-plane lattice constant a, and d is the thickness of a single layer (half the height of the conventional unit cell, 
+
+d = c/ 2). From Refs. 122 (LSCO) and 123 (LBCO) we estimate that the residual resistivity at about 15% dop-ing is ρdc (T = 0) ≈ 0.05mΩcm. Plugging these values in the Drude expression for resistivity, the elastic scat-tering rate turns out to be of similar magnitude, about 0.16-0.25 eV. We conclude that an experiment aimed at estimating U
+
+based on our ρ<(ω) or ρ<
+
+> window
+
+(δ) results would have to devise a way to account for the effects of disorder. In particular, one must take into account that the amount of disorder is ultimately sample dependent, even if there are rough general trends in terms of the doping de-pendence (perhaps counterintuitively, LSCO is known to become less disordered with increasing doping[119]). Certainly, one possible route is to extract the scattering rate from the residual resistivity of each individual sam-ple, and broaden the theoretical curves (shown in Fig. 8 and Fig. 9) accordingly. As already mentioned in the introduction, this is still a subtle issue and a possible source of systematic error, as the effects of disorder on the spectral line-widths and on the transport properties might not be proportional, or even simply related. Our results are clear motivation for further theoretical study of the effects of disorder on the broadening of spectral lines. 
+
+2. T ′-structure (LCCO) 
+
+Finally, we study the Emery and the Hubbard mod-els for the electron-doped LCCO, downfolded from the T’-structure La 2CuO 4 DFT result. In this case, the difference in spectra between the two models is much greater, see Fig. 11. The best matching in terms of the position of the LHB in the Hubbard model and the cor-responding band in the Emery model is obtained if we take U Hubbard = 4 eV (given that U Emery = 8 eV). The size of the gap ∆ gap variation with δ in the Hubbard model is much more pronounced. The shape of the QP peak and the UHB is not matched well. The behavior of δmax in the Hubbard model is similar as in the T-structure (see Fig. 12), but it is generally lower in value (the maximum occurs at a lower doping). We conclude this section by noting that the Emery and the Hubbard model spectra share many qualitative fea-tures, but they do not describe exactly the same physics. This means that the single-band Hubbard model, as it is usually defined and parameterized (based on the DFT band-structure), is not a particularly good effec-tive single-band description of the corresponding Emery model at low energies, in all situations. A different single-band model, possibly more complicated, is likely needed. In App. B we discuss the orbital-resolved and non-interacting-eigenband-resolved spectral functions in the Emery model and show that the latter provides indi-cations of what an effective single-band model might be to describe the Emery model at low energies. These re-sults might be relevant for attempts to further downfold the Emery model, e.g. as in Ref. 27. 15 0 5 10 15 20 25 30 35 40 45 
+
+[%]    
+
+> 10 3
+> 10 2
+> 10 1
+> 10 0
+> 10 1
+> dc /U1.2
+
+(a)                           
+
+> T= 232.1K (0.02eV)
+> Hubbard U= 5eV (×1)
+> Hubbard U= 6eV (×1)
+> Hubbard U= 8eV (×1)
+> Hubbard U= 10eV (×1)
+> Hubbard U= 12eV (×1)
+> Hubbard U= 14eV (×1)
+> Hubbard U= 16.3eV (×1)
+> Emery U= 8eV (×0.66)
+> 0510 15 20 25 30 35 40 45
+
+[%]   
+
+> 10 2
+> 10 1
+> 10 0
+> 10 1
+> 10 2
+> dc /U0.9
+
+(b)                  
+
+> T= 580.3K (0.05eV)
+> Hubbard U= 5eV (×1)
+> Hubbard U= 6eV (×1)
+> Hubbard U= 8eV (×1)
+> Hubbard U= 10eV (×1)
+> Hubbard U= 12eV (×1)
+> Hubbard U= 14eV (×1)
+> Hubbard U= 16.3eV (×1)
+> Emery U= 8eV (×0.8)
+
+FIG. 13. Scaling of dc resistivity in the hole-doped Hubbard and Emery models for the T-structure (LSCO/LBCO), at two different temperatures. The numerical values presented are obtained without the constant prefactor in the definition of conductivity, Eq. (13). Different curves correspond to dif-ferent models and different values of U . Each theory curve is multiplied by the factor stated in the legend. The collapse of data points is excellent, except close to the Mott transition. 
+
+B. Hubbard vs. Emery: dc resistivity 
+
+We start by plotting the dc resistivity as a function of the doping in Fig. 13. We observe that the dc resistivity scales roughly as a power law of U , with the exponent value that depends on the temperature and is close to 1. This simple scaling does not hold at low values of 
+
+U where the undoped system is metallic. Furthermore, we see that qualitative behavior is very similar between the Hubbard and the Emery model - practically indis-tinguishable. However, there is some quantitative dif-ference between the two models, the resistivity in the Emery model being higher. The best matching of the resistivity is obtained when U Hubbard = 1 .2U Emery (see 0 100 200 300 400 500 
+
+T [K]          
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> 3.5
+> 4.0
+> dc  [m  cm]
+> = 3%
+> = 5%
+> = 8%
+> = 12%
+> = 20%
+> = 30%
+> Hubbard U= 8eV (×1.25)
+> Emery U= 8eV (×1)
+> 0100 200 300 400 500
+
+T [K]     
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> 3.0
+> 3.5
+> 4.0
+> dc  [m  cm]
+> = 3%
+> = 5%
+> = 8%
+> = 12%
+> = 20%
+> = 30%
+> Hubbard U= 10eV (×1)
+> Emery U= 8eV (×1)
+
+FIG. 14. Comparison of the resistivity between the hole-doped Hubbard and Emery models for the T-structure (LSCO/LBCO). Different colors represent different dopings. Each theory curve is multiplied by a model-dependent con-stant indicated in the legend. The best agreement between the two models is obtained when U Hubbard = 54 U Emery (bot-tom panel). When U Hubbard = U Emery , the result is qualita-tively similar, but Hubbard model yields a smaller resistivity (top panel). 
+
+Fig. 14). However, then the spectral functions are not well matched in terms of ∆ gap .We note that the recent determinantal quantum Monte Carlo (DQMC) study[52] also finds that Emery model has a larger resistivity than the Hubbard model, but the difference observed in that paper is somewhat less pronounced than what we see. This is likely due to a different parametrization of the models in that study, but could also be related to difference in the systematic errors made (finite-size effects and analytic continuation in DQMC vs. the neglect of vertex corrections in our DMFT approach[55]). 16 0 50 100 150 200 250 300 
+
+T [K] 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> dc  [m  cm]
+
+Hubbard U = 10eV                           
+
+> 0.1 0.2 0.3
+> 0.0
+> 0.1
+> 0.2
+> 0 [m  cm]
+> LBCO, x= 7.6%
+> LBCO, x= 9.2%
+> LBCO, x= 11.5%
+> LBCO, x= 12%
+> LSCO, x= 17%
+> LSCO, x= 21%
+> LSCO, x= 26%
+> LSCO, x= 29%
+> Hubbard =x
+> 050 100 150 200 250 300
+
+T [K] 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> dc  [m  cm]
+
+Emery U = 8eV                           
+
+> 0.1 0.2 0.3
+> 0.0
+> 0.1
+> 0.2
+> 0 [m  cm]
+> LBCO, x= 7.6%
+> LBCO, x= 9.2%
+> LBCO, x= 11.5%
+> LBCO, x= 12%
+> LSCO, x= 17%
+> LSCO, x= 21%
+> LSCO, x= 26%
+> LSCO, x= 29%
+> Emery =x050 100 150 200 250 300
+
+T [K] 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> dc  [m  cm]
+
+Hubbard U = 8eV                    
+
+> 0.1 0.2
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0 [m  cm]
+> LCCO, x= 10.1%
+> LCCO, x= 10.9%
+> LCCO, x= 12.3%
+> LCCO, x= 15.2%
+> LCCO, x= 21.9%
+> Hubbard =x
+> 050 100 150 200 250 300
+
+T [K] 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> dc  [m  cm]
+
+Emery U = 8eV              
+
+> 0.1 0.2
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0 [m  cm]
+> LCCO, x= 10.1%
+> LCCO, x= 10.9%
+> LCCO, x= 12.3%
+> LCCO, x= 15.2%
+> LCCO, x= 21.9%
+> Emery =x
+
+FIG. 15. Comparison between our DMFT theory results and the experimental measurements for the dc resistivity in three La 2CuO 4-based cuprates. Left column: Hubbard model with U Hubbard chosen to obtain the best agreement with experiment; right column: Emery model with U Emery = 8 eV. Top row: LSCO and LBCO, experimental data taken from Ref. 122 and 123; bottom row: LCCO, experimental data taken from Ref. 124. Different colors of curves correspond to different dopings. Each theoretical curve is vertically shifted by a doping-dependent amount shown in the corresponding inset to account for the residual resistivity due to disorder in real samples. 
+
+C. Theory vs. experiments: dc resistivity 
+
+On Fig. 15 we compare our theoretical ρdc (T ) to the data measured on single-crystal LSCO[122], LBCO[123] and LCCO[124]. We again emphasize that to compare with LSCO and LBCO we use the hole-doped models for the T-structure, and to compare with LCCO we use the electron-doped models for the T’-structure. As already mentioned, the real cuprates are disordered materials with a large residual resistivity ρdc (T = 0). In the DMFT solutions for the clean, doped Hubbard and Emery models, the resistivity vanishes at T = 0. To be able to compare with the experiment directly we shift the theoretical curves by adding a constant term ρ0; the shift for each doping is shown in the in-sets. Shifting the curves is well motivated by the Math-iessen’s rule[121, 161–163], according to which disorder makes an approximately temperature-independent con-tribution to the resistivity. However, this is unlikely to be applicable at very low doping, close to the Mott insu-lator. We consider only dopings above |δ| = 3% where 17 the curves show a clear metallic trend, d ρdc /dT > 0, at all temperatures. The experiments with LSCO and LBCO are performed at different ranges of doping, but combined results ap-pear to describe a smooth evolution. This suggests that in those materials it is the doping level that determines the resistivity, not so much the mass or the atomic num-ber of the dopant, at least below 200 K where the data is available for both LSCO and LBCO. However, LBCO does exhibit a more complicated behavior at even higher dopings: there are two superconducting domes and the resistivity is not a monotonously decreasing function of the dopant (Ba) concentration x [123]. For that reason, we do not take into consideration the highest doping curve for LBCO shown in Ref.123. Upon inspecting Fig. 15, an immediate observation is that the hole-doped Emery model with U Emery = 8 eV describes the experimental LSCO/LBCO results very well. However, it gives neither qualitatively nor quan-titatively good results for LCCO, except at the highest doping. The Hubbard model with U Hubbard = 5 eV pre-dicts far too low values for ρdc for all compounds. How-ever, with U Hubbard = 10 eV, we get excellent agreement with LSCO. Using U Hubbard = 8 eV we get excellent agreement with LCCO as well, but only up to temper-ature of about 150 K. The experimental data shows up-wards curvature of ρdc (T ) above that temperature, that is not present in either of our models. It is perhaps ex-pected that the effective U in LCCO is smaller, because we find that the bare Coulomb interaction in our mod-els (obtained from wannierization) is about 16.3 eV for LSCO/LBCO and about 14.5 eV for LCCO (computed using COQUI [164, 165]). Finally, it is important to note that our DMFT results for ρdc are subject to systematic errors. In our previous work[55], we have shown that the main error comes from neglecting vertex corrections to ρdc . They were found to mostly amount to an overall downwards shift of the 
+
+ρdc (T ), at least at high enough temperatures. There-fore, it might be possible to absorb the vertex correc-tions in our constant shift of the curves, and they might not affect our conclusions based on the comparison with experiment. In addition, we are more likely to overes-timate than underestimate ρdc . That means that the necessity for taking a higher U in the Hubbard model is likely a robust result. Furthermore, in the case of the Emery model, it is possible that vertex corrections would push our ρdc (T ) results downward, and towards a better agreement with LCCO.  
+
+> D. Theory vs. experiment - Lifshitz transition in LSCO
+
+LSCO is known to undergo a Lifshitz transition (LT) upon doping[127–129] where the topology of the Fermi surface changes from hole-like to electron-like at around 
+
+xLT = 21%. The ARPES data presented in Ref. 129 narrows down xLT to between 17% and 22%, but the sharp maximum in the T -linear specific-heat coefficient 
+
+γ that occurs at precisely x = 21% suggests that this is the exact value of xLT .We inspect the shape of the Fermi surface in our DMFT solutions. We define the Fermi surface as the line con-necting the maxima of the (total) spectral function at zero frequency Ak(ω = 0) along each radial direction θ,i.e. kF(θ) = argmax kAk=( k cos θ,k sin θ)(ω = 0) [where such a maximum exists away from k = (π, k y ) and 
+
+k = ( kx, π ) lines]. In Fig. 16 we illustrate the LT in our Emery model solution. We color code Ak(ω = 0) in the first Brillouin zone, and the Fermi surface is in-dicated by a cyan line. We can determine δLT only up to a systematic uncertainty set by the δ-resolution we have in our data. For U = 0, the LT occurs when the chemical potential coincides precisely with the van Hove singularity in the non-interacting density of states, and this we can calculate with high precision. In Fig. 17 we summarize our δLT results. It appears that 
+
+δLT is pushed downwards as U is increased, roughly lin-early. Importantly, when we take the value of U that yields good agreement with the experimental ρdc , we are also consistent with the experimental value of xLT .However, we see that δLT depends slightly on the tem-perature at which we compute the estimate. The ex-periment in Ref. [129] was performed at a very low tem-perature where the DMFT solution is unlikely to give reasonable results for the spectral function; our estimate at the higher temperature is perhaps the most meaning-ful.  
+
+> E. Theory vs. experiment - effective mass and Planckian dissipation
+
+Finally, we consider the effective cyclotron mass, m∗ 
+
+> c
+
+. It can be extracted from the spectral function as[168] 
+
+m∗ 
+
+> c
+
+= 12π
+
+Z
+
+dθk F (θ)/v ∗ 
+
+> F
+
+(θ) (28) where kF is the Fermi momentum and v∗ 
+
+> F
+
+the renor-malized Fermi velocity in the direction θ of reciprocal space which can be deduced from the line connecting the maxima of Ak=( k cos θ,k sin θ)(ω) for each θ. Our results can be readily compared with the LSCO measurements reported in Ref. [137], see Fig. 18. In this particular experiment, m∗ was estimated from specific heat data, assuming the validity of the Sommerfeld expression (see App. A for details). Most importantly, we find that m∗
+
+> c
+
+is strongly U dependent (see Fig. 18(b)). The Hubbard model with U Hubbard = 6 − 12 eV yields the best agree-ment with experimental data. The Emery model with 18 0
+
+> 2
+> ky, T = 58.0K
+
+= 30.4% = 26.5% = 23.9% = 20.8% = 18.3% = 16.0% 
+
+> 0
+
+kx
+
+> 0
+> ky, T = 232.1K
+
+= 29.8% 
+
+> 0
+
+kx
+
+= 26.0% 
+
+> 0
+
+kx
+
+= 23.3% 
+
+> 0
+
+kx
+
+= 20.3% 
+
+> 0
+
+kx
+
+= 17.6%  
+
+> 02
+
+kx
+
+= 15.3%   
+
+> Emery model, T-struct. (LSCO/LBCO) log 10 Ak(= 0)
+
+FIG. 16. Illustration of the Lifshitz transition using the Emery-model results for the T-structure with U Emery = 8 eV. The plots present the momentum-resolved spectral function at zero frequency; color mapping is logarithmic. Cyan line denotes the Fermi surface inferred from the maxima of the spectral function. Different columns correspond to different dopings, different rows to different temperatures. The change in topology of the Fermi surface is obvious, but δLT is only known with the systematic error given by our δ-resolution. 0 2 4 6 8 10 12 14 16 
+
+U [eV]             
+
+> 0
+> 5
+> 10
+> 15
+> 20
+> LT  [%]
+> Lifshitz transition critical doping in LSCO
+> DMFT Hubbard, T= 58K
+> DMFT Hubbard, T= 348K
+> Zhong et al. ARPES, T= 9K
+> Momono et al., peak of spec. heat (x)
+> U= 0
+> rough fit to Hubbard
+> DMFT Emery T= 58K
+> DMFT Emery, T= 232K
+
+FIG. 17. Dependence of the critical doping for the Lifshitz transition δLT on the model choice and U . Theoretical δLT 
+
+is compared to the experimental results: gray shaded hori-zontal stripe is the xLT estimate from LSCO ARPES data in 
+
+Zhong et al. , Ref.129; dashed horizontal line is the xLT esti-mate based on the maximum of the specific-heat coefficient 
+
+γ(x), as reproduced by multiple experiments[166, 167] and analyzed in Zhong et al. . At U = 0, the LT occurs when the chemical potential is precisely at the van Hove singularity, in which case we can determine δLT with high precision. In other cases, we present data with error bars set by our δ-resolution. The dashed red line is a rough fit to theoretical data, indicating that the correct U is most likely between 4 and 12 eV. 
+
+U Emery = 8 eV is also in very good agreement with ex-periment. Once again, the models that reproduce well the experimental ρdc , also reproduce well m∗ 
+
+> c
+
+. This find-ing is not trivial: at the level of our theory, m∗ 
+
+> c
+
+is not simply related to ρdc and it is not subject to vertex cor-rections. In principle, m∗ 
+
+> c
+
+ought to characterize a zero-temperature Fermi liquid; our calculation is performed at a finite temperature, but we find that the estimate of m∗ 
+
+> c
+
+is only slightly dependent on temperature (see Fig. 18(a)). Again, we choose here intermediate tem-peratures, as DMFT is not expected to work well at very low temperature. We have performed the same calculation for the LCCO. The experimental data is available only for a single dop-ing. Emery model strongly overestimates this m∗ value. Good agreement is obtained with the Hubbard model only when we take U Hubbard = 4 eV. This is incon-sistent with our observations related to dc resistivity, where we had to take a much larger U Hubbard to repro-duce experimental results. It is important to note that in the case of LCCO the cyclotron mass m∗ in Ref. 137 was extracted from quantum oscillations, rather than specific heat data. It is not clear that the effective cy-clotron mass extracted from specific heat and quantum oscillations must be exactly the same. This is only ex-pected in the weak-coupling, good Fermi liquid regime. We expect that the inconsistency we see here could be related to the way m∗ was estimated in experiment. The effective mass m∗ plays an important role in the 19 20.0 22.5 25.0 27.5 30.0 32.5 35.0 37.5 40.0 
+
+Doping [%] 
+
+> 0.0
+> 2.5
+> 5.0
+> 7.5
+> 10.0
+> 12.5
+> 15.0
+> 17.5
+> 20.0
+> Eff. cyclotron mass  m *c [me]
+
+(a)                 
+
+> DMFT U= 8eV vs. LSCO experiment
+> Legros et al. LSCO data
+> Legros et al. proposed universal curve
+> Emery T= 81K
+> Emery T= 116K
+> Emery T= 232K 20.0 22.5 25.0 27.5 30.0 32.5 35.0 37.5 40.0
+
+Doping [%] 
+
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> Eff. cyclotron mass  m *c [me]
+
+(b)             
+
+> DMFT T= 116K vs. experiment
+> Hubbard U= 4.5eV
+> Hubbard U= 6eV
+> Hubbard U= 12eV
+> Hubbard U= 25eV
+> Hubbard U= 45eV
+> Legros et al. LSCO data
+> Legros et al. proposed universal curve
+
+FIG. 18. Comparison between theoretical and experimental results for the effective cyclotron mass m∗ 
+
+> c
+
+as a function of doping. LSCO data is taken from Legros et al. , Ref. 137 and presented with big blue points, roughly the size of the experimental error bars. Dashed black line is a hypothetical universal curve, proposed in Legros et al. . On the left panel we show that the Emery-model result for m∗ 
+
+> c
+
+is in good agreement with experiment, and that it depends weakly on T at which it is extracted from the momentum-resolved spectral functions. On the right panel we illustrate how m∗ 
+
+> c
+
+depends on U Hubbard , and that the best agreement is obtained with U Hubbard in the range 6-12 eV, which is consistent with the estimates from the analysis of both ρdc and δLT .
+
+Planckian dissipation theory of linear resistivity. The idea is that, under certain conditions (e.g. in the vicin-ity of a quantum critical point), the scattering rate saturates a T -linear Planckian upper bound, given by 
+
+αk BT / ℏ, with α = 1, universally. (Here kB is the Boltz-mann constant.) This is supported by data from nu-merous experiments, although α is typically extracted with a large error bar. In our data at around 20-30% doping, we indeed observe a strange metallic behavior where ρdc ∼ T in the range of temperature 50-200 K. We follow precisely the procedure laid out in Ref. 137 and compute the scattering factor α (the ratio between the scattering rate and the Planckian limit) as 
+
+α = e2ℏ
+
+kB
+
+1 − δa2
+
+A□
+
+> 1
+
+m∗ (29) where m∗ is taken to be m∗ 
+
+> c
+
+, the slope of the sheet re-sistivity is defined as A□ 
+
+> 1
+
+= A1/d = ∂T ρdc (T )/d , a is the in-plane lattice spacing, and d the thickness of a single CuO 2 layer ( d = c/ 2, where c is the thickness of the conventional unit cell). The results are shown in Fig. 19. Unsurprisingly, in our Hubbard model with 
+
+U Hubbard = 10 eV, given that we have excellent agree-ment of both ρdc and m∗ with the experiment, we can reproduce α ≈ 1 at δ = 26% which was reported in Ref. 137. However, we see that this value is not universal and that it strongly depends on the coupling constant U .In fact, increasing the coupling U , seems to increase α
+
+beyond 1. This is contrasted by the findings of Ref. 169 in the tJ model where α approaches 1 from above as 
+
+J goes to zero (which roughly corresponds to taking 
+
+U → ∞ in the Hubbard model). Super-Planckian ma-terials with α > 1 are known to exist[132, 170–172], but the value of α rarely exceeds 1 by much. Indeed, we do not see α reaching very big values, even for values of the effective coupling that is well beyond what one might expect to have in a real material. However, we observe that Eq. (29) used in Ref. 137 fol-lows directly from the Drude expression 
+
+ρdc = m∗
+
+ne 2
+
+1
+
+τ (30) under the assumptions 1 /τ = αk B T / ℏ and ρ□
+
+> dc
+
+(T ) = 
+
+A□ 
+
+> 1
+
+T ; the effective mass m∗ in Eq. 30 actually has the meaning of transport effective mass m∗
+
+> tr
+
+, which is in gen-eral different from the cyclotron mass m∗ 
+
+> c
+
+(see App. A for details). Our result α ≈ 1 was thus obtained using the incorrect quantity in place of m∗ in Eq. 29; Only in this way are we able to reproduce the α ≈ 1 result re-ported in Ref. 137. The appropriate m∗ must instead be extracted as m∗ 
+
+> tr
+
+from the kinetic-energy (stress-tensor) operator expectation value. This is not possible to do in experiment, but is quite trivial in our calculation. In App. A we show that in vicinity of the Lifshitz tran-sitions, the cyclotron and transport masses are quite different. In fact, we observe that at δ = 26%, m∗ 
+
+> tr
+
+is about 2 − 3me (depending on U ), i.e. about 5 times smaller than m∗ 
+
+> c
+
+(which is about 7.5-10 me in the same 
+
+U -range). We believe that using m∗ 
+
+> c
+
+and m∗ 
+
+> tr
+
+inter-changeably may have led to a poor evaluation of the scattering rate in some of the experimental literature, 20 5 10 15 20 25 30 35 40 45 
+
+U [eV] 
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> 2.5
+> Scat. rate vs. Planck. limit ratio
+
+DMFT vs. experiment, = 26% 
+
+> Hubbard
+> Legros et al. LSCO data
+> Legros et al. experimental uncertainty
+> Planckian limit
+
+FIG. 19. Comparison between our Hubbard model theory and the experiment[137] in terms of the effective scattering rate. The factor α is the ratio between the effective scatter-ing rate and the Planckian limit. The theoretical results are computed from the slope of the sheet resistivity ∂T ρ□
+
+> dc
+
+(T )and the cyclotron mass m∗ 
+
+> c
+
+, following closely the procedure used in Legros et al. , Ref. 137. The result for the Hub-bard model with U Hubbard = 10 eV is in perfect agreement with the experimental result. However, we observe that the procedure in Legros et al. contains an inconsistency in the definition of the effective mass - it appears that the effective mass in the Sommerfeld formula has been identified with the effective mass in the Drude formula, which would be incor-rect. Using the correct procedure to extract the effective scattering rate, we find that the scattering rate is about 5 times bigger than the Planckian limit, i.e. α ≈ 5. See text and App. A for details. 
+
+including in Ref. 137. By using the correct (transport) 
+
+m∗ 
+
+> tr
+
+in Eq. (29) we come to the conclusion that the in-elastic scattering rate is much higher than the Planckian limit, i.e. α ≈ 5. 
+
+V. DISCUSSION, CONCLUSIONS AND PROSPECTS FOR FUTURE WORK 
+
+The central question our work poses is: Which model and which choice of the effective coupling are most ap-propriate for the cuprates? Despite solid agreement be-tween our data and experimental results across multi-ple physical quantities and cuprate materials, we cannot give a definite answer to this question. In terms of the dc resistivity, both Emery and Hubbard models yield ex-cellent agreement with the LSCO/LBCO experimental results. In the Emery model, the conventional estimate of the coupling constant U Emery = 8 eV[23, 97] indeed appears to be the correct one. However, the Hubbard model only works if the coupling constant is taken large, 
+
+U Hubbard ≈ 10 eV. In the case of LCCO, the Hubbard model with U Hubbard ≈ 8 eV yields dc resistivity in ex-cellent agreement with experiment, but only at temper-atures below 150K; at higher temperatures, the exper-imental curves shoot upwards, unlike what is seen in LSCO/LBCO. The Emery model (with U Emery = 8 eV) overestimates resistivity in LCCO, and similarly fails to reproduce the curving of ρdc (T ) observed in experiment. These observations can lead to any of the following con-clusions: 
+
+• The conventional estimate of the effective U in the MLWF downfolded Hubbard model (around 4eV[91, 97, 139]) is wrong. When parametrized correctly, both Hubbard and Emery models give solid predictions for the dc resistivity. In addi-tion, the effective coupling can vary significantly between compounds, and in LCCO it is smaller than in LSCO/LBCO because of a slightly dif-ferent crystal structure (a trend which is already observed in the bare Coulomb value in the basis of the corresponding Wannier orbitals). 
+
+• The estimate of electron velocity obtained via Peierls substitution in single-band models is poor, leading to an underestimation of the dc resistivity. The problem is alleviated already with the three-orbital Emery model which correctly captures the relevant conduction processes, which certainly in-volve hopping over the oxygen sites in the copper-oxide planes. However, in the Hubbard model one must take an unjustifiably high value of coupling to reproduce the experimental results. 
+
+• Upon doping, in reality, some of the holes go to the oxygen sites. This means that the effective dop-ing δ(x) in the Hubbard model should be less than the dopant concentration x, which would lead to higher resistivity estimates, and one would then need a more moderate U Hubbard to reproduce ex-perimental results. Based on the dc resistivity data alone, it would be dif-ficult to deduce which one of the above conclusions is correct. However, the data we have obtained for other physical quantities in LSCO corroborate that the correct 
+
+U in the Hubbard model is relatively high: both the crit-ical doping for the Lifshitz transition δLT and the effec-tive cyclotron mass m∗ 
+
+> c
+
+narrow down the range of possi-ble U Hubbard to between about 6 and 12 eV. We empha-size that these quantities are computed directly from the spectral function and are not subject to vertex correc-tions that are missing in our computation of resistivity. Even our comparison with LSCO ARPES data suggests that U Hubbard is about 10 eV. Still, one has to consider that the optimal U Hubbard might be different for differ-ent physical quantities, and that no single model can re-produce the entire physics of a given cuprate compound. 21 In addition, extracting from the comparison with exper-iment both the coupling constant U and the effective doping δ(x), at the same time, is difficult. Clearly, if we assume that the doping in the Hubbard model is some percentage c of the dopant concentration, say δ = cx ,the estimate of U will depend on the precise value of c.However, we have checked that c would have to be un-reasonably small for the U Hubbard estimate to be below 6eV. Ultimately, the above three conclusions are not necessarily mutually exclusive - the effective U Hubbard 
+
+might be a bit higher than expected, the Peierls substi-tution might introduce some systematic error, and the effective doping in the Hubbard model might be a bit less than the dopant concentration, all together leading to the overestimation of U Hubbard based on our data. By contrast, the Emery model with the conventional estimate U Emery = 8 eV works well, indicating perhaps that inclusion of oxygen orbitals alleviates some of the issues present in the case of the Hubbard model. Another important aspect of the cuprates is the pres-ence of significant disorder, and at this point we are not accounting for it in our models - rather, we are assuming the validity of the Mathiessen’s rule and making com-parisons with experimental resistivity data only up to an overall temperature-independent shift, which is not small, and is indicative of a large elastic scattering rate of order of 0.2 eV. By comparing our spectral function data with the ARPES experiment, we conclude that the elastic scattering might be the leading cause of spec-tral broadening. Indeed, we find that our estimate of the elastic scattering rate is comparable to the amount of broadening we need to add to our DMFT spectral function result to get good agreement with the ARPES curve. Regardless, DMFT is an approximate method that might overestimate the lifetime of quasiparticles near the Fermi level, and some of the discrepancy with the ARPES data might also come from that. However, it is unclear whether there are any readily available methods that are both less approximate and feasible for all the computations that we perform in this work. For example, cluster DMFT can be used to solve both the Hubbard and Emery models and introduce some non-local components of the self-energy[19]. If ex-act diagonalization solver is used for the impurity prob-lem, one obtains a discrete self-energy which might be unsuitable for calculation of transport or detailed spec-tral properties that we do, unless an uncontrolled broad-ening is performed. If quantum Monte Carlo solvers are used instead, then analytic continuation to real-frequency domain might introduce a more significant systematic error than the one we make with our single-site DMFT solution[55, 173, 174]. Determinantal quan-tum Monte Carlo methods[52, 175] also require analytic continuation, cannot be used for detailed inspection of the Fermi surface due to finite-size effects (as needed for the estimates of effective mass and the study of Lifshitz transition), and most likely cannot be pushed to the range of relatively low temperatures we consider here (say T < 0.1t in the Hubbard model). Methods like finite-temperature Lanczos method[55, 176] and numer-ical linked cluster expansion[177] avoid analytic contin-uation, but similarly suffer from strong finite-size ef-fects and cannot be used at sufficiently low temperature. Another possible approach is the diagrammatic Monte Carlo method[178–180]. It would be, however, very dif-ficult to converge the interaction-expansion series at the values of the coupling relevant for the cuprates, and the computation of conductivity would either require ana-lytic continuation[181], or a prohibitively strong scal-ing of complexity with the perturbation order[180], at least with the currently available methods. It is un-clear to us whether tensor based methods like finite-temperature DMRG might be feasible, but finite-size effects and breaking of rotational symmetry[182–184] could still be a significant source of systematic error. We thus conclude that the DMFT+NRG approach we employ here is, at present, the most reasonable choice for the kind of a systematic study we aimed to perform. Indeed, this approach has been applied very recently to other perovskite oxides, with solid success[112, 113]. Moreover, the single-site DMFT solution of the Hub-bard model has been well understood for decades, which allows us to better interpret our results. It is well known that this solution exhibits no quantum criti-cal points at finite doping. Still, as we see in the case of our models, the DMFT does reproduce the strange-metal regime, even regardless of the coupling constant; with the appropriately set coupling, we re-produce the strange-metallic regime in LSCO, LBCO and LCCO even quantitatively . We reproduce the effec-tive mass and the α = 1 value hailed as the hallmark of the Planckian dissipation mechanism for linear-in-temperature resistivity, but show that both are sensi-tive to the parametrization of our models. These re-sults raise the question of whether a more mundane ex-planation of linear resistivity is possible, perhaps one that does not involve any quantum criticality or univer-sal phenomena. Surely, Planckian dissipation and other critical phenomena could be associated even with quan-tum critical points in a wider parameter space of a more general system, as suggested earlier[4]. However, we show that a more rigorous interpretation of the LSCO experimental data might lead to a drastically different conclusion regarding the value of α. Namely, we show that in the estimate of the inelastic scattering rate one should use the effective transport mass instead of the cyclotron mass (which was used in Ref. 137). The effec-tive transport mass cannot be easily extracted from the experimental data, but our theory trivially provides it. We then show that a more likely value of the scattering rate in LSCO at 26% doping is as high as 5 Planck-ian bounds, i.e. α = 5. This highlights the limitations 22 of the Planckian dissipation paradigm and brings into question whether it applies to LSCO at all. Finally, our study highlights some robust differences in the spectral functions predicted by the Hubbard and the Emery model which might have been pre-viously overlooked. The difference in the doping-dependence of the energy gap might be large enough to be resolvable in photoabsorption experiments. We also find robust similarities between the predictions of the two models, but, interestingly, different quantities are matched best using different ratios of the effec-tive couplings, U Hubbard /U Emery . The matching be-tween the two models in terms of resistivity is achieved by taking U Hubbard ≈ 54 U Emery ; the matching be-tween sizes of energy gaps in the two models is ob-tained when U Hubbard ≈ 23 U Emery , whereas matching in the spectrum around the Fermi level is obtained when 
+
+U Hubbard ≈ U Emery . In addition, we find that the dop-ing dependence of the spectral weight in the vicinity of the Fermi level is strongly sensitive to the coupling strength, apparently regardless of the model. Our find-ings might serve as a basis for constraining the value of the effective coupling in photoemission experiments. However, the picture is additionally complicated by dis-order in cuprate materials which we do not account for in our clean-lattice-model theory. Nevertheless, we find that the effect of disorder on the spectra might be pos-sible to introduce via frequency-independent imaginary self-energy, as well as possible to estimate (from the residual resistivity). Overall, our results suggest ways to distinguish be-tween different theoretical scenarios in experimental data. This sets the stage for a combination of theory and experiments that could resolve the question of the correct or minimal model to describe the normal-phase transport in the cuprates. This remains, however, an immensely difficult question, as the answer might ulti-mately depend on the specific compound, physical quan-tity we are interested in, as well as on the regime of physical parameters. Nevertheless, the goal should be to obtain a consistent description, with agreement be-tween theoretical and experimental results for a wide range of quantities. 
+
+> Appendix A: Effective masses
+
+Effective mass is an important parameter characterizing Fermi-liquid states. However, there is no unique defini-tion of the effective mass: different properties of the sys-tem depend on different ”kinds” of effective mass. Here we recall two main definitions, relevant for our analyses: 
+
+• the cyclotron (also referred to as the ther-modynamic ) mass; it enters the expression for the frequency of quantum oscillations (de Haas-van Alphen effect) in the Lifshitz-Kosevich theory[185], as well as the Sommerfeld expression for the specific heat[186]. In two dimensions, the cyclotron mass relates directly to the change of the area of the Fermi sea, AFS , with respect to the Fermi level 
+
+m∗ 
+
+> c
+
+= ℏ2
+
+2π∂A FS 
+
+∂E F
+
+(A1) If we express AFS as an integral in polar coordi-nates ( k, θ ), AKS = R dθ R kF (θ)0 kdk, and take a derivative of this expression with respect to EF
+
+using indirect derivation rule, we can write 
+
+m∗ 
+
+> c
+
+= ℏ2
+
+2π
+
+Z 2π
+
+> 0
+
+dθ kF(θ)
+
+∂ε k(θ)/∂k |k=kF(θ)
+
+. (A2) The denominator is nothing but the velocity in the radial direction, at the Fermi surface, i.e. 
+
+m∗ 
+
+> c
+
+= ℏ2
+
+2π
+
+Z 2π
+
+> 0
+
+dθ kF(θ)
+
+vF(θ) (A3) In strongly correlated Fermi liquids, the disper-sion relation needs to be replaced by the effec-tive dispersion ε∗ 
+
+> k
+
+formed by the zeros of ω + μ −
+
+εk − ReΣ k(ω) (or rather the ω’s of the maxima of 
+
+−Im Gk(ω) for each given k); the effective veloc-ity v∗
+
+> F
+
+(θ) = ∂kε∗
+
+> k
+
+(θ) is then to be used in Eq. (A3) instead of vF(θ). In Fermi liquids at low temperature, the total energy is a quadratic function of temperature 
+
+⟨E(T )⟩ = ⟨E(T = 0) ⟩ + γT 2/2, if the number of particles is held fixed. The specific heat is the derivative of the total energy with respect to tem-perature, C = ∂⟨E(T )⟩/∂T = γT , i.e. the specific heat is a linear function of temperature, with the coefficient γ. The Sommerfeld expression for γ
+
+reads [137] 
+
+γ = π2
+
+3 N ∗(EF )k2 
+
+> B
+
+(A4) and taking the expression for the renormalized Fermi-level DOS N ∗(EF ) (including the spin de-generacy factor) in 2D systems we find 
+
+γ = π
+
+3
+
+k2
+
+> B
+
+ℏ2 m∗ 
+
+> c
+
+. (A5) Precisely this expression was inverted in Ref. [137] to extract the effective mass from specific-heat data. 
+
+• the transport mass; it enters the Drude expression for conductivity. The Drude form of the real-part of the optical conductivity reads: Re σ(ω) = ne 2τm∗
+
+> tr
+
+11 + ω2τ 2 (A6) 23 2.00 1.75 1.50 1.25 1.00 0.75 0.50 0.25 0.00 
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+
+(a)                           
+
+> Square lattice, U= 0, t= 0.5
+> (taken from the fit CV=T,CV=TEkin |n)
+> 3m*c
+> 22
+> 30(=)2.00 1.75 1.50 1.25 1.00 0.75 0.50 0.25 0.00
+> 0
+> 1
+> 2
+> 3
+> 4
+
+(b)     
+
+> Square lattice, U= 0, t= 0.5
+
+m *tr = 2n/ Ekin 
+
+m *tr = n/ K
+
+m *c
+
+FIG. 20. Simple non-interacting square-lattice theory as an illustration of the difference between the cyclotron mass m∗ 
+
+> c
+
+and the transport mass m∗ 
+
+> tr
+
+appearing in the Sommerfeld and the Drude formulas, respectively. Here ℏ = me = kB = 2 t = 1. (a) The results for the T -linear specific-heat coefficient γ, the corresponding Sommerfeld formula depending on the (computed) cyclotron mass, Eq. (A5), and the Fermi-level DOS [2 ρ0(ε = μ), where ρ0(ε) is normalized to 1] multiplied by π2/3, Eq. (A4), showing perfect agreement for all values of the chemical potential μ, as expected. (b) Comparison between m∗ 
+
+> c
+
+,Eq. A3, and m∗ 
+
+> tr
+
+computed via Eq. A11, as well as making use of the simplification arising in the present case, Eq. A10 and 
+
+⟨nk⟩ = nF(εk − μ); at the Lifshitz transition, the cyclotron mass m∗ 
+
+> c
+
+diverges, whereas the transport mass m∗ 
+
+> tr
+
+does not, which leads to a very large difference between the two effective masses. 0.0 0.1 0.2 0.3 0.4 0.5 
+
+Doping   
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> m *tr  = n 2/ K [me]
+> Hubbard model for T-struct (LSCO/LBCO)
+> DMFT solution, T= 34.818K
+
+U = 6eV 
+
+U = 12eV 
+
+FIG. 21. Effective transport mass as a function of doping, at a fixed low temperature and two values of U in the DMFT solution of the Hubbard model for the T-structure. The ef-fective transport mass is significantly less renormalized than the cyclotron mass (see Fig. 18). At δ = 26%, we observe 
+
+m∗ 
+
+> c
+
+/m ∗ 
+
+> tr
+
+≈ 5, regardless of U (in the range 6-12 eV). 
+
+where n is the density of electrons, e is electron charge, τ is scattering time (inversely proportional to the scattering rate 1 /τ = Γ). In systems with Galilean invariance [186], m∗ 
+
+> tr
+
+is the actual elec-tron mass me; in lattice systems this is an effective transport mass. From Eq. (A6) it is straightforward to obtain 
+
+Z ∞
+
+> 0
+
+dω Re σ(ω) = πne 2
+
+2m∗
+
+> tr
+
+. (A7) On the other hand, the optical conductivity is con-strained by the f-sum rule, which connects it to the xx -component of the kinetic-energy (stress-tensor) operator ⟨K⟩[187] 
+
+Z ∞
+
+> 0
+
+dωRe σ(ω) = πe 2
+
+2ℏ2 ⟨K⟩, (A8) with 
+
+⟨K⟩ =
+
+Z dk
+
+(2 π)2 ⟨nk⟩ ∂2εk
+
+∂k 2
+
+> x
+
+, (A9) which measures the curvature of dispersion rela-tion (band mass) in the x-direction, averaged over the occupied states. In simple cases ⟨K⟩ is related to kinetic energy; e.g. in the case of hypercubic lattices with only the nearest-neighbor hopping (in any dimension d), one finds 
+
+⟨K⟩ = −⟨ Ekin ⟩/d. (A10) 24 where ⟨Ekin ⟩ = R dk 
+
+> (2 π)d
+
+⟨nk⟩εk. Combining Eq. A7 and Eq. A8 It follows that 
+
+m∗ 
+
+> tr
+
+= nℏ2
+
+⟨K⟩ . (A11) Therefore, the transport mass can be extracted without approximations from the knowledge of the stress tensor and the electron density. The stress tensor is not easily accessible in experiment, but it is at the level of DMFT theory. For the 2D Hubbard model, it is trivial to compute it from the momentum-resolved spectral function 
+
+⟨K⟩ = 2 
+
+Z dk
+
+4π2
+
+∂2εk
+
+∂k 2
+
+> x
+
+Z
+
+dωn F(ω)Ak(ω). (A12) where 2 in front of the integral comes from the sum over spin. The transport and cyclotron masses are in general not the same (they become equal under stringent condi-tions of noninteracting systems with a single isotropic Fermi sheet and momentum-independent scattering rate 
+
+τ (k) = τ ; in other cases they can become equal only in-cidentally). Even in absence of interactions, the lattice effects can make those two masses very different. We illustrate this in the U = 0 Hubbard model case. For the sake of simplicity, we keep here only the nearest-neighbor hopping, t = 0 .5, and we keep the unit of en-ergy D = 2 t. This choice of the hopping amplitude sim-plifies the connection to Fermi-liquid expressions, as in the vicinity of the k = 0 point, we have that εk ≈ k2/2, which is precisely what we need if we assume that the bare electron mass is 1. Our results are presented on Fig. 20. In panel (a) we show that γ = π 
+
+> 3
+
+m∗ 
+
+> c
+
+where m∗
+
+> c
+
+has been computed via Eq. (A3). It is the cyclotron mass that appears in the Sommerfeld expression, and it controls the T -linear specific heat coefficient. In this very simple case, both γ and m∗ 
+
+> c
+
+are just proportional to the density of states at the Fermi level, as can be seen on the plot. This means that the cyclotron mass and γ both diverge when the Fermi level lies at the van Hove singularity in the density of states. This is easily understood, as the van Hove singularity stems from the saddle points in the dispersion relation εk (occurring at the k = (0 , π ) and symmetry-related points); when the Fermi surface passes through these points, one gets 
+
+vF(θ = 0) = 0, which leads to divergence of m∗ 
+
+> c
+
+, and through a similar mechanism, to divergence of γ. In Ref. 129 the critical doping for the Lifshitz transition in LSCO was precisely evaluated from the maximum of γ(x). Finally, in panel (b) we compare m∗ 
+
+> tr
+
+(com-puted from the Drude expression Eq. (A11)) with m∗
+
+> c
+
+(computed via Eq. (A3)). We see that the transport mass gets renormalized near μ = 0, but only slightly, and it never becomes much bigger than 1. Therefore, when the Fermi level is in the vicinity of the van Hove singularity, m∗ 
+
+> tr
+
+becomes much smaller than m∗ 
+
+> c
+
+, which diverges. We emphasize that the divergence of m∗ 
+
+> c
+
+when the Fermi level is at the van Hove singularity is not a fully general result, and m∗ 
+
+> c
+
+will depend on the precise shape of the dispersion relation. However, in the vicin-ity of the Lifshitz transition, one must generally expect that m∗ 
+
+> tr
+
+and m∗ 
+
+> c
+
+will be substantially different. Interac-tions, of course, can make these two masses additionally different, even away from Lifshitz transitions. Finally, in Fig. 21 we present results for the transport mass m∗
+
+> tr
+
+, extracted from the Hubbard model results for ⟨K⟩. We find that m∗
+
+> tr
+
+(δ) has a similar shape as 
+
+m∗ 
+
+> c
+
+(δ) (shown in Fig. 18), but is much less renormalized. The cyclotron mass m∗ 
+
+> c
+
+tends to be very large, reaching even 20 me as we approach the LT. At the same time, the transport mass does not become larger than 3 me.This finding is in line with the observations from our simple U = 0 example, but the difference between the two masses is greater. This is likely related to the effects of the interaction, which renormalizes both masses in the expected way: they both become larger with the increasing U . At the doping δ = 26% relevant for the interpretation of the data in Ref. 137, we find m∗
+
+> tr
+
+/m ∗ 
+
+> c
+
+≈
+
+5. 
+
+> Appendix B: Orbital- and band-resolved spectral functions in the Emery model and the effective single-band model
+
+The orbital-resolved spectral function in the Emery model is defined as 
+
+Al(ω) = − 1
+
+π Im Gloc ,ll (ω). (B1) The px and py orbitals are degenerate, and we define 
+
+Ap(ω) ≡ X
+
+> l=px,p y
+
+Al(ω) = 2 Apx (ω) = 2 Apy (ω) (B2) We focus on the hole-doped T-structure, relevant for LSCO/LBCO. In Fig. 22 (left) we see, as was observed before[41, 53], that the band at the Fermi level has a mixed character—the d and p orbitals contribute to it roughly equally. This is a good illustration of the fact that the physical meaning of the single orbital in the Hubbard model is not that of pure copper d orbital. As can be seen on Fig. 2 the orbital character of the band at the Fermi level in DFT (as well as in the downfolded Emery band structure) is a (momentum-dependent) mix of d and p orbitals. In the Emery model, it is the UHB and the LHB that have a predominant d-character. The spectral function can also be decomposed into con-tributions associated with the eigenstates of the non-25 10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0 
+
+[eV] 
+
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> Al( ) + const
+
+= 0.1% 
+
+= 3.6% 
+
+= 7.2% 
+
+= 10.9% 
+
+= 12.6% 
+
+= 16.0% 
+
+= 20.8% 
+
+= 26.5% 
+
+T = 58.0K (0.005eV)           
+
+> partial d
+> partial p
+> total
+> 10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0
+
+[eV] 
+
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> Al( ) + const
+
+= 0.1% 
+
+= 2.0% 
+
+= 5.3% 
+
+= 9.1% 
+
+= 11.1% 
+
+= 14.4% 
+
+= 19.4% 
+
+= 25.1% 
+
+T = 580.3K (0.05eV)           
+
+> partial d
+> partial p
+> total 10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0
+
+[eV] 
+
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A ( ) + const
+
+= 0.1% 
+
+= 3.6% 
+
+= 7.2% 
+
+= 10.9% 
+
+= 12.6% 
+
+= 16.0% 
+
+= 20.8% 
+
+= 26.5% 
+
+T = 58.0K (0.005eV)  
+
+> = 0
+> = 1
+> = 2
+> total
+> 10.0 7.5
+> 6
+> 5
+> 4
+> 3
+> 2
+> 1
+> 0
+> A ( ) + const
+
+FIG. 22. Left: Orbital-resolved spectral function in the Emery model for the T-structure, at various dopings for a fixed low temperature, as computed within DMFT. The px and py orbitals are degenerate and we only show their cumulative contribution. The ZRSB has roughly equal amount of d and p character. Right: non-interacting-eigenband-resolved spectral function in the same cases as on the left. The ZRSB has an almost pure α = 2 character, corresponding to the top band in the Fig. 2 upper right panel. This has implications for the formulation of an effective single-band model aimed at reproducing the physics of the Emery model at low energies. 
+
+interacting Hamiltonian. We define 
+
+Aα(ω) = − 1
+
+π
+
+Z
+
+> BZ
+
+dk
+
+(2 π)2 [P−1 
+
+> k
+
+Gk(ω)Pk]αα (B3) where Pk is the basis-change matrix that diagonalizes the non-interacting Hamiltonian matrix at momentum 
+
+k, i.e. 
+
+P−1 
+
+> k
+
+hkPk =
+
+
+
+˜Eα=0 ,k 0 00 ˜Eα=1 ,k 00 0 ˜Eα=2 ,k
+
+ (B4) 26 We plot the band-resolved spectral function Aα(ω) on Fig. 22 (right). We see that the band at the Fermi level has almost a perfectly pure α = 2 character, which cor-responds to the top eigenband of the non-interacting Hamiltonian (see Fig. 2). To describe the physics of the Emery model around the Fermi level, one would then expect that a single-band model with the disper-sion ˜Eα=2 ,k would suffice. The partial spectral func-tion Aα=2 (ω) captures also the upper Hubbard band (although not in its entirety), which suggests that the effective coupling in such a single-band model would be similar to what we have in our Hubbard model in Fig. 6, i.e. U Hubbard = 5 eV. However, we also see a sharp peak in Aα=2 (ω) at a large negative frequency; to capture this with a single-band model, a coupling to some ”ex-ternal” weakly dispersive states would likely be needed, i.e. one might need to include in the model an effective hybridization (retarded hopping). Indeed, such terms naturally arise from downfolding, as was recently dis-cussed in Ref. 62, but are rarely considered in practice. Most importantly, the single-band dispersion ˜Eα=2 ,k is not the same as what one would normally have in the effective Hubbard model. The difference is significant both in shape and the bandwidth, as can be seen in Fig. 2. 
+
+> Appendix C: Velocity matrix in the Emery model
+
+To derive the current operator, and the associated ve-locity matrix in our models, we make use of the Peierls substitution. The derivation is trivial in the case of the Hubbard model, but is somewhat more involved in the case of the Emery model, which is why we present it here. The Peierls phase between two points in space is 
+
+f (r, r′) = e
+
+ℏ
+
+Z r′
+
+> r
+
+A(¯ r) · d¯ r. (C1) For uniform static electric field A(r) = −Et and we write 
+
+f (r, r′) = f (r′ − r) = e
+
+ℏ A · (r′ − r) (C2) However, to be able to take derivatives with respect to local vector potential A(r) we need to retain the spatial dependence of A. There is some ambiguity, as this can be done in multiple ways that are equally valid. We choose 
+
+f (r, r′) = e
+
+ℏ A(ru.c.(r)) · (r′ − r) (C3) where ru.c.(r) is the position vector of the unit cell to which the vector r belongs. This choice affects the defi-nition of the local current operator, but should not affect the uniform current-current correlation function which involves a sum over all r. The tight binding matrix is then modified due to the presence of a uniform electric field in the following way: 
+
+H0[A] = H0[A = 0] ◦ eif , (C4) where ◦ denotes element-wise multiplication and f is a matrix constructed out of Peierls phases between all pairs of orbitals. We start from the Hamiltonian written in the basis of 
+
+d, p x, p y -orbitals (denoted by l = 0 , 1, 2, respectively). For the sake of convenience, we define a row-vector of creation operators 
+
+Ψ† 
+
+> σ, r
+
+= ( c†
+
+> l=0 ,σ, r
+
+, c †
+
+> l=1 ,σ, r
+
+, c †
+
+> l=2 ,σ, r
+
+) (C5) where r denotes the position of the unit cell and points to the d-orbital within it. The positions of orbitals are: 
+
+l = d, r,l = px, r − aex/2,l = py , r − aey /2(C6) where a is the lattice spacing, and unit vectors are ex =(1 , 0), and ey = (0 , 1). The conventions that we follow are illustrated in Fig. 3. The non-interacting part of the Hamiltonian reads ˆH0 = X
+
+> σ, rr ′
+
+Ψ†
+
+> σ, r
+
+hrr ′ Ψσ, r′ (C7) where hrr ′ is a 3 × 3 matrix in the orbital space with the following elements: 27 
+
+[hrr ′ ]00 = εdδrr ′ (C8) [hrr ′ ]01 = tpd (δrr ′ e−i ea   
+
+> 2ℏAx(r)
+
+− δr+aex,r′ ei ea  
+
+> 2ℏAx(r)
+
+)[hrr ′ ]02 = tpd (δrr ′ e−i ea    
+
+> 2ℏAy(r)
+
+− δr+aey ,r′ ei ea   
+
+> 2ℏAy(r)
+
+)[hrr ′ ]10 = tpd (δrr ′ ei ea   
+
+> 2ℏAx(r)
+
+− δr−aex,r′ e−i ea  
+
+> 2ℏAx(r)
+
+)[hrr ′ ]11 = εpδrr ′ + t′
+
+> pp
+
+(δr+aex,r′ ei ea   
+
+> ℏAx(r)
+
++ δr−aex,r′ e−i ea  
+
+> ℏAx(r)
+
+)[hrr ′ ]12 = tpp (δrr ′ ei ea    
+
+> 2ℏ(Ax(r)−Ay(r))
+
+− δr+aey ,r′ ei ea    
+
+> 2ℏ(Ax(r)+ Ay(r))
+
+− δr−aex,r′ ei ea    
+
+> 2ℏ(−Ax(r)−Ay(r))
+
++ δr−ex+ey ,r′ ei ea   
+
+> 2ℏ(−Ax(r)+ Ay(r))
+
+)[hrr ′ ]20 = tpd (δrr ′ ei ea    
+
+> 2ℏAy(r)
+
+− δr−aey ,r′ e−i ea   
+
+> 2ℏAy(r)
+
+)[hrr ′ ]21 = tpp (δrr ′ ei ea    
+
+> 2ℏ(−Ax(r)+ Ay(r))
+
+− δr−aey ,r′ ei ea    
+
+> 2ℏ(−Ax(r)−Ay(r))
+
+− δr+aex,r′ ei ea    
+
+> 2ℏ(Ax(r)+ Ay(r))
+
++ δr+aex−aey ,r′ ei ea   
+
+> 2ℏ(Ax(r)−Ay(r))
+
+)[hrr ′ ]22 = εpδrr ′ + t′
+
+> pp
+
+(δr+aey ,r′ ei ea    
+
+> ℏAy(r)
+
++ δr−aey ,r′ e−i ea   
+
+> ℏAy(r)
+
+)
+
+We now proceed with computing the current operator as the derivative with respect to vector potential. First, we apply the Fourier transformation to diagonalize each element of h and obtain the following form: ˆH0 = X
+
+σ, k
+
+Ψ†
+
+σ, khkΨσ, k (C9) with Ψ†
+
+k = ( c†
+
+l=0 ,σ, k, c †
+
+l=1 ,σ, k, c †
+
+l=2 ,σ, k) and 
+
+hk =
+
+
+
+εd 2tpd sin a(kx− e 
+
+> ℏ
+
+Ax)2 −2tpd sin a(ky − e 
+
+> ℏ
+
+Ay )2
+
+H.c. εp + 2 t′
+
+pp cos( a(kx − e
+
+ℏ Ax)) −4tpp sin a(kx− e 
+
+> ℏ
+
+Ax)2 sin a(ky − e 
+
+> ℏ
+
+Ay )2
+
+H.c. H.c. εp + 2 t′
+
+pp cos( a(ky + e
+
+ℏ Ay )) 
+
+ . (C10) The current is computed as 
+
+j(q = 0) = − V −1 ∂H0
+
+∂A(q = 0) A→0
+
+(C11) 
+
+jx(q = 0) = − 2V −1 X
+
+k
+
+Ψ†
+
+k(∂Ax hk)Ψk
+
+A→0
+
+,
+
+with 
+
+∂Ax hk =
+
+
+
+0 − ea 
+
+ℏ tpd cos a(kx− e 
+
+> ℏ
+
+Ax)2 0H.c. 2ea 
+
+ℏ t′
+
+pp sin( a(kx − e
+
+ℏ Ax)) 2ea 
+
+ℏ tpp cos a(kx− e 
+
+> ℏ
+
+Ax)2 sin a(ky − e 
+
+> ℏ
+
+Ay )2
+
+H.c. H.c. 0
+
+ . (C12) Setting the field A to zero, we obtain the final expres-sion: 
+
+jx(q = 0) = 2
+
+a2c
+
+1
+
+N
+
+X
+
+k
+
+Ψ†
+
+kvx, kΨk (C13) with 
+
+vx, k = ea 
+
+ℏ
+
+
+
+0 tpd cos ak x
+
+2 0H.c. −2t′
+
+pp sin( ak x) −2tpp cos ak x
+
+2 sin ak y
+
+2
+
+H.c. H.c. 0
+
+ .
+
+(C14) We define the reduced velocity as ˜vx, k = − ℏ
+
+ea (∂Ax hk)|A→0 . (C15) In the corresponding Eq. 14 in the main text, there is no factor 1 /a because we have switched to reduced mo-mentum ak → k.28 
+
+ACKNOWLEDGMENTS 
+
+We acknowledge useful discussions with Malte R¨ osner, Jeremija Kovaˇ cevi´ c, Matija ˇCulo, Neven Bariˇ si´ c and Nigel Hussey. We acknowledge discussions on numerical integration of singular functions with Samir El Shawish. Malte R¨ osner, Yusuke Nomura and Chia-Nan Yeh have contributed to the work on wannierization. Chia-Nan Yeh, Miguel Morales and Malte R¨ osner have contributed to the computation of the values of the bare Coulomb interaction. We acknowledge contributions of Upendra Kumar in the early stages of the work. Computations were performed on the PARADOX supercomputing fa-cility (Scientific Computing Laboratory, Center for the Study of Complex Systems, Institute of Physics Bel-grade) and IJS F1 department cluster. J. V. acknowl-edges funding provided by the Institute of Physics Bel-grade, through the grant by the Ministry of Education, Science, and Technological Development of the Repub-lic of Serbia, as well as funding by the European Re-search Council, grant ERC-2022-StG: 101076100. R. ˇZ. is supported by the Slovenian Research and Innovation Agency (ARIS) under Program P1-0416. 
+
+[1] D. J. Scalapino, A common thread: The pairing inter-action for unconventional superconductors, Reviews of Modern Physics 84 , 1383 (2012). [2] B. Keimer, S. A. Kivelson, M. R. Norman, S. Uchida, and J. Zaanen, From quantum matter to high-temperature superconductivity in copper oxides, Na-ture 518 , 179 (2015). [3] C. M. Varma, Colloquium: Linear in temperature resistivity and associated mysteries including high temperature superconductivity, Reviews of Modern Physics 92 , 031001 (2020). [4] J. Vuˇ ciˇ cevi´ c, D. Tanaskovi´ c, M. J. Rozenberg, and V. Dobrosavljevi´ c, Bad-metal behavior reveals Mott quantum criticality in doped Hubbard models, Physi-cal Review Letters 114 , 246402 (2015). [5] P. Limelette, P. Wzietek, S. Florens, A. Georges, T. A. Costi, C. Pasquier, D. Jerome, C. Meziere, and P. Batail, Mott transition and transport crossovers in the organic compound (BEDT-TTF)2Cu[N(CN)2]Cl, Physical Review Letters 91 , 016401 (2003). [6] H. Terletska, J. Vuˇ ciˇ cevi´ c, D. Tanaskovi´ c, and V. Do-brosavljevi´ c, Quantum critical transport near the Mott transition, Phys. Rev. Lett. 107 , 026401 (2011). [7] J. Vuˇ ciˇ cevi´ c, H. Terletska, D. Tanaskovi´ c, and V. Do-brosavljevi´ c, Finite-temperature crossover and the quantum widom line near the Mott transition, Phys. Rev. B 88 , 075143 (2013). [8] T. Furukawa, K. Miyagawa, H. Taniguchi, R. Kato, and K. Kanoda, Quantum criticality of Mott transition in organic materials, Nature Physics 11 , 221 (2015). [9] J. Vuˇ ciˇ cevi´ c and R. ˇZitko, Universal magnetic oscilla-tions of dc conductivity in the incoherent regime of cor-related systems, Phys. Rev. Lett. 127 , 196601 (2021). [10] J. Vuˇ ciˇ cevi´ c and R. ˇZitko, Electrical conductivity in the Hubbard model: orbital effects of magnetic field, Phys. Rev. B 104 , 205101 (2021). [11] T. Li, S. Jiang, L. Li, Y. Zhang, K. Kang, J. Zhu, K. Watanabe, T. Taniguchi, D. Chowdhury, L. Fu, J. Shan, and K. F. Mak, Continuous Mott transition in semiconductor moire´ e superlattices, Nature 597 , 350 (2021). [12] T. Maier, M. Jarrell, T. Pruschke, and J. Keller, d-wave superconductivity in the Hubbard model, Phys. Rev. Lett. 85 , 1524 (2000). [13] B. Kyung, S. S. Kancharla, D. S´ en´ echal, A.-M. S. Tremblay, M. Civelli, and G. Kotliar, Pseudogap in-duced by short-range spin correlations in a doped Mott insulator, Phys. Rev. B 73 , 165114 (2006). [14] M. Civelli, M. Capone, A. Georges, K. Haule, O. Par-collet, T. D. Stanescu, and G. Kotliar, Nodal-antinodal dichotomy and the two gaps of a superconducting doped Mott insulator, Physical Review Letters 100 ,046402 (2008). [15] M. Ferrero, P. S. Cornaglia, L. De Leo, O. Parcol-let, G. Kotliar, and A. Georges, Pseudogap opening and formation of Fermi arcs as an orbital-selective Mott transition in momentum space, Phys. Rev. B 80 ,064501 (2009). [16] E. Gull, O. Parcollet, and A. J. Millis, Superconductiv-ity and the pseudogap in the two-dimensional Hubbard model, Phys. Rev. Lett. 110 , 216405 (2013). [17] W. Wu, M. Ferrero, A. Georges, and E. Kozik, Con-trolling Feynman diagrammatic expansions: Physical nature of the pseudogap in the two-dimensional Hub-bard model, Phys. Rev. B 96 , 041105 (2017). [18] W. Wu, M. S. Scheurer, S. Chatterjee, S. Sachdev, A. Georges, and M. Ferrero, Pseudogap and Fermi-surface topology in the two-dimensional Hubbard model, Phys. Rev. X 8, 021048 (2018). [19] N. Kowalski, S. S. Dash, P. S´ emon, D. S´ en´ echal, and A.-M. Tremblay, Oxygen hole content, charge-transfer gap, covalency, and cuprate superconductivity, Pro-ceedings of the National Academy of Sciences 118 ,e2106476118 (2021). [20] S. Jiang, D. J. Scalapino, and S. R. White, Ground-state phase diagram of the t−t′ −J model, Proceedings of the National Academy of Sciences 118 , e2109978118 (2021). [21] J. Vuˇ ciˇ cevi´ c and M. Ferrero, Simple predictors of Tc in superconducting cuprates and the role of interactions between effective Wannier orbitals in the d − p three-band model, Phys. Rev. B 109 , L081115 (2024). [22] P. R. C. Kent, T. Saha-Dasgupta, O. Jepsen, O. K. Andersen, A. Macridin, T. A. Maier, M. Jarrell, and T. C. Schulthess, Combined density functional and dy-namical cluster quantum Monte Carlo calculations of the three-band Hubbard model for hole-doped cuprate superconductors, Phys. Rev. B 78 , 035132 (2008). [23] C. Weber, C. Yee, K. Haule, and G. Kotliar, Scaling of the transition temperature of hole-doped cuprate 29 
+
+superconductors with the charge-transfer energy, Eu-rophysics Letters 100 , 37001 (2012). [24] M. O. Malcolms, H. Menke, Y.-T. Tseng, E. Jacob, K. Held, P. Hansmann, and T. Sch¨ afer, Rise and fall of the pseudogap in the Emery model: Insights for cuprates (2024), arXiv:2412.14951. [25] C. Castellani, C. Di Castro, and M. Grilli, Singular quasiparticle scattering in the proximity of charge in-stabilities, Physical Review Letters 75 , 4650 (1995). [26] Y. Wang, Z. Chen, T. Shi, B. Moritz, Z.-X. Shen, and T. P. Devereaux, Phonon-mediated long-range at-tractive interaction in one-dimensional cuprates, Phys. Rev. Lett. 127 , 197003 (2021). [27] S. Jiang, D. J. Scalapino, and S. R. White, Density-matrix-renormalization-group-based downfolding of the three-band Hubbard model: the importance of density-assisted hopping, Physical Review B 108 ,L161111 (2023). [28] H. Lange, T. Blatz, U. Schollw¨ ock, S. Paeckel, and A. Bohrdt, Towards effective models for low-dimensional cuprates: From ground state Hamil-tonian reconstruction to spectral functions (2025), arXiv:2509.06947. [29] E. Dagotto, Correlated electrons in high-temperature superconductors, Rev. Mod. Phys. 66 , 763 (1994). [30] D. Bergeron, V. Hankevych, B. Kyung, and A.-M. S. Tremblay, Optical and dc conductivity of the two-dimensional Hubbard model in the pseudogap regime and across the antiferromagnetic quantum critical point including vertex corrections, Phys. Rev. B 84 ,085128 (2011). [31] G. Sordi, P. S´ emon, K. Haule, and A.-M. S. Trem-blay, c-axis resistivity, pseudogap, superconductivity, and Widom line in doped Mott insulators, Physical Review B 87 , 041101 (2013). [32] X. Deng, J. Mravlje, R. ˇZitko, M. Ferrero, G. Kotliar, and A. Georges, How bad metals turn good: Spectro-scopic signatures of resilient quasiparticles, Phys. Rev. Lett. 110 , 086401 (2013). [33] E. Perepelitsky, A. Galatas, J. Mravlje, R. ˇZitko, E. Khatami, B. S. Shastry, and A. Georges, Trans-port and optical conductivity in the Hubbard model: A high-temperature expansion perspective, Phys. Rev. B 94 , 235115 (2016). [34] E. W. Huang, R. Sheppard, B. Moritz, and T. P. Devereaux, Strange metallicity in the doped hubbard model, Science 366 , 987 (2019). [35] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly corre-lated fermion systems and the limit of infinite dimen-sions, Rev. Mod. Phys. 68 , 13 (1996). [36] P. A. Lee, N. Nagaosa, and X.-G. Wen, Doping a mott insulator: Physics of high-temperature superconduc-tivity, Reviews of Modern Physics 78 , 17 (2006). [37] J. P. F. LeBlanc, A. E. Antipov, F. Becca, I. W. Bu-lik, G. K.-L. Chan, C.-M. Chung, Y. Deng, M. Ferrero, T. M. Henderson, C. A. Jim´ enez-Hoyos, E. Kozik, X.-W. Liu, A. J. Millis, N. V. Prokof’ev, M. Qin, G. E. Scuseria, H. Shi, B. V. Svistunov, L. F. Tocchio, I. S. Tupitsyn, S. R. White, S. Zhang, B.-X. Zheng, Z. Zhu, and E. Gull, Solutions of the two-dimensional Hub-bard model: Benchmarks and results from a wide range of numerical algorithms, Physical Review X 5, 041041 (2015). [38] D. P. Arovas, E. Berg, S. A. Kivelson, and S. Raghu, The Hubbard model, Annual Review of Condensed Matter Physics 13 , 239 (2022). [39] M. Qin, T. Sch¨ afer, S. Andergassen, P. Corboz, and E. Gull, The Hubbard model: A computational per-spective, Annual Review of Condensed Matter Physics 
+
+13 , 275 (2022). [40] J. Zaanen, G. A. Sawatzky, and J. W. Allen, Band gaps and electronic structure of transition-metal com-pounds, Physical Review Letters 55 , 418 (1985). [41] V. J. Emery, Theory of high-Tc superconductivity in oxides, Physical Review Letters 58 , 2794 (1987). [42] M. B. Z¨ olfl, T. Maier, T. Pruschke, and J. Keller, Elec-tronic properties of CuO 2-planes: A DMFT study, The European Physical Journal B 13 , 47 (2000). [43] C. Weber, K. Haule, and G. Kotliar, Optical weights and waterfalls in doped charge-transfer insulators: An LDA+DMFT study of LSCO, Physical Review B 78 ,134519 (2008). [44] L. de’ Medici, X. Wang, M. Capone, and A. J. Millis, Correlation strength, gaps, and particle-hole asymme-try in high-Tc cuprates: A dynamical mean field study of the three-band copper-oxide model, Physical Review B 80 , 054501 (2009). [45] W. Hanke, M. L. Kiesel, M. Aichhorn, S. Brehm, and E. Arrigoni, The 3-band Hubbard-model versus the 1-band model for the high-Tc cuprates: Pairing dynam-ics, superconductivity and the ground-state phase di-agram, The European Physical Journal Special Topics 
+
+188 , 15 (2010). [46] C. Weber, T. Giamarchi, and C. M. Varma, Phase di-agram of a three-orbital model for high-Tc cuprate su-perconductors, Phys. Rev. Lett. 112 , 117001 (2014). [47] P. Hansmann, N. Parragh, A. Toschi, G. Sangiovanni, and K. Held, Importance of d–p Coulomb interaction for high TC cuprates and other oxides, New Journal of Physics 16 , 033009 (2014). [48] P. Mai, G. Balduzzi, S. Johnston, and T. A. Maier, A numerical study of the three-band Hubbard model, Physical Review B 103 , 144514 (2021). [49] X. Liu and M. Jiang, Doping dependence of linear-in-temperature scattering rate in the three-orbital Emery model, Physical Review B 110 , L241107 (2024). [50] T. Mao and M. Jiang, Non-Fermi-liquid behavior of the scattering rate in the three-orbital Emery model, Phys. Rev. B 109 , 245102 (2024). [51] L.-B. St-Cyr and D. S´ en´ echal, Effect of the Coulomb repulsion and oxygen level on charge distribution and superconductivity in the emery model for cuprates su-perconductors, SciPost Physics Core 8, 043 (2025). [52] S. Zhao, R. Zhang, W. O. Wang, J. K. Ding, T. Liu, B. Moritz, E. W. Huang, and T. P. Devereaux, En-hanced superconducting correlations in the Emery model and its connections to strange metallic trans-port and normal state coherence, Phys. Rev. B 112 ,224513 (2025). [53] Y.-T. Tseng, M. Malcolms, H. Menke, M. Klett, T. Sch¨ afer, and P. Hansmann, Single-particle spectra and magnetic susceptibility in the Emery model: Adynamical mean-field perspective, SciPost Physics 18 ,30 
+
+145 (2025). [54] J. Vuˇ ciˇ cevi´ c, N. Wentzell, M. Ferrero, and O. Par-collet, Practical consequences of the Luttinger-Ward functional multivaluedness for cluster DMFT methods, Phys. Rev. B 97 , 125141 (2018). [55] J. Vuˇ ciˇ cevi´ c, J. Kokalj, R. ˇZitko, N. Wentzell, D. Tanaskovi´ c, and J. Mravlje, Conductivity in the square lattice Hubbard model at high temperatures: Importance of vertex corrections, Phys. Rev. Lett. 
+
+123 , 036601 (2019). [56] S. Bhandary, E. Assmann, M. Aichhorn, and K. Held, Charge self-consistency in density functional theory combined with dynamical mean field theory: k-space reoccupation and orbital order, Phys. Rev. B 94 ,155131 (2016). [57] J.-H. She, J.-X. Wang, R.-Q. He, and Z.-Y. Lu, Absence of two-orbital superconductivity in cuprate family: A DFT+DMFT perspective (2025), arXiv:2509.08823. [58] K. Haule, C.-H. Yee, and K. Kim, Dynamical mean-field theory within the full-potential methods: Elec-tronic structure of CeIrIn 5, CeCoIn 5, and CeRhIn 5,Phys. Rev. B 81 , 195107 (2010). [59] B. Bacq-Labreuil, B. Lacasse, A.-M. S. Tremblay, D. S´ en´ echal, and K. Haule, Toward an ab initio the-ory of high-temperature superconductors: A study of multilayer cuprates, Phys. Rev. X 15 , 021071 (2025). [60] L. Bellaiche and D. Vanderbilt, Virtual crystal approx-imation revisited: Application to dielectric and piezo-electric properties of perovskites, Phys. Rev. B 61 ,7877 (2000). [61] M. Imada and T. Miyake, Electronic structure calcula-tion by first principles for strongly correlated electron systems, Journal of the Physical Society of Japan 79 ,112001 (2010). [62] J. B. Profe, J. Vuˇ ciˇ cevi´ c, P. P. Stavropoulos, M. R¨ osner, R. Valent´ ı, and L. Klebl, Exact down-folding and its perturbative approximation (2025), arXiv:2507.16916. [63] P. H. Dederichs, S. Bl¨ ugel, R. Zeller, and H. Akai, Ground states of constrained systems: Application to cerium impurities, Physical Review Letters 53 , 2512 (1984). [64] A. K. McMahan, R. M. Martin, and S. Satpathy, Cal-culated effective hamiltonian for La 2CuO 4 and solution in the impurity Anderson approximation, Physical Re-view B 38 , 6650 (1988). [65] S. R. White, Numerical canonical transformation ap-proach to quantum many-body problems, The Journal of Chemical Physics 117 , 7472–7482 (2002). [66] F. Aryasetiawan, M. Imada, A. Georges, G. Kotliar, S. Biermann, and A. I. Lichtenstein, Frequency-dependent local interactions and low-energy effective models from electronic structure calculations, Physi-cal Review B 70 , 195104 (2004). [67] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, Electronic struc-ture calculations with dynamical mean-field theory, Rev. Mod. Phys. 78 , 865 (2006). [68] T. Yanai and G. K.-L. Chan, Canonical transforma-tion theory for multireference problems, The Journal of Chemical Physics 124 , 194106 (2006). [69] T. Miyake and F. Aryasetiawan, Screened Coulomb interaction in the maximally localized Wannier basis, Phys. Rev. B 77 , 085122 (2008). [70] F. Aryasetiawan, J. M. Tomczak, T. Miyake, and R. Sakuma, Downfolded self-energy of many-electron systems, Physical Review Letters 102 , 176402 (2009). [71] C. Honerkamp, Effective interactions in multiband sys-tems from constrained summations, Phys. Rev. B 85 ,195129 (2012). [72] L. Vaugier, H. Jiang, and S. Biermann, Hubbard U and Hund exchange J in transition metal oxides: Screen-ing versus localization trends from constrained random phase approximation, Phys. Rev. B 86 , 165105 (2012). [73] H. J. Changlani, H. Zheng, and L. K. Wagner, Density-matrix based determination of low-energy model Hamiltonians from ab initio wavefunctions, The Journal of Chemical Physics 143 , 102814 (2015). [74] H. Shinaoka, M. Troyer, and P. Werner, Accuracy of downfolding based on the constrained random-phase approximation, Phys. Rev. B 91 , 245156 (2015). [75] P. Werner and M. Casula, Dynamical screening in cor-related electron systems—from lattice models to real-istic materials, Journal of Physics: Condensed Matter 
+
+28 , 383001 (2016). [76] N. P. Bauman, E. J. Bylaska, S. Krishnamoorthy, G. H. Low, N. Wiebe, C. E. Granade, M. Roet-teler, M. Troyer, and K. Kowalski, Downfolding of many-body Hamiltonians using active-space models: Extension of the sub-system embedding sub-algebras approach to unitary coupled cluster formalisms, The Journal of Chemical Physics 151 , 014107 (2019). [77] V. Sharma, Z. Wang, and C. D. Batista, Machine learn-ing assisted derivation of minimal low-energy models for metallic magnets, npj Computational Materials 9,192 (2023). [78] Y. Chang, S. Joshi, and L. K. Wagner, Renormalized density matrix downfolding: A rigorous framework in learning emergent models from ab initio many-body calculations, Phys. Rev. B 110 , 195103 (2024). [79] C. J. C. Scott and G. H. Booth, Rigorous screened interactions for realistic correlated electron systems, Phys. Rev. Lett. 132 , 076401 (2024). [80] Y. Chang, E. G. van Loon, B. Eskridge, B. Busemeyer, M. A. Morales, C. E. Dreyer, A. J. Millis, S. Zhang, T. O. Wehling, L. K. Wagner, and M. R¨ osner, Down-folding from ab initio to interacting model Hamiltoni-ans: comprehensive analysis and benchmarking of the DFT+cRPA approach, npj Computational Materials 
+
+10 , 129 (2024). [81] A. Canestraight, Z. Huang, L. Lin, and V. Vlcek, Renormalization of states and quasiparticles in many-body downfolding, The Journal of Chemical Physics 
+
+163 , 024114 (2025). [82] M. Springer and F. Aryasetiawan, Frequency-dependent screened interaction in Ni within the random-phase approximation, Phys. Rev. B 57 , 4364 (1998). [83] A. Pauli, A. Mishra, M. R¨ osner, and E. G. C. P. van Loon, Static treatment of dynamic interactions in the single-orbital Anderson impurity model, Phys. Rev. B 
+
+112 , 195101 (2025). [84] M. S. Hybertsen, M. Schl¨ uter, and N. E. Chris-31 
+
+tensen, Calculation of Coulomb-interaction parameters for La 2CuO 4 using a constrained-density-functional approach, Physical Review B 39 , 9028 (1989). [85] S. S. Kancharla, B. Kyung, D. S´ en´ echal, M. Civ-elli, M. Capone, G. Kotliar, and A.-M. S. Tremblay, Anomalous superconductivity and its competition with antiferromagnetism in doped Mott insulators, Phys. Rev. B 77 , 184516 (2008). [86] H. Sakakibara, H. Usui, K. Kuroki, R. Arita, and H. Aoki, Two-orbital model explains the higher transi-tion temperature of the single-layer Hg-cuprate super-conductor compared to that of the La-cuprate super-conductor, Phys. Rev. Lett. 105 , 057003 (2010). [87] T. Ahmed, J. J. Kas, and J. J. Rehr, Hubbard model corrections in real-space x-ray spectroscopy theory, Phys. Rev. B 85 , 165123 (2012). [88] H. Sakakibara, K. Suzuki, H. Usui, K. Kuroki, R. Arita, D. J. Scalapino, and H. Aoki, Multiorbital analysis of the effects of uniaxial and hydrostatic pres-sure on Tc in the single-layered cuprate superconduc-tors, Phys. Rev. B 86 , 134520 (2012). [89] H. Sakakibara, H. Usui, K. Kuroki, R. Arita, and H. Aoki, Origin of the material dependence of Tc in the single-layered cuprates, Phys. Rev. B 85 , 064501 (2012). [90] H. Sakakibara, K. Suzuki, H. Usui, S. Miyao, I. Maruyama, K. Kusakabe, R. Arita, H. Aoki, and K. Kuroki, Orbital mixture effect on the Fermi-surface– Tc correlation in the cuprate superconductors: Bilayer vs. single layer, Phys. Rev. B 89 , 224505 (2014). [91] P. Werner, R. Sakuma, F. Nilsson, and F. Aryaseti-awan, Dynamical screening in La 2CuO 4, Physical Re-view B 91 , 125142 (2015). [92] S. Choi, A. Kutepov, K. Haule, M. van Schilfgaarde, and G. Kotliar, First-principles treatment of Mott insulators: linearized QSGW+DMFT approach, npj Quantum Materials 1, 16001 (2016). [93] O. Ivashko, M. Horio, W. Wan, N. B. Christensen, D. E. McNally, E. Paris, Y. Tseng, N. E. Shaik, H. M. Rønnow, H. I. Wei, C. Adamo, C. Lichtensteiger, M. Gibert, M. R. Beasley, K. M. Shen, J. M. Tomczak, T. Schmitt, and J. Chang, Strain-engineering Mott-insulating La 2CuO 4, Nature Communications 10 , 786 (2019). [94] T. Tadano, Y. Nomura, and M. Imada, Ab initio derivation of an effective Hamiltonian for the La 2CuO 4/La 1.55 Sr 0.45 CuO 4 heterostructure, Phys. Rev. B 99 , 155148 (2019). [95] M. Hirayama, Y. Yamaji, T. Misawa, and M. Imada, Ab initio effective Hamiltonians for cuprate supercon-ductors, Phys. Rev. B 98 , 134501 (2018). [96] F. Nilsson, K. Karlsson, and F. Aryasetiawan, Dynam-ically screened coulomb interaction in the parent com-pounds of hole-doped cuprates: Trends and exceptions, Physical Review B 99 , 075135 (2019). [97] K. Sheshadri, D. Malterre, A. Fujimori, and A. Chainani, Connecting the one-band and three-band Hubbard models of cuprates via spectroscopy and scat-tering experiments, Physical Review B 107 , 085125 (2023). [98] S. M. O’Mahony, W. Ren, W. Chen, Y. X. Chong, X. Liu, H. Eisaki, S. Uchida, M. H. Hamidian, and J. C. S. Davis, On the electron pairing mechanism of copper-oxide high temperature superconductivity, Proceedings of the National Academy of Sciences 119 ,e2207449119 (2022). [99] J. Carrasquilla and F. Becca, Extracting the Mott gap from energy measurements in trapped atomic gases, Phys. Rev. A 82 , 053609 (2010). [100] M. Hafez-Torbati, D. Bossini, F. B. Anders, and G. S. Uhrig, Magnetic blue shift of Mott gaps enhanced by double exchange, Phys. Rev. Res. 3, 043232 (2021). [101] Y. Z. Zhang and M. Imada, Pseudogap and Mott tran-sition studied by cellular dynamical mean-field theory, Phys. Rev. B 76 , 045108 (2007). [102] K. Held, Electronic structure calculations using dy-namical mean field theory, Advances in Physics 56 ,829 (2007). [103] N. Marzari and D. Vanderbilt, Maximally localized generalized Wannier functions for composite energy bands, Phys. Rev. B 56 , 12847 (1997). [104] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and D. Vanderbilt, Maximally localized Wannier functions: Theory and applications, Reviews of Modern Physics 
+
+84 , 1419 (2012). [105] K. Nakamura, Y. Nohara, Y. Yosimoto, and Y. No-mura, Ab initio GW plus cumulant calculation for iso-lated band systems: Application to organic conduc-tor (TMTSF) 2PF 6 and transition-metal oxide SrVO 3,Phys. Rev. B 93 , 085124 (2016). [106] K. G. Wilson, The renormalization group: Critical phenomena and the Kondo problem, Rev. Mod. Phys. 
+
+47 , 773 (1975). [107] H. R. Krishna-murthy, J. W. Wilkins, and K. G. Wil-son, Renormalization-group approach to the Anderson model of dilute magnetic alloys. I. Static properties for the symmetric case, Phys. Rev. B 21 , 1003 (1980). [108] R. Bulla, T. A. Costi, and T. Pruschke, Numerical renormalization group method for quantum impurity systems, Rev. Mod. Phys. 80 , 395 (2008). [109] A. Khurana, Electrical conductivity in the infinite-dimensional Hubbard model, Phys. Rev. Lett. 64 , 1990 (1990). [110] F. B. Kugler, S.-S. B. Lee, J. von Delft, and A. Weich-selbaum, Strongly correlated materials from a numer-ical renormalization group perspective, Physical Re-view Letters 124 , 016401 (2020). [111] K. M. Stadler, Z. P. Yin, J. von Delft, G. Kotliar, and A. Weichselbaum, Dynamical mean-field theory plus numerical renormalization-group study of spin-orbital separation in a three-band Hund’s metal, Physical Re-view Letters 115 , 136401 (2015). [112] H. LaBollita, J. Lee-Hand, F. B. Kugler, L. Van Mu˜ noz, S. Beck, A. Hampel, J. Kaye, A. Georges, and C. E. Dreyer, Low-temperature transport in high-conductivity correlated metals: A density functional plus dynamical mean-field study of cubic perovskites, Phys. Rev. B 113 , 085125 (2026). [113] F. B. Kugler, J. Lee-Hand, H. LaBollita, L. Van Mu˜ noz, J. Kaye, S. Beck, A. Hampel, A. Georges, and C. E. Dreyer, Fermi-liquid T 2 resistivity: Dynam-ical mean-field theory meets experiment, Phys. Rev. B 
+
+113 , L081105 (2026). 32 
+
+[114] L. Merker, A. Weichselbaum, and T. A. Costi, Full density-matrix numerical renormalization group calcu-lation of impurity susceptibility and specific heat of the Anderson impurity model, Phys. Rev. B 86 , 075153 (2012). [115] A. Damascelli, Z. Hussain, and Z.-X. Shen, Angle-resolved photoemission studies of the cuprate super-conductors, Reviews of Modern Physics 75 , 473 (2003). [116] J. A. Sobota, Y. He, and Z.-X. Shen, Angle-resolved photoemission studies of quantum materials, Rev. Mod. Phys. 93 , 025006 (2021). [117] H. Zhang, T. Pincelli, C. Jozwiak, T. Kondo, R. Ern-storfer, T. Sato, and S. Zhou, Angle-resolved pho-toemission spectroscopy, Nature Reviews Methods Primers 2, 54 (2022). [118] I. M. Vishik, Photoemission perspective on pseudo-gap, superconducting fluctuations, and charge order in cuprates: a review of recent progress, Reports on Progress in Physics 81 , 062501 (2018). [119] T. Yoshida, M. Hashimoto, S. Ideta, A. Fujimori, K. Tanaka, N. Mannella, Z. Hussain, Z.-X. Shen, M. Kubota, K. Ono, S. Komiya, Y. Ando, H. Eisaki, and S. Uchida, Universal versus material-dependent two-gap behaviors of the high-Tc cuprate super-conductors: Angle-resolved photoemission study of La 2−xSr xCuO 4, Phys. Rev. Lett. 103 , 037004 (2009). [120] X. J. Zhou, T. Yoshida, D.-H. Lee, W. L. Yang, V. Brouet, F. Zhou, W. X. Ti, J. W. Xiong, Z. X. Zhao, T. Sasagawa, T. Kakeshita, H. Eisaki, S. Uchida, A. Fujimori, Z. Hussain, and Z.-X. Shen, Dichotomy between nodal and antinodal quasiparticles in under-doped (La 2−xSr x)CuO 4 superconductors, Phys. Rev. Lett. 92 , 187001 (2004). [121] H. Alloul, What do we learn from impurities and dis-order in high-Tc cuprates?, Frontiers in Physics 12 ,1406242 (2024). [122] R. A. Cooper, Y. Wang, B. Vignolle, O. J. Lipscombe, S. M. Hayden, Y. Tanabe, T. Adachi, Y. Koike, M. Nohara, H. Takagi, C. Proust, and N. E. Hussey, Anomalous criticality in the electrical resistivity of La 2−xSr xCuO 4, Science 323 , 603 (2009). [123] X. Y. Tee, T. Ito, T. Ushiyama, Y. Tomioka, I. Mar-tin, and C. Panagopoulos, Two superconducting tran-sitions in single-crystal La 2−xBa xCuO 4, Phys. Rev. B 
+
+95 , 054516 (2017). [124] M. Naito and M. Hepp, Superconducting T’-La 2−xCe xCuO 4 films grown by molecular beam epi-taxy, Japanese Journal of Applied Physics 39 , L485 (2000). [125] M. T. Schmid, J.-B. Mor´ ee, R. Kaneko, Y. Yamaji, and M. Imada, Superconductivity studied by solving ab initio low-energy effective Hamiltonians for carrier doped CaCuO 2, Bi 2Sr 2CuO 6, Bi 2Sr 2CaCu 2O8, and HgBa 2CuO 4, Phys. Rev. X 13 , 041036 (2023). [126] H. Takagi, B. Batlogg, H. L. Kao, J. Kwo, R. J. Cava, J. J. Krajewski, and W. F. Peck, System-atic evolution of temperature-dependent resistivity in La 2−x Sr x CuO 4, Phys. Rev. Lett. 69 , 2975 (1992). [127] A. Ino, C. Kim, M. Nakamura, T. Yoshida, T. Mi-zokawa, A. Fujimori, Z.-X. Shen, T. Kakeshita, H. Eisaki, and S. Uchida, Doping-dependent evolution of the electronic structure of La 2−xSr xCuO 4 in the su-perconducting and metallic phases, Phys. Rev. B 65 ,094504 (2002). [128] T. Yoshida, X. J. Zhou, K. Tanaka, W. L. Yang, Z. Hussain, Z.-X. Shen, A. Fujimori, S. Sahrakorpi, M. Lindroos, R. S. Markiewicz, A. Bansil, S. Komiya, Y. Ando, H. Eisaki, T. Kakeshita, and S. Uchida, Systematic doping evolution of the underlying fermi surface of La 2−xSr xCuO 4, Phys. Rev. B 74 , 224510 (2006). [129] Y. Zhong, Z. Chen, S.-D. Chen, K.-J. Xu, M. Hashimoto, Y. He, S.-i. Uchida, D. Lu, S.-K. Mo, and Z.-X. Shen, Differentiated roles of Lifshitz tran-sition on thermodynamics and superconductivity in La 2−xSr xCuO 4, Proceedings of the National Academy of Sciences 119 , e2204630119 (2022). [130] J. Zaanen, Why the temperature is high, Nature 430 ,512 (2004). [131] J. Zaanen, Planckian dissipation, minimal viscosity and the transport in cuprate strange metals, SciPost Physics 6, 061 (2019). [132] S. A. Hartnoll and A. P. Mackenzie, Colloquium: Planckian dissipation in metals, Rev. Mod. Phys. 94 ,041002 (2022). [133] S. Martin, A. T. Fiory, R. M. Fleming, L. F. Schneemeyer, and J. V. Waszczak, Normal-state trans-port properties of BSCO crystals, Physical Review B 
+
+41 , 846 (1990). [134] B. Batlogg, Physical properties of high-Tc supercon-ductors, Physics Today 44 , 44 (1991). [135] D. v. d. Marel, H. J. A. Molegraaf, J. Zaanen, Z. Nussi-nov, F. Carbone, A. Damascelli, H. Eisaki, M. Greven, P. H. Kes, and M. Li, Quantum critical behaviour in a high-Tc superconductor, Nature 425 , 271 (2003). [136] J. A. N. Bruin, H. Sakai, R. S. Perry, and A. P. Macken-zie, Similarity of scattering rates in metals showing t-linear resistivity, Science 339 , 804 (2013). [137] A. Legros, S. Benhabib, W. Tabis, F. Lalibert´ e, M. Dion, M. Lizaire, B. Vignolle, D. Vignolles, H. Raffy, Z. Z. Li, P. Auban-Senzier, N. Doiron-Leyraud, P. Fournier, D. Colson, L. Taillefer, and C. Proust, Universal T -linear resistivity and Planck-ian dissipation in overdoped cuprates, Nature Physics 
+
+15 , 142 (2018). [138] G. Grissonnanche, Y. Fang, A. Legros, S. Verret, F. Lalibert´ e, C. Collignon, J. Zhou, D. Graf, P. A. Goddard, L. Taillefer, and B. J. Ramshaw, Linear-in temperature resistivity from an isotropic Planckian scattering rate, Nature 595 , 667 (2021). [139] H. Das and T. Saha-Dasgupta, Electronic structure of La 2CuO 4 in the T and T ′
+
+crystal structures using dy-namical mean field theory, Phys. Rev. B 79 , 134522 (2009). [140] G. Fabbris, M. H¨ ucker, G. D. Gu, J. M. Tranquada, and D. Haskel, Local structure, stripe pinning, and superconductivity in La 1.875 Ba 0.125 CuO 4 at high pres-sure, Phys. Rev. B 88 , 060507 (2013). [141] J. P. Tidey, E.-P. Liu, Y.-C. Lai, Y.-C. Chuang, W.-T. Chen, L. J. Cane, C. Lester, A. N. D. Petsch, A. Her-lihy, A. Simonov, S. M. Hayden, and M. Senn, Pro-nounced interplay between intrinsic phase-coexistence and octahedral tilt magnitude in hole-doped lan-thanum cuprates, Scientific Reports 12 , 14343 (2022). 33 
+
+[142] H. Karapetyan, M. H¨ ucker, G. D. Gu, J. M. Tran-quada, M. M. Fejer, J. Xia, and A. Kapitulnik, Magneto-optical measurements of a cascade of tran-sitions in superconducting La 1.875 Ba 0.125 CuO 4 single crystals, Phys. Rev. Lett. 109 , 147001 (2012). [143] M. K. Horton, P. Huck, R. X. Yang, J. M. Munro, S. Dwaraknath, A. M. Ganose, R. S. Kingsbury, M. Wen, J. X. Shen, T. S. Mathis, A. D. Kaplan, K. Berket, J. Riebesell, J. George, A. S. Rosen, E. W. C. Spotte-Smith, M. J. McDermott, O. A. Cohen, A. Dunn, M. C. Kuner, G.-M. Rignanese, G. Petretto, D. Waroquiers, S. M. Griffin, J. B. Neaton, D. C. Chrzan, M. Asta, G. Hautier, S. Cholia, G. Ceder, S. P. Ong, A. Jain, and K. A. Persson, Accel-erated data-driven materials science with the materials project, Nature Materials 24 , 1522 (2025). [144] A. Jain, S. P. Ong, G. Hautier, W. Chen, W. D. Richards, S. Dacek, S. Cholia, D. Gunter, D. Skinner, G. Ceder, and K. A. Persson, Commentary: The ma-terials project: A materials genome approach to accel-erating materials innovation, APL Materials 1, 011002 (2013). [145] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococcioni, I. Dabo, A. Dal Corso, S. de Giron-coli, S. Fabris, G. Fratesi, R. Gebauer, U. Ger-stmann, C. Gougoussis, A. Kokalj, M. Lazzeri, L. Martin-Samos, N. Marzari, F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello, L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero, A. P. Seitsonen, A. Smo-gunov, P. Umari, and R. M. Wentzcovitch, QUAN-TUM ESPRESSO: a modular and open-source soft-ware project for quantum simulations of materials, Journal of Physics: Condensed Matter 21 , 395502 (2009). [146] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau, M. Buongiorno Nardelli, M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, M. Cococcioni, N. Colonna, I. Carnimeo, A. Dal Corso, S. de Gironcoli, P. Delu-gas, R. A. DiStasio, A. Ferretti, A. Floris, G. Fratesi, G. Fugallo, R. Gebauer, U. Gerstmann, F. Giustino, T. Gorni, J. Jia, M. Kawamura, H.-Y. Ko, A. Kokalj, E. K¨ u¸ c¨ ukbenli, M. Lazzeri, M. Marsili, N. Marzari, F. Mauri, N. L. Nguyen, H.-V. Nguyen, A. Otero-de-la Roza, L. Paulatto, S. Ponc´ e, D. Rocca, R. Saba-tini, B. Santra, M. Schlipf, A. P. Seitsonen, A. Smo-gunov, I. Timrov, T. Thonhauser, P. Umari, N. Vast, X. Wu, and S. Baroni, Advanced capabilities for ma-terials modelling with Quantum ESPRESSO, Journal of Physics: Condensed Matter 29 , 465901 (2017). [147] G. Prandini, A. Marrazzo, I. E. Castelli, N. Mounet, and N. Marzari, Precision and efficiency in solid-state pseudopotential calculations, npj Computational Ma-terials 4, 72 (2018), http://materialscloud.org/sssp. [148] D. R. Hamann, Optimized norm-conserving Vanderbilt pseudopotentials, Phys. Rev. B 88 , 085117 (2013). [149] C. Weber, K. Haule, and G. Kotliar, Strength of cor-relations in electron- and hole-doped cuprates, Nature Physics 6, 574 (2010). [150] S. W. Jang, H. Sakakibara, H. Kino, T. Kotani, K. Kuroki, and M. J. Han, Direct theoretical evi-dence for weaker correlations in electron-doped and Hg-based hole-doped cuprates, Scientific Reports 6,33397 (2016). [151] K. Nakamura, Y. Yoshimoto, Y. Nomura, T. Tadano, M. Kawamura, T. Kosugi, K. Yoshimi, T. Misawa, and Y. Motoyama, RESPACK: An ab initio tool for deriva-tion of effective low-energy model of material, Com-puter Physics Communications 261 , 107781 (2021). [152] A. A. Mostofi, J. R. Yates, G. Pizzi, Y.-S. Lee, I. Souza, D. Vanderbilt, and N. Marzari, An updated version of wannier90: A tool for obtaining maximally-localised Wannier functions, Computer Physics Communica-tions 185 , 2309 (2014). [153] A. Georges and G. Kotliar, Hubbard model in infinite dimensions, Phys. Rev. B 45 , 6479 (1992). [154] H. R. Krishna-murthy, J. W. Wilkins, and K. G. Wil-son, Renormalization-group approach to the Anderson model of dilute magnetic alloys. II. Static properties for the asymmetric case, Phys. Rev. B 21 , 1044 (1980). [155] R. ˇZitko and T. Pruschke, Energy resolution and dis-cretization artifacts in the numerical renormalization group, Phys. Rev. B 79 , 085106 (2009). [156] A. Reustle, cubepy: Adaptive multiple integration in python, Python Package Index (PyPI) (2023), version 1.9.1 (released 2023-05-02). [157] A. Genz and A. Malik, Remarks on algorithm 006: An adaptive algorithm for numerical integration over an n-dimensional rectangular region, Journal of Compu-tational and Applied Mathematics 6, 295 (1980). [158] J. Berntsen and T. O. Espelid, Error estimation in automatic quadrature routines, ACM Transactions on Mathematical Software 17 , 233 (1991). [159] R. Peierls, Zur theorie des diamagnetismus von leitungselektronen, Zeitschrift fur Physik 80 , 763 (1933). [160] C. Berthod, Applications of the many-body formal-ism in condensed-matter physics, Online lecture notes, DQMP, University of Geneva (2011), pDF available online. Accessed 2026-02-08. [161] J. M. Ziman, Electrons and Phonons (Clarendon Press, Oxford, 1960). [162] N. W. Ashcroft and N. D. Mermin, Solid State Physics 
+
+(Harcourt Brace Jovanovich, New York, 1976). [163] A. Ataei, A. Gourgout, G. Grissonnanche, L. Chen, J. Baglo, M.-E. Boulanger, F. Lalibert´ e, S. Badoux, N. Doiron-Leyraud, V. Oliviero, S. Benhabib, D. Vig-nolles, J.-S. Zhou, S. Ono, H. Takagi, C. Proust, and L. Taillefer, Electrons with Planckian scattering obey standard orbital motion in a magnetic field, Nature Physics 18 , 1420 (2022). [164] C.-N. Yeh and M. A. Morales, Low-scaling algorithm for the random phase approximation using tensor hypercontraction with k-point sampling, Journal of Chemical Theory and Computation 19 , 6197 (2023). [165] C.-N. Yeh and M. A. Morales, Low-scaling algorithms for GW and constrained random phase approximation using symmetry-adapted interpolative separable den-sity fitting, Journal of Chemical Theory and Compu-tation 20 , 3184 (2024). [166] N. Momono, T. Matsuzaki, M. Oda, and M. Ido, Su-perconducting condensation energy and pseudogap for-mation in La 2−xSr xCuO 4: New energy scale for super-conductivity, Journal of the Physical Society of Japan 34 
+
+71 , 2832 (2002). [167] C. Girod, D. LeBoeuf, A. Demuer, G. Seyfarth, S. Imajo, K. Kindo, Y. Kohama, M. Lizaire, A. Legros, A. Gourgout, H. Takagi, T. Kurosawa, M. Oda, N. Momono, J. Chang, S. Ono, G.-q. Zheng, C. Marce-nat, L. Taillefer, and T. Klein, Normal state specific heat in the cuprate superconductors La 2−xSr xCuO 4
+
+and Bi 2+ y Sr 2−x−y La xCuO 6+ δ near the critical point of the pseudogap phase, Phys. Rev. B 103 , 214506 (2021). [168] A. Tamai, M. Zingl, E. Rozbicki, E. Cappelli, S. Ricc` o, A. de la Torre, S. McKeown Walker, F. Y. Bruno, P. D. C. King, W. Meevasana, M. Shi, M. Radovi´ c, N. C. Plumb, A. S. Gibbs, A. P. Macken-zie, C. Berthod, H. U. R. Strand, M. Kim, A. Georges, and F. Baumberger, High-resolution photoemission on Sr 2RuO 4 reveals correlation-enhanced effective spin-orbit coupling and dominantly local self-energies, Phys. Rev. X 9, 021048 (2019). [169] S. Fratini, A. Ralko, and S. Ciuchi, Strange metal transport from coupling to fluctuating spins (2024), arXiv:2412.04322. [170] E. H. Hwang and S. Das Sarma, Linear-in-t resistivity in dilute metals: A fermi liquid perspective, Phys. Rev. B 99 , 085105 (2019). [171] M. V. Sadovskii, Planckian relaxation delusion in met-als, Physics-Uspekhi 64 , 175 (2021). [172] N. R. Poniatowski, T. Sarkar, R. P. S. M. Lobo, S. Das Sarma, and R. L. Greene, Counterexample to the conjectured Planckian bound on transport, Phys. Rev. B 104 , 235138 (2021). [173] M. Jarrell and J. Gubernatis, Bayesian inference and the analytic continuation of imaginary-time quantum Monte Carlo data, Physics Reports 269 , 133–195 (1996). [174] O. Gunnarsson, M. W. Haverkort, and G. Sangiovanni, Analytical continuation of imaginary axis data for op-tical conductivity, Phys. Rev. B 82 , 165125 (2010). [175] E. W. Huang, R. Sheppard, B. Moritz, and T. P. De-vereaux, Strange metallicity in the doped Hubbard model, Science 366 , 987 (2019). [176] J. Kokalj, Bad-metallic behavior of doped Mott insu-lators, Phys. Rev. B 95 , 041110(R) (2017). [177] L. Pham and E. Khatami, Spin and charge conductiv-ity in the square lattice Fermi-Hubbard model (2026), arXiv:2602.03771. [178] J. Vuˇ ciˇ cevi´ c and M. Ferrero, Real-frequency diagram-matic Monte Carlo at finite temperature, Phys. Rev. B 101 , 075113 (2020). [179] J. Vuˇ ciˇ cevi´ c, P. Stipsi´ c, and M. Ferrero, Analyti-cal solution for time integrals in diagrammatic ex-pansions: Application to real-frequency diagrammatic Monte Carlo, Phys. Rev. Research 3, 023082 (2021). [180] J. Kovaˇ cevi´ c, M. Ferrero, and J. Vuˇ ciˇ cevi´ c, Toward numerically exact computation of conductivity in the thermodynamic limit of interacting lattice models, Phys. Rev. Lett. 135 , 016502 (2025). [181] Y. Eom, I. S. Tupitsyn, N. V. Prokof’ev, B. Svistunov, E. Kozik, and A. J. Kim, Strange diffusivity of in-coherent metal in half-filled two-dimensional Hubbard model (2025), arXiv:2509.00281. [182] C. Yang and A. E. Feiguin, Spectral function of the two-dimensional hubbard model: A density matrix renormalization group plus cluster perturbation the-ory study, Phys. Rev. B 93 , 081107 (2016). [183] A. Wietek, Y.-Y. He, S. R. White, A. Georges, and E. M. Stoudenmire, Stripes, antiferromagnetism, and the pseudogap in the doped Hubbard model at finite temperature, Phys. Rev. X 11 , 031007 (2021). [184] C. Zhang and J. von Delft, Finite-temperature study of the Hubbard model via enhanced exponential tensor renormalization group (2025), arXiv:2510.25022. [185] I. M. Lifshitz and A. M. Kosevich, Theory of magnetic susceptibility in metals at low temperature, Sov. Phys. JETP 2, 636 (1956). [186] M. Imada, A. Fujimori, and Y. Tokura, Metal-insulator transitions, Rev. Mod. Phys. 70 , 1039 (1998). [187] D. van der Marel, Optical properties of correlated elec-trons, in Strongly Correlated Systems (Springer Berlin Heidelberg, 2014) p. 269–296.
