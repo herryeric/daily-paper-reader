@@ -1,0 +1,425 @@
+Title: Crystallization in the Fractional Quantum Hall Regime with Disorder-Aware Neural Quantum States
+
+URL Source: https://arxiv.org/pdf/2604.06316v1
+
+Published Time: Thu, 09 Apr 2026 00:18:12 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Crystallization in the Fractional Quantum Hall Regime with Disorder-Aware Neural Quantum States 
+
+Jihang Zhu, 1, ∗ Yi Huang, 1, ∗ Xiaodong Hu, 1 Di Xiao, 1, 2 and Ting Cao 1
+
+> 1
+
+Department of Materials Science and Engineering, University of Washington, Seattle, Washington 98195, USA 
+
+> 2
+
+Department of Physics, University of Washington, Seattle, WA, USA 
+
+We present the first microscopic demonstration of a disorder-pinned hole Wigner crystal (WC), providing a natural explanation for the reentrant integer quantum Hall effect observed near ν =2/3, as well as its analogs in fractional Chern insulators. We further identify a novel crossover regime above filling ν = 2 /3 that connects this hole WC to an electron WC, characterized by a network-like electron density structure. To uncover these phenomena, we use neural-network variational Monte Carlo (NNVMC) with a disorder-aware self-attention neural quantum state that describes both fractional quantum Hall (FQH) liquids and Wigner crystals within a single unbiased variational framework. More broadly, our method establishes a unified phase diagram that exposes a fundamental asymmetry in crystallization across half-filling: near ν = 1 /3, increasing LL mixing and disorder both stabilize an electron WC, whereas near ν = 2 /3, the hole WC dominates at weak LL mixing and ultimately gives way to the electron WC at strong LL mixing. 
+
+Introduction —In a two-dimensional electron sys-tem (2DES) under a strong perpendicular magnetic field, incompressible fractional quantum Hall (FQH) liquids [1] compete with charge-ordered Wigner crys-tals (WCs) [2–6]. Early theory for a clean 2DES, considering only Coulomb interactions projected to the lowest Landau level (LLL), predicted a liquid-solid transition upon decreasing the filling factor be-low νc ≈ 1/6.5 [7]. Experiments, however, have re-vealed a much more intricate phase diagram where the evolution is not simply a monotonic termination of FQH liquids into a WC. Instead, reentrant insulat-ing behavior can emerge below half-filling ( ν < 1/2), with robust FQH liquids flanked by insulating elec-tron WC (e-WC) phases [5, 8–15]; above half-filling (ν > 1/2), a particle-hole symmetric reentrant inte-ger quantum Hall (IQH) effect occurs [16, 17], asso-ciated with an insulating hole WC (h-WC) [18, 19] residing on an IQH background that maintains a quantized Hall conductivity σxy = e2/h . Recent ex-perimental reports on the reentrant integer quantum anomalous Hall (IQAH) effect in fractional Chern in-sulators (FCIs) [20, 21] have further renewed interest in this liquid-solid competition. The complexity of this phase diagram arises be-cause the liquid-solid phase boundary is highly sen-sitive to both Landau level (LL) mixing [5, 15, 22–25] and short-range disorder [5, 17, 26]. In real mate-rials, unavoidable disorder and material-dependent LL mixing strongly reshape the liquid-solid phase competition. While clean, low-LL-mixing GaAs electron systems restrict WCs to ν ≲ 1/5 [27, 28], enhancing LL mixing (as in ZnO [24], GaAs hole sys-tems [5, 22, 25], and graphene [15]) or introducing short-range alloy disorder [17, 26] pushes the crys-talline boundary to significantly higher fillings near 
+
+ν = 1 /3 and 2 /5. Yet, despite the prominent role of these two ingredients in experiments, a unified treat-ment of LL mixing and disorder in the strongly cor-related FQH regime remains exceptionally difficult. Existing methods each face limitations. Exact diag-onalization (ED) is limited to small system sizes and typically to the lowest few LLs, making strong LL mixing difficult to access [29]. Variational and diffu-sion Monte Carlo (VMC and DMC) can incorporate LL mixing, but they rely on distinct trial wave func-tions for liquid and crystal phases and are sensitive to the choice of ansatz [23, 30–34]. Disorder fur-ther increases the complexity, and existing studies are largely restricted to small systems or simplified impurity models [35–38]. In this work, we overcome these limitations using neural-network variational Monte Carlo (NNVMC) [39–44] with a disorder-conditioned neu-ral quantum state (NQS), enabled by large-scale GPU computing. Our approach introduces two key advances. First, the NQS provides a single, highly expressive real-space ansatz that can represent both FQH liquids and WCs in the full Hilbert space with all LLs without truncation or phase-specific bias, al-lowing the ground state to be determined variation-ally. Second, we incorporate disorder directly into the neural-network architecture through impurity-aware features within a self-attention framework, en-abling the ansatz to capture spatial inhomogeneity together with LL-mixing effects. This unified frame-work enables, to our knowledge, an unprecedented large-scale nonperturbative treatment of LL mixing and disorder in a single variational description. Using this approach, we uncover qualitatively dis-
+
+> arXiv:2604.06316v1 [cond-mat.str-el] 7 Apr 2026
+
+2tinct crystallization behavior below and above ν =1/2, establishing the schematic phase diagram in Fig. 1 based on our quantitative results [Fig. 2]. Exactly at ν = 1/3 and ν = 2/3, FQH liquid (FQHL) remains more robust against crystallization than nearby fillings. Near ν = 1 /3 [Fig. 1(b), right], increasing LL mixing κ and the number of short-range impurities Nimp both stabilize an e-WC. Near 
+
+ν = 2 /3 [Fig. 1(b), left], we identity for an h-WC at weak LL mixing κ, marking its first demonstra-tion via unbiased microscopic calculations. This h-WC overtakes both the FQHL and the e-WC in the surrounding filling range. Since a disorder-pinned h-WC macroscopically manifests as an IQH plateau, its interruption by the ν = 2 /3 FQHL provides a natural explanation for the reentrant IQH (IQAH) behavior observed in both GaAs and FCIs [17, 19– 21]. We also discover an intermediate-κ crossover regime above ν = 2 /3 that connects the h-WC and e-WC, and is characterized by a network-like electron-density structure. This regime reveals that particle-hole-related h-WC at weak κ and Coulomb-driven e-WC at strong κ may not be connected trivially. Be-cause the h-WC carries σxy = e2/h , whereas the e-WC is a trivial insulator, this crossover involves both a reorganization of crystalline order and a change in Hall response. A key question arising from our work is whether this regime corresponds to a first-order transition, a continuous transition, or a more intri-cate sequence of competing states. 
+
+Hamiltonian and the wave-function ansatz —We study N interacting electrons on a spherical geom-etry (Haldane sphere) [45, 46] in the presence of quenched short-range impurities. The full Hamil-tonian is given by 
+
+H =
+
+> N
+
+X
+
+> i=1
+
+|ΛΛΛi|2
+
+2κR 2 + X
+
+> i<j
+
+1
+
+|rrri − rrrj | + κimp 
+
+κ
+
+> N
+
+X
+
+> i=1
+
+Vimp (rrri).
+
+(1) ΛΛΛi is the dynamical angular momentum of the i-th electron [46]. N is the total number of electrons. Throughout this work, lengths are in units of the magnetic length ℓB = pℏc/eB , and energies in units of e2/ϵℓ B . The LL-mixing strength is characterized by the ratio between Coulomb energy scale and the LL spacing κ = e2/(ϵℓ B ℏωc). The sphere is threaded by Nϕ = 2 Q flux quanta such that it has radius R = √Q. On a Haldane sphere, the filling factor is related to the flux by 2Q = N/ν − S , with a Wen-Zee shift S dictating the response to underlying geometries [46–49]. For Jain sequence ν = n/ (2 pn ±1) FQH states in abelian 
+
+topological order (we only consider abelian topolog-ical order throughout this work), the shift can be di-LL Mixing Disorder   
+
+> Electron
+> FQHL WC h-WC FQHL e-WC
+> FQHL e-WC e-WC e-WC LL mixing Disorder (a) (b)
+> Cross over
+
+FIG. 1. Schematics of liquid-solid phase competition in strong magnetic field. (a) Electrons on a Haldane sphere with a radial magnetic field B. Strong LL mixing or dis-order destabilizes a uniform FQH liquid (FQHL, left) in favor of a charge-ordered WC pinned by positive and negative impurities (right). (b) Schematic 3D phase dia-gram in the parameter space of LL mixing, disorder, and 
+
+ν−1. Near ν = 1 /3, an e-WC phase surrounds the central FQHL dome. Near ν = 2 /3, a h-WC emerges at weak LL mixing as the particle-hole counterpart to the e-WC near ν = 1 /3. At intermediate LL mixing, a crossover region may connect the h-WC and e-WC phases. Gener-ally, increasing disorder drives the crystallization of the FQHL into either an e-WC or h-WC. In the schematic, the LL-mixing axis starts from κ = 1 and the disorder axis starts from two impurities, reflecting the parameter range accessed in our calculations. 
+
+rectly obtained from the K-matrix theory [47], read-ing S = 2 p ± n. Near ν = 1 /3, we define the general-ized filling factor ν = ( N + 2) /[2 Q + 3(2 p + 1)] [23]. And near ν = 2 /3, we define ν = ( N + 2) /[2 Q +3(2 p − 1)]. These generalized filling factors allow 
+
+ν continuously tunable while recovering the correct shift at those fractional fillings. The disorder potential is taken to be a sum of 
+
+Nimp impurities: 
+
+Vdis (rrri) = −
+
+> Nimp
+
+X
+
+> a=1
+
+zav(|rrri − RRRa|), (2) where za ∈ {± 1} is the charge of the a-th impu-rity with position RRRa having the same radius R as the electrons on the sphere. Nimp is adjustable, and the positions are randomly sampled. We include equal number of positive and negative impurities for a charge-neutral background. We model v(r) by a 3Gaussian form: 
+
+v(r) = σ−1e−r2/2σ2
+
+, (3) with σ controlling its spatial range. For short-range disorder, σ should be smaller than all other length scales in the system: σ < aB , ℓ B , n −1/2, where 
+
+aB = ϵℏ2/me 2 is the effective Bohr radius and n−1/2
+
+is the average distance between electrons. We scale the disorder potential by a disorder strength κimp ,this form of v(r) qualitatively represents a screened charge with a characteristic energy scale κimp e2/σ 
+
+for r < σ . If κimp = κ, this is equal to the electron-electron Coulomb strength. We intentionally choose 
+
+κimp /κ = 0 .01 to avoid the Coulomb bound states near short-range impurities, which is absent in ex-periments. This mimics experiments where varying the magnetic field modifies the cyclotron energy but leaves the bare disorder and Coulomb potentials un-changed. To treat LL mixing and disorder under a unified framework, we extend the Psiformer [40] and Deep-Hall [41] framework to disordered FQH systems by introducing a disorder-aware self-attention ansatz. The many-body wave function in our NQS is formu-lated in real-space Jastrow-Slater form [40, 41], Ψλ(rrr; RRR) = eJλ(rrr) det[ Mλ(rrr; RRR)] (4) where rrr = ( rrr1, . . . , r rrN ) and RRR = ( RRR1, . . . , R RRNimp )denote the electron and impurity coordinates, re-spectively, and λ denotes the full set of trainable parameters in the model. Jλ(rrr) is the electron-electron Jastrow factor. The Slater matrix is constructed from configuration-dependent orbitals, [Mλ(rrr; RRR)] ij = φj (rrri; rrr, R RR), where each orbital j de-pends not only on the coordinate of electron i, but also on the full electronic and impurity configura-tions. To encode disorder, the input feature layer as-signs to each electron token both its coordinate rrri
+
+and impurity-relative geometric features with re-spect to all disorder centers {RRRa}Nimp  
+
+> a=1
+
+. We use raw relative vectors, rather than the logarithmically rescaled form adopted in Psiformer, because on the sphere all interparticle distances are bounded. This impurity-aware featurization allows the ansatz to re-solve disorder-induced spatial inhomogeneity while retaining the ability of real-space NQS to capture LL mixing beyond LLL projection. Many-body correlations are encoded through self-attention [40, 50], which provides a flexible and permutation-equivariant representation of the electronic state. Compared with electron-coordinate-only featuriza-tion, our input feature dimension is enlarged by a factor of 1 + Nimp , increasing from 4 N to approxi-mately 4 N (1+ Nimp ), while the token embedding di-mension remains fixed. Training is performed in par-allel on four NVIDIA H200 GPUs for each ν and κ.The variational parameters λ are optimized within the VMC framework by minimizing the expectation value of the energy, with gradients computed by backpropagation through the neural-network wave function and the VMC estimator. Further imple-mentation details and convergence tests are provided in the Supplementary Information. 
+
+Phase Diagrams for ν < 1/2—Near ν = 1/3, we find that the liquid-solid competition is gov-erned primarily by the FQHL and an e-WC, with increasing LL mixing and disorder favoring the lat-ter. Figure 2(a-b) show the phase diagrams in the 
+
+κ-ν plane near ν = 1 /3, obtained for N = 12 elec-trons. We fix κimp /κ = 0 .01 so that the short-range impurity potential remains weak compared to Coulomb and does not produce single-particle bound states throughout the phase diagram. The color scale in Fig. 2(a-b) represents the crystalline order parameter for N = 12 e-WC on a sphere, ln P6, extracted from the angular power spectrum 
+
+PL = (2 L + 1) −1 PLM =−L |cL,M |2, where cL,M =R dΩ ρ(θ, ϕ )Y ∗ 
+
+> L,M
+
+(θ, ϕ ) are the spherical harmonic expansion coefficients of the electron density ob-tained from the NQS: ρ(θ, ϕ ) = |Ψλ|2. Similar to Bragg peaks in planar geometry, peaks in PL con-tains the information of crystalline order of a lattice constant 2 πR/L peak on a sphere. For example, near 
+
+ν = 1 /3 where N = 12 electrons form a regular icosahedron on the sphere, the icosahedral symme-try gives a peak at L = 6, as shown in Fig. 2(e). In the nearly clean limit [Fig. 2(a)] with Nimp = 2 (the minimum number of impurities required to per-turb the system and break rotational symmetry of the Hamiltonian), the FQHL is confined to a nar-row window around ν = 1 /3. Neighboring fillings are predominantly crystalline, especially at large LL mixing. At weaker LL mixing ( κ ≲ 8), the FQHL expands over a broader filling range, qualitatively consistent with previous DMC result [23]. As the number of impurities increases from 
+
+Nimp = 2 to 100 [Fig. 2(b)], crystalline order is strengthened in the large-κ regime, as reflected by the larger values of ln P6 in Fig. 2(b) compared to Fig. 2(a). The most pronounced effect of adding im-purities is at ν = 1 /3, where the FQHL weakens and evolves toward a WC at sufficiently large κ, as directly shown in the density profiles in Fig. 2(g-h). To understand these results and their connec-tions to experiments, we note that varying Nimp at a fixed electron number mimics the experimental tun-4FQHL e-WC e-WC (c) (d)    
+
+> h-WC
+> crossover
+> FQHL e-WC e-WC (a) (g) (b) FQHL e-WC e-WC
+> e-WC FQHL
+> (h) (e) (f)
+> FQHL e-WC e-WC h-WC crossover
+
+FIG. 2. Phase diagrams for systems with Nimp = 2 and 100 impurities at fixed impurity strength κimp /κ = 0 .01. The filling factor ν is tuned by varying the flux Nϕ. (a,b) Phase diagrams near ν = 1 /3 for N = 12 electrons. Color scale represents the crystalline order parameter ln P6, and the dashed line at ln P6 = −2.7 approximates the boundary between WC and FQHL. (c,d) Phase di-agrams near ν = 2 /3 for N = 22 electrons. Blue (red) color scale represents the electron (hole) crystalline or-der parameter ln P8 (ln PL< 8). The WC-FQHL bound-ary is approximated by ln P8 = −4.6. The triangles at 
+
+κ = 1 , ν < 2/3 mark the cases not fully converged for 
+
+N = 22 electrons, but identified as an intermediate crys-talline texture carrying signatures of both e-WC and h-WC order in its angular power spectrum from con-verged smaller-system results using N = 12 electrons (see Supp). (e,f) Angular power spectra (e) at ν = 1 /3and (f) near ν = 2 /3. (g,h) Electron density profiles pro-jected onto the north and south hemispheres at ν = 1 /3and κ = 20 for (g) Nimp = 2 and (h) Nimp = 100. 
+
+ing of short-range impurity density. By increasing the number of short-range impurities, the system approaches a “white noise” limit analogous to the Anderson model [51], where the disorder is charac-terized entirely by its fluctuation strength, κimp . Be-cause the Anderson localization transition is driven by κimp , keeping this parameter intentionally small ensures that our phase diagram avoids the Anderson (a) (g) 
+
+> h-WC e-WC
+
+(h) crossover (d) FQHL 
+
+(b) h-WC 
+
+(c) h-WC 
+
+> crossover
+
+(e) 
+
+> crossover
+
+(f) 
+
+FIG. 3. Electron density profiles projected onto the north and south hemispheres near ν = 2 /3. (a-c) h-WC states with 10, 9, and 8 holes, corresponding to Nϕ=31, 30, and 29, respectively. (d-f) Network-like density pat-terns in the crossover regime for different fillings. (g) A representative e-WC with N = 22 electrons. (h) The FQHL at ν = 2 /3. The + and − labels denote random impurities. 
+
+localized phase. Consequently, the effect of introduc-ing more impurities is to further lower the energy of the WC, stabilizing the crystalline phase against the competing liquid (see Appendix). 
+
+Phase Diagrams for ν > 1/2—Above half filling, the phase diagram becomes richer. Near ν = 2 /3, the liquid-solid competition involves not only the FQHL and an e-WC, but also a h-WC, as shown in Fig. 2(c-d). At exactly ν = 2 /3, the FQHL re-mains robust over a broad range of κ, and crystal-lizes into an e-WC at large κ only when impurities are added, similar to the behavior at ν = 1 /3. Away from ν = 2 /3, the key new feature is the presence of the h-WC stabilized at small κ, while an e-WC is favored at large κ. In electron density profiles, the h-WC appears as isolated ordered minima [Fig. 3(a-c)]. In our phase diagram, the h-WC appears for κ ≲ 1, whereas the e-WC reenters at larger LL mixing: for 
+
+κ ≳ 12 above ν = 2 /3 and for κ ≳ 4 below ν = 2 /3. The appearance of these distinct crystalline phases near ν = 2 /3 can be intuitively understood from the two asymptotic limits. At small κ, near-exact particle-hole symmetry dictates that the low-density 5e-WC near ν = 1 /3 must be mirrored by a h-WC near ν = 2 /3. At large κ, Coulomb repulsion domi-nates and stabilizes an e-WC. In this sense, LL mix-ing does not merely tune the competition between liquid and solid phases, but also selects between two distinct crystalline realizations of charge order. We distinguish the two crystalline phases through their angular power spectra. For the e-WC, the number of lattice sites is fixed by the electron num-ber N . For N = 22, used in Fig. 2(c-d), this gives a characteristic peak at Lpeak = 8, so we take ln P8 as the e-WC order parameter. The h-WC, on the other hand, is determined by the hole number 
+
+Nh = 2 Q + 1 − N [52], which varies with filling through the flux 2 Q. Near ν = 2 /3, Nh remains smaller than N = 22, so the h-WC has a larger real-space lattice spacing than the e-WC and there-fore a characteristic angular scale corresponding to 
+
+Lpeak < 8. At each filling we define the h-WC order parameter from the dominant peak, namely ln PLpeak <8, where Lpeak is the value at which PL is maximal. More remarkably, the evolution between these two crystalline phases is itself highly nontrivial. For fill-ings above ν = 2 /3, we identify a novel crossover regime at κ ∼ 4 − 8 [Fig. 3(d-f)] that connects the h-WC and e-WC. The corresponding density profiles exhibit a network-like structure: the density is nei-ther nearly uniform as in the FQHL, nor organized into isolated minima or maxima as in the h-WC or e-WC. Instead, the charge distribution forms a bi-continuous pattern, indicating that the h-WC-to-e-WC transition proceeds through a reconstruction of the density texture rather than a direct interchange between the two orders. Moreover, the crossover regime is characterized by two distinct length scales, evidenced by a double-peak structure in the PL spec-trum [see the Nϕ = 32 , κ = 4 curve in Fig. 2(f)]. Specifically, one peak occurs at L = 4 and a sec-ond at L = 7, with the latter closely matching the e-WC length scale. In addition, PL exhibits a deep minimum at L = 5, the characteristic h-WC value of Lpeak at the same filling. The quantity ln PL
+
+evaluated at this same Lpeak clearly separates the crossover regime from both the h-WC and e-WC phases, as shown in Fig. 2(f), and is therefore used in the phase diagrams Fig. 2(c,d). This pronounced suppression of the L = 5 signal implies that the h-WC melts into an intermediate phase within the crossover regime upon increasing κ.In contrast, for fillings below 2 /3, the transition from h-WC to e-WC becomes significantly sharper, and within our κ sampling we do not resolve a comparable crossover regime. This contrast reveals a pronounced asymmetry between the symmetry-broken phases on the two sides of the ν = 2 /3 FQHL dome. This asymmetry can be understood from two complementary viewpoints. Geometrically, the h-WC above ν = 2 /3 is more dilute, so converting the widely separated density minima into the density maxima requires a more extended reconstruction of the density field. This favors a gradual percolation-driven reconstruction of the density texture and nat-urally gives rise to a broad network-like intermediate regime with increasing LL mixing. Below ν = 2 /3, the hole density is higher and the closely packed den-sity minima connect more easily, swiftly pinching off the interstitial electrons into isolated peaks and leading to a sharper transition into the e-WC. En-ergetically, on the other hand, the denser electron background above ν = 2 /3 can screen and soften the h-WC, making it more deformable under increas-ing LL mixing and thereby favoring a gradual recon-struction. Below ν = 2 /3, this softening is weaker, so the reorganization into the e-WC is more abrupt. 
+
+Discussion —The central physical result of our study is the identification of a disorder-pinned h-WC at weak LL mixing near ν = 2 /3, together with an intermediate-κ crossover above ν = 2 /3 that con-nects the h-WC to the e-WC. This h-WC provides a natural framework for understanding the reen-trant IQH effect observed in GaAs experiments [17], as well as its anomalous Hall analog in FCIs [19– 21]. For the GaAs electron system [17], κ = 0 .6 at 
+
+B = 15T, corresponding to the center of the RIQH plateau near ν = 0 .63 between ν = 2 /3 and ν = 3 /5. For twisted MoTe 2 at twist angle θ = 3 .7◦, the ef-fective LL mixing is estimated to be κ ∼ 2 [53], and a RIQAH plateau is observed in the hole-doped band over the same filling range [21]. For pentalayer graphene on hBN, the effective LL mixing is esti-mated to be of order 2 to 6, with a RIQAH plateau also observed between ν = 2 /3 and ν = 3 /5 [54]. In the limit of weak LL mixing ( κ → 0), the origin of h-WC follows from particle-hole symmetry: the e-WC near ν = 1 /3 must be mirrored by a corre-sponding h-WC near ν = 2 /3. However, determin-ing the stability window of such crystal phases in competition with the FQHL, and under realistic dis-order and LL mixing, has remained a long-standing challenge [7, 18, 30–33, 55–61]. Our NNVMC ap-proach significantly advance this problem by us-ing a unified, disorder-aware, and highly expressive neural-network ansatz capable of describing both the FQHL and WC simultaneously, and open a door to-wards future investigation of the crossover behavior between the two distinct symmetry-broken phases. We note that our finite-size study specifically cap-6tures disorder-pinned crystal states, providing a di-rect connection to experimental observations with-out over-extrapolating to the true thermodynamic ground state of a clean system. 
+
+> ACKNOWLEDGMENTS
+
+We thank Sankar Das Sarma and Long Ju for helpful discussions. This work is primarily sup-ported by the U.S. Department of Energy, Office of Basic Energy Sciences, under Contract No. DE-SC0025327. This research used resources of the Na-tional Energy Research Scientific Computing Cen-ter, a DOE Office of Science User Facility supported by the Office of Science of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231 using NERSC award BES-ERCAP0032546. This work was also facilitated through the use of advanced computational, storage, and networking infrastruc-ture provided by the Hyak supercomputer system and funded by the University of Washington Molec-ular Engineering Materials Center at the University of Washington (DMR-2308979). 
+
+> Appendix
+
+Benchmarking against ED —We benchmark our NNVMC approach against LLL-projected ED (LLL-ED) by studying the ν = 1 /3 FQH state. In the clean case without any impurity, the energy per elec-tron εc obtained from NNVMC during training is compared with the corresponding ED ground-state energy in Fig. 4(a-c) shown as blue lines. Here εc
+
+is corrected by taking into account the background charge and rescaled by p2Qν/N to account for the density deviation from the thermodynamic limit intrinsic to spherical geometry. For small κ, the NNVMC energy converges to the LLL-ED result [cf. Fig. 4(c) blue lines], as expected in the κ → 0 limit where the LLL projection becomes asymptotically exact. At larger κ, the NNVMC energy converges below the LLL-ED value [Fig. 4(a-b) blue lines], re-flecting the fact that LL mixing lowers the energy beyond what can be captured within a strictly pro-jected LLL treatment. To benchmark the disorder response, we next con-sider a single impurity. In ED, the impurity is mod-eled as a delta-function potential projected onto the LLL, Vimp (r, r0) = V0δ2(r − r0). When the impu-rity is placed at the north or south pole, the Hamil-tonian remains invariant under rotations about the 
+
+z-axis, so Lz = m remains a good quantum number. In this case, the impurity shifts only the energy of the m = Q (m = −Q) orbital at the north (south) pole. In the NNVMC calculation, the impurity is represented by the Gaussian potential with width σ
+
+introduced in Eq. (3), whose σ → 0 limit approaches the delta-function form used in ED. To compare the two descriptions consistently, we match the impu-rity strength through κimp /κ = V0/(2 πσ ) in the pre-sented result shown in Fig. 4. The corresponding en-ergies with a single repulsive impurity placed at the north pole are shown in Fig. 4(a-c) as orange lines. As expected, the agreement with ED improves as σ
+
+is reduced [Fig. 4(a) and (b)], since the Gaussian im-purity more closely approximates the delta-function potential, and also as κ is reduced [Fig. 4(b) and (c)], since LL mixing becomes less important. We further assess the quality of the NQS vari-ational wave function, especially when disorder is present, through its overlap with the ED wave function. In the clean case, the overlap reaches 
+
+SLLL −ED ≈ 0.995 for N = 8. With a single repulsive impurity, Fig. 4(d) shows the overlap as a function of σ at fixed κ = 1 and as a function of κ at fixed 
+
+σ = 0 .001. In both cases, the overlap increases as the calculation approaches the projected-LLL limit with delta-function impurity, either by reducing σ
+
+or by decreasing κ, and exceeds 0 .99 for sufficiently small σ and κ. These results demonstrate that the NQS ansatz faithfully captures the physics of the FQH state, both in the clean limit and in the pres-ence of weak disorder. It should be noted that in Fig. 4(d), SLLL −ED does not increase monotonically as κ decreases. Instead, for κ < 1, the overlap drops as approaching the LLL limit ( κ → 0). This is par-tially because the neural network requires more steps to converge for smaller κ, and Fig. 4(d) is calculated at a fixed number of training steps. More funda-mentally, reaching the κ → 0 limit requires the real-space wavefunction to become strictly holomorphic to remain entirely within the LLL. Because our NQS operates on continuous coordinates without a rigid analytical constraint, any microscopic residual de-pendence on the anti-holomorphic coordinates (¯ z) is massively penalized by the kinetic energy operator. This amplifies the local-energy variance in VMC, forcing the optimizer to expend its capacity on sup-pressing kinetic energy fluctuations rather than re-solving the delicate many-body correlations. 
+
+WCs stabilized by short-range impurities —We show that WCs can be stablized by short-range dis-order against the uniform FQHL. We first recall the zero-field result [62] and then extend the argument to the strong-field regime relevant for ν < 1. To our knowledge, this strong-field result is presented here 7(b)                              
+
+> (c) (d)
+> 1, 0.05 κ=σ=
+> 0.4, 0.001 κ=σ=
+> 1, 0.001 κ=σ=
+> (a) -0.400
+> -0.402
+> -0.404
+> -0.406
+> -0.408
+> -0.410
+> -0.412
+> εc
+> 02e4 4e4 6e4 8e4 10e4
+> Training step
+> -0.400
+> -0.402
+> -0.404
+> -0.406
+> -0.408
+> -0.410
+> -0.412
+> εc
+> -0.400
+> -0.402
+> -0.404
+> -0.406
+> -0.408
+> -0.410
+> -0.412
+> εc
+> 02e4 4e4 6e4 8e4 10e4
+> Training step
+> 02e4 4e4 6e4 8e4 10e4
+> Training step
+
+FIG. 4. Energy and wavefunction overlap benchmark of NNVMC against LLL-ED for N = 8 electrons at ν = 1 /3with a single repulsive impurity at the north pole. (a-c) Energy per electron εc versus training step calculated by NNVMC (solid curves), and the ground state energy calculated by LLL-ED (dashed lines). Blue curves are for clean systems, without any disorder. Orange curves are for disordered systems with a single repulsive im-purity placed at the north pole. In NNVMC, the im-purity is modeled by a gaussian-type potential Eq. (3) with its length-scale σ shown in each subtitle. In LLL-ED, the impurity is modeled by a delta-function. (d) Wavefunction overlap with the LLL-ED versus κ for a fixed σ = 0 .001 (blue) and versus σ for a fixed κ = 1 (red). SLLL −ED is calculated at a fixed number of train-ing step. We fix κimp = 1 in the NNVMC calculations here. 
+
+for the first time. At zero magnetic field and sufficiently low den-sity such that the kinetic energy EF ∼ ℏ2n/m is much smaller than the Coulomb interaction energy 
+
+ECoulomb ∼ e2n1/2/ϵ (i.e., rs = ECoulomb /E F ≫ 1), electrons form a WC where each electron is con-fined by the Coulomb repulsion from other elec-trons. If we expand near the equilibrium position of a WC lattice site, we obtain a harmonic oscil-lator potential mω 2x2 ∼ (e2/2ϵr 3avg )x2, where ravg 
+
+is the average distance between electrons defined as 
+
+nπr 2avg = 1. This implies that the size of an elec-tron wavefunction is a ∼ pℏ/mω = ( ravg a3 
+
+> B
+
+)1/4,where aB = ϵℏ2/me 2 is the effective Bohr radius. A description of the WC is justified if the size of the wavepacket is much smaller than the average distance between electrons, a ≪ ravg (equivalently, 
+
+aB ≪ ravg or rs = ravg /a B ≫ 1). Now we consider the effect of short-range im-purities with delta-function potential P 
+
+> i
+
+Vi(r) =
+
+P 
+
+> i
+
+V0δ(r − ri). The short-range assumption is justi-fied if its characteristic length scale σ is much smaller than all other length scales in the system: σ ≪
+
+aB , r avg . By modeling the WC electron wavepacket as a Gaussian wavepacket ρ(r) = e−r2/a 2
+
+/(πa 2), we obtain the potential energy for the i-th impurity 
+
+Vi = V0ρ(ri) and its force Fi = ∇V |ri = V0∇ρ|ri .The mean-square-fluctuation of the force is given by 
+
+∆F 2 =
+
+Z
+
+nidr 2V 20 (∇ρ · ∇ρ), (5) = V 20 2π
+
+Z ∞
+
+> 0
+
+nirdr 1(πa 2)2 e−2r2/a 2 4r2
+
+a4 , (6) = niV 20
+
+πa 4 . (7) As a result, the energy gain can be estimated by the average work done by the force ∆ F countering the harmonic oscillator force ∼ mω 2∆r with a displace-ment ∆ r = ∆ F/mω 2:∆EWC = −∆F ∆r = − niV 20 m
+
+2πℏ2 . (8) Similarly, we can estimate the energy gain for a uniform Fermi liquid (FL). Consider a single short-range impurity. The impurity potential induces a local density variation δn , which contributes to an increase in the kinetic energy ( ℏ2δn/m )δnr 2 and the Coulomb self energy ( e2/r )( δnr 2)2, and an energy gain −V0δn . Optimizing the energy gives 
+
+δn = V0
+
+r4( ℏ2 
+
+> mr 2
+
++ e2 
+
+> r
+
+) , (9) and the corresponding energy gain in response to this single impurity reads 
+
+δE FL ,1 = − V 20
+
+r4( ℏ2 
+
+> mr 2
+
++ e2 
+
+> r
+
+) . (10) 
+
+r ∼ k−1 
+
+> F
+
+∼ n−1/2 corresponds to the smallest length scale of the density perturbation a FL can produce. As a result, 
+
+δE FL ,1 = − V 20 n2
+
+( ℏ2nm + e2n1/2) = − V 20 nm 
+
+ℏ2(1 + rs) . (11) Equation (11) is the total energy gain for all elec-trons in the presence of a single impurity. In the presence of many impurities with concentration ni,the average energy gain per electrons is ∆EFL = ni
+
+n δE FL ,1 = − V 20 nim
+
+ℏ2(1 + rs) (12) 8If rs ≫ 1, the parenthesis in the denominator of Eq. (12) is dominated by rs. Comparing Eqs. (8) and (12), we find that the energy gain of a WC is larger than the energy gain of a uniform FQHL by a factor of rs. Intuitively this can be understood that the Coulomb self energy of FL due to density variation in response to the impurity is comparable to the im-purity potential energy gain by occupying/depleting the impurity position for negative/positive V0. As a result, the total energy gain of FL is a second order effect in rs. On the other hand, since there is no such Coulomb self energy to be overcome for the WC phase (the net effect is that some electron wavepackets shift their center, while the density pro-file of wavepacket themselves do not change), the to-tal energy gain of WC is the not the second order effect, and being a factor of rs larger than FL. The above calculations are for zero-field case. Now we consider the strong-field case. If B is sufficiently large such that lB < a < r avg , the size of a wave packet is replaced by lB . For example, in GaAs 2DES, take n ∼ 10 11 cm −2, aB = 10 nm, then such a criterion gives B > 1.2 T. The density of the wavepacket now is described as 
+
+ρ(r) = 12πl 2
+
+> B
+
+e−r2/2l2 
+
+> B
+
+, (13) which corresponds to a different force executed by the random impurities ∆F =
+
+s
+
+niV 20
+
+πl 4
+
+> B
+
+, (14) and a different displacement ∆r = ∆Fmω 2 . (15) As a result, the energy gain reads ∆EWC = −∆F ∆r = −
+
+ ravg 
+
+lB
+
+4 niV 20
+
+ravg e2 . (16) For a uniform FQHL, there is no kinetic energy and by replacing the smallest length scale by lB we ob-tain ∆EFQHL = −
+
+ ravg 
+
+lB
+
+3 niV 20
+
+ravg e2 . (17) Indeed, the energy gain of the WC is greater than the energy gain of the FQHL by a factor of 
+
+ravg /l B = 1 /√ν. As a result, when the bare energy difference (i.e., the energy calculated without disor-der) between WC and FQHL is not very large, often within 1% for numerical calculations [63, 64], adding disorder can dramatically shift the phase boundary between WC and FQHL and stabilize WC especially for small ν < 1.  
+
+> ∗
+
+These authors contributed equally to this work and are considered co-first authors. [1] D. C. Tsui, H. L. Stormer, and A. C. Gossard, 
+
+Two-dimensional magnetotransport in the extreme quantum limit, Phys. Rev. Lett. 48 , 1559 (1982). [2] E. Wigner, On the interaction of electrons in metals, 
+
+Phys. Rev. 46 , 1002 (1934). [3] Y. E. Lozovik and V. I. Yudson, Crystallization of a two-dimensional electron gas in a magnetic field, 
+
+JETP 22 , 11 (1975). [4] E. Y. Andrei, G. Deville, D. C. Glattli, F. I. B. Williams, E. Paris, and B. Etienne, Observation of a magnetically induced Wigner solid, Phys. Rev. Lett. 60 , 2765 (1988). [5] M. B. Santos, Y. W. Suen, M. Shayegan, Y. P. Li, L. W. Engel, and D. C. Tsui, Observation of a reen-trant insulating phase near the 1/3 fractional quan-tum Hall liquid in a two-dimensional hole system, 
+
+Phys. Rev. Lett. 68 , 1188 (1992). [6] F. Yang, A. A. Zibrov, R. Bai, T. Taniguchi, K. Watanabe, M. P. Zaletel, and A. F. Young, 
+
+Experimental determination of the energy per parti-cle in partially filled Landau levels, Phys. Rev. Lett. 
+
+126 , 156802 (2021). [7] P. K. Lam and S. M. Girvin, Liquid-solid transition and the fractional quantum-Hall effect, Phys. Rev. B 30 , 473 (1984). [8] R. L. Willett, H. L. Stormer, D. C. Tsui, L. N. Pfeif-fer, K. W. West, and K. W. Baldwin, Termination of the series of fractional quantum Hall states at small filling factors, Phys. Rev. B 38 , 7881 (1988). [9] V. J. Goldman, M. Shayegan, and D. C. Tsui, 
+
+Evidence for the fractional quantum Hall state at 
+
+ν=1/7, Phys. Rev. Lett. 61 , 881 (1988). [10] H. W. Jiang, R. L. Willett, H. L. Stormer, D. C. Tsui, L. N. Pfeiffer, and K. W. West, Quantum liquid versus electron solid around ν=1/5 Landau-level filling, Phys. Rev. Lett. 65 , 633 (1990). [11] H. W. Jiang, H. L. Stormer, D. C. Tsui, L. N. Pfeif-fer, and K. W. West, Magnetotransport studies of the insulating phase around ν=1/5 Landau-level fill-ing, Phys. Rev. B 44 , 8107 (1991). [12] T. Sajoto, Y. W. Suen, L. W. Engel, M. B. Santos, and M. Shayegan, Fractional quantum Hall effect in very-low-density GaAs/ Al x Ga 1−x As heterostruc-tures, Phys. Rev. B 41 , 8449 (1990). [13] R. Du, D. Tsui, H. Stormer, L. Pfeiffer, and K. West, Fractional quantum Hall liquid to insulator transition in the vicinity of Landau level filling ν =2/9, Solid State Communications 99 , 755 (1996). [14] W. Pan, H. L. Stormer, D. C. Tsui, L. N. Pfeif-fer, K. W. Baldwin, and K. W. West, Transition from an electron solid to the sequence of fractional 9
+
+quantum Hall states at very low Landau level filling factor, Phys. Rev. Lett. 88 , 176802 (2002). [15] Y.-C. Tsui, M. He, Y. Hu, E. Lake, T. Wang, K. Watanabe, T. Taniguchi, M. P. Zaletel, and A. Yazdani, Direct observation of a magnetic-field-induced Wigner crystal, Nature 628 , 287 (2024). [16] J. P. Eisenstein, K. B. Cooper, L. N. Pfeiffer, and K. W. West, Insulating and fractional quantum Hall states in the first excited Landau level, Phys. Rev. Lett. 88 , 076801 (2002). [17] W. Li, D. R. Luhman, D. C. Tsui, L. N. Pfeif-fer, and K. W. West, Observation of reentrant phases induced by short-range disorder in the lowest Landau level of Al xGa 1−xAs/Al 0.32 Ga 0.68 As het-erostructures, Phys. Rev. Lett. 105 , 076803 (2010). [18] K. Maki and X. Zotos, Static and dynamic proper-ties of a two-dimensional Wigner crystal in a strong magnetic field, Phys. Rev. B 28 , 4349 (1983). [19] Y. Huang, S. Musser, J. Zhu, Y.-Z. Chou, and S. Das Sarma, Apparent inconsistency between Streda formula and Hall conductivity in reentrant integer quantum anomalous Hall effect in twisted 
+
+M oT e 2, Phys. Rev. B 112 , 195136 (2025). [20] Z. Lu, T. Han, Y. Yao, Z. Hadjri, J. Yang, J. Seo, L. Shi, S. Ye, K. Watanabe, T. Taniguchi, and L. Ju, Extended quantum anomalous Hall states in graphene/hBN moir´ e superlattices, Nature 637 ,1090 (2025). [21] F. Xu, Z. Sun, J. Li, C. Zheng, C. Xu, J. Gao, T. Jia, K. Watanabe, T. Taniguchi, B. Tong, L. Lu, J. Jia, Z. Shi, S. Jiang, Y. Zhang, Y. Zhang, S. Lei, X. Liu, and T. Li, Signatures of unconventional su-perconductivity near reentrant and fractional quan-tum anomalous Hall insulators, arXiv:2504.06972 [cond-mat.mes-hall] (2025). [22] M. B. Santos, J. Jo, Y. W. Suen, L. W. Engel, and M. Shayegan, Effect of landau-level mixing on quantum-liquid and solid states of two-dimensional hole systems, Phys. Rev. B 46 , 13639 (1992). [23] J. Zhao, Y. Zhang, and J. K. Jain, Crystallization in the fractional quantum Hall regime induced by Landau-level mixing, Phys. Rev. Lett. 121 , 116802 (2018). [24] D. Maryenko, A. McCollam, J. Falson, Y. Kozuka, J. Bruin, U. Zeitler, and M. Kawasaki, Compos-ite fermion liquid to Wigner solid transition in the lowest Landau level of zinc oxide, Nature Commu-nications 9, 4356 (2018). [25] C. Wang, A. Gupta, S. K. Singh, L. N. Pfeiffer, K. W. Baldwin, R. Winkler, and M. Shayegan, 
+
+Competing many-body phases at small fillings in ultrahigh-quality GaAs two-dimensional hole sys-tems: Role of Landau level mixing, Phys. Rev. B 
+
+111 , 085429 (2025). [26] B.-H. Moon, L. W. Engel, D. C. Tsui, L. N. Pfeiffer, and K. W. West, Pinning modes of high-magnetic-field wigner solids with controlled alloy disorder, 
+
+Phys. Rev. B 89 , 075310 (2014). [27] P. T. Madathil, C. Wang, S. K. Singh, A. Gupta, K. A. V. Rosales, Y. J. Chung, K. W. West, K. W. Baldwin, L. N. Pfeiffer, L. W. Engel, and M. Shayegan, Signatures of correlated defects in an ultraclean Wigner crystal in the extreme quantum limit, Phys. Rev. Lett. 132 , 096502 (2024). [28] C. Wang, P. T. Madathil, S. K. Singh, A. Gupta, Y. J. Chung, L. N. Pfeiffer, K. W. Baldwin, and M. Shayegan, Developing fractional quantum Hall states at even-denominator fillings 1/6 and 1/8, 
+
+Phys. Rev. Lett. 134 , 046502 (2025). [29] F. D. M. Haldane and E. H. Rezayi, Finite-size studies of the incompressible state of the fraction-ally quantized Hall effect and its excitations, Phys. Rev. Lett. 54 , 237 (1985). [30] X. Zhu and S. G. Louie, Wigner crystallization in the fractional quantum Hall regime: A variational quantum Monte Carlo study, Phys. Rev. Lett. 70 ,335 (1993). [31] X. Zhu and S. G. Louie, Variational quantum Monte Carlo study of two-dimensional Wigner crystals: Exchange, correlation, and magnetic-field effects, 
+
+Phys. Rev. B 52 , 5863 (1995). [32] R. Price, X. Zhu, S. Das Sarma, and P. M. Platzman, Laughlin-liquid–Wigner-solid transition at high density in wide quantum wells, Phys. Rev. B 51 , 2017 (1995). [33] G. Ortiz, D. M. Ceperley, and R. M. Martin, 
+
+New stochastic method for systems with broken time-reversal symmetry: 2D fermions in a magnetic field, 
+
+Phys. Rev. Lett. 71 , 2777 (1993). [34] M. Gattu, Dressing composite fermions with arti-ficial intelligence, arXiv:2512.00527 [cond-mat.mes-hall] (2025). [35] K. Huang, S. Das Sarma, and X. Li, Ther-mal ionization of impurity-bound quasiholes in the fractional quantum Hall effect, arXiv preprint arXiv:2512.07769 (2025). [36] F. C. Zhang, V. Z. Vulovic, Y. Guo, and S. Das Sarma, Effect of a charged impurity on the fractional quantum Hall effect: Exact numerical treatment of finite systems, Phys. Rev. B 32 , 6920 (1985). [37] E. H. Rezayi and F. D. M. Haldane, Incompress-ible states of the fractionally quantized Hall effect in the presence of impurities: A finite-size study, Phys. Rev. B 32 , 6924 (1985). [38] C. T˝ oke, N. Regnault, and J. K. Jain, Nature of excitations of the 5/2 fractional quantum Hall effect, 
+
+Phys. Rev. Lett. 98 , 036806 (2007). [39] G. Carleo and M. Troyer, Solving the quantum many-body problem with artificial neural networks, 
+
+Science 355 , 602 (2017). [40] I. von Glehn, J. S. Spencer, and D. Pfau, A self-attention ansatz for ab-initio quantum chemistry, 
+
+arXiv:2211.13672 [physics.chem-ph] (2023). [41] Y. Qian, T. Zhao, J. Zhang, T. Xiang, X. Li, and J. Chen, Describing Landau level mixing in frac-tional quantum Hall states with deep learning, Phys. Rev. Lett. 134 , 176503 (2025). [42] Y. Teng, D. D. Dai, and L. Fu, Solving the fractional quantum Hall problem with self-attention neural net-work, Phys. Rev. B 111 , 205117 (2025). [43] A. Abouelkomsan and L. Fu, First-principles AI 10 
+
+finds crystallization of fractional quantum Hall liq-uids, arXiv:2602.03927 [cond-mat.mes-hall] (2026). [44] K. Nazaryan, F. Gaggioli, Y. Teng, and L. Fu, 
+
+Artificial intelligence for quantum matter: Find-ing a needle in a haystack, arXiv:2507.13322 [cond-mat.str-el] (2026). [45] T. T. Wu and C. N. Yang, Dirac monopole with-out strings: Monopole harmonics, Nuclear Physics B 107 , 365 (1976). [46] F. D. M. Haldane, Fractional quantization of the Hall effect: A hierarchy of incompressible quantum fluid states, Phys. Rev. Lett. 51 , 605 (1983). [47] X. G. Wen and A. Zee, Shift and spin vector: New topological quantum numbers for the Hall fluids, 
+
+Phys. Rev. Lett. 69 , 953 (1992). [48] A. Gromov, G. Y. Cho, Y. You, A. G. Abanov, and E. Fradkin, Framing anomaly in the effective the-ory of the fractional quantum Hall effect, Phys. Rev. Lett. 114 , 016805 (2015). [49] B. Bradlyn and N. Read, Low-energy effective theory in the bulk for transport in a topological phase, Phys. Rev. B 91 , 125303 (2015). [50] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polo-sukhin, Attention is all you need, Advances in neu-ral information processing systems 30 (2017). [51] P. W. Anderson, Absence of diffusion in certain ran-dom lattices, Phys. Rev. 109 , 1492 (1958). [52] On the Haldane sphere, the completely filled LLL corresponding to the ν = 1 integer quantum Hall state contains 2 Q + 1 available orbitals. Removing 
+
+N electrons leaves behind Nh = 2 Q + 1 − N holes. [53] S. Mishra, T. M. R. Wolf, and A. H. Mac-Donald, Charge-ordered states in twisted mote 2,
+
+arXiv:2603.05714 [cond-mat.str-el] (2026). [54] We estimate the effective LL mixing in pentalayer graphene/hBN as κeff ∼ e2/ϵa eff ∆iso , with ϵ ≈ 5, 
+
+aeff ≈ 3 − 6 nm, and ∆ iso ≈ 10 − 20 meV. The range of aaff is inferred from the spatial extent of the active Chern band orbital for a moir´ e scale of roughly 12 − 15 nm, while ∆ iso is taken to be of the same order as the first conduction-band bandwidth, which can be as small as ∼ 10 meV. These values give κeff ∼ 2 − 6. [55] D. Levesque, J. J. Weis, and A. H. MacDonald, 
+
+Crystallization of the incompressible quantum-fluid state of a two-dimensional electron gas in a strong magnetic field, Phys. Rev. B 30 , 1056 (1984). [56] R. K. Kamilla and J. K. Jain, Excitonic instability and termination of fractional quantum Hall effect, 
+
+Phys. Rev. B 55 , R13417 (1997). [57] H. Yi and H. A. Fertig, Laughlin-jastrow-correlated Wigner crystal in a strong magnetic field, Phys. Rev. B 58 , 4019 (1998). [58] K. Yang, F. D. M. Haldane, and E. H. Rezayi, 
+
+Wigner crystals in the lowest Landau level at low-filling factors, Phys. Rev. B 64 , 081301 (2001). [59] S. S. Mandal, M. R. Peterson, and J. K. Jain, 
+
+Two-dimensional electron system in high magnetic fields: Wigner crystal versus composite-fermion liq-uid, Phys. Rev. Lett. 90 , 106403 (2003). [60] M. R. Peterson and J. K. Jain, Possible persistence of fractional quantum Hall effect down to ultralow fillings, Phys. Rev. B 68 , 195310 (2003). [61] A. C. Archer, K. Park, and J. K. Jain, Competing crystal phases in the lowest Landau level, Phys. Rev. Lett. 111 , 146804 (2013). [62] S. Joy and B. Skinner, Disorder-induced liquid-solid phase coexistence in 2D electron systems, 
+
+arXiv:2502.11235 [cond-mat.str-el] (2025). [63] Z.-W. Zuo, A. C. Balram, S. Pu, J. Zhao, T. Joli-coeur, A. W´ ojs, and J. K. Jain, Interplay between fractional quantum Hall liquid and crystal phases at low filling, Phys. Rev. B 102 , 075307 (2020). [64] A. C. Balram, A. Sharma, and J. K. Jain, Interplay of superconducting, metallic, and crystalline states of composite fermions at ν=1 /6 in wide quantum wells, arXiv:2502.18383 [cond-mat.str-el] (2025).
