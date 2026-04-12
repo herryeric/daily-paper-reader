@@ -1,0 +1,1565 @@
+Title: Edge universality in Floquet sideband spectra
+
+URL Source: https://arxiv.org/pdf/2604.05244v1
+
+Published Time: Wed, 08 Apr 2026 00:16:54 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+# Edge universality in Floquet sideband spectra 
+
+Miguel Tierz 
+
+Shanghai Institute for Mathematics and Interdisciplinary Sciences (SIMIS), Block A, No. 657 Songhu Road, Yangpu District, Shanghai 200438, China 
+
+tierz@simis.cn 
+
+Abstract 
+
+We show that, for non-interacting fermions under a monochromatic phase drive (Tien– Gordon regime), the outgoing sideband occupations at a sharp Fermi edge are governed by the discrete Bessel kernel—an exact result at any drive amplitude A. In the large-amplitude regime the edge of this kernel converges, on the A1/3 scale, to the Airy kernel of random matrix theory. This universality has a direct transport consequence: the deficit of the photo-assisted shot-noise slope from its high-bias plateau collapses onto the Airy-kernel diagonal. The deriva-tion rests on a bridge between the linear detection chain and the Floquet scattering matrix: commensurate gating isolates a single coherence-order block of the one-body correlator. We identify the crossover temperature below which the Airy scaling is sharp, extend the analysis to biased two-terminal occupations, and argue that multi-tone drives make Pearcey-kernel cusps accessible in Floquet–Sambe space. 
+
+# 1 Introduction 
+
+Periodically driven (Floquet) quantum systems are now routinely realized in superconducting cir-cuits, optomechanical cavities, semiconductor quantum dots, and cold-atom platforms [1, 2, 3, 4, 5]. In all of these settings the experiment records a finite time trace of a linear output signal—a current, a voltage, a homodyne photocurrent [6]—and then processes it: filtering, demodulating, gating. The resulting number depends not only on the physics of the driven device but also on the details of this linear analysis chain. The theory of photon-assisted transport (PAT) through AC-driven conductors is by now a mature field. Tien and Gordon [7] showed that a monochromatic phase drive eiA sin Ω t produces sideband weights given by Bessel functions Jn(A)—the Fourier coefficients of the drive’s phase factor, with 
+
+A the dimensionless drive amplitude. Lesovik and Levitov [8] showed that the photo-assisted shot noise (PASN) is sensitive to the AC drive even when the average current is featureless. Pedersen and Büttiker [9] cast PAT in a current-conserving Floquet scattering language; Moskalets and Büttiker [10] placed it in the broader framework of Floquet scattering theory for quantum pumps and driven mesoscopic conductors (see also the monograph [4]). On the experimental side, PASN has been quantitatively tested in quantum point contacts (QPCs) [11, 12]; subsequent work reinterpreted it in terms of photon-created electron–hole pairs [13] and extended this picture to a full counting statistics of elementary transfer events [14, 15], while the electron quantum optics program used PASN as a spectroscopic tool for shaped voltage pulses and leviton states [16, 17]. A comprehensive review of the field is given in [1]. The present paper does not revisit this established framework; rather, it identifies a new asymptotic regime—the large-A soft edge of the sideband spectrum— where the Floquet correlator acquires the universal Airy-kernel structure familiar from random 1
+
+> arXiv:2604.05244v1 [cond-mat.mes-hall] 6 Apr 2026
+
+matrix theory (RMT) [18], and derives a concrete transport observable (the shot-noise plateau deficit) that isolates this edge. This paper has two goals. The first is to make the logical chain from the measured number to the outgoing quantum state precise. Every linear readout of a Floquet signal can be written as a projection of the outgoing one-body correlator C [10], weighted by a detection kernel Kphys 
+
+that encodes the instrument’s time gate, filter, and analysis frequency [3]. In matrix notation, 
+
+C = S∗N S T ; for a single-channel scatterer, the scattering phase cancels and C reduces to JN J T
+
+with the real Bessel matrix Jnm = Jn−m(A). The detection kernel belongs to the instrument; the correlator belongs to the device. Both are needed to make a falsifiable prediction for the measured signal, yet in much of the Floquet literature the analysis chain is left implicit. We make it explicit because it clarifies what the experiment can and cannot access at the sideband level. The second goal is to show that the correlator itself has universal structure at its spectral edge. This universality does not hold for arbitrary Floquet systems; it requires a specific combination of conditions: 1. Non-interacting (free) fermions. The outgoing state must be a Slater determinant [19]. In-teractions, inelastic processes, and decoherence destroy the determinantal structure on which the entire analysis rests. 2. Monochromatic, spatially uniform phase drive (Tien–Gordon regime [7]). The drive enters only through a time-dependent gauge phase eiA sin Ω t, producing a Toeplitz (constant along diagonals) Floquet scattering matrix with Bessel-function entries Jn−m(A).3. Wide-band static scatterer. The energy-independent factorization Snm (E) = U(E)Jn−m(A)
+
+requires that U(E) varies negligibly over the sideband window ∼ 2AℏΩ. When this condition fails—e.g., near a resonance—the Bessel weights are modified [9]. 4. Sharp Fermi step. The discrete Bessel kernel emerges only when the effective occupation 
+
+¯fα(Em) = P 
+
+> β
+
+|U αβ |2fβ (Em) is a single sharp step Θ( mF − m). This is exact when all reservoirs share the same chemical potential (equilibrium) or when a single reservoir dominates the outgoing channel. A standard two-terminal device with DC bias gives a double step (see Sec. 5 for the extension to this case). 5. Zero temperature. More precisely, kB Tel ≪ ℏΩκA = ℏΩ( A/ 2) 1/3. The crossover parameter is 
+
+θA = kB Tel /ℏΩκA (Sec. 9.2); the Airy edge is sharp for θA ≪ 1 and thermally broadened for 
+
+θA ≳ 1.6. Large drive amplitude A ≫ 1. The Airy limit is an asymptotic statement as A → ∞ ; the edge region has width ∼ A1/3 sidebands. The main experimental platform is a quantum point contact or tunnel junction driven by a monochro-matic AC voltage at low temperature—the setting of Tien–Gordon photon-assisted transport. The exact single-step theorem applies when the device is in equilibrium or when a single populated reservoir dominates the outgoing channel; the standard biased two-terminal case is handled by the multi-step extension of Sec. 5.1. Superconducting microwave circuits can also approximate this regime, but only when the circuit contains a fermionic channel (e.g., a normal-metal tunnel junction embedded in a cavity) and the drive is monochromatic; purely bosonic Josephson-junction modes do not satisfy the determinantal structure assumed here. Multi-mode, interacting, or strongly dissi-pative Floquet platforms—such as driven many-body cold-atom systems or periodically modulated strongly correlated materials—are not expected to exhibit the specific Bessel/Airy edge structure derived here, though they may display other forms of universality. 2The mathematical asymptotics that connect Bessel functions to the Airy function near a turning point are classical [20, 21]: when the order n of a Bessel function approaches its argument A, Jn(A)
+
+crosses over from oscillatory to exponentially decaying, and in the transition region of width ∼ A1/3
+
+the Bessel function is approximated by the Airy function. What is new in this paper is, first, the identification of the discrete Bessel kernel as the exact correlation kernel of the outgoing sideband process at any drive amplitude, and second, the derivation of a directly measurable transport observable—the photo-assisted shot-noise plateau deficit—whose large-A scaling isolates the Airy edge without requiring sideband-resolved detection. This observable converges to the Airy-kernel diagonal KAi (s, s ) = Ai ′(s)2 − s Ai( s)2, not to Ai 2(s)—the pointwise Debye–Olver envelope of the individual Bessel weights J2 
+
+> ℓ
+
+(A); the two functions have different structure in both the bulk and the tail (Fig. 6), and the distinction is the concrete sense in which the result goes beyond classical turning-point asymptotics. Under conditions (1)–(6), the outgoing sideband occupations at fixed central energy form a determinantal point process—all correlation functions are determinants of the two-point kernel [22, 18]. In the single-step case, the kernel is the discrete Bessel kernel K(disc)  
+
+> A
+
+; in the two-terminal double-step case (Sec. 5.1), it is a weighted sum of two shifted Bessel kernels. In either case, the edges of the process lie near n ∼ mF + A, where mF is the Fermi cutoff, and in a turning-point region of width ∼ A1/3 the local kernel converges to the Airy kernel familiar from random matrix theory [23, 18]. In the double-step case, each edge is governed by a thinned Airy kernel τ K Ai plus a smooth bulk background from the other step; the background is negligible in the tunnel limit T ≪ 1.This is proved in Theorem 6.1 and illustrated numerically in Figs. 3–4. The same diagonal discrete Bessel kernel also appears in a different observable: the first bias derivative of the photo-assisted shot noise realizes K(disc)  
+
+> A
+
+(νV , ν V ), with νV := ⌈eV / ℏΩ⌉, as a function of bias voltage, so that the deficit from the high-bias plateau provides a parameter-free test of the Airy scaling in a standard DC noise measurement (Sec. 9). Two figures encode the two halves of this story. Figure 1 shows the measurement side: time gat-ing, frequency windowing, and spectrogram analysis of the Floquet signal. Figure 2 shows the device side: the sideband ladder, the Floquet scattering matrix Snm with mixing order k = n − m, and the outgoing correlator C = S∗N S T . A recurring theme is the two-dimensional structure of Sambe space [24]—Floquet angle × quasienergy—which provides a natural physical control manifold. In this manifold, cusp (Pearcey) edge singularities already known in random matrix theory [25, 26] become accessible: extra control parameters, such as additional drive tones, make cusps realizable in addition to folds (Airy). The paper is organized as follows. Section 2 defines the detection kernel and explains why it must be specified. Section 3 introduces the Floquet scattering formalism and derives the projection identity that bridges the measurement and device sides. Section 4 specializes to the monochromatic Tien–Gordon model and derives the Toeplitz (Bessel) structure. Section 5 identifies the outgoing correlator as a discrete Bessel kernel under conditions (1)–(4) and extends the analysis to two-terminal double-step occupations. Section 6 proves the Airy-kernel soft-edge limit (condition (6)). Section 7 extends the discussion to multi-tone drives, where the fold edge can be promoted to a cusp governed by the Pearcey kernel. Section 8 brings the threads together and discusses the measurement signatures of both universality classes. Section 9 derives the concrete Airy-edge prediction for the photo-assisted shot-noise plateau deficit and the finite-temperature crossover. 30 20 
+
+Time t (T = 2 / )
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+1.2 
+
+1.4 
+
+1.6    
+
+> |ebb (t)|
+> tedge
+> t0
+> u0=cedge (t0tedge )
+> (a) time window
+
+5 0 5
+
+Angular frequency 
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+1.2      
+
+> Schematic magnitude
+> edge
+> 0
+> u0=cedge (0edge )
+> baseband comb at n
+> (b) frequency window
+
+0 20 
+
+Time t (T = 2 / )
+
+3
+
+2
+
+1
+
+0
+
+1
+
+2
+
+3    
+
+> Angular frequency  edge
+> 0
+> u0=cedge (0edge )
+> (c) spectrogram view
+
+Figure 1: Windowed analysis of a Floquet signal. A finite time/frequency window defines the detection kernel that weights harmonics at ω = nΩ; the spectrogram shows their time localization. See Sec. 2. 
+
+# 2 Measurement-side viewpoint: windowing, demodulation, and the detection kernel 
+
+We begin on the instrument side. The key object is the detection kernel Kphys [3], which encodes everything the acquisition chain does to the raw signal before reporting a number. We first define it in the simplest case, then generalize and discuss its role. 
+
+2.1 A linear readout functional 
+
+Let ˆY (t) denote the Heisenberg operator associated with the measured output signal. Depending on the implementation, ˆY (t) could be a photocurrent, a microwave voltage, a filtered current, or any other linear transducer output. The simplest (and most common) readout consists of two operations: a rectangular time gate W (t) = 1[t0−L, t 0](t) that selects the acquisition interval, and multiplication by e−iω 0t to demodulate at the analysis frequency ω0. The measured complex number is then 
+
+ˆu0(ω0; t0) := 
+
+Z t0
+
+> t0−L
+
+dt e −iω 0t ˆY (t). (2.1) This is the operator version of the standard IQ (in-phase/quadrature) projection [27, 28]: Re ˆ u0
+
+and Im ˆ u0 are the familiar I and Q quadratures. More generally, an additional low-pass filter or integrator with impulse response h(t) may precede the readout, giving the detection kernel 
+
+Kphys (t; ω0, t 0) := h(t0 − t) W (t) e−iω 0t, ˆu0(ω0; t0) = 
+
+Z ∞−∞ 
+
+dt K phys (t; ω0, t 0) ˆY (t). (2.2) 4m=−3          
+
+> m=−2
+> m=−1
+> m=0
+> m=+1
+> m=+2
+> m=+3
+> μ
+> input sidebands
+> Em
+> n=−3
+> n=−2
+> n=−1
+> n=0
+> n=+1
+> n=+2
+> n=+3
+> output sidebands
+> +2Ω
+> +Ω
+> −Ω
+> −2Ω
+> Snm =U(E)Jn−m(A)
+> k=n−m(mixing order)
+
+eiA sin Ω t      
+
+> Cnp (E) =
+> ∑
+> m
+> Jn−m(A)Jp−m(A) ¯f(Em)
+> incoming outgoing
+
+Figure 2: Floquet scattering between harmonics. Sideband n receives amplitude from m via Snm 
+
+(mixing order k = n − m); outgoing correlations obey C = S∗N S T . See Sec. 3. The corresponding frequency response, 
+
+cdet (∆ ω) := 
+
+Z ∞−∞ 
+
+dt h (t0 − t)W (t)e−i∆ωt , (2.3) will be referred to as the detector response function. For the simple rectangular gate with h ≡ 1, this reduces to cdet (∆ ω) = e−i∆ω(t0−L/ 2) L sinc(∆ ωL/ 2) , where sinc( x) := sin( x)/x (with sinc(0) := 1 ). Tapered windows (Hann, Blackman, etc. [29]) suppress spectral leakage at the cost of a broader main lobe, but the rectangular gate suffices for the integer-period orthogonality argument used in the rest of this paper. 
+
+Remark 2.1 (Heterodyne is convenient, not necessary) . The signal-processing viewpoint is not 
+
+intrinsically heterodyne. Analog heterodyne detection is one physical way to implement the projec-tion (2.2) , but the same quantity can be obtained from a digitized trace by numerical Fourier binning or short-time Fourier analysis. Homodyne detection corresponds to ω0 = 0 in the rotating frame, heterodyne to ω0̸ = 0 , and digital post-processing to the same integral carried out offline; see [6, 3]. 
+
+2.2 Why the detection kernel must appear in the theory 
+
+The detection kernel is not an optional add-on; it is the mathematical representation of the experi-mental fact that no apparatus records the full operator-valued function ˆY (t) directly. Every readout scheme projects the time trace onto a finite temporal mode. A rectangular gate gives one mode, a Hann window [29] another, a narrow intermediate-frequency (IF) filter yet another. Any theory intended to predict what is actually reported by the experiment must include Kphys at the point where the operator ˆY (t) is converted into the measured complex amplitude ˆu0.This observation is especially important in Floquet systems because the signal naturally de-composes into harmonics spaced by the drive frequency [24, 10]. The detection kernel determines whether these harmonics are resolved, partially mixed, or averaged out. In particular, if the gate spans an integer number of periods and the filter is ideal, then the analysis frequency ω0 = kΩ picks 5out a single Fourier block exactly. That exact block-selection property will later allow us to connect the measured signal directly to the sideband correlator Cnp .
+
+# 3 Input–output Floquet scattering and outgoing correlators 
+
+We now turn to the device side. The periodically driven scatterer is described by a Floquet scattering matrix Snm (E) [10, 30] that connects incoming and outgoing sideband operators. From S and the incoming occupation N , we construct the outgoing one-body correlator C and derive the projection identity that bridges the measurement and device sides. 
+
+3.1 Sideband operators and the Floquet scattering matrix 
+
+Let E ∈ [0 , ℏΩ) denote a central energy in a Floquet Brillouin zone [24]. For each lead or channel 
+
+α we introduce fermionic annihilation operators 
+
+aαm (E), bαn (E), m, n ∈ Z,
+
+which remove incoming and outgoing particles at energies 
+
+Em = E + mℏΩ, En = E + nℏΩ.
+
+They satisfy the canonical anti-commutation relations 
+
+{aαm (E), a † 
+
+> βm ′
+
+(E′)} = 2 π δ (E −E′) δαβ δmm ′ , {bαn (E), b † 
+
+> βn ′
+
+(E′)} = 2 π δ (E −E′) δαβ δnn ′ , (3.1) with all other anti-commutators zero. For a periodically driven, phase-coherent scatterer, incoming and outgoing sidebands are related by the Floquet scattering matrix [30, 10]: 
+
+bαn (E) = X
+
+> β,m ∈Z
+
+Sαβ nm (E) aβm (E). (3.2) The integer 
+
+k := n − m (3.3) is the mixing order : it counts the net number of drive quanta exchanged between input and output sidebands. Figure 2 gives the corresponding bookkeeping picture. If reservoir β is in equilibrium with distribution fβ [10, 4], then 
+
+⟨a†
+
+> βm
+
+(E)aβ′m′ (E′)⟩ = 2 π δ (E − E′) δββ ′ δmm ′ fβ (Em). (3.4) The outgoing one-body correlator in lead α is therefore 
+
+C(α) 
+
+> np
+
+(E) := ⟨b†
+
+> αn
+
+(E)bαp (E)⟩ = X
+
+> β,m
+
+Sαβ ∗ 
+
+> nm
+
+(E) fβ (Em) Sαβ pm (E). (3.5) In matrix notation, C = S∗N S T with Nmm ′ = δmm ′ f (Em). In the single-channel Tien–Gordon model, Snm = eiδ (E)Jn−m(A) where δ(E) is a scattering phase. Since δ is a scalar, it cancels in the product S∗N S T = JN J T (equivalently, SN S † = JN J T ), and the correlator depends only on the real Bessel entries: 
+
+Cnp = X
+
+> m
+
+Jn−m(A) Jp−m(A) f (Em). (3.6) 6This simplification holds for any single-channel scatterer, regardless of the value of δ(E). For a multi-channel device with a non-scalar Uαβ (E), the full matrix form C = S∗N S T must be retained, and the correlator acquires a channel-dependent prefactor (see Sec. 5 for the conditions under which it reduces to a Bessel kernel). Equation (3.5) is the correlation matrix represented at the output of the ladder diagram in Fig. 2. 
+
+3.2 Connecting the measurement to the correlator 
+
+With the detection kernel defined on the instrument side and the correlator C defined on the device side, we can now state the central identity that connects them. A closely related signal-processing viewpoint on electronic coherences has been developed independently in the electron quantum optics literature [31]. The physics is simple: because the output signal ˆYα(t) is bilinear in the outgoing field operators, and because the detection kernel is a linear weighting in time, the measured expectation value is a bilinear functional of C, weighted by the detector response cdet . The analysis frequency ω0
+
+then acts as a tunable selector that picks out a specific off-diagonal block of the Floquet correlator. Concretely, assume that the detector is sensitive to a linear, number-conserving output observ-able in lead α [3]. Any such observable is a one-body operator, bilinear in the outgoing field, and can be expanded in the Floquet basis [24, 10] as 
+
+ˆYα(t) = X
+
+> n,p ∈Z
+
+Z ℏΩ0
+
+dE 
+
+2πℏ ei(n−p)Ω t G(α) 
+
+> np
+
+(E) b†
+
+> αn
+
+(E)bαp (E), (3.7) where the coupling matrix G(α) 
+
+> np
+
+(E) depends on the specific transducer and is in general not diagonal in the sideband indices; for example, a current operator mixes different sidebands through the velocity matrix elements. The decomposition (3.7) is the most general number-conserving one-body form at fixed central energy E; it excludes anomalous terms ( b b or b†b†) by the number-conservation assumption. The key observation is that the time dependence of each term is carried entirely by the phase ei(n−p)Ω t, so the detection kernel acts on it through the detector response evaluated at the detuning ω0 − (n − p)Ω .Inserting (3.7) into (2.2) and taking the expectation value gives the projection identity 
+
+⟨ˆu(α)0 (ω0; t0)⟩ = X
+
+> n,p ∈Z
+
+Z ℏΩ0
+
+dE 
+
+2πℏ G(α) 
+
+> np
+
+(E) cdet 
+
+ ω0 − (n − p)Ω  C(α) 
+
+> np
+
+(E). (3.8) The derivation is a one-line substitution: the time integral over Kphys · ei(n−p)Ω t produces cdet (ω0 −
+
+(n − p)Ω) by definition (2.3), and ⟨b†
+
+> αn
+
+bαp ⟩ = C(α) 
+
+> np
+
+. The physical content is that the analysis frequency ω0 selects the (n − p)-th off-diagonal block of C [3]: setting ω0 = 0 probes the diagonal (sideband populations), while ω0 = kΩ probes the k-th off-diagonal (inter-sideband coherences). This selection becomes exact—with zero spectral leakage—when the time gate spans an integer number of drive periods and the analysis frequency is set to an integer multiple of Ω.
+
+Lemma 3.1 (Exact block selection for an integer-period gate) . Assume W is the indicator function of an interval of length L = N T containing an integer number of periods, and assume h ≡ 1 over that interval. Set ω0 = kΩ with k ∈ Z. Then 
+
+cdet 
+
+ (k − (n − p))Ω  = e−i(k−(n−p))Ω( t0−L/ 2) L δ k, n −p, (3.9) 
+
+where the Kronecker delta is between the integers k and n − p. Hence the choice ω0 = kΩ selects the 
+
+k-th off-diagonal of C exactly, with no leakage between different values of n − p.
+
+7Proof. With cdet (∆ ω) = R t0 
+
+> t0−L
+
+e−i∆ωt dt and setting ∆ω = ( k − (n − p))Ω , one obtains 
+
+cdet 
+
+ (k − (n − p))Ω  = e−i(k−(n−p))Ω( t0−L/ 2) L sinc(( n − p − k)πN ) .
+
+Since n − p − k is an integer, the sinc vanishes unless n − p = k, in which case it equals 1.This is Fourier orthogonality at work [29]: a commensurate gate gives an exact discrete Fourier projection onto the Floquet harmonics. 
+
+Phase reference and block selection. With an integer-period gate and ω0 = kΩ, the detuning on the selected block vanishes, so the gate-position phase ei·0·(t0−L/ 2) = 1 drops out. The measured first moment reduces to 
+
+⟨ˆu0(kΩ) ⟩ = L X
+
+> n
+
+Z ℏΩ0
+
+dE 
+
+2πℏ Gn,n −k(E) Cn,n −k(E). (3.10) The quantity (3.10) is a G-weighted, energy-integrated sum over the k-th off-diagonal of C—not an individual matrix element. It is real-valued for k = 0 (diagonal block) and complex for k̸ = 0 .For k̸ = 0 , the complex phase of (3.10) depends on the relative phase between the local oscillator (LO) and the drive , not on the gate position. If the LO is derived from the same oscillator as the drive (synchronous detection [28]), this relative phase is stable and ⟨ˆu0(kΩ) ⟩ is a well-defined complex amplitude. If the LO is free-running, the relative phase drifts and the first moment averages to zero over many shots; off-diagonal correlations are then accessible only through second-order observables (intensity, noise power [3]), as discussed below. 
+
+Linear versus quadratic observables. The projection identity (3.8) and its block-selected form (3.10) concern the first moment ⟨ˆu0⟩—a linear functional of the one-body correlator C.However, many experimentally relevant quantities—noise power, photon-number variance, zero-frequency noise spectral density—are second-order in the field and therefore involve a quadratic 
+
+functional of C. For Gaussian or free-fermion states, Wick’s theorem [19] factorizes the requisite fourth-order correlators into products of C entries. Schematically, the measured intensity decom-poses as 
+
+⟨| ˆu0(ω0)|2⟩ = |⟨ ˆu0⟩| 2 + Var(ˆ u0), (3.11) where the variance Var(ˆ u0) = ⟨| ˆu0|2⟩ − |⟨ ˆu0⟩| 2 involves a double sum over sideband pairs weighted by |cdet |2 and by connected Wick contractions [19] of C. The precise form depends on the coupling matrix G and is not needed here; the key structural point is that the variance is present even when the first moment vanishes (free-running gate, k̸ = 0 ), and it provides a second, independent route to the sideband correlator. For the diagonal block ( k = 0 ), the first moment (3.10) yields a G-weighted sum of populations 
+
+Cnn (E), integrated over E; no phase reference is needed. For off-diagonal blocks ( k̸ = 0 , inter-sideband coherences), one must either maintain a stable LO–drive phase reference to access the complex amplitude through the first moment, or work with the noise power (quadratic observable) which accesses weighted quadratic functionals of C without phase sensitivity. In either case, the measurement returns a weighted aggregate over the block, not individual matrix elements, unless additional sideband or energy resolution is available. 84 Monochromatic phase drive and Toeplitz Floquet scattering 
+
+We now specialize to the model that leads most naturally to Bessel functions. Consider a static scatterer with scattering matrix Uαβ (E), driven by a monochromatic, spatially uniform AC potential 
+
+V (t) = Vac cos(Ω t). (4.1) The corresponding gauge phase is 
+
+ϕ(t) = e
+
+ℏ
+
+Z t
+
+V (t′) dt ′ = A sin(Ω t), A := eV ac 
+
+ℏΩ . (4.2) The time-dependent phase factor is therefore 
+
+eiϕ (t) = eiA sin(Ω t) = X
+
+> k∈Z
+
+Jk(A)eik Ωt, (4.3) by the Jacobi–Anger expansion [20]. Since the drive is spatially uniform, it does not modify the internal mode structure of the scatterer; it only shifts sideband index. Consequently, 
+
+Sαβ nm (E) = Uαβ (E)Jn−m(A). (4.4) The dependence on n and m is Toeplitz: only the difference n − m matters. The factored form (4.4) requires that Uαβ (E) varies negligibly over the sideband window of width ∼ 2AℏΩ centered at the Fermi energy; this wide-band condition is standard in the Tien–Gordon literature [7, 10] and is well satisfied whenever the static scattering is smooth on the scale of the drive quantum ℏΩ.The same Bessel functions that govern a single phase-modulated tone therefore govern the quantum Floquet S matrix [7, 31]. For a monochromatic, spatially uniform phase drive the signal-processing and scattering pictures are not merely analogous; they are literally described by the same harmonic coefficients. More generally, any spatially uniform drive—not necessarily a single cosine—produces a Toeplitz Floquet scattering matrix of the form Sαβ nm = Uαβ (E) Fn−m, where Fk = (2 π)−1 R 2π 
+
+> 0
+
+eiϕ (θ)e−ikθ dθ 
+
+are the Fourier coefficients of the gauge phase factor eiϕ (t). For a single tone ϕ(t) = A sin Ω t
+
+these reduce to Jk(A); for a multi-tone drive such as ϕ(t) = A1 sin Ω t + A2 sin 2Ω t they become products or convolutions of Bessel functions. This general structure underlies the electron quantum optics program, where shaped voltage pulses with specific Fk profiles are used to generate minimal-excitation states (levitons) [16] and PASN serves as a spectroscopic tool for the pulse shape [15]. The Toeplitz structure and unitarity ( P 
+
+> k
+
+|F k|2 = 1 ) hold in all cases; what changes is the detailed shape of the sideband envelope, and in particular the geometry of its edge (fold, cusp, or higher). The Bessel case treated below is the simplest and best-studied instance. Whether the same Airy edge persists for general Fk is plausible on the grounds that the integral defining Fk has the same stationary-phase structure as Jk(A) near the turning point, but a proof would require a separate analysis of the relevant oscillatory integral; we do not pursue this here. For example, the Lorentzian pulse used in leviton generation [16] gives Fk that decay exponentially for large k, with no turning-point (fold) structure; in that case the sideband edge is not of Airy type, and the edge universality class of the corresponding kernel is an open question (see Sec. 10.3). 
+
+Lemma 4.1 (Bessel orthogonality and unitarity) . For fixed A ∈ R one has 
+
+X
+
+> r∈Z
+
+Jr+k(A)Jr+ℓ(A) = δkℓ . (4.5) 
+
+Hence the sideband matrix [Jn−m(A)] n,m ∈Z is unitary on ℓ2(Z), and if U(E) is unitary then so is the full Floquet scattering matrix (4.4) .
+
+9Proof. Expand the phase factor (4.3) and use Parseval’s identity on the unit circle [20]: 
+
+δkℓ = 12π
+
+Z 2π
+
+> 0
+
+e−ikθ eiℓθ dθ = 12π
+
+Z 2π
+
+> 0
+
+X
+
+> r
+
+Jr+k(A)e−irθ 
+
+! X
+
+> s
+
+Js+ℓ(A)eisθ 
+
+!
+
+dθ. 
+
+Orthogonality of the Fourier exponentials gives (4.5). 
+
+# 5 Free fermions and the discrete Bessel kernel 
+
+We now derive the sideband correlation kernel for the Toeplitz scattering matrix (4.4) acting on a zero-temperature Fermi sea [10, 9]. This requires specifying how the static scattering matrix U and the reservoir structure enter. The factored form Sαβ nm = Uαβ (E)Jn−m(A) allows the U prefactors to be pulled out of the sideband sum in (3.5): 
+
+C(α) 
+
+> np
+
+(E) = X
+
+> m
+
+Jn−m(A) Jp−m(A) X
+
+> β
+
+Uαβ (E) 2
+
+fβ (Em)
+
+| {z }
+
+≡ ¯fα(Em)
+
+. (5.1) Here ¯fα(Em) is the effective occupation seen in the outgoing lead α: a weighted average of the reservoir distributions, with weights given by the static transmission probabilities |U αβ |2.In general ¯fα is a smooth function of m (not a sharp step), because different reservoirs contribute at different chemical potentials. The clean discrete Bessel kernel emerges when ¯fα reduces to a sharp Fermi step. This happens in two physically transparent cases: 
+
+• Identical reservoirs. If all reservoirs share the same distribution fβ = f for every β, then 
+
+¯fα(Em) = f (Em) P 
+
+> β
+
+|U αβ |2 = f (Em) by unitarity of U.
+
+• Single populated reservoir. If a single incoming channel dominates the outgoing lead (e.g., one reservoir completely fills the incoming mode and others are empty), then ¯fα reduces to the occupation of that reservoir. In either case, for each fixed central energy E the effective occupation is a sharp step in the sideband index at zero temperature: ¯fα(Em) = Θ  mF (E) − m, (5.2) where 
+
+mF (E) := 
+
+ μ − E
+
+ℏΩ
+
+
+
+(5.3) is the largest integer m for which Em = E + mℏΩ ≤ μ (with μ the chemical potential). We derive the discrete Bessel kernel and its Airy limit under this single-step assumption. The extension to the experimentally important two-terminal case is given at the end of this section. Inserting (5.2) into (5.1) gives 
+
+Cnp (E) = X 
+
+> m≤mF(E)
+
+Jn−m(A)Jp−m(A). (5.4) Shift the summation index by r = mF (E) − m ∈ N0 and define 
+
+ν := n − mF (E), λ := p − mF (E). (5.5) 10 Then 
+
+K(disc)  
+
+> A
+
+(ν, λ ) := Cnp (E) = 
+
+> ∞
+
+X
+
+> r=0
+
+Jν+r(A)Jλ+r(A). (5.6) This is the discrete Bessel kernel . Mathematically, it is the same kernel that arises in the Poissonized Plancherel measure on partitions and in discrete orthogonal polynomial ensembles [32, 33]; here it emerges from the physics of Floquet scattering. It is the outgoing correlation kernel of the Floquet sideband process, expressed in the shifted indices ν = n − mF (E), λ = p − mF (E) that measure the distance from the Fermi cutoff. (We use λ for the second index to avoid collision with the chemical potential μ in Eq. (5.3).) The edge of the kernel—where Bessel functions cross over from oscillatory to exponentially decaying—lies at ν ∼ A, corresponding to outgoing sideband n ∼ mF (E) + A.Physically, the kernel encodes the fact that the drive redistributes incoming fermions across sidebands with Bessel-function amplitudes, and the Fermi step cuts off the sum from below. At 
+
+T = 0 with a single sharp step, the kernel is a projection kernel : K(disc)  
+
+> A
+
+is idempotent ( K2 = K), reflecting the Slater-determinant structure of the incoming state [19]. At finite temperature or with a multi-step occupation, the kernel is no longer a projection but remains a quasi-free (non-projection) kernel with eigenvalues in [0 , 1] ; the correlation structure is modified [34, 35, 36], but the process remains determinantal because the incoming state is a Slater determinant and the scattering map is linear: all k-point correlation functions of the outgoing occupations are determinants built from the two-point kernel K(disc)  
+
+> A
+
+. In particular, if Nν = b† 
+
+> ν
+
+bν denotes the sideband number operator, then Wick’s theorem [19] implies 
+
+⟨Nν ⟩ = K(disc)  
+
+> A
+
+(ν, ν ), ⟨Nν Nλ⟩c = − K(disc)  
+
+> A
+
+(ν, λ ) 2
+
+(ν̸ = λ). (5.7) Thus the kernel determines all joint occupation statistics for any finite subset of sideband indices at fixed central energy E. We emphasize the qualifier “at fixed E”: the sideband process is deter-minantal separately at each E, and different values of E contribute independently. The full process on the product space Z × [0 , ℏΩ) (sideband index × central energy) is itself determinantal, with a kernel that is diagonal in E [19]. However, if one projects onto sideband index alone—as a physical detector does when it integrates over E—the marginal occupancies eNν = R ℏΩ0 (dE/ 2πℏ) Nν (E) are sums of independent Bernoulli variables (one per E slice). They take values in {0, 1, 2, . . . } rather than {0, 1} and do not form a determinantal point process. The simple form (5.7) applies only at fixed E.The kernel also admits a useful closed form via a Christoffel–Darboux-type identity [20, 18] (see Appendix A.1 for the proof). For ν̸ = λ,
+
+K(disc)  
+
+> A
+
+(ν, λ ) = A
+
+2
+
+Jν−1(A)Jλ(A) − Jν (A)Jλ−1(A)
+
+ν − λ . (5.8) This representation makes the integrable structure of the kernel manifest and is the starting point for the edge analysis in the next section. 
+
+5.1 Extension: two-terminal devices and multi-step occupations 
+
+A standard two-terminal conductor (QPC or tunnel junction) biased at DC voltage Vdc has two reservoirs at chemical potentials μL and μR = μL − eV dc [10, 9]. For a single-channel device with transmission T = |U αL |2 and reflection R = 1 − T , the effective occupation is 
+
+¯f (Em) = T Θ( mLF − m) + R Θ( mRF − m), (5.9) 11 where mL,R F (E) = ⌊(μL,R − E)/ℏΩ⌋. This is a double step, not a single step: ¯f = 1 for m ≤ mRF ,
+
+¯f = T for mRF < m ≤ mLF , and ¯f = 0 for m > m LF . Inserting (5.9) into (5.1) gives 
+
+Cnp (E) = T K(disc)  
+
+> A
+
+(n − mLF , p − mLF ) + R K(disc)  
+
+> A
+
+(n − mRF , p − mRF ). (5.10) The correlator is a weighted sum of two shifted discrete Bessel kernels , each centered at a different Fermi cutoff. At large A, each kernel develops its own Airy edge: one near n ∼ mLF + A with weight 
+
+T , and another near n ∼ mRF + A with weight R. When the bias window mLF − mRF ∼ eV dc /ℏΩ is much larger than the edge width κA = O(A1/3), the two edges are well separated. Near the upper edge ( n ∼ mLF + A), the R-weighted kernel is deep in its exponential tail and negligible; the local rescaled kernel tends cleanly to T KAi (s, t ). Near the lower edge ( n ∼ mRF + A), the R-weighted kernel is at its edge, contributing R KAi (s, t ), but the T -weighted kernel is in its oscillatory bulk and contributes a smooth background that varies slowly on the Airy scale. The edge correlations —the Airy-kernel part—come from the R term alone, but the full local kernel is R KAi (s, t ) plus a smooth additive background from T . In a tunnel junction ( T ≪ 1) [8], this background is suppressed by T
+
+and both edges are cleanly described by thinned Airy kernels with weights ≈ 1 and ≈ T respectively. The corresponding gap probability near either clean edge is det  Id − τ K Ai |[s0,∞)
+
+ with τ = T or R;in the RMT literature the resulting point process is called a thinned Airy process . When the bias window is comparable to κA, the two edges overlap and the correlator is a weighted superposition of two Airy kernels centered at nearby points; the resulting statistics are no longer described by a single Airy process. This extension shows that the same large-A edge scale persists in standard biased two-terminal transport. In the fixed-E correlator, the two Fermi edges give two isolated thinned-Airy edges when well separated; the PASN calculation of Sec. 9 provides a complementary bias-space realization of the same diagonal discrete Bessel kernel. 
+
+# 6 Soft edge and the Airy kernel 
+
+The Bessel functions in (5.6) have three regimes when A ≫ 1 [20, 21]: an oscillatory bulk for orders 
+
+|ν| ≪ A, an exponentially decaying tail for |ν| ≫ A, and a turning-point region of width ∼ A1/3
+
+near the edge |ν| ∼ A. Physically, this transition marks the boundary between easily accessible multi-photon processes (where many sideband channels are open) and exponentially suppressed ones (where the drive can no longer excite carriers into higher sidebands). The Airy kernel emerges precisely from that turning-point region, which is the Floquet analogue of a classical caustic: two stationary-phase points in the integral representation of Jν (A) coalesce as ν → A.It is convenient to introduce the canonical edge scale 
+
+κA := 
+
+ A
+
+2
+
+1/3
+
+(6.1) and, for s ∈ R, the rescaling 
+
+νA(s) := ⌊A + sκ A⌋. (6.2) We also define the rescaled kernel 
+
+bKA(s, t ) := κA K(disc) 
+
+> A
+
+ νA(s), ν A(t). (6.3) Note that bKA(s, t ) is piecewise constant in s and t (it takes the same value for all s that map to the same integer νA(s)). As A → ∞ the step size 1/κ A → 0 and the staircase converges to a smooth limit. 12 The key asymptotic input is the Debye–Olver uniform approximation [21] for Bessel functions near the turning point. For integer order n in the transition region, it gives 
+
+κA Jn(A) = Ai 
+
+ n − AκA
+
+
+
++ O(A−2/3), (6.4) uniformly for (n − A)/κ A in any compact set. For n ≥ A, setting ξ := ( n − A)/κ A, the Johansson– Olver piecewise estimate [32, 21] gives |κAJn(A)| ≤ C exp −c min( κA, √ξ) ξ; near the turning region ( ξ = O(1) ) this behaves as e−cξ 3/2
+
+, matching the Airy tail, while for ξ ≫ 1 the global decay is at least e−cξ .1
+
+When (6.4) is composed with the floor in (6.2), the discretization ⌊A + sκ A⌋ = A + sκ A + δ with 
+
+δ ∈ (−1, 0] shifts the Airy argument by δ/κ A = O(A−1/3). Since Ai is Lipschitz on compacts, this gives 
+
+κA JνA(s)(A) = Ai( s) + O(A−1/3), (6.5) where the O(A−1/3) error is dominated by the floor, not by the Olver correction. The convergence 
+
+bKA → KAi is unaffected (only the rate changes); we state it as follows. 
+
+Theorem 6.1 (Soft-edge Airy limit, T = 0 ). Under the zero-temperature, single-step assump-tion (5.2) , the rescaled kernel (6.3) satisfies 
+
+bKA(s, t ) −→ KAi (s, t ) := 
+
+Z ∞
+
+> 0
+
+Ai( s + u) Ai( t + u) du (6.6) 
+
+as A → ∞ , locally uniformly in (s, t ) ∈ R2.
+
+The proof (given in Appendix A.2) rewrites the discrete sum in (5.6) as a Riemann sum with mesh 1/κ A. The convergence of the discrete Bessel kernel to the Airy kernel is known in the com-binatorics literature [32, 33]; we include a self-contained proof adapted to our scaling conventions. The pointwise approximation (6.5) controls the finite part, and the exponential tail bound provides the uniform domination needed for the exchange of limit and summation. 
+
+Corollary 6.2 (Determinantal edge limit) . At fixed central energy E, define the rescaled occupation measure 
+
+ΞA := X
+
+> ν
+
+Nν δ(ν−A)/κ A . (6.7) 
+
+Then the correlation functions of ΞA converge to those of the Airy determinantal point process 
+
+ΞAi [23, 18]; full point-process weak convergence follows from the locally uniform kernel conver-gence of Theorem 6.1 combined with the tail control in Appendix A.2, by the general criterion for determinantal processes [22, 32]. In terms of the raw discrete variables, this means 
+
+κA ⟨NνA(s)⟩ −→ KAi (s, s ), κ2 
+
+> A
+
+⟨NνA(s)NνA(t)⟩c −→ −| KAi (s, t )|2 (s̸ = t), (6.8) 
+
+with the individual site occupations ⟨NνA(s)⟩ ∼ κ−1 
+
+> A
+
+KAi (s, s ) → 0 at each fixed s, reflecting the dilution of a finite number of edge excitations across a growing number of sites. 
+
+In physical terms: at each fixed E, the rescaled sideband correlations near the Fermi edge are governed by the Airy kernel and depend only on the edge scaling variable s = ( ν − A)/κ A. For the monochromatic Bessel case proved here, this is independent of the static scatterer U(E) (which drops out of the correlator under the conditions of Sec. 5). Whether the same Airy edge persists 13 50 100 150 200                        
+
+> Shifted sideband index =nmF
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> N = K(disc)
+> A ( ,  )
+> (a) Sideband occupation
+> A= 20
+> A= 50
+> A= 100
+> A= 200
+> 64202468
+> Edge variable s= ( A)/ A
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> 0.35
+> A K(disc)
+> A ( A(s),  A(s))
+> (b) Airy scaling collapse
+> A= 20
+> A= 50
+> A= 100
+> A= 200
+> KAi (s,s)
+
+Figure 3: Airy scaling collapse of sideband occupations. (a) Diagonal of the discrete Bessel kernel 
+
+K(disc)  
+
+> A
+
+(ν, ν ) = ⟨Nν ⟩ as a function of the shifted sideband index ν = n − mF for several drive amplitudes A. (b) After rescaling ν → s = ( ν − A)/κ A and multiplying by κA, the data for different 
+
+A collapse onto the diagonal of the Airy kernel KAi (s, s ) (black curve). The residual scatter at 
+
+A = 20 reflects the O(A−1/3) discretization error discussed around Eq. (6.5). for general drive waveforms—i.e., for the Fourier coefficients Fk replacing Jk(A)—is plausible on stationary-phase grounds (Sec. 7) but has not been proved here. Figures 3 and 4 illustrate the scaling collapse numerically. For A as small as 20 , the rescaled diagonal already tracks the Airy kernel closely (Fig. 3b); the residual scatter is consistent with the 
+
+O(A−1/3) floor-discretization error. The two-point kernel comparison at A = 100 (Fig. 4) confirms the convergence in the off-diagonal entries as well. For orientation, the discretization error (A/ 2) −1/3
+
+is about 0.34 at A = 50 and 0.22 at A = 200 ; these numbers set the scale of the mismatch between the discrete Bessel and Airy kernels. They should not be read as rigorous error bounds on a physical observable, since the actual error depends on the observable, the window, and the E-integration. 
+
+# 7 Beyond the fold: cusps, multi-tone drives, and the Pearcey kernel 
+
+The Airy kernel governs a generic soft edge—one where two stationary-phase points in the integral representation of the scattering amplitude coalesce as a control parameter is swept. In the language of catastrophe theory [37, 38] this is a fold , the simplest singularity of codimension one. When additional control parameters are available, higher-codimension singularities become accessible in principle, and the next case in the hierarchy—the cusp , of codimension two—is relevant for multi-tone Floquet drives. In this section we give a physical argument for why cusps are natural in this setting and what their observable consequences would be; no rigorous derivation of the Pearcey limit from the Floquet scattering amplitudes is attempted here. Such a derivation would require replacing the Bessel coefficients Jk(A) by the explicit two-tone Fourier coefficients 
+
+Fk(A1, A 2, φ ) = 12π
+
+Z 2π
+
+> 0
+
+ei[A1 sin θ+A2 sin(2 θ+φ)−kθ ] dθ, (7.1) 
+
+> 1
+
+The standard Olver prefactor uses the order n rather than the argument A, i.e., (n/ 2) 1/3 rather than (A/ 2) 1/3;since n = A + O(A1/3) in the transition region, the two differ by a relative O(A−2/3) that is absorbed in the error term. 
+
+14 4 2 0 2 4 6            
+
+> s
+> 0.10
+> 0.05
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> Kernel value
+> (a) Two-point kernel at t= 0
+> AK(disc)
+> A,A= 100
+> KAi (s, 0)
+> 2024
+> t
+> 3
+> 2
+> 1
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> s
+> (b) AK(disc)
+> AKAi ,A= 100
+> 0.10
+> 0.05
+> 0.00
+> 0.05
+> 0.10
+
+Figure 4: Two-point kernel at the soft edge for A = 100 . (a) Rescaled discrete Bessel kernel 
+
+κAK(disc)  
+
+> A
+
+(νA(s), ν A(0)) (dots) compared to the Airy kernel KAi (s, 0) (solid curve) as a function of 
+
+s at fixed t = 0 . (b) Difference κAK(disc)  
+
+> A
+
+− KAi over the edge region, showing O(A−1/3) residual errors that decrease toward zero as A → ∞ .and then analyzing the stationary-point conditions of the exponent to locate fold and cusp loci. This analysis is left for future work. 
+
+7.1 How a cusp arises in Floquet scattering 
+
+Consider a scatterer driven by two commensurate tones at frequencies Ω and 2Ω , with amplitudes 
+
+A1 and A2. The time-dependent gauge phase becomes 
+
+ϕ(t) = A1 sin(Ω t) + A2 sin(2Ω t + φ), (7.2) and the Floquet scattering amplitudes involve products of Bessel functions (or, more generally, Fourier coefficients of eiϕ (t)) that depend on both A1 and A2. The resulting correlator C = S∗N S T
+
+still has a spectral edge near the largest populated sideband, but the edge geometry now depends on two parameters. For generic values of A2 the edge near the largest populated sideband remains a fold (governed by the Airy kernel, as in the single-tone case). However, when A2 is tuned to a critical value, two fold edges—each individually governed by the Airy kernel—can merge into a single cusp. On general grounds from catastrophe theory [37, 38], this is the expected codimension-two singularity: the discriminant of the stationary-phase equation ∂ξΦ = 0 vanishes at the cusp point, and the normal form of the generating phase becomes quartic rather than cubic, 
+
+Φ( ζ; σ, γ ) = 14 ζ4 − γ 
+
+> 2
+
+ζ2 − σ ζ, (7.3) where σ is the edge coordinate (analogous to s in the fold case) and γ ≥ 0 is the unfolding parameter 
+
+that controls the distance from the cusp. Setting γ = 0 gives the cusp itself; for γ > 0 the cusp unfolds into two symmetric folds located at σedge (γ) = ± 23√3 γ3/2.15 7.2 The Pearcey kernel 
+
+Just as the Airy kernel arises from the fold normal form ζ3/3 − uζ , one expects the cusp normal form (7.3) to produce the Pearcey kernel [39]. In its standard integrable representation [26, 40, 41], 
+
+K(γ)P (σ, σ ′) = 1(2 πi )2
+
+Z
+
+> Γ
+
+dζ 
+
+Z
+
+> Σ
+
+dη exp  14 ζ4 − γ 
+
+> 2
+
+ζ2 − σζ  exp  − 14 η4 + γ 
+
+> 2
+
+η2 + σ′η
+
+ζ − η , (7.4) where Γ and Σ are steepest-descent contours chosen so that the integrals converge. The kernel (7.4) is a two-point correlation kernel that governs a determinantal point process, just as KAi does. It reduces to the Airy kernel in the neighborhood of each fold edge when γ > 0, and to the pure cusp kernel when γ = 0 .
+
+7.3 Expected diagnostic signatures: fold versus cusp 
+
+If the Pearcey kernel indeed governs the cusp edge, the fold and cusp classes would be distinguished by their tail exponents. At a fold, the rescaled edge density converges to the Airy diagonal KAi (s, s )
+
+with scale κA = ( A/ 2) 1/3 (Sec. 6). At a cusp, the natural edge scale is different—it is set by the quartic normal form (7.3) and generically involves a power of the drive amplitude distinct from 
+
+A1/3. The precise cusp scale depends on the stationary-phase geometry of the two-tone Fourier integral (7.1) and has not been derived here. Regardless of the specific scale, the two classes are distinguished by the functional form of the tail. At a fold [23, 18], 
+
+KAi (s, s ) ∼ 18πs e− 43 s3/2
+
+(fold) , (7.5) so a log-linear plot in s3/2 gives a straight line with slope −4/3. At a cusp, the quartic phase produces a tail whose exponent is a different power of the edge coordinate σ; the specific power depends on the path in the (σ, γ ) unfolding plane and on whether the pure cusp ( γ = 0 ) or a nearby fold ( γ > 0) is being probed. What matters for the diagnostic is that the tail is not e−const ·s3/2
+
+: a log-linear plot in s3/2 would curve, signaling departure from the fold class. Two-point fluctuations provide a second diagnostic. At a fold, the sideband-resolved connected correlator scales as κ2
+
+> A
+
+⟨NνA(s)NνA(t)⟩c → −| KAi (s, t )|2 [23, 18], with the same e−4s3/2/3 tail. At a cusp, the analogous scaling involves the cusp-specific edge scale (not κA) and the Pearcey two-point kernel; the precise form remains to be worked out. 
+
+7.4 Why Floquet edges are richer than standard RMT edges 
+
+The appearance of the Pearcey kernel—and the broader catastrophe hierarchy—in Floquet systems is not accidental. It reflects a fundamental difference between the geometry of edges in periodically driven systems and in standard random matrix theory [18, 42]. 
+
+Standard RMT: edges in one dimension. In a random matrix ensemble with one-dimensional eigenvalue support [18]—Hermitian ensembles on R, or unitary ensembles on the circle—the eigen-value density ρ(x) is a function of a single spectral variable x. The support of ρ is generically a union of intervals, and an “edge” is an endpoint of one such interval. At a generic endpoint the density vanishes as ρ(x) ∼ (x − xedge )1/2—a square-root onset. In the language of stationary phase, this corresponds to the coalescence of two saddle points in the integral representation of the kernel, which is a fold singularity. The universal edge kernel is therefore the Airy kernel, and its fluctuation statistics are governed by the Tracy–Widom distribution [23, 18]. 16 In one dimension, a fold is the only generic singularity. To produce a cusp—where three saddle points coalesce simultaneously—one must fine-tune an additional external parameter (such as adding a deterministic source to the random matrix [40]). In the absence of such tuning, cusps and higher singularities have codimension ≥ 2 in the one-dimensional spectral variable and do not occur stably. 
+
+Floquet systems: edges in two dimensions. In a periodically driven system, the one-body physics lives in the Sambe (Floquet–Bloch) space [24], which is intrinsically two-dimensional : the rel-evant coordinates are a Floquet angle θ ∈ [0 , 2π) (conjugate to the sideband index) and a quasienergy or frequency ω. The outgoing one-body spectral function σ(θ, ω )—or, equivalently, the sideband-resolved occupation Cnn as a function of sideband index and central energy—is a function on this two-dimensional cylinder. The “filled region” visible to the measurement is the set of (θ, ω ) points where σ > 0, and the spectral edge is the boundary of this region. This boundary is generically a curve in the (θ, ω ) plane. The singularities of a curve in two dimensions are classified by the Ak catastrophe hierarchy [37], and the key point is that the classi-fication depends on how many control parameters are available: 
+
+• Fold (A2, codimension 1): a smooth turning point of the boundary curve. This is the generic edge encountered by scanning a single parameter (e.g., the analysis frequency ω0 at fixed drive). The local kernel is the Airy kernel. 
+
+• Cusp (A3, codimension 2): the boundary curve develops a cusp, where the tangent direction reverses. In two dimensions, the cusp is the canonical codimension-two singularity of smooth curves: extra control parameters make it accessible , though its location in (θ, ω ) shifts under perturbation. In a one-parameter family of edges (e.g., as a second drive amplitude A2 is swept), a cusp is the natural singularity to look for at an isolated critical value of A2, unfolding into two folds on either side. The local kernel at such a cusp is expected to be the Pearcey kernel; the transition from Pearcey to Airy at a cusp point has been rigorously analyzed in the context of random tiling models by Duse, Johansson, and Metcalfe [43]. 
+
+• Swallowtail (A4, codimension 3): requires three control parameters, hence the natural edge singularity of a three-tone drive or a two-tone drive with one additional tunable coupling. 
+
+The physical mechanism. The connection to the scattering picture is suggestive. In the Sambe (extended Hilbert space) formulation [24], the Floquet scattering amplitude Snm (E) can be ex-pressed as a matrix element of a resolvent in the space of sideband indices. Heuristically, this admits an oscillatory-integral representation with a phase Φ( ξ; θ, ω ) that depends on two external parameters ( θ = Floquet angle, ω = quasienergy). An edge occurs when stationary points of Φ in ξ
+
+coalesce—a caustic in the sense of diffraction catastrophes [38]. The number of coalescing saddles— and hence the catastrophe type—is determined by the geometry of Φ in the two-dimensional (θ, ω )
+
+plane: 
+
+∂ξΦ = 0 , ∂ξξ Φ = 0 (fold) ; ∂ξΦ = 0 , ∂ξξ Φ = 0 , ∂ξξξ Φ = 0 (cusp) . (7.6) At a fold, the normal form of the phase is cubic ( ζ3/3 − uζ ) and the resulting integral is the Airy function. At a cusp, the normal form is quartic ( ζ4/4 − γζ 2/2 − uζ ) and the integral is the Pearcey function. 
+
+Summary: dimensionality dictates the universal catalogue. The enrichment can be stated concisely. For a single spectral variable with no external tuning parameters, the only generic edge singularity is the fold, and the only generic edge kernel is Airy. Cusp (Pearcey) universality is well 17 established in RMT—it arises in external-source models [25, 40] and has been proved in considerable generality [26, 41]—but requires tuning an additional parameter to bring two edges together. AFloquet system provides such a parameter naturally: the two-dimensional Sambe space means that the boundary of the filled region is a curve, and its singularities can include cusps (codimension two) in addition to folds (codimension one). Extra control parameters—such as a second drive tone—make the cusp accessible without artificial tuning, with the Pearcey kernel emerging at the coalescence point [43]. This is the structural reason why periodically driven systems are a natural physical setting in which the catastrophe-kernel family beyond Airy may be realized. 
+
+# 8 What the measurement sees at the soft edge 
+
+We can now bring the threads of the paper together. The Airy kernel is a property of the outgoing many-body state at fixed central energy E [23, 42], not of the instrument. The role of the detection kernel is to select the coherence order k of the Floquet correlator; it does not by itself isolate the soft edge. Combining the projection identity (3.8) with the exact block selection of Lemma 3.1, one sees that an integer-period gate and analysis frequency ω0 = kΩ give access to a G-weighted, 
+
+E-integrated sum over the k-th off-diagonal of C (Eq. (3.10)). To probe the edge specifically, one needs an observable whose coupling is concentrated near ν = n − mF (E) ∼ A.
+
+An edge-selective observable (ideal, fixed-E). At fixed central energy E, the theoretically cleanest probe of the edge is a sideband-windowed count operator. Let χ : R → [0 , 1] be a smooth cutoff and define 
+
+ˆYχ(E) := X
+
+> n
+
+χ
+
+ n − mF (E) − AκA
+
+
+
+b†
+
+> n
+
+(E)bn(E). (8.1) This is a diagonal observable ( k = 0 ) with Gnn (E) = χ (n − mF (E) − A)/κ A
+
+. Its expectation value converges to a universal Airy functional: 
+
+⟨ ˆYχ(E)⟩ = X
+
+> n
+
+χ
+
+ n − mF (E) − AκA
+
+
+
+K(disc)  
+
+> A
+
+(n − mF , n − mF ) −−−−→
+
+> A→∞
+
+Z ∞−∞ 
+
+χ(s) KAi (s, s ) ds, (8.2) where the limit follows from Theorem 6.1 and a Riemann-sum argument. Choosing χ = 1[s0,∞) gives the edge count beyond threshold s0. At fixed E, the zero-count probability —i.e., the probability that no outgoing fermion occupies any sideband beyond s0—is the Fredholm determinant F2(s0) = det  Id − KAi |[s0,∞)
+
+, which is the Tracy–Widom distribution [23, 18]. (The full counting statistics of the edge count involve more general Fredholm-determinant expressions, not just the zero-count probability.) For an energy-integrated measurement, the count is a superposition of independent fixed-E contributions and its statistics are not directly F2; an energy-resolved readout is needed to access the single-fiber determinantal structure. We emphasize that ˆYχ(E) is an ideal observable: it requires E-resolution (i.e., the ability to select a narrow slice of the Floquet Brillouin zone) and knowledge of mF (E) (which sets the edge location at each E). It serves as the benchmark against which practical measurement schemes should be compared. 
+
+The measurement gap: coherence order versus sideband index. A key limitation of the windowed-heterodyne readout (Sec. 2) must be stated clearly. Fourier binning at ω0 = kΩ resolves the coherence order k = n − p, not the individual sideband index n. The k = 0 first moment, Eq. (3.10), is a sum P
+
+> n
+
+R dE Gnn Cnn running over all sidebands—bulk and edge alike. There 18 is no software post-processing step that turns a coherence-order measurement into a sideband-resolved one; the information about which n contributed is lost in the time-domain projection. Consequently, the edge-selective observable ˆYχ(E) defined above is not directly accessible from a standard heterodyne record. Three physical routes can bridge this gap, listed in order of decreasing directness: 
+
+(i) Energy-resolving detection (most direct). Since sideband n at central energy E carries total energy En = E + nℏΩ, a narrow-band detector centered at energy ε selects the unique (n, E ) pair satisfying E + nℏΩ = ε (within the Floquet Brillouin zone). The measured occupancy at ε is then 
+
+Cnn (E) for that pair. Scanning ε across the edge region ε ∼ μ + AℏΩ traces out the sideband occupation profile, giving access to the rescaled density κACnn → KAi (s, s ).
+
+(ii) Shot noise plateau deficit (cleanest standard transport observable). For a flat-transmission two-terminal conductor, the DC current is linear in bias and dI/dV is featureless. However, the shot noise SI (V ) carries the sideband structure: its first bias derivative realizes the diagonal discrete Bessel kernel K(disc)  
+
+> A
+
+(νV , ν V ) as a function of bias voltage (Sec. 9), providing a parameter-free prediction of the Airy scaling in a standard DC noise measurement. 
+
+(iii) Differential conductance (nonlinear devices only). For devices with energy-dependent trans-mission (superconductor–insulator–superconductor (SIS) junctions [7], resonant levels [9]), dI/dV 
+
+exhibits a photon-assisted step structure with heights ∝ J2 
+
+> k
+
+(A); the envelope of the rescaled heights 
+
+κ2
+
+> A
+
+J2 
+
+> k
+
+(A) approaches Ai 2(s) at the sideband edge. This route does not apply to a flat-transmission QPC. In all three cases, the detection kernel of Sec. 2 still plays a role (through gating, filtering, and spectral leakage), but the edge-selective information comes from an additional spectral or transport degree of freedom, not from the coherence-order projection alone. 
+
+Two-point correlations and diagnostic strategy. At fixed E, the two-point connected corre-lator is ⟨Nν Nλ⟩c = −| K(disc)  
+
+> A
+
+(ν, λ )|2 (Eq. (5.7)), and the rescaled version converges to −| KAi (s, t )|2
+
+(Corollary 6.2). Accessing this experimentally requires either sideband-resolved detection (route (i) above applied at two energies) or shot-noise cross-correlations between two spectrally selective channels. The result is generically a weighted aggregate over products of C entries, not a single 
+
+|Cnp |2; but for a sufficiently narrow spectral window, the dominant contribution comes from a single 
+
+(n, E ) pair and the Airy form is recovered. Two exponent plots and one gap-probability test suffice to identify the universality class and verify universality. First, the rescaled edge density κA⟨NνA(s)⟩ → KAi (s, s ) has the tail [23] 
+
+KAi (s, s ) ∼ 18πs e−4s3/2/3 (s → +∞),
+
+so a plot of log  κA⟨NνA(s)⟩ versus s3/2 is asymptotically linear with slope −4/3 at a fold. Departure from linearity in this plot—e.g., curvature consistent with a different power of the edge coordinate— would signal a non-fold singularity (Sec. 7). Second, the sideband-resolved noise covariance, plotted on the same axes, provides a consistency check (note that the connected correlator is negative, so one plots its absolute value). Third, the gap probability Pr( Nν = 0 ∀ ν ≥ νA(s0)) —the probability that no outgoing fermion lies beyond the scaled position s0—is, at fixed E, the Fredholm determinant 
+
+det  Id − KAi |[s0,∞)
+
+. As a function of s0, this is the Tracy–Widom F2 distribution [23, 18]. (On a finite interval [a, b ], the gap probability is a different Fredholm determinant, not directly F2.) This is a more discriminating test of edge universality than any single-site observable, though it requires 
+
+E-resolved detection to access the determinantal structure. 19 10 0 10 20 30                      
+
+> =pmF
+> 10
+> 0
+> 10
+> 20
+> 30
+> = n mF
+> (a) K(disc)
+> A( , ),A= 30
+> 3210123
+> (0n)/
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> |cedge |2/L2
+> (b) Detection kernel leakage
+> Gate periods N
+> N= 1
+> N= 2
+> N= 4
+> N= 8
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+
+Figure 5: (a) Heat map of the discrete Bessel kernel K(disc)  
+
+> A
+
+(ν, λ ) for A = 30 . The dashed lines mark the edge at ν, λ = A; correlations are concentrated inside the “Fermi square” ν, λ ≲ A and decay rapidly beyond. (b) Normalized detection response |cdet |2/L 2 as a function of detuning from the nearest harmonic, for rectangular gates of N = 1 , 2, 4, 8 drive periods. For a non-integer-period gate, spectral leakage from adjacent harmonics contaminates the block-resolved measurement; integer-period gates eliminate this leakage entirely (Lemma 3.1). 
+
+# 9 Photo-assisted shot noise at the Airy edge 
+
+The preceding sections identified a gap between the paper’s formalism (coherence-order selection via Kphys ) and the sideband edge (which lives within a single coherence-order block). This section closes the gap with a complementary transport calculation in the standard two-terminal photo-assisted-noise geometry. The key result is that the diagonal discrete Bessel kernel appears exactly in the first bias derivative of the shot noise. 
+
+Remark 9.1 (Why shot noise, not conductance) . For a single channel with energy-independent transmission T , the time-averaged current under AC drive is I(V ) = ( e2T /h )V , independent of 
+
+A: the Bessel weights satisfy P 
+
+> n
+
+J2
+
+> n
+
+(A) = 1 and P 
+
+> n
+
+nJ 2
+
+> n
+
+(A) = 0 , so dI/dV is featureless. Aphoton-assisted conductance staircase arises only when the underlying I-V is nonlinear (SIS junc-tions, resonant levels, energy-dependent density of states (DOS)). In contrast, the shot noise—which measures current fluctuations —is sensitive to the sideband structure even for a flat-transmission channel [9, 8]. This is why we focus on dS I /dV rather than dI/dV .
+
+9.1 The plateau deficit 
+
+For a single spinless channel with energy-independent transmission T at zero temperature, the standard photo-assisted partition noise is [8, 9, 44] 
+
+SI (V ) = 2e2
+
+h T (1 − T ) X
+
+> n∈Z
+
+J2
+
+> n
+
+(A) |eV + nℏΩ|. (9.1) Equation (9.1) is the standard PASN expression, well established both theoretically [8, 15] and experimentally [11, 12]. The new result here is its large-A edge asymptotics: we show that the 20 derivative dS I /dV near the highest active sideband isolates the diagonal discrete Bessel kernel, and that the resulting plateau deficit collapses onto the Airy kernel diagonal under universal scaling. Set x := eV / ℏΩ > 0 and differentiate with respect to V . Away from the integer values x ∈ Z
+
+(where SI has slope discontinuities due to the absolute values), the derivative is 
+
+dS I
+
+dV = 2e3
+
+h T (1 − T ) X
+
+> n∈Z
+
+J2
+
+> n
+
+(A) sgn( x + n). (9.2) At the slope discontinuities x = ℓ ∈ Z, dS I /dV has a jump of height 4e3T (1 − T )J2 
+
+> ℓ
+
+(A)/h ; the formula (9.2) gives the value on each plateau between discontinuities. With νV := ⌈x⌉ (well-defined for non-integer x), the negative-sign terms are exactly those with n ≤ − νV , so by J2 
+
+> −n
+
+= J2 
+
+> n
+
+we obtain dS I
+
+dV = 2e3
+
+h T (1 − T )
+
+h
+
+1 − 2 X
+
+> n≥νV
+
+J2
+
+> n
+
+(A)
+
+i
+
+. (9.3) The sum P 
+
+> n≥ν
+
+J2
+
+> n
+
+(A) is precisely the diagonal of the discrete Bessel kernel (5.6), so 
+
+dS I
+
+dV = 2e3
+
+h T (1 − T )
+
+h
+
+1 − 2K(disc)  
+
+> A
+
+(νV , ν V )
+
+i
+
+(V > 0) . (9.4) The slope approaches a high-bias plateau at 2e3T (1 − T )/h .2 Define the plateau deficit 
+
+∆I (V ) := 2e3
+
+h T (1 − T ) − dS I
+
+dV = 4e3
+
+h T (1 − T ) K(disc)  
+
+> A
+
+(νV , ν V ). (9.5) Now place the bias at the upper end of the plateau structure, νV = νA(s) = ⌊A+sκ A⌋.3 Theorem 6.1 gives K(disc)  
+
+> A
+
+(νA(s), ν A(s)) ∼ κ−1 
+
+> A
+
+KAi (s, s ), hence 
+
+κA ∆I (V ) −→ 4e3
+
+h T (1 − T ) KAi (s, s ) as A → ∞ . (9.6) The raw dS I /dV curve approaches its saturation plateau, and the deficit from that plateau has an 
+
+O(κ−1 
+
+> A
+
+) universal Airy shape over a voltage window ∆Vedge ∼ (ℏΩ/e )κA ∼ (ℏΩ/e )A1/3.The cleanest experimental test is therefore the collapse plot: define 
+
+SA(s) := h
+
+4e3T (1 − T ) κA ∆I (V ), s = |eV |/ℏΩ − AκA
+
+. (9.7) The prediction is SA(s) → KAi (s, s ), independently of A. Figure 7(a) verifies this collapse numeri-cally. It is important to distinguish this result from a more elementary observation. The Debye–Olver turning-point asymptotics [20, 21] give the pointwise estimate κ2
+
+> A
+
+J2 
+
+> ℓ
+
+(A) → Ai 2(s) for the individual Bessel weights near ℓ ∼ A, and this has been known since the classical theory of Bessel functions. But the plateau deficit (9.5) involves the cumulative sum P 
+
+> n≥νV
+
+J2
+
+> n
+
+(A) = K(disc)  
+
+> A
+
+(νV , ν V ), not a single weight J2 
+
+> νV
+
+(A). The two are related by the exact discrete identity 
+
+K(disc)  
+
+> A
+
+(ν, ν ) − K(disc)  
+
+> A
+
+(ν+1 , ν +1) = J2 
+
+> ν
+
+(A), (9.8)                                       
+
+> 2For V < 0, the symmetry SI(V) = SI(−V)—which follows from J2
+> −n=J2
+> n—gives dS I/dV =−dS I/dV |−V, so the deficit at −Vis the same as at V.
+> 3The transport definition νV=⌈eV / ℏΩ⌉and the edge-scaling definition νA(s) = ⌊A+sκ A⌋differ by at most one lattice spacing, hence by O(κ−1
+> A)in the rescaled variable s; this is negligible in the A→ ∞ limit.
+
+21 2 0 2 4 6
+
+s 
+
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+
+(a) Ai 2(s)     
+
+> KAi (s,s)
+> 12345
+
+s      
+
+> 10 12
+> 10 10
+> 10 8
+> 10 6
+> 10 4
+> 10 2
+> 10 0
+
+(b) Ai 2(s)   
+
+> KAi (s,s)
+> e43s3/2
+
+Figure 6: Comparison of Ai 2(s) (dashed) and the Airy-kernel diagonal KAi (s, s ) = Ai ′(s)2 −s Ai( s)2
+
+(solid), related by −∂sKAi (s, s ) = Ai 2(s). (a) Linear scale: Ai 2 oscillates in the bulk ( s < 0), while KAi (s, s ) decreases monotonically. (b) Log scale in the tail ( s > 0): both decay with the same essential exponential e− 43 s3/2
+
+(dotted guide) but with different algebraic prefactors ( s−1/2 for 
+
+Ai 2 versus s−1 for KAi ); the pointwise envelope Ai 2(s) is systematically larger than its integral 
+
+KAi (s, s ) = R ∞ 
+
+> s
+
+Ai 2(v) dv . The plateau deficit (9.5) measures KAi (s, s ), not Ai 2(s).which in the scaling limit becomes −∂sKAi (s, s ) = Ai 2(s). Thus KAi (s, s ) = R ∞ 
+
+> s
+
+Ai 2(v) dv is the 
+
+cumulative edge density (the one-point function of the Airy determinantal process), while Ai 2(s) is its negative derivative—the pointwise weight envelope. This distinction is experimentally concrete: a lock-in measurement of d2SI /dV 2 peak heights at T = 0 (a sum of delta functions at eV = ℓℏΩ
+
+with weights J2 
+
+> ℓ
+
+(A)) probes the discrete derivative (9.8) and hence the Ai 2 envelope, while the first-derivative deficit probes the kernel diagonal KAi (s, s ) itself. Figure 6 illustrates the comparison. 
+
+Electron–hole pair interpretation. Rychkov, Polianski, and Büttiker [13] first interpreted PASN in terms of photon-created electron–hole pairs; Vanević, Nazarov, and Belzig [15] then showed that the full counting statistics of an AC-driven QPC decompose into elementary events of two kinds: unidirectional single-electron transfers (which carry the DC current) and bidirectional electron–hole pair creation events (which contribute only to noise and higher cumulants). In that framework, the noise involves sideband-resolved pair-creation probabilities that are related to, but not identical to, the Bessel weights J2 
+
+> k
+
+(A). What the plateau deficit ∆I (V ) isolates exactly is the high-sideband tail of the PASN weight decomposition : P 
+
+> n≥νV
+
+J2
+
+> n
+
+(A). The Airy scaling of the deficit describes how this tail vanishes at the highest active sideband—the “soft edge” of the excitation spectrum. Deep below the edge the observable crosses over to the bulk regime; near s ∼ 0 it is governed by the universal Airy profile KAi (s, s ); beyond the edge ( s → +∞) it is exponentially suppressed. The universality of this crossover—independent of A—is the content of the Airy-collapse prediction. This picture also clarifies why the plateau deficit isolates the edge while the total noise does not: the total noise sums over all sidebands and is dominated by the bulk ( |k| ≪ A), whereas the deficit at bias eV ≈ AℏΩ selects the tail of the distribution, which is precisely the edge region. 22 8 6 4 2 0 2 4 6                             
+
+> s= ( eV/ Ω−A)/A
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> SA(s) =  A · K (disc)
+> A (νV, ν V)
+> (a) Plateau deficit collapse ( T= 0 )
+> A= 20
+> A= 50
+> A= 100
+> A= 200
+> KAi (s, s )
+> 10 864202468
+> s
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> K (θ)Ai  (s, s )
+> (b) Thermal crossover: θA=kBT/ ΩA
+> θA= 0
+> θA= 0 .3
+> θA= 0 .6
+> θA= 1 .0
+> θA= 2 .0
+
+Figure 7: (a) Plateau deficit collapse at T = 0 (V > 0): the normalized deficit SA(s) =
+
+κAK(disc)  
+
+> A
+
+(νV , ν V ) (dots, Eq. (9.7)) converges to KAi (s, s ) (solid black) for A = 20 , 50 , 100 , 200 ,where s = ( eV / ℏΩ − A)/κ A. The result for V < 0 is identical by the symmetry SI (V ) = SI (−V ).(b) Kernel-level thermal crossover (Sec. 9.2): the finite-temperature Airy kernel diagonal K(θ)Ai (s, s )
+
+interpolates between the sharp T = 0 edge at θA = 0 and a thermally broadened profile at θA ≳ 1,where θA = kB T / (ℏΩκA). The corresponding crossover of the full shot-noise plateau deficit requires a separate derivation (Remark 9.2). 
+
+Connection to existing experiments. Photo-assisted shot noise has been measured in meso-scopic conductors, including a phase-coherent diffusive wire [11] and a ballistic QPC at GHz fre-quencies [12]. Both experiments confirmed the Bessel-function structure P 
+
+> n
+
+J2
+
+> n
+
+(A)| · · · | in the noise, and the latter provided a quantitative test of the Tien–Gordon/Floquet scattering formula over a range of drive amplitudes. These data already implicitly contain the Airy edge: the Bessel weights 
+
+J2
+
+> n
+
+(A) near n ∼ A carry the κ−2 
+
+> A
+
+Ai 2(s) envelope. However, the existing analyses did not plot the noise in the rescaled edge variable s = ( eV / ℏΩ − A)/κ A, which is the representation in which the universal Airy collapse becomes visible. A reanalysis of published data at moderate to large A
+
+would provide a direct test of the prediction. 
+
+9.2 Finite temperature and the crossover scale 
+
+At finite electron temperature Tel , the Fermi step is smoothed over ∆nT ∼ kB Tel /ℏΩ sidebands. The Airy edge occupies ∆nedge ∼ κA ∼ A1/3 sidebands. Define the crossover parameter 
+
+θA := kB Tel /ℏΩ
+
+κA
+
+= kB Tel 
+
+ℏΩ
+
+ 2
+
+A
+
+1/3
+
+. (9.9) Replacing the sharp Fermi step by the smooth occupation ¯f (Em) = [1 + exp(( Em − μ)/k B Tel )] −1
+
+in the kernel sum gives the finite-temperature kernel 
+
+KA,T (ν, λ ) = X
+
+> r∈Z
+
+Jν+r(A) Jλ+r(A) 11 + e−(r+η)ℏΩ/k B Tel 
+
+, (9.10) where η(E) = ( μ − E)/ℏΩ − mF (E) ∈ [0 , 1) . The same Riemann-sum argument as in the proof of Theorem 6.1 gives, in the edge scaling regime ν = A + sκ A,
+
+κA KA,T (νA(s), ν A(t)) −→ K(θ)Ai (s, t ), (9.11) 23 with the finite-temperature Airy kernel [34, 35, 36] 
+
+K(θ)Ai (s, t ) = 
+
+Z ∞−∞ 
+
+Ai( s + u) Ai( t + u)1 + e−u/θ du. (9.12) As θ → 0, this reduces to the ordinary Airy kernel KAi (s, t ) = R ∞ 
+
+> 0
+
+Ai( s+u) Ai( t+u) du . Figure 7(b) shows the thermal crossover on the diagonal. This makes condition (5) of the Introduction quantitative: the zero-temperature Airy edge is sharp when 
+
+kB Tel ≪ ℏΩ κA = ℏΩ ( A/ 2) 1/3, (9.13) and the crossover to thermal broadening occurs at θA ∼ 1, i.e., kB Tel ∼ ℏΩκA. For a drive frequency Ω/2π = 10 GHz and A = 50 , one has hf /k B ≈ 0.48 K and κ50 = (50 /2) 1/3 ≈ 2.9, giving 
+
+Tcross ∼ hf κ A/k B ≈ 1.4 K —well above typical dilution-fridge base temperatures, confirming that the Airy edge should be experimentally accessible. For θA ≪ 1, a Sommerfeld expansion of (9.12) gives the leading thermal correction on the diagonal: 
+
+K(θ)Ai (s, s ) = KAi (s, s ) − π2
+
+3 θ2 Ai( s) Ai ′(s) + O(θ4). (9.14) This provides a practical formula for experimentalists who need the low-temperature correction without computing the full integral: the leading effect of finite temperature is a shift proportional to Ai( s) Ai ′(s), which is antisymmetric about the edge and vanishes at s = 0 .
+
+Remark 9.2 (Scope of the finite-temperature result) . This subsection analyzes the finite-temperature crossover of the underlying edge kernel. Deriving the corresponding finite-T shot-noise plateau deficit requires inserting the thermal distribution into the full noise formula (9.1) , which yields a convo-lution of the Airy kernel diagonal with a thermal broadening function; we do not carry out that derivation here. 
+
+# 10 Conclusion and outlook 
+
+We close with a summary of the main results, a platform-by-platform assessment of where the conditions for edge universality can be met, and a list of open problems. 
+
+10.1 Summary 
+
+This paper connects two objects that are usually treated separately in the Floquet literature [10, 9]: the linear detection chain that turns a time trace into a measured number, and the Floquet scattering matrix that describes how a periodic drive redistributes quantum states across energy sidebands. The detection kernel Kphys encodes the instrument’s time gate, filter, and analysis frequency [3]; the outgoing correlator C encodes the device physics. The projection identity (3.8) makes the bridge between them explicit: the analysis frequency selects a definite coherence order k = n − p
+
+of C, and with a commensurate gate this selection is exact. We have been careful to distinguish what this bridge does and does not provide: it selects a coherence-order block, not an individual sideband index. Accessing the soft edge requires spectral resolution beyond the coherence-order projection: either energy-selective detection, or DC transport observables whose bias dependence is sensitive to the edge. We have derived a concrete prediction for the latter: the photo-assisted shot noise slope dS I /dV realizes the same diagonal discrete Bessel kernel K(disc)  
+
+> A
+
+(νV , ν V ) as a function of 24 bias voltage, and the deficit from the high-bias plateau collapses onto KAi (s, s ) under the universal scaling s = ( eV / ℏΩ − A)/κ A.Under the conditions enumerated in the Introduction—non-interacting fermions, monochromatic spatially uniform phase drive, wide-band static scatterer, sharp Fermi step (or double step in the two-terminal case), kB Tel ≪ ℏΩκA, and large drive amplitude A ≫ 1—the outgoing sideband process at fixed central energy is determinantal. In the single-step case (equilibrium or single populated reservoir), the kernel is the discrete Bessel kernel K(disc)  
+
+> A
+
+, and its soft edge converges to the Airy kernel on the A1/3 scale [23, 18]. In the two-terminal double-step case (Sec. 5.1), the kernel is a weighted sum of two shifted Bessel kernels; when the bias window exceeds κA, the edge correlations near each isolated edge are governed by a thinned Airy kernel τ K Ai (s, t ) with τ = T
+
+or R, though the lower edge carries a smooth bulk background from the opposite step (negligible in the tunnel limit). At finite temperature, the edge kernel crosses over to the finite-temperature Airy kernel [34, 35, 36] with crossover parameter θA = kB T / (ℏΩκA) (Sec. 9.2). We have argued, on the basis of the two-dimensional structure of Sambe space [24], that multi-tone drives can promote the fold (Airy) edge to a cusp (Pearcey) edge [37, 43], but the rigorous derivation of this limit from the explicit two-tone Fourier coefficients remains open. 
+
+10.2 Experimental platforms 
+
+The six conditions of the Introduction are restrictive but not unrealizable. We briefly assess the main candidate platforms. Two requirements pull in different directions. For the theorem (Airy edge of the sideband kernel), the ideal setting is a channel with energy-independent transmission under monochromatic drive—a QPC conductance plateau helps with the energy-independence part, but the sharp-step assumption (condition (4)) is a separate requirement. For the transport prediction (shot-noise plateau deficit), the signal carries the prefactor T (1 −T ), which vanishes on a plateau where T ≈ 0 or 1. The cleanest measurement therefore uses a partially transmitting single-channel beam splitter with approximately energy-flat transmission over the relevant sideband window ∼ 2AℏΩ.Condition (4) requires care: a biased two-terminal device has two Fermi steps, giving a double-step occupation (Sec. 5.1), but when the bias window exceeds the edge width κA, the edge corre-lations near each step are governed by a thinned Airy kernel; the upper edge is clean, while the lower edge carries a smooth bulk background that is negligible for T ≪ 1. Condition (5) requires 
+
+Tel ≪ Tcross ∼ hf κ A/k B , which at f = 10 GHz and A = 20 gives Tcross ≈ 1.1 K —easily satisfied in a dilution refrigerator. Larger values A ∼ 50 –200 sharpen the collapse but make the wide-band requirement more demanding; moderate A may be the most practical starting point. Condition (6), 
+
+A = eV ac /hf ≫ 1, requires Vac ∼ 0.8–8 mV at 10 GHz for A ∼ 20 –200 , which is accessible though large enough that drive-induced heating must be monitored. The most directly testable prediction is the Airy collapse of the shot-noise plateau deficit (Sec. 9). Photo-assisted shot noise measurements in QPCs are well established [11, 12]. 
+
+Metallic tunnel junctions [8] (Al/AlO x/Al) are multichannel devices, but in the tunnel limit (Ti ≪ 1 for each channel) the shot noise is a sum of independent single-channel contributions, each weighted by Ti(1 − T i) ≈ T i. The plateau deficit for each channel carries the same Airy edge structure; what changes is only the overall prefactor. 
+
+SIS junctions [7], the historical setting of Tien–Gordon physics, satisfy conditions (2) and (6) but the BCS gap structure violates the wide-band condition (3) near the gap edge; whether the 
+
+A1/3 scaling survives there is open. Superconducting microwave circuits [3] are typically bosonic, invalidating the determinantal structure, unless a fermionic channel (e.g., an embedded normal-metal junction) is present. AC-gate-driven quantum dots [9] suffer from Coulomb blockade (violating 25 condition (1)) except in the open-dot regime, where achievable amplitudes ( A ∼ 1–10 ) limit the edge-scaling window. Cold atoms in driven optical lattices [1] realize non-interacting Floquet regimes, but the Landauer scattering framework does not directly apply and a separate reformulation in terms of quasienergy band structure would be needed. 
+
+10.3 Open directions 
+
+Several extensions of this work are worth pursuing. The most immediate is the explicit derivation of the Pearcey edge scaling from the two-tone Fourier coefficients (7.1), including the identification of the cusp-specific edge scale and the verification of the expected quartic normal form by stationary-phase analysis [26, 40]. A second direction is extending the finite-temperature edge kernel of Sec. 9.2 to a full finite-T prediction for the photo-assisted shot-noise plateau deficit, by inserting the thermal occupation into the noise formula [8] and tracking the crossover at θA ∼ 1.Third, an intriguing question is the edge universality class for general drive waveforms . The leviton program [16, 15] uses shaped voltage pulses with specific Fourier coefficients Fk to engineer minimal-excitation states; for a Lorentzian pulse, Fk decays exponentially rather than through the power-law turning-point structure of Jk(A), so the sideband edge is not a fold and the Airy kernel does not apply. More generally, the edge universality class of the sideband kernel built from Fk
+
+depends on the saddle-point structure of the integral defining Fk, and different pulse shapes may realize different members of the catastrophe-kernel hierarchy. Classifying these edges for the exper-imentally relevant pulse families (Lorentzian, cosine, square, multi-tone) is an open problem that would connect the edge-universality picture of this paper to the electron quantum optics toolbox. A distinct direction concerns the extension to interacting fermions, where condition (1) is relaxed. A perturbative fluctuation relation has been shown [45] to extend the sideband transmission picture to strongly correlated systems—Luttinger liquids, fractional quantum Hall edges, Josephson junc-tions in dissipative environments—with the Bessel weights replaced by many-body matrix elements; recent applications to AC-driven fractional quantum Hall systems [46] show that Levitov’s theorem on minimal excitations is violated in that regime. Whether any analogue of the Airy edge structure survives with interactions is an open question. On the bosonic side, the analogue of the present analysis—where the Slater determinant is replaced by a Gaussian state and the Airy kernel enters through the first-order coherence rather than through fermionic Wick contractions [19]—is an open problem with potential applications to parametrically driven photonic circuits. In that setting, the no-click probability takes the form of a bosonic Fredholm determinant, P0 = det(Id + κK )−1, and the same soft-edge reduction would imply Tracy–Widom–type tail exponents in directly measurable photostatistics; for phase-sensitive (squeezed) states, anomalous correlators promote this to a symplectic block structure. Such predic-tions are relevant to platforms where Kardar–Parisi–Zhang universality of bosonic phase fluctuations has recently been established experimentally [47]. Finally, extending the connection between the detection chain and the correlator to include the effects of feedback, adaptive measurement, and quantum-limited amplification [3] would bring the formalism closer to the operational reality of circuit-QED experiments. 
+
+Acknowledgements. The author is grateful to Leonardo Santilli and David Trillo for correspon-dence. This work was supported by the Shanghai Institute for Mathematics and Interdisciplinary Sciences (SIMIS-ID-2025-QT). 26 A Technical proofs 
+
+This appendix collects the two technical proofs deferred from the main text: the Christoffel–Darboux identity for the discrete Bessel kernel (Sec. A.1) and the Airy-limit convergence theorem (Sec. A.2). A brief sketch connecting the standard shot-noise formula to the correlator framework is given in Sec. A.3. 
+
+A.1 Christoffel–Darboux identity for the discrete Bessel kernel 
+
+We prove the identity (5.8). Start from the three-term recurrence for Bessel functions [20], 
+
+2( ν + r)
+
+A Jν+r(A) = Jν+r−1(A) + Jν+r+1 (A). (A.1) For ν̸ = λ, multiply by Jλ+r(A) and subtract the same identity with ν and λ interchanged to obtain 
+
+2( ν − λ)
+
+A Jν+r(A)Jλ+r(A) = Jν+r−1(A)Jλ+r(A) − Jν+r(A)Jλ+r−1(A)+ Jν+r+1 (A)Jλ+r(A) − Jν+r(A)Jλ+r+1 (A).
+
+The right-hand side telescopes when summed over r = 0 , 1, 2, . . . . Since Jk(A) → 0 as k → ∞ for fixed A, the boundary term at infinity vanishes. Collecting the surviving r = 0 boundary term and dividing by 2( ν − λ)/A gives 
+
+K(disc)  
+
+> A
+
+(ν, λ ) = A
+
+2
+
+Jν−1(A)Jλ(A) − Jν (A)Jλ−1(A)
+
+ν − λ .
+
+A.2 Proof of the soft-edge Airy limit (Theorem 6.1) 
+
+The proof combines the turning-point estimate (6.5) with a Riemann-sum argument. 
+
+Step 1: Pointwise approximation. The Debye–Olver uniform asymptotic [21] for integer order 
+
+n near argument A gives κAJn(A) = Ai(( n − A)/κ A) + O(A−2/3) uniformly on compact sets. Composing with the floor in the rescaling νA(s) = ⌊A + sκ A⌋ introduces a shift δ/κ A with |δ| ≤ 1
+
+in the Airy argument. By Lipschitz continuity of Ai on compacts, the resulting error is O(A−1/3),giving (6.5). The global tail bound |κAJνA(s)(A)| ≤ Ce −cs for s ≥ 0 (the weaker corollary of the piecewise estimate stated in the main text) carries over with the same adjustment. 
+
+Step 2: Riemann-sum approximation. Fix a compact rectangle Q = [ −M, M ]2. For u ≥ 0
+
+define ϕA(u; s) := κAJνA(s)+ ⌊uκ A⌋(A). By the same argument as Step 1, ϕA(u; s) = Ai( s + u) + 
+
+O(A−1/3) uniformly on Q × [0 , U ] for any fixed U > 0. The rescaled kernel is the Riemann sum 
+
+bKA(s, t ) = 1
+
+κA
+
+> ∞
+
+X
+
+> r=0
+
+ϕA
+
+ rκA
+
+; s
+
+
+
+ϕA
+
+ rκA
+
+; t
+
+
+
+(A.2) with mesh 1/κ A → 0. The partial sum over r/κ A ∈ [0 , U ] converges uniformly on Q to R U 
+
+> 0
+
+Ai( s +
+
+u) Ai( t + u) du .
+
+Step 3: Tail control. For U ≥ M + 1 and s ∈ [−M, M ], the global tail bound gives |ϕA(u; s)| ≤ 
+
+Ce −c(u−M ) for u ≥ M + 1 , so |ϕA(u; s)ϕA(u; t)| ≤ C2e−2c(u−M ), which is integrable on [U, ∞) and independent of A. The tail sum converges, as A → ∞ , to the corresponding integral, which can be made arbitrarily small by taking U large. The same is true for R ∞ 
+
+> U
+
+Ai( s + u) Ai( t + u) du .27 Conclusion. Combining Steps 2 and 3 gives sup Q | bKA(s, t ) − KAi (s, t )| → 0. Since Q was arbi-trary, the convergence is locally uniform on R2.
+
+A.3 Photo-assisted noise from the correlator framework (sketch) 
+
+The photo-assisted noise formula (9.1) is a standard result of Floquet scattering theory [8, 9, 4]. Here we do not re-derive it but briefly sketch how it connects to the correlator C of the main text, following [10], in order to make the appearance of the same discrete Bessel kernel in two different observables transparent. The standard Floquet-scattering expression for zero-frequency PASN is quadratic in the transmission block ˆtnm (E) = √T Jn−m(A) and in the reservoir occupations; after inserting the double-step distribution (5.9) one recovers Eq. (9.1). The key identity linking the noise integrand to the correlator C, valid at zero temperature where fL,R are sharp Fermi steps, is 
+
+X
+
+> m
+
+fL(Em)[1 − fR(Em)] J2
+
+> n−m
+
+(A) = T −1C(L) 
+
+> nn
+
+− C(R)
+
+> nn
+
+,
+
+where C(L,R ) are the correlators built from left and right reservoirs respectively. After carrying out the energy integral and using the step structure, one recovers (9.1). The differentiation d/dV then selects the Fermi-edge contribution, which is precisely K(disc)  
+
+> A
+
+(νV , ν V )—the same kernel diagonal that governs the fixed-E edge theorem. This is why the same Airy scaling appears in two a priori different observables. 
+
+# References 
+
+[1] G. Platero and R. Aguado, Photon-assisted transport in semiconductor nanostructures, Phys. Rep. 395 , 1–157 (2004). doi:10.1016/j.physrep.2004.01.004 [2] H. Haug and A.-P. Jauho, Quantum Kinetics in Transport and Optics of Semiconductors , 2nd ed. (Springer, Berlin, 2008). doi:10.1007/978-3-540-73564-9 [3] A. A. Clerk, M. H. Devoret, S. M. Girvin, F. Marquardt, and R. J. Schoelkopf, Introduction to quantum noise, measurement, and amplification, Rev. Mod. Phys. 82 , 1155–1208 (2010). doi:10.1103/RevModPhys.82.1155 [4] M. Moskalets, Scattering Matrix Approach to Non-Stationary Quantum Transport (Imperial College Press, London, 2011). doi:10.1142/p822 [5] A. Eckardt, Colloquium: Atomic quantum gases in periodically driven optical lattices, Rev. Mod. Phys. 89 , 011004 (2017). doi:10.1103/RevModPhys.89.011004 [6] H. P. Yuen and V. W. S. Chan, Noise in homodyne and heterodyne detection, Opt. Lett. 8,177–179 (1983). doi:10.1364/OL.8.000177 [7] P. K. Tien and J. P. Gordon, Multiphoton process observed in the interaction of microwave fields with the tunneling between superconductor films, Phys. Rev. 129 , 647–651 (1963). doi:10.1103/PhysRev.129.647 [8] G. B. Lesovik and L. S. Levitov, Noise in an ac biased junction: nonstationary Aharonov–Bohm effect, Phys. Rev. Lett. 72 , 538–541 (1994). doi:10.1103/PhysRevLett.72.538 28 [9] M. H. Pedersen and M. Büttiker, Scattering theory of photon-assisted electron transport, Phys. Rev. B 58 , 12993–13006 (1998). doi:10.1103/PhysRevB.58.12993 [10] M. Moskalets and M. Büttiker, Floquet scattering theory of quantum pumps, Phys. Rev. B 
+
+66 , 205320 (2002). doi:10.1103/PhysRevB.66.205320 [11] R. J. Schoelkopf, A. A. Kozhevnikov, D. E. Prober, and M. J. Rooks, Observation of “photon-assisted” shot noise in a phase-coherent conductor, Phys. Rev. Lett. 80 , 2437–2440 (1998). doi:10.1103/PhysRevLett.80.2437 [12] L.-H. Reydellet, P. Roche, D. C. Glattli, B. Etienne, and Y. Jin, Quantum parti-tion noise of photon-created electron-hole pairs, Phys. Rev. Lett. 90 , 176803 (2003). doi:10.1103/PhysRevLett.90.176803 [13] V. S. Rychkov, M. L. Polianski, and M. Büttiker, Photon-assisted electron-hole shot noise in multiterminal conductors, Phys. Rev. B 72 , 155326 (2005). doi:10.1103/PhysRevB.72.155326 [14] L. S. Levitov, H.-W. Lee, and G. B. Lesovik, Electron counting statistics and coherent states of electric current, J. Math. Phys. 37 , 4845–4866 (1996). doi:10.1063/1.531672 [15] M. Vanević, Y. V. Nazarov, and W. Belzig, Elementary events of electron trans-fer in a voltage-driven quantum point contact, Phys. Rev. Lett. 99 , 076601 (2007). doi:10.1103/PhysRevLett.99.076601 [16] J. Dubois, T. Jullien, F. Portier, P. Roche, A. Cavanna, Y. Jin, W. Wegscheider, P. Roulleau, and D. C. Glattli, Minimal-excitation states for electron quantum optics using levitons, Nature 
+
+502 , 659–663 (2013). doi:10.1038/nature12713 [17] T. Jullien, P. Roulleau, B. Roche, A. Cavanna, Y. Jin, and D. C. Glattli, Quantum tomography of an electron, Nature 514 , 603–607 (2014). doi:10.1038/nature13821 [18] P. J. Forrester, Log-Gases and Random Matrices (Princeton University Press, Princeton, 2010). doi:10.1515/9781400835416 [19] A. L. Fetter and J. D. Walecka, Quantum Theory of Many-Particle Systems (McGraw-Hill, New York, 1971). [20] G. N. Watson, A Treatise on the Theory of Bessel Functions , 2nd ed. (Cambridge University Press, Cambridge, 1944). [21] F. W. J. Olver, Asymptotics and Special Functions (Academic Press, New York, 1974). [22] J. B. Hough, M. Krishnapur, Y. Peres, and B. Virág, Zeros of Gaussian Analytic Func-tions and Determinantal Point Processes (American Mathematical Society, Providence, 2009). doi:10.1090/ulect/051 [23] C. A. Tracy and H. Widom, Level-spacing distributions and the Airy kernel, Commun. Math. Phys. 159 , 151–174 (1994). doi:10.1007/BF02100489 [24] H. Sambe, Steady states and quasienergies of a quantum-mechanical system in an oscillating field, Phys. Rev. A 7, 2203–2213 (1973). doi:10.1103/PhysRevA.7.2203 [25] E. Brézin and S. Hikami, Universal singularity at the closure of a gap in a random matrix theory, Phys. Rev. E 57 , 4140–4149 (1998). doi:10.1103/PhysRevE.57.4140 29 [26] C. A. Tracy and H. Widom, The Pearcey process, Commun. Math. Phys. 263 , 381–400 (2006). doi:10.1007/s00220-005-1506-3 [27] E. D. Black, An introduction to Pound–Drever–Hall laser frequency stabilization, Am. J. Phys. 
+
+69 , 79–87 (2001). doi:10.1119/1.1286663 [28] G. C. Bjorklund, M. D. Levenson, W. Lenth, and C. Ortiz, Frequency modulation (FM) spectroscopy, Appl. Phys. B 32 , 145–152 (1983). doi:10.1007/BF00688820 [29] F. J. Harris, On the use of windows for harmonic analysis with the discrete Fourier transform, 
+
+Proc. IEEE 66 , 51–83 (1978). doi:10.1109/PROC.1978.10837 [30] W. Li and L. E. Reichl, Floquet scattering through a time-periodic potential, Phys. Rev. B 
+
+60 , 15732–15741 (1999). doi:10.1103/PhysRevB.60.15732 [31] B. Roussel, C. Cabart, G. Fève, E. Thibierge, and P. Degiovanni, Electron quan-tum optics as quantum signal processing, Phys. Status Solidi B 254 , 1600621 (2017). doi:10.1002/pssb.201600621 [32] K. Johansson, Discrete orthogonal polynomial ensembles and the Plancherel measure, Ann. Math. 153 , 259–296 (2001). doi:10.2307/2661375 [33] A. Borodin, Riemann–Hilbert problem and the discrete Bessel kernel, Int. Math. Res. Not. 
+
+2000 , 467–494 (2000). doi:10.1155/S107379280000026X [34] K. Johansson, From Gumbel to Tracy–Widom, Probab. Theory Relat. Fields 138 , 75–112 (2007). doi:10.1007/s00440-006-0012-7 [35] D. S. Dean, P. Le Doussal, S. N. Majumdar, and G. Schehr, Finite-temperature free fermions and the Kardar–Parisi–Zhang equation at finite time, Phys. Rev. Lett. 114 , 110402 (2015). doi:10.1103/PhysRevLett.114.110402 [36] D. S. Dean, P. Le Doussal, S. N. Majumdar, and G. Schehr, Noninteracting fermions at finite temperature in a d-dimensional trap: universal correlations, Phys. Rev. A 94 , 063622 (2016). doi:10.1103/PhysRevA.94.063622 [37] V. I. Arnold, S. M. Gusein-Zade, and A. N. Varchenko, Singularities of Differentiable Maps ,Vol. I (Birkhäuser, Boston, 1985). doi:10.1007/978-1-4612-5154-5 [38] M. V. Berry and C. Upstill, Catastrophe optics: morphologies of caustics and their diffraction patterns, Prog. Optics 18 , 257–346 (1980). doi:10.1016/S0079-6638(08)70215-4 [39] T. Pearcey, The structure of an electromagnetic field in the neighbourhood of a cusp of a caustic, Philos. Mag. 37 , 311–317 (1946). doi:10.1080/14786444608561335 [40] P. M. Bleher and A. B. J. Kuijlaars, Large n limit of Gaussian random matrices with ex-ternal source, part III: double scaling limit, Commun. Math. Phys. 270 , 481–517 (2007). doi:10.1007/s00220-006-0159-1 [41] M. Adler, P. L. Ferrari, and P. van Moerbeke, Airy processes with wanderers and new univer-sality classes, Ann. Probab. 38 , 714–769 (2010). doi:10.1214/09-AOP493 [42] D. S. Dean, P. Le Doussal, S. N. Majumdar, and G. Schehr, Noninteracting fermions in a trap and random matrix theory, J. Phys. A 52 , 144006 (2019). doi:10.1088/1751-8121/ab098d 30 [43] E. Duse, K. Johansson, and A. Metcalfe, The cusp–Airy process, Electron. J. Probab. 21 , 1–50 (2016). doi:10.1214/16-EJP2 [44] Ya. M. Blanter and M. Büttiker, Shot noise in mesoscopic conductors, Phys. Rep. 336 , 1–166 (2000). doi:10.1016/S0370-1573(99)00123-4 [45] I. Safi, Driven strongly correlated quantum circuits and Hall edge states: unified pho-toassisted noise and revisited minimal excitations, Phys. Rev. B 106 , 205130 (2022). doi:10.1103/PhysRevB.106.205130 [46] I. Taktak and I. Safi, AC driven fractional quantum Hall systems: uncovering unexpected features, arXiv:2502.07622 (2025). [47] Q. Fontaine, D. Squizzato, F. Baboux, I. Amelio, A. Lemaître, M. Morassi, I. Sagnes, L. Le Gratiet, A. Harouri, M. Wouters, I. Carusotto, A. Amo, M. Richard, A. Minguzzi, L. Canet, S. Ravets, and J. Bloch, Kardar–Parisi–Zhang universality in a one-dimensional polariton condensate, Nature 608 , 687–691 (2022). doi:10.1038/s41586-022-05001-8 31
