@@ -1,0 +1,528 @@
+Title: Thermalization Fronts in the Hubbard-Holstein Model
+
+URL Source: https://arxiv.org/pdf/2604.10775v1
+
+Published Time: Tue, 14 Apr 2026 01:47:01 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Thermalization Fronts in the Hubbard-Holstein Model 
+
+Antonio Picano 1 and Marco Schir` o1
+
+> 1
+
+JEIP, UAR 3573, CNRS, Coll` ege de France, PSL Research University, 11 Place Marcelin Berthelot, 75321 Paris Cedex 5, France 
+
+We investigate the nonequilibrium dynamics of the weak-coupling Hubbard-Holstein model after a sudden switch-on of the electron-phonon interaction within nonequilibrium dynamical mean-field theory (DMFT). Using the self-consistent Migdal approximation for the electron-phonon coupling together with second-order perturbation theory for the electron-electron interaction, we show that the relaxation dynamics exhibits a crossover between electron-dominated and phonon-dominated regimes, extending to finite Hubbard interaction the scenario previously identified in the Holstein model. To investigate the microscopic buildup of the thermal state, we analyze the dynamics within the Step-by-Step DMFT framework. In the plane of real time and DMFT iteration number, thermalization is marked by a sharp propagating front. This front appears in electronic observables already for weak quenches within the simulated time window, whereas the phononic sector exhibits a visible front only at sufficiently strong coupling. Thus, at weak coupling the local dispersionless phonons show a delayed onset of front formation, while near and beyond the crossover the front develops on comparable timescales in both the electronic and phononic sectors. Whenever both fronts are resolved, they propagate with the same velocity, showing that thermalization spreads coherently through the coupled electron-phonon system. 
+
+I. INTRODUCTION 
+
+The nonequilibrium dynamics of correlated lattice sys-tems has been intensively investigated over the past decade, driven by rapid advances in experimental tech-niques that enable the manipulation of materials and control of their properties in the time domain [1]. Interaction-quench studies [2–6] have been strongly mo-tivated by cold-atom experiments, where interactions and hopping amplitudes can be tuned via Feshbach resonances or by adjusting the depth of optical lat-tice potentials. In condensed-matter systems, ultrafast pump–probe experiments using wavelength-tunable fem-tosecond laser pulses allow for the driving of long-lived nonequilibrium states with novel functionalities that are inaccessible in equilibrium [7, 8]. Such excitations can induce insulator-to-metal transitions in correlated Mott systems [9, 10] or even lead to ultrafast switching into metastable hidden phases absent from the equilibrium free-energy landscape [11, 12]. In many materials, elec-tron–phonon coupling plays a crucial role in these pro-cesses, and pump–probe experiments often reveal clear signatures of coherent phonon dynamics [13, 14]. From a theoretical perspective, however, the interplay between electronic and lattice degrees of freedom out of equilib-rium remains far from fully understood. Early theoretical studies of nonequilibrium elec-tron–phonon systems have focused on few-particle prob-lems, such as the dynamics of one or two polarons in the Holstein model, investigated using time-dependent exact diagonalization [15–17]. More generally, wave-function-based approaches, including exact diagonalization and matrix product state methods [18–20], are limited by the rapid growth of the bosonic Hilbert space. While efficient techniques exist in the dilute limit of a few po-larons [15, 21–23], simulations at finite electron density remain restricted to relatively short times [24, 25]. Ex-tensions to many-electron systems have been explored using classical phonons [26] or quantum phonons in one dimension [27], as well as in two dimensions via ex-act diagonalization or weak-coupling perturbative ap-proaches [21, 28–30]. In large spatial dimensions, nonequilibrium dynami-cal mean-field theory (DMFT) [5, 31], which becomes exact in the limit of infinite dimensions, provides a con-trolled nonperturbative framework. DMFT maps the lat-tice problem onto an effective quantum impurity model subject to a self-consistency condition, thereby captur-ing local correlations exactly. In equilibrium, this impu-rity problem can be solved using quantum Monte Carlo methods [32, 33], whereas nonequilibrium studies typi-cally rely on weak-coupling expansions [34, 35] or strong-coupling approaches around the atomic limit [36, 37]. In the Mott-insulating regime, strong-coupling impurity solvers have revealed that the feedback of lattice dynam-ics on the electronic degrees of freedom can lead to sig-nificant modifications of spectral properties and to qual-itatively distinct relaxation pathways [37, 38]. In the weak-coupling Holstein model, where electrons couple to local (Einstein) phonons in the absence of Coulomb interactions, nonequilibrium DMFT studies have identified a crossover between two qualitatively dis-tinct relaxation regimes [34]. For weak electron–phonon coupling, phonon oscillations are damped faster than the electronic thermalization time, whereas for stronger cou-pling the phonon relaxation becomes the slowest process. Despite these advances, several fundamental questions remain open. In particular, the microscopic mechanisms governing thermalization in electron–phonon systems in weakly or moderately correlated metallic regimes are not yet fully understood, nor is the role of phonon dynamics beyond semiclassical or Boltzmann descriptions [39, 40]. Moreover, concepts of thermalization that have been ex-tensively studied in purely electronic systems, such as the 
+
+> arXiv:2604.10775v1 [cond-mat.str-el] 12 Apr 2026
+
+2Hubbard model [4, 41], remain largely unexplored in the presence of dynamical lattice degrees of freedom. A central issue in this context is how an isolated quan-tum many-body system evolving under its own Hamilto-nian approaches a thermal state and loses memory of its initial conditions [42–44]. Within DMFT, this problem acquires a particularly transparent interpretation: the lattice system effectively acts as its own bath, and ther-malization emerges from the self-consistent feedback be-tween the impurity and the dynamical bath generated by the surrounding lattice [31]. Recent work has shown that this mechanism can be elucidated by exchanging the or-der of the long-time limit and the DMFT self-consistency loop [45]. In this Step-by-Step formulation, the impu-rity dynamics is first evolved to long times for a fixed bath, and the bath is subsequently updated iteratively. This approach reveals that, in the nonequilibrium Hub-bard model, thermalization proceeds via a sharply de-fined front in the plane spanned by real time and DMFT iteration number, providing a microscopic picture of how a correlated system dynamically builds its own thermal environment. An important open question is how this picture is modified when electronic and lattice degrees of freedom are dynamically coupled. In this work, we address this problem by studying the nonequilibrium dynamics of the weak-coupling Hubbard–Holstein model [33, 46] after a sudden quench of the electron–phonon interaction. We consider both the full nonequilibrium DMFT solution and the Step-by-Step DMFT to investigate how ther-malization emerges microscopically in a coupled elec-tron–phonon system. This allows us to address two key questions: (i) whether the relaxation crossover identified in the Holstein model [34] persists in the presence of finite Hubbard interactions, and (ii) how the self-consistent buildup of the thermal state manifests in electronic and phononic observables, and whether both sectors partici-pate in a common propagating thermalization front. The nonequilibrium DMFT impurity problem is solved using a conserving approximation that combines the self-consistent Migdal treatment of the electron–phonon in-teraction [47–51] with second-order perturbation theory for the electron–electron interaction [52]. This frame-work captures the mutual feedback between electronic and lattice degrees of freedom and provides an ideal set-ting to investigate relaxation processes in isolated quan-tum many-body systems. In this way, the thermalizing system (electrons and phonons) is able to effectively act as its own thermal bath [53], enabling it to thermalize its subsystems and to lose memory of its initial conditions. We find that the crossover between electron- and phonon-dominated relaxation remains robust in the weak-coupling regime of the Hubbard–Holstein model. The Step-by-Step analysis further reveals a pronounced asymmetry in the onset of thermalization: within the accessible simulation times, electronic observables ex-hibit a well-defined thermalization front already for weak quenches, whereas the phononic sector develops a clear front only at sufficiently strong electron–phonon cou-pling. Whenever both fronts are present, they propa-gate with the same velocity, demonstrating that ther-malization spreads coherently throughout the coupled electron–phonon system. These findings provide a mi-croscopic picture of how thermal equilibrium emerges self-consistently in interacting electron–phonon systems within DMFT. The paper is organized as follows. In Sec. II, we in-troduce the model and the nonequilibrium DMFT for-malism [34]. In Sec. III A, we analyze the relaxation dy-namics and the crossover between electron- and phonon-dominated regimes [34]. In Sec. III B, we investigate the emergence of thermalization within the Step-by-Step DMFT framework [45]. In Sec. III C, we study the depen-dence of the thermalization front velocity on the model parameters. Finally, Sec. IV contains our conclusions.   
+
+> II. MODEL A. Nonequilibrium DMFT for the Hubbard-Holstein model
+
+The Hamiltonian for the Hubbard-Holstein model is 
+
+H(t) = −v X
+
+> ⟨i,j ⟩,σ
+
+(c† 
+
+> i,σ
+
+cj,σ + h.c.) − μ X
+
+> i
+
+ni (1) + ω0
+
+X
+
+> i
+
+a† 
+
+> i
+
+ai + g(t) X
+
+> i
+
+(a† 
+
+> i
+
++ ai)( ni, ↑ + ni, ↓ − α)+ U X
+
+> i
+
+
+
+ni↑ − 12
+
+  
+
+ni↓ − 12
+
+
+
+,
+
+where: c† 
+
+> i,σ
+
+is the creation operator for an electron with spin σ on site i; v is the hopping parameter restricted to next-neighboring sites; a† is the creation operator for a phonon with frequency ω0; g(t) is the electron-phonon coupling strength, taken here to be time-dependent; and 
+
+α is a constant that can be chosen arbitrarily. In the following, we set α = ⟨n↑ + n↓⟩, so that the Hartree term in the self-energy vanishes. We assume the absence of long-range order and focus on the half-filled case. Since we are at half-filling, α = ⟨n↑ + n↓⟩ = 1. We set μ = 0 in order for the system to be particle-hole symmetric. 
+
+U denotes the Coulomb interaction energy. Finally, we introduce the position ( X) and momentum ( P ) operators for the phonons, 
+
+Xi = 1
+
+√2 (a† 
+
+> i
+
++ ai), (2) 
+
+Pi = i
+
+√2 (a† 
+
+> i
+
+− ai). (3) 3If we substitute these expressions for X and P (we are in adimensional units) into the Hamiltonian (1), we get: 
+
+Hfree-ph ,i = ω0a† 
+
+> i
+
+ai = ω0
+
+2 (X2 
+
+> i
+
++ P 2 
+
+> i
+
+) − ω0
+
+2
+
+Hel-ph ,i = g(t)( a† 
+
+> i
+
++ ai)( ni, ↑ + ni, ↓ − α) = √2g(t)Xi(ni − α)(4) where in the first equation we used [ X, P ] = i. We drive the system out of equilibrium by changing the electron-phonon coupling constant g(t) from gi = 0 to a finite value gf at t = 0 +.To investigate the out-of-equilibrium dynamics of the Hubbard-Holstein model after the quench, we solve nonequilibrium dynamical mean-field theory (DMFT) [5, 34] equations on the L-shaped Kadanoff-Baym con-tour C [54]. We define the lattice electronic Green’s function Gi,j,σ (t, t ′) and local phonon Green’s function 
+
+Di(t, t ′) on this contour as 
+
+Gi,j,σ (t, t ′) = −i⟨TC ci,σ (t)c† 
+
+> j,σ
+
+(t′)⟩, (5) 
+
+Di(t, t ′) = −2i⟨TC Xi(t)Xi(t′)⟩, (6) where TC is the contour-ordering operator. The DMFT formalism assumes a spatially local self-energy (Σ i,j (t, t ′) ≡ δi,j Σii (t, t ′)) and maps the lattice prob-lem onto a quantum impurity model in a self-consistent manner. The effective impurity action for the Hubbard-Holstein model is: 
+
+Simp = −i
+
+Z
+
+> C
+
+dt H loc (t)
+
+− i X
+
+> σ
+
+Z
+
+> C
+
+dt 
+
+Z
+
+> C
+
+dt ′ c† 
+
+> σ
+
+(t) ∆ σ (t, t ′) cσ (t′) (7) where 
+
+Hloc (t) = −μ(n↑ + n↓) + U (n↑ − 12 )( n↓ − 12 )+ ω0a†a + g(t)( a† + a) ( n↑ + n↓ − α) (8) The hybridization function ∆ is determined self-consistently in such a way that the electron Green’s func-tion for the impurity ( Gimp ) becomes identical to the lo-cal electron Green’s function of the lattice Gloc ≡ Gi,i,σ ,where the self-energy of the lattice system is identi-fied with that of the effective impurity problem (self-consistency condition). A closed relation ∆[ G] can be ob-tained, for example, in the Bethe lattice with infinite co-ordination number ( z → ∞ ), where the self-consistency condition simplifies to ∆σ (t, t ′) = v2 
+
+> ∗
+
+Gloc ,σ (t, t ′) (9) with v = v∗/√z. In this case, that we consider in this pa-per, the density of states is semi-elliptic, 12πv 2
+
+> ∗
+
+p4v2 
+
+> ∗
+
+− ϵ2,and we set v∗ = 1 in the following. Especially, the band-width is 4. Since the electrons interact with each other through the phonons and vice versa, to obtain the interacting Green’s functions, we introduce the self-energies Σ σ (t, t ′)and Π( t, t ′) for the electrons and phonons, respectively. These functions satisfy the Dyson equations, 
+
+Gimp ,σ (t, t ′) = G0,σ (t, t ′) + [ G0,σ ∗ Σσ ∗ Gimp ,σ ] ( t, t ′),
+
+(10) 
+
+D(t, t ′) = D0(t, t ′) + [ D0 ∗ Π ∗ D] ( t, t ′) (11) where ∗ denotes convolution on the contour C, and G0,σ 
+
+is the Weiss Green’s function for the impurity problem, which is related to the hybridization function ∆ σ (t, t ′)by: 
+
+G−10,σ (t, t ′) = ( i∂ t + μ)δC (t, t ′) − ∆σ (t, t ′) , (12) Because the phonon propagator is local and site indepen-dent in the homogeneous phase, we drop the site index and denote it by D(t, t ′). The electronic polarizability is defined as Π( t, t ′) = −i2g(t)g(t′)Gimp (t, t ′)Gimp (t′, t ) (13) while the non-interacting ( g = 0) phonon Green’s func-tion can be expressed as 
+
+D0(t, t ′) = −i [θC (t, t ′) + fB (ω0)] exp 
+
+
+
+−iω 0
+
+Z t
+
+> C,t ′
+
+dt 1
+
+
+
+− i [θC (t′, t ) + fB (ω0)] exp iω 0
+
+Z t′
+
+> C,t
+
+dt 1
+
+!
+
+,
+
+(14) where θC is the Heaviside function on the contour and 
+
+fB (ω0) = ( eβω 0 − 1) −1 is the Bose distribution function at inverse temperature β = 1 /T . In the paramagnetic phase, the impurity Green’s function is spin independent, 
+
+Gimp ,↑ = Gimp ,↓ ≡ Gimp , and the factor 2 in the polariz-ability accounts for the spin sum.  
+
+> B. Impurity Solvers
+
+The most demanding step in the DMFT self-consistency loop is the solution of the effective impurity problem, Eq. (7). A numerically exact solution is in prin-ciple to be obtained with quantum Monte Carlo (QMC) methods, as in the Hubbard model [3, 4]. However, such methods are formulated on the real axis, which makes it difficult to access the long times required to simulate phonon dynamics. Therefore, we employ here two ap-proximate diagrammatic impurity solvers (weak-coupling approximations): the self-consistent second-order pertur-bation theory for the electronic problem [55], and the self-consistent Migdal approximation [35] for the phononic problem.  
+
+> 1. Electronic problem: Second-order perturbation theory
+
+In this work, we focus on the weakly correlated electronic regime. We employ the self-consistent 4second-order perturbation theory (SPT) as an impurity solver [55] which, being a conserving approximation, is particularly suited to studying thermalization in isolated quantum systems and the energy transfer between the impurity and the bath at weak coupling [5]. Since SPT is a “conserving approximation” [56], it automatically guarantees the conservation of global quantities such as the total energy and the particle number. The pertur-bation theory defines the self-energy as a functional of the fully interacting G, Σ = Σ[ G], which is a sufficient condition to preserve the conservation laws: Σe-e  
+
+> σ
+
+(t, t ′) = U (t)U (t′) Gimp ,σ (t, t ′) Gimp ,¯σ (t′, t ) Gimp ,¯σ (t, t ′)(15) The dynamics in the strongly correlated regime would require a different approach, such as for the example the noncrossing approximation [36]. In the following, we will drop the spin index since we will always be in the para-magnetic case.  
+
+> 2. Phonon problem: Self-consistent Migdal approximation
+
+In the Migdal approximation, one treats within aGaussian approximation the quantum fluctuations of the phonons around the average order parameter, repre-sented by the displacement ⟨X⟩ of the atoms [35]. The self-consistent Migdal approximation is the lowest or-der approximation for the electronic self-energy that al-lows to treat the renormalization of the phonons induced by the electron-phonon coupling. The vibrational mode evolves as a consequence of the interaction with the elec-trons and, in turn, influences the electronic dynamics; the electrons couple back to the phonons in the form of a phonon self-energy (polarization bubble). The self-energy in the self-consistent Migdal approximation reads: Σel-ph (t, t ′) = iD (t, t ′)Gimp (t, t ′)g(t)g(t′) (16) As long as g is not close to the critical value gc for the transition to the bipolaronic insulating phase and g is small compared to the electron bandwidth (both condi-tions that will be fulfilled in this manuscript), it provides a qualitatively good description [34, 48, 57]. Since the self-energies of the electrons and phonons involve dressed propagators, we can take account of the interplay be-tween the electrons and phonons in the dynamics. With the choice of α = ⟨n↑ + n↓⟩ in Eq. (1), the Hartree term (not shown in Eq. (16)) vanishes, and we can define a Luttinger-Ward functional Φ[ G, D ] in this approxima-tion. Hence the Migdal approximation is a conserving one. Since both SPT and self-consistent Migdal cor-respond to skeleton truncations of the Luttinger–Ward functional, the combined approximation within DMFT is Φ-derivable and therefore conserving [58].  
+
+> C. Full DMFT scheme
+
+Here we summarize the self-consistent DMFT loop that we solve for each time on the contour C.1. Start from a guess for Σ( t, t ′) and evaluate the fully-interacting impurity Green’s function Gimp ,σ (that in the following will be simply G) by solving the corresponding Dyson equation: (i∂ t + μ)G(t, t ′)
+
+− [∆( t, t ′) + Σ( t, t ′)] ∗ G(t, t ′) = δC (t, t ′) (17) in the Keldysh formulation (following the notation for two-time Green’s functions in Ref. [5]). We are considering here the spin-symmetric phase and omitting spin indices in Σ, G and ∆. 2. Use the self-consistency Eq. (9) to fix the hybridiza-tion function of the impurity model: ∆( t, t ′) = v2 
+
+> ∗
+
+G(t, t ′) (18) 3. Solve the impurity model to get Σ el-ph [G, D ]. We implement the self-consistent Migdal approxima-tion for the electron-phonon interaction: (a) Calculate the phonon self-energy Π (polariza-tion operator) with Eq. (13) in order to in-clude the back-action of the electrons on the phonons: Π( t, t ′) = −i2g(t)g(t′)G(t, t ′)G(t′, t ) (19) (b) Solve the Dyson equation for the dressed phonon propagator D, Eq. (11): [1 − D0(t, t ′) ∗ Π( t, t ′)] ∗ D(t, t ′) = D0(t, t ′) (20) (c) Calculate the second-order electronic self-energy in the self-consistent Migdal approxi-mation, Eq. (16): Σel-ph (t, t ′) = iD (t, t ′)G(t, t ′)g(t)g(t′), (21) 4. Solve the impurity model for the electron-electron interaction to get Σ e-e [G]. With SPT as an impu-rity solver, we apply Eq. (15): Σe-e (t, t ′) = U (t)U (t′) G(t, t ′) G(t′, t ) G(t, t ′) (22) 5. Set Σ( t, t ′) = Σ e-e (t, t ′) + Σ el-ph (t, t ′) and iterate steps 1.– 5. until convergence. In the self-consistent Migdal approximation the vibra-tional mode evolves as a consequence of the interaction with the electrons. The expectation value of X is deter-mined by the exact equation of motion that comes form ˙X = ∂H
+
+∂P = ω0P = ω0
+
+i
+
+√2 (a† − a)˙P = − ∂H
+
+∂X = −ω0X − √2g(t)( n − 1) (23) 5and, if we take the expectation value, it reads: 
+
+⟨ ¨X(t)⟩ = ω0⟨ ˙P (t)⟩
+
+= −ω20 ⟨X(t)⟩ − √2ω0g(t) n(t) − 1 (24) where n(t) = −iG <(t, t ). We see explicitly from Eq. (24) that dynamics of the phonon is influenced by the elec-tronic dynamics through the electron density. The lat-ter, in turn, depends on the average position of the phonon displacement ⟨X(t)⟩ through the terms ∆ and Σ in Eq. (17). 
+
+1. Observables 
+
+The total energy of the system is given by the combi-nation of different energy contributions. 
+
+Kinetic energy : The kinetic energy of the electrons is calculated as: 
+
+Ekin (t) = −i X
+
+> σ
+
+[∆ σ ∗ Gimp ,σ ]< (t, t ), (25) 
+
+Phonon density : The density of phonons ⟨a†(t)a(t)⟩,which is proportional to the free-phonon energy Eph (t) = 
+
+ω0⟨a†(t)a(t)⟩, can be expressed in terms of the X and P
+
+as 
+
+⟨a†(t)a(t)⟩ = 12 [⟨X(t)X(t)⟩ + ⟨P (t)P (t)⟩] − 12 (26) where ⟨X(t)X(t)⟩ is obtained from D(t, t ), while 
+
+⟨P (t)P (t)⟩ is calculated from a second derivative of 
+
+D(t, t ′). In particular, the variance of the displacement X
+
+is extracted from: Var[ X] ≡ ⟨ ∆X2⟩ = i 
+
+> 2
+
+D<(t, t ), while Var[ P ] ≡ ⟨ ∆P 2⟩ = i 
+
+> 2
+
+D<d1,d 2(t, t ). The second derivative of D is defined as: 
+
+Dd1,d 2(t, t ′) ≡ ∂t∂t′ D(t, t ′)
+
+ω20
+
+= 2
+
+ω0
+
+δC (t, t ′) − 2i⟨TC P (t)P (t′)⟩
+
+(27) (See [34] for additional reference.) 
+
+Electron-phonon correlation : The energy term due to electron-phonon interaction is: 
+
+√2g(t)⟨X(t)c† 
+
+> σ
+
+(t)cσ (t)⟩ = −i Σel-ph ∗ Gimp ,σ 
+
+< (t, t ),
+
+(28) 
+
+Electron-electron correlation : The energy term due to Hubbard electron-electron interaction is: 
+
+EU (t) = U (t)
+
+D
+
+n¯σ (t)
+
+
+
+nσ (t) − 12
+
+ E
+
+= −i [Σ σ ∗ Gimp ,σ ]<(t, t ) − U (t)2
+
+
+
+nσ (t) − 12
+
+
+
+(29) at half-filling the second term vanishes and 
+
+EU (t) = −i [Σ σ ∗ Gimp ,σ ]<(t, t ) (30) 
+
+Total energy : The total energy is given by: 
+
+Etot (t) = Ekin (t) + EU (t) − μ ⟨n(t)⟩ + ω0⟨a†(t)a(t)⟩
+
++ √2 g(t) [ ⟨X(t)n(t)⟩ − α⟨X(t)⟩] . (31) with n(t) = n↑(t) + n↓(t), where at half-filling we remind that μ = 0 and α = 1. 
+
+D. Step-by-step DMFT 
+
+In the Step-by-Step DMFT, we start from the con-verged equilibrium solution of the DMFT system of equa-tions at the initial temperature Ti = 1 /β i as in the full-DMFT case. In the first global-DMFT iteration, n = 0, we propagate the equilibrium solution up to tmax with-out applying any excitation ( gn=0 = 0 , ∀t). For DMFT-iterations n = 1 , 2, . . . , n max , we switch on the excitation by making the quench on g at t = 0 +, gn : 0 → gf ,and propagate the Green’s functions in time up to tmax 
+
+without imposing the DMFT self-consistency. For each (t, t ′) on the contour C, we solve only once the DMFT equations (without imposing any self-consistency): 
+
+
+
+(i∂ t + μ)Gn(t, t ′)
+
+−[∆ n(t, t ′) + Σ n(t, t ′)] ∗ Gn(t, t ′) = δC (t, t ′)∆n(t, t ′) = v∗(t)Gn−1(t, t ′)v∗(t′)Πn(t, t ′) = −2ig 2
+
+> n
+
+(t)Gn(t, t ′)Gn(t′, t )[1 − D0(t, t ′) ∗ Πn(t, t ′)] ∗ Dn(t, t ′) = D0(t, t ′)Σel-ph  
+
+> n
+
+(t, t ′) = ig 2
+
+> n
+
+(t)Gn(t, t ′)Dn(t, t ′)Σe-e  
+
+> n
+
+(t, t ′) = U (t)U (t′) Gn(t, t ′) Gn(t′, t ) Gn(t, t ′)Σn(t, t ′) = Σ e-e  
+
+> n
+
+(t, t ′) + Σ el-ph  
+
+> n
+
+(t, t ′)We impose that global convergence is reached for n =
+
+nmax when 
+
+X
+
+> t,t ′
+
+|Gnmax (t, t ′) − Gnmax −1(t, t ′)| < 10 −6 (32) where 10 −6 is the error threshold that we arbitrarily fix and the sum runs over all the times. We observe that the hybridization function ∆ n(t, t ′)depends on the Gn−1(t, t ′) at the previous DMFT-iteration: ∆n(t, t ′) = v∗(t)Gn−1(t, t ′)v∗(t′) (33) The crucial property of the bath ∆ n(t, t ′) is that, at finite n, it remains explicitly non-time-translation-invariant and retains memory of the initial condition. 
+
+III. RESULTS AND DISCUSSION A. Thermalization crossover in the Hubbard-Holstein model 
+
+In what follows, we consider the half-filled Hubbard-Holstein model with ω0 = 0.7 ( < W = 4, with W6                            
+
+> FIG. 1. (a) Temporal evolution of ∆ n(t) on logarithmic scale for various values of gfafter the quench g: 0 →gfat t= 0 +at
+> U/v ∗= 2. Dashed lines are exponential fits. (b): temporal evolution of ⟨XX ⟩ − ⟨ XX ⟩th at U/v ∗= 2. The dashed lines show exponential fits to the envelopes of the oscillating curves. (c) Electron (continuous lines) and phonon (dashed lines) energy scales (inverse relaxation times) as a function of gf, extracted from panels (a) and (b), respectively, for U/v ∗= 0 ,1,2. For
+> gf<0.5, we observe electron-dominated relaxation dynamics; for gf>0.5 phonon-dominated relaxation.
+
+the bandwidth), in the weak-coupling regime far from both the bipolaronic and Mott transitions. We focus on 
+
+U/v ∗ = 0 , 1, 2 (which corresponds to weak interaction on the scale of the bandwidth, U/W = 0 , 0.25 , 0.5). The system is initially prepared at g = 0 in thermal equilib-rium at inverse temperature β = 100. We then study the nonequilibrium dynamics induced by a sudden quench of the electron-phonon coupling, g : 0 → gf , at t = 0 +. The corresponding U = 0 case, i.e. the Holstein model, was analyzed in Ref. [34]; here we focus on how this relaxation scenario is modified by finite Hubbard interaction. Figure 1 summarizes the relaxation dynamics. Panel (a) shows ∆ n(t) for U/v ∗ = 2 and several values of the final coupling gf . Here ∆ n(t) quantifies the jump in the momentum distribution n(ϵk, t ) = −iG < 
+
+> k
+
+(t, t ) at the Fermi level, ϵ = 0. Because the initial state is at low but finite temperature and may already include fi-nite Hubbard interaction, one has ∆ n(0) ≲ 1, as also visible from the equilibrium curve at βi in Fig. 2 (a)). The quench injects energy into the system, so that the thermal state associated with the conserved total energy after the quench corresponds to a higher effective tem-perature. The resulting reduction of ∆ n(t) therefore pro-vides a direct measure of electronic thermalization. For all quenches, ∆ n(t) shows an approximately exponential decay over a sizable time window, with superimposed os-cillations, as indicated by the dashed fits. The decay be-comes faster as gf increases: for weak quenches the jump remains finite up to the longest accessible times, while for larger gf it is rapidly suppressed. Hence, similarly to the Hubbard model [3, 4], the electronic relaxation is ac-celerated by increasing interaction strength. In contrast to the purely electronic case, however, the decay is here modulated by coherent phonon-induced oscillations. This observation motivates a direct comparison be-tween the dynamics of ∆ n(t) and that of local observ-ables. Panel (b) shows the phonon dynamics through the variance of the phonon displacement relative to its post-quench thermal value, ⟨XX ⟩ − ⟨ XX ⟩th , again for 
+
+U/v ∗ = 2. This quantity exhibits damped oscillations associated with the coherent phonon motion induced by the quench. The corresponding phonon relaxation rate is extracted from the exponential decay of the envelope, as indicated by the dashed lines. Here the final ther-mal state is defined by the temperature corresponding to the conserved total energy after the quench. Almost the same damping rates are found for other local observables shown in the Supplementary Material, including the ki-netic energy [Eq. (25)] and the phonon density [Eq. (26)] in Fig. 5. The comparison of the two timescales is presented in Fig. 1(c), where the solid lines denote the electronic de-cay rates extracted from panel (a), and the dashed lines the phonon damping rates obtained from panel (b), for 
+
+U/v ∗ = 0 , 1, 2. Two regimes emerge. For gf ≲ 0.5, the phonon decay rate is larger than the electronic one, so the phonon oscillations are damped before the momen-tum distribution has thermalized. In this sense, the long-time dynamics is electron dominated, since the electrons constitute the bottleneck. For gf ≳ 0.5, the trend is re-versed: the electronic decay rate overtakes the phonon one, so that the electrons relax first while the phonons remain the slow sector. The late-time dynamics is then phonon dominated. The smooth change between these two behaviors defines the thermalization crossover. The main new result is that this crossover survives at finite U . While the U = 0 case reproduces the Holstein-model behavior of Ref. [34], the curves for U = 1 and U = 2 show that moderate Hubbard correlations do not qualitatively alter the crossover. Their effect is mainly quantitative: in the electron-dominated regime (gf ≲ 0.5) the electronic decay rate increases with U ,whereas in the phonon-dominated regime ( gf ≳ 0.5) it decreases slightly with U . By contrast, the phonon de-cay rates remain comparatively weakly affected. Thus, also at finite U , the approach to thermalization is pri-7marily determined by which sector relaxes more slowly, namely whether the bottleneck is electronic or phononic.  
+
+> B. Emergence of thermalization in Step-by-Step DMFT
+
+We now analyze how thermalization emerges self-consistently within DMFT. We focus on the represen-tative case U/v ∗ = 2 and gf = 0 .5, under the same conditions as above: half filling, ω0 = 0 .7, and initial inverse temperature βi = 100. Results for other interac-tion strengths in the weak-coupling regime are discussed in the next section and in the Supplementary Material. The fully converged nonequilibrium DMFT solution is shown in Fig. 2(a,b) and in the black curves in panels (c,d) ( n = ∞). Panel (a) displays the evolution of the momentum distribution n(ϵ, t ), which changes from the initial low-temperature form to a much smoother distri-bution approaching the thermal one at the final effective temperature βf = 1 /T th = 5 .69 (dashed line). At the same time, the phonon spectral function, 
+
+ρph (ω, t ) = − 1
+
+π Im 
+
+Z tt−tc
+
+dt ′ eiω (t−t′) DR(t, t ′), (34) with cutoff time tc = 10, evolves toward the correspond-ing thermal spectrum [Fig. 2(b)]. Starting from the bare phonon peak at ω0 at t = 0, the spectrum develops a renormalized peak at a lower frequency ωr 
+
+> 0
+
+, reflecting the dressing of the phonon mode by the electron-phonon in-teraction (Fig. 6) [34]. The black curves in Fig. 2(c,d) show the same time evolution of the kinetic energy and phonon density as in Fig. 5 for gf = 0 .5. To understand how this thermal state emerges within DMFT, we adopt the Step-by-Step DMFT perspective introduced in Ref. [45, 59]. Instead of enforcing self-consistency at each time step, one first propagates the impurity dynamics in a fixed bath up to long times and only afterwards updates the bath for the next DMFT iteration n. In this way, the long-time limit t → ∞ is effectively probed before full self-consistency n → ∞ is reached. This construction makes it possible to visualize how the lattice gradually acts as its own bath and how the final thermal state builds up through the DMFT loop. The resulting dynamics is shown in Fig. 2(c,d), where we plot the kinetic energy Ekin (t) [Eq. (25)] and free-phonon energy Eph (t)/ω 0 [Eq. (26)] for increasing DMFT iteration number n, together with the fully converged solution ( n = ∞, black line). For each finite n, both observables initially follow the converged nonequilibrium DMFT trajectory, including the coherent oscillations as-sociated with the dressed phonon mode. Once these oscil-lations are damped, however, the finite-n solutions even-tually bend away from the converged curve and relax to-ward an intermediate long-time value, lying between the initial and final equilibrium energies. Thus, at fixed n,the impurity does not remain at the final thermal state indefinitely, but returns at long times to the equilibrium state selected by the bath available at that iteration. This behavior differs from the pure Hubbard case dis-cussed in Ref. [45], where finite-n local observables relax back to the initial equilibrium value. Here the long-time plateau at finite n is instead shifted away from the ini-tial one, because electrons and phonons exchange energy even before full DMFT self-consistency is reached. In this sense, the impurity already experiences a partially heated environment at finite iteration number. As n increases, the time interval over which the dynamics stays close to the fully converged solution becomes longer, showing that the thermalized portion of the time evolution pro-gressively extends to later times. This is seen explicitly in Fig. 2(e,f), where the same observables are represented in the ( n, t ) plane. After the short-time coherent oscillations in both the step-by-step kinetic energy and phonon density, one clearly observes a sharp crossover line, or thermalization front, separat-ing two regimes: for t ≲ τ ∗ 
+
+> n
+
+, the dynamics is close to the final thermal solution, while for t ≳ τ ∗ 
+
+> n
+
+, it crosses over to the finite-n long-time behavior which remains close to the initial condition (horizontal grey line with arrows), but is shifted due to partial energy redistribu-tion. The front propagates approximately linearly in n,
+
+τ ∗ 
+
+> n
+
+∼ n/v , indicating a ballistic spreading of thermal-ization through the DMFT iteration cycle. The same structure is visible in both the electronic and phononic energies, showing that the self-consistent buildup of ther-malization involves the coupled electron-phonon system as a whole. For gf = 0 .5, both quantities show almost the same front velocity (slope of the dashed lines in panels (e,f)), indicating that thermalization propagates consis-tently through the coupled electron-phonon system. In the next section (and in Figs. 7- 8 of the Supplemental Material), we investigate the dependence of this velocity on U and gf .Figure 2 therefore provides a direct microscopic picture of how DMFT describes thermalization in the Hubbard-Holstein model: the impurity evolves in a bath that is progressively heated by the self-consistency condition, and the final thermal state emerges through a propa-gating front in the ( n, t ) plane. In this way, the lattice acts as its own bath also in the presence of electron-phonon coupling, although the coexistence of electronic and phononic degrees of freedom modifies the finite-n
+
+long-time state compared with the purely electronic Hub-bard case [45].  
+
+> C. Front velocity across the thermalization crossover
+
+In Fig. 2, the thermalization front in the kinetic energy and in the free-phonon energy appears after the same time offset and propagates with the same velocity. Fig-ures 3 and 4 show that this is not the case for all values of gf and U . For gf = 0 .2 [panels (a)–(d)], the electronic 8                   
+
+> FIG. 2. Thermalization in infinite dimensions for the Hubbard–Holstein model at U/v ∗= 2. Time evolution of the momentum distribution function n(ϵ, t ) (a) and phonon spectral function ρph (ω) (b) after an interaction quench from g= 0 to gf= 0 .5 at
+> t= 0 +, starting from an initial thermal state at βi= 1 /T i= 100. Panels (c) and (d) show the time evolution of the kinetic energy Ekin (t) and free-phonon energy Eph (t)/ω 0, respectively, for different DMFT iteration numbers (colored lines from blue to red as a function of the DMFT iteration number n), compared to the fully self-consistent DMFT solution ( n=∞, black line). Panels (e) and (f) display the emergence of a thermalization front in the kinetic and phonon energies as a function of time
+> tand DMFT iteration number n. The grey horizontal lines with arrows indicate a cut at fixed iteration number, highlighting the propagation of the thermalization front toward the fully self-consistent solution.
+
+kinetic energy still displays a clear thermalization front in the ( n, t ) plane [panel (b)], whereas no equally clear front is visible in the free-phonon energy within the accessible time window [panel (d)]. By contrast, for the stronger quench gf = 0 .4 [panels (e)–(h)], a front is clearly visible in both the electronic and phononic observables. This difference reflects the asymmetric role of electrons and phonons in the DMFT self-consistency. The elec-tronic bath, encoded in the hybridization function ∆ n,is updated directly through the electronic Green’s func-tion [Eq. (33)], so electronic observables naturally ex-hibit the step-by-step thermalization mechanism already for weak quenches. The phonons, by contrast, are local and dispersionless and are not coupled directly to the DMFT bath ∆ n. Their thermalization front can there-fore emerge only indirectly, through the electron-phonon interaction via the phonon self-energy, i.e. the polariz-ability. For small gf , this effect is too weak to generate a clear phonon front on the simulated timescale [panels (c),(d)]. Only when gf becomes sufficiently large, i.e. close to and beyond the thermalization crossover, does the phonon sector thermalize on a timescale comparable to the electronic one and develop a visible ballistic front [panels (g),(h)]. See also Fig. 8 of the Supplemental Ma-terial for the corresponding thermalization at U = 0. This behavior is summarized in Fig. 4, where we plot the front velocity vf = dn/dt as a function of the quench amplitude ∆ g for U/v ∗ = 0 , 1, 2. The velocity extracted from the electronic kinetic energy is shown for the full range of couplings, while the phonon velocity is reported only where a clear front can be identified. For ∆ g ≳ 0.4, the electronic and phononic velocities almost coincide for all three values of U . This shows that, once the electron-phonon coupling is sufficiently strong for the phonon sec-tor to participate in the step-by-step thermalization pro-cess on comparable timescales, the thermalization front propagates coherently through the coupled system. Asecond important trend in Fig. 4 is that the front ve-locity decreases as ∆ g increases. Since the front veloc-ity measures how many DMFT iterations are needed to 9
+
+FIG. 3. Thermalization in infinite dimensions for the Hubbard–Holstein model at U/v ∗ = 2 for two different interaction quenches. Top row: weak quench from g = 0 to gf = 0 .2 at t = 0 +. Bottom row: stronger quench from g = 0 to gf = 0 .4 at 
+
+t = 0 +. Panels (a,e) show the time evolution of the kinetic energy Ekin (t) for different DMFT iteration numbers (colored lines from blue to red as a function of the DMFT iteration number n), compared to the fully self-consistent DMFT solution ( n = ∞,black line). Panels (c,g) display the corresponding free-phonon energy Eph (t)/ω 0. Panels (b,f) and (d,h) show the emergence of a thermalization front in the kinetic and phonon energies, respectively, as a function of time t and DMFT iteration number n.For the weak quench gf = 0 .2, no thermalization front develops in the free-phonon energy, as the step-by-step DMFT iterations rapidly collapse onto the fully self-consistent solution. The grey horizontal lines with arrows indicate cuts at fixed iteration number, while the dashed black lines highlight the propagation of the thermalization front toward the fully self-consistent solution. 
+
+FIG. 4. Front velocity vf = dn/dt as a function of the in-teraction quench amplitude ∆ g for different Hubbard interac-tions U/v ∗ = 0 , 1, 2. Continuous lines denote the velocity ex-tracted from the thermalization front in the electronic kinetic energy Ekin (t), while dotted lines indicate the velocity ex-tracted from the free-phonon energy Eph (t). For ∆ g < 0.4 no clear thermalization front develops in the phonon sector, and therefore the corresponding phonon velocities are not shown in that regime. 
+
+erase the memory of the initial condition at a given time, a smaller vf corresponds to faster thermalization in the DMFT loop. This is consistent with the direct real-time dynamics discussed above: increasing gf accelerates the decay of electronic observables, and correspondingly re-duces the number of DMFT iterations required for the thermalized solution to emerge. Finally, the dependence on U is comparatively weak. At fixed ∆ g, increasing U slightly reduces the front ve-locity, but does not qualitatively modify the overall pic-ture. The main control parameter for the propagation of the thermalization front is therefore the strength of the electron-phonon quench, while moderate Hubbard inter-actions only weakly renormalize the corresponding scale. 
+
+IV. CONCLUSION 
+
+In this work, we studied the nonequilibrium dynam-ics of the weak-coupling Hubbard-Holstein model after a sudden switch-on of the electron-phonon interaction within nonequilibrium DMFT. The impurity problem was solved using the self-consistent Migdal approxima-tion for the electron-phonon coupling, which captures the feedback of the electronic dynamics on the phonons through the phonon self-energy, together with second-order perturbation theory for the electron-electron in-teraction. Extending the U = 0 Holstein-model analy-sis to finite Hubbard interaction, we found that the re-laxation dynamics is still controlled by the competition between electronic and phononic timescales. Compar-10 ing the decay of the jump ∆ n(t) in the electronic mo-mentum distribution with the damping of the phonon oscillations, we identified a thermalization crossover be-tween an electron-dominated regime at weaker coupling and a phonon-dominated regime at stronger coupling. This crossover remains robust for U/v ∗ = 0 , 1, 2 indicat-ing that moderate local correlations do not qualitatively change the thermalization mechanism, but only weakly renormalize the associated decay rates. The main result of this manuscript concerns the mi-croscopic emergence of thermalization within DMFT in the weak-coupling Hubbard-Holstein model. Using the Step-by-Step DMFT construction introduced in Ref. [45], we showed that the thermal state builds up progres-sively through the self-consistency loop. In the ( n, t )plane, after the initial coherent oscillations of the local observables, this process is marked by a sharp thermal-ization front separating the region already described by the final thermal solution from the region that still re-tains memory of the initial condition. This front ap-pears clearly in electronic observables already for weak quenches, whereas in the phononic sector it becomes vis-ible within the accessible time window only once the electron-phonon coupling is sufficiently strong, i.e. close to and beyond the thermalization crossover. At weaker coupling, the local dispersionless Holstein phonons dis-play a delayed onset of step-by-step thermalization, since they are driven only indirectly by the electronic sector. Whenever both fronts are visible, they propagate with the same velocity, indicating that thermalization spreads coherently through the coupled electron-phonon system. More generally, our analysis shows that DMFT pro-vides not only the final thermalized dynamics, but also a direct self-consistent picture of how thermalization emerges in an isolated lattice system acting as its own bath. In the present Hubbard-Holstein case, this mecha-nism is enriched by the interplay between electronic and phononic relaxation channels, which determines both the long-time dynamics and the propagation of the thermal-ization front. Our work provides a starting point for further stud-ies of electron-phonon systems. The present analy-sis neglects the momentum dependence of the electron and phonon self-energies, an approximation justified in the limit of large coordination. In finite dimensions, however, momentum-dependent effects and short-range spatial correlations are expected to become important. A natural extension would therefore be to move be-yond single-site DMFT and consider cluster nonequilib-rium methods, such as nonequilibrium dynamical clus-ter approximation (DCA) [60, 61], in order to assess the role of nonlocal correlations and momentum-dependent phonon effects. It would also be interesting to explore stronger couplings, the vicinity of the bipolaronic and Mott transitions [36], and the nonequilibrium dynamics of symmetry-broken phases in coupled electron-phonon systems [35]. Another natural direction concerns disordered electron-phonon systems, which could be studied within statistical [62] or inhomogeneous [63–65] DMFT. In the presence of strong disorder, one may expect the ballistic thermalization front to be replaced by a localized one that retains memory of the initial condition. More generally, in the simultaneous presence of disorder and interactions, the competition between propagating thermalization fronts and disorder-induced pinning may provide a useful perspective on the stability of many-body localization. 
+
+> ACKNOWLEDGMENTS
+
+M.S. acknowledges financial support from the ERC consolidator Grant No. 101002955 - CONQUER. A. P. acknowledges funding from the European Union’s Hori-zon 2020 research and innovation programme under the Marie Sklodowska-Curie Postdoctoral Fellowship (Grant Agreement No. 101149691 - DISRUPT). A. P. acknowl-edges Jules Sueiro and Matthieu Vanhoecke for fruitful discussions. We are grateful for the use of computational resources from the Coll` ege de France IPH cluster and the Adastra supercomputer hosted at CINES. A. P. extends thanks to Philipp Hansmann and the RRZE of the Uni-versity of Erlangen-Nuremberg for generously providing additional computational resources.                               
+
+> [1] D. N. Basov, R. D. Averitt, and D. Hsieh, Towards prop-erties on demand in quantum materials, Nature Materials
+> 16 , 1077 (2017). [2] M. Eckstein and M. Kollar, Nonthermal Steady States af-ter an Interaction Quench in the Falicov-Kimball Model, Phys. Rev. Lett. 100 , 120404 (2008). [3] M. Eckstein, M. Kollar, and P. Werner, Thermalization after an interaction quench in the hubbard model, Phys. Rev. Lett. 103 , 056403 (2009). [4] M. Eckstein, M. Kollar, and P. Werner, Interaction quench in the hubbard model: Relaxation of the spec-tral function and the optical conductivity, Phys. Rev. B
+> 81 , 115131 (2010). [5] H. Aoki, N. Tsuji, M. Eckstein, M. Kollar, T. Oka, and P. Werner, Nonequilibrium dynamical mean-field theory and its applications, Rev. Mod. Phys. 86 , 779 (2014). [6] A. Picano and M. Eckstein, Accelerated gap collapse in a slater antiferromagnet, Phys. Rev. B 103 , 165118 (2021). [7] C. Giannetti, M. Capone, D. Fausti, M. Fabrizio, F. Parmigiani, and D. Mihailovic, Ultrafast optical spectroscopy of strongly correlated materials and high-temperature superconductors: anon-equilibrium ap-proach, Advances in Physics 65 , 58 (2016). [8] A. de la Torre, D. M. Kennes, M. Claassen, S. Gerber,
+
+11 
+
+J. W. McIver, and M. A. Sentef, Colloquium: Nonther-mal pathways to ultrafast control in quantum materials, Rev. Mod. Phys. 93 , 041002 (2021). [9] T. Ogasawara, M. Ashida, N. Motoyama, H. Eisaki, S. Uchida, Y. Tokura, H. Ghosh, A. Shukla, S. Mazum-dar, and M. Kuwata-Gonokami, Ultrafast optical non-linearity in the quasi-one-dimensional mott insulator sr 2cuo 3, Phys. Rev. Lett. 85 , 2204 (2000). [10] L. Perfetti, P. A. Loukakos, M. Lisowski, U. Bovensiepen, H. Berger, S. Biermann, P. S. Cornaglia, A. Georges, and M. Wolf, Time evolution of the electronic structure of 1 t−tas 2 through the insulator-metal transition, Phys. Rev. Lett. 97 , 067402 (2006). [11] L. Stojchevska, I. Vaskivskyi, T. Mertelj, P. Kusar, D. Svetin, S. Brazovskii, and D. Mihailovic, Ultrafast Switching to a Stable Hidden Quantum State in an Elec-tronic Crystal, Science 344 , 177 (2014). [12] F. Grandi, A. Picano, R. Thomale, D. M. Kennes, and M. Eckstein, Nonthermal order by disorder, Newton 1,100169 (2025). [13] T. Huber, S. O. Mariager, A. Ferrer, H. Sch¨ afer, J. A. Johnson, S. Gr¨ ubel, A. L¨ ubcke, L. Huber, T. Kubacka, C. Dornes, C. Laulhe, S. Ravy, G. Ingold, P. Beaud, J. Demsar, and S. L. Johnson, Coherent Structural Dy-namics of a Prototypical Charge-Density-Wave-to-Metal Transition, Phys. Rev. Lett. 113 , 026401 (2014). [14] J. Maklar, Y. W. Windsor, C. W. Nicholson, M. Pup-pin, P. Walmsley, V. Esposito, M. Porer, J. Rittmann, D. Leuenberger, M. Kubli, M. Savoini, E. Abreu, S. L. Johnson, P. Beaud, G. Ingold, U. Staub, I. R. Fisher, R. Ernstorfer, M. Wolf, and L. Rettig, Nonequilibrium charge-density-wave order beyond the thermal limit, Na-ture Communications 12 , 2499 (2021). [15] L. Vidmar, J. Bonˇ ca, M. Mierzejewski, P. Prelovˇ sek, and S. A. Trugman, Nonequilibrium dynamics of the holstein polaron driven by an external electric field, Phys. Rev. B 
+
+83 , 134301 (2011). [16] D. Goleˇ z, J. Bonˇ ca, L. Vidmar, and S. A. Trugman, Re-laxation dynamics of the holstein polaron, Phys. Rev. Lett. 109 , 236402 (2012). [17] D. Goleˇ z, J. Bonˇ ca, and L. Vidmar, Dissociation of a hubbard-holstein bipolaron driven away from equilibrium by a constant electric field, Phys. Rev. B 85 , 144304 (2012). [18] E. Jeckelmann, C. Zhang, and S. R. White, Metal-insulator transition in the one-dimensional Holstein model at half filling, Phys. Rev. B 60 , 7950 (1999). [19] S. Ejima and H. Fehske, Luttinger parameters and mo-mentum distribution function for the half-filled spinless fermion holstein model: A dmrg approach, Europhysics Letters 87 , 27001 (2009). [20] D. Jansen, J. Bonˇ ca, and F. Heidrich-Meisner, Finite-temperature density-matrix renormalization group method for electron-phonon systems: Thermodynamics and holstein-polaron spectral functions, Phys. Rev. B 
+
+102 , 165155 (2020). [21] G. De Filippis, V. Cataudella, E. A. Nowadnick, T. P. Devereaux, A. S. Mishchenko, and N. Nagaosa, Quan-tum dynamics of the hubbard-holstein model in equi-librium and nonequilibrium: Application to pump-probe phenomena, Phys. Rev. Lett. 109 , 176402 (2012). [22] F. Dorfner, L. Vidmar, C. Brockt, E. Jeckelmann, and F. Heidrich-Meisner, Real-time decay of a highly excited charge carrier in the one-dimensional holstein model, Phys. Rev. B 91 , 104302 (2015). [23] J. Bonˇ ca, S. A. Trugman, and I. Batisti´ c, Holstein po-laron, Phys. Rev. B 60 , 1633 (1999). [24] J. Sous, B. Kloss, D. M. Kennes, D. R. Reichman, and A. J. Millis, Phonon-induced disorder in dynamics of op-tically pumped metals from nonlinear electron-phonon coupling, Nature Communications 12 , 5803 (2021). [25] D. Jansen, C. Jooss, and F. Heidrich-Meisner, Charge density wave breakdown in a heterostructure with electron-phonon coupling, Phys. Rev. B 104 , 195116 (2021). [26] K. Yonemitsu and N. Maeshima, Coupling-dependent rate of energy transfer from photoexcited mott insulators to lattice vibrations, Phys. Rev. B 79 , 125118 (2009). [27] H. Matsueda, S. Sota, T. Tohyama, and S. Maekawa, Relaxation dynamics of photocarriers in one-dimensional mott insulators coupled to phonons, Journal of the Physical Society of Japan 81 , 013701 (2012), https://doi.org/10.1143/JPSJ.81.013701. [28] M. Sentef, A. F. Kemper, B. Moritz, J. K. Freericks, Z.-X. Shen, and T. P. Devereaux, Examining electron-boson coupling using time-resolved spectroscopy, Phys. Rev. X 
+
+3, 041033 (2013). [29] A. F. Kemper, M. Sentef, B. Moritz, C. C. Kao, Z. X. Shen, J. K. Freericks, and T. P. Devereaux, Mapping of unoccupied states and relevant bosonic modes via the time-dependent momentum distribution, Phys. Rev. B 
+
+87 , 235139 (2013). [30] A. F. Kemper, M. A. Sentef, B. Moritz, J. K. Freericks, and T. P. Devereaux, Effect of dynamical spectral weight redistribution on effective interactions in time-resolved spectroscopy, Phys. Rev. B 90 , 075126 (2014). [31] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions, Rev. Mod. Phys. 68 , 13 (1996). [32] F. F. Assaad and T. C. Lang, Diagrammatic determinan-tal quantum Monte Carlo methods: Projective schemes and applications to the Hubbard-Holstein model, Phys. Rev. B 76 , 035116 (2007). [33] P. Werner and A. J. Millis, Efficient Dynamical Mean Field Simulation of the Holstein-Hubbard Model, Phys. Rev. Lett. 99 , 146404 (2007). [34] Y. Murakami, P. Werner, N. Tsuji, and H. Aoki, In-teraction quench in the Holstein model: Thermalization crossover from electron- to phonon-dominated relaxation, Phys. Rev. B 91 , 045128 (2015). [35] F. Randi, M. Esposito, F. Giusti, O. Misochko, F. Parmi-giani, D. Fausti, and M. Eckstein, Probing the Fluc-tuations of Optical Properties in Time-Resolved Spec-troscopy, Phys. Rev. Lett. 119 , 187403 (2017). [36] M. Eckstein and P. Werner, Nonequilibrium dynamical mean-field calculations based on the noncrossing approx-imation and its generalizations, Phys. Rev. B 82 , 115115 (2010). [37] P. Werner and M. Eckstein, Phonon-enhanced relaxation and excitation in the Holstein-Hubbard model, Phys. Rev. B 88 , 165108 (2013). [38] P. Werner and M. Eckstein, Field-induced polaron for-mation in the holstein-hubbard model, EPL (Europhysics Letters) 109 , 37002 (2015). [39] V. V. Kabanov and A. S. Alexandrov, Electron relaxation in metals: Theory and exact analytical solutions, Phys. Rev. B 78 , 174514 (2008). 12 
+
+[40] R. H. M. Groeneveld, R. Sprik, and A. Lagendijk, Fem-tosecond spectroscopy of electron-electron and electron-phonon energy relaxation in ag and au, Phys. Rev. B 51 ,11433 (1995). [41] A. Picano, J. Li, and M. Eckstein, Quantum Boltzmann equation for strongly correlated electrons, Phys. Rev. B 
+
+104 , 085108 (2021). [42] A. Polkovnikov, K. Sengupta, A. Silva, and M. Vengalat-tore, Colloquium: Nonequilibrium dynamics of closed in-teracting quantum systems, Rev. Mod. Phys. 83 , 863 (2011). [43] C. Gogolin and J. Eisert, Equilibration, thermalisation, and the emergence of statistical mechanics in closed quantum systems, Reports on Progress in Physics 79 ,056001 (2016). [44] L. D’Alessio, Y. Kafri, A. Polkovnikov, and M. Rigol, From quantum chaos and eigenstate thermalization to statistical mechanics and ther-modynamics, Advances in Physics 65 , 239 (2016), https://doi.org/10.1080/00018732.2016.1198134. [45] A. Picano, G. Biroli, and M. Schir` o, Quantum thermal-ization via travelling waves, Phys. Rev. Lett. 134 , 116503 (2025). [46] S. Backes, Y. Murakami, S. Sakai, and R. Arita, Dynam-ical mean-field theory for the hubbard-holstein model on a quantum device, Phys. Rev. B 107 , 165155 (2023). [47] J. K. Freericks, Conserving approximations for the at-tractive holstein and hubbard models, Phys. Rev. B 50 ,403 (1994). [48] J. Bauer, J. E. Han, and O. Gunnarsson, Quantitative re-liability study of the migdal-eliashberg theory for strong electron-phonon coupling in superconductors, Phys. Rev. B 84 , 184531 (2011). [49] D. Meyer, A. C. Hewson, and R. Bulla, Gap formation and soft phonon mode in the holstein model, Phys. Rev. Lett. 89 , 196401 (2002). [50] M. Capone and S. Ciuchi, Polaron crossover and bipola-ronic metal-insulator transition in the half-filled holstein model, Phys. Rev. Lett. 91 , 186405 (2003). [51] W. Koller, D. Meyer, and A. C. Hewson, Dynamic re-sponse functions for the holstein-hubbard model, Phys. Rev. B 70 , 155103 (2004). [52] N. Tsuji and P. Werner, Nonequilibrium dynamical mean-field theory based on weak-coupling perturbation expansions: Application to dynamical symmetry break-ing in the hubbard model, Phys. Rev. B 88 , 165115 (2013). [53] R. Nandkishore and D. A. Huse, Many-Body Localiza-tion and Thermalization in Quantum Statistical Mechan-ics, Annual Review of Condensed Matter Physics 6, 15 (2015). [54] L. P. Kadanoff and G. Baym, Quantum Statistical Me-chanics: Green’s Function Methods in Equilibrium and Nonequilibrium Problems , Frontiers in Physics: A Lec-ture Note and Reprint Series, Vol. 8 (W. A. Benjamin, New York, 1962) p. 203. [55] N. Tsuji and P. Werner, Nonequilibrium dynamical mean-field theory based on weak-coupling perturbation expansions: Application to dynamical symmetry break-ing in the hubbard model, Phys. Rev. B 88 , 165115 (2013). [56] G. Baym and L. P. Kadanoff, Conservation laws and cor-relation functions, Phys. Rev. 124 , 287 (1961). [57] W. Koller, D. Meyer, Y. ¯Ono, and A. C. Hewson, First- and second-order phase transitions in the holstein-hubbard model, Europhysics Letters (EPL) 66 , 559 (2004). [58] G. Baym, Self-consistent approximations in many-body systems, Phys. Rev. 127 , 1391 (1962). [59] A. Picano, M. Vanhoecke, and M. Schir` o, Heating dy-namics of correlated fermions under dephasing (2025), arXiv:2507.21804 [cond-mat.str-el]. [60] G. Biroli and G. Kotliar, Cluster methods for strongly correlated electron systems, Phys. Rev. B 65 , 155112 (2002). [61] K. Aryanpour, M. H. Hettler, and M. Jarrell, Dynami-cal cluster approximation employing the fluctuation ex-change approximation as a cluster solver, Physical Re-view B 67 , 10.1103/physrevb.67.085101 (2003). [62] E. Miranda and V. Dobrosavljevic, Dynamical mean-field theories of correlation and disorder (2011), arXiv:1112.6184 [cond-mat.str-el]. [63] A. Picano, F. Grandi, and M. Eckstein, Inhomogeneous disordering at a photo-induced charge density wave tran-sition (2021). [64] A. Picano, F. Grandi, P. Werner, and M. Eck-stein, Stochastic semiclassical theory for nonequilibrium electron-phonon coupled systems, Phys. Rev. B 108 ,035115 (2023). [65] F. Valiera, A. Picano, and M. Eckstein, Stochastic reso-nance in disordered charge-density-wave systems (2025), arXiv:2507.22652 [cond-mat.str-el]. 13 
+
+> Appendix A: Local relaxation dynamics and equilibrium spectra after the quench
+
+In Fig. 5, we show the time evolution of the kinetic energy and the phonon density ⟨a†a⟩ for U/v ∗ = 2. In analogy with the U = 0 case discussed in Ref. [34], both quantities exhibit coherent oscillations after the quench. In the present correlated case, these oscillations remain clearly visible and occur at a frequency set by the renor-malized phonon mode ωr 
+
+> 0
+
+, extracted from Fig. 6. As time evolves, the oscillations are damped and their amplitude becomes very small by t ≈ 40 for all val-ues of gf shown here. The dashed lines in Fig. 5 in-dicate the corresponding thermal expectation values at the post-quench temperature Tth , determined from the conserved total energy after the quench. Once the oscil-lations are sufficiently damped, the local observables are already very close to these thermal values. This shows that, also for finite U , momentum-integrated quantities relax efficiently toward equilibrium. As discussed in the main text, however, this does not necessarily imply full thermalization, since momentum-resolved electronic ob-servables may remain nonthermal on longer timescales. Figure 6 provides the corresponding spectral informa-tion for U/v ∗ = 2. The electronic spectral function 
+
+ρel (ω), evaluated at the effective temperature Tth corre-sponding to the conserved post-quench energy, broadens and redistributes weight around the Fermi level as gf
+
+increases, signaling the growing influence of the electron-phonon coupling on the low-energy electronic states. At the same time, the phonon spectral function ρph (ω)shows a clear softening of the phonon peak relative to the bare frequency ω0, as highlighted in the inset. The decrease of the renormalized phonon frequency ωr 
+
+> 0
+
+with increasing gf is consistent with the oscillation timescales observed in Fig. 5 and supports the interpretation of the local dynamics in terms of coherent motion of the dressed phonon mode.    
+
+> 1. Step-by-Step DMFT at U= 0
+
+For completeness, we briefly discuss the corresponding Step-by-Step DMFT results in the Holstein limit U/v ∗ =0, shown in Figs. 7 and 8. We keep the same parameters as in the main text, namely half filling, ω0 = 0 .7, and initial inverse temperature βi = 100. Figure 7 shows the representative case gf = 0 .5. Pan-els (a) and (b) confirm that the fully converged DMFT dynamics leads to thermalization also in the absence of Hubbard interaction: the electronic momentum distribu-tion n(ϵ, t ) evolves from the initial low-temperature pro-file toward the thermal distribution at the final effective temperature, while the phonon spectral function devel-ops a renormalized peak at a softened phonon frequency. Panels (c) and (d) display the step-by-step evolution of the kinetic and phonon energies for increasing DMFT it-eration number n. As in the interacting case, the finite-
+
+n solutions initially follow the fully self-consistent tra-jectory, including the coherent oscillations, and only at later times cross over to their finite-n long-time values. This behavior generates a clear thermalization front in the ( n, t ) plane [panels (e) and (f)], which propagates approximately linearly in n.Figure 8 illustrates how this picture evolves with the quench strength. For the weaker quench, the ther-malization front is clearly visible in the kinetic energy, while in the free-phonon energy it emerges only at later times, after the initial oscillatory transient. For the stronger quench, by contrast, the front is well developed in both observables and propagates with the same veloc-ity. These results are fully consistent with the main text: even in the U = 0 limit, thermalization emerges within DMFT through a propagating front in the ( n, t ) plane. As the strength of the electron-phonon quench increases, the front propagates faster, so that the memory of the initial condition is erased on shorter timescales. 14 
+
+FIG. 5. Time evolution of the kinetic energy Ekin (t) (left panel) and free-phonon energy Eph (t)/ω 0 (right panel) after a quench in the electron-phonon coupling from g = 0 to gf , for U = 2 and several values of the final coupling gf . The dashed lines denote the corresponding thermal values for each gf .
+
+FIG. 6. The electron spectral functions ρel (ω) [panel (a)] and phonon spectral functions ρph (ω) [panel (b)] for U/v ∗ = 2, evaluated in equilibrium at the post-quench effective temperature Tth corresponding to the conserved total energy after a quench of the electron-phonon coupling from g = 0 to gf . Results are shown for several final coupling values gf . The dashed black curves/lines indicate the corresponding noninteracting reference features: in the left panel, the bare electronic density of states, and in the right panel, the bare phonon frequency ω0. The inset in the right panel shows the position ωr 
+
+> 0
+
+of the renormalized phonon peak as a function of gf .15 
+
+FIG. 7. Thermalization in infinite dimensions for the Hubbard–Holstein model at U/v ∗ = 0. Time evolution of the momentum distribution function n(ϵ, t ) (a) and phonon spectral function ρph (ω) (b) after an interaction quench from g = 0 to gf = 0 .5 at 
+
+t = 0 +, starting from an initial thermal state at βi = 1 /T i = 100. Panels (c) and (d) show the time evolution of the kinetic energy Ekin (t) and free-phonon energy Eph (t)/ω 0, respectively, for different DMFT iteration numbers (colored lines from blue to red as a function of the DMFT iteration number n), compared to the fully self-consistent DMFT solution ( n = ∞, black line). Panels (e) and (f) display the emergence of a thermalization front in the kinetic and phonon energies as a function of time 
+
+t and DMFT iteration number n. The grey horizontal lines with arrows indicate a cut at fixed iteration number, highlighting the propagation of the thermalization front toward the fully self-consistent solution. 16 
+
+FIG. 8. Thermalization in infinite dimensions for the Hubbard–Holstein model at U/v ∗ = 0 for two different interaction quenches. Top row: weak quench to gf = 0 .2. Bottom row: stronger quench to gf = 0 .4. Panels (a,e) show the time evolution of the kinetic energy Ekin (t) for different DMFT iteration numbers (colored lines from blue to red as a function of the DMFT iteration number n), compared to the fully self-consistent DMFT solution ( n = ∞, black line). Panels (c,g) display the corresponding free-phonon energy Eph (t)/ω 0. Panels (b,f) and (d,h) show the emergence of a thermalization front in the kinetic and phonon energies, respectively, as a function of time t and DMFT iteration number n. For the weak quench gf = 0 .1, a thermalization front in the free-phonon energy develops only at later times ( t ≳ 30), after the initial oscillatory transient. The horizontal dashed green lines indicate the final equilibrium energy values at the effective temperature Tf after the quench. The grey horizontal lines with arrows indicate cuts at fixed iteration number, while the dashed black lines highlight the propagation of the thermalization front toward the fully self-consistent solution.

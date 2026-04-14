@@ -1,0 +1,693 @@
+Title: A Scalable Configuration-Interaction Impurity Solver via Active Learning
+
+URL Source: https://arxiv.org/pdf/2604.10230v1
+
+Published Time: Tue, 14 Apr 2026 00:43:44 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+## A Scalable Configuration-Interaction Impurity Solver via Active Learning 
+
+Jeongmoo Lee 1 and Ara Go 1, ∗
+
+> 1
+
+Department of Physics, Chonnam National University, Gwangju, Korea 
+
+Finite-Hamiltonian impurity solvers provide direct real-frequency spectra and a natural route to enlarged impurity Hamiltonians, but their applicability is limited by the rapid Hilbert-space growth with the number of bath or other added one-particle orbitals. We introduce an active-learning extension of adaptive-truncation configuration interaction (AL-ATCI) that identifies the determi-nant manifold relevant to the correlated state. The approximation is systematically controlled by the query size Nquery , which also provides an internal convergence parameter when no external benchmark is available. Over the benchmark range studied here, the computational cost grows only weakly with bath size, because enlarging the bath mainly expands the combinatorial determinant space rather than the physically relevant manifold. In dynamical mean-field-theory benchmarks for the one-dimensional Hubbard model, AL-ATCI reproduces exact-diagonalization accuracy and ex-tends cellular calculations to clusters as large as Nc = 10. For a three-orbital rotationally invariant Sr 2RuO 4 impurity problem, we demonstrate systematic convergence of dynamical quantities and a highly compressed configuration space as Nb is increased from 9 to 18. These results substantially alleviate the bath-discretization bottleneck of exact-diagonalization- and configuration-interaction-based impurity solvers and make large-bath and enlarged-orbital calculations more practical. 
+
+Introduction. —Dynamical mean-field theory (DMFT) is a central framework for treating strong local elec-tronic correlations in quantum materials, with applica-tions ranging from minimal lattice models to realistic electronic-structure calculations. DMFT maps a corre-lated lattice problem onto a quantum impurity model coupled to a self-consistent bath [1, 2]. The quality of the resulting solution hinges on the impurity solver, which must capture many-body correlations faithfully. Continuous-time quantum Monte Carlo solvers [3, 4] remain a powerful and actively developing class of meth-ods, with recent progress on multiorbital problems with general interactions [5] and on steady-state transport [6]. The numerical renormalization group [7, 8] provides ex-ceptional low-energy resolution and continues to yield insights into multiband Hund metals [9, 10] and heavy-fermion quantum criticality [11]; its cost, however, still grows rapidly with the number of active orbitals and screening channels. In this work, we instead exploit the complementary advantages of finite-Hamiltonian solvers based on exact diagonalization (ED) [12–14] and con-figuration interaction (CI) [15–22]. These methods are sign-problem free, work at zero temperature on the real-frequency axis without analytic continuation, and con-struct an explicit finite Anderson impurity Hamiltonian. This explicit Hamiltonian formulation carries a distinc-tive practical advantage alongside its well-known limi-tation. The limitation is that replacing the continuous hybridization function by a fitted finite bath introduces dependence on the bath parametrization, making large 
+
+Nb desirable. The advantage is that once the impurity model is converged, it can be enlarged with additional ligand or core orbitals to compute observables such as x-ray absorption spectroscopy (XAS) or resonant inelas-tic x-ray scattering (RIXS) within the same Anderson-impurity framework [23–25]. In conventional ED, how-ever, the rapid growth of the Hilbert space makes both directions—larger baths and enlarged impurity models— quickly prohibitive. This motivates solvers that retain the explicit Hamiltonian structure while making added noninteracting orbitals substantially cheaper. Several CI-based truncation and machine-learning se-lection strategies have been developed in quantum chem-istry [26, 27] and have begun to be explored for impu-rity and cluster problems. Recent examples include a CI impurity solver applied to elemental Ce [28] and a neural-network-supported basis optimizer for Anderson impurity CI [29]. Building on these advances, we com-bine active learning with the ATCI framework and show, in self-consistent DMFT, that the selected determinant space is governed by correlation physics rather than by the nominal one-particle dimension. Metallic problems require a broader selected manifold than insulating ones, reflecting their larger entanglement structure, but in both cases the approximation remains systematically control-lable through Nquery . This weak dependence on the total number of bath or other added noninteracting orbitals is important not only for larger bath discretizations but also for enlarged finite-Hamiltonian impurity models. We ver-ify these points on the one-dimensional Hubbard model, reaching cluster sizes up to Nc = 10 in cellular DMFT, and on Sr 2RuO 4, where dynamical quantities converge systematically as Nb is increased from 9 to 18 in a three-orbital rotationally invariant problem. 
+
+Method. —Active-learning adaptive-truncation config-uration interaction (AL-ATCI) builds on the adaptive-truncation configuration interaction (ATCI) frame-work [20], which we use as our baseline. Starting from a restricted active space CI (RASCI) calculation [30], one selects reference configurations—Slater determinants with the largest wavefunction coefficients—and expands the space by particle-hole substitutions (PHS) within the 
+
+> arXiv:2604.10230v1 [cond-mat.str-el] 11 Apr 2026
+
+2active space. The effective Hamiltonian is diagonalized (Lanczos [31] or Davidson [32]), after which the one-body reduced density matrix is diagonalized to obtain natural orbitals, providing an optimal single-particle basis that accelerates convergence [17]. The procedure is iterated until convergence; Green’s functions are computed within the same truncated space. Full algorithmic details are given in Ref. [20]. The main bottleneck of ATCI is the Hamiltonian con-struction and Lanczos diagonalization in the expanded Hilbert space: the candidate space grows rapidly with active-space size, making the subsequent diagonalization increasingly expensive [20]. AL-ATCI addresses this by introducing a targeted selection step before Hamiltonian construction and diagonalization (see Fig. S1 in Supple-mental Material [33]). A random-forest classifier [34, 35], used here as a representative low-overfitting model, is trained on data accumulated from previous iterations to predict the importance of each candidate configuration and rank them by probability [21, 26, 27, 29]. Only the top Nquery configurations are then retained for Hamil-tonian construction and diagonalization; the resulting speedup comes from reducing the dimension of the ex-pensive matrix problem. In the benchmark regime studied here, the ground-state diagonalization dominates the computational cost, so the speedup comes primarily from reducing the dimen-sion of the expensive matrix problem rather than from avoiding PHS enumeration. By screening out less im-portant determinants before the expensive oracle step, AL-ATCI achieves substantially better performance than the earlier ATCI scheme. Relative to previous machine-learning-based determinant-selection studies, our empha-sis here is on integration with the ATCI framework and the resulting bath-size scalability within DMFT. Because 
+
+Nquery is a user-controlled parameter, the accuracy can be systematically improved toward the ED limit. Imple-mentation details—including class-imbalance treatment, binary occupation encoding, symmetry-partner book-keeping, and dataset management across DMFT cycles— are provided in the Supplemental Material [33]. The qualitative difference from ATCI is not merely that fewer configurations are kept, but that the number of essential determinants grows only weakly with bath size over the benchmark range studied. The classifier does not filter orbitals, but ranks candidate Slater deter-minants by relevance. Although enlarging the bath in-creases the number of possible configurations, only a lim-ited subset contributes significantly to the ground-state wavefunction, so adding bath sites incurs comparatively little additional cost. 
+
+Benchmark on the one-dimensional Hubbard model. —We benchmark AL-ATCI on the half-filled one-Total                             
+
+> Chemical
+> Kinetic
+> Correlation
+> 2628210 212 214
+> Nquery
+> 10 0
+> 10 2
+> 10 4
+> 10 6
+> |QAL-ATCI  QED |
+> (a)
+> Lattice occupancy
+> Impurity occupancy
+> 2628210 212 214
+> Nquery
+> 10 0
+> 10 2
+> 10 4
+> 10 6
+> |QAL-ATCI  QED |
+> (b)
+> Gimp
+> 2628210 212 214
+> Nquery
+> 10 14
+> 10 9
+> 10 4
+> 10 1
+> X
+> (c)
+> Gimp
+> 2628210 212 214
+> Nquery
+> 10 10
+> 10 6
+> 10 2
+> X
+> (d)
+
+FIG. 1. Convergence of AL-ATCI with query size Nquery for cellular DMFT with ( Nc, N b) = (4 , 8) at U = 8 t and zero temperature. (a) Absolute error in the total energy and its chemical-potential, kinetic, and correlation components rela-tive to the ED reference. (b) Same for the lattice and impu-rity occupancies. (c), (d) Mean-squared Frobenius deviation 
+
+EX = 1  
+
+> N2
+> cNω
+
+P 
+
+> m
+
+∥∆X(ωm)∥2 
+
+> F
+
+for X = Σ, G imp , ∆, evaluated on the Matsubara (c) and real (d) axes. 
+
+dimensional Hubbard model [36]: ˆH = −t X
+
+> ⟨i,j ⟩,σ
+
+
+
+ˆc† 
+
+> iσ
+
+ˆcjσ + H.c. 
+
+
+
+− μ X
+
+> i,σ
+
+ˆniσ + U X
+
+> i
+
+ˆni↑ ˆni↓,
+
+where t is the nearest-neighbor hopping, μ = U/ 2 en-forces half-filling, and U is the on-site repulsion. This model is exactly solvable via the Bethe ansatz [37–40], providing a stringent benchmark where mean-field ap-proaches typically fail due to strong quantum fluctua-tions. We employ cellular DMFT [41, 42], treating a cluster of Nc sites as the impurity coupled to Nb bath orbitals. All calculations are at zero temperature. The solver benchmark throughout is against ED within the same DMFT setup; the Bethe-ansatz dispersion serves as a physical reference for spectral features. Figure 1 demonstrates that the query size Nquery pro-vides a direct and systematic control of accuracy. Static quantities, such as the ground-state energy and lat-tice occupancy, converge smoothly toward the ED ref-erence as Nquery increases, with even relatively small query sizes—corresponding to a tiny fraction of the full Hilbert space—already yielding near-quantitative agree-ment. For dynamical quantities, we quantify the error by the mean-squared Frobenius deviation averaged over 
+
+Nω sampled frequency points on the corresponding Mat-subara or real-frequency grid. Likewise, the self-energy and Green’s-function-related observables exhibit equally 32 4 6 8 10           
+
+> Nc
+> 10 3
+> 10 5
+> 10 7
+> 10 9
+> N SD G. S.
+> (a)
+> ATCI
+> AL-ATCI
+> ED
+> 246810
+> Nc
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> tG. S.  [sec]
+> (b)
+> ATCI
+> AL-ATCI
+> 24816
+> Nb
+> 10 5
+> 10 7
+> 10 9
+> 10 11
+> 10 13
+> N SD G. S.
+> (c)
+> ATCI
+> AL-ATCI
+> ED
+> 24816
+> Nb
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> tG. S.  [sec]
+> (d)
+> ATCI
+> AL-ATCI
+
+FIG. 2. Computational scaling of AL-ATCI versus ATCI for the half-filled one-dimensional Hubbard model at U/t = 8 and zero temperature. (a), (b) Scaling with cluster size Nc
+
+(fixed Nb = 8): number of selected Slater determinants in the ground-state calculation, N SD G.S. (a), and wall-clock time for the ground-state computation, tG.S. (b). (c), (d) Same quantities as a function of bath size Nb (fixed Nc = 8). All plotted quantities are averaged over the CI iterations. Each data point corresponds to the minimum N SD G.S. for which Im Σ( ω) ≤ 0 is satisfied during the CI iterations, used here as an operational internal convergence marker (see Supple-mental Material [33]). The dashed line marks the practical diagonalization limit ( N SD G.S. = 5 × 10 6). 
+
+well-controlled convergence on both the Matsubara and real-frequency axes (see also Supplemental Material [33]). These results confirm that Nquery acts as a systemati-cally improvable parameter controlling the accuracy of AL-ATCI across both static and dynamical observables. Figure 2 compares the scaling of AL-ATCI and ATCI with cluster size Nc and bath size Nb. For the scal-ing analysis, we use the first restoration of causality, Im Σ( ω) ≤ 0, as an operational internal convergence marker and report the corresponding configuration count and wall-clock time. This criterion is not used as a stand-alone claim of exactness; rather, it identifies the onset of a physically acceptable solution, after which explicit Nquery 
+
+scans provide systematic refinement and, where ED is available, convergence to indistinguishable self-energies. As Nc increases [Fig. 2(a, b)], both the configuration count and the computational cost grow rapidly, but sig-nificantly more so for ATCI than for AL-ATCI, with the latter becoming advantageous beyond Nc ≈ 6. A more pronounced difference emerges in the bath-size scaling [Fig. 2(c, d)]. While ATCI exhibits a steep 
+
+FIG. 3. Spectral function from cellular DMFT for the one-dimensional Hubbard model at U = 8 t, zero temperature, 
+
+Nb = 8. (a) Nc = 1 (single-site DMFT), (b) Nc = 2, (c) 
+
+Nc = 4, (d) Nc = 10. Larger clusters capture richer short-range correlations within the cellular DMFT approximation. White dashed (dotted) lines: spinon (holon) dispersion from the Bethe ansatz [37]. 
+
+increase in both configuration count and wall-clock time, AL-ATCI shows a markedly reduced dependence on Nb,with a substantially weaker growth of computational cost. This behavior reflects the fact that, although the total number of possible Slater determinants increases rapidly with bath size, only a relatively small subset con-tributes significantly to the ground-state wavefunction, which AL-ATCI identifies directly. This improved bath scaling has important practical consequences. It enables the use of larger bath sizes, thereby reducing discretization errors in representing the hybridization function, and allows for a more systematic assessment of bath convergence. Moreover, at the level of the determinant-selection bottleneck addressed here, in-creasing Nb and appending additional noninteracting or-bitals relevant to finite-Hamiltonian XAS/RIXS calcula-tions pose the same combinatorial challenge, so enlarged-orbital calculations incur comparatively little additional cost. Figure 3 illustrates the evolution of the spectral func-tion as the cluster is enlarged from Nc = 1 to Nc =10. Single-site DMFT (a) captures local correlations but misses spatial fluctuations. As Nc grows (b)–(d), the spectral weight redistributes and the dominant fea-tures align more closely with the Bethe-ansatz spinon and holon branches, reflecting the improved treatment 4210 212 214 216 218                             
+
+> Nquery
+> 10 7
+> 10 5
+> 10 3
+> (a)
+> 210 212 214 216 218
+> Nquery
+> 10 4
+> 10 3
+> 10 2
+> (b)
+> Nb= 9
+> Nb= 12
+> Nb= 15
+> Nb= 18
+> 10 110 310 5
+> Rank i
+> 10 0
+> 10 4
+> 10 8
+> 10 12
+> 10 16
+> |ci|2
+> (c)
+> Nb= 9
+> Nb= 12
+> Nb= 15
+> Nb= 18
+> 10 110 310 5
+> Rank i
+> 0.7
+> 0.8
+> 0.9
+> 1.0
+> Cumulative weight  0.99
+> (d)
+
+FIG. 4. Convergence of AL-ATCI for the multi-orbital im-purity problem. (a) Mean-squared Frobenius deviation of the self-energy, EΣ = 1  
+
+> N2
+> cNω
+
+P 
+
+> m
+
+∥∆Σ(ωm)∥2 
+
+> F
+
+, as a function of query size Nquery , evaluated on the Matsubara axis. (b) Same as (a) but evaluated on the real axis. (c) CI co-efficient weights |ci|2 ranked in descending order for bath sizes Nb = 9 , 12 , 15 , 18, showing rapid decay that justifies sparse truncation of the Hilbert space. (d) Cumulative weight P 
+
+> j≤i
+
+|cj |2 as a function of rank i for the same Nb values. 
+
+of short-range correlations within the cellular DMFT approximation. Reaching Nc = 10 with Nb = 8bath orbitals—a regime beyond what conventional ATCI can practically access under comparable resources— illustrates the solver’s capacity for cluster DMFT studies where momentum resolution is limited by cluster size. 
+
+Application to a multiorbital system. —We now test AL-ATCI on Sr 2RuO 4, a prototypical three-orbital t2g
+
+Hund metal [43, 44]. This serves as a demanding mul-tiorbital impurity benchmark: the solver must handle the full rotationally invariant Slater–Kanamori interac-tion [45] (see Supplemental Material [33] for the explicit Hamiltonian), and the three-orbital structure produces a substantially larger Hilbert space than the single-band case. We use a three-band tight-binding model with hopping parameters and interaction values ( U = 2 .5 eV, 
+
+J = 0 .4 eV) from Ref.[46], fixing the total occupancy at four electrons per unit cell ( d4 filling). Spin–orbit cou-pling is neglected; since Sr 2RuO 4 is known to be sensitive to spin–orbit coupling [47], the present calculation should be viewed as a solver benchmark rather than a complete materials description. Bath parameters are determined by weighted least-squares fitting on the Matsubara axis (1 /ω n weighting). Figure 4 demonstrates systematic convergence of the self-energy with increasing query size, both on the Mat-subara and real-frequency axes (a, b), confirming that the accuracy of AL-ATCI remains controllable in the multi-orbital setting. In addition, the distribution of CI coeffi-cients exhibits a rapid decay across all bath sizes consid-ered (c), with the cumulative weight reaching near sat-uration with only a small fraction of configurations (d). This behavior provides direct evidence that the many-body wavefunction remains highly compressible even in the enlarged Hilbert space of the three-orbital problem, thereby justifying the efficiency of the truncated config-uration space. At the level of the Hilbert-space bottle-neck addressed here, increasing Nb and appending addi-tional noninteracting orbitals pose the same determinant-selection problem. The large-Nb multiorbital bench-mark below therefore directly probes the mechanism that makes enlarged-orbital finite-Hamiltonian calcula-tions more practical. The key point is that this convergence is achieved in a fully rotationally invariant three-orbital problem, where conventional ED is unavailable at the target bath sizes. Convergence is instead controlled internally through Nquery , while the compressed CI-weight distribu-tions across Nb = 9–18 show that the determinant-space compression underlying the weak bath-size dependence of AL-ATCI persists in a realistic multiorbital impurity problem. 
+
+Conclusions. —We have introduced AL-ATCI, a finite-Hamiltonian impurity solver whose central organizing principle is that the relevant computational complex-ity is set by the physically important determinant man-ifold, not by the nominal bath discretization or total one-particle dimension. AL-ATCI identifies this mani-fold on the fly and controls the approximation through 
+
+Nquery , which also provides an internal convergence knob in regimes where no external benchmark is available. The size of the selected space naturally reflects the underlying entanglement structure—broader in metallic problems and more compact in insulating ones—but in both cases the convergence is systematic and directly testable. Benchmarks on the one-dimensional Hubbard model show ED-level accuracy at greatly reduced cost and enable cellular DMFT calculations up to Nc = 10. For Sr 2RuO 4, AL-ATCI achieves systematic convergence of dynamical quantities in a rotationally invariant three-orbital problem up to Nb = 18 while maintaining a highly compressed configuration space. Over the bench-mark range studied here, AL-ATCI preserves the dis-tinctive advantages of finite-Hamiltonian solvers—direct real-frequency access and straightforward enlargement of the orbital space—while making large-bath and enlarged-orbital calculations substantially more practical. The authors thank Young-Woo Son and Woo-Seok Jeong for helpful discussions. This work was sup-ported by the National Research Foundation of Ko-rea (NRF) under Grants No. NRF-2021R1C1C1010429, NRF-2023M3K5A1094813, RS-2023-00256050, RS-2024-500354199, and RS-2025-00515360.  
+
+> ∗
+
+arago@jnu.ac.kr [1] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozenberg, Rev. Mod. Phys. 68 , 13 (1996). [2] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, Rev. Mod. Phys. 78 ,865 (2006). [3] P. Werner, A. Comanac, L. de’ Medici, M. Troyer, and A. J. Millis, Phys. Rev. Lett. 97 , 076405 (2006). [4] E. Gull, A. J. Millis, A. I. Lichtenstein, A. N. Rubtsov, M. Troyer, and P. Werner, Rev. Mod. Phys. 83 , 349 (2011). [5] E. Eidelstein, E. Gull, and G. Cohen, Phys. Rev. Lett. 
+
+124 , 206405 (2020). [6] A. Erpenbeck, T. Blommel, L. Zhang, W.-T. Lin, G. Co-hen, and E. Gull, The Journal of Chemical Physics 161 ,094104 (2024). [7] K. G. Wilson, Rev. Mod. Phys. 47 , 773 (1975). [8] R. Bulla, T. A. Costi, and T. Pruschke, Rev. Mod. Phys. 
+
+80 , 395 (2008). [9] K. M. Stadler, Z. P. Yin, J. von Delft, G. Kotliar, and A. Weichselbaum, Phys. Rev. Lett. 115 , 136401 (2015). [10] F. B. Kugler, M. Zingl, H. U. R. Strand, S.-S. B. Lee, J. von Delft, and A. Georges, Phys. Rev. Lett. 124 ,016401 (2020). [11] A. Gleis, S.-S. B. Lee, G. Kotliar, and J. von Delft, Phys. Rev. Lett. 134 , 106501 (2025). [12] M. Caffarel and W. Krauth, Phys. Rev. Lett. 72 , 1545 (1994). [13] M. Capone, L. de’ Medici, and A. Georges, Phys. Rev. B 
+
+76 , 245116 (2007). [14] Y. Lu and M. W. Haverkort, The European Physical Journal Special Topics 226 , 2549 (2017). [15] D. Zgid and G. K.-L. Chan, J. Chem. Phys. 134 , 094115 (2011). [16] D. Zgid, E. Gull, and G. K.-L. Chan, Phys. Rev. B 86 ,165128 (2012). [17] C. Lin and A. A. Demkov, Phys. Rev. B 88 , 035123 (2013). [18] Y. Lu, M. H¨ oppner, O. Gunnarsson, and M. W. Haverkort, Phys. Rev. B 90 , 085102 (2014). [19] A. Go and A. J. Millis, Phys. Rev. Lett. 114 , 016402 (2015). [20] A. Go and A. J. Millis, Phys. Rev. B 96 , 085139 (2017). [21] C. Mejuto-Zaera, N. M. Tubman, and K. B. Whaley, Phys. Rev. B 100 , 125165 (2019). [22] M. Kitatani, S. Sakai, and R. Arita, Phys. Rev. B 108 ,195124 (2023). [23] Y. Wang, G. Fabbris, M. Dean, and G. Kotliar, Com-puter Physics Communications 243 , 151 (2019). [24] A. Hariki, M. Winder, T. Uozumi, and J. Kuneˇ s, Phys. Rev. B 101 , 115130 (2020). [25] K. Higashi, M. Winder, J. Kuneˇ s, and A. Hariki, Phys. Rev. X 11 , 041009 (2021). [26] J. P. Coe, J. Chem. Theory Comput. 14 , 5739 (2018). [27] W. Jeong, C. A. Gaggioli, and L. Gagliardi, J. Chem. Theory Comput. 17 , 7518 (2021). [28] B. Herzog, P. Thunstr¨ om, and O. Eriksson, npj Compu-tational Materials 11 , 373 (2025). [29] P. Bilous, L. Thirion, H. Menke, M. W. Haverkort, A. P´ alffy, and P. Hansmann, Phys. Rev. B 111 , 035124 (2025). [30] J. Olsen, B. O. Roos, P. Jørgensen, and H. J. A. Jensen, J. Chem. Phys. 89 , 2185 (1988). [31] C. Lanczos, J. Res. Natl. Bur. Stand. 45 , 255 (1950). [32] E. R. Davidson, J. Comput. Phys. 17 , 87 (1975). [33] See Supplemental Material at [URL will be inserted by publisher] for additional benchmark results. [34] L. Breiman, Mach. Learn. 45 , 5 (2001). [35] F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D. Cour-napeau, M. Brucher, M. Perrot, and E. Duchesnay, J. Mach. Learn. Res. 12 , 2825 (2011). [36] J. Hubbard, Proc. R. Soc. Lond. A 276 , 238 (1963). [37] E. H. Lieb and F. Y. Wu, Phys. Rev. Lett. 20 , 1445 (1968). [38] K. Penc, K. Hallberg, F. Mila, and H. Shiba, Phys. Rev. Lett. 77 , 1390 (1996). [39] M. Capone, M. Civelli, S. S. Kancharla, C. Castellani, and G. Kotliar, Phys. Rev. B 69 , 195105 (2004). [40] A. Go and G. S. Jeon, Journal of Physics: Condensed Matter 21 , 485602 (2009). [41] G. Kotliar, S. Y. Savrasov, G. P´ alsson, and G. Biroli, Phys. Rev. Lett. 87 , 186401 (2001). [42] T. Maier, M. Jarrell, T. Pruschke, and M. H. Hettler, Rev. Mod. Phys. 77 , 1027 (2005). [43] J. Mravlje, M. Aichhorn, T. Miyake, K. Haule, G. Kotliar, and A. Georges, Phys. Rev. Lett. 106 , 096401 (2011). [44] A. Georges, L. d. Medici, and J. Mravlje, Annual Review of Condensed Matter Physics 4, 137 (2013). [45] J. Kanamori, Prog. Theor. Phys. 30 , 275 (1963). [46] H. J. Lee, C. H. Kim, and A. Go, Phys. Rev. B 102 ,195115 (2020). [47] M. W. Haverkort, I. S. Elfimov, L. H. Tjeng, G. A. Sawatzky, and A. Damascelli, Phys. Rev. Lett. 101 ,026406 (2008). 6Labeled (trainset)  
+
+> RASCI
+> reference SDs
+> reference SDs + Additional SDs
+> Lanczos Converged?
+> Ground state
+> Orbital rotation
+> Training
+> Prediction
+> Query SDs
+
+FIG. S1. Flowchart of AL-ATCI, highlighting the active learning enhancements: classifier training, configuration importance evaluation, and selective querying of top-ranked configurations. 
+
+SUPPLEMENTAL MATERIAL 
+
+A Scalable Configuration-Interaction Impurity Solver via Active Learning 
+
+Implementation Details of AL-ATCI 
+
+Each configuration is represented as a binary vector encoding the spin-orbital occupations of all single-particle states. The training labels are assigned based on the magnitude of the wavefunction coefficient: configurations whose absolute coefficient exceeds a threshold are labeled as important, and all remaining configurations as unimportant; in the present work, we use a threshold of 10 −6. Because important configurations constitute a small fraction of the total candidate space, the training set is severely class-imbalanced; we address this by assigning class weights inversely proportional to the number of samples in each class. When the top Nquery configurations are selected, their time-reversal partners are appended to preserve time-reversal symmetry. As a result, the total number of Slater determinants N G.S. SD in the ground-state wavefunction can exceed 
+
+Nquery ; the ratio N G.S. SD /N query does not substantially exceed unity in practice, as shown in Table S1. The training dataset accumulates across AL-ATCI iterations within a single DMFT cycle and is reset at the beginning of each new DMFT cycle. This reset is necessary because updated bath parameters alter the hybridization structure, rendering the configuration importance data from the previous cycle unrepresentative of the new impurity problem. 7−5 0 5                           
+
+> ω
+> −0.8
+> −0.6
+> −0.4
+> −0.20.0
+> Im Σ 11 (ω + i )
+> Nquery = 256
+> −505
+> ω
+> Nquery = 1024
+> −505
+> ω
+> Nquery = 4096
+> −505
+> ω
+> Nquery = 16384
+> −505
+> ω
+> Nquery = 65536
+> 010 20
+> iω n
+> −0.15
+> −0.10
+> −0.05 0.00
+> Im Σ 11 (iω n)
+> 010 20
+> iω n
+> 010 20
+> iω n
+> 010 20
+> iω n
+> 010 20
+> iω n
+> 2.54.0
+> −0.143
+> −0.138
+> 2.54.0
+> −0.142
+> −0.138
+> 2.54.0
+> −0.142
+> −0.138
+> 2.54.0
+> −0.142
+> −0.138
+
+FIG. S2. Convergence of the impurity self-energy with increasing Nquery at U/t = 2. Top row: Im Σ( ω) on the real-frequency axis. Bottom row: Im Σ( iω n) on the Matsubara-frequency axis, shown for 512 Matsubara frequencies at βt = 128. AL-ATCI results for Nquery = 256 , 1024 , 4096 , 16384, and 65536 (blue lines) are compared against the ED benchmark (red dashed lines). Parameters: Nc = 4, Nb = 8, half-filling, broadening ϵ = 0 .1t.
+
+Self-Energy Convergence with Query Size Nquery 
+
+In the main text, Fig. 1 demonstrates that various physical quantities computed with AL-ATCI converge to exact diagonalization (ED) results as the number of active learning queries Nquery increases. Here we extend this analysis to the impurity self-energy, shown on both the real- and Matsubara-frequency axes as Σ( ω + iϵ ) and Σ( iω n). Figure S2 shows the imaginary part of the self-energy on both the real and Matsubara frequency axes for Nc = 4, Nb = 8, at U/t = 2, with columns corresponding to Nquery = 256 , 1024 , 4096 , 16384, and 65536. Figure S3 shows the same quantities at U/t = 8, with columns corresponding to Nquery = 64 , 256 , 1024 , 4096, and 16384. In both cases, the AL-ATCI results (blue lines) systematically converge toward the ED benchmark (red dashed lines) as Nquery increases, and the Matsubara-frequency self-energy converges more rapidly than its real-frequency counterpart. At U/t = 2, the result at Nquery = 256 exhibits a violation of causality, which is restored from Nquery = 1024 onward. The AL-ATCI and ED self-energies become visually indistinguishable at Nquery = 65536, requiring a larger 
+
+Nquery than the U/t = 8 case. At U/t = 8, the ground state CI expansion is sparse, with a small number of configurations carrying most of the weight, making it particularly amenable to the adaptive truncation strategy of AL-ATCI. The result at Nquery =64 violates causality, and although causality is restored at Nquery = 256, quantitative discrepancies with the ED benchmark persist at intermediate frequencies. These discrepancies are systematically reduced with increasing Nquery ,and the AL-ATCI and ED self-energies become visually indistinguishable at Nquery = 4096. Notably, this convergence is achieved at a smaller Nquery than the U/t = 2 case, suggesting that AL-ATCI is particularly efficient for insulating systems where the ground state is dominated by a smaller number of important configurations. These results confirm that AL-ATCI provides systematically improvable approximations to the self-energy across both the metallic and insulating regimes. The convergence rate reflects the underlying correlation strength and ground-state structure, with insulating systems requiring fewer configurations to reach convergence than their metallic counterparts. Figure S4 further illustrates this convergence for varying broadening ϵ. The top row shows EΣ as a function of 
+
+Nquery for five broadening values ϵ = 0 .02–0 .1t: in all cases the deviation decreases monotonically, and the onset of 8causality (red vertical line) occurs at a consistent Nquery , confirming that the convergence behavior is robust across broadening values. The bottom row shows log 10 (DOS) at the lower Hubbard band, where the spectral features converge systematically toward the ED reference with increasing Nquery . Note that the two smallest broadening values ( ϵ = 0 .02 t and 0 .04 t) are sufficiently small that even the ED reference can exhibit causality violations; for the remaining values ϵ = 0 .06–0 .1t, the Nquery at which causality is first restored (red vertical line) is consistent across broadening values, confirming that the convergence behavior of AL-ATCI is largely insensitive to the choice of ϵ.−5 0 5
+
+ω
+
+> −30
+> −20
+> −10 0
+> Im Σ 11 (ω + i )
+
+Nquery = 64   
+
+> −505
+
+ω
+
+Nquery = 256   
+
+> −505
+
+ω
+
+Nquery = 1024   
+
+> −505
+
+ω
+
+Nquery = 4096   
+
+> −505
+
+ω
+
+Nquery = 16384   
+
+> 010 20
+
+iω n  
+
+> −4
+> −3
+> −2
+> −10
+> Im Σ 11 (iω n)
+> 010 20
+
+iω n  
+
+> 010 20
+
+iω n  
+
+> 010 20
+
+iω n  
+
+> 010 20
+
+iω n    
+
+> 23
+> −2.78
+> −2.74
+> 23
+> −2.76
+> −2.74
+> 23
+> −2.76
+> −2.74
+> 23
+> −2.76
+> −2.74
+
+FIG. S3. Convergence of the impurity self-energy with increasing Nquery at U/t = 8. Top row: Im Σ( ω) on the real-frequency axis. Bottom row: Im Σ( iω n) on the Matsubara-frequency axis, shown for 512 Matsubara frequencies at βt = 128. AL-ATCI results for Nquery = 64 , 256 , 1024 , 4096, and 16384 (blue lines) are compared against the ED benchmark (red dashed lines). At Nquery = 64, the real-frequency self-energy exhibits a causality violation, which is resolved from Nquery = 256 onward. Parameters: Nc = 4, Nb = 8, half-filling, broadening ϵ = 0 .1t.
+
+U/t = 2 U/t = 8 
+
+Nquery N G.S. SD Nquery N G.S. SD 
+
+256 268 64 84 1 024 1 242 256 284 4 096 4 350 1 024 1 186 16 384 18 574 4 096 4 469 65 536 74 518 16 384 18 866 TABLE S1. Number of Slater determinants contributing to the ground state. Nquery denotes the number of queried config-urations in the selected-CI procedure, while N G.S. SD is the number of Slater determinants with nonzero weight in the resulting ground-state wavefunction. Because time-reversal symmetry is enforced, each queried configuration generates its time-reversed partner, so that N G.S. SD can be larger than Nquery . Results are shown for U/t = 2 and U/t = 8. 926 28 210 212 214 
+
+Nquery       
+
+> 10 4
+> 10 2
+> 10 0
+> 10 2
+> 2628210 212 214
+
+Nquery       
+
+> 10 4
+> 10 2
+> 10 0
+> 10 2
+> 2628210 212 214
+
+Nquery       
+
+> 10 4
+> 10 2
+> 10 0
+> 10 2
+> 2628210 212 214
+
+Nquery       
+
+> 10 4
+> 10 2
+> 10 0
+> 10 2
+> 2628210 212 214
+
+Nquery              
+
+> 10 4
+> 10 2
+> 10 0
+> 10 2
+> 50
+> 3
+> 2
+> 1
+> 0
+> 1
+> log 10  (DOS)
+> 50
+> 3
+> 2
+> 1
+> 0
+> 50
+> 3
+> 2
+> 1
+> 0
+> 50
+> 3
+> 2
+> 1
+> 0
+> 50
+> 3
+> 2
+> 1
+> 0FCI
+> Nq= 2 6
+> Nq= 2 8
+> Nq= 2 10
+> Nq= 2 12
+> Nq= 2 14
+
+FIG. S4. Convergence of AL-ATCI with increasing Nquery at U/t = 8 for different broadening values. Each column corresponds to a distinct broadening ϵ = 0 .02 , 0.04 , 0.06 , 0.08 , 0.1 (in units of t) from left to right. Top row: mean squared Frobenius norm of the real-frequency self-energy deviation EΣ = 1  
+
+> N2
+> cNω
+
+P 
+
+> m
+
+∥∆Σ(ωm + iϵ )∥2 
+
+> F
+
+as a function of Nquery . The red vertical line marks the value of Nquery at which the causality condition Im Σ( ω) ≤ 0 is first satisfied. Bottom row: log 10 (DOS) for ED (grey) and AL-ATCI with Nquery = 64 (blue), 256 (orange), 1024 (green), 4096 (red), and 16384 (purple). Parameters: Nc = 4, Nb = 8, half-filling. 10 
+
+Details of Scalability Measurement 
+
+Each data point in Fig. 2 of the main text corresponds to the minimum number of configurations N G.S. SD for which the resulting self-energy satisfies the causality condition Im Σ( ω) ≤ 0 for all frequencies, together with the corresponding wall-clock time. All timing measurements were performed on a single node equipped with two Intel Xeon Platinum 8360Y processors (36 cores each, 72 cores in total, 2.40 GHz base clock, 48 KiB L1d and 32 KiB L1i per core, 1.25 MiB L2 per core, 54 MiB L3 per socket), using OpenMP parallelization across all available cores. Timing measurements are restricted to the first five CI iterations to ensure a consistent comparison across system sizes. This restriction is necessary because the selected configuration space can evolve differently in later iterations as the natural-orbital basis and the training dataset both evolve, making a direct comparison between AL-ATCI and ATCI ambiguous beyond the early iterations. Figures S5 and S6 show the breakdown of wall-clock time into ground-state diagonalization tG.S. , impurity Green’s function evaluation tGimp , and bare Green’s function evaluation 
+
+tG0 , as a function of Nb and Nc, respectively, confirming that diagonalization dominates the total cost in both ATCI and AL-ATCI. The remaining contributions—particle-hole substitution enumeration, Hamiltonian construction, and the machine-learning train/predict overhead—are too small to be visible on the scale of the figures and are therefore not shown separately. 2 4 8 16 
+
+Nb   
+
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Cumulative time (s)  tG. S.
+> tGimp
+> tG0
+> 24816
+
+Nb
+
+> tG. S.
+> tGimp
+> tG0
+
+FIG. S5. Cumulative wall-clock time as a function of bath size Nb for ATCI (left) and AL-ATCI (right). Three timing components are shown: ground-state diagonalization tG.S. , impurity Green’s function evaluation tGimp , and bath Green’s function evaluation tG0 . The shaded region highlights the gap between tG.S. and the Green’s function timings, indicating the relative cost of diagonalization. Parameters: Nc = 8, half-filling, U/t = 8, zero temperature. 2 4 6 8
+
+Nc    
+
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Cumulative time (s)  tG. S.
+> tGimp
+> tG0
+> 246810
+
+Nc
+
+> tG. S.
+> tGimp
+> tG0
+
+FIG. S6. Cumulative wall-clock time as a function of cluster size Nc for ATCI (left) and AL-ATCI (right). Three timing components are shown: ground-state diagonalization tG.S. , impurity Green’s function evaluation tGimp , and bath Green’s function evaluation tG0 . The shaded region highlights the gap between tG.S. and the Green’s function timings, indicating the relative cost of diagonalization. Parameters: Nb = 8, half-filling, U/t = 8, zero temperature. 11 
+
+> Momentum-Resolved Spectral Function Convergence
+
+Here we examine how the momentum-resolved spectral function A(k, ω ) evolves with increasing cluster size, com-plementing Fig. 3 of the main text. To demonstrate the systematic convergence of AL-ATCI with increasing cluster size, we compute momentum-resolved spectral functions A(k, ω ) for various cluster sizes at representative momentum points in the Brillouin zone. Figure S7 shows the spectral functions at three momentum points ( k = 0 , π/ 2, π ) for cluster sizes Nc = 1 , 2, 4. As 
+
+Nc increases, the spectral features evolve systematically, with peak positions, heights, and spectral weights showing clear convergence with cluster size. In particular, the spurious midgap spectral weight present at Nc = 1 vanishes for larger Nc, consistent with the Mott-insulating phase at U/t = 8. The particle-hole symmetry A(k, ω ) = A(π − k, −ω)is clearly satisfied: the spectra at k = 0 and k = π are mirror images of each other under ω → − ω, while the spectrum at k = π/ 2 is symmetric about ω = 0. −5 0 5
+
+ω
+
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> A(ω)
+
+k = 0      
+
+> Nc= 1
+> Nc= 2
+> Nc= 4
+> −5 05
+
+ω
+
+k = π/2      
+
+> Nc= 1
+> Nc= 2
+> Nc= 4
+> −5 05
+
+ω
+
+k = π                   
+
+> Nc= 1
+> Nc= 2
+> Nc= 4
+> FIG. S7. Momentum-resolved spectral functions A(k, ω ) for cluster sizes Nc= 1 (blue), Nc= 2 (orange), and Nc= 4 (green) at three representative momentum points. From left to right: k= 0, π/ 2, π. Parameters: U/t = 8, Nb= 8, half-filling, broadening
+> ϵ= 0 .1t.
+
+Figure S8 extends this analysis to larger cluster sizes Nc = 6 , 8, 10, which are inaccessible to conventional ED due to the exponential growth of the Hilbert space. The spectral functions at Nc = 8 and Nc = 10 differ only weakly from those at Nc = 6, indicating that the spectra are already close to convergence by Nc = 6. The particle-hole symmetry 
+
+A(k, ω ) = A(π − k, −ω) is again clearly preserved across all cluster sizes. These results confirm that AL-ATCI achieves systematic convergence of the momentum-resolved spectral function with increasing Nc, correctly reproducing the Mott gap and the particle-hole symmetry of the half-filled Hubbard model at U/t = 8. The ability to reach cluster sizes well beyond the reach of conventional ED demonstrates the practical advantage of the active learning approach in accessing the large-Nc regime. 12 −5 0 5
+
+ω
+
+0.0 
+
+0.1 
+
+0.2 
+
+0.3 
+
+> A(ω)
+
+k = 0    
+
+> Nc= 6
+> Nc= 8
+> Nc= 10
+
+−5 0 5
+
+ω
+
+k = π/2    
+
+> Nc= 6
+> Nc= 8
+> Nc= 10
+
+−5 0 5
+
+ω
+
+k = π   
+
+> Nc= 6
+> Nc= 8
+> Nc= 10
+
+FIG. S8. Momentum-resolved spectral functions A(k, ω ) for cluster sizes Nc = 6 (blue), Nc = 8 (orange), and Nc = 10 (green) at three representative momentum points. From left to right: k = 0, π/ 2, π. Parameters: U/t = 8, Nb = 8, half-filling, broadening ϵ = 0 .1t.13 
+
+Slater-Kanamori Hamiltonian and Spectral Function of Sr 2RuO 4
+
+In the Sr 2RuO 4 calculations presented in the main text, the local interaction is described by the rotationally invariant Slater-Kanamori Hamiltonian for the t2g manifold, 
+
+Hint = U X
+
+> m
+
+nm↑nm↓ + U ′ X
+
+> m<m ′
+
+X
+
+> σσ ′
+
+nmσ nm′σ′
+
+− J X
+
+> m<m ′
+
+X
+
+> σσ ′
+
+c† 
+
+> mσ
+
+cmσ ′ c† 
+
+> m′σ′
+
+cm′σ
+
++ J X
+
+> m<m ′
+
+
+
+c†
+
+> m↑
+
+c†
+
+> m↓
+
+cm′↓cm′↑ + H.c. 
+
+
+
+, (S1) where m, m ′ ∈ { dxy , d xz , d yz } label the t2g orbitals, σ denotes spin, and nmσ = c† 
+
+> mσ
+
+cmσ . The parameters U , U ′ =
+
+U − 2J, and J denote the intraorbital Coulomb repulsion, interorbital Coulomb repulsion, and Hund’s coupling, respectively. The relation U ′ = U − 2J ensures rotational invariance in orbital space. In the main text, we use 
+
+U = 2 .5 eV and J = 0 .4 eV. Figure S9 shows the zero-temperature spectral function for Nb = 9 , 12 , 15 , 18. Both 
+
+xy and xz/yz components converge systematically with increasing bath size, displaying well-defined quasiparticle bands near the Fermi level and incoherent weight at higher energies, consistent with the correlated metallic state of Sr 2RuO 4. This confirms that the weak bath-size dependence observed in the single-band case extends to the three-orbital rotationally invariant problem. 
+
+FIG. S9. Spectral function of Sr 2RuO 4 from zero-temperature single-site DMFT with AL-ATCI, for U = 2 .5 eV and J = 0 .4 eV. As Nb increases from 9 to 18, the spectral function converges systematically, confirming that AL-ATCI’s weak bath-size dependence extends to a three-orbital problem with the full rotationally invariant interaction.
