@@ -1,0 +1,957 @@
+Title: Tensor-network simulation of quantum transport in many-quantum-dot systems
+
+URL Source: https://arxiv.org/pdf/2604.06944v1
+
+Published Time: Thu, 09 Apr 2026 00:52:28 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# Tensor-network simulation of quantum transport in many-quantum-dot systems 
+
+## Maximilian Streitberger ∗, Marko J. Ranˇ ci´ c†
+
+## University of Luxembourg, FSTM, Department of Computer Science Campus Belval, 2 avenue de l’Universit´ e L-4365 Esch-sur-Alzette 
+
+> ∗
+
+## maximilian.streitberger@uni.lu 
+
+> †
+
+## marko.rancic@uni.lu 
+
+## April 9, 2026 
+
+Abstract 
+
+Transport through correlated nanoscale systems underpins the operation of quantum-dot and molecular-scale devices, yet accurate simulations of large open quantum systems remain computa-tionally challenging as system size increases. Tensor-network methods offer a promising route past this scaling barrier by efficiently compressing quantum states. Here we extend a tensor-based solver with a jump-counting estimator that enables direct computation of steady-state electron currents from lead-induced tunneling events. We benchmark the resulting currents against the state-of-the-art master-equation solver QmeQ across a range of lead–dot and inter-dot coupling parameters and find quantitative agreement in the tractable regime. Compared with classical approaches, TJM reduces memory requirements and wall-clock time by orders of magnitude, enabling simulations of interacting quantum-dot arrays far beyond the range accessible to density-matrix-based transport solvers and systematic studies of size-dependent nonequilibrium transport in larger arrays. Our approach allow us to model quantum transport in an array of up to fifty (50) quantum dots. 
+
+Charge transport in correlated quantum systems is a central problem in condensed-matter physics and nanoscale device modeling. At the nanoscale, transport is governed by tunneling, phase coherence, level quantization and Coulomb interactions, leading to nontrivial current–voltage characteristics [1, 2, 3, 4]. Predicting these observables therefore requires computational methods that can treat nonequilibrium quantum dynamics while remaining efficient enough to access experimentally relevant parameter regimes. Quantum dots provide a natural setting for these challenges because confinement and electron–electron interactions produce a minimal but strongly correlated open-system transport problem [5]. When coupled to source and drain reservoirs, they realize interacting subsystems exchanging particles and energy with macroscopic environments [6]. Simulating this dynamics is computationally demanding because it requires resolving the interplay of local interactions, system–lead coupling and nonequilibrium driving as system size increases. A range of established approaches has been developed for this purpose, but each comes with charac-teristic trade-offs. Nonequilibrium Green’s function methods provide a powerful framework for steady-state and time-dependent transport and are highly effective in weakly interacting or noninteracting regimes [7, 8, 9, 10]. However, in strongly correlated systems they generally require additional ap-proximations, and their numerical cost increases rapidly when interactions and time dependence are in-cluded [11, 12]. Quantum master-equation approaches, by contrast, offer an efficient reduced description   
+
+> Figure 1: Four-quantum-dot device schematic. Schematic of a linear array of four quantum dots tunnel-coupled in series and connected to source and drain reservoirs.
+
+1
+
+> arXiv:2604.06944v1 [cond-mat.mes-hall] 8 Apr 2026
+
+of open-system dynamics, yet evolving the reduced density matrix still becomes increasingly expensive as the Hilbert-space dimension grows, and the underlying approximations can become restrictive when correlations, coherent dynamics, or more complex system structures are important [13, 14]. The main characteristics and limitations of these approaches are summarized in Table 1. These limitations have motivated stochastic formulations of open quantum dynamics, in which the evolution of a mixed state is unraveled into an ensemble of pure-state realizations, replacing density-matrix propagation with stochastic wavefunction evolution [17, 18]. Such methods are commonly known as quantum trajectory methods or Monte Carlo wavefunction (MCWF) approaches. This can substan-tially reduce memory requirements, especially when the effective state space is large. Combined with tensor-network representations, which compress physically relevant many-body states according to their entanglement structure, this strategy provides a route to simulations that would otherwise be inaccessi-ble [19, 20, 21]. This combination has recently been realized in the Tensor Jump Method (TJM) [16]. TJM provides a computationally promising alternative to conventional density-matrix-based schemes for open quantum dynamics, but it is not yet fully established as a practical tool for quantum transport. Transport studies require not only stable time evolution but also accurate evaluation of observables tied to particle exchange with the reservoirs. Among these, the current is the most fundamental quantity, and a robust strategy for computing it is essential if TJM is to be used beyond proof-of-principle open-system simulations. Here, we address this gap by extending TJM to enable direct evaluation of particle currents within the tensor-network trajectory formalism. This turns TJM from a general method for dissipative quan-tum dynamics into a transport-capable framework for interacting nonequilibrium systems. While TJM has previously been used to simulate dissipative quantum dynamics, its application to nonequilibrium quantum transport has remained unexplored. We formulate current extraction in a way that is naturally compatible with stochastic tensor-network evolution, preserving the central computational advantages of the method. To assess the validity and practical value of the approach, we benchmark it against QmeQ, a widely used reference implementation for quantum-dot transport based on quantum master equations [22]. By comparing current–voltage characteristics across representative regimes, we test whether the extended TJM reproduces established transport behavior while retaining the flexibility of a trajectory-based tensor-network description. We further analyze runtime and memory consumption to evaluate the computational scaling of the method in practice. Prior works have addressed transport in interacting open many-body settings and nonequilibrium correlated systems [23, 24], but these studies considered different transport geometries, observables, or methodological frameworks than the tensor-network trajectory approach developed here, and especially outside the many-quantum dot problem studied here. Other relevant studies have treated transport in more limited or adjacent settings, such as quantum-impurity models, discretized leads, or more general open-system tensor-network formulations [25, 26, 27, 28], without addressing steady-state charge transport through extended interacting many-body quantum-dot arrays in the form considered in this work. We demonstrate that TJM can be equipped with a reliable current estimator and thereby turned into a practical computational workflow for nonequilibrium transport. More broadly, they indicate that tensor-network quantum trajectories provide a viable and extensible route to transport simulations in cor-related open quantum systems, particularly in regimes where direct density-matrix propagation becomes impractical. 
+
+# Results 
+
+## Extending TJM to compute transport currents 
+
+We extend the tensor jump method (TJM) by introducing jump counters that record the individual applications of lead-induced jump operators during the stochastic trajectory evolution. These counters allow us to determine the net number of charges transferred through each lead–dot channel over time, from which the particle current can be estimated. The jump counts are ensemble-averaged over trajectories to obtain the steady-state current. Implementation details and the precise current definition are provided in the Methods section. 2NEGF Master equation TJM (this work) Type Deterministic Deterministic Stochastic                
+
+> State Green’s functions Reduced density matrix Pure-state trajectories
+> Time dependence Yes Limited Yes
+> Interactions Exact for noninteracting systems; approximate otherwise Effective in reduced open-system settings Interacting many-body dynamics via trajectories
+> Current access Direct Direct Jump-counting estimator
+> Scaling Discretization, self-consistency, correlated self-energies Density-matrix dimension Bond dimension and trajectory count
+> Best for Noninteracting or weakly correlated transport Reduced open-system descriptions Strongly correlated open systems
+> Limitation Strong correlations depend on interaction approximation Often relies on weak-coupling / Markov assumptions Depends on tensor-network accuracy and TDVP evolution
+> Table 1: Qualitative comparison of common approaches for nonequilibrium transport in open quantum systems. Represen-tative references for the methods shown here include NEGF [15], master-equation approaches [10], and TJM [16].
+
+## Validation against master-equation benchmarks 
+
+We benchmark TJM against the Lindblad master-equation implementation in QmeQ in the parameter regime where direct density-matrix simulations remain tractable. Because the Liouville-space dimension grows rapidly with system size, these reference calculations were limited to arrays of up to four quantum dots. For each benchmark point, we compared the steady-state current obtained from TJM and QmeQ and quantified their pointwise deviation as ∆I = |ITJM − IQmeQ | . (1) To keep the main text focused, we highlight the two most informative sweeps: the lead–dot coupling Γ and the inter-dot hybridization Ω. The remaining parameter sweeps, together with the full error analysis, are provided in the Supplementary Information. 
+
+Lead–dot coupling. Increasing the lead–dot coupling, Γ, produces a monotonic increase in the sta-tionary current in both the smallest and largest benchmark systems (Fig. 2). Across the full sweep, TJM closely follows the QmeQ reference, reproducing both the overall growth in current and the relative separation between the two device sizes. For the smaller system, the current rises from zero to 0 .312 in QmeQ, while TJM reaches 0 .289 at the largest Γ. The corresponding absolute deviation remains small throughout the sweep and increases only gradually, reaching 2 .34 × 10 −2 at the largest coupling. The same qualitative behavior is observed in the larger system, for which the current increases less strongly, from zero to 0 .175 in QmeQ and 0 .141 in TJM, with a maximum deviation of 3 .38 × 10 −2. In both cases, the TJM and QmeQ curves remain close over the entire parameter range, with no indication of a qualitative breakdown as the coupling to the leads is increased. These results show that stronger lead coupling primarily amplifies the transport response while leaving the agreement between the two approaches largely intact. Within the tested range, TJM therefore captures the lead-coupling dependence of the stationary current, from the smallest system considered to the largest system accessible to direct master-equation benchmarking. 
+
+Inter-dot hybridization. Varying the inter-dot coupling, Ω, provides a stronger test of the model because it directly enhances coherent hybridization within the array (Fig. 2). In contrast to the lead–dot sweep, the agreement between TJM and QmeQ remains good at weak-to-intermediate Ω, with systematic deviations emerging as hybridization increases. In the smaller multi-dot system, both methods initially predict a strong rise in current with increasing Ω. However, the QmeQ current reaches a maximum at intermediate coupling ( ∼ 0.21) and then saturates slightly, whereas the TJM current continues to increase up to the largest Ω considered ( ∼ 0.26). As a result, the absolute deviation grows steadily across the sweep and is largest at strong hybridization (∼ 5.3 × 10 −2). A related but more structured pattern is seen in the larger system. Here too, TJM reproduces the initial increase in current, but the discrepancy is non-monotonic: it becomes most pronounced at intermediate coupling, decreases again when the two curves nearly coincide, and then rises once more at 30.00      
+
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> Current ( I)
+> Method
+> QmeQ TJM
+> QD count
+> 1-QD 4-QD
+> 0.00.20.40.60.81.0
+
+Γ        
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> Error
+> 0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75 2.00
+
+ΩFigure 2: Current and method discrepancy as functions of lead–dot and inter-dot coupling. Top panels show the current as a function of the lead–dot coupling, Γ (left), and the inter-dot coupling, Ω (right), for single-quantum-dot (1-QD, blue) and four-quantum-dot (4-QD, green) systems. QmeQ results are shown as crosses, and TJM results as circles connected by solid lines. Bottom panels show the corresponding absolute error between the two methods for the same parameter sweeps. Agreement is strong across the full parameter range, with discrepancies remaining small and becoming more pronounced only at larger coupling strengths. 
+
+the strongest hybridization. This indicates that the breakdown is not simply set by the magnitude of Ω, but by how strongly coherent inter-dot mixing reshapes the transport pathway in different parts of parameter space. Together, these results identify inter-dot hybridization as the main regime in which TJM deviates from the QmeQ reference. The method remains accurate at weak coupling, but strong coherent mixing introduces the largest and most systematic discrepancies observed in the benchmark set. The growing discrepancy between TJM and QmeQ at large inter-dot hybridization is consistent with the known breakdown of local Lindblad master equations outside the weak inter-system-coupling regime. In this regime, the benchmark itself is expected to yield incorrect stationary currents, so the observed divergence should not be interpreted solely as a limitation of TJM. Instead, it delineates the parameter regime in which agreement with a local master-equation reference can be expected [29]. 
+
+Additional parameters. Additional parameter sweeps (onsite energy, temperature and Coulomb in-teraction) show similar agreement and are provided in the Supplementary Information (see S1 - S3). 
+
+## Wall-clock-time and memory scaling 
+
+Wall-clock-time scaling. The wall-clock-time comparison shows a different behavior at small system sizes. In the directly tractable regime, QmeQ is faster because TJM incurs the additional cost of explicit time evolution and stochastic averaging. For example, at N = 4, QmeQ completes in 4 .81 × 10 1 s, compared with 5 .73 × 10 3 s for TJM. However, the TJM runtime grows only moderately over the full 1–10 dot range, whereas the projected QmeQ runtime increases much more steeply. The crossover occurs by N = 6, where TJM is already faster, and this advantage then grows rapidly with system size (Fig. 3a). Together with the memory analysis, these results identify TJM as the computationally favorable approach beyond the small-system regime. 
+
+Memory scaling. We next compared the memory requirements of TJM and QmeQ as a function of system size. TJM maintains a very small memory footprint across the full 1–10 dot range because both the Hamiltonian and the state are stored in tensor-network form. Its memory requirement scales with the 42 4 6 8 10 
+
+Number of quantum dots     
+
+> 10 0
+> 10 6
+> 10 12
+> 10 18
+> 10 24
+> 10 30
+> 10 36
+> Runtime [s]
+> TJM QmeQ (measured) QmeQ (extrapolated) (a) 246810
+
+Number of quantum dots  
+
+> 10 −5
+> 10 −2
+> 10 1
+> 10 4
+> 10 7
+> 10 10
+> 10 13
+> Memory [GB]
+> TJM (MPO) TJM (MPS) QmeQ (measured) QmeQ (extrapolated) (b)
+
+Figure 3: Runtime and memory scaling of TJM and QmeQ with system size. (a): Wall-clock time as a function of the number of quantum dots for TJM and QmeQ. Although QmeQ is faster for small systems, its computational cost increases much more rapidly with system size. TJM becomes advantageous beyond the crossover regime and remains the more efficient approach for larger systems. (b): Memory requirement as a function of the number of quantum dots. For TJM, the memory footprint of the stored MPS (blue) and MPO (purple) remains small because both the state and the Hamiltonian are represented in tensor-network form, whereas the memory required by QmeQ increases steeply with system size. The MPS memory grows faster than the MPO memory because its bond dimension can increase up to χmax .−10 .0 −7.5 −5.0 −2.5 0.0 2.5 5.0 7.5 10 .0
+
+Vbias (V )
+
+> −0.6
+> −0.4
+> −0.2
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> Current  (I)
+> 1-Dot 2-Dots 5-Dots 10-Dots
+
+Figure 4: Source–Drain bias sweep. Here the left lead is acting as the source and the right lead as the drain. The potential difference corresponds to the bias Vbias = μL − μR. We can see that the current decreases systematically with increasing array length. 
+
+number of trajectories, system size and maximal bond dimension. By contrast, the memory requirement of the Lindblad solver grows combinatorially with the number of single-particle states because the reduced density matrix is represented in the full many-body basis. Even at N = 4, QmeQ already requires 1.33 GB, whereas TJM requires only 3 .37 × 10 −5 GB, a reduction of roughly five orders of magnitude. This disparity widens further with increasing N , and by N = 10 the projected QmeQ memory requirement is prohibitively large (Fig. 3b). These results show that tensor-network trajectories avoid the unfavorable memory growth of the dense master-equation formulation and therefore remain tractable at substantially larger system sizes. Figure 3b separates the TJM memory cost into the MPS state and MPO Hamiltonian contributions. The MPS contribution grows faster, since the MPO scales approximately linearly with system size, whereas the MPS bond dimension can increase up to the maximum allowed value ( χmax ) as inter-dot correlations build up. 
+
+## Transport calculations beyond the direct benchmark regime 
+
+Having established the validity of the current estimator in the tractable regime, we next used TJM to study transport in larger arrays beyond the range accessible to direct master-equation benchmarking. Figure 4 shows the resulting current–voltage characteristics for systems containing up to ten quantum 50 200 400 600 800 1000 
+
+Time      
+
+> 0.050
+> 0.075
+> 0.100
+> 0.125
+> 0.150
+> 0.175
+> 0.200
+> 0.225
+> Current  (I)
+> Traj = 100 Traj = 500 Traj = 1000 (a) 0200 400 600 800 1000
+
+Time              
+
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> Error
+> 800 825 850 875 900 925 950 975 1000
+> 0.016
+> 0.018
+> 0.020
+> 0.022
+> 0.024
+> Traj = 100 Traj = 500 Traj = 1000 (b) 100 250 500 750 1000
+
+Trajectories 
+
+> 10 3
+> 10 4
+> 10 5
+> Runtime (s)
+> 5-Dots 10-Dots 50-Dots
+> (c)
+
+Figure 5: Current dynamics and runtime scaling beyond the direct benchmark regime. (a) Current dynamics in a 50-dot array computed with TJM for different ensemble sizes. Increasing the number of trajectories reduces statistical fluctuations, but the current traces remain closely aligned over the plotted interval and do not approach a clear stationary plateau. This indicates that slow relaxation towards the steady state, rather than insufficient sampling, is the dominant limitation in this regime. (b) Left–right lead-current mismatch for the 50-dot array, which decreases during the time evolution and remains small at late times, providing an internal consistency check. (c) Wall-clock time versus number of trajectories for 5-, 10-, and 50-dot arrays. Runtime increases with both ensemble size and system size, highlighting the growing computational cost of large-array TJM simulations and complementing the memory-scaling analysis. 
+
+dots. As the array length increases, the current is progressively suppressed across the full bias window, while the overall nonlinear transport structure is retained. TJM therefore not only extends the accessible system size, but also resolves physically meaningful size-dependent transport trends in regimes where dense many-body reference calculations become impractical. To probe the behavior at still larger scales, we additionally simulated the time-dependent current in a 50-dot array at a source–drain bias of Vbias = 10 (Fig. 5a). Within the simulated time window, the current starts to approach a stationary plateau after t = 1000, indicating that relaxation towards the steady state becomes markedly slower as system size increases. By contrast, increasing the number of trajectories produces only comparatively modest changes in the current trace over the same interval. This indicates that the dominant bottleneck in this regime is slow relaxation rather than trajectory undersampling. As an internal consistency check, the mismatch between the left and right lead currents decreases during the propagation and remains small at late times, supporting the numerical stability of the calculation even when full steady-state convergence is not reached (see Fig. 5b). The associated runtime increases sharply with both system size and ensemble size (Fig. 5c). Taken together, these results show that TJM substantially enlarges the accessible system-size range for nonequi-librium transport calculations while identifying long-time relaxation as the main remaining bottleneck in large arrays. 6Discussion 
+
+We have shown that the Tensor Jump Method (TJM) can be extended to compute steady-state electron currents in open quantum-dot systems by extracting the current directly from lead-resolved stochastic jump events. Benchmarking against the Lindblad master-equation solver in QmeQ shows that the re-sulting jump-count estimator is quantitatively accurate across a broad transport regime. This turns the quantum-jump dynamics itself into a practical measurement protocol for nonequilibrium transport while avoiding explicit density-matrix evolution. TJM reproduces the reference currents well over sweeps in lead–dot coupling, temperature, onsite energy and Coulomb interaction, indicating that the estimator captures both the correct trends and current magnitudes in the regime where direct comparison is possible. The largest deviations arise at strong inter-dot hybridization, where the discrepancy increases with coupling strength and system size. This behavior is consistent with the known limitations of local master-equation descriptions outside the weak inter-system-coupling regime and therefore helps define the parameter range in which the present approach is expected to be most reliable. The computational significance of this result lies in the scaling benefits of TJM. Although the present implementation is slower than QmeQ in the small-system regime where both methods remain tractable, its memory requirements scale far more favorably. TJM therefore becomes advantageous precisely in the regime where density-matrix-based approaches become impractical. In this sense, the method extends transport calculations into interacting many-body regimes that are difficult to access with conventional dense-kernel solvers. Beyond the directly benchmarkable regime, TJM also resolves physically meaningful transport trends in larger quantum-dot arrays. The current–voltage characteristics for systems containing up to ten dots show a systematic suppression of current with increasing array length while preserving the overall nonlinear transport structure, demonstrating that the method is not only computationally scalable but also capable of accessing size-dependent nonequilibrium transport behavior in interacting open systems. At still larger scales, the 50-dot simulations show that the dominant limitation shifts from memory consumption and trajectory sampling to slow relaxation towards the steady state. This identifies long-time convergence, rather than state representation, as the main remaining bottleneck for transport calculations in large arrays. The most immediate opportunities for improvement lie in reducing the cost of long-time evolution, for example through GPU-accelerated tensor operations, lower-level implementations of the main computa-tional bottlenecks and improved parallelization across trajectories. More broadly, our results suggest that tensor-network trajectory methods can provide a scalable route to transport simulations in larger and more strongly interacting open quantum systems than are readily accessible with conventional master-equation solvers. 
+
+# Methods 
+
+## Tensor jump method 
+
+In TJM, the stochastic time evolution of a single trajectory consists of three parts: (i) a dynamic TDVP step ( U), (ii) a dissipative contraction ( D), and (iii) a stochastic jump process ( J ). We start from an initial state |Ψ(0) ⟩ at t = 0, represented as an MPS, and evolve it under a system Hamiltonian encoded as an MPO up to a final time tmax = nδt .The coherent (Hamiltonian) evolution of the MPS is performed using the time-dependent variational principle (TDVP). TJM applies the evolution dynamically: it starts with two-site TDVP (2TDVP), which permits adaptive growth of the MPS bond dimension (and thus increasing entanglement) up to a predefined maximum. Once this maximum is reached, the algorithm switches to one-site TDVP (1TDVP) to continue the time evolution within a fixed bond dimension, preventing further growth of the variational manifold. The dissipative part is described by a set of jump operators, analogous to the MCWF approach 
+
+{Lm}km=1 . The time evolution of the state can be expressed as 
+
+U (tmax ) = 
+
+> n
+
+Y
+
+> i=0
+
+Fn−i[δt ], (2) 7where the propagator U consists of n subfunctions corresponding to each time step: 
+
+Fj [δt ] = 
+
+
+
+Jϵ[δt ] D[ δt  
+
+> 2
+
+] U[δt ] j = n, 
+
+Jϵ[δt ] D[δt ] U[δt ] 0 < j < n, 
+
+Jϵ[δt ] D[ δt  
+
+> 2
+
+] j = 0 .
+
+(3) Internally, TJM propagates an auxiliary “sampling MPS” |Φ⟩ with the maps Fj [δt ], and the physical state |Ψ⟩ can be reconstructed from |Φ⟩ at any time step by applying the final operator Fn[δt ]. The sequence of maps {F j [δt ]}nj=0 together with a specific realization of the stochastic jumps defines a single stochastic trajectory. Physical observables are obtained by averaging over N such independent trajectories, in full analogy with the MCWF approach. 
+
+## Open-system model 
+
+We consider a device consisting of several quantum dots coupled to two metallic leads. The system is described by 
+
+H = Hleads + Htunneling + Hdot , (4) where Hleads describes the leads, Hdot the system of tunnel coupled quantum dots, isolated from the leads, and Htunneling the lead-dot tunneling. We can write the system in second-quantized form as 
+
+H = X
+
+> αk
+
+ϵαk c†
+
+> αk
+
+cαk + X
+
+> αk,i
+
+
+
+tαk,i d† 
+
+> i
+
+cαk + H.c. 
+
+
+
++ X
+
+> i
+
+ϵi d† 
+
+> i
+
+di + X
+
+> i̸=j
+
+Ωij d† 
+
+> i
+
+dj
+
++ X
+
+> ij
+
+Uijji d† 
+
+> i
+
+d† 
+
+> j
+
+dj di, with i < j. 
+
+(5) We assume that the leads are thermal reservoirs characterized by Fermi-Dirac distributions fα(E). More-over, we work in the wide-band limit, i.e., a constant density of states and energy-independent tunneling amplitudes. Since we evolve the reduced dot state using the Lindblad master equation, only Hdot enters the coherent part of the dynamics. This Hamiltonian is then converted into an MPO. The effect of the leads enters the Lindblad dynamics through the jump operators (local Lindblad operators), whose factors are determined by the tunneling rates and the lead occupations. We use injection and extraction operators 
+
+Lin  
+
+> α,i
+
+= pΓαi fα(Ei) d† 
+
+> i
+
+,Lout  
+
+> α,i
+
+=
+
+q
+
+Γαi 
+
+1 − fα(Ei) di, (6) where Γ αi is the tunneling rate and Ei denotes the relevant transition energy. In particular, Ei may include interaction-induced shifts (addition energies) in the Coulomb blockade regime. Here the transition energy 
+
+Ei includes the onsite interaction shift: if the opposite-spin level on dot i is occupied, we use the addition energy Ei = ϵi + Ui and otherwise Ei = ϵi. Since we retain onsite interactions only, this shift depends solely on the local opposite-spin occupancy. The tunneling rates are related to the tunneling amplitudes by Γ αi = 2 πν F |tαi |2 [22]. Under the Jordan–Wigner mapping, a local fermionic annihilation/creation operator in Eq. 5 on site 
+
+l is represented as 
+
+dl ⇔ Z⊗(l−1) ⊗ σ+ ⊗ I⊗(L−l),d† 
+
+> l
+
+⇔ Z⊗(l−1) ⊗ σ− ⊗ I⊗(L−l), (7) where the product of Z operators encodes the fermionic parity of all sites to the left and ensures the correct anticommutation relations. For a chain of length L and a local operator acting on site l (with 1 ≤ l ≤ L), we represent the embedded jump operator as 
+
+Lm = Z⊗(l−1) ⊗ L[l] 
+
+> m
+
+⊗ I⊗(L−l),L† 
+
+> m
+
+= Z⊗(l−1) ⊗ (L†
+
+> m
+
+)[l] ⊗ I⊗(L−l). (8) 8Using Z† = Z, ZZ = I, and I† = I, the Jordan-Wigner strings cancel in L†
+
+> m
+
+Lm,
+
+L†
+
+> m
+
+Lm = ( Z†Z)⊗(l−1) ⊗ (L†
+
+> m
+
+Lm)[l] ⊗ (I†I)⊗(L−l)
+
+= I⊗(l−1) ⊗ (L†
+
+> m
+
+Lm)[l] ⊗ I⊗(L−l). (9) Thus, the non-Hermitian contribution involving L†
+
+> m
+
+Lm is unaffected by the Jordan-Wigner strings, while applying the jump operator Lm in a trajectory still requires the full Z string. 
+
+## Particle current definition 
+
+We define the (lead-resolved) particle current as the net number of electrons transferred per unit time, which corresponds to the application of a jump operation. Let α ∈ { L, R } label the lead and σ ∈ {↑ , ↓} 
+
+label the spin channel. During a total simulation time tmax , we record the number of quantum-jump events corresponding to electron injection into the system, nin  
+
+> α,σ
+
+, and extraction from the system, nout  
+
+> α,σ
+
+,through lead channel ( α, σ ). This recording is done after the full time step dissipation evolution. Within the quantum trajectories approach, all jump counts are ensemble-averaged over trajectories. The net transferred particle number through channel ( α, σ ) is 
+
+Nα,σ = nin  
+
+> α,σ
+
+− nout  
+
+> α,σ
+
+, (10) and the corresponding channel current is 
+
+Iα,σ = Nα,σ 
+
+tmax 
+
+. (11) The spin-summed current for lead α is then 
+
+Iα = X
+
+> σ
+
+Iα,σ = 1
+
+tmax 
+
+X
+
+> σ
+
+Nα,σ . (12) In a stationary regime, particle conservation implies IL = −IR (for the sign convention where Iα > 0denotes net flow from lead α into the system). For finite simulation times tmax , deviations from IL = −IR
+
+can occur due to statistical fluctuations. We therefore report the symmetrized (transport) current, 
+
+Ithrough = IL − IR
+
+2 , (13) which reduces variance and approaches the ideal steady-state value as the total simulation time ( tmax )increases. 
+
+## Numerical setup and benchmarking protocol 
+
+For the benchmark calculations, all simulations were run up to a total time tmax = 1000 with a time step δt = 0 .1. Unless stated otherwise, the lead chemical potentials were fixed at μL = 1 and μR = −1. TJM results were obtained from Ntraj = 1000 stochastic trajectories with a maximum bond dimension 
+
+χmax = 20. The system was placed symmetrically between the two leads, with no magnetic field (no Zeeman splitting) and spin orbital energies ϵi = 0. Reference calculations were performed with the QmeQ package using the Lindblad kernel and a bandwidth of dband = 60. Because the Liouville-space dimension grows rapidly with system size, QmeQ benchmarks were restricted to systems of up to four quantum dots. We compared TJM and QmeQ across parameter sweeps in lead–dot coupling, onsite energy, Coulomb interaction, temperature and inter-dot coupling. For each sweep we evaluated both the current and the pointwise absolute deviation, ∆I = |ITJM − IQmeQ | . (14) 
+
+## Trajectory convergence 
+
+Convergence with respect to trajectory number was assessed by comparing current traces for Ntraj = 100, 500 and 1000. Increasing the number of trajectories reduces statistical fluctuations, while the 500- and 1000-trajectory results remain very close for representative 5-dot and 10-dot systems, indicating that 
+
+Ntraj = 1000 is sufficient for the reported calculations. 9To quantify this, we evaluated the difference between the current traces obtained with 500 and 1000 trajectories. For representative 5-dot and 10-dot systems, the late-time difference between the two es-timates remains below 10 −3, as shown in Supplementary Fig. S4. Because the steady-state current is extracted from the long-time behavior of the trajectories, agreement at late times provides the most relevant convergence criterion. 
+
+## Bond-dimension convergence 
+
+We chose the maximum bond dimension, χmax , in the TJM based on convergence tests. Specifically, we compared the current obtained from a lead–dot parameter sweep for systems with one and four quantum dots using χmax ∈ 10 , 20 , 40 , 60. The resulting currents were effectively unchanged across this range, indicating convergence with respect to χmax for systems up to four quantum dots. Thus, the bond dimension was not a limiting factor in our simulations, unlike the timestep size (see next section). The results are shown in Supplementary Fig. S5. This observation should not be interpreted as evidence that the smallest bond dimension is sufficient for all system sizes. Because the bond dimension controls the amount of entanglement retained in the tensor-network representation, larger systems may require larger χmax values. Establishing convergence more generally would therefore require analogous tests for larger systems, and, where possible, validation against experiment. 
+
+## Timestep choice 
+
+The timestep δt used in the TDVP evolution was chosen based on a convergence analysis. We compared the current obtained for a single quantum dot and a four-dot array over a range of timestep sizes δt ∈{0.05 , 0.1, 0.2, 0.5}. The comparison is shown in Supplementary Fig. S6. For a single quantum dot, decreasing the timestep systematically reduces the deviation from the reference solution obtained with QmeQ, but also increases runtime. The results for δt = 0 .1 already agree closely with the reference currents while maintaining a reasonable computational cost. Larger timesteps lead to increasing deviations due to integration errors. This correlation was not observed in the four-dot array. In this case, the largest tested timestep, δt = 0 .5, showed closer agreement over part of the parameter range, although all timesteps converge to nearly the same current at Γ = 1. Overall, the timestep dependence is weaker for four quantum dots than for a single quantum dot. We therefore selected 
+
+δt = 0 .1 for all production simulations, since it offered the best tradeoff between runtime performance and agreement. 
+
+## Memory scaling 
+
+The Lindblad kernel used in the simulations of QmeQ has a scaling of 64 ×
+
+
+
+2 (2 n)! (n!) 2 − 2n
+
+
+
+, where n is the number of single-particle states. The TJM MPS memory scaling (to store Ntraj MPS trajectories) is 
+
+O(Ntraj Ldχ 2max ), where χmax is the maximum bond dimension, and L is the system size. 
+
+## Computational environment 
+
+The simulations were performed on a single high-performance computing node equipped with two AMD EPYC Rome 7H12 processors (128 CPU cores total, 2.6 GHz). 
+
+# References 
+
+[1] Hanson, R., Kouwenhoven, L. P., Petta, J. R., Tarucha, S. & Vandersypen, L. M. K. Spins in few-electron quantum dots. Rev. Mod. Phys. 79 , 1217–1265 (2007). https://doi.org/10.1103/RevMod Phys.79.1217 
+
+[2] Zwanenburg, F. A. et al. Silicon quantum electronics. Rev. Mod. Phys. 85 , 961–1019 (2013). https: //doi.org/10.1103/RevModPhys.85.961 
+
+[3] Kouwenhoven, L. P. et al. Electron Transport in Quantum Dots. In Mesoscopic Electron Transport ,105–214 (Springer, Dordrecht, 1997). https://doi.org/10.1007/978-94-015-8839-3_4 
+
+10 [4] Kastner, M. A. The single-electron transistor. Rev. Mod. Phys. 64 , 849–858 (1992). https://doi. org/10.1103/RevModPhys.64.849 
+
+[5] Kastner, M. A. Artificial Atoms. Phys. Today 46 , 24–31 (1993). https://doi.org/10.1063/1.88 1393 
+
+[6] Breuer, H.-P. & Petruccione, F. The Theory of Open Quantum Systems (Oxford Univ. Press, Oxford, 2007). https://doi.org/10.1093/acprof:oso/9780199213900.001.0001 
+
+[7] Nazarov, Y. V. & Blanter, Y. M. Quantum Transport: Introduction to Nanoscience (Cambridge University Press, Cambridge, 2009). https://doi.org/10.1017/CBO9780511626906 
+
+[8] Jacoboni, C. Theory of Electron Transport in Semiconductors: A Pathway from Elementary Physics to Nonequilibrium Green Functions (Springer, Berlin, Heidelberg, 2010). https://doi.org/10.100 7/978-3-642-10586-9 
+
+[9] Datta, S. Electronic Transport in Mesoscopic Systems (Cambridge University Press, Cambridge, 1995). https://doi.org/10.1017/CBO9780511805776 
+
+[10] Manzano, D. A short introduction to the Lindblad Master Equation. AIP Adv. 10 , 025106 (2020). 
+
+https://doi.org/10.1063/1.5115323 
+
+[11] Diniz, G., Quintino, S. & Fran¸ ca, V. V. Transport in Single Quantum Dots: A Review from Linear Response to Nonlinear Regimes. Braz. J. Phys. 56 , 27 (2026). https://doi.org/10.1007/s13538 -025-01953-0 
+
+[12] Dorligjav, U., Seo, M. & Lee, E. Theoretical analysis and high-performance implementation of low-rank approximations in NEGF-based quantum transport. Commun. Nonlinear Sci. Numer. Simul. 
+
+152 , 109265 (2026). https://doi.org/10.1016/j.cnsns.2025.109265 
+
+[13] Bonnes, L. & L¨ auchli, A. M. Superoperators vs. Trajectories for Matrix Product State Simulations of Open Quantum System: A Case Study. Preprint at https://arxiv.org/abs/1411.4831 (2014). [14] Weimer, H., Kshetrimayum, A. & Or´ us, R. Simulation methods for open quantum many-body systems. Rev. Mod. Phys. 93 , 015008 (2021). https://doi.org/10.1103/RevModPhys.93.015008 
+
+[15] Ryndyk, D. A., Guti´ errez, R., Song, B. & Cuniberti, G. Green function techniques in the treatment of quantum transport at the molecular scale. In Energy Transfer Dynamics in Biomaterial Systems 
+
+(eds. Burghardt, I., May, V., Micha, D. A. & Bittner, E. R.) 213–335 (Springer, Berlin, Heidelberg, 2009). https://doi.org/10.1007/978-3-642-02306-4_9 
+
+[16] Sander, A. et al. Large-scale stochastic simulation of open quantum systems. Nat. Commun. 16 ,11074 (2025). https://doi.org/10.1038/s41467-025-66846-x 
+
+[17] Mølmer, K., Castin, Y. & Dalibard, J. Monte Carlo wave-function method in quantum optics. J. Opt. Soc. Am. B 10 , 524–538 (1993). https://doi.org/10.1364/JOSAB.10.000524 
+
+[18] Daley, A. J. Quantum trajectories and open many-body quantum systems. Adv. Phys. 63 , 77–149 (2014). https://doi.org/10.1080/00018732.2014.933502 
+
+[19] Schollw¨ ock, U. The density-matrix renormalization group in the age of matrix product states. Ann. Phys. 326 , 96–192 (2011). https://doi.org/10.1016/j.aop.2010.09.012 
+
+[20] Or´ us, R. Tensor networks for complex quantum systems. Nat. Rev. Phys. 1, 538–550 (2019). https: //doi.org/10.1038/s42254-019-0086-7 
+
+[21] Paeckel, S. et al. Time-evolution methods for matrix-product states. Ann. Phys. 411 , 167998 (2019). 
+
+https://doi.org/10.1016/j.aop.2019.167998 
+
+[22] Kirˇ sanskas, G., Pedersen, J. N., Karlstr¨ om, O., Leijnse, M. & Wacker, A. QmeQ 1.0: An open-source Python package for calculations of transport through quantum dot devices. Comput. Phys. Commun. 
+
+221 , 317–342 (2017). https://doi.org/10.1016/j.cpc.2017.07.024 
+
+[23] Prosen, T. & ˇZnidariˇ c, M. Diffusive high-temperature transport in the one-dimensional Hubbard model. Phys. Rev. B 86 . 125118 (2012). https://doi.org/10.1103/PhysRevB.86.125118 
+
+11 [24] Rams, M. M. & Zwolak, M. Breaking the Entanglement Barrier: Tensor Network Simulation of Quantum Transport. Phys. Rev. Lett. 124 , 137701 (2020). https://doi.org/10.1103/PhysRevLet t.124.137701 
+
+[25] Schwarz, F., Goldstein, M., Dorda, A., Arrigoni, E., Weichselbaum, A. & von Delft, J. Lindblad-driven discretized leads for nonequilibrium steady-state transport in quantum impurity models: Recovering the continuum limit. Phys. Rev. B 94 , 155142 (2016). https://doi.org/10.1103/Ph ysRevB.94.155142 
+
+[26] Lotem, M., Weichselbaum, A., von Delft, J. & Goldstein, M. Renormalized Lindblad Driving: ANumerically-Exact Nonequilibrium Quantum Impurity Solver. Phys. Rev. Res. 2. 043052 (2020). 
+
+https://doi.org/10.1103/PhysRevResearch.2.043052 
+
+[27] Chen, R., Xu, X. & Guo, C. Grassmann time-evolving matrix product operators for quantum impu-rity models. Phys. Rev. B 109 . 045140 (2024). https://doi.org/10.1103/PhysRevB.109.045140 
+
+[28] Thoenniss, J., Sonner, M., Lerose, A. & Abanin, D. A. Efficient method for quantum impurity problems out of equilibrium. Phys. Rev. B 107 . L201115 (2023). https://doi.org/10.1103/Phys RevB.107.L201115 
+
+[29] Cattaneo, M., Giorgi, G. L., Maniscalco, S. & Zambrini, R. Local vs global master equation with common and separate baths: superiority of the global approach in partial secular approximation. 
+
+New J. Phys. 21 , 113045 (2019). https://doi.org/10.1088/1367-2630/ab54ac 
+
+[30] Haegeman, J., Lubich, C., Oseledets, I., Vandereycken, B. & Verstraete, F. Unifying time evolution and optimization with matrix product states. Phys. Rev. B 94 , 165116 (2016). https://doi.org/ 10.1103/PhysRevB.94.165116 
+
+[31] Haegeman, J. et al. Time-Dependent Variational Principle for Quantum Lattices. Phys. Rev. Lett. 
+
+107 , 070601 (2011). https://doi.org/10.1103/PhysRevLett.107.070601 
+
+[32] Campaioli, F., Cole, J. H. & Hapuarachchi, H. Quantum Master Equations: Tips and Tricks for Quantum Optics, Quantum Computing, and Beyond. PRX Quantum 5, 020202 (2024). https: //doi.org/10.1103/PRXQuantum.5.020202 
+
+[33] Benenti, G., Casati, G., Prosen, T., Rossini, D. & Znidaric, M. Charge and spin transport in strongly correlated one-dimensional quantum systems driven far from equilibrium. Phys. Rev. B 80 , 035110 (2009). https://doi.org/10.1103/PhysRevB.80.035110 
+
+[34] Landi, G. T., Kewming, M. J., Mitchison, M. T. & Potts, P. P. Current Fluctuations in Open Quan-tum Systems: Bridging the Gap Between Quantum Continuous Measurements and Full Counting Statistics. PRX Quantum 5, 020201 (2024). https://doi.org/10.1103/PRXQuantum.5.020201 
+
+12 Supplementary Information 
+
+## Matrix-product states 
+
+Matrix-product states (MPS) provide an efficient representation of many-body wavefunctions with limited entanglement. In this work, the system wavefunction is represented as an MPS and the Hamiltonian as a matrix-product operator (MPO). The TDVP algorithm is then used to evolve the MPS in time within a variational manifold of fixed bond dimension. 
+
+## Time–Dependent Variational Principle (TDVP) 
+
+For the unitary part of the evolution, described by the operator U[δt ], the tensor jump method evolves the tensor network (MPS) using the time-dependent variational principle (TDVP) for matrix product states. TDVP approximates the time-dependent Schr¨ odinger equation by projecting the evolution vector −iH |Ψ⟩
+
+onto the tangent space of the MPS manifold at |Ψ⟩ before carrying out the time evolution [21, 30, 31]. More specifically, a dynamic TDVP scheme is employed that combines one-site TDVP (1TDVP) and two-site TDVP (2TDVP). In 1TDVP, the tangent space projector acts on a single MPS tensor Ml at a time. The bond dimensions are kept fixed, and the method yields a strictly unitary evolution within the MPS manifold. The update of the site tensor Ml and the bond matrix Cl is given by 
+
+Ml(t + δt ) = e−iH eff   
+
+> lδt
+
+Ml(t), (S1) 
+
+Cl(t + δt ) = e+i ˜Heff   
+
+> lδt
+
+Cl(t), (S2) where Heff  
+
+> l
+
+denotes the effective local Hamiltonian obtained from the TDVP projection. In the two-site TDVP formulation (2TDVP) we instead evolve a pair of neighboring tensors. This requires contracting the site and bond tensors on sites l and l + 1 into a two-site tensor Nl,l +1 , applying the local time evolution operator, and then splitting the updated tensor again via a single singular-value decomposition (SVD). Schematically, 
+
+N ′ 
+
+> l,l +1
+
+= e−iH eff  
+
+> l,l +1 δt
+
+Nl,l +1 SVD 
+
+−−−→ M ′ 
+
+> l
+
+C′ 
+
+> l
+
+M ′
+
+> l+1
+
+, (S3) where singular values smaller than a truncation threshold εSVD are discarded. In this way the bond dimension on link l can grow adaptively in order to control the truncation error. The dynamic TDVP strategy starts from 2TDVP and allows the bond dimensions to increase up to a prescribed maximum χmax . Once all bonds reach χmax , we switch to 1TDVP and keep the bond dimensions fixed for the remainder of the simulation, which limits the computational cost while still capturing the initial growth of entanglement. 
+
+## Numerical Master Equation Solver 
+
+The dynamics of an open quantum system governed by a Lindblad master equation are generated by the Liouvillian (or Lindbladian) superoperator L acting on the density matrix: 
+
+∂∂t ρ(t) = L[ρ(t)] . (S4) For a time-independent L, the formal solution is 
+
+ρ(t) = eLtρ(0) . (S5) In the simplest case, the Liouvillian can be decomposed as 
+
+L[ρ] = − i
+
+ℏ [HS , ρ ] + D[ρ], (S6) where HS denotes the system Hamiltonian and D collects the dissipative contributions. For Markovian open quantum systems, D is typically written in Gorini–Kossakowski–Sudarshan–Lindblad (GKSL) form (also referred to as the Lindblad master equation) [32]: 
+
+L[ρ] = − i
+
+ℏ [HS , ρ ]+
+
+> k
+
+X
+
+> m=1
+
+γm
+
+
+
+LmρL † 
+
+> m
+
+− 12 {L†
+
+> m
+
+Lm, ρ }
+
+
+
+.
+
+(S7) 1The first term, − i 
+
+> ℏ
+
+[HS , ρ ], describes the unitary component of the dynamics. Throughout this work, we set ℏ = 1. The second term captures the non-unitary evolution induced by the environment, where Lm
+
+are jump (Lindblad) operators and γm are the corresponding dissipation rates. The operators Lm need not be Hermitian and encode the different environmental noise channels acting on the system. For numerical solution, deterministic approaches to the Lindblad master equation (S7) are commonly formulated in Liouville space, where the density matrix is vectorized and the Liouvillian acts as a linear operator. For a system of N quantum dots with local dimension d, the Hilbert-space dimension is 
+
+D = dN , such that the density matrix has D2 elements and the Liouvillian acts on a D2-dimensional operator space. This exponential scaling ( ∝ d2N ) limits direct simulation of non-unitary dynamics to small systems [10]. Although explicit storage of the Liouvillian would require up to O(D4) entries in the dense case, practical implementations typically exploit locality and sparsity and apply L without constructing it explicitly. As a reference implementation of this class of solvers, we use QmeQ [22], an open-source Python package for transport calculations in quantum-dot systems based on several approximate master-equation approaches, including the Pauli, first-order Redfield, first- and second-order von Neumann, and Lindblad formalisms. Because QmeQ operates in the full many-body Fock space of the central region, its com-putational cost also scales exponentially with the number of dots, restricting its use to relatively small systems. We therefore benchmark our results against QmeQ in parameter regimes where its underlying approximations are valid. 
+
+## Quantum Trajectories Method 
+
+The quantum trajectories (Monte Carlo wave-function, MCWF) method is an alternative to the deter-ministic density-matrix approach, which which represents the open-system dynamics by an ensemble of stochastic pure-state realizations {| ψi(t)⟩} . Ensemble averages over trajectories reproduce the solution of the Lindblad master equation [16, 17, 19, 32, 33, 34]. Given the system Hamiltonian HS and jump operators {Lm} with rates {γm} as in Eq. (S7), the no-jump evolution is generated by the non-Hermitian effective Hamiltonian 
+
+Heff = HS − i
+
+2
+
+> k
+
+X
+
+> m=1
+
+γmL†
+
+> m
+
+Lm. (S8) Between quantum jumps, a trajectory is propagated for a time step δt as 
+
+| ˜ψ(t + δt )⟩ = e−iH eff δt |ψ(t)⟩, (S9) where | ˜ψ⟩ is generally unnormalized. The norm loss determines the total jump probability, 
+
+δp (t) = 1 − ⟨ ˜ψ(t + δt )| ˜ψ(t + δt )⟩ ≃ 
+
+> k
+
+X
+
+> m=1
+
+δp m(t), (S10) with channel-resolved probabilities (for δt sufficiently small such that δp ≪ 1) 
+
+δp m(t) = γm⟨ψ(t)|L†
+
+> m
+
+Lm|ψ(t)⟩ δt. (S11) To sample the stochastic evolution, a random number ϵ ∈ [0 , 1) is chosen. If ϵ < δp (t), a jump occurs; the channel m is selected with probability δp m(t)/δp (t) and the state is updated according to 
+
+|ψ(t + δt )⟩ = Lm|ψ(t)⟩
+
+q
+
+⟨ψ(t)|L†
+
+> m
+
+Lm|ψ(t)⟩
+
+. (S12) Otherwise no jump occurs and the state is renormalized, 
+
+|ψ(t + δt )⟩ = | ˜ψ(t + δt )⟩
+
+p1 − δp (t) . (S13) Observables are estimated by averaging expectation values over Ntraj independent trajectories, 
+
+⟨A⟩(t) ≈ 1
+
+Ntraj 
+
+> Ntraj
+
+X
+
+> i=1
+
+⟨ψi(t)|A|ψi(t)⟩, (S14) 2with statistical uncertainty decreasing as N −1/2traj .This kind of approach avoids explicit density-matrix propagation and reduces the memory footprint from O(D2) to O(D) per realization, where D = dN is the many-body Hilbert-space dimension for N
+
+sites of local dimension d (e.g., D = 2 N for N qubits). The computational cost per trajectory nevertheless remains exponential in N , and overall runtime additionally depends on the number of trajectories required for convergence. 
+
+## Additional benchmark parameter sweeps 0.10           
+
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> Current ( I)
+> Method
+> QmeQ TJM
+> QD count
+> 1-QD 4-QD
+> −1.0−0.8−0.6−0.4−0.20.00.20.40.60.81.0
+
+ε
+
+> 0.016
+> 0.024
+> 0.032
+> 0.040
+> Error
+> Figure S1: Current comparison between TJM and QmeQ for sweeps in onsite energy.
+
+30.150 
+
+0.175 
+
+0.200 
+
+0.225 
+
+0.250 
+
+0.275 
+
+0.300 
+
+> Current ( I)
+
+Method 
+
+> QmeQ TJM
+
+QD count 
+
+> 1-QD 4-QD
+
+10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+
+U
+
+0.016 
+
+0.020 
+
+0.024 
+
+0.028 
+
+> Error
+
+Figure S2: Current comparison between TJM and QmeQ for sweeps in coulomb blockade. 0.00 
+
+0.05 
+
+0.10 
+
+0.15 
+
+0.20 
+
+0.25 
+
+0.30 
+
+> Current ( I)
+
+Method 
+
+> QmeQ TJM
+
+QD count 
+
+> 1-QD 4-QD
+
+1 2 3 4 5 6 7 8 9 10 
+
+T
+
+0.00 
+
+0.01 
+
+0.02 
+
+0.03 
+
+> Error
+
+Figure S3: Current comparison between TJM and QmeQ for sweeps in temperature. 
+
+4Trajectory convergence 0 200 400 600 800 1000 
+
+Time 
+
+0.000 
+
+0.002 
+
+0.004 
+
+0.006 
+
+0.008 
+
+0.010 
+
+0.012 
+
+0.014 
+
+> I500 (t) − I1000 (t)
+> 5-Dots
+
+0 200 400 600 800 1000 
+
+Time 
+
+0.000 
+
+0.002 
+
+0.004 
+
+0.006 
+
+0.008 
+
+0.010 
+
+0.012 
+
+> I500 (t) − I1000 (t)
+> 10-Dots
+
+Figure S4: Difference between current traces obtained with 500 and 1000 trajectories for representative 5-dot and 10-dot systems. The late-time deviation remains below 10 −3.
+
+## Bond-dimension convergence 0.0 0.2 0.4 0.6 0.8 1.0
+
+Γ
+
+0.00 
+
+0.05 
+
+0.10 
+
+0.15 
+
+0.20 
+
+0.25 
+
+0.30         
+
+> Current(I)
+> χ=10
+> χ=20
+> χ=40
+> χ=60
+
+0.0 0.2 0.4 0.6 0.8 1.0
+
+Γ
+
+0.000 
+
+0.025 
+
+0.050 
+
+0.075 
+
+0.100 
+
+0.125 
+
+0.150 
+
+0.175         
+
+> Current(I)
+> χ=10
+> χ=20
+> χ=40
+> χ=60
+
+Figure S5: Current traces for different maximum bond dimensions. Current I versus Γ computed with the TJM for 
+
+χmax ∈ { 10 , 20 , 40 , 60 }, for systems containing one quantum dot (left) and four quantum dots (right). Black crosses show the corresponding QmeQ values. Only minor variation is observed across the tested χmax values. 
+
+5Timestep convergence 
+
+a0.0 0.2 0.4 0.6 0.8 1.0
+
+Γ     
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> Current  (I)
+> dt = 0.05 dt = 0.1 dt = 0.2 dt = 0.5
+> 0.00.20.40.60.81.0
+
+Γ
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> |IQmeQ  − ITJM |
+
+b0.0 0.2 0.4 0.6 0.8 1.0
+
+Γ     
+
+> 0.000
+> 0.025
+> 0.050
+> 0.075
+> 0.100
+> 0.125
+> 0.150
+> 0.175
+> Current (I)
+> dt = 0.05 dt = 0.1 dt = 0.2 dt = 0.5
+> 0.00.20.40.60.81.0
+
+Γ
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+> 0.025
+> 0.030
+> 0.035
+> |IQmeQ  − ITJM |
+
+Figure S6: (a) Current I as a function of Γ for a single quantum dot, computed using TDVP timesteps δt = 0 .05 , 0.1, 0.2, 0.5, together with the corresponding QmeQ results (black crosses). The right-hand panel shows the absolute deviation |IQmeQ −
+
+ITJM |. Smaller timesteps generally yield closer agreement with QmeQ. (b) The same quantities for a four-dot array. In this case, the largest tested timestep, δt = 0 .5, shows closer agreement over part of the parameter range, although all timesteps converge to nearly the same current at Γ = 1. Overall, the timestep dependence is weaker for four quantum dots than for a single quantum dot. 
+
+6
