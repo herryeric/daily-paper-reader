@@ -6,88 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-15
-- 运行时间：2026-04-15 20:25:53 UTC
+- 最新运行日期：2026-04-16
+- 运行时间：2026-04-16 20:46:16 UTC
 - 运行状态：成功
-- 本次总论文数：22
-- 精读区：11
+- 本次总论文数：17
+- 精读区：6
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 22 篇前沿成果，深度解析重锕系元素的多体物理与新型超导体的拓扑能带结构。
-重点揭示了压力下重锕系元素的轨道选择性关联，以及 CsBi2 超导体中独特的拓扑平带与鞍点特征。
-建议关注超导二极管在可编程电路中的应用，并探索强关联体系中量子几何的最新理论框架。
-- 详情：[/202604/15/README](/202604/15/README)
+今日聚焦超导前沿，深度解析了镍基超导体能带调控与二维范霍夫奇异点下的超导机制。
+重点推荐关于镍基超导能带填充控制的满分研究，以及利用量子蒙特卡罗模拟揭示的关联电子态新发现。
+建议优先研读镍基材料的结构调控策略，这是把握当前高温超导实验突破的关键路径。
+- 详情：[/202604/16/README](/202604/16/README)
 
 ### 精读区论文标签
-1. [Orbital-selective correlations and angular momentum coupling in heavy actinides Am, Cm, Bk, and Cf under pressure: A many-body perspective](/202604/15/2604.12249v1-orbital-selective-correlations-and-angular-momentum-coupling-in-heavy-actinides-am-cm-bk-and-cf-under-pressure-a-many-body-perspective)  
+1. [Controlling the Band Filling and the Band Width in Nickelate Superconductors](/202604/16/2604.13875v1-controlling-the-band-filling-and-the-band-width-in-nickelate-superconductors)  
    标签：评分：10.0/10、query:cmp
-   evidence：强关联锕系元素系统中的非费米液体行为
-2. [Type-I and Type-II Saddle Points and a Topological Flat Band in a Bi-Pyrochlore Superconductor CsBi2](/202604/15/2604.07805v2-type-i-and-type-ii-saddle-points-and-a-topological-flat-band-in-a-bi-pyrochlore-superconductor-csbi2)  
+   evidence：高温超导镍氧化物中的非常规配对机制
+2. [Superconductivity near two-dimensional Van Hove singularities: a determinant quantum Monte Carlo study](/202604/16/2604.13161v1-superconductivity-near-two-dimensional-van-hove-singularities-a-determinant-quantum-monte-carlo-study)  
    标签：评分：9.0/10、query:cmp
-   evidence：铋烧绿石超导体中的拓扑平带
-3. [Type-II superconductivity in the Dirac semimetal PdTe2](/202604/15/2604.11047v1-type-ii-superconductivity-in-the-dirac-semimetal-pdte2)  
+   evidence：范霍夫奇异点附近的超导转变温度
+3. [Anomalous Low-temperature Magnetotransport in Kagome Metal CsCr$_3$Sb$_5$ under Pressure](/202604/16/2604.13553v1-anomalous-low-temperature-magnetotransport-in-kagome-metal-cscr3sb5-under-pressure)  
    标签：评分：9.0/10、query:cmp
-   evidence：狄拉克半金属 PdTe2 的微观超导性质
-4. [Emergence of the unexpected charge-density-wave phase driven by artificial gauge field in three-leg Bose-Hubbard ladder](/202604/15/2604.11169v1-emergence-of-the-unexpected-charge-density-wave-phase-driven-by-artificial-gauge-field-in-three-leg-bose-hubbard-ladder)  
+   evidence：笼目金属中的超导性与强关联
+4. [Strong Correlation Drives Zero-Field Josephson Diode Effect](/202604/16/2604.14045v1-strong-correlation-drives-zero-field-josephson-diode-effect)  
    标签：评分：9.0/10、query:cmp
-   evidence：Bose-Hubbard梯子中的超流与绝缘相
-5. [Statistical Signatures of Majorana Zero Modes in Disordered Topological Superconductor Antidot Vortices](/202604/15/2604.11692v1-statistical-signatures-of-majorana-zero-modes-in-disordered-topological-superconductor-antidot-vortices)  
+   evidence：强关联驱动的零磁场约瑟夫森二极管效应
+5. [Topological anisotropic non-Fermi liquid from a Berry-dipole semimetal](/202604/16/2604.14146v1-topological-anisotropic-non-fermi-liquid-from-a-berry-dipole-semimetal)  
    标签：评分：9.0/10、query:cmp
-   evidence：拓扑超导体中马约拉纳模的理论
-6. [Raman response in superconducting multiorbital systems with application to nickelates](/202604/15/2604.11997v1-raman-response-in-superconducting-multiorbital-systems-with-application-to-nickelates)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究高临界温度镍氧化物的超导机制
-7. [Phase-space origin of superfluid stability in ring Bose-Einstein condensates](/202604/15/2604.12030v1-phase-space-origin-of-superfluid-stability-in-ring-bose-einstein-condensates)  
-   标签：评分：9.0/10、query:cmp
-   evidence：玻色-爱因斯坦凝聚中超流稳定性和朗道判据的动力学描述
-8. [Charge-4e/6e superconductivity and chiral metal from 3D chiral superconductor](/202604/15/2604.12328v1-charge-4e6e-superconductivity-and-chiral-metal-from-3d-chiral-superconductor)  
-   标签：评分：9.0/10、query:cmp
-   evidence：4e/6e电荷超导与手性金属相
-9. [Kinetic instability and superconductivity in Li$_2$AuH$_6$ and Li$_2$AgH$_6$ at ambient pressure](/202604/15/2604.12367v1-kinetic-instability-and-superconductivity-in-li2auh6-and-li2agh6-at-ambient-pressure)  
-   标签：评分：9.0/10、query:cmp
-   evidence：高温超导体的动力学稳定性
-10. [Chiral electron-fluxon superconductivity in circuit quantum magnetostatics](/202604/15/2604.12544v1-chiral-electron-fluxon-superconductivity-in-circuit-quantum-magnetostatics)  
-   标签：评分：9.0/10、query:cmp
-   evidence：真空涨落介导的手性超导性
-11. [Surface-induced vortex core restructuring in a spin-triplet superfluid](/202604/15/2604.12682v1-surface-induced-vortex-core-restructuring-in-a-spin-triplet-superfluid)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究自旋三重态超流体He-3中的量子化涡旋核结构
+   evidence：拓扑量子临界点附近出现的空间各向异性非费米液体
+6. [Sensitive dependence of Poor Man's Majorana modes on the length of superconductor](/202604/16/2604.12950v1-sensitive-dependence-of-poor-mans-majorana-modes-on-the-length-of-superconductor)  
+   标签：评分：8.0/10、query:cmp
+   evidence：量子点-超导体混合系统中的马约拉纳模式
 
 ### 速读区论文标签
-1. [Reduced pair breaking from extended disorder in unconventional superconductors: implications to 4Hb-TaS$_2$](/202604/15/2604.11738v1-reduced-pair-breaking-from-extended-disorder-in-unconventional-superconductors-implications-to-4hb-tas2)  
+1. [Nonequilibrium crossover in the supercritical region from quench dynamics](/202604/16/2604.13104v1-nonequilibrium-crossover-in-the-supercritical-region-from-quench-dynamics)  
    标签：评分：8.0/10、query:cmp
-   evidence：过渡金属硫族化合物中的非常规超导与对破碎
-2. [Quantum Geometry, Fractionalization, and Provability Hierarchy: A Unified Framework for Strongly Correlated Systems](/202604/15/2604.12101v1-quantum-geometry-fractionalization-and-provability-hierarchy-a-unified-framework-for-strongly-correlated-systems)  
+   evidence：全息超流模型与非平衡动力学
+2. [Optimal Majoranas in Mesoscopic Kitaev Chains](/202604/16/2604.13945v1-optimal-majoranas-in-mesoscopic-kitaev-chains)  
    标签：评分：8.0/10、query:cmp
-   evidence：强关联系统及莫特临界点附近的标度律
-3. [Nanoscale electrothermal-switch superconducting diode for electrically programmable superconducting circuits](/202604/15/2604.12313v1-nanoscale-electrothermal-switch-superconducting-diode-for-electrically-programmable-superconducting-circuits)  
+   evidence：通过超导段耦合的量子点中的马约拉纳零能模
+3. [Continuous correlated states and dual-flatness in a moiré heterostructure](/202604/16/2604.13958v1-continuous-correlated-states-and-dual-flatness-in-a-moir-heterostructure)  
    标签：评分：8.0/10、query:cmp
-   evidence：用于可编程电路的超导二极管
-4. [Robust realization of spin-polarized specular Andreev reflection in V$_2$O-based altermagnets](/202604/15/2604.12695v1-robust-realization-of-spin-polarized-specular-andreev-reflection-in-v2o-based-altermagnets)  
+   evidence：莫尔异质结中的关联态
+4. [Crystal structure effects on vortex dynamics in superconducting MgB$_2$ thin films](/202604/16/2604.14022v1-crystal-structure-effects-on-vortex-dynamics-in-superconducting-mgb2-thin-films)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导体-交错磁体接点中的安德烈耶夫反射
-5. [Josephson coupling through a magnetic racetrack](/202604/15/2604.12742v1-josephson-coupling-through-a-magnetic-racetrack)  
+   evidence：超导MgB2中的涡旋动力学与电阻转变
+5. [Hole and spin dynamics in an anti-ferromagnet close to half filling](/202604/16/2604.14039v1-hole-and-spin-dynamics-in-an-anti-ferromagnet-close-to-half-filling)  
    标签：评分：8.0/10、query:cmp
-   evidence：通过畴壁控制约瑟夫森耦合与超电流
-6. [Self-doped Crystal from Preempted Band-inversion Transitions](/202604/15/2604.09820v1-self-doped-crystal-from-preempted-band-inversion-transitions)  
+   evidence：强关联费米-哈伯德模型中的电荷与自旋动力学
+6. [Nonmonotonic Scaling of the Anomalous Hall Effect in a Bicollinear Antiferromagnet](/202604/16/2604.12636v1-nonmonotonic-scaling-of-the-anomalous-hall-effect-in-a-bicollinear-antiferromagnet)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联系统及石墨烯中的维格纳晶体
-7. [Localization with Hopping Disorder in Quasi-periodic Synthetic Momentum Lattice](/202604/15/2604.11855v1-localization-with-hopping-disorder-in-quasi-periodic-synthetic-momentum-lattice)  
+   evidence：FeTe中的近藤相互作用和强能带重整化
+7. [Unconventional entanglement scaling and quantum criticality in the long-range spin-one Heisenberg chain with single-ion anisotropy](/202604/16/2604.12754v1-unconventional-entanglement-scaling-and-quantum-criticality-in-the-long-range-spin-one-heisenberg-chain-with-single-ion-anisotropy)  
    标签：评分：7.0/10、query:cmp
-   evidence：玻色-爱因斯坦凝聚及晶格中的量子相变
-8. [Effective Dynamics for the Bose Polaron in the Large-Volume Mean-Field Limit](/202604/15/2604.11976v1-effective-dynamics-for-the-bose-polaron-in-the-large-volume-mean-field-limit)  
+   evidence：长程海森堡链中的量子临界性与对称性破缺
+8. [Measuring quasiparticle dynamics for particle impact reconstruction in a superconducting qubit chip](/202604/16/2604.13176v1-measuring-quasiparticle-dynamics-for-particle-impact-reconstruction-in-a-superconducting-qubit-chip)  
    标签：评分：7.0/10、query:cmp
-   evidence：稠密量子气体中玻色极化子的动力学
-9. [Tensor-network simulation of quantum transport in many-quantum-dot systems](/202604/15/2604.06944v1-tensor-network-simulation-of-quantum-transport-in-many-quantum-dot-systems)  
+   evidence：超导量子比特芯片中的准粒子动力学
+9. [Programmable Fermionic Quantum Processors with Globally Controlled Lattices](/202604/16/2604.13160v1-programmable-fermionic-quantum-processors-with-globally-controlled-lattices)  
    标签：评分：6.0/10、query:cmp
-   evidence：关联纳米系统中的量子输运
-10. [Spherical-tensor description of the Jahn--Teller--Hubbard molecule and local electron--phonon entanglement](/202604/15/2604.12203v1-spherical-tensor-description-of-the-jahn--teller--hubbard-molecule-and-local-electron--phonon-entanglement)  
+   evidence：用于费米-哈伯德模型的费米子量子处理器
+10. [Extreme Terahertz Nonlinear Phononics by Coherence-Imprinted Control of Hybrid Order](/202604/16/2604.13429v1-extreme-terahertz-nonlinear-phononics-by-coherence-imprinted-control-of-hybrid-order)  
    标签：评分：6.0/10、query:cmp
-   evidence：莫特绝缘相与电子-声子纠缠
-11. [Finite temperature correlation functions of the sine--Gordon model](/202604/15/2604.12585v1-finite-temperature-correlation-functions-of-the-sine--gordon-model)  
+   evidence：量子材料的相干控制与涌现态
+11. [Spin-mediated hysteretic switching of unidirectional charge density waves by rotating magnetic fields](/202604/16/2604.14002v1-spin-mediated-hysteretic-switching-of-unidirectional-charge-density-waves-by-rotating-magnetic-fields)  
    标签：评分：6.0/10、query:cmp
-   evidence：正弦-戈登模型在凝聚态物理中的应用
+   evidence：磁性Kagome金属中的电荷密度波
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,1543 @@
+Title: Superconductivity near two-dimensional Van Hove singularities: a determinant quantum Monte Carlo study
+
+URL Source: https://arxiv.org/pdf/2604.13161v1
+
+Published Time: Thu, 16 Apr 2026 00:04:10 GMT
+
+Number of Pages: 17
+
+Markdown Content:
+# Superconductivity near two-dimensional Van Hove singularities: a determinant quantum Monte Carlo study 
+
+Gustav Romare, 1 Daniel Shaffer, 1 Alex Levchenko, 1 Edwin Huang, 2 and Ilya Esterlis 1
+
+> 1
+
+Department of Physics, University of Wisconsin-Madison, Madison, Wisconsin 53706, USA 
+
+> 2
+
+Department of Physics and Astronomy, University of Notre Dame, Notre Dame, Indiana 46556, USA 
+
+(Dated: April 16, 2026) The superconducting transition temperature Tc of the two-dimensional attractive Hubbard model is computed in the vicinity of both ordinary (logarithmic) and higher-order (power-law) Van Hove singularities using determinant quantum Monte Carlo simulations. For interaction strengths |U | ≲
+
+W/ 3, where W is the electronic bandwidth, Tc is enhanced in the neighborhood of the Van Hove point, albeit more weakly than expected from weak-coupling BCS theory. Enhancing the Van Hove singularity from logarithmic to power-law yields only a minor additional enhancement of Tc. For 
+
+|U | ≳ W/ 3, the maximum Tc shifts away from the Van Hove point and instead occurs at a density unrelated to any features in the non-interacting density of states, consistent with a strong-coupling interpretation. We find that the maximal Tc in the model is achieved at intermediate U and at a density away from the Van Hove point. 
+
+I. INTRODUCTION 
+
+The appearance of Van Hove singularities (VHSs) [1] in the electronic density of states (DOS) can strongly in-fluence the properties of low-dimensional metals. In two dimensions (2D), a saddle point in the electronic disper-sion ϵk generically leads to a logarithmic divergence in the DOS. Further flattening of the dispersion produces a “higher-order” VHS (HOVHS, also referred to as an ex-tended VHS in earlier literature), characterized by even stronger power-law divergences that have been observed in some experiments [2–15]. Interaction effects are ex-pected to become enhanced when the Fermi energy lies near such VHSs (both ordinary and higher-order), in-creasing the propensity toward ordering. Indeed, the po-tential to engineer higher-Tc superconductors by tuning the Fermi level to a VHS has attracted sustained interest over several decades [11, 16–21]. For weak electron-electron attraction, BCS calcula-tions predict that the divergent DOS at a VHS leads to a strong enhancement of the superconducting Tc. At an or-dinary VHS, the usual BCS transition temperature Tc ∼
+
+Λ exp( −1/λ ) is enhanced to Tc ∼ Λ exp( −1/√λ), where 
+
+λ is an appropriate dimensionless coupling strength and Λ is a high-energy cutoff on the interaction [16]. At a HOVHS with DOS divergence ∼ | ϵ|−1/4, the BCS tran-sition temperature goes as a power law, Tc ∼ λ4.While there is little doubt that proximity to VHSs is an effective way of increasing the Tc of weakly-coupled, “low-Tc” superconductors, an important question is the extent to which DOS singularities remain similarly im-portant away from weak coupling, where finite quasipar-ticle lifetimes smear the VHS and the pairing vertex is renormalized by interactions. Of course, for sufficiently strong interactions, of the order of the electronic band-width, strong-coupling effects will wash out any details of the Fermi surface entirely. This question is especially important in analyzing the role of VHSs for superconduc-tivity in many experimental systems of current interest, such as strontium ruthenate Sr 2RuO 4 [22–24], CeRh 2As 2
+
+[25], Ti 4Ir 2O [26], kagome superconductors [10, 27–29], perovskites [30], 3D nickelates [31], and van der Waals materials [32–37]. More generally, the effectiveness of VHSs is important for understanding what system pa-rameters should be optimized to achieve higher-Tc 2D superconductivity, which inevitably requires going away from weak coupling. There is a significant body of theoretical literature ad-dressing the question of superconductivity near VHSs, via both numerical [16–18, 20] and analytical meth-ods. Most of the attention, initially motivated by the discovery of high-Tc superconductors, has focused on the repulsive Hubbard model studied using the par-quet renormalization group [19, 38–42]. Similar sce-narios with emergent effective attractive pairing inter-actions in the presence of VHSs have been explored in graphene [41] and moir´ e graphene systems [43–46], as well as in systems with topologically non-trivial Chern bands [47, 48], rhombohedral graphene [49], and alter-magnets [50, 51]. More recently, the possibility of HOV-HSs in the DOS as a way to achieve yet higher transition temperatures has also been actively investigated theoret-ically [11, 13, 52, 53], including in moir´ e transition metal dichalcogenides [54], the Haldane model [55], Bernal bi-layer graphene [56], and cuprates [57]. Although early works noted the reduced effectiveness of the ordinary VHS [16, 17] and HOVHS [18] mechanisms for enhancing 
+
+Tc with increasing coupling, the relevance of the VHS sce-nario beyond weak-coupling remains largely unexplored, even in models with explicitly attractive interactions. In the present paper, we address the question of super-conductivity near both ordinary and higher-order VHSs away from weak coupling, using numerically exact deter-minant quantum Monte Carlo (DQMC) simulations of the 2D attractive Hubbard model. While the 2D attrac-tive Hubbard model is not a realistic model for any real 2D or quasi-2D material, it has the virtue that, generi-cally, there are no competing instabilities to s-wave su-
+
+> arXiv:2604.13161v1 [cond-mat.str-el] 14 Apr 2026
+
+2perconductivity. We are thus able to isolate the effect of VHSs on superconductivity specifically, and system-atically track the evolution of Tc from weak to strong coupling. Moreover, the model is free from the notorious fermion minus-sign problem [58] for any electron density and thus can be simulated efficiently by DQMC for large system sizes and down to low temperatures, over a range of densities around the VHS. As we demonstrate below, even when the interaction strength is relatively weak (a fraction of the electronic bandwidth), the effect of VHSs in enhancing the super-conducting Tc is significantly reduced compared to expec-tations based on weak-coupling (unrenormalized) BCS theory. Nevertheless, as long as the coupling is not too large, we find that Tc as a function of electron density exhibits a well-defined maximum near the VHS density, and the evolution of Tc can be captured by direct pertur-bation theory in the interaction strength when both self-energy effects and corrections to the pairing vertex are taken into account. Beyond a critical coupling strength of order |U | ∼ W/ 3, where W is the electronic band-width, the effects of the VHS are rapidly washed out, and the position of the Tc maximum moves away from the VHS density with increasing |U |. Of course, for values of |U | ≫ W , this evolution is to be expected, as the sys-tem crosses over into the regime of preformed local pairs and Bose-Einstein condensation (BEC) [59–61], where the transition temperature decreases as Tc ∼ t2/|U | (we recall that, in the s-wave case, the evolution from BCS to BEC pairing is continuous). What is surprising, how-ever, is how sudden the crossover is from “Fermi-surface pairing” to “local pairing”. For the model parameters used (see below), we find that the maximal Tc as a func-tion of U and density n occurs at the intermediate value 
+
+U ≈ − 6t and at a density far from the VHS, not tied to any features of the non-interacting band structure. 
+
+II. MODEL AND METHODS A. Hamiltonian 
+
+We have studied the attractive Hubbard model 
+
+H = X
+
+> kσ
+
+ϵkc† 
+
+> kσ
+
+ckσ + U X
+
+> i
+
+ni↑ni↓, (1) where c† 
+
+> kσ
+
+creates an electron with lattice momentum 
+
+k and spin σ, niσ = c† 
+
+> iσ
+
+ciσ is the local electron density operator on site i, and the interaction U = −| U | < 0. We work on a 2D square lattice, and the most general form of electronic dispersion we use includes both first, second, and third neighbor hoppings, t, t′, and t′′ , respectively: 
+
+ϵk = −2t(cos kx + cos ky ) − 4t′ cos kx cos ky
+
+− 2t′′ (cos 2 kx + cos 2 ky ). (2) For t′′ = 0, the second neighbor hopping t′ is needed to move the (logarithmic) VHS away from perfect nest-ing of the Fermi surface, where the degeneracy between 2 0 2        
+
+> kx
+> 2
+> 0
+> 2
+> ky
+> (a)
+> -2.20t
+> -1.20t
+> 1.00t
+> XM
+> 4
+> 2
+> 0
+> 2
+> 4
+> 6
+> /t
+> (b)
+> 00.2 0.4
+> ( ) t
+> (c) 202
+> kx
+> 2
+> 0
+> 2
+> ky
+> (d)
+> -2.40t
+> -1.60t
+> 1.00t
+> XM
+> 4
+> 2
+> 0
+> 2
+> 4
+> 6
+> /t
+> (e)
+> 00.2 0.4
+> ( ) t
+> (f)
+
+FIG. 1. Band structure used in this study. Upper figures are for t′ = −0.3t and t′′ = 0 (ordinary VHS) and bottom figures are for t′ = −0.3t and t′′ = 0 .1t (HOVHS). (a,d) Fermi contours near the VHSs. (b,e) Dispersion along a triangular path in the Brillouin zone. (c,f) Density of states showing the position of the VHSs. Note the asymmetry of the divergence for the HOVHS. 
+
+superconductivity and charge-density wave (CDW) or-der leads to a three-component order parameter and a vanishing Tc by the Mermin-Wagner theorem 1[62]. The third-neighbor hopping t′′ is included to tune the coef-ficient of k2 
+
+> x
+
+in the expansion of (2) about the saddle-point to zero by setting t′′ = ( t + 2 t′)/4, thus yielding a HOVHS with DOS divergence ∼ | ϵ|−1/4. Note that, for the HOVHS, the DOS divergence is asymmetric, with different coefficients depending on whether the singular-ity is approached from above or below. For concreteness, we will specialize to t′ = −0.3t, t′′ = 0 for the ordinary VHS, and t′ = −0.3t, t′′ = 0 .1t for the HOVHS. The non-interacting bandwidth is W = 8 t in both cases. The corresponding band structures and DOS are summarized in Fig. 1. We analyze interaction strengths |U | ≤ 8t.
+
+B. Numerical Methods 
+
+We have utilized DQMC simulation [62–66] to study the model (1). We have studied square lattices with 
+
+N = L2 sites, up to linear system size L = 22 with peri-odic boundary conditions, down to temperatures T /t =1/βt ≈ 0.03. Finite-size effects are reduced by threading a small magnetic flux through the system [67]. For more details on the DQMC simulation see Appendix D. Quasi-long-range superconducting order sets in below the Berezinskii-Kosterlitz-Thouless (BKT) temperature  
+
+> 1We have verified that the CDW correlations remain short-ranged for all parameters considered in this study; see Appendix B.
+
+3
+
+Tc, which can be extracted from the superfluid density 
+
+ρs via the BKT criterion [68, 69] 
+
+ρs(T − 
+
+> c
+
+) = 2
+
+π Tc. (3) Here ρs(T − 
+
+> c
+
+) is the value of the superfluid density as T
+
+approaches Tc from below. The superfluid density can be obtained directly from DQMC data according to [70] 
+
+ρs = 14 [⟨Kxx ⟩ − Λxx (q → 0, iν m = 0)] , (4) where ⟨Kxx ⟩ is the expectation value of the diamagnetic term and Λ xx (q, iν m) is the current-current correlation function Λxx (q, iν m) = 1
+
+N
+
+Z β
+
+> 0
+
+dτ e iν mτ ⟨jPx (q, τ )jPx (−q, 0) ⟩, (5) with bosonic Matsubara frequency νm = 2 πmT . The diamagnetic term Kxx and the x-component of the para-magnetic current operator are 
+
+Kxx = − 1
+
+N
+
+X
+
+> lδσ
+
+tl+δ,l δ2
+
+> x
+
+(c† 
+
+> l+δ,σ
+
+clσ + h.c.) , (6) 
+
+jPx (q) = X
+
+> r
+
+e−iq·rjPx (r), (7) 
+
+jPx (rl) = i X
+
+> δσ
+
+tl+δ,l δx(c† 
+
+> l+δ,σ
+
+clσ − h.c.) , (8) where δ ∈ { (1 , 0) , (1 , 1) , (1 , −1) , (2 , 0) }, and tij is the hopping matrix with non-zero elements t, t ′, t ′′ . By nu-merically solving Eq. 3 we get finite-size estimates Tc(L)that can be used to extrapolate to the thermodynamic limit L → ∞ 2. The limit q → 0, iν m = 0 in Eq. 4 should be the transverse limit ( qx = 0 , q y → 0) [70], but for the torus one can safely set q = 0 , iν m = 0, as we ex-plain in Appendix E. The estimate for Tc obtained from the BKT criterion in this way is in good agreement with 
+
+Tc obtained from finite size scaling of the equal time pair correlation function. The pair correlation function and additional data re-garding finite-size effects are reported in Appendix C. To get an estimate for the electronic DOS in the inter-acting system we use the imaginary-time proxy [72] 
+
+ρβ ≡ − βπ G(r = 0 , τ = β/ 2) = β
+
+2π
+
+Z
+
+dω ρ(ω)cosh( βω/ 2) ,
+
+(9) where ρ(ω) = − Im GR(r = 0 , ω )/π is the local DOS ( GR
+
+is the retarded electron Green’s function) and G(r, τ >    
+
+> 2A more rigorous treatment of the size effects involves known log-arithmic finite-size corrections to ρsfor the BKT transition [71]. However, we find a linear extrapolation produces indistinguish-able results from the more rigorous scaling form [71] and we have thus chosen to use the simpler linear extrapolation.
+
+# Σ = += + I= + I
+
+# =I
+
+k
+
+−kk’ 
+
+−k’
+
+FIG. 2. Diagrams contributing to the electronic self-energy Σ and irreducible pairing vertex I through second order in the interaction U .
+
+0) = −⟨ c(r, τ )c†(0 , 0) ⟩ is the imaginary-time, real-space Green’s function directly sampled in the DQMC simu-lation. The proxy ρβ is essentially an average of the low-energy DOS over an energy window of order ∼ T ,and is expected to yield a reliable estimate as long as the DOS does not possess strong features on energy scales less than T . As an alternative DOS proxy, we have also measured the uniform static spin susceptibility. The spin susceptibility agrees qualitatively with ρβ , as we verify in Appendix G. 
+
+C. Perturbation theory 
+
+To help interpret the DQMC results in the regime of weak to intermediate coupling, we have performed per-turbative calculations of the electronic self-energy, pair susceptibility, and superconducting Tc. The standard di-mensionless coupling governing the perturbative expan-sion is U ρ 0, where ρ0 is the DOS at the Fermi level. Although this coupling is not small near a VHS, the di-mensionless parameter λ = |U |/W is still a useful mea-sure of the interaction strength at non-zero temperature. Our studied range of |U | ≤ 8t corresponds to λ ≤ 1; as described above, when |U | ≳ W , the system crosses over into the BEC regime of preformed pairs and the pertur-bative approximation fails even qualitatively. We consider the self-energy diagrams shown in Fig. 2, which give the self-energy through second order in U as Σ( k) = 12 U n − U 2TN
+
+X
+
+> k′
+
+χ0(k − k′)G0(k′). (10) We adopt the shorthand k = ( k, iω m) with fermionic Matsubara frequencies ωm = (2 m+1) πT and the sum on 
+
+k′ denotes a summation over wavevectors k′ and internal 4Matsubara frequencies ωm′ . The function χ0 is the non-interacting particle-hole susceptibility 
+
+χ0(q) = 1
+
+βN 
+
+X
+
+> k
+
+G0(k)G0(k + q), (11) where q = ( q, iν m). The perturbative self-energy is used in the equation for the pairing vertex Λ, which is expressed in terms of the irreducible vertex I as Λ( k) = 1 − 1
+
+βN 
+
+X
+
+> k′
+
+I(k, k ′)G(k′)G(−k′)Λ( k′). (12) To second-order in U , the electron Green’s function G(k)is dressed with the second-order self-energy (10), and the irreducible vertex through order U 2 is 
+
+I(k, k ′) = U − U 2χ0(k − k′). (13) The corresponding diagrams are shown in Fig. 2. In terms of the pairing vertex, the pair susceptibility is given by 
+
+Ps = 1
+
+βN 
+
+X
+
+> k
+
+G(k)G(−k)Λ( k), (14) and superconducting Tc is determined by the divergence of Ps. When T → T + 
+
+> c
+
+, Eq. (12) becomes the eigenvalue equation 
+
+− 1
+
+βN 
+
+X
+
+> k′
+
+I(k, k ′)G(k′)G(−k′)Λ( k′) = λ(T )Λ( k). (15) Within this approximation, the superconducting transi-tion occurs when the maximal eigenvalue λmax of the above equation goes to unity, λmax (Tc) = 1. Note that the standard, unrenormalized BCS approximation is ob-tained from Eq. (15) by setting G = G0 and I(k, k ′) = U .The random-phase approximation (RPA) is obtained by retaining self-energy corrections but neglecting the vertex corrections (i.e., still setting I(k, k ′) = U ), corresponding to summing the ladder series for the pair susceptibility with dressed electronic Green’s functions. We will demonstrate below that, for λ ≲ 1/4, the perturbative treatment including both self-energy and vertex corrections is in satisfactory agreement with the DQMC calculations. As noted in [16], both the self-energy and the vertex corrections are detrimental to Tc:the former leads to the smearing of the DOS and broad-ens the peak in Tc as a function of n, while the lat-ter decreases the effective interaction strength (note that 
+
+χ0 < 0, such that |I| < |U | in Eq. 13). Since the VHS also increases the magnitude of χ0 (without leading to a divergence in the regime we consider, i.e., in the absence of perfect nesting), the VHS actually exacerbates these effects. This may qualitatively explain why the Tc en-hancement becomes severely limited at already moderate interactions strengths, as we report in the next section. 0.00 
+
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> Tc/t
+
+# (a)              
+
+> L= 12
+> L= 14
+> L= 16
+> L= 18
+> L= 20
+> pert
+> L=
+> 00.15 L1
+> 0.02
+> Tc/t
+> 0.06
+> 0.0 0.2 0.4 0.6 0.8 1.0
+
+# n
+
+> 0.1
+> 0.2
+> 0.3
+> t
+
+# (b) (U = 0)                 
+
+> |U| = 1.5 t
+> FIG. 3. (a) Superconducting Tcnear an ordinary VHS at
+> U/t =−1.5 for finite system sizes, together with Tcextrapo-lated to the thermodynamic limit L→ ∞ .The inset shows the extrapolation procedure, using the VHS density as an example. Also shown is Tcobtained in second-order pertur-bation theory. (b) DOS proxy ρβas a function of density. The solid line is the non-interacting DOS.
+> III. RESULTS
+
+We now present our results, organized according to in-teraction strength. We begin in the weak-to-intermediate coupling regime, where the effects of VHSs are expected to be most pronounced, and then track the evolution to-ward intermediate and strong coupling. In Figs. 3 and 4 we show the superconducting Tc as a function of den-sity around the ordinary VHS and HOVHS, respectively, for interaction strength U = −1.5t. Insets of the figures show the extrapolation of Tc to the thermodynamic limit 
+
+L → ∞ . Data for the superfluid stiffness used to obtain 
+
+Tc(L) is provided in Appendix C. Also shown in Figs. 3b and 4b is the DOS proxy ρβ (Eq. 9) as a function of den-sity, which we use to identify the location of the VHS in the interacting system. Data for U = −2t are similar and are reported in Appendix A (see also Fig. 7). For |U | ≲ 2t, we find that Tc is maximal near the VHS density for both the ordinary and higher-order VHS, with the maximum becoming broader with increasing strength of the interaction (this can be seen most clearly in Fig. 7b). Note that the asymmetry of the HOVHS divergence leads to a shift in the Tc maximum with vary-ing U ; however, the Tc maximum continues to track the 50.00 
+
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> Tc/t
+
+# (a)              
+
+> L= 12
+> L= 14
+> L= 16
+> L= 18
+> L= 20
+> pert
+> L=
+> 00.15 L1
+> 0.03
+> Tc/t
+> 0.07
+> 0.0 0.2 0.4 0.6 0.8 1.0
+
+# n
+
+> 0.1
+> 0.2
+> 0.3
+> t
+
+# (b) (U = 0) 
+
+> |U| = 1.5 t
+
+FIG. 4. (a) Superconducting Tc near a HOVHS for U/t =
+
+−1.5 for finite system sizes, together with Tc extrapolated to the thermodynamic limit L → ∞ . The inset show the extrap-olation procedure, using the HOVHS density as an example. Also shown is Tc obtained in second-order perturbation the-ory. (b) DOS proxy ρβ as a function of density. The solid line is the non-interacting DOS. 
+
+DOS proxy. For |U | = 1 .5t, comparison of Figs. 3 and 4 shows that the enhancement of Tc upon going from the ordinary to higher-order VHS is relatively weak and the difference diminishes further as the interaction strength increases. The DQMC Tc is also compared with estimates from second-order perturbation theory (as described in Sec. II C) in Figs. 3 and 4. The agreement is satisfac-tory over much of the density range shown. We have found that this level of agreement requires the inclusion self-energy and vertex corrections, both of which tend to reduce Tc. In Appendix A we also compare the measured 
+
+Tc with BCS and RPA predictions, demonstrating how self-energy and vertex corrections contribute to both re-ducing the absolute value of Tc and broadening the max-imum around the VHS density. We have also extracted the electronic self-energy from our DQMC simulations, and compared it with that ob-tained from perturbation theory (Eq. (10)). The imagi-nary part of the self-energy is shown Figs. 5 and 6, cor-responding to the ordinary and higher-order VHS, re-spectively. Figs. 5a and 6a show the self-energy at the lowest Matsubara frequency ( ωm = πT ) as a function of k for densities both at, and away from, the VHS. As expected, the self-energy is noticeably larger at the VHS X M
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> Im  (k, = T)/  T
+
+# (a) 2nd-order pert.     
+
+> 2nd-order pert.
+> DQMC near VHS
+> DQMC away from VHS
+> 0.0 0.5 1.0 1.5 2.0
+> n
+
+/t
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> Im  FS /t
+
+# (b) 
+
+> 2nd-order pert.
+> 2nd-order pert.
+> DQMC near VHS
+> DQMC away from VHS
+
+FIG. 5. (a) Imaginary part of the electronic self-energy at lowest Matsubara frequency ωm = πT , normalized by πT ,as a function of k through a path in the Brillouin zone. (b) Imaginary part of the self-energy averaged over the Fermi surface as a function of Matsubara frequency. In panels (a) and (b) we show data for n ≈ 0.72 (at the ordinary VHS) and 
+
+n ≈ 1 (away from the VHS). Here |U | = 1 .5t and βt = 15. In both panels, DQMC results are compared with second-order perturbation theory. In panel (b), we have included the results of perturbation down to lower temperatures 15 ≤
+
+βt ≤ 90 to demonstrate that the self-energy has essentially converged to its T → 0 limit. 
+
+density. The perturbative approximation underestimates the magnitude of the self-energy near the VHS in the Bril-louin zone (the X point), but gives a good quantitative approximation away from that point. For densities away from the VHS, perturbation theory accurately captures the self-energy over the entire range of k. These obser-vations apply to both the ordinary VHS and HOHVS. In Figs. 5b and 6b, we report the Fermi surface aver-aged self-energy as a function of Matsubara frequency. The averaged quantities agree well between perturbation theory and DQMC, suggesting that, despite the under-estimate of the self-energy at the VHSs in the Brillouin zone, quantities that depend on averages over the entire Fermi surface (relevant for s-wave superconductivity) are likely to be captured reasonably well by perturbation the-6X M
+
+0.00 
+
+0.05 
+
+0.10 
+
+0.15 
+
+0.20 
+
+0.25 
+
+> Im  (k, = T)/  T
+
+# (a) 2nd-order pert. 
+
+> 2nd-order pert.
+> DQMC near VHS
+> DQMC away from VHS
+
+0.0 0.5 1.0 1.5 2.0 
+
+> n
+
+/t
+
+0.00 
+
+0.02 
+
+0.04 
+
+0.06 
+
+0.08 
+
+> Im  FS /t
+
+# (b) 
+
+> 2nd-order pert.
+> 2nd-order pert.
+> DQMC near VHS
+> DQMC away from VHS
+
+FIG. 6. (a) Imaginary part of the electronic self-energy at lowest Matsubara frequency ωm = πT , normalized by πT ,as a function of k through a path in the Brillouin zone. (b) Imaginary part of the self-energy averaged over the Fermi sur-face as a function of Matsubara frequency at the HOVHS. In panels (a) and (b) we show data for n ≈ 0.55 (at the HOVHS) and n ≈ 1.0 (away from the HOVHS). Here |U | = 1 .5t and 
+
+βt = 15. In both panels, DQMC results are compared with second-order perturbation theory. In panel (b), we have in-cluded the results of perturbation down to lower temperatures 15 ≤ βt ≤ 90 to demonstrate that the self-energy has essen-tially converged to its T → 0 limit. 
+
+ory. It will be interesting to investigate how the k-space structure is reflected in situations where the order pa-rameter has non-trivial momentum dependence, e.g., for 
+
+d-wave pairing. Additional data for the self-energy at stronger coupling are reported in Appendix F. We now describe the evolution of Tc for stronger cou-pling. Given the qualitative similarity between the ordi-nary and HOVHS cases, we restrict our attention here to the ordinary VHS (corresponding to t′′ = 0). We have also found that, for |U | > 2t, finite-size effects on Tc
+
+are much weaker than at smaller coupling. Correspond-ingly, the data shown for |U | = 3 t and |U | = 4 t are for 
+
+L = 16, while for larger |U | we use L = 12. These system sizes are large enough that size effects appear negligible; further details on the size-dependence are given in Ap-0.00 
+
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> Tc/t
+
+# (a)        
+
+> 0.25 0.50 0.75 1.00 1.25 1.50 1.75 2.00
+
+n
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Tc/Tmax
+
+# (b) 
+
+> |U| = 1.5 t
+> |U| = 2.0 t
+> |U| = 3.0 t
+> |U| = 4.0 t
+> |U| = 5.0 t
+> |U| = 6.0 t
+> |U| = 8.0 t
+
+FIG. 7. (a) Superconducting Tc as a function of density n for different values of U . (b) Same data but normalized by the maximal value Tc, max for each U . Here t′′ = 0, corresponding to an ordinary VHS in the non-interacting DOS. For |U | ≲ 4t,there is a maximum in Tc near the VHS fillings, which is broadened with increasing |U |. For |U | ≳ 4t, the maximal Tc
+
+shifts rapidly to a density n ≈ 1.35, which is away from the VHS and appears unrelated to any Fermi surface features. 
+
+pendix D. Our results for Tc in the range 1 .5t ≤ U ≤ 8t
+
+are reported in Fig. 7. For |U | > 2t, the Tc maximum broadens significantly and shifts abruptly away from the VHS 3. To highlight the evolution of the width of the Tc
+
+maximum, we have normalized Tc by its maximal value at each U in Fig. 7b. These results indicate that the break-down of VHS-enhanced superconductivity occurs already at intermediate coupling, well before the system enters the extreme strong-coupling regime. The rapid crossover may reflect a breakdown of perturbation theory due to singularities in the irreducible vertex function, as seen in dynamical mean-field theory studies of both attractive [73] and repulsive [74] Hubbard models.      
+
+> 3At these larger values of U,ρβbecomes strongly temperature dependent and ceases to be a useful proxy for the interacting DOS; see Appendix G.
+
+70.0 0.5 1.0 1.5 2.0 
+
+# n 
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> Tc/t
+> TMF c/3
+> TDQMC c
+
+FIG. 8. Comparison of Tc obtained by DQMC and the strong-coupling, mean-field prediction Eq. 16. The mean-field curve has been rescaled by a factor of 1 /3 for visual clarity. Here 
+
+|U | = 6 t.
+
+For |U | ≈ 8t, we find that the Tc maximum remains near the density n∗ ≈ 1.35. This new maximum can be rationalized from a strong-coupling expansion in powers of t2/U , in which the system may be described in terms of an effective hard-core Bose Hubbard (or equivalently pseudospin-1/2) model [60, 75]. We have carried out a mean-field analysis of the resulting effective Hamiltonian, with the mean-field Tc given by (see Appendix H for de-tails) 
+
+T MF  
+
+> c
+
+= (n − 1) ln 
+
+ n
+
+> 2−n
+
+ 8t2
+
+|U |
+
+"
+
+1 + 
+
+ t′
+
+t
+
+2
+
++ 6t′
+
+|U | (1 − n)
+
+#
+
+. (16) The third order term, proportional to t2t′/|U |, introduces an asymmetry in Tc about half-filling n = 1. The transi-tion temperature T MF  
+
+> c
+
+is compared with the DQMC re-sults in Fig. 8. The position of the Tc maximum and the overall shape of the Tc(n) curve agree reasonably well with the strong-coupling prediction. As is to be ex-pected, the mean-field approximation overestimates the overall magnitude of transition temperature. We note that Eq. (16) implies that the Tc maximum should even-tually move toward n = 1 for sufficiently large |U |. With increasing |U |, we therefore expect a non-monotonic evo-lution of the density at which Tc is maximal, shifting from nVH ≈ 0.72 to n∗ ≈ 1.35, and eventually to n = 1. Finally, we report the superconducting Tc as a func-tion of |U | in Fig. 9, for several representative densities. Here, we exploit the good agreement between Tc com-puted via perturbation theory and DQMC to estimate 
+
+Tc at weaker coupling—where perturbation theory is ex-pected to be more accurate—and where we cannot go to low enough temperatures in the DQMC simulations 0 2 4 6 8 10 
+
+|U|/ t   
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> Tc/t
+> n1.35
+> n1.0
+> n0.72
+
+FIG. 9. Superconducting Tc as a function of |U | at the VHS density n ≈ 0.72 (red), optimal density n ≈ 1.35 (blue), and an intermediate density n ≈ 1.0 (black). The dashed lines correspond to Tc calculated from second-order perturbation theory. Here t′′ = 0, corresponding to an ordinary VHS in the non-interacting DOS. We find a global maximum in Tc at 
+
+n ≈ 1.35 and |U | ≈ 6t.
+
+to reach the superconducting state 4. From Fig. 9 it is clear that, for sufficiently weak coupling, proximity to the VHS density yields the optimal Tc. With increasing interaction strength, however, the influence of the VHS is rapidly suppressed, and Tc is maximized at densities away from the VHS. For the choice of hopping t′ = −0.3t
+
+discussed here, we find a global maximum in Tc for the Hamiltonian 1 at n ≈ 1.35 and U ≈ − 6t (see also Ap-pendix H). 
+
+IV. CONCLUSIONS 
+
+For interaction strengths up to |U | ≲ W/ 3, we verify that proximity to a VHS enhances Tc, albeit more weakly than expected from weak-coupling BCS theory. For the interaction strengths considered, we find only a modest enhancement of Tc when the VHS is strengthened from logarithmic to power-law. Comparison with perturba-tion theory shows that both the reduction in Tc and the broadening of the its maximum near the VHS can be accounted for by self-energy and vertex corrections. For |U | ≳ W/ 3, the influence of the VHS is rapidly sup-pressed. While this is expected at sufficiently large |U |,where the system crosses over from the BCS to BEC pair-ing, we find that the crossover is abrupt, with a strong-coupling expansion already providing a qualitatively ac-curate description for |U | ≈ W . The maximal Tc occurs        
+
+> 4For |U|=t, we have verified that the pair susceptibility Pscom-puted with DQMC agrees with that obtained from the pertur-bation theory down to the lowest accessible temperatures.
+
+8at intermediate coupling U ≈ − 6t and a density away from the VHS, consistent with strong-coupling theory. While Tc is generically expected to be maximal at inter-mediate U , the precise value of the optimal density de-pends sensitively on the hopping parameters; this point is further discussed in Appendix H. The results presented here are obtained within the at-tractive Hubbard model, which is at best a crude ap-proximation to real materials. Nevertheless, the lim-ited effectiveness of VHSs in enhancing Tc at both strong and intermediate coupling is likely a general phe-nomenon. Similar conclusions have been reached within the Migdal-Eliashberg framework for electron-phonon systems 5, where only modest enhancement of Tc is found near VHSs away from weak coupling [17, 18]. At suffi-ciently strong electron-phonon coupling, superconductiv-ity is suppressed altogether by polaronic effects [76–80]. Likewise, DQMC studies of superconductivity near an antiferromagnetic quantum critical point found that Tc
+
+is insensitive to the presence of a VHS [81]. The enhancement of superconductivity by a VHS thus appears to be essentially a weak-coupling phenomenon, with interactions rapidly limiting its effectiveness. Con-sequently, strategies for achieving higher-Tc in strongly correlated systems should not rely solely on engineering DOS singularities, but must account for the interplay be-tween interactions and band structure. A maximum in 
+
+Tc at a given density is therefore not sufficient evidence for a VHS mechanism; concurrent observation of a sharp VHS in the DOS is required to establish this connection. Nevertheless, there are experimental systems in which interactions may not be weak, yet significant enhance-ments of Tc are believed to arise from proximity to VHSs. Notable examples include Sr 2RuO 4 [22–24], kagome su-perconductors [10, 29], and monolayer transition metal dichalcogenides [37]. A key question is whether spe-cific features of these systems enhance their sensitivity to VHSs, or whether they are effectively “marginal,” ly-ing just on the weak-coupling side of the weak-to-strong coupling crossover. Alternatively, the enhancement of Tc
+
+in some of these systems may arise from mechanisms un-related to VHSs. 
+
+> ACKNOWLEDGMENTS
+
+The authors thank Andrey Chubukov, Elio K¨ onig, Carlos S´ a de Melo, Joerg Schmalian, and Thomas Sch¨ afer for helpful discussions. We also thank Dmitry Chichi-nadze and Steve Kivelson for useful comments on the manuscript. This research was supported by the Na-tional Science Foundation (NSF) through the University    
+
+> 5Within the Migdal-Eliashberg theory, vertex corrections are ne-glected by Migdal’s theorem, and the suppression of Tcis there-fore due purely to self-energy effects.
+
+of Wisconsin Materials Research Science and Engineer-ing Center Grant No. DMR-2309000 (I. E. and G. R.). The work of D. S. and A. L. was supported by the NSF Quantum Leap Challenge Institute for Hybrid Quantum Architectures and Networks (Grant No. OMA-2016136) and by the H. I. Romnes Faculty Fellowship, provided by the University of Wisconsin–Madison Office of the Vice Chancellor for Research and Graduate Education, with funding from the Wisconsin Alumni Research Founda-tion. 
+
+> Appendix A: Analytic approximations
+
+In this appendix, we present a more detailed compari-son of the DQMC results with analytic approximations. In addition to the perturbative results already presented in the main text, we also compare with the (unrenor-malized) BCS approximation, where neither the Green’s functions nor the vertex are dressed, and the RPA ap-proximation, in which the dressed Green’s function is used in the resummation of the ladder series for the pair susceptibility (see also Sec. II C). Comparisons are shown for U = −1.5t and U = −2t
+
+in Figs. 10 and 11, for the case of the ordinary VHS and HOVHS, respectively. Unsurprisingly, the simplest BCS approximation grossly overestimates Tc. The RPA ap-proximation, which takes into account the finite lifetime acquired by the electrons through the self-energy, de-creases Tc, but still gives a significant overestimate. The addition of vertex corrections further suppresses the Tc.For U = −1.5t the combination of self-energy and ver-tex corrections yields satisfactory qualitative agreement with DQMC over the density range considered, both for the ordinary VHS and the HOVHS. For U = −2t, the approximation is good for densities near and above the VHS density, but is of lower quality at densities below the VHS. In particular, the maximum Tc is shifted to lower densities and, for the ordinary VHS, is excessively broad-ened. It is possible that these artifacts may be removed by extending the perturbative calculations to higher or-der in the interaction strength, but such calculations are beyond the scope of this work. 
+
+> Appendix B: Absence of competing density-wave instabilities
+
+In this appendix, we verify that the suppression of Tc
+
+we observe is not due to incipient CDW order. This should be checked since, for t′ = t′′ = 0, superconducting 
+
+Tc vanishes at the VHS due to the degeneracy between superconductivity and Q = ( π, π ) CDW order. We probe the density correlations through the static charge suscep-tibility, 
+
+χnn (Q) = 1
+
+N
+
+X
+
+> r
+
+Z β
+
+> 0
+
+dτ e −iQ·r⟨n(r, τ )n(0) ⟩, (B1) 90.00 
+
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> Tc/t
+
+(a) BCS        
+
+> RPA
+> pert
+> DQMC
+> 0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75
+
+n
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> 0.12
+> 0.14
+> Tc/t
+
+(b) BCS 
+
+> RPA
+> pert
+> DQMC
+
+FIG. 10. (a) Comparison of the DQMC Tc with simple BCS, RPA, and second-order perturbation theory, for the ordinary VHS. Panel (a) is U = −2t and panel (b) is U = −1.5t.
+
+where n(r) = c†
+
+> r↑
+
+cr↑ + c†
+
+> r↓
+
+cr↓.We focus here on the case of the ordinary VHS ( t′ =
+
+−0.3t, t′′ = 0). In Fig. 12a we report χnn (Q) as function of Q for a few representative densities, including the VHS density n ≈ 0.72. For n ≈ 1, the charge susceptibility is indeed peaked near Q = ( π, π ), while the maximum shifts to other wave vectors with varying density. In Fig. 12b we show the system-size and T -dependence of the charge susceptibility at the wave vector where it is maximal for a given density. It is clear that the charge susceptibility does not show any indication of divergence with increas-ing system size or lowering T , indicating that CDW order is not present in the system. 
+
+Appendix C: Estimating Tc from superfluid stiffness and pair correlations 
+
+In the main text, we have used the BKT criterion (3), based on the superfluid stiffness ρs, to extract Tc. In Fig. 13 we show our data for ρs with varying system size, for the representative value U = −2t at the VHS den-sity. For each L we obtain the finite-size estimate Tc(L)by solving ρs(Tc(L)) = 2 Tc(L)/π . The inset of Fig. 13 shows the linear extrapolation of Tc(L) to the thermo-dynamic limit L → ∞ . As noted in the main text, the 0.00 
+
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> Tc/t
+
+(a) BCS        
+
+> RPA
+> pert
+> DQMC
+> 0.00 0.25 0.50 0.75 1.00 1.25 1.50 1.75
+
+n
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> 0.12
+> 0.14
+> Tc/t
+
+(b) BCS 
+
+> RPA
+> pert
+> DQMC
+
+FIG. 11. (a) Comparison of the DQMC Tc with simple BCS, RPA, and second-order perturbation theory, for the HOHVS. Panel (a) is U = −2t and panel (b) is U = −1.5t.
+
+extrapolation can be done more rigorously using known logarithmic finite-size corrections to ρs [71], but we have found that extrapolation procedure to be less numeri-cally stable, and we thus use a simple linear fit. Where the more rigorous extrapolation can be carried out reli-ably, we find it produces a result for Tc indistinguishable from the linear extrapolation. A complementary approach to extract Tc is based on the finite-size scaling behavior of the equal-time pair cor-relation function, 
+
+Cs = 1
+
+N
+
+X
+
+> r
+
+⟨∆†(r)∆(0) ⟩, ∆( r) = cr↓cr↑, (C1) which obeys the following finite-size-scaling law at a BKT transition [66, 69]: 
+
+Cs = L 74 f (L/ξ ), ξ ∼ exp 
+
+
+
+− A
+
+√T − Tc
+
+
+
+. (C2) In this procedure, Tc and A are viewed as fitting parame-ters such that Cs for varying L collapses onto a universal curve. To determine these parameters systematically, we fit a continuous trial functions against the collapsed data and returned the χ2-value. The results of this procedure are shown in Fig. 14b,c. From Fig. 14a it can be seen that the estimate for Tc based on the pair correlation function 10 X M
+
+0.0 
+
+0.5 
+
+1.0 
+
+1.5 
+
+2.0 
+
+2.5 
+
+> nn (Q)
+
+(a) n=0.722 
+
+> n=1.008
+> n=0.401
+
+0.0 0.2 0.4 0.6 0.8 1.0 
+
+T/t
+
+0.0 
+
+0.5 
+
+1.0 
+
+1.5 
+
+2.0 
+
+2.5 
+
+> nn (Q = Qmax )
+
+(b) n=0.722 
+
+> n=1.008
+> n=0.401
+
+FIG. 12. (a) Equal time charge susceptibility over a line-cut in the Brillouin zone for VHS filling (blue), half-filling (red) and a filling below VHS (purple) for parameters |U | =2t, βt = 10 < β ct, L = 22. (b) Static charge susceptibility as a function of T /t for varying system size L at momentum 
+
+Qmax which maximizes the susceptibility for different fillings at |U | = 2 t. For each filling we have included data for linear system sizes L = 12 − 22. We see that the peak is indepen-dent of the larger system sizes, indicating an absence of a divergence in the thermodynamic limit and we conclude an absence of charge order. 
+
+is in good agreement with that obtained from the BKT criterion on ρs.
+
+Appendix D: Finite-size effects 
+
+In the non-interacting limit U → 0, the electronic eigenstates are plane waves and completely de-localized through the system. In the regime of small U , one thus expects finite-size effects to play an important role when interpreting numerical results. The opposite extreme of 
+
+|U | → ∞ corresponds to a localized single site problem and size effects are absent entirely. From this we expect 0.06 0.08 0.10 0.12 0.14 0.16 0.18 0.20 
+
+# T/t          
+
+> 0.00
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.10
+> 0.12
+> 0.14
+> s
+> L= 8
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> L= 18
+> L= 20
+> L= 22
+> 0.00 0.05 0.10
+
+1/ L
+
+> 0.06t
+> Tc
+> 0.09t
+
+FIG. 13. Superfluid stiffness ρs as a function of T for system sizes L = 8 − 22. Here U = −2t and the density is tuned to the ordinary VHS. The dashed line is 2 T /π . Inset: Red markers show the finite-size Tc estimates from solving Eq. 3, together with the linear extrapolation to the L → ∞ limit. 
+
+that size effects discussed in Appendix C will be less im-portant as one increases the magnitude of U . This expec-tation is verified in Fig. 15, where we can see noticeable system size dependence of Tc for U = −1.5t and U = −2t,and much weaker size dependence when |U | ≥ 3t. Thus, for U = −1.5t and U = −2t, we have performed an ex-trapolation to the thermodynamic limit as described in Appendix C. For larger |U |, we simply use the finite size 
+
+Tc for the largest system size considered. We have attempted to further reduce size effects by threading a single magnetic flux quantum through the system, which destroys symmetries of the cluster and spreads out the non-interacting energy levels that oth-erwise would be frequently degenerate [67]. The smaller energy level spacings yield smoother data as function of temperature. We introduce the uniform magnetic field B = Bez
+
+such that the vector potential is of the form A(x, y ) = 
+
+−αBy ex + (1 − α)Bx ey with α ∈ R fixing the gauge. Performing a Peierls’ substitution we can write the non-interacting part of the Hamiltonian as 
+
+H = X
+
+> ij
+
+tij c† 
+
+> i
+
+cj exp 
+
+(
+
+iq 
+
+Z (ix,i y )(jx,j y )
+
+dr · A(r)
+
+)
+
+, (D1) where q is the charge of the electron. Periodic bound-ary conditions imply that the Hamiltonian should be in-variant under translations ( ix, i y ) → (ix + Lx, i y ) and (ix, i y ) → (ix, i y + Ly ). By enforcing such periodicity we find the condition qBL xLy = 2 πn for n ∈ Z, i.e., the lattice is threaded by an integer number of flux quanta. For the attractive Hubbard model, we thread a single flux quantum of opposite sign for spin-up and spin-down 11 0.4 0.6 0.8 1.0 
+
+## n
+
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> Tc/t
+
+(a) Cs      
+
+> s
+> 0.00 0.05 0.10 0.15 0.20 0.25 0.30
+
+## T/t 
+
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 12
+> 14
+> Cs
+
+(b)          
+
+> L= 10
+> L= 12
+> L= 14
+> L= 16
+> L= 18
+> L= 20
+> L= 22
+> 510 15
+
+Lexp { A(T Tc) 12 }
+
+> 0.00
+> 0.02
+> 0.04
+> CsL 74
+
+FIG. 14. (a) Comparison of Tc obtained from the BKT crite-rion and finite-size scaling of the pair correlation function Cs.(b) Cs as a function of T at the VHS density for system sizes 
+
+L = 10 − 22. The inset shows collapsed data using Eq. C2 to obtain optimal values for A and Tc.
+
+electrons, in order to preserve the anti-unitary symmetry that protects the fermion sign in DQMC [82]. 
+
+Appendix E: Equivalence between uniform and transverse electromagnetic response on the torus 
+
+When extracting the superfluid stiffness ρs from the DQMC data, as in Eq. 4, we require the long wavelength limit of the static correlation function. Numerically this is subtle as the finite size of simulations imply a finite grid in q-space. Typically, in DQMC literature, the smallest non-zero transverse q = (0 , 2π/L ) is used [69, 70]. However, on the torus, it turns out that setting q =(0 , 0) gives the correct limit, i.e., the uniform and (limit-ing) transverse responses are the same for the superfluid stiffness. This equivalence is exploited to measure the helicity modulus in classical XY model simulations such as [71] but, to the best of our knowledge, has not been systematically proven. 0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+1.2 
+
+> Tc/Tmax
+
+|U|=1.5t 
+
+> 12 × 12
+> 16 × 16
+
+|U|=2t 
+
+> 12 × 12
+> 16 × 16
+
+0.0 0.5 1.0 1.5 2.0 
+
+# n
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+1.0 
+
+> Tc/Tmax
+
+|U|=3t 
+
+> 12 × 12
+> 16 × 16
+
+0.5 1.0 1.5 2.0 
+
+# n
+
+|U|=4t 
+
+> 12 × 12
+> 16 × 16
+
+FIG. 15. Normalized critical temperatures as a function of density for increasing values of the coupling, demonstrating the diminishing size effects with increasing |U |.
+
+To demonstrate the equivalence, we start with the Helmholtz-Hodge decomposition of the vector poten-tial into three parts (longitudinal, transverse, har-monic/uniform): 
+
+A = AL + AT + AH , (E1) with ∇ · AT = 0, ∇ × AL = 0, and AH a constant. Such a decomposition is always possible on the torus, with the three components all orthogonal to each other (orthog-onality defined with the real-space integral). Starting from the Ginzburg-Landau free energy functional with complex order parameter ψ = ∆ eiθ and ∆ a positive real constant, we have, in the presence of a vector potential, 
+
+F [θ, A] = F0 + ρs
+
+2
+
+Z
+
+d2r (∇θ − QA)2 . (E2) Here Q = 2 e is the charge of the condensate. Minimizing with respect to the phase θ, we find 
+
+∇2θ = Q∇ · A. (E3) By going to momentum space ∇ → ik we find that this implies 
+
+∇θ → ikθ = Qˆk(ˆk · A) ≡ QAL. (E4) Here the hat indicates a normalized vector. This high-lights that the AL component is pure gauge. In contrast, 
+
+AH cannot be gauged away on the torus: if one tries to write AH = ∇ (AH · r), the scalar AH ·r does not respect the torus periodicity. 12 X M
+
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 12
+> 14
+> Im  (k, = T)/  T
+
+# (a) n=0.787      
+
+> n=0.974
+> 0246810
+> n
+
+/t
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> Im  FS /t
+
+# (b) n=0.787          
+
+> n=0.974
+> FIG. 16. (a) Imaginary part of the self-energy for |U|= 8 t
+> at lowest Matsubara frequency for a density near the VHS (n≈0.79) and for a density away from the VHS ( n≈0.97). We that the self-energy is not too dependent on the filling however there is still momentum-space structure. (b) Mo-mentum average of the imaginary part of the self energy as a function of Matsubara frequency for the same fillings as (a).
+
+Inserting ∇θ back into the free energy, we find, as a functional of the vector potential, 
+
+Fmin [A] = F0 + ρsQ2
+
+2
+
+Z
+
+d2r (AT + AH )2
+
+= F0 + ρsQ2
+
+2
+
+Z
+
+d2r  A2 
+
+> T
+
++ A2
+
+> H
+
+ ,
+
+where we used orthogonality to neglect the cross-term. Since the coefficient is the same for AH and AT , we conclude that the response to a homogeneous vector po-tential is the same as the response to a transverse vector potential. 
+
+> Appendix F: Strong-coupling self-energy
+
+In Figs. 5 and 6 of the main text we have reported the electronic self-energy for the representative weak-coupling U = −1.5t with Fermi-surface average defined as, 
+
+⟨B⟩FS = 1
+
+P 
+
+> k
+
+∆β (k)
+
+X
+
+> k
+
+∆β (k)B(k), (F1) ∆β (k) = − 1
+
+β∂f (ϵk)
+
+∂ϵ k
+
+, (F2) where f (ϵ) = 1 + eβ(ϵ−μ)−1 is the usual Fermi function. For completeness, in this appendix we also show the self-energy at stronger coupling, Here we choose a uni-form momentum averaging procedure (∆ β (k) = 1), since we do not expect the non-interacting Fermi surface to play a significant role in the strong-coupling regime. In Fig. 16, we show the imaginary part of the self-energy for U = −8t. Panel (a) displays the k-dependence at the lowest Matsubara frequency. The pronounced momentum-space structure at this relatively large |U | is somewhat unexpected and may be related to the redistri-bution of spectral weight from the opening of the strong-coupling pseudogap. Panel (b) shows the momentum-averaged Matsubara-frequency dependence, which in-creases monotonically with decreasing frequency. This behavior is consistent with strong-coupling expectations; in the atomic limit, Σ( iω n) ∼ U 2/iω n.
+
+> Appendix G: Proxies for the interacting density of states
+
+The location of the VHS density for U̸ = 0 was iden-tified using the imaginary-time observable ρβ , defined in Eq. (9). Since ρβ is not a direct measure of the electronic DOS but rather a proxy for it, we have also measured an-other common proxy for the DOS in a Fermi-liquid—the low-temperature spin susceptibility: 
+
+χzz = 1
+
+N
+
+X
+
+> r
+
+Z β
+
+> 0
+
+dτ ⟨Sz (r, τ )Sz (0) ⟩, (G1) where Sz (r) = 12 (nr↑ − nr↓). The different proxies are compared in Fig. 17a for U = 0 and in Fig. 17b for U =
+
+−1.5t. While the overall magnitudes of ρβ and χzz differ for U̸ = 0, they both exhibit a well-defined maximum near the same density, which coincides with the VHS density of the non-interacting system. In Fig. 18 we compare ρβ at weak and strong coupling. At weak coupling, its low-temperature value provides a meaningful estimate of the electronic DOS, whereas at strong-coupling ρβ acquires a pronounced temperature dependence and exhibits structure unrelated to the non-interacting DOS. In the latter regime, the evolution of ρβ
+
+is presumably tied to the emergence of spectral features associated with the onset of a pseudogap. 
+
+> Appendix H: Strong-coupling expansion
+
+In this appendix, we provide details of the strong-coupling expansion of the attractive Hubbard model, fol-13 0.0 0.2 0.4 0.6 0.8 1.0 
+
+# n
+
+0.0 
+
+0.1 
+
+0.2 
+
+0.3 
+
+0.4 
+
+> DOS
+
+# (a)  
+
+> (U= 0)
+> zz
+
+0.0 0.2 0.4 0.6 0.8 1.0 1.2 
+
+# n
+
+0.0 
+
+0.1 
+
+0.2 
+
+0.3 
+
+0.4 
+
+> DOS
+
+# (b) 
+
+(U = 0) 
+
+> zz
+
+FIG. 17. (a) The DOS proxy ρβ defined in Eq. (9) and the spin susceptibility χzz , together with the non-interacting ex-act DOS (solid line) for |U | = 0 t. The data is shown for temperature βt = 10. (b) Same as (a) but for |U | = 1 .5t and varying temperatures βt = 11 − 16 above the critical temper-ature. Interactions renormalize the spin susceptibility much more drastically than ρβ but they both agree on the location of the VHS. 
+
+lowing closely Ref. [75]. When |U | → ∞ , all electrons are paired up, with each site either doubly occupied or empty. The ground state energy will not depend on where the electron pairs are positioned on the lattice, leading to a large degeneracy. The degeneracy is lifted by the kinetic energy term. We write 
+
+H = H0 + T, (H1) with H0 = −U P 
+
+> i
+
+ni↑ni↓ being the unperturbed Hamil-tonian and T = − P 
+
+> ijσ
+
+tij c† 
+
+> iσ
+
+cjσ being the perturbation. We make use of the projector approach [75]. Define projection operators P0 and P as projectors onto the ground state of H0 and H, respectively, and define the overlap operator O = P0P P 0. The effective Hamiltonian can be constructed in powers of T as 
+
+Heff = O−1/2P0HP P 0O−1/2, (H2) 0.5 0.6 0.7 0.8 0.9 1.0 
+
+# n
+
+0.16 
+
+0.18 
+
+0.20 
+
+0.22 
+
+0.24 
+
+0.26 
+
+0.28 (a)       
+
+> t= 11.0
+> t= 12.0
+> t= 13.0
+> t= 14.0
+> t= 15.0
+> t= 16.0
+
+0.0 0.5 1.0 1.5 2.0 
+
+# n
+
+0.00 
+
+0.02 
+
+0.04 
+
+0.06 
+
+0.08 
+
+# (b) t = 1.0    
+
+> t= 2.0
+> t= 3.0
+> t= 4.0
+
+FIG. 18. Comparison of the DOS proxy ρβ for (a) weak cou-pling, U = −1.5t and (b) strong coupling, U = −8t. At stronger coupling, ρβ is still strongly temperature dependent near the critical temperature. In both panels, all temper-atures are above the superconducting critical temperature (Tc ≈ 0.06 t for U = −1.5t and Tc ≈ 0.20 t for U = −8t). 
+
+with 
+
+O−1/2 = P0 +
+
+> ∞
+
+X
+
+> n=1
+
+(2 n − 1)!! (2 n)!! [P0 − O]n, (H3) 
+
+P = P0 −
+
+> ∞
+
+X
+
+> n=1
+
+X
+
+> ki≥0
+> ′
+
+Rk1 T R k2 T . . . T R kn+1 , (H4) the primed sum indicating summation only over terms satisfying P 
+
+> i
+
+ki = n with integer ki. The operator R is defined as 
+
+R0 ≡ − P0, Rk =
+
+ 1 − P0
+
+E0 − H0
+
+k
+
+, (k > 0) . (H5) Making use of P0R = RP 0 = 0 = P0T P 0 we find, to third order in T ,14 0.0 0.5 1.0 1.5 2.0 
+
+n
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+0.8 
+
+> TMF c /t
+
+# (a) 
+
+t'=-0.5t 
+
+t'=-0.3t 
+
+t'=-0.1t 
+
+t'=0.1t 
+
+t'=0.3t 
+
+t'=0.5t 
+
+0.0 0.5 1.0 1.5 2.0 
+
+n
+
+0.00 
+
+0.05 
+
+0.10 
+
+0.15 
+
+0.20 
+
+0.25 
+
+0.30 
+
+> TDQMC c /t
+
+# (b) 
+
+FIG. 19. (a) The mean-field Tc, Eq. (16), for U = −8t and for varying values of t′/t . (b) DQMC results for the same parameters. Note the strong t′ dependence of the optimal density and overall shape of Tc(n), which is captured by the strong-coupling, mean-field prediction. 
+
+Heff = −(2 μ + |U |) X
+
+> i
+
+b† 
+
+> i
+
+bi − 2t2
+
+|U |
+
+X
+
+> ⟨ij ⟩
+
+h
+
+b† 
+
+> i
+
+bj + nj (1 − ni) + h.c. 
+
+i
+
+− 2t′2
+
+|U |
+
+X
+
+> ⟨⟨ ij ⟩⟩
+
+h
+
+b† 
+
+> i
+
+bj + nj (1 − ni) + h.c. 
+
+i
+
+(H6) 
+
+− 2t2t′
+
+U 2
+
+X
+
+> ⟨⟨ ij ⟩⟩
+
+X
+
+> ⟨k,ij ⟩
+
+h
+
+3b† 
+
+> i
+
+bj + 2 nj (1 − ni) + h.c. 
+
+i
+
+(1 − nk) . (H7) Here bi = ci↓ci↑ annihilates a hard-core boson at site i
+
+and ni = b† 
+
+> i
+
+bi is the boson occupation number. In the last term, the sum is over all k that are simultaneous nearest neighbors to i and j.For a mean-field analysis, it is useful to express Heff in pseudo-spin variables by introducing J+ 
+
+> i
+
+= b† 
+
+> i
+
+, J− 
+
+> i
+
+= bi,and Jzi = ni − 1/2. In these variables, the Hamiltonian can be written 
+
+Heff = −(2 μ + |U |) X
+
+> i
+
+Jzi + 4t2
+
+|U |
+
+X
+
+> ⟨ij ⟩
+
+
+
+2Jzi Jzj − Ji · Jj − 14
+
+
+
++ 4t′2
+
+|U |
+
+X
+
+> ⟨⟨ ij ⟩⟩
+
+
+
+2Jzi Jzj − Ji · Jj − 14
+
+
+
+(H8) 
+
+− 4t2t′
+
+U 2
+
+X
+
+> ⟨⟨ ij ⟩⟩
+
+X
+
+> ⟨k,ij ⟩
+
+
+
+3Ji · Jj − 4Jzi Jzj + 12
+
+  12 − Jzk
+
+
+
+. (H9) With this Hamiltonian we are ready to perform the standard mean-field procedure. Writing Ji = ⟨Ji⟩ + δJ i
+
+with δJ i = Ji − ⟨ Ji⟩ and expanding the effective Hamil-tonian to linear order in δJ i, we find 
+
+HMF = − X
+
+> i
+
+h · Ji, (H10) 
+
+hx = 16 
+
+|U |
+
+
+
+t2 + t′2 + 6t2t′
+
+|U |
+
+ 12 − mz
+
+ 
+
+mx ≡ Am x,
+
+(H11) where mx = ⟨Jx⟩ is a mean-field corresponding to su-perfluid XY-order in the boson description [60, 75]. The 15 self-consistency equation becomes 
+
+m = 12
+
+h
+
+|h| tanh 
+
+ β
+
+2 |h|
+
+
+
+. (H12) Linearizing this equation near T = Tc, we obtain 
+
+hz = A
+
+2 tanh 
+
+ βc
+
+2 hz
+
+
+
+, (H13) 
+
+mz = 12 tanh 
+
+ βc
+
+2 hz
+
+
+
+. (H14) Solving for Tc and setting 2 mz = n − 1, we obtain 
+
+Tc = (n − 1) ln 
+
+ n
+
+> 2−n
+
+ 8
+
+|U |
+
+
+
+t2 + t′2 + 6t2t′
+
+|U | (1 − n)
+
+
+
+, (H15) which is Eq. (16) of the main text. In Fig. 19, the mean-field Tc is compared to DQMC data for varying values of t′ at strong coupling U = −8t. The figure illustrates that the location of the maximum in Tc(n) for different 
+
+t′ tracks the strong-coupling prediction. 
+
+[1] L. Van Hove, The occurrence of singularities in the elastic frequency distribution of a crystal, Phys. Rev. 89 , 1189 (1953). [2] A. Abrikosov, J. Campuzano, and K. Gofron, Experi-mentally observed extended saddle point singularity in the energy spectrum of yba2cu3o6.9 and yba2cu4o8 and some of the consequences, Physica C: Superconductivity 
+
+214 , 73 (1993). [3] A. Shtyk, G. Goldstein, and C. Chamon, Electrons at the monkey saddle: A multicritical lifshitz point, Phys. Rev. B 95 , 035137 (2017). [4] D. V. Efremov, A. Shtyk, A. W. Rost, C. Chamon, A. P. Mackenzie, and J. J. Betouras, Multicritical fermi sur-face topological transitions, Phys. Rev. Lett. 123 , 207202 (2019). [5] N. F. Q. Yuan, H. Isobe, and L. Fu, Magic of high-order van Hove singularity, Nature Communications 10 , 5769 (2019). [6] H. Isobe and L. Fu, Supermetal, Phys. Rev. Res. 1,033206 (2019). [7] N. F. Q. Yuan and L. Fu, Classification of critical points in energy bands based on topology, scaling, and symme-try, Phys. Rev. B 101 , 125120 (2020). [8] A. Chandrasekaran, A. Shtyk, J. J. Betouras, and C. Chamon, Catastrophe theory classification of fermi surface topological transitions in two dimensions, Phys. Rev. Res. 2, 013355 (2020). [9] L. Classen, A. V. Chubukov, C. Honerkamp, and M. M. Scherer, Competing orders at higher-order van hove points, Phys. Rev. B 102 , 125141 (2020). [10] Y. Hu, X. Wu, B. R. Ortiz, S. Ju, X. Han, J. Ma, N. C. Plumb, M. Radovic, R. Thomale, S. D. Wilson, A. P. Schnyder, and M. Shi, Rich nature of van hove singulari-ties in kagome superconductor csv3sb5, Nature Commu-nications 13 , 2220 (2022). [11] R. Ojaj¨ arvi, A. V. Chubukov, Y.-C. Lee, M. Garst, and J. Schmalian, Pairing at a single Van Hove point, npj Quantum Materials 9, 105 (2024). [12] A. Chandrasekaran, L. C. Rhodes, E. A. Morales, C. A. Marques, P. D. C. King, P. Wahl, and J. J. Betouras, On the engineering of higher-order Van Hove singulari-ties in two dimensions, Nature Communications 15 , 9521 (2024). [13] L. Classen and J. J. Betouras, High-order van ¬† hove sin-gularities and their connection to flat bands, Annual Re-view of Condensed Matter Physics 16 , 229 (2025). [14] L. Pullasseri and L. H. Santos, Chern bands with higher-order van hove singularities on topological moir´ e surface states, Phys. Rev. B 110 , 115125 (2024). [15] E. Wang, L. Pullasseri, and L. H. Santos, Higher-order van hove singularities in kagome topological bands, Phys. Rev. B 111 , 075114 (2025). [16] J. E. Hirsch and D. J. Scalapino, Enhanced superconduc-tivity in quasi two-dimensional systems, Phys. Rev. Lett. 
+
+56 , 2732 (1986). [17] R. J. Radtke, K. Levin, H.-B. Sch¨ uttler, and M. R. Nor-man, Role of van hove singularities and momentum-space structure in high-temperature superconductivity, Phys. Rev. B 48 , 15957 (1993). [18] R. J. Radtke and M. R. Norman, Relation of extended van hove singularities to high-temperature superconduc-tivity within strong-coupling theory, Phys. Rev. B 50 ,9554 (1994). [19] R. Markiewicz, A survey of the van hove scenario for high-tc superconductivity with special emphasis on pseu-dogaps and striped phases, Journal of Physics and Chem-istry of Solids 58 , 1179 (1997). [20] T. Ma, F. Yang, H. Yao, and H.-Q. Lin, Possible triplet 
+
+p + ip superconductivity in graphene at low filling, Phys. Rev. B 90 , 245114 (2014). [21] H. Hohmann, M. D¨ urrnagel, M. Bunney, S. Enzner, T. Schwemmer, T. Neupert, G. Sangiovanni, S. Rachel, and R. Thomale, Van hove tuning of fermi surface insta-bilities through compensated metallicity, Phys. Rev. B 
+
+111 , L121105 (2025). [22] A. Steppke, L. Zhao, M. E. Barber, T. Scaffidi, F. Jerzembeck, H. Rosner, A. S. Gibbs, Y. Maeno, S. H. Simon, A. P. Mackenzie, and C. W. Hicks, Strong peak in tc of sr 2ruo 4 under uniaxial pressure, Science 355 ,eaaf9398 (2017). [23] Direct observation of a uniaxial stress-driven Lifshitz transition in Sr2RuO4, npj Quantum Materials 4, 46 (2019). [24] E. Mueller, Y. Iguchi, F. Jerzembeck, J. O. Rodriguez, M. Romanelli, E. Abarca-Morales, A. Markou, N. Kiku-gawa, D. A. Sokolov, G. Oh, C. W. Hicks, A. P. Macken-zie, Y. Maeno, V. Madhavan, and K. A. Moler, Super-conducting penetration depth through a van hove singu-larity: sr 2ruo 4 under uniaxial stress, Phys. Rev. B 110 ,L100502 (2024). [25] C. Lee, D. F. Agterberg, and P. M. R. Brydon, Unified picture of superconductivity and magnetism in cerh 2as 2,Phys. Rev. Lett. 135 , 026003 (2025). [26] H. Wu, T. Shishidou, M. Weinert, and D. F. Agterberg, 16 
+
+Large critical fields in superconducting ti 4ir 2O from spin-orbit coupling, Phys. Rev. B 111 , 184506 (2025). [27] M. Kang, S. Fang, J.-K. Kim, B. R. Ortiz, S. H. Ryu, J. Kim, J. Yoo, G. Sangiovanni, D. Di Sante, B.-G. Park, C. Jozwiak, A. Bostwick, E. Rotenberg, E. Kaxiras, S. D. Wilson, J.-H. Park, and R. Comin, Twofold van Hove sin-gularity and origin of charge order in topological kagome superconductor CsV3Sb5, Nature Physics 18 , 301 (2022). [28] Y.-M. Wu, R. Thomale, and S. Raghu, Sublattice inter-ference promotes pair density wave order in kagome met-als, Phys. Rev. B 108 , L081117 (2023). [29] Y. Luo, Y. Han, J. Liu, H. Chen, Z. Huang, L. Huai, H. Li, B. Wang, J. Shen, S. Ding, Z. Li, S. Peng, Z. Wei, Y. Miao, X. Sun, Z. Ou, Z. Xiang, M. Hashimoto, D. Lu, Y. Yao, H. Yang, X. Chen, H.-J. Gao, Z. Qiao, Z. Wang, and J. He, A unique van hove singularity in kagome su-perconductor csv3-xtaxsb5 with enhanced superconduc-tivity, Nature Communications 14 , 3819 (2023). [30] Y. Li, M. Zhong, M. Ju, Y.-H. Wei, and M.-Q. Kuang, Van hove singularity, flat band, and phonon-mediated su-perconductivity in topological perovskite carbides, Phys. Rev. B 110 , 064519 (2024). [31] C. Xia, S. Zhou, and H. Chen, Three-dimensional fermi surface, van hove singularity and enhancement of superconductivity in infinite-layer nickelates (2025), arXiv:2504.18778 [cond-mat.supr-con]. [32] G. Li, A. Luican, J. M. B. Lopes dos Santos, A. H. Castro Neto, A. Reina, J. Kong, and E. Y. Andrei, Observation of Van Hove singularities in twisted graphene layers, Na-ture Physics 6, 109 (2010). [33] Y. Xie, B. Lian, B. J¨ ack, X. Liu, C.-L. Chiu, K. Watan-abe, T. Taniguchi, B. A. Bernevig, and A. Yazdani, Spec-troscopic signatures of many-body correlations in magic-angle twisted bilayer graphene, Nature 572 , 101 (2019). [34] A. Kerelsky, L. J. McGilly, D. M. Kennes, L. Xian, M. Yankowitz, S. Chen, K. Watanabe, T. Taniguchi, J. Hone, C. Dean, A. Rubio, and A. N. Pasupathy, Maxi-mized electron interactions at the magic angle in twisted bilayer graphene, Nature 572 , 95 (2019). [35] Y. Choi, J. Kemmer, Y. Peng, A. Thomson, H. Arora, R. Polski, Y. Zhang, H. Ren, J. Alicea, G. Refael, F. von Oppen, K. Watanabe, T. Taniguchi, and S. Nadj-Perge, Electronic correlations in twisted bilayer graphene near the magic angle, Nature Physics 15 , 1174 (2019). [36] Y. Jiang, X. Lai, K. Watanabe, T. Taniguchi, K. Haule, J. Mao, and E. Y. Andrei, Charge order and broken rota-tional symmetry in magic-angle twisted bilayer graphene, Nature 573 , 91 (2019). [37] W. Wan, R. Harsh, P. Dreher, F. de Juan, and M. M. Ugeda, Superconducting dome by tuning through a van hove singularity in a two-dimensional metal, npj 2D Ma-terials and Applications 7, 41 (2023). [38] I. Dzyaloshinskii, Maximal increase of the superconduct-ing transition temperature due to the presence of van’t hoff singularities, JETP Lett 46 (1987). [39] N. Furukawa, T. M. Rice, and M. Salmhofer, Truncation of a two-dimensional fermi surface due to quasiparticle gap formation at the saddle points, Phys. Rev. Lett. 81 ,3195 (1998). [40] C. Honerkamp and M. Salmhofer, Magnetic and super-conducting instabilities of the hubbard model at the van hove filling, Phys. Rev. Lett. 87 , 187004 (2001). [41] R. Nandkishore, L. S. Levitov, and A. V. Chubukov, Chiral superconductivity from repulsive interactions in doped graphene, Nature Physics 8, 158 (2012). [42] S. Maiti and A. V. Chubukov, Superconductivity from repulsive interaction, AIP Conference Proceedings 1550 ,3 (2013). [43] L. Classen, C. Honerkamp, and M. M. Scherer, Com-peting phases of interacting electrons on triangular lat-tices in moir´ e heterostructures, Phys. Rev. B 99 , 195120 (2019). [44] D. V. Chichinadze, L. Classen, and A. V. Chubukov, Nematic superconductivity in twisted bilayer graphene, Phys. Rev. B 101 , 224513 (2020). [45] Y.-T. Hsu, F. Wu, and S. Das Sarma, Topological su-perconductivity, ferromagnetism, and valley-polarized phases in moir´ e systems: Renormalization group anal-ysis for twisted double bilayer graphene, Phys. Rev. B 
+
+102 , 085103 (2020). [46] Z. Wu, Y.-M. Wu, and F. Wu, Pair density wave and loop current promoted by van hove singularities in moir´ esystems, Phys. Rev. B 107 , 045122 (2023). [47] D. Shaffer, J. Wang, and L. H. Santos, Unconventional self-similar hofstadter superconductivity from repulsive interactions, Nature Communications 13 , 7785 (2022). [48] D. Shaffer and L. H. Santos, Triplet pair density wave superconductivity on the π-flux square lattice, Phys. Rev. B 108 , 035135 (2023). [49] Y.-Z. Chou, J. Zhu, and S. Das Sarma, Intravalley spin-polarized superconductivity in rhombohedral tetralayer graphene, Phys. Rev. B 111 , 174523 (2025). [50] P. Rao, J. Knolle, and L. Classen, Van-hove singulari-ties and competing instabilities in an altermagnetic metal (2025), arXiv:2505.02786 [cond-mat.str-el]. [51] N. Parthenios, P. M. Bonetti, R. Gonz´ alez-Hern´ andez, W. H. Campos, L. ˇSmejkal, and L. Classen, Spin and pair density waves in 2d altermagnetic metals (2025), arXiv:2502.19270 [cond-mat.str-el]. [52] Y.-P. Lin and R. M. Nandkishore, Parquet renormaliza-tion group analysis of weak-coupling instabilities with multiple high-order van hove points inside the brillouin zone, Phys. Rev. B 102 , 245122 (2020). [53] O. M. Aksoy, A. Chandrasekaran, A. Tiwari, T. Neupert, C. Chamon, and C. Mudry, Single monkey-saddle singu-larity of a fermi surface and its instabilities, Phys. Rev. B 107 , 205129 (2023). [54] Y.-T. Hsu, F. Wu, and S. Das Sarma, Spin-valley locked instabilities in moir´ e transition metal dichalcogenides with conventional and higher-order van hove singulari-ties, Phys. Rev. B 104 , 195134 (2021). [55] P. Castro, D. Shaffer, Y.-M. Wu, and L. H. Santos, Emergence of the chern supermetal and pair-density wave through higher-order van hove singularities in the haldane-hubbard model, Phys. Rev. Lett. 131 , 026601 (2023). [56] Y.-C. Lee, D. V. Chichinadze, and A. V. Chubukov, Crossover from ordinary to higher order van hove singu-larity in a honeycomb system: A parquet renormalization group analysis, Phys. Rev. B 109 , 155118 (2024). [57] R. S. Markiewicz, B. Singh, C. Lane, and A. Ban-sil, Evolution of high-order van hove singularities away from cupratelike band dispersions and its implications for cuprate superconductivity, Phys. Rev. B 111 , 115140 (2025). [58] E. Y. Loh, J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Sign problem in the nu-merical simulation of many-electron systems, Phys. Rev. 17 
+
+B 41 , 9301 (1990). [59] P. Nozi` eres and S. Schmitt-Rink, Bose condensation in an attractive fermion gas: From weak to strong coupling superconductivity, Journal of Low Temperature Physics 
+
+59 , 195 (1985). [60] R. Micnas, J. Ranninger, and S. Robaszkiewicz, Super-conductivity in narrow-band systems with local nonre-tarded attractive interactions, Rev. Mod. Phys. 62 , 113 (1990). [61] C. S´ a de Melo and S. Van Loon, Evolution from bardeen–cooper–schrieffer to bose–einstein condensation in two dimensions: Crossovers and topological quantum phase transitions, Annual Review of Condensed Matter Physics 15 , 109 (2024). [62] J. E. Hirsch, Two-dimensional hubbard model: Numeri-cal simulation study, Phys. Rev. B 31 , 4403 (1985). [63] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Monte carlo calculations of coupled boson-fermion sys-tems. i, Phys. Rev. D 24 , 2278 (1981). [64] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Numerical study of the two-dimensional hubbard model, Phys. Rev. B 40 ,506 (1989). [65] R. T. Scalettar, E. Y. Loh, J. E. Gubernatis, A. Moreo, S. R. White, D. J. Scalapino, R. L. Sugar, and E. Dagotto, Phase diagram of the two-dimensional negative-u hubbard model, Phys. Rev. Lett. 62 , 1407 (1989). [66] A. Moreo and D. J. Scalapino, Two-dimensional negative-u hubbard model, Phys. Rev. Lett. 66 , 946 (1991). [67] F. F. Assaad, Depleted kondo lattices: Quantum monte carlo and mean-field calculations, Phys. Rev. B 65 ,115104 (2002). [68] D. R. Nelson and J. M. Kosterlitz, Universal jump in the superfluid density of two-dimensional superfluids, Phys. Rev. Lett. 39 , 1201 (1977). [69] T. Paiva, R. R. dos Santos, R. T. Scalettar, and P. J. H. Denteneer, Critical temperature for the two-dimensional attractive hubbard model, Phys. Rev. B 69 , 184501 (2004). [70] D. J. Scalapino, S. R. White, and S. Zhang, Insulator, metal, or superconductor: The criteria, Phys. Rev. B 47 ,7995 (1993). [71] Y.-D. Hsieh, Y.-J. Kao, and A. W. Sandvik, Finite-size scaling method for the berezinskii–kosterlitz–thouless transition, Journal of Statistical Mechanics: Theory and Experiment 2013 , P09001 (2013). [72] N. Trivedi and M. Randeria, Deviations from fermi-liquid behavior above Tc in 2d short coherence length supercon-ductors, Phys. Rev. Lett. 75 , 312 (1995). [73] D. Springer, P. Chalupa, S. Ciuchi, G. Sangiovanni, and A. Toschi, Interplay between local response and vertex divergences in many-fermion systems with on-site attrac-tion, Phys. Rev. B 101 , 155148 (2020). [74] T. Sch¨ afer, S. Ciuchi, M. Wallerberger, P. Thunstr¨ om, O. Gunnarsson, G. Sangiovanni, G. Rohringer, and A. Toschi, Nonperturbative landscape of the mott-hubbard transition: Multiple divergence lines around the critical endpoint, Phys. Rev. B 94 , 235108 (2016). [75] J. K. Freericks, Strong-coupling expansions for the at-tractive holstein and hubbard models, Phys. Rev. B 48 ,3881 (1993). [76] A. S. Alexandrov, Breakdown of the migdal-eliashberg theory in the strong-coupling adiabatic regime, Euro-physics Letters 56 , 92 (2001). [77] I. Esterlis, B. Nosarzewski, E. W. Huang, B. Moritz, T. P. Devereaux, D. J. Scalapino, and S. A. Kivelson, Break-down of the migdal-eliashberg theory: A determinant quantum monte carlo study, Phys. Rev. B 97 , 140501 (2018). [78] I. Esterlis, S. A. Kivelson, and D. J. Scalapino, Pseudo-gap crossover in the electron-phonon system, Phys. Rev. B 99 , 174516 (2019). [79] B. Nosarzewski, E. W. Huang, P. M. Dee, I. Esterlis, B. Moritz, S. A. Kivelson, S. Johnston, and T. P. De-vereaux, Superconductivity, charge density waves, and bipolarons in the holstein model, Phys. Rev. B 103 ,235156 (2021). [80] A. V. Chubukov, A. Abanov, I. Esterlis, and S. A. Kivel-son, Eliashberg theory of phonon-mediated superconduc-tivity — when it is valid and how it breaks down, Annals of Physics 417 , 168190 (2020), eliashberg theory at 60: Strong-coupling superconductivity and beyond. [81] X. Wang, Y. Schattner, E. Berg, and R. M. Fernandes, Superconductivity mediated by quantum critical antifer-romagnetic fluctuations: The rise and fall of hot spots, Phys. Rev. B 95 , 174520 (2017). [82] Z.-X. Li and H. Yao, Sign-problem-free fermionic quan-tum monte carlo: Developments and applications, An-nual Review of Condensed Matter Physics 10 , 337 (2019).

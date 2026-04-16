@@ -1,0 +1,871 @@
+Title: Measuring quasiparticle dynamics for particle impact reconstruction in a superconducting qubit chip
+
+URL Source: https://arxiv.org/pdf/2604.13176v1
+
+Published Time: Thu, 16 Apr 2026 00:04:58 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+## Measuring quasiparticle dynamics for particle impact reconstruction in a superconducting qubit chip 
+
+E. Celi, 1, ∗ R. Linehan, 2 P. M. Harrington, 3 M. Li, 3 H. D. Pinckney, 3
+
+K. Serniak, 4 W. D. Oliver, 3 J. A. Formaggio, 3 E. Figueroa-Feliciano, 1, 2 and D. Baxter 2, 1 
+
+> 1
+
+Northwestern University, Evanston, IL 60208, USA 
+
+> 2
+
+Fermi National Accelerator Laboratory, Batavia, IL 60510, USA 
+
+> 3
+
+Massachusetts Institute of Technology, Cambridge, MA 02139, USA 
+
+> 4
+
+MIT Lincoln Laboratory, Lexington, MA 02421, USA 
+
+(Dated: Received: date / Accepted: date) Quasiparticle poisoning following particle impacts poses a significant challenge to the development of fault-tolerant superconducting quantum computers, as a sudden excess of quasiparticles can simultaneously degrade the coherence of multiple qubits across large device arrays. In this work, we present a statistical analysis that models the time evolution of radiation-induced qubit energy relaxation through quasiparticle density dynamics. This study provides insight into quasiparticle loss processes by distinguishing between recombination and trapping decay channels and assessing their respective impact on qubit performance. We precisely measure quasiparticle recombination in multiple transmon qubits and uncover an unexpected dependence of qubit relaxation dynamics on deposited energy. By linking correlated relaxation events across qubits to ballistic phonon propagation, we introduce a statistical localization approach to extract the energy deposited in the substrate, which is in good agreement with Monte Carlo simulation. This work establishes the quantitative framework for using an arbitrary subset of superconducting transmon qubits in a QPU as energy-resolving witness particle detectors. 
+
+I. INTRODUCTION 
+
+When an ionizing particle interacts with the substrate of a superconducting qubit chip, it generates electron–hole pairs in the material. The subsequent recombination of these charge carriers produces athermal phonons, which propagate through the substrate and can interact with the superconducting film, breaking Cooper pairs. This process increases the quasiparticle (QP) population, leading to QP poisoning [1–4]. In recent years, several studies have demonstrated how this process generates phonon-mediated correlated errors in superconducting qubits [ 3, 5 –12 ], posing a significant challenge to achieving fault-tolerant quantum computing [ 13 ]. The usage of QP-suppressing technologies, such as gap-engineered Josephson junctions [ 14 –18 ] and low-gap or normal metal down-converters [ 19 , 20 ], will be critical to the mitigation of QP poisoning in future quantum processors. While gap engineering has been largely successful at reducing the duration and intensity of correlated errors in terms of relaxation rates [ 17 , 21 ], the presence of excess QPs still results in qubit dephasing and detuning [ 22 , 23 ]. Thus, understanding and modeling QP dynamics remains fundamental for the construction of scalable quantum processors. On the other hand, the sensitivity of superconducting qubits to excess QP populations makes them promising sensors for rare event searches, particularly given the meV-scale energy required for QP generation in most superconductors [24, 25]. Theoretical models have been developed to describe the dynamics of ballistic phonons in the qubit substrate, aiming to establish connections between the qubit design and the QP density dynamics in the superconducting film [ 1, 24 , 26 ]. In this work, we use a statistical approach to validate a dynamical QP density model on qubit energy relaxation data. The data  
+
+> ∗emanuela.celi@northwestern.edu
+
+selected for this analysis are a subset of those previously published in Ref. [ 7]. By combining information from five qubits on the same substrate, we constrain the characteristic timescales governing QP trapping and recombination in the superconducting film. Using a binomial maximum likelihood fit, we extrapolate the total energy converted into quasiparticles in each qubit island. This analysis reveals an unexpected correlation between the characteristic QP relaxation timescale and the energy deposited into the superconducting system. Furthermore, we present for the first time a simultaneous in-chip energy and position reconstruction using superconducting qubits, and validate this response against Monte Carlo simulation. We achieve this by combining the energy inferred by the model in each qubit with an estimate of the spatial phonon propagation profile. The experimental setup, described in Ref.[ 7], is briefly summarized in Sec. II. The QP density model, previously published in Refs. [ 1 , 24 ], is similarly summarized in Sec. III. Finally, the main analysis is presented in Sec. IV, with conclusions in Sec. V. Our statistical methodology, along with other technical information and cross-checks, is outlined in depth in the Supplemental Materials. 
+
+II. EXPERIMENTAL SETUP 
+
+The experimental setup, described in more detail in Ref. [ 7], consists of an array of 10 fixed-frequency transmon qubits on a 5 ×5×0.35 mm 3 silicon substrate cooled to 10 mK. Each qubit features an Al/AlO 𝑥 /Al Josephson junction (JJ) shunted by a single-ended capacitance to a full aluminum ground plane. Each JJ is positioned on either the left or right side of a qubit island, introducing two different configurations of superconducting gap profiles relative to the ground plane. This superconducting gap profile was shown to affect the timescale on which the time correlation of errors diminished. For the analysis presented here, we analyze only the subset of five qubits with a long recovery time ( > ms). 
+
+> arXiv:2604.13176v1 [quant-ph] 14 Apr 2026
+
+20 10 20 30 Time after trigger [ms] 
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0Probability of relaxation,  pr Edep = 10 1 eV         
+
+> Edep = 10 2eV
+> Edep = 10 3eV
+> Edep = 10 4eV
+> Edep = 10 5eV
+
+0 10 20 30 Time after trigger [ms] 
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0Probability of relaxation,  pr                     
+
+> r= 0.003 ns −1,Edep = 50 eV
+> r= 0.005 ns −1,Edep = 50 eV
+> r= 0.007 ns −1,Edep = 50 eV
+> r= 0.003 ns −1,Edep = 10 5eV
+> r= 0.005 ns −1,Edep = 10 5eV
+> r= 0.007 ns −1,Edep = 10 5eV
+
+0 10 20 30 Time after trigger [ms] 
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0Probability of relaxation,  pr                     
+
+> τss = 5 ms, Edep = 50 eV
+> τss = 6 ms, Edep = 50 eV
+> τss = 7 ms, Edep = 50 eV
+> τss = 5 ms, Edep = 10 5eV
+> τss = 6 ms, Edep = 10 5eV
+> τss = 7 ms, Edep = 10 5eV
+
+FIG. 1. Probability of relaxation as a function of time after trigger as described by Eq. 1 in three different cases: Left: fixed values of 𝑟 and 𝜏 𝑠𝑠 ,increasing values of 𝐸 dep from 10 to 10 5 eV; Center: three different values of 𝑟 (0.003, 0.005 and 0.007 ns −1) for two different 𝐸 dep choices: low energy (50 eV–purple line) and high energy (10 5 eV–light blue line); Right: three different values of 𝜏 𝑠𝑠 = 5, 6 and 7 ms for the same choices of low and high energy. 
+
+Qubit readout was implemented using frequency-multiplexed dispersive measurement via individual resonators coupled to each qubit and a common transmission line. Continuous time domain monitoring of qubit relaxation was achieved through a repeating pulse sequence with a wait time of approximately 10.2 𝜇 s. This method enables time-resolved indirect measurement of sudden changes in qubit 𝑇 1, which are indicative of QP poisoning. An individual measurement cycle consists of qubit excitation via a 𝜋 -pulse, followed by a 1 𝜇 s delay, then readout. The total duration of one cycle is Δ𝑡 cycle = 15 .3 𝜇 s. Because the pulse sequences are applied consecutively, each relaxation measurement also serves as a ground state preparation for the following cycle, under the assumption that the probability of spontaneous qubit excitation during the waiting time Δ𝑡 wait = 10 .2 𝜇 s is negligible. Conversely, if the qubit is measured in the excited state, the next sequence is discarded due to the uncertainty in its initial state. Data was acquired between June 7–29, 2023 at MIT for a total of 266.5 hours. In this work, we use a subset of data collected with a 137 Cs radioactive source with an activity of approximately 17.2 𝜇 Ci placed near the cryostat. This dataset corresponds to about 23 hours of acquisition time and an average event rate of ∼10 mHz, roughly a factor of 10 higher than the background event rate. For comparison, we also analyzed a fraction of background data, corresponding to 143 hours of acquisition time. We remove data where the pre-trigger baseline error probability of any of the five qubits used drifts 2𝜎 from its nominally-measured value; this cut keeps approximately 40% of all exposure. 
+
+III. QUBIT RESPONSE MODEL 
+
+When energy is deposited in a substrate, it propagates through the medium via phonon excitations. The initial interaction generates a burst of athermal phonons, which travel through the substrate and interact with the superconducting film. These meV-scale phonons can break Cooper pairs, producing unpaired charged carriers, commonly referred to as Bogoliubov quasiparticles (QPs). In order to fit the QP density models to the experimental data, we represent the QP density in terms of the probability of qubit energy relaxation 𝑝 𝑟 . Following the same formalism as in Refs. [ 1 , 24 ], we can define the probability of relaxation as: 
+
+𝑝 𝑟 = 1−exp 
+
+" −𝛼𝐸 dep 
+
+𝐸 dep 
+
+𝜏 𝑠𝑠 𝑟  𝑒 Δ𝑡 /𝜏 𝑠𝑠 − 1 + 𝛽𝑒 Δ𝑡 /𝜏 𝑠𝑠 
+
+− 𝛾 
+
+#
+
+, (1) where 𝛼 = Δ 𝑡 √︁ 2𝜔 𝑞 Δ/𝜋 2ℏ and 𝛽 = 𝑛 cp 𝑉 Δ/𝜖 are constant terms depending on the qubit frequency ( 𝜔 𝑞 ), the superconducting gap ( Δ), the island volume ( 𝑉 ), the Cooper-pair density ( 𝑛 cp ), and the phonon to QP absorption efficiency ( 𝜖 ). These are constant terms which depend on the specific material and qubit properties, summarized in Tabs. I and II in Sec. S2 of the Supplemental Material. The energy deposited ( 𝐸 dep ), recombination rate ( 𝑟 ) and linear loss time ( 𝜏 𝑠𝑠 ) are parameters, respectively, proportional to the three dominant mechanisms in QP dynamics: diffusion, recombination, and trapping [ 26 ]. The final term 𝛾 takes into account other relaxation mechanisms and the steady-state QP density. Further details on the QP density models and the numbers used in this work are in Sec. S1. The probability of measuring the qubit in its ground state following excitation, 𝑝 obs , depends on the actual probability of relaxation 𝑝 𝑟 and the measurement fidelity parameters. We define 𝑝 𝑔 as the probability of correctly identifying the ground state |𝑔 ⟩, and 𝑝 𝑒𝑔 (𝑝 𝑔𝑒 ) as the probability of misidentifying 
+
+|𝑔 ⟩ (|𝑒 ⟩) as |𝑒 ⟩ (|𝑔 ⟩). Following Ref. [ 24 ], the observed ground state probability can thus be written as: 
+
+𝑝 obs = 𝑝 𝑟 · 𝑝 𝑔 + ( 1 − 𝑝 𝑟 ) · 𝑝 𝑔𝑒 
+
+= 𝑝 𝑟 · F + 𝑝 𝑔𝑒 
+
+, (2) where F ≡ 1 − 𝑝 𝑔𝑒 − 𝑝 𝑒𝑔 is the single-shot readout fidelity. Readout fidelities are extracted from dedicated measurements 3over the course of data collection. In this work, we utilize the separation fidelities, extrapolated with a dedicated analysis and defined in Sec. S2 of the Supplemental Material. Fig. 1 shows the modeled relaxation probability as a function of time after a trigger, for various combinations of 𝐸 dep ,
+
+𝑟 , and 𝜏 𝑠𝑠 . At low 𝐸 dep , the pulse amplitude increases approximately linearly with energy, until the qubit response saturates reaching the maximum amplitude for 𝐸 dep between 10 2 and 10 3 eV (left plot). Beyond saturation, changes in 𝐸 dep primarily affect the amount of time in which the pulse remains saturated, making pulses from different energy depositions nearly indistinguishable up to certain 𝐸 dep values. In contrast, for large 𝐸 dep , the QP dynamics are dominated by recombination, making the model predominantly sensitive to the recombination rate 𝑟 . Consequently, high-energy events provide the primary constraint on 𝑟 , while recombination effects are subdominant at low energies (center plot). Finally, linear loss mechanisms affect in equal ways the time development of the QP density, independently from the amount of QP produced (right plot). The different time development for low and high energy events plays a crucial role in the independent estimation of 𝑟 and 𝜏 𝑠𝑠 in each qubit, which is needed before 𝐸 dep can be extracted for each event.  
+
+> IV. RESULTS
+
+We applied a binomial maximum likelihood fit to the sampled waveforms against our QP density model. Details of the statistical method are provided in Sec. S4 of the Supplemental Material. Without further constraint, the number of free parameters in the model ( 𝐸 dep , 𝑟 , and 𝜏 𝑠𝑠 ) combined with the statistical fluctuations of the bin counts limits the sensitivity of the parameter estimation. To address this limitation, we construct an analysis workflow aimed first at reducing the number of free parameters. As a preliminary step, we perform fit validation using mock-data (described in Sec. S5 of the Supplemental Material). With this step, we confirm our ability to replicate the experimental data using the QP model described above, investigate the sensitivity of the fit to the model parameters, and check for a possible bias in parameters estimation. We then use an analysis method based on suppression of noise fluctuations by averaging events with similar signal waveforms to obtain a data-driven measurement of 𝑟 and 𝜏 𝑠𝑠 . Estimation of 𝑟 and 𝜏 𝑠𝑠 reduces the number of free parameters in the fit, and, as a result, enables a waveform-by-waveform analysis of each qubit to extract the energy deposited. Finally, we apply a function based on solid-state phonon propagation simulations to extract total energy and position for each particle scattering in the substrate. Uncertainties in the superconductor parameters 𝑟 and 𝜏 𝑠𝑠 pose significant limitations on the precision of energy reconstruction. At temperatures well below 𝑇 𝑐 , the recombination rate saturates to a constant value that depends on material and fabrication details, including film thickness, substrate, and impurity density, making 𝑟 strongly device dependent. On the other hand, the parameter 𝜏 𝑠𝑠 , which characterizes the linear QP loss timescale, depends on local microscopic properties such as material 5.0
+
+7.5
+
+10 .0
+
+12 .5
+
+> τss  [ms]
+> 137 Cs source – Saturated Background – Saturated
+> 137 Cs source – Low Energy Background – Low Energy
+> Q1
+> Q2
+> Q4
+> Q5
+> Q8
+
+6
+
+8
+
+> r [1/ns]
+
+×10 −3         
+
+> FIG. 2. Final results of 𝑟 (bottom) and 𝜏 𝑠𝑠 (top) for each qubit in the source (blue/green) and background (orange/red) data. Solid markers are results from saturated average pulses, providing information both on 𝜏 𝑠𝑠 and 𝑟 . Empty markers are results of low-energy average pulses, which provide information on 𝜏 𝑠𝑠 only.
+
+impurities, spatial variation in the superconducting energy gap, and the steady-state QP density, all making it challenging to predict. Following the average pulse method (see Sec. S6 of the Supplemental Material), we increase the model’s sensitivity to 
+
+𝑟 by averaging a subset of highly-saturated pulses in each qubit, filtering out statistical fluctuations. Similarly, we average a set of low-energy pulses to enhance the sensitivity to 𝜏 𝑠𝑠 . The parameters 𝑟 and 𝜏 𝑠𝑠 are independently extracted for both the source data (taking advantage of the high rate of correlated energy relaxation events due to the vicinity of the 137 Cs source) and background data, using the same fitting method and event selection strategy. The selection and data quality cuts utilized to produce the average waveforms are described in Sec. S3 and S6 of the Supplemental Material. Systematic uncertainties are evaluated by varying the selection cuts and computing the standard deviation of the resulting parameter estimates. These uncertainties are convolved with the statistical fit errors. The final results on 𝑟 and 𝜏 𝑠𝑠 , including total uncertainties, are presented in Fig. 2. We next reconstruct the single-qubit energy deposition 𝐸 dep 
+
+for each qubit. To do this, we fix 𝑟 to its independently-measured value, and then apply the binomial likelihood fit to every triggered waveform, keeping only 𝜏 𝑠𝑠 and 𝐸 dep 
+
+as free parameters and treating the uncertainty on 𝑟 as a nuisance parameter. Here, 𝜏 𝑠𝑠 is kept as a free parameter due to its potential correlation with 𝐸 dep . The fit-validation tests performed on mock-data (Sec. S5) reveal a bias in the reconstructed 𝐸 dep for energies ≳ 500 eV. The same tests also indicate a loss of sensitivity to 𝜏 𝑠𝑠 for waveforms with 4−0.03 −0.02 −0.01 0.00 0.01 0.02 0.03 Time [s] 0.00.20.40.60.81.0          
+
+> pobs
+> Q2, Edep = 46 eV Q5, Edep = 210 eV Q8, Edep = 110 eV Q1, Edep = 29 eV Q4, Edep = 114 eV
+
+2 1 0 1 2
+
+X [mm] 
+
+2
+
+1
+
+0
+
+1
+
+2
+
+> Y [mm]
+
+FIG. 3. Reconstruction of a 374 keV particle impact; Top : Individual qubit energy traces for a correlated event, with the model fit overlaid on the qubit data; Bottom : in-plane vertex reconstruction of the same event. The colored contours indicate the fit position uncertainties at 1𝜎 (green), 2 𝜎 (yellow), and 3 𝜎 (red). The shaded area represents the excluded region from the position cut. 0 200 400 600 800 1000 1200 Reconstructed Etot [keV] 10 −1
+
+10 0
+
+10 1
+
+> counts/hr
+> 137 Cs G4 input
+> 137 Cs G4 processed
+> 137 Cs source data
+
+FIG. 4. Distribution of reconstructed impacts in the chip in the presence of the 137 Cs source including a raw Geant4 simulation (red), that same simulation fed through our analysis chain (pink), and the reconstructed data (blue). 
+
+𝐸 dep ≲ 100 eV. The fit uncertainties exhibit the following correlations: the relative energy resolution reaches a minimum of 𝜎 𝐸 /𝐸 dep ∼10% for 𝐸 dep ∼100–200 eV, while the relative uncertainty on 𝜏 𝑠𝑠 is 𝜎 𝜏 /𝜏 𝑠𝑠 ∼10% for 𝐸 dep > 200 eV (Sec. S9 of the Supplemental Material). Moreover, from the waveform fits, we confirm a clear correlation between the 𝐸 dep and 𝜏 𝑠𝑠 .We combine the waveform reconstructed energy in each qubit with the timing and spatial information of each event. An analysis of the raw waveforms from all 10 qubits reveals correlated pulse amplitudes across the array (Fig. 11 in Sec. S7). The strength of correlation increases with the distance between qubits, confirming the sensitivity of qubits to high-energy phonons, which carry information about the phonon production site [ 6, 11 , 27 , 28 ]. Such phonon transport in specific device geometries can be simulated using a dedicated software called G4CMP [ 24 , 29 ]. Unfortunately, beyond a certain distance from the particle impact site, we find that most of the energy information of the original event is washed out. To address this, we utilize an aggressive fiducial cut to remove regions near the sides and top right quadrant of the chip (where both qubits Q7 and Q9 have a short recovery time); 47% of the chip area remains after this cut. By combining the qubit positions, the reconstructed energy absorbed in each qubit island, and the simulated phonon propagation, we can infer both the interaction vertex and the total energy released in the substrate for a single particle impact. An example of a reconstructed particle impact is shown in Fig. 3. Details of the vertex-reconstruction algorithm and the corresponding performance are provided in Sec. S7 of the Supplemental Material. The phonon absorption probability 
+
+𝑝 𝑎 between the Si substrate and Al film strongly impacts the phonon propagation simulation, and its unknown value is one of the main systematic uncertainties of the method. From Ref. [ 24 ] we assume the phonon propagation curve for 
+
+𝑝 𝑎 = 0.1, but acknowledge that a proper calibration is needed for better reconstruction. We utilize a normalized Geant4 simulation of the 137 Cs source to produce the true rate spectrum of gamma scattering energy in the active region of our detector during this experiment, shown as the red line in Fig. 4. We then translate each true simulated energy into a set of simulated waveforms using our model, in combination with expected statistical variations and model uncertainties. These simulated waveforms for each qubit are run through the full analysis chain to produce the pink spectrum in Fig. 4, which is compared against the data fed through the same analysis in blue. Despite many assumptions throughout our analysis, we find remarkably good agreement between the simulated spectrum of reconstructed impact events and our reconstructed spectrum from data. The primary disagreement in normalization is not surprising given the lack of calibration of the phonon dispersion. A dedicated measurement providing simultaneous energy and position calibration would help to quantify the associated systematic uncertainties of this methodology [ 30 ]. In addition, the limited number of available qubits and their specific placement on the chip constrain the resolution of the vertex-reconstruction procedure. 5 
+
+> V. CONCLUSION
+
+The results presented here lay the foundation for a quantitative demonstration of superconducting qubits as sensors of localized particle interactions in the chip substrate, detected through their associated athermal phonon signatures, including both event calorimetry and localization. Through careful analysis of characteristic high- and low-energy events, we are able to extract a data-driven fit to the QP recombination constant and characteristic linear loss timescale of aluminum qubits used here. Using data from a sub-set of five qubits on this chip exposed to a 137 Cs 𝛾 -source, we perform a simultaneous fit to energy and in-plane position to reconstruct the event-by-event information of each triggered waveform. Despite the lack of a calibration needed to constrain systematic uncertainties, we defined a complete and flexible analysis workflow for operating these devices as energy-resolving sensors. The qubits analyzed in this work have the same geometry and are simultaneously fabricated, so we expect our values for 𝑟 and 𝜏 𝑠𝑠 to be approximately consistent across qubits, as seen in our results. The extracted values of 𝑟 can be measured using this method only from high energy pulses and converge to a definite value for each qubit. By contrast, results on 𝜏 𝑠𝑠 
+
+show about a factor two discrepancy between the low and high energy values, suggesting a correlation between 𝜏 𝑠𝑠 and 
+
+𝐸 dep . In previous measurements of aluminum, 𝑟 has been measured in the range 0.0059–0.125 ns −1 [1, 31–34], which is in good agreement with our results between 0.052–0.095 ns −1.While other 𝑟 and 𝜏 𝑠𝑠 measurements depend on the injection of energy through on-chip devices like JJ injectors [ 28 ] or driven 3D cavities [ 1], this method provides a non-invasive way to extract the recombination rate of qubits using stochastic particle impacts. Moreover, given the expected dependence of 
+
+𝑟 on material properties like film thickness and impurities, this measurement could be used to assess qubit quality across large qubit arrays fabricated under the same conditions. The reproduction of a particle impact energy spectrum represents an unambiguous demonstration of superconducting qubits as energy-resolving particle sensors, despite using transmon qubits that have not been optimized for particle detection. The consequences of this are twofold: first, this supports the claim that qubits optimized for QP sensitivity contain significant potential for particle sensing [ 25 ]; second, that a partial array of transmon qubits, as used in superconducting quantum computers, can be operated as triggered particle sensors, and the resulting waveforms can localize the location and magnitude of a particle impact [ 35 ]. A natural follow-up of this work would be to incorporate this quantitative framework into an error correction code [ 36 ], which could use the information from a sub-set of “particle-sensing” qubits on a chip to tell when a particle impact occurs, where on-chip errors are expected as a result, and how long it will take for each region of a qubit lattice to return to equilibrium. 
+
+> ACKNOWLEDGMENTS
+
+This manuscript has been authored by Fermi Forward Discovery Group, LLC, acting under Contract No. 89243024CSC000002 with the U.S. Department of Energy, Office of Science, Office of High Energy Physics. This work was supported by the U.S. Department of Energy, Office of Science, National Quantum Information Science Research Centers, Quantum Science Center and the U.S. Department of Energy, Office of Science, High-Energy Physics Program Office. This research was supported in part by the Army Research Office under Award No. W911NF-23-1-0045, the U.S. Department of Energy under Award No. DE-SC0019295, and under the Air Force Contract No. FA8702-15-D-0001. This research was supported by an appointment to the Intelligence Community Postdoctoral Research Fellowship Program at MIT administered by Oak Ridge Institute for Science and Education (ORISE) through an interagency agreement between the U.S. Department of Energy and the Office of the Director of National Intelligence (ODNI). Any opinions, findings, conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the Army Research Office, the U.S. Department of Energy, the U.S. Air Force, or the U.S. Government.                                                                      
+
+> [1] C. Wang et al. , Nature Commun. 5, 5836 (2014). [2] K. Serniak, M. Hays, G. de Lange, S. Diamond, S. Shankar, L. D. Burkhart, L. Frunzio, M. Houzet, and M. H. Devoret, Phys. Rev. Lett. 121 , 157701 (2018), arXiv:1803.00476 [cond-mat.mes-hall]. [3] A. Veps ¨al ¨ainen et al. , Nature 584 , 551 (2020), arXiv:2001.09190 [quant-ph]. [4] C. D. Wilen et al. , Nature 594 , 369 (2021), arXiv:2012.06029 [quant-ph]. [5] L. Cardani et al. ,Nature Commun. 12 ,2733 (2021), arXiv:2005.02286 [cond-mat.supr-con]. [6] M. McEwen et al. ,Nature Phys. 18 ,107 (2022), arXiv:2104.05219 [quant-ph]. [7] P. M. Harrington et al. , Nature Commun. 16 , 6428 (2025), arXiv:2402.03208 [quant-ph]. [8] X.-G. Li et al. ,Nature Commun. 16 ,4677 (2025), arXiv:2402.04245 [quant-ph]. [9] G. Bratrud et al. ,Nature Commun. 16 ,9906 (2025), arXiv:2405.04642 [quant-ph]. [10] F. De Dominicis et al. , (2024), arXiv:2405.18355 [quant-ph]. [11] C. P. Larson, E. Yelton, K. Dodge, K. Okubo, J. Batarekh, V. Iaia, N. A. Kurinsky, and B. L. T. Plourde, PRX Quantum 6, 030339 (2025), arXiv:2503.07354 [quant-ph]. [12] H. P. Binney et al. , (2026), arXiv:2603.16494 [quant-ph]. [13] J. M. Martinis, npj Quantum Inf. 7, 90 (2021), arXiv:2012.06137 [quant-ph]. [14] J. Aumentado, M. W. Keller, J. M. Martinis, and M. H. Devoret, Phys. Rev. Lett. 92 , 066802 (2004). [15] S. Diamond et al. ,PRX Quantum 3,040304 (2022), arXiv:2204.07458 [quant-ph].
+
+6
+
+[16] K. Kalashnikov et al. , PRX Quantum 1, 010307 (2020), arXiv:1910.03769 [cond-mat.supr-con]. [17] M. McEwen et al. , Phys. Rev. Lett. 133 , 240601 (2024), arXiv:2402.15644 [quant-ph]. [18] P. M. Harrington, W. D. Oliver, and K. Serniak, “Asymmetric josephson junctions for suppression of correlated errors in superconducting qubits,” (2025). [19] V. Iaia, J. Ku, A. Ballard, C. P. Larson, E. Yelton, C. H. Liu, S. Patel, R. McDermott, and B. L. T. Plourde, Nature Commun. 
+
+13 , 6425 (2022), arXiv:2203.06586 [quant-ph]. [20] K. Karatsu, A. Endo, J. Bueno, P. J. de Visser, R. Barends, D. J. Thoen, V. Murugesan, N. Tomita, and J. J. A. Baselmans, Appl. Phys. Lett. 114 , 032601 (2019), arXiv:1901.02387 [astro-ph.IM]. [21] L. Sun et al. , Phys. Rev. Lett. 108 , 230509 (2012), arXiv:1112.2621 [cond-mat.mes-hall]. [22] V. D. Kurilovich et al. , (2025), arXiv:2506.18228 [quant-ph]. [23] H. D. Pinckney et al. , (2026), arXiv:2603.13460 [quant-ph]. [24] R. Linehan et al. , Phys. Rev. D 111 , 063047 (2025), arXiv:2404.04423 [physics.ins-det]. [25] C. W. Fink, C. P. Salemi, B. A. Young, D. I. Schuster, and N. A. Kurinsky, Phys. Rev. Applied 22 , 054009 (2024), arXiv:2310.01345 [physics.ins-det]. [26] S. B. Kaplan, C. C. Chi, D. N. Langenberg, J. J. Chang, S. Jafarey, and D. J. Scalapino, Phys. Rev. B 14 , 4854 (1976). [27] F. Valenti, A. Murani, P. Paluch, R. Gartmann, L. Scheller, R. Gebauer, R. Kruk, T. Reisinger, L. Ardila-Perez, and I. M. Pop, (2025), arXiv:2505.04902 [cond-mat.supr-con]. [28] E. Yelton et al. , Phys. Rev. B 110 , 024519 (2024), arXiv:2402.15471 [quant-ph]. [29] M. H. Kelsey et al. , Nucl. Instrum. Meth. A 1055 , 168473 (2023), arXiv:2302.05998 [hep-ex]. [30] R. Benevides, M. Drimmer, G. Bisson, F. Adinolfi, U. von L¨ upke, H. M. Doeleman, G. Catelani, and Y. Chu, Phys. Rev. Lett. 133 ,060602 (2024), arXiv:2312.05892 [quant-ph]. [31] R. Barends, J. J. A. Baselmans, S. J. C. Yates, J. R. Gao, J. N. Hovenier, and T. M. Klapwijk, Phys. Rev. Lett. 100 , 257002 (2008). [32] J. N. Ullom, P. A. Fisher, and M. Nahum, Appl. Phys. Lett. 73 ,2494 (1998). [33] C. M. Wilson and D. E. Prober, Phys. Rev. B 69 , 094524 (2004). [34] R. K. Siegel and J. R. Howell, J. Phys. F: Met. Phys. 1, 290 (1971). [35] J. L. Orrell and B. Loer, Phys. Rev. Applied 16 , 024025 (2021), arXiv:2012.12423 [quant-ph]. [36] D. M. Debroy, M. McEwen, C. Gidney, N. Shutty, and A. Zalcman, Quantum 9, 1936 (2025), arXiv:2410.14891 [quant-ph]. [37] G. Catelani, R. J. Schoelkopf, M. H. Devoret, and L. I. Glazman, Phys. Rev. B 84 , 064517 (2011). [38] A. Rothwarf and B. N. Taylor, Phys. Rev. Lett. 19 , 27 (1967). [39] P. J. de Visser, J. J. A. Baselmans, P. Diener, S. J. C. Yates, A. Endo, and T. M. Klapwijk, Phys. Rev. Lett. 106 , 167004 (2011). [40] R. Barends, S. van Vliet, J. J. A. Baselmans, S. J. C. Yates, J. R. Gao, and T. M. Klapwijk, Phys. Rev. B 79 , 020509 (2009). [41] M. Y. Reizer, Phys. Rev. B 61 , 7108 (2000). [42] P. Krantz, M. Kjaergaard, F. Yan, T. P. Orlando, S. Gustavsson, and W. D. Oliver, Appl. Phys. Rev. 6, 021318 (2019), arXiv:1904.06560 [quant-ph]. [43] P. V. Klimov et al. , Phys. Rev. Lett. 121 , 090502 (2018). [44] A. Caldwell, D. Kollar, and K. Kroninger, Comput. Phys. Commun. 180 , 2197 (2009), arXiv:0808.2552 [physics.data-an]. [45] W. K. Hastings, Biometrika 57 , 97 (1970). [46] D. Q. Adams et al. (CUORE), (2025), arXiv:2505.23955 [hep-ex]. 7
+
+## Supplemental Material  
+
+> S1. QUASIPARTICLE DENSITY MODELS
+
+The development of the qubit decay rate as a function of time is 
+
+Γ(𝑡 ) = 𝐶𝑥 qp (𝑡 ) + Γ0, (3) where: 
+
+• 𝑥 qp is the QP density normalized by the Cooper pair density 𝑥 qp = 𝑛 qp /𝑛 cp , where 𝑛 cp is the Cooper-pair density; 
+
+• The parameter 𝐶 =√︁ 2𝜔 𝑞 Δ/𝜋 2ℏ is a known constant [ 37 ]depending on the superconducting gap Δ and the qubit angular frequency 𝜔 𝑞 ;
+
+• Γ0 takes into account other dissipative non-QP mechanisms and the steady-state QP density. The quasiparticle dynamics near the Josephson junction is mostly dominated by diffusion, recombination, and trapping mechanisms [ 26 ]. The evolution of QP density over time is described by the Rothwarf-Taylor formula [38] 
+
+𝑑𝑥 qp 
+
+𝑑𝑡 = −𝑟𝑥 2qp − 𝑠 0𝑥 qp + 𝑔, (4) here, the terms 𝑟, 𝑠 0, and 𝑔 represent the recombination coefficient, the trapping coefficient, and the QP generation rate, respectively [ 1 ]. The quadratic term in Eq. 4 represents the QP self-recombination into Cooper pairs, while the linear term describes the QP trapping due to material impurities and local effects and recombination with quiescent QPs [ 39 ]. With the same change of variables as in Ref. [1], 
+
+𝑟 = 𝑟 ′
+
+(1 − 𝑟 ′) 𝜏 ss 𝑥 i
+
+(5) 
+
+𝑠 0 = 1
+
+𝜏 ss 
+
+
+
+1 − 2𝑟 ′𝑥 0
+
+(1 − 𝑟 ′) 𝑥 i
+
+
+
+(6) 
+
+𝑔 = 𝑥 0
+
+𝜏 ss 
+
+
+
+1 − 𝑟 ′𝑥 0
+
+(1 − 𝑟 ′) 𝑥 i
+
+
+
+, (7) the analytical solution of Eq. 4 is 
+
+Γ(𝑡 ) = 𝐶𝑥 𝑖 
+
+1 − 𝑟 ′
+
+𝑒 𝑡 /𝜏 𝑠𝑠 − 𝑟 ′ + Γ0, (8) where 𝑥 𝑖 = 𝑥 qp (𝑡 = 0) − 𝑥 0 is the normalized density of injected QP and 𝑥 0 is the steady-state density. In the case of substrate phonons interacting with the superconducting film, we define an energy deposition on the qubit island as 
+
+𝐸 dep . We can write the normalized density of the injected QPs as 𝑥 𝑖 = 𝐸 dep 𝜖 /( 𝑛 cp 𝑉 Δ) [ 24 ], where 𝑉 is the island volume (6975 𝜇 m3 for this experiment [ 7]), and 𝜖 is the phonon to QP                         
+
+> TABLE I. Summary of constant parameters used for QP density models. Parameter Value Description Ref.
+> 𝑛 cp 4×10 24 m−3Cooper Pair density [1, 6]
+> Δ180 𝜇 eV SC energy gap [1, 6]
+> 𝑉 6975 𝜇 m3Island volume [7]
+> 𝜖 0.57 Phonon-to-QP efficiency [13]
+> Δ𝑡 3𝜇 sTime interval [7]
+
+absorption efficiency. The final formula utilized to describe QP dynamics in our model is given as Eq. 1 of the main text. The recombination constant 𝑟 has been experimentally studied in aluminum varying the temperature using Kinetic Inductance Detectors (KIDs) [ 31 , 39 , 40 ]. While theoretical models accurately describe its behavior close to the superconducting transition temperature ( 𝑇 ∼ 𝑇 𝑐 ), deviations emerge in the low-temperature regime ( 𝑇 ≪ 𝑇 𝑐 ) [ 1, 31 –34 , 39 , 40 ], primarily due to Cooper-pair re-breaking processes [ 41 ]. In the framework of Kaplan et al. [ 26 ], the recombination constant in Al is expected to be 𝑟 =
+
+4 (Δ/( 𝑘 B𝑇 c)) 3 /( 𝐹𝜏 0) = 21 .8/( 𝐹𝜏 0) [ 26 ], where 𝜏 0 = 438 ns is the theoretical electron–phonon coupling time and 𝐹 is a device-specific suppression factor. As discussed in Sec. V in the main text, we measured the value of 𝑟 in the analysed qubits in the range 0.052–0.095 ns −1, corresponding to a suppression factor 𝐹 ≃ 5 − 10.  
+
+> S2. EXPERIMENT PARAMETERS
+
+As explained in Sec. III, several constant parameters enter the QP-density and qubit-response models. The constants used to compute the values of 𝛼 and 𝛽 in Eq. 1 are summarized in Tab. I. To include the effect of the readout duration in the models, the time interval Δ𝑡 is defined as the sum of the wait time (1 𝜇 s) and half of the read-out duration (2 𝜇 s), see Methods of Ref. [7]. As explained in the main text, we analyzed two different datasets which we refer as Run-07 ( 137 Cs data) and Run-13 (background data). The probability of observing a relaxation depends on the readout fidelity of each qubit. Readout fidelities are obtained from dedicated calibration measurements performed approximately every 45 minutes. In these measurements, each qubit is prepared in either the ground or excited state and read out immediately. Following standard procedures in circuit quantum electrodynamics, the IQ plane is first rotated such that the real (Q) and imaginary (I) components of the signal align with axes, and the separation between ground- and excited-state populations is maximized [ 42 ] (left panel Fig. 5). Readout fidelities are typically estimated by counting events prepared in the ground (excited) state that fall below (above) a fixed threshold, also called assignment fidelities. Because the read-out time is about 4 𝜇 s, while 8−0.002 −0.001 0.000 0.001 0.002 I (V) 0.000 0.001 0.002 0.003 Q (V)     
+
+> Ground Excited
+> −0.002 0.000 0.002 0.004 I (mV) 0200 400 600 800 1000 1200 Fit Ground Fit Excited
+
+FIG. 5. Example of real and imaginary signal components rotated over the I-axis after preparing the qubit in ground (blue) and excited (orange) state (left). Gaussian fit of ground and excited state populations projected on the I-axis (right); the dotted vertical line highlights the threshold utilized to calculate fidelities. 
+
+the relaxation times lie between 10–60 𝜇 s [ 7 ], the single-shot assignment fidelity is affected by 𝑇 1 energy relaxation, leading to instabilities in time. To extract the separation fidelity used in Eq. 2, we fit the IQ histograms with a Gaussian distribution, and we integrate the area below and above the threshold (right panel Fig. 5). We extract the ideal fidelity for each qubit for every calibration cycle, and we use the average fidelity across all runs for both datasets. A summary of qubit fidelities and frequencies is provided in Tab. II. 
+
+S3. DATA PROCESSING 
+
+Data are triggered with a cross-correlation filter, using a one-sided exponential function as a template, with further details in Ref. [ 7]. For each correlated error detected, a variable number of qubits manifest an increased relaxation rate due to QP poisoning, depending on the position and energy of the phonon burst. Each error sequence is represented in terms of error probability as a function of time by constructing a binned waveform. This is achieved by grouping every 40 consecutive measurements into a single bin. For each bin, the probability of error 𝑝 𝑖 for the 𝑖 -th bin is computed as: 
+
+𝑝 𝑖 = 𝑛 𝑖 
+
+𝑁 𝑖 
+
+, with 𝑁 𝑖 ≤ 40 , (9) where 𝑛 𝑖 is the number of detected errors following excitation of the qubit, and 𝑁 𝑖 is the effective number of valid measurements in the bin after discarding sequences with uncertain state preparation. For the analysis described in this work, we focus on the time profile of correlated error bursts. As explained in Ref. [ 7], The location of the Josephson junction within the cross-shaped qubit island carries an inherent asymmetry which significantly influences the qubit’s sensitivity to QP tunneling. As a consequence, some qubits exhibit a faster recovery time following a QP burst (approximately 0.8 ms), while the others display a significantly slower recovery time (approximately 6 ms) [ 7]. The quasiparticle volume is well defined (as the qubit island) for the slow recovery qubits because, as argued in Ref. [ 7], the JJ electrode does not present a QP trapping barrier between the island and the opposite JJ electrode. However, 
+
+TABLE II. Summary of qubit frequencies and fidelity used in the model (Eq. 2) for Run-13 and Run-07. Here, F is the separation fidelity, defined in Sec. III, and 𝑝 𝑔𝑒 is the probability of misidentifying an excited state as a ground one. Qubit name 𝜔 𝑞 
+
+2𝜋 [GHz] Run-07 Run-13 
+
+F [%] 𝑝 𝑔𝑒 [%] F [%] 𝑝 𝑔𝑒 [%] Q1 4.534 99.96 0.02 99.75 0.13 Q2 4.370 99.65 0.20 98.51 0.79 Q4 4.697 99.70 0.13 99.25 0.35 Q5 4.453 99.92 0.04 99.58 0.22 Q8 4.501 99.16 0.47 98.04 1.02 
+
+for the fast recovery qubits, the QPs are trapped in the qubit island, and the predominant source of QPs is the ground plane and the JJ electrodes. For this reason, this analysis focuses mainly on the five qubits exhibiting slower recovery times (Q1, Q2, Q4, Q5, and Q8). Moreover, most of the relevant information for the fast-recovery qubit is contained in about 52 cycles, whose binomial fluctuations make it difficult to resolve the pulse shape. After an initial event selection, each triggered waveform is analyzed to compute a set of basic quantities designed to facilitate the handling of large datasets. These variables are particularly useful for estimating qubit performance over time. For each acquired waveform and for each qubit, we calculated: 
+
+• The average probability of error before the trigger (baseline, 𝐵 ) and its standard deviation ( 𝜎 𝐵 ); 
+
+• The maximum probability of error within the acquired time-window ( 𝑝 max ) and its time-position ( 𝑡 max ), these variables can be used only when the waveform is not saturated; 
+
+• The integral of the number of errors within the first 5 ms after the trigger ( 𝐼 5ms ), over the entire 30.6 ms window (𝐼 tot ), and in the tail region from 10 ms to 30.6 ms ( 𝐼 tail ); 
+
+• The total number of bins in which 𝑝 𝑖 = 1 , referred to as 
+
+saturated bins ( 𝑛 sat ). To ensure that only events acquired under optimal qubit conditions are included in the analysis, we applied a set of quality cuts based on the variables introduced above. In particular, the baseline error probability 𝐵 as a function of time serves as a sensitive indicator of qubit performance. Under nominal conditions—i.e., in the absence of quasiparticle bursts—the baseline 𝐵 is determined primarily by the qubit’s intrinsic 𝑇 1, and it can fluctuate over time due to interactions with two-level systems (TLS) [ 43 ]. Periods of non-optimal performance typically manifest as sudden “jumps” in the baseline, where both 𝐵 and its standard deviation 𝜎 𝐵 increase significantly relative to stable conditions. These unstable periods were identified and excluded by monitoring the average baseline across time. Additionally, we rejected all events whose average baseline deviated by more than two standard deviations from the mean of the average baseline distribution for each run (Fig. 6). 90.2          
+
+> 0.4
+> 0.6
+> Baseline  Q8, Run-13
+> 20 40 60 80 100 120 140
+> Time since start [h]
+> 0.2
+> 0.4
+> 0.6
+> Baseline  Q1, Run-13
+> FIG. 6. Pre-trigger baseline as a function of time for two different qubits in Run-13. Grey areas correspond to discarded events due to sudden changes in relaxation time, probably induced by TLSs coupling. The dashed line marks the 2 𝜎 cut utilized to reject outliers from the analysis.
+
+To filter out random pile-up events occurring within the same time window or deformed waveforms, we applied selection cuts on 𝐼 tail and 𝑛 sat , targeting outliers that deviate from the main distribution of events. These cuts help exclude anomalous waveforms inconsistent with the typical signature of single QP bursts. The baseline and integral cuts are defined as quality cuts, and their efficiencies for each qubit are summarized in Tab. III.  
+
+> S4. STATISTICAL METHOD
+
+To reconstruct the pulse shape of each waveform using the quasiparticle density models, we developed a framework to perform a maximum likelihood binomial fit on each sampled waveform. In this framework, each bin is treated as a binomial process that fluctuates around its expected relaxation probability 𝑝 obs (𝑡 ; ˆ 𝜃 ), where ˆ𝜃 denotes the set of model parameters—specifically 𝐸 dep , 𝑟 , and 𝜏 𝑠𝑠 . The likelihood function is constructed as a product over all bins, assuming independent binomial statistics: 
+
+L ({ 𝑛 𝑖 } | 𝑝 obs ) =
+
+Ö
+
+> 𝑖
+
+𝑁 𝑖 
+
+𝑛 𝑖 
+
+
+
+𝑝 𝑛 𝑖  
+
+> obs
+
+(𝑡 𝑖 ) ( 1 − 𝑝 obs (𝑡 𝑖 )) ( 𝑁 𝑖 −𝑛 𝑖 )
+
+(10) where 𝑛 𝑖 is the number of observed relaxation events in the 
+
+𝑖 -th bin, 𝑁 𝑖 is the number of effective measurements in that bin, and 𝑡 𝑖 is the set of time bin centers. In this work, we adopted a Bayesian approach to infer the parameters of interest in the model. According to Bayes’ theorem, the joint posterior probability density function (pdf) can be written as: 
+
+P  𝑝 obs (𝑡 ; ˆ 𝜃 ) | { 𝑛 𝑖 } ∝ L  {𝑛 𝑖 } | 𝑝 obs (𝑡 ; ˆ 𝜃 ) 𝜋 ( ˆ𝜃 ) (11) where 𝜋 ( ˆ𝜃 ) represents the prior distributions of model’s parameters. In this analysis, we used non-informative flat priors, except for the nuisance parameters, where we used Gaussian priors based on previous measurements. We performed joint                                              
+
+> TABLE III. Cut efficiencies for each qubit corresponding to quality cuts ( 𝜖 Q), analysis cuts ( 𝜖 A), and the combined efficiency ( 𝜖 tot ). The efficiency reported for all qubits (last row) includes the time-coincidence requirement and rejects the full event whenever at least one qubit does not pass the cuts. Qubit Run-07 Run-13
+> 𝜖 𝑄 [%] 𝜖 𝐴 [%] 𝜖 tot [%] 𝜖 𝑄 [%] 𝜖 𝐴 [%] 𝜖 tot [%] Q1 76.5 85.5 65.3 63.5 84.9 54.2 Q2 92.4 86.0 79.4 93.3 86.4 81.0 Q4 92.8 84.1 78.2 93.0 84.3 78.1 Q5 74.6 86.0 64.8 91.6 85.0 77.8 Q8 79.7 85.7 68.3 85.9 86.0 73.8 all 36.2 43.9 16.2 41.7 44.6 18.6
+
+posterior pdf sampling using the BAT (Bayesian Analysis Toolkit) software [ 44 ], which provides several tools for posterior marginalization, including Markov Chain Monte Carlo (MCMC) methods based on the Metropolis-Hasting algorithm [45].  
+
+> S5. SEQUENCE SIMULATION AND FIT VALIDATION
+
+For an optimal understanding of the statistical method and the correctness of the data selection, we developed a dedicated tool designed to reproduce the readout sequence starting from the model parameters. This approach offers a twofold advantage: (1) it allows us to validate the fitting methodology by attempting to recover the simulation input parameters—an essential step for identifying possible biases in the procedure; and (2) it provides a comprehensive understanding of how the data depend on the model parameters. Given the absence of an active reset, each cycle in the sequence is not fully independent, and its read-out value is correlated with that of the preceding cycle. In this sequence, we define the excited and ground states as 
+
+|𝑒 ⟩ and |𝑔 ⟩, respectively. The parameter 𝛿𝑡 wait is the time step between the 𝜋 -pulse and the effective read-out (4 𝜇 s), while 
+
+𝛿𝑡 tot corresponds to the time difference between consecutive 
+
+𝜋 -pulses (15.2 𝜇 s). To fully reproduce the representative data, we modeled the readout chain as a two-state Markov process characterized by a transition matrix 𝑃 defined as: 
+
+𝑃 =
+
+ 𝑃 (𝑒 → 𝑒 ) 𝑃 (𝑒 → 𝑔 )
+
+𝑃 (𝑔 → 𝑒 ) 𝑃 (𝑔 → 𝑔 )
+
+
+
+=
+
+ 𝜌 (1 − 𝑟 ) 1 − 𝜌 (1 − 𝑟 )
+
+1 − 𝑟 𝑟 
+
+ (12) where 𝑟 and 𝜌 represent the probabilities of relaxation during 
+
+𝛿𝑡 wait and 𝛿𝑡 tot , respectively. From the general properties of two-states chains, we can derive the probability 𝜋 𝑒 (𝜋 𝑔 ) of measuring |𝑒 ⟩ (|𝑔 ⟩) any time during the sequence: 
+
+𝜋 𝑒 = 1 − 𝑟 
+
+2 − 𝑟 − 𝜌 (1 − 𝑟 ) 𝜋 𝑔 = 1 − 𝜌 (1 − 𝑟 )
+
+2 − 𝑟 − 𝜌 (1 − 𝑟 ) . (13) The entire signal sequence can be reproduced starting from the relaxation probabilities derived from the quasiparticle density 10 −0.03 −0.02 −0.01 0.00 0.01 0.02 0.03 Time [s] 
+
+0.0
+
+0.5
+
+1.0Probability of error  Edep = 10 1 eV       
+
+> Edep = 10 2eV
+> Edep = 10 3eV
+> Edep = 10 4eV
+
+FIG. 7. Example of simulated pulses at different values of energy deposited in the qubit island. The sequence is simulated according to the quasiparticle density models assuming 𝜔 𝑞 = 4.5 GHz, 
+
+𝑟 = 0.005 ns −1 and 𝜏 𝑠𝑠 = 6 ms, while the baseline is simulated assuming 𝑇 1 = 50 𝜇 s. 
+
+models described in Sec. III. Using the experimental parameters listed in Tabs. I and II, we simulated a signal-like measurement sequence and we generated waveform-like signals employing the same tools used for processing real data. An example of simulated pulse with different values of energy deposited is in Fig. 7. Finally, we employed this simulation tool to validate the fitting procedure and assess potential biases in the parameter estimation. We generated a total of 5000 mock waveforms for various deposited energies and analyzed them using the same fitting software as for the experimental data. The simulated input energies span the range from 50 eV to 5 ×10 4 eV. Each waveform is fitted keeping 𝐸 dep and 𝜏 𝑠𝑠 as free parameters, while fixing 𝑟 to its expected value (in this case, 𝑟 = 0.005 ns −1). The results are shown in Fig. 8. As a consequence of waveform saturation, the fit exhibits a bias in extrapolated energy for waveforms with 𝐸 dep > 500 eV. We also validated the 𝜏 𝑠𝑠 
+
+results as a function of 𝐸 dep ; from the bottom plot in Fig. 8 we noticed a significant loss of sensitivity for 𝐸 dep < 100 eV, consistent with a reduced pulse amplitude relative to the noise. 
+
+S6. AVERAGE PULSE METHOD 
+
+Random fluctuations in the measured error probability introduce noise that can interfere with the fit and reduce precision. A standard technique to suppress these fluctuations is the Average Pulse (AP) method, in which a set of pulses with similar temporal structure is averaged bin-by-bin (e.g. [ 46 ]). This averaging reduces the impact of statistical noise and enhances the underlying signal. By applying this method to both low-energy (LE) and high-energy (HE) subsets, we obtain average waveforms that are then fitted using the QP model. The fit to the LE average pulse allows for an accurate estimation of 𝜏 𝑠𝑠 , since the pulse shape in this regime is primarily sensitive to linear losses. The fit to the HE average pulse, on the other hand, is sensitive to both 𝜏 𝑠𝑠 
+
+and the recombination constant 𝑟 , enabling the simultaneous determination of both parameters. This approach assumes that 
+
+𝑟 and 𝜏 𝑠𝑠 remain constant throughout the dataset and are not 1 2 3 4 5Reconstructed Log(Energy [eV]) 0200 400 600 counts 
+
+> Edep = 5e+01 Edep = 1e+02 Edep = 5e+02 Edep = 1e+03 Edep = 1e+04 Edep = 5e+04
+
+2 4 6 8 10 Reconstructed τss [ms] 0100 200 300 counts 
+
+> Edep = 5e+01 Edep = 1e+02 Edep = 5e+02 Edep = 1e+03 Edep = 1e+04 Edep = 5e+04
+
+FIG. 8. Fit validation results for 𝐸 dep (top) and 𝜏 𝑠𝑠 (bottom). Distributions represent fit results from 5000 mock waveforms simulated with 𝜏 𝑠𝑠 = 6 ms and various values of 𝐸 dep . The vertical dotted lines in the top plot correspond to the expected energy values for each generated distribution. 
+
+significantly affected by time-dependent variations. The strategy adopted to select waveforms for constructing the average pulse is based on applying well-motivated cuts to pulse-shape variables, defined in Sec. S3. Multiple cut values are considered to evaluate the associated systematic uncertainty by convolving the result obtained from different cuts with their fit uncertainty. For the selection of LE waveforms, we impose a cut on the pulse amplitude 𝑝 max , defined as: 
+
+𝐵 + 𝑛 · 𝜎 𝐵 < 𝑝 max < 𝐵 + ( 𝑛 + 1) · 𝜎 𝐵 (14) where 𝐵 and 𝜎 𝐵 are the baseline and its standard deviation, respectively. We calculate the average pulse for progressive values of 𝑛 starting from 𝑛 = 3, to ensure the rejection of > 90% of noise waveforms. Successively, we iteratively calculated the AP until reaching the maximum amplitude 𝑝 max < 0.6 . The upper bound is motivated by the requirement that the selected pulses remain within the linear response regime of the sensor, as illustrated in Fig. 9. The numbers of averaged pulses for each selection cut for LE waveforms are summarized in Tab. IV. To select saturated HE pulses, we apply a cut on the number of saturated bins, 𝑛 sat . Additionally, we impose a lower threshold on 𝐼 5ms , derived from the distribution of non-saturated pulses. The choice of 𝑛 sat cuts is guided by the pulse shape of individual qubit signals and their readout fidelities. We employed the simulation tool described in Sec. S5 to study the correlation between the parameters 𝑟 and 𝑛 sat using mock-data. These 11 0 50 100 150 200 
+
+Edep [eV] 
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+> pmax
+
+Q2 Q5 Q8 Q1 Q4 
+
+FIG. 9. Probability of error at 𝑡 = 0 (immediately following a trigger) according to the QP density model as a function of 𝐸 dep . The model takes into account separation fidelities and the average baseline for the five different qubits, which is why the curves do not start at the origin. The horizontal black line marks the value 𝑝 max = 0.6 above which the maximum probability of error starts scaling non-linearly with 𝐸 dep .Cut 𝑁 Q1 avg 𝑁 Q2 avg 𝑁 Q4 avg 𝑁 Q5 avg 𝑁 Q8 avg 
+
+Run-07 
+
+𝑛 𝜎 = 3 505 1015 983 638 829 
+
+𝑛 𝜎 = 4 465 747 804 471 574 
+
+𝑛 𝜎 = 5 459 561 - 386 393 
+
+𝑛 𝜎 = 6 380 440 - 336 329 
+
+𝑛 𝜎 = 7 336 - - - -Run-13 
+
+𝑛 𝜎 = 3 160 313 441 289 277 
+
+𝑛 𝜎 = 4 160 301 382 251 264 
+
+𝑛 𝜎 = 5 153 284 - 220 234 
+
+𝑛 𝜎 = 6 154 234 - 187 187 
+
+𝑛 𝜎 = 7 144 201 - 186 167 TABLE IV. Number of averaged pulses for the low-energy AP selection for each qubit. 
+
+simulations reproduce qubit-like 𝑛 sat distributions by using the experimental parameters as input. As shown in Fig. 10, the distribution of 𝑛 sat for different values of 𝑟 reveals a strong correlation between 𝑟 and the maximum number of saturated bins in the dataset. In the absence of an external trigger for fully saturated waveforms, the HE average pulse is constructed from pulses satisfying 𝑚 ≤ 𝑛 sat ≤ 𝑘 , where 𝑘 denotes the maximum number of saturated bins observed for each qubit, while 𝑚 is in the range 𝑘 − 3 ≤ 𝑚 ≤ 𝑘 . The lower bound of 
+
+𝑘 − 3 ≤ 𝑚 is chosen to include the maximum of the distribution of 𝑛 sat , thereby ensuring sufficient statistics for the AP while minimizing the inclusion of not-fully saturated pulses. On the latter purpose, when 𝑘 is low we consider a further constraint 
+
+𝑚 > 3. To avoid including large statistical uncertainties in the measurement, only average pulses with a number of averaged pulses 𝑁 avg > 1 are included in the analysis. In Tab. V, the 0 1 2 3 4 5 6 7 8 9 10 N. saturated bins 
+
+100 
+
+200 
+
+300 
+
+400 
+
+500 Counts 
+
+r = 0.005 ns −1
+
+r = 0.007 ns −1
+
+r = 0.009 ns −1
+
+FIG. 10. Number of saturated bins distributions for different values of 
+
+𝑟 . The distributions are built with 1000 simulated pulses with energy 
+
+𝐸 dep = 10 5 eV (full saturation). The simulation takes into account the effective fidelities for each qubit. Qubit Run-07 Run-13 
+
+𝑛 max sat cut 𝑁 avg 𝑛 max sat cut 𝑁 avg 
+
+Q1 8
+
+𝑛 sat > 5 80 8
+
+𝑛 sat > 5 39 
+
+𝑛 sat > 6 12 𝑛 sat > 6 6
+
+𝑛 sat > 7 4 𝑛 sat > 7 1Q2 8
+
+𝑛 sat > 5 17 7
+
+𝑛 sat > 4 35 
+
+𝑛 sat > 6 3 𝑛 sat > 5 12 
+
+𝑛 sat > 7 1 𝑛 sat > 6 1Q4 9
+
+𝑛 sat > 6 89 10 
+
+𝑛 sat > 7 6
+
+𝑛 sat > 7 27 𝑛 sat > 8 3
+
+𝑛 sat > 8 3 𝑛 sat > 9 1Q5 7
+
+𝑛 sat > 4 115 7
+
+𝑛 sat > 4 63 
+
+𝑛 sat > 5 48 𝑛 sat > 5 18 
+
+𝑛 sat > 6 5 𝑛 sat > 6 1Q8 6
+
+𝑛 sat > 3 105 5
+
+𝑛 sat > 2 114 
+
+𝑛 sat > 4 34 𝑛 sat > 3 48 
+
+𝑛 sat > 5 6 𝑛 sat > 4 9TABLE V. Maximum number of saturated bins and number of averaged pulses 𝑁 avg for Run-13 (background data) and Run-07 ( 137 Cs source data) observed for each qubit and different cuts. 
+
+observed maximum number of saturated bins, cuts applied and the number of averaged pulses are summarized for both datasets. For the average pulse fit, the unknown parameters are 𝐸 dep , 𝑟 ,and 𝜏 𝑠𝑠 . As suggested by the model, the HE fit is not sensitive to 𝐸 dep , therefore, its value is set to 10 5 eV during the fit to ensure full saturation and to reduce the number of degrees of freedom. Conversely, for the LE fit, the AP pulse shape is insensitive to the value of 𝑟 , as the selected pulses are far from saturation. Therefore, 𝑟 was fixed to the HE measured value, also in this case, reducing the number of degrees of freedom. 12 Chip geometry 
+
+5 mm 
+
+> 5 mm
+
+FIG. 11. Amplitude correlation plots for all 10-qubits in Run-13. Qubit positions on the chip are displayed in the rendering of chip geometry on the top-right corner, taken from Ref. [7]. 
+
+S7. POSITION RECONSTRUCTION METHOD 
+
+When a particle interacts with the substrate of asuperconducting qubit chip, it generates phonons that propagate through the material. In a model-independent approach, a raw-waveform analysis on all 10 qubits reveals evidence of spatial correlation in terms of pulse amplitude 𝑝 𝑚𝑎𝑥 
+
+(Fig. 11), demonstrating the connection between ballistic phonon dynamics and the energy deposited in the qubit island. For each permutation of two qubits 𝜙𝜉 , we calculated the inter-qubit amplitude correlation coefficient over Run-13 as: 
+
+𝜌 𝜙 𝜉 =
+
+Í𝑁 𝑖 =1
+
+ 𝜙 𝑖 − ¯𝜙    𝜉 𝑖 − ¯𝜉 √︃ Í𝑁 𝑖 =1
+
+ 𝜙 𝑖 − ¯𝜙 2√︃ Í𝑁 𝑖 =1
+
+ 𝜉 𝑖 − ¯𝜉 2
+
+(15) where 𝑁 is the total number of events, 𝜙 and 𝜉 are coordinates over the 𝑝 𝜙 𝑚𝑎𝑥 and 𝑝 𝜉 𝑚𝑎𝑥 phase space, while ¯𝜙 and ¯𝜉 are 13 1 2 3 4Qubit distance [mm] 
+
+−0.2
+
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8Correlation coefficient,  ρ
+
+> FIG. 12. Amplitude correlation coefficient in Run-13 vs. distance among qubits.
+
+their mean values. Given the chip geometry, represented in Fig. 11, the strength of amplitude correlation is maximum for neighboring qubits in the same line and minimum for qubits in different rows (Fig. 12). This spatial correlation can be replicated using phonon simulation software like the G4CMP toolkit [ 29 ], taking into account the experimental geometry. In this work, we use the phonon collection efficiency as a function of the distance from the phonon production site calculated in Ref. [ 24 ], where different qubit geometries were modeled. In our case, we considered the Xmon geometry with a full ground plane, same as the geometry of the experiment data in Ref. [ 7 ]. The phonon collection efficiency profile takes into account the probability 
+
+𝑝 𝑎 that a phonon is absorbed at the interface between the substrate and the superconducting film (here, between silicon and aluminum). Since its value is not precisely known, we assumed 𝑝 𝑎 = 0.1 . The simulated efficiency profile is then fit with a double exponential decay function plus a constant term. The results of the simulation and the corresponding fit are shown in Fig. 13. Finally, we model the expected energy deposited in qubit 𝑖 as a function of the distance from the phonon production point, 𝑅 , and the total deposited energy 𝐸 tot 
+
+as 
+
+𝑆 model  
+
+> 𝑖
+
+(𝑅, 𝐸 tot ) = 𝐸 tot 
+
+
+
+𝑎 · 𝑒 −𝑏𝑅 + 𝑐 · 𝑒 −𝑑𝑅 + ℎ
+
+
+
+, (16) where 𝑅 =√︁ 𝑥 2 + 𝑦 2 and the parameters 𝑎, 𝑏, 𝑐, 𝑑 and ℎ are extracted from the fit. We combine the information from the energy deposited in relaxation events correlated among the qubits, the position of the qubits, and the phonon efficiency profile to reconstruct both the in-plane interaction vertex and the total energy deposited in the substrate. The vertex reconstruction is performed by minimizing the 𝜒 2 function defined as 
+
+𝜒 2 (𝑥, 𝑦, 𝐸 tot ) =
+
+> 𝑁
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑆 obs  
+
+> 𝑖
+
+− 𝑆 model  
+
+> 𝑖
+
+(𝑥, 𝑦, 𝐸 tot )
+
+𝜎 𝑖 
+
+!2
+
+, (17) 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0Distance from qubit, R [mm] 
+
+> 10 −4
+> 10 −3
+> 10 −2
+> Ph. collection efficiency  Simulation Fit
+> FIG. 13. Phonon collection efficiency as a function of the distance from the initial phonon interaction.
+
+where 𝑆 obs  
+
+> 𝑖
+
+is the energy deposited in the i-th qubit, 
+
+𝑆 model  
+
+> 𝑖
+
+(𝑥, 𝑦, 𝐸 tot ) is the expected energy deposited in the i-th qubit at a given vertex ( 𝑥, 𝑦 ) and total energy 𝐸 tot , and 𝜎 𝑖 is the uncertainty on 𝑆 obs  
+
+> 𝑖
+
+. An example of a reconstructed vertex is in Fig. 3 in the main text.  
+
+> S8. GEANT4 SIMULATION AND ANALYSIS VALIDATION
+
+To understand the expected energy deposition in the substrate, we perform a dedicated Geant4 simulation using the geometry described in the methods section of Ref. [ 7]. The Geant4 software allows simulating the energy deposited and the position of the interaction from ionizing particles in a specific volume, taking into account the cryostat geometry and the position of the chip. We simulated 𝛾 -rays from a 137 Cs source placed in proximity to the cryostat, replicating its experimental location with respect to the chip orientation. Without considering any experimental features, such as energy resolution and energy threshold, the expected energy spectrum from 662 keV 𝛾 -rays in the chip substrate is shown in Fig. 4 in the main text (red histogram). Given the small volume of the substrate, the energy spectrum is mostly dominated by secondary 𝛾 -rays from Compton scatterings occurring in the cryostat cans, the supporting holders, and the chip itself. While the Geant4 simulation provides information only on the total deposited energy and the position of the interaction, we further extended the simulation to replicate the energy deposited in each qubit island. Following the same model of phonon collection efficiency shown in Fig. 13, we calculated the expected deposited energy at the positions corresponding to the qubits used in the analysis. To fully replicate the experimental data, the expected 𝐸 dep in each qubit for each simulated event was used to feed the waveform simulation, using the same software described in Sec. S5. Pulses were generated using the average 𝑇 1 and the measured 𝑟 and 𝜏 𝑠𝑠 corresponding to each qubit in Run-07. We used the simulated dataset of 137 Cs mock-data to validate the analysis procedure, the energy and position reconstruction algorithm, and to investigate the effect of analysis and quality cuts on the data. For each energy spectrum (Fig. 4 in the main text and Fig. 14), we compare the experimental data (blue histograms) with the original simulation input before simulating the waveform (red histograms) and the simulated 14 0 100 200 300 400 500  
+
+> Edep [eV] 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Counts
+
+Q2 137 Cs G4 input       
+
+> 137 Cs G4 processed
+> 137 Cs data 0100 200 300 400 500
+> Edep [eV] 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Counts
+
+Q5       
+
+> 0100 200 300 400 500
+> Edep [eV] 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Counts
+
+Q8       
+
+> 0100 200 300 400 500
+> Edep [eV] 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Counts
+
+Q1       
+
+> 0100 200 300 400 500
+> Edep [eV] 10 0
+> 10 1
+> 10 2
+> 10 3
+> 10 4
+> Counts
+
+Q4 
+
+FIG. 14. Histograms of the energy reconstructed from the waveform fit for each qubit. The blue spectrum corresponds to experimental data taken with the 137 Cs source. The other histograms correspond to the 137 Cs Monte Carlo simulation: the direct Geant4 output, i.e., the energy used to generate the waveform simulation (G4 input – red), and the energy reconstructed from the artificial waveforms generated using the same Geant4 input energy (G4 processed – pink). The simulated spectra are normalized to the experimental data, taking into account the 137 Cs source activity, the data-taking duration, and the efficiencies. 
+
+spectrum after simulating and processing mock-waveforms (pink histograms). 
+
+S9. WAVEFORM FIT AND POSITION RECONSTRUCTION RESULTS 
+
+The procedure described in Sec. S4 was applied to the fit of each waveform throughout the analysis. The relative fit uncertainty in energy, shown in Fig. 15 top panel, has a minimum of ∼ 10% for 𝐸 dep ∼ 100 − 200 eV. At low energy, the pulse amplitude is low, and the fit quality is worsened due to the noise, while for 𝐸 dep > 500 eV the model rapidly loses sensitivity due to the waveforms’ saturation. The relative precision in 𝜏 𝑠𝑠 also depends on the waveform amplitude, as already addressed by the mock-data fit test described in Sec. S5. As evident from the bottom panel in Fig. 15, the relative uncertainty on 𝜏 𝑠𝑠 rapidly increases for 𝐸 dep < 200 eV, while it is stable at ∼ 10% for higher energies. The energy spectra in 𝐸 dep are shown in Fig. 14. From the comparison between the Geant4 simulation before and after waveform simulation and processing, we reproduce the experimental spectral shape at lower energies by filtering out noisy events and poorly reconstructed fits. Overall, the simulated energy spectra reproduce the experimental data well. Fig. 16 shows the 𝜏 𝑠𝑠 vs. 𝐸 dep distribution for each qubit. We observe an unexpected linear correlation between 𝜏 𝑠𝑠 and 𝐸 dep 
+
+in the range 50 eV < 𝐸 dep < 300 eV , with 𝜏 𝑠𝑠 approaching a constant value at higher energies. We applied the position reconstruction algorithm only to 
+
+> 137
+
+Cs data, since background data are mostly dominated by atmospheric muons, which typically cross the chip diagonally and therefore violate the point-like interaction assumption required for the position reconstruction algorithm. For the total energy plot (Fig. 4), we applied several quality cuts to select a clean sub-sample of events for position reconstruction. In particular, we discard events where any qubit shows baseline instabilities (see Fig. 6), where any in-qubit fit parameter is poorly reconstructed, or where the deposited energy 𝐸 dep 
+
+exceeds 500 eV. The phonon collection efficiency model used in the reconstruction algorithm is derived from solid-state simulations for interactions far from the chip edges. When an event occurs close to the edge, phonon reflections may alter the phonon collection efficiency and increase the amount of energy deposited in the qubit island. Since this effect cannot be reproduced in our analysis, we conservatively applied a fiducial cut on the reconstructed event positions, rejecting all events reconstructed within ∼ 0.5–1 mm of the chip edges and more 15 10 1 10 2 10 3 10 4
+
+Edep [eV] 
+
+0
+
+20 
+
+40 
+
+60 
+
+80 
+
+100 
+
+> στ /τss  [%]
+
+## Q2 
+
+10 1 10 2 10 3 10 4
+
+Edep [eV] 
+
+20 
+
+40 
+
+60 
+
+80 
+
+100 
+
+> σE /E [%]
+
+FIG. 15. Relative fit error in 𝐸 dep (left) and 𝜏 𝑠𝑠 (right) as a function of 𝐸 dep for one example qubit (Q2). 0 200 400  
+
+> Edep [eV]
+> 5.0
+> 7.5
+> 10 .0
+> 12 .5
+> 15 .0
+> 17 .5
+> τss  [ms]
+
+Q2    
+
+> 0200 400
+> Edep [eV]
+> 5.0
+> 7.5
+> 10 .0
+> 12 .5
+> 15 .0
+> 17 .5
+> τss  [ms]
+
+Q5    
+
+> 0200 400
+> Edep [eV]
+> 5.0
+> 7.5
+> 10 .0
+> 12 .5
+> 15 .0
+> 17 .5
+> τss  [ms]
+
+Q8    
+
+> 0200 400
+> Edep [eV]
+> 5.0
+> 7.5
+> 10 .0
+> 12 .5
+> 15 .0
+> 17 .5
+> τss  [ms]
+
+Q1    
+
+> 0200 400
+> Edep [eV]
+> 5.0
+> 7.5
+> 10 .0
+> 12 .5
+> 15 .0
+> 17 .5
+> τss  [ms]
+
+Q4 
+
+> 10 0
+> 10 1
+> Counts
+> 10 0
+> 10 1
+> Counts
+> 10 0
+> 10 1
+> Counts
+> 10 0
+> 10 1
+> Counts
+> 10 0
+> 10 1
+> Counts
+
+FIG. 16. Fit results in terms of 𝐸 dep vs. 𝜏 𝑠𝑠 for Run-07 fit results. 
+
+than 0.5 mm away from any sensitive qubit towards the edges of the chip (excluding a large area in the top-right corner). Despite this geometrical cut, we still observe a smearing of high-energy events between the raw Geant4 simulation and the processed output. This effect could be attributed to the geometrical configuration of the sensitive qubits on the chip or to a large uncertainty in the initial in-qubit energy estimation. Nevertheless, the experimental data and the normalized Geant4 processed output exhibit a similar spectral shape, supporting the interpretation of the events as originating from 137 Cs 𝛾 
+
+rays.

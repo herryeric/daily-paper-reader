@@ -1,0 +1,626 @@
+Title: Programmable Fermionic Quantum Processors with Globally Controlled Lattices
+
+URL Source: https://arxiv.org/pdf/2604.13160v1
+
+Published Time: Thu, 16 Apr 2026 00:04:26 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# Programmable Fermionic Quantum Processors with Globally Controlled Lattices 
+
+Gabriele Calliari, 1, 2, ∗ Charles Fromonteil, 1, 2, ∗ Francesco Cesa, 1, 2 
+
+Torsten V. Zache, 1, 2 Philipp M. Preiss, 3, 4 Robert Ott, 1, 2 and Hannes Pichler 1, 2, †
+
+> 1
+
+Institute for Theoretical Physics, University of Innsbruck, Innsbruck, 6020, Austria 
+
+> 2
+
+Institute for Quantum Optics and Quantum Information, Austrian Academy of Sciences, Innsbruck, 6020, Austria 
+
+> 3
+
+Max Planck Institute of Quantum Optics, Hans-Kopfermann-Str.1, Garching D-85748, Germany 
+
+> 4
+
+Munich Center for Quantum Science and Technology (MCQST), Schellingstr. 4, M¨ unchen D-80799, Germany 
+
+We introduce a framework for realizing universal fermionic quantum processing with globally con-trolled itinerant fermionic particles. Our approach is tailored to the example of neutral atoms in optical lattices, but transposes to other setups with similar capabilities. We give constructive proto-cols to realize arbitrary fermionic processes, with time-dependent control over global parameters of the experimental setup, such as tunneling and interaction in a Fermi-Hubbard type model. We first prove the universality of our framework and then discuss implementation variants, such as hybrid analog-digital simulation of extended Fermi-Hubbard models, e.g., with long-range couplings. 
+
+Introduction— Understanding fermionic many-body physics is a central topic in quantum science, bridg-ing chemistry, condensed matter, high-energy physics, and cosmology. However, calculating properties of in-teracting systems of fermions with classical computers is, in general, prohibitively difficult even for moder-ate system sizes [1]. In recent years, there have been growing efforts to address this challenge with quantum simulators [2, 3] based on itinerant fermionic particles, where fermionic statistics are naturally enforced at the physical level. For instance, neutral atoms in optical lattices [4, 5] or electrons in semiconductor quantum dot arrays [6–10] naturally give rise to scalable simula-tions of paradigmatic fermionic models, most notably the Fermi-Hubbard model with nearest-neighbor tun-neling and on-site interaction. An outstanding challenge is to access models that are not natively realized in these platforms and require a larger degree of programmability. Often, experimental control is in fact limited to a few, uniformly tunable parameters of the microscopic Hamiltonian. This moti-vates the exploration of the degree of programmability that can be achieved under these constraints. While similar questions have been object of intense research for qubit-based setups, [11–21], fermionic processing features intrinsically different native operations [22], which are also subject to fundamental constraints, such as superselection rules; in circuit formalism, this re-sults in different gate sets. Thus, fermionic quantum processing protocols with global control require new strategies. Here we introduce a framework for fermionic quan-tum processing under such conditions. Our approach is designed for neutral atoms in optical lattices, and as-sumes only time-dependent control over a superlattice potential, a magnetic field gradient, and the contact in-teraction strength. We provide explicit protocols that harness these tools to realize a universal fermionic gate set, enabling the construction of arbitrary quantum processes in a programmable way. Due to its global control character, the scheme is highly parallelizable in large one- and two-dimensional lattices, and thus well-suited for quantum simulation tasks. We first provide a constructive proof of universality in a minimal setup consisting of a one-dimensional (1D) lattice with spin-1/2 fermions: atoms in one spin state are used as a fermionic register, while a single atom in the other spin state acts as a control particle. We show how the latter can be moved through the lattice via global sequences, and used to trigger operations in a sequential way akin to a Turing head, similar to Refs. [12, 14]. The scheme requires local programma-bility once to initialize the control atom in a known location (see, e.g., Refs. [23–25]), when the data reg-ister is in a product state. During processing, when fragile quantum coherences are present, our protocol relies solely on global control sequences. After proving universality, we consider variants of such a construction, e.g., tailored towards quantum simulation tasks – which, in our framework, are consid-erably simpler than full universal processing. For ex-ample, we discuss parallel operation on multiple copies of the same state or faster implementations of struc-tured circuits using multiple control heads. In particu-lar, we discuss how to exploit 1D and 2D lattice setups to implement digital Trotterizations of fermionic dy-namics. Finally, we combine this approach with analog evolution under the native Hamiltonian, enabling hy-brid analog-digital simulation [26] of extended Fermi-Hubbard models [27]. 
+
+Setup— We first describe a 1D setup for univer-sal quantum processing, and generalize to other set-tings further below. We consider a set of fermionic modes with annihilation (creation) operators f (†) 
+
+> σ,j
+
+, la-beled by a 1D spatial mode index j ∈ {0, 1, .., L − 1}
+
+and an internal-state (spin) index σ ∈ {↑, ↓}, which ful-fill canonical anti–commutation relations {f † 
+
+> σ,j
+
+, f σ′,j ′ } =
+
+δσσ ′ δjj ′ . We assume that the microscopic dynamics are described by the Hamiltonian 
+
+Hsys = HJ + Hδ + HU . (1) The three terms represent nearest-neighbor tunneling in a staggered lattice, spin-dependent energy gradient, and on-site interactions, respectively; this Hamiltonian is realized, e.g., by neutral atoms in optical superlat-tices. The first term, HJ = HJE + HJO , with 
+
+HJB = −JB ∑σ,j ∈B(f † 
+
+> σ,j
+
+fσ,j +1 + H.c. ) (2) 
+
+> arXiv:2604.13160v1 [quant-ph] 14 Apr 2026
+
+2Fermionic circuit Control sequences   
+
+> (a) (b) (c)
+> Mode
+> Time Phase Tunneling Interaction
+> Linearized circuit
+> Movement data control
+> Step Step
+
+Figure 1. Architecture . (a) An example fermionic quantum circuit, composed of local phase, tunneling and interaction gates. (b) We realize the quantum circuit in a 1D optical lattice by placing a control fermion (green dots) in the target location of the gate; for two-mode gates we place it in the right well of the corresponding double well (DW). With a single control fermion we can implement linearized circuits, i.e., we allow exactly one gate per circuit layer. Circuits are applied by alternating control fermion movement with tailored global control sequences acting non-trivially on data atoms (black dots) only in the DW where the control fermion sits, see main text and Fig. 2. (c) A key element is the selective movement of the control atoms. While data fermions are fixed at a given spatial mode j, the control atom is moved as follows (green shaded box): First, the lattice is rearranged into DWs along axis j, such that the control atom sits on a left well L. We then allow tunneling with strength J for time τ = π/( 4J), in presence of a gradient δd = δ↑ for data fermions. This step is repeated with inverted gradient −δd. By appropriately choosing the value δd, data fermions return to their original wells in each step, while the control fermion proceeds by one site. 
+
+(where B ∈ {E, O} denotes even or odd links), describes particle tunneling with strength JB between neighbor-ing sites in the staggered lattice [28–31]. These tunnel-ing strengths can be tuned with respect to each other by adjusting the lattice parameters. The second term introduces a spin-dependent energy offset between neighboring sites, e.g., with a magnetic field gradient described by 
+
+Hδ = ∑σ,j jδ σ nσ,j , (3) with number operator nσ,j = f † 
+
+> σ,j
+
+fσ,j and spin-dependent δσ [32]. Finally, the third term 
+
+HU = U ∑j n↑,j n↓,j (4) describes the contact interaction with strength U
+
+between opposite spin particles occupying the same site, which can be tuned, e.g., via Feshbach reso-nances [33], or by switching between interacting and non-interacting internal states. In summary, we have five independent global con-trol parameters JE, J O, δ ↑, δ ↓, U that can be tuned time-dependently. Our protocols below are all based on global control sequences of these parameters. A central ingredient in our framework is the pos-sibility to pairwise isolate the lattice sites in double wells (DWs) on even (odd) bonds, by setting JO = 0(JE = 0). Within such isolated DWs, HJ induces tun-neling between left and right wells, Hδ generates a po-tential offset between them, and HU can be exploited to implement non-Gaussian operations. Combined, these ingredients are sufficient for universal control of DW states [34]; such controlled manipulations in DWs have also been the focus of recent experiments in atomic platforms [35–38]. Our goal is the implementation of an arbitrary fermionic circuit acting on L modes with fixed particle number N ≤ L; this can be decomposed into single-and two-mode fermionic gates [22], drawn, e.g., from the universal set 
+
+G = {U p 
+
+> j
+
+(θ) = e−iθn d,j , U int 
+
+> j,j +1
+
+(θ) = e−iθn d,j nd,j +1 ,U t
+
+> j,j +1
+
+(θ1, θ 2) = e−iθ 1(e−iθ 2 d† 
+
+> jdj+1+H.c.)
+
+} , (5) where {d† 
+
+> i
+
+, d j } = δij and nd,j = d† 
+
+> j
+
+dj . This gate set comprises the single-mode phase gate U p, and two two-mode gates: the interaction gate U int and the tunneling gate U t [see Fig. 1(a)]. In our approach, we identify fermions with spin σ = ↑
+
+as data particles, i.e., dj ≡ f↑,j . Additionally, we em-ploy one particle of the opposite spin state, σ = ↓, as a control particle, with cj ≡ f↓,j , which can trigger lo-cal quantum gates on data modes similar to a Turing head [14]. Accordingly, in the following, we relabel the mode index σ from σ ∈ {↑, ↓} to σ ∈ {d, c}.Specifically, to implement gates we move the control atom to the target location [12, 14] via global control sequences, and exploit the data-control interaction to trigger the local gate [39], see Fig. 1(b). For single-mode gates, the presence of the control atom directly enables the implementation of the phase gate. For two-mode gates, we shape the superlattice into an array of isolated DWs, and apply a global control sequence that 3(c)                    
+
+> (d)
+> Interaction Tunneling
+> (a)
+> Pulse Pulse
+> (b)
+> Figure 2. Gate sequences. Implementation of tunneling [(a)-(b)] and interaction gates [(c)-(d)]. (a) Tunneling gate for data modes (black) in presence of a control fermion (green) in the same DW. The gate is decomposed into a sequence of physical operations on the atoms: tunneling (black circles) and contact interaction (black squares). We realize these operations using time-dependent global control of tunneling strength J(for both data and control), data gradient δd,and interaction U.This circuit implements Ut
+> j,j +1(θ1, θ 2≈2.4959 ), but can be generalized to arbitrary θ2(see SM). (c) Interaction gate. In the first step, we re-use the gate sequence developed for the tunneling gate, with exchanged roles of data and control fermions: this brings the control fermion to the left DW site, conditioned on the data fermion parity within the DW. The second step applies a differential phase (single black square) to control fermions in the left DW site. Third, we repeat the first step. (b),(d) Bloch sphere representations of the state trajectories for different example configurations
+> ∣nc,Lnc,R⟩cand ∣nd,Lnd,R⟩dof control and data atoms.
+
+realizes the desired gate at the DW hosting the control atom, while leaving all the other DWs unaffected. In the following, we provide detailed protocols for both the movement of the control atom, and the implemen-tation of quantum gates. Related protocols have been the focus of recent works in the context of locally con-trolled fermionic quantum processing [40–42], or glob-ally controlled measurements of nearest-neighbor ob-servables [34]; here, we introduce protocols to locally 
+
+implement a universal gate set using only global con-trol. 
+
+Control atom movement & Gates— We first present a protocol to move the control atom without affecting data atoms. This selective movement can be realized in different ways, for instance, via atom shuttling with spin-dependent lattices [39, 40, 43], or via high-fidelity topological pumping [44]. Here, we present a protocol which only requires temporal control over the parame-ters defined in Eqs. (1)-(4). To this end, we first deform the lattice into DWs, and allow tunneling for a total time τ = π/( 2J) within each DW: as a consequence, the control atom moves from one site of the DW to the other. By repeating this procedure with DWs on odd and even bonds of the lattice, the atom can be moved deterministically to arbitrary locations. The tunnel-ing of the data atoms is inhibited using a simultane-ous spin-dependent energy offset δd. Specific values of 
+
+δd ensure that data atoms exactly return to their ini-tial position after each step, as shown in Fig. 1(c) and detailed in the End Matter (EM) [45]; alternatively, setting δd ≫ J strongly suppresses tunneling by intro-ducing a large energy difference between neighboring sites. Once the control atom has been positioned at the target site, the gates of G can be triggered by the fol-lowing sequences. 
+
+(i) Phase gate. With the control atom in site j, a collisional phase gate U p 
+
+> j
+
+(θ) can be realized by turning on the interaction U for a physical time τ = θ/U [39, 43, 46]. This implements, at each site i, the unitary exp [−iθn c,i nd,i ], with nc,i = c† 
+
+> i
+
+ci. At site j (nc,j = 1), this unitary imprints a single-mode phase θ, while for other sites ( nc,i = 0) it reduces to the identity. Thus, the protocol implements U p 
+
+> j
+
+(θ) on the data modes. 
+
+(ii) Tunneling gate. We now describe the implemen-tation of U t
+
+> j,j +1
+
+(θ1, θ 2) with the control atom now sit-ting in site j + 1. First, we pairwise isolate the lattice sites such that j and j + 1 are the left and right wells of a DW [47]. We then perform a three-step control sequence, as shown in Fig. 2(a). First 1 , we allow tun-neling for a duration τ = π/( 2J), with a nonzero offset 
+
+δd ≈ 1.5974 J on the data fermions: this sends the con-trol atom from the right DW site to the left, i.e., site j,and makes the data atoms tunnel non-trivially. Second 2 , we turn on the interaction U for time τ = 2θ1/U ,which imprints a phase on the j data mode. Finally 3 , we invert the first step (i.e., J, δ d → −J, −δd): the con-trol atom returns to its initial position, and the data atoms tunnel non-trivially again [48]. The action of the above sequence can be understood as follows. The data modes in a DW live in a four-dimensional Hilbert space spanned by the Fock states 
+
+∣nd,Lnd,R⟩d. The sequence acts non-trivially only on the two-level subspace span {∣ 01 ⟩d , ∣10 ⟩d}, for which tunneling and interaction correspond to Bloch sphere rotations [see Fig. 2(b)]. In this representation, steps 1 and 3 amount to a basis change which maps the 
+
+z-axis onto the equatorial plane, and step 2 imple-ments a rotation of angle 2 θ1 around the z-axis, con-ditioned on the presence of the control atom. Thus, 4in DWs with no control atom steps 1 and 3 simply cancel each other out, while in the DW (j, j + 1), host-ing the control atom, the data atoms tunnel to realize 
+
+U t
+
+> j,j +1
+
+(θ1, θ 2) up to single-mode phases [49]. The pa-rameter θ2 is fixed by the control sequence, but can be arbitrarily changed by turning on gradients δd be-fore and after the sequence [see Supplemental Material (SM)]. 
+
+(iii) Interaction gate. Similarly, with the con-trol atom in site j + 1, we implement the interaction gate U int 
+
+> j,j +1
+
+(θ) as follows [see Fig. 2(c-d)]. We arrange the lattice into DWs in the same way as for the tunnel-ing gate, and then we apply the following sequence: 1We implement a variant of the tunneling gate control sequence with θ1 = π/2, where we exchange the role of data and control atoms ( δd ↔ δc): this moves the control atom to the left site if there is exactly one data atom in its DW. 2 We switch on an energy offset δc
+
+on control atoms for a time τ = −θ/( 2δc), to imprint a phase on control atoms in the left wells. 3 We repeat step 1 . The crucial part of the sequence is step 2 , which imprints a phase on the control atom if it has moved in step 1 , i.e., only for odd-parity data configurations; then, step 3 returns the control atom to its original site. Therefore, in the DW (j, j + 1) the data basis states ∣01 ⟩d and ∣10 ⟩d acquire a phase eiθ /2, while ∣00 ⟩d
+
+and ∣11 ⟩d are unaffected. This implements the unitary 
+
+U int 
+
+> j,j +1
+
+(θ) up to a single-mode phase exp [i(θ/2)( nd,j +
+
+nd,j +1)] . We provide additional details in the SM. 
+
+Generalizations— So far, we have demonstrated uni-versal fermionic processing in a 1D lattice setup with a single control fermion. In the following, we discuss example extensions of this architecture. For instance, for sufficiently structured quantum cir-cuits (e.g., translation-invariant Trotter circuits) our protocol can be optimized by using multiple control atoms as control heads, placed in the lattice accord-ing to spatial patterns reflecting the circuit symme-tries, see Fig. 3(a). In this way, each control sequence simultaneously implements the same gate at multiple lattice sites. Additionally, our protocol can be triv-ially parallelized by operating simultaneously on mul-tiple copies of a quantum state in a single optical lat-tice. All our constructions straightforwardly extend to higher dimensions: by loading atoms in 2D optical lat-tices and moving the control atoms with superlattices in both spatial directions, we can implement arbitrary fermionic circuits with 2D gate connectivity, see SM. In addition, our setup enables hybrid analog-digital fermionic quantum processing, taking advantage of both the native evolution and our universal gate set to explore complex models. We illustrate this with an ex-tension of the 2D Fermi-Hubbard Hamiltonian HFH =
+
+− ∑⟨ij ⟩,σ J(c†
+
+> σ,i
+
+cσ,j + H.c.) + U ∑i n↑,i n↓,i (where ⟨⋅⟩ de-notes nearest-neighbor lattice sites). While HFH is na-tively included in the Hamiltonian Eq. (1), extensions can be added using the digital gate operations devel-oped above: an example is HLR = − ∑⟪ij ⟫,σ J′(c†
+
+> σ,i
+
+cσ,j +
+
+H.c.), representing long-range hopping between next-nearest-neighboring lattice sites ( ⟪⋅⟫). Translation-invariant Circuit (a) (b)           
+
+> Load Data Control
+> Unload (Repeat for )
+> Analog Digital
+> Figure 3. Hamiltonian simulation .(a) The computa-tion is parallelized with multiple control heads, to simulta-neously implement gates in multiple locations. This is par-ticularly useful for translation-invariant circuits, e.g., for Hamiltonian simulations of fermionic models. (b) Trotter circuits for extended Fermi-Hubbard models can be com-posed by alternating steps of short analog evolution UFH
+> [with native Hamiltonian Eq. (1)] and, e.g., digital long-range tunneling gates ULR performed in a second optical lattice plane. Here, it suffices to initialize the control heads in the shown four-fold symmetric pattern (see EM). Black and blue dots represent spin-↑and -↓fermions, green dots represent control particles, e.g., of a third atomic spin state.
+
+This hybrid analog–digital operation mode is illus-trated in Fig. 3(b): We first prepare both spin-↑ and 
+
+↓ particles in a “data” plane of the 2D lattice. Sec-ond, we place additional control atoms, e.g., in athird spin state [50], in a separate “control” plane with a four-fold configuration pattern, see Fig. 3(b). For the evolution, we split the unitary time-evolution operator U (t) = exp [−i(HFH + HLR )t] into Trotter steps given by UFH = exp (−iH FH ∆t) and ULR =
+
+∏⟪ij ⟫,σ exp [iJ ′∆t(c†
+
+> σ,i
+
+cσ,j + H.c.)] , such that U (t) =
+
+(UFH ULR )t/∆t +O(t∆t). Here, UFH represents the ana-log evolution with the native Hamiltonian Eq. (1) (with 
+
+JE = JO, and δσ = 0), which acts on the data particles. Conversely, ULR is implemented with a sequence of dig-ital operations: 1 We use the movement protocol to move all ↑-fermions from the data to the control plane. 2 We apply the next-nearest-neighbor tunneling uni-tary on all ⟪ij ⟫ pairs, via interactions with the con-trol fermions, through a series of gate sequences and control atom movements; see details in EM and SM. 3 ↑-fermions are moved back to the data plane. The whole sequence is then repeated for ↓-fermions. To avoid tunneling of control particles during the analog evolution, we choose a setup where control atoms are strongly confined by the lattice. We note that alternative variants of this hybrid analog-digital protocol exist, where no third spin state is required, or, 5where we perform both analog and digital operations in a single optical lattice plane, see SM for a detailed explanation. Beyond the example discussed in this sec-tion, multiple other operation modes are conceivable, e.g., by introducing multiple control planes with differ-ent particle patterns to realize more complex circuits, see also SM. 
+
+Initialization— For the atom initialization, the differ-ent variants of our protocol require different levels of experimental control. For full universality, we require initialization of individual control atoms at known lat-tice locations. For instance, this can be achieved de-terministically using additional local optical potentials (see, e.g., Ref. [23–25]) used once during the initial step. Since this local control is applied before the com-putation, while the system is typically in a product state, detrimental noise effects on the coherences are avoided. Conversely, initializing the system to realize trans-lation invariant circuits requires no local control. For instance, to prepare a regular array of control heads, as shown in Fig. 3(a), control atoms can be directly initialized with staggered occupation in the optical su-perlattice, see, e.g., experimental demonstrations in Refs. [51, 52]. Depending on the experimental capabilities, other initialization schemes are possible: Alternatively, con-trol particles could be randomly loaded into the lattice during state initialization without requiring any local control. Non-destructive measurements detect the clas-sical location of the control atom before the computa-tion and subsequently the control head is again moved to the target location using our protocols. Without such measurement capabilities, one can initialize mul-tiple copies of the state, randomly load the control atoms, measure all atoms after the computation, and post-select the results for the cases where the control head was in the correct location. 
+
+Conclusions— In this article, we introduced a frame-work for globally controlled fermionic quantum pro-cessing by directly manipulating itinerant fermionic 
+
+particles [40, 53, 54]. Our approach achieves univer-sality by applying sequences of uniform adjustments of the Hamiltonian parameters. The specific control sequences presented here can be further improved, us-ing for instance optimal control methods [55] to min-imize gate duration and susceptibility to noise. Addi-tionally, the protocols can be further tailored to avail-able experimental capabilities, e.g., to avoid fast time-dependent control of the interaction strength or the spin-dependent gradients. Our scheme is primarily designed for neutral atoms in optical lattices and relies on high-fidelity control over fermionic motional states, as recently demon-strated [37, 38, 56]. Its applicability also extends to atoms in reconfigurable tweezer arrays [57–62] and to other platforms, e.g., semiconductor quantum dot ar-rays [63, 64]. 
+
+Acknowledgments— We thank Liyuan Chen, Henning Schl¨ omer and Susanne Yelin for discussions and Pe-ter Zoller for discussions and collaboration on related work. This work was funded by the Austrian Sci-ence Fund (FWF) through the SFB Qnnect (Grant-DOI 10.55776/F101200), and the COE Quantum Sci-ence Austria (Grant No. DOI 10.55776/COE1). This work is supported by the European Union’s Horizon Europe research and innovation program under Grant Agreement No. 101113690 (PASQuanS2.1), the ERC Starting Grant QARA (Grant No. 101041435), and the EU-QUANTERA project TNiSQ (N-6001). P.M.P acknowledges funding from the German Federal Min-istry of Research, Technology and Space (BMFTR grant agreement 13N15890, FermiQP) and the Euro-pean Union’s Horizon 2020 research and innovation program (ERC StartingGrant UniRand — Grant No. 948240). T.V.Z. is supported by an ERC Starting Grant (QS-Gauge, Grant No. 101220401). Funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessar-ily reflect those of the European Union or the European Research Council Executive Agency. Neither the Eu-ropean Union nor the granting authority can be held responsible for them.                                                  
+
+> ∗These authors contributed equally to this work.
+> †Hannes.Pichler@uibk.ac.at [1] M. Troyer and U.-J. Wiese, Physical Review Letters
+> 94 , 170201 (2005). [2] E. Altman, K. R. Brown, G. Carleo, L. D. Carr, E. Demler, C. Chin, B. DeMarco, S. E. Economou, M. A. Eriksson, K.-M. C. Fu, et al. , PRX Quantum 2,017003 (2021). [3] A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pear-son, M. Troyer, and P. Zoller, Nature 607 , 667 (2022). [4] C. Gross and W. S. Bakr, Nature Physics 17 , 1316 (2021). [5] F. Sch¨ afer, T. Fukuhara, S. Sugawa, Y. Takasu, and Y. Takahashi, Nature Reviews Physics 2, 411 (2020). [6] R. Hanson, L. P. Kouwenhoven, J. R. Petta, S. Tarucha, and L. M. K. Vandersypen, Reviews of Modern Physics 79 , 1217 (2007). [7] T. Hensgens, T. Fujita, L. Janssen, X. Li, C. J. Van Diepen, C. Reichl, W. Wegscheider, S. Das Sarma, and L. M. K. Vandersypen, Nature 548 , 70 (2017). [8] J. M. Boter, J. P. Dehollain, J. P. van Dijk, Y. Xu, T. Hensgens, R. Versluis, H. W. Naus, J. S. Clarke, M. Veldhorst, F. Sebastiano, and L. M. Vandersypen, Physical Review Applied 18 , 024053 (2022). [9] M. K¨ unne, A. Willmes, M. Oberl¨ ander, C. Gorjaew, J. D. Teske, H. Bhardwaj, M. Beer, E. Kammerloher, R. Otten, I. Seidler, et al. , Nature Communications 15 ,4977 (2024). [10] M. B. Donnelly, Y. Chung, R. Garreis, S. Plugge, D. Pye, M. Kiczynski, J. T´ amara-Isaza, M. M. Mu-nia, S. Sutherland, B. Voisin, et al. , Nature 650 , 574 (2026). [11] S. Lloyd, Science 261 , 1569 (1993). [12] J. I. Cirac and P. Zoller, Nature 404 , 579 (2000). [13] S. C. Benjamin, Physical Review A 61 , 020301 (2000). [14] T. Calarco, U. Dorner, P. S. Julienne, C. J. Williams, and P. Zoller, Physical Review A 70 , 012306 (2004). [15] R. Raussendorf, Physical Review A 72 , 052301 (2005). [16] D. J. Shepherd, T. Franz, and R. F. Werner, Physical Review Letters 97 , 020502 (2006). [17] S. Lloyd and B. M. Terhal, New Journal of Physics 18 ,
+
+6
+
+023042 (2016). [18] T. M. Wintermantel, Y. Wang, G. Lochead, S. Shevate, G. K. Brennen, and S. Whitlock, Physical Review Let-ters 124 , 070503 (2020). [19] F. Cesa and H. Pichler, Physical Review Letters 131 ,170601 (2023). [20] R. Menta, F. Cioni, R. Aiudi, M. Polini, and V. Gio-vannetti, Phys. Rev. Res. 7, L012065 (2025). [21] H.-Y. Hu, A. M. Gomez, L. Chen, A. Trowbridge, A. J. Goldschmidt, Z. Manchester, F. T. Chong, A. Jaffe, and S. F. Yelin, Universal Dynamics with Glob-ally Controlled Analog Quantum Simulators (2026), arXiv:2508.19075 [quant-ph]. [22] S. Bravyi and A. Kitaev, Annals of Physics 298 , 210 (2002). [23] C. Weitenberg, M. Endres, J. F. Sherson, M. Cheneau, P. Schauß, T. Fukuhara, I. Bloch, and S. Kuhr, Nature 
+
+471 , 319 (2011). [24] P. M. Preiss, R. Ma, M. E. Tai, A. Lukin, M. Rispoli, P. Zupancic, Y. Lahini, R. Islam, and M. Greiner, Sci-ence 347 , 1229 (2015). [25] A. W. Young, W. J. Eckner, N. Schine, A. M. Childs, and A. M. Kaufman, Science 377 , 885 (2022). [26] C. Tabares, C. Kokail, P. Zoller, D. Gonz´ alez-Cuadra, and A. Gonz´ alez-Tudela, PRX Quantum 6, 030356 (2025). [27] H. Schl¨ omer, H. Lange, T. Franz, T. Chalopin, P. Bo-jovi´ c, S. Wang, I. Bloch, T. A. Hilker, F. Grusdt, and A. Bohrdt, PRX Quantum 5, 040341 (2024). [28] O. Mandel, M. Greiner, A. Widera, T. Rom, T. W. H¨ ansch, and I. Bloch, Nature 425 , 937 (2003). [29] S. F¨ olling, S. Trotzky, P. Cheinet, M. Feld, R. Saers, A. Widera, T. M¨ uller, and I. Bloch, Nature 448 , 1029 (2007). [30] P. Cheinet, S. Trotzky, M. Feld, U. Schnorrberger, M. Moreno-Cardoner, S. F¨ olling, and I. Bloch, Physical Review Letters 101 , 090404 (2008). [31] S. Trotzky, P. Cheinet, S. F¨ olling, M. Feld, U. Schnor-rberger, A. M. Rey, A. Polkovnikov, E. A. Demler, M. D. Lukin, and I. Bloch, Science 319 , 295 (2008). [32] Instead of independently controlling both δσ , Hδ can be realized by tuning the differential gradient δ↑ − δ↓
+
+(e.g., using a magnetic field gradient) and the common-mode one δ↑ + δ↓ (e.g., by tilting the optical lattice). [33] C. Chin, R. Grimm, P. Julienne, and E. Tiesinga, Re-views of Modern Physics 82 , 1225 (2010). [34] D. K. Mark, H.-Y. Hu, J. Kwan, C. Kokail, S. Choi, and S. F. Yelin, Physical Review Letters 135 , 123402 (2025). [35] A. Impertro, S. Huh, S. Karch, J. F. Wienand, I. Bloch, and M. Aidelsburger, Nature Physics 21 , 895 (2025). [36] Z. Zhu, Y. Kiefer, S. Jele, M. G¨ achter, G. Bisson, K. Viebahn, and T. Esslinger, Physical Review X 15 ,041032 (2025). [37] Y. Kiefer, Z. Zhu, L. Fischer, S. Jele, M. G¨ achter, G. Bisson, K. Viebahn, and T. Esslinger, Nature , 1 (2026). [38] P. Bojovi´ c, T. Hilker, S. Wang, J. Obermeyer, M. Barendregt, D. Tell, T. Chalopin, P. M. Preiss, I. Bloch, and T. Franz, Nature , 1 (2026). [39] D. Jaksch, H.-J. Briegel, J. I. Cirac, C. W. Gardiner, and P. Zoller, Physical Review Letters 82 , 1975 (1999). [40] D. Gonz´ alez-Cuadra, D. Bluvstein, M. Kalinowski, R. Kaubruegger, N. Maskara, P. Naldesi, T. V. Zache, A. M. Kaufman, M. D. Lukin, H. Pichler, et al. , Pro-ceedings of the National Academy of Sciences 120 ,e2304294120 (2023). [41] F. Gkritsis, D. Dux, J. Zhang, N. Jain, C. Gogolin, and P. M. Preiss, PRX Quantum 6, 010318 (2025). [42] A. Roth, L. Qiu, T. Hilker, T. Franz, and P. M. Preiss, Constructing Arbitrary Coherent Rearrangements in Optical Lattices (2026), arXiv:2603.04210 [quant-ph]. [43] O. Mandel, M. Greiner, A. Widera, T. Rom, T. W. H¨ ansch, and I. Bloch, Physical Review Letters 91 ,010407 (2003). [44] R. Citro and M. Aidelsburger, Nature Reviews Physics 
+
+5, 87 (2023). [45] By evolving with a non-zero gradient δd, the state ac-quires single-mode phases. These can be avoided, e.g., by splitting the evolution in two steps with opposite gradient. [46] G. K. Brennen, C. M. Caves, P. S. Jessen, and I. H. Deutsch, Physical Review Letters 82 , 1060 (1999). [47] The gate can be implemented in a similar way with a control atom in the left well, see Supplemental Mate-rial. [48] We can invert the tunneling strength J → −J with extra relative phases, implemented by an additional control sequence, see Supplemental Material. [49] These phases can be actively corrected using additional phase gates, or kept track of when compiling the cir-cuit. [50] J. Mongkolkiattichai, L. Liu, S. Dasgupta, K. R. A. Hazzard, and P. Schauss, Quantum gas mi-croscopy of three-flavor Hubbard systems (2025), arXiv:2503.05687 [cond-mat]. [51] B. Yang, H. Sun, C.-J. Huang, H.-Y. Wang, Y. Deng, H.-N. Dai, Z.-S. Yuan, and J.-W. Pan, Science 369 ,550 (2020). [52] T. Chalopin, P. Bojovi´ c, D. Bourgund, S. Wang, T. Franz, I. Bloch, and T. Hilker, Physical Review Let-ters 134 , 053402 (2025). [53] R. Ott, D. Gonz´ alez-Cuadra, T. V. Zache, P. Zoller, A. M. Kaufman, and H. Pichler, Physical Review Let-ters 135 , 090601 (2025). [54] A. Schuckert, E. Crane, A. V. Gorshkov, M. Hafezi, and M. J. Gullans, Fault-tolerant fermionic quantum computing (2025), arXiv:2411.08955 [quant-ph]. [55] S. J. Glaser, U. Boscain, T. Calarco, C. P. Koch, W. K¨ ockenberger, R. Kosloff, I. Kuprov, B. Luy, S. Schirmer, T. Schulte-Herbr¨ uggen, et al. , European Physical Journal D 69 , 279 (2015). [56] T. Hartke, B. Oreg, N. Jia, and M. Zwierlein, Nature 
+
+601 , 537 (2022). [57] A. M. Kaufman and K.-K. Ni, Nature Physics 17 , 1324 (2021). [58] J. H. Becher, E. Sindici, R. Klemt, S. Jochim, A. J. Daley, and P. M. Preiss, Physical Review Letters 125 ,180402 (2020). [59] Z. Z. Yan, B. M. Spar, M. L. Prichard, S. Chi, H.-T. Wei, E. Ibarra-Garc´ ıa-Padilla, K. R. A. Hazzard, and W. S. Bakr, Physical Review Letters 129 , 123201 (2022). [60] R. Tao, M. Ammenwerth, F. Gyger, I. Bloch, and J. Zeiher, Physical Review Letters 133 , 013401 (2024). [61] N. Jain, J. Zhang, M. Culemann, and P. M. Preiss, Programmable Assembly of Ground State Fermionic Tweezer Arrays (2025), arXiv:2512.09849 [cond-mat]. [62] W. J. Eckner, T. L. Yelin, A. Cao, A. W. Young, N. D. Oppong, L. Pollet, and A. M. Kaufman, Assembling a Bose-Hubbard superfluid from tweezer-controlled sin-gle atoms (2025), arXiv:2512.24374 [cond-mat]. [63] J. P. Dehollain, U. Mukhopadhyay, V. P. Michal, Y. Wang, B. Wunsch, C. Reichl, W. Wegscheider, M. S. Rudner, E. Demler, and L. M. K. Vandersypen, Nature 
+
+579 , 528 (2020). [64] V. Langrock, J. A. Krzywda, N. Focke, I. Seidler, L. R. Schreiber, and L. Cywi´ nski, PRX Quantum 4, 020305 (2023). [65] M. Riccardi, R. Menta, F. Cioni, R. Aiudi, M. Polini, 7
+
+and V. Giovannetti, in 2024 IEEE International Conference on Quantum Computing and Engineering (QCE) , Vol. 02 (2024) pp. 396–397. [66] A. Bohrdt, C. B. Mendl, M. Endres, and M. Knap, New Journal of Physics 19 , 063001 (2017). [67] B. Swingle, Nature Physics 14 , 988 (2018). [68] A. R. Cavallar, L. Escalera-Moreno, T. Franz, T. Hilker, J. I. Cirac, P. M. Preiss, and B. F. Schiffer, Phase-Sensitive Measurements on a Fermi-Hubbard Quantum Processor (2025), arXiv:2509.01637 [quant-ph]. [69] H. Pichler, G. Zhu, A. Seif, P. Zoller, and M. Hafezi, Physical Review X 6, 041033 (2016). [70] A. Lukin, M. Rispoli, R. Schittko, M. E. Tai, A. M. Kaufman, S. Choi, V. Khemani, J. L´ eonard, and M. Greiner, Science 364 , 256 (2019). [71] P. Naldesi, A. Elben, A. Minguzzi, D. Cl´ ement, P. Zoller, and B. Vermersch, Physical Review Letters 
+
+131 , 060601 (2023). 
+
+END MATTER Moving the control atoms 
+
+Here, we detail an exact control sequence for the control atom movement, designed to have no net effect on the data fermions [see Fig. 1(c)]. The lattice is de-formed into an array of DWs, within which atoms can tunnel with strength J. As stated in the main text, we need to allow tunneling for a total time τ = π/( 2J)
+
+to ensure that the control atom changes site. We di-vide the sequence in two steps: 1 We apply a spin-dependent offset δd = 2J√16 m2 − 1 ( m ∈ N) for data fermions in the left well, and allow tunneling for time 
+
+τ = π/( 4J). 2 We invert the sign of the potential offset (δd → −δd) and repeat step 1 . The choice of δd ensures that in both steps, data atoms perform m round trips and return to their orig-inal site; by inverting the gradient, the single-mode phases they acquire during the evolution cancel out. Conversely, the control atoms, initially placed in the left well, are not affected by δd, and thus tunnel for a total time π/( 2J), i.e., they fully transition to the sub-sequent site. The direction of the control atom move-ment is determined by the initial (even or odd) DW arrangement chosen. 
+
+Tunneling of control atoms conditioned on data configuration 
+
+In the main text, we discussed how, upon replac-ing the gradient δd for data atoms with a gradient 
+
+δc for control atoms, the tunneling gate control se-quence 1 - 3 implements a tunneling operation on con-trol fermions conditioned on the initial presence of a data atom in the right well. Here, we extend the dis-cussion to different initial data configurations, and de-scribe the action of the sequence on control atoms in those sectors. This is an essential step in order to ex-ploit the sequence as a subroutine for the implementa-tion of the interaction gate. We start from the case of no data atoms: the inter-action step 2 reduces to the identity, and thus the other steps simply cancel out pairwise. The whole sequence then corresponds to an identity on the con-trol atoms. Instead, as partially discussed in the main text, in the presence of a single data particle in the DW the control sequence implements the operation exp [−iθ 1(nc,L + nc,R)] ⋅ exp [−iθ 1(e−iθ 2 c†
+
+> L
+
+cR + H.c.)] on the control atoms, with θ2 ≈ 2.4959 (resp. θ2 ≈ π +
+
+2.4959) for a data atom in the right (resp. left) DW well, see SM. Finally, for two data atoms, the interac-tion step 2 simply implements a phase θ1 in both wells, while the remaining steps cancel out: the total opera-tion on control atoms is thus exp [−2iθ 1(nc,L + nc,R)] .In summary, the tunneling control sequence for δc
+
+implements the following operation: 
+
+(1 − nd,L)( 1 − nd,R)1 + nd,Lnd,Re−2iθ 1(nc,L+nc,R)
+
++ (1 − nd,L)nd,Re−iθ 1(nc,L+nc,R)e−iθ 1(e−iθ 2 c†
+
+> LcR+H.c.)
+
++ (1 − nd,R)nd,Le−iθ 1(nc,L+nc,R)e+iθ 1(e−iθ 2 c†
+
+> LcR+H.c.)
+
+.
+
+Digital implementation of next-nearest-neighbor tunneling 
+
+Here, we describe the digital implementation of the long-range tunneling unitary ULR in the hybrid quan-tum simulation scheme presented in the main text for the extended Fermi-Hubbard model HFH + HLR .We consider a 2D control plane where only the modes with even row and column indices are filled, see Fig. 3(b). Next-nearest-neighbor tunneling is achieved, for each spin species, by loading all atoms of that species to the control plane, and then executing a se-quence of digital tunneling gates and lattice rearrange-ments. Specifically, for the hopping between the bot-tom left and the top right corner of a four-site square we perform the sequence 
+
+.
+
+(A1) The key idea is to first transport data fermions between the bottom left and the bottom right corner, and then apply the desired tunneling gate between the modes in the right column. To this end, we first realize a DW structure in the horizontal direction, and apply the control sequence for the tunneling gate U t(π/2, 0), such that the data fermions within the DW exchange their position. We then rearrange the lattice to feature DWs in the vertical direction, and apply the tunneling gate 
+
+U t(θ, 0), with θ = −J′∆t. Finally, we rearrange the lattice to again exhibit DWs in the horizontal direction, and reapply the U t(π/2, 0) control sequence to revert the first operation. 8The full unitary ULR is implemented by repeating the above sequence eight times for each species. The diagonal term between top left and bottom right is re-alized with the same sequence up to an extra propaga-tion of the control atom to the bottom left site before implementing U t(θ, 0), as well as a propagation back to the original site after the tunneling gate implemen-tation. Upon displacing the control atom configuration by one site in the horizontal and/or vertical direction, the same procedure is repeated to implement the diago-nal hopping process between all next-nearest-neighbor pairs. Moreover, note that upon considering other spe-cific control plane configurations, it is possible to syn-thesize arbitrary, long-range tunneling and interaction terms. Indeed, the dynamics of the extended Fermi-Hubbard model and variants thereof can be simulated in a fully digital way, see SM. 9
+
+SUPPLEMENTAL MATERIAL Appendix A: Fermionic gate sequences 
+
+Here we provide details on the control sequences dis-cussed in the main text to realize the tunneling and interaction gate. 
+
+1. Double-well Hilbert space 
+
+Before describing in detail the gate sequences of the main text, we discuss our treatment of the double-well (DW) Hilbert space that appears in the scheme. We consider a single double well with two data modes (left and right), and similarly two control modes. The data modes can initially be in any state, while the control modes start with either no fermions or one fermion in the right well. The DW Hilbert space is spanned by the basis {∣ nd,Lnd,R⟩d ⊗∣nc,Lnc,R⟩c}, with nσ,j denoting the number of σ ∈ {c, d} fermions in well j ∈ {L, R}.The DW Hilbert space HDW can thus be written as a tensor product of the Hilbert space of each mode, 
+
+HDW = Hd ⊗ Hc. In the following, it is convenient to further divide each of these (four-dimensional) Hilbert spaces into a direct sum of (i) a two-level “odd-parity” subspace, corresponding to a single fermion in the DW, i.e., spanned by ∣10 ⟩σ and ∣01 ⟩σ , and (ii) a two-level “even-parity” subspace, spanned by ∣00 ⟩σ and ∣11 ⟩σ .Under the physical Hamiltonian Eq. (1) without the interaction HU , the data and control modes in a DW evolve independently. In the even-parity subspace, tun-neling is not possible, and thus ∣00 ⟩σ and ∣11 ⟩σ only acquire phases; on the other hand, the odd-parity sub-space evolves as a driven two-level system (TLS). When the interaction is on, the d and c modes typically get entangled, making our tensor product decomposition impractical. However, this is not the case if tunnel-ing is off and if one species (d or c) is in a specific number eigenstate before the interaction is applied: in that case, the interaction essentially acts as a poten-tial gradient on the other species, conditioned on the state of the first one. To make this explicit, take for example the Hamiltonian HU = U ∑j=L,R nd,j nc,j , and assume that the data modes are in an arbitrary state 
+
+∣ψ⟩d while the control modes are in ∣01 ⟩c. Then, the evolution of the entire state for time t is 
+
+e−iH U t(∣ ψ⟩d ⊗ ∣01 ⟩c) (S1) 
+
+= (e−iU tn d,R ∣ψ⟩d) ⊗ ∣01 ⟩c , (S2) which is equivalent to having a gradient on the data modes and keeping the control modes untouched. In particular, writing ∣ψ⟩d = ∣ψe⟩d +∣ψo⟩d as a sum of even-and odd-parity subspace components, the odd-parity component ∣ψo⟩ undergoes a Bloch sphere precession of angle U t . This discussion applies similarly to other basis states of the control modes, and also upon invert-ing the role of control and data fermions. 
+
+2. Tunneling gate 
+
+The tunneling gate should act on two nearest-neighbor data fermions as 
+
+U t
+
+> j,j +1
+
+(θ1, θ 2) = e−iθ 1(e−iθ 2 d† 
+
+> jdj+1+H.c.)
+
+, (S3) while its action on the control fermions is irrelevant as long as they remain (after the full sequence) decoupled from the data fermions. For the protocols discussed here, the position of the control fermions is also pre-served by the sequence. The first step of the gate protocol is to adjust the lattice phases to split the lattice into DWs; with this, we can consider only two sites j, j + 1 in a DW isolated from the rest of the system. The Hamiltonian in this DW is 
+
+HDW = −J[d†
+
+> R
+
+dL + c†
+
+> R
+
+cL + H.c.]
+
++ ∑
+
+> σ=d,c
+
+δσ nσ, L + U ∑
+
+> i=L,R
+
+nd,i nc,i , (S4) where J (tunneling), U (interaction), and δσ (potential gradient, or “detuning” in the TLS analogy) can be tuned freely. Then, we apply the three-step global control se-quence described in the main text. The first step 1has nonzero J and δd, vanishing δc and U , and dura-tion τ = π/( 2J). Since the interaction is off, the ap-plied unitary can be written as U 1 
+
+> d
+
+⊗ U 1 
+
+> c
+
+, where in the odd-parity subspace U 1 
+
+> d
+
+and U 1 
+
+> c
+
+act as (having defined 
+
+A = √1 + (δd/J)2/4) 
+
+U 1 ,o  
+
+> d
+
+= e−i πδ d
+
+> 4J
+
+⎡⎢⎢⎢⎣
+
+cos (πA )1 − i sin (πA ) −2J ˆσx, d + δd ˆσz, d
+
+√4J2 + δ2d
+
+⎤⎥⎥⎥⎦
+
+,
+
+(S5) 
+
+U 1 ,oc = iˆσx, c, (S6) and in the even-parity subspace they act as U 1 ,ed =
+
+e−iπδ d/( 2J) ∣ 11 ⟩⟨ 11 ∣d and U 1 ,ec = 1. Here, we define ˆ σx,σ =
+
+∣01 ⟩ ⟨ 10 ∣σ + ∣10 ⟩ ⟨ 01 ∣σ and ˆ σz,σ = ∣10 ⟩ ⟨ 10 ∣σ − ∣01 ⟩ ⟨ 01 ∣σ ,for both σ = d, c. Note that at the start, the control modes can be only in the state ∣00 ⟩c or ∣01 ⟩c. Thus, after this first step, they must end up in ∣00 ⟩c (in the first case) or i ∣10 ⟩c (in the second case). The second step 2 has vanishing δσ and J, and applies on-site interaction U for a time τ such that 
+
+U τ = 2θ1. If there is a control fermion, it must be in the left well (due to the action of the first step, see above). Therefore, this second step acts as 1c ⊗ U 2 
+
+> d
+
+:if there is no control fermion U 2 
+
+> d
+
+= 1, while if there is one U 2 
+
+> d
+
+= e−2iθ 1nd,L . In the latter case, we distin-guish between the odd-parity subspace, where, using the relation nσ, L = (1 + ˆσz,σ )/ 2, we have 
+
+U 2 ,od = e−iθ 1 e−iθ 1 ˆσz, d , (S7) and the even parity one, where U 2 ,ed = e−2iθ 1∣11 ⟩⟨ 11 ∣d .10 Finally, the third step 3 is the inverse of the first one 
+
+(J, δ d) → (−J, −δd). While inverting δd can be straight-forwardly realized in an experimental setup, the inver-sion of the sign of J can for instance be realized by switching on potential gradients ( δσ ) before and after, i.e., e−iH DW τ → e−iπ ∑σ nσ, L e−iH DW τ eiπ ∑σ nσ, L . Step 3can again be expressed as a tensor product of unitaries, with the factors being the inverses of the ones from the first steps U 3 
+
+> σ
+
+= (U 1 
+
+> σ
+
+)†.Knowing the action of the three individual steps, we can now derive that of the sequence on the data modes (U tot d ), in both the “with control” and “without con-trol” case. If there is no control, the action of the se-quence is straightforward: the second step applies the identity, thus the first and third step cancel each other out, and U tot d = 1. If there is a control, its state is unchanged ( U tot c ∣01 ⟩c = ∣01 ⟩c), while the data modes evolve nontrivially. In the even-parity subspace, we have U tot ,ed = e−i2θ1∣11 ⟩⟨ 11 ∣d , and in the odd-parity one, 
+
+U tot ,od = e−iθ 1 (U 1 ,od )†e−iθ 1 ˆσz, d U 1 ,od (S8) 
+
+= e−iθ 1 exp [−iθ 1(U 1 ,od )† ˆσz, dU 1 ,od ] . (S9) The operator (U 1 ,od )† ˆσz, dU 1 ,od is a weighted sum of Pauli operators ˆσx, d, ˆσz, d, and ˆσy, d = i ∣01 ⟩ ⟨ 10 ∣d −
+
+i ∣10 ⟩ ⟨ 01 ∣d. For this to implement the tunneling gate defined in the main text, we want the coefficient of ˆ σz, d
+
+to vanish: this implies 
+
+δ2d + 4J2 cos (πA ) = 0, (S10) which is satisfied for δd/J = ±1.5974 (we assume + from now on). Consequently, since ˆ σx, d and ˆ σy, d act respec-tively as d†
+
+> L
+
+dR +H.c. and −id †
+
+> L
+
+dR +H.c., the total unitary on data fermions (now in the entire 4-dimensional data Hilbert space) can be rewritten as 
+
+U tot d = e−iθ 1(nd,L+nd,R) exp [−iθ 1(e−iα d†
+
+> L
+
+dR + H.c.)] ,
+
+(S11) where e−iα is given by the coefficients of ˆ σx, d and ˆ σy, d
+
+as 
+
+e−iα = −J 4δd sin 2( πA  
+
+> 2
+
+) − 2i√4J2 + δ2d sin (πA )
+
+4J2 + δ2d
+
+, (S12) i.e., α ≈ 2.4959 for the chosen ratio δd/J. This unitary, up to a single-mode θ1 phase, implements the tunnel-ing gate U t
+
+> j,j +1
+
+(θ1, θ 2 = α). To implement the tunneling gate with arbitrary θ2, we can switch on potential gra-dients before and after the gate sequence, i.e., 
+
+ei(α−θ2)nd,L U tot d ei(θ2−α)nd,L
+
+= e−iθ 1(nd,L+nd,R) exp [−iθ 1(e−iθ 2 d†
+
+> L
+
+dR + H.c.)] .
+
+(S13) While, without loss of generality, we have assumed an initial placement of the control fermion on the right well R, the same gate sequence applies to the other placement on well L (up to implementing the tunneling operation ∝ d†
+
+> L
+
+dR with the opposite −θ1). 
+
+3. Interaction gate 
+
+The last gate of our gate set is the interaction gate, which acts on the fermions as 
+
+U int 
+
+> j,j +1
+
+(θ) = e−iθn d,j nd,j +1 , (S14) and keeps the control fermion in the right well (if there is one). The first step of our interaction gate protocol is to apply the tunneling gate sequence with tunneling an-gle θ1 = π/2 (see previous subsection) with the roles of the control and data fermions inverted: this is realized by exchanging the data and control gradi-ents in the tunneling control sequence, i.e., δd = 0and δc/J = 1.5974. Here we assume for simplicity 
+
+θ2 = 0, without loss of generality. Following and ex-tending the derivation above, this thus keeps the data fermions unaffected and acts on the control fermions as [see also the End Matter (EM)]: Uc = 1 (for data in ∣00 ⟩d), Uc = e−i(π/2)( nc,L+nc,R)e−i(c† 
+
+> LcR+c†
+> RcL)π/2
+
+(for data in ∣01 ⟩d), Uc = e−i(π/2)( nc,L+nc,R)e+i(c†
+
+> LcR+c†
+> RcL)π/2
+
+(for data in ∣10 ⟩d), or Uc = e−iπ (nc,L+nc,R) (for data in 
+
+∣11 ⟩d). The second step is to switch on an energy offset δc
+
+for a time τ = −θ/( 2δc). For odd-parity data basis states, the first step has made the control atom move to the left well, and thus this second step imprints a phase θ/2. Conversely, for even-parity data states, the control has stayed in the right well and no phase is imprinted. The third step consists in repeating the first one. Consequently, for odd-parity data configurations the control atom returns to its original position, after hav-ing acquired a phase, while in the even-parity data con-figurations it stays in its original location. The total unitary describing the evolution of the control atom is given, for all data configurations, by: 
+
+U tot c =
+
+⎧⎪⎪⎪⎪⎪⎪⎪⎨⎪⎪⎪⎪⎪⎪⎪⎩
+
+e−iθn c,L/2 for ∣00 ⟩d ,e−iπ (nc,L+nc,R)e−i(c†
+
+> LcR+c†
+> RcL)π/2
+
+eiθn c,L/2e−i(c† 
+
+> LcR+c†
+> RcL)π/2
+
+for ∣01 ⟩d ,e−iπ (nc,L+nc,R)e+i(c†
+
+> LcR+c†
+> RcL)π/2
+
+eiθn c,L/2e+i(c† 
+
+> LcR+c†
+> RcL)π/2
+
+for ∣10 ⟩d ,e−iθn c,L/2e−2iπ (nc,L+nc,R) for ∣11 ⟩d .
+
+This can be further expanded to compute the effect of the sequence on all {∣ nd,Lnd,R⟩d ⊗ ∣nc,Lnc,R⟩c} ba-11 sis states. From that, it appears that the ∣00 ⟩c and 
+
+∣01 ⟩c control states are preserved, and correspond to different unitaries applied to the data modes. For a double-well with no control atom ( ∣00 ⟩c), the sequence applies the identity to the data Hilbert space. For a double-well containing a control atom ( ∣01 ⟩c), the sys-tem picks up a phase factor eiθ /2 for data in ∣01 ⟩d or 
+
+∣10 ⟩d, and no phase otherwise. This translates to a unitary acting on the data modes as 
+
+U tot d = e−iθ (2nd,Lnd,R−nd,L−nd,R)/ 2, (S15) which implements the desired interaction gate up to single-mode phases. 
+
+Appendix B: Alternative operation mode: the conveyor belt 
+
+In the main text we introduced a framework to real-ize a 1D fermionic quantum circuit in a 1D uniformly controlled optical lattice. There exist alternative oper-ation modes to achieve the same goal, unlocking addi-tional features at the cost of some disadvantages; we now describe one, the “conveyor belt” approach, in-spired by similar ideas in Rydberg atom arrays [19] and superconducting circuits [65]. Here, we consider a 2D uniformly controlled optical lattice (OL), and we identify the space and time direc-tion ( j, t ) of the quantum circuit with the vertical and horizontal OL direction ( x1, x 2), see Fig. S1(a). The circuit is then encoded by placing control fermions in the 2D lattice according to the space- and time-location of the quantum gates. The 1D quantum state is in-stead encoded in the data atoms, placed in a single column, the data column, along the x1 direction. The initial atom placement in localized wells is the only step in this framework requiring some degree of local programmability. We then apply the 1D fermionic circuit using the control sequences for the three different gate types dis-cussed in the main text. The steps have a net non-trivial effect only on the DWs hosting control heads and located in the data column. Contrary to the stan-dard approach, in the conveyor-belt operation mode we move the data column in circuit-time direction t (≡ x2),while the control particles remain static, see Fig. S1(c). This selective movement can be realized with the gate discussed in Fig. 1(c) and End Matter (EM) upon ex-changing the role of control and data atoms, and realiz-ing a DWs structure in x2-direction. The movement se-quence can be simplified to a single tunneling step with duration τ = π/( 2J) and gradient δc = 2J√4m2 − 1(m ∈ N), see Fig. S1(c). In this case, the extra single-mode phases are acquired by the control fermions. Af-ter the movement, they are localized in a single site and thus are in a product state with data atoms: therefore, we can forget about the extra phases, without the need of a second tunneling step with opposite gradient. We now compare the features of the two operation modes, starting from the number of control heads nec-essary for the most general circuit. While in the stan-dard approach we require a single control fermion, Fermionic quantum circuit 
+
+> Circuit encoding
+> Space
+> Space
+> Movement
+> data control Control sequences
+> (a) (b) (c)
+> Mode
+> Time
+> 2D optical lattice
+
+Figure S1. Conveyor-belt operation mode. (a) A fermionic quantum circuit, featuring a periodic sequence of phase, tunneling and interaction gate-layers. The 1D quan-tum circuit is realized by encoding the space-time location 
+
+(j, t ) of the gates in the location (x1, x 2) of control fermions (green dots) in a 2D optical lattice. (b) The quantum state is instead encoded in the data fermion (black dots) config-uration, aligned along a 1D column. Similar to the stan-dard approach, the circuit is applied by alternating data fermion movement with tailored global control sequences acting non-trivially on data atoms only where the control fermion sits. Different columns of control fermions in the 2D lattice corresponds to different circuit layers. (c) A key element for this framework is the selective movement of the data atoms. While control fermions are fixed at a given cir-cuit time t (≡ x2), the data atom is transported as follows: First, the lattice is rearranged into double wells, such that the data atom sits on a left well L. We then allow tunnel-ing with strength J for time τ = π/( 2J), in presence of a gradient δc for control fermions, whose value is chosen such that control particles return to their original wells in each step. Therefore, the data atom proceeds to the next well 
+
+t + 1, while control atoms remain localized. 
+
+here we need as many particles as the number of gates. Moreover, the conveyor-belt approach requires an higher degree of local programmability in the initial circuit encoding, since multiple control atoms need to be precisely placed at specific sites in the 2D lattice without any regular pattern. On the contrary, in the standard approach the control head can be initially lo-cated anywhere in the 1D OL, and then moved to the desired site. Another difference between the two operation modes regards the parallelization. The conveyor-belt setup is particularly useful for circuits featuring a periodic al-ternation of different gate-type layers; specifically, we consider cases in which the gates within each layer are performed always with a fixed angle {θp, θ t1, θ t2, θ int },but at varying locations of the 1D quantum state, see, e.g., the circuit in Fig. S1(a). Under these conditions, we can simultaneously prepare multiple copies of the same initial quantum state at different circuit times. 12 More precisely, we prepare multiple copies of a given initial product state, separated by the same number of lattice sites as the control heads encoding two gate lay-ers of the same type. All the copies initially lay in an initialization region, distinct from the processing region where the control heads have been placed. We then run the quantum circuit by alternating between movement and processing gates: in particular, after a number of movement steps equal to the above spacing, a new copy enters the processing region and we start applying the circuit on it. Since at a given physical time, all the data columns in the processing region overlap with control heads encoding circuit layers of the same gate-type, us-ing a single global control sequence it is possible to im-plement a different circuit layer on each copy. In this way, we can prepare multiple copies at different cir-cuit times. This capability enables the calculation of otherwise experimentally challenging quantities, such as out-of-time-order correlators [66, 67] and Loschmidt echos [68]. On the contrary, the standard framework allows us to efficiently prepare multiple copies at the 
+
+same circuit time; this is useful to extract many-body observables [69, 70], in contrast to the usual random-ized protocols [71]. 
+
+> Appendix C: Hybrid analog-digital operation mode with two spin species
+
+In this Appendix, we illustrate a method to imple-ment the hybrid analog-digital Trotter evolution de-scribed in the main text using only two fermionic species. To this end, we consider a two-layer setup analogous to the one of the main text [see Fig. 3(b)]. Now, however, the “control” plane is filled with fermions of one of the two “data” species (say ↑). We further require the capability to drive the {↑, ↓} tran-sition with a microwave (MW) spin-flip Hamiltonian 
+
+HMW = Ω2 ∑
+
+> j
+
+(f † 
+
+> ↑,j
+
+f↓,j + f † 
+
+> ↓,j
+
+f↑,j ), (S16) with Rabi frequency Ω. We first describe how we implement the digital oper-ations. The key idea is to alternatively use each species as control particles for the other one. To this end, we first use our spin-selective movement protocol to move all ↓-fermions from the data plane to the control one, while keeping the ↑-fermions untouched. This requires a spin-dependent gradient in the vertical direction, i.e., between the two planes. Then, we apply the series of gate sequences required to implement the desired uni-tary on ↓-fermions. Again, the sequences do not affect the remaining ↑-particles in the data plane. Finally, after moving the ↓-fermions back to the data plane, we apply a MW π-pulse (i.e., of duration τ = π/Ω) on the control plane, which flips the ↑-fermions in this plane to ↓. This plane-specific pulse can be realized in a globally controlled way by splitting it into two 
+
+π/2-pulses and applying, before and after the second pulse, a spin-dependent potential gradient between the data and control planes. Specifically, we choose, in the Hamiltonian Hδ of Eq. (3), j = 0, 1 to correspond respectively to the control plane and the data plane, and take (δ↑ − δ↓)τ = π. This ensures that fermions in the data plane return to their initial spin state, while fermions in the control plane change state. The whole sequence is then repeated, exchanging the role of the two spin species, to implement the desired digital op-eration also on ↑ data fermions. For the analog evolution, the challenge resides in en-suring that the fermions in the control plane do not evolve, such that the pattern of control fermions re-mains intact for the following Trotter step. During the analog evolution, there are no data fermions in the control plane, and the evolution of control fermions is limited to free particle tunneling, i.e., Uτ = e−iH Jσ τ ,where HJσ = −J ∑j (f † 
+
+> σ,j
+
+fσ,j +1 + H.c.) is the tunnel-ing Hamiltonian between neighboring sites for the spin species σ of the control plane. In the following, we describe how a global control sequence allows us to inhibit this unwanted tunneling process. For a Trot-ter step of duration τ , this is achieved by alternat-ing the analog evolution for a time τ /2 with the ap-plication of additional phases in the control plane. Specifically, by applying π phases via the unitary 
+
+Uπ = ∏i∈CB exp (iπn σ,i ) to the control plane, where CB denotes mode indices corresponding to a checker-board pattern, we invert the sign of the tunneling pro-cess as Uπ Uτ /2U † 
+
+> π
+
+= (Uτ /2)†. Therefore, the resulting evolution is given by Uτ /2Uπ Uτ /2U † 
+
+> π
+
+= 1 and the con-trol plane does not evolve during the analog evolution step. To obtain the correct evolution in the data plane, however, the data fermions need to remain unaffected by the additional phases. To this end, we synthesize the checkerboard π-phase Uπ for the control plane in the following way (w.l.o.g. we again consider the case where fermions in the control plane are initially in spin state σ =↑). We first apply a spin-dependent gradient 
+
+δ↑ in both spatial directions, for time τ = π/δ↑, which applies a checkerboard π-phase to ↑-fermions in both planes. We then flip control-plane fermions from ↑ to 
+
+↓ following the procedure detailed above for the digital part. At this point, applying again the gradient for a time τ = π/δ↑ cancels the phases acquired in the data plane (all phases add to multiples of 2 π), while having no effect on the control plane, where the π-phase in checkerboard pattern persists. Finally, we flip control-plane fermions back to ↑. In total, only fermions in the control plane have acquired phases, thus implementing 
+
+Uπ : this sequence can be therefore used to selectively undo the analog evolution of the control atoms. 
+
+> Appendix D: Fully digital 2D Trotter evolution
+
+In the main text we discussed an hybrid analog-digital approach to simulate a 2D long-range, spinful Fermi-Hubbard model. In this Appendix, we show how the same result can be achieved in a fully digital way. Specifically, we want to investigate the dynamics of 13 spin spin   
+
+> NN Tunneling On-site Interaction NNN (diagonal) Tunneling
+> (a) (b)
+> Figure S2. Fully digital Trotter evolution. (a) We simulate the dynamics of an extended 2D spinful Fermi-Hubbard model Eq. (S17), featuring long-range tunneling terms, in a fully digital way. We encode the two spin species into two different data fermion planes (grey planes with black dots). We also prepare 2D planes loaded with control fermions (green planes with green dots), arranged in highly symmetric configurations: each of these configurations dig-itally implements a different term of the Hamiltonian. (b) Operation sequence to implement the evolution under the different terms in Eq. (S17), via an alternating sequence of lattice rearrangements and the digital gates discussed in the main text.
+
+the Hamiltonian 
+
+HFH + = HFH + HLR , (S17) 
+
+HFH = − ∑⟨ij ⟩,σ J(c†
+
+> σ,i
+
+cσ,j + H.c.) + U ∑i n↑,i n↓,i ,HLR = − ∑
+
+> ⟪ij ⟫,σ
+
+J′(c†
+
+> σ,i
+
+cσ,j + H.c.);see the main text for more details. The total evolution unitary U (t) = exp (−iH FH +t) can be then Trotterized as U (t) ≈ (∏α U α
+
+> ∆t
+
+)t/∆t = (∏α e−iH α∆t)t/∆t with ∆ t
+
+the Trotter step and Hα corresponding to the different terms in the Hamiltonian. The Fermi-Hubbard Hamil-tonian acts on two different spins σ =↑, ↓: we can en-code them either in two different atomic species placed in a single 2D plane (as we do in the hybrid approach), or use a single atomic species in two planes, with each plane simulating a different spin, see Fig. S2. In the following, we consider the latter encoding; in our archi-tecture the two data planes are then moved simultane-ously via the movement sequence. We further prepare 2D planes loaded with control fermions and exhibiting specific configuration patterns, each allowing the im-plementation of a different unitary {e−iH α∆t}α. Both data and control planes are stacked vertically in a 3D optical lattice, see Fig. S2. The scheme for the digital implementation of the Trotterized evolution consists of two steps: First, we overlap one data plane with the desired control plane. This can be achieved by applying either the control [see Fig. 1(c)] or the data [see Fig. S1(c)] movement sequence in vertical direction. Then, using a combina-tion of movement sequences, as well as tunneling and interaction gates we implement the unitary evolution gates U α
+
+> ∆t
+
+. We repeat this step for the second data species and for each term in the Hamiltonian. In the following, we discuss in details the specific sequences. We start by the on-site interaction U n ↑,i n↓,i , which requires a fully-filled control plane. After overlapping it with one data plane, we realize a DW structure between the two data planes. At this point we simply apply the global control sequence for the density-interaction term with θ = U ∆t.For the implementation of the tunneling term in the horizontal resp. vertical direction of a given data plane, we instead require a 2D control configuration, where every second column resp. row is fully filled. Af-ter overlapping the control plane with a data plane, the evolution unitary is implemented by performing the global control sequence for the tunneling gate with 
+
+θ1 = −J∆t, θ 2 = 0. Alternatively, the nearest-neighbor tunneling can be realized with a single control plane in a checkerboard configuration, at the cost of having control fermions in either the left or the right site of the DW: as discussed above, a control atom in the left well implements the tunneling gate with opposite an-gle −θ1. To correct for this, we can engineer an echo sequence based on phase gates with angle θ = π/2. The last term we simulate is the next-nearest-neighbor tunneling: in the corresponding control plane only modes with even row and column indices are filled. The evolution unitary is then implemented as follows. We start with a DW configuration in the horizontal direction, and we apply a tunneling gate U t(π/2, 0),conditional on the presence of a control fermion in the DW, thus effectively exchanging the two data modes. We then isolate the system into DWs along the verti-cal direction, and apply the control sequence for the tunneling gate U t(−J′∆t, 0): this implements the uni-tary e−iH α∆t, with Hα = HLR . Finally, we rearrange the lattice to exhibit DWs in the horizontal direction, and apply U t(π/2, 0) again. Note that to apply the diagonal term in the opposite direction, i.e., from top left to bottom right, we need to propagate the control atoms to the left site of the DW prior to the lattice rearrangement. For all non-local terms, the corresponding sequence has to be repeated upon translating the control plane by one site in horizontal and/or vertical direction with re-spect to the data plane to make sure that the unitary evolution gate is applied on all possible mode pairs. An extension to Hamiltonians featuring even longer-range tunneling terms (between modes i and j) is straightforward. In this case, the key step is the con-ditional tunneling gate U t(π/2, 0) for data fermions, i.e., a fermionic SWAP (fSWAP) operation, as well as the movement of control fermions. By alternating 14 them with lattice rearrangements, we can move a data fermion originally at mode i to the other well of the DW hosting mode j. We then locally apply the tun-neling gate U t(− ˜J∆t, 0), thus effectively implement-ing the long-range tunneling term ˜J(d† 
+
+> i
+
+dj + H.c.). In an analogous way, we can introduce long-range inter-species interaction terms: this requires to conditionally move the data fermion at mode i to site j, and then realize a DW structure between the two data planes to enable the implementation of the density-interaction gate, in analogy to what we propose for the on-site interaction. Note that the alternation of fSWAP, control prop-agation gates, and lattice rearrangements requires a number of steps linear in the distance between the tar-geted modes: an alternative approach involves load-ing the data fermions to an additional plane, shuttling them to the desired site, and moving them back to the original data plane.
