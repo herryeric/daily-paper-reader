@@ -6,73 +6,82 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-16
-- 运行时间：2026-04-16 20:46:16 UTC
+- 最新运行日期：2026-04-17
+- 运行时间：2026-04-17 20:25:14 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：20
+- 精读区：9
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦超导前沿，深度解析了镍基超导体能带调控与二维范霍夫奇异点下的超导机制。
-重点推荐关于镍基超导能带填充控制的满分研究，以及利用量子蒙特卡罗模拟揭示的关联电子态新发现。
-建议优先研读镍基材料的结构调控策略，这是把握当前高温超导实验突破的关键路径。
-- 详情：[/202604/16/README](/202604/16/README)
+今日深度复盘 20 篇超导前沿进展，重点聚焦双层镍氧化物机制与量子临界区的输运特性。
+满分论文揭示了层间杂化对镍基超导的决定性作用，并深入探讨了“奇异金属”行为与费米液体的竞争。
+建议优先研读两篇满分文献，并关注 Migdal-Eliashberg 理论在极化子系统中的失效边界。
+- 详情：[/202604/17/README](/202604/17/README)
 
 ### 精读区论文标签
-1. [Controlling the Band Filling and the Band Width in Nickelate Superconductors](/202604/16/2604.13875v1-controlling-the-band-filling-and-the-band-width-in-nickelate-superconductors)  
+1. [Interlayer hybridization enables superconductivity in bilayer nickelates](/202604/17/2604.14701v1-interlayer-hybridization-enables-superconductivity-in-bilayer-nickelates)  
    标签：评分：10.0/10、query:cmp
-   evidence：高温超导镍氧化物中的非常规配对机制
-2. [Superconductivity near two-dimensional Van Hove singularities: a determinant quantum Monte Carlo study](/202604/16/2604.13161v1-superconductivity-near-two-dimensional-van-hove-singularities-a-determinant-quantum-monte-carlo-study)  
+   evidence：双层镍氧化物中的层间杂化与超导性
+2. [Fermi-liquid versus non-Fermi-liquid/'strange-metal' fits to the electrical resistivity in the quantum critical magnetic regime of an unconventional superconductor](/202604/17/2604.14952v1-fermi-liquid-versus-non-fermi-liquidstrange-metal-fits-to-the-electrical-resistivity-in-the-quantum-critical-magnetic-regime-of-an-unconventional-superconductor)  
+   标签：评分：10.0/10、query:cmp
+   evidence：UTe2量子临界区电阻率的非费米液体拟合
+3. [High-temperature charge-4e superconductivity in SU(4) interacting fermions](/202604/17/2604.15056v1-high-temperature-charge-4e-superconductivity-in-su4-interacting-fermions)  
+   标签：评分：10.0/10、query:cmp
+   evidence：相互作用费米子中的高温4e电荷超导
+4. [Divergent spin conductivity on the verge of ferromagnetic quantum criticality](/202604/17/2604.14286v1-divergent-spin-conductivity-on-the-verge-of-ferromagnetic-quantum-criticality)  
    标签：评分：9.0/10、query:cmp
-   evidence：范霍夫奇异点附近的超导转变温度
-3. [Anomalous Low-temperature Magnetotransport in Kagome Metal CsCr$_3$Sb$_5$ under Pressure](/202604/16/2604.13553v1-anomalous-low-temperature-magnetotransport-in-kagome-metal-cscr3sb5-under-pressure)  
+   evidence：量子临界点附近的自旋电导率与早期超流性
+5. [Quantum Charge-4e Superconductivity and Deconfined Pseudocriticality in the Attractive SU(4) Hubbard Model](/202604/17/2604.14289v1-quantum-charge-4e-superconductivity-and-deconfined-pseudocriticality-in-the-attractive-su4-hubbard-model)  
    标签：评分：9.0/10、query:cmp
-   evidence：笼目金属中的超导性与强关联
-4. [Strong Correlation Drives Zero-Field Josephson Diode Effect](/202604/16/2604.14045v1-strong-correlation-drives-zero-field-josephson-diode-effect)  
+   evidence：4e电荷超导与伪临界性
+6. [Topologically non-trivial gap function and topology-induced time-reversal symmetry breaking in a superconductor with singular dynamical interaction](/202604/17/2604.14295v1-topologically-non-trivial-gap-function-and-topology-induced-time-reversal-symmetry-breaking-in-a-superconductor-with-singular-dynamical-interaction)  
    标签：评分：9.0/10、query:cmp
-   evidence：强关联驱动的零磁场约瑟夫森二极管效应
-5. [Topological anisotropic non-Fermi liquid from a Berry-dipole semimetal](/202604/16/2604.14146v1-topological-anisotropic-non-fermi-liquid-from-a-berry-dipole-semimetal)  
+   evidence：奇异相互作用导致的非费米液体行为与非常规超导
+7. [$μ$SR study of time-reversal symmetry constraints and bulk superfluid response in Li$_{0.95}$FeAs](/202604/17/2604.14376v1-sr-study-of-time-reversal-symmetry-constraints-and-bulk-superfluid-response-in-li095feas)  
    标签：评分：9.0/10、query:cmp
-   evidence：拓扑量子临界点附近出现的空间各向异性非费米液体
-6. [Sensitive dependence of Poor Man's Majorana modes on the length of superconductor](/202604/16/2604.12950v1-sensitive-dependence-of-poor-mans-majorana-modes-on-the-length-of-superconductor)  
-   标签：评分：8.0/10、query:cmp
-   evidence：量子点-超导体混合系统中的马约拉纳模式
+   evidence：铁基超导体中体超流响应与对称性的μSR研究
+8. [Long-range spin-polarized Josephson effect in ballistic S/F/S junctions with precessing magnetization](/202604/17/2604.14390v1-long-range-spin-polarized-josephson-effect-in-ballistic-sfs-junctions-with-precessing-magnetization)  
+   标签：评分：9.0/10、query:cmp
+   evidence：S/F/S结中长程自旋极化约瑟夫森效应的理论研究
+9. [Abrikosov vortices in altermagnetic superconductors](/202604/17/2604.15204v1-abrikosov-vortices-in-altermagnetic-superconductors)  
+   标签：评分：9.0/10、query:cmp
+   evidence：交错磁性超导体中的Abrikosov涡旋与磁场穿透
 
 ### 速读区论文标签
-1. [Nonequilibrium crossover in the supercritical region from quench dynamics](/202604/16/2604.13104v1-nonequilibrium-crossover-in-the-supercritical-region-from-quench-dynamics)  
+1. [Controlled Loop Expansion for the Topological Heavy Fermion Model](/202604/17/2604.14278v1-controlled-loop-expansion-for-the-topological-heavy-fermion-model)  
    标签：评分：8.0/10、query:cmp
-   evidence：全息超流模型与非平衡动力学
-2. [Optimal Majoranas in Mesoscopic Kitaev Chains](/202604/16/2604.13945v1-optimal-majoranas-in-mesoscopic-kitaev-chains)  
+   evidence：扭曲石墨烯中强相互作用f位的理论框架
+2. [Limits of validity for Migdal-Eliashberg theory: role of polarons/bi-polarons](/202604/17/2604.14293v1-limits-of-validity-for-migdal-eliashberg-theory-role-of-polaronsbi-polarons)  
    标签：评分：8.0/10、query:cmp
-   evidence：通过超导段耦合的量子点中的马约拉纳零能模
-3. [Continuous correlated states and dual-flatness in a moiré heterostructure](/202604/16/2604.13958v1-continuous-correlated-states-and-dual-flatness-in-a-moir-heterostructure)  
+   evidence：电子-声子系统中费米液体行为和Luttinger定理的失效
+3. [Breakdown of the Migdal-Eliashberg theory for electron-phonon systems. Role of polarons/bi-polarons](/202604/17/2604.14294v1-breakdown-of-the-migdal-eliashberg-theory-for-electron-phonon-systems-role-of-polaronsbi-polarons)  
    标签：评分：8.0/10、query:cmp
-   evidence：莫尔异质结中的关联态
-4. [Crystal structure effects on vortex dynamics in superconducting MgB$_2$ thin films](/202604/16/2604.14022v1-crystal-structure-effects-on-vortex-dynamics-in-superconducting-mgb2-thin-films)  
+   evidence：Migdal-Eliashberg理论的失效以及从费米液体到极化子态的转变
+4. [Twisted Bilayer Graphene Lifetimes At Integer Fillings: An Analytic Result](/202604/17/2604.14303v1-twisted-bilayer-graphene-lifetimes-at-integer-fillings-an-analytic-result)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导MgB2中的涡旋动力学与电阻转变
-5. [Hole and spin dynamics in an anti-ferromagnet close to half filling](/202604/16/2604.14039v1-hole-and-spin-dynamics-in-an-anti-ferromagnet-close-to-half-filling)  
+   evidence：扭曲双层石墨烯中的关联单粒子激发和自能
+5. [Wide-field magnetic imaging of shielding-current-driven vortex rearrangement under local heating using diamond quantum sensors](/202604/17/2604.14578v1-wide-field-magnetic-imaging-of-shielding-current-driven-vortex-rearrangement-under-local-heating-using-diamond-quantum-sensors)  
    标签：评分：8.0/10、query:cmp
-   evidence：强关联费米-哈伯德模型中的电荷与自旋动力学
-6. [Nonmonotonic Scaling of the Anomalous Hall Effect in a Bicollinear Antiferromagnet](/202604/16/2604.12636v1-nonmonotonic-scaling-of-the-anomalous-hall-effect-in-a-bicollinear-antiferromagnet)  
+   evidence：NbN超导体中涡旋重排与磁成像研究
+6. [Quantum Landscape of Superconducting Diodes](/202604/17/2604.14623v1-quantum-landscape-of-superconducting-diodes)  
+   标签：评分：8.0/10、query:cmp
+   evidence：超导二极管的量子图谱与应用
+7. [Symmetry Protected Bulk-Boundary Correspondence in Interacting Topological Insulators](/202604/17/2604.09801v1-symmetry-protected-bulk-boundary-correspondence-in-interacting-topological-insulators)  
    标签：评分：7.0/10、query:cmp
-   evidence：FeTe中的近藤相互作用和强能带重整化
-7. [Unconventional entanglement scaling and quantum criticality in the long-range spin-one Heisenberg chain with single-ion anisotropy](/202604/16/2604.12754v1-unconventional-entanglement-scaling-and-quantum-criticality-in-the-long-range-spin-one-heisenberg-chain-with-single-ion-anisotropy)  
+   evidence：相互作用拓扑绝缘体与多体不变量
+8. [Lifetime and spectral function of topological heavy fermions](/202604/17/2604.14369v1-lifetime-and-spectral-function-of-topological-heavy-fermions)  
    标签：评分：7.0/10、query:cmp
-   evidence：长程海森堡链中的量子临界性与对称性破缺
-8. [Measuring quasiparticle dynamics for particle impact reconstruction in a superconducting qubit chip](/202604/16/2604.13176v1-measuring-quasiparticle-dynamics-for-particle-impact-reconstruction-in-a-superconducting-qubit-chip)  
+   evidence：拓扑重费米子模型中的强关联与准粒子寿命
+9. [Two pathways to break the insulating state in a correlated transition metal oxide](/202604/17/2604.14415v1-two-pathways-to-break-the-insulating-state-in-a-correlated-transition-metal-oxide)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导量子比特芯片中的准粒子动力学
-9. [Programmable Fermionic Quantum Processors with Globally Controlled Lattices](/202604/16/2604.13160v1-programmable-fermionic-quantum-processors-with-globally-controlled-lattices)  
+   evidence：过渡金属氧化物中的电子关联与相变
+10. [Berry curvature and field-induced intrinsic anomalous Hall effect in an antiferromagnet FeTe](/202604/17/2604.11583v2-berry-curvature-and-field-induced-intrinsic-anomalous-hall-effect-in-an-antiferromagnet-fete)  
    标签：评分：6.0/10、query:cmp
-   evidence：用于费米-哈伯德模型的费米子量子处理器
-10. [Extreme Terahertz Nonlinear Phononics by Coherence-Imprinted Control of Hybrid Order](/202604/16/2604.13429v1-extreme-terahertz-nonlinear-phononics-by-coherence-imprinted-control-of-hybrid-order)  
+   evidence：反铁磁体FeTe中的贝里曲率与反常霍尔效应
+11. [Extraordinary Surface Criticalities for Interacting Fermions](/202604/17/2604.15187v1-extraordinary-surface-criticalities-for-interacting-fermions)  
    标签：评分：6.0/10、query:cmp
-   evidence：量子材料的相干控制与涌现态
-11. [Spin-mediated hysteretic switching of unidirectional charge density waves by rotating magnetic fields](/202604/16/2604.14002v1-spin-mediated-hysteretic-switching-of-unidirectional-charge-density-waves-by-rotating-magnetic-fields)  
-   标签：评分：6.0/10、query:cmp
-   evidence：磁性Kagome金属中的电荷密度波
+   evidence：相互作用费米子的表面临界性
 
 
 <div class="dpr-home-promo-card">
