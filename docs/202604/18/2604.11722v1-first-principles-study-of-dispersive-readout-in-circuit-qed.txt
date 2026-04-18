@@ -1,0 +1,585 @@
+Title: First-principles study of dispersive readout in circuit QED
+
+URL Source: https://arxiv.org/pdf/2604.11722v1
+
+Published Time: Tue, 14 Apr 2026 02:43:14 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# First-principles study of dispersive readout in circuit QED 
+
+Angela Riva, 1, ∗ Prakritish Gogoi, 2 Nicolas Gheeraert, 3 Serge Florens, 4
+
+Alex W. Chin, 2 Alain Sarlette, 1, § and Alexandru Petrescu 1, ¶
+
+> 1
+
+Laboratoire de Physique de l’Ecole Normale Sup´ erieure, Mines Paris, Inria, CNRS, ENS-PSL, Sorbonne Universit´ e, PSL Research University, Paris, France 
+
+> 2
+
+Sorbonne Universit´ e, CNRS, Institut des NanoSciences de Paris, 4 place Jussieu, 75005 Paris, France 
+
+> 3
+
+Krea University, Andhra Pradesh 517646, India 
+
+> 4
+
+Univ. Grenoble Alpes, CNRS, Grenoble INP, Institut N´ eel, 38000 Grenoble, France 
+
+(Dated: April 14, 2026) The speed and fidelity of dispersive readout of superconducting qubits should improve by increas-ing the amplitude of the measurement drive. Experiments show, however, that beyond some drive amplitude there is always a saturation or drop in fidelity, often associated with a decrease in qubit energy relaxation time T1. A simple Lindblad master equation does not capture the latter effect. More involved approaches based on effective master equations rely on strong assumptions about the spectra of the system and the bath and only partially agree with observations. Here, we perform a first-principles simulation of the full unitary dynamics of dispersive readout by considering the circuit QED Hamiltonian coupled to a microscopic model for the measurement transmission line, allowing for its arbitrary spectrum, including filters. Our access to the dynamics of the bath degrees of freedom allows us to investigate the emission spectrum of the system as a function of drive power. We show how the dependence of qubit T1 on readout drive amplitude is sensitive to the details of the bath spectrum. In particular, we find that T1 drops with increasing drive amplitude when a Purcell notch filter is placed at the qubit frequency, and that the Lindblad master equation shows general qualitative defects compared to the first-principles model. 
+
+Introduction.— Despite significant progress in speed and fidelity [1, 2], qubit readout in superconducting circuit quantum electrodynamics (circuit QED) [3, 4] remains an important challenge on the path to fault-tolerant quantum computing, accounting for a significant part of the error budget in recent state-of-the-art imple-mentations of the surface code [5, 6]. Implementing read-out via analogs of cavity-QED Hamiltonians faces similar issues in other platforms, such as spin qubits [7–9]. In the standard scheme for dispersive readout, a mi-crowave resonator weakly and off-resonantly coupled to a superconducting qubit experiences a qubit-state-dependent frequency shift, which allows one to infer the state of the qubit by sending microwave signals (“drive”) close to the frequency of the resonator and measuring the output field. In this ideally quantum nondemolition (QND) measurement [10], increasing the drive ampli-tude should render the measurement faster and higher fi-delity. However, the observed measurement fidelity tends to drop beyond some drive amplitude, which signals the appearance of drive-induced non-QND behavior [1, 11– 13]. One symptom of non-QND behavior during measure-ment is the change in the measured qubit energy relax-ation time T1 as the drive amplitude is increased [14–19]. In the ideal situation of dispersive readout [4], measuring the qubit state should only induce backaction in the form of dephasing. In the Lindblad master equation formal-ism, it has been shown that dephasing noise intrinsic to the qubit can be converted by the readout drive into ad-ditional relaxation for the qubit, resulting in a drop in T1
+
+with readout drive amplitude [14, 20]; on the other hand, 
+
+ωq
+
+g ...
+
+ωa
+
+ωd
+
+> ...
+> ...
+> ...
+> ...
+> ω
+> J(ω)
+
+. . . 
+
+FIG. 1. Microscopic model : A qubit of transition frequency 
+
+ωq is Rabi-coupled, with strength g, to a readout resonator mode of frequency ωa, driven at frequency ωd ≃ ωa. The resonator is coupled to a bath of harmonic oscillators charac-terized by the bath spectral density function J(ω). 
+
+the T1 induced by the Purcell effect has been shown to increase [20, 21] in models based on a two-level trunca-tion of the qubit-encoding system, but can decrease in models based on multi-level weakly anharmonic systems [22, 23]. These rates can be significantly changed by res-onances occurring in the driven spectrum of the qubit system which also lead to leakage outside of the com-putational manifold, the so-called measurement-induced state transitions [13, 24–28]. The relaxation rates can also change as the qubit peak is ac Stark shifted and broadened by the readout drive, which brings it in reso-nance with additional spurious degrees of freedom in its bath [13, 29]. This points to the necessity of a model of the system-
+
+> arXiv:2604.11722v1 [quant-ph] 13 Apr 2026
+
+2                           
+
+> J(ω)Parameter
+> Jflat (ω) = 2 αflat Θ( ωmax −ω)Θ( ω−ωmin )ωmin = 3
+> ωmax = 12
+> JOhm (ω) = 2 αOhm ωΘ( ωc−ω)ωc= 15
+> JPF (ω) = JOhm (ω)
+> 
+> 1−De −(ω−ωq )22σ2
+> D= 0 .7
+> σ= 0 .1TABLE I. Bath spectral functions considered in Fig. 3. Pa-rameter values are in units of 2 πGHz and Θ is the Heaviside step function. The value of the prefactor αfor each case is selected to impose the corresponding single-photon decay rate of the resonator κ= 2 πJ (ωa) = 50 MHz.
+
+bath coupling which captures the frequency dependence of the bath. One possibility is to attempt to derive a Lindblad master equation from a microscopic model of the bath [30]. This approach relies on several approxima-tions (see below) and is difficult in practice in dispersive readout: in order to derive the collapse operators, one would need to find the Floquet modes [31, 32] of the pe-riodic system Hamiltonian comprising qubit, resonator, and readout drive. However, as the system is nearly reso-nantly driven, the problem becomes intractable [33]. One therefore typically resorts to phenomenological master equations, such as those based on a simple single-photon dissipator describing resonator relaxation [3, 4, 26], where the frequency dependence of the spectral function is ne-glected. In this Letter, we overcome these difficulties by numerically simulating the full unitary dynamics of a first-principles model of the circuit QED Hamiltonian coupled to an electromagnetic environment, as specified by the spectral density function [34]. As such, we do not make any of the standard approximations in the derivation of master equations [30]. Our ten-sor network approach [35] is nonperturbative in the frequency-dependent system-to-bath coupling, and does not use the secular or Markov approximations. Since we simulate the time evolution of the full wavefunction, we have access to the dynamics of the bath observables [36]. By tracking which bath modes are being populated, we are able to extract the emission spectrum of the system. To isolate the effects due to the bath degrees of freedom, as opposed to drive-induced state transitions [13] inside of a multi-level system representing the qubit, we consider a two-level system coupled to a driven harmonic readout resonator [3, 4], and we extract the drive power dependence of the relaxation rate of the qubit, for arbitrary spectral distributions of the bath. This captures behaviors that are beyond the reach of previous models in the presence of complex filtered baths [1, 17, 37–44]. 
+
+Model.— Our starting point is a Caldeira-Leggett type model [34], which describes the bath as a collec-tion of non-interacting harmonic oscillators coupled to the system ( ℏ = 1) ˆH(t) = ˆHS (t)+
+
+Z
+
+dω [pJ(ω)(ˆ a + ˆ a†)( ˆbω + ˆb† 
+
+> ω
+
+) + ωˆb†
+
+> ω
+
+ˆbω ]. (1) In this model ˆHS (t) = ωq 
+
+> 2
+
+ˆσz + ωaˆa†ˆa + gˆσx(ˆ a + ˆ a†) + 
+
+λ(ˆ a+ ˆ a†)2 +εd sin( ωdt)  ˆa + ˆ a† is a minimal circuit QED Hamiltonian describing a qubit (ˆ σz = |1⟩⟨ 1| − | 0⟩⟨ 0|,ˆσx = |1⟩⟨ 0|+|0⟩⟨ 1|) of transition frequency ωq transversely coupled to a readout resonator modeled by a harmonic oscillator of frequency ωa, with coupling strength g. As needed for dispersive readout [4], the readout resonator is driven at a nearly resonant frequency ωd ≃ ωa, with drive amplitude εd. We describe our procedure to deter-mine this frequency below. The system Hamiltonian fur-ther contains a correction (term in λ) needed to enforce the gauge-invariant form of the system-to-bath coupling [SM]. In Eq. (1) the bath operators obey the canonical com-mutator [ ˆbω , ˆbω′ ] = δ(ω − ω′), whereas the spectral func-tion J(ω) encodes the strength of the coupling to bath modes at frequency ω. An idealized form modeling a transmission line in circuit QED experiments would be Ohmic J(ω) ∝ ω [45], but in realistic experimental situ-ations the electromagnetic environment of the circuit is much more complex [1, 2, 13, 17, 29, 39, 40, 42]. In this work, exploiting the fact that our approach can handle an arbitrary spectral function J(ω), we will consider sev-eral forms to illustrate qualitatively different behaviors of qubit relaxation during readout, see Table I. To bring the model Eq. (1) to a form suitable for nu-merical simulation, we unitarily map the bath Hamilto-nian to that of a bosonic tight-binding chain with nearest-neighbor hopping terms [36], that remains linearly cou-pled to the system ˆH(t) = ˆHS (t) + k0 (ˆ a + ˆ a†) (ˆ c0 + ˆ c†
+
+> 0
+
+)+
+
+> ∞
+
+X
+
+> i=0
+
+
+
+ei ˆc† 
+
+> i
+
+ˆci + ti ˆc† 
+
+> i+1
+
+ˆci + ti ˆc† 
+
+> i
+
+ˆci+1 
+
+
+
+. (2) On-site bosonic creation and annihilation operators obey the canonical commutator [ˆ ci, ˆc† 
+
+> j
+
+] = δij for all i, j ≥ 0, on-site energies are given by ei, and hopping energies by 
+
+ti. The readout resonator is transversely coupled with an energy scale k0 to the first site of the bath. Upon suitable truncation of the chain length, Eq. (2) has an efficient matrix product operator representation [46] [SM]. In our simulations, we initialize the system and bath in product states of the form 
+
+|ψ(t = 0) ⟩ = jn |0⟩ , (3) 3                                           
+
+> FIG. 2. Numerical calibration (MPS simulation): The main plot shows frequency resolved occupancies ⟨ˆnω⟩of the bath normal modes at time κt/ (2 π) = 1, sufficient to exponen-tially relax the resonator population ⟨ˆNa⟩(top right in-set), for an Ohmic spectral density function JOhm (ω). For initial conditions 1nand 0nwith n=2, the respec-tive peak positions ωa1/(2 π) = arg max ω⟨ˆnω⟩= 7 .475 GHz and ωa0/(2 π)=7.546 GHz correspond to the qubit-state-dependent resonator frequencies. The midpoint frequency ¯ω/ (2 π) =  ωa1+ωa0
+> /(4 π) = 7 .51 GHz, shown as a verti-cal dot-dashed line, sets the readout drive frequency for our next simulations and differs from the bare resonator frequency
+> ωa/(2 π) = 7 .5 GHz (dashed vertical line) due to Lamb shift. The bottom-right inset (same axes as main plot) shows a peak in ⟨ˆnω⟩around ωq/(2 π), corresponding to the emission of the qubit when initializing the system in 1n.
+
+where |0⟩ is the vacuum of the uncoupled chain, i.e. ˆci |0⟩ = 0, for i = 0 , 1, . . . and jn is an eigenstate of the undriven ( εd = 0) circuit QED Hamiltonian ˆHS , la-beled according to the scheme of [26]. This labeling in-dicates that, in the limit of vanishing coupling g = 0, 
+
+jn → | j⟩ | n⟩ with j = 0 , 1 denoting qubit state and 
+
+n = 0 , 1, . . . the number of photons in the resonator. Initialization in a product state with the vacuum of the uncoupled chain |0⟩ is consistent with the standard treatment of the Lindblad master equation [30]. Since Eq. (3) is not an eigenstate of the undriven total Hamil-tonian Eq. (2), under unitary time evolution with ˆH(t), entanglement will develop between the system and the bath, even in the undriven case. Our results only mini-mally change as compared to initializing in the true eigen-states of the full undriven Hamiltonian ˆH corresponding to Eq. (3) [SM]. Far from the system, the tunneling rates 
+
+{ti} in Eq. (2) saturate to a constant value, which fixes a finite speed of propagation of excitations along the chain [36]. This allows us to model dissipative dynamics by means of a coherent exchange of energy between the sys-tem and a practically infinite bath, while truncating the chain to a finite number of sites N [SM]. To estimate qubit relaxation rates, we consider the fol-lowing qubit observable expressed in the dressed basis, which takes value ±1 in the initial state Eq. (3), ˆΣz =
+
+> d−1
+
+X
+
+> n=0
+
+1n 1n − 0n 0n . (4) It reduces to ˆ σz at vanishing qubit-resonator coupling g.Above, d is the finite Hilbert space dimension for the resonator, which we choose depending on the expected average population of the resonator decoupled from the qubit [4] [SM], ¯n = ε2 
+
+> d
+
+/ [( ωa − ωd)2 + κ2/4] , (5) where κ is the single-photon decay rate of the read-out resonator as introduced in Table I. We can moreover monitor the readout resonator population in the dressed basis, defined analogously as ˆNa =Pd−1 
+
+> n=0
+
+n   1n 1n + 0n 0n .Additionally, we consider the occupancies of chain nor-mal modes ˆnωk = ˆb†
+
+> ωk
+
+ˆbωk , (6) whose expectation values are related via the chain map-ping to two-site correlation functions ⟨c† 
+
+> i
+
+ˆci′ ⟩ that are eas-ily accessible in our numerical simulations. Up to the truncation of the chain, the normal modes associated to frequency ωk sample J(ω) [SM]. The operators ˆNa and ˆΣz commute with the undriven system Hamiltonian ˆHS ,whereas ˆ nωk commutes with the decoupled chain Hamil-tonian on the second line of Eq. (2). Changes in expec-tation values of these observables will be proxies for the coherent energy transfer between the drive, the system, and the frequency-resolved modes of the bath. 
+
+Results.— We numerically simulate dispersive read-out. For our simulations, we take the following typical values for the system parameters in Eq. (2): ωq /2π =5.304 GHz, ωa/2π = 7 .5 GHz, g/ 2π = 0 .3165 GHz. This places us in the dispersive regime with |g/ ∆| ≃ 0.14 with ∆ = ωa − ωq . As mentioned above, we consider several forms of the spectral function J(ω) — flat, Ohmic, and Ohmic with a notch filter around the qubit frequency — while enforcing that the corresponding single-photon de-cay rate of the resonator κ = 2 πJ (ωa) = 50 MHz (see Table I). Under the system-bath interaction in Eq. (2), the sys-tem spectral response will be dressed by the bath modes in a way that is dependent on J(ω). We start with an undriven free decay numerical spectroscopy ( εd = 0) as illustrated on Fig. 2, that allows us to determine the effec-tive resonator frequency, which is Lamb shifted by both the qubit and the bath modes. We initialize the sys-tem according to Eq. (3) with 0n or 1n , and let it evolve until the resonator photon number ˆNa relaxes to zero (top-right inset of Fig. 2), which in our parameter regime matches the Weisskopf-Wigner theory of sponta-neous emission [47, 48] [SM]. Figure 2 shows the final time 4occupancies of the chain normal modes ˆ nωk of Eq. (6), for initial conditions, with n = 2 resonator photons to account for a typical value of the ac Stark shift of the resonator in our numerical experiments, and an Ohmic bath spectrum. Each curve exhibits a dominant peak at frequency close to the bare resonator frequency ωa, and, when the qubit is initially excited, there is an additional peak close to the bare qubit frequency (bottom right in-set). The positions of the peaks at frequencies ωaj close to ωa depend on the initial states of the qubit j = 0 , 1. Note that ωaj depend on J(ω) and we hence repeat this calibration for each bath type. In dispersive readout, the frequency difference between these two peaks, called the dispersive shift, is exploited in order to measure the state of the qubit [3]. We now turn to the simulation of an actual disper-sive readout experiment. We initialize the system ac-cording to Eq. (3) with j = 1 excitation in the qubit and n = 0 photons in the readout resonator. We choose to place the readout drive frequency ωd at the midpoint ¯ω = ( ωa0 + ωa1)/2, consistent with maximizing the con-trast in the phase response of the readout resonator. Other choices for ωd are possible, and depending on the parameter regime, can be expected to give quantitatively different results [49]. We have run numerical simulations for the various spectral functions of Table I and for mul-tiple drive amplitudes, targeting steady-state resonator photon numbers in the range 0 ≤ ¯n ≲ 6.5. In each of these numerical experiments, fitting an exponential de-cay to the time dependence of ⟨ψ(t)| ˆΣz |ψ(t)⟩ (see Fig. 4 c)-d)), we can extract the qubit energy relaxation rate Γ10 (¯ n). As shown in Fig. 3, we find that the dependence of Γ10 (¯ n) versus ¯ n is very sensitive to the choice of spec-tral function for the bath. For Ohmic and flat spectral functions, with the parameters in Table I, the qubit relax-ation rate Γ 10 (¯ n) decreases with readout power, whereas for our choice of a notch Purcell filter around the qubit frequency (see Table I), it increases with ¯ n [50]. For the drive amplitudes considered, we obtain only a negligible contribution to energy relaxation time T1 from the exci-tation rate Γ 01 (¯ n) upon initializing in 00 [SM]. Thus, we show that the energy relaxation time T1 can be de-graded or improved as the readout photon number ¯ n is increased, depending on the fine details of the bath spec-tral function, which is one of our main results. We emphasize that an increase of Γ 10 (¯ n), which we attribute to features in the bath spectral function, cannot be predicted by models commonly used in the previous literature. The Lindblad master equation ˙ρ = −i[ ˆHS (t), ˆρ] + κ
+
+
+
+ˆaˆρˆa† − 12 {ˆa†ˆa, ˆρ}
+
+
+
+(7) predicts a monotonic decrease of the qubit decay rate Γ 10 
+
+with ¯ n, consistent with [21]. This qualitatively deviates from our numerical simulations in the case of the Purcell             
+
+> FIG. 3. Inverse T1versus ¯ncharacterization (MPS simula-tion): The relative change in relaxation rate Γ 10 (¯ n)/Γ10 (0) of the qubit is shown for various J(ω), with a comparison to the prediction of the Lindblad master equation. Different spectral densities give rise to distinct relaxation dependence on drive power, with a change in qualitative behavior at in-creasing drive power for the Purcell filter case, the only case among the ones considered in our study where T1decreases with ¯ n.Swapping qubit and resonator frequencies (∆ <0, gold rhombi) gives rise to a starker dependence on ¯ n.
+
+filtered JP F (ω). Moreover, as we are not making the sec-ular approximation in either the system-to-bath coupling or the coupling between qubit and readout resonator in Eq. (1), there are further observations in our converged numerical results that Eq. (7) cannot reproduce [SM]. For instance, the Lindblad master equation predicts a spurious excitation rate upon initializing in 00 , while the MPS simulations account for the correct stationary behavior. To shed some light on the phenomena at play, we can take advantage of our access to bath mode occupations 
+
+⟨ˆnωk ⟩ to extract spectroscopic observables for the qubit. In Fig. 4a) and b) we show ⟨ˆnω ⟩ as a function of read-out photon number ¯ n for the Ohmic and Purcell filtered Ohmic scenarios. As the drive amplitude is increased, the qubit peak is ac Stark shifted and broadened, as ex-pected from the theory of dispersive readout [4]. For all the studied scenarios, we are able to relate variations in the monotonicity of the resonator-filtered bath spectral function ˜J(ω), obtained by grouping the resonator with the bath, and inverting the chain mapping [superposed on Fig. 4 a)-b)], to the changes in T1. To test this, we have swapped the qubit and resonator frequencies (∆ < 0with JOhm (ω) in Fig. 3). In this case, the qubit is ac Stark shifted to higher frequencies by the readout drive, but the rate Γ 10 (¯ n) is still decreasing because the qubit is now probing a monotonically decreasing ˜JOhm (ω) [SM]. 5
+
+FIG. 4. Qubit spectral analysis (MPS simulation): Bath mode occupations ⟨ˆnω ⟩ at time κt/ (2 π) = 0 .5, for ω around the qubit frequency (left, blue curves), for the Ohmic JOhm (ω)(top) and Purcell filter JPF (ω) (bottom) bath spectral den-sities, and drive power increasing with darker color. These observables reflect the ac Stark shift and broadening of the qubit resonance. We superimpose J(ω) and the resonator-filtered spectrum ˜J(ω), as seen by the qubit, on a logarithmic scale in units of GHz. We can correlate an increase in Γ 10 (¯ n)of Fig. 3 with the qubit resonance shifting towards higher values of ˜J(ω), and vice-versa. We extract Γ 10 (¯ n) from the corresponding decay of qubit ⟨ ˆΣz ⟩, as shown on the right, by fitting an exponential over the interval 0 .2 ≤ κt/ 2π ≤ 0.5. 
+
+This is consistent with the picture of [29, 49], where qubit relaxation rates could increase as its resonance is ac Stark shifted and broadened into ‘hot spots’ of a bath directly coupled to it. For our distinct scenario of cavity-mediated relaxation mechanisms, however, there exists no analytical theory, and our numerical results could pave the way towards benchmarking new approaches [51]. 
+
+Conclusions.– The dependence of qubit T1 on photon number ¯ n in a dispersively coupled readout resonator re-mains an outstanding problem [13–19] amounting to a significant portion of the error budget in state-of-the-art quantum processors [5]. In this Letter, we have accessed the non-Markovian qubit relaxation by simulating the full time-evolution, using a first-principles Hamiltonian derived from the bath spectral density. To isolate mech-anisms independent of measurement-induced leakage in-volving qubit states outside of the computational mani-fold, we have restricted the analysis to a two-level system. We have been able to relate features in the bath spectral density to changes in the qubit relaxation as the readout power is increased. We provided insight into this mecha-nism thanks to access to bath observables, which reveal the emission spectrum of the circuit QED system. Our analysis can be applied to any experimentally motivated bath spectral function, and used to improve filter design. Future work will focus on its interplay with state tran-sitions outside the computational subspace, taking into account multilevel systems such as transmons or fluxonia. 
+
+Acknowledgments.– The authors wish to thank Brieuc Le D´ e for help with setting up the numerical simulations for driven systems. Simulations were performed using 
+
+MPSDynamics.jl [52, 53] on the CLEPS cluster at In-ria Paris. The authors acknowledge support from ANR project MecaFlux (ANR-21-CE47-0011), ANR project ANR-22-CE30-0033, PCQT (QuanTEdu France) and PEPR integrated project EPiQ ANR-22-PETQ-0007.  
+
+> ∗
+
+ariva@lpthe.jussieu.fr  
+
+> §
+
+alain.sarlette@inria.fr  
+
+> ¶
+
+alexandru.petrescu@minesparis.psl.eu [1] T. Walter, P. Kurpiers, S. Gasparinetti, P. Mag-nard, A. Potoˇ cnik, Y. Salath´ e, M. Pechal, M. Mondal, M. Oppliger, C. Eichler, and A. Wallraff, Phys. Rev. Ap-plied 7, 054020 (2017). [2] Y. Sunada, S. Kono, J. Ilves, S. Tamate, T. Sugiyama, Y. Tabuchi, and Y. Nakamura, Phys. Rev. Appl. 17 ,044016 (2022). [3] A. Blais, R.-S. Huang, A. Wallraff, S. M. Girvin, and R. J. Schoelkopf, Phys. Rev. A 69 , 062320 (2004). [4] A. Blais, A. L. Grimsmo, S. M. Girvin, and A. Wallraff, Rev. Mod. Phys. 93 , 025005 (2021). [5] R. Acharya, D. A. Abanin, L. Aghababaie-Beni, oth-ers, Google Quantum AI, and Collaborators, Nature 638 ,920–926 (2025). [6] S. Krinner, N. Lacroix, A. Remm, A. Di Paolo, E. Genois, C. Leroux, C. Hellings, S. Lazar, F. Swiadek, J. Her-rmann, G. J. Norris, C. K. Andersen, M. M¨ uller, A. Blais, C. Eichler, and A. Wallraff, Nature 605 , 669 (2022). [7] C. M¨ uller and T. M. Stace, Phys. Rev. A 95 , 013847 (2017). [8] V. Champain, S. Zihlmann, A. Chessari, B. Bertrand, H. Niebojewski, ´E. Dumur, X. Jehl, V. Schmitt, B. Brun, C. Winkelmann, Y. M. Niquet, M. Filippone, S. De Franceschi, and R. Maurand, Phys. Rev. Appl. 23 ,034067 (2025). [9] G. Burkard, T. D. Ladd, A. Pan, J. M. Nichol, and J. R. Petta, Rev. Mod. Phys. 95 , 025003 (2023). [10] V. B. Braginsky, Y. I. Vorontsov, and K. S. Thorne, Sci-ence 209 , 547 (1980). [11] D. Sank, Z. Chen, M. Khezri, J. Kelly, R. Barends, B. Campbell, Y. Chen, B. Chiaro, A. Dunsworth, A. Fowler, and et al., Physical Review Letters 117 ,10.1103/physrevlett.117.190503 (2016). [12] M. Khezri, A. Opremcak, Z. Chen, K. C. Miao, M. McEwen, A. Bengtsson, T. White, O. Naaman, D. Sank, A. N. Korotkov, Y. Chen, and V. Smelyanskiy, Phys. Rev. Appl. 20 , 054008 (2023). [13] W. Dai, S. Hazra, D. K. Weiss, P. D. Kurilovich, T. Con-nolly, H. K. Babla, S. Singh, V. R. Joshi, A. Z. Ding, P. D. Parakh, J. Venkatraman, X. Xiao, L. Frunzio, and 6
+
+M. H. Devoret, arXiv 10.48550/arXiv.2506.24070 (2025), 2506.24070. [14] D. H. Slichter, R. Vijay, S. J. Weber, S. Boutin, M. Bois-sonneault, J. M. Gambetta, A. Blais, and I. Siddiqi, Phys. Rev. Lett. 109 , 153601 (2012). [15] S. O. Mundhada, Bulletin of the American Physical So-ciety 61, Number 2 (2016). [16] D. Gusenkova, M. Spiecker, R. Gebauer, M. Willsch, F. Valenti, N. Karcher, L. Gr¨ unhaupt, I. Takmakov, P. Winkel, D. Rieger, A. V. Ustinov, N. Roch, W. Werns-dorfer, K. Michielsen, O. Sander, and I. M. Pop, arXiv 10.1103/PhysRevApplied.15.064030 (2020), 2009.14785. [17] H. Hutin, A. Essig, R. Assouly, P. Rouchon, A. Bienfait, and B. Huard, Phys. Rev. Lett. 133 , 153602 (2024). [18] A. Bista, M. Thibodeau, K. Nie, K. Chow, B. K. Clark, and A. Kou, arXiv 10.48550/arXiv.2501.17807 (2025), 2501.17807. [19] A. S. May, L. Sutevski, J. Solard, G. Cardoso, L. Carde, L. Pallegoix, R. Lescanne, D. Vion, P. Bertet, and E. Flurin, arXiv 10.48550/arXiv.2502.14804 (2025), 2502.14804. [20] M. Boissonneault, J. M. Gambetta, and A. Blais, Phys. Rev. A 79 , 013819 (2009). [21] E. A. Sete, J. M. Gambetta, and A. N. Korotkov, Phys. Rev. B 89 , 104516 (2014). [22] A. Petrescu, M. Malekakhlagh, and H. E. T¨ ureci, Phys. Rev. B 101 , 134510 (2020). [23] R. Hanai, A. McDonald, and A. Clerk, Phys. Rev. Res. 
+
+3, 043228 (2021). [24] R. Lescanne, L. Verney, Q. Ficheux, M. H. Devoret, B. Huard, M. Mirrahimi, and Z. Leghtas, Phys. Rev. Ap-plied 11 , 014030 (2019). [25] L. Verney, R. Lescanne, M. H. Devoret, Z. Leghtas, and M. Mirrahimi, Phys. Rev. Applied 11 , 024003 (2019). [26] R. Shillito, A. Petrescu, J. Cohen, J. Beall, M. Hauru, M. Ganahl, A. G. Lewis, G. Vidal, and A. Blais, Phys. Rev. Appl. 18 , 034031 (2022). [27] J. Cohen, A. Petrescu, R. Shillito, and A. Blais, PRX Quantum 4, 020312 (2023). [28] M. F. Dumas, B. Groleau-Par´ e, A. McDonald, M. H. Mu˜ noz-Arias, C. Lled´ o, B. D’Anjou, and A. Blais, Phys. Rev. X 14 , 041023 (2024). [29] T. Thorbeck, Z. Xiao, A. Kamal, and L. C. G. Govia, Phys. Rev. Lett. 132 , 090602 (2024). [30] H. P. Breuer and F. Petruccione, The theory of open quantum systems (Oxford University Press, Great Clarendon Street, 2002). [31] R. Bl¨ umel and U. Smilansky, Phys. Rev. Lett. 58 , 2531 (1987). [32] M. Grifoni and P. H¨ anggi, Physics Reports 304 , 229–354 (1998). [33] H. P. Breuer and M. Holthaus, Zeitschrift f¨ ur Physik D Atoms, Molecules and Clusters 11 , 1–14 (1989). [34] A. O. Caldeira and A. J. Leggett, Ann. Phys. 149 , 374 (1983). [35] J. Haegeman, J. I. Cirac, T. J. Osborne, I. Piˇ zorn, H. Ver-schelde, and F. Verstraete, Phys. Rev. Lett. 107 , 070601 (2011). [36] A. W. Chin, A. Rivas, S. F. Huelga, and M. B. Plenio, Journal of Mathematical Physics 51 , 092109 (2010). [37] B. Foxen, J. Y. Mutus, E. Lucero, R. Graff, A. Megrant, Y. Chen, C. Quintana, B. Burkett, J. Kelly, E. Jeffrey, Y. Yang, A. Yu, K. Arya, R. Barends, Z. Chen, B. Chiaro, A. Dunsworth, A. Fowler, C. Gidney, M. Giustina, T. Huang, P. Klimov, M. Neeley, C. Neill, P. Roushan, D. Sank, A. Vainsencher, J. Wenner, T. C. White, and J. M. Martinis, Quantum Science and Technology 3,014005 (2017). [38] M. Mirhosseini, E. Kim, V. S. Ferreira, M. Kalaee, A. Sipahigil, A. J. Keller, and O. Painter, Nature Com-munications 9, 3706 (2018). [39] H. Putterman, K. Noh, R. N. Patel, G. A. Peairs, G. S. MacCabe, M. Lee, S. Aghaeimeibodi, C. T. Hann, I. Jar-rige, G. Marcaud, Y. He, H. Moradinejad, J. C. Owens, T. Scaffidi, P. Arrangoiz-Arriola, J. Iverson, H. Levine, F. G. Brand˜ ao, M. H. Matheny, and O. Painter, Physical Review X 15 , 10.1103/physrevx.15.011070 (2025). [40] H. Putterman, K. Noh, C. T. Hann, G. S. MacCabe, 
+
+et al. , Nature 638 , 927–934 (2025). [41] Y. Sunada, S. Kono, J. Ilves, S. Tamate, T. Sugiyama, Y. Tabuchi, and Y. Nakamura, Phys. Rev. Appl. 17 ,044016 (2022). [42] Y.-X. Xiao, D. Feng, X.-Y. Gu, G.-H. Liang, M.-C. Wang, Z.-Y. Peng, B.-J. Chen, Y. Yan, Z.-Y. Mei, S.-L. Zhao, Y.-Z. Bu, C.-L. Deng, K. Yang, Y. Tian, X. Song, D. Zheng, Y.-X. Zhang, Y.-H. Shi, Z. Xiang, K. Xu, and H. Fan, Flexible readout and unconditional reset for su-perconducting multi-qubit processors with tunable pur-cell filters (2025), arXiv:2507.06988 [quant-ph]. [43] M. D. Reed, B. R. Johnson, A. A. Houck, L. Di-Carlo, J. M. Chow, D. I. Schuster, L. Frunzio, and R. J. Schoelkopf, Applied Physics Letters 96 ,10.1063/1.3435463 (2010). [44] H. Yan, X. Wu, A. Lingenfelter, Y. J. Joshi, G. Anders-son, C. R. Conner, M.-H. Chou, J. Grebel, J. M. Miller, R. G. Povey, H. Qiao, A. A. Clerk, and A. N. Cleland, Applied Physics Letters 123 , 10.1063/5.0161893 (2023). [45] M. Cattaneo and G. S. Paraoanu, Advanced Quantum Technologies 4, 2100054 (2021). [46] U. Schollw¨ ock, Annals of Physics 326 , 96 (2011). [47] V. Weisskopf and E. Wigner, Zeitschrift f¨ ur Physik 63 ,54–73 (1930). [48] A. Sharafiev, M. L. Juan, O. Gargiulo, M. Zanner, S. W¨ ogerer, J. J. Garc´ ıa-Ripoll, and G. Kirchmair, Quan-tum 5, 474 (2021). [49] Z. Huang, J. S.-C. Hung, M. Raha, M.-H. Chou, H. Levine, A. Retzker, C. T. Hann, D. Hover, F. G. S. L. Brand˜ ao, A. A. Clerk, A. Haim, and O. Painter, arXiv 10.48550/arXiv.2603.13857 (2026), 2603.13857. [50] For consistency across the different simulations, we la-bel the x-axis with ¯ n according to the expression under Eq. (5), where the drive frequency ωd is set according to the calibrated value ¯ ω above, and ωa is replaced by ωa1,the resonator frequency as pulled by the qubit excited state. [51] ´Emile Cochin, J. Keeling, B. W. Lovett, and A. W. Chin, Efficient construction of time-invariant process ten-sors for simulating high-dimensional non-markovian open quantum systems (2026), arXiv:2603.06840 [quant-ph]. [52] T. Lacroix, B. Le D´ e, A. Riva, A. J. Dunnett, and A. W. Chin, The Journal of Chemical Physics 161 , 084116 (2024). [53] A. Dunnett, T. Lacroix, B. Le D´ e, and A. Riva, sharelo-qs/MPSDynamics (2021). [54] A. Caldeira and A. Leggett, Annals of Physics 149 , 374 (1983). [55] A. Riva, D. Tamascelli, A. J. Dunnett, and A. W. Chin, Phys. Rev. B 108 , 195138 (2023). 7
+
+[56] F. Beaudoin, J. M. Gambetta, and A. Blais, Physical Review A 84 , 10.1103/physreva.84.043832 (2011). 8
+
+> SUPPLEMENTAL MATERIAL
+
+This Supplemental Material is organized as follows. Sec. A outlines how the initial model (Eq. (1)) is transformed into the equations actually simulated using the chain mapping [36], including the methodology for reconstructing the spectral density function filtered by the resonator ˜J(ω) and for computing bath observables. In addition, it details the parameters used in the numerical simulations. Sec. B analyzes the effect of the rotating-wave approximation on the resonator-bath coupling, comparing MPS against Lindblad simulations and Wigner-Weisskopf theory. Sec. C provides extended driven spectroscopy data for the flat and Ohmic spectral densities. 
+
+> A. From microscopic to simulated model
+> TEDOPA chain mapping.
+
+The spectral density J(ω) defines the chain-mapping [36], an isometry from the model where the readout mode couples to each bath mode (star-like configuration), to a Hamiltonian where the readout mode only couples to the first mode of a nearest-neighbor coupled, semi-infinite chain of harmonic oscillators. We define new bosonic modes ˆck, ˆ c†
+
+> k
+
+, with [ˆ ck, ˆc† 
+
+> l
+
+] = δkl by ˆc† 
+
+> n
+
+=
+
+Z ∞
+
+> 0
+
+dω U n(ω) ˆb† 
+
+> ω
+
+, Un(ω) = pJ(ω) ˜ pn(ω), (8) where ˜ pn are orthonormal polynomials with respect to the measure dμ (ω) = J(ω) dω . This unitary transformation recasts the linear system-boson Hamiltonian of Eq. (1) into the semi-infinite nearest-neighbor chain Hamiltonian of Eq. (2), and illustrated on Fig. 5, with 
+
+k20 =
+
+Z ∞
+
+> 0
+
+J(ω) dω, e1 = 1
+
+k20
+
+Z ∞
+
+> 0
+
+ω J (ω) dω, (9) and the rest of the chain coefficients {en, t n}n> 0 given by the three-term recurrence of ˜ pn. While for the flat and Ohmic spectral densities the chain coefficients have a simple analytical form [36], for the Purcell case (see Table I) we compute them numerically with the routines available at [52, 53]. The one-dimensional tight-binding chain of bosonic modes with nearest-neighbor coupling can benefit from the application of numerically efficient tools based on the matrix-product state (MPS) representation of the many-body wavefunction, avoiding the exponential growth of the simulated state space with the number of modes. In particular, it is well suited to the application of tensor-network time evolution methods like TDVP for MPS [35, 46]. 
+
+> Bath spectrum considerations.
+
+Bath spectrum discretization.– To simulate the time evolution generated by the semi-infinite tight binding chain of Eq. (2) we truncate the chain to length N . In the original (star) picture this corresponds to replacing the continuum                         
+
+> ωq
+> g...
+> ωa
+> ωd
+> ............
+> e1e2e3e4
+> k0t1t2t3
+> . . .
+> FIG. 5. Simulated model: As described by Eq. (2) in the main text, the two-level qubit of transition frequency ωqis Rabi-coupled, with strength g, to a driven readout resonator mode of frequency ωa(drive frequency ωd). The resonator is coupled to a semi-infinite chain of harmonic oscillators with onsite energies ekand nearest-neighbor couplings tk, the resonator interacting only with the first site via coupling k0. The chain coefficients encode the bath spectrum J(ω).
+
+9by N effective modes at (generally nonuniform) frequencies ωk and with couplings gk. The associated spectral density is then, approximately 
+
+J(ω) ≈
+
+> N
+
+X
+
+> k=1
+
+|gk|2 δ(ω − ωk), (10) where the frequencies are not equally spaced and ’ ≈’ is in the quadrature (weak) sense: for any smooth function 
+
+f supported on the sampled band, we have that R +∞ 
+
+> 0
+
+f (ω)J(ω)dω = PNk=1 |gk|2f (ωk) + O(1 /N 2), i.e. the discrete measure approximates J(ω) under integration. 
+
+Effective spectral density function ˜J(ω).– Conversely, given a set of arbitrary chain coefficients {ek, t k, k 0}, it is possible to reconstruct the corresponding spectral density function, by following the steps below. 1. Diagonalize the N ×N Jacobi matrix of the chain coefficients, the second line of Eq. (2), obtaining the eigenvalues 
+
+{ωk} and corresponding eigenvectors {v(k)}.2. Given k20 defined in Eq. (9), we compute the weights (with gk ≡ √wk) as 
+
+wk = k20 v(k)1
+
+> 2
+
+, (11) where v(k)1 is the first element of the k−th eigenvector. 3. To obtain a smoother function, we convolve the discretized spectral density of Eq. (10) with a Gaussian or Lorentzian kernel fη , where η gives the broadening, 
+
+Jsmooth (ω) = ( J ∗ fη )( ω) = X
+
+> k
+
+wkfη (ω − ωk). (12) The broadening parameter η has to be chosen to be slightly larger than the interval between the sampled frequencies ωk to ensure a smooth profile without washing out the physical features of the spectral density. We mainly use this procedure to compute the effective spectral density function, as seen by the qubit after being filtered by the readout resonator. Indeed, since the readout resonator is just another harmonic oscillator, we can consider it as part of a chain defined by the chain coefficients 
+
+{ [ωa, e 0, e 1, ... ], [k0, t 0, t 1, ... ], g } , (13) and reconstruct the corresponding spectral density, which we denote ˜J(ω). Note that this procedure assumes a Jaynes-Cummings like coupling between modes throughout the chain, while in our case the very first coupling, between resonator and first chain site, is actually dipolar [Eq. (2)]. The resulting approximation only impacts our computation of ˜J(ω), which we show for its qualitative features. Beside this qualitative analysis, in all of our numerical simulations we consider the full dipolar coupling in Eq. (2). 
+
+Reorganization energy counterterm.– Following the Caldeira–Leggett construction [54], the linear quadrature resonator-bath coupling of Eq. (1) induces a static renormalization of the resonator potential. This is best un-derstood by considering the bath in Eq. (1) as a discrete set of harmonic oscillators whose equilibrium positions are shifted by the resonator coordinate ˆ x= (ˆ a + ˆ a†)/2: 
+
+X
+
+> k
+
+ˆp2
+
+> k
+
+2mk
+
++ 12 mkω2
+
+> k
+
+
+
+ˆqk − ck
+
+mkω2
+
+> k
+
+ˆx
+
+2
+
+=
+
+Z
+
+dω [pJ(ω)(ˆ a + ˆ a†)( ˆbω + ˆb† 
+
+> ω
+
+) + ωˆb†
+
+> ω
+
+ˆbω ] + λ(ˆ a + ˆ a†)2. (14) This yields the reorganization energy term λ(ˆ a + ˆ a†)2 added to ˆHS (t) of Eq. (1), where λ = R ∞ 
+
+> 0
+> J(ω)
+> ω
+
+dω .10                      
+
+> χκdt/ (2 π)NJOhm (ω)64×10 −5471
+> Jflat (ω)54×10 −5289
+> JPF (ω)84×10 −5472 TABLE II. Simulation parameters for the MPS time evolution with TDVP: bond dimension χ, dimensionless time step κdt/ (2 π), chain length N.
+
+Spectroscopy of the chain Hamiltonian.– In numerical simulations, we track one- and two-site observables in the chain basis of Eq. (2), e.g. ⟨ˆc† 
+
+> i
+
+ˆcj ⟩. To recover frequency-resolved observables in the physical (star) basis, we need to invert the chain mapping. Let U ∈ CN ×N be the unitary that maps chain to star modes in the discretized model, ˆbi =
+
+> N
+
+X
+
+> n=1
+
+Uin ˆcn, U †U = U U † = I. (15) Then the star-basis one-body correlator matrix is 
+
+C(b) ≡ ⟨ˆb† 
+
+> i
+
+ˆbj ⟩ = U C(c) U †, C(c) ≡ ⟨ˆc† 
+
+> n
+
+ˆcm⟩. (16) In particular, the occupation of the i-th sampled bath frequency, as given by Eq. (6), can be computed as a linear combination of two-site correlators in the chain model. 
+
+Increasing the bath spectral sampling.– For strictly positive J(ω) defined on a compact support [0 , ω c], the chain coefficients converge to asymptotic values en → e∞ = ωc/2, tn → t∞ = ωc/4. Therefore, once the chain coefficients reach convergence, excitations propagate along the chain with a finite group velocity set by the asymptotic hopping. For times t such that the wavefront has not reached the boundary, only the first ℓ(t) ≪ N sites are populated. We exploit this fact to increase frequency resolution without simulating a longer chain: (i) compute the chain coefficients up to a larger size M > N to obtain the denser quadrature {ω(M ) 
+
+> k
+
+, w (M ) 
+
+> k
+
+} of the bath spectral density 
+
+J(ω), and the corresponding unitary U (M ); (ii) embed the measured C(c)  
+
+> N×N
+
+into an M × M matrix C(c, pad) by zero-padding the rows/columns corresponding to unpopulated sites; (iii) form C(b,M ) = U (M ) C(c, pad) (U (M ))†. This yields frequency-resolved observables on a finer grid at the cost of building U (M ) for post-processing, but without 
+
+increasing the MPS size of the simulation, provided reflections from the truncated tail are negligible over the time window of interest [55]. 
+
+> Parameters for the numerical simulations.
+
+Using the above bath model, we have performed numerical simulations of the full time evolution, without any rotating wave approximations. The further approximations made to obtain a tractable model are: (i) finite sampling time dt ; (ii) finite local dimension, truncating the resonators; and (iii) finite bond dimension in the MPS model, effectively truncating the entanglement or correlation among chain sites. The latter is instrumental in avoiding exponential increase of the simulated state space with chain length, and it is known to provide excellent results for weakly excited one-dimensional chains. The parameter values used for our numerical simulations up to the final time κt/ (2 π) = 0 .5 are reported in Table II. We next give some details on how they were selected. 
+
+Time evolution.– Numerical simulations were performed using the Julia package MPSDynamics.jl [52, 53]. In particular, we compute the time evolution using the one-site time dependent variational principle algorithm for matrix product states [35], which constrains the evolution on a manifold in the Hilbert space characterized by those states that can be represented as matrix product states of a fixed bond dimension χ, set at the beginning of the simulation. Constraining the dynamics on a manifold introduces a projection error, sensitive to both the bond dimension χ defining the manifold, and the discretization time step dt . We computed the entanglement entropy of the MPS at multiple time frames, and the time evolution of ˆΣz (t) and ˆNa(t) for all of the configurations considered. 11 
+
+FIG. 6. Inverse T1 vs. ¯n. The absolute change in relaxation rate Γ 10 (¯ n) is shown for multiple J(ω), with a comparison to Lindblad master equation. Different spectral densities give rise to distinct relaxation dependence of the qubit on drive power, with a change in qualitative behavior at increasing drive power for the Purcell filter case, the only case among the ones here considered where T1 decreases with ¯ n. At ¯ n = 0, note the effect of the Purcell filter in suppressing Γ 10 (¯ n), all other model parameters, including the value of the spectral density function at the resonator frequency J(ωa) = κ/ (2 π), held equal. 
+
+We have simulated with various values of both dt and χ to ensure that the simulations have converged. 
+
+Local dimensions.– The dimensions of the local Hilbert space of each harmonic oscillator has been truncated in the following way. For the readout resonator, which is resonantly driven at amplitude εd, we set the local Hilbert space dimension as 
+
+da =
+
+l
+
+10 + 7 √¯na + ¯ na
+
+m
+
+, (17) where ¯ na = 4 ε2
+
+> d
+
+/κ 2 is a bath-spectrum-independent approximation to Eq. (5) in the main text. For the bosonic chain sites, which are not directly driven, we estimate the average occupation of the first site from the chain coefficients of Eq. (9) as ¯ nchain = t0 
+
+> k0
+
+¯na, where k0 is the resonator-to–chain coupling and t0 the hopping between the first and second chain sites. We then choose a uniform Fock cutoff for all chain sites 
+
+dchain =
+
+l
+
+2 + 5 ¯ nchain 
+
+m
+
+, (18) where the constants were chosen after some convergence tests. In particular, we monitor the error 
+
+δsat (t) = 1 − [ˆ a, ˆa†]( t) , (19) which could deviate from zero due to the finite truncation da of the Hilbert space. We confirmed numerically that the resonator and chain Hilbert-space truncation does not bias our results by checking that δsat (t) is always lower than 10 −6.
+
+B. Analytic differences between dipolar bath coupling and Lindblad model 
+
+Our numerical study considers the full dipolar coupling between system and bath and the full time-dependent Schr¨ odinger evolution of the system and bath according to Eq. (1) and Eq. (2). In this section, we highlight the differences between a standard determination of rates from the full microscopic model Eq. (1), and those obtained from the Lindblad model Eq. (7). 12        
+
+> FIG. 7. Time evolution of ⟨ˆΣz⟩, for the undriven case ¯ n= 0 and for the driven case with ¯ n= 1 .63, with initial state 00 ⊗ | 0⟩.The top panel shows the MPS simulation results, while the bottom panel shows the Lindblad results.
+
+Evaluating the absolute decay rates.– Following [56], we identify perturbatively the first eigenstates of the Rabi Hamiltonian ˆHS = ωq 
+
+> 2
+
+ˆσz + ωaˆa†ˆa + gˆσx(ˆ a + ˆ a†), namely 
+
+00 = |00 ⟩ − g
+
+Σ |11 ⟩ + O
+
+ g
+
+∆
+
+> 2
+
+
+
+10 = |10 ⟩ − g
+
+∆ |01 ⟩ + O
+
+ g
+
+∆
+
+> 2
+
+ (20) where the term proportional to Σ = ωa + ωq is due to the counter-rotating terms ˆ σ−ˆa and ˆ σ+ˆa† of the Rabi model. In particular, even for higher order terms, the parity of the total number of excitations in the system, eiπ (ˆ σ+ ˆσ−+ˆ a† ˆa),is the same on the left and right side of Eq. (20). The Lindblad Eq. (7), at zero readout drive amplitude, evaluated in the hybridized eigenbasis of the Rabi Hamilto-nian ˆHS , predicts a qubit decay rate at zero photon number. This is due to the single-photon decay term κD[ˆ ρ] and reads ΓL10 (0) ≈ κ 00 
+
+
+
+ˆa 10 10 ˆa† − ˆa† ˆa|10 ⟩⟨ 10 | 
+
+> 2
+
+− |10 ⟩⟨ 10 |ˆa† ˆa
+
+> 2
+
+
+
+00 = κ g2
+
+∆2 , (21) which is the known form for the Purcell decay rate in this regime [20, 21]. To estimate the rate we would obtain by performing the standard Born, Markov, and secular approximations to obtain a Lindblad master equation from the microscopic model Eq. (1), see e.g. [30], we need to inspect the system-bath coupling (ˆ a + ˆ a†) ⊗ ˆB, where ˆB is the interaction operator on the bath side, and to apply Fermi’s Golden Rule evaluated between the dressed eigenstates of the Rabi Hamiltonian. This yields the undriven decay rate Γ10 (0) ≈ 2πJ (E10 − E00 ) 00 ˆa + ˆ a† 10 2 = 2 πJ (ωq )g2 1∆ + 1Σ
+
+> 2
+
+. (22) The zero-drive rates Γ 10 (0) computed in simulations, and shown in Fig. 6, are in reasonable agreement with the analytical predictions of Eq. (22). For example, the analytical estimate for the undriven decay rate Γ 10 (0) /(2 π) ≈ 1.43 MHz for a flat spectral density Jflat (ω) is in close agreement with the value of 1 .36 MHz obtained from MPS simulations (see Fig. 6). This value significantly differs from the 1 .0 MHz obtained from the Lindblad model (21). 13                      
+
+> FIG. 8. Frequency resolved occupancies ⟨ˆnω⟩of Eq. (6), for the parameters given in the text, with n= 1 and an Ohmic spectral density function Johm (ω). For both initial conditions 01 and 11 , we first let ⟨ˆNa⟩relax to time κt/ (2 π) = 1 (top-right inset). We then plot ⟨ˆnω⟩at final time. The Wigner-Weisskopf distribution of Eq. (25) is the dashed red line, which well predicts ⟨ˆnω⟩
+> with 01 initial condition.
+
+The numerical difference in the previous paragraph can be understood as follows. The microscopic-model-derived rate Eq. (22) depends on the power spectral density evaluated at the qubit frequency. The disagreement with Eq. (21), which is derived under the same flat spectrum assumption 2 πJ (ωq ) = 2 πJ (ωa) = κ, is due to the contributions from the Rabi counter-rotating terms (in 1 /Σ) in Eq. (22). For other bath spectral densities, since (22) requires evaluating the spectral function at J(ωq )̸ = J(ωa) = κ/ (2 π), the difference between the two rates is further increased. In particular, the Purcell filter efficiently suppresses the qubit decay by design. Note that the treatment here does not hold in the driven case: the frequency of the qubit is ac Stark shifted, the drive further dresses the states, and the resonator gets populated at ¯ n higher than zero. 
+
+Evaluating the qubit excitation rate.– Starting from the ground state of the hybridized eigenbasis of the Rabi Hamiltonian, the Lindblad model would predict a qubit excitation rate ΓL01 (0) ≈ κ 10 
+
+
+
+ˆa 00 00 ˆa† − ˆa† ˆa|00 ⟩⟨ 00 | 
+
+> 2
+
+− |00 ⟩⟨ 00 |ˆa† ˆa
+
+> 2
+
+
+
+10 = κ g2
+
+Σ2 , (23) while applying the Fermi Golden Rule to the system-bath coupling would imply Γ01 (0) ≈ 2πJ (E00 − E10 ) 10 ˆa + ˆ a† 00 2 = 2 πJ (−ωq )g2 1∆ + 1Σ
+
+> 2
+
+= 0 , (24) since J(ω) is identically zero for ω < 0 at zero temperature as considered throughout this study. In Fig. 7, we show the evolution of the Σ z observable for the MPS and Lindblad case, starting from 00 . While the MPS correctly predicts the absence of a steady-state excitation rate, the short-time dynamics exhibits small coherent oscillations. These are not representative of a physical excitation process, but rather a numerical quench artefact, since the system is initialized in the dressed ground state of the Rabi Hamiltonian 00 according to Eq. (3), ignoring the initial entanglement with the chain. On the other hand, the Lindblad results in Fig. 7 show an unphysical excitation, as expected from Eq. (23). An effective Lindblad master equation for the qubit, with dissipators derived from the two rates Eq. (21) and Eq. (23), Γ L10 D[ˆ σ−] + Γ L01 D[ˆ σ+], would predict the evolution 
+
+⟨ ˆΣz (t)⟩ = −1 + 2Γ L01 t at short times when starting with ⟨ ˆΣz (t)⟩ = −1. This is in good agreement with the observed rate in the coupled qubit-resonator system with Lindbladian dissipation κD[ˆ a]. Importantly, the negligible excitation rate observed on the upper plot of Fig. 7 allows us to restrict attention to Γ 10 for the evaluation of T1 in the main text. 
+
+Wigner-Weisskopf theory.– The Wigner-Weisskopf theory of spontaneous emission can be applied to the case of the Rabi model [47, 48], and it is valid within the resonator-bath secular approximation, i.e. assuming ˆHRWA =ˆHS + P
+
+> k
+
+[gk(ˆ a†ˆbk + ˆ aˆb†
+
+> k
+
+) + ωkˆb†
+
+> k
+
+ˆbk], with ˆHS defined above Eq. (20). Upon initializing the system in Eq. (3) with the qubit in its ground state and one photon in the resonator, corresponding to dressed state 01 , the expected 14       
+
+> FIG. 9. Comparison between Γ 10 (¯ n)/Γ10 (0) for the simulations of the Purcell-filtered spectral density JPF (ω) and the crude estimate obtained by taking Γ 10 (¯ n) proportional to ˜J(ωq(¯ n)) ˜J(ωq(0)) , in terms of the effective spectral density ˜JPF (ω) filtered by the resonator, as seen by the qubit.
+
+steady-state occupation ⟨ˆnωk ⟩ of a bath mode at frequency ωk is thus given by the probability distribution 
+
+⟨ˆnωk ⟩ = J(ωk)∆ ωk
+
+(κ/ 2) 2 + ( ωk − ωa0)2 , (25) where the spectral density function J(ωk) evaluated at ωk is weighted by the corresponding interval of frequency ∆ωk, with ∆ ωk = (ωk+1 − ωk−1)/2. The Lorentzian distribution is centered at the shifted peak frequency 
+
+ωa0, which accounts for both the dispersive shift induced by the qubit-resonator interaction and the Lamb shift induced by the bath modes. The measured mode occupation curve ⟨ˆnω ⟩ (black line) in Fig. 8 shows excellent agreement with the parameter-free theoretical prediction Eq. (25) (red dotted line). The decay rate determined as 
+
+κ = 2 πJ (ωa) sets the width of the Lorentzian and is selected to be the same for all the models considered (see Table I). 
+
+Estimate of the rates with the effective spectral density.– To check for consistency, we show in Fig. 9 a first-order estimate of the qubit decay rate using the effective spectral density function ˜J(ω), which represents the bath filtered by the resonator. We compare the two ratios Γ10 (¯ n)Γ10 (0) , ˜J(ωq (¯ n)) ˜J(ωq (0)) , (26) where ωq (¯ n) is the ac Stark shifted frequency of the qubit, extracted from the simulation results of Fig. 4. This estimate accounts only for the change in the effective spectral density function at the shifted frequency. It neglects the renormalization of the transition matrix element of ˆ σx, dressed by both the qubit-resonator interaction and by the drive. It also neglects the effect of qubit peak broadening with the readout drive photon number ¯ n.
+
+> C. Additional results for driven spectroscopy
+
+Calibration.– The calibration procedure described in Fig. 2 was performed to select the drive frequencies for all the configurations considered. We report in Table III the frequencies obtained. 
+
+Driven spectroscopy.– We report in Fig. 10 the results for the driven spectroscopy for both Ohmic spectral density 
+
+JOhm (ω) with ∆ < 0, and the flat spectral density Jflat (ω). In the Ohmic case with ∆ < 0, the qubit is ac Stark shifted towards higher frequencies, according to the dispersive Hamiltonian prediction [4]. The effective spectral density ˜J(ω)15 
+
+ωa0/(2 π) ωa1/(2 π) ¯ω/ (2 π)
+
+JOhm (ω), ∆ > 0 7.546 7.47 7.51 
+
+JOhm (ω), ∆ < 0 5.26 5.36 5.31 
+
+Jflat (ω), ∆ > 0 7.55 7.48 7.52 
+
+JPF (ω), ∆ > 0 7.546 7.51 7.47 TABLE III. Frequencies in GHz extracted from the numerical calibration procedure for all the configurations considered. 
+
+FIG. 10. Same as Fig. 4, for a flat J(ω) = Jflat (ω) (top) and Ohmic J(ω) = JOhm (ω) with ∆ < 0 (bottom). The plots on the left show the bath mode occupations ⟨ˆnω ⟩ at final time κt/ 2π = 0 .5, akin to a spectroscopy in the vicinity of the qubit frequency. The right plots show the time evolution of ⟨ ˆΣz ⟩, from which the relaxation rates of Fig. 3 have been extracted. 
+
+gives an intuition on why Γ 10 decreases as ¯ n increases even though JOhm (ω) grows with ω: the upward Stark shift (∆ < 0) moves the effective qubit transition further away from the resonator frequency ωa, and the Lorentzian frequency filter induced by the resonator dominates the slope of ˜J(ω), such that the net effect is the same as with ∆ > 0.
