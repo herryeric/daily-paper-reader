@@ -6,43 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-18
-- 运行时间：2026-04-18 19:28:22 UTC
+- 最新运行日期：2026-04-19
+- 运行时间：2026-04-19 20:15:24 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：4
-- 速读区：3
+- 本次总论文数：8
+- 精读区：1
+- 速读区：7
 
 ### 今日简报（AI）
-今日聚焦超导量子涨落与电路 QED 模拟，深度解析 7 篇涵盖凝聚态与量子计算的前沿进展。
-核心突破在于揭示了超导体中 Higgs 模的涌现机制，并首次在 kagome 金属中发现奇宇称 f 波电荷序。
-建议重点研读 9 分力作，深入理解量子涨落如何重塑超导态的动力学响应。
-- 详情：[/202604/18/README](/202604/18/README)
+今日聚焦范德华约瑟夫森结的量子科技前沿，深度解析了涵盖拓扑网络与流体动力学在内的 8 篇跨学科研究。
+核心结论揭示了范德华异质结构在量子器件中的巨大潜力，并实现了多自旋交换向高阶拓扑网络的精准映射。
+建议普通读者优先关注二维材料如何重塑超导电路，这是把握未来量子硬件演进趋势的绝佳切入点。
+- 详情：[/202604/19/README](/202604/19/README)
 
 ### 精读区论文标签
-1. [Quantum fluctuations and the emergence of in-gap Higgs mode in superconductors](/202604/18/2604.15120v1-quantum-fluctuations-and-the-emergence-of-in-gap-higgs-mode-in-superconductors)  
-   标签：评分：9.0/10、query:cmp
-   evidence：s波超导体中Higgs模式与量子涨落的理论研究
-2. [First-principles study of dispersive readout in circuit QED](/202604/18/2604.11722v1-first-principles-study-of-dispersive-readout-in-circuit-qed)  
+1. [New frontiers in quantum science and technology using van der Waals Josephson junctions](/202604/19/2604.15276v1-new-frontiers-in-quantum-science-and-technology-using-van-der-waals-josephson-junctions)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导量子比特的色散读取
-3. [Unconventional plasmon dynamics due to strong correlations in Sr$_2$RuO$_4$](/202604/18/2604.14859v1-unconventional-plasmon-dynamics-due-to-strong-correlations-in-sr2ruo4)  
-   标签：评分：8.0/10、query:cmp
-   evidence：Sr2RuO4中的强关联与非常规动力学
-4. [Universal magnetic energy scale in the doped Fermi-Hubbard model](/202604/18/2604.15234v1-universal-magnetic-energy-scale-in-the-doped-fermi-hubbard-model)  
-   标签：评分：8.0/10、query:cmp
-   evidence：掺杂费米-哈伯德模型中的磁关联和能量尺度
+   evidence：用于超导研究的范德华约瑟夫森结
 
 ### 速读区论文标签
-1. [Josephson phase shift and diode effect due to the inverse spin Hall effect](/202604/18/2604.14521v1-josephson-phase-shift-and-diode-effect-due-to-the-inverse-spin-hall-effect)  
+1. [The Simplicial Bridge: Mapping quantum multi-spin exchange to higher-order topological networks in continuous magnetic fields](/202604/19/2604.10773v2-the-simplicial-bridge-mapping-quantum-multi-spin-exchange-to-higher-order-topological-networks-in-continuous-magnetic-fields)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导体结中的约瑟夫森相移与二极管效应
-2. [Discovery of an odd-parity f-wave charge order in a kagome metal](/202604/18/2604.14538v1-discovery-of-an-odd-parity-f-wave-charge-order-in-a-kagome-metal)  
+   evidence：强关联系统中的高阶量子交换机制
+2. [Schrödinger-Navier-Stokes equation for capillary fluids](/202604/19/2604.11747v1-schrdinger-navier-stokes-equation-for-capillary-fluids)  
    标签：评分：7.0/10、query:cmp
-   evidence：kagome金属CsV3Sb5中的奇宇称电荷序
-3. [Kinetic Arrest of a First Order Phase Transition](/202604/18/2604.12531v1-kinetic-arrest-of-a-first-order-phase-transition)  
+   evidence：在流体量子极限下恢复了玻色子(Bogoliubov)色散关系
+3. [Quasinormal Modes of pp-Wave Spacetimes and Zero Temperature Dissipation](/202604/19/2604.13516v1-quasinormal-modes-of-pp-wave-spacetimes-and-zero-temperature-dissipation)  
+   标签：评分：7.0/10、query:cmp
+   evidence：零温流体中的量子临界耗散
+4. [Kardar-Parisi-Zhang physics in optically-confined continuous polariton condensates](/202604/19/2604.15095v1-kardar-parisi-zhang-physics-in-optically-confined-continuous-polariton-condensates)  
+   标签：评分：7.0/10、query:cmp
+   evidence：连续极化激元凝聚体（量子流体）中的KPZ定标
+5. [Classification and correlation signatures of chiral spin liquids on the pyrochlore lattice](/202604/19/2604.11880v1-classification-and-correlation-signatures-of-chiral-spin-liquids-on-the-pyrochlore-lattice)  
    标签：评分：6.0/10、query:cmp
-   evidence：莫特金属-绝缘体转变中动力学停滞的理论
+   evidence：手性量子自旋液体与费米子部分子结构
+6. [Observation of feedback-directed quantum dynamics in large-scale quantum processors](/202604/19/2604.11900v1-observation-of-feedback-directed-quantum-dynamics-in-large-scale-quantum-processors)  
+   标签：评分：6.0/10、query:cmp
+   evidence：超导量子处理器上的反馈引导动力学
+7. [Bosonic Working Media in a Frustrated Rhombi Chain: Otto and Stirling Cycles from Flat Bands, Caging, and Flux Control](/202604/19/2604.13185v1-bosonic-working-media-in-a-frustrated-rhombi-chain-otto-and-stirling-cycles-from-flat-bands-caging-and-flux-control)  
+   标签：评分：6.0/10、query:cmp
+   evidence：玻色-哈伯德模型与玻色工作介质
 
 
 <div class="dpr-home-promo-card">
