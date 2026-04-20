@@ -6,46 +6,58 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-19
-- 运行时间：2026-04-19 20:15:24 UTC
+- 最新运行日期：2026-04-20
+- 运行时间：2026-04-20 20:39:07 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：1
-- 速读区：7
+- 本次总论文数：12
+- 精读区：6
+- 速读区：6
 
 ### 今日简报（AI）
-今日聚焦范德华约瑟夫森结的量子科技前沿，深度解析了涵盖拓扑网络与流体动力学在内的 8 篇跨学科研究。
-核心结论揭示了范德华异质结构在量子器件中的巨大潜力，并实现了多自旋交换向高阶拓扑网络的精准映射。
-建议普通读者优先关注二维材料如何重塑超导电路，这是把握未来量子硬件演进趋势的绝佳切入点。
-- 详情：[/202604/19/README](/202604/19/README)
+今日精研 12 篇前沿成果，深度聚焦拓扑半金属与双层镍氧化物超导体的物理机制。
+重点关注 Berry 偶极半金属中的非费米液体特性，以及层间杂化如何开启镍基超导新路径。
+建议优先阅读两篇 9 分以上的高分论文，深入理解量子材料的拓扑演化与超导前沿。
+- 详情：[/202604/20/README](/202604/20/README)
 
 ### 精读区论文标签
-1. [New frontiers in quantum science and technology using van der Waals Josephson junctions](/202604/19/2604.15276v1-new-frontiers-in-quantum-science-and-technology-using-van-der-waals-josephson-junctions)  
+1. [Topological anisotropic non-Fermi liquid from a Berry-dipole semimetal](/202604/20/2604.14146v2-topological-anisotropic-non-fermi-liquid-from-a-berry-dipole-semimetal)  
+   标签：评分：10.0/10、query:cmp
+   evidence：量子临界点处各向异性非费米液体的理论模型
+2. [Interlayer hybridization enables superconductivity in bilayer nickelates](/202604/20/2604.14701v2-interlayer-hybridization-enables-superconductivity-in-bilayer-nickelates)  
+   标签：评分：9.0/10、query:cmp
+   evidence：双层镍氧化物中的高温超导性
+3. [Antiferromagnetic Dimers in the Parent Phase of a Correlated Kagome Superconductor](/202604/20/2604.15935v1-antiferromagnetic-dimers-in-the-parent-phase-of-a-correlated-kagome-superconductor)  
+   标签：评分：9.0/10、query:cmp
+   evidence：笼目金属中从非费米液体正常态涌现的超导电性
+4. [Renormalised thermodynamics for Bose gases from low to critical temperatures](/202604/20/2604.16290v1-renormalised-thermodynamics-for-bose-gases-from-low-to-critical-temperatures)  
+   标签：评分：9.0/10、query:cmp
+   evidence：玻色气体的热力学性质与凝聚体耗尽
+5. [Fluctuating Pair Density Wave in Finite-temperature Phase Diagram of the $t$-$t^\prime$ Hubbard Model](/202604/20/2604.16293v1-fluctuating-pair-density-wave-in-finite-temperature-phase-diagram-of-the-t-tprime-hubbard-model)  
+   标签：评分：9.0/10、query:cmp
+   evidence：Hubbard模型相图与d波超导
+6. [Charge Density Wave Driven Topological Phase Transition in Vortices](/202604/20/2604.15976v1-charge-density-wave-driven-topological-phase-transition-in-vortices)  
    标签：评分：8.0/10、query:cmp
-   evidence：用于超导研究的范德华约瑟夫森结
+   evidence：电荷密度波与超导涡旋之间的相互作用
 
 ### 速读区论文标签
-1. [The Simplicial Bridge: Mapping quantum multi-spin exchange to higher-order topological networks in continuous magnetic fields](/202604/19/2604.10773v2-the-simplicial-bridge-mapping-quantum-multi-spin-exchange-to-higher-order-topological-networks-in-continuous-magnetic-fields)  
+1. [Enhancing Neural-Network Variational Monte Carlo through Basis Transformation](/202604/20/2604.15888v1-enhancing-neural-network-variational-monte-carlo-through-basis-transformation)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联系统中的高阶量子交换机制
-2. [Schrödinger-Navier-Stokes equation for capillary fluids](/202604/19/2604.11747v1-schrdinger-navier-stokes-equation-for-capillary-fluids)  
+   evidence：用于量子多体问题的神经网络变分蒙特卡洛方法
+2. [Digital Predistortion for Flux Control of Tunable Superconducting Qubits](/202604/20/2604.15895v1-digital-predistortion-for-flux-control-of-tunable-superconducting-qubits)  
    标签：评分：7.0/10、query:cmp
-   evidence：在流体量子极限下恢复了玻色子(Bogoliubov)色散关系
-3. [Quasinormal Modes of pp-Wave Spacetimes and Zero Temperature Dissipation](/202604/19/2604.13516v1-quasinormal-modes-of-pp-wave-spacetimes-and-zero-temperature-dissipation)  
+   evidence：可调超导量子比特的磁通控制
+3. [Observation of Strong-to-Weak Spontaneous Symmetry Breaking in a Dephased Fermi Gas](/202604/20/2604.16137v1-observation-of-strong-to-weak-spontaneous-symmetry-breaking-in-a-dephased-fermi-gas)  
    标签：评分：7.0/10、query:cmp
-   evidence：零温流体中的量子临界耗散
-4. [Kardar-Parisi-Zhang physics in optically-confined continuous polariton condensates](/202604/19/2604.15095v1-kardar-parisi-zhang-physics-in-optically-confined-continuous-polariton-condensates)  
-   标签：评分：7.0/10、query:cmp
-   evidence：连续极化激元凝聚体（量子流体）中的KPZ定标
-5. [Classification and correlation signatures of chiral spin liquids on the pyrochlore lattice](/202604/19/2604.11880v1-classification-and-correlation-signatures-of-chiral-spin-liquids-on-the-pyrochlore-lattice)  
+   evidence：去相干费米气体中对称性破缺的实验观测
+4. [Finite-temperature quantum Krylov method from real-time overlaps](/202604/20/2604.10543v1-finite-temperature-quantum-krylov-method-from-real-time-overlaps)  
    标签：评分：6.0/10、query:cmp
-   evidence：手性量子自旋液体与费米子部分子结构
-6. [Observation of feedback-directed quantum dynamics in large-scale quantum processors](/202604/19/2604.11900v1-observation-of-feedback-directed-quantum-dynamics-in-large-scale-quantum-processors)  
+   evidence：用于多体系统有限温性质的量子Krylov方法
+5. [Finite-temperature quantum Krylov method from real-time overlaps](/202604/20/2604.10543v2-finite-temperature-quantum-krylov-method-from-real-time-overlaps)  
    标签：评分：6.0/10、query:cmp
-   evidence：超导量子处理器上的反馈引导动力学
-7. [Bosonic Working Media in a Frustrated Rhombi Chain: Otto and Stirling Cycles from Flat Bands, Caging, and Flux Control](/202604/19/2604.13185v1-bosonic-working-media-in-a-frustrated-rhombi-chain-otto-and-stirling-cycles-from-flat-bands-caging-and-flux-control)  
+   evidence：量子多体系统的有限温度特性
+6. [A Modular Cryogenic Link for Microwave Quantum Communication Over Distances of Tens of Meters](/202604/20/2604.15971v1-a-modular-cryogenic-link-for-microwave-quantum-communication-over-distances-of-tens-of-meters)  
    标签：评分：6.0/10、query:cmp
-   evidence：玻色-哈伯德模型与玻色工作介质
+   evidence：用于量子通信的超导电路
 
 
 <div class="dpr-home-promo-card">

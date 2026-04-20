@@ -1,0 +1,371 @@
+Title: Enhancing Neural-Network Variational Monte Carlo through Basis Transformation
+
+URL Source: https://arxiv.org/pdf/2604.15888v1
+
+Published Time: Mon, 20 Apr 2026 00:42:47 GMT
+
+Number of Pages: 7
+
+Markdown Content:
+## Enhancing Neural-Network Variational Monte Carlo through Basis Transformation 
+
+Zhixuan Liu, 1, 2, ∗ Dongheng Qian, 1, 2, ∗ and Jing Wang 1, 2, 3, 4, †
+
+> 1
+
+State Key Laboratory of Surface Physics and Department of Physics, Fudan University, Shanghai 200433, China 
+
+> 2
+
+Shanghai Research Center for Quantum Sciences, Shanghai 201315, China 
+
+> 3
+
+Institute for Nanoelectronic Devices and Quantum Computing, Fudan University, Shanghai 200433, China 
+
+> 4
+
+Hefei National Laboratory, Hefei 230088, China 
+
+Neural-network variational Monte Carlo (NNVMC) has emerged as a powerful tool for solving quantum many-body problems, yet systematic pathways for improving its accuracy remain largely heuristic. Here, we introduce a physically motivated basis transformation for NNVMC that enhances variational expressivity without increasing the complexity of the neural-network ansatz itself. By formulating the many-body wave function in a Gaussian basis, we introduce a single learnable local-ity parameter, α, that reshapes the target ground state into a more learnable representation. This approach introduces minimal computational overhead and can be readily combined with existing neural-network architectures. Using the three-dimensional homogeneous electron gas as a bench-mark, we show that the optimized basis transformation consistently lowers the variational energy for both FermiNet and message-passing neural-network architectures. Notably, for the latter, it enables a more precise determination of the Fermi liquid to Wigner crystal phase transition. More broadly, our results highlight basis transformation as a new route to improving NNVMC in continuous space, showing that accuracy can be enhanced not only by refining the ansatz but also by making the target ground state easier to represent. 
+
+Solving the quantum many-body problem remains a central challenge in condensed matter physics. Determin-ing ground states, identifying emergent quantum phases, and accurately mapping phase diagrams are essential to understanding material properties. However, the Hilbert space grows exponentially with particle numbers, ren-dering exact diagonalization intractable and motivating the development of diverse numerical approaches with complementary strengths and limitations. For example, density functional theory is widely used for electronic-structure calculations [1–3], but its accuracy is largely limited to weakly correlated regimes. Tensor network methods provide systematically controllable accuracy for low-dimensional systems with area-law entanglement, yet their computational cost grows significantly in higher di-mensions [4–8]. Quantum Monte Carlo methods can ac-cess large systems with high accuracy [9, 10], yet the notorious fermion sign problem restricts its generic ap-plicability [11, 12]. Among these approaches, variational Monte Carlo (VMC) naturally avoids the sign prob-lem [13], its accuracy determined by the expressiveness of the trial wavefunction (or ansatz) and the efficiency of the optimization scheme [14]. Recently, neural quantum states (NQS)—an expres-sive class of variational ansatz—have revolutionized VMC [15–18]. Leveraging the universal approximation capability of neural networks and efficient gradient-based optimization via automatic differentiation, NQS have been successfully applied to a broad range of quan-tum systems [19–46]. In particular, for continuous-space fermionic systems, architectures such as Fer-miNet [47–49], PauliNet [50], and Psiformer [51–55] have achieved state-of-the-art accuracy, establishing neural-network VMC (NNVMC) as a competitive modern ap-proach for ab initio electronic-structure calculations. Despite these advances, a central challenge remains: how can the accuracy of NNVMC be improved efficiently and systematically? A straightforward strategy is to in-crease the number of variational parameters, thereby en-larging the variational manifold. In practice, however, this brute-force approach often leads to substantially higher computational cost and more difficult optimiza-tion, while the resulting accuracy may saturate or even degrade due to overfitting [56, 57]. More fundamentally, blindly increasing the number of parameters lacks clear physical interpretation. This contrasts sharply with ten-sor network methods, where increasing the bond dimen-sion directly corresponds to accommodating greater en-tanglement [8]. These considerations highlight the need for improvement strategies that are not only efficient and effective but also physically motivated. In this Letter, we propose enhancing NNVMC through a physically motivated basis transformation. Instead of increasing the complexity of the trial wavefunction it-self, we transform the basis in which the Hamiltonian eigenvalue problem is represented, thereby reshaping the ground-state wavefunction that the neural network must approximate. This offers a perspective distinct from con-ventional ansatz-level improvements. While recent works have explored transformations in discrete space [58–61], here we focus on continuous-space fermionic systems and employ a nonorthogonal Gaussian basis characterized by a single parameter α that controls spatial locality. Because only one additional parameter is introduced, the optimization remains stable and the computational overhead is minimal. The method is also architecture-agnostic and can be readily combined with existing NQS ansatz. Using the three-dimensional homogeneous elec-tron gas (3DHEG) as a benchmark system, we show that incorporating α significantly lowers the variational en-
+
+> arXiv:2604.15888v1 [cond-mat.str-el] 17 Apr 2026
+
+2ergy for both FermiNet [49] and message-passing neural-network (MPNN) architectures [62, 63], enabling a more precise determination of the Fermi-liquid (FL) to Wigner crystal (WC) phase transition [64–67]. 
+
+Basis transformation —We consider a VMC framework augmented by a basis transformation. The key idea is to introduce a complete, not necessarily orthonormal basis whose parameters are optimized alongside those of the wave function, thereby increasing the variational flexibil-ity and enabling a more accurate approximation to the ground state. Specifically, we define the many-body wave function in real space as ˜ψθ (r) = 
+
+Z
+
+dx ψθ1 (x) Gθ2 (x, r), (1) where ψθ1 (x) is a wave function defined in an auxiliary coordinate space x, and Gθ2 (x, r) is a kernel that maps the auxiliary coordinates to the physical coordinates r.The variational parameters are θ ≡ (θ1, θ 2), where θ1 de-notes the usual NQS parameters and θ2 parametrizes the kernel. For fermionic systems, antisymmetry is enforced by requiring ψθ1 (x) to be antisymmetric under particle exchange and imposing Gθ2 (P x, P r) = Gθ2 (x, r) for any permutation P .In this work, we employ a Gaussian kernel 
+
+Gα(x, r) = 
+
+ απ
+
+3n/ 2
+
+exp −α
+
+> n
+
+X
+
+> i=1
+
+|ri − xi|2
+
+!
+
+, (2) where θ2 = {α} is a single parameter and n is the number of electrons. Compared with conventional NNVMC, this introduces only a single additional variational parameter. The parameter α controls the spatial locality of the ba-sis: large α corresponds to a localized basis, and in the limit α → ∞ the kernel approaches a Dirac delta func-tion, recovering the standard real-space basis. The kernel effectively convolves the wave function, and in reciprocal space the convolution corresponds to ˜ψθ (k) = ψθ1 (k) e− 14α |k|2
+
+. (3) which acts as a low-pass filter that suppresses the high-frequency components of the wave function, reflecting the smoothing effect in real space. Within the VMC framework, ( θ1, α ) are optimized by minimizing the total energy. The basis transformation modifies the Hamiltonian matrix elements to Hα(x, x′) = 
+
+⟨Gα(x)| ˆH|Gα(x′)⟩, while the nonorthogonal basis intro-duces an overlap matrix Iα(x, x′) = ⟨Gα(x)|Gα(x′)⟩. For the Gaussian kernel, the overlap becomes 
+
+Iα(x, x′) = 
+
+ α
+
+2π
+
+3n/ 2
+
+exp 
+
+
+
+− α
+
+2 |x − x′|2
+
+, (4) which is strictly positive and defines a normalized Gaus-sian distribution centered at x with variance σ = 1 /√α.The total energy reads 
+
+Eθ =
+
+R dxdx′ ψ∗ 
+
+> θ1
+
+(x)ψθ1 (x′)Hα(x, x′)
+
+R dxdx′ ψ∗ 
+
+> θ1
+
+(x)ψθ1 (x′)Iα(x, x′) . (5) The integrals are high dimensional and must be evalu-ated stochastically. Because the basis is nonorthogonal, the denominator integrand R dx′ψθ1 (x)Iα(x, x′)ψθ1 (x′) is not always positive and direct Monte Carlo sampling is not possible. We therefore construct a positive sampling distribution 
+
+pθ (x) ∝
+
+Z
+
+dx′ ψ∗ 
+
+> θ1
+
+(x) |ψθ1 (x′)| Iα(x, x′), (6) which exploits the positivity of the Gaussian overlap. With this distribution, the energy can be written as 
+
+Eθ = Epθ
+
+SL(x) EL(x)
+
+Epθ
+
+SL(x) , (7) where EL(x) is the generalized local energy and SL(x) is the local sign 
+
+EL(x) = 
+
+R dx′ Hα(x, x′)ψθ1 (x′)
+
+R dx′ Iα(x, x′)ψθ1 (x′) ,SL(x) = 
+
+R dx′ Iα(x, x′) |ψθ1 (x′)| sgn ψ∗ 
+
+> θ1
+
+(x)ψθ1 (x′)R dx′ Iα(x, x′) |ψθ1 (x′)| .
+
+Here, sgn( C) denotes the phase of complex number C.The physical meaning of these quantities is clear. The ground state satisfies the generalized eigenvalue prob-lem with a nonorthogonal basis R dx′H(x, x′)ψGS (x′) = 
+
+EGS 
+
+R dx′I(x, x′)ψGS (x′). EL(x) therefore becomes spa-tially constant and equals EGS for the exact ground state, a property that stabilizes parameter optimization. SL(x)captures the phase information of the wave function in-troduced by absolute value sampling, which has no coun-terpart in standard VMC. Interpreting Iα(x, x′)|ψθ1 (x′)|
+
+as a probability distribution, SL(x) represents an average sign difference between the wave function at x′ relative to x. Notably, since Iα(x, x′) is Gaussian, these inner integrals over x′ can be efficiently evaluated by sampling 
+
+x′ ∼ N (x, 1/√α). 
+
+Optimization strategy— The parameters ( θ1, α ) are op-timized by minimizing Eθ . Differentiating Eq. (7) yields 
+
+∇θ Eθ = 2 Re 
+
+( Epθ (x)
+
+O∗ 
+
+> θ
+
+(x) ϵ(x) SL(x)
+
+Epθ (x)
+
+SL(x))
+
+, (8) where ϵ(x) = EL(x)−Eθ . For the wave function parame-ters, Oθ1 (x) ≡ ∇ θ1 ψθ1 (x)/ψ θ1 (x), while for the basis pa-rameter, Oα(x) = −(1 /4α2)∇2
+
+> x
+
+ψ(x)/ψ (x). We have used the identity ∇α ˜ψθ (r) = −(1 /4α2) R dx Gα(x, r)∇2
+
+> x
+
+ψ(x), which implies that an infinitesimal change α → α + δα 
+
+acts as ψ(x) → ψ(x) − (δα/ 4α2)∇2
+
+> x
+
+ψ(x). In practice, we 3NN representation 
+
+Step I 
+
+Basis 
+
+Transformation 
+
+Step II 
+
+All Wavefunction 
+
+FIG. 1. Schematic of the two-step optimization. In Step I: conventional VMC is performed with a fixed basis ( α → ∞ ), optimizing the wave function from the initial state |Ψi⟩ to the converged final state |Ψf ⟩. In Step II, the wave function pa-rameters are fixed and the basis parameter α is optimized to-ward the optimal value α∗. This effectively shifts the Hamilto-nian and its ground state from |ΨGS (Hα=∞)⟩ to |ΨGS (Hα∗ )⟩,reducing the distance between the optimized wave function 
+
+|Ψf ⟩ and the target ground state |ΨGS (Hα∗ )⟩.
+
+employ stochastic reconfiguration to accelerate optimiza-tion [33, 68, 69]. Details are provided in the Supplemental Material [70]. A naive simultaneous optimization of θ1 and α is prone to numerical instability. This stems from a fundamen-tal coupling between the basis locality and the statisti-cal variance of the gradient estimates. Specifically, the Monte Carlo evaluation of Eq. (8) requires sampling x′
+
+from the Gaussian distribution N (x, 1/√α). When α is small, the sampling distribution becomes highly nonlo-cal, leading to large statistical errors in the gradient es-timates. If θ1 and α are updated concurrently, the poor fit of the initial ansatz ψθ1 (x) often causes α to decrease prematurely. This “delocalization” of the basis increases gradient noise, which in turn prevents θ1 from converg-ing toward the ground state, causing α to shrink even more—a vicious cycle that often leads to optimization failure. To address this issue, we adopt a two-step optimization framework illustrated in Fig. 1, 
+
+• Step I: wavefunction pre-training. α is fixed to a large value ( α → ∞ ) and only θ1 is optimized, effec-tively reducing the method to conventional VMC in a local real-space basis and allowing θ1 to be optimized stably. This drives the initial state |Ψi⟩
+
+toward the exact ground state |ΨGS (Hα=∞)⟩, yield-ing |Ψf ⟩ and the corresponding energy E′.
+
+• Step II: basis refinement. With well-trained θ1
+
+fixed, we enable the update of α. The pre-trained wavefunction prevents α from collapsing to exces-sively small values during subsequent learning. This second step is the key difference from conventional VMC: varying α effectively modifies the Hamiltonian in the auxiliary representation, shifting the target ground state from |ΨGS (Hα=∞)⟩ to |ΨGS (Hα∗ )⟩. This reduces the distance between the trained wave function |Ψf ⟩ and the optimal ground state |ΨGS (Hα∗ )⟩ in function space, resulting in a lower total energy E. The energy differ-ence E − E′ quantifies the improvement due to the basis transformation. 
+
+Benchmarking 3DHEG —To demonstrate the effective-ness of our method, we study 3DHEG, a paradigmatic model of interacting fermions. In Hartree atomic units its Hamiltonian is [71] 
+
+H = − 12
+
+X
+
+> i
+
+∇2 
+
+> i
+
++ X
+
+> i<j
+
+1
+
+|ri − rj | + b.g. , (9) where b.g. denotes the neutralizing background contribu-tion [72]. The system is characterized by a single dimen-sionless parameter—the Wigner–Seitz radius rs (in units of the Bohr radius aB ). We employ periodic boundary conditions and evaluate Coulomb interactions using the Ewald summation technique [73–75]. Within the Gaus-sian basis transformation, the Hamiltonian matrix ele-ments Hα(x, x′) can be computed analytically; details are given in the Supplemental Material [70]. We benchmark two widely used neural-network archi-tectures for the 3DHEG under different system settings: 1 2 5 10 15 20                             
+
+> 0.0
+> -0.4
+> -0.8
+> -1.2 (E − E′)/EHF  ndet = 1 ndet = 4 ndet = 16
+> 510 15 20
+> 0.0
+> -0.5
+> -1.0 (E − E′
+> ndet =1) /EHF  ndet = 1 with α
+> ndet = 4
+> 12510 15 20
+> rs
+> 10
+> 20
+> 30
+> rs
+> √α
+> ndet = 1 ndet = 4 ndet = 16
+> 510 30 50 80 100
+> 0.0
+> -0.2
+> -0.4
+> -0.6
+> -0.8
+> -1.0 (E − E′)/EHF
+> iteration = 1 iteration = 2
+> 510 30 50 80 100
+> rs
+> 17.5
+> 22.5
+> 27.5
+> 32.5
+> rs
+> √α
+> iteration = 1 iteration = 2
+> ×10 −3×10 −4
+> (a) (c) (b) (d)
+
+FIG. 2. Comparison of ground-state energies with and with-out the Gaussian basis parameter α. (a) Relative energy dif-ference ( E − E′)/E HF for FermiNet with different numbers of Slater determinants ndet , where EHF is the energy of the free electron gas wave function. The inset compares the energy gains from introducing α with that obtained by increasing 
+
+ndet from 1 to 4 (without α). (b) Same quantity as in (a) for the MPNN architecture with different numbers of message-passing iterations. (c),(d) Optimized dimensionless basis pa-rameter rs
+
+√α for the corresponding FermiNet (c) and MPNN (d) calculations. 486.6 86.7 86.8 86.9 87.0 87.1 
+
+rs
+
+-0.6 
+
+-0.3 
+
+0.0 
+
+0.3 
+
+0.6 
+
+0.9 
+
+> E − EGO  (Ha)
+
+PW PW with α
+
+GO GO with α       
+
+> 86.6 86.7 86.8 86.9 87.0 87.1
+> 2.0
+> 3.5
+> 5.0
+> S(|k|) Peak
+> PW with α
+> GO with α
+
+×10 −5
+
+FIG. 3. Ground-state energy as a function of rs for the MPNN architecture in a 36-electron system with plane-wave (PW) and Gaussian-orbital (GO) reference states, with and without the Gaussian basis parameter α. The inset shows the peak value of the radially averaged static structure factor S(|k|). A large value indicates a pronounced Bragg peak and is the signature of the Wigner crystal (WC) phase, confirming that the PW reference state remains in the Fermi liquid (FL) phase while the GO reference state favors the WC phase. 
+
+FermiNet for an unpolarized 14-electron system in a cu-bic cell, and a message-passing neural network (MPNN) for an unpolarized 36-electron system in a rectangular cell with aspect ratio 3 : 3 : 2. For the MPNN, we con-sider two choices of reference states, plane waves (PW) and Gaussian orbitals (GO). The variational energy differences with and without the basis transformation are shown in Fig. 2(a) for Fer-miNet and Fig. 2(b) for MPNN using the PW reference states. Several features are observed. First, the basis transformation consistently reduces the variational en-ergy for both architectures across the entire range of rs,demonstrating that the approach is architecture-agnostic and universal. Second, introducing the single parameter 
+
+α provides a highly efficient way to increase the flexibility of the ansatz. As shown in the inset of Fig. 2(a), adding α
+
+yields a larger energy gain at rs = 5 , 10 , 20 than increas-ing the number of Slater determinants in FermiNet from 
+
+ndet = 1 to 4, which introduces more than 10 4 additional parameters. The optimized values of the dimensionless parameter 
+
+rs
+
+√α are shown in Figs. 2(c) and 2(d). A clear trend emerges: smaller values of rs
+
+√α correlate with larger energy improvements, consistent with the expectation that smaller α corresponds to a more nonlocal basis and thus a stronger modification of the original wave func-tion. As the network complexity increases, the optimal 
+
+rs
+
+√α shifts to larger values, indicating that a more ac-curate baseline ansatz requires less correction from the basis transformation. The dependence on rs differs qual-itatively between two architectures: for FermiNet the op-timal rs
+
+√α increases with rs, suggesting that the baseline ansatz becomes less accurate at low density and therefore benefits more from the transformation, whereas for the MPNN the optimal value of rs
+
+√α remains nearly con-stant across the range of rs, implying a more uniform baseline performance as the density varies. The improved energies also enable a more precise de-termination of the FL-WC transition point. We focus on the MPNN architecture and employ both PW and GO reference states. As shown in Fig. 3, over the rs range considered, the PW reference state consistently yields the FL phase, while the GO reference state stabilizes the WC phase, as confirmed by the Bragg peak in the static struc-ture factor S(|k|) shown in the inset. The crossing of the corresponding energies therefore determines the transi-tion point. Incorporating the basis transformation low-ers the energy more strongly for the PW reference state than for the GO reference state, shifting the estimated 0 1 2 3 4 5 6                                     
+
+> |r|/rs
+> 0.0 0.5 1.0 1.5
+> g(|r|)
+> rs= 50 with α
+> rs= 87 with α
+> 0123456
+> |r|/rs
+> -0.4 -0.2 0.0 0.2 0.4
+> gs(|r|)
+> rs= 50 with α
+> rs= 87 with α
+> 0123456
+> |k|rs
+> 0.0 -0.4 -0.8 -1.2
+> S(|k|) − S′(|k|)
+> rs= 50
+> rs= 87 0123456
+> |k|rs
+> 012345
+> S(|k|)
+> rs= 50 with α
+> rs= 87 with α
+> FL WC
+> FL WC
+> FL WC
+> 345
+> 0.2
+> 0.0
+> -0.2
+> ×10 −2
+> (a) (c) (b) (d)
+
+FIG. 4. Electron-electron correlations after basis transforma-tion for rs = 50 and rs = 87. (a) Pair correlation function 
+
+g(|r|). (b) Spin-averaged static structure factor S(|k|). (c) Difference between the structure factor with basis transfor-mation S(|k|) and that without transformation S′(|k|). (d) Spin-spin pair correlation function gs(|r|). Main panels show radially averaged quantities. Insets in (a), (b), and (d) display two-dimensional projections; the left halves correspond to the Fermi-liquid (FL) phase ( rs = 50, PW reference) and the right halves to the WC phase ( rs = 87, GO reference). Insets in (a) and (d) are summed over the z = 0 and z = aBCC /2 planes, where aBCC is the conventional cell lattice constant of the BCC lattice; while the inset in (b) is summed over the kz = 0 and kz = kBCC /2 planes in reciprocal space, where kBCC is the corresponding conventional reciprocal lattice constant. 5FL–WC transition to larger rs by |δr s| ≈ 0.1. Finally, ground state observables can also be evaluated efficiently within the transformed basis [70].Figures 4(a) and 4(b) show the pair correlation function g(|r|) and the static structure factor ( S(|k|) for representative den-sities rs = 50 (PW reference state) and rs = 87 (GO reference state). At rs = 87, g(|r|) exhibits long-range oscillations and S(|k|) displays sharp Bragg peaks, con-sistent with a body-centered cubic WC. In contrast, the state at rs = 50 shows a smooth S(|k|) characteristic of a FL. We further examine the effect of the Gaussian basis transformation on S(|k|), the transformation enhances 
+
+S(|k|) small momenta and suppresses it at large momenta [Fig. 4(c)], consistent with the low-pass filtering effect im-plied by Eq. (3). We also examine spin correlations. As shown in Fig. 4(d), the WC phase at rs = 87 exhibits pronounced long-range oscillations in the spin-spin cor-relation function, reflecting antiferromagnetic ordering in the crystalline phase. 
+
+Discussions —We have introduced a nonorthogonal ba-sis transformation as a physically motivated route to im-proving NNVMC, and demonstrated its effectiveness in the 3DHEG case. Rather than increasing the complex-ity of the NQS ansatz itself, we show that accuracy can be systematically improved by making the target ground state “easier” for the network to represent. This per-spective opens up a complementary route for improving neural-network approaches to quantum many-body prob-lems. The framework is general and can be readily applied to other quantum many-body systems. In systems where competing phases are separated by very small energy dif-ferences, such as those exhibiting superconductivity [39], we expect that the energy gain enabled by the basis trans-formation may lead to more substantial modifications of the phase diagram, rather than merely shifting the phase boundary as in the 3DHEG studied here. Another partic-ularly interesting direction concerns problems with non-local potentials, such as those involving nonlocal pseu-dopotentials [76, 77]. In such cases, the evaluation of the local energy already intrinsically requires integration, making our approach more natural to implement. More broadly, beyond using basis transformation as an efficient way to enhance expressivity, it is also worth-while to explore whether it can improve the optimization landscape itself, potentially making the true ground state more accessible during training. Exploring this possibil-ity would generally require the simultaneous optimization of both the wavefunction and basis parameters, which in turn hinges on a more efficient evaluation of the local energy. We leave these directions for future work. We hope that the present work will stimulate further investi-gation of basis-engineering strategies for neural-network approaches to quantum many-body problems. 
+
+Acknowledgments —This work is supported by the Natural Science Foundation of China through Grant No. 12350404, the Quantum Science and Technology-National Science and Technology Major Project through Grant No. 2021ZD0302600, the Science and Tech-nology Commission of Shanghai Municipality un-der Grants No. 23JC1400600, No. 24LZ1400100 and No. 2019SHZDZX01, and it is sponsored by the “Shuguang Program” supported by the Shanghai Edu-cation Development Foundation and Shanghai Municipal Education Commission.                            
+
+> ∗These two authors contributed equally to this work.
+> †wjingphys@fudan.edu.cn [1] P. Hohenberg and W. Kohn, Inhomogeneous electron gas, Phys. Rev. 136 , B864 (1964). [2] W. Kohn and L. J. Sham, Self-consistent equations in-cluding exchange and correlation effects, Phys. Rev. 140 ,A1133 (1965). [3] R. O. Jones and O. Gunnarsson, The density functional formalism, its applications and prospects, Rev. Mod. Phys. 61 , 689 (1989). [4] S. R. White, Density matrix formulation for quantum renormalization groups, Phys. Rev. Lett. 69 , 2863 (1992). [5] U. Schollw¨ ock, The density-matrix renormalization group, Rev. Mod. Phys. 77 , 259 (2005). [6] U. Schollw¨ ock, The density-matrix renormalization group in the age of matrix product states, Ann. Phys. 326 , 96 (2011). [7] R. Or´ us, A practical introduction to tensor networks: Matrix product states and projected entangled pair states, Ann. Phys. 349 , 117 (2014). [8] J. I. Cirac, D. P´ erez-Garc´ ıa, N. Schuch, and F. Ver-straete, Matrix product states and projected entangled pair states: Concepts, symmetries, theorems, Rev. Mod. Phys. 93 , 045003 (2021). [9] B. L. Hammond, W. A. Lester, and P. J. Reynolds, Monte Carlo methods in ab initio quantum chemistry , Vol. 1 (World Scientific, 1994). [10] W. M. C. Foulkes, L. Mitas, R. J. Needs, and G. Ra-jagopal, Quantum monte carlo simulations of solids, Rev. Mod. Phys. 73 , 33 (2001). [11] E. Y. Loh, J. E. Gubernatis, R. T. Scalettar, S. R. White, D. J. Scalapino, and R. L. Sugar, Sign problem in the nu-merical simulation of many-electron systems, Phys. Rev. B41 , 9301 (1990). [12] Z.-X. Li and H. Yao, Sign-problem-free fermionic quan-tum monte carlo: Developments and applications, Annu. Rev. Condens. Matter Phys. 10 , 337 (2019). [13] W. L. McMillan, Ground state of liquid he 4, Phys. Rev.
+> 138 , A442 (1965). [14] J. Toulouse and C. J. Umrigar, Optimization of quantum monte carlo wave functions by energy minimization, J. Chem. Phys. 126 , 084102 (2007). [15] G. Carleo and M. Troyer, Solving the quantum many-body problem with artificial neural networks, Science
+> 355 , 602 (2017). [16] D.-L. Deng, X. Li, and S. Das Sarma, Quantum entan-glement in neural network states, Phys. Rev. X 7, 021021 (2017). [17] Y. Nomura, A. S. Darmawan, Y. Yamaji, and M. Imada,
+
+6
+
+Restricted boltzmann machine learning for solving strongly correlated quantum systems, Phys. Rev. B 96 ,205152 (2017). [18] X.-Q. Sun, T. Nebabu, X. Han, M. O. Flynn, and X.-L. Qi, Entanglement features of random neural network quantum states, Phys. Rev. B 106 , 115138 (2022). [19] K. Choo, G. Carleo, N. Regnault, and T. Neupert, Sym-metries and many-body excitations with neural-network quantum states, Phys. Rev. Lett. 121 , 167204 (2018). [20] F. Ferrari, F. Becca, and J. Carrasquilla, Neural gutzwiller-projected variational wave functions, Phys. Rev. B 100 , 125131 (2019). [21] D. Luo and B. K. Clark, Backflow transformations via neural networks for quantum many-body wave functions, Phys. Rev. Lett. 122 , 226401 (2019). [22] K. Choo, A. Mezzacapo, and G. Carleo, Fermionic neural-network states for ab-initio electronic structure, Nat. Commun. 11 , 2368 (2020). [23] M. Hibat-Allah, M. Ganahl, L. E. Hayward, R. G. Melko, and J. Carrasquilla, Recurrent neural network wave func-tions, Phys. Rev. Res. 2, 023358 (2020). [24] J. R. Moreno, G. Carleo, A. Georges, and J. Stokes, Fermionic wave functions from neural-network con-strained hidden states, Proc. Natl. Acad. Sci. U.S.A. 119 ,e2122059119 (2022). [25] G. Pescia, J. Han, A. Lovato, J. Lu, and G. Carleo, Neural-network quantum states for periodic systems in continuous space, Phys. Rev. Res. 4, 023138 (2022). [26] X. Li, Z. Li, and J. Chen, Ab initio calculation of real solids via neural network ansatz, Nat. Commun. 13 , 7895 (2022). [27] L. L. Viteritti, R. Rende, and F. Becca, Transformer vari-ational wave functions for frustrated quantum spin sys-tems, Phys. Rev. Lett. 130 , 236401 (2023). [28] B. Fore, J. M. Kim, G. Carleo, M. Hjorth-Jensen, A. Lovato, and M. Piarulli, Dilute neutron star matter from neural-network quantum states, Phys. Rev. Res. 5,033062 (2023). [29] J. Hermann, J. Spencer, K. Choo, A. Mezzacapo, W. M. C. Foulkes, D. Pfau, G. Carleo, and F. No´ e, Ab initio quantum chemistry with neural-network wavefunc-tions, Nat. Rev. Chem. 7, 692 (2023). [30] M. Wilson, S. Moroni, M. Holzmann, N. Gao, F. Wu-darski, T. Vegge, and A. Bhowmik, Neural network ansatz for periodic wave functions and the homogeneous electron gas, Phys. Rev. B 107 , 235139 (2023). [31] J. Lin, G. Goldshlager, and L. Lin, Explicitly antisym-metrized neural network layers for variational monte carlo simulation, J. Comput. Phys. 474 , 111765 (2023). [32] H. Lange, A. Van de Walle, A. Abedinnia, and A. Bohrdt, From architectures to applications: a review of neural quantum states, Quantum Sci. Technol. 9, 040501 (2024). [33] A. Chen and M. Heyl, Empowering deep neural quantum states through efficient optimization, Nat. Phys. 20 , 1476 (2024). [34] R. Li, H. Ye, D. Jiang, X. Wen, C. Wang, Z. Li, X. Li, D. He, J. Chen, W. Ren, et al. , A computational frame-work for neural network-based variational monte carlo with forward laplacian, Nat. Mach. Intell. 6, 209 (2024). [35] K. Sprague and S. Czischek, Variational monte carlo with large patched transformers, Commun. Phys. 7, 90 (2024). [36] R. Rende, S. Goldt, F. Becca, and L. L. Viteritti, Fine-tuning neural network quantum states, Phys. Rev. Res. 
+
+6, 043280 (2024). [37] Q. Zhang, R.-S. Wang, and L. Wang, Neural canonical transformations for vibrational spectra of molecules, J. Chem. Phys. 161 , 024103 (2024). [38] Y. Qian, T. Zhao, J. Zhang, T. Xiang, X. Li, and J. Chen, Describing landau level mixing in fractional quantum hall states with deep learning, Phys. Rev. Lett. 134 , 176503 (2025). [39] C. Roth, A. Chen, A. Sengupta, and A. Georges, Superconductivity in the two-dimensional hubbard model revealed by neural quantum states (2025), arXiv:2511.07566 [cond-mat.supr-con]. [40] Y. Gu, W. Li, H. Lin, B. Zhan, R. Li, Y. Huang, D. He, Y. Wu, T. Xiang, M. Qin, L. Wang, and D. Lv, Solving the hubbard model with neural quantum states (2025), arXiv:2507.02644 [cond-mat.str-el]. [41] A. Valenti, Y. Vituri, Y. Yang, D. E. Parker, T. Soe-jima, J. Dong, M. A. Morales, A. Vishwanath, E. Berg, and S. Zhang, Quantum geometry driven crystallization: A neural-network variational monte carlo study (2025), arXiv:2512.07947 [cond-mat.str-el]. [42] J. A. Sobral, M. Perle, and M. S. Scheurer, Physics-informed transformers for electronic quantum states, Nat. Commun. 16 , 10811 (2025). [43] L. Zhang and D. Luo, Neural transformer backflow for solving momentum-resolved ground states of strongly correlated materials (2025), arXiv:2509.09275 [cond-mat.str-el]. [44] A. Chen, Z.-Q. Wan, A. Sengupta, A. Georges, and C. Roth, Neural network-augmented pfaffian wave-functions for scalable simulations of interacting fermions (2025), arXiv:2507.10705 [cond-mat.str-el]. [45] L. Gerard, M. Scherbela, H. Sutterud, W. M. C. Foulkes, and P. Grohs, Transferable neural wavefunctions for solids, Nat. Comput. Sci. 5, 1147–1157 (2025). [46] T. Zaklama, M. Geier, and L. Fu, Large electron model: A universal ground state predictor (2026), arXiv:2603.02346 [cond-mat.str-el]. [47] D. Pfau, J. S. Spencer, A. G. D. G. Matthews, and W. M. C. Foulkes, Ab initio solution of the many-electron schr¨ odinger equation with deep neural networks, Phys. Rev. Res. 2, 033429 (2020). [48] J. S. Spencer, D. Pfau, A. Botev, and W. M. C. Foulkes, Better, faster fermionic neural networks (2020), arXiv:2011.07125 [physics.comp-ph]. [49] G. Cassella, H. Sutterud, S. Azadi, N. D. Drummond, D. Pfau, J. S. Spencer, and W. M. C. Foulkes, Discov-ering quantum phase transitions with fermionic neural networks, Phys. Rev. Lett. 130 , 036401 (2023). [50] J. Hermann, Z. Sch¨ atzle, and F. No´ e, Deep-neural-network solution of the electronic schr¨ odinger equation, Nat. Chem. 12 , 891 (2020). [51] I. von Glehn, J. S. Spencer, and D. Pfau, A self-attention ansatz for ab-initio quantum chemistry (2023), arXiv:2211.13672 [physics.chem-ph]. [52] Y. Teng, D. D. Dai, and L. Fu, Solving the fractional quantum hall problem with self-attention neural network, Phys. Rev. B 111 , 205117 (2025). [53] M. Geier, K. Nazaryan, T. Zaklama, and L. Fu, Self-attention neural network for solving correlated electron problems in solids, Phys. Rev. B 112 , 045119 (2025). [54] C.-T. Li, T. Ong, M. Geier, H. Lin, and L. Fu, Attention is all you need to solve chiral superconductivity (2025), arXiv:2509.03683 [cond-mat.supr-con]. [55] M. Geier, K. Nazaryan, T. Zaklama, and L. Fu, Self-7
+
+attention neural network for solving correlated electron problems in solids, Phys. Rev. B 112 , 045119 (2025). [56] S. Dash, L. Gravina, F. Vicentini, M. Ferrero, and A. Georges, Efficiency of neural quantum states in light of the quantum geometric tensor, Commun. Phys. 8, 92 (2025). [57] M. S. Moss, A. Orfi, C. Roth, A. M. Sengupta, A. Georges, D. Sels, A. Dawid, and A. Valenti, Double de-scent: When do neural quantum states generalize?, Phys. Rev. E 113 , 045303 (2026). [58] J. R. Moreno, J. Cohn, D. Sels, and M. Motta, Enhanc-ing the expressivity of variational neural, and hardware-efficient quantum states through orbital rotations (2023), arXiv:2302.11588 [quant-ph]. [59] R. S. Cortes, A. S. Shankar, M. Dalmonte, R. Verdel, and N. Niggemann, Basis dependence of neural quan-tum states for the transverse field ising model (2026), arXiv:2512.11632 [quant-ph]. [60] S. B. Koˇ zi´ c, V. Zlati´ c, F. Franchini, and S. M. Giampaolo, Exploring the effect of basis rotation on nqs performance (2025), arXiv:2512.17893 [quant-ph]. [61] M. S. Moss, R. Wiersema, M. Hibat-Allah, J. Car-rasquilla, and R. G. Melko, Leveraging recurrence in neu-ral network wavefunctions for large-scale simulations of heisenberg antiferromagnets on the square lattice, Phys. Rev. B 112 , 134450 (2025). [62] G. Pescia, J. Nys, J. Kim, A. Lovato, and G. Carleo, Message-passing neural quantum states for the homoge-neous electron gas, Phys. Rev. B 110 , 035108 (2024). [63] C. Smith, Y. Chen, R. Levy, Y. Yang, M. A. Morales, and S. Zhang, Unified variational approach description of ground-state phases of the two-dimensional electron gas, Phys. Rev. Lett. 133 , 266504 (2024). [64] E. Wigner, On the interaction of electrons in metals, Phys. Rev. 46 , 1002 (1934). [65] N. D. Drummond, Z. Radnai, J. R. Trail, M. D. Towler, and R. J. Needs, Diffusion quantum monte carlo study of three-dimensional wigner crystals, Phys. Rev. B 69 ,085116 (2004). [66] G. Giuliani and G. Vignale, Quantum theory of the elec-tron liquid (Cambridge University Press, 2008). [67] S. Azadi, N. D. Drummond, and S. M. Vinko, Correlation energy of the paramagnetic electron gas at the thermo-dynamic limit, Phys. Rev. B 107 , L121105 (2023). [68] S. Sorella, Generalized lanczos algorithm for variational quantum monte carlo, Phys. Rev. B 64 , 024512 (2001). [69] G. Goldshlager, N. Abrahamsen, and L. Lin, A kaczmarz-inspired approach to accelerate the optimization of neural network wavefunctions, J. Comput. Phys. 516 , 113351 (2024). [70] See Supplemental Material for more details. [71] G. D. Mahan, Many-particle physics (Springer Science & Business Media, 2013). [72] Y. Kwon, D. M. Ceperley, and R. M. Martin, Effects of backflow correlation in the three-dimensional electron gas: Quantum monte carlo study, Phys. Rev. B 58 , 6800 (1998). [73] P. P. Ewald, Die berechnung optischer und elektro-statischer gitterpotentiale, Annalen der Physik 369 , 253 (1921). [74] L. M. Fraser, W. M. C. Foulkes, G. Rajagopal, R. J. Needs, S. D. Kenny, and A. J. Williamson, Finite-size effects and coulomb interactions in quantum monte carlo calculations for homogeneous systems with periodic boundary conditions, Phys. Rev. B 53 , 1814 (1996). [75] A. Y. Toukmaji and J. A. Board, Ewald summation tech-niques in perspective: a survey, Comput. Phys. Commun. 
+
+95 , 73 (1996). [76] X. Li, C. Fan, W. Ren, and J. Chen, Fermionic neural network with effective core potential, Phys. Rev. Res. 4,013021 (2022). [77] W. Fu, R. Fujimaru, R. Li, Y. Liu, X. Wen, X. Li, K. Hongo, L. Wang, T. Ichibha, R. Maezono, J. Chen, and W. Ren, Local pseudopotential unlocks the true po-tential of neural network-based quantum monte carlo (2025), arXiv:2505.19909 [physics.chem-ph].

@@ -1,0 +1,463 @@
+Title: Finite-temperature quantum Krylov method from real-time overlaps
+
+URL Source: https://arxiv.org/pdf/2604.10543v2
+
+Published Time: Wed, 15 Apr 2026 00:40:14 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Finite-temperature quantum Krylov method from real-time overlaps 
+
+Hiroto Yamamoto 1, ∗ and Katsuhiro Morita 1, †
+
+> 1
+
+Department of Physics, Tohoku University, Sendai, Miyagi 980-8578, Japan 
+
+(Dated: April 15, 2026) Accurately evaluating finite-temperature properties of quantum many-body systems remains a central challenge. Many existing quantum approaches typically require thermal-state preparation at each target temperature, making low-temperature calculations especially demanding in terms of circuit depth and accuracy. Here we introduce a distinct framework based only on the real-time overlap sequence gn = ⟨ϕ|e−inτ H |ϕ⟩, which enables thermodynamic quantities to be obtained over a broad temperature range, without specifying a target temperature on the quantum device. For the one-dimensional spin- 12 Heisenberg model with periodic boundary conditions, we obtain accurate specific heat, magnetic susceptibility, and entropy in the noiseless case. Magnetic susceptibility is also evaluated accurately without explicit symmetry-sector decomposition by employing pseudoran-dom vectors compatible with Sz 
+
+> tot
+
+conservation. With suitable stabilization, the method further retains the main thermodynamic features under finite-shot statistical errors up to σ ∼ 10 −3. Our results establish real-time-overlap-based finite-temperature evaluation as a promising framework for finite-temperature computation on near-future quantum hardware. 
+
+Elucidating finite-temperature properties of quantum many-body systems is important for understanding quan-tum phenomena realized in materials. In particular, finite-temperature behavior is indispensable for under-standing collective quantum phenomena such as super-conducting transitions and quantum spin liquids. Ther-modynamic quantities such as the specific heat and mag-netic susceptibility directly reflect these phenomena and thus serve as key observables linking theory and experi-ment. However, finite-temperature quantum many-body problems remain notoriously challenging in general. Al-though a variety of classical approaches have been devel-oped [1], quantitatively evaluating thermodynamic quan-tities down to low temperatures remains challenging in the presence of frustration, high dimensionality, or the sign problem [2]. The finite-temperature Lanczos method (FTLM) provides a powerful framework for accurately evaluating finite-temperature thermodynamic quantities within a Krylov subspace [3–9]. However, the accessi-ble system sizes remain strongly limited by the exponen-tial growth of the Hilbert-space dimension. Establishing new computational principles for accurately evaluating thermodynamic quantities therefore remains an impor-tant challenge for both classical and quantum computa-tion [10]. In recent years, various approaches have been proposed for finite-temperature calculations on quantum comput-ers, including quantum imaginary-time evolution [11–20], methods based on thermal pure quantum states [21, 22], and approaches based on quantum Gibbs sampling [10]. While these approaches mark important progress toward finite-temperature quantum simulation, most of them take the target inverse temperature β as input and aim to construct on a quantum device a thermal state, or an approximate one, at that temperature. As a result, quantum computations must generally be repeated for each temperature, making thermal-state preparation or temperature-dependent state updates a practical bottle-neck, particularly in the low-temperature regime where circuit depths become large and the accuracy often dete-riorates [23, 24]. Here we propose a distinct approach for reconstruct-ing finite-temperature thermodynamic quantities based on unitary real-time evolution, which is naturally imple-mented on quantum circuits. The only input required from the quantum device is the real-time overlap se-quence 
+
+gn = ⟨ϕ|e−inτ H |ϕ⟩ (n ∈ Z),
+
+associated with the unitary real-time evolution under the Hamiltonian H. Therefore, without specifying any tem-perature on the quantum device, a set of measured real-time overlaps enables the reconstruction, through clas-sical post-processing, of thermodynamic quantities over a broad temperature range, including the T → 0 limit. Our method shares with FTLM the basic idea of extract-ing finite-temperature quantities from a Krylov subspace, but differs fundamentally in that its input is described not by repeated applications of H, but by overlaps gen-erated by unitary real-time evolution that are naturally accessible on quantum hardware. Hereafter, we refer to the present method as the finite-temperature quantum Krylov (FTQK) method. In this work, we benchmark the proposed method for the one-dimensional spin- 12 Heisenberg model with peri-odic boundary conditions (PBC). Focusing on the spe-cific heat, magnetic susceptibility, and entropy, we as-sess its reconstruction accuracy in the absence of noise by comparison with exact diagonalization and the finite-temperature Lanczos method, and further examine its robustness against statistical errors by introducing noise of σ = 10 −3 into the real-time overlaps gn. We show that, when combined with an appropriate stabilization procedure, the method retains good reconstruction accu-
+
+> arXiv:2604.10543v2 [quant-ph] 14 Apr 2026
+
+2racy over a broad temperature range even under noise at the level of σ = 10 −3. In addition, by introducing pseu-dorandom vectors compatible with Sz 
+
+> tot
+
+conservation, we demonstrate that the framework can also accurately eval-uate the magnetic susceptibility, showing that it natu-rally extends beyond the specific heat to physical ob-servables associated with conserved quantities. These results establish the proposed method as a promising framework for finite-temperature quantum computation on near-future quantum hardware. We first apply an affine transformation to the original Hamiltonian, ˜H = τ H + θI, (1) where the constants τ and θ are pre-computed classically to map the spectrum of ˜H into [0 , π ]. To determine these constants, we estimate the lower bound of the energy spectrum for each Sz 
+
+> tot
+
+sector (see Supplemental Mate-rial for details). This approach anticipates future appli-cations to larger systems, where estimating such a spec-tral lower bound for a specific sector remains classically feasible even when full finite-temperature simulations are intractable. In the following, the effective time step is ab-sorbed into the definition of ˜H. If ˜H|Ψk⟩ = ˜Ek|Ψk⟩, then cos( ˜H)|Ψk⟩ = cos( ˜Ek)|Ψk⟩. Because arccos( x) is single-valued on the principal branch ˜Ek ∈ [0 , π ], the eigenval-ues λk = cos( ˜Ek) uniquely determine ˜Ek = arccos( λk), and hence the eigenvalues of the original Hamiltonian are recovered as Ek = ( ˜Ek − θ)/τ .In the present work, finite-temperature quantities are reconstructed separately in each Sz 
+
+> tot
+
+sector, labeled by 
+
+q, with the transformation parameters chosen for each sector and denoted by τ (q) and θ(q). On a quantum computer, however, it is not always natural to explic-itly reduce the Hilbert space by introducing a symmetry-adapted basis. We therefore always perform the real-time evolution in the full 2 N -dimensional Hilbert space, while imposing the sector restriction only on the initial random vectors. Specifically, for each random-vector index r and sector index q, we prepare an initial state |ϕ(r,q )0 ⟩ belong-ing to sector q. For the Heisenberg model, [ H, S z
+
+> tot
+
+] = 0, and thus each such initial state remains within the same sector under time evolution. In this way, the present implementation retains a full-Hilbert-space real-time-evolution framework while enabling sector-resolved finite-temperature reconstruction in the spirit of FTLM. For each |ϕ(r,q )0 ⟩, we define the real-time overlap se-quence 
+
+g(r,q ) 
+
+> n
+
+= ⟨ϕ(r,q )0 |e−in ˜H |ϕ(r,q )0 ⟩, (2) which satisfies g(r,q ) 
+
+> −n
+
+=
+
+
+
+g(r,q )
+
+> n
+
+∗
+
+because ˜H is Her-mitian. Such overlaps can be estimated on quan-tum hardware by standard methods such as the Hadamard test. Writing U = e−i ˜H , we intro-duce the real-time Krylov subspace KD (U, |ϕ(r,q )0 ⟩) =span {| ϕ(r,q )0 ⟩, U |ϕ(r,q )0 ⟩, . . . , U D−1|ϕ(r,q )0 ⟩} and the basis states |ϕ(r,q ) 
+
+> n
+
+⟩ = U n|ϕ(r,q )0 ⟩ (n = 0 , 1, . . . , D − 1). The overlap matrix then takes the Toeplitz form 
+
+S(r,q ) 
+
+> nn ′
+
+= ⟨ϕ(r,q ) 
+
+> n
+
+|ϕ(r,q ) 
+
+> n′
+
+⟩ = g(r,q )
+
+> n′−n
+
+. (3) Moreover, using cos( ˜H) = ( U + U −1)/2, the matrix ele-ments of cos( ˜H) are written as 
+
+F (r,q ) 
+
+> nn ′
+
+= ⟨ϕ(r,q ) 
+
+> n
+
+| cos( ˜H)|ϕ(r,q ) 
+
+> n′
+
+⟩ = g(r,q ) 
+
+> n′−n+1
+
++ g(r,q )
+
+> n′−n−1
+
+2 .
+
+(4) In several existing Krylov-subspace-based quantum ap-proaches, generalized eigenvalue problems based directly on H or U are employed [25–47]. In the present work, we instead formulate the problem for cos( ˜H). The H-based formulation tends to require separate estimation of ma-trix elements of H on quantum hardware and is therefore more directly affected by measurement errors, whereas our framework uses only overlaps generated by unitary real-time evolution as input. The U -based formulation, on the other hand, can become fragile in the presence of noise. We then solve the generalized eigenvalue problem 
+
+F (r,q )u(r,q ) 
+
+> j
+
+= λ(r,q ) 
+
+> j
+
+S(r,q )u(r,q ) 
+
+> j
+
+, (5) which yields approximate eigenvalues λ(r,q ) 
+
+> j
+
+of cos( ˜H) and the corresponding generalized eigenvectors u(r,q ) 
+
+> j
+
+. From these, we reconstruct approximate eigenvalues ˜E(r,q ) 
+
+> j
+
+=arccos 
+
+
+
+λ(r,q )
+
+> j
+
+
+
+and E(r,q ) 
+
+> j
+
+= ( ˜E(r,q ) 
+
+> j
+
+−θ(q))/τ (q), and define the corresponding approximate eigenstates as |ψ(r,q ) 
+
+> j
+
+⟩ =
+
+PD−1 
+
+> n=0
+
+u(r,q ) 
+
+> nj
+
+|ϕ(r,q ) 
+
+> n
+
+⟩.Using these approximate eigenvalues and eigenstates, the partition function in zero field is estimated, in anal-ogy with FTLM, as 
+
+Z(T ) ≈
+
+> Msat
+
+X
+
+> q=−Msat
+
+N (q)st 
+
+R
+
+> R
+
+X 
+
+> r=1
+> Deff −1
+
+X
+
+> j=0
+
+e−βE (r,q ) 
+
+> j
+
+w(r,q ) 
+
+> j
+
+, (6) where Msat is the saturation magnetization, N (q)st is the Hilbert-space dimension of sector q, R is the number of random vectors, and Deff is the effective subspace di-mension after regularization. The weight is defined by 
+
+w(r,q ) 
+
+> j
+
+= ⟨ϕ(r,q )0 |ψ(r,q ) 
+
+> j
+
+⟩ 2
+
+. The internal energy, specific heat, magnetic susceptibility, and entropy are evaluated analogously from the reconstructed {E(r,q ) 
+
+> j
+
+, w (r,q ) 
+
+> j
+
+}.In the presence of noise, the raw generalized eigen-value problem can become unstable. We therefore reg-ularize the overlap matrix by removing small-eigenvalue modes, choose the truncation threshold adaptively for each sample, and further introduce a low-energy correc-tion procedure. The detailed algorithm is described in the Supplemental Material. 30.01 0.1 110 100 0.0 0.1 0.2 0.3 0.4 C/NFTQK Exact N=14 (a) (d) (e) (f) 0.01 0.1 110 100 0.00 0.05 0.10 0.15  / N
+
+# (b)
+
+# (c)
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.0
+
+0.1
+
+0.2 0 . 3 0 . 4
+
+0.5
+
+0.6
+
+0.7
+
+> S
+> m
+> /
+> N
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+> C
+> /
+> N
+
+## T
+
+FTQK
+
+FTL
+
+## N
+
+## =24
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.00
+
+0.05
+
+0.10
+
+0.15 / N
+
+## T
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.0
+
+0.1
+
+0.2 0 . 3 0 . 4
+
+0.5
+
+0.6
+
+0.7
+
+> S
+> m
+> /
+> N
+
+## T                               
+
+> FIG. 1. Benchmark results in the absence of noise for the one-dimensional spin-12Heisenberg model under PBC. Panels (a)–(c) and (d)–(f) show the specific heat C/N , magnetic susceptibility χ/N , and entropy Sm/N for N= 14 and N= 24, respectively. The red solid lines show the FTQK results, while the black dashed lines denote the reference results obtained by exact diagonalization for N= 14 and by FTLM with R= 400 for N= 24. We use R= 100 and D= 20 for N= 14, and
+> R= 100 and D= 60 for N= 24. The shaded regions indicate the standard errors of the FTQK results.
+
+Figure 1 shows benchmark results in the absence of noise for the one-dimensional spin- 12 Heisenberg model under PBC. Figures 1(a)–(c) and 1(d)–(f) show the spe-cific heat C/N , magnetic susceptibility χ/N , and entropy 
+
+Sm/N for N = 14 and N = 24, respectively. We use 
+
+R = 100 and D = 20 for N = 14, and R = 100 and 
+
+D = 60 for N = 24. As references, we also show re-sults obtained by exact diagonalization for N = 14 and by FTLM for N = 24 with R = 400, which is suffi-ciently converged for comparison. As shown in Fig. 1, for both system sizes, the specific heat, magnetic suscepti-bility, and entropy reconstructed by the present method agree well with the reference results over a broad tem-perature range. In particular, the specific heat, being defined as the temperature derivative of the internal en-ergy, or equivalently as a quantity associated with en-ergy fluctuations, requires a higher level of accuracy than the energy itself. Therefore, the fact that the specific heat is also reproduced with high accuracy demonstrates that the present method is capable of accurately cap-turing not only the energy but also more sensitive finite-temperature thermodynamic quantities. This constitutes a more stringent validation of the method than agreement at the level of the energy alone. The magnetic susceptibility is also reproduced well over a broad range, from the high-temperature behav-ior through the structure around the peak and further to the low-temperature decay. The results presented here are based on calculations assuming a situation in which the Hilbert space is not explicitly decomposed into Sz
+
+> tot
+
+sectors on the quantum computer. This, in turn, shows that the pseudorandom vectors adopted in the present work remain sufficiently effective for evaluating the mag-netic susceptibility even under such conditions. The en-tropy also exhibits a smoothly varying behavior from the low-temperature to the high-temperature regime, and is reproduced with high accuracy, agreeing with the refer-ence results within the line width shown in Fig. 1. Notably, these results are obtained using only the real-time overlap sequence gn as the primary quantum in-put. In the present method, the essential task required on the quantum device is reduced to the evaluation of uni-tary real-time evolution, without the need to prepare a thermal state for each temperature. Furthermore, in the present study, high-accuracy finite-temperature quanti-ties are obtained even though the time evolution is car-ried out in the full Hilbert space, without employing any explicit reduction based on symmetries. These results demonstrate that the present method remains effective even under implementation conditions relevant to quan-tum computation. Next, we examine the robustness of the method against sampling errors with quantum-hardware implementation in mind. Here we model finite-shot statistical errors by 40.01 0.1 110 100 0.0 0.1 0.2 0.3 0.4 C/NT σ = 1 0 - 3     
+
+> σ=10-4
+> Exact
+
+# (a)
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.00 0 . 0 5
+
+0.10
+
+0.15
+
+>  / N
+
+## T
+
+# (b)
+
+0.01
+
+0.1
+
+1
+
+10
+
+100
+
+0.0
+
+0.1
+
+0.2 0 . 3 0 . 4
+
+0.5
+
+0.6
+
+0.7
+
+> S
+> m
+> /
+> N
+
+## T
+
+# (c)                  
+
+> FIG. 2. Results in the presence of noise for the one-dimensional spin-12Heisenberg model with N= 14. Panels (a)–(c) show the specific heat C/N , magnetic susceptibility χ/N , and entropy Sm/N , respectively. Red and blue lines correspond to σ= 10 −3
+> and σ= 10 −4, while the black dashed lines denote the reference results. The data are obtained with R= 200 and D= 50.
+
+adding independent Gaussian noise to the real and imag-inary parts of the overlaps gn, while simultaneously en-forcing the relation g−n = g∗
+
+> n
+
+. As a result, the overlap matrix S remains Hermitian and preserves its Toeplitz structure even after the noise is added. In the noisy case, however, the generalized eigenvalue problem may become unstable and exhibit unphysical behavior, such as eigen-values of cos( ˜H) falling outside the interval [ −1, 1]. To overcome this difficulty, we regularize the overlap matrix by discarding small-eigenvalue modes of S, and at the same time adapt the truncation threshold ε so that it is selected automatically for each sample. In addition, to stabilize the recovery of low-temperature physics, we introduce further corrections to the approximate ground-state energy, the first-excited-state energy, and their cor-responding weights. Importantly, these stabilization pro-cedures do not rely on any direct input from exact diag-onalization, but are implemented solely from upper and lower bound estimates of the eigenvalues. Thus, the noise robustness demonstrated in this work should be under-stood not as the naive robustness of the raw generalized eigenvalue problem itself, but as the effectiveness of the full stabilized reconstruction scheme built upon the real-time-overlap-only framework. Figure 2 shows the results in the presence of noise for N = 14, obtained with R = 200 and D = 50. For σ = 10 −4, the specific heat, magnetic susceptibil-ity, and entropy are all nearly indistinguishable from the reference results, indicating that the effect of noise is extremely small. Even for σ = 10 −3, the main ther-modynamic features remain well preserved over a broad temperature range. The effect of noise is most visibly seen in the specific heat, where a slight deviation ap-pears around the peak; nevertheless, the peak position and the overall shape remain well reproduced. By con-trast, the magnetic susceptibility and entropy still show only small deviations from the reference results even at 
+
+σ = 10 −3, and remain in close agreement over a broad temperature range. We also confirm that, for the larger noise level σ = 10 −2, the reconstruction accuracy deteri-orates noticeably (see the Supplemental Material for de-tails), whereas the main physical features can still be pre-served up to σ ≈ 10 −3 when the stabilization procedure is employed. In practice, compared with the noiseless case, larger values of R and D are required when noise is present. Therefore, stable finite-temperature evaluation under noise demands increased quantum resources, both in the number of samples and in the amount of real-time-overlap data, together with appropriate stabilization pro-cedures. Nevertheless, these results show that the ba-sic structure of the present method, namely, extracting finite-temperature quantities over a broad temperature range, including the low-temperature regime, from real-time-overlap data, remains effective even in the presence of noise. In this work, we propose a method for evaluating finite-temperature quantities using only the real-time over-lap sequence gn, and demonstrate its effectiveness for the one-dimensional spin- 12 Heisenberg model. In the absence of noise, the specific heat, magnetic suscep-tibility, and entropy agree well with the reference re-sults over a broad temperature range, and the fact that even the specific heat is reproduced with high accuracy shows that the present method attains sufficient preci-sion even for sensitive finite-temperature thermodynamic quantities. We also show that, by employing pseudo-random vectors compatible with Sz 
+
+> tot
+
+conservation, the magnetic susceptibility can be evaluated accurately even in a setting where the symmetry is not explicitly block-diagonalized. Furthermore, from an analysis with Gaus-sian noise introduced to mimic finite-shot statistical er-rors, we find that stabilization procedures, including the removal of small-eigenvalue modes, the automatic selec-tion of the truncation threshold, and additional correc-tions for low-temperature physics, are essential for sta-ble finite-temperature evaluation under noise. Even so, the main physical features of the specific heat, magnetic susceptibility, and entropy remain well preserved over a 5broad temperature range under noise up to σ ∼ 10 −3.These results demonstrate that, while retaining the sim-ple real-time-overlap-only structure, the present method provides a promising framework for finite-temperature quantum computation on near-future quantum hard-ware. More generally, the present framework could also be combined with classical tensor-network approaches ca-pable of approximating real- or imaginary-time evolution, such as density-matrix renormalization group, matrix-product-state, and projected entangled-pair-state meth-ods [48–51]. We note that during the preparation of this manuscript, a related work was reported indepen-dently [52]. The authors thank H. Ueda and N. Shibata for valuable discussions. This work was supported by JSPS KAK-ENHI Grant No. JP25K07230  
+
+> ∗
+
+e-mail:yamamoto.hiroto.r8@dc.tohoku.ac.jp  
+
+> †
+
+e-mail:katsuhiro.morita.c7@mso.tohoku.ac.jp [1] U. Schollw¨ ock, The density-matrix renormalization group in the age of matrix product states, Annals of Physics 
+
+326 , 96 (2011). [2] M. Troyer and U.-J. Wiese, Computational complexity and fundamental limitations to fermionic quantum monte carlo simulations, Physical Review Letters 94 , 170201 (2005). [3] J. Jakliˇ c and P. Prelovˇ sek, Lanczos method for the calcu-lation of finite-temperature quantities in correlated sys-tems, Physical Review B 49 , 5065 (1994). [4] J. Jakliˇ c and P. Prelovˇ sek, Finite-temperature properties of doped antiferromagnets, Advances in Physics 49 , 1 (2000). [5] J. Schnack, J. Schulenburg, and J. Richter, Magnetism of the N = 42 kagome lattice antiferromagnet, Physical Review B 98 , 094423 (2018). [6] J. Schnack, J. Richter, and R. Steinigeweg, Accuracy of the finite-temperature Lanczos method compared to sim-ple typicality-based estimates, Physical Review Research 
+
+2, 013186 (2020). [7] K. Morita and T. Tohyama, Finite-temperature proper-ties of the Kitaev-Heisenberg models on kagome and tri-angular lattices studied by improved finite-temperature Lanczos methods, Physical Review Research 2, 013205 (2020). [8] K. Morita, Isothermal and adiabatic magnetization pro-cesses of the spin- 12 Heisenberg model on an anisotropic triangular lattice, Physical Review B 105 , 064428 (2022). [9] K. Morita, Stability of the 1 /3 magnetization plateau of the J1-J2 kagome Heisenberg model, Physical Review B 
+
+108 , 184405 (2023). [10] C.-F. Chen, M. J. Kastoryano, F. G. S. L. Brand˜ ao, and A. Gily´ en, Efficient quantum thermal simulation, Nature 
+
+646 , 561 (2025). [11] M. Motta, C. Sun, A. T. K. Tan, M. J. O’Rourke, E. Ye, A. J. Minnich, F. G. S. L. Brand˜ ao, and G. K.-L. Chan, Determining eigenstates and thermal states on a quan-tum computer using quantum imaginary time evolution, Nature Physics 16 , 205 (2020). [12] N. Gomes, A. Mukherjee, F. Zhang, T. Iadecola, C.-Z. Wang, K.-M. Ho, P. P. Orth, and Y.-X. Yao, Adaptive variational quantum imaginary time evolution approach for ground state preparation, Advanced Quantum Tech-nologies 4, 2100114 (2021). [13] H. Nishi, T. Kosugi, and Y. Matsushita, Implementa-tion of quantum imaginary-time evolution method on NISQ devices by introducing nonlocal approximation, npj Quantum Information 7, 85 (2021). [14] K. Yeter-Aydeniz, E. Moschandreou, and G. Siopsis, Quantum imaginary-time evolution algorithm for quan-tum field theories with continuous variables, Physical Re-view A 105 , 012412 (2022). [15] H. Kamakari, S.-N. Sun, M. Motta, and A. J. Minnich, Digital quantum simulation of open quantum systems us-ing quantum imaginary-time evolution, PRX Quantum 
+
+3, 010320 (2022). [16] T. Tsuchimochi, Y. Ryo, S. L. Ten-no, and K. Sasasako, Improved algorithms of quantum imaginary time evolu-tion for ground and excited states of molecular systems, Journal of Chemical Theory and Computation 19 , 503 (2023). [17] H. Nishi, K. Hamada, Y. Nishiya, T. Kosugi, and Y. Mat-sushita, Optimal scheduling in probabilistic imaginary-time evolution on a quantum computer, Physical Review Research 5, 043048 (2023). [18] K. Hejazi, M. Motta, and G. K.-L. Chan, Adiabatic quan-tum imaginary time evolution, Physical Review Research 
+
+6, 033084 (2024). [19] C. Cianci, L. F. Santos, and V. S. Batista, Subspace-search quantum imaginary time evolution for excited state computations, Journal of Chemical Theory and Computation 20 , 8940 (2024). [20] H. Nishi, Y. Takei, T. Kosugi, S. Mieda, Y. Nat-sume, T. Aoyagi, and Y. Matsushita, Encoded probabilis-tic imaginary-time evolution on a trapped-ion quantum computer for ground and excited states of spin qubits, Physical Review Applied 23 , 034016 (2025). [21] K. Mizukami and A. Koga, Quantum algorithm for the microcanonical thermal pure quantum state method, Physical Review A 108 , 012404 (2023). [22] Z. Davoudi, N. Mueller, and C. Powers, Towards quan-tum computing phase diagrams of gauge theories with thermal pure quantum states, Physical Review Letters 
+
+131 , 081901 (2023). [23] H. Wang, J. Nan, T. Zhang, X. Qiu, W. Chen, and X. Li, Kernel function based quantum algorithms for finite tem-perature quantum simulation, Physical Review B 108 ,085102 (2023). [24] Y. Ye, J. Nan, D. Chen, T. V. Zache, Q. Zhu, Y. Zhang, Y. Li, X. Chen, C. Ying, C. Zha, S. Cao, S. Li, S. Guo, H. Qian, H. Rong, Y. Wu, K. Yan, F. Su, H. Deng, Y. Xu, J. Lin, M. Gong, F. Chen, G. Wu, Y.-H. Huo, C.-Y. Lu, C.-Z. Peng, X. Zhu, X. Li, and J.-W. Pan, Algorithmic quantum simulations of quantum thermodynamics, arXiv (2025), arXiv:2511.22898 [quant-ph]. [25] N. H. Stair, R. Huang, and F. A. Evangelista, A multiref-erence quantum Krylov algorithm for strongly correlated electrons, Journal of Chemical Theory and Computation 
+
+16 , 2236 (2020). [26] K. Seki and S. Yunoki, Quantum power method by a superposition of time-evolved states, PRX Quantum 2,010333 (2021). 6
+
+[27] T. E. Baker, Lanczos recursion on a quantum computer for the green’s function and ground state, Physical Re-view A 103 , 032404 (2021). [28] J. Cohn, M. Motta, and R. M. Parrish, Quantum filter di-agonalization with compressed double-factorized hamil-tonians, PRX Quantum 2, 040352 (2021). [29] C. L. Cortes and S. K. Gray, Quantum Krylov subspace algorithms for ground- and excited-state energy estima-tion, Physical Review A 105 , 022417 (2022). [30] E. N. Epperly, L. Lin, and Y. Nakatsukasa, A theory of quantum subspace diagonalization, SIAM Journal on Matrix Analysis and Applications 43 , 1263 (2022). [31] C. L. Cortes, A. E. D. III, and S. K. Gray, Fast-forwarding quantum simulation with real-time quantum Krylov subspace algorithms, Physical Review A 106 ,042409 (2022). [32] N. H. Stair, C. L. Cortes, R. M. Parrish, J. Cohn, and M. Motta, Stochastic quantum Krylov protocol with double-factorized hamiltonians, Physical Review A 107 ,032414 (2023). [33] W. Kirby, M. Motta, and A. Mezzacapo, Exact and effi-cient Lanczos method on a quantum computer, Quantum 
+
+7, 1018 (2023). [34] Y. Shen, K. Klymko, J. Sud, D. B. Williams-Young, W. A. de Jong, and N. M. Tubman, Real-time Krylov theory for quantum computing algorithms, Quantum 7,1066 (2023). [35] M.-A. Filip, D. M. Ramo, and N. Fitzpatrick, Variational phase estimation with variational fast forwarding, Quan-tum 8, 1278 (2024). [36] N. V. Tkachenko, L. Cincio, A. I. Boldyrev, S. Tretiak, P. A. Dub, and Y. Zhang, Quantum Davidson algorithm for excited states, Quantum Science and Technology 9,035012 (2024). [37] T. E. Baker, Block Lanczos method for excited states on a quantum computer, Physical Review A 110 , 012420 (2024). [38] Z. Zhang, A. Wang, X. Xu, and Y. Li, Measurement-efficient quantum Krylov subspace diagonalisation, Quantum 8, 1438 (2024). [39] W. Kirby, Analysis of quantum Krylov algorithms with errors, Quantum 8, 1457 (2024). [40] G. Lee, D. Lee, and J. Huh, Sampling error analysis in quantum Krylov subspace diagonalization, Quantum 8,1477 (2024). [41] R. D’Cunha, C. L. Cortes, L. Gagliardi, and S. K. Gray, Fragment-based initialization for quantum sub-space methods, Physical Review A 110 , 042613 (2024). [42] G. Lee, S. Choi, J. Huh, and A. F. Izmaylov, Effi-cient strategies for reducing sampling error in quantum Krylov subspace diagonalization, Digital Discovery 4,954 (2025). [43] L. W. Anderson, M. Kiffner, T. O’Leary, J. Crain, and D. Jaksch, Solving lattice gauge theories using the quan-tum Krylov algorithm and qubitization, Quantum 9,1669 (2025). [44] O. Oumarou, P. J. Ollitrault, C. L. Cortes, M. Scheurer, R. M. Parrish, and C. Gogolin, Molecular properties from quantum Krylov subspace diagonalization, Journal of Chemical Theory and Computation 21 , 4543 (2025). [45] N. Yoshioka, M. Amico, W. Kirby, P. Jurcevic, A. Dutt, B. Fuller, S. Garion, H. Haas, I. Hamamura, A. Ivrii, R. Majumdar, Z. K. Minev, M. Motta, B. Pokharel, P. Rivero, K. Sharma, C. J. Wood, A. Javadi-Abhari, and A. Mezzacapo, Krylov diagonalization of large many-body hamiltonians on a quantum processor, Nature Com-munications 16 , 5014 (2025). [46] Y. Shen, D. Camps, A. Szasz, S. Darbha, K. Klymko, D. B. Williams-Young, N. M. Tubman, and R. V. Beeu-men, Estimating eigenenergies from quantum dynamics: A unified noise-resilient measurement-driven approach, Quantum 9, 1836 (2025). [47] N. Misciasci, R. Firt, J. E. Mueller, T. Friedhoff, C. Onah, A. Schulze, and S. Mostame, Evaluat-ing sample-based Krylov quantum diagonalization for Heisenberg models with applications to materials science, Entropy 28 , 367 (2026). [48] S. R. White and A. E. Feiguin, Real-time evolution us-ing the density matrix renormalization group, Physical Review Letters 93 , 076401 (2004). [49] E. M. Stoudenmire and S. R. White, Minimally entangled typical thermal state algorithms, New Journal of Physics 
+
+12 , 055026 (2010). [50] P. Czarnik, L. Cincio, and J. Dziarmaga, Projected en-tangled pair states at finite temperature: Imaginary time evolution with ancillas, Physical Review B 86 , 245101 (2012). [51] M. Lubasch, J. I. Cirac, and M.-C. Ba˜ nuls, Algorithms for finite projected entangled pair states, Physical Review B 90 , 064425 (2014). [52] G. Gentinetta, F. Metz, W. Kirby, and G. Carleo, Quan-tum finite temperature Lanczos method, arXiv (2026), arXiv:2603.25394 [quant-ph].
