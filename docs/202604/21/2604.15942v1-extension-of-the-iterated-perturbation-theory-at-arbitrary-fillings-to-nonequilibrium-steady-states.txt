@@ -1,0 +1,811 @@
+Title: Extension of the iterated perturbation theory at arbitrary fillings to nonequilibrium steady states
+
+URL Source: https://arxiv.org/pdf/2604.15942v1
+
+Published Time: Mon, 20 Apr 2026 00:47:02 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+## Extension of the iterated perturbation theory at arbitrary fillings to nonequilibrium steady states 
+
+Tommaso Maria Mazzocchi ∗ and Enrico Arrigoni †
+
+Institute of Theoretical and Computational Physics, Graz University of Technology, 8010 Graz, Austria 
+
+(Dated: April 20, 2026) We extend the Kajueter-Kotliar [Phys. Rev. Lett. 77, 131 (1996)] iterated perturbation the-ory (KK-IPT) away from half filling to nonequilibrium steady states. We benchmark the resulting nonequilibrium KK-IPT approach against the auxiliary master equation approach (AMEA), whose accuracy is controlled in and out of equilibrium. As expected, in equilibrium, KK-IPT reproduces the AMEA results for different fillings with high accuracy at the level of both spectral properties and electron densities. Out of equilibrium, we study quantum transport across a correlated impu-rity and compute the differential conductance and spectral functions. We find very good agreement between nonequilibrium KK-IPT and AMEA in the parameter regime where the latter is reliable, in particular at moderate temperatures and biases. These results support nonequilibrium KK-IPT as an approximate description of nonequilibrium steady states away from half filling. Although a controlled benchmark is not available in the low-temperature, low-bias regime, where AMEA be-comes less reliable, nonequilibrium KK-IPT remains numerically stable in those regions, suggesting that it may provide a useful alternative for nonequilibrium calculations in this regime. 
+
+I. INTRODUCTION 
+
+The main challenge in dynamical mean-field theory (DMFT) [1, 2] is the accurate and efficient solution of the quantum impurity problem arising from the mapping of a correlated lattice onto an effective Anderson impurity model (AIM). Within this framework, the effect of the surrounding lattice is encoded in a self-consistently deter-mined hybridization function, the calculation of which re-quires repeated solutions of the AIM and therefore consti-tutes the main computational bottleneck of the method. Indeed, the overall performance of a DMFT calculation is largely determined by the availability of a fast and reli-able impurity solver capable of handling the relevant in-teraction strengths, temperatures, and orbital complex-ities, a limitation that becomes particularly severe in nonequilibrium problems [3]. A variety of numerical techniques have been devel-oped for this purpose, including quantum Monte Carlo (QMC) [4, 5], numerical renormalization group (NRG) [6, 7], exact diagonalization (ED) [8], as well as strong-coupling [9, 10] methods, each of which provides com-plementary advantages and limitations. Continuous-time QMC solvers are numerically exact, but they may suffer from severe fermionic (dynamical) sign problems or be-come inefficient at very low temperatures or in nonequi-librium settings. In addition, the analytic continuation from imaginary to real frequencies is an ill-posed prob-lem that typically broadens spectral features, particu-larly away from the Fermi level. By contrast, NRG methods yield highly accurate spectral information at low energies and temperatures, yet their spectral resolu-tion typically deteriorates at higher energies. ED-based   
+
+> ∗mazzocchi@tugraz.at
+> †arrigoni@tugraz.at
+
+techniques work directly on the real-frequency axis and approximate the hybridization through a finite number of bath sites, at the cost of an exponential growth of the many-body Hilbert space with system size. While plain (unitary) ED has the disadvantage that it cannot address a steady state, this drawback is resolved within the auxiliary master equation approach (AMEA) [11, 12] by adopting the open quantum systems formalism [13– 16]. The inchworm extension of the QMC algorithm can mitigate the sign problem [17] and be employed to compute nonequilibrium properties of quantum systems within the Keldysh formalism [18], including direct access to steady-state properties [19, 20]. However, the treat-ment of long-time dynamics or steady-state regimes in strongly correlated impurity problems remains computa-tionally demanding. Besides extensions of NRG [21, 22] and the aforementioned AMEA, tensor-train and tensor-cross-interpolation-based approaches have lately emerged as promising impurity solvers [23, 24]. This motivates the search for computationally inexpensive impurity solvers that can capture the essential correlation effects across a wide parameter regime in nonequilibrium DMFT. This is particularly true for steady-state calculations, where numerically controlled approaches are available but are often considerably more demanding than approximate schemes. Among approximate impurity solvers, iterated pertur-bation theory (IPT) offers a useful combination of low computational cost and, in equilibrium, good agreement with exact diagonalization for both the AIM and the Hubbard model, especially at half filling [25]. Although perturbative in origin, IPT is constructed to recover both the weak-coupling and atomic limits and can therefore be viewed as an interpolation scheme between them, which helps explain its usefulness beyond the weak-coupling regime [26, 27]. While plain IPT is unreliable away from half filling, Kajueter and Kotliar [26] have intro-
+
+> arXiv:2604.15942v1 [cond-mat.str-el] 17 Apr 2026
+
+2duced a correction to the electronic self-energy (SE) that generalizes it to arbitrary fillings, see also Refs. [28–30]. This approach has been subsequently refined to capture the Fermi-liquid behavior [31], to describe multiorbital correlated materials in equilibrium [32] and to charac-terize the metal-insulator transition in the Bethe lat-tice within DMFT [33]. Extensions of IPT including higher order weak-coupling diagrams with and without self-consistency have been introduced to study nonequi-librium dynamics [34], although the extension from Ka-jeuter and Kotliar has not been implemented for the nonequilibrium case. Building on Ref. [26], we extend the Kajueter-Kotliar iterated perturbation theory (KK-IPT) impurity solver for arbitrary filling to nonequilibrium steady-state condi-tions within the Keldysh Green’s function formalism [35– 37], and benchmark the resulting nonequilibrium KK-IPT approach against AMEA. The latter provides a con-trolled reference for nonequilibrium steady-state prob-lems at arbitrary fillings. The remainder of this paper is organized as follows. In Sec. II, we briefly introduce the model at hand. In Sec. III, we present the nonequilibrium KK-IPT solver. Section IV is devoted to the discussion of the results, and Sec. V contains our concluding remarks together with a brief outlook on possible applications and extensions of the method.  
+
+> II. THE ANDERSON IMPURITY MODEL
+
+The Hamiltonian of the AIM reads ˆH = ˆHimp + ˆHbath + ˆHi-b , (1) with the impurity Hamiltonian given by ˆHimp = ϵf
+
+X
+
+> σ
+
+ˆf † 
+
+> σ
+
+ˆfσ + U ˆn↑ ˆn↓, (2) where ˆf † 
+
+> σ
+
+( ˆfσ ) creates (annihilates) an electron of spin 
+
+σ on the impurity and ˆ nσ ≡ ˆf † 
+
+> σ
+
+ˆfσ is the corresponding particle number operator. The onsite energy and onsite repulsion are denoted by ϵf and U , respectively [38]. The bath Hamiltonian is given by ˆHbath = X
+
+> λp
+
+(ϵλ − μλ) ˆ c† 
+
+> λp
+
+ˆcλp , (3) where ϵλ and μλ are the onsite energy and chemical po-tential of the lead λ = {l, r} and ˆ c† 
+
+> λp
+
+(ˆ cλp ) creates (an-nihilates) an electron with quantum number p on lead 
+
+λ. The interaction between the impurity and the leads’ degrees of freedom reads ˆHi-b = X
+
+> λpσ
+
+tλ ˆc† 
+
+> λp
+
+ˆfσ + H.c. , (4) with tλ the hopping amplitude between the leads and the impurity. The hybridization function resulting from the coupling between the impurity and the leads is given by ∆( ω) = X
+
+> λ
+
+t2
+
+> λ
+
+Lλ(ω), (5) where Lλ denotes the lead Green’s function (GF). As usual, underlined symbols denote the Keldysh structure 
+
+X(ω) = 
+
+XR(ω) XK(ω)0 XA(ω)
+
+
+
+, (6) with XR, XK and XA(=  XR†) the retarded, Keldysh and advanced components of the GF. The greater ( >)and lesser ( <) components read 
+
+X≷(ω) = XK(ω)/2 ± i Im XR(ω). (7) If not stated otherwise, the retarded component LR 
+
+> λ
+
+is chosen to be independent of the lead with Im LR(ω) = − 1 − fFD (ω + D; Tfict )fFD (ω − D; Tfict ),LK 
+
+> λ
+
+(ω) = 2 i Im LR(ω) (1 − 2fFD (ω − μλ; T )) ,
+
+(8) where D defines the half bandwidth of the leads, Tfict is a fictitious temperature that smears out the edges of the re-tarded component and fFD (ω − μ; T ) = e(ω−μ)/T + 1 −1
+
+the Fermi-Dirac distribution function. Throughout this work we use ϵλ = 0, Tfict = 1 /2 and tλ = 1 /√2. To recover the equilibrium condition it is enough to set 
+
+μl = μr = μ; in this case, μ will then be set to zero for simplicity.  
+
+> III. NONEQUILIBRIUM ITERATED PERTURBATION THEORY
+
+In this section, we briefly review KK-IPT for arbitrary fillings [26] and present its extension to nonequilibrium steady states, referred to here as nonequilibrium KK-IPT. The KK-IPT expands the electronic SE up to sec-ond order in the local interaction U by combining three Weiss-field propagators G 0. For a given hybridization function ∆, the Keldysh components of the Weiss field 
+
+G 0 read 
+
+G R0 (ω) = 1 /  ω + μ0 − ∆R(ω) ,
+
+G K0 (ω) = ∆ K(ω) | G R0 (ω) |2, (9) where μ0 is an auxiliary chemical potential to be de-termined self-consistently as it will be discussed below. Following Ref. [26], we restrict ourselves here to the paramagnetic case, n↑ = n↓ = n. The extension of nonequilibrium KK-IPT to spin-dependent cases is for-mally straightforward, following Ref. [39], but its numer-ical performance remains to be assessed and will be the subject of future work. In this manuscript, we retain the KK-IPT Ansatz for the retarded component of the SE [26]. Its extension to 3the Keldysh component is then straightforward within a steady-state Keldysh framework [35–37]. The electronic SE [26] then reads ΣR(ω) = nU +  1 − ΣR 
+
+> B
+
+(ω)−1 ΣR 
+
+> A
+
+(ω),
+
+ΣK(ω) =  1 − ΣR 
+
+> B
+
+(ω)−1 ×
+
+
+
+ΣK 
+
+> A
+
+(ω) + Σ K 
+
+> B
+
+(ω)
+
+
+
+1 − ΣR
+
+> B
+> ∗
+
+(ω)
+
+−1
+
+ΣR
+
+> A
+> ∗
+
+(ω)
+
+
+
+,
+
+(10) where we have introduced the shorthand notation ΣX 
+
+> A
+
+(ω) ≡ A ˜ΣX(ω),
+
+ΣX 
+
+> B
+
+(ω) ≡ B ˜ΣX(ω), (11) with X = {R, K} and ∗ denoting complex conjugation. The derivation of the Keldysh component of the SE in Eq. (10) can be found in Appedix A. The explicit form of the (real) coefficients A and B can be found in Ref. [26] and will be given below. It is worth noting that at half filling, for which A = 1, B = 0 and n = 1 /2, we recover the particle-hole symmetric case, i.e. ΣR(ω) = U/ 2 + ˜ΣR(ω) and Σ K(ω) = ˜ΣK(ω), in agreement with previous work [40]. The Keldysh components of the second-order diagram ˜ΣR/K read Im ˜ΣR(ω) = 12 i 
+
+ ˜Σ>(ω) − ˜Σ<(ω)
+
+
+
+,
+
+˜ΣK(ω) = ˜Σ>(ω) + ˜Σ<(ω).
+
+(12) The greater and lesser components in (12) are given by ˜Σ≷(ω) = U 2
+
+Z dω2
+
+2π I≷(ω + ω2)G ≶ 
+
+> 0
+
+(ω2), (13) where 
+
+I≷(ω + ω2) ≡
+
+Z dω1
+
+2π G ≷ 
+
+> 0
+
+(ω + ω2 − ω1)G ≷ 
+
+> 0
+
+(ω1). (14) As usual, the real part of the retarded SE in (12) can be computed via the Kramers-Kronig relation Re ˜ΣR(ω) = 1
+
+π
+
+Z
+
+dω′ Im ˜ΣR(ω)
+
+ω′ − ω . (15) The coefficients A and B in Eq. (11) are given by [26] 
+
+A = n (1 − n)
+
+n0 (1 − n0) ,B = (1 − n) U + ϵf + μ0
+
+n0 (1 − n0) U 2 ,
+
+(16) where the particle number n is obtained by 
+
+n = − i
+
+Z dω
+
+2π G<(ω), (17) and G<(ω) is computed as in Eq. (7) from the retarded and Keldysh components of the impurity GF 
+
+GR(ω) = 1
+
+G R0 (ω)−1 − μ0 − ϵf − ΣR(ω) ,GK(ω) = 
+
+ G K0 (ω)
+
+| G R0 (ω) |2 + Σ K(ω)
+
+
+
+| GR(ω) |2 .
+
+(18) The quantity n0 in Eqs. (16) is the particle number den-sity calculated from the Weiss field, 
+
+n0 = − i
+
+Z dω
+
+2π G < 
+
+> 0
+
+(ω). (19) We stress that the occupations (17) and (19) are calcu-lated without explicit use of the Fermi-Dirac distribution and thus are valid also in nonequilibrium conditions. The algorithm employed in this work is based on the so-called IPT-n0 approximation [32, 39], in which the oc-cupation of the Weiss field is constrained to equal that of the impurity. Despite its simplicity, this scheme performs well in equilibrium [39]. By contrast, other schemes, such as those enforcing the Luttinger theorem, are known to be less accurate as they fail to reproduce higher-order moments; see, e.g., the discussion in Ref. [39]. The workflow is as follows. For a given hybridization function ∆( ω), we start from an initial guess ( ntrial , μ trial  
+
+> 0
+
+)and compute the Weiss field, the SE, and the impurity GF according to Eqs. (9), (10), and (18), respectively. We then determine the self-consistent solution ( n, μ 0) by solving the two equations 
+
+f1 [ntrial , μ trial  
+
+> 0
+
+] ≡ ntrial + i 
+
+Z dω
+
+2π G<(ω) = 0 and 
+
+f2 [ntrial , μ trial  
+
+> 0
+
+] ≡ ntrial + i 
+
+Z dω
+
+2π G < 
+
+> 0
+
+(ω) = 0 iteratively [41]. As already reported in Ref. [26], conver-gence is typically achieved within 10 iterations. 
+
+IV. RESULTS A. Equilibrium benchmarks 
+
+To start our analysis, we focus on equilibrium con-ditions and investigate the AIM in two different setups 
+
+Setup U ϵf T D μ
+
+E1 5.5 -3 0.05 10 0E2 5.5 0 0.05 10 0TABLE I. The parameters for the two equilibrium setups dis-cussed in the main text. The half-bandwidth of Im∆ R(ω)is denoted by D. All parameters are given in units of Γ ≡ − Im∆ R(ω = 0). 40.0                
+
+> 0.1
+> 0.2
+> 0.3 (a)
+> A(ω)/Γ−1
+> (b)
+> −15 −10 −50510 15
+> -2.0
+> -1.0
+> 0.0
+> 1.0
+> 2.0
+> (c)
+> ω/ Γ
+> Im GK(ω)/Γ−1
+> −15 −10 −50510 15
+> (d)
+> ω/ Γ
+> f/ΓAMEA IPT
+> -3.0
+> 0.0
+
+FIG. 1. Spectral functions for equilibrium setup (a) E1 (ϵf = −3Γ) and (b) E2 ( ϵf = 0) obtained with AMEA and KK-IPT. (c) and (d) show the imaginary parts of the Keldysh components of the GF corresponding to (a) and (b), respec-tively. The occupations for setup E1 are nIPT = 0 .5175 and 
+
+nAMEA = 0 .5137 while for E2 nIPT = 0 .2584 and nAMEA =0.2626. All relevant parameters can be found in Table I. For simplicity, the label KK-IPT has been shortened to IPT. 
+
+described by the parameters in Table I. Setup E1 corre-sponds to an impurity slightly more than half-filled while in E2 the impurity is roughly at quarter filling. As ex-pected from [26], the KK-IPT solver should provide ac-curate results for the present equilibrium case. And in fact, both setups show a nice agreement between results obtained by AMEA and KK-IPT, see Fig. 1. In partic-ular, being close to half filling, the spectral function of setup E1 [Fig. 1(a)] still displays clearly visible lower and upper bands and the quasi-particle peak (QPP) at ω ≈ 0. On the other hand, the spectra in setup E2 [Fig. 1(b)] show a merge of the QPP with the lower band and a weak shoulder at ω ≈ 8Γ corresponding to the upper band with both methods. The Keldysh component of the impurity GF corresponding to (a) and (b) is shown in Fig. 1(c) and (d), respectively. Reproducing GK accurately is crucial to obtain the correct densities, as these are calculated from the lesser GF, see Eq. (17). The exact values of the occupations for both methods are given in the caption of Fig. 1. To verify that the Ansatz (10) performs as intended, Fig. 2(a)-(d) shows the imaginary parts of the retarded and Keldysh components of the SEs correspond-ing to the spectra in the respective panels of Fig. 1. In light of the good agreement between the GFs produced by the two approaches, it is therefore unsurprising that the KK-IPT SE profiles qualitatively resemble those ob-tained with the AMEA impurity solver, particularly in the energy window around the chemical potential μ = 0. It should be noted, however, that the finite resolution of AMEA can introduce spurious features, since the aux-iliary hybridization function ∆ aux cannot reproduce the physical ∆ exactly [42]. As a consequence, the general-ized distribution function FΣ ≡ 1 − ImΣ K/2ImΣ R /2of the SE obtained within AMEA may deviate from the Fermi-Dirac form even in equilibrium, as seen in the in-sets of Fig. 2(a) and (b). By contrast, because KK-IPT uses the physical ∆, it reproduces the Fermi-Dirac distri-bution exactly; see again the insets of Fig. 2(a) and (b). We also note that the generalized distributions for the GF and the SE, F ≡ 1 − Im GK/2Im GR /2 and FΣ, within AMEA may differ. This can be understood from the fact that the electronic SE is obtained as Σ = G−10 − G−1,where G0 is known exactly whereas G is approximate. This issue has already been noted in the literature, see, e.g., Ref. [43], and can lead to more pronounced artefacts in the SE than in the GF. 
+
+B. Nonequilibrium steady state 
+
+In this section we consider electron transport across a correlated impurity between two non-interacting reser-voirs under a finite bias voltage. In particular, we 0.0                    
+
+> 1.0
+> 2.0
+> 3.0
+> 4.0 (a)
+> −Im ΣR(ω)/Γ
+> (b)
+> −15 −10 −50510 15
+> -5.0
+> -2.5
+> 0.0
+> 2.5
+> 5.0
+> (c)
+> ω/ Γ
+> Im ΣK(ω)/Γ
+> −15 −10 −50510 15
+> (d)
+> ω/ Γ
+> −1.00.01.0
+> 0.0
+> 0.5
+> 1.0
+> FΣ(ω) fFD
+> −1.00.01.0
+> 0.0
+> 0.5
+> 1.0
+> FΣ(ω) fFD
+> f/ΓAMEA IPT
+> -3.0
+> 0.0
+
+FIG. 2. Imaginary part of the retarded SE profiles for the equilibrium setups (a) E1 and (b) E2 obtained with AMEA and KK-IPT. The insets show the generalized distribution function of the SE, FΣ, obtained with the two methods and how it compares to the Fermi-Dirac distribution function fFD 
+
+with the same color code as in the main panels. (c) and (d) show the imaginary part of the Keldysh component of the SE corresponding to (a) and (b), respectively. All relevant parameters can be found in Table I. For simplicity, the label KK-IPT has been shortened to IPT. 5compare the differential conductance as obtained with AMEA and nonequilibrium KK-IPT. The current across the impurity is given by the Meir-Wingreen formula [44] 
+
+J(Φ , T ) = Re 
+
+Z dω
+
+2π J(ω; Φ , T ), (20) where the integrand reads [45] 
+
+J(ω; Φ , T ) = GR(ω; Φ; T )  ΣKl (ω; Φ , T ) − ΣKr (ω; Φ , T )
+
++ GK(ω; Φ , T )
+
+
+
+ΣR,∗ 
+
+> l
+
+(ω) − ΣR,∗ 
+
+> r
+
+(ω)
+
+
+
+.
+
+(21) In Eq. (21) we have defined Σ R/K  
+
+> λ
+
+≡ t2
+
+> λ
+
+LR/K  
+
+> λ
+
+and made the dependence on Φ and T explicit. By exploiting the fact that the leads have the same density of states (see Eq. (8)) in (21), Eq. (20) can be simplified to 
+
+J(Φ , T ) = −
+
+Z
+
+dωA (ω; Φ , T )Im∆ R(ω)
+
+×  fFD (ω − μl; T ) − fFD (ω − μr; T ),
+
+(22) where we have used the definition of the spectral function 
+
+A(ω) ≡ − Im GR(ω)/π. (23) The leads’ chemical potentials are shifted symmetrically in opposite directions by the application of the voltage bias, i.e. μl/r = μ ± Φ/2. The nonequilibrium conduc-tance is then defined as 
+
+G(Φ , T ) = ∂J (Φ , T )
+
+∂Φ . (24) We compute numerically the nonequilibrium conduc-tance (24) for selected interaction strengths U and tem-peratures T away from half filling. The temperatures used in our simulations are chosen as TK/4 and 2 TK,where TK denotes the Kondo temperature of the corre-sponding half-filled impurity at the same U studied in Ref. [12]. We note, however, that away from half fill-ing the impurity occupancy changes, and thus the asso-ciated Kondo temperatures differ from those previously extracted in Ref. [12] from NRG calculations. We never-theless use those values of TK only as a reference scale to distinguish between low- and high-temperature regimes. As already observed in Ref. [12] at low temperatures (T = TK/4), the conductance curves obtained with AMEA are reliable only down to moderately small volt-ages Φ. For both fillings investigated in this work, the corresponding low-voltage region in which AMEA becomes unreliable grows with increasing Hubbard in-teraction U , reflecting the progressively smaller low-temperature scale; see Fig. 3(a), (c), and (e). This be-havior can be traced back to the AMEA fitting proce-dure, the quality of which deteriorates at lower temper-atures and in the presence of more intricate features of the hybridization function, such as those arising at fi-nite but very small bias, where the Keldysh component 0.0                    
+
+> 0.1
+> 0.2
+> 0.3
+> (a)
+> G [e2/h ]
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> (b)
+> U/ Γ = 4 ,T / Γ = 0 .94
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> (c)
+> G [e2/h ]
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> (d) U/ Γ = 6 ,T / Γ = 0 .42
+> 10 −210 −110 010 1
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> (e)
+> Φ/Γ
+> G [e2/h ]
+> 10 −210 −110 010 1
+> 0.0
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> (f ) U/ Γ = 8 ,T / Γ = 0 .2
+> Φ/Γ
+> 10 −210 −110 010 1
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> f/ΓAMEA IPT
+> −2.25
+> 0.00
+> U/ Γ = 4
+> T / Γ = 0 .1175
+> U/ Γ = 6
+> T / Γ = 0 .0525
+> U/ Γ = 8
+> T / Γ = 0 .025
+> f/ΓAMEA IPT
+> −3.25
+> 0.00
+> f/ΓAMEA IPT
+> −4.25
+> 0.00
+
+FIG. 3. Nonequilibrium differential conductance, Eq. (24), as function of the bias Φ for selected onsite energies ϵf ob-tained with AMEA and nonequilibrium KK-IPT. The up-per, central, and lower rows correspond to U = 4Γ, 6Γ, and 8Γ, respectively. [(a), (b)], [(c), (d)], and [(e), (f)] show 
+
+T / Γ = {0.1175 , 0.94 }, {0.0525 , 0.42 }, and {0.025 , 0.2}, re-spectively. The inset in (b) shows the case corresponding to 
+
+ϵf = 0 alone while the shaded areas denote the voltage regions where G computed with AMEA is not reliable, see main text for the details. The voltage has been sampled according to Φn = Φ 010 n/ 150 with n ∈ { 0, 1, 2, . . . , 150 } and Φ 0 = 0 .01Γ. For simplicity, the label KK-IPT has been shortened to IPT. (Here D = 10Γ.) 
+
+develops a closely spaced double-step structure. By con-trast, nonequilibrium KK-IPT computes the SE from the physical hybridization function and therefore does not suffer from this fitting-related limitation. Consequently, it exhibits substantially fewer oscillations at small volt-ages and low temperatures, resulting in smoother con-ductance profiles for both fillings and every interaction strength considered here; see again Fig. 3(a), (c), and (e). Beyond these technical aspects, we emphasize the close agreement between the conductance curves ob-tained with AMEA and IPT, which remain in good qual-itative and quantitative agreement throughout the volt-age range where the AMEA results are reliable especially for small to intermediate values of the interaction U .60.00                   
+
+> 0.10
+> 0.20
+> 0.30
+> 0.40
+> 0.50
+> Φ
+> (a) / Γ = −2.25
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> A(ω)/Γ−1
+> Φ
+> (b) / Γ = 0
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> 0.00
+> 0.10
+> 0.20
+> 0.30
+> 0.40
+> 0.50
+> Φ
+> (c) / Γ = −3.25
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> A(ω)/Γ−1
+> Φ
+> (d) / Γ = 0
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> −10 −50510
+> 0.00
+> 0.10
+> 0.20
+> 0.30
+> 0.40
+> 0.50
+> Φ
+> (e) / Γ = −4.25
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> ω/ Γ
+> A(ω)/Γ−1
+> −10 −50510 15
+> Φ
+> (f ) / Γ = 0
+> 10 1
+> 10 0
+> 10 −1
+> 10 −2
+> ω/ Γ
+
+FIG. 4. Nonequilibrium spectral function A(ω; Φ , T )[Eq. (23)] for selected onsite energies ϵf and bias voltages Φ, obtained with AMEA (solid lines) and nonequilibrium KK-IPT (dashed lines). Panels (a) and (b) show results at U = 4Γ and T = 0 .1175Γ. Panels (c) and (d) show results for U = 6Γ and T = 0 .0525Γ. Panels (e) and (f) show results for U = 8Γ and T = 0 .025Γ. Higher-temperature cases are not shown be-cause thermal effects smear out the spectral features. Spec-tral functions corresponding to the increasing values of Φ have been shifted upward by a constant amount for better visual-ization. For simplicity, the label KK-IPT has been shortened to IPT. (Here D = 10Γ.) 
+
+At larger temperatures ( T = 2 TK), the conductance curves obtained with AMEA remain reliable down to lower bias voltages Φ for small ( U = 4Γ) and interme-diate ( U = 6Γ) interaction strengths than in the cor-responding low-temperature regime; see Fig. 3(b) and (d). Only for the largest interaction considered, U = 8Γ, do the AMEA results become more unstable, as seen in Fig. 3(f). Still, over the voltage range in which the AMEA results are reliable, nonequilibrium KK-IPT once again shows good qualitative and quantitative agreement with AMEA, in particular for small to intermediate val-ues of U .We conclude by discussing the nonequilibrium spec-tral features at low temperature, T = TK/4, for selected values of the bias voltage which provide complementary information on the performance of nonequilibrium KK-IPT. The spectra for T = 2 TK are not shown, because fine features are easily washed away by thermal broad-ening effects. For fillings slightly above 1 /2 per spin, see the panels on left-hand side of Fig. 4, the low-bias spectrum exhibits a three-peak structure, similar to the corresponding equilibrium one, consisting of lower and upper bands separated by approximately U and a Kondo resonance at ω ≈ 0. For U = 6Γ and 8Γ, this struc-ture is clearly resolved, whereas for U = 4Γ the bands appear only as shoulders of the central Kondo peak; see Fig. 4(a), (c), and (e). As the interaction strength U is increased, the Kondo resonance at ω ≈ 0 shows a clear tendency to split at progressively lower bias voltages Φ; see again Fig. 4(a), (c), and (e). This behavior reflects the fact that larger values of U require lower temperatures to resolve a suffi-ciently sharp Kondo peak, which is in turn more suscep-tible to suppression by an applied bias voltage; see, e.g., Ref. [12]. Overall, the spectra obtained with nonequi-librium KK-IPT are in very good agreement with those obtained with AMEA for all interaction strengths U con-sidered in this work, at this filling. However, for U = 6Γ and 8Γ, the Kondo peak obtained with IPT is notice-ably more pronounced than in AMEA at Φ = 0 .1Γ; see Fig. 4(c) and (e). This discrepancy may be related to the aforementioned limitations of AMEA at low bias, since the agreement improves again as the voltage is increased. For fillings well away from 1 /2, see the panels on the right-hand side of Fig. 4, the agreement between nonequi-librium KK-IPT and AMEA at low bias remains good for small and intermediate values of U ; see Fig. 4(b) and (d). In this regime, nonequilibrium KK-IPT satisfactorily re-produces both the low-energy peak, which results from the merging of the Kondo resonance with the lower band, and the upper band, which appears as a shoulder at an energy roughly U above the first peak. For larger values of U , however, nonequilibrium KK-IPT underestimates the amplitude of the upper band, tending to smear it out and to transfer part of the spectral weight to higher ener-gies; see Fig. 4(f). As the bias Φ is further increased, the low-energy peak develops a pronounced transfer of spec-tral weight toward higher energies, which is well captured by nonequilibrium KK-IPT. This effect becomes more marked with increasing U . As a result, the upper band appears to merge progressively with the high-energy tail of the low-energy peak; see again Fig. 4(b), (d), and (f). We refer to Appendix B for the comparison of the particle number density and double occupancy between AMEA and KK-IPT for the nonequilibrium cases. 
+
+V. CONCLUSIONS 
+
+In this work, we extend the Ansatz for the electronic self-energy (SE) proposed by Kajeuter and Kotliar within the iterated perturbation theory (KK-IPT), see Ref. [26], to build an approximate nonequilibrium single-impurity 7solver that works beyond half filling. We then apply the resulting nonequilibrium KK-IPT to the Anderson impurity problem under the influence of a bias voltage. As a first validation step, we benchmark the method in equilibrium for two representative setups, corresponding to an impurity slightly above half filling and to roughly quarter filling. In both cases, the KK-IPT reproduces the results obtained with the auxiliary master equation ap-proach (AMEA) accurately at the level of both the spec-tral function and the Keldysh component of the Green’s function, and therefore also yields the correct impurity occupations. In addition, the retarded and Keldysh components of the KK-IPT SE closely follow the corre-sponding AMEA results, especially in the energy window around the chemical potential. While the finite resolu-tion of AMEA may induce spurious effects and deviations from the exact Fermi-Dirac expression in the generalized distribution function of the SE, KK-IPT, which is for-mulated directly in terms of the physical hybridization function, reproduces the equilibrium distribution exactly. Building on this equilibrium benchmark, we then apply the nonequilibrium KK-IPT impurity solver to nonequi-librium steady-state transport across a correlated impu-rity away from half filling and analyze the differential conductance for different interaction strengths, temper-atures, and fillings. Over the voltage range in which the AMEA results are reliable, nonequilibrium KK-IPT shows good qualitative and quantitative agreement with AMEA, reproducing the main transport features across the parameter regime studied here. This agreement is further supported by the nonequilibrium spectral func-tions at low temperature, which provide complementary information on the performance of the method. Near half filling and for low bias voltages nonequilibrium KK-IPT reproduces the characteristic three-peak structure consisting of lower and upper bands and a low-energy Kondo resonance, as well as its evolution under increas-ing bias. Moving away from near half filling, nonequi-librium KK-IPT also captures the bias-induced redistri-bution of spectral weight toward higher energies and the corresponding progressive loss of separation between the low-energy peak and the upper band, although for larger interaction strengths it tends to underestimate the weight of the latter at low biases. This overall agreement is particularly notable given the approximate character of nonequilibrium KK-IPT compared to the numerical ef-fort required by AMEA. At the same time, the compari-son highlights an important practical difference between the two approaches. In the low-bias, low-temperature regime, the relevant low-energy features become increas-ingly difficult to resolve within AMEA, whereas nonequi-librium KK-IPT remains numerically stable and the con-ductance then displays substantially smoother behavior. Although a controlled benchmark is not available in that regime, this indicates that this nonequilibrium KK-IPT may provide a fast alternative for nonequilibrium steady-state calculations away from half filling, in particular at low temperatures and biases, in the paramagnetic regime. Overall, our results identify nonequilibrium KK-IPT as a computationally inexpensive impurity solver for the equilibrium and nonequilibrium steady-state problems studied here at arbitrary filling, and motivate further applications to other observables and correlated systems and, especially within dynamical mean-field theory. We stress, however, that the present nonequilibrium con-struction may not be unique. In equilibrium, for instance, several variants of IPT have been considered, includ-ing the IPT-n0 approximation and schemes enforcing the Friedel sum rule. Since no direct nonequilibrium coun-terpart of the Friedel sum rule is available, we adopted here the simplest possible extension, namely a nonequi-librium generalization of IPT-n0. The results obtained in this work show that this choice is viable and performs satisfactorily for the cases considered. Nevertheless, a broader assessment is required to determine its range of applicability, in particular in more challenging situations such as structured or gapped hybridization functions or non-equivalent spin species, and to clarify whether alter-native nonequilibrium KK-IPT constructions may offer additional advantages. Work in this direction is currently underway. 
+
+> Appendix A: Derivation of the Keldysh component of the electronic self-energy
+
+In this appendix we derive the Keldysh component of the electronic self-energy in Eq. (10). For objects with the Keldysh structure defined in Eq. (6), the ordering of factors matters. One may therefore wonder whether the two orderings Σ(1) = Σ A (1 − ΣB)−1 ,
+
+Σ(2) = (1 − ΣB)−1 ΣA, (A1) lead to different Keldysh components. Here and in the following, we suppress the frequency argument for nota-tional simplicity. For two generic Keldysh objects X and Y , the multi-plication rule reads (XY )K = XRY K + XKY A. (A2) Hence, the order of the factors in Eq. (A1) is in principle relevant. We also recall that the Keldysh component of the inverse is 
+
+ X−1K = −  X−1R XK  X−1A , (A3) with  X−1R/A =  XR/A −1. Extracting the Keldysh components of the two expressions in Eq. (A1), and using Eqs. (A2) and (A3), we obtain Σ(1) K =
+
+h
+
+ΣK 
+
+> A
+
++ Σ R
+
+> A
+
+ 1 − ΣR
+
+> B
+
+−1 ΣK
+
+> B
+
+i  1 − ΣA
+
+> B
+
+−1 ,
+
+Σ(2) K =  1 − ΣR
+
+> B
+
+−1 h
+
+ΣK 
+
+> A
+
++ Σ K
+
+> B
+
+ 1 − ΣA
+
+> B
+
+−1 ΣA
+
+> A
+
+i
+
+.
+
+(A4) 8The second line of Eq. (A4) is the expression used in Eq. (10). At first sight, the two expressions in Eq. (A4) need not coincide. We now show that since Σ A and Σ B are pro-portional, see Eq. (11), they are in fact identical. Using the definitions in Eq. (11), the first line of Eq. (A4) can be rewritten as Σ(1) K = A
+
+
+
+1 + B ˜ΣR 
+
+1 − B ˜ΣR−1
+
+˜ΣK 
+
+1 − B ˜ΣA−1
+
+.
+
+(A5) Using the identity 1 + B ˜ΣR 
+
+1 − B ˜ΣR−1
+
+=
+
+
+
+1 − B ˜ΣR−1
+
+,
+
+we obtain Σ(1) K = A
+
+
+
+1 − B ˜ΣR−1 ˜ΣK 
+
+1 − B ˜ΣA−1
+
+. (A6) Similarly, the second line of Eq. (A4) becomes Σ(2) K = A
+
+
+
+1 − B ˜ΣR−1 ˜ΣK
+
+
+
+1 + 
+
+
+
+1 − B ˜ΣA−1
+
+B ˜ΣA
+
+
+
+.
+
+(A7) Employing the identity 1 + 
+
+
+
+1 − B ˜ΣA−1
+
+B ˜ΣA =
+
+
+
+1 − B ˜ΣA−1
+
+,
+
+we find Σ(2) K = A
+
+
+
+1 − B ˜ΣR−1 ˜ΣK 
+
+1 − B ˜ΣA−1
+
+. (A8) Equations (A6) and (A8) are therefore identical, showing that the Keldysh component is uniquely defined in the case in which Σ A and Σ B are proportional. For the scalar complex-valued functions considered in this work, Eq. (A6) reduces to ΣK = A ˜ΣK
+
+1 − B ˜ΣR 2 . (A9) Since the Keldysh component is anti-Hermitian, ˜ΣK is purely imaginary in the scalar case, and therefore so is ΣK.The form in Eq. (A6) also remains valid for matrix-valued quantities, for instance in orbital space. In that case, however, anti-Hermiticity implies 
+
+ ΣK† = −ΣK,
+
+where the bold letters denote matrices, rather than ele-mentwise pure imaginary character. 
+
+Appendix B: Occupations 
+
+In this work, we use the approximation proposed in Ref. [32] to estimate the double occupancy 
+
+nd = − 1
+
+πU 
+
+Z
+
+dω F (ω)Im ΣR(ω)GR(ω) , (B1) 0.2             
+
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> (a)
+> T / Γ = 0 .1175
+> n
+> (b)
+> T / Γ = 0 .94
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> (c) T / Γ = 0 .0525
+> n
+> (d) T / Γ = 0 .42
+> 10 −210 −110 010 1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> (e) T / Γ = 0 .025
+> Φ/Γ
+> n
+> 10 −210 −110 010 1
+> (f ) T / Γ = 0 .2
+> Φ/Γ
+> f/ΓAMEA IPT
+> −2.25
+> 0.00
+> f/ΓAMEA IPT
+> −3.25
+> 0.00
+> f/ΓAMEA IPT
+> −4.25
+> 0.00
+
+FIG. 5. Particle number, see Eq. (17), as function of the bias Φ for the setups discussed in Fig. 3. The upper row shows the results for U = 4Γ, the central row for U = 6Γ and the lower one for U = 8Γ. Temperatures and onsite energies are reported on the plots. For simplicity, the label KK-IPT has been shortened to IPT. 
+
+where F (ω) ≡ 1 − Im GK(ω)/2Im GR(ω) /2 is the gen-eralized distribution function of the GF [46]. In order to complete our analysis of the nonequilib-rium setups discussed in Sec. IV B, we present here the impurity occupation and double occupancy as functions of the applied bias voltage for the interaction strengths and temperatures considered in Fig. 3. Figure 5 shows the impurity occupation for U = 4Γ in panels (a) and (b), for U = 6Γ in panels (c) and (d), and for U = 8Γ in panels (e) and (f). As in Fig. 3, the left panels cor-respond to low temperature, while the right panels show the high-temperature results. For the weakest interac-tion, U = 4Γ, shown in Fig. 5(a) and (b), the agree-ment between nonequilibrium KK-IPT and AMEA is very good for all onsite energies, and is particularly good at high temperature. For intermediate and strong inter-actions, U = 6Γ and U = 8Γ, the agreement becomes less accurate, especially at large bias voltages. In all cases, the largest deviations between the two methods occur 90.0             
+
+> 0.1
+> 0.2
+> 0.3
+> (a)
+> T / Γ = 0 .1175
+> nd
+> (b) T / Γ = 0 .94
+> 0.0
+> 0.1
+> 0.2
+> (c)
+> T / Γ = 0 .0525
+> nd
+> (d)
+> T / Γ = 0 .42
+> 10 −210 −110 010 1
+> 0.0
+> 0.1
+> 0.2
+> (e)
+> T / Γ = 0 .025
+> Φ/Γ
+> nd
+> 10 −210 −110 010 1
+> (f )
+> T / Γ = 0 .2
+> Φ/Γ
+> f/ΓAMEA IPT
+> −2.25
+> 0.00
+> f/ΓAMEA IPT
+> −3.25
+> 0.00
+> f/ΓAMEA IPT
+> −4.25
+> 0.00
+
+FIG. 6. Double occupancy, see Eq. (B1), as function of the bias Φ for the setups discussed in Fig. 3. The upper row shows the results for U = 4Γ, the central row for U = 6Γ and the lower one for U = 8Γ. Temperatures and onsite energies are reported on the plots. For simplicity, the label KK-IPT has been shortened to IPT. 
+
+for the parameter set furthest from half filling, most no-tably at intermediate and strong coupling, see Fig. 5(c)-(f). A common trend in all setups is that, at large bias voltage Φ, the occupation of the case furthest from half filling increases, whereas the one closer to half filling re-mains approximately constant. The double occupancy exhibits a very similar behavior, see Fig. 6. In particular, even though the expression for nd in Eq. (B1) is approx-imate, the agreement between nonequilibrium KK-IPT and AMEA is quite good overall for U = 4Γ, see Fig. 6(a) and (b), while it worsens very quickly with larger values of the interaction U and especially at low temperature, as seen in Fig. 6(c)-(f). In contrast to the particle number shown in Fig. 5, the double occupancy shows a tendency to increase for large values of the applied bias Φ in both approaches, which notably corresponds with the region where the discrepancies between the two methods are the smallest. 
+
+ACKNOWLEDGMENTS 
+
+This research was funded by the Austrian Science Fund (FWF) [Grant DOI:10.55776/P33165], and by NaWi Graz. For the purpose of open access, the author has applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submis-sion. Results have been obtained using the A-Cluster at TU Graz as well as the Austrian Scientific Computing (ASC) infrastructure. 
+
+DATA AVAILABILITY 
+
+The data that support the findings of this study will be openly available in the TU Graz Repository upon publi-cation of this manuscript. 
+
+[1] A. Georges and G. Kotliar, Hubbard model in infinite dimensions, Phys. Rev. B 45 , 6479 (1992). [2] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions, Rev. Mod. Phys. 68 , 13 (1996). [3] H. Aoki, N. Tsuji, M. Eckstein, M. Kollar, T. Oka, and P. Werner, Nonequilibrium dynamical mean-field theory and its applications, Rev. Mod. Phys. 86 , 779 (2014). [4] E. Gull, A. J. Millis, A. I. Lichtenstein, A. N. Rubtsov, M. Troyer, and P. Werner, Continuous-time monte carlo methods for quantum impurity models, Rev. Mod. Phys. 
+
+83 , 349 (2011). [5] P. Werner, A. Comanac, L. de’ Medici, M. Troyer, and A. J. Millis, Continuous-time solver for quantum impu-rity models, Phys. Rev. Lett. 97 , 076405 (2006). [6] K. G. Wilson, The renormalization group: Critical phe-nomena and the kondo problem, Rev. Mod. Phys. 47 ,773 (1975). [7] R. Bulla, T. A. Costi, and T. Pruschke, Numerical renor-malization group method for quantum impurity systems, Rev. Mod. Phys. 80 , 395 (2008). [8] M. Caffarel and W. Krauth, Exact diagonalization ap-proach to correlated fermions in infinite dimensions: Mott transition and superconductivity, Phys. Rev. Lett. 
+
+72 , 1545 (1994). [9] H. Keiter and J. C. Kimball, Perturbation technique for the anderson hamiltonian, Phys. Rev. Lett. 25 , 672 (1970). [10] M. Eckstein and P. Werner, Nonequilibrium dynamical mean-field calculations based on the noncrossing approx-imation and its generalizations, Phys. Rev. B 82 , 115115 (2010). [11] A. Dorda, M. Nuss, W. von der Linden, and E. Arrigoni, Auxiliary master equation approach to non – equilibrium correlated impurities, Phys. Rev. B 89 , 165105 (2014). 10 
+
+[12] D. Werner, J. Lotze, and E. Arrigoni, Configuration interaction based nonequilibrium steady state impurity solver, Phys. Rev. B 107 , 075119 (2023). [13] T. M. Mazzocchi, P. Gazzaneo, J. Lotze, and E. Arrigoni, Correlated mott insulators in strong electric fields: Role of phonons in heat dissipation, Phys. Rev. B 106 , 125123 (2022). [14] P. Gazzaneo, T. M. Mazzocchi, J. Lotze, and E. Arrigoni, Impact ionization processes in a photodriven mott insu-lator: Influence of phononic dissipation, Phys. Rev. B 
+
+106 , 195140 (2022). [15] T. M. Mazzocchi, D. Werner, P. Gazzaneo, and E. Ar-rigoni, Correlated mott insulators in a strong electric field: The effects of phonon renormalization, Phys. Rev. B 107 , 155103 (2023). [16] T. M. Mazzocchi, D. Werner, M. Aichhorn, and E. Ar-rigoni, Mixed-configuration approximation for multior-bital systems out of equilibrium, Phys. Rev. B 112 ,155127 (2025). [17] G. Cohen, E. Gull, D. R. Reichman, and A. J. Millis, Taming the dynamical sign problem in real-time evolu-tion of quantum many-body problems, Phys. Rev. Lett. 
+
+115 , 266802 (2015). [18] A. E. Antipov, Q. Dong, J. Kleinhenz, G. Cohen, and E. Gull, Currents and green’s functions of impurities out of equilibrium: Results from inchworm quantum monte carlo, Phys. Rev. B 95 , 085144 (2017). [19] A. Erpenbeck, E. Gull, and G. Cohen, Quantum monte carlo method in the steady state, Phys. Rev. Lett. 130 ,186301 (2023). [20] A. Erpenbeck, T. Blommel, L. Zhang, W.-T. Lin, G. Co-hen, and E. Gull, Steady-state properties of multi-orbital systems using quantum monte carlo, The Journal of Chemical Physics 161 , 094104 (2024). [21] F. B. Anders, Steady-state currents through nanodevices: A scattering-states numerical renormalization-group ap-proach to open quantum systems, Phys. Rev. Lett. 101 ,066804 (2008). [22] J. E. Han, Nonequilibrium statistics of biased kondo res-onance (2025), arXiv:2503.14400. [23] Y. N´ u˜ nez Fern´ andez, M. Jeannin, P. T. Dumitrescu, T. Kloss, J. Kaye, O. Parcollet, and X. Waintal, Learning feynman diagrams with tensor trains, Phys. Rev. X 12 ,041018 (2022). [24] A. J. Kim and P. Werner, Strong coupling impurity solver based on quantics tensor cross interpolation, Phys. Rev. B 111 , 125120 (2025). [25] A. Georges and W. Krauth, Physical properties of the half-filled hubbard model in infinite dimensions, Phys. Rev. B 48 , 7167 (1993). [26] H. Kajueter and G. Kotliar, New iterative perturbation scheme for lattice models with arbitrary filling, Phys. Rev. Lett. 77 , 131 (1996). [27] W.-R. Lee and K. Park, Dielectric breakdown via emer-gent nonequilibrium steady states of the electric-field-driven mott insulator, Phys. Rev. B 89 , 205126 (2014). [28] A. Martin-Rodero, F. Flores, M. Baldo, and R. Pucci, A new solution to the anderson-newns hamiltonian of chemisorption, Solid State Communications 44 , 911 (1982). [29] A. Mart´ ın-Rodero, E. Louis, F. Flores, and C. Tejedor, Interpolative solution for the periodic anderson model of mixed-valence compounds, Phys. Rev. B 33 , 1814 (1986). [30] M. Potthoff, T. Wegner, and W. Nolting, Interpolating self-energy of the infinite-dimensional hubbard model: Modifying the iterative perturbation theory, Phys. Rev. B 55 , 16132 (1997). [31] L.-F. m. c. Arsenault, P. S´ emon, and A.-M. S. Tremblay, Benchmark of a modified iterated perturbation theory approach on the fcc lattice at strong coupling, Phys. Rev. B 86 , 085133 (2012). [32] Dasari, Nagamalleswararao, Mondal, Wasim Raja, Zhang, Peng, Moreno, Juana, Jarrell, Mark, and Vid-hyadhiraja, N. S., A multi-orbital iterated perturbation theory for model hamiltonians and real material-specific calculations of correlated systems, Eur. Phys. J. B 89 ,202 (2016). [33] E. G. C. P. van Loon, Two-particle correlations and the metal-insulator transition: Iterated perturbation theory revisited, Phys. Rev. B 105 , 245104 (2022). [34] N. Tsuji and P. Werner, Nonequilibrium dynamical mean-field theory based on weak-coupling perturbation expansions: Application to dynamical symmetry break-ing in the hubbard model, Phys. Rev. B 88 , 165115 (2013). [35] J. Schwinger, Brownian motion of a quantum oscillator, J. Math. Phys. 2, 407 (1961). [36] L. V. Keldysh, Diagram technique for nonequilibrium processes, Sov. Phys. JETP 20 , 1018 (1965). [37] H. Haug and A.-P. Jauho, Quantum Kinetics in Trans-port and Optics of Semiconductors (Springer, Heidelberg, 1998). [38] Throughout this work the onsite energy is chosen to be spin independent. [39] M. Potthoff, T. Herrmann, T. Wegner, and W. Nolting, The moment sum rule and its consequences for ferro-magnetism in the hubbard model, physica status solidi (b) 210 , 199 (1998). [40] T. M. Mazzocchi and E. Arrigoni, Iterated perturbation theory for mott insulators in a static electric field with optical phonons, physica status solidi (b) n/a , 2300486. [41] We note that, out of equilibrium, the Friedel sum rule discussed in previous work [26, 32] does not apply, and its proper generalization remains unclear. Nonetheless, benchmark comparisons with the AMEA impurity solver indicate that the IPT-n0 approximation performs satis-factorily in all cases considered so far. [42] For details on the AMEA impurity solver, we refer the reader to our previous work [11, 12]. [43] R. Bulla, A. C. Hewson, and T. Pruschke, Numerical renormalization group calculations for the self-energy of the impurity anderson model, Journal of Physics: Con-densed Matter 10 , 8365 (1998). [44] Y. Meir and N. S. Wingreen, Landauer formula for the current through an interacting electron region, Phys. Rev. Lett. 68 , 2512 (1992). [45] We point out that the retarded and Keldysh components of the impurity GF as well as the Keldysh component of the lead GF retain a non-trivial dependence on Φ and T .However, for our choice of leads, neither of these param-eters enters the retarded (advanced) reservoir GF. [46] By construction, the generalized distribution function F
+
+reduces to the Fermi-Dirac distribution fFD in the equi-librium case.

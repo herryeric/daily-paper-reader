@@ -1,0 +1,520 @@
+Title: Bubble dynamics and vortex formation in holographic first-order superfluid phase transitions
+
+URL Source: https://arxiv.org/pdf/2604.17216v1
+
+Published Time: Tue, 21 Apr 2026 01:04:01 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+Prepared for submission to JHEP 
+
+# Bubble dynamics and vortex formation in holographic first-order superfluid phase transitions 
+
+Zhen-Han Jin a,b Yu-Ping An a,c Li Li a,b,d 
+
+> a
+
+Institute of Theoretical Physics, Chinese Academy of Sciences, Beijing 100190, China 
+
+> b
+
+School of Physical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China 
+
+> c
+
+Department of Physics, Technion, Haifa 32000, Israel 
+
+> d
+
+School of Fundamental Physics and Mathematical Sciences, Hangzhou Institute for Advanced Study, University of Chinese Academy of Sciences, Hangzhou 310024, China 
+
+E-mail: jinzhenhan@itp.ac.cn, yuping.an@campus.technion.ac.il, liliphy@itp.ac.cn 
+
+Abstract: We investigate bubble dynamics in a holographic superfluid undergoing a first‑order phase transition with spontaneous U (1) symmetry breaking. Near the nucle-ation threshold, the system exhibits universal critical behavior governed by a single unsta-ble mode, leading to logarithmic scaling of the time spent near the critical solution. The terminal bubble wall velocity increases with charge density but remains small due to strong dissipation. In multi‑bubble collisions, vortex formation depends sensitively on the initial phases and deviates significantly from the geodesic rule. Notably, we identify a regime where three‑bubble collisions produce a vortex‑antivortex pair that subsequently annihi-lates, a phenomenon not predicted by the geodesic rule. The lifetime of this pair scales logarithmically with the distance to the critical collision radius. Our results underscore the crucial role of non‑equilibrium dynamics in strongly coupled superfluids and provide new insights into topological defect formation during first‑order phase transitions. 
+
+> arXiv:2604.17216v1 [hep-th] 19 Apr 2026
+
+## Contents 
+
+1 Background 12 Holographic Setup 33 Bubble nucleation and critical behavior 54 Bubble wall velocity 95 Vortex formation in first-order phase transition 10 6 Conclusion 17 7 Acknowledgements 19 A Numerical scheme of the fully non-linear simulations 19 B Vortex identification 21 
+
+## 1 Background 
+
+First-order phase transitions, characterized by metastable states and discontinuous order parameter changes, can proceed via bubble nucleation. This fundamental process has been extensively studied across a wide range of physical systems, from liquid-gas systems [1] and quantum materials [2] to early universe cosmology [3, 4]. Across these diverse settings, bubble dynamics plays a crucial role in determining how a first-order transition unfolds and in producing observable signatures. In cosmology, for example, the dynamics of expanding and colliding bubbles is an important source of gravitational waves [5, 6]. It can also drive baryogenesis [7], lead to dark matter production [8], and contribute to primordial black hole formation [9]. Quantitative features such as the bubble wall velocity significantly influence gravitational wave spectra [10], motivating extensive investigations [11–13]. Be-yond cosmological settings, molecular dynamics studies of bubble nucleation and dynamics have also gained attention in condensed matter and fluid systems, aiming to uncover the nanoscale mechanisms governing phase transitions and heat transfer [14, 15]. Bubble nucleation and growth are intrinsically non-equilibrium processes, often involv-ing strong coupling and large fluctuations that defy perturbative treatments. Holographic duality offers a powerful framework for investigating such systems by mapping the non-equilibrium dynamics of a strongly coupled field theory to the evolution of a dual classical gravity background, which can be efficiently studied through numerical simulations. This approach has been successfully applied to first-order phase transitions, providing insights – 1 – into several key aspects. For example, it has been used to study dynamical stability in holo-graphic phase transitions [16–22] and non-equilibrium dynamics in Z2-symmetry-breaking processes [23–25]. In particular, the critical behavior during first-order phase transitions was examined in [18], where the scaling law and stability of the critical solution were an-alyzed. This behavior is reminiscent of black hole critical collapse [26–28] as well as the first-order phase transition of a two-dimensional ϕ4 model [29]. Despite these advances, however, several important aspects of bubble dynamics remain largely unexplored. These include multi-bubble interactions, the effects of bubble collisions, and critical nucleation phenomena in holographic superfluids with U (1) symmetry breaking. Understanding these processes is essential for connecting holographic models to realistic phase transitions in both cosmological and condensed matter settings. A distinctive feature of bubble dynamics in systems with U (1) symmetry breaking, compared to the Z2 case, is the formation of topological defects—specifically, vortices. In second-order phase transitions, the density of such vortices can be accurately described by the Kibble–Zurek mechanism (KZM) [30–32], which has found broad applications across condensed matter physics, cosmology, and quantum computation [33–35]. However, the KZM is not directly applicable to first-order phase transitions, where bubble nucleation and expansion dominate the dynamics. Recently, Zurek and collaborators attempted to extend the KZM to phase transitions with tunable order by combining the standard KZM scaling with nucleation theory, thereby predicting defect densities [36]. A deeper understanding of defect formation during first-order transitions requires careful examination of the so-called geodesic rule. The validity and applicability of this rule remains an open question, and addressing it is crucial for establishing a unified framework for topological defect formation across different types of phase transitions. The geodesic rule [30] assumes that during domain merging, order parameters follow the shortest path in the vacuum manifold to minimize gradient energy. For U (1) symmetry breaking, this predicts a vortex formation probability of 1/4 in three-bubble collisions when phases are randomly assigned. This rule has found support in various systems including ne-matic liquid crystals [37] and Bose-Einstein condensates [38]. Deviations from the geodesic rule have also been reported. Early numerical simulations revealed vortex-antivortex pair production during bubble collisions [39], which were attributed to large field oscillations that cause the field overshooting of the potential barrier [40]. Subsequent studies showed that defect formation can also be affected by phase relaxation dynamics [41, 42], bubble size, expansion velocity, interaction strength [40, 43, 44], and damping effects from the surrounding environment [45, 46]. As a self-consistent theory, which naturally incorpo-rates strong coupling and finite temperature effects, holography offers a unique platform to examine validity of geodesic rule in these circumstances. This paper extends previous holographic studies by systematically investigating bubble dynamics across three key stages: nucleation, expansion, and multi‑bubble collisions. Using a holographic model with broken U (1) symmetry, we provide a comprehensive analysis that reveals critical phenomena and vortex formation processes, offering deeper insight into the geodesic rule. The remainder of this paper is organized as follows. Section 2 describes the holographic framework employed in our study. Section 3 examines the nucleation process, – 2 – with a particular focus on critical behavior near the bubble nucleation threshold. Section 4 is then devoted to the wall velocity of an expanding superfluid bubble. Section 5 addresses vortex formation resulting from multi-bubble collisions. Section 6 summarizes our main findings. Finally, technical details are provided in Appendices A and B. 
+
+## 2 Holographic Setup 
+
+We study a holographic superfluid model with nonlinear self-interactions in a (3+1)-dimensional asymptotically anti-de Sitter (AdS) spacetime. The bulk action is given by: 
+
+S =
+
+∫
+
+d4x√−g
+
+[ 12κ2
+
+> N
+
+(
+
+R + 6
+
+L2
+
+)
+
++ Lm
+
+]
+
+, (2.1) where L is the AdS radius and the matter Lagrangian Lm reads [16] 
+
+Lm = − 14 F μν Fμν − (|DμΨ|2 − m2|Ψ|2 − λ(Ψ ∗Ψ) 2 − τ (Ψ ∗Ψ) 3) . (2.2) Here, Dμ = ∇μ − iqA μ denotes the covariant derivative, Aμ is a U (1) gauge field with field strength Fμν = ∂μAν − ∂ν Aμ, and Ψ is a complex scalar field. The parameters λ and τ
+
+control the strength of the self-interactions, with which first-order, second order and zeroth order phase transitions can be realized [16]. For simplicity, we work in the probe limit, where the back-reaction of the matter fields onto the geometry is neglected. This approximation effectively decouples the dynamics of the geometrical sector from the matter sector, freezing the fluctuations of the temperature and the normal fluid’s velocity. In this limit, the background geometry is fixed as an AdS-Schwarzschild black brane: 
+
+ds 2 = L2
+
+z2
+
+(−f (z)dt 2 − 2dtdz + dx 2 + dy 2) , (2.3) where f (z) = 1 − (z/z h)3 with zh the location of the horizon. The Hawking temperature of this black brane, which corresponds to the temperature of the boundary heat bath, is 
+
+T = 34πz h . Henceforth, we set L = 1 , m2 = −2 and q = 1 for simplicity. We also adopt the radial gauge Az = 0 . The dynamics of the matter fields are simulated by integrating their equations of motion (the details of the time evolution are provided in Appendix A). According to the holographic dictionary, physical observables of the boundary quantum system can be extracted from coefficients of the asymptotic expansions of the bulk fields near the AdS boundary ( z → 0): 
+
+Aμ = aμ + bμz + ... , Ψ = ψ(s)z + ψ(v)z2 + ... . (2.4) Here ψ(s) is the source term. To realize spontaneous U (1) symmetry breaking, we set this source to zero, ψ(s) = 0 . Thus, the subleading coefficient ψ(v) corresponds to the superfluid condensate O = |O| eiθ . The spatial components of the leading term of the gauge field, together with the gradient of the condensate phase, give the superfluid velocity – 3 – vsi = ∂iθ − ai with i = x, y . We set ai = 0 in practice. The charge density is read off from the subleading term in the near-boundary expansion of the gauge field: 
+
+bt = −ρ . (2.5) Finally, there remains a residual U (1) symmetry 
+
+At → At + ∂tΣ( t) , Ψ → eiq Σ( t) Ψ , (2.6) where Σ( t) depends only on t. The chemical potential μ, which is invariant under this residual symmetry, is then defined as 
+
+μ = At
+
+∣∣z=0 − At
+
+∣∣z=zh , (2.7) measuring the difference of the gauge potential At between the boundary and the horizon. Note that the superfluid velocity vsi and the charge density ρ remain unchanged under the residual symmetry (2.6). The system possesses the following scaling symmetry: 
+
+(t, x, y, z ) → ξ(t, x, y, z ) , z h → ξz h , (T, μ ) → ξ−1(T, μ ), (ρ, O) → ξ−2(ρ, O) , (2.8) where ξ is a constant. We set zh = 1 (i.e. , T = 34π ) throughout this work. Therefore, ρ
+
+is the only free parameter for fixed theory parameters. Equivalently, all physical results depend solely on the dimensionless ratio ρ/T 2. The phase structure is explored by varying the charge density ρ, which corresponds to working in the canonical ensemble. Moreover, a physical time t should be combined with the temperature to form the dimensionless product tT . However, for notational simplicity and without loss of generality, we will omit the explicit factor of T when discussing time evolution in the following sections. The relevant thermodynamic potential in the canonical ensemble is the free energy F .According to the holographic dictionary, F is given by the Euclidean on-shell action under appropriate boundary terms [47]. In the probe limit, where the gravitational background is fixed, it suffices to consider the free energy of matter fields. For homogeneous and static solutions, it takes the form: 
+
+F = V2LT
+
+[ μρ 
+
+2 +
+
+∫ zh
+
+> 0
+
+dz
+
+( A2 
+
+> t
+
+ψ2
+
+f − λψ 4 − 2τ ψ 6
+
+)] 
+
+, (2.9) where V2 is the spatial volume of the boundary system. As shown in [16], the type of superfluid phase transition depends on the parameters λ and τ . In this work, we choose 
+
+λ and τ from a parameter region that gives rise to a first-order transition. Using (2.9), we plot the free energy density of the static homogeneous solutions as a function of charge density in Fig. 1. Here, Fn denotes the free energy of the normal fluid. The normal state is shown in blue and the superfluid state in red. Solid lines (both blue and red) represent thermodynamically stable states. The discontinuous first derivative of the free energy with respect to the charge density signals a first-order phase transition. The dashed red and blue lines correspond to metastable states, while the dashed black line indicates a state that is – 4 – both thermodynamically and dynamically unstable. Our dynamical simulation begins from the metastable normal state indicated by the red point. Upon applying a sufficiently large perturbation, the system undergoes a phase transition and evolves to the stable superfluid state (represented by the blue point) through the nucleation of superfluid bubbles.                
+
+> Figure 1 . Free energy density (F−Fn)
+> T2V2as a function of charge density ρT2for the static homogeneous solutions with parameter set as λ=−2, τ = 0 .8.The normal state is shown in blue and the superfluid state in red. Solid lines (both blue and red) represent stable states. Dashed red and blue lines correspond to metastable states, while the dashed black line indicates a state that is both thermodynamically and dynamically unstable. Our dynamical simulation starts from the metastable normal state, indicated by the red point. By applying a sufficiently large perturbation, the system evolves into the superfluid state, represented by the blue point.
+
+## 3 Bubble nucleation and critical behavior 
+
+We begin by examining single-bubble dynamics during a first-order superfluid phase tran-sition. It is well known that the transition from a metastable state to the globally stable phase is hindered by a potential barrier. To nucleate a bubble, a sufficiently strong per-turbation is therefore required to overcome this barrier and trigger the phase transition. Dynamically, if the perturbation drives the system from the metastable state into the glob-ally stable one, the evolution is termed supercritical; if instead the perturbation decays and the system returns to the metastable state, the evolution is subcritical. The solution that separates supercritical from subcritical evolution is known as the critical solution. It cor-responds to the minimal dynamical excitation needed to initiate the phase transition and thus represents the dynamical threshold of the system. Near the critical threshold for bubble nucleation, systems often exhibit universal critical behavior, reminiscent of the critical phenomena observed in gravitational collapse. Previous studies, such as [18], have explored this behavior in the context of an explicitly broken Z2
+
+– 5 – symmetry, where the order parameter is not well defined. In that setup, the phase transition drives the system from a metastable state to a phase-separated state, which, from the bulk perspective, corresponds to a transition between two distinct scalarized black hole phases. In contrast, our work investigates the spontaneous breaking of a U (1) symmetry, which describes a transition from a black hole without scalar hair to a scalarized black hole. Consequently, the order parameter in our system—the superfluid condensate—remains well defined throughout the entire transition. ℎ > ℎ𝑐 
+
+ℎ𝑐          
+
+> Critical solution
+> Supercritical evolution
+> Subcritical evolution
+> Superfluid state
+> Normal state
+> ℎ<ℎ𝑐
+> Figure 2 .Evolution of the system under different initial perturbation amplitudes. When the amplitude equals the critical value h=hc, the system remains at the critical solution. For h > h c,the evolution becomes supercritical, driving the system toward the stable superfluid state. For
+> h < h c, the evolution remains subcritical, and the system returns to the metastable normal state.
+
+Without loss of generality, we employ a Gaussian wave packet as the initial perturba-tion: 
+
+δO = h exp 
+
+(
+
+− r2
+
+2σ2
+
+)
+
+, (3.1) where h is the amplitude, σ is the width, and r is the radial distance from the nucleation center. In our simulations, the width is fixed at σ = 5 , while the amplitude h is varied to probe the dynamics near the critical point. For h < h c, the evolution remains subcritical; for h > h c, it becomes supercritical. The evolution at the precise threshold h = hc defines the critical solution, illustrated schematically in Fig. 2. Using the bisection method, we numerically determine the critical amplitude to be hc ≈ 1.186469467 .To examine near-critical behavior, we fine-tune the initial amplitude to h = hc ± e−12 ,where the plus (minus) sign leads to a supercritical (subcritical) outcome. Exploiting the rotational symmetry of the single-bubble system, Fig. 3 shows the evolution of a single slice of the condensate with nucleation center at x = 40 . The evolution can be broadly divided into three distinct stages. – 6 – • In the first stage (before green lines), the Gaussian wave packet narrows and sharpens, as illustrated by the green curve. This initial dynamics is essentially identical for both supercritical and subcritical cases. • The second stage (between green and cyan lines) is characterized by a slow growth (supercritical) or gradual decay (subcritical) of the wave packet. Crucially, during this stage, the profiles of the two cases remain qualitatively similar, making it difficult to distinguish the eventual fate of the system. • The final stage (after cyan lines) reveals the critical difference: for the supercritical case, a bubble nucleates and expands, while for the subcritical case, the perturbation decays completely, leaving the system in the metastable normal state. This dichotomy clearly illustrates the threshold behavior associated with a first-order phase transition. Moreover, we observe that for initial parameters close to hc, the field configuration is attracted toward the critical solution, though it does not settle into it precisely. The closer 
+
+h is to hc, the longer the system lingers near the critical solution. The left panel of Fig. 4 shows the time evolution of the maximum of the condensate for the initial data of the form 
+
+h = hc ± e−m with m ∈ [7 , 14] . Dashed lines correspond to subcritical cases, while solid lines of the same color represent supercritical evolutions. It is natural to conjecture that exactly at h = hc, the solution would remain static—corresponding to the critical solution.                         
+
+> Figure 3 . Evolution of the condensate for initial perturbations at h=hc±e−12 , with λ=−2, τ =0.8, σ = 5 and ρ= 3 .7.Left : subcritical case with h=hc−e−12 , where the perturbation decays.
+> Right : supercritical case with h=hc+e−12 , where a bubble forms. Profiles at four representative time slices are shown in distinct colors.
+
+The static nature of the critical solution enables a linear perturbation analysis around it. Following the analogy with critical phenomena in gravitational collapse [48], we assume the existence of a single unstable mode when the field configuration is sufficiently close to the critical solution: 
+
+O(t, r) = Oc(r) + ( h − hc)et/τ 0 δO0(r) + (decaying modes) , (3.2) – 7 – Figure 4 . Single bubble dynamics near the critical solution, with λ = −2, τ = 0 .8, σ = 5 and 
+
+ρ = 3 .7. Left: Time evolution of the maximum condensate value for initial perturbation amplitudes 
+
+h = hc ± e−m with m ∈ [7 , 14] . Solid and dashed lines correspond to supercritical ( h > h c) and subcritical ( h < h c) evolutions, respectively. Lines of the same color share the same exponent m,representing equal logarithmic distance from the critical point but on opposite sides. Right: Scaling of τscale as a function of ln |h − hc|. The numerical data (dots) follow the linear scaling relation (blue line) predicted by (3.4) with τ0 = 23 .0595 .
+
+where r = ( x, y ) denotes spatial coordinates, Oc(r) is the critical solution, and δO0(r) is the eigenmode corresponding to the eigenvalue 1/τ 0 of the linearized operator. As time increases, this perturbation grows and eventually becomes non-perturbative. For a fixed deviation 
+
+O(t, r) − O c(r) = ( h − hc)eτscale /τ 0 δO0(r) , (3.3) the time τscale during which the configuration stays close to the critical solution satisfies 
+
+τscale ∼ − τ0 ln |h − hc| . (3.4) To measure the time τscale from our numerical simulations, we track the maximum condensate value Omax (t) for a matched pair of supercritical and subcritical evolutions that share the same deviation |h − hc|. The scaling time τscale is then operationally defined as the instant at which the difference between these two dynamical branches exceeds a chosen threshold ϵ:
+
+|O s
+
+> max
+
+(τscale ) − O n
+
+> max
+
+(τscale )| = ϵ , (3.5) where the superscripts s and n label the supercritical and subcritical trajectories, respec-tively. According to the linear perturbation ansatz of (3.3), this empirically defined τscale 
+
+is expected to follow the same logarithmic scaling law given in (3.4). To implement this, we set ϵ = 0 .1 and measure τscale across a range of initial amplitudes h. The results, dis-played in the right panel of Fig. 4, clearly confirm the predicted linear relation between 
+
+τscale and ln |h − hc|, thereby validating the presence of a single unstable mode governing the near-critical dynamics. – 8 – 4 Bubble wall velocity 
+
+The initially nucleated static bubble begins to accelerate under a thermodynamic driving force—typically due to the free energy difference between the metastable and stable phases. In a steady-state expansion, this driving force may eventually be balanced by dissipative backreactions from the surrounding medium. The terminal wall velocity reached during such a bubble expansion in first-order phase transitions is a key dynamical parameter. It plays a crucial role in several important physical phenomena, notably in determining the density and distribution of topological defects formed during the phase transition [41, 49], and in setting the peak frequency and amplitude of the stochastic gravitational wave back-ground produced by bubble collisions and sound waves [5, 6]. In this section, we quantita-tively investigate the bubble wall velocity within the framework of holographic superfluids. By varying physical conditions such as temperature and charge density, we systematically compute the terminal velocity of an expanding superfluid bubble in a strongly coupled system. This provides quantitative insights into the dynamics of phase interface propaga-tion under strong coupling, offering a valuable benchmark for effective field theories and cosmological phase transition models. In our numerical simulations, the perturbation amplitude and width are fixed at h =1.25 and σ = 5 . We investigate the expansion dynamics of a single bubble across different charge densities ( T is fixed), focusing on the range ρ ∈ [3 .66 , 4] . This interval is selected based on clear physical constraints: at higher charge densities, the potential barrier between the metastable normal phase and the stable superfluid phase becomes very small, allowing even weak fluctuations to trigger nucleation and making the bubble wall poorly defined. Conversely, at lower charge densities, the barrier is too large for our fixed perturbation ( h =1.25 , σ = 5 ) to initiate nucleation reliably. We then define the instantaneous bubble radius 
+
+r(t) as the radial distance from the bubble center to the contour where the condensate reaches half of its equilibrium value. The bubble wall velocity v(t) is then derived from the temporal derivative of the radius. The right part of Fig. 5 shows the time evolution of the bubble wall velocity for different charge densities ρ. The wall acceleration is found to decrease over time. Although computational constraints prevent extremely long simulations, the observed trend indicates that the velocity asymptotically approaches a terminal value, denoted as vterminal . To characterize this behavior, we fit the late time data ( t > 460 ) to a function of the form 
+
+vterminal −ce −bt , where b and c are positive constants. As shown by the blue fitting curves in the right panel of Fig. 5, this form provides a good description of the late-time dynamics, with a coefficient of determination R2 = 0 .999872 for the case ρ = 3 .7. This late-time behavior of the bubble wall velocity to a terminal value is consistent with the behavior reported in [45]. The dependence of the terminal velocity vterminal on the charge density ρ is summarized in Fig. 6, showing a clear monotonic increase. Notably, our holographic simulations yield a non-relativistic terminal wall velocity. This behavior can be understood through the strong coupling between the expanding bubble wall and the surrounding thermal plasma. The backreaction force opposing the wall’s motion grows rapidly, balancing the thermodynamic – 9 – Figure 5 . Time evolution of the bubble wall velocity in holographic superfluid phase transitions, with λ = −2, τ = 0 .8, h = 1 .25 and σ = 5 . The data points come from numerical simulations of the holographic model. Left: Bubble-wall velocity as a function of time for charge densities                      
+
+> ρ∈ { 3.68 ,3.76 ,3.84 ,3.92 ,4.00 }; from bottom to top, the curves correspond to increasing ρ.Right:
+> Detailed view of the late-time evolution for ρ= 3 .7.The solid curve shows the fit to the late-time data ( t > 460 ), using the form v(t) = a−be −ct . Best-fit parameters are a= 0 .0971 ,b= 0 .0226 ,and c= 0 .0035 , with a high coefficient of determination ( R2= 0 .999872 ).
+
+driving force after only a brief period of acceleration. This non-relativistic regime stands in contrast to the relativistic case, where the wall moves so quickly that local thermal equilibrium near the interface cannot be maintained. In our scenario, the wall velocity is sufficiently low to preserve approximate local thermal equilibrium around (though not pre-cisely at) the wall, validating a hydrodynamic description of the plasma as a near-perfect fluid [13, 50]. This picture is consistent with findings from other strongly coupled holo-graphic models (see, e.g. , [23, 24, 51, 52]). The quantitative scaling of vterminal with ρ,combined with its observed asymptotic saturation, provides key insight into the expansion dynamics of first-order phase transitions in strongly coupled, dissipative systems. Further-more, as discussed in the following section, the bubble wall velocity critically influences subsequent non-equilibrium dynamics, particularly the processes of vortex formation. 
+
+## 5 Vortex formation in first-order phase transition 
+
+The formation of vortex during phase transitions is a fundamental problem across di-verse physical systems. The KZM provides predictions for vortex densities in second-order transitions by relating them to equilibrium critical exponents [30–32]. However, its di-rect application to first-order transitions remains limited. While recent work [36] has extended KZM-type frameworks to first-order scenarios, the dynamics of vortex formation in such systems are still not fully understood. This motivates our focused investigation of the geodesic rule—a key assumption that governs phase interpolation during domain coalescence. In this section, we examine vortex formation during bubble collisions in our holographic superfluid and systematically quantify deviations from the geodesic rule in – 10 – Figure 6 . Terminal bubble-wall velocity vterminal as a function of the charge density ρ. The terminal velocity increases monotonically with ρ. We have set λ = −2, τ = 0 .8, h = 1 .25 and σ = 5 .
+
+strongly non-equilibrium environments. A vortex is a type of topological defect that can arise when the vacuum manifold has nontrivial homotopy. In the case of a spontaneously broken U (1) symmetry considered in this work, the vacuum manifold is a circle S1, and vortex configurations are classified by the first homotopy group π1(S1) = Z. Specifically, in the presence of a vortex, a closed loop in physical space that is homeomorphic to S1 and encircles the defect core will have the phase of the order parameter winding nontrivially around the vacuum manifold. The phase configuration on this loop thus defines a map from the physical-space S1 to the vacuum-manifold S1, characterized by an integer winding number via π1(S1) = Z. A nonzero winding number indicates a topologically nontrivial phase configuration corresponding to a vortex, while a winding number of zero corresponds to a trivial configuration with no vortex. To illustrate the vortex formation process, we simulate the collision of three bubbles with phases θ1, θ2, and θ3. For a transition that spontaneously breaks a U (1) symmetry, the vacuum manifold is a circle S1, and each bubble’s phase corresponds to a point on this circle, as shown in Fig. 7. These three points naturally divide the circle into three arcs. According to the geodesic rule, the phase difference between any two bubbles is interpolated along the shorter arc at their junction. Consequently, a non-zero net winding number arises when the three points are distributed such that all three connecting arcs are shorter than π. In this configuration, the phase interpolation around the junction of the three bubbles traces a closed loop covering the entire vacuum manifold S1, as illustrated in the left panel of Fig. 7. Conversely, consider the case where one of the arcs defined by θ1,
+
+θ2, and θ3 exceeds π, as highlighted by the brown arc in the right panel of Fig. 7. According to the geodesic rule, such a large arc represents an energetically unfavorable interpolation path and is therefore not selected during phase relaxation when the bubbles coalesce. As – 11 – a result, no net winding number is generated in this configuration. 𝜃 1
+
+# 𝜃 2
+
+# 𝜃 3𝜃 1
+
+# 𝜃 2
+
+# 𝜃 3         
+
+> Figure 7 . Schematic of the geodesic rule applied to phase interpolation during three-bubble colli-sion. The vacuum manifold of the U(1) symmetry-broken phase is a circle S1, with bubble phases
+> θ1, θ 2, θ 3as points on it. Left : When all three arcs between adjacent phases are shorter than π, the geodesic rule chooses the shorter arc for phase interpolation, resulting in a net winding number and vortex formation. Right : When one arc (brown) exceeds π, that arc is not used; the interpolation path does not encircle the full manifold, yielding zero winding and no vortex.
+
+The above analysis shows that a vortex is expected to form when the three phases partition the vacuum manifold S1 into three arcs, each shorter than π. Geometrically, this condition is equivalent to the requirement that the three phase points on S1 are not all contained within any semicircle. Without loss of generality, we set θ1 = 0 by a global phase rotation. The condition for vortex formation can then be stated as follows: if θ2 > π , then 
+
+θ3 must lie in the interval (θ2 − π, π ); if 0 < θ 2 < π , then θ3 must lie in (π, θ 2 + π). The region in the θ2-θ3 plane corresponding to vortex formation is shaded in blue in Fig. 8. Assuming the phases of the three bubbles are random and uncorrelated, the probability of forming a vortex is therefore 1/4.To investigate the validity of the geodesic rule under non-equilibrium conditions, we numerically simulate the collision of three bubbles nucleated in the normal phase. The initial phases are chosen as θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .7) π/ 3 (orange square in Fig. 8), a configuration that the geodesic rule predicts will generate a vortex. The real-time dynamics of the bubble collision are shown in Fig. 9. The top row displays the condensate distribution, and the middle row shows the corresponding phase distribution. To track the evolution of the phase structure during the collision, we extract phase values along colored circles superimposed on the phase field. These circles are chosen to pass through the initial collision region—the area where the bubble boundaries first meet. Denoting the angular coordinate along each circle by α, we plot the extracted phase profiles in the bottom row of Fig. 9. Along the colored ring, the phases of the three bubbles exhibit smooth interpolation across their junctions. Crucially, this interpolation follows the minor arcs of the vacuum manifold S1. The bubbles are nucleated symmetrically, specifically positioned at the vertices of an equilateral triangle, so that the collision point between any two bubbles lies at the midpoint of the line connecting their nucleation centers. Interestingly, as the – 12 – 𝜃 2
+
+## 𝜃 3
+
+# 𝑂  𝜋 
+
+## 2𝜋 
+
+## 𝜃 3 = 𝜃 2 − 𝜋 
+
+## 𝜃 3 = 𝜃 2 + 𝜋 
+
+## 2𝜋 
+
+## 𝜋 Figure 8 . Parameter space for vortex formation with θ1 fixed at 0. According to the geodesic rule, a vortex forms if the point (θ2, θ 3) lies within the blue region. The final state is highly sensitive to the initial phases. The color gradient indicates that initial conditions near the center of the triangular region (darker blue) have a higher probability of yielding a single vortex, whereas those near the boundary typically result in a vortex-free state. Markers denote the initial phase differences of the time-evolving examples shown in subsequent figures. 
+
+bubbles approach and their boundaries interact, the sequence of collisions depends on the initial phase differences, thereby breaking the symmetry. More precisely, we find that the pair of bubbles with the smallest phase difference (traced by the red segment of the circle) collides first at t = 330 , followed by the pair with the next smallest difference (green segment) at t = 335 . An asymmetric collision could produce a nonzero momentum for the vortex. 1 Upon collision, the phase difference within each newly merged domain smooths out rapidly, as illustrated by the evolution of the red and green segments of the phase profiles in the third row of Fig. 9. By t = 380 , a vortex has already formed near the center of the three bubbles, consistent with the prediction of the geodesic rule. Identifying vortices in a dynamically evolving system is not a trivial problem. The method we use to identify vortices from numerical simulations is described in Appendix B, which combines the phase winding analysis with the temporal behavior of the condensate magnitude. Before proceeding, we note that a breakdown of the geodesic rule was reported in [40] for a U (1) global theory in the absence of any explicit symmetry breaking in 2+1 dimen-  
+
+> 1This feature is more visible in the first snapshot (at t= 215 ) of Fig. 11 below.
+
+– 13 – t = 330 
+
+## yx     
+
+> t= 335 t= 350 t= 380
+> 1234
+> jOj
+
+## yx
+
+> ,
+> !:
+> 0
+> :
+
+## 3  
+
+> 0:2:
+
+,  
+
+> -1 01
+> 3=:
+> 0:2:
+
+,  
+
+> 0:2:
+
+,  
+
+> 0:2:
+
+,Figure 9 . Condensate amplitude and phase distributions at representative times. Initial bubble phases: θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .7) π/ 3 (orange square in Fig. 8). Top row : condensate amplitude |O| . Middle row : corresponding phase arg( O). Bottom row : phase profiles extracted from the colored ring in the middle row, with colors matching the arcs. The spatial region is                 
+
+> [0 ,150] ×[0 ,150] with the parameters ρ= 3 .7,λ=−2,τ= 0 .8,σ= 5 ,h= 1 .25 .
+
+sions. It was shown that sufficiently energetic oscillations of the complex scalar field during bubble collisions can drive the field over the potential barrier, leading to vortex–antivortex pair production. In particular, the study of [40] considered pair generation for initial phase differences of 0.1π, 1.9π, and 0.05 π. To set one of the phases to zero (consistent with the parameter space in Fig. 8, where θ1 = 0 ), we subtract 0.05 π from each value. This con-figuration then corresponds to the black circle in Fig. 8, for which the geodesic rule would predict no topological vortex formation. In contrast to the high-speed collisions examined in [40], the bubble expansion velocity in our setup is relatively slow due to strong cou-pling between the expanding bubble wall and the surrounding thermal plasma (see Fig. 6). As a result, field oscillations remain weak, and defect-antidefect pair production via field oscillations does not occur in our holographic model (see Fig. 10). Somewhat unexpectedly, vortex-antivortex pair production does occur in our system for initial phase configurations that lie within the blue region of Fig. 8 (obtained from the geodesic rule). To demonstrate this, we simulate a representative case with initial phases 
+
+θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .8) π/ 3 (indicated by the green triangle in Fig. 8). The resulting collision dynamics are displayed in Fig. 11. The first and second rows show the condensate distribution and the corresponding phase field, respectively. By t = 215 , a – 14 – xy
+
+t = 320 t = 380 t = 410 
+
+!:
+
+0
+
+:
+
+# 3Figure 10 . Phase configurations at three representative times. Initial bubble phases are set to                    
+
+> 0.1π,1.9π, and 0.05 π(black circle in Fig. 8; shifted by −0.05 πto align with θ1= 0 ), following the same configuration as in [40] where vortex-antivortex pair production was observed. In contrast, our holographic system exhibits no such pair production throughout the entire evolution. We have considered parameters ρ= 3 .7,λ=−2,τ= 0 .8,σ= 5 ,h= 1 .25
+
+vortex has already formed, consistent with the geodesic rule. Notably, however, the first vortex does not emerge at the center of the three bubbles; instead, it appears closer to the boundary and acquires a nonzero velocity. More strikingly, an antivortex emerges near the boundary of the bubble carrying the largest initial phase difference, giving rise to a vortex–antivortex pair, as clearly seen in the snapshot at t = 275 . As time evolves, the vortex and antivortex gradually approach each other and eventually annihilate, leaving a final state devoid of any vortex. This process thus reduces the probability of reaching a stable state containing a single vortex, beyond the naive expectation based solely on the geodesic rule. A key question is to what extent these phenomena exist in the three bubble collision process. To quantify this, we systematically vary the bubble collision velocity vco and collision radius rco by adjusting both the nucleation positions and the coupling parameter 
+
+λ. The initial phases are set to θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .8) π/ 3 (green triangle in Fig. 8). The bubbles are nucleated symmetrically, with their centers positioned at the vertices of an equilateral triangle; consequently, each pair of bubbles collides at the midpoint of the line connecting their nucleation centers. We define rco as half of the distance between two nucleation centers. The bubble-wall velocity at collision is obtained from single-bubble expansion data, as the radius and wall velocity are in one-to-one correspondence once all other parameters are fixed. To investigate this process quantitatively, we vary the collision radius rco while keeping the coupling parameter fixed at λ = −2.08 . By means of a bisection search, we identify a critical radius, rc ≈ 12 .9825 , such that the system evolves to a vortex-free terminal state for rco < r c, while for rco > r c it evolves to a terminal state containing a single vortex. We find that vortex-antivortex pair production occurs most prominently when the initial collision radius is slightly below the critical value. In addition, Fig. 12 shows the lifetime of the vortex-antivortex pair, denoted by τpair , as a fucnction of rc − rco .– 15 – t = 215 
+
+# yx   
+
+> t= 275 t= 325
+
+1234
+
+jOj 
+
+# yx !:
+
+0
+
+:
+
+# 3Figure 11 . Condensate amplitude and phase distributions at three representative times. Initial bubble phases: θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4+0 .8) π/ 3 (green triangle in Fig. 8). Top row : condensate amplitude |O| at t = 215 , 275 , and 380 (left to right). Bottom row : corresponding phase arg( O).The plotted spatial region is [40 , 160] × [40 , 160] . We have set ρ = 3 .8, λ = −2, τ = 0 .8, σ = 5 ,
+
+h = 1 .25 .
+
+Near the critical radius, τpair increases linearly with ln( rc − rco ). 2
+
+We further investigate how the bubble‑wall velocity influences vortex generation under the phase configuration θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .8) π/ 3. To this end, we vary the parameter λ, since different values of λ lead to different relationships between the bubble‑wall velocity and the bubble radius, thereby providing a wide parameter range for our calculations. The resulting phase diagram in the (vco , r co ) plane is shown in Fig. 13. The red point marks the critical values obtained at a specific λ. Using spline interpolation on these points, we obtain a critical boundary (solid red line in Fig. 13). The red region corresponds to parameter sets that yield a final state containing a single stable vortex; its lower edge is delineated by the solid red line. Below this boundary, in the green region, the terminal state contains no vortex. Adjacent to the critical line lies a transitional zone where long‑lived vortex–antivortex pairs appear (see the lifetime measurements in Fig. 12). We find that both a high collision velocity and a large collision radius significantly enhance the probability of evolving into a single‑vortex state. To examine the sensitivity to initial phases, we compute the critical boundary (solid blue line in Fig. 13) for a slightly modified phase configuration, corresponding to the white     
+
+> 2Due to limitations of computational power, we do not extend the calculation to smaller values of rc−rco ,because a larger τpair implies a longer bubble-expansion time, which in turn requires a larger computational domain and substantially greater numerical resources.
+
+– 16 – Figure 12 . Lifetime of the vortex-antivortex pair, τpair , as a function of the three-bubble collision radius rco , with parameters fixed at ρ = 3 .8, λ = −2.08 , τ = 0 .8, σ = 5 , h = 1 .25 . The critical radius is rc ≈ 12 .9825 . Blue circles represent the numerical data, and the red line is the corresponding fit. The lifetime exhibits a linear dependence on ln( rc − rco ), given by τpair = −31 .6655 ln( rc − rco ).
+
+circle in Fig. 8: θ1 = 0 , θ2 = 2 π/ 3, θ3 = (4 + 0 .6) π/ 3. Compared with the previous case ( θ3 = (4 + 0 .8) π/ 3), this adjustment shifts θ3 closer to the center of the triangular region in Fig. 8. The blue squares mark the critical values obtained at different λ values, and spline interpolation again yields the critical line. Remarkably, the resulting critical line moves downward and leftward, thereby expanding the parameter region that leads to a single‑vortex final state. This shift clearly demonstrates that initial phases located near the center of the triangle are more favorable for single‑vortex formation than those near the edges. Consequently, in Fig. 8 we employ a color gradient to represent this probability: not all phase configurations within the shaded region guarantee a single‑vortex outcome. Instead, the likelihood of reaching a stable single‑vortex state varies continuously. Parameters near the center exhibit a higher probability, whereas those near the boundary more often result in vortex‑free final states. 
+
+## 6 Conclusion 
+
+In this work, we have systematically investigated bubble dynamics in a holographic super-fluid exhibiting a first‑order phase transition with spontaneous U (1) symmetry breaking, with particular emphasis on vortex formation driven by multi‑bubble collisions. We first identified universal critical behavior near the bubble nucleation threshold. By fine‑tuning the initial perturbation amplitude h to the critical value hc, the system exhibits a pro-longed near‑critical stage, common to both supercritical and subcritical evolutions. The departure from the critical solution is governed by a single unstable mode, leading to a logarithmic scaling law τscale ∼ − ln |h − hc| (right panel of Fig. 4). This behavior mir-– 17 – single vortex no vortex Figure 13 . Phase diagram for vortex generation in the (vco , r co ) parameter space, with ρ = 3 .8, τ =0.8, σ = 5 , and λ varied to access a range of bubble-wall velocities. Two initial phase configurations are considered: (I) θ3 = (4 + 0 .8) π/ 3 and (II) θ3 = (4 + 0 .6) π/ 3, with θ1 = 0 , θ2 = 2 π/ 3 fixed (green triangle and white circle in Fig. 8, respectively). Red circles and blue squares denote critical values for cases I and II; solid red and blue lines are spline fits. The red region (above the red curve) yields a single stable vortex for case I, while the green region below yields no vortex. Below the red curve, adjacent to the critical boundary, a transitional zone hosts long-lived vortex-antivortex pairs for case I (see Fig. 12). The blue curve shifts downward and leftward compared with the red curve, expanding the single-vortex region for case II. This indicates that initial phases located near the center of the triangular region in Fig. 8 are more favorable for single-vortex formation than those near the edges. 
+
+rors critical phenomena in gravitational collapse and black hole formation, reinforcing the deep analogy between holographic phase transitions and gravitational criticality. Beyond the critical regime, we quantitatively studied the bubble wall velocity. For a fixed tem-perature, the terminal velocity increases with the charge density ρ but remains relatively small, reflecting the strong dissipative coupling between the expanding bubble wall and the surrounding plasma. Turning to multi‑bubble collisions, we examined vortex formation under the geodesic rule. While the rule predicts a 1/4 probability for a single vortex when three bubbles merge with random phases, our simulations reveal significant deviations under non‑equilibrium conditions. In particular, for initial phases satisfying the vortex‑formation condition, we observed the emergence of a vortex‑antivortex pair, which subsequently annihilates and leaves a vortex‑free final state. This process reduces the likelihood of a stable single vortex beyond the geodesic prediction. Such pair production occurs predominantly when the collision radius is slightly below a critical value rc and is accompanied by a linear scaling of the pair lifetime with ln( rc − rco ) (see Fig. 12). We further mapped out the phase diagram for vortex formation in the (vco , r co ) plane (see Fig. 13). A critical boundary separates the region that yields a single stable vortex from – 18 – the vortex‑free region. Adjacent to this boundary, a transitional zone hosts long‑lived vor-tex‑antivortex pairs. Both higher collision velocity and larger collision radius significantly enhance the probability of reaching a single‑vortex final state, highlighting the importance of dynamical parameters beyond the geodesic rule. The sensitivity to initial phases was examined. It was found that the vortex formation probability varies continuously within the shaded region of Fig. 8: phase configurations near the center favor a single vortex, while those near the edge more often lead to vortex‑free outcomes. Consequently, the color gradient in Fig. 8 qualitatively captures this varying likelihood. Our holographic study reveals that bubble dynamics and vortex formation in a first‑order superfluid phase transition are governed by rich non‑equilibrium phenomena. In particular, the newly observed process of vortex–antivortex pair production and annihilation makes it more challenging to understand the KZM in the context of first-order phase transitions. These results underscore the necessity of full dynamical simulations in strongly coupled sys-tems and provide a quantitative foundation for understanding topological defect formation in first‑order phase transitions, with potential implications for early‑universe cosmology and quantum matter. Several directions warrant further investigation. First, we have shown that the probability of reaching a terminal state containing a single vortex depends on the initial phase differences. A systematic study of this probability distribution would be valuable, particularly to determine whether it may have observable implications in other contexts, such as cosmology. Second, the mechanism responsible for vortex–antivortex pair production in our setup remains unclear. It would be worthwhile to investigate whether a similar phenomenon can also occur during domain merging in second-order phase tran-sitions. A related open question concerns the origin of the scaling behavior exhibited by the lifetime of the vortex–antivortex pair near the critical radius rc. Third, the setup con-sidered here is relatively special, since the three bubbles are nucleated symmetrically. It is therefore natural to ask whether similar phenomena persist when the bubbles are nu-cleated in a less symmetric configuration. One may also investigate whether vortices with higher winding numbers can be generated when more bubbles participate in the collision. More broadly, it would be interesting to explore systems with different symmetry-breaking patterns, such as p-wave system [53, 54]. We leave these questions to future work. 
+
+## 7 Acknowledgements 
+
+This work is supported by the National Natural Science Foundation of China Grants No. 12525503, No. 12588101 and No. 12447101. We acknowledge the use of the High Per-formance Cluster at the Institute of Theoretical Physics, Chinese Academy of Sciences. 
+
+## A Numerical scheme of the fully non-linear simulations 
+
+We solve the full non-linear equations of motion for the matter fields in the probe limit, where the background geometry is fixed to the AdS-Schwarzschild black brane (2.3). The – 19 – equations of motion derived from the action are 
+
+DμDμΨ = m2Ψ + 2 λ(Ψ ∗Ψ)Ψ + 3 τ (Ψ ∗Ψ) 2Ψ , (A.1) 
+
+∇μF μν = −2 Im (Ψ ∗Dν Ψ) , (A.2) where Im denotes the imaginary part. To facilitate numerical integration, we introduce the rescaled scalar field Φ ≡ Ψ/z . The equations can be written explicitly as a set of PDEs of first order in time. After straightforward but lengthy algebra, we obtain: 
+
+2∂t∂z Φ − [2 iA t∂z Φ + i∂ z AtΦ + ∂z (f ∂ z Φ) − zΦ + ∂2
+
+> x
+
+Φ + ∂2 
+
+> y
+
+Φ − i(∂xAx + ∂yAy)Φ 
+
+−(A2 
+
+> x
+
++ A2
+
+> y
+
+)Φ − 2i(Ax∂xΦ + Ay∂yΦ) − 2λΦ∗ΦΦ − 3z2τ (Φ ∗Φ) 2Φ] = 0 , (A.3) 
+
+2∂t∂z Ax − [∂z (∂xAt + f ∂ z Ax) + ∂y(∂yAx − ∂xAy) − 2Ax|Φ|2 + 2 Im (Φ ∗∂xΦ)] = 0 , (A.4) 
+
+2∂t∂z Ay − [∂z (∂yAt + f ∂ z Ay) + ∂x(∂xAy − ∂yAx) − 2Ay|Φ|2 + 2Im(Φ ∗∂yΦ)] = 0 , (A.5) 
+
+∂t∂z At − [∂2
+
+> x
+
+At + ∂2 
+
+> y
+
+At + f ∂ z (∂xAx + ∂yAy) − ∂t(∂xAx + ∂yAy) − 2At|Φ|2
+
+−2f Im (Φ ∗∂z Φ) + 2 Im (Φ ∗∂tΦ)] = 0 , (A.6) 
+
+∂z (∂xAx + ∂yAy − ∂z At) − 2Im(Φ ∗∂z Φ) = 0 . (A.7) The dynamical variables are {Φ, A x, A y, A t}. The last one (A.7) is a constraint that must be satisfied at all times; it is used to determine At once the other fields are known. We impose periodic boundary conditions in the spatial directions x and y, and dis-cretize these directions using the Fourier pseudo-spectral method. In the radial direction 
+
+z, we employ the Chebyshev pseudo-spectral method with grid points clustered near the AdS boundary. At the AdS boundary z = 0 , we impose for all times: 
+
+Ax|z=0 = Ay|z=0 = 0 , ∂z At|z=0 = −ρ, Φ|z=0 = 0 , (A.8) where ρ is the fixed charge density of the boundary system. The condition Φ|z=0 = 0 
+
+enforces spontaneous symmetry breaking (no source for the dual operator). At the black hole horizon z = zh, no additional boundary condition is required because the ingoing Eddington-Finkelstein coordinates ensure regularity; the evolution equations are simply integrated through the horizon. To trigger bubble nucleation, we introduce a small perturbation to the condensate at the initial time t = 0 . This is implemented by modifying the near-boundary behavior of Φ:
+
+Φ( t = 0) → Φ( t = 0) + z δ O(x, y ) , (A.9) – 20 – where δO(x, y ) is a Gaussian wave packet centered at the desired nucleation position(s). For single-bubble simulations we use the profile given in (3.1); for multi-bubble cases we superpose several such packets. The time evolution proceeds by solving the dynamical equations (A.3)–(A.5) for Φ, Ax,
+
+Ay using a fourth-order Runge-Kutta scheme. At each time step, we then determine At
+
+by solving the constraint equation (A.7). This requires knowledge of At|z=0 and ∂z At|z=0 .The latter is fixed by the boundary condition ∂z At|z=0 = −ρ. The value of At at the boundary, which is related to the chemical potential in the dual field theory, is obtained by evaluating (A.6) at z = 0 . After using the boundary conditions, we find 
+
+[∂2
+
+> x
+
+At + ∂2 
+
+> y
+
+At + f ∂ z (∂xAx + ∂yAy)] 
+
+> z=0
+
+= 0 . (A.10) This elliptic equation is solved in Fourier space. The zero mode of At|z=0 is set to zero, which corresponds to a choice of gauge ( i.e. , we fix the spatial average of At|z=0 to zero). The simulation domain sizes are chosen depending on the physical process under study. For the critical behavior analysis (Section 3), we use Lx × Ly = 80 × 80 discretized with 
+
+241 × 241 grid points. For the bubble wall velocity study (Section 4), a larger domain 
+
+Lx × Ly = 330 × 330 with 831 × 831 grid points is used to accommodate the expanding bubble. For the vortex formation analysis (Section 5), the domain is Lx × Ly = 200 × 200 
+
+with 401 × 401 grid points. In all cases, the domain size is sufficiently large so that boundary effects do not influence the physical phenomena of interest. The radial direction 
+
+z is discretized with Nz = 20 grid points, which provides adequate resolution for the near-boundary dynamics. Time steps are typically ∆t = 0 .01 for the critical and vortex studies, and ∆t = 0 .05 for the wall velocity runs, ensuring numerical stability and convergence. 
+
+## B Vortex identification 
+
+Identifying vortices in a dynamically evolving superfluid condensate requires careful analy-sis, as both the phase winding and the condensate magnitude must be considered. A vortex is characterized by a nontrivial winding of the phase of the order parameter around a point, accompanied by a vanishing condensate amplitude at the core. In this work, we adopt two complementary criteria to reliably detect vortices from our numerical simulations. The first criterion is based on the topological winding number. For a spontaneously broken U (1) symmetry, the phase of the condensate arg( O) must wind by an integer mul-tiple of 2π around a vortex core. To compute the winding number numerically, we examine each elementary plaquette formed by four neighboring grid points, as illustrated in Fig. 14. Let O1, O2, O3, O4 be the condensate values at the four corners of a plaquette, ordered counterclockwise. The total phase change around the plaquette is defined as 
+
+∆θ = arg 
+
+( O2
+
+O1
+
+)
+
++ arg 
+
+( O3
+
+O2
+
+)
+
++ arg 
+
+( O4
+
+O3
+
+)
+
++ arg 
+
+( O1
+
+O4
+
+)
+
+, (B.1) where each phase difference is taken in the range (−π, π ]. The winding number W is then 
+
+W = 12π ∆θ . (B.2) – 21 – 𝒪 1 𝒪 2
+
+# 𝒪 3𝒪 4Figure 14 . Illustration of the vortex-identification procedure on the grid. We evaluate the conden-sate values O1, O2, O3, and O4 at four corners of a grid square. The winding number is computed from the phase differences around each plaquette. 
+
+A non-zero integer value of W may indicate the presence of a vortex (or antivortex, de-pending on the sign). In practice, we only perform this calculation in regions where the condensate amplitude is sufficiently large, typically where |O| /|O static | > 0.01 , with Ostatic 
+
+being the equilibrium condensate value. In regions of very small amplitude, the phase becomes noisy and unreliable. Nevertheless, the phase winding alone is not sufficient to confirm the existence of a stable vortex, as transient phase defects can appear without a persistent amplitude dip. Therefore, we also monitor the time evolution of the condensate magnitude near the candidate vortex core. A genuine stable vortex should exhibit a sustained suppression of the condensate amplitude at the core, which gradually recovers to a finite value but remains lower than the surrounding superfluid background. Figure 15 illustrates this criterion for two different collision radii, rco = 13 .0078 > r c
+
+(first row) and rco = 12 .9727 < r c (second row), where rc ≈ 12 .9825 is the critical radius identified in the main text. The horizontal axis origin is chosen to coincide with the position where a vortex is expected to form. In the supercritical case (first row), a core with non-zero winding initially appears, but the condensate amplitude around it decays after an initial increase, indicating that no stable vortex survives. In contrast, for the subcritical case (second row), the condensate amplitude around the core gradually grows and eventually develops into a stable vortex configuration. The data in Fig. 15 are fitted using a spline for smoothness. By combining the phase winding analysis with the temporal behavior of the condensate magnitude, we reliably distinguish genuine stable vortices from transient topological fluctu-ations. This combined method is applied throughout the multi-bubble collision simulations presented in Section 5. – 22 – 024
+
+> jOj
+
+# t = 100 t = 110 t = 112 :5-5 0 5024
+
+> jOj
+
+# y
+
+# t = 90 -5 0 5
+
+# y
+
+# t = 100 -5 0 5
+
+# y
+
+# t = 125 Figure 15 . Time evolution of the condensate magnitude along the y direction for two different collision radii at representative time slices. The origin of the horizontal axis coincides with the expected vortex formation position. Top row : rco = 13 .0078 > r c (with rc ≈ 12 .9825 ). A core initially forms at the origin, but the surrounding condensate subsequently decays, indicating no stable vortex. At t = 112 .5, no winding number is found, so the profile is shown near the last detection position. Bottom row : rco = 12 .9727 < r c. The condensate around the core gradually grows and eventually develops into a stable vortex configuration. The data are fitted using a spline. 
+
+## References 
+
+[1] Y. Asano, H. Watanabe and H. Noguchi, Effects of Vapor-Liquid Phase Transitions on Sound-Wave Propagation: A Molecular Dynamics Study , Phys. Rev. Fluids 7 (2022) 064302 [2112.07139 ]. [2] A. Sinha, T. Chanda and J. Dziarmaga, Non-adiabatic dynamics across a first order quantum phase transition: Quantized bubble nucleation , Phys. Rev. B 103 (2021) L220302 [2103.04762 ]. [3] A.-C. Davis and M. Lilley, Cosmological consequences of slow moving bubbles in first order phase transitions , Phys. Rev. D 61 (2000) 043502 [ hep-ph/9908398 ]. [4] M. Dine, R.G. Leigh, P.Y. Huet, A.D. Linde and D.A. Linde, Towards the theory of the electroweak phase transition , Phys. Rev. D 46 (1992) 550 [ hep-ph/9203203 ]. [5] R. Jinno and M. Takimoto, Gravitational waves from bubble collisions: An analytic derivation , Phys. Rev. D 95 (2017) 024009 [ 1605.01403 ]. [6] D.-H. Kim, B.-H. Lee, W. Lee, J. Yang and D.-h. Yeom, Gravitational waves from cosmic bubble collisions , Eur. Phys. J. C 75 (2015) 133 [ 1410.4648 ]. [7] I. Baldes, S. Blasi, A. Mariotti, A. Sevrin and K. Turbang, Baryogenesis via relativistic 
+
+– 23 – bubble expansion , Phys. Rev. D 104 (2021) 115029 [ 2106.15602 ]. [8] A. Azatov, M. Vanvlasselaer and W. Yin, Dark Matter production from relativistic bubble walls , JHEP 03 (2021) 288 [ 2101.05721 ]. [9] T.H. Jung and T. Okui, Primordial black holes from bubble collisions during a first-order phase transition , Phys. Rev. D 110 (2024) 115014 [ 2110.04271 ]. [10] C. Gowling and M. Hindmarsh, Observational prospects for phase transitions at LISA: Fisher matrix analysis , JCAP 10 (2021) 039 [ 2106.05984 ]. [11] C. Branchina, A. Conaci, L. Delle Rose and S. De Curtis, Bubble wall velocity with out-of-equilibrium corrections , Phys. Rev. D 113 (2026) 035024 [ 2510.21942 ]. [12] Z.-Y. Yuwen, J.-C. Wang and S.-J. Wang, Bubble wall velocity from number density current in (non)equilibrium , 2409.20045 .[13] L. Li, S.-J. Wang and Z.-Y. Yuwen, Bubble expansion at strong coupling , Phys. Rev. D 108 
+
+(2023) 096033 [ 2302.10042 ]. [14] R. Fallahzadeh, F. Bozzoli, L. Cattani, L. Pagliarini, N. Naeimabadi and M.W. Azam, AMolecular Dynamics Perspective on the Impacts of Random Rough Surface, Film Thickness, and Substrate Temperature on the Adsorbed Film’s Liquid–Vapor Phase Transition Regime ,
+
+Sci 6 (2024) 33. [15] X.-W. Lin, X.-G. Zhu, J. Yin, M.-Y. Shi, Y. Liu, B. Chen et al., Molecular dynamics simulation on bubble nucleation and boiling heat transfer of R1336mzz(Z) nanofilm with varying boundary heating rates , Int. Commun. Heat Mass Transf. 155 (2024) 107567. [16] Z.-Q. Zhao, X.-K. Zhang and Z.-Y. Nie, Dynamical stability from quasi normal modes in 2nd, 1st and 0th order holographic superfluid phase transitions , JHEP 02 (2023) 023 [ 2211.14762 ]. [17] X. Zhao, Z.-Y. Nie, Z.-Q. Zhao, H.-B. Zeng, Y. Tian and M. Baggioli, Dynamical evolution of spinodal decomposition in holographic superfluids , JHEP 02 (2024) 184 [ 2311.08277 ]. [18] Q. Chen, Y. Liu, Y. Tian, B. Wang, C.-Y. Zhang and H. Zhang, Critical dynamics in holographic first-order phase transition , JHEP 01 (2023) 056 [ 2209.12789 ]. [19] R.A. Janik, J. Jankowski and H. Soltanpanahi, Real-Time dynamics and phase separation in a holographic first order phase transition , Phys. Rev. Lett. 119 (2017) 261601 [ 1704.05387 ]. [20] R.A. Janik, J. Jankowski and H. Soltanpanahi, Nonequilibrium Dynamics and Phase Transitions in Holographic Models , Phys. Rev. Lett. 117 (2016) 091603 [ 1512.06871 ]. [21] M. Attems, Holographic approach of the spinodal instability to criticality , JHEP 08 (2021) 155 [ 2012.15687 ]. [22] L. Bellantuono, R.A. Janik, J. Jankowski and H. Soltanpanahi, Dynamics near a first order phase transition , JHEP 10 (2019) 146 [ 1906.00061 ]. [23] Y. Bea, J. Casalderrey-Solana, T. Giannakopoulos, D. Mateos, M. Sanchez-Garitaonandia and M. Zilhão, Bubble wall velocity from holography , Phys. Rev. D 104 (2021) L121903 [2104.05708 ]. [24] Y. Bea, J. Casalderrey-Solana, T. Giannakopoulos, A. Jansen, D. Mateos, M. Sanchez-Garitaonandia et al., Holographic bubbles with Jecco: expanding, collapsing and critical , JHEP 09 (2022) 008 [ 2202.10503 ]. [25] Z.-Q. Zhao, Z.-Y. Nie, J.-F. Zhang and X. Zhang, Topological defect induced phase separation in a holographic system , 2604.00690 .
+
+– 24 – [26] S.L. Liebling and M.W. Choptuik, Black hole criticality in the Brans-Dicke model , Phys. Rev. Lett. 77 (1996) 1424 [ gr-qc/9606057 ]. [27] M.W. Choptuik, T. Chmaj and P. Bizon, Critical behavior in gravitational collapse of a Yang-Mills field , Phys. Rev. Lett. 77 (1996) 424 [ gr-qc/9603051 ]. [28] M.W. Choptuik, E.W. Hirschmann, S.L. Liebling and F. Pretorius, Critical collapse of a complex scalar field with angular momentum , Phys. Rev. Lett. 93 (2004) 131101 [gr-qc/0405101 ]. [29] G. Münster and S.B. Rutkevich, Semiclassical calculation of the nucleation rate for first order phase transitions in the 2-dimensional ϕ4-model beyond the thin wall approximation ,
+
+cond-mat/0009016 .[30] T.W.B. Kibble, Topology of Cosmic Domains and Strings , J. Phys. A 9 (1976) 1387. [31] W.H. Zurek, Cosmological Experiments in Superfluid Helium? , Nature 317 (1985) 505. [32] W.H. Zurek, Cosmological experiments in condensed matter systems , Phys. Rept. 276 (1996) 177 [ cond-mat/9607135 ]. [33] V.M.H. Ruutu, V.B. Eltsov, A.J. Gill, T.W.B. Kibble, M. Krusius, Y.G. Makhlin et al., 
+
+Vortex formation in neutron-irradiated superfluid 3He as an analogue of cosmological defect formation , Nature 382 (1996) 334. [34] A. Maniv, E. Polturak and G. Koren, Observation of Magnetic Flux Generated Spontaneously During a Rapid Quench of Superconducting Films , Phys. Rev. Lett. 91 (2003) 197001 [cond-mat/0304359 ]. [35] A. Keesling et al., Quantum Kibble–Zurek mechanism and critical dynamics on a programmable Rydberg simulator , Nature 568 (2019) 207 [ 1809.05540 ]. [36] F. Suzuki and W.H. Zurek, Topological Defect Formation in a Phase Transition with Tunable Order , Phys. Rev. Lett. 132 (2024) 241601 [ 2312.01259 ]. [37] M.J. Bowick, L. Chandar, E.A. Schiff and A.M. Srivastava, The Cosmological Kibble mechanism in the laboratory: String formation in liquid crystals , Science 263 (1994) 943 [hep-ph/9208233 ]. [38] M. Aidelsburger, J.L. Ville, R. Saint-Jalm, S. Nascimbène, J. Dalibard and J. Beugnon, 
+
+Relaxation Dynamics in the Merging of N Independent Condensates , Phys. Rev. Lett. 119 
+
+(2017) 190403 [ 1705.02650 ]. [39] A.M. Srivastava, Numerical simulation of dynamical production of vortices by critical and subcritical bubbles , Phys. Rev. D 46 (1992) 1353. [40] S. Digal, S. Sengupta and A.M. Srivastava, Defect - antidefect pair production via field oscillations , Phys. Rev. D 55 (1997) 3824 [ hep-ph/9608286 ]. [41] T.W.B. Kibble and A. Vilenkin, Phase equilibration in bubble collisions , Phys. Rev. D 52 
+
+(1995) 679 [ hep-ph/9501266 ]. [42] E.J. Copeland, P.M. Saffin and O. Tornkvist, Phase equilibration and magnetic field generation in U(1) bubble collisions , Phys. Rev. D 61 (2000) 105005 [ hep-ph/9907437 ]. [43] S. Digal and A.M. Srivastava, Formation of topological defects with explicit symmetry breaking , Phys. Rev. Lett. 76 (1996) 583 [ hep-ph/9509263 ]. 
+
+– 25 – [44] S. Digal, S. Sengupta and A.M. Srivastava, Simulation of vortex - antivortex pair production in a phase transition with explicit symmetry breaking , Phys. Rev. D 58 (1998) 103510 [hep-ph/9707221 ]. [45] A. Ferrera and A. Melfo, Bubble collisions and defect formation in a damping environment ,
+
+Phys. Rev. D 53 (1996) 6852 [ hep-ph/9512290 ]. [46] A. Ferrera, Defect formation in first order phase transitions with damping , Phys. Rev. D 57 
+
+(1998) 7130 [ hep-ph/9612487 ]. [47] S.A. Hartnoll, Lectures on holographic methods for condensed matter physics , Class. Quant. Grav. 26 (2009) 224002 [ 0903.3246 ]. [48] C. Gundlach, D. Hilditch and J.M. Martín-García, Critical Phenomena in Gravitational Collapse , 2507.07636 .[49] J. Borrill, T.W.B. Kibble, T. Vachaspati and A. Vilenkin, Defect production in slow first order phase transitions , Phys. Rev. D 52 (1995) 1934 [ hep-ph/9503223 ]. [50] J.-C. Wang, Z.-Y. Yuwen, Y.-S. Hao and S.-J. Wang, General bubble expansion at strong coupling , Phys. Rev. D 109 (2024) 096012 [ 2311.07347 ]. [51] R.A. Janik, M. Jarvinen, H. Soltanpanahi and J. Sonnenschein, Perfect Fluid Hydrodynamic Picture of Domain Wall Velocities at Strong Coupling , Phys. Rev. Lett. 129 (2022) 081601 [2205.06274 ]. [52] F. Bigazzi, A. Caddeo, T. Canneti and A.L. Cotrone, Bubble wall velocity at strong coupling ,
+
+JHEP 08 (2021) 090 [ 2104.12817 ]. [53] R.-G. Cai, S. He, L. Li and L.-F. Li, A Holographic Study on Vector Condensate Induced by a Magnetic Field , JHEP 12 (2013) 036 [ 1309.2098 ]. [54] R.-G. Cai, L. Li and L.-F. Li, A Holographic P-wave Superconductor Model , JHEP 01 (2014) 032 [ 1309.4877 ]. 
+
+– 26 –

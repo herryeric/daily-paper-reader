@@ -1,0 +1,558 @@
+Title: Scale invariance of the polaron energy at the Mott-superfluid critical point
+
+URL Source: https://arxiv.org/pdf/2604.17824v1
+
+Published Time: Tue, 21 Apr 2026 01:55:51 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Scale invariance of the polaron energy at the Mott–superfluid critical point 
+
+M. ˇCufar ,1, 2 R. Alhyder ,3 C. J. Bradly ,4 V. E. Colussi ,5 G. M. Bruun ,6 J. Brand ,1, 2 and A. Recati 5, 7 
+
+> 1
+
+Te Whai Ao — Dodd-Walls Centre for Photonic and Quantum Technologies, Auckland 0632, New Zealand 
+
+> 2
+
+Centre for Theoretical Chemistry and Physics, New Zealand Institute for Advanced Study, Massey University, Private Bag 102904, North Shore, Auckland 0745, New Zealand 
+
+> 3
+
+Institute of Science and Technology Austria (ISTA), Am Campus 1, 3400 Klosterneuburg, Austria 
+
+> 4
+
+Department of Mathematics, Swinburne University of Technology, Hawthorn, VIC 3122, Australia 
+
+> 5
+
+Pitaevskii BEC Center, CNR-INO and Dipartimento di Fisica, Universit` a di Trento, I-38123 Trento, Italy 
+
+> 6
+
+Center for Complex Quantum Systems, Department of Physics and Astronomy, Aarhus University, Ny Munkegade 120, DK-8000 Aarhus C, Denmark 
+
+> 7
+
+Trento Institute for Fundamental Physics and Applications, INFN, 38123 Trento, Italy 
+
+Continuous quantum phase transitions are characterized by an order parameter and correlation functions that are often challenging to access experimentally or in direct numerical simulations. The energy of an added impurity can on the other hand be probed by established polaron spectroscopy, or numerically with Monte Carlo methods. We provide evidence from ground-state quantum Monte Carlo calculations that the energy of a mobile impurity interacting weakly with a surrounding lattice Bose gas provides access to the critical behavior of the Mott insulator–superfluid phase transition. Finite-size scaling of the energy reveals that its value is scale invariant at the critical point of the quantum phase transition, and we extract a scaling exponent that is currently unexplained by theory. For a small lattice we further observe a flattening of the impurity-boson density-density correlations at the critical point, which hints at a divergence of a corresponding length scale in the thermodynamic limit. Our results suggest that impurity spectroscopy represents a useful way to probe the critical properties of quantum phase transitions in general. 
+
+Introduction — Quantum phase transitions are a hall-mark of many-body physics, where quantum fluctuations drive the system’s ground state across a quantum crit-ical point [1]. At the critical point, long-range corre-lations arise and the system exhibits universal scaling behavior, i.e., various observables follow a power-law in-dependent of the microscopic details of the system [2]. These transitions are typically characterized by an or-der parameter, an expectation value of an operator that vanishes in one phase and takes a non-zero value in the other. However, identifying the appropriate order pa-rameter for a given phase transition can be nontrivial, and even when known, it is often difficult to access ex-perimentally. Probing such quantities typically requires high-resolution, phase-sensitive measurements that are challenging to realize, leaving many quantum transitions only partially mapped [3, 4]. Recently, it has been argued that the energy of a mo-bile impurity embedded in a many-body system can serve as a sensitive probe of quantum phases [5–11]. Through interactions with the host medium, the impurity becomes dressed by excitations forming a quasiparticle called a polaron, whose properties reflect the surrounding envi-ronment. In the regime where the impurity–host inter-action is weak compared to the characteristic interac-tion scale of the host system, the polaron behaves as a passive probe, with its energy reflecting properties of the surrounding medium without significantly disturb-ing it [7, 9]. Extracting the polaron energy with high-fidelity techniques such as radio-frequency, Ramsey, or modulation spectroscopy [12–15], may thus provide in-sights into the properties of the system across a quantum phase transition. As such, it offers a powerful alternative to conventional probes that often rely on bulk correla-tion functions, which are significantly more challenging to measure experimentally. A particularly relevant setting is the Bose–Hubbard model of bosons in a tight-binding lattice with repul-sive interactions. As the ratio of hopping to interaction strength is increased, the system undergoes a continuous quantum phase transition from a gapped Mott insulator to a gapless superfluid at fixed integer density [1, 16], as realized experimentally with ultracold atoms in opti-cal lattices [17–20]. The critical behavior of the model has been investigated using quantum Monte Carlo simu-lations [21–25], non-perturbative renormalization group methods [26–29], and other analytical approaches [30– 34]. The Mott-superfluid transition in the two dimensional Bose-Hubbard model is a continuous phase transition in the same universality class as the three-dimensional clas-sical O(2) model [16]. Here, we use finite-size scaling of Monte Carlo data to show that the addition of a polaron maintains much of the critical properties of the host sys-tem with some key differences. We find that the energy of the polaron is itself scale invariant and can serve as a pre-dictor of the location of the critical point. Furthermore, we show that there is an intimate connection between the polaron energy and the impurity-boson density-density correlation function, which in turn probes the dynamic structure factor of the host system for weakly-coupled impurities. We find that even for small system sizes the impurity-boson correlations flatten at the transition point, which provides a further observable characteristic 
+
+> arXiv:2604.17824v1 [cond-mat.quant-gas] 20 Apr 2026
+
+2of the quantum phase transition accessible to quantum gas microscopy experiments [35]. However, despite the intimate connection between the polaron and the host system, we also find that the crossover scaling exponent for the polaron energy with value ≈ 0.74 ± 0.26 is dis-tinctly different from the crossover exponent associated with the host system 1 /ν ≈ 1.49 [1], which controls the divergence of the correlation length, or equivalently the spectral gap across the phase transition. The origin of this critical exponent represents an intriguing theoretical challenge. 
+
+The model — The Bose-Hubbard Hamiltonian describ-ing the host system is ˆHB = −t X
+
+> ⟨i,j⟩
+
+ˆa† 
+
+> i
+
+ˆaj + U
+
+2
+
+X
+
+> i
+
+ˆni,B(ˆ ni,B − 1) , (1) where ˆ a† 
+
+> i
+
+(ˆ ai) creates (destroys) a boson at site i, ⟨i, j⟩
+
+goes over all neighboring sites, ˆ ni,B = ˆ a† 
+
+> i
+
+ˆai is the number operator, t the hopping parameter and U > 0 the repul-sive boson-boson interaction strength. We consider the model on a two-dimensional L × L square lattice with periodic boundaries filled with NB bosons, focusing on the case of unit filling where nB ≡ NB/L 2 = 1. At fixed 
+
+U , this model undergoes a quantum phase transition as the hopping strength t/U crosses a critical value, tc/U .We add a single, interacting impurity to the model by modifying the Hamiltonian as ˆH = ˆHB + ˆHI + UIB 
+
+X
+
+> i
+
+ˆni,I ˆni,B , (2) where ˆHI = −t P 
+
+> ⟨i,j⟩
+
+ˆb† 
+
+> i
+
+ˆbj is the impurity Hamiltonian, 
+
+UIB is the impurity-boson interaction strength, ˆb† 
+
+> i
+
+(ˆbi) is the creation (destruction) operator for the impurity, and ˆni,I = ˆb† 
+
+> i
+
+ˆbi.
+
+Computational methods — To compute the ground state energy of ˆH, we employ full configuration inter-action quantum Monte Carlo (QMC) [36, 37], which is a projector Monte Carlo method. The algorithm iterates from an arbitrary starting vector c(0) according to the rule 
+
+c(n+1) =
+
+h
+
+1 + d τ
+
+
+
+S(n) − H
+
+i 
+
+c(n) , (3) where 1 is the identity matrix, d τ a (small) time step, 
+
+H is a matrix representation of ˆH and S(n) is a scalar energy shift, which is updated after every step in a way that keeps the 1-norm of c(n) approximately constant [36, 38]. As long as the time step is small enough, Eq. (3) has a stable fixed point where c(∞) is the ground state eigenvector and S(∞) the ground state energy of H.The scheme is applied stochastically such that Eq. (3) is fulfilled in expectation but only a small number of nonzero vector elements need to be stored and matrix elements are evaluated on the fly. Equation (3) is ap-plied for many steps and, after an equilibration phase, the values of S(n) fluctuate around E, the exact ground state energy of ˆH. Averaging this data gives an accurate estimate of the energy E, albeit with a controllable and usually small population control bias, which is caused by the noise in the algorithm [39, 40]. To control this bias, we use importance sampling, which modifies H by simi-larity transform in a way that reduces noise in the algo-rithm. This allows us to accurately sample ground states of systems with Hilbert space dimension up to ≈ 10 60 .
+
+Polaron energy as a scaling function — The polaron energy Ep is given by the difference between the ground state energy E of the system with ( UIB ̸ = 0) and without (UIB = 0) the impurity: 
+
+Ep = E(UIB ) − E(0) . (4) The polaron energy as a function of the hopping strength 
+
+t/U for various system sizes L is shown in the top row of Fig. 1, where the different panels (a–c) correspond to different values of the coupling strength UIB . The curves for different values of L are found to cross near the crit-ical hopping strength for the quantum phase transitions 
+
+tc/U ≈ 0.06 [21–23], which indicates the polaron energy is scale invariant at the transition point. It further sug-gests that these curves may be connected by finite size scaling [3]. To investigate this we make a scaling hypoth-esis using the standard ansatz 
+
+Ep − UIB 
+
+U = L−bf
+
+
+
+La t − tc
+
+U
+
+
+
+, (5) where the parameters we want to estimate are the crossover exponent a, the leading exponent b, and the location of the critical point tc, with f an unknown ana-lytic function. Because a single impurity is only a local effect in the thermodynamic limit, f only has explicit dependence on L and t/U while UIB is only expected to have an implicit effect on the non-universal behavior of f .When the parameters of Eq. (5) are chosen correctly, and the data is plotted as Lb(Ep −UIB )/U versus La(t−tc)/U ,the data near the transition point should collapse onto a single curve [1]. To find these parameters, we define a cost function C(a, b, t c) (see End Matter), that mea-sures how collapsed the data is. In a modification of the procedure of Ref. [41] we interpolate the data across t/U 
+
+for each value of L and measure the distance each such curve is from an average, in units of the QMC error bars. This cost function is similar to the reduced χ2 measure of goodness of fit, and as such, values close to 1 indicate the data collapses well. The rescaled data is shown in the bottom row of pan-els (d–f). We see that the data collapses well in all three cases, however, the data with UIB /U = 0 .1 is rather noisy, and at UIB /U = 0 .5, the collapse begins to show signs of breaking down. This can be made clearer by looking at Fig. 2, where the values of the fitted pa-rameters and C are plotted across a range of UIB /U .3t/U                                           
+
+> 0.050 0.055 0.060 0.065 0.070
+> (E p − U IB )/ U
+> −0.002
+> −0.001 0.000
+> La(t−tc
+> ⋆)/ U
+> −0.04 −0.02 0.00 0.02
+> Lb (E p − U IB )/ U
+> −0.002
+> −0.001 0.000
+> t/U
+> 0.050 0.055 0.060 0.065 0.070
+> −0.020
+> −0.015
+> −0.010
+> −0.005
+> La(t−tc
+> ⋆)/ U
+> −0.05 0.00 0.05
+> −0.020
+> −0.015
+> −0.010
+> −0.005
+> t/U
+> 0.050 0.055 0.060 0.065 0.070
+> −0.06
+> −0.05
+> −0.04
+> −0.03
+> −0.02
+> La(t−tc
+> ⋆)/ U
+> −0.05 0.00 0.05
+> −0.06
+> −0.05
+> −0.04
+> −0.03
+> −0.02
+> (a) (b) (c) (d) (e) (f)
+> UIB /U= 0.1 UIB /U= 0.3 UIB /U= 0.5
+> UIB /U= 0.1 UIB /U= 0.3 UIB /U= 0.5
+> L
+> 5678910
+
+FIG. 1. Finite size scaling of the polaron energy for a Bose-Hubbard lattice at unit filling with an impurity-boson interaction strength UIB as labeled. The top row (a–c) shows the polaron energy Ep as a function of t/U . An apparent crossing of the curves for different system size L (as per legend) near critical value tc/U ≈ 0.06 of the Mott insulator–superfluid phase transition indicates the scale invariance of Ep. The bottom row (d–f) shows the same data scaled according to the ansatz from Eq. (5) with optimized parameters. The parameter values are shown in Fig. 2. 1 σ error bars are used throughout. a           
+
+> 0.5 1.0 1.5
+> UIB /U
+> −0.5 0.0 0.5
+> b
+> −0.1 0.0 0.1 0.2
+> t c
+> 0.060 0.061 0.062 0.063 0.064
+> UIB /U
+> −0.5 0.0 0.5
+> C
+> 10 0.0 10 0.5 10 1.0 10 1.5
+
+FIG. 2. Scaling parameters. Shown are the fitted parameters 
+
+a, b, and tc of the scaling ansatz of Eq. (5) vs. the interac-tion strength UIB . The data was collected for system sizes 
+
+L between 5 and 10 in a narrow window close to the critical interaction strength tc/U . Values of the cost function C close to 1 indicate that the scaling ansatz is well supported by the data. 
+
+We see that C increases as |UIB /U | becomes stronger, which indicates the collapse only works well when inter-actions are weak. This is expected behavior for finite systems with fixed particle number — when interactions are strong, the impurity has a significant effect on the underlying system and can no longer be seen as a pas-sive probe [9]. The weak UIB /U data has relatively more noise because the QMC error bar primarily depends on the system size, while the span of Ep/U values depends strongly on UIB /U . This is reflected in the size of the error bars on the parameter estimates in Fig. 2. The data provides strong support for the scaling hypothesis being valid in the regime of weak impurity-boson inter-action |UIB /U | ≲ 0.5. We find the critical point to occur at tc/U = 0 .061 ± 0.0013, which is consistent with other values in the literature [21–23]. In addition, we estimate 
+
+b = 0 .05 ± 0.078, which is consistent with zero, making 
+
+Ep scale invariant at the critical point. Finally, our esti-mate for the crossover exponent is a = 0 .74 ±0.26. Finite size effects may cause a bias that we estimate to be less than 10% by calculating the crossover exponent of the host system’s charge gap, which is accurately known in the literature [1] (see End Matter and Fig. 4). 
+
+Impurity-boson density-density correlations — To fur-ther examine the connections between the polaron energy and the critical properties of the host system, we now consider the impurity-boson density-density correlation function 
+
+G(2) IB (d) = X
+
+> i
+
+⟨ˆni,I ˆni+d,B⟩ , (6) An application of the Hellman-Feynman theorem to the 4d                                           
+
+> 1234
+> G IB (2) (d)
+> 1.0000 1.0025 1.0050 1.0075
+> d
+> 1234
+> d
+> 1234
+> t/U= 0.05 (a) t/U= 0.065 (b) t/U= 0.075 (c)
+> t/U
+> 0.04 0.05 0.06 0.07
+> 𝜎  [ × 10  − 3]
+> 0.0 0.5 1.0 1.5 2.0 (d)
+> FIG. 3. Flattening of non-local impurity-boson correlations in a small system with L= 4. Panels (a–c) show the impurity-boson correlation function G(2) IB (d) as a function of the rectilin-ear distance ( L1metric) dof a host boson from the position of the impurity at an interaction strength of UIB /U = 0 .2. Panel (d) shows the standard deviation σ(see Eq. (9)) of
+> G(2) IB (d) for d > 0 vs. t/U , with gray squares marking the val-ues corresponding to panels (a–c). The lines from bottom to top correspond to UIB /U = 0 .1,0.2,0.3,0.4. A distinct min-imum of σ, indicating a flattening of correlation function, is observed near the expected critical value of t/U for the Mott-insulator – superfluid quantum phase transition.
+
+polaron energy in Eq. (4) yields 
+
+dE p
+
+dU IB 
+
+= X
+
+> j
+
+⟨ˆnj,I ˆnj,B⟩ ≡ G(2) IB (0) , (7) which shows that Ep directly probes the local impurity-boson correlations G(2) IB (0). This relation is exact for ar-bitrary interaction strengths. For weak impurity-boson 
+
+UIB , the polaron energy can further be related to the properties of the host system by a perturbative expan-sion in UIB [42, 43] (see End Matter for details) 
+
+Ep = UIB nB + U 2IB 
+
+X
+
+> k
+
+Z
+
+dω S(k, ω )
+
+ϵ0 − ϵk − ω + O(U 3IB ), (8) where S(k, ω ) is the dynamic structure factor encapsu-lating the dynamic density-density correlations of the bosons. Equation (8) demonstrates how the polaron en-ergy directly relates to non-local correlations in the un-perturbed host system. This motivates further exami-nation of G(2) IB across the Mott insulator–superfluid tran-sition. Note that a successful theoretical investigation should include terms involving more than one particle-hole excitation, since in the single particle-hole chan-nel the polaron energy vanishes at the quantum critical point [9, 44]. 
+
+Small system behavior — Encouraged by the numer-ically observed scale invariance of Ep, we examine the impurity-boson correlations for a small system with ex-act diagonalization calculations. Figure 3 (a–c) shows the correlation function G(2) IB (d) for d ≡ ∥ d∥1 > 0 for a small lattice with L = 4. The values of G(2) IB (0) are not shown and are presented in End Matter. At small t/U 
+
+in Fig. 3 (a) the host boson density is increased in the immediate vicinity ( d = 1) of the impurity compared to the asymptotic value at larger distances, as expected for an insulating phase [45, 46]. Conversely, at large t/U in Fig. 3 (c), the host boson density is depressed near the re-pulsive impurity before healing to an asymptotic value at larger distances [47]. This behavior is reminiscent of the weakly-interacting (superfluid) Bose gas [48]. Between these two regimes, at the intermediate value t/U = 0 .065 as shown in panel (b), the correlations are almost en-tirely flat. We quantify the flatness through the standard deviation σ of the non-local impurity-boson correlation function, namely 
+
+σ2 = 1
+
+L − 1
+
+X
+
+> d> 0
+
+h
+
+G(2) IB (d) − ¯g
+
+i2
+
+(9) where ¯ g = 1
+
+> L
+
+P 
+
+> d> 0
+
+G(2) IB (d) is the non-local average. The standard deviation σ is shown in Fig. 3 (d) as a func-tion of the hopping strength t/U and for several val-ues of UIB /U . There is a distinct minimum in σ near 
+
+tc/U ≈ 0.065 suggesting that the flatness of the impurity-boson correlations are another indicator of the transition for weak UIB /U . This flatness can be rationalized as a finite size precursor of a divergent correlation length in the thermodynamic limit, and is consistent with the ob-served scale invariance of the polaron energy near the critical point. The location of the minimum of σ in Fig. 3 (d) is seen to move towards smaller values of t/U 
+
+for larger impurity strengths UIB , which we attribute to non-perturbative effects. In a smaller system with L = 3 (data not shown) we find similar behavior with a local minimum of σ at a nearly unchanged location of t/U ≈ 0.066. Based on these observations, we hypothesize that the scale invari-ance observed for the polaron energy (which measures local impurity-boson correlations) also extends to the non-local impurity-boson correlations. As the impurity-boson density-density correlation function G(2) IB (d) can directly be measured in quantum gas microscope experi-ments [35], observing the flattening of the non-local cor-relations provides an accessible indicator for the quantum phase transition precursor in even relatively small finite systems. 
+
+Outlook and conclusion — Our numerical simulations indicate that the energy of a single impurity immersed in a two-dimensional Bose Hubbard model follows a scaling law when the host system undergoes a Mott insulator– superfluid phase transition. Specifically, our data sup-ports the hypothesis that the polaron energy is scale invariant at the transition point. Our estimate for the 5crossover exponent of the polaron energy a = 0 .74 ± 0.26 is distinctly different from the known critical properties of the host system [1]. While we have theoretically de-rived a direct connection between the polaron energy of a weakly-coupled impurity and the density-density correla-tions of the host system, a microscopic explanation of our results is an interesting and open problem to the best of our knowledge. From a broader perspective, our results open up interesting research directions concerning how impurities can provide powerful new ways to probe the critical properties of quantum phase transitions, which are hard to measure by other means. This is particularly relevant for high precision quantum simulation experi-ments with cold atoms where the interaction, number of particles and lattice sites can be controlled [49, 50]. 
+
+Acknowledgements — We thank Nicolas Dupuis and Adam Ran¸ con for fruitful discussions. M. ˇC. and J.B. re-ceived funding from the Marsden Fund of New Zealand (Contract No. MAU 2007), from government funding managed by the Royal Society of New Zealand Te Ap¯ arangi, and acknowledge support by the New Zealand eScience Infrastructure (NeSI) high-performance com-puting facilities in the form of a merit project alloca-tion. This research used resources of the Oak Ridge Leadership Computing Facility at the Oak Ridge Na-tional Laboratory, which is supported by the Office of Science of the U.S. Department of Energy under Con-tract No. DE-AC05-00OR22725. R.A. acknowledges sup-port from the Austrian Academy of Science ¨OAW grant No. PR1029OEAW03. A.R. received financial support from Provincia Autonoma di Trento and and from the Italian National Institute for Nuclear Physcis (INFN) through the RELAQS project. G.M.B. received sup-ported from the Danish National Research Foundation through the Center of Excellence “CCQ” (Grant agree-ment No. DNRF156), the Independent Research Fund Denmark- Natural Sciences via Grant No. DFF -8021-00233B. This research was supported in part by the Na-tional Science Foundation under Grant No. NSF PHY-1748958. 
+
+[1] S. Sachdev, Quantum Phase Transitions , 2nd ed. (Cam-bridge University Press, Cambridge, 2011). [2] M. E. Fisher and M. N. Barber, Scaling Theory for Finite-Size Effects in the Critical Region, Physical Review Let-ters 28 , 1516 (1972). [3] J. Cardy, ed., Finite-Size Scaling , Current Physics –Sources and Comments, Vol. 2 (North-Holland, 2012). [4] M. Vojta, Quantum phase transitions, Reports on Progress in Physics 66 , 2069 (2003). [5] A. Camacho-Guardian, N. Goldman, P. Massignan, and G. M. Bruun, Dropping an impurity into a chern insula-tor: A polaron view on topological matter, Phys. Rev. B 
+
+99 , 081105 (2019). [6] R. Alhyder and G. M. Bruun, Mobile impurity probing a two-dimensional superfluid phase transition, Physical Review A 105 , 063303 (2022). [7] V. E. Colussi, F. Caleffi, C. Menotti, and A. Recati, Lattice Polarons across the Superfluid to Mott Insulator Transition, Physical Review Letters 130 , 173002 (2023). [8] A. Vashisht, I. Amelio, L. Vanderstraeten, G. M. Bruun, O. K. Diessel, and N. Goldman, Chiral polaron forma-tion on the edge of topological quantum matter, Nature Communications 16 , 4918 (2025). [9] R. Alhyder, V. Colussi, M. ˇCufar, J. Brand, A. Re-cati, and G. M. Bruun, Lattice Bose polarons at strong coupling and quantum criticality, SciPost Physics 19 ,10.21468/scipostphys.19.1.002 (2025). [10] P. Massignan, R. Schmidt, G. E. Astrakharchik, A. ˙Imamoglu, M. Zwierlein, J. J. Arlt, and G. M. Bruun, Polarons in atomic gases and two-dimensional semicon-ductors (2025), arXiv:2501.09618 [cond-mat]. [11] T. Hartweg, T. Gupta, and G. Pupillo, Bose-hubbard polaron from weak to strong coupling, Phys. Rev. B 112 ,L220201 (2025). [12] M. G. Skou, T. G. Skov, N. B. Jørgensen, K. K. Nielsen, A. Camacho-Guardian, T. Pohl, G. M. Bruun, and J. J. Arlt, Non-equilibrium quantum dynamics and formation of the Bose polaron, Nature Physics 17 , 731 (2021). [13] J. Etrych, G. Martirosyan, A. Cao, C. J. Ho, Z. Hadz-ibabic, and C. Eigen, Universal quantum dynamics of bose polarons, Physical Review X 15 , 021070 (2025). [14] R. Henke, J. Levinsen, M. M. Parish, J. Boronat, G. E. Astrakharchik, H. Moritz, and C. R. Cabrera, Realization of repulsive polarons in the strongly correlated regime (2025), arXiv:2511.03569 [cond-mat.quant-gas]. [15] R. Alhyder, G. M. Bruun, T. Pohl, M. Lemeshko, and A. G. Volosniev, Phenomenological model of decaying bose polarons, Phys. Rev. Res. 8, L012034 (2026). [16] M. P. A. Fisher, P. B. Weichman, G. Grinstein, and D. S. Fisher, Boson localization and the superfluid-insulator transition, Physical Review B 40 , 546 (1989). [17] M. Greiner, O. Mandel, T. Esslinger, T. W. H¨ ansch, and I. Bloch, Quantum phase transition from a superfluid to a Mott insulator in a gas of ultracold atoms, Nature 415 ,39 (2002). [18] R. J¨ ordens, N. Strohmaier, K. G¨ unter, H. Moritz, and T. Esslinger, A Mott insulator of fermionic atoms in an optical lattice, Nature 455 , 204 (2008). [19] J. F. Sherson, C. Weitenberg, M. Endres, M. Cheneau, I. Bloch, and S. Kuhr, Single-atom-resolved fluorescence imaging of an atomic Mott insulator, Nature 467 , 68 (2010). [20] L. Su, A. Douglas, M. Szurek, A. H. H´ ebert, A. Krahn, R. Groth, G. A. Phelps, O. Markovi´ c, and M. Greiner, Fast single atom imaging for optical lattice arrays, Nature Communications 16 , 1017 (2025). [21] W. Krauth and N. Trivedi, Mott and Superfluid Tran-sitions in a Strongly Interacting Lattice Boson System, Europhysics Letters (EPL) 14 , 627 (1991). [22] M. Capello, F. Becca, M. Fabrizio, and S. Sorella, Su-perfluid to Mott-Insulator Transition in Bose-Hubbard Models, Physical Review Letters 99 , 056402 (2007). [23] B. Capogrosso-Sansone, S ¸. G. S¨ oyler, N. Prokof’ev, and B. Svistunov, Monte Carlo study of the two-dimensional Bose-Hubbard model, Physical Review A 77 , 015602 (2008). [24] L. Pollet and N. Prokof’ev, Higgs Mode in a Two-6
+
+Dimensional Superfluid, Physical Review Letters 109 ,010401 (2012). [25] S. Gazit, D. Podolsky, and A. Auerbach, Fate of the Higgs Mode Near Quantum Criticality, Physical Review Letters 
+
+110 , 140401 (2013). [26] A. Ran¸ con and N. Dupuis, Nonperturbative renormaliza-tion group approach to strongly correlated lattice bosons, Physical Review B 84 , 174513 (2011). [27] A. Ran¸ con and N. Dupuis, Quantum XY criticality in a two-dimensional Bose gas near the Mott transition, EPL (Europhysics Letters) 104 , 16002 (2013). [28] A. Ran¸ con and N. Dupuis, Higgs amplitude mode in the vicinity of a ( 2 + 1 ) -dimensional quantum critical point, Physical Review B 89 , 180501 (2014). [29] F. Rose, F. L´ eonard, and N. Dupuis, Higgs amplitude mode in the vicinity of a ( 2 + 1 ) -dimensional quantum critical point: A nonperturbative renormalization-group approach, Physical Review B 91 , 224501 (2015). [30] K. Sengupta and N. Dupuis, Mott-insulator–to– superfluid transition in the Bose-Hubbard model: Astrong-coupling approach, Physical Review A 71 , 033629 (2005). [31] D. Podolsky and S. Sachdev, Spectral functions of the Higgs mode near two-dimensional quantum critical points, Physical Review B 86 , 054508 (2012). [32] D. Hinrichs, A. Pelster, and M. Holthaus, Perturbative calculation of critical exponents for the Bose–Hubbard model, Applied Physics B 113 , 57 (2013). [33] M. L¸ acki, B. Damski, and J. Zakrzewski, Locating the quantum critical point of the Bose-Hubbard model through singularities of simple observables, Scientific Re-ports 6, 38340 (2016). [34] S. Sanders and M. Holthaus, Quantum critical properties of Bose–Hubbard models, Journal of Physics A: Mathe-matical and Theoretical 52 , 255001 (2019). [35] W. S. Bakr, J. I. Gillen, A. Peng, S. F¨ olling, and M. Greiner, A quantum gas microscope for detecting sin-gle atoms in a Hubbard-regime optical lattice, Nature 
+
+462 , 74 (2009). [36] G. H. Booth, A. J. W. Thom, and A. Alavi, Fermion Monte Carlo without fixed nodes: A game of life, death, and annihilation in Slater determinant space, The Jour-nal of Chemical Physics 131 , 054106 (2009). [37] M. ˇCufar, C. J. Bradly, R. Yang, E. Pahl, and J. Brand, Rimu.jl: Random integrators for many-body quantum systems (2026), arXiv:2601.19505. [38] M. Yang, E. Pahl, and J. Brand, Improved walker pop-ulation control for full configuration interaction quan-tum Monte Carlo, The Journal of Chemical Physics 153 ,174103 (2020). [39] J. Brand, M. Yang, and E. Pahl, Stochastic differential equation approach to understanding the population con-trol bias in full configuration interaction quantum Monte Carlo, Physical Review B 105 , 235144 (2022). [40] K. Ghanem, N. Liebermann, and A. Alavi, Population control bias and importance sampling in full configura-tion interaction quantum Monte Carlo, Physical Review B 103 , 155135 (2021). [41] J. Houdayer and A. K. Hartmann, Low-temperature be-havior of two-dimensional Gaussian Ising spin glasses, Physical Review B 70 , 014418 (2004). [42] A. Bigu´ e, F. Chevy, and X. Leyronas, Mean field versus random-phase approximation calculation of the energy of an impurity immersed in a spin-1/2 superfluid, Physical Review A 105 , 033314 (2022). [43] R. Alhyder, F. Chevy, and X. Leyronas, Exploring beyond-mean-field logarithmic divergences in Fermi-polaron energy, Physical Review A: Atomic, Molecular, and Optical Physics 109 , 033315 (2024). [44] M. Punk and S. Sachdev, Mobile impurity near the superfluid–mott-insulator quantum critical point in two dimensions, Phys. Rev. A 87 , 033618 (2013). [45] K. Kobayashi, Scattering theory of subsurface impurities observed in scanning tunneling microscopy, Physical Re-view B 54 , 17029 (1996). [46] O. Shiino, T. Endo, W. Yamaguchi, H. Sugawara, K. Ki-tazawa, and T. Hasegawa, Enhancement of Friedel oscil-lation in the insulating phases of 1T-TaS2 and 1T-TaSe2, Applied Physics A 66 , S175 (1998). [47] Note that the asymptote being larger than 1 is a result of the small size of the system combined with the strong suppression of the host boson density at the same site as the impurity ( d = 0, not shown). [48] L. Pitaevskii and S. Stringari, Bose-Einstein Condensa-tion and Superfluidity (Oxford University Press, 2016). [49] L. Koehn, C. Parsonage, C. W. Duncan, P. Kirton, A. J. Daley, T. Hilker, E. Haller, A. L. Rooij, and S. Kuhr, Quantum-gas microscopy of the Bose-glass phase (2025), arXiv:2504.13040 [cond-mat]. [50] J. L´ eonard, S. Kim, J. Kwan, P. Segura, F. Grusdt, C. Repellin, N. Goldman, and M. Greiner, Realization of a fractional quantum Hall state with ultracold atoms, Nature 619 , 495 (2023). 7
+
+End Matter 
+
+The charge gap — An important quantity characteriz-ing the Mott insulator-superfluid phase transition is the charge gap, which captures the asymmetry of changes in the ground state energy due to either adding or removing a single particle. It is defined as ∆Ec = 12
+
+E(L2 + 1) + E(L2 − 1)  − E(L2) , (10) where E(N ) is the ground state of a system with N par-ticles. In the thermodynamic limit, ∆ Ec vanishes for a superfluid, and a positive nonzero value characterizes the Mott-insulating regime. In Fig. 4 (a) we show the raw charge gap data for the Bose-Hubbard host without impurity for different system sizes. In panel (c), we show the same data scaled us-ing the equivalent of Eq. (5) with the parameters known from the Ref. [31], a = 1 /ν = 1 .49 and b = 1, while in Fig. 4 (e), we show it scaled with parameters a and 
+
+b estimated with our procedure. We see the fitted esti-mates a ≈ 1.598 ± 0.009, b ≈ 1.06 ± 0.02 are close to the expected values a = 1 /ν ≈ 1.49, b = 1. We at-tribute the deviation from the literature values to the fact that a very limited range of system sizes L is used in the estimation, which causes a small systematic bias. In Fig. 4 (b,d,f), we repeat the procedure with an in-teracting impurity ( UIB /U = 0 .3). We notice that the estimated parameters change in the third digit, which is barely significant and larger than the 1 σ statistical error, indicating that the impurity may have a small effect on the underlying phase transition. We expect this effect to disappear in the thermodynamic limit, where a single impurity should not be able to affect the quantum phase transition. We note that the bias in the estimated expo-nents from finite-size effects is of the order of or less than 10% in all cases. 
+
+The cost function — We estimate the scaling param-eters by optimizing the parameters of a scaling ansatz to minimize a cost function. The cost function we use is based on the one presented in Ref. [41], however, we have modified it in a way to make it a continuous function of its parameters. This makes the optimization procedure more robust as the discontinuities in the cost function can cause the optimizer to get stuck in local minima. The cost function is defined as follows. We assume the data consists of x, y, dy for a variety of system sizes L
+
+on the interval [ xl, x h]. The data is already rescaled with some values of the parameters, in this case x = La(t −
+
+tc)/U and y = Lb(Ep − UIB )/U . We interpolate the data such that yL : [ xl, x h] → R and dy 2 
+
+> L
+
+: [ xl, x h] → R are piecewise linear functions, where yL is an interpolation of the (transformed) data and dy 2 is the interpolated square of the error bar. We then define the master curve as a weighted average of the interpolated data, weighted by t/U                               
+
+> 0.055 0.065
+> ΔE c/U
+> 0.05 0.10 0.15
+> t/U
+> 0.055 0.065
+> L1/ 𝜈
+> (t−tc)/ U
+> −0.25 0.00 0.25
+> LΔE c/U
+> 0.25 0.50 0.75 1.00 1.25
+> L1/ 𝜈 (t−tc)/ U
+> −0.25 0.00 0.25
+> La(t−tc)/ U
+> −0.25 0.00 0.25
+> Lb ΔE c /U
+> 0.5 1.0 1.5
+> La(t−tc)/ U
+> −0.25 0.00 0.25
+> UIB /U= 0.0
+> UIB /U= 0.0
+> UIB /U= 0.0
+> UIB /U= 0.3
+> UIB /U= 0.3
+> UIB /U= 0.3 (a) (c) (e) (b) (d) (f)
+> L
+> 5678910
+
+FIG. 4. The charge gap ∆ Ec/U as a function of t/U for the Bose-Hubbard lattice and unit filling without impurity (a, c, e) and with repulsive impurity (b, d, e). The top panels (a,b) show the unmodified data. The middle panels (c,d) show the data scaled with known parameters a = 1 /ν ≈ 1.49, b = 1, while the lower panels (e,f) show the data scaled with fitted parameters a ≈ 1.598 ± 0.009, b ≈ 1.06 ± 0.02 (e) and a ≈
+
+1.646 ± 0.008, b ≈ 1.07 ± 0.01 (f). 
+
+the error bars 
+
+Y (x) = 
+
+P 
+
+> L
+
+yL(x)/dy 2
+
+> L
+
+(x)
+
+P 
+
+> L
+
+1/dy 2
+
+> L
+
+(x) . (11) To compute the cost function, we compute the contribu-tion of each L-subset to the cost function. First, define the square deviation of the data and from master curve as 
+
+δ2
+
+> L
+
+(x) = (yL(x) − Y (x)) 2
+
+dy 2
+
+> L
+
+(x) . (12) Then the contribution from L is 
+
+CL = 1
+
+xh − xl
+
+Z xh
+
+> xl
+
+δ2
+
+> L
+
+(x)dx . (13) Finally the value of the cost function is given by 
+
+C = 1
+
+NL
+
+X
+
+> L
+
+CL , (14) where NL is the number of distinct values of L. Like in Ref. [41], the definition of the cost function is similar to the reduced χ2 measure. As such, values of C close to 1 indicate the data collapses well. 
+
+Polaron energy and density correlations — As dis-8t/U                       
+
+> 0.04 0.05 0.06 0.07
+> −0.0075
+> −0.0050
+> −0.0025
+> t/U
+> 0.04 0.05 0.06 0.07
+> −0.06
+> −0.04
+> −0.02
+> UIB /U= 0.2 (a)
+> UIB /U= 0.5 (b) (Ep−nBUIB )/ U[GIB (2) (0)−nB]UIB /2 U
+
+FIG. 5. Relationship between the the polaron energy Ep and the on-site impurity-boson density-density correlations G(2) IB .As expected from Eq. (26), the differences between the two quantities are small for (a) UIB = 0 .2U and become more appreciable for the stronger impurity with (b) UIB = 0 .5U .Both computations were done for a system with L = 4 and 
+
+nB = 1. 
+
+cussed in the main text, the polaron energy Ep can be seen as a probe of the on-site impurity-boson density-density correlations G(2) IB (d). This relationship is further evidenced by Fig. 5, which shows that G(2) IB (0) and Ep
+
+are closely related. In Eq. (7) in the main text, we have shown that the Hellmann Feynman theorem can be used to relate Ep and G(2) IB (0). We proceed by expanding the impurity-boson correlation function up to first order in 
+
+UIB . Using the shorthand notation ˆV = P 
+
+> j
+
+ˆnj,I ˆnj,B,
+
+G(2) IB (0) ≡ ⟨ ψ| ˆV |ψ⟩
+
+= ⟨ϕ0,0| ˆV |ϕ0,0⟩ + 2 UIB Re 
+
+n
+
+⟨ϕ0,0| ˆV |ψ(1) ⟩
+
+o
+
++ O(U 2IB ), (15) to first order in UIB , where 
+
+|ψ⟩ = |ϕ0,0⟩ + UIB |ψ(1) ⟩ + O(U 2IB ), (16) is the expansion of the full-system ground state, and 
+
+|ϕν, k⟩ = |ϕν ⟩ ⊗ | k⟩, (17) are the eigenstates of the unperturbed Hamiltonian ˆHB + ˆHI with energies Eν, k = Eν + ϵk. Here, 
+
+Eν are the eigenenergies of the host-system states 
+
+|ϕν ⟩, and the single-impurity plane wave states |k⟩ =
+
+L−1 P 
+
+> j
+
+e−ik·j ˆb† 
+
+> j
+
+|vac ⟩ have the usual lattice dispersion 
+
+ϵk = −2t[cos( kx) + cos( ky )] . (18) The first order correction to the ground state is given by the standard expression 
+
+|ψ(1) ⟩ = X
+
+> ν, k̸=0 ,0
+
+|ϕν, k⟩⟨ ϕν, k| ˆV |ϕ0,0⟩
+
+E0,0 − Eν, k
+
+. (19) The overlap matrix elements simplify as an integration over the impurity eigenstates and can be carried out ex-plicitly to yield 
+
+⟨k| ˆV |0⟩ = 1
+
+L2
+
+X
+
+> j
+
+eik·j ˆnj,B ≡ ˆρk, (20) which is the momentum space particle density operator for the host system. The first order term from Eq. (15) then simplifies to 
+
+⟨ϕ0,0| ˆV |ψ(1) ⟩ = X
+
+> ν, k̸=0 ,0
+
+⟨ϕ0|ˆρ†
+
+> k
+
+|ϕν ⟩⟨ ϕν |ˆρk|ϕ0⟩
+
+E0 − Eν + ϵ0 − ϵk
+
+(21) = X
+
+> k
+
+Z ∞−∞ 
+
+dω S(k, ω )
+
+ϵ0 − ϵk − ω , (22) where 
+
+S(k, ω ) = X
+
+> ν
+
+|⟨ ϕν |δ ˆρk|ϕ0⟩| 2δ(ω − Eν + E0), (23) is the dynamic structure factor of the host system at zero temperature. The use of the density fluctuation operator 
+
+δ ˆρk = ˆ ρk − ⟨ ˆρk⟩ = ˆ ρk − δk,0nB removes a divergent term and realizes the exclusion of the double ground state, where ν = 0 , k = 0, from the sum. Using the fact that the impurity-boson density-density correlation function normalizes to the boson density 
+
+nB = NB /L 2 in the absence of impurity-boson interac-tions 
+
+G(2) IB (0)|UIB =0 = ⟨ϕ0,0| ˆV |ϕ0,0⟩ = nB, (24) we obtain 
+
+G(2) IB (0) = nB + 2 UIB 
+
+X
+
+> k
+
+Z
+
+dω S(k, ω )
+
+ϵ0 − ϵk − ω
+
++ O(U 2IB ). (25) Integrating the Hellman-Feynman relation Eq. (7) yields Eq. (8) for the polaron energy to second order in UIB 
+
+in terms of the properties of the fully interacting host system. Equivalently, this allows us to relate the polaron energy and the local correlations to second order by 
+
+Ep − UIB nB = 12 UIB 
+
+h
+
+G(2) IB (0) − nB
+
+i
+
++ O(U 3IB ). (26) Figure 5 shows the left hand side and the right hand side of this equation and demonstrates that the remaining third order terms are negligible when the impurity-boson interaction strength is small.
