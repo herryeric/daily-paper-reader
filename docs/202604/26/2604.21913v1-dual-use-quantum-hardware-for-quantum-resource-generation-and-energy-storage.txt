@@ -1,0 +1,771 @@
+Title: Dual-use quantum hardware for quantum resource generation and energy storage
+
+URL Source: https://arxiv.org/pdf/2604.21913v1
+
+Published Time: Fri, 24 Apr 2026 01:16:00 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# Dual-use quantum hardware for quantum resource generation and energy storage 
+
+Vaibhav Sharma, 1, 2, ∗ Yiming Wang, 1, 2, 3 and Shouvik Sur 1, 2, 3, ∗
+
+> 1
+
+Smalley-Curl Institute, Rice University, Houston, TX 77005 
+
+> 2
+
+Department of Physics and Astronomy, Rice University, Houston, TX 77005 
+
+> 3
+
+Extreme Quantum Materials Alliance, Rice University, Houston, TX 77005 
+
+(Dated: April 24, 2026) Quantum resources such as entanglement form the backbone of quantum technologies and their ef-ficient generation is a central objective of modern quantum platforms. Independently, quantum bat-teries have emerged as nanoscale devices that utilize collective quantum effects to store energy with a charging advantage over classical strategies. Here, we show that these two pursuits can co-exist: protocols for fast generation of resourceful quantum states can simultaneously charge a quantum battery with a collective advantage, and conversely, a quantum battery protocol with a charging ad-vantage can produce resource-rich states. Using this connection, we propose an integrated hardware protocol on superconducting circuits in which each experimental run can interchangeably accom-plish either quantum battery charging, or quantum sensing through generation of metrologically useful states. Our results establish that quantum resources and stored energy are distinct yet co-producable quantities, opening the door to modular quantum architectures that dynamically switch between sensing and energy-storage functions, thereby producing additional functionalities without extra hardware cost. 
+
+I. INTRODUCTION 
+
+Quantum technologies draw their power from uniquely non-classical features of quantum mechanics to achieve advantages in computation, communication, and sens-ing [1, 2]. Entanglement, coherence, and non-Gaussianity have all been formalized as resources within the frame-work of quantum resource theories [3], and their efficient generation on physical hardware underpins the perfor-mance of every branch of quantum technology. For in-stance, quantum-enhanced metrology, that informs quan-tum sensing protocols, utilizes entanglement as a re-source to surpass the standard quantum limit, achieving Heisenberg-limited precision in parameter estimation [4– 8]. Concurrently, the energy required to operate quan-tum hardware at scale has become a pressing concern, and motivates a unified approach that connects quan-tum thermodynamics, information science, and engineer-ing in order to ensure energy-efficient, sustainable quan-tum technologies [9]. Quantum batteries—nanoscale de-vices that store and release energy by harnessing collec-tive quantum effects—have emerged as a natural arena where resource-theoretic and energetic perspectives con-verge [10–12]. Theoretical work has demonstrated that many-body or collective effects can yield super-extensive scaling of charging power which implies that the time re-quired to charge a many-body quantum battery can be reduced with increasing number of battery units [13–20]. This inverse relationship between battery-size and charg-ing time constitutes a charging advantage. Experimental realizations of quantum batteries have now spanned mul-tiple platforms, from organic semiconductor microcavi-ties to superconducting transmon qubits, and together  
+
+> ∗These authors contributed equally to this work.
+
+FIG. 1. The same quantum hardware can serve either as a quantum battery or a quantum sensor because the process of charging a quantum battery generates quantum resources. Here, we demonstrate a concrete protocol where the quantum hardware remains agnostic of its intended use until a time 
+
+t = t∗ where a suitable metrological resource peaks. One can then choose to either time-evolve into a fully charged quantum battery or perform quantum sensing. As a bonus, after sensing, there exists a finite probability to obtain a fully charged battery. 
+
+demonstrate that a quantum advantage is possible in en-ergy storage [21–24]. So far, achieving a charging advantage in quantum batteries and generation of resource-rich quantum states have developed as largely independent pursuits with con-nections between them remaining largely unexplored. However both fields share the common objective of speed. In particular, in quantum metrology, one seeks to evolve an unentangled initial state into a metrologically use-ful target state in the shortest possible time through fast state-preparation protocols, thereby minimizing ex-posure to decoherence [25–28]. Quantum battery proto-cols possess the same spirit but for a different objective: evolving a low-energy ground state to a high-energy ex-cited state as rapidly as possible to achieve a charging 
+
+> arXiv:2604.21913v1 [quant-ph] 23 Apr 2026
+
+2advantage [12]. The speed-up in both cases stems from collective quantum effects, making their co-existence pos-sible in a single physical set-up. Thus we can leverage this co-existence to develop multi-use protocols for quantum hardware where the same system can play multiple roles. We establish and utilize this connection to propose 
+
+dual-use quantum hardware that can serve interchange-ably as a quantum battery and a quantum sensor (see Fig. 1). Within our protocol, the rapid charging of a quantum battery is facilitated by non-linear terms which necessarily generate entanglement-rich states at interme-diate times, with the metrological resources peaking be-fore the battery is maximally charged. The dual-use pro-tocol is based on this temporal structure: it interrupts the charging trajectory to harvest quantum resources at their peak, before completing the charging cycle. Our paper is organized as follows: In Sec. II, we first show how fast state preparation and quantum battery charging are related with a coexistence of quantum re-source generation and energy injection. In Sec. III, we use a system of two coupled superconducting LC resonators to concretely illustrate this connection and demonstrate that fast-charging of a quantum battery results in fast preparation of states with high quantum Fisher infor-mation and squeezing. In Sec. IV, we propose a dual-use hardware set-up that combines quantum sensing and quantum battery charging. Finally, we conclude with a discussion on how our dual-use scheme, combined with the recent theoretical and experimental advances, points towards a broader paradigm of multi-use quantum hard-ware, where a single device can serve multiple functions without additional overhead.  
+
+> II. RELATING STATE PREPARATION PROTOCOLS AND QUANTUM BATTERIES
+
+In quantum state preparation, one starts with a sim-ple initial state, |ψi⟩, with the goal to evolve the system into a final state, |ψf ⟩, that exhibits strictly non-classical features such as topological order [29–32], quantum com-putational utility [33, 34] and enhanced metrological ca-pability [35–39]. The preparation protocol can be written as 
+
+|ψf ⟩ = ˆV (T )|ψi⟩. (1) Here ˆV (T ) is a time-dependent operator that transforms the initial state into the final state after evolution time 
+
+T . It can be chosen to be either unitary [29, 36, 40] or non-unitary [41–44]. Generally, the goal of any state preparation protocol is to minimize the preparation time 
+
+T in order to avoid the inevitable effects of decoherence and noise before the target state is utilized. This goal of fast state preparation connects it to the quest for charg-ing advantage in quantum batteries. To map this to a quantum battery, we can interpret the initial state, |ψi⟩ as the low energy uncharged start-ing state of a quantum battery. As |ψi⟩ is typically chosen to be an easy-to-prepare state such as a product state of spins, we can find a Hamiltonian, ˆHB, such that |ψi⟩ is a low energy eigenstate of ˆHB. This makes ˆHB our quan-tum battery Hamiltonian. The state preparation opera-tor, ˆV (T ) can be simply mapped to the charging protocol of a quantum battery. Finally, |ψf ⟩ can be interpreted as a charged quantum state as long as the following con-dition is satisfied: ∆E = ⟨ψf | ˆHB|ψf ⟩ − ⟨ ψi| ˆHB|ψi⟩ > 0. (2) This implies that the charging protocol ˆV (T ) has success-fully charged the quantum battery by supplying energy ∆E in time T . Therefore, in this process of preparing the final state |ψf ⟩, we have produced both quantum re-sources and energy storage. For a system of N spins or particles, when ∆ E/T scales as N α with α > 1, the corresponding quantum battery is said to have a charg-ing advantage [45]. Our mapping allows us to interpret several existing protocols for fast preparation of useful quantum states as quantum batteries with a charging advantage if we find ∆ E/T ∝ N α.We exemplify this through the well-known protocol for preparing spin squeezed states by a one-axis twist-ing Hamiltonian [27] given by ˆHoa = χ( ˆS2
+
+> x
+
+), (3) where we have considered a system of N spin-1/2 par-ticles and the collective spin operators are defined as ˆSα = PNn=1 ˆσαn . The operators ˆ σαn are Pauli operators corresponding to the nth spin and α ∈ x, y, z . The pro-tocol starts with an initial coherent spin state that has all spins aligned along the + z direction, represented as 
+
+|ψ0⟩ = Q 
+
+> n
+
+⊗| ↑ n⟩. The squeezed state is obtained by evolving this state under the Hamiltonian, ˆHoa for time, 
+
+T such that χT ∼ N −2/3 [39]. We reinterpret this setting as a quantum battery with a battery Hamiltonian given by ˆHB = −ω ˆSz . (4) The initial state |ψ0⟩ corresponds to the lowest energy state of ˆHB with energy E0 = ⟨ψ0| ˆHB|ψ0⟩ = −N ω . We will show that the one-axis twisting Hamiltonian ˆHoa in-jects energy ∆ E into the system in time T such that ∆E/T ∝ N α, making it a quantum battery with charg-ing advantage. Towards this goal, we determine the en-ergy stored in the battery after time T by evaluating 
+
+ET = ⟨ψ0|ei ˆHoa T ˆHBe−i ˆHoa T |ψ0⟩. In the Heisenberg pic-ture, ⟨σzn(t)⟩ = ⟨ψ0|ei ˆHoa T σzne−i ˆHoa T |ψ0⟩ = cos N −1(χT ). It is known that for optimal squeezing in one-axis twist-ing models, χT ∼ N −2/3 [39]. Thus, in the limit N ≫ 1, we have ⟨σzn(t)⟩ ∼ (1 − N −4/3/2) N ∼ 1 − N −1/3/2, and 
+
+ET is then given by 
+
+ET = −ω
+
+> N
+
+X
+
+> n=1
+
+⟨σzn(Ts)⟩ ∼ − ω(N − N 2/3/2) . (5) 3We see that the energy injected in the quantum system is ∆ E = ET − E0 ∼ ωN 2/3/2. This energy increases with the number of spins and represents the charging of the battery. Note that the time to achieve this scales inversely with N (T ∼ N −2/3/χ ). Thus the charging power, ∆ E/T ∝ N 4/3. The charging power scales su-perextensively with N , denoting a quantum advantage in charging. Our results are expected to generalize to other models for squeezed state preparation such as two-axis [46] and three-axis [47] twisting. This shows that fast state preparation protocols can be used as inspiration for quantum batteries. We note that these scalings can change when we con-sider the true thermodynamic limit. For example, the one-axis twisting Hamiltonian in Eq. 3 needs to be prop-erly Kac normalized when N → ∞ such that χ → χ/N .Kac normalization ensures that the total energy of the system (here, 
+
+D ˆHB + ˆHoa 
+
+E
+
+) is extensive with respect to the system volume at a fixed density of spins. This rescaled χ no longer leads to a fast preparation of the squeezed state and, as a consequence, the quantum bat-tery charging advantage is lost. However, for finite size systems where the volume is fixed but the density of spins can be freely varied, this normalization is not strictly re-quired and our results would be valid [21, 45, 48].  
+
+> III. METROLOGICALLY USEFUL STATES FROM A QUANTUM BATTERY
+
+Just as fast state preparation protocols can be re-interpreted as fast charging of a quantum battery, so too can well-known quantum battery models with charg-ing advantage provide templates for fast preparation of resourceful quantum states. Paradigmatic examples of resourceful states include states with high amount of quantum Fisher information (QFI) and quantum squeez-ing [49]. These states enable precise measurements that can surpass the standard quantum limit imposed by the Heisenberg uncertainty principle [38, 39]. Their metro-logical advantage stems from multipartite entanglement, and hence these features also serve as entanglement wit-nesses [50–52]. As exemplified below, the same collec-tive quantum processes that produce charging advan-tage in quantum batteries [19] also build multipartite entanglement, making them well-suited to produce use-ful quantum states during the charging (or discharging) processes. For concreteness, we consider a quantum battery sys-tem composed of two-coupled superconducting LC res-onators with a fixed ratio of frequencies as introduced in Ref. [17]. As shown in Appendix A, the quantum battery Hamiltonian for this system is well-approximated by ˆH(t) = ˆHA + ˆHB + λ(t) ˆHAB ,
+
+with ˆHA = nω 0ˆa†ˆa; ˆHB = ω0ˆb†ˆb;ˆHAB = gn(ˆ a†ˆbn + h.c.) , (6) where ˆHB ( ˆHA) is the battery (charger) Hamiltonian which corresponds to a bosonic mode having excitation frequency ω0 (nω 0), n is a positive integer, and gn con-trols the coupling between the two bosonic modes. The parameter λ(t) is a time-dependent function such that 
+
+λ(t) = 1 when 0 < t < t c and zero otherwise. The charg-ing process occurs for the duration tc where the charg-ing Hamiltonian ˆHAB transfers energy from the charger mode to the battery mode by converting one quanta from mode A to n quanta in mode B.The total Hamiltonian ˆH has a global U (1) symme-try, as it is invariant under ˆ a → einθ ˆa and ˆb → eiθ ˆb.This results in a conserved charge ˆQ = nˆa†ˆa + ˆb†ˆb. In analogy to the ratio between the weight of the non-local charging operators and the system size in qubit based quantum batteries [19], here, the ratio n/ 
+
+D ˆQ
+
+E
+
+controls the performance of the battery. The commensuration between the mode-frequencies leads to the constraint [ ˆHAB , ˆHA + ˆHB] = 0, which preserves the total energy of the charger-battery ensemble as the battery is charged. Later in this section, we will show that, during the same charging process, metrologically useful entanglement is generated, witnessed by the quantum Fisher information and quantum squeezing. Therefore, this charging pro-tocol demonstrates that in such models where we can cleanly partition the system into a charger and a battery, the total energy stored in the battery-charger ensemble is a distinct resource compared to multipartite entangle-ment, highlighting their independence. In order to demonstrate the joint production of charg-ing and metrological resources, we first consider initial states of the form |ψi⟩ = |ψ(t = 0) ⟩ = |1⟩A |NB ⟩B with 0 ≤ NB < n . For this choice, the system remains con-fined within the Q ≡
+
+D ˆQ
+
+E
+
+= ( n + NB ) subspace of the Hilbert space. The non-triviality of the charging process results from the ˆHAB -mediated direct coupling between 
+
+|ψi⟩ and the state |ψf ⟩ = |0⟩A |NB + n⟩B , due to the matrix element ⟨ψf | ˆHAB |ψi⟩ = gn
+
+p(NB + n)!. Thus, in dynamics, we get an effective two-level system with ˆHAB 
+
+causing Rabi oscillations between |ψi⟩ and |ψf ⟩. The state at any time, t is given by 
+
+|ψ(t)⟩ = e−i( ˆHA+ ˆHB+ ˆHAB )t|ψi⟩ =
+
+eiE Qt [cos(Ω Qt) |ψi⟩ + i sin(Ω Qt)|ψf ⟩] . (7) where EQ = ω0Q and Ω Q = √n! QCn
+
+1/2gn. At time 
+
+t = tc = π/ (2Ω Q), we have |ψ(tc)⟩ = |ψf ⟩ upto a global phase. This corresponds to a fully charged battery with 
+
+n quanta being pumped into the bosonic mode B. Estab-lishing a charging advantage requires a fair comparison between time evolution under the non-linear Hamiltonian ˆH(t) and its linear counterpart ( n = 1) [13, 17]. This is accomplished by utilizing the Mandelstam-Tamm quan-tum speed limit and requiring that the time needed to transition from the initial state to an orthogonal state be 4the same for both systems [17]. This leads to the relation 
+
+gn = g
+
+s
+
+n + (2 n + 1)( Q − n)
+
+n! QCn
+
+, (8) where g is the two-mode coupling in the linear model. This implies Ω Q = gQ 1/2pn/Q + (2 n + 1)(1 − n/Q ). Since in the non-linear model the rate of charging is controlled by Ω −1 
+
+> Q
+
+, which is a monotonically increasing function of Q at a fixed ratio n/Q , a collective charging advantage is present. We note that in the limit NB = 0, 
+
+n/Q = 1, we reproduce the results in Ref. [17]. At intermediate times, 0 < t < t c, the charging process generates QFI with respect to the operator ˆ nB = ˆb†ˆb,with the QFI peaking at t = t1 = tc/2. Explicitly, at 
+
+t = t1, the quantum state is 
+
+|ψ1⟩ ≡ | ψ(t1)⟩ = eiE Qt1
+
+√2 (|1⟩A |NB ⟩B + i |0⟩A |NB + n⟩B ).
+
+(9) Recall that the QFI, FQ for an operator ˆO in a pure state |ψ⟩ is given by the variance of the operator [49]. Thus FQ( ˆO) = ⟨ψ| ˆO2|ψ⟩ − (⟨ψ| ˆO|ψ⟩)2. With the choice ˆO = ˆ nB , here, the QFI at t = t1 is FQ(ˆ nB ) = n2/4. Since 
+
+FQ(ˆ nB ) scales quadratically with n, |ψ1⟩ is capable of Heisenberg-limited sensing. We note that |ψ1⟩ is the well-known NOON state that can provide precise phase mea-surements [53]. The generation of high QFI here comes from the collective charging process of the quantum bat-tery which is producing useful quantum resources along the way. Since the preparation time t1 scales as 1 /ΩQ,we also get a fast preparation of |ψ1⟩.Our results further demonstrate the general ingredi-ents needed for a model to exhibit both quantum bat-tery charging advantage and high QFI: we first need an initial state |ψi⟩ that is an unentangled ground state of a quantum battery Hamiltonian ˆHB that is spatially un-correlated (for spins) or number conserving (for bosons). The charged state |ψf ⟩ is a high energy state within the spectrum of ˆHB that is orthogonal (or nearly orthogonal) to |ψi⟩ such that ⟨ψf | ˆHB |ψf ⟩ − ⟨ ψi| ˆHB |ψi⟩ ∝ N with N
+
+being a representative of the system size. If the charg-ing Hamiltonian ˆHAB directly couples these two states, such that ⟨ψf | ˆHAB |ψi⟩̸ = 0, then we get a quantum bat-tery model that has a charging advantage [19]. While charging, we would generate states at intermediate times that are of the form |ψ(t)⟩ = α(t)|ψi⟩ + β(t)|ψf ⟩ + . . . 
+
+where α(t), β (t) are complex-valued functions of t. The width of the probability distribution of the eigenvalues of ˆHB in |ψ(t)⟩ would be proportional to N , leading to an N 2 scaling of the variance of the operator ˆHB. This expectation can be verified explicitly at short times (see Appendix B). Thus ˆHB would witness high QFI, thereby demonstrating the coexistence of rapid energy storage and high QFI in the same model. Beyond QFI, the quantum battery model in Eq. 6 can also generate quantum squeezing. To generate squeezed 0. 0.01 0.02 0.15 0.2 0.25 
+
+## ω 0 tvar  { X min  }      
+
+> FIG. 2. Time-evolution of the variance of the numerically optimized squeezed two-mode operator Xmin . Here, we have fixed ( n, ω 0, g n) = (4 ,1,1/√6) and chosen an initial coherent state with ( Na, N b) = ( |α|2,|β|2) = (16 ,4).
+
+states, we take advantage of the non-linearity of ˆHAB 
+
+in ˆb for n ≥ 2. Indeed, such non-linearity in single-mode bosonic systems, especially for n = 2, offers a well-established path to one-mode squeezed states [54]. In Ref. [55], it was shown that higher-order nonlinear terms resulting from n > 2 do not generate single mode squeez-ing if the initial state is a Fock state. However, initializ-ing with a coherent state was shown to lead to squeezing. Therefore, we consider our initial state |ψi⟩ to be a co-herent state where |ψi⟩ = |α⟩A |β⟩B with a |α⟩ = α |α⟩
+
+and b |β⟩ = β |β⟩. This choice will generate non-trivial quantum squeezing. To readily see this feature, following Ref. [55], we per-form a short time-evolution of |ψi⟩ under ˆH = ˆHA +ˆHB + ˆHAB , which leads to time-dependent variances of 
+
+B-mode quadratures (see Appendix C for details), var {ˆxb(t)} = 14 − n(n − 1) 2 gnt Im α∗βn−1 + O t2,
+
+(10) var {ˆpb(t)} = 14 + n(n − 1) 2 gnt Im α∗βn−1 + O t2.
+
+(11) Here, ˆ xb = ( ˆb + ˆb†)/2 and ˆ pb = ( ˆb − ˆb†)/(2 i) are conju-gate B-mode quadratures that evolve in time due to the non-linear terms in ˆHAB . In contrast, variances of anal-ogously defined A-mode quadratures, ˆxa(t) and ˆ pa(t), remain unaltered up to O t2 owing to the linear de-pendence of ˆHAB on ˆ a. Since a variance below 1 /4 of a bosonic quadrature indicates squeezing [38], assuming Im α∗βn−1 > 0, we deduce that the quadrature ˆ xb gets squeezed in the short-time limit with the squeezing im-proving as n increases. We emphasize that this result is only valid in the short time limit where |gnt| ≪ 1. We use exact-diagonalization numerics to go beyond the short-time limit as the exact dynamical solution for these highly non-linear Hamiltonians is notoriously chal-lenging. Through our numerics, we verify that squeezing 5indeed occurs and survives for finite time periods when 
+
+n > 2. In order to numerically identify the maximally squeezed quadrature at an arbitrary t, we define a gen-eralized two-mode quadrature [56, 57] ˆXθ,ϕ,η = 12
+
+h
+
+eiϕ 
+
+cos θ ˆa + eiη sin θ ˆb
+
+
+
++ h.c. 
+
+i
+
+(12) that is continuously parameterized by the three angles, (θ, ϕ, η ). We numerically optimize over these angles to minimize var { ˆXθ,ϕ,η (t)} at each time t. In Fig. 2 we show the variance of the maximally squeezed quadrature, 
+
+Xmin (t), for n = 4 with the initial coherent state param-eterized by ( α, β ) = ( −4i, 2). We find that the variance of ˆXmin (t) drops below 1/4 immediately, verifying the squeezing obtained in the short-time limit analytical calculation above. The squeezing survives for a substantial time period and hits a minimum at a finite time. At this optimal time, we find that ϕ ∼ π/ 2, η ∼ 3π/ 2 and θ ≲ π/ 2. We show the time evolution of these parameters and the optimal quadra-ture for other values of n in Appendix D. The value of 
+
+θ indicates that most of the squeezing comes from the 
+
+B-mode which we expect since the non-linearity in the charging Hamiltonian is entirely in the B-mode. How-ever, there is a finite contribution from the A-mode to the optimally squeezed quadrature in general, indicating a two-mode squeezing. We note that, here, the choice of parameters is dictated by numerical tractability and serves as a proof-of-concept to demonstrate the existence of non-trivial squeezing. A detailed investigation of the optimal parameters for maximizing squeezing is beyond the scope of this work.  
+
+> IV. HARDWARE SETUP COMBINING METROLOGY AND CHARGING
+
+We have now seen how charging advantage in quan-tum batteries and resourceful quantum state preparation protocols can coexist on the same quantum hardware. Inspired by this, we propose a hardware setup in which these two functionalities can be combined. Our proposed set-up is based on the quantum battery model in Eq. 6 with the temporal protocol λ(t) shown in Fig. 3(a). As we argued in Sec. III, it takes a time tc to fully charge the quantum battery, while it takes time t1 = tc/2 to prepare a metrologically useful state having high QFI, leading to a dual use for the system. As shown in Fig. 3(b), we start with an initial un-charged state, |ψi⟩ = |1⟩A|0⟩B at time t = 0. We first evolve the state under the charging Hamiltonian, ˆHAB ,until time t1 such that we get the state |ψ1⟩ possessing high QFI. We then switch off ˆHAB and perform quantum sensing. The large QFI in the state |ψ1⟩ corresponds to the operator, ˆO = ˆ nb = ˆb†ˆb. This makes |ψ1⟩ a suitable state to sense a parameter ϕ encoded in a Hamiltonian given by ˆHs = −ϕˆb†ˆb. For flux-tunable superconducting 𝜆 (𝑡 )
+
+## 𝑡 
+
+## 1
+
+## 0
+
+## 𝑡 ! 𝑡 !𝑡 "              
+
+> |𝜓 !⟩
+> |𝜓 "⟩
+> |𝜓 #⟩
+> 𝑛𝜙 𝑡 !
+> 𝑛𝜙 𝑡 !
+> 2
+> 𝑡 =0𝑡 =𝑡 "
+> 𝑡 =𝑡 "+𝑡 #
+> |𝜓 $⟩
+> 𝑡 =2𝑡 "+𝑡 #
+
+## (a) 
+
+## (b)             
+
+> FIG. 3. (a) Protocol combining charging (for time 2 t1with
+> λ(t) = 1) and sensing (for time tswith λ(t) = 0) using the two coupled superconducting LC resonator based quantum battery model in Eq. 6. (b) Bloch sphere representation of the evolution of quantum state during this protocol, starting from a discharged state |ψi⟩to a partially charged state |ψm⟩
+> while sensing an unknown parameter ϕfor time ts.
+
+resonators [58], the resonator frequency ω0 can be tuned by an external magnetic flux. Thus, the parameter ϕ can be interpreted as an external flux that is being sensed using |ψ1⟩.At time t = t1, we initiate sensing the parameter ϕ for a fixed duration ts by coupling our system to the sensing Hamiltonian ˆHs. Up to a global phase, we get the state 
+
+|ψs⟩ = e−i ˆHsts |ψ1⟩ = 1
+
+√2 |1A⟩| 0B ⟩ + i
+
+√2 eiϕnt s |0A⟩| nB ⟩.
+
+(13) This state is shown in the bottom right panel of Fig. 3(b). Next, we decouple from the sensing Hamiltonian and switch back on the charging Hamiltonian, ˆHAB . We then let the system evolve for a time t1. The resulting final state (shown in the bottom left panel of Fig. 3(b)) is 
+
+|ψm⟩ = e−i ˆHAB t1 |ψs⟩ = 12 (1 − eiϕnt s )|1A⟩| 0B ⟩
+
++ i
+
+2 (1 + eiϕnt s )|0A⟩| nB ⟩. (14) To estimate the parameter ϕ, we projectively measure the number of excitations in the A mode by measuring 6        
+
+> FIG. 4. A schematic portrayal of potential inter-connectivity among standard quantum technologies. Here, X→Yimplies
+> Yenabled by X.This work enumerates such relationships between a quantum battery and a quantum sensor. Solid (dashed) arrows indicate established (hypothesized) proto-cols. The hypothetical protocols can be devised by combining the protocols developed here and in Refs. [59, 60].
+
+the operator ˆ na = ˆ a†ˆa in the state |ψm⟩. We get ⟨ˆna⟩ =1 with probability, p1 = |⟨ ψm|1A⟩| 2 = sin 2(ϕnt s/2) and ⟨ˆna⟩ = 0 with probability, p0 = |⟨ ψm|0A⟩| 2 =cos 2(ϕnt s/2). Measuring these probabilities through multiple runs of the experiment helps us estimate the pa-rameter ϕ. Note that the probabilities are enhanced by a factor n due to the entanglement and high QFI present in the sensing state |ψ1⟩. If |ϕ|nt s/2 ≪ 1, we are more likely to measure na = 0 (with probability ∼ 1 − ϕ2n2t2
+
+> s
+
+/2) and collapse into the fully charged state |ψf ⟩. Thus, when we sense a small parameter ϕ, we can fully charge the bat-tery at the end of the sensing protocol with a probability cos 2 |nϕt s/2|. This can be further interpreted as the par-tial charging of the quantum battery mode B, with the charged energy given by nω 0 cos 2 |nϕt s/2|. 
+
+> V. CONCLUSION AND OUTLOOK
+
+Our work lays the foundation for building multi-use quantum technological platforms by adding an indepen-dent direction in the pursuit of on-chip energy source for quantum hardware [59]. In particular, we have discussed the general ingredients required to achieve quantum bat-tery charging and quantum resource generation from the same underlying dynamics. When applied to a model of two coupled superconducting LC resonators with com-mensurate mode frequencies, we showed that the non-linear charger-battery interaction generates states at in-termediate times with super-extensive scaling of QFI and two-mode squeezing, depending on the choice of the ini-tial state. We proposed a hardware protocol in which each experimental run on this device can interchangeably accomplish either quantum sensing or quantum battery charging. Broadly, the notion of dual-use developed here is not restricted to LC resonator architectures: any platform supporting non-linear bosonic interactions or collective spin dynamics, eg. trapped ions, photonic systems, and solid-state spin ensembles, could host analogous proto-cols, enabling a comparative benchmarking. Our results on dual-use quantum hardware for sensing and energy storage, combined with recent work on other dual-use formalisms, enables an extension into a multi-use quan-tum hardware paradigm. In particular, recent work has shown how quantum batteries can be connected to quan-tum computers to power gate operations for quantum processing [59]. In parallel, Ref. [60] has demonstrated how quantum algorithms running on a quantum com-puter can be used to perform enhanced sensing of oscillat-ing fields with a new lower bound on sensing time. Thus, quantum hardware can be adapted to multiple uses, each connected to the other as shown by Fig. 4. For instance, we can envision a set-up involving multiple devices such as flux tunable transmons [61] or kinemons [62] that can be tuned to operate either as qubits or harmonic res-onators. By implementing the model we introduced in Sec. III, we can use some of them to perform QFI based quantum sensing as described earlier in this paper. Be-cause the sensing procedure still leaves us with a partially charged battery, we can use that energy to power another set of devices acting as qubits for a quantum computer. The quantum computer can then be used to sense weak oscillating signals using the formalism of Ref [60]. As il-lustrated in Fig. 4, this completes a trifecta of multi-use capabilities of current quantum hardware. 
+
+> ACKNOWLEDGMENTS
+
+We thank Vir Bulchandani, Diego Fallas Padilla, and Andrea Rocchetto for helpful feedback on our manuscript. V.S. acknowledges support from the J. Evans Attwell Welch fellowship by the Rice Smalley-Curl Institute. S.S. and Y.W. have been supported in part by the NSF Grant No. DMR-2220603.                  
+
+> [1] M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information (Cambridge University Press, Cambridge, 2000). [2] I. H. Deutsch, PRX Quantum 1, 020101 (2020). [3] E. Chitambar and G. Gour, Reviews of Modern Physics
+> 91 , 025001 (2019). [4] V. Giovannetti, S. Lloyd, and L. Maccone, Physical Re-view Letters 96 , 010401 (2006). [5] V. Giovannetti, S. Lloyd, and L. Maccone, Nature Physics 7, 376 (2011). [6] L. Pezz` e, A. Smerzi, M. K. Oberthaler, R. Schmied, and P. Treutlein, Reviews of Modern Physics 90 , 035005
+
+7
+
+(2018). [7] C. L. Degen, F. Reinhard, and P. Cappellaro, Reviews of Modern Physics 89 , 035002 (2017). [8] R. Kaubruegger and A. M. Kaufman, “Progress in quantum metrology and applications for optical atomic clocks,” (2025), arXiv:2512.02202 [quant-ph]. [9] A. Auff` eves, PRX Quantum 3, 020101 (2022). [10] R. Alicki and M. Fannes, Physical Review E 87 , 042123 (2013). [11] F. C. Binder, S. Vinjanampathy, K. Modi, and J. Goold, New Journal of Physics 17 , 075015 (2015). [12] F. Campaioli, S. Gherardini, J. Q. Quach, M. Polini, and G. M. Andolina, Reviews of Modern Physics 96 , 031001 (2024). [13] F. Campaioli, F. A. Pollock, F. C. Binder, L. C´ eleri, J. Goold, S. Vinjanampathy, and K. Modi, Phys. Rev. Lett. 118 , 150601 (2017). [14] D. Ferraro, M. Campisi, G. M. Andolina, V. Pellegrini, and M. Polini, Physical Review Letters 120 , 117702 (2018). [15] G. M. Andolina, M. Keck, A. Mari, M. Campisi, V. Gio-vannetti, and M. Polini, Physical Review Letters 122 ,047702 (2019). [16] D. Rossini, G. M. Andolina, D. Rosa, M. Carrega, and M. Polini, Physical Review Letters 125 , 236402 (2020). [17] G. M. Andolina, V. Stanzione, V. Giovannetti, and M. Polini, Physical Review Letters 134 , 240403 (2025). [18] T. P. Le, J. Levinsen, K. Modi, M. M. Parish, and F. A. Pollock, Phys. Rev. A 97 , 022106 (2018). [19] J.-Y. Gyhm, D. ˇSafr´ anek, and D. Rosa, Phys. Rev. Lett. 
+
+128 , 140501 (2022). [20] F. Campaioli, F. A. Pollock, and S. Vinjanampa-thy, “Quantum batteries - review chapter,” (2018), arXiv:1805.05507 [quant-ph]. [21] J. Q. Quach, K. E. McGonigal, M. S. Rider, C. P. A. de Groot, T. Virgili, G. Cerullo, and D. Polli, Science Advances 8, eabk3160 (2022). [22] J. Joshi and T. S. Mahesh, Phys. Rev. A 106 , 042601 (2022). [23] K. Hymas, J. B. Muir, D. Tibben, J. van Embden, T. Hirai, C. J. Dunn, D. E. G´ omez, J. A. Hutchi-son, T. A. Smith, and J. Q. Quach, arXiv preprint arXiv:2501.16541 (2025). [24] C.-K. Hu, C. Liu, J. Zhao, L. Zhong, Y. Zhou, M. Liu, H. Yuan, Y. Lin, Y. Xu, G. Hu, G. Xie, Z. Liu, R. Zhou, Y. Ri, W. Zhang, R. Deng, A. Saguia, X. Linpeng, M. S. Sarandy, S. Liu, A. C. Santos, D. Tan, and D. Yu, Phys. Rev. Lett. 136 , 060401 (2026). [25] S. Deffner and S. Campbell, Journal of Physics A: Math-ematical and Theoretical 50 , 453001 (2017). [26] D. Gu´ ery-Odelin, A. Ruschhaupt, A. Kiely, E. Tor-rontegui, S. Mart´ ınez-Garaot, and J. G. Muga, Reviews of Modern Physics 91 , 045001 (2019). [27] M. Kitagawa and M. Ueda, Physical Review A 47 , 5138 (1993). [28] J. Ma, X. Wang, C. P. Sun, and F. Nori, Physics Reports 
+
+509 , 89 (2011). [29] G. Semeghini, H. Levine, A. Keesling, S. Ebadi, T. T. Wang, D. Bluvstein, R. Verresen, H. Pichler, M. Kali-nowski, R. Samajdar, A. Omran, S. Sachdev, A. Vish-wanath, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Sci-ence 374 , 1242–1247 (2021). [30] M. Will, T. A. Cochran, E. Rosenberg, B. Jobst, N. M. Eassa, P. Roushan, M. Knap, A. Gammon-Smith, and F. Pollmann, Nature 645 , 348–353 (2025). [31] K. J. Satzinger, Y.-J. Liu, A. Smith, C. Knapp, M. Newman, C. Jones, Z. Chen, C. Quintana, X. Mi, A. Dunsworth, et al. , Science 374 , 1237–1241 (2021). [32] A. Gammon-Smith, M. Knap, and F. Pollmann, Nature Reviews Physics 8, 160–170 (2026). [33] R. White, V. Ramesh, A. Impertro, S. Anand, F. Cesa, G. Giudici, T. Iadecola, H. Pichler, and H. Bernien, “Quantum cellular automata on a dual-species rydberg processor,” (2026), arXiv:2601.16257 [quant-ph]. [34] X. Su, Y. Zhao, S. Hao, X. Jia, C. Xie, and K. Peng, Optics Letters 37 , 5178 (2012). [35] K. A. Gilmore, M. Affolter, R. J. Lewis-Swan, D. Barber-ena, E. Jordan, A. M. Rey, and J. J. Bollinger, Science 
+
+373 , 673–678 (2021). [36] R. J. Fletcher, A. Shaffer, C. C. Wilson, P. B. Patel, Z. Yan, V. Cr´ epel, B. Mukherjee, and M. W. Zwierlein, Science 372 , 1318–1322 (2021). [37] G. Bornet, G. Emperauger, C. Chen, B. Ye, M. Block, M. Bintz, J. A. Boyd, D. Barredo, T. Comparin, F. Mez-zacapo, T. Roscilde, T. Lahaye, N. Y. Yao, and A. Browaeys, Nature 621 , 728–733 (2023). [38] L. Pezz` e, A. Smerzi, M. K. Oberthaler, R. Schmied, and P. Treutlein, Rev. Mod. Phys. 90 , 035005 (2018). [39] J. Ma, X. Wang, C. Sun, and F. Nori, Physics Reports 
+
+509 , 89–165 (2011). [40] V. Sharma and E. J. Mueller, Phys. Rev. A 105 , 023310 (2022). [41] T.-C. Lu, L. A. Lessa, I. H. Kim, and T. H. Hsieh, PRX Quantum 3, 040337 (2022). [42] B. Alexander, J. J. Bollinger, and H. Uys, Phys. Rev. A 
+
+101 , 062303 (2020). [43] V. Sharma and E. J. Mueller, Phys. Rev. A 103 , 043322 (2021). [44] P. M. Harrington, E. J. Mueller, and K. W. Murch, Nature Reviews Physics 4, 660–671 (2022). [45] F. Campaioli, S. Gherardini, J. Q. Quach, M. Polini, and G. M. Andolina, Rev. Mod. Phys. 96 , 031001 (2024). [46] D. Kajtoch and E. Witkowska, Physical Review A 92 ,013623 (2015). [47] Y. Zhang, S. Hu, and W. Liu, Physical Review Letters 
+
+132 , 113402 (2024). [48] S. Haroche, Rev. Mod. Phys. 85 , 1083 (2013). [49] M. Fadel, N. Roux, and M. Gessner, Reports on Progress in Physics 88 , 106001 (2025). [50] L. Pezz´ e and A. Smerzi, Phys. Rev. Lett. 102 , 100401 (2009). [51] P. Hyllus, W. Laskowski, R. Krischek, C. Schwemmer, W. Wieczorek, H. Weinfurter, L. Pezz´ e, and A. Smerzi, Phys. Rev. A 85 , 022321 (2012). [52] G. T´ oth, Phys. Rev. A 85 , 022322 (2012). [53] G. J. Pryde and A. G. White, Phys. Rev. A 68 , 052315 (2003). [54] X. Ma and W. Rhodes, Phys. Rev. A 41 , 4625 (1990). [55] M. Hillery, M. Zubairy, and K. Wodkiewicz, Physics Let-ters A 103 , 259 (1984). [56] P. Meystre and M. Sargent, Elements of Quantum Optics 
+
+(Springer Science & Business Media, 2007). [57] S. Sur, Y. Wang, M. Mahankali, S. Paschen, and Q. Si, arXiv preprint arXiv:2509.26620 (2025). [58] J. Li, P. Barry, T. Cecil, M. Lisovenko, V. Yefremenko, G. Wang, S. Kruhlov, G. Karapetrov, and C. Chang, Phys. Rev. Appl. 22 , 014080 (2024). [59] Y. Kurman, K. Hymas, A. Fedorov, W. J. Munro, and 8
+
+J. Quach, Physical Review X 16 , 011016 (2026). [60] R. R. Allen, F. Machado, I. L. Chuang, H.-Y. Huang, and S. Choi, arXiv preprint arXiv:2501.07625 (2025). [61] J. Koch, T. M. Yu, J. Gambetta, A. A. Houck, D. I. Schuster, J. Majer, A. Blais, M. H. Devoret, S. M. Girvin, and R. J. Schoelkopf, Phys. Rev. A 76 , 042319 (2007). [62] D. Kalacheva, G. Fedorov, J. Zotova, S. Kadyrmetov, A. Kirkovskii, A. Dmitriev, and O. Astafiev, Phys. Rev. Appl. 21 , 024058 (2024). 9
+
+> Appendix A: Derivation of the quantum battery model in Eq. 6
+
+Following the arguments in [17], we reproduce here the derivation of the quantum battery model in Eq. 6 using two-coupled superconducting LC resonators with inductance Li and capacitance Ci where i ∈ { 1, 2}. These resonators can be expressed as bosonic modes annihilated by mode operators a, b respectively. The mode frequencies are ωi =1/√LiCi. We consider them to be coupled by a Josephson junction. Their model Hamiltonian is given by 
+
+H = ω1a†a + ω2b†b + EJ cos( ϕ1 + ϕ2). (A1) Here ϕ1 = λ1(a + a†) and ϕ2 = λ2(b + b†) are bosonic mode quadratures, corresponding to the quantized flux degree of freedom. The coupling EJ can be tuned by an external flux in the Josephson junction and λi = 2 e2pLi/C i where 
+
+e is the elementary electric charge. When λi ≪ 1, we can expand the cosine term in Eq. A1 as cos( ϕ1 + ϕ2) = 
+
+> ∞
+
+X
+
+> m=0
+> m
+
+X
+
+> k=0
+
+(−1) m
+
+k!(2 m − k)! ϕk 
+
+> 1
+
+ϕ2m−k 
+
+> 2
+
+. (A2) We can choose ω1 = nω 0 and ω2 = ω0. The coupling term can create and destroy excitations in the two bosonic modes. When λiEJ ≪ ωi, only resonant terms in the expansion of cosine in Eq. A2 are important for dynamics. These resonant terms are those that commute with ω1a†a + ω2b†b. They correspond to creation of one excitation in the a mode while destroying n excitations in the b mode and vice-versa. The leading order term satisfying these conditions comes from the term proportional to ϕ1ϕn 
+
+> 2
+
+from the expansion in Eq. A2, corresponding to k = 1 and 
+
+m = ( n + 1) /2. Retaining only this leading order term, the model Hamiltonian becomes 
+
+H = nω 0a†a + ω0b†b + EJ λ1λn
+
+> 2
+
+(−1) (n+1) /2
+
+n! (a(b†)n + a†(b)n). (A3) This completes the derivation of the Hamiltonian in Eq. 6 where |gn| = EJ λ1λn 
+
+> 2
+
+/n !. 
+
+> Appendix B: QFI generation at short times
+
+We consider a system of two bosonic modes, A and B, governed by the time-dependent Hamiltonian ˆH(t). For a short time interval 0 ≤ t ≤ t0 where the coupling is turned on ( λ(t) = 1), the Hamiltonian is time-independent and given by: ˆH = ˆHA + ˆHB + ˆHAB (B1) ˆHA = nω 0ˆa†ˆa (B2) ˆHB = ω0ˆb†ˆb (B3) ˆHAB = gn(ˆ a†ˆbn + ˆ a(ˆb†)n) (B4) The system is initially prepared in a Fock state: |ψ(0) ⟩ = |NA⟩A |NB ⟩B ≡ | NA, N B ⟩. The goal is to analytically determine the variance of the B-boson number operator, ˆ nB = ˆb†ˆb, up to second order in time O(t2). We separate the Hamiltonian into a free part ˆH0 = ˆHA + ˆHB and an interaction part ˆHAB . Because [ ˆH0, ˆHAB ] = 0, the exact time evolution operator factors as: ˆU (t) = exp 
+
+
+
+−it ˆH
+
+
+
+= exp 
+
+
+
+−it ˆH0
+
+
+
+exp 
+
+
+
+−it ˆHAB 
+
+
+
+(B5) Applying this to the initial state |NA, N B ⟩, which is an exact eigenstate of ˆH0 with eigenvalue EQ = ω0(nN A + NB ), gives: 
+
+|ψ(t)⟩ = e−itE Q exp 
+
+
+
+−it ˆHAB 
+
+
+
+|NA, N B ⟩ (B6) To evaluate the state up to O(t2), we expand the interaction exponential: exp 
+
+
+
+−it ˆHAB 
+
+
+
+≈ ˆI − it ˆHAB − t2
+
+2 ˆH2 
+
+> AB
+
+(B7) 10 Applying ˆHAB to the initial state yields transitions to two adjacent states. Let us define the transition amplitudes: 
+
+A+ = gn ⟨NA + 1 , N B − n| ˆa†ˆbn |NA, N B ⟩ = gn
+
+pNA + 1 
+
+s
+
+NB !(NB − n)! (B8) 
+
+A− = gn ⟨NA − 1, N B + n| ˆa(ˆb†)n |NA, N B ⟩ = gn
+
+pNA
+
+s
+
+(NB + n)! 
+
+NB ! (B9) to obtain 
+
+−it ˆHAB |NA, N B ⟩ = −itA + |NA + 1 , N B − n⟩ − itA − |NA − 1, N B + n⟩ (B10) Applying ˆHAB a second time introduces terms that return to the original state |NA, N B ⟩, as well as terms that transition further away ( |NA ± 2, N B ∓ 2n⟩). The full state up to O(t2) is: 
+
+|ψ(t)⟩ ≈ e−itE Q
+
+" 
+
+1 − t2
+
+2 (A2+ + A2
+
+> −
+
+)
+
+
+
+|NA, N B ⟩− itA + |NA + 1 , N B − n⟩ − itA − |NA − 1, N B + n⟩
+
++ O(t2) terms orthogonal to both |NA, N B ⟩ and O(t) terms 
+
+#
+
+(B11) We check that the corresponding probabilities for occupying each state are: 
+
+P0 = 1 − t2
+
+2 (A2+ + A2
+
+> −
+
+)
+
+> 2
+
+≈ 1 − t2(A2+ + A2
+
+> −
+
+) (for |NA, N B ⟩) (B12) 
+
+P1 = | − itA +|2 = t2A2+ (for |NA + 1 , N B − n⟩) (B13) 
+
+P2 = | − itA −|2 = t2A2 
+
+> −
+
+(for |NA − 1, N B + n⟩) (B14) which implies P0 + P1 + P2 = 1 + O(t4), ensuring unitarity at this order. 
+
+Variance of ˆnB
+
+The expectation value ˆ nB in the state |ψ(t)⟩ is the weighted sum of eigenvalues: 
+
+⟨ˆnB ⟩ (t) = P0NB + P1(NB − n) + P2(NB + n)= [1 − t2(A2+ + A2
+
+> −
+
+)] NB + t2A2+(NB − n) + t2A2
+
+> −
+
+(NB + n)= NB + nt 2(A2 
+
+> −
+
+− A2+) (B15) Similarly, 
+
+ˆn2 
+
+> B
+
+(t) = P0N 2 
+
+> B
+
++ P1(NB − n)2 + P2(NB + n)2
+
+= [1 − t2(A2+ + A2
+
+> −
+
+)] N 2 
+
+> B
+
++ t2A2+(NB − n)2 + t2A2
+
+> −
+
+(NB + n)2
+
+= N 2 
+
+> B
+
++ 2 nN B t2(A2 
+
+> −
+
+− A2+) + n2t2(A2+ + A2
+
+> −
+
+) (B16) Therefore, the variance var(ˆ nB )( t) = N 2 
+
+> B
+
++ 2 nN B t2(A2 
+
+> −
+
+− A2+) + n2t2(A2+ + A2
+
+> −
+
+) − N 2 
+
+> B
+
++ 2 NB nt 2(A2 
+
+> −
+
+− A2+)
+
+= n2t2(A2+ + A2
+
+> −
+
+)= n2t2g2
+
+> n
+
+
+
+(NA + 1) NB !(NB − n)! + NA
+
+(NB + n)! 
+
+NB !
+
+
+
+. (B17) Note that the above derivation implicitly assumed NB ≥ n. For NB < n , the operator ˆbn attempts to annihilate more quanta than are present in the initial state. Consequently: ˆbn |NB ⟩ = 0 = ⇒ A+ = 0 (B18) 11 The system can only undergo down-conversion from mode A (creating B-bosons), and the A− amplitude remains unchanged. After substituting A+ = 0 into our variance formula, we obtain var(ˆ nB )( t) = n2t2g2
+
+> n
+
+NA
+
+(NB + n)! 
+
+NB ! (B19) In this regime, the variance is driven entirely by the one-directional flow of energy into mode B. Therefore, in the 
+
+n ≫ 1 limit at a fixed NA and NB , since g2
+
+> n
+
+(NB + n)! /N B ! ∼ ng 2 and tc ∼ 1/g √n, we deduce var(ˆ nB )( t) ∝ n2(t/t c)2.
+
+Appendix C: Short-time evolution of squeezing 
+
+Variance of an operator ˆX whose unitary time-evolution is generated by a Hamiltonian ˆH is given by var { ˆX(t)} = var { ˆX(0) } + itδ var { ˆX} + O (Ω t)2, (C1) where Ω is a characteristic energy scale such that t is measured in units of Ω −1, and 
+
+δvar { ˆX} =
+
+Dn 
+
+[ ˆH, ˆX], δ ˆX
+
+oE 
+
+(C2) with δ ˆX = ˆX −
+
+D ˆX
+
+E
+
+and { ˆA, ˆB} = ˆA ˆB + ˆB ˆA. We note that 
+
+D
+
+δ ˆX
+
+E
+
+= 0. For ˆH = ω0
+
+h
+
+nˆa†ˆa + ˆb†ˆb
+
+i
+
++ gn(ˆ a†ˆbn + h.c.), we obtain 
+
+h ˆH, ˆxb
+
+i
+
+= −iω 0 ˆpb + n
+
+2 gn
+
+
+
+ˆa†ˆbn−1 − h.c. 
+
+
+
+;
+
+h ˆH, ˆxa
+
+i
+
+= −inω 0 ˆpa − 12 gn
+
+ˆbn − h.c. 
+
+
+
+;
+
+h ˆH, ˆpb
+
+i
+
+= iω 0 ˆxb + in 
+
+2 gn
+
+
+
+ˆa†ˆbn−1 + h.c. 
+
+
+
+;
+
+h ˆH, ˆpa
+
+i
+
+= inω 0 ˆxa + i
+
+2 gn
+
+ˆbn + h.c. 
+
+
+
+; (C3) In a coherent state of the form |ψ0⟩ = |α⟩ ⊗ | β⟩, δa 2 = 0. Consequently, {δ ˆpa, δ ˆxa} = 0 and 
+
+δvar {ˆxa} = −
+
+Dn 
+
+inω 0 ˆδp a + g
+
+2
+
+ˆbn − h.c. 
+
+
+
++ inω 0 ⟨ˆpa⟩ , δ ˆxa
+
+oE 
+
+= 0 . (C4) Similarly, δvar {ˆpa} = 0. By contrast, 
+
+δvar {ˆxb} = n
+
+2 gn
+
+Dn 
+
+ˆa†ˆbn−1 − h.c. , δ ˆxb
+
+oE 
+
+= i n(n − 1) 2 gn Im α∗βn−1 ; (C5) 
+
+δvar {ˆpb} = −i n(n − 1) 2 gn Im α∗βn−1 , (C6) where we have used the result, 
+
+Dn 
+
+ˆa†ˆbn−1, δ ˆxb
+
+oE 
+
+= n(n − 1) 2 α∗βn−1 (C7) =
+
+Dn 
+
+(ˆ a†ˆbn−1)†, δ ˆxb
+
+oE ∗
+
+. (C8) Since var { ˆX(0) } = 1 /4 for ˆX ∈ { ˆxa, ˆpa, ˆxb, ˆpb}, we obtain the results noted in the main text. 
+
+Appendix D: Time-evolution of optimal parameters for squeezing 
+
+Here, we include additional details on the determination of the two-mode quadrature with the lowest variance. In Fig. 5 we show the time-evolution of the optimal angular parameters which determine the operator ˆXθmin ,η min ,ϕ min (t). In turn, ˆXθmin ,η min ,ϕ min (t) supports the lowest variance at t, whose time-evolution is presented in the main text. In Fig. 6 we demonstrate the existence of squeezing at n = 3 [subfigure (a)] and n = 6 [subfigure (b)]. For n = 3 we used the same initial parameters as the n = 4 case discussed in the main text, except the choice of gn = 1 /√2. For 
+
+n = 6 we have exchanged the values of |α| and |β| compared to the cases n = 3 , 4 and chosen gn = 1 /√5!. In Fig. 7 we plot the time evolution of the optimal angles. 12 0. 0.01 0.02 0. 0.5 
+
+ω 0 t
+
+> θ min  /π
+> (a)
+
+0. 0.01 0.02 0. 0.5 1. 1.5 
+
+ω 0 t 
+
+> η min  /π(b)
+
+0. 0.01 0.02 0. 0.5 1. 1.5 
+
+ω 0 t 
+
+> ϕ min  /π(c)
+
+FIG. 5. Time evolution of the optimal angles for which the variance of the two-mode quadrature ˆXθ,η,ϕ is minimized. 0. 0.01 0.02 0.03 0.04 0.05 0. 0.05 0.1 0.15 0.2 0.25 
+
+ω 0 tvar  { X min  }
+
+> (a)
+
+## 0. 0.0005 0.001 0.15 0.2 0.25 
+
+ω 0 tvar  { X min  } (b) 
+
+FIG. 6. Time evolution of the variance of the optimal quadrature ˆXθ,η,ϕ for (a) n = 3 and (b) n = 6. The best squeezing is obtained at a finite short time in both cases. 0. 0.01 0.02 0.03 0.04 0.05 0. 0.5 
+
+ω 0 t
+
+> θ min  /π
+> (a)
+
+0. 0.01 0.02 0.03 0.04 0.05 0. 0.5 1. 1.5 
+
+ω 0 t 
+
+> η min  /π(b)
+
+0. 0.01 0.02 0.03 0.04 0.05 0. 0.5 1. 1.5 
+
+ω 0 t 
+
+> ϕ min  /π(c)
+
+0. 0.0005 0.001 0. 0.5 
+
+ω 0 t
+
+> θ min  /π
+> (d)
+
+0. 0.0005 0.001 0. 0.5 1. 1.5 
+
+ω 0 t 
+
+> η min  /π(e)
+
+0. 0.0005 0.001 0. 0.5 1. 1.5 2. 
+
+ω 0 t 
+
+> ϕ min  /π(f)
+
+FIG. 7. Time evolution of the optimal angles for which the variance of the two-mode quadrature ˆXθ,η,ϕ is minimized for (a)–(c) 
+
+n = 3 and (d)–(f) n = 6.

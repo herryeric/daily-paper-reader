@@ -6,67 +6,80 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-23
-- 运行时间：2026-04-23 20:08:09 UTC
+- 最新运行日期：2026-04-26
+- 运行时间：2026-04-26 20:15:08 UTC
 - 运行状态：成功
-- 本次总论文数：15
-- 精读区：6
-- 速读区：9
+- 本次总论文数：20
+- 精读区：9
+- 速读区：11
 
 ### 今日简报（AI）
-今日精选 15 篇前沿论文，深度聚焦双层镍氧化物超导机制与壳层玻色-爱因斯坦凝聚中的涡旋动力学。
-重点解析了 $La_3Ni_2O_7$ 中受洪特规则辅助的强耦合配对机制，并探讨了隐形超均匀无序对关联系统电磁相变的调控。
-建议优先研读双层镍氧化物超导综述，以掌握当前高温超导领域最受关注的微观配对新范式。
-- 详情：[/202604/23/README](/202604/23/README)
+今日精选 20 篇前沿成果，深度解析了 1313 相镍基超导机制及
+- 详情：[/202604/26/README](/202604/26/README)
 
 ### 精读区论文标签
-1. [Superconductivity in bilayer La$_3$Ni$_2$O$_7$: A review focusing on the strong-coupling Hund's rule assisted pairing mechanism](/202604/23/2604.20613v1-superconductivity-in-bilayer-la3ni2o7-a-review-focusing-on-the-strong-coupling-hunds-rule-assisted-pairing-mechanism)  
+1. [Pairing mechanism and superconductivity in 1313 phase La$_3$Ni$_2$O$_7$](/202604/26/2604.21533v1-pairing-mechanism-and-superconductivity-in-1313-phase-la3ni2o7)  
    标签：评分：10.0/10、query:cmp
-   evidence：双层镍氧化物中强耦合洪特规则辅助的配对机制
-2. [Vortex dipoles in expanding shell-shaped Bose-Einstein condensates](/202604/23/2604.20407v1-vortex-dipoles-in-expanding-shell-shaped-bose-einstein-condensates)  
+   evidence：加压1313相La3Ni2O7的超导机制
+2. [Stripping Symmetry: Electrochemical Oxidation to a Superconducting Polar Metal in Au2Pb0.914P2](/202604/26/2604.18843v1-stripping-symmetry-electrochemical-oxidation-to-a-superconducting-polar-metal-in-au2pb0914p2)  
    标签：评分：9.0/10、query:cmp
-   evidence：壳状超流体中的涡旋偶极子
-3. [Discovery of parity-violating chiral polar-nematic charge density wave and superconductivity in kagome metals](/202604/23/2604.20546v1-discovery-of-parity-violating-chiral-polar-nematic-charge-density-wave-and-superconductivity-in-kagome-metals)  
+   evidence：通过电化学氧化发现新型超导极性金属
+3. [$η$-pairing in a two-band model of spinless fermions](/202604/26/2604.21318v1--pairing-in-a-two-band-model-of-spinless-fermions)  
    标签：评分：9.0/10、query:cmp
-   evidence：笼目金属中的非常规电荷密度波与超导
-4. [Anisotropic Superconducting Diode Effect in Planar Josephson Junctions](/202604/23/2604.17594v1-anisotropic-superconducting-diode-effect-in-planar-josephson-junctions)  
-   标签：评分：8.0/10、query:cmp
-   evidence：约瑟夫森结中的超导二极管效应
-5. [Spatially-resolved voltage-reversal due to Bernoulli potentials in dissipative Bi$_2$Sr$_2$CaCu$_2$O$_{8+x}$](/202604/23/2604.19467v1-spatially-resolved-voltage-reversal-due-to-bernoulli-potentials-in-dissipative-bi2sr2cacu2o8x)  
-   标签：评分：8.0/10、query:cmp
-   evidence：高温超导体BSCCO中的涡旋动力学
-6. [Field-Induced Selective Spin Gap Closure and Quantum Criticality in BaNd$_2$ZnS$_5$](/202604/23/2604.20173v1-field-induced-selective-spin-gap-closure-and-quantum-criticality-in-band2zns5)  
-   标签：评分：8.0/10、query:cmp
-   evidence：磁场诱导的模式选择性量子临界性
+   evidence：高温超导的配对机制
+4. [Collective Excitations and Stability of Nonequilibrium Polariton Supersolids](/202604/26/2604.21353v1-collective-excitations-and-stability-of-nonequilibrium-polariton-supersolids)  
+   标签：评分：9.0/10、query:cmp
+   evidence：极化激元超固体的集体激发与稳定性
+5. [Intertwined charge density wave, tunable anti-dome superconductivity, and topological states in kagome metal VSn](/202604/26/2604.21488v1-intertwined-charge-density-wave-tunable-anti-dome-superconductivity-and-topological-states-in-kagome-metal-vsn)  
+   标签：评分：9.0/10、query:cmp
+   evidence：kagome金属中可调控的反圆顶状超导
+6. [Superconductivity induced by altermagnetic spin fluctuations in high-pressure MnB$_4$](/202604/26/2604.21561v1-superconductivity-induced-by-altermagnetic-spin-fluctuations-in-high-pressure-mnb4)  
+   标签：评分：9.0/10、query:cmp
+   evidence：由代磁自旋涨落驱动的超导性
+7. [Two-gap to Single-gap Transition and Two-dome-like Superconductivity in Alkali-Metal Intercalated Bilayer PdTe2](/202604/26/2604.21635v1-two-gap-to-single-gap-transition-and-two-dome-like-superconductivity-in-alkali-metal-intercalated-bilayer-pdte2)  
+   标签：评分：9.0/10、query:cmp
+   evidence：碱金属插层PdTe2中超导性的增强
+8. [Effect of Mn Substitution on Superconductivity in PrFeAs(O,F): Role of Magnetic Impurities](/202604/26/2604.21684v1-effect-of-mn-substitution-on-superconductivity-in-prfeasof-role-of-magnetic-impurities)  
+   标签：评分：9.0/10、query:cmp
+   evidence：锰替代对铁基超导体超导性的影响
+9. [$3d_{z^2}$ orbital delocalization and magnetic collapse in superconducting (La,Pr)$_3$Ni$_2$O$_{7-δ}$ films](/202604/26/2604.21899v1-3dz2-orbital-delocalization-and-magnetic-collapse-in-superconducting-lapr3ni2o7--films)  
+   标签：评分：9.0/10、query:cmp
+   evidence：超导镍氧化物薄膜的实验研究
 
 ### 速读区论文标签
-1. [Interaction between nuclear clusters and superfluid phonons in the neutron-star inner crust](/202604/23/2604.20725v1-interaction-between-nuclear-clusters-and-superfluid-phonons-in-the-neutron-star-inner-crust)  
+1. [Bose metal near pair-density-wave order in a spin-orbit-coupled Kondo lattice](/202604/26/2604.18451v2-bose-metal-near-pair-density-wave-order-in-a-spin-orbit-coupled-kondo-lattice)  
    标签：评分：8.0/10、query:cmp
-   evidence：核团簇与中子超流性之间的相互作用
-2. [Microscopic Theory of Acoustic Phonon Scattering by Charge-Density-Wave Fluctuations](/202604/23/2604.17655v2-microscopic-theory-of-acoustic-phonon-scattering-by-charge-density-wave-fluctuations)  
+   evidence：Kondo晶格中的玻色金属与超导序
+2. [Proximitized Topological Insulator Charge Island Fabricated via In Situ Multi-Angle Stencil Lithography](/202604/26/2604.18736v1-proximitized-topological-insulator-charge-island-fabricated-via-in-situ-multi-angle-stencil-lithography)  
+   标签：评分：8.0/10、query:cmp
+   evidence：拓扑绝缘体纳米结构中的邻近效应诱导超导
+3. [Josephson diode effect in multichannel Rashba nanowires: role of inter-subband coupling](/202604/26/2604.19385v1-josephson-diode-effect-in-multichannel-rashba-nanowires-role-of-inter-subband-coupling)  
+   标签：评分：8.0/10、query:cmp
+   evidence：超导纳米线中的约瑟夫森二极管效应
+4. [Perfect spin nonreciprocity in gated superconducting altermagnetic heterostructures](/202604/26/2604.20312v1-perfect-spin-nonreciprocity-in-gated-superconducting-altermagnetic-heterostructures)  
+   标签：评分：8.0/10、query:cmp
+   evidence：超导代磁异质结中的自旋非互易性
+5. [Stabilization of a non-superconducting, orthorhombic phase by over-hydrogenating LaFeSiH](/202604/26/2604.20716v1-stabilization-of-a-non-superconducting-orthorhombic-phase-by-over-hydrogenating-lafesih)  
+   标签：评分：8.0/10、query:cmp
+   evidence：通过氢化调节铁基超导体的电子基态
+6. [Disorder-driven coexistence of distinct dynamical states in frustrated Sr$_3$CuNb$_2$O$_9$: a microscopic $μ$SR and $^{93}$Nb NMR study](/202604/26/2604.20337v1-disorder-driven-coexistence-of-distinct-dynamical-states-in-frustrated-sr3cunb2o9-a-microscopic-sr-and-93nb-nmr-study)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联金属中的电荷密度波波动
-3. [Stealthy hyperuniform disorder: A new route to controlling electric states and magnetic phase transition in correlated systems](/202604/23/2604.19041v1-stealthy-hyperuniform-disorder-a-new-route-to-controlling-electric-states-and-magnetic-phase-transition-in-correlated-systems)  
+   evidence：无序受挫磁体中的随机单态行为
+7. [Dynamical mean-field theory for dense spin systems at finite temperature](/202604/26/2604.21563v1-dynamical-mean-field-theory-for-dense-spin-systems-at-finite-temperature)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联系统中Hubbard模型的电子和磁学性质研究
-4. [Four-layer charge density waves and chirality in CsV$_3$Sb$_5$](/202604/23/2604.19328v1-four-layer-charge-density-waves-and-chirality-in-csv3sb5)  
+   evidence：自旋系统和费米子的动力学平均场理论
+8. [Dual-use quantum hardware for quantum resource generation and energy storage](/202604/26/2604.21913v1-dual-use-quantum-hardware-for-quantum-resource-generation-and-energy-storage)  
    标签：评分：7.0/10、query:cmp
-   evidence：kagome超导体与电荷密度波基态
-5. [Hydrodynamics of the viscous electron fluid in cadmium](/202604/23/2604.19416v1-hydrodynamics-of-the-viscous-electron-fluid-in-cadmium)  
-   标签：评分：7.0/10、query:cmp
-   evidence：金属中粘性电子流体的流体动力学
-6. [Unconventional Quantum Criticality in Long-Range Spin-1 Chains: Insights from Entanglement Entropy and Bipartite Fluctuations](/202604/23/2604.20831v1-unconventional-quantum-criticality-in-long-range-spin-1-chains-insights-from-entanglement-entropy-and-bipartite-fluctuations)  
-   标签：评分：7.0/10、query:cmp
-   evidence：自旋链中的量子相变与量子临界性
-7. [Magnetotransport and Phase competition in three-dimensional Hubbard-Holstein model at half-filling](/202604/23/2604.18219v1-magnetotransport-and-phase-competition-in-three-dimensional-hubbard-holstein-model-at-half-filling)  
+   evidence：用于量子硬件的超导电路
+9. [Charge Transport Capacity as a Probe of Resonances in Models of Many-Body Localization](/202604/26/2604.18710v1-charge-transport-capacity-as-a-probe-of-resonances-in-models-of-many-body-localization)  
    标签：评分：6.0/10、query:cmp
-   evidence：Hubbard-Holstein 模型中的电子关联与相竞争
-8. [Melting temperature shifts from quantum fluctuations in generalized Wigner crystals](/202604/23/2604.19870v1-melting-temperature-shifts-from-quantum-fluctuations-in-generalized-wigner-crystals)  
+   evidence：多体定位模型中的电荷输运
+10. [Large Scale Optimization of Disordered Hubbard Models through Tensor and Neural Networks](/202604/26/2604.18711v1-large-scale-optimization-of-disordered-hubbard-models-through-tensor-and-neural-networks)  
    标签：评分：6.0/10、query:cmp
-   evidence：广义维格纳晶体中的量子涨落
-9. [Interaction-induced asymmetry in infinite-temperature dynamical correlations of hard-core anyons](/202604/23/2604.20697v1-interaction-induced-asymmetry-in-infinite-temperature-dynamical-correlations-of-hard-core-anyons)  
+   evidence：利用神经网络优化无序哈伯德模型
+11. [Symmetry resolved entanglement in Lifshitz field theories](/202604/26/2604.19082v1-symmetry-resolved-entanglement-in-lifshitz-field-theories)  
    标签：评分：6.0/10、query:cmp
-   evidence：一维晶格中硬核任意子的动力学关联
+   evidence：非相对论量子场论与 Lifshitz 模型中的纠缠
 
 
 <div class="dpr-home-promo-card">

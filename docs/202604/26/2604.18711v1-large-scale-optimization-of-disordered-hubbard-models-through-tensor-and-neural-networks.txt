@@ -1,0 +1,205 @@
+Title: Large Scale Optimization of Disordered Hubbard Models through Tensor and Neural Networks
+
+URL Source: https://arxiv.org/pdf/2604.18711v1
+
+Published Time: Wed, 22 Apr 2026 00:05:36 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Large Scale Optimization of disordered Hubbard models through Tensor and Neural Networks 
+
+Jacob R. Taylor and Sankar Das Sarma 
+
+Condensed Matter Theory Center and Joint Quantum Institute, Department of Physics, University of Maryland, College Park, Maryland 20742-4111 USA 
+
+We theoretically demonstrate a practical method for tuning randomly disordered 2D quantum-dot grids underlying spin qubit platforms using vision-based neural networks trained on tensor-network generated charge-stability data. We show that a simulatable local 3 × 3 window already contains sufficient information to tune the central dot within a much larger array, thereby validating a sliding-window approach in which one tunes a local region and then translates that window across the lattice to calibrate a larger device. This avoids the computationally intractable necessity for obtaining the ground states for large systems with exponentially large Hilbert space. For the experimentally relevant case where only the on-site disorder is unknown, the neural network predicts the relevant parameters with very high fidelity in the 3 × 3 setting [ R2 > 0.99 ], and after fine tuning on only a small number of larger-device samples, it retains high accuracy for the central dot of a 
+
+5 × 5 plaquette [ R2 ≈ 0.98 ]. When all the dots parameters are treated as unknown, prediction of the on-site disorder remains robust [ R2 > 0.9 for both 3 × 3 and 5 × 5], although the remaining parameters are substantially more difficult to infer from the same charge-stability data. This shows that the most practically important disorder parameter for tuning can still be inferred reliably even in the fully disordered setting for the computationally difficult 5x5 arrays. Our results therefore show that accurate tuning of large 2D quantum-dot devices can be achieved from simulations of only a limited local window, rather than from modeling the full array or a particularly large grid. While modest increases in window size should further improve accuracy by incorporating more of the nearby environment, we show that tensor-network simulations of relatively small windows are already sufficient in practice. Since the quantum spin qubits are modeled by a disordered Hubbard model, our work establishes the possibility of using neural networks for studying the 2D Hubbard model. 
+
+Introduction.— Machine learning has emerged as a promising tool for investigating, automating control, and mitigating disorder in quantum hardwares, particularly in regimes where a sufficiently accurate physical model exists but experimental devices still contain unknown dis-order in their parameters.[1–9]. This is especially true in semiconductor quantum-dot spin-qubit platforms, which have emerged as promising qubit candidates [10–15]. In these systems, the disordered extended Hubbard model captures the underlying physics with high accuracy [16– 22], yet the precise device parameters are generally un-known because of disorder, which is invariably present in the experimental systems. As a result, qubit operation requires continual parameter tuning for disorder/drift and remains a central problem in semiconductor quan-tum dot platforms [18, 23, 24]. Many approaches to this problem have been considered [1, 2, 25, 26]. However, most focus only on tuning a small number of dots at a time. In our previous work [1], we showed that neural net-works can infer Hubbard parameters in small, though larger than previously studied, quantum-dot systems di-rectly from charge stability diagram data, providing a route toward automated control in experimentally rel-evant settings since arbitrarily large amount of charge stability data can be easily experimentally obtained by changing the system parameters in order to train the neu-ral network. Here, we consider the substantially more challenging case of larger two-dimensional quantum-dot arrays, where scaling is nontrivial for both computational and physical reasons. The idea is to use simulated train-ing data on realistic quantum dot models to train a neu-ral network which produces arbitrarily high fidelity on the test data so as to establish the efficacy and the re-liability of this approach for future use on real exper-imental data. On the computational side, the Hilbert space grows exponentially with system size, making ex-act diagonalization (to obtain the training data) imprac-tical beyond relatively small devices. On the physical side, the measured charge-stability response of a given dot depends not only on its own local parameters but also on neighboring dots [27]. This raises a central ques-tion: whether experimentally accessible measurements from a restricted local tuning region retain enough in-formation to permit reliable inference of the local micro-scopic parameters. It is not obvious at all that this is possible even as a matter of principle since the under-lying many-body Hamiltonian cannot be solved for an arbitrarily large system. To address this key issue, we move beyond the exact-diagonalization regime and in-stead use tensor-network methods to simulate the mea-surement data needed for machine-learning based tuning of 2D Hubbard-model devices. In particular, we use ma-trix product state (MPS) and density matrix renormal-ization group (DMRG) [28, 29] techniques to study much larger quantum-dot lattices of sizes such as 3×3 and 5×5.Although tensor-network methods do not eliminate the exponential complexity of the full problem, they substan-tially expand the range of device sizes that can be simu-lated in practice, especially in the locally focused setting 
+
+> arXiv:2604.18711v1 [cond-mat.mes-hall] 20 Apr 2026
+
+2relevant to the present work. Figuring out whether such local measurements contain sufficient information for pa-rameter inference in a realistic quantum dot setting is essential for determining whether automated AI-inspired tuning strategies can remain effective as quantum-dot ar-chitectures grow in size. Our central goal is this, to determine whether lo-cal measurements from a finite tuning window contain enough information to infer the Hubbard parameters for the theoretical model underlying the 2D coupled quan-tum fit system, and thus to tune, a central dot within a larger lattice. To do this, we combine training data gen-erated from the tensor network with a vision-based neural network [30–32] that takes input from charge-stability di-agrams and predicts the unknown parameters of the un-derlying Hubbard-model. This provides a practical route for studying larger and more realistic quantum-dot de-vices within the extended Hubbard model. The local-window approach is motivated by the physical locality of the problem: rather than attempting to tune an entire large array at once, one can tune a central region, then slide the window across the device to gradually calibrate the full lattice. In this sense, the present work is aimed at establishing the feasibility of scalable automated tuning for large quantum-dot arrays. We show that the proposed local sliding-window strat-egy remains highly effective beyond the small-system regime. In the case where only the on-site (ie on-dot) energy ( ϵi) is unknown, predictions are highly accurate in 3 × 3 windows and remain so in 5 × 5 devices after fine-tuning on only a small number of larger-device samples. We mention that ϵi is the key parameter in determining the charge stability diagram based on capacitance mea-surements. When all Hubbard parameters are treated as unknown, ϵi can still be inferred robustly for both sizes, although the remaining parameters are much less accessible from the same charge-stability data. Moreover, the residual difference between the 3 × 3 and 5 × 5 pre-dictions appears to be approximately linear, suggesting that transfer to larger systems may require only a mod-est calibration step which should be even achievable for the experimental data. Overall, this provides strong ev-idence for the scalability of the sliding-window approach to larger quantum-dot arrays. 
+
+Physical Model.— We consider a 2D grid of quantum dots within semiconductor platforms such as silicon het-erostructures, which can be accurately modeled by the generic Hubbard model [16–18]. The generic extended Hubbard model is expressed as follows: 
+
+H = − X
+
+> <i,j>,σ
+
+tij 
+
+
+
+c† 
+
+> iσ
+
+cjσ + h.c. 
+
+
+
+− X
+
+> i
+
+ϵini
+
++ X
+
+> <i,j>
+
+Vij ninj + X
+
+> i
+
+Ui
+
+2 ni(ni − 1) (1) Here, ni = ni↑ + ni↓ is the number operator, and ciσ 
+
+is the fermion annihilation operator, with i enumerat-ing the site locations and σ the spin degree of free-dom (up/down spins). The parameter tij represents the hopping amplitude between sites, ϵi is the single-particle energy, Vij denotes the inter-site Coulomb repul-sion (where i, j indicate different sites), and Ui stands for the on-site repulsion (essentially the diagonal Vii compo-nent of Vij ). In our problem, the Hubbard model pa-rameters are assumed to be unknown. Only nearest-neighbor interactions on the grid are considered, such that Vij = tij = 0 for non-nearest neighbors although generalizations to more complicated models, if necessary, should be straightforward at the cost of having many un-known parameters. The objective is to determine the Hubbard model pa-rameters of the quantum dot system, namely the set 
+
+tij , V ij , U i, ϵ i, from experimentally measurable occupa-tions. We treat the system as at zero temperature which even in a large system with small coupling constant, T around kB 
+
+> β
+
+= 0 .0026 ⟨U ⟩ (with ⟨U ⟩ being the average U value over the sites), is experimentally achievable [18], and should be sufficient to maintain an effectively pure state. Again, finite-T generalization is straightforward at the cost of substantial increase in the computational cost. 
+
+Method.— The general method consists of creating a tuning window that can be efficiently simulated, such as 
+
+3 × 3, and using it to tune the center dot within the window. Information about the center dot is obtained by adjusting the chemical potentials of each neighboring dot and measuring the expectation values of the occu-pation vector ⃗n(⃗μ) = ( ⟨n 1⟩, ⟨n2⟩, . . . ) formed from the dots within the window. Each dot i has chemical po-tential μi = μb + δμ i, where μb is a background chemi-cal potential uniform across all dots and δμ i is the dot-specific deviation from that value. The input measure-ments consist of a series of ⃗n(⃗μ) values where, iterat-ing over the center dot ic and each nearest-neighbor pair 
+
+jnn , δμ ic = −δμ jnn is varied between [−0.6, 0.6] with 15 points, and δμ i = 0 for i̸ = ic, j nn . At the same time, μb is also varied independently for all dots between 
+
+[−0.5, 2.5] with 5 points. For each configuration m of ⃗δμ (m)
+
+and μ(m) 
+
+> b
+
+, or together ⃗μ (m),⃗n (m) is measured, and all such measurements within the window are combined into a single matrix, 
+
+X = [ ⃗n (m=1) ,⃗ n (m=2) , . . . ].
+
+This matrix X serves as the input to the neural network both for the theoretical case presented here and for a pos-sible experimental application. It is the charge stability diagram for a particular disorder or device realization. The neural network function FN N is trained to predict the Hubbard model parameters of all dots within the win-dow, 
+
+FN N (X) = [ ⃗ϵ,⃗ U ,⃗ V ,⃗ t ],
+
+where we generate 6500 different disorder realizations of model parameters sampled randomly, alternating be-tween uniform and Gaussian distributions with equal 3probability for ⃗ U ,⃗ V , and ⃗ ϵ, within the ranges ϵ i ∈
+
+[−0.5, 0.5] , Ui ∈ [3 , 5] , Vij ∈ [0 , 0.4] , and tij ∈ [0 .1, 0.5] .We also fix t12 = 0 .25 to set the energy scale. Although a single network could be trained to predict all Hubbard model parameters, we found that accuracy is higher when a separate network is trained for each parameter, since there is no guarantee that the visual features used to determine each parameter are the same. We also note that, although the network is trained to predict all parameters within the window, this is not the main focus. Rather, the focus is on the center dot, as we intend to slide the window to enable tuning of all dots in a larger grid. 
+
+Simulations.— The simulations use MPS and DMRG [29] in ITensor [33] to model 3 × 3 and 5 × 5 quantum-dot grids. Since an MPS is intrinsically one-dimensional, the 2D lattice is mapped onto a 1D ordering by snaking through the sites (Fig. S1). For each configuration of ⃗μ (m) in a sample device, we perform DMRG to obtain the ground state and then compute the site occupations 
+
+⟨ni⟩, yielding ⃗n(⃗μ). Due to computational limitations, we use 5 DMRG iterations at the first point of the charge sta-bility diagram and then 5 more at each subsequent point, initialized from the previous state. The bond dimension is capped at 100, which was sufficient here, though likely too small for experimental applications. We note that our focus is only on local site expectation values, rather than more intricate observables such as correlations, so the calculations should converge rapidly even at relatively low bond dimension. For more compu-tationally demanding applications, such as larger lattices, it may also be advantageous to pre-train using low-bond-dimension data and then fine-tune on a smaller set of high-bond-dimension samples. We further note that in-creasing the bond dimension generally improves neural network fidelity, since a less converged state effectively introduces an additional source of disorder from the net-work’s perspective. Due to computational limitations, we consider only fixed boundary conditions and zero temperature (for the corresponding finite-temperature procedure, see SM-I). The simulation procedure consists of sweeping the Hamil-tonian parameters and performing DMRG at each point without quantum-number restrictions. Although the Hamiltonian preserves quantum numbers, the ground-state sector changes during the parameter sweep, and these changes provide the information used by the neu-ral network. 
+
+Neural Network.— The neural network used in this work is a simple convolutional architecture composed of 3D convolutional layers, 3D max-pooling layers, and squeeze-and-excitation layers [34]. The network com-prises three stages. The first stage is an initial process-ing block in which the input tensor of size (9 , 4, 5, 15) is passed through a 256-filter 3D convolutional layer, fol-lowed by a 3D max-pooling layer with kernel size 2 and a second 256-filter 3D convolutional layer. This is followed by two further processing blocks, each consisting of a 3D 
+
+FIG. 1: Sliding-window process diagram. The process for tuning a larger lattice of dots consists of training on an easily simulated window, such as 3 × 3, and including a small number of additional 5 × 5 samples for fine-tuning on larger arrays of dots. The goal is to tune the center dot of the window and then slide the window across the lattice to tune the entire array, potentially incorporating information from previous tuning operations into future models. convolutional layer, a squeeze-and-excitation layer, and a pooling layer, with 256 and 512 filters, respectively. The squeeze-and-excitation layers [34] introduce global information into the otherwise purely convolutional ar-chitecture by reweighting channels according to the input and thereby emphasizing the most relevant features. In the final stage, an adaptive pooling layer contracts the remaining spatial dimensions, after which the represen-tation is processed by a dense layer with 512 nodes and a linear output layer. The output dimensionality depends on the target parameters predicted within the window: all lines on the center dot (4), the onsite values for the center dot and its neighbors (5), or only the onsite value of the center dot (1), although the last option was not used during training. This architecture was found to outperform the alterna-tives considered. In particular, a standard vision trans-former [32] was initially tested, but transfer learning from the 3 × 3 to the 5 × 5 case proved substantially less effective, motivating the adoption of a convolutional model. A likely explanation is that the vision trans-former’s greater long-range expressivity led to overfitting on the 3 × 3 training data. By contrast, the simpler convolutional architecture, with its more limited connec-tivity, appears better able to capture features that re-main consistent across devices of different sizes. Sim-ilarly, although residual connections often improve con-volutional networks [31], they produced at most marginal gains here and were therefore omitted in favor of a sim-pler model. This may reflect some functional overlap with the squeeze-and-excitation layers. Training was performed for up to 1000 epochs, with early stopping typically occurring after approximately 4200 epochs, once validation performance ceased to im-prove. The learning rate was gradually reduced from 
+
+1 × 10 −3 to 5 × 10 −5, and the weight decay from 10 −4
+
+to 10 −5, with both schedules determined by the onset of performance plateaus on the validation set. 
+
+FIG. 2: Neural network diagram. The network is divided into three stages: an input stage (green), two processing blocks (blue), and an output stage (orange). The input stage applies two 3D convolutional layers with layer normalization, separated by 3D max pooling. Each processing block (labeled k=1,2) contains a 3D convolutional layer with layer normalization, a squeeze-and-excitation layer, and 3D max pooling with kernel size 2. The output stage uses adaptive 3D pooling to reduce the remaining spatial dimensions to one, followed by a dense layer and a linear output layer. 
+
+Results.— We begin by considering the problem of pre-dicting parameters within the 3 × 3 grid using output from tensor-network simulations. We first consider the case in which only ϵi disorder is present, meaning that all other parameters are assumed known and the task is to predict ϵi. As expected from our previous work [4], the neural network is able to successfully predict the ϵi parameters for the nearest neighbors of the cen-ter dot within the 3 × 3 window, achieving a high fidelity of R2 = 0 .9916 and a standard-deviation error (root of mean squared error) of ∆ϵi = 0 .037 . We note that this error corresponds to predicting the disorder for all neigh-bors of the center dot simultaneously, despite using only the δμ i deviations for center-dot nearest-neighbor pairs. While further improvement can be obtained by feeding all nearest-neighbor pairs into the neural network, we found this computationally too expensive for generating our training dataset. Those with greater computational resources would likely benefit from doing so. With this premise in mind, we seek to tune the center dot both for a 3 × 3 grid of dots and for larger grids such as 5 × 5. The training process consists of two parts: first, training a network for prediction on the 3 × 3 grid using 6500 samples (10% withheld for testing), and second, by fine-tuning a hybrid network that additionally includes a small number of 5 × 5 samples, namely 200 (additional 200 samples used for testing). For the 5 × 5 setup, the neural network is given only data from the central 3 ×
+
+3 window, with the goal of tuning only the center dot. During training, we test the network on both system sizes simultaneously in order to determine the optimal point for early stopping, since otherwise the small number of 
+
+5 × 5 samples would lead to overfitting. For the 5 × 5 test data, we achieve high prediction fidelity for the center dot, with errors of ∆ϵi = 0 .060 and R2(ϵi) = 0 .9796 .Results for both the 3 × 3 and 5 × 5 cases are shown in Fig. 3. We found it necessary to include a small number of 
+
+5 × 5 samples because, without them, the network still appears to predict the relative positions of ϵi, but with a residual discrepancy that may be approximately lin-ear. (See Fig. S6) In principle, this discrepancy could be calibrated experimentally even for very large systems. Similarly, we expect the effect of increasing system size on the charge stability diagram to diminish for larger and larger systems, given that only a small number of 5 × 5
+
+samples is required to learn to achieve high fidelity on the larger system. This provides strong evidence for the feasibility of our proposed scheme, namely using a sliding window to tune the center dot one site at a time. Using tensor net-works, we show that the window size can be extended to 
+
+5×5, and that those with greater computational resources could instead train initially on 5 × 5. More generally, we expect that the window need only be large enough to cap-ture the dominant local physics, with larger system sizes entering as corrections that require progressively fewer samples. Beyond some size, we expect these corrections to become effectively noise from the perspective of the neural network and therefore negligible. While ϵi is certainly the most important source of dis-order, it is also necessary to consider the case in which all model parameters are unknown in order to address two questions: can ϵi still be predicted for both system sizes when the remaining parameters are also unknown, and if so, what can be said about the other Hubbard param-eters? While many tuning tasks may be accomplished with only the first, full tuning requires both. When we consider the 3 × 3 case with all Hubbard pa-rameters unknown, we find that ϵi can still be predicted with ∆ϵi = 0 .106 and R2 = 0 .9284 , using 6500 samples. The main limitation on fidelity is likely the relatively low point density of the charge stability diagrams, to-gether with the relatively small number of training sam-ples. Because we sample on a grid of chemical potentials, the network has difficulty resolving the precise locations of the phase boundaries that it primarily uses for pre-diction. Nevertheless, the fidelity remains high, and the network appears robust in predicting ϵi even when all pa-rameters are unknown. When we include the additional 200 samples for the 5 × 5 case, we obtain a final fidelity of ∆ϵi = 0 .121 and R2 = 0 .9108 . This indicates that having the other parameters unknown does not prevent accurate prediction of ϵi. We similarly tested the net-work on the other Hubbard model parameters, training separate models for each parameter on the 3 ×3 and fine-tuned 5 × 5 cases using the same dataset for ϵi. We find 5that ϵi is the easiest parameter to predict, which is en-couraging since it is also the most important for tuning. For the other parameters, however, there is a significant decrease in fidelity compared with our prior work. We expect that these results (including for ϵi) could be fur-ther improved with greater computational resources, for example by using higher-resolution charge stability dia-grams. We present a full table of results Tab. I:                     
+
+> Parameter Range √M SE 5×5
+> √M SE 3×3R25×5R23×3
+> ϵi[-0.5,0.5] 0.121 0.106 0.9108 0.9284
+> Ui[3,5] 0.434 0.438 0.6873 0.6953
+> Vij [0,0.4] 0.083 0.081 0.6731 0.6823
+> tij [0.1,0.5] 0.098 0.075 0.5146 0.7178
+
+TABLE I: Parameter ranges and fidelities, measured by root mean squared error ( √M SE ) and R2, for the center dot in a 5 × 5 and 3 × 3 grid tuned using a 3 × 3
+
+charge stability diagram window. For ϵi and Ui,fidelities are reported for the center dot itself. For Vij 
+
+and tij , fidelities are averaged over the four interdot connections to the center dot.  
+
+> (a) (b)
+
+FIG. 3: Predicted vs. expected ϵi for lattice grids of size (a) 3 × 3 and (b) 5 × 5. These results correspond to the case in which only the on-site potential at all sites is treated as unknown.  
+
+> (a) (b)
+
+FIG. 4: Predicted vs. expected ϵi for lattice grids of size (a) 3 × 3 and (b) 5 × 5. These results correspond to the case in which all parameters of the Hubbard model are unknown. 
+
+Conclusion.— We have shown that tensor-network simulations combined with machine learning provide a practical route toward scalable automated tuning of large quantum-dot arrays. By using DMRG and MPS methods to simulate local measurement windows, we demonstrate that charge-stability diagram data from a small tuning region contains sufficient information to infer the central dot’s model parameters with high fidelity, even in larger lattices. In particular, we find that a network trained primarily on 3 × 3 systems and fine-tuned with only a small number of 5×5 samples can successfully predict the central on-site potential in 5 × 5 devices, supporting the viability of a sliding-window tuning strategy for extended arrays. We further find that ϵi, the most important dis-order parameter for practical tuning, is also the one most readily predicted by the neural network (and can be done so with high fidelity R2 > 0.9), while the remaining Hub-bard parameters appear substantially more difficult to in-fer from the same charge-stability data. This limitation is likely due to our computational resources constraining us to use only very low-resolution charge-stability data where transition points are difficult to extract. Taken to-gether, these results provide strong evidence that local-window tuning, supported by tensor-network generated training data, is a promising framework for the calibra-tion and control of large semiconductor quantum-dot de-vices, and that with improved measurement resolution and additional computational resources, its performance can be extended further. Some details and additional re-sults are provided in the Supplementary Materials. The numerical techniques are detailed in the references we cite and will be provided on request. 
+
+Acknowledgment.— This work is supported by the Laboratory for Physical Sciences. We also thank UMD HPC Zaratan for computational resources provided.  
+
+> [1] J. R. Taylor and S. Das Sarma, Neural network based deep learning analysis of semiconductor quantum dot qubits for automated control, Physical Review B 111 ,035301 (2025). [2] R. Durrer, B. Kratochwil, J. V. Koski, A. J. Landig, C. Reichl, W. Wegscheider, T. Ihn, and E. Greplova, Automated tuning of double quantum dots into specific charge states using neural networks, Phys. Rev. Appl.
+
+6
+
+13 , 054019 (2020). [3] H. Moon, D. T. Lennon, J. Kirkpatrick, N. M. van Es-broeck, L. C. Camenzind, L. Yu, F. Vigneau, D. M. Zum-bühl, G. A. D. Briggs, M. A. Osborne, D. Sejdinovic, E. A. Laird, and N. Ares, Machine learning enables com-pletely automatic tuning of a quantum device faster than human experts, Nature Communications 11 , 4161 (2020). [4] J. R. Taylor, J. D. Sau, and S. D. Sarma, Machine learning majorana nanowire disorder landscape, arXiv preprint arXiv:2307.11068 (2023). [5] J. R. Taylor and S. Das Sarma, Mitigating dis-order and optimizing topological indicators with vision-transformer-based neural networks in majorana nanowires, Physical Review B 112 , L041110 (2025). [6] J. R. Taylor, K. Laubscher, and S. D. Sarma, Predicting spin-orbit coupling in hole spin qubit arrays with vision-transformer-based neural networks on a generalized hub-bard model, arXiv preprint arXiv:2604.05052 (2026). [7] J. P. Zwolak, J. M. Taylor, R. W. Andrews, J. Ben-son, G. W. Bryant, D. Buterakos, A. Chatterjee, S. Das Sarma, M. A. Eriksson, E. Greplová, et al. , Data needs and challenges for quantum dot devices automa-tion, npj Quantum Information 10 , 105 (2024). [8] A. S. Rao, D. Buterakos, B. van Straaten, V. John, C. X. Yu, S. D. Oosterhout, L. Stehouwer, G. Scappucci, M. Veldhorst, F. Borsoi, et al. , Modular autonomous virtualization system for two-dimensional semiconduc-tor quantum dot arrays, Physical Review X 15 , 021034 (2025). [9] D. L. Buterakos, S. S. Kalantre, J. Ziegler, J. M. Taylor, and J. P. Zwolak, Qdflow: A python package for physics simulations of quantum dot devices, SciPost Physics Codebases , 065 (2026). [10] R. Hanson, L. P. Kouwenhoven, J. R. Petta, S. Tarucha, and L. M. Vandersypen, Spins in few-electron quantum dots, Reviews of modern physics 79 , 1217 (2007). [11] S. D. Sarma, J. Fabian, X. Hu, and I. Zutić, Spin elec-tronics and spin computation, Solid State Communica-tions 119 , 207 (2001). [12] W. G. Van der Wiel, S. De Franceschi, J. M. Elzerman, T. Fujisawa, S. Tarucha, and L. P. Kouwenhoven, Elec-tron transport through double quantum dots, Reviews of modern physics 75 , 1 (2002). [13] S. D. Sarma, R. de Sousa, X. Hu, and B. Koiller, Spin quantum computation in silicon nanostructures, Solid state communications 133 , 737 (2005). [14] A. Chatterjee, P. Stevenson, S. De Franceschi, A. Morello, N. P. de Leon, and F. Kuemmeth, Semicon-ductor qubits in practice, Nature Reviews Physics 3, 157 (2021). [15] G. Burkard, T. D. Ladd, A. Pan, J. M. Nichol, and J. R. Petta, Semiconductor spin qubits, Reviews of Modern Physics 95 , 025003 (2023). [16] P. Barthelemy and L. M. Vandersypen, Quantum dot systems: a versatile platform for quantum simulations, Annalen der Physik 525 , 808 (2013). [17] T. Byrnes, N. Y. Kim, K. Kusudo, and Y. Yamamoto, Quantum simulation of fermi-hubbard models in semi-conductor quantum-dot arrays, Physical Review B 78 ,075320 (2008). [18] T. Hensgens, T. Fujita, L. Janssen, X. Li, C. Van Diepen, C. Reichl, W. Wegscheider, S. Das Sarma, and L. M. Vandersypen, Quantum simulation of a fermi–hubbard model using a semiconductor quantum dot array, Nature 
+
+548 , 70 (2017). [19] C. Stafford and S. D. Sarma, Collective coulomb blockade in an array of quantum dots: A mott-hubbard approach, Physical review letters 72 , 3590 (1994). [20] R. Kotlyar, C. A. Stafford, and S. Das Sarma, Addi-tion spectrum, persistent current, and spin polarization in coupled quantum dot arrays: Coherence, correlation, and disorder, Phys. Rev. B 58 , 3989 (1998). [21] R. Kotlyar, C. Stafford, and S. D. Sarma, Correlated charge polarization in a chain of coupled quantum dots, Physical Review B 58 , R1746 (1998). [22] Y.-Z. Chou and S. Das Sarma, Spin ladder quantum sim-ulators from spin-orbit coupled quantum dot spin qubits, Phys. Rev. B 113 , 035124 (2026). [23] J. P. Zwolak, J. M. Taylor, R. Andrews, J. Benson, G. Bryant, D. Buterakos, A. Chatterjee, S. D. Sarma, M. A. Eriksson, E. Greplová, et al. , Data needs and chal-lenges of quantum dot devices automation: Workshop report, arXiv preprint arXiv:2312.14322 (2023). [24] J. P. Zwolak and J. M. Taylor, Colloquium: Advances in automation of quantum dot devices control, Reviews of modern physics 95 , 011006 (2023). [25] W. Wang, J. D. Rooney, and H. Jiang, Automated char-acterization of a double quantum dot using the hubbard model, arXiv preprint arXiv:2309.03400 (2023). [26] J. Schuff, M. J. Carballido, M. Kotzagiannidis, J. C. Calvo, M. Caselli, J. Rawling, D. L. Craig, B. van Straaten, B. Severin, F. Fedele, S. Svab, P. Cheva-lier Kwon, R. S. Eggli, T. Patlatiuk, N. Korda, D. M. Zumbühl, and N. Ares, Fully autonomous tuning of a spin qubit, Nature Electronics 9, 304 (2026). [27] X. Wang, S. Yang, and S. D. Sarma, Quantum theory of the charge-stability diagram of semiconductor double-quantum-dot systems, Physical Review B 84 , 115301 (2011). [28] S. R. White, Density matrix formulation for quantum renormalization groups, Physical review letters 69 , 2863 (1992). [29] U. Schollwöck, The density-matrix renormalization group in the age of matrix product states, Annals of physics 
+
+326 , 96 (2011). [30] A. Krizhevsky, I. Sutskever, and G. E. Hinton, Imagenet classification with deep convolutional neural networks, Advances in neural information processing systems 25 
+
+(2012). [31] K. He, X. Zhang, S. Ren, and J. Sun, Deep residual learn-ing for image recognition, in Proceedings of the IEEE con-ference on computer vision and pattern recognition (2016) pp. 770–778. [32] A. Dosovitskiy, L. Beyer, A. Kolesnikov, D. Weissenborn, X. Zhai, T. Unterthiner, M. Dehghani, M. Minderer, G. Heigold, S. Gelly, et al. , An image is worth 16x16 words: Transformers for image recognition at scale, arXiv preprint arXiv:2010.11929 (2020). [33] M. Fishman, S. R. White, and E. M. Stoudenmire, The ITensor Software Library for Tensor Network Calcula-tions, SciPost Physics Codebases , 4 (2022). [34] J. Hu, L. Shen, and G. Sun, Squeeze-and-excitation net-works, in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (2018) pp. 7132–7141. 1
+
+# Supplemental Materials for “Large Scale Optimization of Quantum Dots through Tensor and Neural Networks” 
+
+Supplementary Figure S1: Tensor network diagram of the MPS representing the system’s quantum state. The site connections snake back and forth in order to minimize long-range interactions and thereby reduce the required bond dimension. Tensors are represented as boxes, with their indices shown as lines. Free indices are unconnected lines (colored blue), which in this case correspond to the site indices, while inter-box lines (colored black) represent connected or shared indices.  
+
+> I. NON-ZERO TEMPERATURE PROCESS
+
+To simulate the non-zero temperature effects one can perform the DMRG repeatedly but by adding a large en-ergy cost to any state overlapping with the previously found ground state/excited states. The expectations in the non-zero temperature case are computed from the DMRG output Eλ and states |λ⟩ with the partial par-tition function Z = P 
+
+> λ
+
+e−β(Eλ−P    
+
+> jμj⟨λ|nj|λ⟩
+
+and inverse temperature β as follows: ⃗n(β,⃗ μ) i = X
+
+> λ
+
+e−β(Eλ−P  
+
+> jμj⟨λ|ni|λ⟩)
+
+⟨λ|ni|λ⟩ 1
+
+Z
+
+Although we did attempt higher temperature effects, we found due to the need for a large dataset we were unable to afford to simulate the repeated DMRGs nec-essary at scale (though in principle this should scale ap-proximately linearly with the number of states needed; our previous work found 12 more than sufficient but fewer may get approximate results too), even though our method did work for limited number of samples. Our cur-rent process only makes use of the ground state, where we thusly assume zero temperature, but this is not a lim-itation of our method.  
+
+> (a) (b)
+
+Supplementary Figure S2: Predicted vs. expected tij 
+
+for lattice grids of size (a) 3 × 3 and (b) 5 × 5. These results correspond to the case in which all parameters of the Hubbard model are unknown.  
+
+> (a) (b)
+
+Supplementary Figure S3: Predicted vs. expected Ui for lattice grids of size (a) 3 × 3 and (b) 5 × 5. These results correspond to the case in which all parameters of the Hubbard model are unknown.  
+
+> (a) (b)
+
+Supplementary Figure S4: Predicted vs. expected Vij 
+
+for lattice grids of size (a) 3 × 3 and (b) 5 × 5. These results correspond to the case in which all parameters of the Hubbard model are unknown. 2
+
+Supplementary Figure S5: Example of Charge Stability Diagram used as input to the neural network. The occupation for ⟨ni⟩ for μb vs. μc where the column is for site i and row is for the center dots nearest neighbor link in the: Up (U), Left (L), Right (R) and Down (D) directions. 
+
+Supplementary Figure S6: Prediction vs. expected ϵi
+
+for 5 × 5 lattice grid when training with only 3 × 3 data without fine tuning. Here only on-site potential at all sites is treated as unknown. The neural network seems to be able to get relative magnitudes of on-site potential but with a linear displacement error.
