@@ -1,0 +1,1679 @@
+Title: Ground state of the Hubbard model with spin-dependent linear potential
+
+URL Source: https://arxiv.org/pdf/2604.24068v1
+
+Published Time: Tue, 28 Apr 2026 01:30:29 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# Ground state of the Hubbard model with spin-dependent linear potential 
+
+Jacek Dobrzyniecki 1, ∗ and Thomas Busch 1, †
+
+> 1
+
+Quantum Systems Unit, Okinawa Institute of Science and Technology Graduate University, Okinawa 904-0495, Japan 
+
+(Dated: April 28, 2026) We investigate the competition between attractive spin-spin interactions and spin-separating ex-ternal forces in the ground state of a one-dimensional Fermi-Hubbard model. We consider a lattice with open boundary conditions, subject to a linear external potential whose gradient is opposite for the two spin components, so that each spin species sees a potential minimum at a different end of the lattice. Using density-matrix renormalization group (DMRG) simulations, we map the ground-state density distributions and the number of doubly occupied sites as a function of the po-tential gradient β and interaction strength. We identify three distinct regimes separated by critical threshold gradients: (i) a small-β regime where fermion pairing remains robust against the external potential; (ii) an intermediate-β phase-separated regime characterized by a staircase-like decrease in the doublon number, corresponding to the successive, one-by-one breaking of bound pairs; and (iii) a large-β regime where the two spin components are completely spatially separated. We complement the numerical results with a phenomenological model and a local-density approximation analysis, from which we derive closed-form analytical estimates for these critical threshold values. We also verify that the staircase structure persists under additional harmonic confinement. Our results are directly testable in cold-atom experiments, and demonstrate that a spin-dependent linear potential enables precise, integer-level control of the number of bound fermion pairs. 
+
+I. INTRODUCTION 
+
+The Fermi–Hubbard model [1] is a minimal lattice model of interacting fermions that plays a central role in the theory of strongly correlated electrons in crystal lattices, as well as in quantum simulations with ultra-cold atoms in optical lattices [2, 3]. The one-dimensional case is of particular theoretical interest, as it can be solved analytically via the Bethe ansatz [4, 5]. For at-tractive on-site interactions ( U < 0), the model sup-ports bound fermion pairs whose properties interpolate between tightly bound on-site doublons at strong cou-pling and spatially extended Cooper-like pairs at weak coupling [4]. Understanding how these pairs respond to external perturbations is a central question in the study of pairing and superfluidity in low-dimensional systems. In realistic cold-atom implementations, such lattice systems are always subject to external confinement, and inhomogeneous external potentials can modify the sys-tem properties in nontrivial ways. In particular, inhomo-geneously trapped multicomponent systems can display complex phase separation, in which different phases co-exist in different regions of the lattice [6–9]. Linear po-tentials, also known as tilted lattices, are a particularly well-studied example, with numerous experimental real-izations in cold-atom systems [10–17]. The local-density approximation (LDA) has been widely used to describe such inhomogeneous systems by mapping the local den-sity at each point to the equation of state of the corre-sponding homogeneous system [18–25]. However, while often successful at predicting density profiles, the LDA is inherently limited in its ability to capture phenomena   
+
+> ∗Jacek.Dobrzyniecki@oist.jp
+> †thomas.busch@oist.jp
+
+that arise from the discrete or correlated nature of the many-body ground state. A powerful alternative, par-ticularly well suited to one-dimensional systems, is the density-matrix renormalization group (DMRG) numer-ical technique [26], which allows for accurate solutions even for very large one-dimensional systems with arbi-trary external potentials. A particularly interesting setup involves a spin-dependent external potential, such as spin-dependent harmonic trapping [27–31]. Fundamentally, linear po-tentials with spin-dependent gradients allow to carefully study the interplay between the spin-dependent potential and spin-spin interactions [32]. Despite this activity, one scenario has not been system-atically explored: the interplay between spin-spin attrac-tion that generates pairing, and a spin-dependent linear potential that pushes the two components in opposite di-rections, on a finite one-dimensional lattice. In this work we therefore study a one-dimensional, attractive Fermi– Hubbard model, with a linear potential whose gradient is opposite for the two spin components. The resulting spin-separating forces then compete with spin-spin at-traction. Physically, such a situation can be realized, for example, by applying a magnetic-field gradient to atoms in two states with opposite magnetic moments. Using DMRG simulations of finite systems with open boundary conditions ( i.e. , non-periodic), we map out the ground-state properties of this system as a function of the linear gradient strength. We show that the ground state undergoes abrupt transitions at specific gradient strengths, which correspond to a successive one-by-one breaking of bound fermion pairs. These transitions man-ifest as staircase-like jumps in the number of doubly-occupied sites, and as sudden rearrangements of the spin-resolved density profiles. Of particular importance are the threshold gradients βc1, β c2 which correspond, re-
+
+> arXiv:2604.24068v1 [cond-mat.quant-gas] 27 Apr 2026
+
+2spectively, to the onset and the completion of this pair-breaking sequence. We show that these threshold gradi-ent values can be estimated with a simple toy model. Additionally, we analyze the system via the local-density-approximation (LDA) approach, and find that it partially predicts the ground-state properties but fails to capture the stepwise descent in pair number. The LDA does, however, yield an improved analytical estimate for 
+
+βc2 that complements the phenomenological model in the low-filling regime. Our results demonstrate that a spin-dependent poten-tial allows one to precisely tune the number of paired fermions in the lattice. They also reveal the relation-ships among interaction strength, potential gradient, and measured density. We also verify that the staircase-like pair-breaking structure persists when a harmonic trap is added, suggesting that our conclusions are robust under experimentally realistic trapping conditions. Note that, because all the phenomena we investigate rely on the for-mation of finite potential minima at the chain ends, the results are intrinsically tied to the finite system size and open boundaries. This paper is organized as follows. In Sec. II, we de-scribe the many-body Hamiltonian and its basic many-and single-particle properties. In Sec. III, we analyze the many-body eigenspectrum of a small system to es-tablish the key properties of the model, in particular the relationship between the number of bound pairs and the number of doubly occupied sites in various interac-tion regimes, and how the pairing in the ground state changes as the external potential gradient β is tuned. In Sec. IV, we study the ground-state properties of larger systems via the DMRG technique, focusing on the dou-blon number and density distribution under increasing 
+
+β, and we define the threshold gradients βc1, βc2. In Sec. V, we develop a simple model of pair breaking that allows to predict the ground-state properties at any β,and we use it to derive approximate expressions for βc1
+
+and βc2. In Sec. VI, we show the system density can be predicted via the local-density approximation, and use the LDA picture to derive a second expression for βc2
+
+that is more valid at low fillings. In Sec. VII, we briefly examine the ground state in the presence of additional harmonic confinement. Finally, we summarize our find-ings in Sec. VIII.  
+
+> II. THE MODEL
+
+To lay the foundations, let us first define the many-body Hamiltonian, then discuss the single-particle spec-trum of the linear potential, and also highlight several useful symmetries.  
+
+> A. The many-body Hamiltonian
+
+We consider a one-dimensional Fermi-Hubbard model with attractive on-site inter-component interactions. The lattice has open ( i.e. , non-periodic) boundary conditions, and we number the sites as 1 , . . . , L . The many-body Hamiltonian for such a system can be written as ˆH = − t
+
+> L−1
+
+X
+
+> j=1
+
+X
+
+> σ=↑,↓
+
+h
+
+ˆc† 
+
+> j,σ
+
+ˆcj+1 ,σ + H .c.
+
+i
+
++ U
+
+> L
+
+X
+
+> j=1
+
+ˆnj, ↑ ˆnj, ↓ +
+
+> L
+
+X
+
+> j=1
+
+X
+
+> σ=↑,↓
+
+Vσ,j ˆnj,σ , (1) where ˆ cj,σ annihilates a fermion with spin σ on site j,and ˆ c† 
+
+> j,σ
+
+is the corresponding creation operator. These operators follow ordinary fermionic anticommutation re-lations, {ˆci,σ , ˆcj,σ } = 0 and {ˆci,σ , ˆc† 
+
+> j,σ ′
+
+} = δij δσσ ′ , and ˆnj,σ = ˆ c† 
+
+> j,σ
+
+ˆcj,σ is the number operator. The tunneling amplitude t sets the natural energy scale; in what fol-lows, we set t = 1 and implicitly express all energies in units of t. The parameter U is the interaction strength. In this work we focus on attractive interactions, U < 0, and include also the non-interacting limit U = 0 for com-parison. The linear external potential Vσ,j has a gradient β and acts with opposite signs on the two spin components. It is defined as 
+
+V↑,j = + β(j − j0), (2) 
+
+V↓,j = −β(j − j0), (3) with j0 = L+1 2 , so that the potential is antisymmetric about the center of the lattice. For β > 0, the ↑ com-ponent sees the potential minimum −β 12 (L − 1) at site 1, while the ↓ component sees an equal minimum at site 
+
+L. We will consider systems with fixed particle numbers 
+
+N↑ and N↓ for the two spin components, allowing us to define the total population N = N↑ + N↓ and the filling 
+
+n = N/L .Throughout the work we focus on balanced systems (N↑ = N↓) in the under-half-filling ( n < 1) regime. In-terestingly, as we detail in Appendix A, results for n > 1can be obtained directly from the corresponding under-half-filling results by exploiting the particle–hole duality. Furthermore, we only consider β ≥ 0, as results for β < 0can be obtained by exploiting the symmetries of ˆH that we describe in Appendix A. To find the ground state of the Hamiltonian in Eq. (1), we use the DMRG method [26] and its implementa-tion in the TeNPy library for Python [33]. DMRG is a well-established numerical method for finding the ground states and low-energy spectra of one-dimensional lattice models. 3 
+
+> B. The one-body spectrum
+
+Although we will later obtain many-body ground states numerically, it is useful to first examine the single-particle spectrum analytically. This analysis highlights useful symmetries and provides insight into how chang-ing the gradient β affects the density distributions. Ad-ditionally, the single-particle eigenenergies will be useful in later discussion of breaking fermion pairs into single fermions. The one-body Hamiltonian for an atom with spin σ
+
+can be written as ˆhσ = − t
+
+> L−1
+
+X
+
+> j=1
+
+(|j, σ ⟩⟨ j + 1 , σ | + |j + 1 , σ ⟩⟨ j, σ |) (4) +
+
+> L
+
+X
+
+> j=1
+
+Vj,σ |j, σ ⟩⟨ j, σ | =
+
+> L
+
+X
+
+> k=1
+
+Ek,σ |ϕk,σ ⟩⟨ ϕk,σ |,
+
+where |j, σ ⟩ = ˆ c† 
+
+> j,σ
+
+|vacuum ⟩. The eigenorbitals |ϕk,σ ⟩ =
+
+P 
+
+> j
+
+ϕk,σ (j)|j, σ ⟩ are labeled as k = 1 , . . . , L and have corresponding eigenenergies Ek,σ . Because the poten-tial satisfies Vσ,j = V−σ,L +1 −j , a convenient symme-try exists: The Hamiltonians ˆh↑ and ˆh↓ are related by ˆhσ = ˆJsˆh−σ
+
+ ˆJs
+
+†
+
+, where ˆJs = X
+
+> σ=↑,↓
+> L
+
+X
+
+> j=1
+
+|L + 1 − j, −σ⟩⟨ j, σ |. (5) Consequently, ˆh↑ and ˆh↓ share the same eigenenergies 
+
+Ek, ↑ = Ek, ↓, and their orbital wave functions are related by spatial reflection: ϕk, ↑(j) = ϕk, ↓(L + 1 − j). For β = 0, finding the eigenspectrum of ˆhσ reduces to a lattice analogue of the textbook particle-in-a-box problem, and can be done trivially via diagonalization of the hopping Hamiltonian. One obtains eigenstates with wave functions ϕk,σ (j) = 
+
+q 2 
+
+> L+1
+
+sin 
+
+ jkπ L+1 
+
+
+
+and eigenen-ergies Ek,σ = −2 cos 
+
+ kπ L+1 
+
+
+
+, corresponding to L distinct quasimomenta kπ/ (L + 1). For |β| > 0 on an infinite chain, the system reduces to the Wannier–Stark problem, for which the spectrum is known exactly [34]. The eigenenergies form a Stark ladder with a constant spacing of β between succes-sive levels. The corresponding eigenfunctions, labeled 
+
+. . . , k − 1, k, k + 1 , . . . , have identical Bessel-like density envelopes, but are spatially shifted so as to be centered on sites . . . , k − 1, k, k + 1 , . . . .For open-boundary finite-length chains, the one-body eigenfunctions for |β| > 0 are given analytically by combinations of Bessel J-functions [35]. For both spin components, the lowest-energy eigenfunctions (k ≈ 1) are localized near the potential minimum at one of the ends of the lattice, while the highest-energy eigen-functions ( k ≈ L) are localized near the potential max-imum at the opposite end. The orbitals localized in the bulk ( k ≈ L/ 2) are largely unaffected by the bound-aries, and their energies remain close to a Stark lad-der: Ek, ↑ = Ek, ↓ ≈ β[k − j0]. By contrast, the orbitals at the band edges, which are localized near the lat-tice boundaries, are significantly modified relative to the infinite-chain solution, and their energies deviate from the Wannier–Stark expression. An analytical solution for all eigenenergies is available for this case [35]. For a lat-tice with an external potential V (j) = βj and hard-wall boundaries beyond sites j = 1 . . . L , the eigenenergies E
+
+are given by solutions of 
+
+RL, 1−E /β (−2/β ) = 0 , (6) where Rm,ν (z) is the Lommel polynomial 
+
+Rm,ν (z) = 
+
+> ⌊m/ 2⌋
+
+X
+
+> i=0
+
+(−1) m−i(m − i)! 
+
+i!( m − 2i)! Γ( ν + m − i)Γ( ν + i)
+
+ z
+
+2
+
+2i−m
+
+,
+
+(7) with ⌊x⌋ being the floor function. There is no straightforward way to find the zeros E
+
+of Eq. (6), and they must be determined numerically. In Sec. V, we will be specifically interested in the lowest eigenenergy E1,σ (which governs the breakup of a fermion pair into two unpaired fermions in the lowest orbitals). To obtain an approximate analytical expression for E1,σ 
+
+as function of β, we adapt the known result for the contin-uous semi-infinite Wannier–Stark system [36], where the ground state energy is −2 − a1β2/3 and a1 ≈ − 2.338 is the highest zero of the Airy function. Assuming that the lowest energy in the lattice case has the same β2/3 scal-ing, we computed the lowest E numerically from Eq. (6) for a range of β values and fitted the results to the form 
+
+−2+const ×β2/3. This yields the approximate expression (after restoring the constant shift −j0β): 
+
+E1,σ ≈ − β L + 1 2 − 2 + 2 .270 β2/3, (8) which is accurate (with a relative fit residual ≲ 10 −2) up to β ≈ 0.8. The antisymmetry of the external potential (Vσ,j = −Vσ,L +1 −j ) gives rise to another useful sym-metry. The single-particle Hamiltonian [Eq. (4)] anti-commutes with the operator ˆΓR = X
+
+> σ=↑,↓
+> L
+
+X
+
+> j=1
+
+|L + 1 − j, σ ⟩⟨ j, σ | (−1) L+1 −j (9) which combines spatial reflection with a chirality opera-tion. This anti-commutation implies that the eigenstates come in pairs: if |ϕ⟩ is an eigenstate of ˆhσ with en-ergy ε, then ˆΓR|ϕ⟩ is an eigenstate of ˆhσ with energy 
+
+−ε. Thus, for example, the lowest- and highest-energy orbitals have identical probability densities, but spatially reflected, and with the highest-energy wave function hav-ing an extra −1 phase on every other site. Useful symmetries of the many-body Hamiltonian are briefly discussed in Appendix A. 4                           
+
+> FIG. 1. Top row: The many-body eigenenergy spectrum as a function of βfor (a) U=−15, (b) U=−2.5, (c) U= 0, for a small system with size L= 8 and population N↑+N↓=2 + 2. The colors indicate the doublon number NDin each eigenstate (as per the color scale at the top). In (a), the ground-state anticrossings with nearby eigenstates are shown closely in the insets. For clarity, the ground state is plotted with a thicker line in (b), (c), and the insets of (a). Bottom row: The doublon number NDin the ground eigenstate as a function of β, for the values of Ucorresponding to the upper panels.
+> III. EXACT DIAGONALIZATION OF A SMALL SYSTEM A. Example small system
+
+To understand how the ground state changes with β,we start with a very small system, where we can diago-nalize the Hamiltonian exactly and inspect the full eigen-spectrum directly. We consider L = 8 sites and popula-tion N↑ + N↓ = 2 + 2. For such a small system, we can diagonalize the Hamiltonian matrix to obtain the com-plete eigenspectrum for any given U and β.Before we start, let us briefly review the known eigen-states of the U < 0 Hubbard Hamiltonian in the homoge-neous limit ( β = 0), focusing on the balanced-population case ( N↑ = N↓), for later comparison with β > 0. The Schr¨ odinger equation for this Hamiltonian can be solved via the Bethe ansatz approach and, for periodic bound-ary conditions, the solution shows that each eigenstate can be approximately interpreted as being made up of bound pairs alongside unpaired fermions [4]. For large 
+
+|U |, each bound pair is well approximated by a doublon (two opposite-spin fermions sitting on the same site), whereas for smaller |U | the pairs become spatially ex-tended. For any U < 0, the lowest-energy state is one in which all fermions are organized into bound pairs [4]. In the following, we use these standard results to inter-pret the exact-diagonalization spectra of our small open-boundary chains. In Fig. 1 (upper row), we show the eigenenergies ob-tained via exact diagonalization as functions of β for dif-ferent values of U . The energies are color-coded accord-ing to the number of doubly-occupied sites (the doublon number ND ) in each eigenstate, defined as 
+
+ND =
+
+> L
+
+X
+
+> j=1
+
+⟨ˆnj,D ⟩, (10) where the doublon density on site j is given by ˆnj,D = ˆ nj, ↑ ˆnj, ↓. (11) The doublon number ranges from 0 to 
+
+N max  
+
+> D
+
+= min ( N↑, N ↓). In the bottom row of Fig. 1, we show ND in the ground eigenstate as a function of β, for the same values of U . 
+
+> B. Strong-interaction case
+
+We first examine the limit of strong interactions, 
+
+|U | ≫ 1, shown in Fig. 1(a) for U = −15. In this limit the hopping processes which change the doublon number are suppressed, and the Hamiltonian approximately con-serves the total doublon number ND . As a result, the eigenspectrum is organized into manifolds distinguished by approximately integer values of ND ≈ 0, 1, 2. These manifolds are separated by energies ∼ | U |, while the spread (bandwidth) of levels within each manifold is set by the residual kinetic energy of doublons and unpaired fermions, and is at most of the order of the single-particle bandwidth ( i.e. , a few t). In this sense, the “strong-coupling” regime refers to |U | being large compared to the kinetic-energy scale set by the single-particle band-width. Note that the precise threshold for strong cou-pling varies for lattices with different fillings and sizes. At β = 0, each bound pair approximately constitutes a single doublon, so the manifolds can be interpreted as corresponding to different numbers of bound pairs vs. unpaired fermions. In principle, coincidental presence of two unpaired fermions on the same site also contributes to ND , but in the strong-coupling limit such contribu-tions are generally negligible compared to those from gen-uine bound pairs. At β = 0, the ground state belongs to the ND ≈ 2 manifold. Now let us consider what happens to these eigenstates as β increases. The nearly doublonic pairs feel only a neg-ligible net external potential, since the potentials felt by 5the two fermions on the same site cancel. It is therefore the unpaired fermions that dominate the β-dependence of the many-body energies. This β dependence is visi-ble in Fig. 1(a) as a “fanning out” of levels within each manifold (except for the purely-doublon manifold). The spread of this “fan” grows with β, at a rate proportional to the number of unpaired fermions in the manifold. Within a given manifold, each eigenstate consists of ND
+
+bound pairs and N − 2ND unpaired fermions, which can occupy different combinations of single-particle orbitals. Since some orbitals increase in energy with β while others decrease, different eigenstates within the same manifold show either an overall energy increase or decrease with 
+
+β.As β increases, the ground state energy is repeatedly crossed by energies from lower-ND manifolds. Each such crossing decreases the ground-state ND . In the U → −∞ 
+
+limit, these are exact crossings, and the ground state switches discontinuously from one integer ND value to the next. For large but finite U , the hopping term weakly mixes the crossing eigenstates, turning each crossing into a narrow anticrossing. Consequently, with increasing β,the ground-state ND is seen to switch suddenly but con-tinuously between near-integer plateaus. The two insets in Fig. 1(a) (top) show magnified views of these anticross-ings. In Fig. 1(a) (bottom), the stepwise behavior of ND
+
+in the ground state is shown directly. It can be seen that 
+
+ND switches between approximately integer values, as 2 → 1 → 0. This behavior can be interpreted as the successive breaking of bound pairs, with each pair being replaced by two unpaired fermions. Physically, as β grows, the external potential increasingly favors the spatial separa-tion of spin components by lowering the energy of un-paired single-particle orbitals. When a particular thresh-old value of β is reached, the potential overcomes the attractive binding and breaks another pair. Overall, for strong |U |, these results paint a clear pic-ture: as β is increased, the external potential breaks the pairs one-by-one . Therefore it is possible to precisely tune the number of bound pairs versus unpaired fermions.  
+
+> C. Moderate interaction case
+
+The picture becomes more complicated for weaker in-teractions, and in Fig. 1(b), we show the situation for 
+
+U = −2.5. At this moderate interaction strength, the hopping is strong enough to mix configurations with different ND , and the manifolds with different doublon numbers melt into each other. At the same time, bound pairs are no longer well approximated by on-site dou-blons: a pair’s two constituent fermions can be found with significant probability at different sites. Therefore each pair contributes less than one doublon on average. For example, at β = 0, the ground-state ND obtained from exact diagonalization is only ≈ 1.2, even though the Bethe-ansatz picture for the homogeneous model predicts two bound pairs in the ground state. At this value of U , increasing β still causes the ground-state ND to decrease in a stepwise manner, indicating that bound pairs still exist as distinct correlation pat-terns. However, the avoided crossings are now broad-ened and overlapping, and the ground-state ⟨ ˆND ⟩ evolves smoothly rather than in sharp steps. Physically, one can say that, because the pairs are loosely bound, even small changes in β can now modify a pair’s internal structure. Therefore, instead of breaking abruptly at specific β val-ues, each pair now loosens gradually with increasing β.Finally, to illustrate how the moderate-U behavior con-nects to the non-interacting limit, we show the U = 0 case in Fig. 1(c). In this limit the distinction between bound pairs and free fermions vanishes entirely. The nonzero 
+
+ND in each eigenstate arises solely from coincidental find-ing of two unbound opposite-spin fermions on the same site, and the local double-occupancy is simply a prod-uct of single-particle densities: ⟨ˆn↑,j ˆn↓,j ⟩ = ⟨ˆn↑,j ⟩⟨ ˆn↓,j ⟩.There is still a smooth β-dependence of ⟨ ˆND ⟩, which can be attributed entirely to the continuous deformation of single-particle orbitals. Specifically, the ground state at any β is constructed by filling the lowest single-particle orbitals of both spin components. As β grows, these lowest-energy orbitals are increasingly localized near op-posite ends of the lattice, reducing the overlap between opposite spins.  
+
+> IV. NUMERICAL RESULTS FOR LARGER SYSTEMS
+
+The previous section has given an intuitive picture of the ground-state properties as a function of β. In partic-ular, we have shown that varying β changes the ground-state doublon number ND , which can be treated as a proxy for the number of bound pairs. To assess how well these observations scale to larger particle numbers, we next show the results of the DMRG analysis of larger systems. The lattice size is set to L = 120 sites, and throughout this section we focus on two balanced fill-ings: N = 10 + 10 ( i.e. , n = 1 /6) and N = 45 + 45 ( i.e. ,
+
+n = 3 /4). Unless stated otherwise, henceforth ND will always be understood to refer to the ground state.  
+
+> A. DMRG numerical settings
+
+We use DMRG to numerically find the ground state at varying β. The DMRG calculations require a care-ful choice of numerical parameters, such as the max-imum bond dimension χmax and the total number of sweeps [33]. For our system, we find the following settings appropriate: maximum bond dimension χmax = 400, with up to 140 sweeps allowed (in practice DMRG con-verges in far fewer sweeps.) We found that, for certain ranges of β, DMRG converges to one of several different eigenstates, depending on the initial state used to seed 60                                                                                              
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 10
+> 00.02 0.04
+> N=10 +10 (a)
+> U=0U=−1U=−2U=−4
+> N D
+> external potential gradient β
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 10
+> 00.02 0.04
+> N=10 +10 (b)
+> U=0U=−1U=−2U=−4
+> N'  D
+> external potential gradient β
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> 45
+> 00.05 0.1 0.15 0.2
+> N=45 +45 (c)
+> U=0U=−1U=−2U=−4
+> N D
+> external potential gradient β
+> 0
+> 5
+> 10
+> 15
+> 20
+> 25
+> 30
+> 35
+> 40
+> 45
+> 00.05 0.1 0.15 0.2
+> N=45 +45 (d)
+> U=0U=−1U=−2U=−4
+> N'  D
+> external potential gradient β
+> FIG. 2. (a) The ground-state doublon number ND, as a func-tion of Uand β, for L= 120 and N↑+N↓= 10 + 10. (b) The corresponding rescaled doublon number N′
+> D[Eq. (12)], which approximates the total number of bound pairs. (c,d) NDand
+> N′
+> Dfor L= 120 and N= 45 + 45.
+
+the variational optimization. To mitigate this, for each value of β we have run DMRG 1 + N/ 2 times, starting from 1 + N/ 2 different initial seeds (configurations with different doublon numbers, so as to overlap with eigen-states from different ND = 0 , 1, . . . , N/ 2 manifolds), and we selected the final state with the lowest converged en-ergy. We have checked that the above approach yields con-verged results for all the parameter regimes included in our figures ( i.e. , the observables plotted in the figures do not change when χmax is increased). The discarded weight is < 10 −7 in the final sweep. We have also checked that the energy variance ⟨E2⟩ − ⟨ E⟩2 is negligible across all tested parameter ranges, indicating that in each case DMRG converges correctly to an eigenstate.   
+
+> B. Number of doublons depending on β
+
+In Fig. 2, we show the ground-state ND as a func-tion of β, for several values of U and two populations: 
+
+N = 10 + 10 [Fig. 2(a)] and N = 45 + 45 [Fig. 2(c)]. We also show the corresponding rescaled doublon count N ′
+
+> D
+
+in Fig. 2(b,d). This quantity is defined as 
+
+N ′ 
+
+> D
+
+= N
+
+2
+
+ND
+
+ND (β = 0) (12) and serves as a proxy estimate for the number of bound pairs in the system. This estimate assumes that the number of bound pairs at β = 0 is N/ 2 (as in the usual 
+
+β = 0 ground state), and that the number of doublons per bound pair remains constant as β increases. The rescaled 
+
+N ′ 
+
+> D
+
+allows us to directly compare results across different values of U and N . For moderate and strong attraction it provides a reasonable estimate of the effective number of bound pairs, whereas in the weak-coupling regime it should be interpreted more cautiously. First let us look at the N = 10 + 10 case [Fig. 2(a,b)]. The behavior closely mirrors that of the 2 + 2 system: as β increases, ND decreases through a series of plateaus in a stepwise fashion. Each plateau corresponds to an approximately integer value of N ′ 
+
+> D
+
+, which suggests that the change of ground state under increasing β can still be described as one-by-one breaking of bound pairs. As U
+
+is decreased, the plateaus gradually soften, analogously to what we observed in the N = 2 + 2 spectrum. For the higher particle number N = 45 + 45 [Fig. 2(c,d)], ND behaves similarly. In particular, at U = −4, we resolve a sequence of plateaus in N ′ 
+
+> D
+
+with values close to successive integers 45 , 44 , . . . , 0, indicating that the number of bound pairs can be controlled with high relative precision.    
+
+> C. Effect of gradient βon the density profiles
+
+We now examine the ground states more closely by an-alyzing the density distribution of the spin components across the lattice. Fig. 3 provides an overview of how the ground state depends on β, with a focus on the density profiles ⟨ˆnj,σ ⟩. The system parameters are U = −2 and 
+
+N = 10 + 10 ( n = 1 /6). Fig. 3(a) shows how N ′ 
+
+> D
+
+in the ground state changes as β is varied, while the density plots in Fig. 3(b) depict the accompanying changes in density profiles of both spin components. For three rep-resentative values of β, the density profiles are shown in detail in Fig. 3(c-e), together with the local relative spin polarization pj = ⟨nj, ↑ − nj, ↓⟩/⟨nj, ↑ + nj, ↓⟩. Note that, due to the symmetries of the Hamiltonian, the density profile is always symmetric under simultaneous spatial reflection and spin exchange: ⟨ˆn↑,j ⟩ = ⟨ˆn↓,L −j+1 ⟩.One can clearly see that each sharp change in the N ′
+
+> D
+
+value is accompanied by a sharp change in the density dis-tributions. To characterize this behavior, we define two threshold gradients: βc1, at which the first pair breaks, and βc2, at which the final pair breaks. For the U = −2example shown here, these thresholds can be visually es-timated from Fig. 3(a) as βc1 ≈ 0.005 and βc2 ≈ 0.0185, and are indicated by dashed lines in Fig. 3(b). These thresholds delineate three qualitatively distinct regimes: 70       
+
+> 5
+> 10 00.005 0.01 0.015 0.02 0.025 0.03
+> N'  D
+
+External potential gradient β
+
+(a)     
+
+> site 1site L/2 site L0
+> 0.07
+> 0.14
+> 0.21
+> 0.28
+> 0.35
+
+Spin ↑
+
+(b)          
+
+> site 1site L/2 site L
+> 00.005 0.01 0.015 0.02 0.025 0.03
+
+External potential gradient β
+
+> 0
+> 0.07
+> 0.14
+> 0.21
+> 0.28
+> 0.35
+
+Spin ↓
+
+β c1 β c2  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(c) β = 0.003  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(d) β = 0.012  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(e) β = 0.022    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization 
+
+FIG. 3. (a) Ground-state rescaled doublon number N ′ 
+
+> D
+
+as function of β, for an example system with L = 120, U = −2, 
+
+N = 10 + 10. (b) Ground-state density profiles ⟨ˆnj, ↑⟩ (upper) and ⟨ˆnj, ↓⟩ (lower) at sites j = 1 , . . . , L as a function of β, for the same system. The local density on each site is indicated by a color scale. The two dotted lines mark the critical gra-dient values, βc1 and βc2, at which the ground-state density undergoes a sudden change in behavior. (c, d, e) Example density profiles for three different values of β, representing: (c) the small-gradient regime β < β c1, (d) the intermediate-gradient regime βc1 ≤ β < β c2, and (e) the large-gradient regime βc2 ≤ β. The value of β is indicated above each plot. The bottom plots show the local relative spin polar-ization pj = ⟨nj, ↑ − nj, ↓⟩/⟨nj, ↑ + nj, ↓⟩. In plot (c), ⟨ˆnj, ↓⟩ is plotted as a dotted line in order to more clearly show that 
+
+⟨ˆnj, ↓⟩ = ⟨ˆnj, ↑⟩ everywhere. 
+
+• β < β c1 (no pairs broken, N ′ 
+
+> D
+
+= N/ 2): The den-sity is essentially uniform across the lattice, with zero polarization on all sites ( pj = 0). An exem-plary density profile from this regime is shown in Fig. 3(c) for β = 0 .003. In this regime, the density profile is nearly insensitive to β, indicating that the 0     
+
+> 5
+> 10 00.005 0.01 0.015 0.02
+> N'  D
+
+External potential gradient β
+
+(a)     
+
+> site 1site L/2 site L0
+> 0.07
+> 0.14
+> 0.21
+> 0.28
+> 0.35
+
+Spin ↑
+
+(b)        
+
+> site 1site L/2 site L
+> 00.005 0.01 0.015 0.02
+
+External potential gradient β
+
+> 0
+> 0.07
+> 0.14
+> 0.21
+> 0.28
+> 0.35
+
+Spin ↓
+
+β c1 β c2  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(c) β = 0.0003  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(d) β = 0.0035  
+
+> 0
+> 0.5
+
+⟨nj, ↑⟩⟨nj, ↓⟩⟨nj,D ⟩
+
+(e) β = 0.019    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization    
+
+> -1 -0.5
+> 0
+> 0.5
+> 1site 1L/2 L
+
+polarization 
+
+FIG. 4. Same as Fig. 3, but for U = −0.5. 
+
+external potential is still too weak to overcome the attraction. 
+
+• βc1 ≤ β < βc2 (successive pair-breaking, 0 < N ′ 
+
+> D
+
+< N/ 2): This is the regime where the ex-ternal potential is strong enough to overcome the attraction. As pair-breaking starts, phase separa-tion emerges. One can discern a paired, unpolar-ized core ( pj = 0, nD,j > 0), and surrounding fully polarized, unpaired wings of opposite spins on op-posite lattice edges ( pj = ±1, nD,j = 0). The core and the wings are separated by thin, partially-polarized buffer zones (0 < |pj | < 1). With each drop in N ′ 
+
+> D
+
+, the paired core shrinks. This reflects a pair disappearing and being replaced by two un-paired fermions sitting in the opposite wings. The density thus directly reflects how the external po-tential draws the two spin components to oppo-site ends. An exemplary density profile from this regime of β is shown in Fig. 3(d) for β = 0 .012. 8
+
+• β ≥ βc2 (all pairs broken, N ′ 
+
+> D
+
+= 0): The density is now fully spin-separated by the external potential, with the two spin components localized at oppo-site ends of the lattice. An exemplary density pro-file from this regime of β is shown in Fig. 3(d) for 
+
+β = 0 .022. Further increases in β only reduce the width of the wings, compressing the density profile closer to the lattice edges. Fig. 4 shows an example for a weaker interaction, 
+
+U = −0.5, for which pair breaking occurs smoothly, over a broad range of β. As a result, the β-dependency of the density distribution is smoother, and the critical thresh-olds are less sharply defined (the dotted lines show rough visual estimates: βc1 ≈ 0.0005, βc2 ≈ 0.0098). An addi-tional effect is that the central core region displays partial polarization throughout, rather than being uniformly un-polarized. Nevertheless, we can still approximately dis-tinguish three different ranges of β with qualitatively dif-ferent ground-state density distributions.    
+
+> D. Dependency of βc1, β c2on system parameters
+
+It is useful to establish how βc1 and βc2 depend on the parameters U , n, and L. We will first examine this de-pendence qualitatively, using DMRG numerical results. Later, in Section V and Section VI, we will find approx-imate analytical expressions. In Fig. 5(a,b), we show βc1 and βc2 as functions of U
+
+for L = 120 and two constant fillings: (a) N = 10 + 10, (b) N = 45 + 45. The threshold values are deter-mined as follows: βc1 is the smallest value of β for which 
+
+N ′ 
+
+> D
+
+(β) ≤ N/ 2 − 1/2 ( i.e. , the midpoint between zero and one broken pairs), and βc2 is the smallest β for which 
+
+N ′ 
+
+> D
+
+(β) ≤ 1/2. These definitions provide an operational way to extract βc1 and βc2 from numerical data even when the individual plateaus in N ′ 
+
+> D
+
+are not perfectly sharp. Of course, for U = 0 the threshold values become meaningless physically as there are no pairs to break, but 
+
+βc1 and βc2 vary smoothly all the way to that limit. One can see that βc2 is a monotonically increasing function of |U |. The behavior of βc1 is more nuanced: for weaker interactions it depends only weakly on |U |, as is particularly visible for the larger population in Fig. 5(b), but at sufficiently large |U | it too increases monotonically. This is intuitive, as stronger attraction means that break-ing each pair—whether the first or the last—requires a larger potential gradient, i.e. , a larger potential differ-ence between the center of the lattice and the potential minimum. Next, we consider the dependence of βc1 and βc2 on n.In Fig. 5(c,d), we show these values for varying n at fixed 
+
+L = 120 and (c) U = −1, (d) U = −4. One can see that the threshold βc2 is highly sensitive to the population; it increases monotonically with n and varies by several orders of magnitude over the range n = 0 → 1. This monotonic increase can be intuitively understood: larger 0                                                                                                
+
+> 0.015
+> 0.03
+> 0.045
+> 0246
+> (a)
+> βc1
+> βc2
+> βc1 , β c2
+> |U| L=120, N=10 +10
+> 0
+> 0.1
+> 0.2
+> 0246
+> (b)
+> βc1
+> βc2
+> βc1 , β c2
+> |U| L=120, N=45 +45
+> 0.001
+> 0.01
+> 0.1
+> 1
+> 10
+> 00.25 0.5 0.75 1
+> (c)
+> βc1
+> βc2
+> βc1 , β c2
+> nU=–1, L=120
+> 0.001
+> 0.01
+> 0.1
+> 1
+> 10
+> 00.25 0.5 0.75 1
+> (d)
+> βc1
+> βc2
+> βc1 , β c2
+> nU=–4, L=120
+> 0
+> 0.08
+> 0.16
+> 00.02 0.04
+> (e)
+> βc1
+> βc2
+> fi ts
+> βc1 , β c2
+> 1/L U=–4, N=L/12 +L/12
+> 0
+> 0.25
+> 0.5
+> 00.02 0.04
+> (f)
+> βc1
+> βc2
+> fi ts
+> βc1 , β c2
+> 1/L U=–4, N=3L/8 +3L/8
+> FIG. 5. (a,b) Threshold values βc1and βc2as a function of
+> U, for L= 120 and (a) N= 10 + 10 or (b) N= 45 + 45. (c,d) Same, as a function of n, for a system with L= 120 and (c) U=−1 or (d) U=−4; note the logarithmic scale. (e,f) Same, as a function of 1 /L , for a system with U=−4 and (e) n=L/ 12 + L/ 12 or (f) N= 3 L/ 8 + 3 L/ 8. The dashed lines indicate linear fits ∝1/L , fitted in the range 1 /L ≤0.01; these fits show that βc1,βc2reach 0 in the 1 /L →0 limit.
+
+populations contain more pairs to break, so a larger β is generally needed to break the last one. By contrast, βc1
+
+depends much more weakly on n. For U = −1, it changes by less than an order of magnitude across the same range, while for U = −4 it is nearly constant. This suggests that the first pair-breaking event is largely insensitive to the presence of other pairs, especially at stronger interactions where pairs behave as localized doublons with very little mutual interaction. In the n → 0 limit the values βc1 and βc2 become equal, since in the extreme N = 1 + 1 case there is only one pair to break. At the opposite end, for n > 1 (over half filling), simple particle-number counting shows that at least one site must be doubly occupied in any lattice configuration. Consequently, ND cannot be reduced to 9zero and our operational definition of βc2 ceases to be meaningful; this is reflected in βc2 tending to very large values as n → 1. Finally, we consider the dependence of βc1 and βc2 on 
+
+L. In Fig. 5(e,f), we show these values as functions of 1/L for U = −4 at constant filling: (e) N = L/ 12 + L/ 12 and (f) N = 3 L/ 8+3 L/ 8. Both threshold values increase monotonically with 1 /L . For large L, they become linear in 1 /L and approach zero as 1 /L → 0. This is demon-strated by the dashed lines in Fig. 5(e,f), which show the linear fits of βc1 and βc2 in the range 1 /L ≤ 0.01. This behavior has a simple physical explanation: for larger 
+
+L, a given gradient β produces a larger potential differ-ence between the ends of the lattice, and the energy gain from separating the two spin components grows as ∼ βL .In the infinite-system limit ( L → ∞ at fixed N, U, β ), any nonzero gradient favors complete spin separation, so 
+
+βc1, β c2 → 0. Consequently, for larger L, finer control of β is required to precisely tune the number of bound pairs. 
+
+V. PHENOMENOLOGICAL MODEL 
+
+Having established the basic behavior of the ground state, we will next present a phenomenological model which integrates our findings from previous sections to approximate the nature of the ground state at different 
+
+β. This will allow us to derive approximate expressions for the thresholds βc1 and βc2.In Section III it was shown that changes in the ground-state bound pair number can be described in terms of crossings between the ground state, and eigenstate manifolds which correspond to specific ND values (and roughly correspond to specific integer numbers M =0, 1, . . . of bound pairs). Therefore, a way to estimate the ground state’s pair number is to estimate the low-est energy of each manifold at given β and determine which manifold has the lowest overall energy. As we do not have analytical Bethe ansatz solutions for the eigen-states at β̸ = 0, we instead estimate these eigenenergies from a simple phenomenological model. To start we consider the lowest-energy level of a mani-fold corresponding to a particular number of bound pairs 
+
+M (assumed based on the value of ND ). Let us estimate the energy of this lowest level. We assume that the en-ergy of each bound pair is given by the two-body bound-state energy of the one-dimensional Hubbard model [37], ∆( U, P ) = −pU 2 + 16 cos 2(P/ 2), where P is the pair center-of-mass momentum. For simplicity, we set P = 0 for all pairs, so that ∆( U ) = −√U 2 + 16. The pair en-ergy is assumed to be independent of β, which is justified in the high-|U | limit where each pair is nearly a doublon and feels a negligible net external potential (for moderate 
+
+|U | this is an approximation). The remaining unpaired fermions are assumed to occupy the lowest single-particle orbitals of their respective spin bands, with β-dependent energies E1, . . . , EN↑−M and E1, . . . , EN↓−M . The lowest L = 120, N = 10+10, U = –2                                             
+
+> -52 -51 -50 -49 -48 -47 -46 -45
+> (a)
+> M=10 pairs M=9pairs M=8pairs M=7pairs M=6pairs M=5pairs M=4pairs M=3pairs M=2pairs M=1pairs M=0pairs
+> total  energy
+> 0.0050 0.0062 0.0073 0.0086 0.0099 0.0114 0.0130 0.0147 0.0165 0.0185
+> -50 -48 -46 0.005 0.01 0.015 0.02
+> (b) DMRG result phen. model
+> ground  state  energy
+> external potential gradient β
+> 0
+> 0.15 00.01 0.02
+> energy  diff.
+> β
+
+FIG. 6. (a) The estimated energy EM (β) (from Eq. (13)) for all possible pair numbers M = 0 , . . . , 10, for a system with L = 120 , U = −2, N = 10 + 10. Red arrows, and their accompanying labels, indicate the values of β at which adja-cent lowest-energy curves cross. (b) Comparison between the DMRG ground-state energy and the phenomenological model estimate, obtained as the minimum of EM (β) over M . Inset: The difference between the two energy predictions. 
+
+energy of the manifold with M pairs is then estimated as 
+
+EM (β) = M
+
+
+
+−pU 2 + 16 
+
+
+
++ X 
+
+> σ=↑,↓
+> Nσ−M
+
+X
+
+> n=1
+
+En(β). (13) Therefore, at each β the ground-state energy can be esti-mated as min M [EM (β)], with the corresponding M giv-ing the ground-state pair number. In Fig. 6(a), we plot the estimated energies EM (β)for each possible M in a system with L = 120 , N =10 + 10 , U = −2. The single-particle energies En(β)are found numerically, by exact diagonalization of the single-particle Hamiltonian at each β. The curves 
+
+EM (β) show a series of crossings, with the lowest energy min M [EM (β)] successively assumed by decreasing values of M (each crossing is indicated in Fig. 6 by a dashed red line). Therefore, the model predicts one-by-one de-creases in pair number with increasing β, in accordance with the DMRG results. In Fig. 6(b), we compare the 10 resulting prediction for the ground-state energy with the DMRG result. The inset shows the difference between the two energies, which decreases in a stepwise manner as β increases, so the phenomenological estimate becomes more accurate after each pair-breaking event. This indi-cates that the assumption of a fixed energy −√U 2 + 16 per pair is only approximate, with the energy error be-ing largest when many pairs are present. Nevertheless, the absolute energy curves in Fig. 6(b) are qualitatively similar, confirming that the model correctly captures the overall trends. This model can be used to predict the critical β cor-responding to each M → M − 1 ground-state transition. In Fig. 7, we compare the rescaled doublon number N ′
+
+> D
+
+from DMRG with the predicted pair number M from the model. In panels (a) and (b) ( U = −4 and U = −2, respectively), the location of each transition is very ac-curately estimated by the model. Panel (c) ( U = −0.5) shows that at small |U | the model is only approximate, since it always predicts sharp transitions and does not capture the effects that smooth out the steps in N ′ 
+
+> D
+
+.The two threshold values βc1 and βc2 can be estimated by considering the energy cost of converting the first and the last pair, respectively, into two separated fermions. This gives the predictions 2E1(βc1) = ∆( U ), (14) 2EN/ 2(βc2) = ∆( U ), (15) where we have assumed N↑ = N↓ = N/ 2. We omit the spin indices on E, since the energies are spin-independent. The above formulas can be used directly, by computing 
+
+En(β) numerically (via diagonalization of the single-body Hamiltonian) and substituting into Eqs. (14) and (15). To obtain closed-form analytical approximations to βc1
+
+and βc2, one can instead use analytical estimates for 
+
+E1(β) and EN/ 2(β).   
+
+> A. Analytical approximations of βc1, β c2
+
+To estimate βc1, we use the approximation for E1 given in Eq. (8). Following the reasoning detailed in Ap-pendix B, we find 
+
+βc1(L + 1) ≈
+
+p U 2 + 16 − 4
+
+
+
+(16) +
+
+p U 2 + 16 − 4
+
+2/3 2 · 2.270 (L + 1) 2/3
+
++ O
+
+
+
+L−4/3
+
+.
+
+The O  L−2/3 and higher-order terms are finite-size cor-rections, originating from the influence of the lattice edge on the lowest orbital energy E1. Finite-size corrections are important for βc1 because the first broken pair decom-poses into fermions localized near lattice edges. Overall, Eq. (16) predicts that βc1L is independent of the parti-cle number, and, to leading order, becomes linear in U0                                               
+
+> 2
+> 4
+> 6
+> 8
+> 10
+> 00.02 0.04
+> (a)
+> N' D,DMRG pair number, model external potential gradient β
+> U=−4
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 00.01 0.02
+> (b)
+> N' D,DMRG pair number, model external potential gradient β
+> U=−2
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 00.005 0.01
+> (c)
+> N' D,DMRG pair number, model external potential gradient β
+> U=−0.5
+> FIG. 7. Rescaled doublon number N′
+> Dfrom DMRG (green line), and predicted pair number Mfrom the phenomenologi-cal model, given by M: min [ EM(β)] (diamond symbols), for three values of Uwith L= 120 , N = 10 + 10.
+
+as |U | → ∞ . These predictions are generally consistent with our earlier observations in Sec. IV D. To estimate βc2, we assume that the energy EN/ 2 lies in the middle part of the single-particle spectrum, corre-sponding to the Wannier–Stark regime, so that it can be approximated by the on-site potential: 
+
+EN/ 2 ≈ β
+
+ N
+
+2 − L + 1 2
+
+
+
+. (17) This approximation is particularly well justified for n ≈
+
+1. Substituting into Eq. (15) gives 2βc2
+
+ N
+
+2 − L + 1 2
+
+
+
+≈ − pU 2 + 16 , (18) which yields 
+
+βc2L ≈√U 2 + 16 1 − n + 1
+
+> L
+
+. (19) 11 0                                    
+
+> 0.01
+> 0.02
+> 0.03
+> 0.04
+> 01234567
+> (a)
+> N = 45  + 45
+> DMRG model, an. model, num.
+> βc1
+> |U|
+> 0.1
+> 0.15
+> 0.2
+> 0.25
+> 01234567
+> (b)
+> DMRG model, an. model, num.
+> βc2
+> |U|
+> 0
+> 0.01
+> 0.02
+> 0.03
+> 01234567
+> (c)
+> N = 10  + 10
+> DMRG model, an. model, num.
+> βc1
+> |U|
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 0.1
+> 01234567
+> (d)
+> DMRG model, an. model, num.
+> βc2
+> |U|
+
+FIG. 8. (a) Threshold value βc1 as a function of |U | for 
+
+L = 120, N = 45 + 45, obtained in three ways: from DMRG (continuous line), from the analytical estimate in Eq. (16) (dashed line), and from substituting numerically determined 
+
+En(β) into Eq. (14) (diamonds). (b) Threshold values βc2
+
+obtained from DMRG (continuous line), from the analytical estimate in Eq. (19) (dashed line), and from substituting nu-merically determined En(β) into Eq. (15) (diamonds). (c,d) Same for N = 10 + 10. 
+
+This result predicts that βc2L becomes linear in U for large |U |, increases monotonically with n, and is inde-pendent of L in the large-L limit. These predictions generally agree with the dependence on U, n, L observed in the DMRG calculations (Fig. 5). The 1 /L term rep-resents a finite-size correction, which is less important than in the case of βc1L, because the last broken pair is assumed to decompose into fermions occupying bulk-localized Wannier–Stark orbitals. In Fig. 8, we compare the phenomenological model es-timates for βc1L and βc2L with the DMRG results. We consider: direct numerical estimates, which we have ob-tained by computing En(β) numerically and substituting into Eqs. (14) and (15); and the closed-form analytical estimates given respectively by Eqs. (16) (to subleading order) and (19). For N = 45+45 [Fig. 8(a,b)], the model estimates devi-ate from the DMRG results at small |U |, but at larger |U |,both βc1 and βc2 are predicted accurately. This confirms that the accuracy of the phenomenological model is tied to the well-defined pair number that emerges at stronger interactions, consistent with the results in Fig. 7 where the model predictions are accurate only at strong |U |.The analytical estimates agree closely with the numer-ical ones, indicating that the analytical approximations used for En are accurate in this regime. The situation is different for N = 10 + 10 [Fig. 8(c,d)]. For this smaller population, the DMRG result for βc1 is still reproduced correctly by the model, apart from devi-ations at very small |U |. The numerical estimate for βc2
+
+is also highly accurate. However, the analytical estimate deviates from the numerical estimate and significantly overestimates βc2, especially at low |U |. This indicates that the Eq. (19) estimate is too crude for small particle numbers, where the single-particle energies EN/ 2 are not near the middle of the band and are not well approxi-mated by Eq. (17). As a sanity check, it is worth checking if the estimates for βc1 and βc2 behave correctly in the N = 1 + 1 case, where we expect βc1 = βc2 by definition. Assuming 
+
+L → +∞, from Eqs. (16) and (19) we find 
+
+βc2
+
+βc1 
+
+> phen .model
+> N=2
+
+≈ 1 + 4
+
+√U 2 + 16 − 4 , (20) which is not unity except in the |U | → +∞ limit. This further shows that the βc2L estimate is poor at small N .
+
+VI. LOCAL-DENSITY APPROXIMATION ANALYSIS 
+
+The local-density approximation (LDA) is a common approach for analyzing the equilibrium states of systems in non-uniform potentials. This method approximates the ground state of a non-uniform lattice by relating each site to a separate uniform system, governed by a suitably defined local chemical potential. In this section, we assess the applicability of LDA to our model by comparing its predictions with DMRG results. 
+
+A. Description of the LDA approach 
+
+Within the LDA, we treat the inhomogeneous sys-tem by first considering a reference system: an infinite, translation-invariant Hubbard model without the exter-nal potential, described in the grand-canonical ensemble by ˆK(μ, h ) = − t X
+
+> j
+
+X
+
+> σ=↑,↓
+
+h
+
+ˆc† 
+
+> j,σ
+
+ˆcj+1 ,σ + H .c.
+
+i
+
+(21) + U X
+
+> j
+
+ˆnj, ↑ ˆnj, ↓ − μ↑N↑ − μ↓N↓, (22) where μσ is a constant chemical potential felt by spin component σ. It is convenient to also define the combined quantities of the average chemical po-tential μ = ( μ↑ + μ↓)/2 and the effective Zeeman field 12 
+
+h = ( μ↑ − μ↓)/2. For this translation-invariant refer-ence system, the ground-state equation of state— i.e. ,the functions nσ (μ, h ; U ) and nD (μ, h ; U )—can be deter-mined by analytical or numerical means. In the presence of the spin-dependent linear potential 
+
+Vσ (j), the local chemical potentials vary on each site j
+
+as 
+
+μσ (j) = μσ − Vσ (j), (23) so that μ(j) = μ is constant while h(j) = h − β (j − j0)varies linearly across the lattice. The LDA then approx-imates the density on each site by sampling the homoge-neous equation of state at these local parameters: 
+
+nLDA  
+
+> j,σ
+
+= nσ (μ(j), h (j); U ) ,nLDA  
+
+> j,D
+
+= nD (μ(j), h (j); U ) . (24) The LDA has certain limitations. First, it assumes that the external potential varies slowly enough to be re-garded as locally constant, requiring that it not change appreciably over the spatial extent of the relevant local correlations, such as the size of a bound pair. Therefore, the LDA is generally not applicable to arbitrarily high β.Moreover, due to its local nature, the LDA cannot pre-dict the full ground-state wave function or observables that depend on long-range correlations, such as momen-tum distributions; it can, however, approximate the den-sity profiles. Since the transitions in our ground state are visible already at the density distribution level, this capability is sufficient for our purposes. To determine the equation of state [Eq. (24)], we use the known phase diagram of the attractive Fermi-Hubbard model expressed in the μ and h coordinates [4, 18], which yields the equilibrium densities nσ (μ, h ; U ) for each pair of parameter values ( μ, h ). Within the LDA, the ground-state density of the inhomogeneous system corresponds to a trajectory which crosses the phase dia-gram from point ( μ, h (j = 1)) to ( μ, h (j = L)), where the global values μ, h are chosen so as to recover the desired total populations N↑, N ↓ upon summing over all sites. The resulting density distribution reflects the sequence of phase regions traversed by this trajectory. To obtain LDA results for the system with given 
+
+β, N ↑, N ↓ and U , we first construct the phase diagram at the given U as a dense grid of values nσ (μ, h ; U ) and 
+
+nD (μ, h ; U ); see Appendix C for details on the used pro-cedure. We then determine the global values of μ and 
+
+h by scanning over candidate values until the total den-sity along the trajectory  μ, h + β L−12
+
+ →  μ, h − β L−12
+
+
+
+matches the desired fixed particle numbers for both spin components. (For N↑ = N↓, the global Zeeman field al-ways vanishes, h = 0.) Once μ and h are determined, the density at site j is estimated via Eq. (24).  
+
+> B. LDA results for the density profile
+
+As an example, Fig. 9(a) shows two LDA trajectories, overlaid on the phase diagram (obtained as described in 0                                                           
+
+> 1site 1L/2 L
+> DMRG LDA
+> ⟨nj, ↑⟩
+> (b) β=0.1
+> 0
+> 0.45 site 1L/2 L
+> DMRG LDA
+> ⟨nD, ↑⟩
+> (c) β=0.1
+> 0
+> 1site 1L/2 L
+> DMRG LDA
+> ⟨nj, ↑⟩
+> (d) β=0.234
+> 0
+> 0.45 site 1L/2 L
+> DMRG LDA
+> ⟨nD, ↑⟩
+> (e) β=0.234
+> (a)
+> FIG. 9. Example of predicting the density profile via the local-density approximation. (a) Phase diagram of the grand-canonical Hubbard model, in the μ-hplane, for U=−5 (see Appendix C for explanation of phase labels). The two trajec-tories across the phase diagram correspond to lattice systems with the parameters U=−5, N= 45 + 45, L= 120, and two different gradients: β= 0 .1, β= 0 .234. The two trajec-tories are defined by the following coordinates: μ=−2.867,
+> h(1) = 5 .95, h(L) = −5.95, and: μ=−3.535, h(1) = 13 .923,
+> h(L) = −13 .923, respectively. Each trajectory crosses several phase regions (see caption of Fig. 14 for full explanation of labels). (b,c) Density profiles ( n↑,j and nD,j ) for the β= 0 .1system, predicted by DMRG (lines), and by the LDA per the trajectory in (a) (symbols). (d,e) Same, for the β= 0 .234 system.
+
+Appendix C). Both trajectories correspond to systems with U = −5, N = 45 + 45, L = 120, but at two differ-ent gradient strengths: β = 0 .100 and β = 0 .234. For these parameters, βc1 ≈ 0.02 and βc2 ≈ 0.21, so the two trajectories provide examples of the phase-separated regime ( βc1 ≤ β < β c2) and the spin-separated regime (β ≥ βc2), respectively. Each trajectory runs from (μ, h (1)) to ( μ, h (L)), with the lattice-wide chemical po-tential determined by scanning over values of μ until the total LDA density matched N↑ = N↓ = 45. The trajectory for β = 0 .100 crosses several phase re-13 0                         
+
+> 2
+> 4
+> 6
+> 8
+> 0.01 0.02 0.03 0.04 0.05
+> DMRG LDA
+> N D
+> external potential gradient β
+> L=120, N=10+10, U=–5
+> FIG. 10. Doublon number NDas a function of βfor U=−5,
+> L= 120, N= 10 + 10, as estimated by DMRG (thin line) and LDA (thick line).
+
+gions: the point corresponding to site 1 lies in the fully-polarized FP ↑ phase, and for subsequent sites the tra-jectory passes through the partially polarized (PP ↑) and unpolarized (UP) phases before crossing into PP ↓ and reaching FP ↓ at site L. This sequence matches the ex-pected picture of polarized opposite-spin wings surround-ing an unpolarized core, with partially polarized buffer regions in between. The accompanying density compar-isons [Fig. 9(b,c)] for nj, ↑ and nj,D shows that the LDA densities agree closely with the DMRG calculations, ex-cept for missing finite-size features such as the Friedel oscillations of density in the paired core. Similarly, the β = 0 .234 trajectory crosses the fully-polarized (FP) and vacuum (V) regions, in a sequence that corresponds to a spin-separated system with spin components congregated on opposite edges. The density comparisons are shown in Fig. 9(d,e), showing that the LDA and DMRG results also agree closely in this case. We also examine whether ND can be estimated via the LDA. In Fig. 10, we compare N LDA  
+
+> D
+
+= PLj=1 nLDA  
+
+> j,D
+
+with the DMRG result for ND as a function of β, in a system with N = 10 + 10 and U = −5. The LDA reproduces the DMRG values of ND (β) reasonably well at each β,and correctly predicts the overall trend: a monotonic de-crease that begins and ends abruptly at values of β close to the DMRG-derived βc1 and βc2. However, the LDA fails to capture the discrete stepwise structure, instead predicting a continuous, approximately linear decrease. In summary, the LDA density distributions accurately recreate the DMRG results. The LDA picture also pro-vides an alternate way to understand and predict the se-quence of distinct polarization regions across the lattice, by analyzing the trajectory the system traces through the phase diagram. While the behavior of ND can be also approximately recovered by the LDA, it misses im-portant features, notably the discrete steps that reflect one-by-one pair breaking.    
+
+> C. LDA-based estimate for the βc2threshold
+
+The LDA can also be used to derive an improved an-alytical estimate for βc2 that, unlike the Wannier–Stark-based approximation in Eq. (19), works well for small populations. It is based on the fact that, for LDA tra-jectories corresponding to the β > β c2 spin-separated ground states ( i.e. , trajectories passing only through the V, FP 1 
+
+> σ
+
+, and FP 2 
+
+> σ
+
+), one can establish exact relationships between μ, β, U , and Nσ . The corresponding calcula-tions are carried out in Appendix D. The results are: 
+
+• For small population, i.e. , when βc2 is small enough that N↑ = N↓ < 2 
+
+> βc2
+
+, the estimate for βc2 is given by a root of the quadratic equation 
+
+β2
+
+> c2
+
+· (L − 1) 2
+
+4 (25) +βc2·
+
+
+
+(L − 1) 
+
+
+
+π − 12
+
+pU 2 + 16 
+
+
+
+− 4πN ↑
+
+
+
++
+
+
+
+12 + U 2
+
+4 − πpU 2 + 16 
+
+
+
+= 0 .
+
+• For large population, N↑ = N↓ ≥ 2 
+
+> βc2
+
+, the estimate is 
+
+βc2L =
+
+√U 2 + 16 1 − n − 1
+
+> L
+
+, (26) which is nearly identical to the phenomenological model estimate in Eq. (19), differing only in the sign of a 1 /L term. In the large-L limit, the two expressions are equivalent. In Fig. 11, we compare the small-population LDA estimate with the DMRG-derived values and with the Wannier–Stark-based analytical prediction of Eq. (19). Figure 11(a) shows βc2 as a function of |U | for N =10 + 10. The LDA estimate closely tracks the DMRG prediction, significantly improving on the analytical ap-proximation. Fig. 11(b) shows the result for U = −4and for varying populations n. As expected, at low n
+
+the LDA-based estimate is a close approximation to the DMRG result, while the Wannier–Stark approximation fails; at higher n, the small-population LDA approxima-tion breaks down, while the Wannier-Stark approxima-tion becomes accurate. Once again, it is worth checking if this estimate pre-dicts βc1 = βc2 in the N = 1 + 1 limit. Assuming 
+
+L → +∞, from Eqs. (16) and (25) we find 
+
+βc2
+
+βc1 
+
+> LDA estimate
+> N=2
+
+≈√U 2 + 16 −  2π − 2√π2 − 8
+
+√U 2 + 16 − 4 (27) 
+
+≈√U 2 + 16 − 3.55 
+
+√U 2 + 16 − 4 ,
+
+which, while not exactly unity, converges to unity with increasing U , much faster than the phenomenological model estimate in Eq. (20). In conclusion, by combining the local-density approxi-mation with the phenomenological model, one can obtain a set of closed-form expressions that predict βc1 and βc2
+
+as functions of |U |, n, and L. Together, these expressions cover the full range of |U | and n.14 0                            
+
+> 0.02
+> 0.04
+> 0.06
+> 0.08
+> 01234567
+> (a)
+> DMRG phen. model, analytical estimate LDA small-N estimate
+> βc2
+> |U| N=10 +10
+> 0.01
+> 0.1
+> 1
+> 00.2 0.4 0.6 0.8 1
+> (b)
+> DMRG phen. model, analytical estimate LDA small-N estimate
+> βc2
+> nU=–4
+
+FIG. 11. (a) Threshold value βc2 as a function of |U | for 
+
+L = 120, N = 10 + 10. Three estimates are shown: the DMRG result (continuous line), the phenomenological analyt-ical estimate from Eq. (19) (dashed line), and the LDA-based small-population estimate (root of Eq. (25); dotted line). (b) Threshold value βc2 as a function of n for L = 120, U = −4. Note the logarithmic scale. 
+
+VII. GROUND-STATE PROPERTIES UNDER ADDED HARMONIC CONFINEMENT 
+
+In cold-atom experiments with one-dimensional lat-tices, an additional harmonic confinement is typically present, arising from the combination of the trapping potential and the Gaussian intensity profile of the lat-tice beams [3]. To assess the robustness of our results, in this section we add a spin-independent harmonic term to the external potential and examine whether the charac-teristic staircase-like behavior of ND persists. We consider a modified external potential ˜Vσ (j) = Vσ (j) + w (j − j0)2, (28) where w (in units of t) is the harmonic confinement strength. This potential is equivalent to a shifted har-monic trap: ˜Vσ (j) = w
+
+
+
+j − j0 ± β
+
+2w
+
+2
+
++ const , (29) where σ =↑, ↓ corresponds to ± = + , − respectively. Note that we retain the open boundary conditions with a hard-wall cutoff at sites 1 and L, so the potential seen by the fermions is not precisely harmonic. However, for suf-ficiently strong harmonic confinement, the particles are confined in the bulk away from the lattice ends, and the 0510               
+
+> w = 0.0002
+> β=0.005
+> spin ↑
+> spin ↓Ṽ
+> σ(x)
+> β=0.015 β=0.035
+> 0510
+> w = 0.001 Ṽ
+> σ(x)
+> 0510 030 60 90 120
+> w = 0.004 Ṽ
+> σ(x)
+> site 030 60 90 120
+> site 030 60 90 120
+> site
+
+FIG. 12. Modified external potentials ˜Vσ (j) [Eq. (28)] for several values of the harmonic confinement strength w and the linear potential gradient β. Both ˜V↑(j) (blue) and ˜V↓(j)(red) are shown. 0                                  
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 10
+> 00.03 0.06 0.09 0.12 0.15 0.18
+> (a)
+> w=0w=0.0002 w=0.001 w=0.004
+> N D
+> external potential gradient β
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> 9
+> 10
+> 00.03 0.06 0.09 0.12 0.15 0.18
+> (b)
+> w=0w=0.0002 w=0.001 w=0.004
+> N'  D
+> external potential gradient β
+
+FIG. 13. (a) ND and (b) rescaled N ′ 
+
+> D
+
+as a function of β, for a system with U = −4, L = 120, N = 10 + 10 and different strengths w of harmonic confinement. 
+
+physics becomes insensitive to the boundary conditions. Examples of the resulting potentials ˜Vσ (j) are shown in Fig. 12. In Fig. 13, we examine the numerically determined doublon number ND and its rescaled counterpart N ′
+
+> D
+
+under harmonic confinement for L = 120, N = 10 + 10, 
+
+U = −4, and several values of w. The staircase-like struc-ture of N ′ 
+
+> D
+
+, with steps close to integer numbers, remains 15 intact under harmonic confinement. The pair-breaking thresholds βc1 and βc2 shift upward with increasing har-monic confinement, which can be understood intuitively: the harmonic potentials push both spin components to-ward the center of the lattice, so a stronger gradient β is required to fully separate them. Overall, this initial check suggests that our conclusions are not qualitatively altered by the presence of harmonic confinement. More broadly, it hints that the hard-wall boundary conditions assumed in this work may not be essential, and that similar pair-breaking behavior could arise in a wider class of setups where the two spin compo-nents experience external potentials with spatially sepa-rated minima. A systematic study of this possibility is left for future work.  
+
+> VIII. CONCLUSION
+
+We have investigated the ground state of a one-dimensional, open-boundary attractive Fermi–Hubbard model subject to an external linear potential with oppo-site gradients for the two spin components. By varying the gradient strength β together with the interaction U ,system size L, and filling n, we have mapped out how the competition between spin-separating forces and on-site attraction shapes the ground state. As β increases, the system evolves from a fully paired state to a fully spin-separated configuration via succes-sive, one-by-one breaking of bound pairs at specific crit-ical values of β. Three β regimes can be distinguished, with qualitatively different ground state behavior. Be-low a first threshold βc1, the density of both spin compo-nents is identical, and the doublon number is insensitive to increase of β. Above a second threshold βc2, all pairs are broken and the ground-state density is entirely spin-separated, with vanishing doublon number. For β tuned between βc1 and βc2, the doublon number decreases in discrete steps representing breaking of successive pairs, and the ground-state density is phase-separated, with a shrinking paired core flanked by growing polarized wings. While these features are most pronounced at strong in-teractions |U |, signatures of pair-breaking remain dis-cernible for weaker attractions. We provide a simple the-oretical picture of these transitions, study them in detail via numerical calculations and the local-density approx-imation, and derive rough estimates for the critical gra-dient values. Our results demonstrate that spin-dependent linear potentials offer a precise means for controlling the num-ber of paired fermions in the lattice: by tuning β, the to-tal doublon number can be stabilized at distinct integer values, each of which is maintained over a finite range of β. The predicted relationships between the critical gradients and the system parameters provide concrete experimental observables for future research. There are several possible directions for future work. First, one could analyze pairing correlations and the associated Cooper pair-like signatures in the presence of a finite gradient, in order to clarify how supercon-ducting correlations change as the system approaches the spin-separated regime. Second, studying the finite-temperature behavior of the transitions identified here would help assess the experimental feasibility of observ-ing the phase-separated density regime. Third, dynami-cal protocols such as slow ramps or sudden quenches of the gradient could be used to track pair breaking and spin separation in real time. In this work we have focused on balanced systems (N↑ = N↓), but the extension to unbalanced populations is straightforward. A finite spin imbalance would break the spatial and spin symmetries of the ground states. Another natural generalization is to introduce unequal masses or hopping amplitudes for the two spin species, which is experimentally feasible in cold-atom mixtures of different atomic species or hyperfine states. Such ex-tensions would further enrich the interplay between spin-dependent forces and pairing. Finally, while we have ver-ified that the staircase-like pair-breaking structure per-sists under the addition of spin-independent harmonic confinement, a comprehensive study of the system prop-erties under such an additional potential remains an open direction. 
+
+> ACKNOWLEDGMENTS
+
+This work was supported by the Okinawa Institute of Science and Technology Graduate University and utilized the computing resources of the Scientific Computing and Data Analysis section of Core Facilities at OIST. It was also supported by the JST Grant No. JPMJPF2221. 
+
+> Appendix A: Useful many-body Hamiltonian symmetries
+
+The many-body Hamiltonian ˆH in Eq. (1) has several useful symmetries. The first thing to note is that applying either a spin-flip ( ↑, ↓) → (↓, ↑) or a spatial reflection ( j → L + 1 − j)to all field operators in ˆH is equivalent to inverting the external potential ( β → − β). By using this fact, the ground state obtained for given ( N↑, N ↓, β ) can be easily extrapolated to that at inverted β → − β or exchanged populations N↑ ↔ N↓.The many-body Hamiltonian also exhibits particle-hole duality: a direct correspondence exists between the eigenstates in the ( N↑, N ↓)-fermion sector and those in the ( L − N↑, L − N↓)-fermion sector. The mapping be-tween these two sectors can be done via a modified Shiba 16 transformation ˆJ, defined as ˆJ = ˆJ↑ ˆJ↓, (A1) ˆJσ =
+
+> L
+
+Y
+
+> j=1
+
+h
+
+ˆc† 
+
+> jσ
+
+− (−1) j ˆcjσ 
+
+i ˆPσ . (A2) Here ˆPσ is the lattice reflection operator that maps each lattice configuration to one in which fermions of spin σ
+
+are moved from site j to site L−j +1, and also multiplies by a factor of ( −1) for each pair of fermions swapped between sites. Like the standard Shiba transformation in the homo-geneous Hubbard model [4], this modified transformation maps fermions in low-energy states to fermionic holes in high-energy states; it includes the ( −1) j phase factor and the spatial reflection which map between low- and high-energy orbitals. The transformation maps a state |Ψ⟩
+
+of ( N↑, N ↓) fermions to a state ˆJ|Ψ⟩ of ( L − N↑, L − N↓)fermions. It is unitary and leaves the Hamiltonian invari-ant up to a constant: ˆJ ˆH ˆJ† = ˆH + const 0 + const 1 × ˆN ,which for a fixed N reduces to a single constant shift. Consequently, if |Ψ⟩ is the N -fermion ground state, then ˆJ|Ψ⟩ is the ground state of the (2 L − N )-fermion sec-tor, so the modified Shiba transformation provides direct access to over-half-filled ground states from their under-half-filled counterparts. 
+
+Appendix B: Estimating βc1 in the phenomenological model 
+
+Our phenomenological model (Sec. V) predicts that pair breaking is governed by the successive equalization of single-particle orbital energies with bound-pair energies. In Sec. II B, we provided a numerically found estimate [Eq. (8)] for the lowest single-particle orbital energy. We now use this to estimate the threshold gradient βc1 at which the first pair breaks into two fermions occupying single-particle orbitals. Substituting Eq. (8) into Eq. (14), we obtain 2
+
+
+
+−βc1
+
+L + 1 2 − 2 + 2 .270 β2/3
+
+> c1
+
+
+
+≈ − pU 2 + 16 . (B1) To approximately solve Eq. (B1) for βc1, we can rewrite it as a cubic equation for y = 3
+
+p(L + 1) βc1,
+
+y3 − 2 · 2.270 (L + 1) 2/3 y2 −
+
+hp U 2 + 16 − 4
+
+i
+
+= 0 . (B2) In the large-L limit, this has the real solution y =
+
+ √U 2 + 16 − 41/3 ≡ y0. Expanding y in powers of (L + 1) −2/3,
+
+y = y0 + y1 (L + 1) −2/3 + O
+
+
+
+L−4/3
+
+, (B3) and substituting into Eq. (B2), we find y1 = 23 · 2.270. FP 1
+
+↑
+
+# PP 1
+
+↑
+
+# V UP 1 UP 2FP 2
+
+↑
+
+# FP 1
+
+↓
+
+# FP 2
+
+↓
+
+# PP 1
+
+↓
+
+# PP 2
+
+↑
+
+# PP 2
+
+↓
+
+h–7 –6 –5 –4 –3 –2 –1 0+1 +2 +3 +4 +5 +6 +7 +8 
+
+μ–4.5 –4.0 –3.5 –3.0 –2.5 –1.5 –2.0 –1.0 –0.5 
+
+FIG. 14. The grand-canonical phase diagram of the Hubbard model in the μ–h plane, for U = −5. Regions are labeled with phase names: FP = fully polarized, PP = partially po-larized, UP = unpolarized, V = vacuum. Superscripts 1 and 2 denote, respectively, phases without and with a fully filled band. Arrow subscripts ↑, ↓ indicate which spin is the major-ity in that region. The depicted phase boundaries are derived from numerical calculations, as detailed in the text. 
+
+Calculating βc1(L + 1) = y3 from Eq. (B3) then yields 
+
+βc1(L + 1) = 
+
+p U 2 + 16 − 4
+
+
+
+(B4) +
+
+p U 2 + 16 − 4
+
+2/3 2 · 2.270 (L + 1) 2/3 + O
+
+
+
+L−4/3
+
+.
+
+Appendix C: Grand-canonical phase diagram of the attractive Hubbard model 
+
+Detailed discussions of the phase diagram of the attrac-tive Fermi–Hubbard model can be found, for example, in Refs. [4, 38]. Here we provide only a brief overview and describe our method for numerically estimating the den-sity at each point ( μ, h ). A schematic phase diagram of the attractive Hub-bard model in the variables μ and h is shown in Fig. 14 for U = −5. Several phases can be defined through the ground-state densities nσ (μ, h ; U ): phase UP—unpolarized ( n↑ = n↓ > 0); phase PP σ —partially polarized ( nσ > n −σ > 0); phase FP σ —fully polarized (nσ > 0, n −σ = 0); and phase V—vacuum ( n↑ = n↓ = 0). The superscripts 1 and 2 distinguish phases without filled bands from those in which at least one component has 17 a fully filled band ( nσ = 1). The subscripts ↑ and ↓
+
+indicate the majority spin ( ↑ for h > 0, ↓ for h < 0). For some regions of this phase diagram, the ground-state equations of state nσ (μ, h ; U ) and nD (μ, h ; U ) can be given in closed form. However, within the UP and PP regions, these equations cannot be written as simple closed-form expressions [4]. We therefore estimate the densities throughout the phase diagram numerically via DMRG calculations, as follows. For a uniform Hubbard lattice, finite but with a large number of sites L′ (here set to L′ = 160), we perform DMRG calculations at different fixed fermion numbers (L′ ≥ N↑ ≥ N↓ ≥ 0; N↑ + N↓ ≤ L′) to find the ground-state energies E and doublon numbers ND corresponding to various densities ( n↑, n ↓) = ( N↑/L ′, N ↓/L ′). Then, the values ( μ, h ) corresponding to each pair ( n↑, n ↓) are found via the following derivatives (estimated as finite differences): 
+
+μ =
+
+ ∂e ∂n 
+
+
+
+> s
+
+, (C1) 
+
+h =
+
+ ∂e ∂s 
+
+
+
+> n
+
+, (C2) where e = E/L ′, n = n↑ + n↓, and s = n↑ − n↓.This procedure yields a dense grid of data points (μ, h, n ↑, n ↓, e, n D ), with the doublon density estimated as nD = ND /L ′.To obtain data points corresponding to N↓ > N ↑ or 
+
+N↑ + N↓ > L ′, we exploit the spin and particle–hole sym-metries of the Hubbard model, which give the following relations: 
+
+n↑(μ, −h) = n↓(μ, h ), (C3) 
+
+n↓(μ, −h) = n↑(μ, h ), (C4) 
+
+n↑ (μ0 + μ, h ) = 1 − n↑ (μ0 − μ, h ) , (C5) 
+
+n↓ (μ0 + μ, h ) = 1 − n↓ (μ0 − μ, h ) , (C6) where μ0 = U/ 2 is the chemical potential where the system is at half-filling. The doublon density nD =
+
+⟨ˆnj, ↑ ˆnj, ↓⟩ transforms accordingly: 
+
+nD (μ, −h) = nD (μ, h ), (C7) 
+
+nD (μ0 + μ, h ) = 1 − n(μ0 − μ, h ) + nD (μ0 − μ, h ).
+
+(C8) Note that this approach does not yield uniform cover-age of the entire phase diagram. For example, inside the UP region, the densities n↑ = n↓ depend only on μ and not on h. When using the DMRG approach described above, any pair of identical densities ( n↑ = n↓) ends up assigned only to points ( μ, h ) that lie on the UP–PP ↑
+
+boundary, leaving the intermediate h values undefined. However, densities for points inside the UP region can then be trivially extrapolated from the boundary. In the main text, when computing the density in the finite lattice via the LDA, we evaluate the density at any given ( μ, h ) by linear interpolation between grid points. Because within each phase region the densities vary con-tinuously with μ and h, the linear interpolation yields good results.   
+
+> Appendix D: Estimating βc2in the local density approximation
+
+In the Hubbard model phase diagram (Fig. 14), the boundary between the UP 1 and V regions lies at μc =
+
+− 12
+
+√U 2 + 16 [4]. If the system is in the spin-separated regime, its corresponding LDA trajectory lies entirely within the V, FP 1 
+
+> σ
+
+, and FP 2 
+
+> σ
+
+regions. Assuming that the system is spin-balanced (in which case the trajectory must cross h = 0), this trajectory must lie at μ ≤ μc,and the threshold βc2 can therefore be identified as the gradient for which μ = μc.In the U = 0 limit, the phase boundaries and the den-sities nσ (μ, h ; U ) in the relevant phase regions are given by closed-form expressions [4]: V |h| < −μ − 2 n↑ = n↓ = 0 FP 1 
+
+> σ
+
+−μ − 2 < |h| < −μ + 2 nσ = 1 
+
+> π
+
+arccos 
+
+
+
+− μ+|h|
+
+> 2
+
+
+
+,n−σ = 0 FP 2 
+
+> σ
+
+−μ + 2 < |h| nσ = 1 , n−σ = 0 .
+
+In these regions, at most one spin species is present, so the interaction term plays no role and the density suscep-tibility ∂n σ /∂U is zero. Hence, away from the boundaries with partially-polarized regions, the above densities and phase boundaries remain unchanged for U̸ = 0. We can therefore establish exact relationships between U , L, Nσ ,
+
+β, and μ within the μ ≤ μc region. Consider a spin-balanced system with μ ≤ μc, for which the two endpoints of the LDA trajectory, (μ, h (1)) = ( μ, β [L − 1] /2) and ( μ, h (L)) = ( μ, −h(1)), lie in opposite FP 2 
+
+> σ
+
+regions. Then the total up-spin density 
+
+N↑ along the trajectory can be estimated by replacing the sum over lattice sites with an integral over h:
+
+N↑ = X
+
+> j
+
+n↑(μ, h (j); U ) ≈ 1
+
+β
+
+Z h(1) 0
+
+dh n ↑(μ, h ; U )= 1
+
+β
+
+"Z −μ+2 
+
+> −μ−2
+
+dh 1
+
+π arccos 
+
+
+
+− μ + |h|
+
+2
+
+
+
++
+
+Z h(1) 
+
+> −μ+2
+
+dh 1
+
+#
+
+= 2
+
+β + h(1) + μ − 2
+
+β = L − 12 + μβ . (D1) Given the LDA symmetries, we immediately have 
+
+N↓ = N↑ = N/ 2. The overall relationship is 
+
+N ≈ L − 1 + 2μβ . (D2) Inverting this relation yields 
+
+β ≈ 2μN − L + 1 . (D3) 18 Setting μ = μc = − 12
+
+√U 2 + 16, we obtain the rela-tionship 
+
+βc2 ≈√U 2 + 16 
+
+L − N − 1 . (D4) The estimate in Eq. (D4) is valid provided the point h(1) lies inside the FP 2 
+
+> ↑
+
+region, i.e. ,
+
+h(1) ≥ −μ + 2, which means N↑ is larger than 
+
+> 1
+> β
+
+R −μ+2  
+
+> −μ−2
+
+dh π −1 arccos 
+
+
+
+− μ+|h|
+
+> 2
+
+
+
+= 2 
+
+> β
+
+. For smaller popu-lations, h(1) lies inside the FP 1 
+
+> ↑
+
+region. The total density 
+
+N↑ then satisfies 
+
+N↑ ≈ 1
+
+β
+
+Z h(1) 
+
+> −μ−2
+
+dh 1
+
+π arccos 
+
+
+
+− μ + |h|
+
+2
+
+
+
+. (D5) Evaluating this integral gives 
+
+N↑ ≈ 2
+
+βπ 
+
+h
+
+λ arccos( −λ) + p1 − λ2
+
+i
+
+≡ 2
+
+βπ f (λ), (D6) where we have defined λ ≡ β(L−1) 4 + μ 
+
+> 2
+
+= h(1) 2 + μ 
+
+> 2
+
+. In phase diagram terms, 2 λ is the difference between h(1) and the midpoint h = −μ of the FP 1 
+
+> ↑
+
+region. The func-tion f (λ) is monotonically increasing in λ, and takes real values only in the −1 < λ < 1 interval (this is equivalent to the condition −μ − 2 < h (1) < −μ + 2). To express λ in terms of f (λ), we expand f (λ) in a Taylor series around λ = 0: 
+
+f (λ) = λ arccos( −λ) + p1 − λ2 = 1 + πλ 
+
+2 + λ2
+
+2 + O  λ4 .
+
+(D7) Truncating at quadratic order yields the following equation for λ:
+
+λ2 + λπ + 2[1 − f (λ)] = 0 , (D8) with solution 
+
+λ ≈ − π
+
+2 ±
+
+pπ2 − 8 + 8 f (λ)2 , (D9) where the positive square root must be selected, so as to satisfy −1 < λ < 1. Substituting f (λ) = βπ  
+
+> 2
+
+N↑ and λ = β(L−1) 4 + μ 
+
+> 2
+
+, we obtain 
+
+μ + π + 12 β(L − 1) ≈
+
+q
+
+π2 − 8 + 4 πβN ↑, (D10) which is the approximate relationship between β, L, μ,and N↑.Squaring both sides of Eq. (D10) yields a quadratic equation for β:
+
+β2· (L − 1) 2
+
+4 (D11) +β· [( L − 1)( μ + π) − 4πN ↑]+ (μ + π)2 − π2 + 8  = 0 .
+
+Setting μ = μc = − 12
+
+√U 2 + 16 gives the equation for 
+
+βc2:
+
+β2
+
+> c2
+
+· (L − 1) 2
+
+4 (D12) +βc2·
+
+
+
+(L − 1) 
+
+
+
+π − 12
+
+pU 2 + 16 
+
+
+
+− 4πN ↑
+
+
+
++
+
+
+
+12 + U 2
+
+4 − πpU 2 + 16 
+
+
+
+= 0 The estimated βc2 is then obtained as the appropri-ate root of this quadratic equation. Specifically, the root must satisfy √U 2+16 −4 
+
+> L−1
+
+< β c2 < √U 2+16+4  
+
+> L−1
+
+(due to the condition −μ − 2 < h (1) < −μ + 2), as well as the small-population condition βc2 < 2/N ↑.
+
+[1] J. Hubbard, Electron correlations in narrow energy bands, Proc. R. Soc. A 276 , 238 (1963). [2] M. Lewenstein, A. Sanpera, V. Ahufinger, B. Damski, A. Sen(De), and U. Sen, Ultracold atomic gases in op-tical lattices: mimicking condensed matter physics and beyond, Adv. Phys. 56 , 243 (2007). [3] I. Bloch, Ultracold quantum gases in optical lattices, Nat. Phys. 1, 23 (2005). [4] F. H. Essler, H. Frahm, F. G¨ ohmann, A. Kl¨ umper, and V. E. Korepin, The one-dimensional Hubbard model 
+
+(Cambridge University Press, 2005). [5] X.-W. Guan, M. T. Batchelor, and C. Lee, Fermi gases in one dimension: From Bethe ansatz to experiments, Rev. Mod. Phys. 85 , 1633 (2013). [6] S. Bergkvist, P. Henelius, and A. Rosengren, Local-density approximation for confined bosons in an optical lattice, Phys. Rev. A 70 , 053601 (2004). [7] S. F¨ olling, A. Widera, T. M¨ uller, F. Gerbier, and I. Bloch, Formation of Spatial Shell Structure in the Superfluid to Mott Insulator Transition, Phys. Rev. Lett. 97 , 060403 (2006). [8] U. Schneider, L. Hackerm¨ uller, S. Will, T. Best, I. Bloch, T. A. Costi, R. W. Helmes, D. Rasch, and A. Rosch, Metallic and insulating phases of repulsively interacting fermions in a 3D optical lattice, Science 322 , 1520 (2008). [9] N. A. Boidi, K. Hallberg, A. Aharony, and O. Entin-Wohlman, Coexistence of insulating phases in confined fermionic chains with a Wannier-Stark potential, Phys. Rev. B 109 , L041404 (2024). [10] M. Greiner, O. Mandel, T. Esslinger, T. W. H¨ ansch, and I. Bloch, Quantum phase transition from a superfluid to a Mott insulator in a gas of ultracold atoms, Nature 415 ,39 (2002). [11] J. Simon, W. S. Bakr, R. Ma, M. E. Tai, P. M. Preiss, and M. Greiner, Quantum simulation of antiferromag-netic spin chains in an optical lattice, Nature 472 , 307 (2011). [12] F. Meinert, M. J. Mark, E. Kirilov, K. Lauber, P. Wein-19 
+
+mann, A. J. Daley, and H.-C. N¨ agerl, Quantum Quench in an Atomic One-Dimensional Ising Chain, Phys. Rev. Lett. 111 , 053003 (2013). [13] M. Aidelsburger, M. Atala, M. Lohse, J. T. Barreiro, B. Paredes, and I. Bloch, Realization of the Hofstadter Hamiltonian with Ultracold Atoms in Optical Lattices, Phys. Rev. Lett. 111 , 185301 (2013). [14] H. Miyake, G. A. Siviloglou, C. J. Kennedy, W. C. Bur-ton, and W. Ketterle, Realizing the Harper Hamiltonian with Laser-Assisted Tunneling in Optical Lattices, Phys. Rev. Lett. 111 , 185302 (2013). [15] F. Meinert, M. J. Mark, E. Kirilov, K. Lauber, P. Wein-mann, M. Gr¨ obner, A. J. Daley, and H.-C. N¨ agerl, Ob-servation of many-body dynamics in long-range tunneling after a quantum quench, Science 344 , 1259 (2014). [16] I. Dimitrova, N. Jepsen, A. Buyskikh, A. Venegas-Gomez, J. Amato-Grill, A. Daley, and W. Ketterle, En-hanced Superexchange in a Tilted Mott Insulator, Phys. Rev. Lett. 124 , 043204 (2020). [17] C. J. Kennedy, W. C. Burton, W. C. Chung, and W. Ketterle, Observation of Bose–Einstein condensation in a strong synthetic magnetic field, Nat. Phys. 11 , 859 (2015). [18] F. Heidrich-Meisner, A. E. Feiguin, U. Schollw¨ ock, and W. Zwerger, BCS-BEC crossover and the disappear-ance of Fulde-Ferrell-Larkin-Ovchinnikov correlations in a spin-imbalanced one-dimensional Fermi gas, Phys. Rev. A 81 , 023629 (2010). [19] S. A. S¨ offing, M. Bortz, and S. Eggert, Density profile of interacting fermions in a one-dimensional optical trap, Phys. Rev. A 84 , 021602 (2011). [20] V. L. Campo, K. Capelle, J. Quintanilla, and C. Hoo-ley, Quantitative Determination of the Hubbard Model Phase Diagram from Optical Lattice Experiments by Two-Parameter Scaling, Phys. Rev. Lett. 99 , 240403 (2007). [21] A. Snyder, I. Tanabe, and T. De Silva, Compressibility and entropy of cold fermions in one-dimensional optical lattices, Phys. Rev. A 83 , 063632 (2011). [22] M. Tezuka and M. Ueda, Ground states and dynamics of population-imbalanced Fermi condensates in one dimen-sion, New J. Phys. 12 , 055029 (2010). [23] K. Sch¨ onhammer, O. Gunnarsson, and R. M. Noack, Density-functional theory on a lattice: Comparison with exact numerical results for a model with strongly corre-lated electrons, Phys. Rev. B 52 , 2504 (1995). [24] G. Xianlong, M. Polini, M. P. Tosi, V. L. Campo, K. Capelle, and M. Rigol, Bethe ansatz density-functional theory of ultracold repulsive fermions in one-dimensional optical lattices, Phys. Rev. B 73 , 165120 (2006). [25] A. Angelone, M. Campostrini, and E. Vicari, Univer-sal quantum behavior of interacting fermions in one-dimensional traps: From few particles to the trap ther-modynamic limit, Phys. Rev. A 89 , 023635 (2014). [26] U. Schollw¨ ock, The density-matrix renormalization group, Rev. Mod. Phys. 77 , 259 (2005). [27] A.-H. Chen and G. Xianlong, Phase separation in opti-cal lattices in a spin-dependent external potential, Phys. Rev. A 81 , 013628 (2010). [28] M. Dalmonte, K. Dieckmann, T. Roscilde, C. Hartl, A. E. Feiguin, U. Schollw¨ ock, and F. Heidrich-Meisner, Dimer, trimer, and Fulde-Ferrell-Larkin-Ovchinnikov liquids in mass- and spin-imbalanced trapped binary mixtures in one dimension, Phys. Rev. A 85 , 063608 (2012). [29] X.-B. Wei, Y.-M. Meng, Z.-M. Wu, and X.-L. Gao, Phase diagram of the Fermi–Hubbard model with spin-dependent external potentials: A DMRG study, Chinese Phys. B 24 , 117101 (2015). [30] A. Recati, I. Carusotto, C. Lobo, and S. Stringari, Dipole Polarizability of a Trapped Superfluid Fermi Gas, Phys. Rev. Lett. 97 , 190403 (2006). [31] A. P. Koller, M. L. Wall, J. Mundinger, and A. M. Rey, Dynamics of Interacting Fermions in Spin-Dependent Po-tentials, Phys. Rev. Lett. 117 , 195302 (2016). [32] G. G. Batrouni and R. T. Scalettar, Interaction-induced gradients across a confined fermion lattice, Phys. Rev. A 
+
+96 , 033632 (2017). [33] J. Hauschild and F. Pollmann, Efficient numerical sim-ulations with Tensor Networks: Tensor Network Python (TeNPy), SciPost Phys. Lect. Notes , 5 (2018). [34] I. V. Lukin, Y. V. Slyusarenko, and A. G. Sotnikov, Many-body localization in a quantum gas with long-range interactions and linear external potential, Phys. Rev. B 105 , 184307 (2022). [35] G. Stey and G. Gusman, Wannier-Stark ladders and the energy spectrum of an electron in a finite one dimensional crystal, J. Phys. C: Solid State Phys. 6, 650 (1973). [36] S. N. Khonina, S. G. Volotovsky, S. I. Kharitonov, and N. L. Kazanskiy, Calculating the Energy Spectrum of Complex Low-Dimensional Heterostructures in the Elec-tric Field, Sci. World J. 2013 , 807462 (2013). [37] P. E. Kornilovitch, Two-particle bound states on a lat-tice, Ann. Phys. (N. Y.) 460 , 169574 (2024). [38] F. Heidrich-Meisner, G. Orso, and A. E. Feiguin, Phase separation of trapped spin-imbalanced Fermi gases in one-dimensional optical lattices, Phys. Rev. A 81 , 053602 (2010).

@@ -1,0 +1,1116 @@
+Title: Beyond Variational Bias: Resolving Intertwined Orders in the Hubbard Model
+
+URL Source: https://arxiv.org/pdf/2604.21978v1
+
+Published Time: Mon, 27 Apr 2026 00:01:51 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+## Beyond Variational Bias: Resolving Intertwined Orders in the Hubbard Model 
+
+Luciano Loris Viteritti, 1, ∗ Riccardo Rende, 2, ∗ Christopher Roth, 2
+
+Anirvan Sengupta, 2, 3, 4 Giuseppe Carleo, 1 and Antoine Georges 2, 5, 6, 7 
+
+> 1
+
+Institute of Physics, ´Ecole Polytechnique F´ ed´ erale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland 
+
+> 2
+
+Center for Computational Quantum Physics, Flatiron Institute, 162 5th Avenue, New York, NY 10010 
+
+> 3
+
+Center for Computational Mathematics, Flatiron Institute, 162 5th Avenue, New York, NY 10010 
+
+> 4
+
+Department of Physics and Astronomy, Rutgers University, Piscataway, New Jersey 08854, USA 
+
+> 5
+
+Coll` ege de France, 11 place Marcelin Berthelot, 75005 Paris, France 
+
+> 6
+
+CPHT, CNRS, ´Ecole Polytechnique, IP Paris, F-91128 Palaiseau, France 
+
+> 7
+
+DQMP, Universit´ e de Gen` eve, 24 quai Ernest Ansermet, CH-1211 Gen` eve, Suisse 
+
+(Dated: April 27, 2026) The two-dimensional Hubbard model at finite doping hosts competing or intertwined orders, resulting in conflicting conclusions from different computational approaches regarding its ground state. We show that a key source of such discrepancies is the bias encoded in the variational 
+
+ansatz . We consider three different Transformer backflow fermionic wave functions based on a Slater determinant, its particle–hole counterpart, and a Pfaffian, initialized without any mean-field pretraining. We show that, despite achieving nearly degenerate, state-of-the-art variational energies, each ansatz converges to a state with qualitatively different spin, charge, and pairing correlations. Upon improving accuracy via symmetry restoration and variance reduction, however, all three converge to the same physical picture: coexisting superconducting and stripe orders. These results demonstrate that variational energy alone is insufficient to identify the ground state in the presence of competing phases, and highlight the importance of tracking how correlation functions evolve as the wave function is systematically improved before drawing physical conclusions. 
+
+I. INTRODUCTION 
+
+The two-dimensional Hubbard model occupies a cen-tral position in the theory of correlated electrons [1–5]. Although it is one of the simplest models for the de-scription of strongly correlated fermions, it exhibits a re-markably rich phenomenology upon doping [6, 7]. In the context of high-Tc cuprate superconductivity, it is widely used as a minimal setting in which antiferromagnetism, charge modulations, and unconventional pairing can emerge from the same microscopic ingredients. Despite decades of work, however, the nature of the dominant cor-relations in the doped regime, and their evolution with interaction strength, next-nearest-neighbor hopping, and carrier density, remain actively debated [3, 4]. An ex-plicit treatment of electron–electron interactions leads to an exponential growth of the Hilbert space with system size, making exact solutions intractable in general. Ac-curate approximate methods are therefore essential to access the ground-state properties. In this context, varia-tional wave-function approaches have played an essential role, ranging from physically motivated Jastrow–Slater states [7–10] and tensor-network-related methods based on Density Matrix Renormalization Group (DMRG) [11– 17] to, more recently, Neural-Network Quantum States (NQS) [18–25]. A central challenge in determining the ground-state properties of interacting fermionic systems is the pos-           
+
+> ∗These authors contributed equally. Correspondence should be addressed to rrende@flatironinstitute.org and lu-ciano.viteritti@epfl.ch
+
+Stripe order  
+
+> Superconducting order
+> Determinant
+> Determinant PH
+> Pfa ffi an
+> Energy
+> No symmetry
+> Translations
+> Translations + Rotations
+> Exact
+
+FIG. 1. Schematic illustration of the optimization land-scape for different antisymmetrization schemes. Contours represent variational energy levels. Starting from random initialization and without symmetry constraints, determi-nant, determinant–particle-hole, and Pfaffian constructions converge toward qualitatively distinct solutions with nearly degenerate energies but different dominant orders. Upon vari-ational energy reduction and symmetry restoration, all tra-jectories approach the same correlated ground state in which superconducting and stripe order coexist. 
+
+sible close energetic competition among phases with dis-tinct long range order, which renders crucial the choice of the variational ansatz . The two-dimensional t-t′ Hubbard model provides a paradigmatic example: distinct varia-tional constructions can converge to nearly degenerate energies while supporting qualitatively different physical states [6, 17, 21, 23]. Variational approaches inevitably 
+
+> arXiv:2604.21978v1 [cond-mat.str-el] 23 Apr 2026
+
+2introduce biases through architectural constraints, such as the underlying graph and finite bond dimension in tensor networks [16, 17], fixed unit cells in iPEPS [26] or specific design choices in NQS architectures. These con-straints restrict the class of efficiently representable wave functions and shape the optimization landscape, poten-tially favoring certain orders over others. A systematic understanding and control of these biases is, therefore, essential for constructing reliable variational descriptions of correlated fermionic states. In this work, we address this fundamental problem us-ing neural-network backflow wave functions [27, 28] with distinct architectural biases, taking the two-dimensional 
+
+t–t′ Hubbard model at finite doping as a representative model. Employing a Transformer-based neural-network architecture [21, 24, 29–33] to parametrize the backflow orbitals, we demonstrate that distinct antisymmetriza-tion schemes, specifically a Slater determinant in the standard and particle–hole (PH) representations and a Pfaffian wave function, converge to physically distinct variational states when optimized from random initial-izations, in the absence of mean-field pretraining or aux-iliary symmetry-breaking fields such as pinning poten-tials [7, 21]. The resulting ground-state candidates ex-hibit competing orders, ranging from stripe-dominated phases stabilized by the determinant backflow to strongly superconducting states favored by the determinant in the particle-hole representation, despite exhibiting nearly de-generate, variational energies. This observation makes it clear that variational energy alone is an unreliable proxy for assessing whether a variational wavefunction captures the correct ground state physics. Crucially, this issue can be resolved by restoring sym-metries. After adding translational and point group sym-metries [34], all ans¨ atze converge to a physical state char-acterized by consistent charge, spin, and pairing correla-tions. This convergence resolves the ambiguity and es-tablishes a robust, representation-independent character-ization of the ground-state physical properties. A picto-rial illustration of this behavior is shown in Fig. 1. The central message of this work is that, in challenging models such as the doped Hubbard case, where several orders compete or coexist, the chosen variational repre-sentation can introduce a strong architectural bias and thereby alter the physical picture. This makes it essen-tial to control and systematically improve the expressiv-ity and accuracy of the variational state, in particular by reducing its variance in an unbiased manner, before drawing conclusions about the nature of the true ground state. In this context, we find that the antisymmetriza-tion scheme induces a bias on the variational wavefunc-tion. For each of the three cases, the NQS is biased to-wards the phases that it can represent at the mean field level, i.e., when the orbitals are set to be configuration independent. Hence, the determinant tends to overesti-mate stripe order and underestimate pairing, this is re-versed under particle-hole transformation. The Pfaffian, which can simultaneously represent these coexisting or-ders at the mean field level [23], tends to produce the most accurate correlation functions before symmetriza-tion, although it still overestimates pairing. Crucially, by tracking the evolution of these correlation functions under variance reduction, this bias can be revealed, and the ground-state physics can be established more reliably. Finally, our results provide accurate ground state prop-erties for the 8 ×8 Hubbard model on a square lattice with periodic boundary conditions, at t′ = −0.2, U = 8, and 1/8 hole doping. We propose this setup as a challenging benchmark for numerical methods targeting fermionic systems.    
+
+> II. TWO DIMENSIONAL t–t′HUBBARD MODEL
+
+The t–t′ Hubbard model is defined by the following Hamiltonian ˆH = − X
+
+> r,r′,σ
+
+trr ′ (ˆ c† 
+
+> rσ
+
+ˆcr′σ + h.c.) + U X
+
+> r
+
+ˆnr↑ ˆnr↓ , (1) where r,r′ indicate the sites of a L×L square lattice with periodic boundary conditions. Here, ˆ c† 
+
+> rσ
+
+(ˆ crσ ) creates (annihilates) a fermion with spin σ ∈ {↑ , ↓} on site r, and ˆnrσ = ˆ c† 
+
+> rσ
+
+ˆcrσ is the particle number operator. The hop-ping amplitudes trr ′ account for both nearest-neighbor hopping, trr ′ = t, and next-nearest-neighbor hopping, 
+
+trr ′ = t′, whereas U denotes the on-site Coulomb repul-sion. In the following, we set the hopping amplitude to 
+
+t = 1 and express all remaining couplings in units of t.The filling is controlled by fixing the particle number Ne
+
+and consequently the hole doping is δ = 1 − n, where 
+
+n = Ne/N is the particle density with N = L2 the total number of sites. In addition to the standard fermionic representation, we also consider a particle-hole (PH) formulation. This is done by rewriting the hamiltonian in terms of trans-formed fermionic operators ˆcr↑ → ˆcr↑ and ˆcr↓ → ˆc†
+
+> r↓
+
+.The advantage of this representation is that mean-field superconducting states, such as the ground state of the Bardeen–Cooper–Schrieffer Hamiltonian [35], can be ex-pressed exactly as a determinant, providing a useful point of comparison when analyzing superconducting correla-tions (see Section 2 of the Appendix ).  
+
+> III. CHARACTERIZATION OF PAIRING AND STRIPE ORDER
+
+Figure 2 provides a quantitative overview of our re-sults, showing the superconducting and spin order pa-rameters as functions of the variational accuracy. The calculations are performed using the Transformer back-flow ansatz [21, 24, 32] (see Section 1 of the Appendix for additional details) with different antisymmetrization out-put layers that encode distinct biases, namely a Slater de-terminant, a particle–hole transformed determinant, and 30.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035 
+
+> d-wave order parameter
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.022 
+
+0.024 
+
+0.026 
+
+0.028 
+
+0.030 
+
+> Stripe order parameter
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH 
+
+No Symmetry Translations 
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH 
+
+No Symmetry Translations 
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH Pfa ±an 
+
+No Symmetry Translations Translations + Rota 
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH Pfa ±an 
+
+No Symmetry Translations Translations + Rotations 
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH Pfa ±an 
+
+No Symmetry Translations Translations + Rota 
+
+# 0.00 0.01 0.02 0.03 0.04 
+
+# Variance per site 
+
+# 0.005 
+
+# 0.010 
+
+# 0.015 
+
+# 0.020 
+
+# 0.025 
+
+# 0.030 
+
+# 0.035 
+
+> d-wave order parameter
+
+Determinant Determinant PH Pfa ±an 
+
+No Symmetry Translations Translations + Rotations 
+
+FIG. 2. Superconducting and stripe order parameters as a function of variational accuracy for the 8 × 8 Hubbard model under PBC at U = 8 .0, t′ = −0.2, and δ = 1 /8 [see Eq. (1)]. Panel a: d-wave pairing order parameter ∆ SC versus energy variance per site. Panel b: Stripe spin order parameter M 2str versus variance per site. The definitions of the order parameters are given in the main text. In panels (a) and (b), different colors correspond to the three antisymmetrization schemes: determinant (red), determinant in particle hole (PH) (blue) and Pfaffian (orange). Different marker symbols indicate the degree of symmetry restoration without symmetry projections: no symmetry projection (circles), translational symmetry restored (rhombi), and both translational and rotational symmetries restored (triangles). Dashed horizontal lines mark the values obtained from the fully symmetrized determinant and particle-hole determinant states. These are interpreted as lower and upper bounds for the exact value of the corresponding order parameter, while the shaded region indicates the interval in which the exact value is expected to lie. See Section 6 of the Appendix for further details on the definition of the bounds. 
+
+a Pfaffian. We focus on an 8 × 8 cluster with δ = 1 /8, 
+
+t′ = −0.2, and U = 8 .0, a standard parameter set repre-sentative of the superconducting regime of the Hubbard model. Panel (a) of Fig. 2 shows the d-wave pairing order parameter ∆ SC , extracted from the long-distance be-havior of the pair–pair correlation function. We define ∆SC =
+
+q 1
+
+> M
+
+P 
+
+> |r|≥ rmax
+
+Cp(r) where M is the number of vectors satisfying |r| ≥ rmax . For L = 8 we set rmax = 4. The pairing correlation function is [23]: 
+
+Cp(r) = ⟨ ˆ∆† 
+
+> 0
+
+ˆ∆r ⟩ − N 0,r , (2) where ˆ∆r = 14
+
+P 
+
+> η
+
+hr,η ˆcr,↑ ˆcr+η,↓. Here the sum over η
+
+runs over the nearest neighbors of site r, and the struc-ture of hr,η select the dx2−y2 pairing order: hr,η = +1 for horizontal neighbors and hr,η = −1 for vertical neigh-bors [6]. We subtract the disconnected (normal-state) contribution, keeping only the term which conserve the number of particles and total Sz [22]: 
+
+N0,r = 116 ⟨ˆc† 
+
+> r,↑
+
+ˆc0,↑⟩ X
+
+> η,η′
+
+h0,η hr,η′ ⟨ˆc† 
+
+> r+η′,↓
+
+ˆc0+η,↓⟩ . (3) Panel (b) of Fig. 2 displays the stripe spin order pa-rameter, extracted from the peaks of the spin structure factor S(k) = P 
+
+> r
+
+eik·r CS (r), where CS (r) = ⟨ ˆSz 
+
+> 0
+
+ˆSz 
+
+> r
+
+⟩.To allow for a direct comparison between symmet-ric and non-symmetric wave functions, we define 
+
+M 2str = 14N
+
+P 
+
+> α
+
+S(kα) where kα denote the four incom-mensurate stripe-ordering wavevectors. Their explicit values, together with additional details, are provided in Section 5 of the Appendix . All correlation functions are evaluated assuming translational invariance by averag-ing over lattice translations. In both panels, for each architecture, we report three points corresponding to op-timization without symmetry projection (circles), with translational symmetry restored (rhombi), and with both translational and rotational symmetries restored (trian-gles). These results clearly demonstrate the impact of ar-chitectural biases on the resulting physical properties: following the initial optimization and before symmetry restoration, determinant ans¨ atze in the standard and par-ticle–hole representations converge to qualitatively dif-ferent solutions. The backflow determinant exhibits a relatively weak d-wave order parameter, approximately four times smaller than in the particle–hole representa-tion, while displaying stronger stripe magnetic order. By contrast, the particle–hole construction enhances super-conducting correlations and suppresses spin correlations. The Pfaffian backflow state yields intermediate values for both order parameters, interpolating between these two limits. Refer to Section 2 of the Appendix for further details about the biases of the three antisymmetrization schemes at mean field level. The qualitatively different solutions obtained before restoring the symmetries lie extremely close in the energy landscape. Table I summarizes the ground-state varia-tional energies for the three antisymmetrization schemes. For each architecture, we report the energy and variance per site obtained without symmetry projection and af-ter restoring translational and rotational symmetries. A zero-variance extrapolation provides an estimate of the exact ground-state energy per site, E0 = −0.7540(1) (see Section 3 of the Appendix for more details). Us-ing this reference, we define the relative energy error ∆ε = |Eθ − E0|/|E0| (with Eθ the variational energy per site), which is reported in the last column of Table I. 4
+
+Ansatz Symm Energy Variance Rel. Error 
+
+Ref. [21] - −0.7447 – 0.012 Det - -0.74512(1) 0.037 0.012 
+
+T -0.74834(1) 0.024 0.0081 
+
+T +R -0.74993(1) 0.019 0.0056 Det-PH - -0.74649(1) 0.037 0.010 
+
+T -0.74934(1) 0.022 0.0062 
+
+T +R -0.75026(1) 0.017 0.005 Pfaffian - -0.74705(1) 0.037 0.0092 
+
+T -0.74952(1) 0.021 0.0059 
+
+T +R -0.75058(1) 0.016 0.0045 
+
+Zero-Var.Extr. - -0.7540(4) - -TABLE I. Ground-state energy and variance per site for dif-ferent variational states of the Hubbard model [see Eq. (1)] on an 8 × 8 cluster with PBC, at U = 8 .0, t′ = −0.2, and doping 
+
+δ = 1 /8. For each ansatz , we report results obtained with-out symmetry projection ( −), with translational symmetry (T ), and with both translational and rotational symmetries (T +R) restored. The relative error (last column) is defined as ∆ε = |Eθ − E0|/|E0|, with Eθ the variational energy per site and E0 = −0.7540(1) is obtained from zero-variance extrap-olation (refer to Section 3 of the Appendix for additional de-tails). The fully symmetrized Pfaffian is highlighted in bold, as it yields the best variational result. 
+
+The first row lists the best previous result from Ref. [21], obtained with a variational wave function closely related to our Transformer with determinant backflow, with dif-ferences regarding the implementation of the Attention Mechanism [30, 36, 37], refer to Section 1 of the Appendix 
+
+for more details. The energy reported in Ref. [21] corre-sponds to an estimated accuracy of 10 −2, comparable to our determinant-based results before symmetry restora-tion. In contrast to Ref. [21], however, all optimizations here are performed from random initialization, without mean-field pretraining or auxiliary stabilization proce-dures. Importantly, the three solutions obtained in this work, even before symmetry restoration, are lower than the best precedent result; yet, they correspond to quali-tatively different physical states. Upon systematic vari-ance reduction toward an unbiased solution via symme-try projection, all antisymmetrization schemes converge toward compatible values of spin and pairing order (see Fig. 2 and Table I). The Pfaffian-based backflow state achieves the best variational energy value −0.75058(1) corresponding to a relative error of 4 .5 × 10 −3, nearly a factor-of-three improvement over the best previous result from Ref. [21]. We stress that, once sufficient variational accuracy is reached, the different variational states converge to the same underlying physics. Importantly, if the proce-dure is halted at the initial stage, i.e., before symmetry restoration and systematic variance reduction, the result-ing state can remain strongly biased and fail to faithfully represent the correct physical picture. In this regime, architectural biases may stabilize quasi-degenerate solu-tions dominated by a specific order. A concrete example is provided by Ref. [21], where a backflow determinant-0 1 2 3 4 5 6
+
+|r|
+
+10 °5
+
+10 °4
+
+10 °3
+
+10 °2
+
+> |Cp(r)|
+
+0 1 2 3 4 5 6
+
+|r|
+
+10 °5
+
+10 °4
+
+10 °3
+
+10 °2
+
+> |Cp(r)|
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035     
+
+> d-wave order parameter
+> Determinant Determinant PH Pfa ±an
+> No Symmetry Translations Translations + Rotations
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035   
+
+> d-wave order parameter
+> Determinant Determinant P
+> No Symmetry Translations
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035     
+
+> d-wave order parameter
+> Determinant Determinant PH Pfa ±an
+> No Symmetry Translations Translations + Rotations
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035     
+
+> d-wave order parameter
+> Determinant Determinant PH Pfa ±an
+> No Symmetry Translations Translations + Ro
+
+0.00 0.01 0.02 0.03 0.04 
+
+Variance per site 
+
+0.005 
+
+0.010 
+
+0.015 
+
+0.020 
+
+0.025 
+
+0.030 
+
+0.035     
+
+> d-wave order parameter
+> Determinant Determinant PH Pfa ±an
+> No Symmetry Translations Translations + Rotations
+
+FIG. 3. Absolute value of the d-wave pairing correlations 
+
+|Cp(r)| [see Eq. (2)] as a function of distance |r| on an 8 × 8square lattice with PBC at U = 8 .0, t′ = −0.2, and δ = 1 /8. 
+
+Panel a. Results without symmetry projection. Panel b. 
+
+Results after restoring translational and rotational symme-tries. 
+
+based ansatz without symmetry restoration yields states with robust stripe order across a broad range of system sizes and parameter regimes of the Hubbard model. Our results indicate that such outcomes may reflect the in-trinsic bias of the chosen antisymmetrization rather than a definitive characterization of the ground state. 
+
+A. Pairing order 
+
+Figure 3 reports the absolute value of the pairing cor-relation functions |Cp(r)| [see Eq. (2)] as a function of the distance |r| in the lattice for the three antisymmetriza-tion schemes. In panel (a), we report the results be-fore symmetry projections. The determinant backflow 
+
+ansatz exhibits a pronounced suppression of long-range pairing correlations. For |r| ≳ 3, the signal is nearly one order of magnitude smaller with the respect to the other states. The determinant-PH backflow state alle-viates this suppression, providing a solution closer to the Pfaffian ansatz . Enforcing the symmetries, along-side the quantitative improvement in energy and vari-ance (see Table I), we observe a substantially greater consistency in the pairing profiles across architectures, as shown in panel (b) of Fig. 3. In particular, the Pfaf-fian and determinant-PH pairing amplitudes slightly de-crease, whereas the pure determinant result increases by 5-0.09                            
+
+> -0.06
+> -0.03
+> 0.00
+> 0.03
+> 0.06
+> 0.09
+> -0.09
+> -0.06
+> -0.03
+> 0.00
+> 0.03
+> 0.06
+> 0.09
+> -0.6
+> -0.1
+> 0
+> 0.1
+> 0.6
+> Spin-Spin
+> °10 °1
+> °10 °2
+> °10 °3
+> 0
+> 10 °3
+> 10 °2
+> 10 °1
+> 02468
+> x
+> °8.0
+> °5.5
+> °3.0£10 °4
+> 02468
+> x
+> °8.0
+> °5.5
+> °3.0£10 °4
+> 02468
+> x
+> °8.0
+> °5.5
+> °3.0£10 °4
+> 02468
+> x
+> °0.04
+> °0.02
+> 0.00
+> 02468
+> x
+> °0.04
+> °0.02
+> 0.00
+> 02468
+> x
+> °0.04
+> °0.02
+> 0.00
+> 0.84
+> 0.85
+> 0.86
+> 0.87
+> 0.88
+> 0.89
+> 0.90
+> 0.91
+> 0.84
+> 0.85
+> 0.86
+> 0.87
+> 0.88
+> 0.89
+> 0.90
+> 0.91
+> 0.84
+> 0.85
+> 0.86
+> 0.87
+> 0.88
+> 0.89
+> 0.90
+> 0.91
+> 0.84
+> 0.85
+> 0.86
+> 0.87
+> 0.88
+> 0.89
+> 0.90
+> 0.91
+> °10 °1
+> °10 °2
+> °10 °3
+> 0
+> 10 °3
+> 10 °2
+> 10 °1
+> °10 °1
+> °10 °2
+> °10 °3
+> 0
+> 10 °3
+> 10 °2
+> 10 °1
+> °10 °1
+> °10 °2
+> °10 °3
+> 0
+> 10 °3
+> 10 °2
+> 10 °1
+
+FIG. 4. Real-space charge density and spin patterns for the 8 × 8 Hubbard model with PBC at U = 8 .0, t′ = −0.2, and 
+
+δ = 1 /8 [see Eq. (1)]. Columns compare the three variational constructions: determinant, Pfaffian, and determinant in the PH representation. The top row shows results without symmetry projection, while the bottom row shows the corresponding symmetry-projected results. Panels a,b,c : Charge density N (r) without symmetry projection. Panels d,e,f : Local spin ⟨ ˆSz 
+
+> r
+
+⟩
+
+without symmetry projection. Panels g,h,i : Density-density correlations CD (r) after symmetry projection. Panels l,m,n :Spin-spin correlations CS (r) after symmetry projection. Below each panel we show the one-dimensional cuts of the density 
+
+CD (x, y = 4) and the staggered spin correlation ( −1) xCS (x, y = 4). Definitions of all observables are given in the main text. 
+
+nearly an order of magnitude, remaining only moderately smaller relative to the other two solutions (refer to panel (a) of Fig. 2 for the corresponding order parameters). For additional analysis about the pairing correlation functions refer to Section 4 of the Appendix .
+
+B. Stripe order 
+
+We next analyze stripe order, which recent studies sug-gest may coexist with superconductivity [4, 23]. In Fig. 4, we compare the real-space charge density and spin pat-terns. The upper panels report the one-body observables obtained without symmetry projection: the local charge density, N (r) = ⟨nr↑ + nr↓⟩, shown in panels (a)–(c), and the local spin, ⟨ ˆSz 
+
+> r
+
+⟩, shown in panels (d)–(f), for the three variational ans¨ atze. Among the unprojected states, the determinant-backflow ansatz displays strong spatial modulations in both charge and spin, indicating a pronounced tendency toward stripe formation. By con-trast, the determinant-PH and Pfaffian states yield sig-nificantly more uniform profiles. These differences indi-cate that the initial optimization can converge to distinct solutions, even though their variational energies remain very close (see Table I). The lower panels show the corresponding two-body correlation functions after full symmetry projection: the density-density correlation CD (r) = ⟨ˆn0 ˆnr ⟩ − n2, in pan-els (g)–(i), and the spin-spin correlation CS (r) = ⟨ ˆSz 
+
+> 0
+
+ˆSz 
+
+> r
+
+⟩,in panels (l)–(n). After restoring translational and rota-tional symmetries, the results obtained from the different antisymmetrization schemes become remarkably consis-tent. In particular, both the charge and spin correla-tions exhibit the same spatial structure, showing that the discrepancies seen before projection are largely re-moved once the variational state is refined. This conver-gence is further confirmed by the one-dimensional cuts of CD (x, y = 4) and of the staggered spin correlation (−1) xCS (x, y = 4) shown below each panel. Stripe order is most clearly visible in the spin-spin correlations. In addition to the antiferromagnetic pat-tern, CS (r) exhibits a longer-wavelength modulation that weakens the antiferromagnetic order, consistent with the additional peaks observed in the spin structure factor (see Section 5 of the Appendix for further details). By contrast, for the present system size we only find very weak charge modulation in the density-density correla-tions. We expect that charge modulations may become more visible only on larger clusters [23], a detailed inves-tigation is beyond the scope of the present work and is left for future study. Overall, these results show that the marked differences observed before symmetry restoration, especially the pro-nounced stripe pattern found in the determinant-based 
+
+ansatz , do not correspond to distinct physical phases. Rather, they reflect an ansatz -dependent bias that per-sists at finite variational accuracy. 60 1 2 3 4
+
+|r|
+
+10 °2
+
+10 °1
+
+5 £ 10 °1
+
+> |Cs-wave (r)|
+> DQMC
+> Determinant
+> Determinant PH
+> Pfa ±an
+> Determinant + Translations
+
+0 1 2 3 4
+
+|r|
+
+10 °2
+
+10 °1
+
+5 £ 10 °1
+
+> |Cs-wave (r)|
+> DQMC
+> Determinant
+> Determinant PH
+> Pfa ±an
+> Determinant + Translations
+
+0 1 2 3 4
+
+|r|
+
+10 °2
+
+10 °1
+
+5 £ 10 °1
+
+> |Cs-wave (r)|
+> DQMC
+> Determinant
+> Determinant PH
+> Pfa ±an
+> Determinant + Translations
+
+FIG. 5. s-wave pairing correlation function Cs-wave (r) [see Eq. (4)] for the attractive Hubbard model with U = −8.0, 
+
+t′ = 0 .0, and δ = 1 /8 on an 8 × 8 lattice along the diagonal of the square. Results are shown for determinant, determinant in PH and Pfaffian, symmetry-restored determinant ansatz ,and DQMC. 
+
+IV. ATTRACTIVE HUBBARD MODEL 
+
+Finally, we further support the main conclusion of this work by considering the attractive Hubbard model, where s-wave superconductivity is established by numer-ically exact quantum Monte Carlo calculations. We fo-cus on the case t′ = 0 .0 and U = −8.0, at hole dop-ing δ = 1 /8, on an 8 × 8 square lattice with periodic boundary conditions. In this regime, a numerically exact benchmark is provided by Determinant Quantum Monte Carlo (DQMC) [2, 38–40]. To characterize superconducting order, we compute the s-wave pair-pair correlation function 
+
+Cs-wave (r) = ⟨ˆc† 
+
+> r↓
+
+ˆc† 
+
+> r↑
+
+ˆc0↑ ˆc0↓⟩ , (4) whose large-distance behavior signals the presence of su-perconducting order. In Fig. 5 we report Cs-wave (r) as a function of |r| along the diagonal of the L × L cluster. Even in this compar-atively simple setting, the determinant-based construc-tion substantially underestimates the pairing correlations with respect to the DQMC benchmark by one order of magnitude. This result reinforces the general picture emerging from the present study: enforcing antisymme-try through a determinant output layer, even when sup-plemented by backflow, introduces a significant bias in the description of superconductivity and tends to sup-press the pairing signal. Only after restoring transla-tional symmetry do the corresponding results come into very close agreement with the exact benchmark. By con-trast, the Pfaffian and particle-hole determinant ans¨ atze already provide a much more robust and physically con-sistent description of pairing correlations without sym-metry restoration. This qualitative difference is also reflected quantita-tively in Table II, where we report the energies of the 
+
+Ansatz Symm Energy Variance Rel. Error 
+
+Det - -3.9950(1) 0.051 0.0055 
+
+T -4.0152(1) 0.017 0.00044 Det-PH - -4.0167(1) 0.0024 0.000075 Pfaffian - -4.0169(1) 0.0014 0.000024 DQMC - -4.017 - -TABLE II. Benchmark table for the pure Hubbard model (t′ = 0) with attractive interaction U = −8.0 at hole doping 
+
+δ = 1 /8 on an 8 ×8 lattice. We report results obtained without symmetry projection ( −) and with translational symmetry projection ( T ) for the determinant. The relative error (last column) is defined as ∆ ε = |Eθ − EDQMC |/|EDQMC |, with Eθ
+
+the variational energy per site and EDQMC = −4.017 is the DQMC energy. 
+
+different variational states. In particular, translational symmetry restoration improves the accuracy of the de-terminant by about one order of magnitude. Although the determinant still does not reach the same accuracy as the Pfaffian and particle-hole determinant states, be-yond a sufficient level of variational accuracy the corre-lation functions obtained from the different ans¨ atze be-come physically compatible. This mirrors the behaviour found in the repulsive case and supports the conclusion that agreement in the physical properties emerges once the wave function is sufficiently accurate. 
+
+V. CONCLUSIONS 
+
+We have examined how different backflow implementa-tions affect the variational description of physical prop-erties in the two-dimensional Hubbard model. Using a common Transformer-based backflow architecture and optimizing all states from random initial conditions, we find that different antisymmetrization schemes can ini-tially converge to qualitatively distinct states, ranging from stripe-dominated to strongly superconducting, de-spite nearly degenerate energies. On the one hand, our results show that the choice of antisymmetrization scheme can bias the correlation func-tions obtained from neural-network fermionic wave func-tions towards phases that are naturally encoded at the mean-field level. On the other hand, we demonstrate that this bias can be overcome by increasing variational accuracy through symmetry restoration, after which all the ans¨ atze yield similar correlation functions. Our find-ings highlight the importance of tracking how correlation functions evolve as the wave function is systematically re-fined under variance reduction. These observations are particularly relevant in the broader context of the square-lattice Hubbard model, which is widely regarded as a minimal model for cap-turing key aspects of cuprate phenomenology, in partic-ular superconductivity. Our results, therefore, provide a cautionary message: variational architectures that can-not naturally accommodate off-diagonal long-range or-7der, such as the backflow determinant without symmetry restoration considered here, may achieve very competi-tive energies while still missing superconducting correla-tions. In such cases, great care must be taken to account for this bias. In light of our findings, we propose the 8 × 8 Hubbard model on a square lattice with periodic boundary con-ditions, at t′ = −0.2, U = 8, and 1 /8 hole doping, as a challenging setup for benchmarking numerical methods targeting correlated fermionic systems. The close ener-getic competition among distinct orders, combined with the strong sensitivity of the correlation functions to the choice of ansatz , makes this parameter set a stringent test of any numerical approach. Reproducing the physi-cal picture established here with independent techniques, such as tensor network methods [16], auxiliary-field quan-tum Monte Carlo [41, 42], or other neural-network-based approaches, is an important step toward consolidating our understanding of this regime. More broadly, estab-lishing the ground-state properties accurately and unam-biguously on finite clusters of this size is a necessary pre-requisite before reliable conclusions can be drawn about the physics of the Hubbard model on larger systems and in the thermodynamic limit. At the same time, our results also provide a hopeful perspective. They suggest that sufficiently accurate and flexible variational approaches, potentially leveraging the large expressivity of deep neural networks, can overcome these ansatz -dependent biases and recover a consistent physical picture. This opens a promising route towards a controlled understanding of the competing phases of the Hubbard model and their connection to high-Tc cuprate superconductivity.  
+
+> APPENDIX 1. Transformer Backflow Architecture
+
+The Transformer Backflow Architecture takes as in-put a physical configuration s = (s1, . . . , s N ), where 
+
+si ∈ { 0, 1, 2, 3} corresponds to the possible four states of the local Hilbert space of site i: empty, singly occu-pied spin-↑ or spin-↓, and doubly occupied site. Following the standard tokenization scheme [21, 32], each input si is mapped to an embedding vector xi ∈ Rd, yielding the in-put sequence of the neural network ( x1, . . . , xN ), where d
+
+is the embedding dimension. The network outputs a new sequence of vectors ( y1, . . . , yN ) with yi ∈ Rd [32]. The Transformer architecture used in this work has nl = 4 layers, h = 12 attention heads, and an embedding dimen-sion of d = 72 (refer to Ref. [31] for more details about their role). Relative to previous Transformer-backflow implementations [21, 24, 29], the architecture incorpo-rates a Factored Attention Mechanism [30, 36] with a spa-tial inductive bias [37]. These components, introduced for two-dimensional frustrated spin systems, enable sta-ble and accurate simulations on large lattices [37].         
+
+> FIG. 6. In the Transformer Backflow Architecture a physi-cal configuration s(see definition in the main text) is mapped through an Embedding layer into a sequence of vectors, which are then processed by a stack of nlTransformer layers. The Transformer output is fed into a Fermionic Output Layer that constructs configuration-dependent orbitals. These orbitals, together with the fermionic occupation numbers n, are com-bined via the chosen antisymmetrization scheme (determinant or Pfaffian) to produce the wavefunction amplitude Ψ θ(s).
+
+For determinant-based antisymmetrization, the Trans-former output defines effective single-particle orbitals via a site-resolved linear map [21, 27, 32]: Φiσα =
+
+> d
+
+X
+
+> β=1
+
+yiβ Wiσαβ , (5) where Wiσαβ are trainable parameters and α = 1 , . . . , N e
+
+labels the orbitals, with Ne being the number of fermions. Introducing the composite index r = ( i, σ ), the tensor is reshaped into Φ rα ∈ R2N ×Ne . The wavefunction ampli-tude is obtained as Ψθ (s) = det [ n ⋆ Φ( s)] , (6) where n ⋆ Φ( s) denotes the Ne × Ne submatrix of Φ( s) indexed by the occupation numbers of 
+
+n = ( n1↑, . . . , n N ↑, n 1↓, . . . , n N ↓). For the Pfaffian scheme, the same construction used in Eq. (5) is used to generate a matrix ϕrα ∈ R2N ×2N .These orbitals are then paired through an antisymmet-ric (configuration independent) matrix A ∈ R2N ×2N of trainable parameters [23, 34, 43]. The resulting wave-function amplitude is Ψθ (s) = Pf n ⋆ ϕ (s) A ϕ (s)T ⋆ n . (7) 8Refer to Fig. 6 for a schematic representation of the Transformer backflow architecture. The spatial symmetries of Hubbard Hamiltonian [see Eq. (1)] can be enforced on the states in Eq. (6) and Eq. (7) through quantum-number projection [44–48]. Given a symmetry group G with |G| elements, we de-fine the projected variational state Ψλ(s) = 1
+
+|G|
+
+X
+
+> g∈G
+
+χ∗
+
+> λ
+
+(g) ξg−1 (s) Ψ θ (g−1s) , (8) where λ labels the irreducible representation and χλ(g) is its character. In contrast to spin systems [46, 49, 50], in fermionic systems one must also include the permutation sign ξg−1 (s), which depends on the fixed ordering of the sites [20, 24, 32, 34]. Further details can be found in Ref. [24]. For the repulsive Hubbard model considered here, we implement lattice translations with momentum k = (0 , 0) and the C4 point-group symmetry with eigenvalue −1.  
+
+> 2. Mean Field Biases of Fermionic Ans¨ atze
+
+In this Section, we discuss the mean-field biases as-sociated with the three fermionic ans¨ atze used in this work: the determinant, the determinant in the particle-hole representation, and the Pfaffian. Throughout, we consider the mean-field limit, in which the orbitals are taken to be configuration independent. The Slater-determinant wavefunction is defined as Ψdet (n) = det [ U ⋆ n] (9) where U ∈ R2N ×Ne is a matrix of variational parameters. In the non-interacting limit, the determinant ansatz cor-responds to the ground state of the quadratic Hamilto-nian ˆHdet = − X
+
+> i,j,σ
+
+tij ˆc† 
+
+> iσ
+
+ˆcjσ − μ X
+
+> i,σ
+
+ˆniσ + X
+
+> i,j,σ,σ ′
+
+mσσ ′ 
+
+> ij
+
+ˆc† 
+
+> iσ
+
+ˆcjσ ′ ,
+
+(10) where tij denotes the hopping amplitudes, μ the chemical potential, and mσσ ′ 
+
+> ij
+
+the spin-dependent terms, including both longitudinal and transverse magnetic contributions. This Hamiltonian can therefore accommodate magnetic fluctuations, but cannot describe superconducting pair-ing. The simplest superconducting terms that can be added at the mean-field level are singlet pairing terms. To this end, consider the Hamiltonian ˆHPH = − X
+
+> i,j,σ
+
+tij ˆc† 
+
+> iσ
+
+ˆcjσ − μ X
+
+> i,σ
+
+ˆniσ + X
+
+> i,j,σ
+
+mσσ ij ˆc† 
+
+> iσ
+
+ˆcjσ 
+
++ X
+
+> i,j
+
+h
+
+∆ij 
+
+
+
+ˆc† 
+
+> i↑
+
+ˆc† 
+
+> j↓
+
+− ˆc† 
+
+> i↓
+
+ˆc†
+
+> j↑
+
+
+
++ h .c.
+
+i
+
+.
+
+(11) Under a particle-hole transformation ci↑ → ci↑, ci↓ → c†
+
+> i↓
+
+the singlet pairing terms are mapped to spin-mixing, number-conserving terms. As a result, ˆHPH [see Eq. (11)] can be rewritten as a quadratic Hamiltonian of the same general form as ˆHdet [see Eq. (10)]. Its ground state can therefore be represented as a determinant in the particle-hole basis. The advantage of this construction is that it allows superconducting correlations to be represented within a determinant ansatz .However, to include magnetic terms, both longitudinal and transverse, together with superconducting terms in both the singlet and triplet channels, one must instead consider the most general quadratic Hamiltonian: ˆHPf = − X
+
+> i,j,σ
+
+tij ˆc† 
+
+> iσ
+
+ˆcjσ − μ X
+
+> i,σ
+
+ˆniσ 
+
++ X
+
+> i,j,σ,η
+
+mσσ ′ 
+
+> ij
+
+ˆc† 
+
+> iσ
+
+ˆcjσ ′ + 12
+
+X
+
+> i,j,σ,η
+
+
+
+∆σσ ′ 
+
+> ij
+
+ˆc† 
+
+> iσ
+
+ˆc† 
+
+> jσ ′
+
++ h .c.
+
+
+
+.
+
+(12) In general, the ground state of this Hamiltonian cannot be written as a single Slater determinant and instead requires a Pfaffian representation of the form ΨPf (n) = Pf n ⋆ V AV T ⋆ n , (13) where V ∈ R2N ×2N is a general matrix and A ∈ R2N ×2N
+
+is antisymmetric. Therefore, at the mean-field level, the Pfaffian ansatz can simultaneously capture magnetic and superconducting fluctuations. As discussed in Section III of the main text, in the ab-sence of translational symmetry restoration, the backflow Slater determinant converges to a state with predomi-nantly magnetic order, whereas the particle-hole deter-minant converges to a state with predominantly super-conducting correlations. By contrast, the backflow Pfaf-fian yields an intermediate state in which both types of order are present already before symmetry projection. The mean-field analysis presented here reproduces the same qualitative tendencies observed in the full backflow ans¨ atze, showing that the choice of antisymmetrization scheme induces a strong bias even when supplemented by a highly expressive backflow transformation. As shown in Section III, these biases can nevertheless be reduced by systematically improving the variational accuracy, for example, through symmetry restoration.  
+
+> 3. Zero-Variance Extrapolation
+
+An estimate of the exact ground-state energy for the 8 × 8 Hubbard model at U = 8 .0, t′ = −0.2, and doping 
+
+δ = 1 /8 can be obtained by means of zero-variance ex-trapolation [37, 51, 52]. We perform this analysis using the Pfaffian ansatz , since, among the variational states considered, it provides the most accurate description, as also indicated by the variational energies reported in Ta-ble I. In Fig. 7, we report the variational energy per site 90.00 0.01 0.02 0.03 0.04 Variance per site 
+
+# −0.754 
+
+# −0.752 
+
+# −0.750 
+
+# −0.748 
+
+# −0.746 
+
+# −0.744 Energy per site  No Symmetry Translations Translations + Rotations 
+
+FIG. 7. Variational energy per site as a function of the energy variance per site for the 8 × 8 Hubbard model with periodic boundary conditions at U = 8 .0, t′ = −0.2, and dop-ing δ = 1 /8. Results are shown for the Pfaffian state with different levels of accuracy obtained without symmetry pro-jection (circles), with translational symmetry (rhombi), and with both translational and rotational symmetries (triangles) restored. A linear fit of the data is used to extrapolate to zero variance and estimate the ground-state energy (red star). 
+
+Eθ = ⟨Ψθ | ˆH|Ψθ ⟩/N , as a function of the energy variance per site σ2 
+
+> θ
+
+= [ ⟨Ψθ | ˆH2|Ψθ ⟩ − ⟨ Ψθ | ˆH|Ψθ ⟩2]/N , at differ-ent stages of the optimization and symmetry restoration. In particular, we consider states obtained after 10 4 and 4×10 4 optimization steps, as well as after restoring trans-lational and rotational symmetries. For sufficiently accu-rate variational states, the energy is expected to depend linearly on the variance according to Eθ ≈ E0+const ×σ2 
+
+> θ
+
+,where E0 denotes the exact ground-state energy. As shown in Fig. 7, the data exhibit an approximately linear behavior over the range of variances considered. By performing a linear fit of the energy as a function of the variance, we extract the zero-variance intercept and obtain E0 = −0.7540(1), as reported in Table I. The uncertainty accounts for both the statistical errors of the data points and the stability of the extrapolation upon varying the fitting range. 
+
+4. Pairing Correlation Function 
+
+In Fig. 8, we show the real-space pairing-pairing corre-lation function defined in Eq. (2), obtained with the de-terminant ansatz before and after symmetry restoration. Panel (a) shows the unsymmetrized state, which displays a pronounced stripe pattern [see Fig. 4] and only weak su-perconducting correlations [see Fig. 3]. Panel (b) shows the fully symmetrized state obtained after restoring both translational and rotational symmetries. Beyond the different long-distance behavior discussed in Section III A, a key difference emerges in the signs of °2.2 £ 10 °4                              
+
+> °5£10 °5
+> °5£10 °6
+> 0
+> 5£10 °5
+> 5£10 °4
+> 1.4£10 °2
+> Pairing-pairing
+> °2.2£10 °4
+> °5£10 °5
+> °5£10 °6
+> 0
+> 5£10 °5
+> 5£10 °4
+> 1.4£10 °2
+> Pairing-pairing
+> 02468
+> x
+> °10 °4
+> 0
+> 10 °4
+> 10 °3
+> 10 °2
+> 02468
+> x
+> °10 °4
+> 0
+> 10 °4
+> 10 °3
+> 10 °2
+
+FIG. 8. Real-space pairing-pairing correlation function [see Eq. (2)] for the 8 × 8 Hubbard model at U = 8 .0, t′ = −0.2, and doping δ = 1 /8, obtained with the determinant ansatz 
+
+before [panel (a)] and after [panel (b)] symmetry restora-tion. Below each panel we show the one-dimensional cut 
+
+Cp(x, y = 3). 
+
+the pairing correlation function. In the unsymmetrized state, correlations among next-nearest neighbor sites are negative, whereas after symmetry restoration all pair-ing correlations become positive. This negative short-distance structure appears only before symmetry projec-tion, namely in the regime where stripe order is strongest and superconducting correlations are weakest. We there-fore interpret it as a manifestation of the bias of the un-symmetrized determinant state, which favors stripe order at the expense of superconducting correlations. After symmetry restoration, the pairing correlation function becomes consistent, both in sign and in magnitude, with that obtained from the other variational states, namely the particle-hole determinant and the Pfaffian (not shown here). 
+
+5. Spin structure factor 
+
+In Fig. 9 we show the spin structure factor, defined as the Fourier transform of the real-space spin-spin correla-tions S(k) = P 
+
+> r
+
+eik·r ⟨ ˆSz 
+
+> 0
+
+ˆSz 
+
+> r
+
+⟩, which we use to character-ize magnetic ordering. A dominant peak at k = ( π, π )signals antiferromagnetic order. In the present case, however, the structure factor also exhibits four addi-tional incommensurate peaks, which are the fingerprint of stripe order. For the 8 ×8 cluster considered here, these peaks are located at k1 =  π + π 
+
+> 4
+
+, π , k2 =  π − π 
+
+> 4
+
+, π ,
+
+k3 =  π, π + π
+
+> 4
+
+ and k4 =  π, π − π
+
+> 4
+
+. For a fully sym-metric wave function, the values of the structure factor at these four momenta are exactly equal by symmetry (see panel (c) of Fig. 9). This is not necessarily the case for wave functions without symmetry projection, where the four peaks may have different weights (see panel (a) of Fig. 9). In order to adopt a definition that is valid in all cases and allows for a direct comparison between sym-10 0 º/2 º 3º/2 2º                         
+
+> 0
+> º/2
+> º
+> 3º/2
+> 2º
+> 0.00.51.01.52.0
+> Spin Structure Factor
+> 0º/2º3º/22º
+> 0
+> º/2
+> º
+> 3º/2
+> 2º
+> 0.00.51.01.52.0
+> Spin Structure Factor
+> 0º/2º3º/22º
+> 0
+> º/2
+> º
+> 3º/2
+> 2º
+> 0.00.51.01.52.0
+> Spin Structure Factor
+> 0º/2º3º/22º
+> 0
+> º/2
+> º
+> 3º/2
+> 2º0.0
+> 0.5
+> 1.0
+> 1.5
+> 2.0
+> Spin Structure Factor
+
+FIG. 9. Spin structure factor for the 8 × 8 Hubbard model at U = 8 .0, t′ = −0.2, and doping δ = 1 /8, obtained with the Pfaffian ansatz at different levels of symmetry restoration. Panel a: Result without symmetry projection. Panel b: Result after restoring translational symmetry. Panel c: Result after restoring both translational and rotational symmetries. 
+
+Ansatz d-wave ∆SC Stripe M 2str 
+
+Det 0.0177(1) 0.0272(1) Pfaffian 0.0225(2) 0.0263(1) Det-PH 0.0254(2) 0.0247(1) TABLE III. Stripe ( M 2str ) and d-wave superconducting (∆ SC )order parameters for the 8 × 8 Hubbard model with PBC at U = 8 .0, t′ = −0.2, and δ = 1 /8, after restoring both translational and rotational symmetries. Values are readings from Fig. 2. The definitions of the order parameters are given in the main text. 
+
+metric and non-symmetric states, we define the stripe magnetic order parameter as the average over the four peak values 
+
+M 2str = 14N [S(k1) + S(k2) + S(k3) + S(k4)] . (14) For fully symmetric wave functions, it reduces to the common peak value divided by N , while it remains well defined also in the absence of symmetry restoration. 
+
+6. Bounds on the Order Parameters 
+
+In Table III, we report the d-wave superconducting and stripe order parameters obtained from the three fully symmetrized variational states, with both translational and rotational symmetries restored. For the d-wave su-perconducting order parameter ∆ SC (see the definition in the main text), the determinant ansatz systematically underestimates pairing correlations. Even after symme-try restoration, a residual bias remains, so its value is naturally interpreted as a lower bound on the exact value. By contrast, the particle-hole determinant naturally fa-vors pairing and tends to overestimate superconducting correlations; its symmetry-restored value can therefore be regarded as an upper bound . We therefore expect the exact superconducting order parameter ∆ SC,ex to lie in the range: 0.0177(1) ≤ ∆SC,ex ≤ 0.0254(2) . (15) The situation is reversed for the stripe order parameter 
+
+M 2str (see the definition in the main text). In this case, the determinant ansatz , which naturally favors magnetic order, provides the upper bound , whereas the particle-hole determinant, which suppresses spin correlations in favor of pairing, provides the lower bound . Accordingly, the exact stripe order parameter M 2str,ex is expected to be in the interval: 0.0247(1) ≤ M 2str,ex ≤ 0.0272(1) . (16) The narrowness of these intervals indicates that symme-try restoration largely removes the initial architectural biases of the different variational states. 
+
+7. Optimization Setup 
+
+The variational states are optimized within the Varia-tional Monte Carlo framework [53] using Stochastic Re-configuration (SR) [54] with the linear algebra trick [49, 50]. The optimization is carried out for 4 × 10 4 steps without the symmetries, 2 × 10 3 steps when restoring the translational symmetry, and an additional 10 2 steps when restoring both translational and rotational symme-try. We use M = 2 13 Monte Carlo samples per iteration. The learning rate is initialized to η = 0 .03 and is gradu-ally annealed during the optimization. 
+
+ACKNOWLEDGMENTS 
+
+We thank Shiwei Zhang, Markus Holzmann and Ao Chen for useful discussions. The Flatiron Institute is a division of the Simons Foundation. This work was sup-ported as part of the “Swiss AI initiative” by a grant from the Swiss National Supercomputing Centre (CSCS) 11 under project ID a117 on Alps. LLV is supported by SEFRI under Grant No. MB22.00051 (NEQS - Neural Quantum). 
+
+[1] J. Hubbard, Electron correlations in narrow energy bands, Proceedings of the Royal Society of Lon-don. A. Mathematical and Physical Sciences 276 , 238 (1963), https://royalsocietypublishing.org/rspa/article-pdf/276/1365/238/54456/rspa.1963.0204.pdf. [2] S. R. White, D. J. Scalapino, R. L. Sugar, E. Y. Loh, J. E. Gubernatis, and R. T. Scalettar, Numerical study of the two-dimensional hubbard model, Phys. Rev. B 40 ,506 (1989). [3] J. P. F. LeBlanc, A. E. Antipov, F. Becca, I. W. Bulik, G. K.-L. Chan, C.-M. Chung, Y. Deng, M. Ferrero, T. M. Henderson, C. A. Jim´ enez-Hoyos, E. Kozik, X.-W. Liu, A. J. Millis, N. V. Prokof’ev, M. Qin, G. E. Scuseria, H. Shi, B. V. Svistunov, L. F. Tocchio, I. S. Tupitsyn, S. R. White, S. Zhang, B.-X. Zheng, Z. Zhu, and E. Gull (Simons Collaboration on the Many-Electron Problem), Solutions of the two-dimensional hubbard model: Bench-marks and results from a wide range of numerical algo-rithms, Phys. Rev. X 5, 041041 (2015). [4] H. Xu, C.-M. Chung, M. Qin, U. Schollw¨ ock, S. R. White, and S. Zhang, Coexistence of superconductivity with par-tially filled stripes in the hubbard model, Science 384 ,10.1126/science.adh7691 (2024). [5] F. ˇSimkovic, R. Rossi, A. Georges, and M. Ferrero, Origin and fate of the pseudogap in the doped hubbard model, Science 385 , 10.1126/science.ade9194 (2024). [6] M. Qin, C.-M. Chung, H. Shi, E. Vitali, C. Hubig, U. Schollw¨ ock, S. R. White, and S. Zhang (Simons Col-laboration on the Many-Electron Problem), Absence of superconductivity in the pure two-dimensional hubbard model, Phys. Rev. X 10 , 031016 (2020). [7] S. Sorella, Systematically improvable mean-field varia-tional ansatz for strongly correlated systems: Applica-tion to the hubbard model, Phys. Rev. B 107 , 115133 (2023). [8] M. Capello, F. Becca, M. Fabrizio, S. Sorella, and E. Tosatti, Variational description of mott insulators, Phys. Rev. Lett. 94 , 026406 (2005). [9] L. F. Tocchio, F. Becca, A. Parola, and S. Sorella, Role of backflow correlations for the nonmagnetic phase of the 
+
+t–t′
+
+hubbard model, Phys. Rev. B 78 , 041101 (2008). [10] K. Ido, T. Ohgoe, and M. Imada, Competition among various charge-inhomogeneous states and d-wave super-conducting state in hubbard models on square lattices, Phys. Rev. B 97 , 045138 (2018). [11] G. Hager, G. Wellein, E. Jeckelmann, and H. Fehske, Stripe formation in doped hubbard ladders, Phys. Rev. B 71 , 075108 (2005). [12] B.-X. Zheng, C.-M. Chung, P. Corboz, G. Ehlers, M.-P. Qin, R. M. Noack, H. Shi, S. R. White, S. Zhang, and G. K.-L. Chan, Stripe order in the underdoped re-gion of the two-dimensional hubbard model, Science 358 ,1155–1160 (2017). [13] G. Ehlers, S. R. White, and R. M. Noack, Hybrid-space density matrix renormalization group study of the doped two-dimensional hubbard model, Phys. Rev. B 95 ,125125 (2017). [14] H.-C. Jiang and T. P. Devereaux, Superconductivity in the doped hubbard model and its interplay with next-nearest hopping t’, Science 365 , 1424–1428 (2019). [15] M. Scheb and R. M. Noack, Finite projected entangled pair states for the hubbard model, Phys. Rev. B 107 ,165112 (2023). [16] W.-Y. Liu, H. Zhai, R. Peng, Z.-C. Gu, and G. K.-L. Chan, Accurate simulation of the hubbard model with fi-nite fermionic projected entangled pair states, Phys. Rev. Lett. 134 , 256502 (2025). [17] H.-C. Jiang, T. P. Devereaux, and S. A. Kivelson, Com-petition between charge-density-wave and superconduct-ing orders on eight-leg square hubbard cylinders (2025), arXiv:2511.18644 [cond-mat.str-el]. [18] Y. Nomura, A. S. Darmawan, Y. Yamaji, and M. Imada, Restricted boltzmann machine learning for solving strongly correlated quantum systems, Phys. Rev. B 96 ,205152 (2017). [19] D. Luo and B. K. Clark, Backflow transformations via neural networks for quantum many-body wave functions, Phys. Rev. Lett. 122 , 226401 (2019). [20] J. Robledo Moreno, G. Carleo, A. Georges, and J. Stokes, Fermionic wave functions from neural-network con-strained hidden states, Proceedings of the National Academy of Sciences 119 , 10.1073/pnas.2122059119 (2022). [21] Y. Gu, W. Li, H. Lin, B. Zhan, R. Li, Y. Huang, D. He, Y. Wu, T. Xiang, M. Qin, L. Wang, and D. Lv, Solving the hubbard model with neural quantum states (2025), arXiv:2507.02644 [cond-mat.str-el]. [22] A. Chen, Z.-Q. Wan, A. Sengupta, A. Georges, and C. Roth, Neural network-augmented pfaffian wave-functions for scalable simulations of interacting fermions (2025), arXiv:2507.10705 [cond-mat.str-el]. [23] C. Roth, A. Chen, A. Sengupta, and A. Georges, Superconductivity in the two-dimensional hubbard model revealed by neural quantum states (2025), arXiv:2511.07566 [cond-mat.supr-con]. [24] L. Sharma, A. Shokry, R. Nutakki, O. Simard, M. Fer-rero, and F. Vicentini, Comparing symmetrized deter-minant neural quantum states for the hubbard model (2025), arXiv:2510.11710 [cond-mat.str-el]. [25] E. Ibarra-Garc´ ıa-Padilla, H. Lange, R. G. Melko, R. T. Scalettar, J. Carrasquilla, A. Bohrdt, and E. Khatami, Autoregressive neural quantum states of fermi hubbard models, Phys. Rev. Res. 7, 013122 (2025). [26] P. Corboz, R. Or´ us, B. Bauer, and G. Vidal, Simulation of strongly correlated fermions in two spatial dimensions with fermionic projected entangled-pair states, Physical Review B 81 , 10.1103/physrevb.81.165104 (2010). [27] D. Luo and B. K. Clark, Backflow transformations via neural networks for quantum many-body wave functions, Phys. Rev. Lett. 122 , 226401 (2019). [28] M. Ruggeri, S. Moroni, and M. Holzmann, Nonlinear net-work description for many-body quantum systems in con-tinuous space, Phys. Rev. Lett. 120 , 205302 (2018). 12 
+
+[29] H. Ma, B. Kan, H. Shang, and J. Yang, Transformer-based neural networks backflow for strongly correlated electronic structure (2025), arXiv:2509.25720 [quant-ph]. [30] L. L. Viteritti, R. Rende, and F. Becca, Transformer vari-ational wave functions for frustrated quantum spin sys-tems, Phys. Rev. Lett. 130 , 236401 (2023). [31] L. L. Viteritti, R. Rende, A. Parola, S. Goldt, and F. Becca, Transformer wave function for two dimensional frustrated magnets: Emergence of a spin-liquid phase in the shastry-sutherland model, Phys. Rev. B 111 , 134411 (2025). [32] R. Rende, A. Nikolaenko, L. L. Viteritti, S. Sachdev, and Y.-H. Zhang, Transformer neural-network quantum states for lattice models of spins and fermions: Applica-tion to the ancilla layer model (2026), arXiv:2603.02316 [cond-mat.str-el]. [33] R. Rende, L. L. Viteritti, F. Becca, A. Scardicchio, A. Laio, and G. Carleo, Foundation neural-networks quantum states as a unified ansatz for multiple hamilto-nians, Nature Communications 16 , 10.1038/s41467-025-62098-x (2025). [34] K. Loehr and B. K. Clark, Enhancing neural network backflow (2025), arXiv:2510.26906 [cond-mat.str-el]. [35] J. Bardeen, L. N. Cooper, and J. R. Schrieffer, Theory of superconductivity, Phys. Rev. 108 , 1175 (1957). [36] R. Rende, F. Gerace, A. Laio, and S. Goldt, Mapping of attention mechanisms to a generalized potts model, Phys. Rev. Res. 6, 023057 (2024). [37] L. L. Viteritti, R. Rende, S. Sachdev, and G. Carleo, Ap-proaching the thermodynamic limit with neural-network quantum states (2026), arXiv:2602.02665 [cond-mat.str-el]. [38] R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Monte carlo calculations of coupled boson-fermion sys-tems. i, Phys. Rev. D 24 , 2278 (1981). [39] J. E. Hirsch, Two-dimensional hubbard model: Numeri-cal simulation study, Phys. Rev. B 31 , 4403 (1985). [40] D. J. Scalapino, S. R. White, and S. Zhang, Insulator, metal, or superconductor: The criteria, Phys. Rev. B 47 ,7995 (1993). [41] H. Xu, H. Shi, E. Vitali, M. Qin, and S. Zhang, Stripes and spin-density waves in the doped two-dimensional hubbard model: Ground state phase diagram, Phys. Rev. Res. 4, 013239 (2022). [42] R. Levy, M. A. Morales, and S. Zhang, Automatic or-der detection and restoration through systematically im-provable variational wave functions, Phys. Rev. Res. 6,013237 (2024). [43] N. Gao and S. G¨ unnemann, Neural pfaffians: Solv-ing many many-electron schr¨ odinger equations (2024), arXiv:2405.14762 [cs.LG]. [44] T. Mizusaki and M. Imada, Quantum-number projection in the path-integral renormalization group method, Phys. Rev. B 69 , 125110 (2004). [45] D. Tahara and M. Imada, Variational monte carlo method combined with quantum-number projection and multi-variable optimization, Journal of the Physical So-ciety of Japan 77 , 114701 (2008). [46] Y. Nomura, Helping restricted boltzmann machines with quantum-state representation by restoring symmetry, Journal of Physics: Condensed Matter 33 , 174003 (2021). [47] L. Viteritti, F. Ferrari, and F. Becca, Accuracy of re-stricted Boltzmann machines for the one-dimensional 
+
+J1 − J2 Heisenberg model, SciPost Phys. 12 , 166 (2022). [48] M. Reh, M. Schmitt, and M. G¨ arttner, Optimizing design choices for neural quantum states, Phys. Rev. B 107 ,195115 (2023). [49] R. Rende, L. L. Viteritti, L. Bardone, F. Becca, and S. Goldt, A simple linear algebra identity to optimize large-scale neural network quantum states, Communica-tions Physics 7, 10.1038/s42005-024-01732-4 (2024). [50] A. Chen and M. Heyl, Empowering deep neural quantum states through efficient optimization, Nature Physics 20 ,1476 (2024). [51] W.-J. Hu, F. Becca, A. Parola, and S. Sorella, Direct evidence for a gapless Z2 spin liquid by frustrating n´ eel antiferromagnetism, Phys. Rev. B 88 , 060402 (2013). [52] F. Becca, W.-J. Hu, Y. Iqbal, A. Parola, D. Poilblanc, and S. Sorella, Lanczos steps to improve variational wave functions, Journal of Physics: Conference Series 640 ,012039 (2015). [53] F. Becca and S. Sorella, Quantum Monte Carlo Ap-proaches for Correlated Systems (Cambridge University Press, 2017). [54] S. Sorella, Green function monte carlo with stochastic reconfiguration, Phys. Rev. Lett. 80 , 4558 (1998).

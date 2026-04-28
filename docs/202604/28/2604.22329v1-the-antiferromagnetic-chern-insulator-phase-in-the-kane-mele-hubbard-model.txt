@@ -1,0 +1,975 @@
+Title: The antiferromagnetic Chern insulator phase in the Kane-Mele-Hubbard model
+
+URL Source: https://arxiv.org/pdf/2604.22329v1
+
+Published Time: Mon, 27 Apr 2026 00:36:56 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+## The antiferromagnetic Chern insulator phase in the Kane-Mele-Hubbard model 
+
+Bao-Qing Wang, 1 Can Shao, 2 Takami Tohyama, 3 Hong-Gang Luo, 1, 4 and Hantao Lu 1, ∗
+
+> 1
+
+Lanzhou Center for Theoretical Physics, Key Laboratory of Quantum Theory and Applications of MoE, and Key Laboratory of Theoretical Physics of Gansu Province, Lanzhou University, Lanzhou 730000, China 
+
+> 2
+
+Department of Applied Physics and MIIT Key Laboratory of Semiconductor Microstructure and Quantum Sensing, Nanjing University of Science and Technology, Nanjing 210094, China 
+
+> 3
+
+Department of Applied Physics, Tokyo University of Science, Tokyo 125-8585, Japan 
+
+> 4
+
+Beijing Computational Science Research Center, Beijing 100084, China 
+
+(Dated: April 27, 2026) The emergence of the antiferromagnetic (AFM) Chern insulator (AFCI) phase in the Kane-Mele-Hubbard (KMH) model with a finite sublattice potential is investigated. The AFCI, characterized by AFM correlations coexisting with quantized Hall conductance, has long raised the question of whether it can exist in the KMH model that respects time-reversal symmetry (TRS). Using exact diagonalization, we analyze the excitation gap, anisotropic AFM correlations along the z axis and in the xy plane, and the fidelity susceptibility under twisted boundary conditions, all of which provide consistent evidence for the AFCI phase. In particular, our numerical evaluation on the (spin) Chern number reveals a breakdown of adiabatic continuity in the twist-angle space, indicating an instability toward TRS breaking driven by Hubbard-induced AFM perturbations. A modified computational scheme is further proposed, which yields a robust quantized Chern number C = 1 within this phase. 
+
+I. INTRODUCTION 
+
+The interplay between topology and strong correla-tions has become a central theme in modern condense matter physics [1, 2]. In particular, the emergence of interaction-driven magnetic orders, when combined with topologically nontrivial band structures, provides a fer-tile ground for exploring novel correlated topological phe-nomena. Such an interplay has led to the discovery of a variety of quantum phases with rich and unconventional topological characteristics. A prominent example is the antiferromagnetic Chern insulator (AFCI), characterized by antiferromagnetic (AFM) correlations coexisting with quantized Hall con-ductance. First proposed in Ref. [3] through an effec-tive and mean-field (MF) analysis of the spinful Haldane-Hubbard (HH) model, the quantum state combines AFM order that is robust against external magnetic pertur-bations, with spin-selective chiral edge modes protected by topology, offering potential advantages for spintronics and quantum computation. Since its original proposal, the AFCI phase has been identified in a number of theo-retical studies across distinct systems and platforms [4– 14], highlighting the universality of its formation mecha-nisms. In general, the AFCI phase arises when one spin sector forms a quantum Hall (QH) state while the other remains topologically trivial, necessitating genuine time-reversal symmetry (TRS) breaking that cannot be restored by any space-group operation [5, 7–9]. Consequently, a finite sublattice potential ∆ AB is typically required to stabilize the phase [14, 15]. Two paradigmatic unperturbed topological band structures have been widely employed in the study of the  
+
+> ∗luht@lzu.edu.cn
+
+AFCI. The first is the Haldane model on the honeycomb lattice [16], where TRS is broken explicitly and both spin components share identical dispersions. The second is the Kane-Mele (KM) model in which spin-orbit coupling (SOC) generates topologically nontrivial bands while pre-serving TRS [17, 18]. Other topologically nontrivial sys-tems, such as the Harper-Hofstadter model, have also been considered [6–9, 15]. On the interaction side, the onsite Hubbard U is typically adopted to capture corre-lation effects, although the influence of longer-range in-teractions, such as nearest-neighbor terms, has also been explored [7, 14, 19]. The existence of the AFCI phase in the HH model with sublattice potential ∆ AB , where TRS is explicitly broken at the single-particle level, has been firmly estab-lished through various approaches, including MF theory, dynamical mean-field theory (DMFT), exact diagonaliza-tion (ED), diagrammatic quantum Monte Carlo analysis, and density-matrix renormalization group (DMRG) cal-culations [3, 4, 20, 21]. In contrast, its realization in the Kane-Mele-Hubbard (KMH) model that preserves TRS, remains a subject of ongoing debate. MF studies on the KMH model with sublattice poten-tial suggests the appearance of the AFCI phase at large values of both U and ∆ AB [5, 22]. Slave-boson analyses from the strong-coupling limit yield qualitatively similar phase diagrams, with the magnetic boundaries shifted to higher U [5]. In contrast, determinant quantum Monte Carlo (DQMC) simulations, where the topological re-sponse is inferred from the compressibility under applied flux, have reported the absence of a quantum Hall phase, instead finding an incipient quantum spin Hall (QSH) phase at large U and ∆ AB , along with an extended qua-sisemimetallic region on the boundaries of the band insu-lator (BI) and QSH phases [23]. Interestingly, recent real-space DMFT studies of the Kane-Mele-Kondo (KMK) model—where interactions arise from the coupling be-
+
+> arXiv:2604.22329v1 [cond-mat.str-el] 24 Apr 2026
+
+2tween itinerant electrons and localized spins—have once again identified the AFCI phase [10, 11]. Motivated by these developments and the remaining controversy regarding the KMH model, we present in this work a detailed ED study of the half-filled KMH model with finite sublattice potential, focusing on the possible realization of the AFCI phase. As a numerically exact and unbiased approach, ED provides precise information on the ground state and low-lying excitations, provided that finite-size effects are properly controlled. Previous studies demonstrated that even relatively small clusters can capture the essential topological features of interact-ing systems, including edge conductance and topologi-cal transition points [24–26]. In particular, the (spin) Chern number can be computed directly by integrating the Berry curvature over the parameter space of bound-ary twists, offering a robust and gauge-invariant measure of topological character [27]. In this study, we identify a continuous region in the phase diagram—denoted as the C1 phase—characterized by a notably small excitation gap. The analysis of local observables, particularly the spin-density-wave (SDW) orders along the z axis and in the xy plane, reveals distinct behavior in this region compared with neigh-boring phases. Furthermore, the fidelity susceptibility with respect to twisted boundary conditions (TBC) indi-cates that the C1 phase possesses a distinct topological character. The breakdown of adiabatic continuity in the twist-angle space signals a tendency toward TRS break-ing driven by correlations. By introducing a modified numerical procedure for evaluating the Chern number, we find C = 1 within the C1 region, providing direct evidence for the AFCI phase in the KMH model. The remainder of this paper is organized as follows. In Sec. II we introduce the KMH model and define local SDW and charge-density-wave (CDW) orders. The nu-merical framework for evaluating topological invariants within ED is also outlined. In Sec. III, which consists of five subsections, we present the ED results and analyze the corresponding phase diagram in detail. Section IV provides an intuitive MF interpretation of the topolog-ical phase transitions in terms of an effective sublattice potential. Finally, we conclude our paper in Sec. V.  
+
+> II. MODEL AND OBSERVABLES
+
+In this article, we study the KMH model [28] at half filling in the presence of a staggered sublattice po-tential. By incorporating the onsite Hubbard interac-tion into the original Kane-Mele model [17, 18], the KMH model provides a paradigmatic framework for ex-ploring the interplay between SOC-induced topological band structures and electron-electron interactions in two-dimensional (2D) lattices.  
+
+> A. Model
+
+The Hamiltonian of the KMH model reads ˆH = ˆH0 + ˆHI, (1) with the noninteracting part [18] given by ˆH0 = −t1
+
+X
+
+> ⟨ij ⟩,σ
+
+c† 
+
+> iσ
+
+cjσ − it 2
+
+X
+
+> ≪ij ≫,σ
+
+νij c† 
+
+> iσ
+
+σz cjσ 
+
++∆ AB 
+
+X
+
+> i,σ
+
+ξi ˆniσ , (2) and the repulsive Hubbard-interaction part ( U > 0) ˆHI = U X
+
+> i
+
+ˆni↑ ˆni↓. (3) Here, c† 
+
+> iσ
+
+(ciσ ) denotes the creation (annihilation) op-erator for an electron with spin σ (σ =↑, ↓) at site i,and ˆ niσ = c† 
+
+> iσ
+
+ciσ is the corresponding number opera-tor. The nearest-neighbor (NN) and the next-nearest-neighbor (NNN) hopping amplitudes are denoted by t1
+
+and t2, respectively, while the staggered sublattice poten-tial is given by ∆ AB , with ξi = +1 ( −1) for sites i on sub-lattice A (B). The factor νij = ±1 in the intrinsic SOC term (associated with t2) encodes the chirality of the hop-ping path from site j to its NNN site i: say, a left turn yields +1 while a right turn yields −1 [16]. Throughout the paper, we focus on the ground-state phase diagram of the KMH model at half filling. We set the reduced Planck constant ℏ = 1 and t1 as the unit of energy. The NNN hopping amplitude t2 is fixed at 0 .2. In the noninteracting part of the Hamiltonian ˆH0, TRS is preserved by incorporating the Pauli matrix σz into the intrinsic SOC term. This inclusion assigns oppo-site signs to the hopping amplitudes for the two spin species, ensuring a total Chern number of zero. The ab-sence of the Rashba coupling guarantees the conserva-tion of the spin component Sz , allowing ˆH0 to decom-pose into two decoupled Haldane models for spin-up and spin-down electrons [16]. Each spin sector then carries a quantized Chern number—for instance, C↑ = +1 and 
+
+C↓ = −1 in the absence of ∆ AB —yielding a net spin Chern number Cs = 12 (C↑ − C↓) = 1 [29, 30]. This spin Chern number characterizes the QSH insulating phase realized in this regime. Conversely, the sublattice poten-tial ∆ AB explicitly breaks inversion symmetry, and in the absence of interaction drives the system into a topolog-ically trivial, charge-ordered band insulating (BI) state when ∆ AB > ∆c 
+
+> AB
+
+= 3 √3t2.Turning on the Hubbard interactions in ˆHI introduces electron-electron correlations into the system, enriching the phase diagram with a variety of competing phases (see, e.g., Fig. 1). In the large-U limit, the system is naturally expected to enter a topologically trivial phase with easy-plane AFM order [28]. However, owing to the 3sensitivity of the QSH-BI phase boundary to Hubbard-induced AFM perturbations, it is predicted by the mean-field analysis that the AFCI phase with Chern number 
+
+C = 1 emerges [5, 22]. In this phase, TRS is sponta-neously broken, and the AFM order reorients from the easy-plane to the easy-axis direction. The present work is devoted to a detailed study of this AFCI phase.  
+
+> B. Local orders
+
+To characterize various phases, both local order parameters—namely the SDW and CDW orders—and the topological invariants, including the Chern number and the spin Chern number, are evaluated in the study. The SDW and CDW orders dominate in the large-U
+
+and large-∆ AB limits, respectively. In the ED calcula-tion, the orders are quantified via the staggered structure factors, defined as follows [14, 19, 23]: 
+
+Szz  
+
+> AFM
+
+= 1
+
+N
+
+X
+
+> i,j
+
+(−1) η D ˆSzi ˆSzj
+
+E
+
+, (4a) 
+
+Sxy  
+
+> AFM
+
+= 14N
+
+X
+
+> i,j
+
+(−1) η D ˆS+ 
+
+> i
+
+ˆS− 
+
+> j
+
++ ˆS− 
+
+> i
+
+ˆS+
+
+> j
+
+E
+
+, (4b) 
+
+SCDW = 1
+
+N
+
+X
+
+> i,j
+
+(−1) η ⟨(ˆ ni↑ + ˆ ni↓) (ˆ nj↑ + ˆ nj↓)⟩ . (4c) In the above equations, η = 0 ( η = 1) if sites i and 
+
+j belong to the same (different) sublattice. The spin operators read ˆSzi = (ˆ ni↑ − ˆni↓) /2, ˆS+ 
+
+> i
+
+= c†
+
+> i↑
+
+ci↓, and so on. From these expressions, it is evident that SAFM 
+
+and SCDW characterize the AFM correlations and the charge modulations between the A and B sublattices, re-spectively. The previously mentioned BI phase exhibit-ing charge order is henceforth referred to as the CDW phase. In contrast to the HH model, it is essential in the KMH model to distinguish AFM correlations along the 
+
+z axis from those in the xy -plane since the intrinsic SOC [Eq. (2)] already reduces the spin symmetry from SU(2) to U(1). In contrast, within the MF calculation, the (overall) SDW and CDW order parameters can be written as 
+
+OSDW = 12
+
+D ⃗SA
+
+E
+
+−
+
+D⃗SB
+
+E 
+
+,
+
+OCDW =  nA 
+
+> ↑
+
++ nA
+
+> ↓
+
+ −  nB 
+
+> ↑
+
++ nB
+
+> ↓
+
+ . (5) Here, ⃗ SA(B) denotes the MF magnetization vector on the 
+
+A(B) sublattice, and nασ represents the MF expectation value of the spin-σ electron density on sublattice α. 
+
+> C. Topological invariants
+
+The classification of topological phases in quantum sys-tems fundamentally relies on integer-valued invariants that remain robust against adiabatic and continuous de-formations of the Hamiltonians [31–33]. Central to the present study are the Chern number [27] and spin Chern number [29, 34], which serve as the topological invari-ants characterizing the QH and QSH effects, respectively. These invariants are directly associated with the presence of symmetry-protected edge states and quantized trans-port responses. In noninteracting systems with translational symme-try, the Chern number of a given Bloch band with eigen-states |n(k)⟩ is computed by integrating the Berry cur-vature over the Brillouin zone [27] 
+
+Cn = 12π
+
+Z
+
+> BZ
+
+d2k F (k), (6) where the Berry curvature F (k) = ∂xAy (k) − ∂y Ax(k), and the connection Aμ(k) = −i ⟨n(k) |∂μ| n(k)⟩ for the band. Here, ∂μ ≡ ∂/∂k μ with μ = x, y .For a noninteracting system that preserves TRS, the total Chern number of the occupied bands, C = P 
+
+> n
+
+Cn,must vanish [35]. In such cases, the topological char-acter of the band structure is classified by a Z2 invari-ant [17, 29, 36]. However, if a system features decoupled spin channels with conserved Sz —as in the KM model without Rashba SOC—a spin Chern number can be de-fined alternatively as [29] 
+
+Cs = 12 (C↑ − C↓) , (7) where Cσ (σ =↑, ↓) denotes the Chern number for spin-σ
+
+channels. The corresponding Z2 invariant simply reads 
+
+ν = Cs mod 2 [31]. When interactions are introduced, as in the KMH model considered here, the Chern number of a many-body state can be evaluated by integrating the Berry curvature over a 2D parameter space ( θx, θ y ), rather than over the Brillouin zone [37–39] 
+
+C =
+
+Z Z dθx dθy
+
+2πi 
+
+ ∂Ψ
+
+∂θ x
+
+∂Ψ
+
+∂θ y
+
+
+
+−
+
+ ∂Ψ
+
+∂θ y
+
+∂Ψ
+
+∂θ x
+
+ 
+
+. (8) Here, θx (θy ) ∈ [0 , 2π) denotes the twist angle along the 
+
+x (y) direction in the TBC imposed on a finite lattice 
+
+cj+Lx ˆx = eiθ x cj , cj+Ly ˆy = eiθ y cj , (9) where j is a composite index labeling the lattice site in two dimensions, and the system size is assumed to be 
+
+Lx × Ly . These boundary conditions effectively place the system on a torus, with θx and θy corresponding to U(1) fluxes threaded through its noncontractible loops [40]. They serve as external gauge fields coupling to the many-body wavefunction, and the resulting parameter space (θx, θ y ) (denoted as θ space) plays the role of a gener-alized Brillouin zone for defining Berry curvature and topological invariants in interacting systems. Similarly, to compute the spin Chern number, one imposes a modified TBC, with spin-dependent twisting 4along the ˆ x direction and spin-independent twisting along the ˆ y direction as [29] 
+
+cj+Lx ˆx = eiθ xσz cj , cj+Ly ˆy = eiθ y cj . (10) This ensures that spin-↑ and spin-↓ electrons experience opposite fluxes along the ˆ y direction. The numerical evaluation of the integration in Eq. (8) can be efficiently performed in a discrete and gauge-invariant manner [41]. In our simulations, the eigen-state Ψ( θ)—typically the ground state—of the Hamil-tonian ˆH(θ) is obtained on a discrete grid in θ space, with θ = ( θx, θ y ), via the ED method. A lattice gauge field can then be constructed accordingly. The U(1) link variable is defined as 
+
+Uμ(θℓ) = ⟨Ψ ( θℓ) |Ψ ( θℓ + δθ μ) ⟩ /Nμ (θℓ) , (11) where θℓ denotes the grid point indexed by ℓ and δθ μ
+
+is the vector increment in the ˆμ direction of the θ-grid. The normalization factor is given by Nμ (θℓ) = 
+
+|⟨ Ψ ( θℓ) |Ψ ( θℓ + δθ μ) ⟩| . The lattice field strength ˜F is defined via the oriented product of link variables around a plaquette ˜F (θℓ) = arg Ux (θℓ) Uy (θℓ + δθ x) U −1 
+
+> x
+
+(θℓ + δθ y ) U −1 
+
+> y
+
+(θℓ) .
+
+(12) Finally, the (spin) Chern number—depending on whether the TBC in Eq. (9) or Eq. (10) is applied—can be estimated as 
+
+C = 12π
+
+X
+
+> ℓ
+
+˜F (θℓ) , (13) provided that the admissibility condition 
+
+|F (θℓ)| δθ xδθ y ≈ ˜F (θℓ) < π is satisfied across all plaquettes, where F (θℓ) is the Berry curvature evalu-ated at θℓ in the continuous limit [41]. The condition can, in principle, always be fulfilled with a sufficiently fine discretization, provided the gap-opening condition 
+
+holds and F (θℓ) is finite everywhere—namely, that no level (band) crossing occurs throughout θ space for the target state Ψ( θ) under continuous deformation of the Hamiltonian H(θ). In the following discussion, for clarity the lattice field strength is denoted as ˜F when the spin-independent TBC (9) is imposed, and as ˜Fs
+
+when the spin-dependent TBC (10) is imposed.   
+
+> III. EXACT DIAGONALIZATION RESULTS A. Phase diagram
+
+In this section, we use exact diagonalization to study the ground-state phase diagram of the KMH model (1) on the honeycomb lattice at half filling as a function of the Hubbard interaction U and the staggered potential ∆AB .0 5 10 15 20 
+
+# U
+
+# 02468
+
+> ∆AB
+
+# CDW 
+
+# Cs = 1 SDW 
+
+# Cs = 1    
+
+> C = 1
+> FIG. 1. ED Phase diagram of the KMH model (1) in the ( U,∆AB ) plane with fixed t2= 0 .2.
+
+Our ED calculations are performed on the so-called 12A cluster with periodic boundary condition (PBC) [19, 24], and the resulting phase diagram is presented in Fig. 1. For the honeycomb lattice, it has been recognized that mitigating finite-size effect and capturing essential features of the low-lying spectrum require selecting clus-ters whose reciprocal lattice contains the K points and other high-symmetry momenta [24, 25, 42]. This is par-ticular important because, in the noninteracting limit, the topological phase transition involves a band inver-sion at the K/K ′ points. Among all clusters up to size 18, the 12A cluster is notable for its favorable symmetry properties—its reciprocal lattice includes the Γ point, all the K points, and a pair of M points. (The detailed geometry of the 12A cluster and its k-point distribution can be found in Fig. 1 of Ref. [19].) A cluster with more complete symmetry, such as one with 24 sites, would be preferable; however, it lies beyond our current computa-tional capacity. In the phase diagram shown in Fig. 1, four distinct phases are identified. As expected, two topologically triv-ial phases emerge in the large-∆ AB and large-U regimes: a CDW phase characterized by charge ordering, and a SDW phase exhibiting AFM order. Supporting evi-dence for these orders is provided in Fig. 2(b) (show-ing Szz 
+
+> SDW
+
+) and Fig. 3(a) (showing various orders at fixed ∆AB = 4 .0). In contrast, the QSH phase with Cs = 1, which is stabilized in the small ∆ AB and U area, persists into the regime where both strengths are large, approx-imately following the line U ∼ 2∆ AB . This observation is consistent with those obtained from the DQMC sim-ulations [23], indicating that the competition between U
+
+and ∆ AB leaves room for the QSH phase to persist deep into the strong-coupling regime. A prominent feature of the phase diagram in Fig. 1 is the emergence of a fourth phase with Chern num-5ber C = 1. Denoted as C1 phase here and identified in later discussions as the AFCI phase, it extends along the CDW-QSH phase boundary from the weak- to strong-coupling regime. In this phase, associated with the spin symmetry breaking that lifts the spin degeneracy, a spon-taneous TRS breaking takes place and separates the spin sectors by their topological character, yielding a nonzero Chern number C = 1 [5]. While the existence of the AFCI phase in the HH model has been well established through various approaches [3, 4, 20, 21], its realization in the KMH model remains an open issue. Although both Hartree-Fock MF and slave-particle analyses suggest its presence [5, 22], recent DQMC results instead indicate a semimetallic region around the transition line between the CDW (BI) and QSH phases [23]. In the following Secs. III B and III C, we focus on this phase identified in our ED calculations and provide supporting evidence for its AFCI characters. Before closing this subsection, we briefly comment on several notable features of the AFCI phase in the phase diagram. One observation is that the AFCI phase emerges even at small U , provided ∆ AB is finite (e.g., it starts at ∆ AB ∼ 1 as U → 0 in Fig. 1), in contrast to the MF result [5, 22] (see also the MF phase diagram in Fig. 10). This extension of the AFCI phase into the weak-coupling regime closely resembles the behavior seen in the HH model, where it was corroborated by large-scale infinite-DMRG (iDMRG) studies [21]. This suggests a strong susceptibility of the CDW-QSH phase boundary to the Hubbard-induced AFM perturbations, leading to the stabilization of the AFCI phase between the two, even outside the strong-coupling regime. Another notable feature is the absence of a fork-like structure for the AFCI phase in the KMH model. In contrast, ED results for the HH model exhibit a bifur-cated AFCI region, with one branch appearing at small 
+
+U and finite ∆ AB (around ∆ AB ∼ 1 when U → 0, with the identical t2 = 0 .2), and another at small ∆ AB and finite U (around U ∼ 8 as ∆ AB → 0) [4, 42]. We believe that the latter branch is likely a finite-size effect, as it dis-appears in iDMRG calculation [21]. In our ED results on KMH, such bifurcation is absent. Instead, we observe a direct phase transition from the QSH phase to the SDW phase with increasing U . One noticeable feature is that despite the occurrence of the topological transition, the excitation gap remains sizable at the QSH/SDW phase boundaries [Figs. 2(a) and 3(a)]. We will address this issue further in Sec. III E. 
+
+B. C1 phase 
+
+In this subsection, we focus on the C = 1 (C1) phase in the phase diagram (Fig. 1), analyzing its properties from several perspectives, including the excitation gap, AFM and CDW correlations, and the fidelity susceptibil-ity with respect to TBC. We begin with the excitation gap ∆ ex . It is defined as 0 5 10 15 20 U02468∆AB 
+
+Cs = 1 
+
+C1SDW CDW (a)∆ ex 
+
+# 10 −3
+
+# 10 −1
+
+# 10 1
+
+# 0 5 10 15 20 U02468∆AB 
+
+Cs = 1 
+
+C1SDW CDW (b) Szz 
+
+> AFM
+
+# 10 −2
+
+# 10 −1
+
+FIG. 2. Contour plots of (a) the excitation gap ∆ ex and (b) the z-component of the AFM structure factor Szz 
+
+> AFM
+
+, shown as functions of the Hubbard interaction U and the sublattice potential ∆ AB .4 8 12 16 
+
+U
+
+0369  
+
+> SCDW , ∆c SDW C1 Cs= 1 CDW
+> (a)
+> ∆c
+> ∆ex
+> SCDW
+> Szz
+> AFM
+> Sxy
+> AFM
+
+012
+
+> ∆ex , S zz
+> AFM , S xy
+> AFM
+
+4 8 12 16 
+
+U
+
+020 40   
+
+> χF SDW C1 Cs= 1 CDW
+> (b)
+
+FIG. 3. (a) CDW and SDW structure factors, SCDW , Szz 
+
+> AFM
+
+,and Sxy 
+
+> AFM
+
+, along with the excitation gap ∆ ex and the single-particle charge gap ∆ c. (b) Fidelity susceptibility χF with respect to twisted boundary conditions. All quantities are plotted as functions of U at fixed ∆ AB = 4 .0. The dashed vertical lines mark the phase boundaries determined from the topological invariant calculations. 6the energy difference between the first excited state and the ground state, ∆ ex = E1 −E0, in the many-body spec-trum with fixed particle numbers and spins (for the 12A cluster, N↑ = N↓ = 6). To illustrate its overall behavior, Fig. 2(a) shows the ED results for ∆ ex as functions of U
+
+and ∆ AB in a contour plot. Additionally, results at fixed ∆AB = 4 .0 are displayed in Fig. 3(a). The contour plot of ∆ ex [Fig. 2(a)] reveals a region which, coinciding with the C = 1 phase in the phase diagram [Fig. 1], is characterized by a very small exci-tation gap, with a maximum of only around 0 .05, span-ning from the weak- to strong-coupling regimes of the phase diagram. At ∆ AB = 4 .0, the region lies within 
+
+U ∈ [7 .04 , 9.34] [Fig. 3(a)]. Figure 2(b) shows the contour plot of the z-component AFM structure factor Szz  
+
+> AFM
+
+[Eq. (4a)]. Compared with the neighboring CDW and QSH ( Cs = 1) phases, the C1 phase exhibits stronger AFM correlations, consistent with the characteristics of the AFCI. Further details on the CDW and SDW correlations—particularly the AFM order along the z axis versus that within the xy plane— are presented in Fig. 3(a). All CDW and SDW structure factors display discontinuities at the phase boundaries of the C1 phase, signaling a phase transition. Impor-tantly, within the C1 phase, AFM correlations along the 
+
+z axis dominate over those in the xy plane, in contrast to the SDW phase where the later are favored, consis-tent with previous results [2, 5, 28]. We emphasize that the dominance of the AFM moment along the z axis is a key feature associated with the emergence of the AFCI phase [5, 23]. Additionally, in Fig. 3(a), we present the ED result on the single-particle charge gap ∆ c alongside with the many-body excitation gap ∆ ex . The charge gap is defined as ∆c = 12 [E0 (N↑ + 1 , N ↓ + 1) + E0 (N↑ − 1, N ↓ − 1)] 
+
+− E0(N ), (14) where E0 denotes the ground-state energy and N =
+
+N↑ + N↓. We find that although ∆ c remains finite in all four phases, it exhibits a pronounced dip at the CDW-C1 phase boundary. Moreover, within the C1 phase, ∆ c
+
+increases with U at a noticeably reduced rate. We note that in the DQMC simulations, the corresponding pa-rameter regime is identified as an extended semimetal-lic region between the CDW and QSH phases based on compressibility calculation, signaling a tendency toward charge-gap closing [23]. To demonstrate that the C1 phase possesses topo-logical characteristics distinguishing it from neighbor-ing phases, we calculate the fidelity susceptibility [43–45] with respect to TBC, which is defined as 
+
+χF = 2
+
+N
+
+1 − |⟨ Ψ0(0) |Ψ0(δθ ) ⟩| 
+
+(δθ )2 , (15) where N is the lattice size, |Ψ0(δθ )⟩ is the ground state under TBC with twist angle δθ (|Ψ0(0) ⟩ corresponds to the ground state under PBC). The quantity χF , ac-cording to the definition, measures the sensibility of the ground state to a small change in the boundary condi-tion. In our calculation, we apply the spin-independent TBC (9) with δθ = 0 .01 along the ˆ x direction. The re-sults for fixed ∆ AB = 4 .0 are shown in Fig. 3(b). We note that choosing δθ along the ˆ y direction or applying the spin-dependent TBC of Eq. (10) yields qualitatively similar results. As shown in Fig. 3(b), peaks in the fidelity suscepti-bility χF appear at the boundaries between the CDW, C1, and QSH phases. This indicates that, being sand-wiched between the topologically trivial CDW phase and the nontrivial QSH phase with Cs = 1, the C1 phase must possess a distinct topological character. However, due to the TRS of the KMH Hamiltonian (1), which cannot be spontaneously broken in finite-size ED calculations, the Chern number C obtained using spin-independent TBC (9) remains zero in all phases [Fig. 4(a)]. In con-trast, with careful treatment, the spin Chern number Cs
+
+[Eq. (7)] extracted under spin-dependent TBC (10) takes the value 1 /2 in the C1 phase. In the next Sec. III C, we present a modified algorithm that yields a nonzero Chern number C = 1 for the C1 phase. Additionally, we notice the absence of a χF peak at the QSH-SDW transition in Fig. 3(b), where the SDW phase is topologically trivial. This absence arises from the lack of the gap closing under PBC, an issue we will return to in Sec. III E. The above analysis on the AFM order, topological in-variants, and the fidelity susceptibility with respect to TBC indicates that the C1 phase exhibits the essential characteristics of the AFCI. The excitation gap in this phase is found to be very small. While the charge gap stays finite, it reaches a minimum at the CDW-C1 phase boundary and grows only weakly with increasing U , remi-niscent of the semimetallic scenario proposed in Ref. [23]. Overall, the question of the existence and stability of the AFCI in the KMH model remains open and requires fur-ther evidence and cross-validation from different meth-ods.  
+
+> C. Modified algorithm for the Chern number
+
+In Fig. 4(a), we use the spin-independent and spin-dependent TBCs, defined in Eqs. (9) and (10), to com-pute the Chern number and the spin Chern number on the discretized θ space [41], at fixed ∆ AB . The spin Chern number Cs [Eq. (7)] is found to be 1 /2 in the C1 phase. This result naturally suggests that the C1 phase corresponds to the AFCI, with one spin sector be-ing topologically nontrivial while other remains trivial. In this case, TRS should be broken, and the resulting Chern number in the C1 phase should equal 1. How-ever, as shown in Fig. 4(a), this does not occur in our ED calculation. This outcome sounds reasonable since the spontaneous TRS breaking cannot occur in finite-74 8 12 16 
+
+U
+
+01   
+
+> C, C s
+> SDW C1Cs= 1 CDW
+> (a) CCs
+
+4 8 12 16 
+
+U
+
+01  
+
+> SDW C1Cs= 1 CDW
+> (b)
+
+FIG. 4. Evaluation of the Chern number C and spin Chern number Cs as functions of U at fixed ∆ AB = 4 .0. Panel (a) shows the results obtained using conventional methods, while panel (b) presents those obtained with the modified algorithm described in the text. 
+
+size systems governed by a TRS Hamiltonian, and all eigenstates necessarily respect TRS. Consequently, one might expect that the Chern number remains zero in all phases [35]. However, for the C1 phase, recall that the excitation gap obtained under PBC is found to be ubiquitous small. We therefore surmise that, with TBC applied—which breaks translational invariance as well as TRS at the boundary —the adiabaticity condition (i.e., the require-ment of a finite gap) may fail, leading to a violation of the admissibility condition for applying Eq. (13) and thereby invalidating the standard numerical approach. To examine the possible breakdown of adiabaticity, we calculate the excitation gap ∆ ex and the lattice field strength ˜F on a fine 100 × 100 grid over the toroidal 
+
+θ space. The results for a representative parameter set, (∆ AB , U ) = (4 .0, 8.0), are shown in Fig. 5. Un-der this discretization, ˜F appears to develop a pair of singularity-like values (with magnitude close to π but op-posite in sign ) at ( θx, θ y ) = 2 π   4100 , 96 100 
+
+ and ( θx, θ y ) = 2π   96 100 , 4100 
+
+. The shorter distance between the two points, measured along the antidiagonal, is 0 .08 √2 × 2π.Away from them, ˜F tends towards zero. Correspond-ingly, the excitation gap ∆ ex shows minima of order 
+
+∼ 0.01 at the same locations. These points appear embedded in a continuous, isolated region of θ space where ∆ ex remains small [visible as the red-shifted area in Fig. 5(a)], covering roughly a little more than 8 × 8plaquettes in total. The above observations suggest that at the identified twist angles associated with the singularities in ˜F , true 
+
+level crossings, potentially responsible for the breakdown of adiabaticity, may occur [25]. To confirm this, we com-pute the ground-state energy E0 and the first excitation energy E1 along the antidiagonal direction as functions of θx. As shown in Fig. 6(a), level crossings—rather than avoided ones—occur at the two singular points, and be-tween them the ground state and the first excited state exchange their positions. This phenomenon is further corroborated by the behavior of the magnitude of the unnormalized U(1) link variable ˜U along the antidiago-0 π 2πθx
+
+# 0
+
+# π
+
+# 2πθy
+
+(a)∆ ex 
+
+# 0.009 2.058 
+
+# 0 π 2πθx
+
+# 0
+
+# π
+
+# 2πθy
+
+(b) ˜F
+
+Singularity (+) Singularity ( −)
+
+# -3.130 0.000 3.130 
+
+FIG. 5. (a) Excitation gap ∆ ex and (b) lattice field strength ˜F [Eq. (12)] as functions of twist angles ( θx, θ y ) under spin-independent TBCs. Dashed boundaries in (b) denote the swap region, where the Berry curvature is evaluated using the first exited state of ˆH(θ) instead of the ground state. See the main text for details. Parameters: ∆ AB = 4 .0 and U = 8 .0. 1.6 π 2π 2.4 π
+
+θx
+
+−14 .5
+
+−14 .0
+
+−13 .5
+
+−13 .0 (a) Eα 
+
+> SP (+) SP ( −)
+> E0
+> E1
+
+1.6 π 2π 2.4 π
+
+θx
+
+0.00.51.0 
+
+> SP (+) SP ( −)
+> (b) ˜U
+
+FIG. 6. (a) Ground-state energy E0 and first excitation en-ergy E1, and (b) magnitude of the unnormalized U(1) link ˜U , defined as ˜U (θℓ, δθ ℓ) = |⟨ Ψ ( θℓ) |Ψ ( θℓ + δθ ℓ) ⟩| , plotted as functions of θx along the antidiagonal line in θ space. “SP” denotes a singular point. Parameters: ∆ AB = 4 .0 and 
+
+U = 8 .0. 8nal, shown in Fig. 6(b). At the two crossing points, ˜U
+
+exhibits sharp dips toward zero, signaling the level cross-ings, while elsewhere it remains close to unity. Such breakdown of adiabaticity, arising from level crossings between the ground and the first excited states and signaled by the appearance of paired singularities in the lattice field strength ˜F , are ubiquitously observed in the C1 phase. These paired singularities consistently lie along the antidiagonal direction and are symmetrically positioned about the origin in θ space. Their separation varies across the phase diagram, reaching up to about 8% of the total antidiagonal length, while becoming smaller in the vicinity of the C1 phase boundary. With this picture in mind, and noting that the level crossings are generally confined to a narrow region in 
+
+θ space, we propose a simple—albeit crude—remedy. Specifically, a swap region encompassing the singulari-ties [for instance, in Fig. 5(b), an 8 × 8 plaquette region enclosed by dashed boundaries and centered at the ori-gin]. Within this region, when evaluating the U(1) link [Eq. (11)], we use the first excited state of of ˆH(θ) in place of the ground state. This substitution allows us to more smoothly follow the evolution of the targeted wavefunction across the θ space, thereby mitigating the severity of singularities in the curvature estimation. Figure 4(b) shows the result of the modified Chern number calculation at ∆ AB = 4 .0, which yields C = 1 in the C1 phase. The numerical procedure remains stable within this phase, provided that the square region where the first excited state is used encompasses the singulari-ties; this region may exceed the minimal size and extend up to 15 × 15 plaquettes on the 100 × 100 grid in θ space. In the other phases, such level crossings are absent, and the standard algorithm suffices.  
+
+> D. Phase diagram of the KMH model with mass imbalance
+
+In the previous two subsections, we presented evidence for the existence of the AFCI phase in the KMH model based on AFM orders, fidelity susceptibility, and (spin) Chern number calculations. In particular, we propose a modified algorithm for Chern number evaluation that remains valid even when the gap-opening condition under TBCs is not satisfied, successfully yielding C = 1 for the C1 phase. In this subsection, we examine the phase diagram of the KMH Hamiltonian with a finite mass imbalance in the NN hoppings, defined as ˆHt1 = − X
+
+> ⟨ij ⟩,σ
+
+(t1 + σz δ) c† 
+
+> iσ
+
+cjσ , (16) where δ denotes the imbalance strength. The motivation of introducing mass imbalance [4, 46– 48] is to probe the system’s response to explicit TRS breaking in a controlled fashion. It can be expected 0 5 10 15 20 
+
+# U
+
+# 02468
+
+> ∆AB
+
+# CDW 
+
+> C = 1
+
+# Cs = 1 SDW            
+
+> FIG. 7. ED phase diagram of the KMH Hamiltonian (1) with mass imbalance δ=0.1 (16). Notably, without in-teraction ( U= 0), the C= 1 phase appears in the range ∆AB ∈[0 .95 ,1.08].
+
+that the spin-dependent modulation on NN hoppings can enhance the susceptibility to the Hubbard-induced AFM perturbations, thereby facilitating the emergence and stabilization of the AFCI phase. Figure 7 shows the ED phase diagram of the KMH model with a finite mass imbalance δ = 0 .1. The over-all structure closely resembles that of the balanced case (Fig. 1), but the C = 1 region expands, while the QSH phase is slightly reduced. Remarkably, even in the nonin-teracting limit ( U = 0), the AFCI phase already appears within ∆ AB ∈ [0 .95 , 1.08]. This follows from the spin dependence of the resulting effective staggered potential induced by the mass imbalance. With mass imbalance present, the Chern number of the AFCI phase can be computed using the standard proce-dure since no level crossings occur under TBCs and adi-abatic continuity is preserved throughout θ space. The robustness of the C = 1 phase under finite mass imbal-ance suggests that introducing such an imbalance offers a practical route to experimentally realize and stabilize the AFCI phase in KMH-related systems.  
+
+> E. Gap closing at the QSH-SDW phase boundary
+
+From the ED results on the 12A cluster presented in Sec. III B, we observed that the excitation gap re-mains open under PBC at the QSH-SDW phase bound-ary [Figs. 2(a)]. Consequently, the structures factors vary smoothly [Fig. 3(a)], and the fidelity susceptibility χF ex-hibits no peak at the transition point [Fig. 3(b)]. How-ever, the transition from the QSH phase with spin Chern number Cs = 1 to the topologically trivial SDW phase is, by nature, a topological transition. Thus, with the 90 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(a) ∆ ex  
+
+> 0.787 0.280
+
+0 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(b) ˜Fs
+
+> 0.000 0.014
+
+0 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(c) ∆ ex 
+
+> 0.008 0.536
+
+0 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(d) ˜Fs
+
+> 0.000 1.250
+
+0 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(e) ∆ ex 
+
+> 0.104 0.408
+
+0 π 2π
+
+θx
+
+0
+
+π
+
+2π
+
+> θy
+
+(f) ˜Fs
+
+> -0.023 0.000 0.001
+
+FIG. 8. Excitation gap ∆ ex and lattice field strength ˜Fs as functions of the twisted angles ( θx, θ y ) under spin-dependent TBCs (10), with sublattice potential fixed at ∆ AB = 0 .5. (a,b) Results at U = 7 .0 (QSH phase); (c,d) U = 8 .95 (near the phase boundary); (e,f) U = 11 .0 (SDW phase). Calcula-tions are performed on a 100 × 100 grid in θ space. 
+
+change of the topological invariant, the many-body gap (or the band gap in the noninteracting case) must close at the transition point, provided that the system’s sym-metry is preserved throughout the process [49]. To clarify the issue, we examine the excitation gap ∆ ex 
+
+and the lattice field strength ˜Fs under spin-dependent TBCs (10) along a horizontal cut of the ED phase di-agram [Fig. 1] at fixed ∆ AB = 0 .5. As the interaction strength U increases, the system undergoes a topological phase transition from the QSH to the SDW phase. Rep-resentative results for U = 7 .0 (QSH phase), U = 8 .95 (near the transition), and U = 11 .0 (SDW phase) are shown in Fig. 8. From Fig. 8, we see that within both the QSH and SDW phases the system remains well gapped across the entire θ space [Figs. 8(a) and 8(e)], and the lattice field strength ˜Fs remains smooth, small in magnitude, and free of singularities. In contrast, at U = 8 .95, close to the critical point, two local minima of the excitation gap ∆AB emerge at ( θx, θ y ) = 2 π  0, 24 100 
+
+ and 2 π  0, 74 100 
+
+
+
+[Fig. 8(c)]. Correspondingly, ˜Fs develops singularity-like features with magnitude of order unity at these positions 0 4 8 12 16 20 
+
+# U
+
+# 0.00.51.01.5
+
+> ∆ex
+
+## SDW Cs = 1 
+
+∆PBC ex 
+
+∆TBC ex 
+
+FIG. 9. Evolution of the excitation gaps as functions of U
+
+under PBC and spin-dependent TBCs (10), denoted by ∆ PBC ex 
+
+and ∆ TBC ex , respectively. The values of ∆ TBC ex are obtained as the minimum excitation gap over the entire θ space. The sublattice potential is fixed at ∆ AB = 0 .5. 
+
+[Fig. 8(d)]. Figure 9 presents the evolution of the excitation gaps as functions of U under PBC and spin-dependent TBCs, respectively. The quantity ∆ TBC ex , defined as the mini-mum excitation gap over the full θ space, is observed to approach zero at the transition point. We further find that the deviation between ∆ PBC ex and ∆ TBC ex is maximal at the QSH-SDW phase boundary and is suppressed in both weak- and strong-coupling limits, which may in-dicate enhanced quantum fluctuations and pronounced finite-size effects near the transition. These observations suggest that, to accommodate the change of topological numbers across the phase transi-tion, the many-body excitation gap is expected to close at certain points in θ space at the transition. In the present case, the closing points are distinct from the ze-ros corresponding to PBC. The apparent absence of gap closing under PBC leads to smooth behavior in the struc-ture factors [Fig. 3(a)] and the absence of any pronounced peak in the fidelity susceptibility [Fig. 3(b)]. A simi-lar phenomenon was reported in ED calculation of the HH model with sublattice potentials on the same clus-ter [42], where at the phase boundary between the AFCI and C = 2 phases the gap-closing point was close to, but distinct from, the origin (PBC). In contrast, for the KMH model studied here, the closing occurs at shifted points in θ space. We note that the DQMC study of the compressibility indicates that the charge gap remains finite during the QSH-SDW transition [23, 50]. 
+
+IV. MEAN-FIELD RESULTS 
+
+In this section, we briefly summarize the Hartree-Fock MF results for the KMH model (1). Specific attention is paid to the evaluation of the (spin) Chern number in terms of the effective Dirac masses in the MF Hamilto-10 nian [14, 21], which provides an intuitive understanding of the emergence of the AFCI phase at the MF level. The MF Hamiltonian of the KMH model with sub-lattice potential ∆ AB in the momentum space takes the form ˆHMF = ˆH0 + X
+
+> k
+
+ˆψ†
+
+> k
+
+
+
+εA 
+
+> ↑
+
+0 εA 
+
+> ↑↓
+
+00 εB 
+
+> ↑
+
+0 εB
+
+> ↑↓
+
+ε∗A 
+
+> ↑↓
+
+0 εA 
+
+> ↓
+
+00 ε∗B 
+
+> ↑↓
+
+0 εB
+
+> ↓
+
+ ˆψk, (17) where ˆH0 is the noninteracting Hamiltonian (2) and ˆψ† 
+
+> k
+
+=h
+
+a† 
+
+> k↑
+
+b† 
+
+> k↑
+
+a† 
+
+> k↓
+
+b†
+
+> k↓
+
+i
+
+. Here, a (a†) and b (b†) denote the annihilation (creation) operators for electrons on the A
+
+and B sublattices, respectively. The matrix elements in the second term of ˆHMF (17) arise from the MF decoupling of the interaction term 
+
+HI (3), and are given by 
+
+εA/B 
+
+> σ
+
+= U n A/B¯σ ,εA 
+
+> ↑↓
+
+= − UN
+
+X
+
+> q
+
+D
+
+a†
+
+> q↓
+
+aq↑
+
+E
+
+> MF
+
+,εB 
+
+> ↑↓
+
+= − UN
+
+X
+
+> q
+
+D
+
+b†
+
+> q↓
+
+bq↑
+
+E
+
+> MF
+
+, (18) where nA 
+
+> σ
+
+= 1
+
+> N
+
+P 
+
+> q
+
+a† 
+
+> qσ
+
+aqσ MF (and similarly for nB 
+
+> σ
+
+), and ¯ σ denotes the spin opposite to σ. The averages ⟨· · · ⟩ 
+
+are evaluated in the grand-canonical ensemble with re-spect to the MF Hamiltonian at sufficiently low tem-perature, with the chemical potential determined self-consistently at fixed filling. Convergence of the MF solution is typically monitored through the free energy. In the present calculation, the MF parameters converge already on a 30 × 30 lattice, exhibiting only weak size dependence. Further details can be found, e.g., in Refs. [14, 19, 21]. Figure 10 shows the MF phase diagram of the KMH model (1) at fixed t2 = 0 .2, obtained from the MF order parameters (SDW and CDW; not shown), together with the topological invariants ( C and Cs) of the MF Hamilto-nian (17). The procedure follows standard practice, and the results are consistent with previous studies [5]. In the following, we focus on the emergence of the AFCI phase in the KMH model at the MF level. It is well known that, analogous to the Haldane model [16], the band topology of the KM model with only intrinsic SOC [Eq. (2)] is determined by the signs of the Dirac masses at the valleys K and K′. These take the form ±3√3t2σz , where the sign distinguishes the two valleys and σz the two spin components. The opposite signs of the Dirac masses at K and K′ yield a nonzero Chern number for the occupied band. The presence of TRS in the KM model enforces opposite Chern numbers for the two spin sectors, e.g., C↑ = 1 and C↓ = −1, giving a vanishing total Chern number but a finite spin Chern number Cs = 1 [Eq. (7)]. 0 2 4 6 8 10 
+
+# U
+
+# 012345
+
+> ∆AB
+
+# CDW 
+
+> C = 1
+
+# Cs = 1 SDW       
+
+> FIG. 10. MF phase diagram of the KMH model (1) in the (U, ∆AB ) plane with fixed t2= 0 .2, obtained on a 30 ×30 lattice.
+
+Introducing a sublattice potential modifies the mass term to mσ = ∆ AB ± 3√3t2σz . With sufficiently large sublattice potential (to be precise, when ∆ AB > 3√3t2), the sign difference of the Dirac masses between the two valleys disappears for each spin component, eliminating band inversion and driving the system into a topologi-cally trivial band-insulating phase. The Hubbard interaction [Eq. (3)] further renormal-izes the mass term at the MF level. Examining the second term of the MF Hamiltonian (17), one sees that the Hartree-Fock decoupling produces momentum-independent matrix elements. Among these, the diagonal Hartree terms yield an effective spin-dependent sublat-tice potential, given by 
+
+δσ 
+
+> MF
+
+= ∆ AB + 12
+
+ εA 
+
+> σ
+
+− εB
+
+> σ
+
+ = ∆ AB + U
+
+2
+
+ nA¯σ − nB¯σ
+
+ . (19) Accordingly, the effective Dirac mass becomes 
+
+mσ = δσ 
+
+> MF
+
+± 3√3t2σz . (20) Note that Eq. (19) implies that the difference between the effective sublattice potentials of the two spin components is given by ∆δ↑↓  
+
+> MF
+
+= U
+
+2
+
+ σB 
+
+> z
+
+− σA
+
+> z
+
+ , (21) where σA/B 
+
+> z
+
+= nA/B 
+
+> ↑
+
+− nA/B 
+
+> ↓
+
+.This observation indicates that in the presence of AFM order along the z direction, which breaks spin-rotation symmetry, an additional phase may arise between the QSH and trivial phases. Specifically, if δσ 
+
+> MF
+
+is large enough to trivialize one spin component but not the other, a phase with net Chern number C = 1 emerges. This phase, characterized by correlation-driven AFM or-der along z, is known to be the AFCI phase [3–5]. 11 2 3 4 5 6 7U0.00.51.01.5
+
+> C/C s
+
+# CDW Cs = 1 C = 1 SDW (a) C
+
+> Cs
+
+# 2 3 4 5 6 7U
+
+# −20 
+
+# −10 010 20 
+
+> δσ
+> MF /t 2
+
+# CDW Cs = 1 C = 1 SDW (b) δ↑                          
+
+> MF
+> δ↓
+> MF
+> FIG. 11. MF analysis of the topological phase transitions in the KMH model (1) for fixed ∆ AB = 1 .8. As the Hubbard interaction Uincreases, the system undergoes successive tran-sitions CDW →QSH ( Cs= 1) →AFCI ( C= 1) →SDW, with critical values U= 2 .93, 4 .13 and 5 .52, respectively. Ver-tical dashed lines in both panels mark the phase boundaries obtained from the topological invariants Cand Cs, evalu-ated via conventional methods in terms of the MF Hamilto-nian (17). In (a), the solid lines for the (spin) Chern number
+> C(Cs) are obtained from the effective Dirac mass (20), as explained in the text. Panel (b) shows the effective spin-resolved sublattice potential δσ
+> MF (19) as a function of Ufor both spin species. The shaded region indicates the parameter range where |δσ
+> MF /t 2|<3√3.
+
+The correlation-driven topological phase transitions at the MF level are illustrated in Fig. 11. For fixed ∆ AB =1.8, the figure shows the MF results for the spin-resolved effective sublattice potential as functions of U , together with the corresponding topological invariants C and Cs
+
+obtained from the effective Dirac mass [Eq. (20)]. As we observe that at fixed ∆ AB = 1 .8, increasing U
+
+drives a sequence of topological phase transitions CDW 
+
+→ QSH → AFCI → SDW. In the topologically trivial phases (CDW and SDW), the effective sublattice poten-tials satisfy δ↑/↓ 
+
+> MF
+
+/t 2 > 3√3 [outside the shaded region in Fig. 11(b)], indicating that the MF occupied bands of both spin components are trivial. In the QSH phase, the condition reverses to δ↑/↓ 
+
+> MF
+
+/t 2 < 3√3 [inside the shaded region as shown in Fig. 11(b)], so that both occupied bands are topologically nontrivial. Because the sign of the t2 term flips between spins in the effective Dirac mass (20), the two spin bands carry opposite Chern num-bers, giving Cs = 1. In contrast, in the C = 1 AFCI phase located be-tween the QSH and SDW phases, the degeneracy of δσ
+
+> MF
+
+is lifted: one spin component remains inside the shaded region of Fig. 11(b), while the other goes outside. Conse-quently, the two bands split into topologically nontrivial and trivial sectors, yielding a net Chern number C = 1. As shown in Fig. 11(a), the phase boundaries extracted from the effective Dirac mass agree well with those ob-tained by the conventional Berry-curvature calculation based on the MF Hamiltonian (17). A key feature of δσ 
+
+> MF
+
+in Fig. 11(b) is that its spin degeneracy is lifted only in the AFCI phase, while it remains intact in all other phases, including the SDW. This behavior is consistent with the MF results for AFM orders [5]: the degeneracy lifting in the AFCI phase arises from a symmetry-breaking AFM order along the z
+
+axis [see Eq. (21)], whereas in the SDW phase the AFM correlations are confined to the xy plane, preserving z-symmetry. This contrasts with the situation in the HH model [21], and explains why δσ 
+
+> MF
+
+remains degenerate in the SDW phase. While the Hartree-Fock approach used here captures the AFCI phase qualitatively, it is prone to overestimate symmetry-breaking tendencies and may therefore yield quantitative discrepancies. More sophisticated treat-ments, such as slave-boson calculations that account for strong correlations more accurately, shift the phase boundaries to higher U but leave the topological struc-ture of the phase diagram intact [5]. This highlights the robustness of the AFCI phase and confirms its intrinsic origin in the interplay among SOC, sublattice symmetry breaking, and Hubbard interactions.  
+
+> V. SUMMARY AND CONCLUSION
+
+In this work, we present compelling evidence for the AFCI phase in the phase diagram of the KMH model with a staggered sublattice potential. Our ED results— based on analyses of the excitation gap, anisotropic AFM correlations, fidelity susceptibility with respect to TBCs, and (spin) Chern number evaluations—demonstrate the emergence of a topologically nontrivial phase that spon-taneously breaks TRS. This phase arises from the inter-play between band topology and electron-electron inter-actions. It is characterized by reoriented AFM correla-tions coexisting with the breakdown of the shared topo-logical character between the two spin species, with one being topologically nontrivial and the other trivial, giv-12 ing rise to a quantized Chern number C = 1. At the MF level, this phenomenon can be understood in terms of an effective spin-dependent sublattice potential. More specifically, we show that although the KMH Hamiltonian itself respects TRS, the system develops an intrinsic instability towards TRS breaking when subject to Hubbard-driven AFM perturbations. This instability emerges near the CDW-QSH phase boundaries, where the excitation gap is small and AFM correlations are anomalously enhanced. It manifests as a violation of the adiabatic continuity condition under TBCs: true level crossings occur at gap-closing points in θ space, accom-panied by singularities in the lattice field strength of the Berry curvature. To address this, we introduce a modi-fied algorithm for Chern number calculations that tracks the smooth evolution of the target wavefunction across the level-crossing region in θ space. This method success-fully captures the TRS-breaking character of the AFCI phase and yields a robust Chern number C = 1. Experiments with cold atoms in optical lattices have established highly tunable platforms for simulating a va-riety of important models in condensed matter physics (see, e.g., Refs. [51–55]). With further developments, the investigation of the AFCI phase in KMH-related systems on these platforms may become accessible. In parallel, recent advances in transition-metal dichalcogenide moir´ e superlattices—particularly in MoTe 2 and WSe 2—offer another promising avenue for investigating the interplay between strong correlations and topology [56–65]. In such twisted bilayer systems, for example, the effective sublattice potential relevant to the KMH model can be tune by applying an out-of-plane electric field [22], thereby providing a controlled setting for examining AFCI-related phenomena. 
+
+ACKNOWLEDGMENTS 
+
+We thank Rubem Mondaini and Eduardo V. Cas-tro for the helpful discussions. B.-Q.W and H.L. ac-knowledge support from the National Natural Science Foundation of China (NSFC; Grants No. 12174168 and No. 12247101). C.S. acknowledges support from NSFC (Grant No.12104229) and the Fundamental Re-search Funds for the Central Universities (Grant No. 30922010803). H.-G.L. acknowledges funding from NSFC (Grants No. 11834005) and the National Key Re-search and Development Program of China (Grant No. 2022YFA1402704). T.T. is partly supported by the Japan Society for the Promotion of Science, KAKENHI (Grant No. 24K00560 and No. 25H01248) from the Min-istry of Education, Culture, Sports, Science, and Tech-nology, Japan. 
+
+[1] M. Hohenadler and F. F. Assaad, Correlation effects in two-dimensional topological insulators, J. Phys.: Con-dens. Matter 25 , 143201 (2013). [2] S. Rachel, Interacting topological insulators: a review, Rep. Prog. Phys. 81 , 116501 (2018). [3] J. He, Y.-H. Zong, S.-P. Kou, Y. Liang, and S. Feng, Topological spin density waves in the Hubbard model on a honeycomb lattice, Phys. Rev. B 84 , 035127 (2011). [4] T. I. Vanhala, T. Siro, L. Liang, M. Troyer, A. Harju, and P. T¨ orm¨ a, Topological phase transitions in the repul-sively interacting Haldane-Hubbard model, Phys. Rev. Lett. 116 , 225305 (2016). [5] K. Jiang, S. Zhou, X. Dai, and Z. Wang, Antiferromag-netic Chern insulators in noncentrosymmetric systems, Phys. Rev. Lett. 120 , 157205 (2018). [6] Y.-X. Wang and F. Li, Repulsive Fermi gases in a two-dimensional lattice with non-Abelian gauge fields, EPL 
+
+123 , 37001 (2018). [7] Y.-X. Wang and D.-X. Qi, Spontaneous symmetry break-ing of an interacting Chern insulator on a topological square lattice, Phys. Rev. B 99 , 075204 (2019). [8] M. Ebrahimkhas, M. Hafez-Torbati, and W. Hofstetter, Lattice symmetry and emergence of antiferromagnetic quantum Hall states, Phys. Rev. B 103 , 155108 (2021). [9] M. Ebrahimkhas, G. S. Uhrig, W. Hofstetter, and M. Hafez-Torbati, Antiferromagnetic Chern insulator in centrosymmetric systems, Phys. Rev. B 106 , 205107 (2022). [10] M. Hafez-Torbati, Antiferromagnetic topological insula-tors in heavy-fermion systems, Phys. Rev. B 110 , 115147 (2024). [11] M. Hafez-Torbati and G. S. Uhrig, Antiferromag-netic Chern insulator with large charge gap in heavy transition-metal compounds, Sci. Rep. 14 , 17168 (2024). [12] J. a. S. Silva, E. V. Castro, R. Mondaini, M. A. H. Voz-mediano, and M. P. L´ opez-Sancho, Topological Anderson insulating phases in the interacting Haldane model, Phys. Rev. B 109 , 125145 (2024). [13] C. Shao and H.-G. Luo, Phase diagram of the interact-ing Haldane model with spin-dependent sublattice poten-tials, Phys. Rev. B 109 , 235101 (2024). [14] B.-Q. Wang, C. Shao, T. Tohyama, H.-G. Luo, and H. Lu, Topological phase in the extended Haldane-Hubbard model with sublattice-dependent repulsion, Phys. Rev. B 110 , 035107 (2024). [15] M. Hafez-Torbati, From explicit to spontaneous charge order and the fate of the antiferromagnetic quantum Hall state, Phys. Rev. B 111 , 125108 (2025). [16] F. D. M. Haldane, Model for a quantum Hall effect with-out Landau levels: Condensed-matter realization of the “parity anomaly”, Phys. Rev. Lett. 61 , 2015 (1988). [17] C. L. Kane and E. J. Mele, Z2 topological order and the quantum spin Hall effect, Phys. Rev. Lett. 95 , 146802 (2005). [18] C. L. Kane and E. J. Mele, Quantum spin Hall effect in graphene, Phys. Rev. Lett. 95 , 226801 (2005). [19] C. Shao, E. V. Castro, S. Hu, and R. Mondaini, Inter-play of local order and topology in the extended Haldane-Hubbard model, Phys. Rev. B 103 , 035125 (2021). [20] I. S. Tupitsyn and N. V. Prokof’ev, Phase diagram topol-13 
+
+ogy of the Haldane-Hubbard-Coulomb model, Phys. Rev. B 99 , 121113 (2019). [21] W.-X. He, R. Mondaini, H.-G. Luo, X. Wang, and S. Hu, Phase transitions in the Haldane-Hubbard model, Phys. Rev. B 109 , 035126 (2024). [22] X. Liu, Y. He, C. Wang, X.-W. Zhang, T. Cao, and D. Xiao, Gate-tunable antiferromagnetic Chern insula-tor in twisted bilayer transition metal dichalcogenides, Phys. Rev. Lett. 132 , 146401 (2024). [23] P. Mai, J. Zhao, and P. W. Phillips, Incipient quantum spin Hall insulator under strong correlations, Phys. Rev. B 112 , L041116 (2025). [24] C. N. Varney, K. Sun, M. Rigol, and V. Galitski, Interac-tion effects and quantum phase transitions in topological insulators, Phys. Rev. B 82 , 115125 (2010). [25] C. N. Varney, K. Sun, M. Rigol, and V. Galitski, Topolog-ical phase transitions for interacting finite systems, Phys. Rev. B 84 , 241105(R) (2011). [26] C. Shao, P. D. Sacramento, and R. Mondaini, Photoin-duced anomalous Hall effect in the interacting Haldane model: Targeting topological states with pump pulses, Phys. Rev. B 104 , 125129 (2021). [27] D. J. Thouless, M. Kohmoto, M. P. Nightingale, and M. den Nijs, Quantized Hall conductance in a two-dimensional periodic potential, Phys. Rev. Lett. 49 , 405 (1982). [28] S. Rachel and K. Le Hur, Topological insulators and Mott physics from the Hubbard interaction, Phys. Rev. B 82 ,075106 (2010). [29] D. N. Sheng, Z. Y. Weng, L. Sheng, and F. D. M. Hal-dane, Quantum spin-Hall effect and topologically invari-ant Chern numbers, Phys. Rev. Lett. 97 , 036808 (2006). [30] E. Prodan, Robustness of the spin-Chern number, Phys. Rev. B 80 , 125327 (2009). [31] M. Z. Hasan and C. L. Kane, Colloquium: Topological insulators, Rev. Mod. Phys. 82 , 3045 (2010). [32] X.-L. Qi and S.-C. Zhang, Topological insulators and su-perconductors, Rev. Mod. Phys. 83 , 1057 (2011). [33] C.-K. Chiu, J. C. Y. Teo, A. P. Schnyder, and S. Ryu, Classification of topological quantum matter with sym-metries, Rev. Mod. Phys. 88 , 035005 (2016). [34] T. Fukui and Y. Hatsugai, Topological aspects of the quantum spin-Hall effect in graphene: Z2 topological or-der and spin Chern number, Phys. Rev. B 75 , 121403 (2007). [35] J. E. Moore and L. Balents, Topological invariants of time-reversal-invariant band structures, Phys. Rev. B 75 ,121306 (2007). [36] L. Fu and C. L. Kane, Time reversal polarization and a 
+
+Z2 adiabatic spin pump, Phys. Rev. B 74 , 195312 (2006). [37] Q. Niu, D. J. Thouless, and Y.-S. Wu, Quantized Hall conductance as a topological invariant, Phys. Rev. B 31 ,3372 (1985). [38] D. P. Arovas, R. N. Bhatt, F. D. M. Haldane, P. B. Lit-tlewood, and R. Rammal, Localization, wave-function topology, and the integer quantized Hall effect, Phys. Rev. Lett. 60 , 619 (1988). [39] S. Sinha, D. Y. Pan, and B. Bradlyn, Computing the Z2
+
+invariant in two-dimensional strongly correlated systems, Phys. Rev. B 111 , 085116 (2025). [40] R. B. Laughlin, Quantized Hall conductivity in two di-mensions, Phys. Rev. B 23 , 5632 (1981). [41] T. Fukui, Y. Hatsugai, and H. Suzuki, Chern numbers in discretized Brillouin zone: efficient method of computing (spin) Hall conductances, J. Phys. Soc. Jpn. 74 , 1674 (2005). [42] H. Yuan, Y. Guo, R. Lu, H. Lu, and C. Shao, Phase tran-sitions in the Haldane-Hubbard model with ionic poten-tials, Phys. Rev. B 107 , 075150 (2023). [43] P. Zanardi and N. Paunkovi´ c, Ground state overlap and quantum phase transitions, Phys. Rev. E 74 , 031123 (2006). [44] L. Campos Venuti and P. Zanardi, Quantum critical scal-ing of the geometric tensors, Phys. Rev. Lett. 99 , 095701 (2007). [45] P. Zanardi, P. Giorda, and M. Cozzini, Information-theoretic differential geometry of quantum phase tran-sitions, Phys. Rev. Lett. 99 , 100603 (2007). [46] T.-L. Dao, M. Ferrero, P. S. Cornaglia, and M. Capone, Mott transition of fermionic mixtures with mass imbal-ance in optical lattices, Phys. Rev. A 85 , 013606 (2012). [47] L. Du, L. Huang, and G. A. Fiete, Spin-selective thermal-ization plateau in the mass-imbalanced Hubbard model, Phys. Rev. B 96 , 165151 (2017). [48] Z. Xie, M. Zhao, H. Lu, Z. Huang, G. A. Fiete, X. Hu, and L. Du, Quench dynamics in the one-dimensional mass-imbalanced ionic Hubbard model, Phys. Rev. B 107 ,195147 (2023). [49] M. Ezawa, Y. Tanaka, and N. Nagaosa, Topological phase transition without gap closing, Sci. Rep. 3, 2790 (2013). [50] P. Mai, J. Zhao, T. A. Maier, B. Bradlyn, and P. W. Phillips, Topological phase transition without single par-ticle gap closing in strongly correlated systems, Phys. Rev. B 110 , 075105 (2024). [51] R. J¨ ordens, N. Strohmaier, K. G¨ unter, H. Moritz, and T. Esslinger, A Mott insulator of fermionic atoms in an optical lattice, Nature 455 , 204 (2008). [52] P. Soltan-Panahi, J. Struck, P. Hauke, A. Bick, W. Plenkers, G. Meineke, C. Becker, P. Windpassinger, M. Lewenstein, and K. Sengstock, Multi-component quantum gases in spin-dependent hexagonal lattices, Nat. Phys. 7, 434 (2011). [53] G. Jotzu, M. Messer, R. Desbuquois, M. Lebrat, T. Uehlinger, D. Greif, and T. Esslinger, Experimental realization of the topological Haldane model with ultra-cold fermions, Nature 515 , 237 (2014). [54] Z. Wu, L. Zhang, W. Sun, X.-T. Xu, B.-Z. Wang, S.-C. Ji, Y. Deng, S. Chen, X.-J. Liu, and J.-W. Pan, Realization of two-dimensional spin-orbit coupling for Bose-Einstein condensates, Science 354 , 83 (2016). [55] X. Li, S. Wang, X. Luo, Y.-Y. Zhou, K. Xie, H.-C. Shen, Y.-Z. Nie, Q. Chen, H. Hu, Y.-A. Chen, X.-C. Yao, and J.-W. Pan, Observation and quantification of the pseu-dogap in unitary fermi gases, Nature 626 , 288 (2024). [56] F. Wu, T. Lovorn, E. Tutuc, I. Martin, and A. H. MacDonald, Topological insulators in twisted transition metal dichalcogenide homobilayers, Phys. Rev. Lett. 122 ,086402 (2019). [57] T. Li, S. Jiang, B. Shen, Y. Zhang, L. Li, Z. Tao, T. De-vakul, K. Watanabe, T. Taniguchi, L. Fu, et al. , Quan-tum anomalous Hall effect from intertwined moir´ e bands, Nature 600 , 641 (2021). [58] Y. Zeng, Z. Xia, K. Kang, J. Zhu, P. Kn¨ uppel, C. Vaswani, K. Watanabe, T. Taniguchi, K. F. Mak, and J. Shan, Thermodynamic evidence of fractional Chern insulator in moir´ e MoTe 2, Nature 622 , 69 (2023). [59] J. Cai, E. Anderson, C. Wang, X. Zhang, X. Liu, W. Holtzmann, Y. Zhang, F. Fan, T. Taniguchi, 14 
+
+K. Watanabe, et al. , Signatures of fractional quantum anomalous Hall states in twisted MoTe 2, Nature 622 , 63 (2023). [60] H. Park, J. Cai, E. Anderson, Y. Zhang, J. Zhu, X. Liu, C. Wang, W. Holtzmann, C. Hu, Z. Liu, et al. , Obser-vation of fractionally quantized anomalous Hall effect, Nature 622 , 74 (2023). [61] F. Xu, Z. Sun, T. Jia, C. Liu, C. Xu, C. Li, Y. Gu, K. Watanabe, T. Taniguchi, B. Tong, J. Jia, Z. Shi, S. Jiang, Y. Zhang, X. Liu, and T. Li, Observation of integer and fractional quantum anomalous Hall effects in twisted bilayer MoTe 2, Phys. Rev. X 13 , 031037 (2023). [62] B. A. Foutty, C. R. Kometter, T. Devakul, A. P. Reddy, K. Watanabe, T. Taniguchi, L. Fu, and B. E. Feld-man, Mapping twist-tuned multiband topology in bilayer WSe 2, Science 384 , 343 (2024). [63] W. Zhao, K. Kang, Y. Zhang, P. Kn¨ uppel, Z. Tao, L. Li, C. L. Tschirhart, E. Redekop, K. Watanabe, T. Taniguchi, et al. , Realization of the Haldane Chern insulator in a moir´ e lattice, Nat. Phys. 20 , 275 (2024). [64] C. Wang, X.-W. Zhang, X. Liu, Y. He, X. Xu, Y. Ran, T. Cao, and D. Xiao, Fractional Chern insulator in twisted bilayer MoTe 2, Phys. Rev. Lett. 132 , 036501 (2024). [65] K. Kang, B. Shen, Y. Qiu, Y. Zeng, Z. Xia, K. Watan-abe, T. Taniguchi, J. Shan, and K. F. Mak, Evidence of the fractional quantum spin Hall effect in moir´ e MoTe 2,Nature 628 , 522 (2024).

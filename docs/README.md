@@ -6,73 +6,74 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-27
-- 运行时间：2026-04-27 20:07:43 UTC
+- 最新运行日期：2026-04-28
+- 运行时间：2026-04-28 20:57:47 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：18
+- 精读区：7
 - 速读区：11
 
 ### 今日简报（AI）
-今日深度解析 17 篇物理前沿进展，聚焦量子湍流熵增机制与极化激元凝聚态演化。
-核心突破在于揭示了 Vinen 量子湍流的非广延熵特性，并明确了质量失配微腔中 BCS-BEC 交叉的物理图像。
-推荐关注低温冲击剥离制备的高迁移率菱面体石墨烯，这或将为纳米电子学带来新突破。
-- 详情：[/202604/27/README](/202604/27/README)
+今日精选 18 篇前沿论文，深度解析铜氧化物超导机制与原子级约瑟夫森结的量子特性
+- 详情：[/202604/28/README](/202604/28/README)
 
 ### 精读区论文标签
-1. [Non-extensive entropy of Vinen quantum turbulence](/202604/27/2604.19478v1-non-extensive-entropy-of-vinen-quantum-turbulence)  
+1. [Persistent Fermi Pockets and Robust Electron Pairing in Lightly Doped CuO$_2$ Planes of Cuprate Superconductors](/202604/28/2604.23162v1-persistent-fermi-pockets-and-robust-electron-pairing-in-lightly-doped-cuo2-planes-of-cuprate-superconductors)  
+   标签：评分：10.0/10、query:cmp
+   evidence：铜氧化物CuO2面中的高温超导机制
+2. [Fraunhofer Patterns in Atomic Josephson Junctions](/202604/28/2604.22923v1-fraunhofer-patterns-in-atomic-josephson-junctions)  
    标签：评分：9.0/10、query:cmp
-   evidence：超流体中Vinen量子湍流的涡旋线系综
-2. [BCS-BEC crossover of polaritonic condensates in mass-imbalanced semimetal/semiconductor microcavities](/202604/27/2604.21244v1-bcs-bec-crossover-of-polaritonic-condensates-in-mass-imbalanced-semimetalsemiconductor-microcavities)  
+   evidence：研究中性超流体中的相位相干动力学和约瑟夫森效应
+3. [Realizing multi-orbital Emery models with ultracold atoms](/202604/28/2604.22955v1-realizing-multi-orbital-emery-models-with-ultracold-atoms)  
    标签：评分：9.0/10、query:cmp
-   evidence：极化激元凝聚体的BCS-BEC交叉
-3. [Controlled Manipulation of Intermediate State in a Type-I Superconductor](/202604/27/2604.21499v1-controlled-manipulation-of-intermediate-state-in-a-type-i-superconductor)  
+   evidence：利用超冷原子实现高温超导的Emery模型
+4. [Visualizing Vortex Cluster Dynamics in the Weak Type-II Superconductor CaSb$_2$](/202604/28/2604.23117v1-visualizing-vortex-cluster-dynamics-in-the-weak-type-ii-superconductor-casb2)  
    标签：评分：9.0/10、query:cmp
-   evidence：I型超导体中磁通结构的操控
-4. [$3d_{z^2}$ orbital delocalization and magnetic collapse in superconducting (La,Pr)$_3$Ni$_2$O$_{7-δ}$ films](/202604/27/2604.21899v2-3dz2-orbital-delocalization-and-magnetic-collapse-in-superconducting-lapr3ni2o7--films)  
+   evidence：可视化II型超导体中的涡旋动力学和超流密度
+5. [Record magnetoresistance, enhanced superconductivity, and fermiology in WTe2](/202604/28/2604.23378v1-record-magnetoresistance-enhanced-superconductivity-and-fermiology-in-wte2)  
    标签：评分：9.0/10、query:cmp
-   evidence：超导镍氧化物薄膜中的轨道离域
-5. [Theoretical prediction of strong-coupling superconductivity in a hypothetical NaAlH3 phase at ambient pressure](/202604/27/2604.22300v1-theoretical-prediction-of-strong-coupling-superconductivity-in-a-hypothetical-naalh3-phase-at-ambient-pressure)  
+   evidence：过渡金属硫族化合物中增强的超导性与费米面研究
+6. [Campbell penetration depth in a single crystal of heavy fermion superconductor CeCoIn$_5$](/202604/28/2604.23657v1-campbell-penetration-depth-in-a-single-crystal-of-heavy-fermion-superconductor-cecoin5)  
    标签：评分：9.0/10、query:cmp
-   evidence：预测三元氢化物中的强耦合超导性
-6. [Nanophotonic control of collective many-body states in Kerr solitons](/202604/27/2604.22039v1-nanophotonic-control-of-collective-many-body-states-in-kerr-solitons)  
-   标签：评分：8.0/10、query:cmp
-   evidence：纳米光子Kerr微谐振器中的莫特绝缘体到超流体转变
+   evidence：重费米子体系中超流密度与超导性的实验研究
+7. [Nonintegral Flux Trapping in Frustrated Josephson Networks of Triplet Superconductors](/202604/28/2604.24734v1-nonintegral-flux-trapping-in-frustrated-josephson-networks-of-triplet-superconductors)  
+   标签：评分：9.0/10、query:cmp
+   evidence：三线态超导体的约瑟夫森网络与磁通俘获
 
 ### 速读区论文标签
-1. [Cryogenic shock exfoliation for ultrahigh mobility rhombohedral graphite nanoelectronics](/202604/27/2604.21912v1-cryogenic-shock-exfoliation-for-ultrahigh-mobility-rhombohedral-graphite-nanoelectronics)  
+1. [Beyond Variational Bias: Resolving Intertwined Orders in the Hubbard Model](/202604/28/2604.21978v1-beyond-variational-bias-resolving-intertwined-orders-in-the-hubbard-model)  
    标签：评分：8.0/10、query:cmp
-   evidence：菱面体多层石墨烯中的关联电子物理
-2. [Corner Majorana states in semi-Dirac](/202604/27/2604.22553v1-corner-majorana-states-in-semi-dirac)  
+   evidence：Hubbard模型中的交织序与配对关联
+2. [Reconfigurable Superconducting Logic for On-Chip Photon Coincidence Detection](/202604/28/2604.22101v2-reconfigurable-superconducting-logic-for-on-chip-photon-coincidence-detection)  
    标签：评分：8.0/10、query:cmp
-   evidence：邻近效应诱导拓扑超导的理论框架
-3. [Photonic Chirality for Braiding and Readout of Non-Abelian Anyons](/202604/27/2604.19456v1-photonic-chirality-for-braiding-and-readout-of-non-abelian-anyons)  
+   evidence：用于量子应用的超导逻辑门
+3. [Enhanced Tantalum Superconducting Resonator Performance via All-Surface Organic Monolayer Passivation](/202604/28/2604.22112v1-enhanced-tantalum-superconducting-resonator-performance-via-all-surface-organic-monolayer-passivation)  
+   标签：评分：8.0/10、query:cmp
+   evidence：钽超导谐振器性能与量子电路
+4. [Dissipative Vortex Binaries in Compact Fluid Domains with Geometric Corrections](/202604/28/2604.23857v1-dissipative-vortex-binaries-in-compact-fluid-domains-with-geometric-corrections)  
+   标签：评分：8.0/10、query:cmp
+   evidence：有限温度超流体中的耗散涡旋动力学
+5. [Ground state of the Hubbard model with spin-dependent linear potential](/202604/28/2604.24068v1-ground-state-of-the-hubbard-model-with-spin-dependent-linear-potential)  
+   标签：评分：8.0/10、query:cmp
+   evidence：一维费米-哈伯德模型中的费米子配对
+6. [Entropy Signatures of Collective Modes and Vortex Dynamics in Rotating Two--Dimensional Bose--Einstein Condensates](/202604/28/2604.24557v1-entropy-signatures-of-collective-modes-and-vortex-dynamics-in-rotating-two--dimensional-bose--einstein-condensates)  
+   标签：评分：8.0/10、query:cmp
+   evidence：旋转玻色-爱因斯坦凝聚中的涡旋动力学和集体模式
+7. [Gate-dependent offset charge shifts and anharmonicity in gatemon qubits in the weak tunneling regime](/202604/28/2604.24716v1-gate-dependent-offset-charge-shifts-and-anharmonicity-in-gatemon-qubits-in-the-weak-tunneling-regime)  
+   标签：评分：8.0/10、query:cmp
+   evidence：超导体-量子点-超导体结动力学
+8. [Dynamical preparation of U(1) quantum spin liquids in an analogue quantum simulator](/202604/28/2604.24744v1-dynamical-preparation-of-u1-quantum-spin-liquids-in-an-analogue-quantum-simulator)  
+   标签：评分：8.0/10、query:cmp
+   evidence：在合成量子系统中实现U(1)量子自旋液体
+9. [The antiferromagnetic Chern insulator phase in the Kane-Mele-Hubbard model](/202604/28/2604.22329v1-the-antiferromagnetic-chern-insulator-phase-in-the-kane-mele-hubbard-model)  
    标签：评分：7.0/10、query:cmp
-   evidence：分数量子霍尔平台中任意子的光子控制
-4. [Reconfigurable Superconducting Logic for On-Chip Photon Coincidence Detection](/202604/27/2604.22101v1-reconfigurable-superconducting-logic-for-on-chip-photon-coincidence-detection)  
+   evidence：Kane-Mele-Hubbard模型中的反铁磁关联
+10. [Visons in Kitaev Spin Liquids with Majorana Fermi Surfaces](/202604/28/2604.23014v1-visons-in-kitaev-spin-liquids-with-majorana-fermi-surfaces)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导逻辑和纳米低温管电子学
-5. [Non-volatile superconducting tunnelling magnetoresistance memory enabled by exchange-field gap engineering](/202604/27/2604.22214v1-non-volatile-superconducting-tunnelling-magnetoresistance-memory-enabled-by-exchange-field-gap-engineering)  
+   evidence：研究量子自旋液体中的马约拉纳费米面及其不稳定性
+11. [Core-Hole Excitation Dynamics of One-Dimensional Ultracold Trapped Fermions](/202604/28/2604.23785v1-core-hole-excitation-dynamics-of-one-dimensional-ultracold-trapped-fermions)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导隧道磁电阻和能隙工程
-6. [Uncovering long-lived relaxation channel and exciton-phonon coupling in \textrm{Ta\textsubscript{2}NiSe\textsubscript{5}} via non-degenerate pump-probe spectroscopy](/202604/27/2604.22218v1-uncovering-long-lived-relaxation-channel-and-exciton-phonon-coupling-in-textrmtatextsubscript2nisetextsubscript5-via-non-degenerate-pump-probe-spectroscopy)  
-   标签：评分：7.0/10、query:cmp
-   evidence：强关联激子绝缘体中的非平衡动力学
-7. [The quantum harmonic oscillator in a dissipative bath of anyon pairs](/202604/27/2604.22342v1-the-quantum-harmonic-oscillator-in-a-dissipative-bath-of-anyon-pairs)  
-   标签：评分：7.0/10、query:cmp
-   evidence：低维系统中的耗散任意子库与量子统计
-8. [Percolation from Quantum Metric in Flat-Band Delocalization](/202604/27/2604.17438v2-percolation-from-quantum-metric-in-flat-band-delocalization)  
-   标签：评分：6.0/10、query:cmp
-   evidence：平带系统中的量子度规与输运
-9. [Localization and universality of three-dimensional pseudospin-$s$ fermions](/202604/27/2604.18690v1-localization-and-universality-of-three-dimensional-pseudospin-s-fermions)  
-   标签：评分：6.0/10、query:cmp
-   evidence：无序多重手性费米子中的量子干涉与输运
-10. [Fluctuation-driven multi-step charge density wave transition in monolayer TiSe$_2$](/202604/27/2604.20355v1-fluctuation-driven-multi-step-charge-density-wave-transition-in-monolayer-tise2)  
-   标签：评分：6.0/10、query:cmp
-   evidence：关联单层中的涨落驱动电荷密度波转变
-11. [Anomalous Mean-Squared Displacement in Quantum Active Matter from a Wigner Phase-Space Framework](/202604/27/2604.22600v1-anomalous-mean-squared-displacement-in-quantum-active-matter-from-a-wigner-phase-space-framework)  
-   标签：评分：6.0/10、query:cmp
-   evidence：量子活性物质和维格纳相空间框架
+   evidence：超冷费米子动力学与量子流体物理
 
 
 <div class="dpr-home-promo-card">
