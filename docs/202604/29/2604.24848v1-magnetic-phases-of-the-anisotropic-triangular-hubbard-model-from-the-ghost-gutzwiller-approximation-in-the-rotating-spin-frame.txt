@@ -1,0 +1,534 @@
+Title: Magnetic phases of the anisotropic triangular Hubbard model from the ghost-Gutzwiller approximation in the rotating spin-frame
+
+URL Source: https://arxiv.org/pdf/2604.24848v1
+
+Published Time: Wed, 29 Apr 2026 00:03:09 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Magnetic phases of the anisotropic triangular Hubbard model from the ghost-Gutzwiller approximation in the rotating spin-frame 
+
+Azin Kazemi-Moridani ,1, 2 Samuele Giuli ,2 Tsung-Han Lee ,3
+
+A. -M. S. Tremblay ,4 Michel Cˆ ot´ e ,1 Nicola Lanat` a ,5, 2 and Olivier Gingras 2, 6, ∗
+
+> 1
+
+D´ epartement de Physique et Institut Courtois, Universit´ e de Montr´ eal, C.P. 6128, Succursale Centre-Ville, Montr´ eal, Qu´ ebec, Canada H3C 3J7 
+
+> 2
+
+Center for Computational Quantum Physics, Flatiron Institute, New York, New York 10010, USA 
+
+> 3
+
+Department of Physics, National Chung Cheng University, Chiayi 62102, Taiwan 
+
+> 4
+
+D´ epartement de physique & Institut quantique & RQMP Universit´ e de Sherbrooke, Sherbrooke, Qu´ ebec, J1K 2R1 Canada 
+
+> 5
+
+School of Physics and Astronomy, Rochester Institute of Technology, Rochester, New York 14623, USA 
+
+> 6
+
+Universit´ e Paris-Saclay, CNRS, CEA, Institut de physique th´ eorique, 91191, Gif-sur-Yvette, France 
+
+(Dated: April 29, 2026) We investigate the magnetic phase diagram of the half-filled Hubbard model on the anisotropic triangular lattice using the Gutzwiller approximation (GA) and its ghost generalization (ghost-GA). By combining a rotating spin-frame formulation with high-resolution momentum grids, we determine magnetic ground states through direct total-energy minimization over the ordering wavevector. We benchmark standard GA and ghost-GA against dynamical mean-field theory (DMFT) and dual-fermion results. We show that GA already captures the qualitative structure of the phase diagram, but systematically overestimates the stability of magnetic order due to the absence of dynamical fluctuations. We find that introducing a small number of auxiliary “ghost” orbitals is sufficient to recover most dynamical effects and significantly improves quantitative agreement with DMFT. Exploring the full Brillouin zone, we obtain a phase diagram comprising paramagnetic and various magnetic phases. In contrast to ladder dual-fermion susceptibility-based predictions, we find that the one-dimensional antiferromagnetic phase is never stabilized, despite being the leading instability in certain regimes. Our results establish ghost-GA as an efficient and systematically improvable framework for studying magnetism in frustrated systems, capable of achieving near-DMFT accuracy at a fraction of the computational cost. They also highlight that standard GA performs qualitatively well for capturing the general phase diagram, enabling the investigation of incommensurate magnetic orders in more complex systems. 
+
+I. INTRODUCTION 
+
+The anisotropic triangular-lattice Hubbard model has long been used as a simple playground for studying the emergence of various ordered phases from the interplay between geometric frustration and strong local electronic repulsion. In this simple setting, antiferromagnetic in-teractions cannot be satisfied on all bonds at once, lead-ing to a plethora of competing ordered states, including magnetic and spiral magnetic states, quantum spin liq-uids, and unconventional superconductivity. Over the years, a variety of advanced numerical methods have been employed to investigate this model and the com-peting phases it can host, including dynamical mean-field theory (DMFT) and its cluster generalizations [1– 14], ladder dual-fermion approximation [15, 16], quantum Monte Carlo (QMC) [1, 16–21], tensor networks [1, 22– 24], slave-particle approaches [25–27] and the renormal-ization group [28], but also analogue, platforms such as silicon platforms [29] and cold atoms quantum simula-tors [30–32]. Not only does this model capture a fascinating com-petition between multiple states, but it is also believed  
+
+> ∗ogingras@flatironinstitute.org
+
+to include the central microscopic interactions underly-ing the rich phase diagrams of a wide range of frus-trated materials. For example, it is often employed to explain and investigate the behavior of realistic systems including organic charge-transfer salts such as the κ-(BEDT-TTF) 2X family [7, 8, 16–18, 28, 33–36], low-energy models for moir´ e materials [6, 24, 37–42], 1T-TaS 2−xSe x [43, 44] although a multi-orbital description might be necessary [45–48], along with Li xNbO 2 [9, 49] and many other systems. Despite decades of work, obtaining a definitive phase diagram remains a challenge, in particular regarding quantum spin liquids. However, for the purely magnetic phase diagram, a certain consensus between the meth-ods is starting to arise. While the precise phase bound-aries vary from method to method, the main compet-ing states are as expected: a paramagnet at small in-teraction strength and various magnetic orders at larger strength, from a N´ eel-like order at weak frustration, a spiral order at isotropic frustration, decoupled antiferro-magnetic chains at large frustration, and more complex non-collinear arrangements in between them. Among the numerous numerical methods employed to investigate the anisotropic triangular Hubbard model, DMFT is a natural approach to study its magnetic phase diagram because it treats the local Hubbard interac-tion non-perturbatively while remaining unbiased with 
+
+> arXiv:2604.24848v1 [cond-mat.str-el] 27 Apr 2026
+
+2respect to magnetic ordering. Magnetism in this model is driven by the formation and ordering of local moments, which DMFT captures exactly in the infinite-dimension limit [50–54]. The effects of hopping anisotropy enter solely via the embedding of the local electronic correla-tions back onto the lattice, allowing changes in band-width and effective dimensionality to be incorporated without additional approximations. However, there are two important drawbacks of DMFT for investigating the magnetic phase diagram of the triangular Hubbard model. The first one is the numerical cost of DMFT. This motivates the use of the ghost-Gutzwiller approximation (ghost-GA), which has been shown to reproduce DMFT results with good accuracy while incurring significantly reduced numerical cost [55–58], particularly when com-bined with machine learning solvers [59–61]. The ghost-GA is a variational approach that extends the conven-tional Gutzwiller wavefunction framework by introducing auxiliary (“ghost”) degrees of freedom that capture dy-namical correlation effects beyond static renormalization factors. This extension enables a more accurate descrip-tion of correlated metallic and magnetic phases while re-taining a computational complexity comparable to that of mean-field methods [62–66]. As a result, the ghost-GA provides an efficient and reliable alternative for explor-ing magnetic phase diagrams in strongly correlated lat-tice models. Moreover, while including zero ghosts yields the standard Gutzwiller approximation (GA) [67–69], a systematic improvement of the method is possible by in-creasing the number of ghosts, and in the limit of infinite ghosts, the DMFT solution is recovered [70]. This second drawback is not specific to DMFT, but is also shared by local embedding approaches such as ghost-GA. To capture a general magnetically ordered state, one must be able to stabilize a finite staggered magnetization, which locally on site i is expressed as 
+
+Mi = ⟨P 
+
+> σσ ′
+
+ˆc† 
+
+> iσ
+> σσσ ′
+> 2
+
+ˆciσ ′ ⟩, where ˆ ciσ (ˆ c† 
+
+> iσ
+
+) annihilates (creates) an electron with spin σ at site i and σ is a vector of Pauli matrices. The spatial modulation of Mi
+
+is encoded in its Fourier transform Mq ≡ R dri eiq·ri Mi,with ri the position of site i in real space. A finite wavevector q describes how the spin orientation rotates from site to site. Such modulated states break both the 
+
+SU (2) spin symmetry and the translational symmetry of the original lattice. For local embedding approaches, the latter is the main difficulty. As shown in previous works, this issue can be overcome by performing a local 
+
+SU (2) rotation that transfers the q-dependence from the order parameter to the hopping amplitudes [4, 25, 71–76]. It is also known as the generalized Bloch theorem [77]. We refer to this formulation as the rotating spin-frame. The resulting Hamiltonian is translationally invariant for each chosen q, enabling the evaluation of observables– including total energies–within impurity-based methods. In this work, we exploit the rotating spin-frame for-mulation to compute the total energy landscape Eq
+
+with high-momentum q-grids resolution for both GA and ghost-GA, enabling us to track the continuous evolu-tion of incommensurate magnetic orders across varia-tions of the model parameters. We focus on the Hub-bard model on the anisotropic triangular lattice at half-filling, with the Coulomb repulsion U/t (where t is the nearest-neighbor hopping amplitude) and the geometric frustration t′/t as parameters. We report the ( U/t, t ′/t )phase diagrams and compare with results from DMFT [4] and ladder dual-fermion (DF) [15]. The manuscript is organized as follows: The model, classification of mag-netic states, and methodological details are presented in Sec. II. In Sec. III, we present and interpret our results, which show that: (i) GA reproduces the qualitative structure of the magnetic phase diagrams obtained in DMFT and ladder DF, though it quantitatively overestimates the stability of ordered phases since it lacks dynam-ical and local fluctuations. (ii) Introducing ghost orbitals systematically and sig-nificantly improves the agreement with DMFT by partially restoring the dynamical fluctuations. (iii) Neither GA nor ghost-GA stabilizes the one-dimensional antiferromagnetic state inferred from DF susceptibilities [15]. By investigating the mag-netic susceptibility, we find that, although this state is the leading magnetic instability, it is not stabilized in ghost-GA. This indicates that, in this system, a susceptibility maximum alone does not guarantee that the corresponding order is stabilized as the ground state. We conclude in Sec. IV by affirming that GA provides a simple, robust, and computationally advantageous tool to efficiently investigate magnetically ordered ground states in correlated systems, and that the addition of ghost variational degrees of freedom offers a clear path toward systematically improving accuracy. Their effi-ciency also makes them promising for future applications to more complex systems, including multi-orbital mod-els such as Sr 2FeO 4 [78], cluster extensions, and super-conducting states, where dense momentum scans would otherwise be computationally prohibitive.  
+
+> II. MODEL & METHOD
+
+We study the magnetic ground-state of the Hubbard model on the anisotropic triangular lattice, which is de-scribed by the Hamiltonian depicted in Fig. 1. It has the form ˆH = ˆH0 + ˆHU where ˆH0 is the non-interacting part, defining the kinetics of the electrons, and ˆHU is the Hubbard interaction, which captures the on-site Coulomb repulsion. They are respectively given by ˆH0 = X
+
+> ijσ
+
+tij ˆc† 
+
+> iσ
+
+ˆcjσ − μ X
+
+> iσ
+
+ˆniσ , ˆHU = U X
+
+> i
+
+ˆni↑ ˆni↓, (1) 31
+
+# a1 a2
+
+> 1
+
+# a1 a2                     
+
+> FIG. 1. Hubbard model and the geometry of the anisotropic triangular lattice. The model contains the nearest-neighbor hoppings talong ±a1and ±a2, and t′along ±(a1−a2), along with the double occupation cost U. For t′=t, the model is isotropic and C6symmetric, and anisotropic for t′̸=t.
+
+where ˆ c† 
+
+> iσ
+
+(ˆ ciσ ) creates (annihilates) an electron at site i
+
+with spin σ, ˆ niσ ≡ ˆc† 
+
+> iσ
+
+ˆciσ is the associated density oper-ator, tij is the hopping amplitude from site j to site i,
+
+U is the on-site Coulomb repulsion and μ is the chem-ical potential. Half-filling is enforced by converging the paramagnetic solution on the electronic density. To study the anisotropic triangular lattice also repre-sented in Fig. 1, we only consider nearest-neighbor hop-pings, where the cost for an electron to hop between two sites connected by ±a1 or ±a2 is t, and the cost for neighbors connected by ±a1 ∓ a2 is t′. The resulting dispersion is shown in Fig. 2 for two different values of 
+
+t′/t . In Fig. 2(a 1), for t′ = t, the lattice is C6 symmetric and said to be isotropic. In this case, the Mi points are related by symmetry, and so are the Ki points. The full white lines represent mirror symmetries. In Fig. 2(a 2), for t′̸ = t, the lattice is said to be anisotropic. Conse-quently, the three M (K) points are split into one M
+
+(K) and two M ′ (K′) points. There are much fewer mir-ror symmetries. Throughout this manuscript, we fix t
+
+and investigate the phase diagram by varying t′ and U .Moreover, note that this geometry is equivalent to con-sidering the square lattice, with an additional diagonal term, as was done in Ref. 4. We show in App. A how to map one lattice to the other. In particular, in this manuscript, we are interested in the magnetic phase diagram of this model in the (U/t, t ′/t ) parameter space. This section is organized as follows. In Sec. II A, we introduce the staggered magne-tization, the magnetic order parameter, and discuss how its q-dependence is used to classify the different states of the phase diagram. In Sec. II B, we explain the ro-tating spin-frame formulation, which allows us to cap-ture the q-phase modulation of the local magnetization within a single cell. The drawback of this formulation is that we need to perform a calculation for every q-point independently. We therefore first converge a paramag-netic calculation at half-filling, and from that solution explore a dense q-grid, to resolve various incommensu-rate magnetic orders. In Sec. II C, we present the ghost-GA method (for which standard GA is a special case), which is employed throughout this work.  
+
+> A. Classification of the magnetic phases
+
+Although the Hubbard model in Eq. (1) is invari-ant under global SU (2) spin rotations, magnetically or-dered states spontaneously break this symmetry and, in a symmetry-broken description, are characterized by a local magnetization with arbitrary orientation in spin space. In this work, following common practice for this system, we restrict our analysis to coplanar magnetic con-figurations, i.e., states in which all local magnetization vectors lie within a common plane. Owing to the under-lying SU (2) symmetry, this plane can be chosen without loss of generality to be the xy -plane. Extension to fully three-dimensional spin configurations is straightforward. With this assumption, geometric frustration and inter-action dictate how the direction of the local magnetiza-tion rotates in the plane as a function of spatial position. This rotation is encoded by a wavevector q and the as-sociated Fourier component is given by 
+
+Mq = 1
+
+N
+
+X
+
+> i
+
+D ˆSix cos( q · ri) + ˆSiy sin( q · ri)
+
+E
+
+, (2) where ri denotes the position of site i in real space, N is the number of lattice sites, and ˆSix ≡ 12
+
+ ˆc† 
+
+> i↑
+
+ˆci↓ + ˆ c† 
+
+> i↓
+
+ˆci↑
+
+, ˆSiy ≡ − i
+
+2
+
+ ˆc† 
+
+> i↑
+
+ˆci↓ − ˆc† 
+
+> i↓
+
+ˆci↑
+
+
+
+(3) are in-plane spin operators, expressed in terms of spin-flip operators. The nature of the magnetic order is determined by the ordering wavevector q for which the Mq is finite, and the total energy Eq is minimized. Different locations of this wavevector q in the Brillouin zone correspond to distinct magnetic phases, set by the interplay between electronic correlations and geometric frustration of the lattice. Throughout this work, we use five labels to cate-gorize the different phases that we find. Some representa-tive examples of real-space spin structures are presented in Fig. 2. With the associated labels, they are: (a) Paramagnet (PM): The state with the lowest total energy has no finite magnetization on the lattice. As a consequence, the energy Eq is independent of 
+
+q.(b) Square antiferromagnet (SAFM): In the t′/t → 0limit, the triangular lattice is equivalent to the square lattice (see App. A). At half-filling, the mag-netization is in a checkerboard pattern. This order-ing is associated to q at the M point in Fig. 2(a 2). (c) Spiral order: At t = t′, geometric frustration is maximal and the local moments prefer a 120 ◦
+
+angle with each other, leading to a spiral state. This ordering corresponds to q at the K points in Fig. 2(a 1). 4qq
+
+# q q                                
+
+> FIG. 2. (a 1, a 2) Non-interacting dispersions ε(k) of the triangular lattice for the isotropic ( t′/t = 1) and the anisotropic (here t′/t = 0 .4) lattice, respectively. The dashed hexagon, full straight lines, and arrow indicate the Brillouin zone, mirror symmetries, and C6symmetry, respectively. Solid red lines indicate the Fermi surface. The dotted grey line highlights the momentum characteristic of decoupled one-dimensional chains. In the isotropic case, the Mand Kpoints are symmetry-equivalent. In the anisotropic case, the M′and K′points are symmetry-equivalent, but inequivalent to the Mand Kpoints. (b-e) Real space representation of the different classes of magnetic phases. (b) Square antiferromagnet (SAFM), characterized by a collinear N´ eel order with ordering vector at the Mpoint. (c) Spiral order, with ordering vector at the Kpoint, corresponding to the 120 ◦coplanar spin structure realized in the isotropic triangular lattice limit. (d) Quasi one-dimensional antiferromagnetic order (quasi-1DAFM), stabilized in the large t′/t limit and characterized by antiferromagnetic correlations along a single lattice direction. (e) Generic spin-density wave, where the ordering vector lies away from high-symmetry points, leading to a continuously varying spin angle.
+
+(d) One-dimensional antiferromagnet (1DAFM): The strongly anisotropic regime t′ ≫ t describes the lattice as a set of weakly coupled antiferromag-netic chains running along the a1 − a2 direction. In the limit t → 0 at finite U and t′, the total en-ergy becomes independent of q along the line con-necting M ′ 
+
+> 1
+
+and M ′ 
+
+> 2
+
+in Fig. 2(a 2), reflecting an ex-tensive degeneracy associated with decoupled one-dimensional chains. (e) Generic spin-density wave: Away from these spe-cific limits ( t′/t → 0, 1, ∞), a magnetic state can be found at a generic q away from high-symmetry points. Resolving these magnetic tendencies therefore requires access to the full momentum dependence of the order parameter Mq. In conventional single-site quantum em-bedding theories such as DMFT and ghost-GA, such mo-mentum resolution is not directly available because trans-lational symmetry is enforced when embedding the im-purity self-energy back onto the lattice. One route to overcome this limitation is to analyze magnetic susceptibilities from the high-temperature nor-mal state and extract the dominant ordering wavevector from their q-dependence via the Bethe–Salpeter equa-tion [15]. An alternative approach, adopted in this work and in Ref. 4, is to perform a local SU (2) gauge transfor-mation that absorbs the spatial dependence of the mag-netization into the non-interacting Hamiltonian. This spin-rotating frame allows us to capture the continuous evolution of the magnetic states with arbitrary ordering wavevector q and to determine the q that minimizes the total energy. This approach is detailed in the following subsection.  
+
+> B. Rotating spin-frame formulation
+
+The staggered magnetization Mq defined in Eq. (2) breaks the translational invariance of the lattice. As a re-sult, local quantum embedding methods such as DMFT or ghost-GA cannot capture this ordering unless one al-lows for site-dependent (inequivalent) embeddings, which would require solving and converging an extensive num-ber of impurity problems. A more convenient approach is to use a suitable unitary transformation, recasting the problem into a form where both the local Hamiltonian and the magnetic ordering remain translationally invari-5ant. Indeed, the Hamiltonian given by Eq. (1) can in-stead be mapped to one where the translational mod-ulation of the order parameter is absorbed by its non-interacting part. To see this, consider applying the following spin- and position-dependent gauge transformation to the creation and annihilation operators: ˆc† 
+
+> iσ
+
+= eiσ (q·ri) ˆc† 
+
+> qiσ
+
+and ˆciσ = e−iσ (q·ri) ˆcqiσ , (4) where σ =↑ (↓) is treated as + 12 (− 12 ). In this rotated ba-sis that depends on q, the interaction part of the Hamil-tonian is untouched as ˆHU → ˆHqU = U X
+
+> i
+
+ˆnqi↑ ˆnqi↓, (5) where ˆ nqiσ ≡ ˆc† 
+
+> qiσ
+
+ˆcqiσ , but the tight-binding part be-comes ˆHq0 = X
+
+> ijσ
+
+tij eiσ q·(ri−rj ) ˆc† 
+
+> qiσ
+
+ˆcqjσ − μ X
+
+> iσ
+
+ˆnqiσ . (6) In this basis, the magnetization Eq. (2) becomes 
+
+Mq = 1
+
+N
+
+X
+
+> i
+
+D ˆSqix 
+
+E
+
+= 12N
+
+X
+
+> i
+
+D
+
+ˆc† 
+
+> qi↑
+
+ˆcqi↓ + ˆ c† 
+
+> qi↓
+
+ˆcqi↑
+
+E
+
+,
+
+(7) which is now translationally invariant and can therefore be captured within single-site, translationally invariant DMFT and ghost-GA, given that spin-off-diagonal ele-ments are allowed.  
+
+> C. Ghost-Gutzwiller approximation
+
+The standard Gutzwiller approximation (GA) is a vari-ational framework based on an auxiliary non-interacting Slater determinant defined in a Hilbert space of the same size as the physical problem [62, 67–69]. Electronic cor-relations are incorporated in a local projection opera-tor acting on this wavefunction, such that all variational degrees of freedom are ultimately encoded in the one-body density matrix. While this construction success-fully captures low-energy quasiparticle renormalization, it is intrinsically limited to describing incoherent spec-tral weight, excited states, and the multiplet structure characteristic of Mott and Hund physics. The ghost-Gutzwiller approximation (ghost-GA) over-comes these limitations by enlarging the auxiliary Hilbert space [79, 80]. Specifically, it introduces B − 1 addi-tional auxiliary (“ghost”) orbitals per physical orbital, such that the total auxiliary space contains B orbitals per physical degree of freedom, with B = 1 recovering standard GA. This enlarged variational space allows for a much richer description of correlations, including inco-herent spectral features and dynamical effects. In partic-ular, the resulting variational self-energy acquires a finite number of poles, whose number is controlled by B, en-abling a systematic improvement of the description of electronic excitations. Recently, it has been shown that in the limit B →∞, ghost-GA becomes equivalent to DMFT [70]. Im-portantly, this equivalence is achieved within a varia-tional framework that depends only on the one-body den-sity matrix, in contrast to DMFT, which requires the full frequency-dependent Green’s function. This makes ghost-GA computationally much more efficient while re-taining a controlled connection to DMFT. In practice, only a small number of ghost orbitals per physical or-bital is sufficient to obtain results in close quantitative agreement with DMFT [55, 58, 79, 81, 82]. In this work, we do not rederive the full ghost-GA for-malism, which is presented in Refs. [70, 79, 80]. The calculations were performed using an implementation de-veloped within the TRIQS library [83], which will be re-leased separately. The non-interacting Hamiltonian ˆH0
+
+is Fourier transformed to a 413 × 413 k-grid, half-filling in the paramagnetic solution is converged to a precision of 10 −5 and the variational parameters to a precision of 10 −6, with an effective inverse temperature of β = 500. The q-path used in the one-dimensional phase diagram Fig. 3 contains 100 points from Γ to M along K, the 
+
+q-grid for the two-dimensional phase diagram Fig. 4 con-tains 57 × 49 points, and the susceptibilities of Fig. 5 are calculated on a 29 × 25 q-grid. Each calculation runs for a few minutes on a single central processing unit (CPU). Converging the chemical potential is the limiting factor in the paramagnetic state and converging each q-point takes on the order of a few minutes.  
+
+> III. RESULTS & DISCUSSION
+
+In this section, we present the magnetic phase dia-grams of the anisotropic triangular Hubbard model ob-tained with ghost-GA for both B = 1 (standard GA) and 
+
+B = 3. For each pair of interaction strength U/t and hopping t′/t , we determine the magnetic ground state by computing the total energy Eq in the rotating spin-frame for a path or a grid of ordering wavevectors q. In this formulation, the q-dependence enters the non-interacting Hamiltonian, and the GA or ghost-GA variational pa-rameters are optimized for each q. The global minimum of Eq identifies the preferred magnetic ordering vector given that the magnetization is finite. In Sec. III A, we explore the phase diagram obtained when investigating magnetic instabilities along the Γ −
+
+K − M high-symmetry path, as was done in Ref. 4 with DMFT. Our results suggest that GA already provides a qualitatively correct description of the phases, but their boundaries differ from DMFT. Employing ghost-GA instead, the boundaries become hardly distinguish-able from DMFT with only B = 3. In Sec. III B, we present calculations performed on the full two-dimensional Brillouin zone and compare our 6                                        
+
+> FIG. 3. Results for magnetic phases with a wavevector along the Γ −Mhigh-symmetry path. (a) Visual representation of the high-symmetry path. It goes from the zone center at Γ to the middle of a neighboring zone edge at M, going through a corner of the Brillouin zone at K.This path allows us to capture both the AFM state (at M), the spiral state (at K), the quasi-one-dimensional 1DAFM state (at Xin the middle), and other generic states in between. (b) Total energy Eqin the grand canonical ensemble along the path Γ −Mat fixed U/t = 8 for several t′/t obtained with GA ( B= 1). All states with finite t′display a plateau at small momentum, where the system falls into the metallic solution. The sharp discontinuity signals that we were able to stabilize the magnetic state. Orange diamonds depict these points on the phase diagram in (c). The minimum in Eqshifts as geometric frustration increases. (c) Resulting GA phase diagram. The green color represents the paramagnetic (PM) phase, while the color gradient highlights that we can capture the continuous evolution in q, from AFM in yellow to quasi-1DAFM in pink, as we increase t′/t . We also performed calculations on a finer (∆ U= 0 .1) grid around the critical Uto obtain the B= 1 and B= 3 phase boundaries, depicted in full and dashed black lines, respectively. We also extracted the DMFT phase boundary from Ref. 4 to compare with ghost-GA.
+
+phase diagram with that obtained using ladder DF re-ported in Ref. 15. We find a substantially different phase diagram. This difference can be traced to two method-ological differences. First, the analysis reported in Ref. 15 is based on the magnetic susceptibility rather than on the direct stabilization of the ordered phase. Second, it in-cludes additional non-local fluctuations that are absent in our calculations. In particular, we never stabilize, at small U/t , the 1DAFM phase that they report, and our calculations of magnetic susceptibilities suggest we never will.  
+
+> A. One-dimensional phase diagram
+
+We first investigate incommensurate magnetism with a momentum q along the high-symmetry path depicted in Fig. 3(a). This is analogous to the path investigated in Ref. 4 with DMFT at zero temperature. Although a spin-density wave with a generic q-modulation outside of this path is possible, as discussed in Sec. III B, it turns out that this high-symmetry path captures the essential phase diagram of this system. For each point in the ( U/t, t ′/t )-space, we first perform a ghost-GA ( B = 1 and B = 3) paramagnetic calculation in order to converge the chemical potential μ to enforce half-filling, and the ghost-GA variational parameter ma-trices that capture local correlations. From those initial conditions, we scan the high-symmetry path of Fig. 3(a) by performing the rotating spin-frame transformation de-tailed in Sec. II B, for each q along this line. Figure 3(b) shows examples of the results for the total energy Eq
+
+curves for U/t = 8 and for various t′/t values. We observe that our results reproduce the qualitative behavior found in DMFT [4]: in the square lattice regime ( t′/t = 0), the system prefers an AFM state (minimum at the M point) with alternating spins along the dominant hopping direc-tions. As frustration t′/t increases, the minimum initially remains at the M point, until t′/t becomes substantial and the minimum moves towards the K-point. When 
+
+t′/t reaches 1, the system is six-fold symmetric and the 
+
+q-point with lowest energy is at K, referred to as the spiral state. As t′ becomes larger than t, the minimum continues to move towards the Γ point, but actually sat-urates halfway between Γ and M at the X point, where the magnetic state resembles a 1DAFM of completely de-coupled chains. Performing these scans for U/t ∈ [0 , 20] and extracting the q-point with lowest Eq yields the phase diagram pre-sented in Fig. 3(c). The colors correspond to the states obtained on a coarse-grain grid of ( U/t, t ′/t ) with GA. The situation where the q-point with the lowest total energy is non-magnetic corresponds to the paramagnetic state (PM), designated by the green color. When mag-netic, the value of qx is depicted by a color between pink and yellow, for qx from 0.6 to 1 along the Γ − M path. This color gradient highlights that we can capture the continuous evolution in q of the order parameter with increasing geometric frustration. We clearly see that geometric frustration inhibits mag-7                       
+
+> FIG. 4. Results for magnetic states with wavevectors on the full two-dimensional grid. (a) Phase diagram obtained by extracting the magnetic ordering wavevector that minimizes the total energy Eq. The solid colors correspond to the ghost-GA
+> B= 3 phase diagrams, while the hatched regions represent the phases obtained with GA when they differ from ghost-GA. The green color represents the paramagnetic (PM) state, while the color gradient represents the continuous evolution of magnetic states, with yellow, orange, and red the AFM, spiral quasi-1DAFM states, respectively. As in the results depicted in Fig. 3, the magnetic qfall on the high-symmetry path along Γ −X−K−M. The blue squares and pale blue stars represent boundary anomalies, discussed in the main text and in Fig. 6. Certain specific points are discussed in the following subfigures. (b-e) Examples from GA of the total energy Eqand magnetization Mqon the two-dimensional q-grid for representative examples of the (b) paramagnetic (PM), (c) quasi-1DAFM, (d) AFM and (e) spiral phases. The dashed lines delimit the Brillouin zone. The isolated white points in Eqreveal q-points where the solution did not properly converge.
+
+netism and pushes the critical value of U to larger val-ues. In Fig. 3(c), we also present three lines for the critical U that separates the magnetic from the non-magnetic ground states: the full line with × markers, the dashed line with circle markers and the dotted line with open square markers represent GA ( B = 1), ghost-GA ( B = 3) and DMFT extracted from Ref. 4, respec-tively. The first two lines are our results, which were obtained by extracting the q ordering wavevectors for ∆U = 0 .1 around the transition. Comparing GA and ghost-GA, we find that adding ghost orbitals shifts the phase boundaries towards larger U , which is expected as the ghosts allow the variational state to capture some of the dynamical fluctuations [70]. Therefore, its solution becomes less mean-field-like, reducing the preference to-wards the ordered phases. However, the key result is not just the improvement when including ghosts, but that GA already captures the full topology of the phase di-agram. Furthermore, comparing B = 3 ghost-GA with DMFT demonstrates that only a few ghosts suffice for agreement.  
+
+> B. Two-dimensional phase diagram
+
+We now explore the entire two-dimensional space of potential magnetic ordering q wavevectors. We do this for three reasons: one is that, given that the triangular lattice supports many nearly degenerate coplanar states, it could potentially have a minimum in Eq anywhere in the full two-dimensional Brillouin zone. The second rea-son is that we want to compare our results with those obtained with ladder DF in Ref. 15. A third reason is that ghost-GA makes these calculations computationally inexpensive, allowing us to scan the full two-dimensional grid without prohibitive cost. We use a similar procedure as outlined in the begin-ning of Sec. III A, where we scan the phase diagram by computing the q-dependent total energy Eq and magne-tization Mq, by employing the rotating spin-frame for-mulation, but now we explore the whole two-dimensional space of q-vectors. The resulting phase diagram is pre-sented in Fig. 4(a), for both ghost-GA with B = 3 (solid colors) and GA (hashed region when disagreeing with ghost-GA). In that figure, the green color depicts the paramagnetic phase (PM). The other colors designate magnetic phases, where the gradient from yellow to red represents the qx position of the q-vector describing the magnetic order along the Γ − M high-symmetry path de-picted in Fig. 3(a). Unsurprisingly, we find that the mag-netic phases are easier to stabilize with GA than when including additional ghosts. This behavior is expected, as the additional ghosts capture dynamical fluctuations that are neglected by GA. By going beyond a static-mean-field-like description, they reduce the system’s tendency toward magnetism. In that figure, a few phases are selected as examples. Their respective total energy Eq and magnetization Mq8
+
+FIG. 5. Phase diagram based on the magnetic susceptibility. (a) Largest value in q of the susceptibility χm 
+
+> q
+
+defined in Eq. 9, obtain with GA ( B = 1) and using ϕx/t = 10 −2. As we move away in parameter space from the magnetic dome depicted in Fig. 4, the amplitude of the susceptibility decreases. In the following subfigures, we present χm 
+
+> q
+
+on the q-grid for a few examples. (b-e) Magnetic susceptibility at fixed t′/t = 5 along increasing U/t . While χm 
+
+> q
+
+starts to look like a vertical line passing through the X-point characteristic of the quasi-1DAFM state, the amplitude is far from diverging. As U/t increases, the amplitude also increases, and the maximum of χm 
+
+> q
+
+localizes close to the X-point. (f-i) Magnetic susceptibility at fixed U/t = 6 along decreasing t′/t . The maximum of χm 
+
+> q
+
+increases as the geometric frustration is reduced, and the quasi-one-dimensional line of maximum starts folding around the K-point. 
+
+are presented on the lower and upper halves of the two-dimensional q-grids, respectively, in Figs 4(b-e). 
+
+• In (b), t′/t = 5 and U/t = 10 is an example of a PM state where Eq is independent of q and Mq is vanishing. 
+
+• In (c), t′/t = 2 .5 and U/t = 12 is an example of 
+
+FIG. 6. Anomalies at the phase boundary between the paramagnetic and magnetic solutions. Some points have a shallow minimum (highlighted by the purple circle) in the 
+
+q-dependent total energy Eq that is either away from the Γ − M high-symmetry path, or at an unexpected place in the (t′/t, U/t ) phase diagram. We discard the shallow minima and believe the unexpected points are due to coarse-graining of the q-mesh. Magnetism becomes very sensitive to this at the phase boundary. (a-c) correspond to some points of the GA phase diagram, while (d) corresponds to the ghost-GA phase diagram. 
+
+a nearly 1DAFM state, with quasi-one-dimensional line of minimum in Eq on the line starting at the 
+
+X-point and perpendicular to the Γ − X line. Note however, that the minimum q remains at the X-point. 
+
+• In (d), t′/t = 0 .5 and U/t = 8 is an AFM state, with a pronounced minimum at the M -point. 
+
+• In (e), t′/t = 1 and U/t = 10 is a spin-spiral state, with a six-fold minimum at the symmetric K-point. In addition to the magnetic phases discussed above, we highlight several anomalous points, marked by dark blue squares and pale blue stars in Fig. 4(a). Selected exam-ples are shown in Fig. 6. At the GA phase boundary, the dark blue squares correspond to states with extremely shallow minima in Eq. These minima are not readily re-solved by visual inspection and appear as outliers, devi-ating from the expected Γ − M path and instead falling at generic spin-density-wave wavevectors; examples are shown in Fig. 6(a-c). We therefore exclude these points from the phase diagram. At the ghost-GA phase bound-ary, the pale blue stars denote similarly shallow states that produce a non-monotonic phase boundary. These features appear more robust than the dark blue-square anomalies, but may still originate from the coarse grain-ing of the q mesh or from the finite number of k points used to discretize the non-interacting Hamiltonian. Over-all, these anomalies are extremely shallow and occur only near the boundary with the paramagnetic phase. Al-though they may slightly shift the phase boundary, we do not expect them to affect the qualitative conclusions. Now, given the phase diagram in Fig. 4(a), we want to compare it to the one reported in Ref. 15, which is based on ladder DF calculations. Overall, we argue that the two phase diagrams (DF and ghost-GA) qualitatively 9agree, apart from the phase labeled 1DAFM reported in their work, which we do not find. We explain the dis-agreement with two different reasons. First, our work considers only single-site ghost-GA, which neglects non-local correlations. In their work, by employing the lo-cal vertex to construct the magnetic susceptibility, they diagrammatically consider non-local correlations. To ac-count for those, we would need to perform cluster-ghost-GA calculations, which we plan to investigate in future work. Second, in our work, we establish the existence of a magnetic state by directly stabilizing it and verifying that its total energy is lower than that of the paramagnetic state. By contrast, Ref. 15 performs the analysis at finite temperature and infers a magnetic phase from the mag-netic susceptibility once it exceeds a chosen threshold. Our results suggest that this criterion is not, by itself, sufficient to guarantee that the corresponding phase is stabilized. In order to examine how far we are from stabilizing the 1DAFM state in the large t′, small U region, we compute the magnetic susceptibility χm 
+
+> q
+
+. It is obtained by per-forming a calculation in the presence of a small field ϕx
+
+along the in-plane x direction, which adds the perturba-tion 
+
+δ ˆHx = ϕx
+
+X
+
+> i
+
+
+
+c†
+
+> i↑
+
+ci↓ + c†
+
+> i↓
+
+ci↑
+
+
+
+, (8) resulting in an induced magnetization M ϕx 
+
+> q
+
+. Then, the susceptibility from the normal state is given by 
+
+χm 
+
+> q
+
+= lim 
+
+> ϕx→0
+
+M ϕx
+
+> q
+
+ϕx
+
+. (9) The resulting susceptibility phase diagram obtained with GA ( B = 1) with ϕx/t = 10 −2 is presented in Fig. 5(a) through the maximum value of χm 
+
+> q
+
+as a function of q, with a few representative examples in Figs 5(b-i). In Figs (b-e), we show how χm 
+
+> q
+
+evolves for fixed t′/t = 5, as the interaction U/t is increased. At small U/t , the maximum of the susceptibility follows the expected line for the 1DAFM phase, that is, a line that runs vertically and passes through the X-point of Fig. 3(a). However, the amplitude of that susceptibility is far from diverg-ing. This is understood because the energy scale that is now relevant for the bandwidth is no longer t but instead 
+
+t′ = 5 t, making U/t ′ very small compared to the band-width. As U/t increases, or equivalently here U/t ′, the magnitude of the susceptibility increases and becomes sharper around the X point, until it is almost divergent. In Figs 5(f-i), we instead present a scan of χm 
+
+> q
+
+for fixed 
+
+U/t = 6, as the geometric frustration t′/t is decreased. At large t′/t , χm 
+
+> q
+
+exhibits a line of intensity along the 1DAFM path, and as t′/t decreases, this line starts fold-ing around the K and K′-points. Moreover, since U/t ′
+
+effectively increases, the amplitude of χm 
+
+> q
+
+increases and eventually starts diverging. Ultimately, the absence of long-range order in the 
+
+t/t ′ → 0 limit is not surprising, considering that the Mermin-Wagner theorem prohibits it in a one-dimensional system [84]. However, before reaching this limit, we do not exclude the possibility that such a phase can be stabilized, as suggested in Fig. 4(c), provided that 
+
+U is scaled appropriately with t′. 
+
+> IV. CONCLUSION
+
+We have studied the magnetic phase diagram of the anisotropic triangular Hubbard model using GA and its ghost extension within the rotating spin-frame approach, allowing for a direct determination of ordered states via total-energy minimization in momentum space. A cen-tral result of this work is that the standard GA already captures remarkably well the qualitative structure of the phase diagram, including the emergence and evolution of incommensurate magnetic orders across the full range of frustration. Despite its mean-field character, GA cor-rectly identifies the dominant competing phases and their organization in parameter space. This makes it a par-ticularly attractive tool for studying complex magnetic orders in situations where more expensive methods are impractical, such as multi-orbital models, cluster exten-sions, or systems requiring dense momentum resolution. At the same time, GA systematically overestimates the stability of ordered phases due to its lack of dynamical fluctuations. We show that introducing ghost orbitals provides a controlled and efficient way to remedy this limitation. Strikingly, only a small number of ghosts (B = 3) is sufficient to achieve near-quantitative agree-ment with DMFT, demonstrating that most dynamical effects can be captured at very low additional cost. By exploring the full Brillouin zone, we obtain a consistent phase diagram comprising paramagnetic, square anti-ferromagnetic, spiral, and incommensurate spin-density-wave phases. In contrast to other approaches, we find that the one-dimensional antiferromagnetic phase is not stabilized, even though it appears as a leading instability in certain regimes. Looking forward, the framework developed here pro-vides a natural route to investigate magnetic ordering in more realistic and complex settings, including multi-orbital systems, cluster extensions, and materials with spin–orbit coupling, where ordering wavevectors may ex-tend beyond coplanar configurations and involve more intricate spin textures. In this context, GA emerges as a robust and scalable baseline method for exploring in-commensurate magnetism, while ghost-GA offers a sys-tematic and computationally efficient pathway toward quantitative accuracy. Together, these approaches enable momentum-resolved studies of complex magnetic states in regimes where fully dynamical methods remain com-putationally prohibitive. 10 
+
+> ACKNOWLEDGMENTS
+
+The Flatiron Institute is a division of the Simons Foun-dation. N.L. gratefully acknowledges funding from the Si-mons Foundation (Grant No. 00024037). T.-H.L. grate-fully acknowledges funding from the National Science and Technology Council (NSTC) of Taiwan under Grant No. NSTC 112-2112-M-194-007-MY3 and the National Cen-ter for Theoretical Sciences (NCTS) in Taiwan. Authors A.K.-M., A.-M.S.T. and M.C. benefit from their RQMP membership https://doi.org/10.69777/309032. A.K-M. and M.C. acknowledge the support of the Nat-ural Sciences and Engineering Research Council of Canada (NSERC), [funding reference number RGPIN-2025-06035]. A.-M.S. T. acknowledges support from the Canada First Research Excellence Fund. 
+
+> Appendix A: Mapping between the triangular lattice and the modified square lattice
+
+In this work, we formulate the model on the anisotropic triangular lattice depicted in Fig. 1, with primitive vec-tors shown in Fig. 7 and given by 
+
+aT 
+
+> 1
+
+=
+
+
+
+− a 
+
+> 2
+
+, a√32
+
+
+
+, aT 
+
+> 2
+
+=
+
+ a 
+
+> 2
+
+, a√32
+
+
+
+. (A1) Nearest-neighbor hopping t acts along ±a1 and ±a2,while the third bond ±(a1 − a2) carries the hopping t′.This is the standard anisotropic triangular lattice, and all our results are expressed in this representation. To com-pare directly with Ref. [4], we also make use of the equiv-alent square-diagonal description, also shown in Fig. 7, defined by the primitive vectors 
+
+sT 
+
+> 1
+
+= ( a, 0) , sT 
+
+> 2
+
+= (0 , a ), (A2) with hopping t along ±s1 and ±s2, and hopping t′ along 
+
+±(s1 + s2). A linear change of basis relates the two representations. We define a linear map L acting on coordinates in the square lattice such that 
+
+L s 1 = a1, L s 2 = a2. (A3) This map is represented by the matrix 
+
+L = 12
+
+ −1 1√3 √3
+
+
+
+, (A4)  
+
+> FIG. 7. Triangular lattice and square lattice with an extra diagonal hopping. Both are topologically equivalent.
+
+so that for any position of a site R□ = m s1 + n s2 on the square-diagonal lattice, we obtain the corresponding position on the triangular lattice as 
+
+R△ = L R □. (A5) The determinant of L is det L = − √32̸ = 0, so the map is invertible and provides a one-to-one correspondence be-tween the two lattices. Under this mapping, the three bond directions s1, s2 and s1 + s2 of the square-diagonal lattice are sent to the three bond directions a1, a2 and 
+
+a1 −a2 of the triangular lattice, preserving the connectiv-ity and thus the Hamiltonian up to this linear distortion. In the rotating spin-frame, magnetic order is parame-terized by a wavevector q. On the square-diagonal lat-tice, the commonly used cut qx = qy imposes equal phase change along two t-bonds, i.e. 
+
+q · s1 = q · s2. (A6) To express the same physical condition on the triangular lattice, we require equal phase change along −a1 and a2
+
+(two t-bonds with a t′ bond in between): 
+
+−q · a1 = q · a2. (A7) Writing q = ( qx, q y ) in Cartesian coordinates and insert-ing Eq. (A1), we obtain  
+
+> a
+> 2
+
+qx − √3a 
+
+> 2
+
+qy = a 
+
+> 2
+
+qx + √3a 
+
+> 2
+
+qy =⇒ qy = 0 . (A8) Thus, the square-lattice line qx = qy is exactly equivalent to the Γ → M path 
+
+qy = 0 (A9) in the Brillouin zone of the triangular lattice (shown in Fig. 3(a)), and all Brillouin-zone cuts used in this work are presented in this triangular-lattice parametrization.    
+
+> [1] A. Wietek, R. Rossi, F. ˇSimkovic, M. Klett, P. Hans-mann, M. Ferrero, E. M. Stoudenmire, T. Sch¨ afer, and A. Georges, Mott Insulating States with Competing Or-ders in the Triangular Lattice Hubbard Model, Phys. Rev. X 11 , 041013 (2021). [2] A. Yamada, Magnetic properties and Mott transition in the Hubbard model on the anisotropic triangular lattice, Phys. Rev. B 89 , 195108 (2014). [3] S. Acheche, A. Reymbaut, M. Charlebois, D. S´ en´ echal, and A.-M. S. Tremblay, Mott transition and magnetism on the anisotropic triangular lattice, Phys. Rev. B 94 ,245133 (2016). [4] S. Goto, S. Kurihara, and D. Yamamoto, Incommen-surate spiral magnetic order on anisotropic triangular
+
+11 
+
+lattice: Dynamical mean-field study in a spin-rotating frame, Phys. Rev. B 94 , 245145 (2016). [5] H. Menke, M. Klett, K. Kanoda, A. Georges, M. Ferrero, and T. Sch¨ afer, Superconductivity and Mott Physics in Organic Charge Transfer Materials, Phys. Rev. Lett. 
+
+133 , 136501 (2024). [6] J. Zang, J. Wang, J. Cano, A. Georges, and A. J. Millis, Dynamical Mean-Field Theory of Moir´ e Bilayer Transi-tion Metal Dichalcogenides: Phase Diagram, Resistiv-ity, and Quantum Criticality, Phys. Rev. X 12 , 021064 (2022). [7] T. Ohashi, T. Momoi, H. Tsunetsugu, and N. Kawakami, Finite Temperature Mott Transition in Hubbard Model on Anisotropic Triangular Lattice, Phys. Rev. Lett. 100 ,076402 (2008). [8] K. Aryanpour, W. E. Pickett, and R. T. Scalettar, Dy-namical mean-field study of the Mott transition in the half-filled Hubbard model on a triangular lattice, Phys. Rev. B 74 , 085117 (2006). [9] K.-W. Lee, J. Kuneˇ s, R. T. Scalettar, and W. E. Pickett, Correlation effects in the triangular lattice single-band system li xNbo 2, Phys. Rev. B 76 , 144513 (2007). [10] P.-O. Downey, O. Gingras, J. Fournier, C.-D. H´ ebert, M. Charlebois, and A.-M. S. Tremblay, Mott transition, Widom line, and pseudogap in the half-filled triangular lattice Hubbard model, Phys. Rev. B 107 , 125159 (2023). [11] P.-O. Downey, O. Gingras, C.-D. H´ ebert, M. Charlebois, and A.-M. S. Tremblay, Doping the Mott insulating state of the triangular-lattice Hubbard model reveals the Sordi transition, Phys. Rev. B 110 , L121109 (2024). [12] J. Fournier, P. O. Downey, O. Gingras, C. D. H´ ebert, M. Charlebois, and A. M. S. Tremblay, The frenkel line and the pseudogap: an analogy between classical and electronic fluids (2025), arXiv:2509.18317 [cond-mat.str-el]. [13] P. Sahebsara and D. S´ en´ echal, Hubbard Model on the Triangular Lattice: Spiral Order and Spin Liquid, Phys. Rev. Lett. 100 , 136402 (2008). [14] B. Kyung and A.-M. S. Tremblay, Mott Transition, Anti-ferromagnetism, and d-Wave Superconductivity in Two-Dimensional Organic Conductors, Phys. Rev. Lett. 97 ,046402 (2006). [15] Y. Yu, S. Li, S. Iskakov, and E. Gull, Magnetic phases of the anisotropic triangular lattice Hubbard model, Phys. Rev. B 107 , 075106 (2023). [16] M. Laubach, R. Thomale, C. Platt, W. Hanke, and G. Li, Phase diagram of the Hubbard model on the anisotropic triangular lattice, Phys. Rev. B 91 , 245125 (2015). [17] L. F. Tocchio, A. Parola, C. Gros, and F. Becca, Spin-liquid and magnetic phases in the anisotropic triangular lattice: The case of κ−(ET) 2X, Phys. Rev. B 80 , 064419 (2009). [18] T. Watanabe, H. Yokoyama, Y. Tanaka, and J. ichiro In-oue, Superconductivity and a Mott Transition in a Hub-bard Model on an Anisotropic Triangular Lattice, Jour-nal of the Physical Society of Japan 75 , 074707 (2006). [19] T. Watanabe, H. Yokoyama, Y. Tanaka, and J. Inoue, Predominant magnetic states in the Hubbard model on anisotropic triangular lattices, Phys. Rev. B 77 , 214505 (2008). [20] Z. Y. Meng, T. C. Lang, S. Wessel, F. F. Assaad, and A. Muramatsu, Quantum spin liquid emerging in two-dimensional correlated Dirac fermions, Nature 464 , 847 (2010). [21] L. F. Tocchio, H. Feldner, F. Becca, R. Valent´ ı, and C. Gros, Spin-liquid versus spiral-order phases in the anisotropic triangular lattice, Phys. Rev. B 87 , 035143 (2013). [22] A. Szasz and J. Motruk, Phase diagram of the anisotropic triangular lattice Hubbard model, Phys. Rev. B 103 ,235132 (2021). [23] A. Szasz, J. Motruk, M. P. Zaletel, and J. E. Moore, Chi-ral Spin Liquid Phase of the Triangular Lattice Hubbard Model: A Density Matrix Renormalization Group Study, Phys. Rev. X 10 , 021042 (2020). [24] A. Wietek, J. Wang, J. Zang, J. Cano, A. Georges, and A. Millis, Tunable stripe order and weak superconduc-tivity in the Moir´ e hubbard model, Phys. Rev. Res. 4,043048 (2022). [25] E. Arrigoni and G. C. Strinati, Doping-induced incom-mensurate antiferromagnetism in a Mott-Hubbard insu-lator, Phys. Rev. B 44 , 7455 (1991). [26] A. Feiguin, C. Gazza, A. Trumper, and H. Ceccatto, The Hubbard model on the triangular lattice: a slave-boson study, Journal of Physics: Condensed Matter 9,L27 (1997). [27] M. Capone, L. Capriotti, F. Becca, and S. Caprara, Mott metal-insulator transition in the half-filled Hubbard model on the triangular lattice, Phys. Rev. B 63 , 085104 (2001). [28] S. W. Tsai and J. B. Marston, κ-(BEDT-TTF) 2X organic crystals: Superconducting versus anti-ferromagnetic in-stabilities in the hubbard model on an anisotropic trian-gular lattice, Canadian Journal of Physics 79 , 1463–1467 (2001). [29] F. Ming, S. Johnston, D. Mulugeta, T. S. Smith, P. Vilmercati, G. Lee, T. A. Maier, P. C. Snijders, and H. H. Weitering, Realization of a Hole-Doped Mott In-sulator on a Triangular Silicon Lattice, Phys. Rev. Lett. 
+
+119 , 266802 (2017). [30] J. Yang, L. Liu, J. Mongkolkiattichai, and P. Schauss, Site-Resolved Imaging of Ultracold Fermions in aTriangular-Lattice Quantum Gas Microscope, PRX Quantum 2, 020344 (2021). [31] M. Xu, L. H. Kendrick, A. Kale, et al. , Frustration- and doping-induced magnetism in a Fermi–Hubbard simula-tor, Nature 620 , 971 (2023). [32] M. Lebrat, M. Xu, L. H. Kendrick, A. Kale, Y. Gang, P. Seetharaman, I. Morera, E. Khatami, E. Demler, and M. Greiner, Observation of Nagaoka polarons in a Fermi– Hubbard quantum simulator, Nature 629 , 317 (2024). [33] U. Geiser, H. H. Wang, K. D. Carlson, J. M. Williams, H. A. Charlier Jr., J. E. Heindl, G. A. Yaconi, B. J. Love, and M. W. Lathrop, Superconductivity at 2.8 K and 1.5 kbar in κ-(BEDT-TTF) 2Cu 2(CN) 3: The First Organic Superconductor Containing a Polymeric Copper Cyanide Anion, Inorganic Chemistry 30 , 2586 (1991). [34] U. Geiser, A. J. Schults, H. H. Wang, D. M. Watkins, D. L. Stupka, J. M. Williams, J. E. Schirber, D. L. Overmyer, D. Jung, J. J. Novoa, and M.-H. Whangbo, Strain index, lattice softness and superconductivity of organic donor-molecule salts: Crystal and elec-tronic structures of three isostructural salts κ-(BEDT-TTF) 2Cu[N(CN) 2]X (X = Cl, Br, I), Physica C: Super-conductivity 174 , 475 (1991). [35] V. A. Ivanov, E. A. Ugolkova, and M. Y. Zhuravlev, Electronic structure and superconductivity in κ-(BEDT-TTF) 2X salts, Physica C: Superconductivity 282–287 ,12 
+
+1905 (1997), proceedings of the International Conference on Materials and Mechanisms of Superconductivity High Temperature Superconductors V. [36] H. Urayama, H. Yamochi, G. Saito, S. Sato, A. Kawamoto, J. Tanaka, T. Mori, Y. Maruyama, and H. Inokuchi, Crystal Structures of Organic Superconduc-tor (BEDT-TTF) 2Cu(NCS) 2 at 298 K and 104 K, Chem-istry Letters 17 , 463 (1988). [37] D. M. Kennes, M. Claassen, L. Xian, A. Georges, A. J. Millis, J. Hone, C. R. Dean, D. N. Basov, A. N. Pa-supathy, and A. Rubio, Moir´ e heterostructures as acondensed-matter quantum simulator, Nature Physics 
+
+17 , 155 (2021). [38] L. Wang, E.-M. Shih, A. Ghiotto, L. Xian, D. A. Rhodes, C. Tan, M. Claassen, D. M. Kennes, Y. Bai, B. Kim, K. Watanabe, T. Taniguchi, X. Zhu, J. Hone, A. Ru-bio, A. N. Pasupathy, and C. R. Dean, Correlated elec-tronic phases in twisted bilayer transition metal dichalco-genides, Nature Materials 19 , 861 (2020). [39] Y. Tang, L. Li, T. Li, Y. Xu, S. Liu, K. Barmak, K. Watanabe, T. Taniguchi, A. H. MacDonald, J. Shan, and K. F. Mak, Simulation of Hubbard model physics in WSe2/WS2 moir´ e superlattices, Nature 579 , 353 (2020). [40] F. Wu, T. Lovorn, E. Tutuc, and A. H. MacDonald, Hub-bard Model Physics in Transition Metal Dichalcogenide Moir´ e Bands, Phys. Rev. Lett. 121 , 026402 (2018). [41] F. Wu, T. Lovorn, E. Tutuc, I. Martin, and A. H. MacDonald, Topological Insulators in Twisted Transition Metal Dichalcogenide Homobilayers, Phys. Rev. Lett. 
+
+122 , 086402 (2019). [42] W. Sun, C. Tuo, and H. Yao, Single-band triangular lat-tice Hubbard model with tunable anisotropy from twisted rhombic homobilayers, Phys. Rev. B 113 , L041119 (2026). [43] E. Lahoud, O. N. Meetei, K. B. Chaska, A. Kanigel, and N. Trivedi, Emergence of a Novel Pseudogap Metal-lic State in a Disordered 2D Mott Insulator, Phys. Rev. Lett. 112 , 206402 (2014). [44] L. Perfetti, P. A. Loukakos, M. Lisowski, U. Bovensiepen, H. Berger, S. Biermann, P. S. Cornaglia, A. Georges, and M. Wolf, Time Evolution of the Electronic Structure of 1t−tas 2 through the Insulator-Metal Transition, Phys. Rev. Lett. 97 , 067402 (2006). [45] S. Qiao, X. Li, N. Wang, W. Ruan, C. Ye, P. Cai, Z. Hao, H. Yao, X. Chen, J. Wu, Y. Wang, and Z. Liu, Mottness Collapse in 1T −tas 2−xse x Transition-Metal Dichalco-genide: An Interplay between Localized and Itinerant Orbitals, Phys. Rev. X 7, 041054 (2017). [46] A. Dalal, J. Ruhman, and J. W. F. Venderbos, Flat band physics in the charge-density wave state of 1T-TaS2 and 1T-TaSe2, npj Quantum Materials 10 , 31 (2025). [47] J. M. Pizarro, S. Adler, K. Zantout, T. Mertz, P. Barone, R. Valent´ ı, G. Sangiovanni, and T. O. Wehling, Decon-finement of Mott localized electrons into topological and spin–orbit-coupled Dirac fermions, npj Quantum Mate-rials 5, 79 (2020). [48] L. Crippa, H. Bae, P. Wunderlich, I. I. Mazin, B. Yan, G. Sangiovanni, T. Wehling, and R. Valent´ ı, Heavy fermions vs doped Mott physics in heterogeneous Ta-dichalcogenide bilayers, Nature Communications 15 ,1357 (2024). [49] T. Soma, K. Yoshimatsu, K. Horiba, H. Kumigashira, and A. Ohtomo, Two-dimensional superconductivity in single-band correlated 2 h-type Nbo 2 layers, Phys. Rev. B 105 , 104504 (2022). [50] W. Metzner and D. Vollhardt, Correlated lattice Fermions in d = ∞ Dimensions, Phys. Rev. Lett. 62 ,324 (1989). [51] A. Georges and G. Kotliar, Hubbard model in infinite dimensions, Phys. Rev. B 45 , 6479 (1992). [52] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions, Rev. Mod. Phys. 68 , 13 (1996). [53] G. Kotliar, S. Y. Savrasov, K. Haule, V. S. Oudovenko, O. Parcollet, and C. A. Marianetti, Electronic struc-ture calculations with dynamical mean-field theory, Rev. Mod. Phys. 78 , 865 (2006). [54] D. Vollhardt, Dynamical mean-field theory for correlated electrons, Annalen der Physik 524 , 1 (2012). [55] T.-H. Lee, N. Lanat` a, and G. Kotliar, Accuracy of ghost rotationally invariant slave-boson and dynamical mean field theory as a function of the impurity-model bath size, Phys. Rev. B 107 , L121104 (2023). [56] C. Mejuto-Zaera and M. Fabrizio, Efficient computa-tional screening of strongly correlated materials: Mul-tiorbital phenomenology within the ghost Gutzwiller ap-proximation, Phys. Rev. B 107 , 235150 (2023). [57] T.-H. Lee, C. Melnick, R. Adler, N. Lanat` a, and G. Kotliar, Accuracy of ghost-rotationally-invariant slave-boson theory for multiorbital Hubbard models and realistic materials, Phys. Rev. B 108 , 245147 (2023). [58] E. M. Makaresz, O. Gingras, T.-H. Lee, N. Lanat` a, B. J. Powell, and H. L. Nourse, Accelerating dynamical mean-field theory convergence by preconditioning with compu-tationally cheaper quantum embedding methods (2026), arXiv:2601.16401 [cond-mat.str-el]. [59] M. S. Frank, D. G. Artiukhin, T.-H. Lee, Y. Yao, K. Bar-ros, O. Christiansen, and N. Lanat` a, Active learning ap-proach to simulations of strongly correlated matter with the ghost Gutzwiller approximation, Phys. Rev. Res. 6,013242 (2024). [60] Y. Zhou, T.-H. Lee, A. Chen, N. Lanat` a, and H. Guo, Neural-Quantum-States Impurity Solver for Quantum Embedding Problems (2025), arXiv:2509.12431 [cond-mat.str-el]. [61] S. Giuli, H. Hasan, B. Kloss, M. S. Frank, T.-H. Lee, O. Gingras, Y.-X. Yao, and N. Lanat` a, Linear Foun-dation Model for Quantum Embedding: Data-Driven Compression of the Ghost Gutzwiller Variational Space (2025), arXiv:2512.21666 [cond-mat.str-el]. [62] N. Lanat` a, H. U. R. Strand, X. Dai, and B. Hellsing, Efficient implementation of the Gutzwiller variational method, Phys. Rev. B 85 , 035133 (2012). [63] N. Lanat` a, T.-H. Lee, Y.-X. Yao, and V. Dobrosavljevi´ c, Emergent Bloch excitations in Mott matter, Phys. Rev. B 96 , 195126 (2017). [64] M. S. Frank, T.-H. Lee, G. Bhattacharyya, P. K. H. Tsang, V. L. Quito, V. Dobrosavljevi´ c, O. Christiansen, and N. Lanat` a, Quantum embedding description of the Anderson lattice model with the ghost Gutzwiller ap-proximation, Phys. Rev. B 104 , L081103 (2021). [65] S. Giuli, C. Mejuto-Zaera, and M. Capone, Alter-magnetism from interaction-driven itinerant magnetism, Phys. Rev. B 111 , L020401 (2025). [66] G. Bellomia, A. Amaricci, and M. Capone, Local clas-sical correlations between physical electrons in Hubbard systems (2025), arXiv:2506.18709 [cond-mat.str-el]. 13 
+
+[67] M. C. Gutzwiller, Effect of Correlation on the Ferromag-netism of Transition Metals, Phys. Rev. Lett. 10 , 159 (1963). [68] M. C. Gutzwiller, Effect of Correlation on the Ferro-magnetism of Transition Metals, Phys. Rev. 134 , A923 (1964). [69] M. C. Gutzwiller, Correlation of Electrons in a Narrow s
+
+Band, Phys. Rev. 137 , A1726 (1965). [70] S. Giuli, T.-H. Lee, Y.-X. Yao, G. Kotliar, A. E. Ruck-enstein, O. Gingras, and N. Lanat` a, Unifying Vari-ational and Dynamical Quantum Embedding: From Ghost Gutzwiller Approximation to Dynamical Mean-Field Theory (2026), arXiv:2603.20559 [cond-mat.str-el]. [71] B. I. Shraiman and E. D. Siggia, Mobile Vacancies in a Quantum Heisenberg Antiferromagnet, Phys. Rev. Lett. 
+
+61 , 467 (1988). [72] M. Fleck, A. I. Liechtenstein, A. M. Ole´ s, L. Hedin, and V. I. Anisimov, Dynamical Mean-Field Theory for Doped Antiferromagnets, Phys. Rev. Lett. 80 , 2393 (1998). [73] R. Cˆ ot´ e and A. M. S. Tremblay, Spiral Magnets as Gap-less Mott Insulators, Europhysics Letters 29 , 37 (1995). [74] M. Fleck, A. I. Lichtenstein, A. M. Ole´ s, and L. Hedin, Spectral and transport properties of doped Mott-Hubbard systems with incommensurate magnetic order, Phys. Rev. B 60 , 5224 (1999). [75] D. Riegler, M. Klett, T. Neupert, R. Thomale, and P. W¨ olfle, Slave-boson analysis of the two-dimensional Hubbard model, Phys. Rev. B 101 , 235137 (2020). [76] M. Klett, S. Ok, D. Riegler, P. W¨ olfle, R. Thomale, and T. Neupert, Topology and magnetism in the Kondo insu-lator phase diagram, Phys. Rev. B 101 , 161112 (2020). [77] L. M. Sandratskii, Symmetry analysis of electronic states for crystals with spiral magnetic order. I. General prop-erties, Journal of Physics: Condensed Matter 3, 8565 (1991). [78] A. Kazemi-Moridani, S. Beck, A. Hampel, A.-M. S. Tremblay, M. Cˆ ot´ e, and O. Gingras, Strontium ferrite under pressure: Potential analog to strontium ruthenate, Phys. Rev. B 109 , 165146 (2024). [79] N. Lanat` a, T.-H. Lee, Y.-X. Yao, and V. Dobrosavljevi´ c, Emergent Bloch excitations in Mott matter, Phys. Rev. B 96 , 195126 (2017). [80] E. Pavarini and E. Koch, Orbital physics in correlated matter , FZJ-2023-03329 (Theoretische Nanoelektronik, 2023). [81] T.-H. Lee, T. Ayral, Y.-X. Yao, N. Lanata, and G. Kotliar, Rotationally invariant slave-boson and den-sity matrix embedding theory: Unified framework and comparative study on the one-dimensional and two-dimensional Hubbard model, Phys. Rev. B 99 , 115129 (2019). [82] N. Lanat` a, Operatorial formulation of the ghost rota-tionally invariant slave-boson theory, Phys. Rev. B 105 ,045111 (2022). [83] O. Parcollet, M. Ferrero, T. Ayral, H. Hafermann, I. Krivenko, L. Messio, and P. Seth, TRIQS: A toolbox for research on interacting quantum systems, Computer Physics Communications 196 , 398 (2015). [84] N. D. Mermin and H. Wagner, Absence of Ferro-magnetism or Antiferromagnetism in One- or Two-Dimensional Isotropic Heisenberg Models, Phys. Rev. Lett. 17 , 1133 (1966).
