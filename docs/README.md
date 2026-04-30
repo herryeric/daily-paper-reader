@@ -6,71 +6,74 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-29
-- 运行时间：2026-04-29 20:41:48 UTC
+- 最新运行日期：2026-04-30
+- 运行时间：2026-04-30 20:49:36 UTC
 - 运行状态：成功
-- 本次总论文数：16
-- 精读区：7
-- 速读区：9
+- 本次总论文数：17
+- 精读区：6
+- 速读区：11
 
 ### 今日简报（AI）
-- 今日共生成 16 篇推荐（精读 7 篇，速读 9 篇）
-- 精读：《Josephson diode effect in multichannel Rashba nanowires: Role of inter-subband coupling》（9.0/10）, 《Uncovering Exotic Paired States in the 2D Spin-Imbalanced Fermi Gas with Neural Wave Functions》（9.0/10）
-- 速读：《Mesoscopic Josephson effect in graphene disk at magnetic field》（8.0/10）, 《Exact results for the Hubbard model on bipartite lattices in spatial dimensions $d>1$: Seven theorems from the full [SU(2)$\times$SU(2)$\times$U(1)]/$\mathbb{Z}_2^2$ symmetry》（8.0/10）, 《Pareto Frontier of Neural Quantum States: Scalable, Affordable, and Accurate Convolutional Backflow for Strongly Correlated Lattice Fermions》（8.0/10）
+- 今日共生成 17 篇推荐（精读 6 篇，速读 11 篇）
+- 精读：《Campbell penetration depth in a single crystal of heavy fermion superconductor CeCoIn$_5$》（9.0/10）, 《Critical Role of Hydrogen in Unconventional Superconductors: The Case of Hydrogenated FeSe Layers》（9.0/10）
+- 速读：《Exposing impostor Majorana zero modes through atomic-scale shot-noise》（8.0/10）, 《QERNEL: a Scalable Large Electron Model》（8.0/10）, 《Torsion Induced Asymmetric Luttinger Liquids》（8.0/10）
 - 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202604/29/README](/202604/29/README)
+- 详情：[/202604/30/README](/202604/30/README)
 
 ### 精读区论文标签
-1. [Josephson diode effect in multichannel Rashba nanowires: Role of inter-subband coupling](/202604/29/2604.19385v2-josephson-diode-effect-in-multichannel-rashba-nanowires-role-of-inter-subband-coupling)  
+1. [Campbell penetration depth in a single crystal of heavy fermion superconductor CeCoIn$_5$](/202604/30/2604.23657v2-campbell-penetration-depth-in-a-single-crystal-of-heavy-fermion-superconductor-cecoin5)  
    标签：评分：9.0/10、query:cmp
-   evidence：约瑟夫森结中超导性的理论与应用
-2. [Uncovering Exotic Paired States in the 2D Spin-Imbalanced Fermi Gas with Neural Wave Functions](/202604/29/2604.24883v1-uncovering-exotic-paired-states-in-the-2d-spin-imbalanced-fermi-gas-with-neural-wave-functions)  
+   evidence：重费米子超导体中的超流密度与临界电流
+2. [Critical Role of Hydrogen in Unconventional Superconductors: The Case of Hydrogenated FeSe Layers](/202604/30/2604.25500v1-critical-role-of-hydrogen-in-unconventional-superconductors-the-case-of-hydrogenated-fese-layers)  
    标签：评分：9.0/10、query:cmp
-   evidence：研究费米气体中的极化超流体和FFLO相
-3. [High-field magneto-optical imaging of superconducting critical states beyond 10 T using a paramagnetic garnet sensor](/202604/29/2604.25274v1-high-field-magneto-optical-imaging-of-superconducting-critical-states-beyond-10-t-using-a-paramagnetic-garnet-sensor)  
+   evidence：氢对具有强关联特性的铁基超导体超导性的影响
+3. [Engineering superconductivity on the surface of Weyl semimetals](/202604/30/2604.26859v1-engineering-superconductivity-on-the-surface-of-weyl-semimetals)  
    标签：评分：9.0/10、query:cmp
-   evidence：超导临界态和电流密度的先进成像技术
-4. [Co-rotating Vortices on Surfaces of Variable Negative Curvature: Hamiltonian Structure and Drift Dynamics](/202604/29/2604.25682v1-co-rotating-vortices-on-surfaces-of-variable-negative-curvature-hamiltonian-structure-and-drift-dynamics)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究曲面上超流体中的涡旋动力学
-5. [Magnetic quantum phases of spin-orbit-coupled anisotropic dipolar bosons in square lattices](/202604/29/2604.25694v1-magnetic-quantum-phases-of-spin-orbit-coupled-anisotropic-dipolar-bosons-in-square-lattices)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究自旋轨道耦合玻色子中的有限动量超流体和超固体状态
-6. [Geometric Rashba Control of Polar Pairing at LaAlO$_3$/KTaO$_3$ Interfaces](/202604/29/2604.25805v1-geometric-rashba-control-of-polar-pairing-at-laalo3ktao3-interfaces)  
-   标签：评分：9.0/10、query:cmp
-   evidence：界面超导配对机制的理论Eliashberg框架
-7. [Thermodynamic Identification of the Internal Superconducting Phase Boundary in UTe$_2$ for $H \parallel b$](/202604/29/2604.25896v1-thermodynamic-identification-of-the-internal-superconducting-phase-boundary-in-ute2-for-h-parallel-b)  
-   标签：评分：9.0/10、query:cmp
-   evidence：UTe2 中的内部超导相边界
+   evidence：在外尔半金属表面工程化超导性
+4. [Nonlocal Cooper pairs in finite topological superconductors and their relation to Majorana nonlocality](/202604/30/2604.25169v1-nonlocal-cooper-pairs-in-finite-topological-superconductors-and-their-relation-to-majorana-nonlocality)  
+   标签：评分：8.0/10、query:cmp
+   evidence：拓扑超导体中的非常规非定域库珀对
+5. [Bragg-Williams order competes with superconductivity](/202604/30/2604.25843v1-bragg-williams-order-competes-with-superconductivity)  
+   标签：评分：8.0/10、query:cmp
+   evidence：结构序与超导性的竞争
+6. [Towards a microscopic model for an electronic quantum charge liquid](/202604/30/2604.25992v1-towards-a-microscopic-model-for-an-electronic-quantum-charge-liquid)  
+   标签：评分：8.0/10、query:cmp
+   evidence：电子量子电荷液体的微观模型
 
 ### 速读区论文标签
-1. [Mesoscopic Josephson effect in graphene disk at magnetic field](/202604/29/2604.23470v1-mesoscopic-josephson-effect-in-graphene-disk-at-magnetic-field)  
+1. [Exposing impostor Majorana zero modes through atomic-scale shot-noise](/202604/30/2604.26002v1-exposing-impostor-majorana-zero-modes-through-atomic-scale-shot-noise)  
    标签：评分：8.0/10、query:cmp
-   evidence：研究超导体-石墨烯接点中的约瑟夫森效应
-2. [Exact results for the Hubbard model on bipartite lattices in spatial dimensions $d>1$: Seven theorems from the full [SU(2)$\times$SU(2)$\times$U(1)]/$\mathbb{Z}_2^2$ symmetry](/202604/29/2604.25712v1-exact-results-for-the-hubbard-model-on-bipartite-lattices-in-spatial-dimensions-d1-seven-theorems-from-the-full-su2timessu2timesu1mathbbz22-symmetry)  
+   evidence：Fe(Se,Te)超导体中的光谱学研究
+2. [QERNEL: a Scalable Large Electron Model](/202604/30/2604.26018v1-qernel-a-scalable-large-electron-model)  
    标签：评分：8.0/10、query:cmp
-   evidence：Hubbard模型在描述凝聚态系统电子关联方面的精确结果
-3. [Pareto Frontier of Neural Quantum States: Scalable, Affordable, and Accurate Convolutional Backflow for Strongly Correlated Lattice Fermions](/202604/29/2604.25775v1-pareto-frontier-of-neural-quantum-states-scalable-affordable-and-accurate-convolutional-backflow-for-strongly-correlated-lattice-fermions)  
+   evidence：在电子模型中捕捉量子液体和晶体状态
+3. [Torsion Induced Asymmetric Luttinger Liquids](/202604/30/2604.26617v1-torsion-induced-asymmetric-luttinger-liquids)  
    标签：评分：8.0/10、query:cmp
-   evidence：用于强关联晶格费米子和哈伯德模型的高级计算方法
-4. [Magnetic phases of the anisotropic triangular Hubbard model from the ghost-Gutzwiller approximation in the rotating spin-frame](/202604/29/2604.24848v1-magnetic-phases-of-the-anisotropic-triangular-hubbard-model-from-the-ghost-gutzwiller-approximation-in-the-rotating-spin-frame)  
+   evidence：非费米液体行为的 Luttinger 液体模型
+4. [Programmable superconducting diode from nematic domain control in FeS](/202604/30/2604.26631v1-programmable-superconducting-diode-from-nematic-domain-control-in-fes)  
+   标签：评分：8.0/10、query:cmp
+   evidence：向列相FeSe中可编程的超导二极管效应
+5. [Resonance Frequency Shift Measurements of SRF Cavities at DESY](/202604/30/2604.22596v1-resonance-frequency-shift-measurements-of-srf-cavities-at-desy)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究强关联系统中的Hubbard模型与磁性相图
-5. [Identifying strong correlation using only the Kohn-Sham density of one-electron states](/202604/29/2604.25125v1-identifying-strong-correlation-using-only-the-kohn-sham-density-of-one-electron-states)  
+   evidence：超导射频腔超导特性的测量
+6. [Dynamical dimer structure factor of the triangular $S=1/2$ Heisenberg antiferromagnet](/202604/30/2604.24868v1-dynamical-dimer-structure-factor-of-the-triangular-s12-heisenberg-antiferromagnet)  
    标签：评分：7.0/10、query:cmp
-   evidence：侧重于识别金属系统中费米能级附近的强关联特性
-6. [Highly fluctuating double-$q$ magnetic order in the van der Waals metal CeTe$_3$](/202604/29/2604.25436v1-highly-fluctuating-double-q-magnetic-order-in-the-van-der-waals-metal-cete3)  
+   evidence：三角海森堡反铁磁体中的量子自旋液体机制
+7. [Solvable Random Unitary Dynamics in a Disordered Tomonaga-Luttinger Liquid](/202604/30/2604.25995v1-solvable-random-unitary-dynamics-in-a-disordered-tomonaga-luttinger-liquid)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究范德华金属中的关联磁性与量子涨落
-7. [Non-magnetic floating phases in frustrated Haldane chains with a single-ion anisotropy](/202604/29/2604.25493v1-non-magnetic-floating-phases-in-frustrated-haldane-chains-with-a-single-ion-anisotropy)  
+   evidence：无序Tomonaga-Luttinger液体中的动力学
+8. [From Wavefunction Collapse to Superconductivity: Evolution of the Electronic State in Compressed GaNb4Se8](/202604/30/2604.26203v1-from-wavefunction-collapse-to-superconductivity-evolution-of-the-electronic-state-in-compressed-ganb4se8)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究强关联自旋系统中的量子相变和卢廷格液体相
-8. [Collective and separate metal-insulator transitions in correlated vanadium dioxide](/202604/29/2604.25638v1-collective-and-separate-metal-insulator-transitions-in-correlated-vanadium-dioxide)  
-   标签：评分：7.0/10、query:cmp
-   evidence：研究强关联电子系统中的涌现量子序和金属-绝缘体相变。
-9. [Pressure-Tuned Competing Electronic States in Layered Tellurides](/202604/29/2604.21336v1-pressure-tuned-competing-electronic-states-in-layered-tellurides)  
+   evidence：压缩簇状固体中从莫特绝缘体到超导的演化
+9. [Pulse Shaping for Superconducting Qubits](/202604/30/2604.21565v1-pulse-shaping-for-superconducting-qubits)  
    标签：评分：6.0/10、query:cmp
-   evidence：关联碲化物中的竞争电子态与输运
+   evidence：超导量子比特控制的脉冲整形
+10. [Nearly Complete Charge--Spin Conversion via Strain-Eliminated Fermi Pockets in a $d$-Wave Altermagnet](/202604/30/2604.21779v1-nearly-complete-charge--spin-conversion-via-strain-eliminated-fermi-pockets-in-a-d-wave-altermagnet)  
+   标签：评分：6.0/10、query:cmp
+   evidence：d波交错磁体与费米面工程
+11. [Weyl anomaly induced transport in hydrodynamics](/202604/30/2604.23849v1-weyl-anomaly-induced-transport-in-hydrodynamics)  
+   标签：评分：6.0/10、query:cmp
+   evidence：相对论流体中由Weyl异常引起的输运
 
 
 <div class="dpr-home-promo-card">

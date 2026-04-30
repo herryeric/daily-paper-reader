@@ -1,0 +1,128 @@
+Title: QERNEL: a Scalable Large Electron Model
+
+URL Source: https://arxiv.org/pdf/2604.26018v1
+
+Published Time: Thu, 30 Apr 2026 00:03:46 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# QERNEL: a Scalable Large Electron Model 
+
+Khachatur Nazaryan 1, ∗ and Liang Fu 1
+
+> 1
+
+Department of Physics, Massachusetts Institute of Technology, Cambridge, MA-02139,USA 
+
+(Dated: April 30, 2026) We introduce QERNEL, a foundational neural wavefunction that variationally solves families of parameterized many-electron Hamiltonians and captures their ground states throughout parameter space within a single model. QERNEL combines FiLM-based parameter conditioning with scale-efficient architectural elements — mixture of experts and grouped-query attention, substantially improving expressivity at low computational cost. We apply QERNEL to interacting electrons in semiconductor moir´ e heterobilayers, training a single weight-shared model for systems of up to 150 electrons. By solving the many-electron Schr¨ odinger equation conditioned on moir´ e potential depth, QERNEL captures both quantum liquid and crystal states and discovers the sharp phase transition between them, marked by abrupt changes in interaction energy and charge density. Our work establishes a foundation model for moir´ e quantum materials and a scalable architecture toward a Large Electron Model for solids. 
+
+I. INTRODUCTION 
+
+Representing many-body wavefunctions with neural networks has become a powerful variational method for solving interacting quantum systems in continuous space. In this framework, the neural network itself defines the variational ansatz: its weights and biases parameter-ize the wavefunction, and are optimized by minimiz-ing the Monte Carlo estimate of the energy. In re-cent years, this approach has delivered highly accurate ground states for atoms and molecules [1–4], the uni-form electron gas [5–10], moir´ e semiconductors [11–13], and fractional quantum Hall liquids [14–16]. Much of this progress has been achieved with determinant-based architectures, which strictly enforce fermionic antisym-metry. As shown recently, a linear combination of Slater determinants multiplied by symmetric functions can ap-proximate any continuous Fermi wavefunctions to arbi-trary accuracy [17, 18]. This universal representational power is realized in neural networks through the atten-tion mechanism [13], which builds many-body correla-tions between particles. Yet despite this success, the framework still mostly uses neural network in a pointwise way: one chooses a Hamiltonian, optimizes a neural wavefunction for that instance, and repeats the optimization when the param-eters change. From the perspective of numerical many-body physics this is natural, since the goal is to solve each problem as accurately as possible. From the perspective of modern AI, however, it is a limited use of neural net-works. There the aim is not merely to solve one task, but to learn an underlying pattern that generalizes across a family of related tasks. This raises a natural question for quantum many-body physics: can one train a single neu-ral wavefunction that generalizes across an entire family of Hamiltonians? Recent work has begun to explore this direction. A 
+
+> ∗Email: khachnaz@mit.edu
+
+FIG. 1. Architecture of QERNEL. (a) Overall conditional wavefunction pipeline: electron features are embedded into electronic streams, processed by stacked equivariant blocks, projected to generalized orbitals, and combined into deter-minants. The Hamiltonian context is threaded alongside the electron streams and repeatedly injected throughout the depth of the network. (b) Mixture-of-experts block with a router and an shared expert. (c) Grouped-query attention, where multiple query heads share key and value heads for improved efficiency. (d) FiLM conditioning, which injects the context into the electronic streams through channel-wise shifts and rescalings. 
+
+unified neural ansatz for multiple Hamiltonians in lat-tice systems has been developed [19]. In quantum chem-istry, neural wavefunction optimization can be amor-tized across molecules and geometries [20]. Recently, a foundation model based on universal Fermi network [18] 
+
+> arXiv:2604.26018v1 [cond-mat.str-el] 28 Apr 2026
+
+2QERNEL 24e PF, Geier QERNEL 18e PF, Geier 
+
+> (a) (b) (c)
+
+FIG. 2. Benchmarking the efficiency of QERNEL. (a) final variational energy per electron versus parameter count for 18-and 24-electron systems. QERNEL reaches the same accu-racy regime as the PsiFormer baseline [13] with roughly 6–7 ×
+
+fewer parameters. For sake of presentation, the 24e data was shifted down by 0.08meV (b),(c) Training curves of QERNEL vs baseline. (b) at comparable parameter count, QERNEL converges about 6 × faster and with improved stability than the baseline. (c) a 240K-parameter QERNEL converges to a slightly lower energy as a 1 .1M-parameter baseline. 
+
+has been introduced to solve many-electron Schrodinger equation across multiple Hamiltonian parameters and particle numbers and predict ground states for unseen instances [21, 22]. This “large electron model” points toward a paradigm shift from single-instance wavefunc-tion solvers to foundation models that learn generalizable wavefunctions. As the ambition for quantum foundation models grows, a limitation becomes increasingly severe: compute. To attain accurate results often require models with parame-ter counts approaching or exceeding 10 6 even for systems of only ∼ 20 particles [13]. This makes the methodology powerful, but not always accessible to the broader com-munity. If foundational neural wavefunctions are to be-come practical, the architecture itself must become more efficient, more stable, and more explicitly designed for generalization. In this work we solve these issues by introducing QER-NEL: Quantum Expert-Routed Ne ural Learner. QER-NEL is a large electron model designed to solve entire 
+
+FIG. 3. Inferred real space densities for a 150-electron system obtained with QERNEL in a fixed-context, non-foundational setting. (a) Fermi-liquid regime, λ = 0 .7. (b) Generalized Wigner-crystal regime, λ = 1 .5. The isolated minor defects in the density profile are a computational artifact and are not interpreted as a physical excitation. 
+
+families of ground states within a single conditional neu-ral wavefunction. Architecturally, it moves away from the plain Transformer (as in GPT-2) and toward the de-sign of modern large language models. Concretely, we in-troduce grouped-query attention (GQA) [23] to capture inter-electron correlations, mixture-of-experts (MoE) [24] routing to allocate capacity effectively, feature-wise lin-ear (FiLM-style) context modulation [25] to adapt the network across Hamiltonian parameter space, custom power-law tailed activation functions for stable training and efficient transfer learning across system size. To-gether, these innovations enable far fewer network pa-rameters and much faster and more stable training. Once trained, the context conditioning allows Hamiltonian pa-rameter sweeps to be performed by inference and short fine tuning, rather than by full retraining at every point. We apply QERNEL to interacting electrons in semi-conductor moir´ e heterobilayers with periodic boundary conditions and study the ground state across Hamilto-nian parameter space within a single conditional model. Our study uncovers a sharp quantum phase transition be-tween the Fermi liquid state and the generalized Wigner crystal. Such behavior is a stringent test of a founda-tional ansatz: the model must represent both phases within one shared wavefunction family and still resolve their abrupt reorganization, rather than smoothing them into a single interpolation. We show that QERNEL suc-ceeds in doing so, demonstrating that a context-aware foundational model can capture the sharp transition that emerges in a quantum many-body phase diagram. Owing to the efficiency of the architecture, this can be done for substantially larger systems than would otherwise be ac-cessible, reaching up to 96 electrons in the foundational 3setting. To further illustrate scalability beyond the con-ditional setting, we also perform fixed-context calcula-tions at selected parameter values for systems of up to 150 electrons, where the two phases remain clearly dis-tinguishable in real space. A broader objective of this work is to make the quan-tum foundation model more computationally accessible to the wider condensed-matter community. QERNEL is designed not only to improve variational accuracy, but to do so on modest hardware. All calculations reported in this work were carried out on only two NVIDIA V100 GPUs, with a total of 64 GB of GPU memory. We there-fore view architectural efficiency not merely as a tech-nical refinement, but as a practical step toward making context-aware neural many-body methods reproducible and usable by a broader community. 
+
+QERNEL ansatz. QERNEL is a variational ansatz for a continuously parameterized family of ground states. As shown in Fig. 1, it maintains one feature stream per electron, updates these streams through permutation-equivariant layers, and maps them to generalized orbitals whose Slater determinant enforces fermionic antisymme-try. Its distinctive feature is that these equivariant up-dates are built to be explicitly economical, so that the ansatz remains expressive even when trained across a broad Hamiltonian manifold. The main block in Fig. 1(a) combines grouped-query attention (GQA), mixture-of-experts (MoE), residual connections, and RMS normalization. From a physics perspective, attention captures collective many-body structure, the expert module provides flexible local non-linear processing, and the determinant restores exact fermionic exchange antisymmetry. The internal com-ponents are shown in Fig. 1(b,c). In the MoE layer, a single dense perceptron is replaced by several smaller expert channels together with a router (without top-K) and an always-active shared expert, allowing specializa-tion at reduced cost. In the attention layer, many query heads are retained while key and value heads are shared across groups, preserving rich correlation channels while reducing parameter count and memory traffic. We also replace the standard exponentially saturating activation functions by a smooth power-law-tailed counterparts to improve numerical stability. A second essential ingredient is the explicit dependence on Hamiltonian control parameters. QERNEL condi-tions a single network on the external context and injects this information throughout the depth of the architec-ture through the FiLM modulation shown in Fig. 1(d). We adopt FiLM because it is extremely cheap, introduc-ing only channel-wise shifts and rescalings of the electron stream, with a parameter overhead below roughly 5% in our implementations. QERNEL also supports efficient transfer learning across system size, so that weights trained on smaller sys-tems provide a strong warm start for larger ones. In addi-tion, gradient accumulation allows large effective batches to be split into microbatches and recombined during backpropagation, making it possible to train larger mod-els and larger systems within modest GPU memory bud-gets. 
+
+Benchmarking performance. We study interacting electrons in semiconductor moir´ e heterobilayers, where electrons reside on one semiconductor layer and experi-ence a moir´ e potential. The Hamiltonian is expressed as 
+
+H = H0 + Hee 
+
+= X
+
+> i
+
+
+
+− 12m∗ ∇2 
+
+> i
+
++ V (ri)
+
+
+
++ 12ϵ
+
+X
+
+> i
+
+X
+
+> i̸=j
+
+1
+
+|ri − rj | , (1) where V (r) = −2λ · V0
+
+P3 
+
+> j=1
+
+cos( gj · r + φ) is the moir´ e potential with reciprocal lattice vectors gj =
+
+> 4π√3aM
+
+(cos 2πj  
+
+> 3
+
+, sin 2πj  
+
+> 3
+
+), moir´ e lattice constant aM , and 
+
+φ controls the shape of the moir´ e potential. The pa-rameter λ controls the strength of the Moire potential ontop of the base V0 = 15 meV. The physical parame-ters are m∗ = 0 .35 me, φ = π/ 4, a moir´ e lattice period of aM = 8 .031 nm. In this wotk we specifically focus at 
+
+ν = 2 /3 filling per triangular potential unit cell. A central goal of QERNEL is to increase expressivity at fixed capacity. Therefore, we benchmark it against previous transformer-based neural wavefunctions [13] in terms of both final variational accuracy and optimiza-tion speed. Fig. 2(a) shows the achieved energies ver-sus parameter count for 18- and 24-electron systems. In both cases, QERNEL reaches the same accuracy regime as substantially larger Psiformer baselines, with compa-rable energies obtained using roughly 6–7 × fewer param-eters. Equally important is the effect on optimization. Fig. 2(b) shows that a QERNEL model with only 240 K parameters reaches essentially the same energy scale as a much larger 1 .1 M-parameter Psiformer. Fig. 2(c) then isolates the architectural gain at approximately matched parameter count: here QERNEL converges to its asymp-totic energy about 6 times faster in training steps, while following a smoother and more stable trajectory. The benefit of the efficient blocks is therefore twofold: they reduce the parameter budget needed for a given accuracy and accelerate optimization even when the raw param-eter count is held fixed. These gains also translate into access to substantially larger systems, as we have applied our architecture in a fixed-context setting to reach 150 electrons, as illustrated in Fig. 3. The real-space den-sity for 150 particles reveals the physical nature of two dinstinct phases. On the weak-moir´ e side, Fig. 3a), the inferred density is a Fermi-liquid phase, in which the elec-trons remain mostly mobile and only weakly pinned by the moir´ e landscape. On the strong-moir´ e side, by con-trast, the density reorganizes into a crystal phase which breaks the translational symmetry of the underlying po-tential, shaping into a honeycomb lattice Fig. 3b). 
+
+Training the foundational model. 
+
+Training a conditional wavefunction is more subtle than ordinary VMC, because the target distribution 4    
+
+> FIG. 4. Inference of the foundational-model for capturing the phase transition. (a) Interaction energy per electron as a function of moir´ e strength λ, inferred from a single trained conditional QERNEL ansatz for 54-electron system. The data separate into two approximately linear branches whose extrapolated mismatch near λ≈1.05 indicates a sharp reorganization of the ground state. (b) Total energy per electron across the same parameter range. In contrast to the interaction energy, the total energy remains smooth and continuous through the transition region, as expected for a finite-size system. (c),(d) Inferred real-space densities on the two sides of the transition for 96-electron system. (c) The weak-moir´ e phase is a Fermi-liquid, (d) the strong-moir´ e phase has sharply localized density peaks characteristic of a generalized Wigner-crystal state.
+
+changes not only as the network parameters evolve, but also as the Hamiltonian itself changes with the context. If the control parameter is varied too rapidly, the Markov chains cannot re-equilibrate, leading to noisy energies and unreliable gradients. We therefore use a blockwise context schedule rather than resampling the context at every optimization step. Specifically, every Kλ ∼ 500 optimization steps we re-sample a set of Nλ context values λ from the target inter-val, partition the walkers into context blocks, and keep each block fixed for the next Kλ steps. The model is then optimized with the averaged conditional loss 
+
+L = 1
+
+Nλ
+
+X
+
+> λ
+
+⟨ψθ (x, λ )| ˆH(λ)|ψθ (x, λ )⟩⟨ψθ (x, λ )|ψθ (x, λ )⟩ . (2) This allows a single update to probe several points in parameter space while still giving the walkers attached to each context enough time to track the corresponding equilibrium distribution. Whenever the context blocks are refreshed, we perform a short burn-in before contin-uing the training. A practical tradeoff is how many context values to in-clude in parallel. Too few give cleaner gradients but poor coverage of the Hamiltonian family; too many improve coverage but leave each context statistically noisy. We therefore use a two-stage schedule: first train with a small number of context blocks, typically Nλ = 4, to separate the phases coarsely, and then increase to, e.g., Nλ = 16 to refine the transition region. After training, we sweep through context values one at a time, re-equilibrate the walkers, and measure observables without further opti-mization. Parameter sweeps are thus performed by in-ference with a single learned wavefunction family rather than by retraining separate ans¨ atze at each point. 
+
+Results. We now turn to the central question of this work: whether a single conditional ansatz can faithfully represent qualitatively distinct many-body states across Hamiltonian space. After training QERNEL as a foun-dational model over the moir´ e-strength parameter λ, we infer observables across the phase diagram without re-training the network at each point. In this way, one and the same learned wavefunction family is used to probe both sides of the transition region. A particularly clear signature appears in the interac-tion energy. Figure 4a shows the inferred interaction en-ergy per electron for the 54-electron system as a func-tion of moir´ e strength. Away from the transition re-gion, the data are well described by two approximately linear branches, one on the weak-moir´ e side and one on the strong-moir´ e side. These branches do not con-nect smoothly near λ ≈ 1.05, but instead exhibit a pro-nounced offset, corresponding to a sharp drop in the in-teraction energy. The mismatch of the left and right fits indicates that the underlying change is sharp rather than a gradual crossover. Importantly, this structure is recov-ered from a single context-conditioned model, showing that the foundational ansatz resolves two distinct many-body regimes within one shared representation. At the same time, the total energy remains smooth through the same parameter range, as shown in Fig. 4b. This is an important consistency check: while a tran-sition is naturally revealed in individual energy compo-nents, the variational ground-state energy itself should 5remain continuous in a finite-size system. The transition is revealed by the real-space density profile: the Fermi-liquid phase in the weak-moir´ e regime to the general-ized Wigner-crystal state for strong regime. The abrupt reconstruction of the density mirrors the discontinuous behavior seen in the interaction energy and provides di-rect real-space evidence for the transition between the two competing phases. The abrupt reconstruction of the density mirrors the discontinuous behavior seen in the in-teraction energy and provides direct real-space evidence for the transition between the two competing phases. 
+
+Summary. We introduced QERNEL, a foundational neural variational ansatz that learns a family of many-body ground states within a single model. By combin-ing efficient permutation-equivariant blocks with explicit Hamiltonian conditioning, QERNEL achieves substan-tially higher expressivity per unit compute than previous transformer-based neural wavefunctions, reaching com-parable accuracy with several-fold fewer parameters and markedly faster, more stable training. Applied to a sys-tem of up to 150 interacting electrons in semiconductor moir´ e heterobilayers, the model captures a sharp phase transition within one shared conditional representation: the interaction energy exhibits a clear branch mismatch across the transition region, while the real-space den-sity rapidly reorganizes from a Fermi-liquid regime into a Wigner-crystal-like state. These results show that foun-dational neural wavefunctions can learn not only smooth parameter dependence, but also the sharp structure of a quantum many-body phase diagram. 
+
+Acknowledgment. We acknowledge the MIT Super-Cloud and Lincoln Laboratory Supercomputing Center for providing computing resources that have contributed to the research results reported within this paper. 
+
+[1] D. Pfau, J. S. Spencer, A. G. D. G. Matthews, and W. M. C. Foulkes, Ab initio solution of the many-electron Schr \”odinger equation with deep neural networks, Phys. Rev. Res. 2, 033429 (2020). [2] J. Hermann, Z. Sch¨ atzle, and F. No´ e, Deep-neural-network solution of the electronic Schr¨ odinger equation, Nat. Chem. 12 , 891 (2020). [3] I. von Glehn, J. S. Spencer, and D. Pfau, A self-attention ansatz for ab-initio quantum chemistry (2023). [4] R. Li, H. Ye, D. Jiang, X. Wen, C. Wang, Z. Li, X. Li, D. He, J. Chen, W. Ren, and L. Wang, For-ward Laplacian: A New Computational Framework for Neural Network-based Variational Monte Carlo, arXiv 10.48550/arXiv.2307.08214 (2023), 2307.08214. [5] G. Cassella, H. Sutterud, S. Azadi, N. D. Drummond, D. Pfau, J. S. Spencer, and W. M. C. Foulkes, Discover-ing Quantum Phase Transitions with Fermionic Neural Networks, Phys. Rev. Lett. 130 , 036401 (2023). [6] M. Wilson, S. Moroni, M. Holzmann, N. Gao, F. Wu-darski, T. Vegge, and A. Bhowmik, Neural network ansatz for periodic wave functions and the homogeneous electron gas, Phys. Rev. B 107 , 235139 (2023). [7] D. Luo, D. D. Dai, and L. Fu, Pairing-based graph neu-ral network for simulating quantum materials (2023), arXiv:2311.02143 [cond-mat.str-el]. [8] J. Kim, G. Pescia, B. Fore, J. Nys, G. Carleo, S. Gandolfi, M. Hjorth-Jensen, and A. Lovato, Neural-network quan-tum states for ultra-cold Fermi gases, Commun. Phys. 7,1 (2024). [9] C. Smith, Y. Chen, R. Levy, Y. Yang, M. A. Morales, and S. Zhang, Unified variational approach description of ground-state phases of the two-dimensional electron gas, Phys. Rev. Lett. 133 , 266504 (2024). [10] G. Pescia, J. Nys, J. Kim, A. Lovato, and G. Carleo, Message-passing neural quantum states for the homoge-neous electron gas, Phys. Rev. B 110 , 035108 (2024). [11] X. Li, Y. Qian, W. Ren, Y. Xu, and J. Chen, Emergent wigner phases in moir´ e superlattice from deep learning (2024), arXiv:2406.11134 [physics.comp-ph]. [12] D. Luo, D. D. Dai, and L. Fu, Simulating moir´ e quantum matter with neural network (2024), arXiv:2406.17645 [cond-mat.str-el]. [13] M. Geier, K. Nazaryan, T. Zaklama, and L. Fu, Self-attention neural network for solving correlated electron problems in solids, Phys. Rev. B 112 , 045119 (2025). [14] Y. Teng, D. D. Dai, and L. Fu, Solving the fractional quantum Hall problem with self-attention neural net-work, Phys. Rev. B 111 , 205117 (2025). [15] Y. Qian, T. Zhao, J. Zhang, T. Xiang, X. Li, and J. Chen, Describing Landau Level Mixing in Fractional Quantum Hall States with Deep Learning, Phys. Rev. Lett. 134 ,176503 (2025). [16] K. Nazaryan, F. Gaggioli, Y. Teng, and L. Fu, Artificial intelligence for quantum matter: Finding a needle in a haystack, arXiv preprint arXiv:2507.13322 [cond-mat.str-el] 10.48550/arXiv.2507.13322 (2025). [17] L. Fu, A minimal and universal representation of fermionic wavefunctions (fermions = bosons + one) (2025), arXiv:2510.11431 [cond-mat.str-el]. [18] L. Fu, Fermi sets: Universal and interpretable neural ar-chitectures for fermions (2026), arXiv:2601.02508 [cond-mat.str-el]. [19] R. Rende, L. L. Viteritti, F. Becca, A. Scardicchio, A. Laio, and G. Carleo, Foundation neural-networks quantum states as a unified ansatz for multiple hamil-tonians, Nature Communications 16 , 7213 (2025). [20] A. Foster, Z. Sch¨ atzle, P. B. Szab´ o, L. Cheng, J. K¨ ohler, G. Cassella, N. Gao, J. Li, F. No´ e, and J. Her-mann, An ab initio foundation model of wavefunctions that accurately describes chemical bond breaking, arXiv preprint arXiv:2506.19960 10.48550/arXiv.2506.19960 (2025), arXiv:2506.19960 [physics.chem-ph]. [21] T. Zaklama, D. Guerci, and L. Fu, Attention-based foundation model for quantum states, arXiv preprint arXiv:2512.11962 10.48550/arXiv.2512.11962 (2025), arXiv:2512.11962 [cond-mat.str-el]. [22] T. Zaklama, M. Geier, and L. Fu, Large electron model: A universal ground state predictor, arXiv preprint arXiv:2603.02346 10.48550/arXiv.2603.02346 (2026), arXiv:2603.02346 [cond-mat.str-el]. [23] J. Ainslie, J. Lee-Thorp, M. de Jong, Y. Zemlyan-skiy, F. Lebr´ on, and S. Sanghai, Gqa: Train-6
+
+ing generalized multi-query transformer models from multi-head checkpoints, arXiv preprint arXiv:2305.13245 10.48550/arXiv.2305.13245 (2023). [24] N. Shazeer, A. Mirhoseini, K. Maziarz, A. Davis, Q. V. Le, G. E. Hinton, and J. Dean, Outrageously large neural networks: The sparsely-gated mixture-of-experts layer, arXiv preprint arXiv:1701.06538 10.48550/arXiv.1701.06538 (2017). [25] E. Perez, F. Strub, H. de Vries, V. Dumoulin, and A. C. Courville, Film: Visual reasoning with a general condi-tioning layer, in AAAI (2018).

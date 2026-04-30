@@ -1,0 +1,2024 @@
+Title: Dynamical dimer structure factor of the triangular $S=1/2$ Heisenberg antiferromagnet
+
+URL Source: https://arxiv.org/pdf/2604.24868v1
+
+Published Time: Wed, 29 Apr 2026 00:06:43 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+## Dynamical dimer structure factor of the triangular S = 1/2 Heisenberg antiferromagnet 
+
+Markus Drescher ,1, ∗ Laurens Vanderstraeten ,2 Roderich Moessner, 3 Frank Pollmann ,1, 4 and Johannes Knolle 1, 4 
+
+> 1
+
+Department of Physics, Technische Universit¨ at M¨ unchen, 85748 Garching, Germany 
+
+> 2
+
+Center for Nonlinear Phenomena and Complex Systems, Universit´ e Libre de Bruxelles, 1050 Brussels, Belgium 
+
+> 3
+
+Max-Planck-Institut f¨ ur Physik komplexer Systeme, 01187 Dresden, Germany 
+
+> 4
+
+Munich Center for Quantum Science and Technology (MCQST), 80799 Munich, Germany 
+
+(Dated: April 29, 2026) The dynamical dimer structure factor is an observable probing spin-singlet excitations of quantum magnets distinct from those commonly studied by the spin structure factor. We report the dimer response for the extended spin-1 /2 antiferromagnetic Heisenberg model on the triangular lattice using large-scale GPU-accelerated matrix-product-state simulations. We investigate the ordered phases with 120 ○ coplanar, collinear stripe, and tetrahedral spin order, as well as candidate quantum spin-liquid (QSL) regimes, comprising an expected gapless U (1) Dirac QSL and a chiral QSL at finite spin-scalar-chirality coupling. In the ordered phases, we find low-energy modes below the onset of the two-magnon continuum illustrating avoided quasiparticle decay. Within the candidate gapless QSL, we observe absolute dispersion minima at momenta of half the Brillouin zone corners, X ≡ K/2, in agreement with field-theory predictions that singlet monopole excitations of the U (1) Dirac spin liquid become gapless at these points. Thus, the high-resolution dynamical dimer response provides support for a U (1) Dirac QSL with singlet monopole excitations. 
+
+Introduction. —The triangular-lattice Heisenberg anti-ferromagnet constitutes a paradigmatic model of frus-trated quantum magnetism, extensively studied in both theory and experiment [1]. In spin-1/2 systems, the inter-play of geometric frustration and strong quantum fluctu-ations makes it a promising platform for realizing quan-tum spin-liquid (QSL) phases [2–12]. Despite advances in candidate materials and experimental neutron scat-tering techniques [13–18], resolving the spin excitation spectrum remains challenging both experimentally and numerically [19–27]. This complicates the interpretation of the widely studied dynamical spin structure factor and limits insight into the nature of the ground state and its excitations [28]. It is therefore desirable to explore alternative observ-ables such as the dimer (i.e., SU (2)-singlet) correlations that probe additionally the spin-singlet sector, whose constitutive importance was emphasized by Anderson in one of the founding works of quantum spin-liquid physics [2]. Indeed, the Rokhsar-Kivelson quantum dimer model was formulated precisely to capture the physics of singlet-dominated phases [29], and it was in this model on the triangular lattice that a fractionalized Z2 quantum spin-liquid phase—the resonating valence-bond liquid— was first discovered [30]. In addition, dimer correla-tions may become experimentally accessible through Ra-man spectroscopy or resonant inelastic X-ray scattering (RIXS) [31–36]. Only few works explored their dynam-ical signatures in frustrated spin systems [37]. For ex-ample, employing the exact solution of the honeycomb Kitaev QSL, they directly probe dynamical Majorana ex-citations [38–40] without coupling to fluxes, which domi-nate and complicate the interpretation of the spin struc-ture factor [41]. However, the phenomenology of the dy-namical dimer response and possible coupling to other types of exotic fractionalized excitations are missing for strongly coupled QSL phases calling for state-of-the-art numerical calculations. In this work, we study the dynamical dimer struc-ture factor of the extended triangular-lattice Heisen-berg model including next-nearest-neighbor exchange and a scalar chiral interaction [42–45]. The Hamiltonian reads [44–46] ˆH = J1 ∑
+
+> ⟨i,j ⟩
+
+ˆSi ⋅ ˆSj + J2 ∑
+
+> ⟪i,j ⟫
+
+ˆSi ⋅ ˆSj
+
++ Jχ ∑
+
+> i,j,k ∈△,▽
+
+ˆSi ⋅ (ˆSj × ˆSk) , (1) where J1 and J2 denote the nearest- and next-nearest-neighbor Heisenberg exchange couplings and the chiral term sums over triangular plaquettes with a fixed site ordering to preserve local spin chirality (cf. Fig. 1). The phase diagram of this model is illustrated schemat-ically in Fig. 1 a following Refs. [44, 45]. Against Ander-son’s proposal of a resonating valence bond state [2, 47], semiclassical and numerical investigations revealed acoplanar 120 ○ spin order at the Heisenberg point [48– 55]. This magnetic order extends to a finite region in the augmented parameter space [44, 45]. At Jχ = 0, in-creasing frustration is widely believed to drive the sys-tem into a disordered regime for intermediate couplings 0.07 ≲ J2/J1 ≲ 0.15, embedded between the 120 ○ and stripe orders [56–59]. The nature of this phase has been intensely debated, with proposals ranging from a gapped 
+
+Z2 spin liquid [57, 58, 60, 61] to a gapless U (1) Dirac spin liquid (DSL) described by QED 3 with N = 4 Dirac spinons [8, 21, 59, 62–64]. 
+
+> arXiv:2604.24868v1 [cond-mat.str-el] 27 Apr 2026
+
+2Upon turning on the chiral interaction Jχ, the coplanar and collinear orders remain stable over extended regions. The candidate QSL phase, however, has been shown to transition already for small couplings Jχ into a chiral spin liquid (CSL) phase [44, 45], a topologically ordered state originally proposed by Wen, Wilczek and Zee [42] follow-ing the seminal contribution by Kalmeyer and Laugh-lin [65, 66]. It occurs around the classical phase transi-tion line between the 120 ○ order and a tetrahedral spin order [45, 67]. The latter is stabilized at sufficiently large chiral interactions. Using large-scale matrix-product-state (MPS) simu-lations [68] accelerated by graphics processing units (GPUs) [69–72], we compute the time-resolved dimer cor-relations in all ordered phases as well as in the candi-date spin-liquid regimes. The findings in the 120 ○ and tetrahedral phases underline, despite the unambiguous identification of the spectral dimer features from linear spin-wave theory (LSWT), the importance of magnon-interaction effects beyond spin-wave analysis: the phe-nomenon of level repulsion leads to stable low-energy modes through the Brillouin zone that manifest also as essential signatures of the dimer structure factor. Most importantly, the spectral signatures of the candi-date QSL regime at intermediate couplings 0 .07 ≲ J2/J1 ≲
+
+0.15 reveal clear distinctions from the adjacent 120 ○ or-dered phase. This becomes evident from the deviating behavior at the corners of the Brillouin zone: while the 120 ○ phase exhibits dispersion minima at K, the para-magnetic regime displays maxima. This finding appears to rule out a gapped Z2 QSL interpretation of the low-energy sector on the YC6 cylinder (cf. Ref. [61]). More-over, the dimer spectrum of the J1 − J2 QSL shows its global minimum at the X = K/2 points. This observa-tion aligns with the field-theoretical predictions of gapless singlet monopole excitations at these momenta, i.e., in-stanton events inserting a global 2 π flux into the gauge background [73, 74]. Recent works probing static [75] and dynamical [76] spin-lattice distortions of the QSL regime on the triangular lattice have been interpreted as signatures of critical spin-singlet monopole correlations in the ground state. The dynamical dimer response re-ported here provides further evidence for the presence of singlet monopole excitations, supporting the interpreta-tion of the underlying ground state being a U (1) Dirac QSL. 
+
+Numerical protocol. —Whereas the MPS methodology has been applied in different works [24, 25, 61, 78–80] in the last years for estimating the spin dynamical struc-ture factor (DSF), and has become an invaluable tool to support experiments in inelastic neutron scattering, here we apply it for the first time to the more demanding case of resolving the dimer DSF. The spin bilinear ˆSi ⋅ ˆSj , which appears in the pro-jector onto the spin-singlet component of a bond (i, j ),forms the fundamental building block of the Loudon-              
+
+> FIG. 1. Schematic phase diagram of the extended Heisen-berg model on the triangular lattice with a scalar chiral inter-action. The qualitative phase boundaries follow previous nu-merical studies (cf. Ref. [44, 45]). The inset within the chiral spin-liquid regime shows the triangular lattice with Bravais vectors a1=(1,0)Tand a2=(1/2,√3/2)T.The chirality of the Jχterm is uniform across all triangular plaquettes (green arrows). The Brillouin zone on the right indicates the mo-mentum cuts accessible on the YC6 cylinder, for which the dynamical structure factor is computed in this work. The vi-olet diamonds mark the points in parameter space where the dimer structure factor is evaluated.
+
+Fleury operator describing Raman scattering in the nearest-neighbor Heisenberg model (up to polarization-dependent prefactors) [81–85], as well as of the indirect non-spin-flip RIXS channel [31]. As a related quantity, capturing the spin-singlet fluctuations, we introduce the dimer operator around a central site i defined as ˆDi = 1
+
+Nδ
+
+∑
+
+> δ
+
+(ˆSi ⋅ ˆSi+δ − ⟨ˆSi ⋅ ˆSi+δ ⟩) . (2) The sum runs over all nearest-neighbor sites of i labeled by δ with Nδ = 6 being the coordination number of the lattice. Note that the subtraction of the dimer expecta-tion value, which is non-vanishing, ensures that the dimer operator probes the excitation spectrum of the ground state via fluctuations around it. To this purpose, we have to compute the connected time-resolved dimer-dimer cor-relation function 
+
+Cconn .D (i, j ; t) = ⟨ ˆDi(t) ˆDj (0)⟩ . (3) The static dimer structure factor is straight-forwardly obtained from the equal-time dimer correlations: 
+
+χD (k) = 1
+
+N ∑
+
+> i,j
+
+e−ik⋅(ri−rj ) ⟨ ˆDi ˆDj ⟩ , (4) where N denotes the number of lattice sites. Exploiting the translational invariance of the system, we obtain the dynamical dimer structure factor via 
+
+SD (k, ω ) = ∫ dt ∑
+
+> j
+
+eiωt −ik⋅(rj −rjc ) ⟨ ˆDj (t) ˆDjc (0)⟩ . (5) 3g U(1) DSL 
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+
+0
+
+h CSL 
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+
+0
+
+a 120 
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+> 0.010
+> 0.012
+
+0
+
+0
+
+b 120 LSWT 
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+> 0.010
+
+c tetrahedral 
+
+> 0.0000
+> 0.0025
+> 0.0050
+> 0.0075
+> 0.0100
+> 0.0125
+
+0
+
+d tetrahedral LSWT 
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+> 0.010
+> 0.012
+
+e stripe 
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+
+0
+
+f stripe LSWT 
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+
+FIG. 2. The static dimer structure factor χD (k) for the various ordered and liquid phases considered in this work. The left column shows the results for the 120 ○ phase at J2 = 0 from MPS (top) and LSWT (bottom), the following column for the tetrahedral phase for J2/J1 = 0.125 and Jχ/J1 = 0.5 (MPS, c, LSWT, d), the third column for the stripe order with J2/J1 = 0.55 (MPS, e, spin-wave result, f ). The last column shows the numerical data for the candidate J1 − J2 QSL ( g) and the chiral spin liquid ( h). The former ground state at J2/J1 = 0.125 ( Jχ = 0) was stabilized in the odd (low-energy) sector (cf. End Matter), the ground state in the CSL for J2/J1 = 0.125 together with Jχ/J1 = 0.2 represents the trivial topological sector. All data are for YC6 cylinders. The MPS bond dimension is χmax = 2000. The cylinder lengths in the numerical simulations are 
+
+Lx = 51 (120 ○ order and J1 − J2 QSL), Lx = 81 (CSL and tetrahedral order) and Lx = 126 (stripe phase). Profile plots along the individual cuts accessible in the YC6 cylinder geometry can be found in the Supplemental Material [77]. 
+
+We first use the density renormalization group algo-rithm for infinite systems (iDMRG) [86–88] to variation-ally optimize the ground state of the model in Eq. (1) using U (1) charge conservation [89–91]. To this end, the two-dimensional lattice is wrapped onto a cylin-der by closing the boundary condition along its cir-cumference periodically [92]. We apply the YC6 cylin-der geometry [63]. The perturbed ground-state MPS is then time evolved numerically using the matrix-product-operator WII representation of the time evolution op-erator [93, 94]. To avoid boundary effects, we consider cylinder lengths of Lx = 51 for the 120 ○ order and the 
+
+U (1) QSL, Lx = 81 in the presence of the chiral interac-tion, and Lx = 126 in the stripe phase. The MPS bond dimension is χmax = 2000. Further details on the numer-ical procedure are outlined in the End Matter. Our full dynamical structure factors are comple-mented by results obtained using the MPS quasiparti-cle ansatz. This variational approach extends the single-mode approximation and provides direct access to the momentum-resolved excitation spectrum [95–97]. Using SU (2) symmetry, we can directly target the singlet sec-tor [98], so that the dispersion of the lowest-lying singlet excited states can be readily resolved. 
+
+Ordered phases. —Figure 2 presents the static dimer structure factor χD (k) for the ordered phases—120 ○,tetrahedral and stripe order in the panels a, c and e,respectively—and contrasts the numerical MPS results with semiclassical findings from spin-wave theory ( b, d
+
+and f in the bottom row; see the Supplemental Mate-rial [77] for details of the calculation). The main charac-teristics are reproduced by leading-order spin-wave the-ory. In the case of the 120 ○ phase, the vanishing spectral weight at the K and M points is contrasted with corre-sponding minima at low amplitude in the static structure factor from MPS. The numerical result exhibits a more detailed structure, e.g., the cut Γ– M ′′ vanishes com-pletely in the spin-wave calculation. A similar picture holds for the tetrahedral phase. The spectral signal at the M points is minimal both in the numerics and the semiclassical approximation. The K points come with a local minimum of finite intensity in the former result. In both cases, we observe maxima in the proximity of the X
+
+points. The diminished weight at the origin in spin-wave theory is a consequence of the perturbative approxima-tion up to leading order. The analytical expansion gives a finite contribution for the collinear stripe order solely at order S2 for the connected dimer correlations—in con-trast to the other two ordered phases. The agreement we find between the numerical static structure factor and the equivalent result within spin-wave theory is conclusive (cf. Fig. 2 e and f ). The momentum M ′ where the Gold-stone mode resides comes with χD (k)∣ k→M ′ approaching zero. Figure 3 a–d presents the dynamical dimer structure factor SD (k, ω ) in the 120 ○ phase. The main panels show the data from the MPS-based time evolution, con-trasted with the dynamical spin-wave result in the corre-4d
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+> 0.025
+
+cb
+
+> /| J1|
+> 120
+
+0
+
+1
+
+2
+
+3 a
+
+M′′ 
+
+h
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+
+M′ M M′
+
+g
+
+Y′ X′ Y K Y′
+
+f
+
+B X′′ A X B
+
+> /| J1|
+> U(1) DSL
+
+0
+
+1
+
+2
+
+3 e       
+
+> BX′′ A
+> 0
+> 2
+> LSWT
+> Y′X′YKY′
+> 0
+> 2
+> M′M
+> 0
+> 2
+
+FIG. 3. Dynamical dimer structure factor SD (k, ω ) for the 120 ○ order ( a–d) and the J1 −J2 QSL ( e–h). The chosen coupling parameters are J2 = 0 and J2/J1 = 0.125 (both Jχ = 0), respectively. The main panels show the results obtained from numerical time evolutions performed on YC6 cylinders with an MPS bond dimension of χ = 2000 and a cylinder length of Lx = 51. The simulations reached the maximum evolution time of tsim = 60 J1 in steps of δt = 0.04 J1. The structure factors displayed were obtained for a Gaussian broadening σ = 11 .4 J1. The insets in panels a–c for the 120 ○ order feature the dimer spectral function along the corresponding cuts as computed within leading-order spin-wave theory. The blue dashed line denotes the magnon dispersion from LSWT. The blue dotted line marks the lower onset of the two-magnon continuum within LSWT. The red dot-dashed line indicates in all panels the lowest-lying excitation obtained from the MPS quasiparticle ansatz. 
+
+sponding insets. The red dot-dashed line denotes the dis-persion obtain from the MPS quasiparticle ansatz. The blue dashed line marks the LSWT magnon branch as a guide [25, 55]. Along the cut M –M ′, the LSWT re-sult that tracks the single-magnon dispersion is reflected in the low-energy mode of the numerical spectrum, up to a downward renormalization around the midpoints of the Brillouin-zone edges. This closely mirrors the renormalization of the single-magnon mode in the spin DSF [24, 25, 53, 54, 99–101]. Both momentum cuts com-prising the various X points exhibit—besides the con-tinua at higher energies—a mode largely following the LSWT result. A significant finite-size gap opens at the corner of the Brillouin zone for the MPS simulation on the cylinder [24, 25, 72]. The distribution of spectral weight is faithfully reflected by the LSWT calculation. However, whereas the semiclassical approach suggests a dispersion maximum at the X points, both the dy-namical data and the quasiparticle ansatz reveal finite spectral weight beneath the onset of the two-magnon continuum. The lowest-lying mode forms a minimum at X, X′′ , and X′. This feature can be directly at-tributed to the phenomenon of avoided quasiparticle de-cay for the triangular-lattice Heisenberg antiferromag-net [13, 25, 72, 78, 102]: Due to strong magnon inter-actions, the magnon branch is partially repelled upon entering the continuum where decay channels are kine-matically available. The observed features of the dimer spectral function arise from the same processes, i.e., the stabilized magnon bands contribute with finite spectral weight to the dynamical dimer signal. A similar behavior is found in the case of the tetrahedral phase (cf. the spin DSF results in Ref. [72] and Fig. 4 in the Supplemental Material [77]), whereas the spectrum of the stripe order follows qualitatively the predictions from LSWT (Fig. 5). 
+
+Quantum spin-liquid regimes. —The ground states found via iDMRG routines for the candidate spin-liquid regimes—the quantum disordered domain for 0.07 ≲
+
+J2/J1 ≲ 0.15 on the J2 axis and the CSL for finite 
+
+Jχ—do not exhibit a dominant spin order (cf. ex-plicitly Ref. [72]). For the J1 − J2 QSL, we con-sider the distinct lower-energy sector on the YC6 cylin-der [25, 57, 58, 61, 63, 72, 80], while we stay in the trivial sector of the CSL with a non-degenerate entanglement spectrum exposing the phase’s chiral nature [72, 103– 108]. Figure 2 g and h show the static dimer structure factor related to the two phases, respectively. The peak amplitudes are substantially smaller than in the ordered phases. While both the J1 − J2 QSL and the CSL share common features—such as the reduced spectral intensity at the M points, reflecting the influence of adjacent or-dered phases—the behavior at the K points highlights clear distinctions from the ordered regimes. In the for-mer spin liquid, the spectral weight at K increases signif-icantly compared with the 120 ○ order, while in the CSL a distinct maximum develops at the same momentum. The dimer DSF for the candidate J1 − J2 QSL pre-sented in the bottom row of Fig. 3 reveals similarities along the cut M –M ′ with the 120 ○ phase. The excita-tion gap at the M points though is reduced, as in the 5spin DSF [24, 25, 72]. For the field theory of a DSL, the excitations at these momenta are expected to form gap-less continua in the thermodynamic limit [73, 74, 109]. The lowest mode as probed by the dimer operator in Fig. 3 g exposes vanishing spectral intensity, with rem-nants of spectral weight being present in the continuum at higher energies. The continuum is much more pro-nounced in the liquid regime than in the coplanar order. It reflects the presence of fractional spinon excitations whose combinations contribute both to the singlet and the triplet channels. Unlike the centers of the Brillouin-zone edges, the fea-tures at K differ markedly between the two adjacent phases. In the 120 ○ ordered domain, the low-energy sig-nal forms a minimum at this momentum with regard to both the dispersion and the spectral weight. In the QSL, by contrast, we observe a pronounced horizontal feature at intermediate energies, while the lower edge of the exci-tation spectrum shifts upward as K is approached. Both characteristics are readily captured by the MPS quasi-particle ansatz. Thus, the spectrum at K evidently dis-tinguishes the 120 ○ order from the candidate QSL, a dis-tinction that is not apparent with comparable clarity in the spin correlations [24, 25, 61, 72, 80]. Moreover, the spinon dispersion for a gapped Z2 QSL, which comes with minima at the K points [60, 110], would necessarily re-sult in a singlet response comprising two-spinon states that has an absolute excitation minimum at K as well. This contradicts our results. The softening of the gap at the M points, however, is compatible with the spinon structure of the U (1) DSL [109]. Most importantly, however, we find a distinct mini-mum in the low-lying excitation at X′ along with—in a slightly shifted manifestation caused by the anisotropies of the cylinder simulation (cf. Fig. 2 g)—the momenta X
+
+and X′′ . Contrary to the dispersion minima at these mo-menta in, e.g., the 120 ○ ordered and tetrahedral phases (Figs. 3 b and 4 b) or the CSL regime (Fig. 6 b), the ex-citation gap at X′ in the putative spin liquid constitutes the lowest-lying excitation with finite weight across all accessible momenta. Compared to the 120 ○ phase, the spectral weigth at the minimum at X′ is enhanced rel-ative to other momenta. This is naturally accounted for by the QED 3 field theory scenario: while the triplet monopole excitations of the DSL on the triangular lat-tice reside at the corners of the Brillouin zone, the sin-glet monopoles—invisible in the spin correlations but detectable in the dimer response—are located precisely at the X points [73, 74]. In the two-dimensional limit, these excitations are expected to manifest as conical gap-less continua [109]. These low-energy continua cannot be resolved numerically on the accessible system sizes. Instead, a gapped low-energy excitation emerges at X.We note that this finite-size gap is analogous to the be-havior seen in the spin structure factor at the Brillouin-zone boundaries, where both expected gapless continua at the K and M points have similar gap sizes and are further dominated by fluctuations related to the nearby ordered states (cf. Ref. [109]). The observed finite-size gap is comparable to the corresponding result obtained from variational Monte Carlo simulations [111]. The re-sulting spectral features—particularly at the decisive X
+
+points—provide support for interpreting the phase as an ultimately gapless DSL [73, 74, 109]. 
+
+Outlook. —Leveraging GPU-accelerated large-scale MPS simulations, we obtain high-resolution spectra of the dynamical dimer response, paving a new route to probe excitations above exotic ground states in frustrated magnets. The approach yields distinctive signatures that enable discrimination between compet-ing field theories and connects directly to experiments, including momentum-resolved RIXS and Raman scat-tering, thereby providing a valuable framework for quantitative studies of antiferromagnetic models with QSL regimes beyond analytic control. The resulting spectra serve as a direct guide for future experiments, in-dicating which features to target and how to distinguish between underlying theoretical descriptions. 
+
+Data availability. —All data are available in the Zenodo repository [112]. 
+
+Acknowledgments. —We thank Sylvain Capponi, Ed-uard Koller, Andreas L¨ auchli, Alexander Wietek and Josef Willsher for helpful discussions. M.D. acknowl-edges Jonas Habel for valuable input on the spin-wave calculations. J.K. and F.P. acknowledge support from TRR 360 - 492547816, the Deutsche Forschungsgemein-schaft (DFG, German Research Foundation) under Ger-many’s Excellence Strategy EXC-2111-390814868, as well as the Munich Quantum Valley, which is supported by the Bavarian state government with funds from the High-tech Agenda Bayern Plus. J.K. also acknowledges sup-port from DFG grants No. KN1254/1-2, KN1254/2-1. R.M. recognizes support by the Deutsche Forschungsge-meinschaft under Grant No. SFB 1143 (Project-ID No. 247310070) and by the Deutsche Forschungsgemeinschaft under cluster of excellence ctd.qmat (EXC 2147, Project-ID No. 390858490).             
+
+> ∗markus.drescher@tum.de [1] C. Lacroix, P. Mendels, and F. Mila, Introduction to Frustrated Magnetism (Springer Berlin, Heidelberg, 2011). [2] P. Anderson, Resonating valence bonds: A new kind of insulator?, Materials Research Bulletin 8, 153 (1973). [3] L. B. Ioffe and A. I. Larkin, Gapless fermions and gauge fields in dielectrics, Phys. Rev. B 39 , 8988 (1989). [4] X. G. Wen, Mean-field theory of spin-liquid states with finite energy gap and topological orders, Phys. Rev. B
+> 44 , 2664 (1991). [5] N. Read and S. Sachdev, Large-n expansion for frus-trated quantum antiferromagnets, Phys. Rev. Lett. 66 ,
+
+6
+
+1773 (1991). [6] T. Senthil and M. P. A. Fisher, Z2 gauge theory of electron fractionalization in strongly correlated systems, Phys. Rev. B 62 , 7850 (2000). [7] X.-G. Wen, Quantum orders and symmetric spin liquids, Phys. Rev. B 65 , 165113 (2002). [8] M. Hermele, T. Senthil, M. P. A. Fisher, P. A. Lee, N. Nagaosa, and X.-G. Wen, Stability of U (1) spin liq-uids in two dimensions, Phys. Rev. B 70 , 214437 (2004). [9] R. Coldea, D. A. Tennant, A. M. Tsvelik, and Z. Tyl-czynski, Experimental realization of a 2D fractional quantum spin liquid, Phys. Rev. Lett. 86 , 1335 (2001). [10] L. Balents, Spin liquids in frustrated magnets, Nature 
+
+464 , 199 (2010). [11] J. Knolle and R. Moessner, A field guide to spin liquids, Annual Review of Condensed Matter Physics 10 , 451 (2019). [12] C. Broholm, R. J. Cava, S. A. Kivelson, D. G. Nocera, M. R. Norman, and T. Senthil, Quantum spin liquids, Science 367 , eaay0668 (2020). [13] S. Ito, N. Kurita, H. Tanaka, S. Ohira-Kawamura, K. Nakajima, S. Itoh, K. Kuwahara, and K. Kaku-rai, Structure of the magnetic excitations in the spin-1/2 triangular-lattice Heisenberg antiferromagnet Ba 3CoSb 2O9, Nature Communications 8, 235 (2017). [14] K. M. Ranjith, D. Dmytriieva, S. Khim, J. Sichelschmidt, S. Luther, D. Ehlers, H. Yasuoka, J. Wosnitza, A. A. Tsirlin, H. K¨ uhne, and M. Baenitz, Field-induced instability of the quantum spin liquid ground state in the Jeff = 12 triangular-lattice compound NaYbO 2, Phys. Rev. B 99 , 180401 (2019). [15] P.-L. Dai, G. Zhang, Y. Xie, C. Duan, Y. Gao, Z. Zhu, E. Feng, Z. Tao, C.-L. Huang, H. Cao, A. Podlesnyak, G. E. Granroth, M. S. Everett, J. C. Neuefeind, D. Voneshen, S. Wang, G. Tan, E. Morosan, X. Wang, H.-Q. Lin, L. Shu, G. Chen, Y. Guo, X. Lu, and P. Dai, Spinon fermi surface spin liquid in a triangular lattice antiferromagnet NaYbSe 2, Phys. Rev. X 11 , 021044 (2021). [16] Z. Zhang, X. Ma, J. Li, G. Wang, D. T. Adroja, T. P. Perring, W. Liu, F. Jin, J. Ji, Y. Wang, Y. Kamiya, X. Wang, J. Ma, and Q. Zhang, Crystalline electric field excitations in the quantum spin liquid candidate NaYbSe 2, Phys. Rev. B 103 , 035144 (2021). [17] A. O. Scheie, E. A. Ghioldi, J. Xing, J. A. M. Paddison, N. E. Sherman, M. Dupont, L. D. Sanjeewa, S. Lee, A. J. Woods, D. Abernathy, D. M. Pajerowski, T. J. Williams, S.-S. Zhang, L. O. Manuel, A. E. Trumper, C. D. Pemmaraju, A. S. Sefat, D. S. Parker, T. P. Dev-ereaux, R. Movshovich, J. E. Moore, C. D. Batista, and D. A. Tennant, Proximate spin liquid and fractionaliza-tion in the triangular antiferromagnet KYbSe 2, Nature Physics 20 , 74 (2024). [18] Y. Cao, A. Koda, M. D. Le, V. Pomjakushin, B. Liu, Z. Fu, Z. Li, J. Zhao, Z. Tian, and H. Guo, U(1) dirac quantum spin liquid candidate in triangular-lattice anti-ferromagnet CeMgAl 11 O19 , Science China Physics, Me-chanics & Astronomy 68 , 10.1007/s11433-024-2634-9 (2025). [19] M. Gohlke, R. Verresen, R. Moessner, and F. Pollmann, Dynamics of the kitaev-heisenberg model, Phys. Rev. Lett. 119 , 157203 (2017). [20] R. Verresen, F. Pollmann, and R. Moessner, Quantum dynamics of the square-lattice Heisenberg model, Phys. Rev. B 98 , 155102 (2018). [21] F. Ferrari and F. Becca, Dynamical structure factor of the J1 − J2 Heisenberg model on the triangular lattice: Magnons, spinons, and gauge fields, Phys. Rev. X 9,031026 (2019). [22] M. Mourigal, W. T. Fuhrman, A. L. Chernyshev, and M. E. Zhitomirsky, Dynamical structure factor of the triangular-lattice antiferromagnet, Phys. Rev. B 88 ,094407 (2013). [23] E. A. Ghioldi, M. G. Gonzalez, S.-S. Zhang, Y. Kamiya, L. O. Manuel, A. E. Trumper, and C. D. Batista, Dy-namical structure factor of the triangular antiferromag-net: Schwinger boson theory beyond mean field, Phys. Rev. B 98 , 184403 (2018). [24] N. E. Sherman, M. Dupont, and J. E. Moore, Spectral function of the J1 − J2 Heisenberg model on the trian-gular lattice, Phys. Rev. B 107 , 165146 (2023). [25] M. Drescher, L. Vanderstraeten, R. Moessner, and F. Pollmann, Dynamical signatures of symmetry-broken and liquid phases in an S = 12 Heisenberg antiferromag-net on the triangular lattice, Phys. Rev. B 108 , L220401 (2023). [26] R. Bag, S. Xu, N. E. Sherman, L. Yadav, A. I. Kolesnikov, A. A. Podlesnyak, E. S. Choi, I. da Silva, J. E. Moore, and S. Haravifard, Evidence of dirac quan-tum spin liquid in YbZn 2GaO 5, Phys. Rev. Lett. 133 ,266703 (2024). [27] A. O. Scheie, M. Lee, K. Wang, P. Laurell, E. S. Choi, D. Pajerowski, Q. Zhang, J. Ma, H. D. Zhou, S. Lee, S. M. Thomas, M. O. Ajeesh, P. F. S. Rosa, A. Chen, V. S. Zapf, M. Heyl, C. D. Batista, E. Dagotto, J. E. Moore, and D. A. Tennant, Spectrum and low-energy gap in triangular quantum spin liquid NaYbSe 2 (2024), arXiv:2406.17773 [cond-mat.str-el]. [28] F. Ferrari, A. Parola, and F. Becca, Gapless spin liquids in disguise, Phys. Rev. B 103 , 195140 (2021). [29] D. S. Rokhsar and S. A. Kivelson, Superconductivity and the quantum hard-core dimer gas, Phys. Rev. Lett. 
+
+61 , 2376 (1988). [30] R. Moessner and S. L. Sondhi, Resonating valence bond phase in the triangular lattice quantum dimer model, Phys. Rev. Lett. 86 , 1881 (2001). [31] L. J. P. Ament, M. van Veenendaal, T. P. Devereaux, J. P. Hill, and J. van den Brink, Resonant inelastic x-ray scattering studies of elementary excitations, Rev. Mod. Phys. 83 , 705 (2011). [32] J. Li, S. Jin, T. Datta, and D.-X. Yao, Raman spec-troscopy of bimagnon and trimagnon excitations and rotonlike points in a distorted triangular lattice antifer-romagnet, Phys. Rev. B 107 , 184402 (2023). [33] C. Luo, T. Datta, Z. Huang, and D.-X. Yao, Signatures of indirect k-edge resonant inelastic x-ray scattering on magnetic excitations in a triangular-lattice antiferro-magnet, Phys. Rev. B 92 , 035109 (2015). [34] J. Kim, J. c. v. Chaloupka, Y. Singh, J. W. Kim, B. J. Kim, D. Casa, A. Said, X. Huang, and T. Gog, Dynamic spin correlations in the honeycomb lattice Na 2IrO 3 mea-sured by resonant inelastic x-ray scattering, Phys. Rev. X 10 , 021034 (2020). [35] Z. Xiong, T. Datta, and D.-X. Yao, Resonant inelastic x-ray scattering study of vector chiral ordered kagome antiferromagnet, npj Quantum Materials 5, 78 (2020). [36] M. Mitrano, S. Johnston, Y.-J. Kim, and M. P. M. Dean, Exploring quantum materials with resonant inelastic x-7
+
+ray scattering, Phys. Rev. X 14 , 040501 (2024). [37] H. Lu, W. Zhu, and W. Yao, Collective excitations in chiral spin liquid: chiral roton and long-wavelength ne-matic mode (2026), arXiv:2601.20702 [cond-mat]. [38] J. Knolle, G.-W. Chern, D. L. Kovrizhin, R. Moessner, and N. B. Perkins, Raman scattering signatures of ki-taev spin liquids in A2IrO 3 iridates with A = Na or Li, Phys. Rev. Lett. 113 , 187201 (2014). [39] G. B. Hal´ asz, N. B. Perkins, and J. van den Brink, Res-onant inelastic x-ray scattering response of the kitaev honeycomb model, Phys. Rev. Lett. 117 , 127203 (2016). [40] G. B. Hal´ asz, S. Kourtis, J. Knolle, and N. B. Perkins, Observing spin fractionalization in the kitaev spin liquid via temperature evolution of indirect resonant inelastic x-ray scattering, Phys. Rev. B 99 , 184417 (2019). [41] J. Knolle, D. L. Kovrizhin, J. T. Chalker, and R. Moess-ner, Dynamics of a two-dimensional quantum spin liq-uid: Signatures of emergent majorana fermions and fluxes, Phys. Rev. Lett. 112 , 207203 (2014). [42] X. G. Wen, F. Wilczek, and A. Zee, Chiral spin states and superconductivity, Phys. Rev. B 39 , 11413 (1989). [43] G. Baskaran, Novel local symmetries and chiral-symmetry-broken phases in S=1/2 triangular-lattice Heisenberg model, Phys. Rev. Lett. 63 , 2524 (1989). [44] A. Wietek and A. M. L¨ auchli, Chiral spin liquid and quantum criticality in extended S = 12 Heisenberg mod-els on the triangular lattice, Phys. Rev. B 95 , 035141 (2017). [45] S.-S. Gong, W. Zhu, J.-X. Zhu, D. N. Sheng, and K. Yang, Global phase diagram and quantum spin liq-uids in a spin- 12 triangular antiferromagnet, Phys. Rev. B 96 , 075116 (2017). [46] B. Bauer, L. Cincio, B. P. Keller, M. Dolfi, G. Vidal, S. Trebst, and A. W. W. Ludwig, Chiral spin liquid and emergent anyons in a Kagome lattice Mott insulator, Nature Communications 5, 5137 (2014), publisher: Na-ture Publishing Group. [47] P. Fazekas and P. W. Anderson, On the ground state properties of the anisotropic triangular antiferromagnet, The Philosophical Magazine: A Journal of Theoretical Experimental and Applied Physics 30 , 423 (1974). [48] T. Jolicoeur, E. Dagotto, E. Gagliano, and S. Bacci, Ground-state properties of the S=1/2 Heisenberg anti-ferromagnet on a triangular lattice, Phys. Rev. B 42 ,4800 (1990). [49] A. V. Chubukov, S. Sachdev, and T. Senthil, Large-s expansion for quantum antiferromagnets on a triangular lattice, Journal of Physics: Condensed Matter 6, 8891 (1994). [50] B. Bernu, P. Lecheminant, C. Lhuillier, and L. Pierre, Exact spectra, spin susceptibilities, and order parame-ter of the quantum Heisenberg antiferromagnet on the triangular lattice, Phys. Rev. B 50 , 10048 (1994). [51] L. Capriotti, A. E. Trumper, and S. Sorella, Long-range N´ eel order in the triangular Heisenberg model, Phys. Rev. Lett. 82 , 3899 (1999). [52] S. R. White and A. L. Chernyshev, Ne´ el order in square and triangular lattice Heisenberg models, Phys. Rev. Lett. 99 , 127004 (2007). [53] A. L. Chernyshev and M. E. Zhitomirsky, Magnon decay in noncollinear quantum antiferromagnets, Phys. Rev. Lett. 97 , 207202 (2006). [54] O. A. Starykh, A. V. Chubukov, and A. G. Abanov, Flat spin-wave dispersion in a triangular antiferromag-net, Phys. Rev. B 74 , 180403 (2006). [55] A. L. Chernyshev and M. E. Zhitomirsky, Spin waves in a triangular lattice antiferromagnet: Decays, spec-trum renormalization, and singularities, Phys. Rev. B 
+
+79 , 144416 (2009). [56] R. Kaneko, S. Morita, and M. Imada, Gapless spin-liquid phase in an extended spin 1/2 triangular Heisen-berg model, Journal of the Physical Society of Japan 
+
+83 , 093707 (2014). [57] Z. Zhu and S. R. White, Spin liquid phase of the S = 
+
+> 12
+
+J1 − J2 Heisenberg model on the triangular lattice, Phys. Rev. B 92 , 041105 (2015). [58] W.-J. Hu, S.-S. Gong, W. Zhu, and D. N. Sheng, Com-peting spin-liquid states in the spin- 12 Heisenberg model on the triangular lattice, Phys. Rev. B 92 , 140403 (2015). [59] Y. Iqbal, W.-J. Hu, R. Thomale, D. Poilblanc, and F. Becca, Spin liquid nature in the Heisenberg J1 − J2
+
+triangular antiferromagnet, Phys. Rev. B 93 , 144411 (2016). [60] F. Wang and A. Vishwanath, Spin-liquid states on the triangular and kagom´ e lattices: A projective-symmetry-group analysis of schwinger boson states, Phys. Rev. B 
+
+74 , 174423 (2006). [61] S. Jiang, S. R. White, S. A. Kivelson, and H.-C. Jiang, Competing states in the S = 1/2 triangular-lattice J1-J2
+
+Heisenberg model: a dynamical density-matrix renor-malization group study (2026), arXiv:2602.14892 [cond-mat.str-el]. [62] M. Hermele, T. Senthil, and M. P. A. Fisher, Algebraic spin liquid as the mother of many competing orders, Phys. Rev. B 72 , 104404 (2005). [63] S. Hu, W. Zhu, S. Eggert, and Y.-C. He, Dirac spin liquid on the spin-1 /2 triangular Heisenberg antiferro-magnet, Phys. Rev. Lett. 123 , 207203 (2019). [64] A. Wietek, S. Capponi, and A. M. L¨ auchli, Quantum electrodynamics in 2 + 1 dimensions as the organizing principle of a triangular lattice antiferromagnet, Phys. Rev. X 14 , 021010 (2024). [65] V. Kalmeyer and R. B. Laughlin, Equivalence of the resonating-valence-bond and fractional quantum hall states, Phys. Rev. Lett. 59 , 2095 (1987). [66] V. Kalmeyer and R. B. Laughlin, Theory of the spin liquid state of the Heisenberg antiferromagnet, Phys. Rev. B 39 , 11879 (1989). [67] L. Messio, C. Lhuillier, and G. Misguich, Lattice sym-metries and regular magnetic orders in classical frus-trated antiferromagnets, Phys. Rev. B 83 , 184401 (2011). [68] U. Schollw¨ ock, The density-matrix renormalization group in the age of matrix product states, Ann. Phys. 
+
+326 , 96 (2011). [69] W. Li, J. Ren, and Z. Shuai, Numerical assessment for accuracy and GPU acceleration of TD-DMRG time evo-lution schemes, The Journal of Chemical Physics 152 ,024127 (2020). [70] F. Pan and P. Zhang, Simulation of quantum circuits using the big-batch tensor network method, Phys. Rev. Lett. 128 , 030501 (2022). [71] J. Unfried, J. Hauschild, and F. Pollmann, Fast time evolution of matrix product states using the QR de-composition, Phys. Rev. B 107 , 155133 (2023). [72] M. Drescher, L. Vanderstraeten, R. Moessner, and F. Pollmann, Spectral functions of an extended antifer-8
+
+romagnetic S = 1/2 Heisenberg model on the triangular lattice (2025), arXiv:2508.17292 [cond-mat.str-el]. [73] X.-Y. Song, C. Wang, A. Vishwanath, and Y.-C. He, Unifying description of competing orders in two-dimensional quantum magnets, Nature Communica-tions 10 , 4254 (2019). [74] X.-Y. Song, Y.-C. He, A. Vishwanath, and C. Wang, From spinon band topology to the symmetry quantum numbers of monopoles in dirac spin liquids, Phys. Rev. X 10 , 011033 (2020). [75] U. F. P. Seifert, J. Willsher, M. Drescher, F. Pollmann, and J. Knolle, Spin-Peierls instability of the U(1) Dirac spin liquid, Nature Communications 15 , 7110 (2024). [76] F. Ferrari, J. Willsher, U. F. P. Seifert, R. Valent´ ı, and J. Knolle, Stability of algebraic spin liquids coupled to quantum phonons, Phys. Rev. Res. 7, L042053 (2025). [77] See Supplemental Material for the dynamical dimer structure factors in additional phases, a discussion of the finite-circumference effects in the static dimer structure factor and details on the spin-wave calculation. (2026). [78] R. Verresen, R. Moessner, and F. Pollmann, Avoided quasiparticle decay from strong quantum interactions, Nature Physics 15 , 750 (2019). [79] T. Xie, A. A. Eberharter, J. Xing, S. Nishimoto, M. Brando, P. Khanenko, J. Sichelschmidt, A. A. Tur-rini, D. G. Mazzone, P. G. Naumov, L. D. Sanjeewa, N. Harrison, A. S. Sefat, B. Normand, A. M. L¨ auchli, A. Podlesnyak, and S. E. Nikitin, Complete field-induced spectral response of the spin-1/2 triangular-lattice antiferromagnet CsYbSe 2, npj Quantum Mate-rials 8, 48 (2023). [80] O. Kovalska, E. P. Fontanella, B. Schneider, H.-H. Tu, and J. von Delft, Revisiting the J1-J2 Heisenberg model on a triangular lattice: Quasi-degenerate ground states and phase competition (2026), arXiv:2603.08650 [cond-mat.str-el]. [81] P. A. Fleury and R. Loudon, Scattering of light by one- and two-magnon excitations, Phys. Rev. 166 , 514 (1968). [82] R. J. Elliott and M. F. Thorpe, The effects of magnon-magnon interaction on the two-magnon spectra of anti-ferromagnets, Journal of Physics C: Solid State Physics 
+
+2, 1630 (1969). [83] B. S. Shastry and B. I. Shraiman, Theory of raman scat-tering in Mott-Hubbard systems, Phys. Rev. Lett. 65 ,1068 (1990). [84] N. Perkins and W. Brenig, Raman scattering in aHeisenberg S = 12 antiferromagnet on the triangular lat-tice, Phys. Rev. B 77 , 174412 (2008). [85] D. Wulferding, Y. Choi, W. Lee, and K.-Y. Choi, Raman spectroscopic diagnostic of quantum spin liq-uids, Journal of Physics: Condensed Matter 32 , 043001 (2019). [86] S. R. White, Density matrix formulation for quan-tum renormalization groups, Phys. Rev. Lett. 69 , 2863 (1992). [87] S. R. White, Density-matrix algorithms for quantum renormalization groups, Phys. Rev. B 48 , 10345 (1993). [88] I. P. McCulloch, Infinite size density matrix renormal-ization group, revisited (2008), arXiv:0804.2509 [cond-mat.str-el]. [89] S. Singh, R. N. C. Pfeifer, and G. Vidal, Tensor network decompositions in the presence of a global symmetry, Phys. Rev. A 82 , 050301 (2010). [90] S. Singh, R. N. C. Pfeifer, and G. Vidal, Tensor network states and algorithms in the presence of a global U(1) symmetry, Phys. Rev. B 83 , 115125 (2011). [91] J. Hauschild and F. Pollmann, Efficient numerical simu-lations with Tensor Networks: Tensor Network Python (TeNPy), SciPost Phys. Lect. Notes 5, 10.21468/Sci-PostPhysLectNotes.5 (2018). [92] E. Stoudenmire and S. R. White, Studying two-dimensional systems with the density matrix renormal-ization group, Annual Review of Condensed Matter Physics 3, 111 (2012). [93] M. P. Zaletel, R. S. K. Mong, C. Karrasch, J. E. Moore, and F. Pollmann, Time-evolving a matrix product state with long-ranged interactions, Phys. Rev. B 91 , 165112 (2015). [94] S. Paeckel, T. K¨ ohler, A. Swoboda, S. R. Manmana, U. Schollw¨ ock, and C. Hubig, Time-evolution meth-ods for matrix-product states, Annals of Physics 411 ,167998 (2019). [95] J. Haegeman, B. Pirvu, D. J. Weir, J. I. Cirac, T. J. Osborne, H. Verschelde, and F. Verstraete, Variational matrix product ansatz for dispersion relations, Phys. Rev. B 85 , 100408 (2012). [96] L. Vanderstraeten, J. Haegeman, and F. Verstraete, Tangent-space methods for uniform matrix product states, SciPost Phys. Lect. Notes 7, 10.21468/SciPost-PhysLectNotes.7 (2019). [97] M. Van Damme, R. Vanhove, J. Haegeman, F. Ver-straete, and L. Vanderstraeten, Efficient matrix prod-uct state methods for extracting spectral information on rings and cylinders, Phys. Rev. B 104 , 115142 (2021). [98] V. Zauner-Stauber, L. Vanderstraeten, J. Haegeman, I. P. McCulloch, and F. Verstraete, Topological nature of spinons and holons: Elementary excitations from ma-trix product states with conserved symmetries, Phys. Rev. B 97 , 235155 (2018). [99] W. Zheng, J. O. Fjærestad, R. R. P. Singh, R. H. McKenzie, and R. Coldea, Excitation spectra of the spin- 12 triangular-lattice Heisenberg antiferromagnet, Phys. Rev. B 74 , 224420 (2006). [100] W. Zheng, J. O. Fjærestad, R. R. P. Singh, R. H. McKenzie, and R. Coldea, Anomalous excitation spec-tra of frustrated quantum antiferromagnets, Phys. Rev. Lett. 96 , 057201 (2006). [101] J. Oitmaa, Magnetic phases in the J1−J2 Heisenberg antiferromagnet on the triangular lattice, Phys. Rev. B 
+
+101 , 214422 (2020). [102] D. Macdougal, S. Williams, D. Prabhakaran, R. I. Be-wley, D. J. Voneshen, and R. Coldea, Avoided quasi-particle decay and enhanced excitation continuum in the spin- 12 near-Heisenberg triangular antiferromagnet Ba 3CoSb 2O9, Phys. Rev. B 102 , 064421 (2020). [103] X. G. Wen, Gapless boundary excitations in the quan-tum hall states and in the chiral spin states, Phys. Rev. B 43 , 11025 (1991). [104] H. Li and F. D. M. Haldane, Entanglement spectrum as a generalization of entanglement entropy: Identification of topological order in non-abelian fractional quantum hall effect states, Phys. Rev. Lett. 101 , 010504 (2008). [105] A. Szasz, J. Motruk, M. P. Zaletel, and J. E. Moore, Chiral spin liquid phase of the triangular lattice Hub-bard model: A density matrix renormalization group study, Phys. Rev. X 10 , 021042 (2020). [106] T. Cookmeyer, J. Motruk, and J. E. Moore, Four-spin 9
+
+terms and the origin of the chiral spin liquid in mott in-sulators on the triangular lattice, Phys. Rev. Lett. 127 ,087201 (2021). [107] W. Kadow, L. Vanderstraeten, and M. Knap, Hole spec-tral function of a chiral spin liquid in the triangular lat-tice Hubbard model, Phys. Rev. B 106 , 094417 (2022). [108] C. Kuhlenkamp, W. Kadow, A. Imamo˘ glu, and M. Knap, Chiral pseudospin liquids in Moir´ e het-erostructures, Phys. Rev. X 14 , 021013 (2024). [109] J. Willsher and J. Knolle, Dynamics and stability of U(1) spin liquids beyond mean-field theory (2025), arXiv:2503.13831 [cond-mat.str-el]. [110] S. Sachdev, Kagom´ e- and triangular-lattice Heisenberg antiferromagnets: Ordering from quantum fluctuations and quantum-disordered ground states with unconfined bosonic spinons, Phys. Rev. B 45 , 12377 (1992). [111] S. Budaraju, A. Parola, Y. Iqbal, F. Becca, and D. Poil-blanc, Monopole excitations in the U (1) Dirac spin liq-uid on the triangular lattice, Phys. Rev. B 111 , 125150 (2025). [112] M. Drescher, L. Vanderstraeten, R. Moessner, F. Poll-mann, and J. Knolle, Dynamical dimer structure factor of the triangular S = 1/2 Heisenberg antiferromagnet, 10.5281/zenodo.19486007 (2026). [113] J. Hauschild, J. Unfried, S. Anand, B. Andrews, M. Bintz, U. Borla, S. Divic, M. Drescher, J. Geiger, M. Hefel, K. H´ emery, W. Kadow, J. Kemp, N. Kirchner, V. S. Liu, G. M¨ oller, D. Parker, M. Rader, A. Romen, S. Scalet, L. Schoonderwoerd, M. Schulz, T. Soejima, P. Thoma, Y. Wu, P. Zechmann, L. Zweng, R. S. K. Mong, M. P. Zaletel, and F. Pollmann, Tensor network Python (TeNPy) version 1, SciPost Phys. Codebases , 41 (2024). [114] J. Haegeman and F. Verstraete, Diagonalizing Transfer Matrices and Matrix Product Operators: A Medley of Exact and Computational Methods, Annual Review of Condensed Matter Physics 8, 355 (2017). [115] V. Zauner-Stauber, L. Vanderstraeten, M. T. Fishman, F. Verstraete, and J. Haegeman, Variational optimiza-tion algorithms for uniform matrix product states, Phys. Rev. B 97 , 045145 (2018). 10 
+
+> END MATTER Details on the numerical procedure and the ground state optimization
+
+For the ground state optimization, we apply the den-sity matrix renormalization group algorithm with infi-nite boundary conditions (iDMRG). Concretely, we use the YC6 cylinder geometry, indicating that the system is invariant under translation by L ⋅ a2 = 6 a2 with the Bravais vectors a 2 = (1/2, √3/2)T and a 1 = (1, 0)T (cf. Fig. 1 b). The iDMRG variational optimization is per-formed on a unit cell with three rings of circumference 
+
+L = 6 and a maximum bond dimension of χ = 2000. We apply Abelian charge conservation [91, 113], i.e., the total 
+
+Sz quantum number is preserved during the simulation. Whereas the ground state representations of the ordered phases are stabilized straight-forwardly on the cylinder, the paramagnetic regimes exhibit two distinct topological sectors on cylinders with an even number of legs. In the case of the J1 − J2 quantum spin liquid (QSL), we focus on the energetically favorable odd sector [57, 58, 63]— or low-energy sector [61]—that exhibits a more isotropic correlation structure. In the chiral spin-liquid phase, we perform the dynamics in the directly accessible trivial sector that comes with a non-degenerate entanglement spectrum consistent with the Wess-Zumino-Witten con-formal field theory description of the gapless edge mode (cf. Ref. [105, 106]). The ground state approximation used for the quasiparticle excitation ansatz [95, 96] was obtained from the variational uniform MPS (VUMPS) algorithm [114, 115], featuring SU (2)-symmetric tensors. The MPS with infinite boundary conditions that rep-resents the ground state of the system for given set of parameters can be used to build enlarged unit cells by periodically stacking them. These systems serve as the basis for the dynamical evolution. For improved com-putational efficiency in cutting-edge simulations, it is advantageous to terminate the infinite boundary condi-tions by a suitable eigenvector, thereby mapping them to a finite system with open boundary conditions (cf. Refs. [25, 72]). The time evolution is initialized by applying a single-bond operator ˆSi ⋅ ˆSi+δ − ⟨ˆSi ⋅ ˆSi+δ ⟩ (6) onto the nearest-neighbor bond (ri, ri + δ) with δ ∈
+
+{±a1, ±a2, ±a3 = ±(a1 − a2)} denoting the displacement vector of the nearest-neighbor pairs. We choose a site 
+
+jc in the center of the system and prepare distinct ini-tial wave functions by applying the bond operator on bond (jc, j c + δ) for all choices of δ. In order to prevent numerical artifacts arising from the anisotropies of the cylinder setup, we do not impose assumptions about the rotation symmetries of the system, but perform all time evolutions independently. As the time-step size, we use 
+
+δt = 0.04 J1. After each Nsteps = 5 time steps, we compute the time-dependent dimer-dimer correlation. To avoid numerical artifacts—such as energy shifts causing spu-rious phases in the wave function due to Trotter errors and finite bond-dimension effects in the variational ap-plication of the MPO to the MPS—we simultaneously time-evolve the unperturbed ground state and use this reference state to compute the correlations. Eventually, the bond correlations from the six individual time evo-lutions (and the additional ground state evolution) can be combined to obtain the full dynamical dimer-dimer correlations for the operator in Eq. 2. Note that the subtraction of the expectation value in Eq. (2) and the application of the full bond operator in Eq. 6 onto the ground state in the form of an MPO proved essential for the numerical accuracy of the simulations. Having obtained the dynamical dimer correlation func-tion, we can invoke the standard recipe to transform the data into the corresponding dynamical structure factor. After Fourier transforming the spatial indices to momen-tum space (cf. Fig. 1 c for the accessible momentum cuts on this cylinder geometry), we apply a linear extrapo-lation of the time series for each momentum and find eventually the spectral function SD (k, ω ) from a convo-lution of the signal with a Gaussian window function. We choose a value α of the Gaussian envelope at the maximum evolution time tsim , defining the broadening via σ = √t2sim /( −2 ln (α)) . Typical values are for instance 
+
+α = 10 −6, i.e., σ ≈ 11 .4 J1 for tsim = 60 J1. In order to im-prove the resolution in momentum space, we can apply an interpolation scheme prior to performing the tempo-ral Fourier transformation (for details consult Ref. [72]), which has been applied for the numerical data presented in this work. The large-scale dynamical simulations have been per-formed on a cluster setup that combines four NVIDIA A100 GPUs (80 GB memory each) and 1 TB of system memory on each node alongside two Intel Xeon Plat-inum 8360Y CPUs (36 cores at 2.40GHz). We use a self-developed tensor-network library that stores the data tensors in sparse form by exploiting the U (1) symme-try. Whenever possible, the tensor blocks are retained in GPU memory, subject to the available memory ca-pacity. We apply a memory management scheme that transfers data asynchronously between the system mem-ory and the GPUs if necessary. In the 120 ○ phase and the candidate QSL at J2/J1 = 0.125, we coupled two GPUs per simulation. In the other cases, we used four GPUs in parallel and kept data such as site tensors and contracted environments that were not immediately required in the main memory. SUPPLEMENTAL MATERIAL M′′ 0
+
+2
+
+> /| J1|
+
+d
+
+M′′ 
+
+h
+
+M′ M M′0
+
+2
+
+> /| J1|
+
+c
+
+M′ M M′
+
+g
+
+Y′ X′ Y K Y′0
+
+2
+
+> /| J1|
+
+b
+
+Y′ X′ Y K Y′
+
+f
+
+B X′′ A X B
+
+0
+
+2
+
+> /| J1|
+
+a tetrahedral    
+
+> 0.000 0.005 0.010 0.015
+
+B X′′ A X B
+
+e LSWT   
+
+> 0.00 0.02 0.04
+
+FIG. 4. The dynamical dimer structure factor in the tetra-hedrally ordered phase at Jχ/J1 = 0.5 and J2/J1 = 0.125. The left column shows the results from dynamical MPS simula-tions at bond dimension χ = 2000 on a YC6 cylinder of size 6 × 81. The maximum evolution time was tsim = 60 J1 with a time-step size of δt = 0.04 J1. The right-hand column presents the leading-order dynamical spin-wave results obtained on a cylinder of dimensions 6 ×220. The spectral function was com-puted with a Gaussian broadening determined by α = 10 −6.The blue lines indicate the three magnon modes arising from the various ground state configurations (cf. the section on spin-wave theory). 
+
+Dynamic dimer structure factor in additional phases 
+
+Figure 6 summarizes the findings for the dynamical dimer structure factor in the chiral spin-liquid phase at 
+
+Jχ/J1 = 0.2 ( J2/J1 = 0.125). The chiral spin liquid is an inherently gapped phase [42, 103]. Accordingly, the lower edge of the excitation continuum along M –M ′
+
+rises with the onset of the chiral coupling Jχ (Fig. 3 g
+
+vs. Fig. 6 i). The continuum strength across all momen-tum cuts resembles that of the candidate DSL phase. The most prominent feature appears at relatively high energies around K: it manifests as a horizontal struc-ture of strong spectral intensity within the continuum and can be associated with a two-particle combination M′′ 0
+
+2
+
+4
+
+> /| J1|
+
+d
+
+M′′ 
+
+h
+
+M′ M M′0
+
+2
+
+4
+
+> /| J1|
+
+c
+
+M′ M M′
+
+g
+
+Y′ X′ Y K Y′0
+
+2
+
+4
+
+> /| J1|
+
+b
+
+Y′ X′ Y K Y′
+
+f
+
+B X′′ A X B
+
+0
+
+2
+
+4
+
+> /| J1|
+
+a stripe   
+
+> 0.00 0.01 0.02
+
+B X′′ A X B
+
+e LSWT    
+
+> 0.00 0.01 0.02 0.03
+
+FIG. 5. The dynamical dimer structure factor in the stripe phase at J2/J1 = 0.55 ( Jχ = 0). The spectral func-tion cuts from the large-scale MPS numerics is displayed on the left. The simulation was performed at a bond dimension of χ = 2000 on a YC6 cylinder with Lx = 126. The dynam-ical parameters are identical to in Fig. 4. The right column shows the corresponding result from the lowest non-vanishing order in spin-wave theory. It was computed on an equivalent cylinder of size 6 ×180. The blue dashed line marks the single-magnon dispersion as obtained within LSWT. 
+
+of the spin-1 bound state at the same momentum iden-tified in Ref. [72], consistent with the predictions for the Kalmeyer-Laughlin collective excitation [66]. Previous work on the spin structure factor reported spurious low-energy spectral weight at the high-symmetry momenta 
+
+X, M , and K [72], consistent with the emergence of two-spinon continua within the Kalmeyer-Laughlin ansatz. In accordance with this expectation, both the dynamical simulation and the quasiparticle ansatz reveal faint low-lying spectral weight at the M points and a clear mode— possibly a singlet two-spinon bound state—with its min-imum precisely at K. The spectral function in the chiral spin-liquid phase displays overall more anisotropies and truncation-related artifacts as the corresponding MPO bond dimension is significantly larger than in the absence of the chiral interaction term. 1M′′ 
+
+d
+
+> 0.000
+> 0.002
+> 0.004
+> 0.006
+> 0.008
+> 0.010
+
+M′ M M′
+
+c
+
+Y′ X′ Y K Y′
+
+b
+
+B X′′ A X B
+
+> /| J1|
+
+0
+
+1
+
+2
+
+3 aFIG. 6. The dynamical dimer structure factor in the chiral spin-liquid phase. The chosen coupling parameters are J2/J1 =                      
+
+> 0.125 and Jχ/J1=0.2. The main panels show the results obtained from numerical time evolutions performed on YC6 cylinders with an MPS bond dimension of χ=2000 and a cylinder length of Lx=81. The simulations were performed up to tsim =60 J1in steps of δt =0.04 J1. We applied a Gaussian broadening of σ=11 .4J1. The red dot-dashed line marks the excitation dispersion obtained from the MPS quasiparticle ansatz.
+
+Figures 4 and 5 finally present the dynamical dimer structure factor in the tetrahedral and the stripe ordered phases, respectively. We compare the numerical result (in the left column) with the spin-wave calculation to lead-ing order on the right. As described in the main text, the main spectral features in the tetrahedral phase are captured by the LSWT result. Modifications are caused by finite-size gaps at the M points and downward renor-malizations of the contributions from magnon branches in the vicinity of the corner points K. The continua aris-ing from the MPS simulations cannot be captured by the lowest-order spin-wave computation. Most importantly, the X points exhibit low-energy modes (cf. for instance Fig. 4 b) that emerge below the onset of the two-magnon continuum in LSWT. The lower edge of this continuum is marked by the minimum of the three distinct magnon modes for each momentum that are indicated by the blue lines of various patterns. Like in the 120 ○ order, we can connect this low-lying spectral weight to the repulsion of magnons from the continuum due to strong interaction processes—a phenomenon known as avoided quasiparti-cle decay [78]. The structure of the spectra in the stripe order, on the other hand, are reproduced in good agreement by the semiclassical approximation. Note that for the collinear order, contribution to the dimer structure factor of order 
+
+S3 vanishes completely. The next order S2, acting as the leading-order signal in this domain, includes two-particle continua. The overall distribution of spectral weight and the dominant features within the continua demonstrate convincing agreement between the two approaches. As a guide to the eye, we also plot the single-magnon disper-sion from LSWT on top of the full spectral function. 
+
+> Profile plots of the static dimer structure factor
+
+Figure 7 presents the data for the static dimer struc-ture factor 
+
+χD (k) = 1
+
+N ∑
+
+> i,j
+
+e−ik⋅(ri−rj ) ⟨ ˆDi ˆDj ⟩ , (7) for the dimer operator ˆDi as defined in the main text for the various ordered and liquid phases: the candidate 
+
+U (1) Dirac spin liquid (DSL) and the chiral spin liquid (CSL), the 120 ○, tetrahedral and stripe orders. In con-trast to Fig. 2 in the main text, we plot here the intensity profiles along the distinct cuts that are accessible on the YC6 cylinder geometry. In the ordered phases, we compare the numerical MPS result (solid lines) to the leading-order spin-wave con-tribution (dashed line of the same color). The results for the stripe order at J2/J1 = 0.55 agree very closely be-tween the numerical approach and the analytical approx-imation. For the 120 ○ order and the tetrahedral phase, we observe a qualitative agreement of the main features. In general, spectral weight that is captured in the nu-merical finding is not present in the semiclassical result due to the missing higher-order contributions. The inten-sity along the cut M ′′ –Γ for instance vanishes completely within linear spin-wave theory (LSWT) in the coplanar 120 ○ phase. The disordered regimes generally exhibit a reduced maximum amplitude of χD (k) compared to the ordered domains. As an estimate for the anisotropies caused by the cylin-der geometry, we can compare the amplitude at the var-ious edge centers of the Brillouin zone. The Goldstone mode at M ′ in the stripe phase is reflected by vanishing weight at this momentum only. The 120 ○ order would ex-hibit a sixfold rotation symmetry in the thermodynamic limit. The signals at M and M ′ versus M ′′ agree very well (solid dark blue line). The same holds for the tetra-hedral order, but with a significantly reduced value at the M points (solid light blue line), related to the pres-ence of Goldstone modes at these momenta in this phase. The candidate quantum spin-liquid regimes come with more pronounced differences: Whereas at M ′ and M ,the curves for the DSL and CSL are almost identical, they signals split up at M ′′ . The CSL acquires a slightly lower intensity at M ′′ compared to the other two edge centers, the DSL signal on the other hand undergoes a small upward shift. We also observe that the Goldstone excitations at K
+
+2M′′  
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+
+M′ M M′ 
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+
+Y′ X′ Y K Y′ 
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+
+B X′′ A X B 
+
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+> U(1) DSL
+> CSL
+> 120
+> 120 LSWT
+> tetrahedral
+> tetrahedral LSWT
+> stripe
+> stripe LSWT
+> Static dimer structure factor  D(k)
+
+FIG. 7. Profile plots of the static dimer structure factor 
+
+χD (k) for the various phases considered in this work. For the ordered ground states, we present also the leading-order spin-wave result as a dashed line of the corresponding color. The data displayed and hence also the parameter choices are identical to Fig. 2 in the main text. 
+
+in the 120 ○ phase and at the M points in the tetrahe-dral phase, characterized by a linear dispersion when ap-proaching the corresponding momenta, exhibit a finite-size gap in the numerical MPS-based result. 
+
+Spin-wave theory General solution of the energy dispersion in linear spin-wave theory 
+
+The semiclassical spin-wave approximation assumes that in an magnetically ordered ground state of a spin system, quantum fluctuations cause also slight deviations from the classical spin configuration. These deviations can be treated perturbatively. In this paragraph, we want to develop a general form of the resulting Hamiltonian and its solution within linear spin-wave theory. Starting from a spin Hamiltonian such as in Eq. 1, the canonical Holstein-Primakoff transformation allows us to transition from the spin operators (that are aligned with the z-axis of a locally rotated reference frame) to bosonic operators: 
+
+Szi = S − ˆa† 
+
+> i
+
+ˆai (8) 
+
+S+ 
+
+> i
+
+= √2S
+
+¿ÁÁÀ1 − ˆa† 
+
+> i
+
+ˆai
+
+2S ˆai ≈ √2S ˆai (9) 
+
+S− 
+
+> i
+
+= √2S ˆa†
+
+> i
+
+¿ÁÁÀ1 − ˆa† 
+
+> i
+
+ˆai
+
+2S ≈ √2S ˆa† 
+
+> i
+
+(10) The local spin operators Sαi are aligned with the z-axis of the local frame and are related to the spin operator ˆSi
+
+in the global frame by rotation matrices Ri via ˆSi = RiSi . (11) Here, Si = (Sxi , Syi , Szi )T is the vector of spin operators in the local frame at site i. Generally, we find a trans-formed Hamiltonian in terms of the bosonic operators that acquires a form as follows: ˆH = H0 + ∑
+
+> i
+
+Aiˆa† 
+
+> i
+
+ˆai + ∑
+
+> (i,j )
+
+[Cij ˆa† 
+
+> i
+
+ˆaj + Dij ˆai ˆaj + h.c.] .
+
+(12) Here, H0 and the Ai are real constants and the sum ∑(i,j )
+
+runs over pairs of sites (i, j ) that can be assumed to be distinct, i.e., i ≠ j.We can now Fourier transform the operators from dis-crete spatial coordinates r = ri ˆ= i to momentum space as ˆar = 1
+
+√N ∑
+
+> k
+
+e−ik⋅rˆak . (13) The resulting Hamiltonian in quadratic order can be brought to the following form: 
+
+H2 = ∑
+
+> k
+
+[Akˆa†
+
+> k
+
+ˆak − 12 [B∗
+
+> k
+
+ˆa†
+
+> k
+
+ˆa† 
+
+> −k
+
++ Bkˆa−kˆak]] . (14) The coefficients derive directly from the hopping con-stants in real space in Eq. (12) via 
+
+Ak = A + ∑
+
+> δ
+
+2 Re {Cδ e−ik⋅δ } , (15) 
+
+Bk = − ∑
+
+> δ
+
+2 Dδ cos (k ⋅ δ) . (16) We assume here that the coefficients Ai ≡ A ∈ R∀i are site independent and that Cδ , Dδ only depend on the distance vector δ = rj − ri between two sites, not the po-sition of the sites within the unit cell of the translation-ally invariant lattice, i.e., they need to be independent of 3Tetrahedral Order. Configuration 1 
+
+A
+
+B
+
+C
+
+D
+
+Configuration 2 Configuration 3 
+
+FIG. 8. Spin configurations for the tetrahedral order. Apossible choice for the classical spin orientations on the four sublattices is given in Eqs. (34)-(35). 
+
+the sublattice index of the magnetic order. In general, the resulting Ak are real while the Bk can be complex. One can always symmetrize the momentum-dependent coefficients such that they become even functions of mo-mentum k: Ak = A−k and Bk = B−k.The Bogoliubov transformation ˆak = ukˆbk + v∗
+
+> k
+
+ˆb† 
+
+> −k
+
+(17) ˆa† 
+
+> −k
+
+= u∗
+
+> k
+
+ˆb† 
+
+> −k
+
++ vkˆbk (18) allows us to diagonalize the quadratic Hamiltonian. The linear spin-wave dispersion then yields 
+
+εk =
+
+√
+
+A2 
+
+> k
+
+− ∣Bk∣2 . (19) Writing the coefficient Bk in polar form as Bk = ∣Bk∣ eiφk ,the Bogoliubov coefficients are given as 
+
+uk =
+
+√ Ak + εk
+
+2εk
+
+, (20) 
+
+vk = eiφk
+
+√ Ak − εk
+
+2εk
+
+. (21) Hence, the quadratic Hamiltonian reduces to 
+
+H2 = ∑′
+
+> k
+
+εk (ˆb†
+
+> k
+
+ˆbk + 12 ) − ∑
+
+> k
+
+Ak
+
+2 . (22) The primed sum indicates that the Goldstone modes are excluded from the summation. For those momenta, the Bogoliubov transformation is not well defined. 
+
+120 ○ order. —In the coplanar 120 ○ order, it suffices to apply rotations around the y-axis locally: 
+
+Sxi = sin (ϑi)Szi + cos (ϑi)Sxi , (23) 
+
+Szi = cos (ϑi)Szi − sin (ϑi)Sxi . (24) 0
+
+0
+
+> 0.0
+> 0.5
+> 1.0
+> 1.5
+
+FIG. 9. The magnon dispersion εk for the tetrahedral order (configuration 1) on the triangular lattice. We consider a spin-
+
+> 1
+
+/2 system with couplings J2/J1 = 0.125 and Jχ/J2 = 0.5. The dispersions for configurations 2 and 3 are rotated clockwise by π/3 and 2 π/3, respectively. 
+
+The classical ground state energy is 
+
+H0 = − 32 J1S2N . (25) The momentum-dependent coefficients of the Hamilto-nian read 
+
+Ak = 3J1S (1 + 12 γk) , (26) 
+
+Bk = 92 J1Sγ k , (27) where we introduced the quantity [55] 
+
+γk = 16 ∑
+
+> δ
+
+(eik⋅δ + e−ik⋅δ ) (28) 
+
+= 13 [cos (kx) + 2 cos ( kx
+
+2 ) cos (√3ky
+
+2 )] . (29) The δ iterate over all nearest-neighbor displacements. The magnon dispersion consequently yields 
+
+εk =
+
+√
+
+A2 
+
+> k
+
+− B2 
+
+> k
+
+= 3J1S√(1 − γk) ( 1 + 2γk) . (30) 
+
+Stripe order. —The collinear alternating stripe order gives a classical ground state energy of 
+
+H0 = −S2N (J1 + J2) . (31) In this case, we consider both nearest- and next-nearest-neighbor interactions ( J2/J1 ≳ 0.15). The coefficients in Eq. (14) are given as 
+
+Ak = 2J1S [1 + cos (k ⋅ a1)] + 2J2S [1 + cos (k ⋅ l1)] (32) 
+
+Bk = 2J1S [cos (k ⋅ a2) + cos (k ⋅ a3)] 
+
++ 2J2S [cos (k ⋅ l2) + cos (k ⋅ l3)] . (33) 4Besides the nearest-neighbor vectors δ, the next-nearest- neighbor vectors denoted as l1 = 2a2 − a1, l2 = a1 + a2,and l3 = 2a2 − a1 occur in the expressions. 
+
+Tetrahedral order. —In the tetrahedral order, we have four sublattices with the classical spin orientations of the four sites in a unit cell pointing towards the corners of a tetrahedron. A suitable choice for the classical spin orientations is 
+
+SA = S
+
+√3
+
+⎛⎜⎝
+
+111
+
+⎞⎟⎠
+
+, SB = S
+
+√3
+
+⎛⎜⎝
+
+1
+
+−1
+
+−1
+
+⎞⎟⎠
+
+, (34) 
+
+SC = S
+
+√3
+
+⎛⎜⎝
+
+−11
+
+−1
+
+⎞⎟⎠
+
+, SD = S
+
+√3
+
+⎛⎜⎝
+
+−1
+
+−11
+
+⎞⎟⎠
+
+(35) with the corresponding rotation matrices according to Eq. 11 given as 
+
+RA =
+
+⎛⎜⎜⎝
+
+> 1√21√61√3
+
+− 1√21√61√3
+
+0 − 2√61√3
+
+⎞⎟⎟⎠
+
+RB =
+
+⎛⎜⎜⎝ 
+
+> 1√21√61√31√2
+
+− 1√6 − 1√3
+
+0 2√6 − 1√3
+
+⎞⎟⎟⎠
+
+(36) 
+
+RC =
+
+⎛⎜⎜⎝ 
+
+> 1√21√6
+
+− 1√31√2 − 1√61√3
+
+0 − 2√6 − 1√3
+
+⎞⎟⎟⎠
+
+RD =
+
+⎛⎜⎜⎝ 
+
+> 1√21√6
+
+− 1√3
+
+− 1√21√6 − 1√3
+
+0 2√61√3
+
+⎞⎟⎟⎠
+
+. (37) Figure 8 shows three inequivalent spatial configurations for these spin orientations. All of them have the same chirality per plaquette χ(0) = Si ⋅ (Sj × Sk) = − 4S3 
+
+> 3√3
+
+for anticlockwise order, and the resulting classical ground state energy gives 
+
+H0 = − (J1 + J2 + 8S
+
+3√3 Jχ) N S 2 , (38) where N is the number of sites in the lattice. As the tetrahedral spin configuration breaks down the sixfold rotation symmetry of the lattice to a symmetry under rotations by π, the magnon dispersions for the three configurations in Fig. 8 have a related symmetry in momentum space where two opposite M points in the Brillouin zone exhibit a gap while the other four host gapless Goldstone modes. The corresponding magnon dispersion is plotted in Fig. 9. AMathematica script implementing the LSWT calculations is available in the Zenodo repository [112]. 
+
+The dimer correlation function 
+
+Eventually, we want to compute the connected dimer-dimer correlations 
+
+Cconn .D (r, r′) = 1
+
+N 2
+
+> δ
+
+∑
+
+> δ,δ′
+
+Cconn .
+
+> bonds
+
+(r, δ; r′, δ′) , (39) where Nδ is the coordination number of the lattice and 
+
+Cconn .
+
+> bonds
+
+(r, δ; r′, δ′) = ⟨( ˆSr ⋅ ˆSr+δ ) ( ˆSr′ ⋅ ˆSr′+δ′ )⟩ − ⟨ˆSr ⋅ ˆSr+δ ⟩ ⟨ ˆSr′ ⋅ ˆSr′+δ′ ⟩ (40) denotes the connected correlation on bonds (r, r+δ) and (r′, r′ +δ′). After performing a rotation into the local frames, expressed as ˆSr = RL(r)Sr and with the resulting matrix M (r,δ) ∶= RTL(r)RL(r+δ) (L(r) denoting the sublattice index 5of site r), we can write the connected four-spin correlation as 
+
+Cconn .
+
+> bonds
+
+(r, δ; r′, δ′)/ S2 = M (r,δ) 
+
+> 13
+
+M (r′,δ′) 
+
+> 13
+
+⟨Sx 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ + M (r,δ) 
+
+> 31
+
+M (r′,δ′) 
+
+> 31
+
+⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩
+
++ M (r,δ) 
+
+> 13
+
+M (r′,δ′) 
+
+> 31
+
+⟨Sx 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩ + M (r,δ) 
+
+> 31
+
+M (r′,δ′) 
+
+> 13
+
+⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩
+
++ M (r,δ) 
+
+> 23
+
+M (r′,δ′) 
+
+> 23
+
+⟨Sy 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ + M (r,δ) 
+
+> 32
+
+M (r′,δ′) 
+
+> 32
+
+⟨Sy 
+
+> r+δ
+
+Sy 
+
+> r′+δ′
+
+⟩
+
++ M (r,δ) 
+
+> 23
+
+M (r′,δ′) 
+
+> 32
+
+⟨Sy 
+
+> r
+
+Sy 
+
+> r′+δ′
+
+⟩ + M (r,δ) 
+
+> 32
+
+M (r′,δ′) 
+
+> 23
+
+⟨Sy 
+
+> r+δ
+
+Sy 
+
+> r′
+
+⟩
+
++ M (r,δ) 
+
+> 13
+
+M (r′,δ′) 
+
+> 23
+
+⟨Sx 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ + M (r,δ) 
+
+> 23
+
+M (r′,δ′) 
+
+> 13
+
+⟨Sy 
+
+> r
+
+Sx 
+
+> r′
+
+⟩
+
++ M (r,δ) 
+
+> 31
+
+M (r′,δ′) 
+
+> 32
+
+⟨Sx 
+
+> r+δ
+
+Sy 
+
+> r′+δ′
+
+⟩ + M (r,δ) 
+
+> 32
+
+M (r′,δ′) 
+
+> 31
+
+⟨Sy 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩
+
++ M r,δ 
+
+> 13
+
+M (r′,δ′) 
+
+> 32
+
+⟨Sx 
+
+> r
+
+Sy 
+
+> r′+δ′
+
+⟩ + M (r,δ) 
+
+> 32
+
+M (r′,δ′) 
+
+> 13
+
+⟨Sy 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩
+
++ M (r,δ) 
+
+> 23
+
+M (r′,δ′) 
+
+> 31
+
+⟨Sy 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩ + M (r,δ) 
+
+> 31
+
+M (r′,δ′) 
+
+> 23
+
+⟨Sx 
+
+> r+δ
+
+Sy 
+
+> r′
+
+⟩ + O(1) . (41) The expectation values evaluate to 
+
+⟨Sx 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ = S
+
+2N ∑′
+
+> k
+
+eik⋅(r−r′) ∣uk + vk∣2 , (42) 
+
+⟨Sy 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ = S
+
+2N ∑′
+
+> k
+
+eik⋅(r−r′) ∣uk − vk∣2 , (43) 
+
+⟨Sx 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ = 1i
+
+S
+
+2N ∑′
+
+> k
+
+eik⋅(r−r′) (ukv∗ 
+
+> k
+
+− vku∗ 
+
+> k
+
+− 1) , (44) 
+
+⟨Sy 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ = ⟨Sx 
+
+> r′
+
+Sy 
+
+> r
+
+⟩∗ (45) To arrive at Eq. (44), we applied the identity ∣uk∣2 − ∣vk∣2 = 1. The terms mixing Sx or Sy with Sz vanish at leading order as they contain an odd number of bosonic operators. Finally using Wick’s theorem, the zz correlator becomes 
+
+⟨Sz 
+
+> r
+
+Sz 
+
+> r′
+
+⟩ = S2 − S ⟨ˆn(r)⟩ − S ⟨ˆn(r′)⟩ + ⟨ˆn(r)ˆn(r′)⟩ . (46) The expectation value of the occupation number operator evaluates as 
+
+⟨ˆn(r)⟩ = ⟨ˆa†
+
+> r
+
+ˆar⟩ = 1
+
+N ∑′
+
+> k
+
+∣vk∣2 . (47) The density-density correlator can be written down in the form 
+
+⟨ˆn(r)ˆn(r′)⟩ = ⟨ˆn⟩2 + ⟨ˆn(r)ˆn(r′)⟩ c , (48) where the connected part is 
+
+⟨ˆn(r)ˆn(r′)⟩ c = 1
+
+N 2 ∑′
+
+> k,k′
+
+ei(k−k′)⋅(r−r′) (∣ vk∣2∣uk′ ∣2 + vku∗
+
+> k
+
+uk′ v∗ 
+
+> k′
+
+) . (49) Connected here means that in the Wick expansion, we only keep terms that connect the two different sites r and r′.Note that when this expression Eq. (49) is evaluated on a computer, the two sums over k and k′ can be separated to reduce the computational complexity from O(N 2 
+
+> k
+
+) to O(Nk). The time dependence can be introduced trivially via ˆbk(t) = e−iεkt ˆbk , (50) resulting in the introduction of time-dependent exponentials such as in the expressions 
+
+⟨Sx 
+
+> r
+
+(t)Sx 
+
+> r′
+
+(0)⟩ = S
+
+2N ∑′
+
+> k
+
+eik⋅(r−r′)e−iεkt ∣uk + vk∣2 (51) and 
+
+⟨ˆn(t, r)ˆn(0, r′)⟩ = 1
+
+N 2 ∑′
+
+> k,k′
+
+ei(k−k′)⋅(r−r′)e−i(εk+εk′ )t (∣ vk∣2∣uk′ ∣2 + vku∗
+
+> k
+
+uk′ v∗ 
+
+> k′
+
+) . (52) 6Higher-order results for the coplanar spin orders 
+
+For the coplanar spin orders, we chose a convention where the spins lie in the x-z plane of the global reference frame. Therefore, all matrix elements M (r,δ) 
+
+> nm
+
+, M (r′,δ′) 
+
+> nm
+
+that involve a y-component (i.e., n = 2 or m = 2) vanish. As a result, the formula for the dimer-dimer correlations at order O(S3) simplifies drastically: 
+
+Cconn .D (r, r′) = S2
+
+N 2
+
+> δ
+
+∑
+
+> δ,δ′
+
+[⟨ Sx 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ + ⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩ − ⟨Sx 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩ − ⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩] ⋅ sin (ϑr − ϑr+δ ) sin (ϑr′ − ϑr′+δ′ ) + O(S2) . (53) Whereas in the case of the 120 ○ order, this expression gives indeed the leading-order contribution to the dimer-dimer correlations in spin-wave theory, the angular prefactors sin (ϑr − ϑr+δ ) sin (ϑr′ − ϑr′+δ′ ) vanish for the stripe order. Consequently, the leading-order contribution to the dimer-dimer correlations in the stripe phase arises from higher-order terms in the Holstein-Primakoff expansion. Neglecting higher-order terms in the ground-state approximation to the Hamiltonian, we find from the expansion of the operators the following full expression for the connected bond correlations for a coplanar order: 
+
+Cconn .
+
+> bonds
+
+(r, δ; r′, δ′) = cos (ϑr − ϑr+δ ) cos (ϑr′ − ϑr′+δ′ ) [⟨ Sz 
+
+> r
+
+Sz 
+
+> r+δ
+
+Sz 
+
+> r′
+
+Sz 
+
+> r′+δ′
+
+⟩c + ⟨Sx 
+
+> r
+
+Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c]
+
++ ⟨Sy 
+
+> r
+
+Sy 
+
+> r+δ
+
+Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c
+
++ cos (ϑr − ϑr+δ ) [⟨ Sx 
+
+> r
+
+Sx 
+
+> r+δ
+
+Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c + ⟨Sz 
+
+> r
+
+Sz 
+
+> r+δ
+
+Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c]
+
++ cos (ϑr′ − ϑr′+δ′ ) [⟨ Sy 
+
+> r
+
+Sy 
+
+> r+δ
+
+Sx 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c + ⟨Sy 
+
+> r
+
+Sy 
+
+> r+δ
+
+Sz 
+
+> r′
+
+Sz 
+
+> r′+δ′
+
+⟩c]
+
++ cos (ϑr − ϑr+δ ) cos (ϑr′ − ϑr′+δ′ ) [⟨ Sz 
+
+> r
+
+Sz 
+
+> r+δ
+
+Sx 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c + ⟨Sx 
+
+> r
+
+Sx 
+
+> r+δ
+
+Sz 
+
+> r′
+
+Sz 
+
+> r′+δ′
+
+⟩c]
+
++ sin (ϑr − ϑr+δ ) sin (ϑr′ − ϑr′+δ′ ) [⟨ Sz 
+
+> r
+
+Sx 
+
+> r+δ
+
+Sz 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c + ⟨Sx 
+
+> r
+
+Sz 
+
+> r+δ
+
+Sx 
+
+> r′
+
+Sz 
+
+> r′+δ′
+
+⟩c
+
+− ⟨Sz 
+
+> r
+
+Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+Sz 
+
+> r′+δ′
+
+⟩c − ⟨Sx 
+
+> r
+
+Sz 
+
+> r+δ
+
+Sz 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c] . (54) The subscript ⟨. . . ⟩c here denotes that we only consider the connected contributions to the expectation value that involves Wick contractions that connect the two dimer pairs (r, r + δ) and (r′, r′ + δ′). We give here the explicit result at order O(S2). It reads: 
+
+Cconn .
+
+> bonds
+
+(r, δ; r′, δ′) = cos (ϑr − ϑr+δ ) cos (ϑr′ − ϑr′+δ′ ) { S2 [⟨ ˆn(r)ˆn(r′)⟩ c + ⟨ˆn(r)ˆn(r′ + δ′)⟩ c
+
++ ⟨ˆn(r + δ)ˆn(r′)⟩ c + ⟨ˆn(r + δ)ˆn(r′ + δ′)⟩ c]
+
++ ⟨Sx 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ ⟨ Sx 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩ + ⟨Sx 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩ ⟨ Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩ } 
+
++ ⟨Sy 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ ⟨ Sy 
+
+> r+δ
+
+Sy 
+
+> r′+δ′
+
+⟩ + ⟨Sy 
+
+> r
+
+Sy 
+
+> r′+δ′
+
+⟩ ⟨ Sy 
+
+> r+δ
+
+Sy 
+
+> r′
+
+⟩
+
++ cos (ϑr − ϑr+δ ) { ⟨ Sx 
+
+> r
+
+Sy 
+
+> r′
+
+⟩ ⟨ Sx 
+
+> r+δ
+
+Sy 
+
+> r′+δ′
+
+⟩ + ⟨Sx 
+
+> r
+
+Sy 
+
+> r′+δ′
+
+⟩ ⟨ Sx 
+
+> r+δ
+
+Sy 
+
+> r′
+
+⟩
+
+− S [⟨ ˆn(r)Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c + ⟨ˆn(r + δ)Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c] } 
+
++ cos (ϑr′ − ϑr′+δ′ ) { ⟨ Sy 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ ⟨ Sy 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩ + ⟨Sy 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩ ⟨ Sy 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩
+
+− S [⟨ Sy 
+
+> r
+
+Sy 
+
+> r+δ
+
+ˆn(r′)⟩ c + ⟨Sy 
+
+> r
+
+Sy 
+
+> r+δ
+
+ˆn(r′ + δ′)⟩ c] } 
+
+− cos (ϑr − ϑr+δ ) cos (ϑr′ − ϑr′+δ′ ) S{ ⟨ ˆn(r)Sx 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c + ⟨ˆn(r + δ)Sx 
+
+> r′
+
+Sx 
+
+> r′+δ′
+
+⟩c
+
++ ⟨Sx 
+
+> r
+
+Sx 
+
+> r+δ
+
+ˆn(r′)⟩ c + ⟨Sx 
+
+> r
+
+Sx 
+
+> r+δ
+
+ˆn(r′ + δ′)⟩ c }
+
++ sin (ϑr − ϑr+δ ) sin (ϑr′ − ϑr′+δ′ ) { [ S2 − 2S ⟨ˆn⟩] 
+
+⋅ [⟨ Sx 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩ + ⟨Sx 
+
+> r
+
+Sx 
+
+> r′
+
+⟩ − ⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩ − ⟨Sx 
+
+> r
+
+Sx 
+
+> r′+δ′
+
+⟩] } 
+
+− S [⟨ ˆn(r)Sx 
+
+> r+δ
+
+Sx 
+
+> r′+δ′
+
+⟩c + ⟨Sx 
+
+> r+δ
+
+ˆn(r′)Sx 
+
+> r′+δ′
+
+⟩c
+
++ ⟨Sx 
+
+> r
+
+ˆn(r + δ)Sx 
+
+> r′
+
+⟩c + ⟨Sx 
+
+> r
+
+Sx 
+
+> r′
+
+ˆn(r′ + δ′)⟩ c
+
+− ⟨ˆn(r)Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+⟩c − ⟨Sx 
+
+> r+δ
+
+Sx 
+
+> r′
+
+ˆn(r′ + δ′)⟩ c
+
+− ⟨Sx 
+
+> r
+
+ˆn(r + δ)Sx 
+
+> r′+δ′
+
+⟩c − ⟨Sx 
+
+> r
+
+ˆn(r′)Sx 
+
+> r′+δ′
+
+⟩c] } + O(S) . (55) 7These terms can be readily implemented and evaluated numerically. We find for instance the following explicit correlation 
+
+⟨ˆn(t, r)Sy 
+
+> r′
+
+Sy 
+
+> r′+δ′
+
+⟩c = S
+
+2N 2 ∑′
+
+> k,k′
+
+e−i(εk+εk′ )teik⋅(r−r′)eik′⋅(r−r′−δ′)
+
+⋅ [( u2 
+
+> k
+
+− ukvk) ( v2 
+
+> k′
+
+− uk′ vk′ ) + (v2 
+
+> k
+
+− ukvk) ( u2 
+
+> k′
+
+− uk′ vk′ )] , (56) in contrast to 
+
+⟨ˆn(t, r)Sx 
+
+> r+δ
+
+(t)Sx 
+
+> r′+δ′
+
+⟩c = S
+
+2N 2 ∑′
+
+> k,k′
+
+e−iεk′ teik⋅(−δ)eik′⋅(r−r′−δ′)
+
+⋅ [( u2 
+
+> k
+
++ ukvk) ( v2 
+
+> k′
+
++ uk′ vk′ ) + (v2 
+
+> k
+
++ ukvk) ( u2 
+
+> k′
+
++ uk′ vk′ )] . (57) Note that both the energy εk and the Bogoliubov coefficients uk, vk are even functions in the momentum argument. The latter coefficients have been chosen real-valued for the coplanar spin order, hence we drop the complex conjugation in the expressions above. These considerations conclude our discussion of the semiclassical analytics as all formulas used for the evaluation of the dynamical dimer structure factor in spin-wave theory have been derived. 8
