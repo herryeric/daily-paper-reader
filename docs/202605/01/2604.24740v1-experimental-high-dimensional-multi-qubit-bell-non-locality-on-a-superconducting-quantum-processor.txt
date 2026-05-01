@@ -1,0 +1,702 @@
+Title: Experimental high-dimensional multi-qubit Bell non-locality on a superconducting quantum processor
+
+URL Source: https://arxiv.org/pdf/2604.24740v1
+
+Published Time: Tue, 28 Apr 2026 02:22:54 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+# Experimental high-dimensional multi-qubit Bell non-locality on a superconducting quantum processor 
+
+Yousef Mafi, 1, 2, ∗ Ali G. Moghaddam, 1, 2, 3, † and Teemu Ojanen 1, 2, ‡
+
+> 1
+
+Computational Physics Laboratory, Physics Unit, Faculty of Engineering and Natural Sciences, Tampere University, P.O. Box 692, FI-33014 Tampere, Finland 
+
+> 2
+
+Helsinki Institute of Physics P.O. Box 64, FI-00014, Finland 
+
+> 3
+
+Department of Applied Physics, Aalto University, 02150 Espoo, Finland 
+
+(Dated: April 28, 2026) Combining recent advances in superconducting quantum hardware, we explore quantum correla-tions in a previously inaccessible regime by observing simultaneously high-dimensional and many-body Bell non-locality. We report a high-confidence Bell violation in the correlations between two 
+
+d = 64-dimensional systems encoded in twelve qubits. For system sizes up to d = 32, the strength of the observed nonlocal correlations exceeds the quantum upper bound for d = 2 systems, providing direct evidence of high-dimensional nonlocality. Furthermore, we demonstrate that the observed vi-olation is genuinely collective: all qubits contribute to the nonlocal correlations, while most pairwise correlations across the bipartition remain Bell-local. Our work illustrates how present-day quantum processors enable the exploration of fundamental predictions of quantum mechanics in previously inaccessible regimes and, in turn, how fundamental quantum effects can be used to benchmark their performance. 
+
+I. INTRODUCTION 
+
+High-dimensional Bell tests are being actively pursued to explore fundamental properties of quantum mechan-ics and to probe complex forms of entanglement beyond two-level systems [1–7]. In principle, higher-dimensional entanglement enables stronger violations of local real-ism, improved noise tolerance, and access to richer cor-relation structures that are of fundamental interest in quantum mechanics [8, 9]. Beyond foundational interest, high-dimensional entanglement plays a practical role: it enables denser information encoding, greater robustness against noise, and advantages in quantum information protocols [10, 11]. High-dimensional Bell violations thus serve both as tests of quantum theory and as powerful certification tools for complex experimental systems, es-pecially as quantum technologies scale to larger Hilbert spaces and more sophisticated functionalities [12, 13]. In this work, we report a robust violation of the Collins–Gisin–Linden–Massar–Popescu (CGLMP) inequality [2] in the correlations between subsystems of up to six qubits on a programmable superconducting quantum processor. Remarkably, for intermediate sub-system sizes consisting of two to five qubits, our best ex-perimental results for the high-dimensional Bell function exceed the maximum quantum value attainable for d = 2, providing clear evidence of genuinely high-dimensional nonlocality. Moreover, in contrast to photonic implemen-tations, in our approach the high-dimensional system is encoded across multiple qubits, that enables individual qubit-level control within a many-body setting. We ex-ploit this capability to deliberately perturb each qubit    
+
+> ∗Email: yousef.mafi@tuni.fi
+> †Email: ali.moghaddam@aalto.fi
+> ‡Email: teemu.ojanen@tuni.fi
+
+and analyze its impact on the observed nonlocality. This demonstrates that the violation is not carried by a small subset of degrees of freedom, but instead arises from the collective structure of the prepared multi-qubit state. Fi-nally, we show that although the high-dimensional Bell inequality is violated, most pairwise correlations across the bipartition satisfy the CHSH inequalities. This con-firms that the observed nonlocality cannot be attributed solely to pairwise entanglement, but instead requires gen-uinely multipartite quantum correlations. The key technical ingredients enabling the observa-tion of a high-dimensional multi-qubit nonlocality are the compact circuit implementation of a Fourier transform by measurement-conditioned dynamic circuits [14, 15] and other operational advances, namely dynamical de-coupling (DD) and advanced error mitigation (EM) tech-niques [16–19]. Together, these advances demonstrate how incremental technical improvements in quantum computing can open new domains for fundamental ex-ploration. Conversely, the laws of quantum mechan-ics themselves provide powerful tools for benchmarking quantum devices and certifying the many-body quantum states they generate. Because the observed nonlocality does not depend on any hardware-specific details, our re-sults can be regarded as a certification of multipartite entanglement on an error prone but not malicious de-vice. Our work illustrates the reciprocal relationship be-tween technological progress and fundamental discovery: technical advances enable new foundational tests, while foundational principles offer rigorous means of validating quantum hardware. 
+
+> arXiv:2604.24740v1 [quant-ph] 27 Apr 2026
+
+2    
+
+> FIG. 1. High-dimensional non-locality: schematics and results. (a) Schematic representation of a high-dimensional Bell test with two parties. (b) Quantum circuit for the multi-qubit Bell test (c) Circuit implementation of a QFT and a DQFT (d) Results for different QFT-based circuits. (e) Results for the DQFT-based circuits. (e) p-values characterizing the likelihood of a LHV description for the experimental results.
+> II. RESULTS A. High-dimensional non-locality on superconducting quantum processors
+
+Typical quantum states in a high-dimensional Hilbert space exhibit a high degree of bipartite entanglement. In contrast, Bell non-locality is far more fragile prop-erty, and typical states fail to violate Bell inequalities in practical measurement scenarios. Bell-nonlocal states are those whose correlations cannot be reproduced by any local hidden-variable (LHV) model, meaning that no underlying joint probability distribution over prede-termined outcomes can account for the observed statis-tics. Consequently, the observation of such correlations provides a direct signature of intrinsic nonclassical be-havior and offers a means to probe fundamental aspects of quantum mechanics. In a bipartite scenario, two parties share a pair of 
+
+d-dimensional systems and independently measure one of two observables, ˆA1, ˆA2 and ˆB1, ˆB2, as schematically shown in Fig. 1(a) for a multi-qubit setting. Each mea-surement yields one of d possible outcomes. Under the assumption of an LHV model, the following CGLMP in-equality holds: 
+
+IZG  
+
+> d
+
+= 1 − PL(A1 < B1) − PL(A2 < B2)
+
++ PL(A2 < B1) + PL(A1 ≤ B2) ≤ 2, (1) as first shown by Zohren and Gill [8]. The probabilities in Eq. (1) are defined as 
+
+PL(Ax < By ) =
+
+> d−1
+
+∑
+
+> a=0
+> d−1
+
+∑
+
+> b=a+1
+
+p(a, b ∣x, y ), (2) where p(a, b ∣x, y ) denotes the joint probability distribu-tion for obtaining outcomes a and b when measuring ob-servables ˆAx and ˆBy (x, y = 1, 2) by the two parties, re-spectively. The Bell functional IZG  
+
+> d
+
+is explicitly given in terms of the original Id introduced in Ref. [2]. As shown in Ref. A, the two are related by 
+
+Id − 2 = 2dd − 1 (IZG  
+
+> d
+
+− 2) . (3) The violation of the inequality (1), or equivalently the condition IZG  
+
+> d
+
+> 2, is commonly regarded as a signa-ture of quantumness and the nonclassical nature of the system, as it cannot be explained by LHV theories. De-pending on the specific experimental implementation and underlying assumptions, an observed Bell violation may 3provide partial or even fully device-independent certifi-cation of nonclassical behavior. Experimental Bell tests are subject to well-studied loopholes (see, e.g., [20–23]), which can affect the interpretation and logical implica-tions of a observed violation. In high-dimensional sys-tems, a characteristic challenge is that each measurement must resolve one of the d possible outcomes. Supercon-ducting quantum processors naturally enable genuine d-outcome measurements, thereby avoiding the binariza-tion loophole [7, 24], which is a specific concern in high-dimensional Bell experiments, and arises when multilevel outcomes are artificially coarse-grained into binary ones. This issue has posed a particular challenge in optical im-plementations until very recently [6, 7]. States which exhibit robust Bell non-locality in practi-cal measurement scenarios become increasingly rare as the dimension of the system grows, thereby imposing stringent requirements on state preparation in physical platforms. We consider systems composed of 2 n qubits, which can be viewed as a bipartite system of two d-dimensional subsystems with d = 2n. In the compu-tational tensor-product basis, the basis states of each subsystem are written as ∣i1i2 . . . i n⟩, where ij ∈ {0, 1}.Each such state can be uniquely labeled by an integer 
+
+k ∈ {0, 1, . . . , d − 1} corresponding to its binary represen-tation k ≡ (i1i2 . . . i n)2.Using this mapping from multi-qubit states to an ef-fective d = 2n-dimensional description, and following Ref. [2], we consider the maximally entangled state 
+
+∣ψ⟩ = 1
+
+√d
+
+> d−1
+
+∑
+
+> k=0
+
+∣k⟩A ⊗ ∣k⟩B = n
+
+⊗
+
+> j=1
+
+( 1
+
+√2
+
+> 1
+
+∑ 
+
+> ij=0
+
+∣ij ⟩A ⊗ ∣ij ⟩B ),
+
+(4) which corresponds to a tensor product of Bell pairs dis-tributed between the two subsystems. The state is mea-sured using two pairs of observables, ˆAx = ˆU ˆPA,x and ˆBy = ˆU † ˆPB,y , applied by the two parties, respectively. A schematic representation of the quantum circuit for state preparation and subsequent measurements is shown in Fig. 1(b). The operators ˆPA,x and ˆPB,y consist of sequences of single-qubit phase gates acting locally on each qubit, while the unitary ˆU and ˆU † corresponds to a Fourier transform and its inverse (Details of these op-erators is provided in the Methods section). In practice, this can be implemented via a Quantum Fourier Trans-form (QFT) on one subsystem and an inverse QFT on the other prior to measurement. The circuit used for the state preparation and measure-ment consists of standard operations; however, a naive implementation in larger systems is rapidly degraded by noise. The fidelity of a quantum state typically decreases exponentially in the circuit depth. Deep circuits, such as those generating the states ∣ψ⟩x,y = ˆAx ⊗ ˆBy ∣ψ⟩ (i.e., the states prior to computational-basis measurements for dif-ferent measurement setting x, y ∈ {1, 2}), are particularly susceptible to noise. This leads to stringent limitations on the system size and on the maximum value of IZG 
+
+> d
+
+that can be observed in practice. The state (4) and the measurement operators ˆAx and ˆBy were originally de-signed to achieve large values of IZG  
+
+> d
+
+. Consequently, even small deviations from ideal gate operations tend to sig-nificantly reduce the observed violation. It is therefore essential to optimize circuit performance using all avail-able techniques. It was recently shown that a QFT followed by mea-surements on all qubits can be implemented with a sub-stantial reduction in circuit depth using a dynamic QFT (DQFT) [14, 15]. A DQFT circuit, depicted in Fig. 1(c), employs mid-circuit measurements that condition the subsequent evolution of the circuit. However, this approach introduces additional challenges. In particular, mid-circuit measurements typically require longer execu-tion times than unitary gates; as a result, the total run-time increases, exposing the system to additional noise. To mitigate these effects, we employ dynamical decou-pling (DD) [16] and error mitigation (EM) techniques [17, 18] available on the IBM platform [19], as described in Sec. X C of the Methods. In Fig. 1(d)–(e), we present the results obtained from the IBM 156-qubit superconducting quantum pro-cessor ibm aachen . These figures show the values of the CGLMP parameter IZG  
+
+> d
+
+for different system sizes, obtained using various methods of implementing quan-tum circuits. In Fig. 1(d) and (e), we compare the per-formance of QFT circuits against the ideal results and the maximum achievable performance of a DQFT imple-mentation. The ideal value of IZG  
+
+> d
+
+grows weakly with the dimensionality of the quantum system and satisfies 
+
+IZG  
+
+> d
+
+≤ IZG Q,max ≈ 2.485. For system sizes up to four qubits per party, the QFT implementation exhibits a strong vio-lation of the LHV bound, indicating significant Bell non-locality up to d = 16 level systems; beyond this, IZG 
+
+> d
+
+decreases rapidly. Measurement error mitigation (EM) slightly improves the overall performance but does not yield a qualitative enhancement. The statistical signif-icance of the QFT violation of the LHV bound can be assessed via a p-value, which expresses the probability that the observed violation could be consistent with an LHV model. Following Ref. [25] (see Sec. X D in Meth-ods), we calculate upper bounds for the p-values. The extremely small values indicate high confidence in the observed CGLMP violation up to d = 16, effectively rul-ing out explanations based on LHV models. The results for DQFT implementations of IZG  
+
+> d
+
+are shown in Fig. 1(e). By combining DQFT circuits with dynamical decoupling (DD) and readout EM, we observe significant Bell violations up to six qubits per party, cor-responding to Bell non-locality in d = 64 level systems. Importantly, the experimental values of IZG  
+
+> d
+
+for dimen-sions d = 22–2 5 surpass the corresponding ideal value for 
+
+IZG 2 , explicitly signaling high-dimensional non-locality in these cases (corresponding to non-locality between two subsystems each having 2 to 5 qubits). Furthermore, the fact that experimental IZG  
+
+> d
+
+for our best method (dy-namic circuits with DD and EM) increases with d up to 4
+
+d = 24 demonstrates that high-dimensional non-locality is stronger and more robust to noise. For larger sys-tem sizes, however, noise associated to the increasing circuit depth becomes a limiting factor, and the high-dimensional Bell function decreases on the real hardware for d ≥ 25, even with the best method. The associated p-values confirm that the above dis-cussed violations are statistically significant. The ad-dition of dynamical decoupling, which suppresses noise arising from the long execution time, is essential for the performance of the DQFT implementation. Measure-ment EM further improves performance moderately, ex-tending the CGLMP violation from ten shared qubits to twelve. We nominally observe a possible violation even in d = 128 case (see Sec. X D for detailed results), how-ever, the violation is weak and the corresponding p-value 0.0014 leaves some room for doubt. Remarkably, IZG 
+
+> d
+
+is robust to noise: although in the presence of noise, in-creasing number of qubits and thus circuit depth leads to a progressive (approximately exponential) degradation of process fidelity [26], the observed difference between IZG 
+
+> d
+
+for the ideal circuit generating ∣ψx,y ⟩ and the prepared state on real hardware increases only linearly in the stud-ied regime.  
+
+> B. Revealing collective multipartite non-locality
+
+In the previous section, we reported violations of the CGLMP inequality for subsystems of up to six qubits (d = 64). Notably, for subsystems of up to five qubits, the experimentally obtained values of the CGLMP function, using the most effective circuit implementations, exceed the maximum quantum value achievable for two-qubit systems. To further elucidate the multi-qubit nature of the observed nonlocality, we now investigate how the vio-lation arises from the underlying many-body correlations. We first establish that the observed nonlocality is gen-uinely collective, in the sense that all qubits in the pre-pared state actively contribute to the violation. This excludes the possibility that some qubits act merely as passive spectator degrees of freedom. To demonstrate this, it suffices to show that perturbing any individual qubit affects the observed CGLMP violation. This diag-nostic is justified by the fact that spectator degrees of freedom could not influence the magnitude of the viola-tion IZG  
+
+> d
+
+> 2. As a specific single-qubit perturbation, we consider a tilt in the measurement axis of the ith qubit by an angle θi, as illustrated in Fig. 2(a), and evaluate the corresponding CGLMP parameter IZG  
+
+> d
+
+(θi) for different tilt angles. The results, shown in Fig. 2(b), clearly demonstrate that tilting any individual qubit reduces the observed violation of the LHV bound. Moreover, the pattern of sensitivity across different qubits closely follows that of the ideal, noiseless state. In the ideal case, qubits located farther from the bipartition are slightly less sensitive to the tilt; however, the qualitative behavior remains the    
+
+> FIG. 2. Unraveling the collective nature of nonlocal-ity via single-qubit perturbations (a) Circuit to probe the participation of an individual qubit to the observed non-locality. Each qubit is individually subjected to a rotation. (b) Evolution of the CGLMP parameter as a function of single-qubit rotations. The blue quadruplet illustrates the ef-fect of rotations of each qubit in a subsystem with four qubits, the red quadruplet illustrates the quantum simulation results.
+
+same across all qubits, indicating that each qubit par-ticipates in the observed nonlocality. Even the small variations in how individual qubits affect the value of 
+
+IZG  
+
+> d
+
+are consistent with the corresponding pattern in the ideal state. These observations therefore highlight the genuinely many-body character of the observed nonlocal correlations. As a second test, we examine whether the observed nonlocality could arise from a collection of pairwise non-local qubit correlations. Ruling out this possibility would imply that the observed violation necessarily originates from genuinely multipartite correlations involving more than two qubits. This can be directly assessed from the measured data. We begin by constructing marginal probability distributions for each qubit pair, pij (a, b ∣x, y ),from the full probability distribution used to evaluate 
+
+IZG  
+
+> d
+
+(see Fig. 3(a) for illustration). Here, a and b denote the outcomes of the ith qubit in the first subsystem and the jth qubit in the second subsystem, respectively, for measurement settings x and y. From these marginals, we 5compute the correlators 
+
+Eij xy = ∑
+
+> a,b
+
+(−1)a+bpij (a, b ∣x, y ). (5) According to Fine’s theorem [27], a necessary and suffi-cient condition for the pair (i, j ) to admit a LHV model is that the four CHSH inequalities 
+
+Iij ξξ ′ = ∣Eij  
+
+> 11
+
++ ξ E ij  
+
+> 12
+
++ ξ′ Eij  
+
+> 21
+
+− ξξ ′ Eij 
+
+> 22
+
+∣ ≤ 2, (6) corresponding to different values of pairs ξ, ξ ′ ∈ {±1} are satisfied. Denoting Iij  
+
+> max
+
+= max {Iij 
+
+> ++
+
+, I ij 
+
+> +−
+
+, I ij 
+
+> −+
+
+, I ij 
+
+> −−
+
+}, this condition can be compactly written as Iij  
+
+> max
+
+≤ 2. As shown in Fig. 3(b), the majority of qubit pairs do not violate the LHV bound. In fact, from pair corre-lations alone, one would be unable to identify the non-locality of half of the qubits in n = 6 case. This indicates that pairwise nonlocal correlations alone cannot account for the observed CGLMP violation. Instead, genuinely multipartite correlations involving more than two qubits are required to explain the observed nonlocality. Fur-thermore, the fact that the measured CGLMP parame-ter IZG  
+
+> d
+
+under individual qubit perturbations follows the qualitative behavior of the ideal, noiseless case suggests that the prepared state faithfully captures the correlation structure of the ideal maximally-entangled state.  
+
+> III. DISCUSSION
+
+The above results demonstrate that current supercon-ducting quantum hardware can support complex many-body states exhibiting both high-dimensional and gen-uinely multipartite Bell nonlocality. Our findings can be interpreted as the observation of a Bell violation between two d = 64-dimensional composite systems, in which all degrees of freedom participate in the nonlocal correla-tions arising from multi-qubit interactions. Recent pho-tonic experiments [6, 7] that probe genuine d-dimensional Bell correlations while closing the binarization loophole have reported violations up to d = 4 and d = 8. In compar-ison, our results extend Bell tests to significantly higher dimensions. Moreover, high-dimensional nonlocality is not the only remarkable aspect of our work: we also demonstrate that each qubit participates in the observed nonlocal corre-lations, which cannot be explained by purely pairwise entanglement. While a form of multipartite Bell non-locality, called a Bell depth, has recently been probed for up to 24 qubits on a superconducting processor [28], the nature of the Bell depth is fundamentally different from the non-local correlations studied in our work. Alarge Bell depth arises from relatively low entanglement in ground states of a local Hamiltonian, and both the en-tanglement structure and the measured observables differ significantly from the ones studied here. Specifically, the approach of Ref. [28] reveals multipartite nonlocality by relating the quantum value of particular Bell functionals      
+
+> FIG. 3. High-dimensional non-locality against pair-wise non-locality (a) Schematic of the circuit to evaluate pairwise marginal probabilities obtained from the full proba-bility. While the circuit is identical to that in Fig. 1 (a), the measurements results are separately obtained for each pair
+> i, j .(b) The pairwise Bell function Imax corresponding to CHSH tests. We see only one pair shows siginificant violation while the rest are either slightly violating or Bell local.
+
+(evaluated on a given state with suitable observables) to the energy of low-lying states in a Hamiltonian frame-work [29]. Furthermore, due to the locality of the Hamil-tonian, multipartite entanglement in such systems is ef-fectively built from an increasing number of pairwise en-tangled qubits. This type of structure typically does not give rise to high-dimensional nonlocality and violations of the CGLMP inequality. In contrast, our results lie in a previously unexplored regime where high-dimensional Bell nonlocality coexists with a nontrivial multipartite structure: although we observe a clear CGLMP violation at the global level, the non-locality remains mostly hid-den from pairwise correlations. This highlights that the observed nonlocality cannot be decomposed into pairwise contributions, but instead emerges from genuinely collec-tive, high-dimensional correlations across the system. Our results not only shed light on fundamental as-pects of quantum mechanics, but also have practical rele-vance for certifying entanglement in complex many-body systems and benchmarking the performance of quantum hardware. Since the Bell test is performed within a sin-gle processor chip, the communication loophole remains open by construction. This inevitably allows for the pos-sibility of signaling correlations, similar to current opti-6cal experiments on high-dimensional Bell violations [5– 7]. Nevertheless, the observed Bell violation provides a stringent and minimally assumption-dependent bench-mark of device performance, complementing and in cer-tain respects surpassing standard tomographic methods for entanglement characterization. Unlike tomography, which relies on detailed calibration and noise modeling and becomes exponentially costly in large Hilbert spaces, a many-body Bell test directly probes the global correla-tion structure generated by the hardware. The observed violation demonstrates that the proces-sor produces nonclassical correlations incompatible with any local hidden-variable model, classical noise, or mod-els based solely on pairwise nonlocality. This establishes the high-dimensional Bell test as a robust indicator of genuine multipartite entanglement and coherent collec-tive behavior, and highlights its utility as an alterna-tive to reconstruction-based characterization in scalable multi-qubit systems. Finally, our work highlights how individual technical innovations in concert can promote the device performance to a higher level, ultimately open-ing new realms for fundamental exploration. Concretely, we showed how each operational improvement helps to increase the value of the CGLMP parameter, enabling observation of many-body non-locality in substantially larger systems than a straightforward circuit execution would allow.  
+
+> IV. SUMMARY AND OUTLOOK
+
+In this work, we report the observation of genuine high-dimensional, many-body Bell non-locality between two systems consisting of up to six qubits each, thereby ex-tending Bell tests into a new regime. The significance of these results can be understood from two complementary perspectives. On the one hand, we observe multi-qubit non-locality and test fundamental predictions of quan-tum mechanics in a previously inaccessible regime. On the other hand, our results provide a certification that noisy, yet non-adversarial, quantum hardware can sup-port complex and highly structured many-body states. Our work highlights that advances in quantum hard-ware and control not only enable the exploration of quan-tum phenomena in new regimes, but also provide gen-eral tools for benchmarking device performance. Given that the key technical ingredients enabling this experi-ment have only recently become available, the prospects for observing high-dimensional many-body non-locality in substantially larger systems in the near future appear promising.  
+
+> V. DATA AVAILABILITY
+
+The data that support the findings of this study will be made openly available upon publication.  
+
+> VI. CODE AVAILABILITY
+
+The quantum simulation code used in this work will be made available upon publication.  
+
+> VII. AUTHOR CONTRIBUTIONS
+
+The authors planned the project together. Y.M. car-ried out the simulations with actual quantum hardware and fake backend, and also performed the data postpro-cessing. Authors jointly analyzed the results and pre-pared the manuscript.  
+
+> VIII. ACKNOWLEDGMENTS
+
+The authors would like to thank Roope Uola for discus-sions on high-dimensional Bell tests and related topics. This work was supported by the Finnish Research Coun-cil project 362573, the Finnish quantum flagship program and the associated QDOC doctoral pilot program. This work is part of the Finnish Centre of Excellence in Quan-tum Materials (QMAT). We acknowledge the use of IBM Quantum Credits for this work. The views expressed are those of the authors, and do not reflect the official policy or position of IBM or the IBM Quantum team.  
+
+> IX. COMPETING INTERESTS
+
+The authors declare no competing interests. 7  
+
+> X. METHODS A. CONSTRUCTION OF THE CGLMP MEASUREMENT BASES
+
+Here, we overview the detailed form of constructing measurement basis described by the unitary operators ˆAx = ˆU ˆPA,x , ˆBy = ˆU † ˆPB,y , (7) where x, y ∈ {1, 2} denoting the labels of observables be-ing measured by Alice and Bob. The first part of these unitaries ˆPA,x and ˆPB,y involves a set of single-qubit phase operations, whereas the second parts ˆU ˆU † cor-responds to Fourier transforms and its inverse which are implemented through QFT gate operations. The phase operators can be expressed as tensor prod-ucts of single-qubit phase gates, ˆP (φ) = (1 00 eiφ ) . (8) Accordingly, the multi-qubit phase operators for Alice and Bob take the form ˆPA,x = ˆP (φAn,x ) ⊗ ⋯ ⊗ ˆP (φA
+
+> 1,x
+
+) ,
+
+ˆPB,y = ˆP (φBn,y ) ⊗ ⋯ ⊗ ˆP (φB 
+
+> 1,y
+
+) , (9) where the phase angles applied to the j-th qubit are given by φAj,x = π (2j /d) αx and φBj,y = π (2j /d) βy , where α1 = 0, 
+
+α2 = 1/2, β1 = 1/4, and β2 = −1/4. Thus the angles de-pend on the measurement settings x, y ∈ {0, 1}, and are applied locally to each qubit of Alice and Bob, respec-tively. The QFT operator can be formally understood as the discrete Fourier transform over Zd=2n :ˆU = 1
+
+√d
+
+> d−1
+
+∑
+
+> k=0
+> d−1
+
+∑
+
+> ˜k=0
+
+e2πi ˜kk /d ∣˜k⟩ ⟨ k∣ . (10) Here, the computational basis states ∣k⟩ correspond to multi-qubit states written as ∣k⟩ = ∣i1i2 ⋯ in⟩ ≡ ∣i1⟩ ⊗ ⋯ ⊗ 
+
+∣in⟩, where the bit string i1i2 ⋯ in represents the binary expansion of the integer 0 ≤ k ≤ d − 1. The implementation of the QFT on an n-qubit quan-tum register can be equivalently expressed as ˆU ∣k⟩ = 1
+
+⊗
+
+> j=n
+
+[ ∣ 0⟩ + exp (2πi 2j−1 kd ) ∣ 1⟩ ] . (11) This transformation can be decomposed into a sequence of unitary operations, ˆU = ˆun ⋯ ˆu2 ˆu1, where each ˆ uj acts on the jth qubit. The action of these operators can be written explicitly as ˆuj ∣k⟩ = ∣i1i2 ⋯ ij−1⟩ ⊗ [ ∣ 0⟩ + exp (2πi 2j−1 kd ) ∣ 1⟩ ] 
+
+⊗ ∣ij+1 ⋯ in⟩ . (12)   
+
+> FIG. 4. Resource comparison of multi-qubit Bell test on a quantum processor (a)-(b) Scaling of single- and two-qubit gate counts, respectively, with system size. (c)-(d) Cor-responding circuit depths for each implementation. (e) Exe-cution time, highlighting the overall resource requirements of the protocol.
+
+Each ˆ uj can be implemented using a Hadamard gate H
+
+followed by a sequence of controlled phase rotation gates 
+
+CR l, where ˆRl = diag (1, e 2πi /2l
+
+). This construction is il-lustrated in the upper panel of Fig. 1(c). This decomposi-tion can be understood by substituting k = ∑nj′=1 ij′ 2n−j′
+
+and observing that each phase factor contributes only when ij′ = 1. This naturally leads to controlled oper-ations conditioned on the states of qubits with indices 
+
+j′ > j, i.e., qubits below the jth qubit. Alternatively, the sequence of controlled phase rotations can be im-plemented as shown in the lower panel of Fig. 1(c), us-ing mid-circuit measurements within a dynamic circuit framework as elaborated in details in next part.  
+
+> B. THE DYNAMIC QUANTUM FOURIER TRANSFORM
+
+We adopted the DQFT framework [15] to improve effi-ciency and scalability. Unlike the standard unitary QFT, which requires O(n2) two-qubit gates and strict qubit connectivity, DQFT utilizes mid-circuit measurements and classical feed-forward operations to replace coherent controlled gates with classically conditioned operations. This reduces the resource scaling to O(n) while eliminat-ing connectivity constraints. Figure 4 illustrates that the unitary approach exhibits quadratic scaling in both single- and two-qubit gate counts as well as circuit depth, leading to rapidly in-8creasing resource demands. In contrast, the dynamic im-plementation significantly reduces complexity, achieving near-linear scaling and eliminating most two-qubit gates. However, this comes at the cost of a slight increase in execution time due to the mid-circuit measurement pro-cess, as shown in Fig. 4(f). The incorporation of DD preserves coherence during idle periods, resulting in im-proved effective performance without increasing circuit depth. This makes the dynamic approach with DD the most favorable in terms of scalability and noise resilience.  
+
+> C. SIMULATION DETAILS ON THE QUANTUM PROCESSOR
+
+To perform the quantum simulations, we employed the IBM 156-qubit superconducting quantum processor 
+
+ibm aachen via the IBM Quantum platform [30]. The device utilizes fixed-frequency transmon qubits arranged in a heavy-hex lattice architecture. It demonstrates me-dian coherence times ( T1, T2) of approximately 200 μs ,with single- and two-qubit gate fidelities exceeding 99.9% and 99%, respectively, and a median readout error of ∼
+
+0.720%. For benchmarking, high-performance simulators from Qiskit [31] were used, incorporating realistic noise models that account for gate errors, qubit connectivity, measurement imperfections, and decoherence. We employed the sampler measurement interface, which executes quantum circuits repeatedly to generate bitstring distributions that faithfully capture raw hard-ware noise without postprocessing. The number of mea-surement shots was defined as m = 2 × n × 1024, scaling with system size. To reduce noise and decoherence effects, we applied matrix-free measurement mitigation (M3) [32] and dy-namical decoupling (DD) [33–35]. M3 operates in a re-duced subspace defined by observed bitstrings, signifi-cantly lowering computational complexity compared to the full Hilbert space. DD enhances coherence preserva-tion during idle periods by applying pulse sequences that refocus qubit states. Specifically, during measurement (τ = τreadout + τF F ), we implemented the ’XY4’ sequence with pulse intervals τ /4, τ /4, τ /4, τ /4, τ /8, thereby mit-igating decoherence during readout and feedforward op-erations [15].  
+
+> D. POSTPROCESSED DATA
+
+In this section, we provide details on the postprocess-ing of the output data obtained from the real quantum hardware. The frequency of each measured bitstring is used to estimate the quasi-probabilities of the output state by normalizing the counts with respect to the total number of measurement shots. These quasi-probabilities approximate the underlying outcome distribution; how-ever, due to noise and readout errors, they may not cor-respond to a valid probability distribution. To address this issue, we apply the EM-based M3 method, which projects the quasi-probabilities onto the nearest valid probability distribution. This procedure en-sures physically consistent probabilities when required. The results are presented in Table I, which reports the full set of values of the inequality IZG  
+
+> d
+
+for all considered system dimensions. The table compares ideal predictions with both unitary and dynamic implementations and il-lustrates the impact of EM and dynamical decoupling (DD) across all cases. As mentioned in the main text, we also compute the 
+
+p-value, which quantifies the statistical significance of the observed violation. Specifically, the p-value gives the probability of obtaining results at least as extreme as those measured, under the null hypothesis (i.e., no Bell violation). A smaller p-value indicates stronger evidence against the null hypothesis and thus greater confidence in the observed effect. In this work, the p-value is used to assess the significance of violations of the IZG  
+
+> d
+
+inequality across different system sizes and implementations. De-tails of the p-value calculation are provided in Appendix B. The dependence of the p-value on the number of mea-surement trials is shown in Fig. 5(a) and (b) for the unitary and dynamic implementations, respectively. As expected, the p-value decreases rapidly with the number of trials, with a faster decay observed for larger viola-tions of IZG  
+
+> d
+
+. Conversely, when the Bell parameter ap-proaches the classical bound of 2, the p-value becomes of order unity. This behavior is observed, for example, in the d = 25 case for the unitary implementation and the d = 27 case for the dynamic circuit implementation. Finally, the very small p-values obtained for subsystems up to dimension d = 26, together with significant vio-lations IZG  
+
+> d
+
+− 2 ≳ 0.1, provide strong evidence for high-dimensional nonlocality in the states prepared on real quantum hardware. 9
+
+TABLE I. Inequality values across system dimensions Final values of the inequality IZG  
+
+> d
+
+for increasing system dimension 
+
+d. The table compares ideal results with implementations based on QFT and DQFT circuits, and also with/without EM and DD. Cases exhibiting a violation in quantum simulations are highlighted in blue, while non-violating cases are shown in red. The best score is achieved for dynamic circuit implementation with EM and DD. Inequality value ( IZG d )Method d = 21 d = 22 d = 23 d = 24 d = 25 d = 26 d = 27 d = 28
+
+Ideal 2.2071 2.3360 2.4079 2.4457 2.465 2.4725 2.4762 2.4781 Unitary 2.1909 2.2355 2.1727 2.1672 1.9394 1.6507 1.4572 1.4315 Unitary (with EM) 2.2010 2.2632 2.2075 2.2153 1.9875 1.6958 1.4919 1.4720 Dynamic - 2.2429 2.0442 1.9924 1.4365 1.2794 1.0586 1.0106 Dynamic (with EM) - 2.2629 2.0965 2.0263 1.4722 1.3055 1.0617 1.0093 Dynamic (with DD) - 2.2596 2.2787 2.2751 2.1537 2.0108 1.9202 1.8069 Dynamic (with EM and DD) - 2.2803 2.3075 2.3167 2.2237 2.1034 2.0117 1.9030 
+
+FIG. 5. Statistical significance of IZG  
+
+> d
+
+inequality p-value as a function of the number of attempts (measurements or trials) for different system sizes. (a) Results for QFT-based circuits. (b) Results for DQFT-based circuits. 
+
+Appendix A: CGLMP inequalities: derivation and equivalence of different forms 
+
+We begin by recalling the simplified version of the CGLMP inequality, introduced by Zohren and Gill (ZG), which reads 
+
+PL(A2 < B2) + PL(B2 < A1) + PL(A1 < B1)
+
++ PL(B1 ≤ A2) ≥ 1. (A1) Here, the notation Ax < By indicates that the outcome of the measurement Ax is smaller than that of the mea-surement By . More explicitly, 
+
+PL(Ax < By ) =
+
+> d−1
+
+∑
+
+> k=0
+> d−1
+
+∑
+
+> k′=k+1
+
+p(k, k ′∣x, y ), (A2) and similarly for the relation Ax ≤ By .The above inequality can be readily proven, as shown in Ref. [8], by observing that 
+
+{A2 < B1} ⊆ {A2 < B2} ∪ {B2 < A1} ∪ {A1 < B1}, (A3) which implies 
+
+PL(A2 < B1) ≤
+
+PL(A2 < B2) + PL(B2 < A1) + PL(A1 < B1). (A4) Substituting PL(A2 < B1) = 1 − PL(B1 ≤ A2) and re-arranging the terms yields the ZG form of the CGLMP inequality in Eq. (A1). In order to demonstrating the equivalence between the ZG formulation and the original version of the CGLMP inequality, we first rewrite the ZG expression in a slightly different form more suitable to build the connection to original CGLMP form. Using the identity PL(Ax < By ) =
+
+1 − PL(By ≤ Ax), the inequality (A1) can be rewritten as 
+
+PL(A2 ≤ B2) + 1 − PL(A1 ≤ B2) + PL(A1 ≤ B1)
+
++1 − PL(A2 < B1) ≥ 1. (A5) By bringing all the probability terms to the right hand side, we obtain 
+
+IZG  
+
+> d
+
+= 1 − PL(A1 < B1) − PL(A2 < B2)
+
++ PL(A2 < B1) + PL(A1 ≤ B2) ≤ 2. (A6) 10 
+
+1. Equivalence of ZG and CGLMP inequalities 
+
+We now return to the original Bell function introduced in the CGLMP paper, which is given by 
+
+Id =
+
+> ⌊d/2⌋−1
+
+∑
+
+> k=0
+
+(1 − 2kd − 1 )([ PL(A1 = B1 + k) + PL(B1 = A2 + k + 1)
+
++PL(A2 = B2 + k) + PL(B2 = A1 + k)] 
+
+− [PL(A1 = B1 − k − 1) + PL(B1 = A2 − k)
+
++PL(A2 = B2 − k − 1) + PL(B2 = A1 − k − 1)]) ,
+
+(A7) where the equalities are understood modulo d, with 
+
+PL(Ax = By + k) =
+
+> d−1
+
+∑
+
+> k′=0
+
+p(k′, k ′ + k mod d ∣x, y ). (A8) Using the periodicity of the modulo operation, individ-ual terms in Eq. (A7) can be rewritten. For example, the contribution involving A1 and B1 from the second bracket can be expressed as 
+
+−
+
+> ⌊d/2⌋−1
+
+∑
+
+> k=0
+
+(1 − 2kd − 1 ) PL(A1 = B1 + d − k − 1)
+
+= −
+
+> d−1
+
+∑
+
+> k′=⌊d/2⌋
+
+(1 − 2(d − k′ − 1)
+
+d − 1 ) PL(A1 = B1 + k′)
+
+= −
+
+> d−1
+
+∑
+
+> k′=⌊d/2⌋
+
+(−1 + 2k′
+
+d − 1 ) PL(A1 = B1 + k′). (A9) This term can then be combined with the corresponding contribution from the first bracket, yielding 
+
+> d−1
+
+∑
+
+> k=0
+
+(1 − 2kd − 1 ) PL(A1 = B1 + k)
+
+= 1 −
+
+> d−1
+
+∑
+
+> k=0
+
+2kd − 1 PL(A1 = B1 + k), (A10) where, in the second line, we have used the obvious nor-malization condition ∑d−1 
+
+> k=0
+
+PL(A1 = B1 + k) = 1, since this sum accounts for all possible relative outcome differences between A1 and B1. Applying the same procedure to the remaining terms and carrying out straightforward alge-braic manipulations, one obtains a more compact form of the original CGLMP expression: 
+
+Id =
+
+> 2
+
+∑
+
+> x,y =1
+> d−1
+
+∑
+
+> k=0
+
+ϵxy (k) PL(Ax = By + k), (A11) where the coefficients ϵxy (k) are given by 
+
+ϵ11 (k) = ϵ22 (k) = −ϵ21 (k) = −2kd − 1
+
+ϵ12 (k) = −2 (k − 1) mod dd − 1 . (A12) The expression in Eq. (A11) can be reformulated in terms of expectation values of the differences between outcomes by observing that 
+
+> d−1
+
+∑
+
+> k=0
+
+k PL(Ax = By + k) ≡ E([ Ax − By ]d), (A13) where [X]d = X − d⌊X/d⌋ denotes the value of X modulo 
+
+d. Consequently, the original CGLMP function Id can be equivalently written as 
+
+Id = −2
+
+d − 1 E([ A1 − B1]d + [A2 − B2]d
+
+− [A2 − B1]d − [A1 − B2 − 1]d)
+
+= 2
+
+d − 1 [d E(⌊ A1 − B1
+
+d ⌋ + ⌊ A2 − B2
+
+d ⌋
+
+− ⌊ A2 − B1
+
+d ⌋ − ⌊ A1 − B2 − 1
+
+d ⌋) − 1]. (A14) Considering that the outcomes of each observable lie in the set {0, 1, ⋯, d − 1}, it follows that ⌊ Ax−By 
+
+> d
+
+⌋ is equal to 
+
+−1 if and only if Ax < By , and 0 otherwise. Therefore, the corresponding expectation value satisfies 
+
+E(⌊ Ax − By
+
+d ⌋) = −P(Ax < By ).
+
+Substituting this relation into the above expression for 
+
+Id yields 
+
+Id = 2dd − 1 [ − P(A1 < B1) − P(A2 < B2)
+
++ P(A2 < B1) + P(A1 < B2 + 1)] − 2
+
+d − 1
+
+= 2dd − 1 [ − P(A1 < B1) − P(A2 < B2)
+
++ P(A2 < B1) + P(A1 ≤ B2)] − 2
+
+d − 1
+
+= 2dd − 1 (IZG  
+
+> d
+
+− 1) − 2
+
+d − 1
+
+= 2dd − 1 (IZG  
+
+> d
+
+− 2) + 2, (A15) which completes the proof of equivalence between original and modified forms of CGLMP functions ( Id and IZG  
+
+> d
+
+). 
+
+Appendix B: Derivation of the p-value Computation 
+
+In this section, we present the evaluation of p-values, which basically corresponds to the maximum probability that the total score C is at least as large as the observed score c, over all LHV models. The p-value is computed by formulating the Bell test as a general game, in which each trial contributes a score and the total score serves as the test statistic. To analyze the experimental data, we pro-ceed as follows. In each trial j, Alice and Bob choose mea-surement settings (xj , y j ) and obtain outcomes (aj , b j ),11 which define a score saj bj ∣xj yj . Summing over all m trials, the total observed score is 
+
+c =
+
+> m
+
+∑
+
+> j=1
+
+saj bj ∣xj yj . (B1) To see how the scores are defined, it is useful to view them as a reformulation of a Bell inequality in the generic form 
+
+βmin ≤ 1
+
+N ∑
+
+> x,y
+
+∑
+
+> a,b
+
+sab ∣xy p(a, b ∣x, y ) ≤ βmax , (B2) where the coefficients sab ∣xy define the scoring rule in the game-theoretic picture of a Bell experiment, and N is an appropriate normalization factor. In the case of the CGLMP inequality (Eq. A7), the score function is defined as follows: sab ∣xy = +4 (1 − 2kd−1 ) if one of the positive con-ditions is satisfied, sab ∣xy = −4 (1 − 2kd−1 ) if one of the neg-ative conditions is satisfied, and sab ∣xy = 0 otherwise [25]. Now, we can adapt the scores to the alternative form of the CGLMP inequality, by defining a corresponding score function for IZG  
+
+> d
+
+as 
+
+sab ∣xy − 2 = 2dd − 1 (sZG  
+
+> ab ∣xy
+
+− 2) . (B3) Now, as shown in Ref. [25], the p-value can be upper bounded using Bentkus’ inequality [36] as P-value ≤ e
+
+⎛⎜⎝⎛⎝
+
+> m
+
+∑
+
+> i=⌊δ⌋
+
+(mi )( ˆγmax )i(1 − ˆγmax )m−i⎞⎠
+
+> 1−δ+⌊δ⌋
+
+⎛⎝
+
+> m
+
+∑
+
+> i=⌊δ⌋
+
+(mi )( ˆγmax )i(1 − ˆγmax )m−i⎞⎠
+
+> δ−⌊δ⌋
+
+⎞⎟⎠
+
+,
+
+(B4) where 
+
+δ =
+
+> m
+
+∑
+
+> i=1
+
+ci − sZG min 
+
+sZG max − sZG min 
+
+, ˆγ = βmax − sZG min 
+
+sZG max − sZG min 
+
+. (B5) Here, sZG min and sZG max denote the minimum and maximum possible scores, obtained by optimizing over all outcomes and measurement settings a, b, x, y . For the CGLMP in-equality, βmax = 2. Furthermore, ci denotes the score obtained in the ith trial. The above bound is used to compute the p-values reported in the main text. 
+
+[1] A. Garg and N. D. Mermin, Bell inequalities with a range of violation that does not diminish as the spin becomes arbitrarily large, Phys. Rev. Lett. 49 , 901 (1982). [2] D. Collins, N. Gisin, N. Linden, S. Massar, and S. Popescu, Bell inequalities for arbitrarily high-dimensional systems, Phys. Rev. Lett. 88 , 040404 (2002). [3] T. V´ ertesi, S. Pironio, and N. Brunner, Closing the de-tection loophole in bell experiments using qudits, Phys. Rev. Lett. 104 , 060401 (2010). [4] A. C. Dada, J. Leach, G. S. Buller, M. J. Padgett, and E. Andersson, Experimental high-dimensional two-photon entanglement and violations of generalized bell inequalities, Nature Physics 7, 677 (2011). [5] X.-M. Hu, C. Zhang, B.-H. Liu, Y. Guo, W.-B. Xing, C.-X. Huang, Y.-F. Huang, C.-F. Li, and G.-C. Guo, High-dimensional bell test without detection loophole, Phys. Rev. Lett. 129 , 060402 (2022). [6] K. Dekkers, L. Serino, N. DAlessandro, A. Bhattacharjee, B. Brecht, A. Tavakoli, C. Silberhorn, and J. Leach, Ob-serving high-dimensional bell inequality violations using multi-outcome spectral measurements, arXiv:2506.20796 (2025). [7] J.-l. Miao, E. Svegborn, Z. Chen, Y. Guo, X.-M. Hu, Y.-F. Huang, C.-F. Li, G.-C. Guo, A. Tavakoli, and B.-H. Liu, Binarisation-loophole-free observation of high-dimensional quantum nonlocality, arXiv:2601.02350 (2026). [8] S. Zohren and R. D. Gill, Maximal violation of the collins-gisin-linden-massar-popescu inequality for infinite dimensional states, Phys. Rev. Lett. 100 , 120406 (2008). [9] A. Salavrakos, R. Augusiak, J. Tura, P. Wittek, A. Ac´ ın, and S. Pironio, Bell inequalities tailored to maximally entangled states, Phys. Rev. Lett. 119 , 040402 (2017). [10] D. Kaszlikowski, P. Gnaci´ nski, M. ˙Zukowski, W. Mik-laszewski, and A. Zeilinger, Violations of local realism by two entangled N -dimensional systems are stronger than for two qubits, Phys. Rev. Lett. 85 , 4418 (2000). [11] A. Ac´ ın, R. Gill, and N. Gisin, Optimal bell tests do not require maximally entangled states, Phys. Rev. Lett. 95 ,210402 (2005). [12] M. Erhard, R. Fickler, M. Krenn, and A. Zeilinger, Twisted photons: new quantum perspectives in high di-mensions, Light: Science & Applications 7, 17146 (2018). [13] D. Cozzolino, B. Da Lio, D. Bacco, and L. K. Oxenløwe, High-dimensional quantum communication: Benefits, progress, and future challenges, Advanced Quantum Technologies 2, 1900038 (2019). [14] E. B¨ aumer, V. Tripathi, D. S. Wang, P. Rall, E. H. Chen, S. Majumder, A. Seif, and Z. K. Minev, Efficient long-range entanglement using dynamic circuits, PRX Quan-tum 5, 030339 (2024). [15] E. B¨ aumer, V. Tripathi, A. Seif, D. Lidar, and D. S. Wang, Quantum fourier transform using dynamic cir-cuits, Phys. Rev. Lett. 133 , 150602 (2024). [16] L. Viola, E. Knill, and S. Lloyd, Dynamical decoupling of open quantum systems, Phys. Rev. Lett. 82 , 2417 (1999). [17] Z. Cai, R. Babbush, S. C. Benjamin, S. Endo, W. J. Hug-gins, Y. Li, J. R. McClean, and T. E. O’Brien, Quantum error mitigation, Rev. Mod. Phys. 95 , 045005 (2023). [18] P. D. Nation, H. Kang, N. Sundaresan, and J. M. 12 
+
+Gambetta, Scalable mitigation of measurement errors on quantum computers, PRX Quantum 2, 040326 (2021). [19] A. Javadi-Abhari, M. Treinish, K. Krsulich, C. J. Wood, J. Lishman, J. Gacon, S. Martiel, P. D. Nation, L. S. Bishop, A. W. Cross, et al. , Quantum computing with qiskit, arXiv:2405.08810 10.48550/arXiv.2405.08810 (2024). [20] N. Brunner, D. Cavalcanti, S. Pironio, V. Scarani, and S. Wehner, Bell nonlocality, Rev. Mod. Phys. 86 , 419 (2014). [21] J.-˚ A. Larsson, Loopholes in bell inequality tests of local realism, Journal of Physics A: Mathematical and Theo-retical 47 , 424003 (2014). [22] B. Hensen, H. Bernien, A. E. Dr´ eau, A. Reiserer, N. Kalb, M. S. Blok, J. Ruitenberg, R. F. Vermeulen, R. N. Schouten, C. Abell´ an, et al. , Loophole-free bell inequality violation using electron spins separated by 1.3 kilometres, Nature 526 , 682 (2015). [23] L. K. Shalm, E. Meyer-Scott, B. G. Christensen, P. Bier-horst, M. A. Wayne, M. J. Stevens, T. Gerrits, S. Glancy, D. R. Hamel, M. S. Allman, K. J. Coakley, S. D. Dyer, C. Hodge, A. E. Lita, V. B. Verma, C. Lam-brocco, E. Tortorici, A. L. Migdall, Y. Zhang, D. R. Kumor, W. H. Farr, F. Marsili, M. D. Shaw, J. A. Stern, C. Abell´ an, W. Amaya, V. Pruneri, T. Jennewein, M. W. Mitchell, P. G. Kwiat, J. C. Bienfang, R. P. Mirin, E. Knill, and S. W. Nam, Strong loophole-free test of lo-cal realism, Phys. Rev. Lett. 115 , 250402 (2015). [24] A. Tavakoli, R. Uola, and J. Pauwels, Binarization of multioutcome measurements in high-dimensional quan-tum correlation experiments, Phys. Rev. A 111 , 042433 (2025). [25] D. Elkouss and S. Wehner, (nearly) optimal p values for all bell inequalities, Npj Quantum Information 2, 16026 (2016). [26] P. Aumann, M. Fellner, D. Alber, M. Cykiert, C. Flecken-stein, R. ter Hoeven, L. Stenzel, R. J. Valencia-Tortora, and W. Lechner, Demonstrating record fidelity for the quantum fourier transform, arXiv:2604.12465 (2026). [27] A. Fine, Hidden variables, joint probability, and the bell inequalities, Phys. Rev. Lett. 48 , 291 (1982). [28] K. Wang, W. Li, S. Xu, M. Hu, J. Chen, Y. Wu, C. Zhang, F. Jin, X. Zhu, Y. Gao, Z. Tan, Z. Cui, A. Zhang, N. Wang, Y. Zou, T. Li, F. Shen, J. Zhong, Z. Bao, Z. Zhu, Z. Song, J. Deng, H. Dong, X. Zhang, P. Zhang, W. Jiang, Z. Lu, Z.-Z. Sun, H. Li, Q. Guo, Z. Wang, P. Emonts, J. Tura, C. Song, H. Wang, and D.-L. Deng, Probing many-body bell correlation depth with superconducting qubits, Phys. Rev. X 15 , 021024 (2025). [29] J. Tura, G. De las Cuevas, R. Augusiak, M. Lewenstein, A. Ac´ ın, and J. I. Cirac, Energy as a detector of nonlocal-ity of many-body spin systems, Phys. Rev. X 7, 021005 (2017). [30] IBM Quantum, ibm aachen backend, IBM Quantum Platform, https://quantum.cloud.ibm.com/ (2026), ac-cessed: 2026-04-29. [31] A. Javadi-Abhari, M. Treinish, K. Krsulich, C. J. Wood, J. Lishman, J. Gacon, S. Martiel, P. D. Nation, L. S. Bishop, A. W. Cross, et al. , Quantum computing with qiskit, Preprint at https://arxiv.org/abs/2405.08810 
+
+(2024), accessed June 2025. [32] P. D. Nation, H. Kang, N. Sundaresan, and J. M. Gambetta, Scalable mitigation of measurement errors on quantum computers, PRX Quantum 2, 040326 (2021). [33] L. Viola and S. Lloyd, Dynamical suppression of deco-herence in two-state quantum systems, Phys. Rev. A 58 ,2733 (1998). [34] L. Viola, E. Knill, and S. Lloyd, Dynamical decoupling of open quantum systems, Phys. Rev. Lett. 82 , 2417 (1999). [35] L.-M. Duan and G.-C. Guo, Suppressing environmen-tal noise in quantum computation through pulse control, Phys. Lett. A 261 , 139 (1999). [36] V. Bentkus, On hoeffding’s inequalities, Ann. Probab. 
+
+32 , 1650–1673 (2004).
