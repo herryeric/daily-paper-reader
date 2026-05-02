@@ -1,0 +1,1315 @@
+Title: Grassmann time-evolving matrix product operators for fermionic impurities coupled to a superconducting bath
+
+URL Source: https://arxiv.org/pdf/2604.23301v1
+
+Published Time: Tue, 28 Apr 2026 00:36:02 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+## Grassmann time-evolving matrix product operators for superconducting quantum impurity model 
+
+Chu Guo, 1, 2 Wei Wu, 1, 2, ∗ Xiansong Xu, 3 Ping-Xing Chen, 1, 2 
+
+Changming Yue, 4, † Tian Jiang, 1, 5, 6, ‡ and Ruofan Chen 3, §
+
+> 1
+
+College of Science, National University of Defense Technology, Changsha 410073, China 
+
+> 2
+
+Hunan Key Laboratory of Mechanism and technology of Quantum Information, Changsha, China 
+
+> 3
+
+College of Physics and Electronic Engineering, and Center for Computational Sciences, Sichuan Normal University, Chengdu 610068, China 
+
+> 4
+
+State Key Laboratory of Quantum Functional Materials, Department of Physics, and Guangdong Basic Research Center of Excellence for Quantum Science, Southern University of Science and Technology (SUSTech), Shenzhen 518055, China 
+
+> 5
+
+College of Advanced Interdisciplinary Studies, National University of Defense Technology, Changsha, China 
+
+> 6
+
+Hunan Research Center of the Basic Discipline for Physical States, Changsha, China 
+
+(Dated: April 28, 2026) The Grassmann time-evolving matrix product operator (GTEMPO) method, which represents the Feynman-Vernon influence functional as a temporal matrix product state, has been shown to be a flexible and potentially scalable solution for fermionic quantum impurity problems. In this work, we extend GTEMPO to solve fermionic impurity problems in the Nambu formalism, in which the impurity is coupled to a superconducting bath. A key insight is that by employing the Bogoliubov transformation for the superconducting bath, one could obtain the analytic expression of the Feynman-Vernon influence functional in a similar form to the case of a normal bath, after which the core algorithms of GTEMPO can be straightforwardly adapted. We demonstrate the accuracy of our method by benchmarking it against exact diagonalization in several exactly solvable cases, and against the continuous-time quantum Monte Carlo method using converged dynamical mean field theory (DMFT) iterations on the imaginary contour in the non-integrable case. In all cases, we perform both imaginary- and real-time calculations to illustrate the flexibility of our method. These results illustrate that our method, termed Nambu-GTEMPO, could be potentially useful as a quantum impurity solver to study the superconducting states in both equilibrium and non-equilibrium systems. 
+
+I. INTRODUCTION 
+
+The problem of an impurity coupled to structured baths describes a ubiquitous phenomenon in condensed matter physics, quantum chemistry, and materials sci-ence [1–7]. Among various bath configurations, the su-perconducting bath holds particular significance due to its relevance in understanding Andreev reflection [8, 9], Yu-Shiba-Rusinov states [10], Majorana zero modes [11, 12], and the interplay between local correlations and su-perconducting order [13–18]. A prototypical theoretical framework to study such systems is the quantum impu-rity problem (QIP) which considers a localized impurity coupled to a superconducting fermionic bath. QIP with a superconducting bath is also the central problem within the framework of dynamical mean-field theory (DMFT) in the Nambu–Gor’kov formalism [19, 20]. Nambu-DMFT provides a non-perturbative framework that cap-tures the dynamical nature of electronic correlations and pairing, including the frequency-dependent anomalous self-energy and the associated pairing glue. Its combina-tion with cluster extensions further enables the inclusion     
+
+> ∗These authors contribute equally to this work
+> †yuecm@sustech.edu.cn
+> ‡tjiang@nudt.edu.cn
+> §physcrf@sicnu.edu.cn
+
+of short-range spatial correlations, which are essential for describing unconventional superconductivity beyond the mean-field and weak coupling approaches. Over the past two decades, such methods have been extensively applied to investigate the interplay between correlation and pairing mechanism in the strongly correlated electron systems, including the Hubbard models [21–33], alkali-doped fullerides [34–39], cuprates [25, 27, 40–42], nicke-lates [33, 43–45], FeSe [46], and even quasicrystalline sys-tems [47, 48]. However, although being formally simple and elegant, solving these QIPs under general parameter settings still remains numerically challenging, and there is a longstanding research interest to develop efficient and accurate numerical methods for such problems. A number of numerical methods have been ap-plied to solve QIPs in presence of a superconducting bath, including continuous-time quantum Monte Carlo (CTQMC) [32, 46, 49, 50], numerical renormalization group [51–55], exact diagonalization (ED) [56], time-evolving matrix product state (MPS) [57]. Among these methods, the CTQMC methods are known to be nu-merically exact, but are only efficient on the imaginary-time axis [58–63]. The rest methods can directly work on the real-time axis, but they generally suffer from uncontrolled errors, such as the bath discretization er-ror [64], and could be complicated for finite-temperature baths [65, 66]. The GTEMPO method, proposed by some of the au-
+
+> arXiv:2604.23301v1 [cond-mat.str-el] 25 Apr 2026
+
+2thors, has illustrated itself to be a flexible and accu-rate method for QIPs in recent years. GTEMPO is rooted from the quasi-adiabatic propagator path integral (QuAPI) [67, 68] and the time-evolving matrix product operator (TEMPO) [69] methods, where the latter two methods are used for bosonic quantum impurity prob-lems. QuAPI makes use of the Feynman-Vernon influ-ence functional (IF) to represent the integrand of the dis-cretized impurity path integral (IPI) as a tensor on the time axis, which is referred to as the augmented density tensor (ADT), while TEMPO further represents this ten-sor as a temporal MPS. GTEMPO represents the ADT as a Grassmann MPS (GMPS), as the ADT in the fermionic case is naturally a Grassmann tensor [70–72]. Similar to TEMPO, GTEMPO has only two error sources: (i) the Trotter decomposition error of the IPI and (ii) the MPS bond truncation error, which can both be well-controlled. Since GTEMPO only relies on the analytical expression of the IPI (essentially the IF), it can be straightforwardly applied on the imaginary [73], real (Keldysh) [74] and the L-shaped Kadanoff [75] contours, and can consider the simultaneous presence of bosonic and fermionic baths as the influence of a bosonic bath can be treated as re-tarded interaction in the IPI [76]. In addition, GTEMPO is potentially scalable to large impurity problems by it-eratively tracing out the parts of impurity that are not directly used in the interested observables [77]. However, currently only normal fermionic baths are supported in GTEMPO. A major obstacle to apply GTEMPO for superconducting baths is that the analytic expression of the IF is currently not available. This gap is filled in this work. We first derive the Feynman-Vernon IF in this case, by employing the Bogoliubov transfor-mation to transform the superconducting bath into the same form of a normal bath. The obtained IF has a sim-ilar quadratic form to the standard case, therefore we can straightforwardly adapt the core algorithms of the standard GTEMPO to this case. In our numerical simu-lations, we first validate our method in two exactly solv-able cases: (i) a toy model where the bath only contains a single fermionic orbital; and (ii) the non-interacting case, by benchmarking our results against ED results on both the imaginary- and real-time axis. Then we apply our method to study the superconducting Ander-son impurity model (SAIM) which describes a localized electron (with nonzero interaction) that is coupled to a superconducting bath. We perform converged DMFT calculations on the imaginary-time axis and benchmark our results against the CTQMC results, where we show a step-by-step match between these two methods. We also study the non-equilibrium real-time evolution of the SAIM from an uncorrelated impurity-bath initial state, which is hard for non-equilibrium CTQMC suffering from the dynamical sign problem [78–80]. These results illus-trate that our method is an accurate and flexible solver for QIPs with a superconducting bath, which could be useful in DMFT [63] and non-equilibrium DMFT [81] in the Nambu formalism. This paper is organized as follows. In Sec. II, we present the general Hamiltonian for the QIPs considered in this work. In Sec. III, we briefly review the GTEMPO method for normal fermionic baths. In Sec. IV, we present the details of our Nambu-GTEMPO method for superconducting baths. In Sec. V we show our numerical results for two exactly solvable cases and for the non-integrable SAIM. We conclude in Sec. VI.  
+
+> II. MODEL DESCRIPTION
+
+The total Hamiltonian of a QIP can be written as ˆH = ˆHimp + ˆHint = ˆHimp + ˆHhyb + ˆHbath , (1) where ˆHimp and ˆHbath denote the impurity and bath Hamiltonians respectively, and ˆHhyb denotes the coupling between the impurity and bath. In the second equality we have defined ˆHint = ˆHhyb + ˆHbath , which encodes all the bath effects. For QIPs, ˆHbath is generally assumed to be non-interacting. Another commonly used assumption is that ˆHhyb is linear in terms of the bath creation and annihilation operators, which, together with the previous assumption, constitute the basic requirements to derive the analytic expression of the Feynman-Vernon IF [82]. In this work, we will focus on the SAIM, although our method is completely general for any fermionic QIPs sat-isfying the above two assumptions. The Hamiltonian of the SAIM can be written as ˆHimp = εd ∑
+
+> σ=↑↓
+
+ˆa† 
+
+> σ
+
+ˆaσ + U ˆa† 
+
+> ↑
+
+ˆa† 
+
+> ↓
+
+ˆa↓ˆa↑, (2) ˆHhyb = ∑
+
+> k,σ
+
+Vk(ˆa† 
+
+> σ
+
+ˆck,σ + ˆc† 
+
+> k,σ
+
+ˆaσ ), (3) ˆHbath = ∑
+
+> k,σ
+
+εk,σ ˆc† 
+
+> k,σ
+
+ˆck,σ + ∑
+
+> k
+
+(∆sc  
+
+> k
+
+ˆc† 
+
+> k, ↑
+
+ˆc† 
+
+> −k, ↓
+
++ H.c.). (4) Here ˆ a† 
+
+> σ
+
+, ˆ aσ and ˆ c† 
+
+> k,σ
+
+, ˆ ck,σ are the fermionic creation and annihilation operators of the impurity and the bath re-spectively, εd and U are the on-site energy and inter-action strength of the localized electron orbital, εk,σ is the band energy, Vk is the coupling strength between the impurity and bath. We have considered the Bardeen-Cooper-Schrieffer (BCS) Hamiltonian with s-wave pair-ing [83] in Eq.(4) for the superconducting bath, where ∆sc  
+
+> k
+
+denotes the energy gap. For real-time evolution, we will consider an uncorrelated impurity-bath initial state ˆρ0 = ˆρimp ⊗ ˆρth bath , (5) where ˆρimp could be some arbitrary impurity state, ˆρth bath = exp (−β ˆHbath ) is the (unnormalized) thermal state of the bath with inverse temperature β.3
+
+III. REVIEW OF GTEMPO FOR THE ANDERSON IMPURITY MODEL 
+
+In this section, we will briefly review the GTEMPO method for the standard Anderson impurity model (AIM) in which the impurity is coupled to a normal fermionic bath, as most steps of it can be directly reused in our extension for superconducting baths. We will keep our discussions general for any contours unless it is nec-essary to refer to some specific contour. 
+
+A. The impurity path integral 
+
+For the AIM, one can trace out the bath degrees of freedom in the total path integral of the problem, and obtain a reduced PI for the impurity degrees of freedom only, i.e., the IPI. In terms of the Grassmann trajectories ¯aσ (τ ) and aσ (τ ), where τ is a specific time on the con-tour that the problem is defined, ¯ aσ (τ ) and aσ (τ ) are a conjugate pair of Grassmann variables (GVs) at time τ ,one could write the impurity partition function, denoted as Zimp , as an IPI [84–86]: 
+
+Zimp = ∫ D[¯aa ]K[¯aa ]I[¯aa ], (6) where ¯ aσ = {¯aσ (τ )} , aσ = {aσ (τ )} , ¯ a = {¯a↑, ¯a↓}, a =
+
+{a↑, a↓} for briefness. The measure D[¯aa ] for the Grass-mann trajectories is defined as 
+
+D[¯aa ] = ∏
+
+> σ,τ
+
+d¯ aσ (τ )daσ (τ ). (7) 
+
+K[¯aa ] denotes the contribution from the bare impurity Hamiltonian ˆHimp , which can be formally written as 
+
+K[¯aa ] = exp [−i ∫C
+
+Himp (τ )] , (8) where Himp (τ ) is obtained from ˆHimp (τ ) by making the substitutions ˆ aσ (τ ) → aσ (τ ) and ˆ a† 
+
+> σ
+
+(τ ) → ¯aσ (τ ), C de-notes the contour on which Zimp is defined, which can be the imaginary contour (0 → β), the Keldysh con-tour (0 → t → 0) or the L-shaped Kadanoff contour (0 → t → 0 → β). I[¯aa ] denotes the IF which encodes all the bath influence, determined by ˆHint (and ˆ ρ0) only. For the standard AIM, the two spin species are decoupled in ˆHint , and I[¯aa ] can be further decomposed into 
+
+I[¯aa ] = ∏
+
+> σ
+
+Iσ [¯aσ aσ ], (9) where Iσ [¯aσ aσ ] denotes the IF for each spin species and can be written as 
+
+Iσ [¯aσ aσ ] = exp [− ∫C
+
+dτ ∫C
+
+dτ ′¯aσ (τ )∆(τ, τ ′)aσ (τ ′)] .
+
+(10) Here ∆ (τ, τ ′) is the hybridization function which can be calculated as [87] ∆(τ, τ ′) = i ∫ dεJ (ε)Dε(τ, τ ′), (11) with J(ε) = ∑k V 2 
+
+> k
+
+δ(ε − εk) the bath spectral function (BSF), and Dε(τ, τ ′) = −i⟨TC ˆcε(τ )ˆc†
+
+> ε
+
+(τ ′)⟩ bath the free-bath contour-ordered Green’s function ( TC is the contour-ordering operator which orders the operators with smaller times on the contour to the right, ⟨⋯⟩bath means the expectation value over ˆ ρth bath ). From Eq.(10), we can see that the hybridization function essentially encodes all the influence of the bath. In addition, we point out that the exponent in Eq.(10), i.e., ¯ aσ (τ )∆(τ, τ ′)aσ (τ ′),can be formally related to ˆHhyb in Eq.(3) as follows: the two GVs ¯ aσ and aσ can be obtained from the two im-purity operators ˆ a† 
+
+> σ
+
+and ˆ aσ , which are coupled to the bath operators ˆ ck,σ and ˆ c† 
+
+> k,σ
+
+respectively, via the map-ping ˆ a† 
+
+> σ
+
+→ ¯aσ , ˆaσ → aσ . This observation is crucial for a formal understanding of our derivation of the Feynman-Vernon IF for the SAIM later. 
+
+B. The GTEMPO method 
+
+Similar to TEMPO, the first step of GTEMPO is to discretize the continuous Grassmann trajectories ¯ aσ (τ )
+
+and aσ (τ ) into discrete sets of GVs, denoted as ¯ aσ,j ζ =
+
+¯aσ (jζ δτ ) and aσ,j ζ = aσ (jζ δτ ) where δτ denotes the dis-crete time step size, jζ denotes the jth time step on the 
+
+ζth branch and we will use ζ = o, +, − for the imaginary (0 → β), forward (0 → t) and backward ( t → 0) branches respectively. The discrete K[¯aa ] can be obtained from Eq.(8) by inserting complete coherent-state basis set at each discrete time step. For example, on the imaginary contour, it can be written as 
+
+K[¯aa ] = ⟨−a,1o ∣ ˆU o
+
+> imp
+
+∣a,M o ⟩⋯⟨a,2o ∣ ˆU o
+
+> imp
+
+∣a,1o ⟩, (12) where ˆU o 
+
+> imp
+
+= exp (−δτ ˆHimp ) denotes the discrete bare impurity propagator on the imaginary branch, with imaginary time step size δτ , and we have used a,j o =
+
+{a↑,j o , a ↓,j o }. The discrete expressions of K[¯aa ] on the Keldysh and Kadanoff contours could be found in Ref. [74] and Ref. [75] respectively, which slightly differ from Eq.(12) due to the different boundary conditions on these contours. The discrete Iσ [¯aσ aσ ] corresponding to Eq.(10) can be written in a unified form that is valid for all contours: 
+
+Iσ [¯aσ aσ ] = exp ⎛⎝− ∑ 
+
+> iζ,j ζ′
+
+¯aσ,i ζ ∆iζ jζ′ aσ,j ζ′
+
+⎞⎠ , (13) where the discretized hybridization function ∆ iζ jζ′ can be obtained using the QuAPI scheme [67, 68, 74] ∆iζ jζ′ = ∫  
+
+> (iζ+1)δτ iζδτ
+
+dτ ∫  
+
+> (jζ′+1)δτ jζ′δτ
+
+dτ ′∆(τ, τ ′). (14) 4By choosing a specfic ordering for all the GVs, one could systematically write the discrete K and Iσ as GMPSs (in practice, the orderings used in Ref. [73], Ref. [73] and Ref. [75] could be good choices for the three contours respectively). For the AIM, K can be built as a GMPS exactly [75]. Iσ can be built as a GMPS using the partial IF algorithm, for example. The partial IF algorithm ex-plores the fact that each term on the exponent of Eq.(13) commute with each other due to the Grassmann algebra, as a result, one could rewrite it as 
+
+Iσ [¯aσ aσ ] = ∏
+
+> iζ
+
+exp ⎛⎝−¯aσ,i ζ ∑
+
+> jζ′
+
+∆iζ jζ′ aσ,j ζ′
+
+⎞⎠ , (15) where each term in the product is referred to as a partial IF. Crucially, each partial IF can be exactly written as a GMPS with bond dimension 2 only [88], as all the terms on its exponent share the same GV ¯ aσ,i ζ . As a result, the discrete Iσ can be built as a GMPS using M GMPS multiplications where M is the number of all possible 
+
+iζ (the multiplication of two GMPSs originates from the product of two Grassmann tensors [88], which is similar to the element-wise product between two normal tensors used in QuAPI and TEMPO [89]). Once K and Iσ are built as GMPSs, one could obtain the ADT as a GMPS by multiplying them together: 
+
+A[¯aa ] = K[¯aa ]I[¯aa ] = K[¯aa ] ∏
+
+> σ
+
+I[¯aσ aσ ], (16) where we have used Eq.(9) in the second equality. The ADT contains all the information of the impurity dynam-ics, with which one can easily calculate any observables of the impurity. In practice, the multiplication in Eq.(16) does not need to be actually performed, but only needs to be calculated on the fly when calculating observables [74]. To summarize, the GTEMPO method works in three steps: (1) discretizing the Grassmann trajectories and obtaining the discrete expressions of K and Iσ as in Eq.(12) and Eq.(13); (2) constructing the discrete K and 
+
+Iσ as GMPSs, and obtaining the ADT by multiplying them together (on the fly) using Eq.(16); (3) calculating impurity observables based on A. 
+
+> IV. THE NAMBU-GTEMPO METHOD
+
+The standard AIM can be viewed as a special instance of the SAIM with ∆ sc  
+
+> k
+
+= 0. As ∆ sc  
+
+> k
+
+only affects ˆHbath , the only change we need to make on top of the GTEMPO method, is to change the way to build the IF as a GMPS, that is, only Eq.(9) and Eq.(10) need to be changed. In the following, we will first derive the analytic expres-sion of the Feynman-Vernon IF for the SAIM, in corre-spondence with Eq.(10) for the AIM, and then we adapt the partial IF algorithm used in GTEMPO to build this new IF as a GMPS.  
+
+> A. The Feynman-Vernon IF for the SAIM
+
+For nonzero ∆ sc  
+
+> k
+
+, the two spin species are mixed in ˆHbath , as a result I[¯aa ] can no longer be decomposed into the product of the two independent IFs I↑ and I↓
+
+for each spin species. Nevertheless, by employing the Bogoliubov transformation for the BCS bath: ˆαk, ↑ = uk ˆck, ↑ − vk ˆc†
+
+> −k, ↓
+
+, ˆα† 
+
+> k, ↑
+
+= uˆc† 
+
+> k, ↑
+
+− vk ˆc−k, ↓, (17) ˆα−k, ↓ = uk ˆc−k, ↓ + vk ˆc†
+
+> k, ↑
+
+, ˆα† 
+
+> −k, ↓
+
+= uk ˆc† 
+
+> −k, ↓
+
++ vk ˆck, ↑, (18) where ˆ α† 
+
+> k,σ
+
+and ˆ αk,σ are the fermionic creation and an-nihilation operators in the new representation, we can convert ˆHbath in Eq.(4) into the form of a normal bath: ˆH′ 
+
+> bath
+
+= E0 + ∑
+
+> k
+
+ξk(ˆα† 
+
+> k, ↑
+
+ˆαk, ↑ + ˆα† 
+
+> −k, ↓
+
+ˆα−k, ↓), (19) where E0 is a global constant term which does not affect the impurity observables and will thus be neglected, and 
+
+ξk =
+
+√
+
+ε2 
+
+> k
+
++ ∣∆sc  
+
+> k
+
+∣2, (20) is the dispersion relation in the Bogoliubov representa-tion. The complex numbers uk and vk in the Bogoliubov transformation are defined as 
+
+uk =
+
+√ 12 (1 + εk
+
+ξk
+
+), vk = ∆sc 
+
+> k
+
+∣∆sc  
+
+> k
+
+∣√ 12 (1 − εk
+
+ξk
+
+), (21) which satisfy ∣uk∣2 + ∣vk∣2 = 1. After the transformation, the hybridization Hamiltonian ˆHhyb in Eq.(3) becomes ˆH′ 
+
+> hyb
+
+= ∑
+
+> k
+
+Vk [( u∗ 
+
+> k
+
+ˆa† 
+
+> ↑
+
++ v∗ 
+
+> k
+
+ˆa↓)ˆαk, ↑ + ˆα†
+
+> k, ↑
+
+(uk ˆa↑ + vk ˆa† 
+
+> ↓
+
+)
+
++(u∗ 
+
+> k
+
+ˆa† 
+
+> ↓
+
+− v∗ 
+
+> k
+
+ˆa↑)ˆα−k, ↓ + ˆα†
+
+> −k, ↓
+
+(uk ˆa↓ − vk ˆa† 
+
+> ↑
+
+)] . (22) To draw closer connection to Eq.(3), we define ˆX† 
+
+> k
+
+=
+
+u∗ 
+
+> k
+
+ˆa† 
+
+> ↑
+
++ v∗ 
+
+> k
+
+ˆa↓ and ˆY † 
+
+> −k
+
+= u∗ 
+
+> k
+
+ˆa† 
+
+> ↓
+
+− v∗ 
+
+> k
+
+ˆa↑, then Eq.(22) becomes ˆH′ 
+
+> hyb
+
+= ∑
+
+> k
+
+Vk ( ˆX† 
+
+> k
+
+ˆαk, ↑ + ˆY † 
+
+> −k
+
+ˆα−k, ↓ + H.c.) . (23) Using the substitutions ˆ a† 
+
+> ↑
+
+→ ˆX† 
+
+> k
+
+and ˆ a† 
+
+> ↓
+
+→ ˆY †
+
+> −k
+
+, we can see that Eq.(23) has exactly the same form as Eq.(3). The major difference is that ˆ a† 
+
+> ↑
+
+and ˆ a† 
+
+> ↓
+
+in Eq.(3) are “local” impurity operators acting on different spin species inde-pendently, while ˆX† 
+
+> k
+
+and ˆY † 
+
+> −k
+
+are “global” impurity oper-ators simultaneously acting on both spin species. Never-theless, since ˆH′ 
+
+> int
+
+= ˆH′ 
+
+> hyb
+
++ ˆH′ 
+
+> bath
+
+does not mix the two spin species of the new bath modes (instead, the two spin species of the impurity are mixed in the new representa-tion), we can still integrate out each spin species of the bath independently and obtain [87] 
+
+I[¯aa ] = IX [ ¯XX ]IY [ ¯Y Y ], (24) 5in correspondence with Eq.(9). The two terms on the right hand side of Eq.(24) can be explicitly written as 
+
+IX [ ¯XX ] = exp [− ∫C
+
+dτ ∫C
+
+dτ ′ ¯Xk(τ )∆k(τ, τ ′)Xk(τ ′)] ;(25) 
+
+IY [ ¯Y Y ] = exp [− ∫C
+
+dτ ∫C
+
+dτ ′ ¯Y−k(τ )∆−k(τ, τ ′)Y−k(τ ′)] ,
+
+(26) where we have used ¯Xk = u∗ 
+
+> k
+
+¯a↑ + v∗ 
+
+> k
+
+a↓, Xk = uka↑ + vk ¯a↓; (27) ¯Y−k = u∗ 
+
+> k
+
+¯a↓ − v∗ 
+
+> k
+
+a↑, Y−k = uka↓ − vk ¯a↑. (28) The k-dependent hybridization functions in Eq.(25) and Eq.(26) are defined as ∆k(τ, τ ′) = ∆−k(τ, τ ′) = −iV 2 
+
+> k
+
+Dξk (τ, τ ′), (29) which are related to ∆ (τ, τ ′) as ∆(τ, τ ′) = ∫ξ
+
+dξ ∑
+
+> k
+
+∆k(τ, τ ′)δ(ξ − ξk), (30) with the dispersion relation ξk is defined in Eq.(20). Now by substituting Eqs.(27,28,25,26) into Eq.(24), and defin-ing ψ(τ ) = [ a↑(τ ) ¯a↓(τ ) ] and ¯ψ(τ ) = [ ¯a↑(τ ) a↓(τ ) ] ,we can obtain the final analytic expression of the Feynman-Vernon IF for the SAIM in a compact form: 
+
+I[¯aa ] = exp [− ∫C
+
+dτ ∫C
+
+dτ ′ ¯ψ(τ )∆(τ − τ ′)ψT (τ ′)] .
+
+(31) Here ψT means the transpose of ψ, and ∆(τ ) =
+
+[ ∆↑↑ (τ ) ∆↑↓ (τ )
+
+∆↓↑ (τ ) ∆↓↓ (τ ) ] is a 2 × 2 matrix function defined as ∆↑↑ (τ ) = ∫ dε [Juu (ε)Dξ (τ ) − Jvv (ε)Dξ (−τ )] ; (32a) ∆↑↓ (τ ) = ∫ dε J uv (ε)[ Dξ (τ ) + Dξ (−τ )] ; (32b) ∆↓↑ (τ ) = ∫ dε J vu (ε)[ Dξ (τ ) + Dξ (−τ )] ; (32c) ∆↓↓ (τ ) = ∫ dε [Jvv (ε)Dξ (τ ) − Juu (ε)Dξ (−τ )] , (32d) where we have used the four effective BSFs 
+
+Juu (ε) = J(ε)u∗(ε)u(ε); (33a) 
+
+Juv (ε) = J(ε)u∗(ε)v(ε); (33b) 
+
+Jvu (ε) = J(ε)v∗(ε)u(ε); (33c) 
+
+Jvv (ε) = J(ε)v∗(ε)v(ε). (33d) From Eq.(31), we can see that the Grassmann trajecto-ries of the two spin species are indeed coupled, in con-trast with Eq.(9). The four functions in ∆(τ ) are not independent. In fact, from the definition in Eqs.(32), we can see that ∆ ↑↑ (τ ) = −∆↓↓ (−τ ) in general, and ∆↑↓ (τ ) = ∆↓↑ (τ ) if ∆ sc  
+
+> k
+
+is real. For ∆ sc  
+
+> k
+
+= 0, we have 
+
+uk = 1, vk = 0 from Eq.(21), then Juu (ε) = J(ε) and 
+
+Jvv (ε) = Juv (ε) = Jvu (ε) = 0, as a result we have ∆↑↓ (τ ) = ∆↓↑ (τ ) = 0 and Eq.(31) naturally reduces to Eq.(9) and Eq.(10). 3 3 3 3 2 2 2 2 1 1 1 1           
+
+> 333322221111
+
+(a) (b) 
+
+FIG. 1. (a) A schematic illustration of the partial IF algo-rithm to build the Feynman-Vernon IF as a GMPS for the SAIM, where the imaginary contour has been used as exam-ple. The green and blue solid circles represent the GVs for the upper and lower spins respectively, the lighter and darker circles with the same color represent a conjugate pair of GVs. Each horizontal line with legs acting on the circles represent a partial IF, where the thicker leg corresponds to the GV shared by all the terms in the partial IF. Thus, the upper and lower horizontal lines mean two partial IFs that correspond to the first and second terms in the product of Eq.(37), respectively. (b) Calculating the four four types of imaginary-time corre-lation functions as defined in Eqs.(38), based on the ADT. 
+
+B. The QuAPI scheme for superconducting baths 
+
+The form of Eq.(32) inspires a natural way to reuse the QuAPI scheme for the normal bath to discretize the ∆(τ ) for superconducting baths, which is shown in the following. Assuming that for the case of normal bath, one has implemented the QuAPI scheme which ac-cepts a BSF J(ε) plus a nontrivial dispersion relation 
+
+ξ, and outputs the discretized hybridization function in Eq.(14). Then by taking the four effective BSFs Juu (ε),
+
+Juv (ε), Jvu (ε), Jvv (ε) in Eqs.(33) plus the dispersion re-lation in Eq.(20) as the inputs, one can obtain the four discretized hybridization functions ∆ uu,i ζ jζ′ , ∆ uv,i ζ jζ′ ,∆vu,i ζ jζ′ , ∆ vv,i ζ jζ′ by using the normal QuAPI scheme for four times. With these four hybridization func-tions, one can straightforwardly obtain the discretized hybridization functions corresponding to Eqs.(32) as ∆↑↑ ,i ζ jζ′ = ∆uu,i ζ jζ′ − ∆Tvv,i ζ jζ′ ; (34a) ∆↑↓ ,i ζ jζ′ = ∆uv,i ζ jζ′ + ∆Tuv,i ζ jζ′ ; (34b) ∆↓↑ ,i ζ jζ′ = ∆vu,i ζ jζ′ + ∆Tvu,i ζ jζ′ ; (34c) ∆↓↓ ,i ζ jζ′ = ∆vv,i ζ jζ′ − ∆Tuu,i ζ jζ′ , (34d) which will be used as the input of our Nambu-GTEMPO method. 6
+
+C. The partial IF algorithm for superconducting baths 
+
+After discretization using the QuAPI scheme, one could obtain the discrete IF 
+
+I[¯aa ] = exp ⎛⎝− ∑ 
+
+> iζ,j ζ′
+
+¯ψiζ ∆iζ jζ′ ψTjζ′
+
+⎞⎠ . (35) Each term in the exponent can be explicitly written as the summation of four terms as ¯ψiζ ∆iζ jζ′ ψTjζ′ =¯a↑,i ζ ∆↑↑ ,i ζ jζ′ a↑,j ζ′ + ¯a↑,i ζ ∆↑↓ ,i ζ jζ′ ¯a↓,j ζ′ +
+
+a↓,i ζ ∆↓↑ ,i ζ jζ′ a↑,j ζ′ + a↓,i ζ ∆↓↓ ,i ζ jζ′ ¯a↓,j ζ′ .
+
+(36) Now it is straightforward to generalize the partial IF al-gorithm to this case: by regrouping the terms in Eq.(35) that share a common GV, one obtains 
+
+I[¯aa ] = ∏
+
+> iζ
+
+exp 
+
+⎡⎢⎢⎢⎢⎣
+
+∑
+
+> jζ′
+
+¯a↑,i ζ (∆↑↑ ,i ζ jζ′ a↑,j ζ′ + ∆↑↓ ,i ζ jζ′ ¯a↓,j ζ′ )⎤⎥⎥⎥⎥⎦
+
+×
+
+exp 
+
+⎡⎢⎢⎢⎢⎣
+
+∑
+
+> jζ′
+
+a↓,i ζ (∆↓↑ ,i ζ jζ′ a↑,j ζ′ + ∆↓↓ ,i ζ jζ′ ¯a↓,j ζ′ )⎤⎥⎥⎥⎥⎦
+
+.
+
+(37) We can see that for each iζ , there are two partial IFs: one shares the common GV ¯ a↑,i ζ (i.e., the first line of Eq.(37)), and the other shares the common GV a↓,i ζ (i.e., the second line of Eq.(37)). As a result, I[¯aa ] can be built as a GMPS by multiplying 2 M such partial IFs together. The partial IF algorithm for superconducting baths is schematically illustrated in Fig. 1(a), where we have used the imaginary contour as an example. 
+
+D. Calculating observables for the SAIM 
+
+Now we show the explicit expressions of the observables we will calculate in the numerical examples of this work, based on the obtained A[¯aa ]. In our numerical simu-lations, we will focus on real ∆ sc  
+
+> k
+
+, although our method directly applies for complex ∆ sc  
+
+> k
+
+, we will also fix ˆ ρimp to be the vacuum state, i.e., ˆ ρimp = ∣0⟩⟨ 0∣. For imaginary-time evolution, we will calculate the following correlation functions: 
+
+−G↑↑ (jδτ ) = ⟨ˆa↑(jδτ )ˆa† 
+
+> ↑
+
+⟩eq 
+
+= Z−1imp (β) ∫ D[¯aa ]a↑,j o ¯a↑,0o A[¯aa ]; (38a) 
+
+G↑↓ (jδτ ) = ⟨ˆa↑(jδτ )ˆa↓⟩eq 
+
+= Z−1imp (β) ∫ D[¯aa ]a↑,j o a↓,0o A[¯aa ]; (38b) 
+
+−G↓↑ (jδτ ) = ⟨ˆa↓(jδτ )ˆa↑⟩eq 
+
+= Z−1imp (β) ∫ D[¯aa ]a↓,j o a↑,0o A[¯aa ]; (38c) 
+
+−G↓↓ (jδτ ) = ⟨ˆa↓(jδτ )ˆa† 
+
+> ↓
+
+⟩eq 
+
+= Z−1imp (β) ∫ D[¯aa ]a↓,j o ¯a↓,0o A[¯aa ]. (38d) Here δτ is the imaginary-time step size, ⟨⋯⟩eq means the expectation value over the thermal state exp (−β ˆH) of the impurity and bath, and we have used Zimp (β) to stress that it is the impurity partition function calculated on the imaginary contour. These correlation functions are the central quantities to calculate in Nambu-DMFT iterations on the imaginary contour (see Appendix. A). For real ∆ sc , they satisfy the symmetry relations G↑↑ (τ ) =
+
+G↓↓ (τ ) and G↑↓ (τ ) = G↓↑ (τ ) due to the spin symmetry. For non-equilibrium real-time evolution, we will calcu-late the following correlation functions: 
+
+G↑¯↑●(jδt ) = Z−1imp (t) Tr [ˆa↑(jδt )ˆa† 
+
+> ↑
+
+ˆρ0]
+
+= Z−1imp (t) ∫ D[¯aa ]a↑,j + ¯a↑,0+ A[¯aa ]; (39a) 
+
+G¯↑↑ ●(jδt ) = Z−1imp (t) Tr [ˆa† 
+
+> ↑
+
+(jδt )ˆa↑ ˆρ0]
+
+= Z−1imp (t) ∫ D[¯aa ]¯a↑,0+ a↑,j + A[¯aa ]; (39b) 
+
+G↑↓ ●(jδt ) = Z−1imp (t) Tr [ˆa↑(jδt )ˆa↓ ˆρ0]
+
+= Z−1imp (t) ∫ D[¯aa ]a↑,j + a↓,0+ A[¯aa ]; (39c) 
+
+G↑●↓(jδt ) = Z−1imp (t) Tr [ˆa↑(jδt )ˆρ0ˆa↓]
+
+= Z−1imp (t) ∫ D[¯aa ]a↑,0+ a↓,j − A[¯aa ]. (39d) Here δt means the real-time step size and we have used 
+
+Zimp (t) to stress that it is the impurity partition function calculated on the Keldysh contour. We note the special order in the square bracket of first line of Eq.(39d), and the corresponding time step index j− in the second line, which is particularly used to demonstrate the flexibility of our method to calculate any impurity observables. Since we only consider ˆ ρimp to be the vacuum state, we further have G¯↑↑ ●(jδt ) = G↑↓ ●(jδt ) = 0 ( G↑●↓(jδt ) does not vanish as ˆ a↓ acts on the right of ˆ ρ0). In addition, for real-time evolution we will also calculate the probability of the im-purity on the four impurity states, i.e., ∣0⟩ (vacuum), ∣ ↑⟩7(spin up), ∣ ↓⟩ (spin down), ∣ ↑↓ ⟩ (double occupation): 
+
+P0(jδt ) = Z−1imp (t) ∫ D[¯aa ]a↑,j + ¯a↑,j + a↓,j + ¯a↓,j + A[¯aa ];(40a) 
+
+P↑(jδt ) = Z−1imp (t) ∫ D[¯aa ]a↑,j + ¯a↑,j − a↓,j + ¯a↓,j + A[¯aa ];(40b) 
+
+P↓(jδt ) = Z−1imp (t) ∫ D[¯aa ]a↑,j + ¯a↑,j + a↓,j + ¯a↓,j − A[¯aa ];(40c) 
+
+P↑↓ (jδt ) = Z−1imp (t) ∫ D[¯aa ]a↑,j + ¯a↑,j − a↓,j + ¯a↓,j − A[¯aa ],
+
+(40d) which satisfies P↑(jδt ) = P↓(jδt ) due to the spin symme-try. 
+
+V. NUMERICAL RESULTS 
+
+In our numerical simulations, we will first validate our Nambu-GTEMPO method in two exactly solvable cases: (1) a toy model where the bath contains a single orbital; and (2) the non-interacting case with U = 0. In the first case, the problem can be exactly solved by directly diag-onalizing ˆH, while in the second case, the problem can be exactly solved by first discretizing the bath into N
+
+modes, and then diagonalizing a 4 (N + 1) × 4(N + 1) co-efficient matrix (the details of the ED algorithm used for non-interacting fermions is shown in Appendix. B). Then we will study the non-integrable case with nonzero 
+
+U . In the latter case, we will first perform converged Nambu-DMFT iterations on the imaginary contour, and benchmark our results against CTQMC results, and then we will perform non-equilibrium real-time evolution and study the time evolution of the probability on the impu-rity states. For all our numerical simulations we will set ∆sc  
+
+> k
+
+= 1. 
+
+A. Toy model with a single-orbital bath 
+
+The Hamiltonian we consider for the toy model is ˆHbath = ε0 ∑
+
+> σ
+
+ˆc† 
+
+> σ
+
+ˆcσ + ∆sc (ˆc† 
+
+> ↑
+
+ˆc† 
+
+> ↓
+
++ ˆc↓ ˆc↑); (41) ˆHhyb = α0 ∑
+
+> σ
+
+(ˆb† 
+
+> σ
+
+ˆcσ + H.c.), (42) which corresponds to the BSF 
+
+J(ε) = α20δ(ε − ε0). (43) In our simulations for the toy model, we will fix ε0 = 1, 
+
+α20 = 0.5, and εd = −U /2. We first study the imaginary-time evolution of the toy model for β = 5, and calculate the imaginary-time corre-lation functions in Eq.(38). We plot G↑↑ (τ ) and G↑↓ (τ )
+
+as functions of the imaginary time τ in Fig. 2(a) and -1.0 -0.8 -0.6 -0.4 -0.2 0.0 0 1 2 3 4 5                 
+
+> (a)
+> U= +1
+> U=−1-0.2 0.0 0.2 012345
+> (b)
+> 0.0 0.5 1.0 1.5 2.0 2.5 3.0 0.05 0.10 0.15 0.20
+> (c) ×10 −3
+> 0.0 0.5 1.0 1.5 2.0 2.5 3.0 0.05 0.10 0.15 0.20
+> (d) ×10 −3
+> G↑↑ (τ )
+> τ
+> G↑↓ (τ )
+> τ
+> E
+> δτ
+> E
+> δτ
+
+FIG. 2. (a,b) The imaginary-time correlation functions G↑↑ (τ )
+
+(a) and G↑↓ (τ ) (b) as functions of the imaginary time τ for the toy model. The blue and green dashed lines are the Nambu-GTEMPO results, calculated with χ = 30 and δτ = 0.05, for 
+
+U = 1 and U = −1 respectively, while the solid lines with the same colors are the corresponding ED results. (c,d) The mean errors of G↑↑ (τ ) (c) and G↑↓ (τ ) (d), between Nambu-GTEMPO with χ = 30 and ED, as functions of the imaginary-time step size δτ , where the blue and green dashed lines are results for 
+
+U = 1 and U = −1 respectively. We have used ε0 = 1, α20 = 0.5, 
+
+β = 5 and εd = −U /2 in these simulations. 
+
+Fig. 2(b), respectively ( G↓↓ (τ ) and G↓↑ (τ ) are not shown as they can be obtained from the two correlation func-tions we have plotted). We have considered both repul-sive interaction with U = 1 (the blue dashed lines) and at-tractive interaction with U = −1 (the green dashed lines), and plot the corresponding ED results (the solid lines with the same color) for comparison. We can see that the Nambu-GTEMPO results generally agree very well with the ED results in all these cases. In Fig. 2(c), we plot the mean error E, defined as E(⃗ x, ⃗ y) = √∣∣⃗ x −⃗ y∣∣ 2/L
+
+for two vectors ⃗ x,⃗ y of length L, between G↑↑ calculated by Nambu-GTEMPO and by ED for U = 1 (the blue dashed line) and U = −1 (the green dashed line) respec-tively. In Fig. 2(d), we plot the mean error E between 
+
+G↑↓ calculated by Nambu-GTEMPO and by ED, similar to Fig. 2(c). We can see that the mean errors decrease almost linearly as δτ decreases. This is because that the time discretization error is essentially the only error source in our method for the toy model: the bond dimen-sion of the IF is strictly limited when the bath contains only a single orbital (or more generally a finite number of orbitals) [90], thus the MPS bond truncation error van-ishes as long as the bond dimension χ used for building the IF is larger than that limit. In Fig. 3, we study the real-time evolution of the toy model starting from the uncorrelated impurity-bath ini-tial state in Eq.(5), for which we set β = 10, U = 1 and 
+
+εd = −U /2. In Fig. 3(a,b), we plot G↑¯↑●(t) and G↑●↓(t)8-1.0 -0.5 0.0 0.5 1.0 0 2 4 6 8 10              
+
+> (a)
+> -1.0 -0.5 0.0 0.5 1.0 0246810
+> (b)
+> real part imaginary part 1.0 2.0 3.0 4.0 5.0 6.0 0.05 0.10 0.15 0.20
+> (c) ×10 −2
+> 1.0 2.0 3.0 4.0 0.05 0.10 0.15 0.20
+> (d) ×10 −2
+> G↑¯↑• (t)
+> tG↑•↓ (t)
+> t
+> E
+> δt
+> E
+> δt
+
+FIG. 3. (a,b) The real-time correlation functions G↑¯↑●(t) (a) and G↑●↓(t) as functions of the real time t for the toy model. The red and purple dashed lines are the real and imaginary parts of the Nambu-GTEMPO results calculated with χ = 40 and δt = 0.05, while the solid lines with the same colors are the corresponding ED results. (c,d) The mean error of G↑¯↑●(t)
+
+(c) and G↑●↓(t) (d), between Nambu-GTEMPO with χ = 40 and ED, as functions of the real-time step size δt . We have used ε0 = 1, α20 = 0.5, β = 10, U = 1 and εd = −U /2 in these simulations. 
+
+as functions of the real time t respectively, where we can see that the Nambu-GTEMPO results match very well with ED results. In Fig. 3(c,d), we plot the mean errors of G↑¯↑●(t) and G↑●↓(t) between Nambu-GTEMPO and ED as functions of the real-time step size δt , where we can see that E decreases almost linearly as δt decreases, similar to the observations in Fig. 2(c,d). To this end, we briefly discuss the choices of the two hy-perparameters χ and δt in practice. Generally, δt should be the smallest one of all the time scales in the prob-lem, as it plays the role of time discretization for solv-ing a differential equation, therefore it should be smaller for larger U . For imaginary-time evolution, it has been shown that a larger χ is required for larger β [73], while the relation between β and χ in the real-time evolution is not as clear. 
+
+B. The non-interacting case 
+
+Now we study the non-interacting case, i.e., we set 
+
+U = 0 for the impurity. We consider a continuous bath with the commonly used semi-circular BSF: 
+
+J(ε) = 2
+
+πD 
+
+√
+
+1 − ε2
+
+D2 . (44) We will set D = 1 and use it as the unit. In the non-interacting case, the bond dimension χ of the IF is no -0.5 -0.4 -0.3 -0.2 -0.1 0.0 0 2 4 6 8 10                         
+
+> (a)
+> -0.4 -0.2 0.0 0.2 0.4 0246810
+> (b)
+> 0.0 0.4 0.8 1.2 0.05 0.10 0.15 0.20
+> (c) ×10 −2
+> 2.5 3.0 3.5 4.0 0.05 0.10 0.15 0.20
+> (d) ×10 −4
+> 2.0 4.0 6.0
+> 50 100 150 200 250 (e) ×10 −3
+> 0.0 0.4 0.8 1.2
+> 50 100 150 200 250 (f) ×10 −2
+> ED
+> χ=250 ,δτ =0 .05
+> G↑↑ (τ )
+> τ
+> G↑↓ (τ )
+> τ
+> E
+> δτ
+> E
+> δτ
+> E
+> χ
+> E
+> χ
+
+FIG. 4. (a,b) The imaginary-time correlation functions G↑↑ (τ )
+
+(a) and G↑↓ (τ ) (b) as functions of the imaginary time τ for the non-interacting case. The blue dashed lines are the Nambu-GTEMPO results calculated with χ = 250 and δτ = 0.05, while the solid lines with the same color are the corresponding ED results. (c,d) The mean errors of G↑↑ (τ ) (c) and G↑↓ (τ ) (d), between Nambu-GTEMPO with χ = 250 and ED, as functions of the imaginary-time step size δτ . (e,f) The mean errors of 
+
+G↑↑ (τ ) (e) and G↑↓ (τ ) (f), between Nambu-GTEMPO with 
+
+δτ = 0.05 and ED, as functions of the bond dimension χ. We have used εd = 0, β = 10 in these simulations. 
+
+longer bounded by a constant, therefore the MPS bond truncation error would generally occur, and we will per-form error analysis against χ in addition to the Trotter decomposition error. We will fix εd = 0 in this study (which does not simplify our Nambu-GTEMPO calcu-lation). For our ED calculations of this case, we have discretized the bath with a equal-distant frequency step size δω = 0.01 and checked that our ED results have well converged against δω .Similar to our study of the toy model, we first study the imaginary-time evolution in Fig. 4, in which we set 
+
+β = 10. In Fig. 4(a,b), we plot G↑↑ (τ ) and G↑↓ (τ ) as func-tions of the imaginary time τ , from which we can see that our Nambu-GTEMPO results match very well with the ED results. In Fig. 4(c,d), we plot the mean errors of the two correlation functions in Fig. 4(a,b) between Nambu-GTEMPO and ED as functions of the imaginary-time step size δτ , where we observe monotonically decrease of 
+
+E as δτ decreases. In In Fig. 4(e,f), we plot the mean errors of the two correlation functions in Fig. 4(a,b) be-9-1.0 -0.5 0.0 0.5 1.0 0 2 4 6 8 10 
+
+(a)      
+
+> -1.0 -0.5 0.0 0.5 1.0 0246810
+
+(b)    
+
+> 2.0 4.0 6.0 8.0 0.05 0.10 0.15 0.20
+
+(c) ×10 −2   
+
+> 2.0 4.0 6.0 8.0 0.05 0.10 0.15 0.20
+
+(d) ×10 −2
+
+> 3.5 4.0 4.5 5.0 5.5 6.0 6.5
+
+50 100 150 200 250 (e) ×10 −2
+
+> 3.5 4.0 4.5 5.0 5.5 6.0 6.5
+
+50 100 150 200 250 (f) ×10 −2
+
+> ED
+> χ=250 ,δt =0 .05
+> Im [ G↑¯↑• (t)]
+
+t
+
+> Re [ G↑•↓ (t)]
+
+t
+
+> E
+
+δt 
+
+> E
+
+δt 
+
+> E
+
+χ
+
+> E
+
+χ
+
+FIG. 5. (a,b) The real-time correlation functions G↑¯↑●(t) (the real part vanishes and is not shown) (a) and G↑●↓(t) (the imaginary part vanishes and is not shown) as functions of the real time t for the non-interacting case. The dashed lines are the Nambu-GTEMPO results calculated with χ = 250 and 
+
+δt = 0.05, while the solid lines with the same colors are the corresponding ED results. (c,d) The mean errors of G↑¯↑●(t)
+
+(c) and G↑●↓(t) (d), between Nambu-GTEMPO with χ = 250 and ED, as functions of the real-time step size δt . (e,f) The mean errors of G↑¯↑●(t) (e) and G↑●↓(t) (f), between Nambu-GTEMPO with δt = 0.05 and ED, as functions of the bond dimension χ. We have used εd = 0 and β = 10 in these simu-lations. 
+
+tween Nambu-GTEMPO and ED as functions of χ, where we can see that the mean errors decrease significantly when χ increases from 50 to 100, and saturates after-wards. In Fig. 5, we further study the non-equilibrium real-time evolution for the non-interacting case, in which we set β = 10. In Fig. 5(a,b), we plot the imaginary part of 
+
+G↑¯↑●(t) (a) and the real part of G↑●↓(t) as functions of the real time t (the real part of G↑¯↑●(t) and the imag-inary part of G↑●↓(t) vanish in this case, and thus are not plotted). We can see that the Nambu-GTEMPO re-sults match very well with ED results. In Fig. 5(c,d), we plot the mean errors E of the two correlation func-tions in Fig. 5(a,b) between Nambu-GTEMPO and ED as functions of the real-time step size δt , where we ob-serve that E decreases almost linearly as δt decreases. In Fig. 5(e,f), we plot E of the two correlation functions in Fig. 5(a,b) between Nambu-GTEMPO and ED as func-tions of χ used in Nambu-GTEMPO, where we can see -0.5 -0.4 -0.3 -0.2 -0.1 0.0 0 2 4 6 8 10 
+
+> β=10
+
+(a)      
+
+> -0.5 -0.4 -0.3 -0.2 -0.1 0.0 020 40 60 80 100
+> β=100
+
+(b)      
+
+> -0.4 -0.2 0.0 0.2 0.4 0246810
+
+(c)      
+
+> -0.4 -0.2 0.0 0.2 0.4 020 40 60 80 100
+
+(d)       
+
+> 02460.1 0.2
+> ×10 −3048200 400
+> ×10 −304812 16 0.5 1.0
+> ×10 −32345200 400
+> ×10 −324680.1 0.2
+> ×10 −4048200 400
+> ×10 −30480.5 1.0
+> ×10 −34812 16 200 400
+> ×10 −3
+> CTQMC GTEMPO
+> G↑↑ (τ )
+
+τ
+
+> G↑↑ (τ )
+
+τ
+
+> G↑↓ (τ )
+
+τ
+
+> G↑↓ (τ )
+
+τ
+
+> E
+> δτ
+> E
+> χ
+> E
+> δτ
+> E
+> χ
+> E
+> δτ
+> E
+> χ
+> E
+> δτ
+> E
+> χ
+
+FIG. 6. (a,c) The imaginary-time correlation functions G↑↑ (τ )
+
+(a) and G↑↓ (τ ) (c) as functions of the imaginary time τ for the SAIM with β = 10, where the blue dashed lines are the Nambu-GTEMPO results calculated with χ = 400 and 
+
+δτ = 0.05, and the solid lines with the same color are the corre-sponding CTQMC results. The two insets in each panel show the mean errors between Nambu-GTEMPO and CTQMC as functions of δτ with fixed χ = 400 (left inset), and as func-tions of χ with fixed δτ = 0.05 (right inset), respectively. (b,d) similar to (a,c), but for the SAIM with β = 100. The Nambu-GTEMPO results in the main panels are calculated with χ = 400 and δτ = 0.25. The two insets show the mean errors between Nambu-GTEMPO and CTQMC as functions of δτ with fixed χ = 400 (left inset), and as functions of χ
+
+with fixed δτ = 0.25 (right inset), respectively. We have used 
+
+U = −1 and εd = −U /2 in these simulations. 
+
+that E decrease significantly when χ increases from 50 to 100, and saturates afterwards, similar to Fig. 4(e,f). 
+
+C. The superconducting Anderson impurity model 
+
+In this section, we showcase the application of Nambu-GTEMPO to the superconducting states of the one-band attractive Hubbard model within DMFT. We will choose 
+
+U = −1 and set the system half-filled ( εd = −U /2). In Fig. 6 and Fig. 7, we study the imaginary-time evo-lution of the SAIM and compare our results to CTQMC, where in Fig. 6 we focus on the error analysis against the two hyperparameters χ and δτ in a single DMFT iteration, and in Fig. 7 we perform converged DMFT it-erations with fixed χ and δτ (the details of the DMFT iterations using Nambu-GTEMPO as the impurity solver can be found in Appendix. A). In Fig. 6(a,c), we plot G↑↑ (τ ) and G↑↓ (τ ) as functions of the imaginary time τ for β = 10 (we note that the room temperature is around β = 40 in our units), where the blue dashed lines are the Nambu-GTEMPO results and the solid lines with the same color are the corre-10 -0.5 -0.4 -0.3 -0.2 -0.1 0 2 4 6 8 10                               
+
+> β=10
+> Iter[1] Iter[3] Iter[8] Iter[10]
+> (a)
+> -0.5 -0.4 -0.3 -0.2 -0.1 0.0 020 40 60 80 100
+> β=100
+> (b)
+> -0.2 -0.1 0.0 0.1 0.2 0246810
+> (c)
+> -0.3 -0.2 -0.1 0.0 0.1 0.2 0.3 020 40 60 80 100
+> (d)
+> -8 -4 04802468 10
+> ×10 −3
+> -4 -2 024050 100
+> ×10 −2
+> -8 -4 04802468 10
+> ×10 −4
+> -4 -2 024050 100
+> ×10 −2
+> G↑↑ (τ )
+> τ
+> G↑↑ (τ )
+> τ
+> G↑↓ (τ )
+> τ
+> G↑↓ (τ )
+> τ
+> error
+> τ
+> error
+> τ
+> error
+> τ
+> error
+> τ
+
+FIG. 7. (a,c) The imaginary-time correlation functions G↑↑ (τ )
+
+(a) and G↑↓ (τ ) (c) as functions of the imaginary time τ for the SAIM with β = 10 during 10 DMFT iterations, where the dashed lines in different colors are the Nambu-GTEMPO results calculated with χ = 200 and δτ = 0.1 at the selected iterations, and the solid lines with the same colors are the cor-responding CTQMC results. (b,d) similar to (a, c), but for the SAIM with β = 100, where the Nambu-GTEMPO results are calculated with χ = 300 and δτ = 0.5 instead. The insets show the errors between Nambu-GTEMPO and CTQMC at the selected iterations, in correspondence with the main pan-els. We have used U = −1 and εd = −U /2 in these simulations. 
+
+sponding CTQMC results. In Fig. 6(b,d), we plot the same quantities as in Fig. 6(a,c), but for β = 100 instead. For both values of β, we can see a good match between the Nambu-GTEMPO results and the CTQMC results. In the insets, we show the mean errors as functions of 
+
+δτ (left inset) and of χ (right inset) respectively. From the insets of Fig. 6(a,c), we can see that the mean errors generally decrease for smaller δτ or larger χ, which is as expected. However, the right inset of Fig. 6(b) shows a slight increase of E as χ increases from 200 to 300, which is likely a coincidence due to the interplay between the two error sources. In addition, the bottom left inset of Fig. 6(d) shows a increase of E as δτ decreases. This is likely because that the errors of G↑↓ (τ ) are mostly lo-cated at the boundaries (which has also been observed in Ref. [73] for the standard AIM), and if we use a large δτ ,very few data points are selected from the boundaries, which makes the mean error smaller (the mean error for 
+
+δτ = 1 is already of the order 10 −4, more than two orders of magnitude smaller than the time step size we have used, illustrating the higher accuracy of the middle data points in the Nambu-GTEMPO results). In Fig. 7, we further perform converged imaginary-time DMFT iterations on the Bethe lattice with hopping 
+
+ν = D/2 for both β = 10 (the left panels) and β = 100 (the right panels). In Fig. 7(a,c), we plot G↑↑ (τ ) and 
+
+G↑↓ (τ ) at different DMFT iterations, where the dashed lines are the Nambu-GTEMPO results calculated with 
+
+χ = 200 and δτ = 0.1 and the solid lines are the corre-sponding CTQMC results. In Fig. 7(b,d) we plot the same quantities as in Fig. 7(a,c), but for β = 100, and we have used χ = 300 and δτ = 0.5 in the Nambu-GTEMPO calculations (we have only shown the first and last DMFT iterations in this case as the DMFT calcu-lation quickly converges). We can see a step by step matching between Nambu-GTEMPO and CTQMC. In the insets, we show the difference (error) between the Nambu-GTEMPO and CTQMC results at each itera-tion, from which we can see that the errors generally be-come smaller at larger iterations, until convergence has been reached. These results demonstrate the potential of our Nambu-GTEMPO method as an powerful can-didate quantum impurity solver to study the supercon-ducting states within DMFT. Compared to CTQMC, the advantages of Nambu-GTEMPO on the imaginary con-tour include: (1) the results are free of sampling noises; (2) it is free of the sign problem. However, currently the efficiency of Nambu-GTEMPO is not comparable to CTQMC. Taking the calculations in Eq.(7) for β = 100 as an example, it takes about 10 hours per DMFT it-eration using Nambu-GTEMPO on a single thread of a CPU with 2 .4 GHz frequency (Multi-process paralleliza-tion of GTEMPO is challenging, as a general feature of tensor network algorithms, but it could be promising to use the high-performance, high-bandwidth architec-tures, such as GPU, to accelerate GTEMPO), while for CTQMC it takes only 15 minutes to obtain a total of 128 × 10 6 samples per DMFT iteration using 128 CPU cores, each with 3 .1 GHz frequency. Finally, we study the real-time evolution of the SAIM, which is a very challenging task for non-equilibrium CTQMC due to the dynamical sign problem. We will use the same BSF in Eq.(44) as used in the non-interacting case. In Fig. 8, we show the time evolution of proba-bility of the four impurity states defined in Eqs.(40), as functions of the real time t in the four panels respec-tively. The orange solid lines from lighter to darker are the Nambu-GTEMPO results calculated with different 
+
+χs ranging from 150 to 400, with fixed δt = 0.05. We can see that for χ ≥ 200, the different lines already become very close to each other. In the insets, we plot the errors between the Nambu-GTEMPO results calculated using 
+
+δt = 0.05 and δt = 0.1, with fixed χ = 400. We can see that the errors are generally less than 2 × 10 −2. These results show the potential of our method to be used as a quantum impurity solver in non-equilibrium DMFT. 
+
+VI. SUMMARY 
+
+In summary, we have proposed an extension of the GTEMPO method for the superconducting Anderson im-purity model in which the impurity is coupled to a su-perconducting fermionic bath with s-wave pairing. A key 11 0.0 0.2 0.4 0.6 0.8 1.0 0 2 4 6 8 10                                        
+
+> (a)
+> 0.0 0.2 0.4 0.6 0.8 1.0 0246810
+> (b)
+> 0.0 0.2 0.4 0.6 0.8 1.0 0246810
+> (c)
+> 0.0 0.2 0.4 0.6 0.8 1.0 0246810
+> (d)
+> -2 020246810
+> χ=400
+> ×10 −2
+> -2 020246810
+> ×10 −2
+> -2 020246810
+> ×10 −2
+> -2 0240246810
+> ×10 −2
+> χ=150 χ=200 χ=250 χ=300 χ=400
+> P0(t)
+> tP↑(t)
+> tP↓(t)
+> tP↑↓ (t)
+> t
+> error
+> t
+> error
+> t
+> error
+> t
+> error
+> t
+
+FIG. 8. Time evolution of the probability of the four impurity states ∣0⟩ (a), ∣ ↑⟩ (b), ∣ ↓⟩ (c) and ∣ ↑↓ ⟩ (d), for the SAIM. The orange solid lines from lighter to darker are the Nambu-GTEMPO results calculated with different χs from small to large, with fixed δt = 0.05. In the insets, we show the errors between the Nambu-GTEMPO results calculated using δt =
+
+0.05 and δt = 0.05, with fixed χ = 400. We have used U = −1, 
+
+εd = −U /2 and β = 10 in these simulations. 
+
+step in our extension is to use the Bogoliubov transforma-tion to convert the superconducting bath into the form of a normal bath, such that the analytic expression of the Feynman-Vernon influence functional can be derived. We validate our method by benchmarking it in exactly solvable cases against the exact diagonalization results on both the imaginary- and real-time axis, and against the CTQMC results in the non-integrable SAIM by per-forming converged DMFT iterations on the imaginary-time axis. As an illustration of the powerfulness of our method, we apply it to study the non-equilibrium real-time evolution of the SAIM, which is a very challenging task for CTQMC due to the dynamical sign problem. We note that our method can be straightforwardly extended to treat other forms of pairing in both multi-orbital and multi-site QIP. These results demonstrate the flexibility and potential of our Nambu-GTEMPO method as the impurity solver in DMFT and non-equilibrium DMFT to study the superconducting states in both equilibrium and non-equilibrium systems. The implementation of the Nambu-GTEMPO method proposed in this work on the imaginary and Keldysh, as well as the L-shaped Kadanoff contours (calculations on the last contour have not been considered in the numeri-cal examples of this work), could be found at [91] (which is written in the julia language). 
+
+ACKNOWLEDGMENTS 
+
+This work is supported by National Natural Sci-ence Foundation of China under Grant No. 12104328, No.12574403, No. 12174447, No. 22542010, No. 62471478, No. 12305049 and 12474231. Changming Yue also acknowledges supports from the Guangdong Major Project of Basic Research (2025B0303000004), Guang-dong Provincial Quantum Science Strategic Initiative (GDZX2401004, GDZX2501001). 
+
+Appendix A: DMFT iterations on the imaginary contour using Nambu-GTEMPO 
+
+As we focus on real ∆ sc  
+
+> k
+
+, it can be seen from Eq.(32) that ∆ ↑↑ (τ ) = −∆↓↓ (−τ ) and ∆ ↑↓ (τ ) = ∆↓↑ (τ ). Denot-ing ∆ ↑↑ as ∆ nor (the normal hybridization function), and ∆↑↓ as ∆ ano (the anomalous hybridization function), then the ∆(iωn) in the frequency space (which is the Fourier transformation of ∆(τ )) can be written as 
+
+∆(iωn) = [∆nor (iωn) ∆ano (iωn)
+
+∆ano (iωn) −∆nor (−iωn)], (A1) where ωn is the Matsubara frequency. We consider the DMFT iterations on the Bethe lattice with the lattice hopping constant ν = D/2 = 0.5, for which the self-consistency condition takes a very simple form [32]: 
+
+∆(iωn)
+
+ν2 = σz G(iωn)σz = [ Gnor (iωn) −Gano (iωn)
+
+−Gano (iωn) −Gnor (−iωn)],
+
+(A2) where σz = [ 1 00 −1 ], and we have used Gnor (τ ) = G↑↑ (τ ),
+
+Gano (τ ) = G↑↓ (τ ) with G↑↑ (τ ) and G↑↓ (τ ) defined in Eq.(38a) and Eq.(38b), and G↑↑ (iωn) and G↑↓ (iωn) are the Fourier transformation of G↑↑ (τ ) and G↑↓ (τ ) respec-tively. Using Nambu-GTEMPO as the imaginary-time impurity solver and given an initial ∆0(iωn) (which can either be directly given, or be obtained by substituting a guess BSF into Eq.(11) and then performing the Fourier transformation of the resulting ∆(τ )), we could perform the DMFT iteration as follows: (1) calculating the dis-cretized ∆(τ ) using the inverse Fourier transformation of ∆(iωn); (2) performing Nambu-GTEMPO calculation to obtain A[¯aa ] using ∆(τ ) as the input, and calcu-lating G(τ ) using Eqs.(38) (here we note that Nambu-GTEMPO only requires the ∆(τ ) as the input, instead of the detailed knowledge of ˆHint , similar to CTQMC); (3) Performing Fourier transformation of G(τ ) to obtain 
+
+G(iωn), and then obtain ∆(iωn) using Eq.(A2), which can be used as the starting point of the next iteration. In the DMFT iterations of this work, we choose the initial 12 
+
+∆0(iωn) as: ∆nor 0 (iωn) = 2i ωnν2 [1 −
+
+√
+
+1 + 1
+
+ω2 
+
+> n
+
++ (U ∆sc 0 )2 ] ; (A3) ∆ano 0 (iωn) = −2ν2U ∆sc 0 [1 −
+
+√
+
+1 + 1
+
+ω2 
+
+> n
+
++ (U ∆sc 0 )2 ] ,
+
+(A4) in which we set U ∆sc 0 = 0.2 and ν = 0.5. 
+
+Appendix B: Exact diagonalization algorithm in the non-interacting case 
+
+For the non-interacting case with U = 0, the total Hamiltonian for the SAIM becomes quadratic, which can be efficiently and exactly solved via the exact diagonal-ization algorithm as shown in the following. Assuming that there are N + 1 electron orbitals, with 1 orbital for the impurity and N orbitals for the bath, then the number of annihilation operators plus and the number of creation operators in the Hamiltonian is L =
+
+4(N + 1) in total, which can be arranged into a column vector: 
+
+ˆC = [ˆa↑, ˆa↓, ˆc1,↑, ˆc1,↓, ⋯, ˆcN, ↑, ˆcN, ↓, ˆa† 
+
+> ↑
+
+, ˆa† 
+
+> ↓
+
+, ⋯, ˆc†
+
+> N, ↑
+
+, ˆc†
+
+> N, ↓
+
+]T .
+
+(B1) With Eq.(B1), the total Hamiltonian of the non-interacting SAIM can be written as ˆH =
+
+> L
+
+∑
+
+> i,j =1
+
+ˆC† 
+
+> i
+
+Hij ˆCk = ˆC†H ˆC, (B2) where the 4 (N + 1) × 4(N + 1) coefficient matrix H is 
+
+H = [ h gg† 0], (B3) with h a 2 (N + 1) × 2(N + 1) coefficient matrix for the particle number-conserving part of ˆH, g a 2 (N +1)×2(N +
+
+1) coefficient matrix for the non-number-conserving part. The explicit forms of h and g are 
+
+h =
+
+⎡⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎣
+
+εd 0 V1 V2 ⋯ VN
+
+0 εd V1 V2 ⋯ VN
+
+V1 V1 ε1 0 ⋯ 0
+
+V2 V2 0 ε2 ⋯ ⋮⋮ ⋮ ⋮ 0 ⋱ 0
+
+VN VN 0 ⋯ 0 εN
+
+⎤⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎦
+
+, (B4) and 
+
+g =
+
+⎡⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎢⎣
+
+0 0 0 0 ⋯ ⋯ 0 ⋯ ⋯ 00 0 0 0 ⋯ ⋯ 0 ⋯ ⋯ 00 0 0 ∆ sc 1 0 ⋯ 0 ⋯ ⋯ 00 0 0 0 0 ∆sc 2 ⋯ 0 ⋯ ⋮
+
+0 0 0 0 ⋯ ⋱ ⋮ ⋮ 0 00 0 0 0 ⋯ ⋱ 0 ∆sc   
+
+> N−1
+
+0 00 0 0 0 ⋯ ⋯ 0 0 0 ∆sc 
+
+> N
+
+⎤⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎥⎦
+
+, (B5) respectively. Since ˆH is quadratic, the equation of motion for ˆCj (t) in the Heisenberg picture is given by i d ˆCj (t)
+
+dt = [ ˆCj (t), ˆH] = ∑
+
+> kl
+
+[Cj (t), H kl ˆC†
+
+> k
+
+(t) ˆCl(t)] , (B6) which gives i d ˆCj (t)
+
+dt = ∑
+
+> l
+
+Mjl ˆCl(t), (B7) i.e., i d ˆC(t)
+
+dt = M ˆC(t), (B8) where the coefficient matrix M is 
+
+M = [ h g − g†
+
+g† − g −h† ]. (B9) The solution is 
+
+ˆC(t) = e−iM t ˆC. (B10) Based on Eq.(B10), one could easily calculate any multi-time correlations, for example, the real-time correlation functions in Eq.(39) can be obtained using 
+
+G>
+
+> ↑↑
+
+(t) = 1
+
+Z Tr [( e−iM t ˆC)1 ˆC† 
+
+> 1
+
+ˆρ0] , (B11a) 
+
+G<
+
+> ↑↑
+
+(t) = 1
+
+Z Tr [( ˆC†eiM t )1 ˆC1 ˆρ0] , (B11b) 
+
+G>
+
+> ↑↓
+
+(t) = 1
+
+Z Tr [( e−iM t ˆC)1 ˆC† 
+
+> 2
+
+ˆρ0] , (B11c) 
+
+G<
+
+> ↑↓
+
+(t) = 1
+
+Z Tr [( ˆC†eiM t )1 ˆρ0 ˆC2] , (B11d) where Z = Tr (ˆρ0) and (A)1 means to take the first ele-ment of the vector A.13 
+
+[1] P. W. Anderson, Localized magnetic states in metals, Phys. Rev. 124 , 41 (1961). [2] A. Georges, The beauty of impurities: Two revivals of friedel’s virtual bound-state concept, Comptes Rendus Physique 17 , 430 (2016), physique de la mati` ere con-dens´ ee au XXIe si` ecle: l’h´ eritage de Jacques Friedel. [3] G. D. Mahan, Many-Particle Physics (Springer; 3nd edi-tion, 2000). [4] U. Weiss, Quantum Dissipative Systems (World Scien-tific, Singapore, 1993). [5] W. Metzner and D. Vollhardt, Correlated lattice fermions in d = ∞ dimensions, Phys. Rev. Lett. 62 , 324 (1989). [6] A. Georges and G. Kotliar, Hubbard model in infinite dimensions, Phys. Rev. B 45 , 6479 (1992). [7] A. Georges, G. Kotliar, W. Krauth, and M. J. Rozen-berg, Dynamical mean-field theory of strongly correlated fermion systems and the limit of infinite dimensions, Rev. Mod. Phys. 68 , 13 (1996). [8] G. E. Blonder, M. Tinkham, and T. M. Klapwijk, Tran-sition from metallic to tunneling regimes in supercon-ducting microconstrictions: Excess current, charge im-balance, and supercurrent conversion, Phys. Rev. B 25 ,4515 (1982). [9] J. C. Cuevas, A. Mart´ ın-Rodero, and A. L. Yeyati, Hamil-tonian approach to the transport properties of supercon-ducting quantum point contacts, Phys. Rev. B 54 , 7366 (1996). [10] B. M. Andersen, K. Flensberg, V. Koerting, and J. Paaske, Nonequilibrium transport through a spinful quantum dot with superconducting leads, Phys. Rev. Lett. 107 , 256802 (2011). [11] A. Y. Kitaev, Unpaired majorana fermions in quantum wires, Physics-Uspekhi 44 , 131 (2001). [12] J. Alicea, New directions in the pursuit of majorana fermions in solid state systems, Reports on Progress in Physics 75 , 076501 (2012). [13] A. Sakurai, Comments on superconductors with mag-netic impurities, Progress of Theoretical Physics 
+
+44 , 1472 (1970), https://academic.oup.com/ptp/article-pdf/44/6/1472/5378530/44-6-1472.pdf. [14] E. M¨ uller-Hartmann and J. Zittartz, Kondo effect in su-perconductors, Phys. Rev. Lett. 26 , 428 (1971). [15] T. Matsuura, The effects of impurities on superconduc-tors with kondo effect, Progress of Theoretical Physics 
+
+57 , 1823 (1977), https://academic.oup.com/ptp/article-pdf/57/6/1823/5461826/57-6-1823.pdf. [16] A. V. Balatsky, I. Vekhter, and J.-X. Zhu, Impurity-induced states in conventional and unconventional su-perconductors, Rev. Mod. Phys. 78 , 373 (2006). [17] A. Yazdani, B. A. Jones, C. P. Lutz, M. F. Crommie, and D. M. Eigler, Probing the local effects of magnetic im-purities on superconductivity, Science 275 , 1767 (1997), https://www.science.org/doi/pdf/10.1126/science.275.5307.1767. [18] K. J. Franke, G. Schulze, and J. I. Pascual, Com-petition of superconducting phenomena and kondo screening at the nanoscale, Science 332 , 940 (2011), https://www.science.org/doi/pdf/10.1126/science.1202204. [19] L. P. Gor’kov, On the energy spectrum of superconduc-tors, Sov. Phys. JETP 7, 505 (1958). [20] Y. Nambu, Quasi-particles and gauge invariance in the theory of superconductivity, Phys. Rev. 117 , 648 (1960). [21] A. I. Lichtenstein and M. I. Katsnelson, Antiferromag-netism and d-wave superconductivity in cuprates: A clus-ter dynamical mean-field theory, Phys. Rev. B 62 , R9283 (2000). [22] M. Caffarel and W. Krauth, Exact diagonalization ap-proach to correlated fermions in infinite dimensions: Mott transition and superconductivity, Phys. Rev. Lett. 
+
+72 , 1545 (1994). [23] S. S. Kancharla, B. Kyung, D. S´ en´ echal, M. Civelli, M. Capone, G. Kotliar, and A.-M. S. Tremblay, Anoma-lous superconductivity and its competition with antifer-romagnetism in doped mott insulators, Phys. Rev. B 77 ,184516 (2008). [24] M. Civelli, Doping-driven evolution of the superconduct-ing state from a doped mott insulator, Phys. Rev. B 79 ,195113 (2009). [25] S. Sakai, M. Civelli, and M. Imada, Hidden fermionic excitation boosting high-temperature superconductivity in cuprates, Phys. Rev. Lett. 116 , 057003 (2016). [26] S. Sakai, M. Civelli, and M. Imada, Hidden-fermion rep-resentation of self-energy in pseudogap and supercon-ducting states, Phys. Rev. B 94 , 115130 (2016). [27] S. Sakai, M. Civelli, and M. Imada, Direct connection be-tween mott insulators and d-wave superconductors, Phys. Rev. B 98 , 195109 (2018). [28] A. Foley, S. Verret, A.-M. S. Tremblay, and D. S´ en´ echal, Coexistence of superconductivity and antiferromag-netism in the hubbard model for cuprates, Phys. Rev. B 99 , 184510 (2019). [29] G. Sordi, P. S´ emon, K. Haule, and A.-M. S. Tremblay, Strong coupling superconductivity, pseudogap, and mott transition, Phys. Rev. Lett. 108 , 216401 (2012). [30] E. Gull and A. J. Millis, Superconductivity and the pseu-dogap in the two-dimensional hubbard model, Phys. Rev. Lett. 110 , 216405 (2013). [31] X. Dong, E. Gull, and A. J. Millis, Quantifying the role of antiferromagnetic fluctuations in the superconductivity of the doped hubbard model, Nat. Phys. 18 , 1293 (2022). [32] C. Yue, H. Aoki, and P. Werner, Superconductivity en-hanced by pair fluctuations between wide and narrow bands, Phys. Rev. B 106 , L180506 (2022). [33] J. Liu, D.-X. Yao, and W. Wu, Interplay between the pseudogap and superconductivity in doped mott insula-tors: A cluster dynamical mean-field theory study, Chi-nese Physics Letters 42 , 080711 (2025). [34] M. Capone, M. Fabrizio, C. Castellani, and E. Tosatti, Strongly correlated superconductivity, Science 296 , 2364 (2002). [35] M. Capone, M. Fabrizio, C. Castellani, and E. Tosatti, Modeling the unconventional superconducting properties of a3c60 fullerides, Rev. Mod. Phys. 81 , 943 (2009). [36] Y. Nomura, S. Sakai, M. Capone, and R. Arita, Unified understanding of superconductivity and mott transition in alkali-doped fullerides, Sci. Adv. 1, e1500568 (2015). [37] C. Yue, S. Hoshino, A. Koga, and P. Werner, Unconven-tional pairing from local orbital fluctuations in strongly correlated A3c60 , Phys. Rev. B 104 , 075107 (2021). [38] C. Yue, Y. Nomura, K. Prassides, and P. Werner, In-stability of the pa 3 fulleride cs 3c60 at ambient pressure and superconducting state of the fcc phase, Phys. Rev. B 108 , L220508 (2023). 14 
+
+[39] C. Yue, Y. Nomura, and P. Werner, Doping asymmetry and layer-selective metal-insulator transition in trilayer k3+xc60 , Phys. Rev. Lett. 129 , 066403 (2022). [40] M. Sentef, P. Werner, E. Gull, and A. P. Kampf, Su-perconducting phase and pairing fluctuations in the half-filled two-dimensional hubbard model, Phys. Rev. Lett. 
+
+107 , 126401 (2011). [41] B. Bacq-Labreuil, B. Lacasse, A.-M. S. Tremblay, D. S´ en´ echal, and K. Haule, Toward an ab initio theory of high-temperature superconductors: A study of multi-layer cuprates, Phys. Rev. X 15 , 021071 (2025). [42] S. Sakai, Y. Yamaji, and M. Imada, Unified description of cuprate superconductors by fractionalized electrons, Phys. Rev. X 16 , 011018 (2026). [43] Y.-H. Tian, Y. Chen, J.-M. Wang, R.-Q. He, and Z.-Y. Lu, Correlation effects and concomitant two-orbital s±-wave superconductivity in la 3ni 2o7 under high pressure, Phys. Rev. B 109 , 165154 (2024). [44] S.-C. Mo, Y.-Y. Zheng, and W. W´ u, Intertwined elec-tron pairing in the bilayer two-orbital kanamori-hubbard model: A unified picture of two superconductivities, arXiv preprint (2025), 2508.04554. [45] Y. Nomura, M. Kitatani, S. Sakai, and R. Arita, Strong-coupling high-Tc superconductivity in doped correlated band insulators, Phys. Rev. B 112 , L020504 (2025). [46] C. Yue and P. Werner, Pairing enhanced by local orbital fluctuations in a model for monolayer fese, Phys. Rev. B 
+
+104 , 184507 (2021). [47] S. Sakai and N. Takemori, Doped mott insulator on a penrose tiling, Phys. Rev. B 105 , 205138 (2022). [48] T. Fukushima, N. Takemori, S. Sakai, M. Ichioka, and A. Jagannathan, Supercurrent distribution in real space and anomalous paramagnetic response in a supercon-ducting quasicrystal, Phys. Rev. Research 5, 043164 (2023). [49] D. J. Luitz and F. F. Assaad, Weak-coupling continuous-time quantum monte carlo study of the single impurity and periodic anderson models with s-wave superconduct-ing baths, Phys. Rev. B 81 , 024509 (2010). [50] D. J. Luitz, F. F. Assaad, T. Novotn´ y, C. Karrasch, and V. Meden, Understanding the josephson current through a kondo-correlated quantum dot, Phys. Rev. Lett. 108 ,227001 (2012). [51] K. Satori, H. Shiba, O. Sakai, and Y. Shimizu, Numerical renormalization group study of magnetic impurities in su-perconductors, Journal of the Physical Society of Japan 
+
+61 , 3239 (1992), https://doi.org/10.1143/JPSJ.61.3239. [52] O. Sakai, Y. Shimizu, H. Shiba, and K. Satori, Numer-ical renormalization group study of magnetic impuri-ties in superconductors. ii. dynamical excitation spec-tra and spatial variation of the order parameter, Jour-nal of the Physical Society of Japan 62 , 3181 (1993), https://doi.org/10.1143/JPSJ.62.3181. [53] J. Bauer, A. Oguri, and A. C. Hewson, Spec-tral properties of locally correlated electrons in abardeen–cooper–schrieffer superconductor, Journal of Physics: Condensed Matter 19 , 486211 (2007). [54] C. Karrasch, A. Oguri, and V. Meden, Josephson current through a single anderson impurity coupled to bcs leads, Phys. Rev. B 77 , 024517 (2008). [55] R. ˇZitko, J. S. Lim, R. L´ opez, and R. Aguado, Shiba states and zero-bias anomalies in the hybrid normal-superconductor anderson model, Phys. Rev. B 91 , 045441 (2015). [56] W.-J. Zhang, R. Zheng, R.-Q. He, and Z.-Y. Lu, Numeri-cal study of a quantum spin in an s-wave superconductor using the natural orbitals renormalization group method, Chinese Physics B 35 , 027104 (2026). [57] M. M. Wauters, C.-M. Chung, L. Maffi, and M. Burrello, Topological kondo model out of equilibrium, Phys. Rev. B 108 , L220302 (2023). [58] A. N. Rubtsov and A. I. Lichtenstein, Continuous-time quantum monte carlo method for fermions: Beyond aux-iliary field framework, J. Exp. Theor. Phys. Lett. 80 , 61 (2004). [59] A. N. Rubtsov, V. V. Savkin, and A. I. Lichten-stein, Continuous-time quantum monte carlo method for fermions, Phys. Rev. B 72 , 035122 (2005). [60] P. Werner, A. Comanac, L. de’ Medici, M. Troyer, and A. J. Millis, Continuous-time solver for quantum impu-rity models, Phys. Rev. Lett. 97 , 076405 (2006). [61] E. Gull, P. Werner, O. Parcollet, and M. Troyer, Continuous-time auxiliary-field monte carlo for quantum impurity models, EPL 82 , 57003 (2008). [62] C.-K. Chan, P. Werner, and A. J. Millis, Magnetism and orbital ordering in an interacting three-band model: Adynamical mean-field study, Phys. Rev. B 80 , 235114 (2009). [63] E. Gull, A. J. Millis, A. I. Lichtenstein, A. N. Rubtsov, M. Troyer, and P. Werner, Continuous-time monte carlo methods for quantum impurity models, Rev. Mod. Phys. 
+
+83 , 349 (2011). [64] I. de Vega, U. Schollw¨ ock, and F. A. Wolf, How to dis-cretize a quantum bath for real-time evolution, Phys. Rev. B 92 , 155126 (2015). [65] L. Kohn and G. E. Santoro, Efficient mapping for ander-son impurity problems with matrix product states, Phys. Rev. B 104 , 014303 (2021). [66] L. Kohn and G. E. Santoro, Quench dynamics of the an-derson impurity model at finite temperature using ma-trix product states: entanglement and bath dynamics, J. Stat. Mech. Theory Exp. 2022 , 063102 (2022). [67] D. E. Makarov and N. Makri, Path integrals for dissipa-tive systems by tensor multiplication. condensed phase quantum dynamics for arbitrarily long time, Chem. Phys. Lett. 221 , 482 (1994). [68] N. Makri, Numerical path integral techniques for long time dynamics of quantum dissipative systems, J. Math. Phys. 36 , 2430 (1995). [69] A. Strathearn, P. Kirton, D. Kilda, J. Keeling, and B. W. Lovett, Efficient non-markovian quantum dynamics using time-evolving matrix product operators, Nat. Commun. 
+
+9, 3322 (2018). [70] Z.-C. Gu, Efficient simulation of grassmann tensor prod-uct states, Phys. Rev. B 88 , 115139 (2013). [71] Y. Yoshimura, Y. Kuramashi, Y. Nakamura, S. Takeda, and R. Sakai, Calculation of fermionic green func-tions with grassmann higher-order tensor renormaliza-tion group, Phys. Rev. D 97 , 054511 (2018). [72] S. Akiyama and D. Kadoh, More about the grassmann tensor renormalization group, J. High Energy Phys. 
+
+2021 , 188. [73] R. Chen, X. Xu, and C. Guo, Grassmann time-evolving matrix product operators for equilibrium quantum impu-rity problems, New J. Phys. 26 , 013019 (2024). [74] R. Chen, X. Xu, and C. Guo, Grassmann time-evolving matrix product operators for quantum impurity models, Phys. Rev. B 109 , 045140 (2024). 15 
+
+[75] R. Chen and C. Guo, Solving equilibrium quantum im-purity problems on the l-shaped kadanoff-baym contour, Phys. Rev. B 110 , 165114 (2024). [76] R. Chen, L. Gu, and C. Guo, Tensor network algorithm to solve polaron impurity problems, Chin. Phys. Lett. 42 ,120701 (2025). [77] Z. Sun, R. Chen, Z. Li, and C. Guo, Scalable tensor net-work algorithm for quantum impurity problems, Phys. Rev. B 112 , 155115 (2025). [78] M. Troyer and U.-J. Wiese, Computational complexity and fundamental limitations to fermionic quantum monte carlo simulations, Phys. Rev. Lett. 94 , 170201 (2005). [79] M. Eckstein, M. Kollar, and P. Werner, Interaction quench in the hubbard model: Relaxation of the spec-tral function and the optical conductivity, Phys. Rev. B 
+
+81 , 115131 (2010). [80] G. Cohen, E. Gull, D. R. Reichman, and A. J. Millis, Taming the dynamical sign problem in real-time evolu-tion of quantum many-body problems, Phys. Rev. Lett. 
+
+115 , 266802 (2015). [81] H. Aoki, N. Tsuji, M. Eckstein, M. Kollar, T. Oka, and P. Werner, Nonequilibrium dynamical mean-field theory and its applications, Rev. Mod. Phys. 86 , 779 (2014). [82] R. P. Feynman and F. L. Vernon, The theory of a gen-eral quantum system interacting with a linear dissipative system, Ann. Phys. 24 , 118 (1963). [83] J. Bardeen, L. N. Cooper, and J. R. Schrieffer, Theory of superconductivity, Phys. Rev. 108 , 1175 (1957). [84] A. Kamenev and A. Levchenko, Keldysh technique and non-linear σ-model: Basic principles and applications, Adv. Phys. 58 , 197 (2009). [85] J. W. Negele and H. Orland, Quantum Many-Particle Systems (Westview Press, 1998). [86] L. P. Kadanoff and G. Baym, Quantum Statistical Mech-nics (W. A. Benjamin, New York, 1962). [87] R. Chen, Path integral formalism for quantum open sys-tems, Annals of Physics 480 , 170083 (2025). [88] C. Guo and R. Chen, Efficient construction of the Feynman-Vernon influence functional as matrix product states, SciPost Phys. Core 7, 063 (2024). [89] C. Guo, W. Wu, X. Xu, T. Jiang, P.-X. Chen, and R. Chen, Time-evolving matrix product operators for off-diagonal system-bath coupling (2026), arXiv:2604.01556 [cond-mat.mes-hall]. [90] Z. Sun, Z. Li, and C. Guo, Efficient and accurate ten-sor network algorithm for anderson impurity problems (2025), arXiv:2510.11459 [cond-mat.str-el]. [91] https://github.com/guochu/GTEMPO.
