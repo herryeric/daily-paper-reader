@@ -1,0 +1,961 @@
+Title: Magnonic Gottesman-Kitaev-Preskill states
+
+URL Source: https://arxiv.org/pdf/2604.27565v1
+
+Published Time: Fri, 01 May 2026 00:38:15 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Magnonic Gottesman-Kitaev-Preskill states 
+
+Zi-Xu Lu, 1, ∗ Gang Liu, 1, ∗ Matteo Fadel, 2 and Jie Li 1, †
+
+> 1
+
+Zhejiang Key Laboratory of Micro-Nano Quantum Chips and Quantum Control, and School of Physics, Zhejiang University, Hangzhou 310027, China 
+
+> 2
+
+Department of Physics, ETH Z¨ urich, Z¨ urich, Switzerland 
+
+Bosonic quantum error correction encodes a logical qubit in an oscillator, avoiding the hardware overhead of large qubit arrays. Among such encodings, Gottesman-Kitaev-Preskill (GKP) states are paticularly powerful because their phase-space grid structure protects against small displacement errors simultaneously in both conjugate quadratures. Here we provide the first protocol for prepar-ing magnonic GKP states, which involves an ellipsoidal magnetic crystal effectively coupled to a superconducting qubit via a microwave cavity. The geometric anisotropy intrinsically squeezes the magnon mode, while the cavity-mediated qubit control realizes an effective conditional-displacement interaction. We show that two rounds of a conditional-displacement interaction and a qubit projec-tive measurement yield three- and four-component magnonic GKP-like states. We also show how to realize single logical qubit gate operations, such as Pauli, Hadamard and phase gates, completing the logical Pauli basis of the approximate GKP code. Our results establish hybrid magnon–qubit systems as a promising platform for preparing bosonic code states, with applications in magnonic fault-tolerant quantum computation and quantum sensing. 
+
+Introduction. –The GKP code states [1], encoding a logical qubit in an infinite-dimensional Hilbert space of a continuous-variable system, represent a powerful ap-proach to quantum error correction [2, 3]. They are effec-tive in protecting against small errors that occur continu-ally, such as diffusive drifts and amplitude damping of an oscillator or a bosonic mode. Compared to other bosonic codes such as cat [4] and binomial codes [5], which are designed primarily to correct excitation loss errors, GKP states exploit displacement operators to protect against shift errors, manifesting as a periodic grid of highly lo-calized peaks in phase space. This structure makes GKP states a vital component of fault-tolerant quantum com-putation [6–9], which also find other applications in quan-tum communication [10–15], quantum sensing [16–18], and quantum memory [19, 20]. Despite their appeal, GKP states are non-Gaussian [21] and notoriously difficult to prepare. Ideal GKP states consist of an infinite superposition of the eigenstates, re-quiring infinite energy and are thus unphysical; practi-cal implementations rely on finite-component approxi-mations composed of displaced squeezed states [1]. To date, various proposals have been put forward, including approaches based on cat states [22], Fock states [23], pho-ton catalysis [24], Kerr interactions [25–27], generalized Rabi interactions [28], cavity QED [29], periodic poten-tial [30, 31], shaped free electrons [32, 33], atomic en-sembles [34, 35], parity measurements [36], fault-tolerant phase estimation [37], neural network [38], etc. In the experiment, GKP states have only been realized in very limited platforms, including trapped-ion motional modes [39–42], superconducting microwave cavities [43–   
+
+> ∗These authors contributed equally to this work
+> †jieli007@zju.edu.cn
+
+47], and propagating optical fields [48]. Recent years have witnessed a significant development in cavity, nonlinear, and quantum magnonics, due to their broad applications in hybrid quantum systems, quantum information processing, and novel magnonic de-vices [49–53]. Of particular interest, magnonic systems hold potential applications in quantum sensing [54–56] and quantum computing [53]. Nonetheless, quantum computing-related protocols based on magnonics have been rarely explored. In particular, the realization of GKP states in magnonic systems remains to be demon-strated. Here, to bridge this gap, we provide the first protocol to generate magnonic GKP states. The sys-tem adopted consists of an ellipsoidal magnetic crystal, whose shape anisotropy intrinsically squeezes the magnon mode, coupled to a superconducting qubit via the me-diation of a microwave cavity, which provides nonlinear couplings required for GKP states [1]. Starting from the magnonic squeezed vacuum, two rounds of an effective conditional-displacement (CD) interaction and a qubit projective measurement yield three- or four-component superposition of displaced squeezed states that approx-imate the square GKP lattice. We first introduce the system, derive the effective CD Hamiltonian, a building block for preparing GKP states, and then show explicitly how magnonic GKP-like states can be generated in our protocol. We further characterize these states by means of Wigner functions, stabilizer expectation values, effec-tive squeezing, and logical fidelity. The CD operation de-rived in this work allows also for preparing magnonic su-perposition states and performing magnon characteristic-function tomography [57]. 
+
+The GKP code. –We model magnons, the collective spin excitations in magnetic materials, as a single bosonic mode [49, 51, 52] with the annihilation (creation) op-erator m (m†), and the associated amplitude and phase 
+
+> arXiv:2604.27565v1 [quant-ph] 30 Apr 2026
+
+2            
+
+> FIG. 1. (a) Phase-space representation of the stabilizers SX,
+> SZand the logical Pauli operators XL,YL, and ZL.The enclosed symplectic area sets the commutation relations of the corresponding displacement operators. (b) The squeezed magnon mode in an ellipsoidal magnetic crystal gets effec-tively coupled to a transmon superconducting qubit via a mi-crowave cavity (not shown). The magnetic crystal is placed inside a uniform bias magnetic field B0along the zaxis. A mi-crowave field is loaded via a loop antenna to drive the magnon mode to perform the displacement operation.
+
+quadratures q = ( m† + m)/√2 and p = ( m − m†)/(i√2), satisfying [ q, p ] = i. We aim to generate magnonic GKP states forming a square lattice in phase space. Since ideal GKP states are non-normalizable, we con-sider physically realizable approximations constructed from finite superpositions of displaced squeezed states. Specifically, we write the logical basis states as |0⟩L ∝
+
+Pkmax  
+
+> k∈Z
+
+ckD(ik √2π) |r⟩ and |1⟩L ∝ D(−ipπ/ 2) |0⟩L [1, 3], where |r⟩ = S(r) |0⟩ is the squeezed vacuum state, 
+
+D(α) = exp( αm † − α∗m) is the displacement operator with a complex number α, and S(r) = exp[( r/ 2)( m†2 −
+
+m2)] is the squeezing operator with a real squeezing pa-rameter r. The coefficient ck determines the weight of each displaced component. Ideal GKP codewords are achieved when r → ∞ and cutoff kmax → ∞ [1, 3]. The square GKP code encodes a logical qubit in a sin-gle oscillator via a lattice structure in phase space defined by commuting displacement operators (Fig. 1(a)). The stabilizers, namely the error-check operators, are chosen as SX = D(u) and SZ = D(v), where the primitive lattice vectors u and v satisfy the symplectic condition Φ ≡ Im( vu ∗) = 2 π, ensuring commutativity. Logical Pauli operators correspond to half-lattice displacements 
+
+XL = D(u/ 2), ZL = D(v/ 2), and YL = D(−u/ 2 − v/ 2), which anticommute pairwise due to the Weyl relation governing displacement operators. In our protocol, we define the characteristic length l = √2π, and the effective CD interaction generates displacements along the phase axis, leading to the choice u = i l and v = −2π/l . This construction ensures that logical operators commute with stabilizers while reproducing the Pauli algebra on the en-coded subspace, with the resulting code states exhibiting periodicity under the stabilizer lattice translations [58]. 
+
+The system and effective Hamiltonian. –The system consists of an ellipsoidal magnetic crystal and a trans-mon superconducting qubit, which are effectively cou-pled via the mediation of a microwave cavity [63–67], as depicted in Fig. 1(b). The magnetic system is de-scribed by the classical magnetic Hamiltonian [68, 69] under a static magnetic field B0 along the z-axis, which saturates the magnetization M along this direction, i.e., 
+
+Mx,y ≪ Mz ≈ Ms (Ms is the saturation magnetization), given by 
+
+H =
+
+Z
+
+> VF
+
+d3r
+
+
+
+−μ0B0Mz − μ0
+
+2 Hm · M + JM 2
+
+> s
+
+(∇M )2
+
+
+
+,
+
+(1) where VF is the volume of the crystal, μ0 is the perme-ability of vacuum, J is the exchange energy constant, and ∇ is the gradient operator. Here, Hm is the demag-netization field due to magnetic dipolar interaction [70]: 
+
+Hm = −(NxMxx + Ny My y + Nz Mz z), with Nx,y,z be-ing the elements of the demagnetization tensor depend-ing only on the geometric structure. The bias magnetic field B0 satisfies B0 + Hm ·z > 0 to keep the saturation magnetization along the z direction [70, 71]. After quantizing the magnetization via the Hol-stein–Primakoff transformation [72] and performing the Fourier transformation, we obtain the following Hamil-tonian for the Kittel mode [68] in the magnetostatic limit [58]: 
+
+H/ ℏ = ωmm†m + ξ
+
+2 (m†2 + m2), (2) where m (m†) is the annihilation (creation) operator of the Kittel mode with frequency ωm = γ0μ0B0 +[γ0μ0Ms(1 − 3Nz )] /2 and ξ = [γ0μ0Ms(Nx − Ny )] /2(γ0 is the gyromagnetic ratio). For an ellipsoid with 
+
+a > b = c (Fig. 1(b)), where a, b, and c are the el-lipsoid semi-axes, the elements of the demagnetization tensor read [70] 
+
+Nx = 1 − e2
+
+2e3
+
+
+
+ln 1 + e
+
+1 − e − 2e
+
+
+
+, N y = Nz = 12 (1 − Nx),
+
+(3) with the eccentricity e = p1 − (c/a )2. This geometric anisotropy leads to a finite parametric term ξ, result-ing in a magnonic squeezed vacuum state S(r)|0⟩, with 
+
+r = 14 ln[( ωm + ξ)/(ωm − ξ)]. Alternatively, the magnon squeezing can also be achieved by transferring squeezing from external driving fields [73], or two-tone driving of a superconducting qubit to induce a two-magnon pro-cess [74, 75]. 3              
+
+> FIG. 2. (a) Operation sequence used to generate the GKP state |0⟩L.The transmon qubit is initially in the ground state |g⟩and the magnon mode is in the squeezed vacuum state |r⟩.(b) Operation sequence used to perform the log-ical Hadamard gate (phase gate) onto |0⟩Lto generate the GKP state |+⟩L(|ϕ+⟩L). The “ CD ” operation represents the magnon-qubit coevolution under the CD interaction, the “|g⟩” operation denotes the qubit projective measurement, and the “ D” operation stands for the magnon displacement. The qubit π/ 2-rotation “ R” is only applied for |ϕ+⟩L.
+
+The magnon mode is coupled to a transmon qubit via the exchange of virtual photons in a microwave cav-ity [63–67], and the qubit is resonantly driven by a mi-crowave field. By adiabatically eliminating the cavity mode in the large-detuning limit and applying a series of unitary transformations, we obtain the following ef-fective magnon-qubit Hamiltonian which describes a CD interaction [58]: 
+
+Hmq /ℏ = − χ
+
+2 (ms + m†
+
+> s
+
+)σx, (4) where ms (m†
+
+> s
+
+) is the annihilation (creation) operator of the Bogoliubov mode [76], whose ground state |0⟩s cor-responds to a magnonic squeezed vacuum state, and the expression of the coupling strength χ is provided in [58]. Equation (4) indicates a displacement of the magnon mode conditioned on the qubit state: the two eigenstates of σx with eigenvalues ±1 correspond to the displacement of the squeezed magnon in opposite directions along the phase axis. The displacement amplitude is proportional to χt , and thus can be controlled by the interaction time. Combining the CD interaction with a qubit projective measurement, e.g., onto the ground state |g⟩ (Fig. 2(a)), the magnon mode is projected onto a superposition of two displaced squeezed states. Repeating N rounds of such a displacement-measurement sequence accumulates 2N components in phase space, whose periodic interfer-ence gives rise to a comb-like Wigner function [77]—the hallmark of an approximate GKP codeword. 
+
+Magnonic GKP-like states. –We start with the ini-tial state |ψ0⟩s = |0⟩s |g⟩ (Fig. 2(a)), where the magnon is in squeezed vacuum |r⟩ = S(r) |0⟩s in-duced by geometry anisotropy, and the qubit is in the ground state |g⟩. The CD Hamiltonian (4) corre-sponds to a unitary evolution operator U (t1), which, expressed in the σx eigenbasis {|±⟩ x} with |±⟩ x =(|g⟩ ± | e⟩)/√2 and σx |±⟩ x = ± |±⟩ x, is given by 
+
+U (t1) = |+⟩x⟨+| D(iα s, 1) + |−⟩ x⟨−| D(−iα s, 1), where 
+
+D(iα s, 1) = exp[ iα s, 1(ms + m†
+
+> s
+
+)] and αs, 1 = χt 1/2, with the interaction time t1. The above unitary evolu-tion leads to the joint magnon–qubit state |ψ(t1)⟩mq =[D(iα s, 1) |0⟩s |+⟩x+D(−iα s, 1) |0⟩s |−⟩ x]/√2, showing ex-plicitly that the qubit is entangled with two oppositely displaced squeezed vacuum wave packets of the magnon mode. Projecting the qubit onto the ground state |g⟩
+
+leads the magnon mode to a state that is equivalent to ap-plying the operator Eg (iα s, 1) = [ D(iα s, 1)+ D(−iα s, 1)] /2onto the initial state |0⟩s, i.e., |ψ⟩m = Eg (iα s, 1) |0⟩s,which is a superposition of two oppositely displaced squeezed vacuum states. Repeating the above displacement-measurement oper-ation twice leads the magnon mode to the state |ψ⟩m =
+
+Eg (iα s, 2)Eg (iα s, 1) |0⟩s, with αs, 2 = χt 2/2 and t2 being the duration of the second CD interaction, which can be expanded as a coherent superposition of four components 
+
+|ψ⟩m = 14
+
+D[i(αs, 1 + αs, 2)] + D[i(αs, 1 − αs, 2)] (5) +D[−i(αs, 1 − αs, 2)] + D[−i(αs, 1 + αs, 2)] |0⟩s .
+
+When t2 = t1, one has αs, 2 = αs, 1 ≡ αs, and Eq. (5) re-duces to a three-component superposition state |ψ⟩m =
+
+N3
+
+D(2 iα s) + 2 1 + D(−2iα s) |0⟩s with three wave pack-ets centered at 0 and ±2iα s. Here the normalization factor N3 = (6 + 8 e−2|αs|2
+
++ 2 e−8|αs|2
+
+)−1/2. Alterna-tively, the choice of t2 = 2 t1 yields αs, 2 = 2 αs, 1 ≡ 2αs,which produces a four-component superposition state 
+
+|ψ⟩m = N4[D(3 iα s)+ D(iα s)+ D(−iα s)+ D(−3iα s)] |0⟩s,with four equally spaced peaks at ±iα s and ±3iα s, and 
+
+N4 = (4 + 6 e−2|αs|2
+
++ 4 e−8|αs|2
+
++ 2 e−18 |αs|2
+
+)−1/2.It should be noted that the CD Hamiltonian (4) is de-rived after a sequence of unitary transformations [58]. To examine the magnon state in the laboratory frame, one has to perform the corresponding inverse transfor-mations. Specifically, the Fr¨ ohlich–Nakajima transfor-mation, used to adiabatically eliminate the microwave cavity, acts as a near-identity operation in the large-detuning limit and its inverse contributes only a neg-ligible correction to the magnon state. The squeezing (Bogoliubov) transformation, when inverted, maps each displaced component back to the laboratory frame but with a rescaled displacement amplitude. The rotating-frame transformation at the drive frequency ωp induces a rigid phase-space rotation, which can be removed by choosing the interaction time t1 such that ωpt1 ≃ 2nπ 
+
+(n ∈ Z) and the target displacement condition are simul-taneously satisfied. The remaining transformation acts only on the qubit subspace and has no actual impact on the magnon state. Taking all these into account, the three-component magnon state takes the following form in the laboratory frame [58] 
+
+|ψ′⟩m = N3
+
+D(2 iα ) + 2 11 + D(−2iα ) |r⟩ , (6) 4      
+
+> FIG. 3. Magnonic GKP-like states. Wigner function of (a) the three-component superposition state used as the encoded state |0⟩L, and of (b) the four-component superposition state. Dashed ellipses indicate the centers and characteristic widths of the displaced squeezed components. The side panels show the corresponding marginal Wigner distributions P(q) and
+> P(p). See text for the parameters.
+
+with α = αse−r , which represents a coherent super-position of three equally-spaced squeezed states along the phase axis. As for the qubit projective measure-ments, under the conditions ωpt1 ≃ 4nπ and εt 1 ≃ 2mπ 
+
+(n, m ∈ Z) ( ε is the Rabi frequency) [58], the ground-state projective measurement remains the same in the laboratory frame. The above analysis can be extended straightforwardly to the four-component case with the choice of t2 = 2 t1, which leads to the magnon state in the laboratory frame given by |ψ′⟩m = N4
+
+D(3 iα ) + D(iα ) + 
+
+D(−iα ) + D(−3iα ) |r⟩.Including practical dissipative and dephasing effects, the magnon–qubit system is governed by the following effective master equation [58]: 
+
+∂ρ mq 
+
+∂t =−i[ Hmq 
+
+ℏ , ρ mq ] + κ′
+
+> m
+
+2 D[ms]ρmq + κ′′ 
+
+> m
+
+2 D[m†
+
+> s
+
+]ρmq 
+
++ γ′
+
+2 D[σx]ρmq + γ′′ 
+
+4
+
+ D[σy ] + D[σz ]ρmq , (7) where ρmq denotes the density operator of the magnon– qubit system, κ′ 
+
+> m
+
+= κm[(¯ nm + 1) μ2 + ¯ nmν2], κ′′  
+
+> m
+
+=
+
+κm[(¯ nm + 1) ν2 + ¯ nmμ2], γ′ = γ(2¯ nq + 1) /4, and γ′′ =[γ(2¯ nq +1)+2 γϕ]/4, with μ = cosh r and ν = sinh r. Here, 
+
+κm is the magnon damping rate, and γ (γϕ) is the qubit dissipation (dephasing) rate. The mean thermal occupa-tion number ¯ nm,q = [exp( ℏωm,q /k B T ) − 1] −1, with the bath temperature T and Boltzmann constant kB . Fig-ures 3 and 4 exhibit our main results of the magnonic GKP-like states without (Fig. 3) and with (Fig. 4) the dissipation and dephasing, and the latter is obtained by numerically solving Eq. (7) and applying the inverse transformations to recover the states in the laboratory frame. We choose r ≃ 1, which yields sufficiently narrow phase-space peaks with a nearly symmetric extent in q
+
+and p [39]. We consider a nearly resonant effective fre-quency of the qubit and magnon mode about 4 .784 GHz               
+
+> FIG. 4. Wigner functions of logical Pauli eigenstates: (a) |0⟩L,(b) |+⟩L, and (c) |ϕ+⟩L. (d) Average fidelity ¯Fversus magnon dissipation rate κm. We consider the three-component super-position state and the parameters are the same as in Fig. 3(a). We take γ/ 2π=γϕ/2π= 2 kHz [78] and T= 10 mK in (a)-(d), and κm= 5 γ[79] in (a)-(c).
+
+(their original frequencies are provided in [58]), and an effective CD coupling strength χ/ 2π = 7 .55 MHz. The interaction time for a half-lattice displacement is 
+
+t1 = tl/ 2 = √2πe r /χ ≃ 143 .8 ns. 
+
+Logical encoding. –The protocol naturally generates a three-component magnon state as a reference encoded state |0⟩L, satisfying ZL |0⟩L = + |0⟩L and ZL |1⟩L =
+
+− | 1⟩L. The complementary basis state is obtained by a half-lattice displacement, |1⟩L = XL |0⟩L, and the remaining four Pauli eigenstates are |±⟩ L = (|0⟩L ±|1⟩L)/√2 and |ϕ±⟩L = ( |0⟩L ± i |1⟩L)/√2, where |±⟩ L
+
+(|ϕ±⟩L) are the eigenstates of XL (YL), completing the logical Pauli basis of the approximate magnonic GKP code. Logical Pauli operations correspond to the magnon displacement which can be implemented by, e.g., apply-ing a resonant microwave drive [80] via a loop antenna (cf. Fig. 1(b)). Logical Hadamard gates can be achieved using the CD interaction, the magnon displacement, and the qubit projective measurement, while phase gates re-quire an additional qubit rotation [39], as illustrated in Fig. 2(b). Figures 4(a)-4(c) present the results of the generated logical Pauli eigenstates |0⟩L, |+⟩L, and |ϕ+⟩L.The other three eigenstates |1⟩L, |−⟩ L, and |ϕ−⟩L can be achieved by performing corresponding displacements [39] and are thus not shown. To quantify the proximity of the generated states to the GKP code space, we evaluate the expectation values of the stabilizers ⟨SX ⟩ and ⟨SZ ⟩, and extract the corresponding effective squeezing parameters ∆ j =p− ln |⟨ Sj ⟩| 2/(2 π) ( j = X, Z ) [16], and the squeezing in decibels is given by −10 log 10 (∆ 2 
+
+> j
+
+). Averaging over the six logical Pauli eigenstates yields ⟨SX ⟩ = 0.43 and 
+
+⟨SZ ⟩ = 0 .64, corresponding to the effective squeezing 5about 5 .76 dB and 8 .48 dB in the two orthogonal di-rections. We further characterize the generated states by reconstructing the logical qubit density matrix ρL =(1 + ⟨XL⟩XL + ⟨YL⟩YL + ⟨ZL⟩ZL)/2, with ⟨·⟩ being the expectation value. The logical qubit quality can be evalu-ated by calculating the fidelity between the reconstructed state and the corresponding ideal Pauli eigenstate as 
+
+F (ρL, |Ψ⟩L) = ⟨Ψ|L ρL |Ψ⟩L, with |Ψ⟩L being one of the six Pauli eigenstates, and we obtain an average fidelity ¯F ≃ 87 .3%. Note that the finite approximation limits the achievable fidelity up to 91 .4%. Figure 4(d) indicates that higher fidelity, close to the upper limit 91 .4%, can be achieved by further reducing the magnon dissipation rate via, e.g., reducing impurity concentration of the crystal and bath temperature [79]. In conclusion, we have presented a protocol for magnonic GKP-like states based on a magnon-qubit plat-form, where the magnon squeezing is induced by geome-try anisotropy and the CD is implemented by engineer-ing a nonlinear coupling to the qubit. The work offers the possibility of realizing bosonic quantum error cor-rection on magnonic systems, which finds important ap-plications in magnonic fault-tolerant quantum computa-tion. The magnonic multi-component superposition of squeezed states are useful in quantum sensing, such as the detection of weak magnetic fields and dark-matter ax-ions [54–56], and the test of unconventional decoherence theories [81]. The demonstrated CD interaction finds direct applications in preparing other magnonic super-position states, e.g., cat and squeezed Fock states, and performing magnon characteristic-function tomography. 
+
+Acknowledgments. –JL was supported by Zhejiang Provincial Natural Science Foundation of China (Grant No. LR25A050001), National Natural Science Founda-tion of China (Grants No. 12474365 and No. 92265202), and National Key Research and Development Pro-gram of China (Grants No. 2024YFA1408900 and No. 2022YFA1405200). MF was supported by the Swiss Na-tional Science Foundation Ambizione Grant No. 208886, and The Branco Weiss Fellowship – Society in Science, administered by the ETH Z¨ urich. 
+
+[1] D. Gottesman, A. Kitaev, and J. Preskill, Encoding a qubit in an oscillator, Phys. Rev. A 64 , 012310 (2001). [2] E. Knill and R. Laflamme, Theory of quantum error-correcting codes, Phys. Rev. A 55 , 900 (1997). [3] A. L. Grimsmo and S. Puri, Quantum error correction with the Gottesman-Kitaev-Preskill code, PRX Quan-tum 2, 020101 (2021). [4] P. T. Cochrane, G. J. Milburn, and W. J. Munro, Macroscopically distinct quantum-superposition states as a bosonic code for amplitude damping, Phys. Rev. A 59 ,2631 (1999). [5] M. H. Michael, M. Silveri, R. T. Brierley, V. V. Albert, J. Salmilehto, L. Jiang, and S. M. Girvin, New class of quantum error-correcting codes for a bosonic mode, Phys. Rev. X 6, 031006 (2016). [6] K. Fukui, A. Tomita, A. Okamoto, and K. Fujii, High-threshold fault-tolerant quantum computation with ana-log quantum error correction, Phys. Rev. X 8, 021054 (2018). [7] M. V. Larsen, C. Chamberland, K. Noh, J. S. Neergaard-Nielsen, and U. L. Andersen, A fault-tolerant continuous-variable measurement-based quantum computation ar-chitecture, PRX Quantum 2, 030325 (2021). [8] I. Tzitrin, T. Matsuura, R. N. Alexander, G. Dauphinais, J. E. Bourassa, K. K. Sabapathy, N.C. Menicucci, and I. Dhand, Fault-tolerant quantum computation with static linear optics, PRX Quantum 2, 040353 (2021). [9] K. Fukui, High-threshold fault-tolerant quantum com-putation with the Gottesman-Kitaev-Preskill qubit un-der noise in an optical setup, Phys. Rev. A 107 , 052414 (2023). [10] B. W. Walshe, B. Q. Baragiola, R. N. Alexander, and N. C. Menicucci, Continuous-variable gate teleportation and bosonic-code error correction, Phys. Rev. A 102 , 062411 (2020). [11] K. Fukui, R. N. Alexander, and P. van Loock, All-optical long-distance quantum communication with Gottesman-Kitaev-Preskill qubits, Phys. Rev. Res 3, 033118 (2021). [12] F. Rozp´ edek, K. Noh, Q. Xu, S. Guha, and L. Jiang, Quantum repeaters based on concatenated bosonic and discrete-variable quantum codes, npj Quantum Inf. 7,102 (2021). [13] F. Rozp¸ edek, K. P. Seshadreesan, P. Polakos, L. Jiang, and S. Guha, All-photonic Gottesman-Kitaev-Preskill–qubit repeater using analog-information-assisted multiplexed entanglement ranking, Phys. Rev. Res 5,043056 (2023). [14] F. Schmidt, D. Miller, and P. van Loock, Error-corrected quantum repeaters with Gottesman-Kitaev-Preskill qu-dits, Phys. Rev. A 109 , 042427 (2024). [15] Z. Wang and L. Jiang, Passive environment-assisted quantum communication with GKP states, Phys. Rev. X 15 , 021003 (2025). [16] K. Duivenvoorden, B. M.Terhal, and D. Weigand, Single-mode displacement sensor, Phys. Rev. A 95 , 012305 (2017). [17] A. J. Brady, C. Gao, R. Harnik, Z. Liu, Z. Zhang, and Q. Zhuang, Entangled sensor-networks for dark-matter searches, PRX Quantum 3, 030333 (2022). [18] L. Labarca, S. Turcotte, A. Blais, and B. Royer, Quan-tum sensing of displacements with stabilized GKP states, PRX Quantum 7, 020301 (2026). [19] P. Dhara, L. Jiang, and S. Guha, Interfacing Gottesman-Kitaev-Preskill qubits to quantum memories, Phys. Rev. A 112 , 012401 (2025). [20] P. Dhara, L. Jiang, and S. Guha, Entangling quantum memories at channel capacity, Optica Quantum 3, 480 (2025). [21] M. Walschaers, Non-Gaussian quantum states and where to find them, PRX Quantum 2, 030204 (2021). [22] H. M. Vasconcelos, L. Sanz, and S. Glancy, All-optical generation of states for “Encoding a qubit in an oscilla-tor”, Opt. Lett. 35 , 3261 (2010). [23] M. S. Winnel, J. J. Guanzon, D. Singh, and T. C. Ralph, Deterministic preparation of optical squeezed cat and Gottesman-Kitaev-Preskill states, Phys. Rev. Lett. 132 ,230602 (2024). 6
+
+[24] M. Eaton, R. Nehra, and O. Pfister, Non-Gaussian and Gottesman–Kitaev–Preskill state preparation by photon catalysis, New J. Phys. 21 , 113034 (2019). [25] S. Pirandola, S. Mancini, D. Vitali, and P. Tombesi, Con-structing finite-dimensional codes with optical continu-ous variables, Europhys. Lett. 68 , 323 (2004). [26] K. Fukui, M. Endo, W. Asavanant, A. Sakaguchi, J. Yoshikawa, and A. Furusawa, Generating the Gottesman-Kitaev-Preskill qubit using a cross-Kerr interaction be-tween squeezed light and Fock states in optics, Phys. Rev. A 105 , 022436 (2022). [27] J. Boudreault, R. Shillito, J.-B. Bertrand, and B. Royer, Using a self-kerr nonlinearity for magic state preparation in grid codes, Phys. Rev. Lett. 136 , 120601 (2026). [28] J. Hastrup, K. Park, J. B. Brask, R. Filip, and U. L. Andersen, Measurement-free preparation of grid states, npj Quantum Inf. 7, 17 (2021). [29] J. Hastrup and U. L. Andersen, Protocol for generat-ing optical Gottesman-Kitaev-Preskill states with cavity QED, Phys. Rev. Lett. 128 , 170503 (2022). [30] X. C. Kolesnikow, R. W. Bomantara, A. C. Doherty, and A. L. Grimsmo, Gottesman-Kitaev-Preskill state preparation using periodic driving, Phys. Rev. Lett. 132 ,130605 (2024). [31] M. Rymarz, S. Bosco, A. Ciani, and D. P. DiVincenzo, Hardware-encoding grid states in a nonreciprocal super-conducting circuit, Phys. Rev. X 11 , 011032 (2021). [32] R. Dahan, G. Baranes, A. Gorlach, R. Ruimy, N. Rivera, and I. Kaminer, Creation of optical cat and GKP states using shaped free electrons, Phys. Rev. X 13 , 031001 (2023). [33] G. Baranes, S. Even-Haim, R. Ruimy, A. Gorlach, R. Da-han, A. A. Diringer, S. Hacohen-Gourgy, and I. Kaminer, Free-electron interactions with photonic GKP states: Universal control and quantum error correction, Phys. Rev. Res 5, 043271 (2023). [34] K. R. Motes, B. Q. Baragiola, A. Gilchrist, and N. C. Menicucci, Encoding qubits into oscillators with atomic ensembles and squeezed light, Phys. Rev. A 95 , 053819 (2017). [35] S. Omanakuttan and T. J. Volkoff, Spin-squeezed Gottesman-Kitaev-Preskill codes for quantum error cor-rection in atomic ensembles, Phys. Rev. A 108 , 022428 (2023). [36] Z. Lin, S. Li, J. Feng, V. Ivannikov, M. Fadel, and T. Byrnes, Preparing squeezed, cat and GKP states with parity measurements, arXiv:2602.08209. [37] Y. Shi, C. Chamberland, and A. Cross, Fault-tolerant preparation of approximate GKP states, New J. Phys. 
+
+21 , 093007 (2019). [38] Y. Zeng, W. Qin, Y.-H. Che, C. Gneiting, and F. Nori, Neural-network-based design of approximate Gottesman-Kitaev-Preskill code, Phys. Rev. Lett. 134 , 060601 (2025). [39] C. Fl¨ uhmann, T. L. Nguyen, M. Marinelli, V. Negnevit-sky, K. Mehta1, and J. P. Home, Encoding a qubit in a trapped-ion mechanical oscillator, Nature (London) 566 ,513 (2019). [40] B. de Neeve, T.-L. Nguyen, T. Behrle, and J. P. Home, Error correction of a logical grid state qubit by dissipative pumping, Nat. Phys. 18 , 296 (2022). [41] V. G. Matsos, C. H. Valahu, T. Navickas, A. D. Rao, M. J. Millican, X. C. Kolesnikow, M.J. Biercuk, and T. R. Tan, Robust and deterministic preparation of bosonic logical states in a trapped ion, Phys. Rev. Lett. 133 ,050602 (2024). [42] V. G. Matsos, C. H. Valahu, X. C. Kolesnikow, M. J. Mil-lican, T. Navickas, M. J. Biercuk, and T. R. Tan, Uni-versal quantum gate set for Gottesman-Kitaev–Preskill logical qubits, Nat. Phys. 21 , 1664 (2025). [43] P. Campagne-Ibarcq, A. Eickbusch, S. Touzard, E. Zalys-Geller, N. E. Frattini, V. V. Sivak, P. Reinhold, S. Puri, S. Shankar, R. J. Schoelkopf, L. Frunzio, M. Mirrahimi, and M. H. Devoret, Quantum error correction of a qubit encoded in grid states of an oscillator, Nature (London) 
+
+584 , 368 (2020). [44] A. Eickbusch, V. Sivak, A. Z. Ding, S. S. Elder, S. R. Jha, J. Venkatraman, B. Royer, S. M. Girvin, Robert J. Schoelkopf, and M. H. Devoret, Fast universal control of an oscillator with weak dispersive coupling to a qubit, Nat. Phys. 18 , 1464 (2022). [45] M. Kudra, M. Kervinen, I. Strandberg, S. Ahmed, M. Scigliuzzo, A. Osman, D. P. Lozano, M. O. Thol´ en, R. Borgani, D. B. Haviland, G. Ferrini, J. Bylander, A. F. Kockum, F. Quijandr´ ıa, P. Delsing, and S. Gasparinetti, Robust preparation of wigner-negative states with opti-mized SNAP-displacement sequences, PRX Quantum 3,030301 (2022). [46] V. V. Sivak, A. Eickbusch, B. Royer, S. Singh, I. Tsiout-sios, S. Ganjam, A. Miano, B. L. Brock, A. Z. Ding, L. Frunzio, S. M. Girvin, R. J. Schoelkopf, and M. H. De-voret, Real-time quantum error correction beyond break-even, Nature (London) 616 , 50 (2023). [47] D. Lachance-Quirion, M.-A. Lemonde, J. O. Simoneau, L. St-Jean, P. Lemieux, S. Turcotte, W. Wright, A. Lacroix, J. Fr´ echette-Viens, R. Shillito, F. Hopfmueller, M. Tremblay, N. E. Frattini, J. C. Lemyre, and P. St-Jean, Autonomous quantum error correction of Gottesman-Kitaev-Preskill states, Phys. Rev. Lett. 132 ,150607 (2024). [48] S. Konno, W. Asavanant, F. Hanamura, H. Nagayoshi, K. Fukui, A. Sakaguchi, R. Ide, F. China, M. Yabuno, S. Miki, H. Terai, K. Takase, M. Endo, P. Marek, R. Filip, P. van Loock, and A. Furusawa, Logical states for fault-tolerant quantum computation with propagating light, Science 383 , 289 (2024). [49] D. Lachance-Quirion, Y. Tabuchi, A. Gloppe, K. Usami, and Y. Nakamura, Hybrid quantum systems based on magnonics, Appl. Phys. Express 12 , 070101 (2019). [50] Y. Li, W. Zhang, V. Tyberkevych, W. Kwok, A. Hoff-mann, and V. Novosad, Hybrid magnonics: Physics, cir-cuits and applications for coherent information process-ing, J. Appl. Phys. 128 , 130902 (2020). [51] H. Yuan, Y. Cao, A. Kamra, R. A. Duine, and P. Yan, Quantum magnonics: When magnon spintronics meets quantum information science, Phys. Rep. 965 , 1 (2022). [52] B. Z. Rameshti, S. V. Kusminskiy, J. A. Haigh, K. Usami, D. Lachance-Quirion, Y. Nakamura, C.-M. Hu, H. X. Tang, G. E. Bauer, and Y. M. Blanter, Cavity magnonics, Phys. Rep. 979 , 1 (2022). [53] A. V. Chumak et al. , Advances in magnetics roadmap on spin-wave computing, IEEE Transactions on Magnetics 
+
+58 , 0800172 (2022). [54] G. Flower, J. Bourhill, M. Goryachev, and M. E. To-bar, Broadening frequency range of a ferromagnetic ax-ion haloscope with strongly coupled cavity-magnon po-laritons, Physics of the Dark Universe 25 , 100306 (2019). [55] N. Crescini, D. Alesini, C. Braggio, G. Carugno, D. 7
+
+D’Agostino, D. Di Gioacchino, P. Falferi, U. Gam-bardella, C. Gatti, G. Iannone, C. Ligi, A. Lombardi, A. Ortolan, R. Pengo, G. Ruoso, and L. Taffarello, Axion search with a quantum-limited ferromagnetic haloscope, Phys. Rev. Lett. 124 , 171801 (2020). [56] N. Crescini, C. Braggio, G. Carugno, A. Ortolan, and G. Ruoso, Cavity magnon polariton based precision magne-tometry, Appl. Phys. Lett. 117 , 144001 (2020). [57] C. Fl¨ uhmann and J. P. Home, Direct characteristic-function tomography of quantum states of the trapped-ion motional oscillator, Phys. Phys. Lett. 125 , 043602 (2020). [58] See Supplementary Material for additional proofs, which includes Refs. [1, 3, 59–64, 68, 70–72, 76]. [59] M.-J. Hwang, R. Puebla, and M. B. Plenio, Quantum phase transition and universal dynamics in the Rabi model, Phys. Rev. Lett. 115 , 180404 (2015). [60] X. Chen, Z. Wu, M.Jiang, X.-Y. L¨ u, X. Peng, and J. Du, Experimental quantum simulation of superradiant phase transition beyond no-go theorem via antisqueezing, Nat. Commun. 12 , 6281 (2021). [61] H. Fr¨ ohlich, Theory of the Superconducting State. I. The Ground State at the Absolute Zero of Temperature, Phys. Rev. 79 , 845 (1950). [62] S. Nakajima, Perturbation theory in statistical mechan-ics, Adv. Phys. 4, 363 (1955). [63] Y. Tabuchi, S. Ishino, A. Noguchi, T. Ishikawa, R. Ya-mazaki, K. Usami, and Y. Nakamura, Coherent coupling between a ferromagnetic magnon and a superconducting qubit, Science 349 , 405 (2015). [64] D. Lachance-Quirion, Y. Tabuchi, S. Ishino, A. Noguchi, T. Ishikawa, R. Yamazaki, and Y. Nakamura, Resolving quanta of collective spin excitations in a millimeter-sized ferromagnet, Sci. Adv. 3, e1603150 (2017). [65] D. Lachance-Quirion, S. P. Wolski, Y. Tabuchi, S. Kono, K. Usami, and Y. Nakamura, Entanglement-based single-shot detection of a single magnon with a superconducting qubit, Science 367 , 425 (2020). [66] D. Xu, X.-K. Gu, H.-K. Li, Y.-C. Weng, Y.-P. Wang, J. Li, H. Wang, S.-Y. Zhu, and J. You, Quantum control of a single magnon in a macroscopic spin system, Phys. Rev. Lett. 130 , 193603 (2023). [67] Y.-C. Weng, D. Xu, Z. Chen, L.-Z. Tan, X.-K. Gu, J. Li, H.-F. Yu, S.-Y. Zhu, X. Hu, F. Nori, and J. Q. You, Magnon squeezing in the quantum regime, Nat. Com-mun. 17 , 2679 (2026). [68] C. Kittel, Interaction of spin waves and ultrasonic waves in ferromagnetic crystals, Phys. Rev. 110 , 836 (1958). [69] A. Kamra and W. Belzig, Super-Poissonian shot noise of squeezed-magnon mediated spin transport, Phys. Rev. Lett. 116 , 146601 (2016). [70] J. A. Osborn, Demagnetizing factors of the general ellip-soid, Phys. Rev. 67 , 351 (1945). [71] D. D. Stancil and A. Prabhakar, Spin Waves: Theory and Applications (Springer, New York, 2009). [72] T. Holstein and H. Primakoff, Field dependence of the intrinsic domain magnetization of a ferromagnet, Phys. Rev. 58 , 1098 (1940). [73] J. Li, S.-Y. Zhu, and G. S. Agarwal, Squeezed states of magnons and phonons in cavity magnomechanics, Phys. Rev. A 99 , 021801(R) (2019). [74] Q. Guo, J. Cheng, H. Tan, and J. Li, Magnon squeezing by two-tone driving of a qubit in cavity-magnon-qubit systems, Phys. Rev. A 108 , 063703 (2023). [75] G. Liu, G. Li, R.-C. Yang, W. Xiong, and J. Li, Magnon squeezing near a quantum critical point in a cavity-magnon-qubit system, Phys. Rev. A 113 , 033707 (2026). [76] N. N. Bogoliubov, On a new method in the theory of superconductivity, Nuovo Cim 7, 794 (1958). [77] M. Shukla, S. Nimmrichter, and B. C. Sanders, Squeezed comb states, Phys. Rev. A. 103 , 012408 (2021). [78] W. Ren, W. Li, S. Xu, K. Wang, W. Jiang, F. Jin, X. Zhu, J. Chen, Z. Song, P. Zhang, H. Dong, X. Zhang, J. Deng, Y. Gao, C. Zhang, Y. Wu, B. Zhang, Q. Guo, H. Li, Z. Wang, J. Biamonte, C. Song, D.-L. Deng, and H. Wang, Experimental quantum adversarial learning with programmable superconducting qubits, Nat. Com-put. Sci., 2, 711 (2022). [79] R. O. Serha, K. H. McAllister, F. Majcen, S. Knauer, T. Reimann, C. Dubs, G. A. Melkov, A. A. Serga, V. S. Ty-berkevych, A. V. Chumak, and D. A. Bozhko, Ultra-long-living magnons in the quantum limit, arXiv:2505.22773. [80] Z.-X. Lu, X. Zuo, Z.-Y. Fan, and J. Li, Optomagnonic continuous-variable quantum teleportation enhanced by non-Gaussian distillation, Phys. Rev. Res 7, 043148 (2025). [81] A. Bassi, K. Lochan, S. Satin, T. P. Singh, and H. Ul-bricht, Models of wave-function collapse, underlying The-ories, and experimental tests, Rev. Mod. Phys. 85 , 471 (2013). 8
+
+> SUPPLEMENTAL MATERIALS S1: THE GOTTESMAN-KITAEV-PRESKILL (GKP) CODE
+
+Here we provide additional details on the approximate GKP states, the stabilizers, the logical operators, and the associated displacement operators [1]. The displacement operator, defined as 
+
+D(α) = exp( αm † − α∗m), (S1) satisfies the Weyl relation 
+
+D(β)D(α) = eiΦD(α + β), Φ = Im( βα ∗), (S2) which implies the commutation relation [D(α), D (β)] = 2 ie iΦ sin(Φ) D(α)D(β). (S3) It indicates that commutation properties are determined by the symplectic area Φ enclosed in phase space. In particular, two displacements commute when Φ = kπ and anticommute when Φ = (2 k + 1) π/ 2, with k ∈ Z. This geometric structure underlies the algebra of the oscillator-based quantum error-correcting codes. For the square lattice [1, 3], we define the characteristic length l = √2π and choose lattice vectors u = il and 
+
+v = −2π/l , cf. Fig. 1(a) in the main text, yielding 
+
+SX = X2 
+
+> L
+
+= D(il ),SZ = Z2 
+
+> L
+
+= D(−2π/l ),SY = Y 2 
+
+> L
+
+= D(2 π/l − il ),
+
+(S4) which satisfy the required commutation relations: The stabilizers commute with each other (Φ = 2 π) and with logical operators (Φ = 0 , π ), while logical operators anticommute pairwise. Although the displacement operators are non-Hermitian in general D(α)† = D(−α), their action on the periodic code space ensures that logical operators and their Hermitian conjugates act equivalently, which ensures the correct behavior for Pauli operators. 
+
+> S2: QUANTIZATION OF THE HAMILTONIAN OF AN ELLIPSOIDAL MAGNETIC CRYSTAL
+
+In this section, we show the details on the derivation of the quantized Hamiltonian in Eq. (2) of the main text for an ellipsoidal magnetic crystal. The classical magnetic Hamiltonian in Eq. (1) of the main text is quantized by defining the magnetization operator M = γS [71], where γ is the gyromagnetic ratio and S is the macrospin density operator. The magnetization is expressed in terms of bosonic excitations via the Holstein-Primakoff transformations [72] 
+
+M+ = p2γℏMs[1 − γℏ
+
+2Ms
+
+˜a†˜a]˜ a, M− = p2γℏMs˜a†[1 − γℏ
+
+2Ms
+
+˜a†˜a],Mz = Ms − γℏ˜a†˜a. 
+
+(S5) with M± = Mx ± iM y . Note that the operator ˜ a† ≡ ˜a†(r) [71, 72] creates a magnon at position r and satisfies the bosonic commutation relation [˜ a(r), ˜a†(r′
+
+)] = δ(r − r′). After some calculation, we obtain 
+
+H/ ℏ =
+
+Z
+
+> VF
+
+d3r
+
+
+
+A˜a†(r)˜ a(r) + B∗˜a†2(r) + B˜a2(r) + C[∇˜a†(r)] · [∇˜a(r)] 
+
+
+
+, (S6) where 
+
+A = γμ 0B0 + γμ 0Ms(1 − 3Nz )2 ,B = γμ 0Ms(Nx − Ny )4 ,C = 2γJ Ms
+
+.
+
+(S7) 9
+
+FIG. S1. The magnon mode in a magnetic ellipsoid gets effectively coupled to a superconducting qubit via coupling to a common microwave cavity. 
+
+The operator ˜ a†(r) can be expressed in terms of magnon creation operators m† 
+
+> k
+
+in the Fourier space via ˜ a†(r) = 
+
+P 
+
+> k
+
+ϕ∗
+
+> k
+
+(r)m† 
+
+> k
+
+with the plane wave eigenstates ϕk(r) = (1 /√VF ) exp( ik · r), which leads to ∇˜a†(r) = ( −ik) · ˜a†(r) and 
+
+∇˜a(r) = ik · ˜a(r). Taking the Fourier transformation of the Hamiltonian (S6), we obtain 
+
+H/ ℏ = X
+
+> k
+
+X
+
+> k′
+
+h
+
+Ak,k ′ m†
+
+> k
+
+mk′ + B∗ 
+
+> k,k ′
+
+m†
+
+> k
+
+m† 
+
+> k′
+
++ Bk,k ′ mkmk′
+
+i
+
+, (S8) with 
+
+Ak,k ′ = 1
+
+VF
+
+Z
+
+> VF
+
+d3r
+
+h
+
+(A + Ck · k′) e−i(k−k′)·r i
+
+,Bk,k ′ = 1
+
+VF
+
+Z
+
+> VF
+
+d3r
+
+h
+
+Be i(k+k′)·r i
+
+,
+
+(S9) which after integration gives rise to 
+
+H/ ℏ = X
+
+> k
+
+[Akm†
+
+> k
+
+mk + B∗
+
+> k
+
+m†
+
+> k
+
+m† 
+
+> −k
+
++ Bkmkm−k], (S10) with Ak = A−k = A + Ck2 and Bk = B−k = B. In the magnetostatic limit, we only consider the k = 0 mode, i.e., the Kittel mode [68] (defining m0 ≡ m) with 
+
+H/ ℏ = ωmm†m + ξ
+
+2 (m†2 + m2), (S11) where 
+
+ωm = γμ 0B0 + γμ 0Ms
+
+2 (1 − 3Nz ),ξ = γμ 0Ms
+
+2 (Nx − Ny ).
+
+(S12) For a magnetic ellipsoid, its geometric shape is described by ( x/a )2 + ( y/b )2 + ( z/c )2 = 1 where a, b, and c are the ellipsoid semi-axes. The corresponding elements of the demagnetization tensor are given by [70] 
+
+Nx,y,z = 12 abc 
+
+Z ∞
+
+> 0
+
+ds 
+
+(j2 + s)Rs
+
+, (j = a, b, c ) (S13) with Rs = p(a2 + s)( b2 + s)( c2 + s) ( s is the integral variable). Considering a slender prolate ellipsoid with a > b = c,we obtain 
+
+Nx = 1 − e2
+
+2e3
+
+
+
+ln 1 + e
+
+1 − e − 2e
+
+
+
+,Ny = Nz = 12 (1 − Nx),
+
+(S14) with the eccentricity e = p1 − (c/a )2.10 
+
+> S3: DERIVATION OF THE EFFECTIVE CONDITIONAL-DISPLACEMENT HAMILTONIAN
+
+In this section, we show step by step how the magnon–qubit effective conditional-displacement (CD) interaction is derived. The effective magnon–qubit coupling can be established via the mediation of a microwave cavity, as depicted in Fig. S1. Specifically, the microwave cavity simultaneously couples to the (squeezed) magnon mode in a magnetic ellipsoid and to the superconducting qubit through the magnetic- and electric-dipole interaction, with the coupling strength gcm and gcq , respectively [63, 64]. The Hamiltonian of the cavity–magnon–qubit system is given by (setting 
+
+ℏ = 1) 
+
+H = ωq
+
+2 σz + ωcc†c + ωmm†m + ξ
+
+2 (m†2 + m2) + gcq (c† + c)σx + gcm (c† + c)( m† + m), (S15) where c (c†) and m (m†) are the annihilation (creation) operators of the cavity mode and the Kittel mode with frequency ωc and ωm, respectively, and σz , σx are the Pauli operators of the qubit with transition frequency ωq . Note that, here we adopt the Rabi-type coupling form for both the cavity–qubit and cavity–magnon interactions to keep the Hamiltonian in its most general form and to simplify the subsequent derivations following Refs. [59, 60]. By applying a squeezing transformation and defining the magnonic Bogoliubov mode [76], the Hamiltonian (S15) becomes in the following form 
+
+H1 = S†(r)HS (r)= ωq
+
+2 σz + ωcc†c + ω′
+
+> m
+
+m†
+
+> s
+
+ms + gcq (c† + c)σx + g′
+
+> cm
+
+(c† + c)( m† 
+
+> s
+
++ ms) (S16) where S(r) = exp[ r 
+
+> 2
+
+(m†2 − m2)] is the magnon squeezing operator with r = 14 ln[1 + 2 ξ/ (ωm − ξ)], ω′ 
+
+> m
+
+= ( ωm − ξ)e2r
+
+and g′ 
+
+> cm
+
+= gcm e−r are the renormalized frequency and coupling strength associated with the Bogoliubov mode ms.To get an effective coupling between the magnon and the qubit, we adiabatically eliminate the microwave cavity in the large-detuning regime [63, 64], which can be realized by taking the Fr¨ ohlich-Nakajima transformation [61, 62]. We write the Hamiltonian (S16) in the form of H1 = H0 + HI , with 
+
+H0 = ωq
+
+2 σz + ωcc†c + ω′
+
+> m
+
+m†
+
+> s
+
+ms, (S17) 
+
+HI =gcq (c† + c)( σ+ + σ−) + g′
+
+> cm
+
+(c† + c)( m† 
+
+> s
+
++ ms). (S18) In the large-detuning regime, where the cavity is far detuned from both the qubit and the magnon mode, 
+
+gcq , g ′ 
+
+> cm
+
+≪ | ωc − ωq |, |ωc − ω′
+
+> m
+
+|, (S19) the Fr¨ ohlich-Nakajima transformation takes the form of H2 = U † 
+
+> 1
+
+H1U1, where U1 = eV , and V satisfies HI +[ H0, V ] = 0, given by 
+
+V = μq (cσ − − c†σ+) + νq (cσ + − c†σ−) + μm(cm s − c†m†
+
+> s
+
+) + νm(cm † 
+
+> s
+
+− c†ms), (S20) with 
+
+μq = gcq 
+
+ωc + ωq
+
+, νq = gcq 
+
+ωc − ωq
+
+, (S21) 
+
+μm = g′
+
+> cm
+
+ωc + ω′
+
+> m
+
+, ν m = g′
+
+> cm
+
+ωc − ω′
+
+> m
+
+, (S22) and we obtain 
+
+H2 = U † 
+
+> 1
+
+H1U1 = H0 + 12 [HI , V ] + 13 [[ HI , V ], V ] + · · · . (S23) Since the coefficients μq,m and νq,m are small under the large-detuning condition, which allows us to neglect higher-than-second-order terms of [ HI , V ] in H2, the rest part remains a good approximation. Assuming the cavity mode is in the vacuum state, which is the case under a low temperature, e.g., 10 mK, we obtain the following magnon–qubit effective Hamiltonian 
+
+H2 ≃ ω′
+
+> q
+
+2 σz + ω′′ 
+
+> m
+
+m†
+
+> s
+
+ms − χ(m† 
+
+> s
+
++ ms)( σ+ + σ−), (S24) 11 where ω′ 
+
+> q
+
+= ωq − g2 
+
+> cq
+
+[1 /∆(−) 
+
+> cq
+
+− 1/∆(+)  
+
+> cq
+
+]/2, ω ′′  
+
+> m
+
+= ω′ 
+
+> m
+
+− 2ζ, ζ = g′2
+
+> cm
+
+[1 /∆(−) 
+
+> cm
+
++ 1 /∆(+)  
+
+> cm
+
+]/2, and χ = gcq g′
+
+> cm
+
+[1 /∆(−) 
+
+> cq
+
++1/∆(+)  
+
+> cq
+
++1 /∆(−) 
+
+> cm
+
++1 /∆(+)  
+
+> cm
+
+]/2, with ∆ (±) 
+
+> cm
+
+= ωc ±ω′ 
+
+> m
+
+and ∆ (±) 
+
+> cq
+
+= ωc ±ωq . The third term describes an effective magnon– qubit interaction mediated by the microwave cavity. Note that, in getting (S24) we have neglected an additional small squeezing on the magnon mode due to the presence of the counter-rotating-wave terms in the cavity–magnon coupling (last term of the initial Hamiltonian (S15)), which is a very good approximation under current experimental conditions satisfying ζ ≪ ω′′  
+
+> m
+
+[63, 64]. By further assuming χ ≪ ω′ 
+
+> q
+
++ ω′′ 
+
+> m
+
+, which is typically well satisfied, the Rabi model (S24) reduces to the Jaynes-Cummings (JC) model after the rotating-wave approximation (RWA), given by 
+
+HJC = ω′
+
+> q
+
+2 σz + ω′′ 
+
+> m
+
+m†
+
+> s
+
+ms − χ(msσ+ + m†
+
+> s
+
+σ−). (S25) To construct the CD interaction for creating magnonic GKP-like states, we apply a microwave driving field to the qubit, which is described by the Hamiltonian Hd = ε(σ+e−iω pt + σ−e+iω pt), with the drive frequency ωp and Rabi frequency 
+
+ε. In the frame rotating at the drive frequency, i.e., applying a unitary transformation U2 = exp[ −iω p(m†
+
+> s
+
+ms + σz /2) t]to HJC + Hd, we obtain 
+
+H′ 
+
+> JC
+
+= δq
+
+2 σz + δmm†
+
+> s
+
+ms − χ(msσ+ + m†
+
+> s
+
+σ−) + ε(σ+ + σ−), (S26) with δq = ω′ 
+
+> q
+
+−ωp, and δm = ω′′  
+
+> m
+
+−ωp. For the resonant case δq = δm = 0, and further in a rotating frame corresponding to the unitary transformation U3 = exp[ −iε (σ+ + σ−)t], the Hamiltonian (S26) becomes 
+
+Hmq = −χ
+
+ σx
+
+2 + 12 (−σz + iσ y )e2iεt + 12 (σz + iσ y )e−2iεt 
+
+
+
+ms + H.c. 
+
+
+
+. (S27) For a relatively strong drive with 2 ε ≫ χ/ 2, which is satisfied under our parameters, the fast-oscillating terms in Eq. (S27) can be neglected, which leads to the following effective CD Hamiltonian as used in the main text: 
+
+Hmq = − χ
+
+2 (ms + m†
+
+> s
+
+)σx. (S28) 
+
+S4: THE GKP STATES IN THE LABORATORY FRAME 
+
+As shown in the preceding section, the effective CD Hamiltonian Hmq is derived through a series of unitary transfor-mations. Therefore, to recover the magnon state in the laboratory frame requires to apply the corresponding inverse transformations. The Bogoliubov transformation S(r) introduced to diagonalize the magnon Hamiltonian maps the state in the squeezed-state representation to the original one via |ψ⟩ = S(r) |ψ⟩s. Specifically, the Bogoliubov ground state |0⟩s corresponds to the squeezed vacuum state |r⟩ = S(r) |0⟩s. The Fr¨ ohlich–Nakajima transformation U1 is in-troduced to adiabatically eliminate the microwave cavity mode in the large-detuning regime, gcq /∆(−) 
+
+> cq
+
+, g ′
+
+> cm
+
+/∆(−) 
+
+> cm
+
+≪ 1, where the cavity remains virtually unexcited. Its impact on the magnon and qubit operators is of orders of gcq /∆(±)
+
+> cq
+
+and g′
+
+> cm
+
+/∆(±) 
+
+> cm
+
+, which is negligible under the large-detuning condition. Then, U1 acts as a near-identity operation for the magnon–qubit system, and its inverse contributes only a negligible correction to the magnon state. The rotating-frame transformation U2 induces a rigid rotation of the magnon state in phase space at frequency ωp. By choosing the interaction time such that ωpt = 2 nπ (n ∈ Z), the coordinate axes of the laboratory frame overlap those of the rotating frame. Finally, the transformation U3 acts only on the qubit subspace and thus has no actual impact on the magnon state. Considering only the relevant transformations S(r) and U2, the three-component superposition state 
+
+|ψ⟩m takes the following form in the laboratory frame 
+
+|ψ′⟩m ≃ S(r) U2 |ψ⟩m = N3 S(r) U2
+
+D(2 iα s) + 2 11 + D(−2iα s) |0⟩s . (S29) Utilizing U2D(αs)U † 
+
+> 2
+
+= D(αse−iω pt), with t = t1 = t2, Eq. (S29) becomes 
+
+|ψ′⟩m = N3 S(r)D(2 iα se−iω pt) + 2 11 + D(−2iα se−iω pt) |0⟩s . (S30) By further using S(r)D(αs)S†(r) = D(αse−r ), and taking ωpt = 2 nπ (n ∈ Z), we achieve 
+
+|ψ′⟩m = N3
+
+D(2 iα ) + 2 11 + D(−2iα )|r⟩, (S31) 12 where α = αse−r and |r⟩ = S(r)|0⟩s is the squeezed vacuum state in the laboratory frame. For the qubit, both the U2 and U3 transformations imprint a rotating phase. However, under the conditions 
+
+ωpt = 4 nπ and εt = 2 mπ (m, n ∈ Z), the transformations reduce to the identity on the qubit subspace, so the ground-state projective measurement used in the rotating frame coincides with that in the laboratory frame. 
+
+> S5: DERIVATION OF THE EFFECTIVE MASTER EQUATION
+
+Here we derive the effective master equation corresponding to the effective Hamiltonian Hmq . Since Hmq is obtained from the Hamiltonian H in Eq. (S15) through a sequence of unitary transformations, the dissipative terms must be transformed accordingly. The master equation of the whole cavity–magnon–qubit system is given by ˙ρ = − i[H, ρ ] + κc(¯ nc + 1) 2 D[c]ρ + κc ¯nc
+
+2 D[c†]ρ + κm(¯ nm + 1) 2 D[m]ρ + κm ¯nm
+
+2 D[m†]ρ
+
++ γ(¯ nq + 1) 2 D[σ−]ρ + γ ¯nq
+
+2 D[σ+]ρ + γϕ
+
+4 D[σz ]ρ, (S32) where ρ is the density operator of the system, D[o]ρ = 2 oρo † − { o†o, ρ } is the standard Lindblad dissipator, κc (κm) is the cavity (magnon) damping rate, γ (γϕ) is the qubit dissipation (dephasing) rate, and ¯ nc,m,q = [exp( ℏωc,m,q /k B T ) −
+
+1] −1 are the mean thermal occupations, where T is the bath temperature and kB is the Boltzmann constant. Applying the same unitary transformations used in Sec. 3 to the dissipators, the Fr¨ ohlich-Nakajima transformation formally acts also on the magnon and qubit dissipators, but the induced corrections are of orders of gcq /∆(±) 
+
+> cq
+
+and 
+
+g′
+
+> cm
+
+/∆(±) 
+
+> cm
+
+, which, in the large-detuning limit, are negligible. Therefore, the magnon and qubit dissipators are taken as their original forms. The Bogoliubov transformation S(r) reshapes the magnon dissipators and generates an anomalous contribution G[o]ρ = 2 oρo − (ooρ + ρoo ). Under the conditions for deriving the Hamiltonian HJC in Eq. (S25), we obtain the corresponding effective master equation, which is 
+
+∂ρ mq 
+
+∂t = − i[HJC , ρ mq ] + κm
+
+2
+
+(¯ nm + 1) μ2 + ¯ nmν2D[ms]ρmq + κm
+
+2
+
+(¯ nm + 1) ν2 + ¯ nmμ2D[m†
+
+> s
+
+]ρmq 
+
++ κm
+
+2 (2¯ nm + 1) μν G[ms]ρmq + G[m†
+
+> s
+
+]ρmq + γ(¯ nq + 1) 2 D[σ−]ρmq + γ ¯nq
+
+2 D[σ+]ρmq + γϕ
+
+4 D[σz ]ρmq , (S33) where ρmq is the density operator of the magnon–qubit system, μ = cosh r, and ν = sinh r.Under the transformation U2, the anomalous terms G[ms]ρmq and G[m†
+
+> s
+
+]ρmq acquire oscillating phase factors 
+
+e±2iω pt, which average to zero under the RWA condition 2 ωp ≫ { χ, κ m, γ, γ ϕ}. Similarly, under the transformation U3,the terms oscillating at frequencies ±2ε and ±4ε can be neglected under the strong-driving condition 2 ε ≫ { χ, γ, γ ϕ}.The resulting effective master equation reads 
+
+∂ρ mq 
+
+∂t = −i[Hmq , ρ mq ] + κ′
+
+> m
+
+2 D[ms]ρmq + κ′′ 
+
+> m
+
+2 D[m†
+
+> s
+
+]ρmq + γ′
+
+2 D[σx]ρmq + γ′′ 
+
+4
+
+ D[σy ] + D[σz ]ρmq , (S34) where we have defined the effective decay rates κ′ 
+
+> m
+
+= κm[(¯ nm + 1) μ2 + ¯ nmν2], κ′′  
+
+> m
+
+= κm[(¯ nm + 1) ν2 + ¯ nmμ2], 
+
+γ′ = γ(2¯ nq + 1) /4, and γ′′ = [ γ(2¯ nq + 1) + 2 γϕ]/4. 
+
+> S6: SYSTEM PARAMETERS USED FOR GENERATING GKP-LIKE STATES
+
+In the main text, we provide only the effective frequencies of the qubit and magnon mode and their effective coupling strength χ. They are however derived quantities and here we provide the corresponding original parameters including also the parameters associated with the cavity. The resonance frequencies of the system are: ωq /2π = 4 .790 GHz for the qubit, ωm/2π = 18 .016 GHz for the magnon mode, and ωc/2π = 5 .127 GHz for the cavity mode. The cavity–qubit and cavity–magnon coupling strengths are gcq /2π = 65 MHz and gcm /2π = 103 MHz. The parametric squeezing strength induced by the geometric anisotropy is taken ξ/ 2π = 17 .368 GHz, which, together with the magnon frequency ωm, determines the squeezing parameter r = 14 ln[1 + 2 ξ/ (ωm − ξ)] ≃ 1 as adopted in our protocol. The renormalized magnon frequency and cavity–magnon coupling strength are given by 
+
+ω′ 
+
+> m
+
+= ( ωm − ξ)e2r = 2 π × 4.788 GHz , (S35) 
+
+g′ 
+
+> cm
+
+= gcm e−r = 2 π × 37 .9 MHz . (S36) 13 The above parameters, after adiabatic elimination of the microwave cavity, give rise to the effective magnon–qubit coupling strength χ/ 2π = 7 .55 MHz, using the formula χ = gcq g′
+
+> cm
+
+[1 /∆(−) 
+
+> cq
+
++ 1 /∆(+)  
+
+> cq
+
++ 1 /∆(−) 
+
+> cm
+
++ 1 /∆(+)  
+
+> cm
+
+]/2, and the effective frequency of the qubit ω′ 
+
+> q
+
+and of the Bogoliubov mode ω′′ 
+
+> m
+
+, which are assumed to be resonant with the drive frequency ωp in our protocol, i.e., 
+
+ω′ 
+
+> q
+
+≃ ω′′  
+
+> m
+
+≃ ωp = 2 π × 4.784 GHz . (S37) The interaction time ( t = t1 = t2) corresponding to the target half-lattice displacement α = χt/ (2 er ) ≃ √2π/ 2 is 
+
+t = 143 .8 ns. To further simultaneously (and very well) satisfy the periodicity conditions ωpt ≃ 4nπ and εt ≃ 2mπ 
+
+(m, n ∈ Z), the drive strength should be appropriately chosen and we take the Rabi frequency ε/ 2π = 55 .63 MHz.
