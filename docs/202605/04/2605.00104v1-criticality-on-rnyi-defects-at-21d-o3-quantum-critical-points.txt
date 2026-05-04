@@ -1,0 +1,602 @@
+Title: Criticality on R\'enyi defects at (2+1)$d$ O(3) quantum critical points
+
+URL Source: https://arxiv.org/pdf/2605.00104v1
+
+Published Time: Mon, 04 May 2026 00:10:29 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Criticality on Rényi defects at (2+1) d O(3) quantum critical points 
+
+Yanzhang Zhu, 1, 2, 3 Zhe Wang, 1, 2 Meng Cheng, 4, ∗ and Zheng Yan 1, 2, †
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+State Key Laboratory of Surface Physics and Department of Physics, Fudan University, Shanghai 200433, China 
+
+> 4
+
+Department of Physics, Yale University, New Haven, Connecticut 06511, USA 
+
+(Dated: May 4, 2026) At a quantum critical point, the universal scaling behavior of Rényi entanglement entropy is controlled by the universality class of the codimension-two Rényi (or conical) defects in the infrared theory. In this work we perform a systematic study of critical correlations along Rényi defect lines in (2+1)d quantum spin models realizing quantum phase transitions described by the O(3) Wilson-Fisher universality class, using large-scale quantum Monte Carlo simulations. We present numerical evidence that, for a fixed Rényi index n, there exist multiple Rényi defect universality classes, with distinct critical exponents for the O(3) order parameter on the defect. These universality classes are realized by choosing microscopically different entanglement cuts in lattice models, which we classify as ordinary, special and extraordinary according to their relation to surface criticality. For the extraordinary entanglement cut, we further find evidence for a phase transition on the defect as a function of the Rényi index. Our results highlight the key role of defect universality classes in determining the universal scaling of Rényi entropy, and provide a framework for understanding the previously observed dependence of Rényi entropy scaling on microscopic lattice details. 
+
+Introduction — Characterizing the structure of quan-tum entanglement is a key task to understand quan-tum many-body states. Bipartite entanglement can be measured through the entanglement entropy (EE) of one subsystem, and a commonly used measure is the Rényi EE [1–13]. In quantum many-body systems, the size and shape dependence of Rényi EEs reveal important infor-mation about the underlying state. A well-known exam-ple is the logarithmic dependence of Rényi EE on subsys-tem size in (1+1)d conformal field theories (CFTs), with the coefficient fixed by the central charge [1, 4]. Thus entanglement measurement has become a standard tool to extract the central charge at (1+1)d quantum critical points (QCPs). Similarly, universal subleading correc-tions have been uncovered in Goldstone phases and QCPs in (2+1)d or higher [9–11, 14–25]. Recently, advances in numerical algorithms have enabled high-precision mea-surements of Rényi EE in large-scale quantum Monte Carlo (QMC) simulations in higher dimensions [9, 19, 26– 34]. This, in turn, allows access to universal subleading terms in the scaling behavior. However, it has also been observed in recent studies that the presumably universal quantities of entanglement are actually sensitive to the microscopic details of the en-tanglement cut [24, 35, 36]. For example, the coefficient of the corner-induced logarithmic term in Rényi-2 EE at QCPs, presumably a universal quantity, is found to de-pend on how the cuts are defined on the lattice in several different critical lattice models [16, 24, 36–39]. This puz-zling phenomenon points to an incomplete understanding of how microscopic realizations of entanglement cuts are encoded in the infrared (IR) field-theoretical description of Rényi EE. In this work, we approach this important problem from the perspective of defect universality classes. In a field-theoretical framework, the Rényi EE of a region A is expressed as the free energy of the system in the pres-ence of a “Rényi defect” along the boundary of A [40]. Such an extended defect, embedded in the bulk CFT, has its own universality class (or phases), characterized by fixed points of defect renormalization group (RG) flows (while the bulk remains critical) [41–43]. A familiar ex-ample is an impurity or a pinning field, which gives rise to a (0+1)d defect in spacetime [44–46]. Physically, cor-relation functions of local observables can exhibit long-distance behavior distinct from those in the bulk. The defect universality classes determine both local (e.g. long-distance behavior of local observables) and global properties, including the geometry/shape depen-dence of Rényi EE. Importantly, for a given Rényi index, there may exist multiple distinct defect phases in the IR [10]. If this occurs, microscopically different entangle-ment cuts can flow to distinct defect universality classes, resulting in different shape dependence of Rényi EE. Guided by this observation, in this work we systemati-cally investigate the critical behavior of local observables on Rényi defects in (2+1)d quantum spin models realiz-ing O(3) QCP, using QMC simulations on the Rényi man-ifolds. This approach allows for a more direct probe of defect phases, and is complementary to the more “global” measurements of defect entropy commonly studied in re-cent works. We present numerical evidence that the so-called ordinary, special, and extraordinary entanglement cuts introduced below realize distinct Rényi-defect uni-versality classes, and that the extraordinary cut under-goes a phase transition as the Rényi index is varied. 
+
+Model and methods— In this work we study quantum spin models realizing O(3) QCP, focusing on the spin-
+
+> arXiv:2605.00104v1 [cond-mat.str-el] 30 Apr 2026
+
+2
+
+1/2 columnar dimerized Heisenberg model on the square lattice. The Hamiltonian is 
+
+H = J X
+
+> ⟨ij ⟩
+
+Si · Sj + J′ X
+
+> ⟨ij ⟩′
+
+Si · Sj , (1) where ⟨ij ⟩ and ⟨ij ⟩′ denote weak and strong bonds, re-spectively. We tune the coupling ratio to the O(3) bulk QCP at J′/J = 1 .9096 . This model has been widely used to investigate surface critical behavior under differ-ent physical boundary cuts [47]. In the present work, we use different entanglement bipartitions of the same lattice to realize distinct Rényi defects. For comparison, we have also studied the bilayer Heisenberg model and the staggered dimerized Heisenberg model, finding con-sistent results for the defect criticality; these results are presented in the Supplementary Material (SM). For all cases, in the bulk the transition between the Néel phase and dimerized phase is described by the O(3) Wilson-Fisher CFT.         
+
+> FIG. 1. Schematic illustration of the columnar dimerized Heisenberg model and entanglement bipartitions. Thick blue bonds represent the strong couplings J′, and thin black bonds denote the weak couplings J.The dashed line indicates the entanglement bipartition, which separates the system into subsystem A(in black) and its environment ¯A(in white). Panels (a) and (b) correspond to ordinary and special cuts, while panel (c) corresponds to the extraordinary cut realized by a tilted cut in the same model. These three cuts are used throughout the paper to realize the three classes of Rényi de-fects compared below.
+
+We consider the entanglement bipartition of a system with periodic boundary conditions. More specifically, the lattice is divided into two subsystems along a straight cut, and one subsystem is traced out. This construction gen-erates a Rényi-n defect, which forms a one-dimensional structure along the entanglement bipartition edge. The Rényi index n can be interpreted as an effective inverse temperature for the entanglement Hamiltonian. The Rényi defect can be represented by a n-sheeted replica manifold and simulated directly within QMC [48–52]. A schematic illustration of the dimerized Heisenberg model with different entanglement bipartitions is shown in Fig. 1. We borrow the names ordinary [Fig. 1(a)], special [Fig. 1(b)] and extraordinary [Fig. 1(c)] from the corresponding boundary criticality problems: if the system is physically cut along these lines, the resulting boundaries realize the surface universality classes with the same names [47, 53–60]. More specifically, both or-dinary and special boundaries remain disordered, and the extraordinary boundary develops long-range ferro- or fer-rimagnetic order [47, 59, 60]. To characterize the properties of the Rényi defect, we measure spin correlations and Binder cumulants defined on the n-sheeted replica manifold for each type of entan-glement cut. For an observable O defined on subsystem 
+
+A, we define the Rényi-n expectation value as 
+
+⟨O⟩n = Tr( Oρ nA)Tr ρnA
+
+. (2) In field theory, one can think of ⟨O⟩n as the expectation value of O in the presence of a Rényi-n defect. We are mostly interested in O along the entanglement cut, so 
+
+⟨O⟩n allows us to access local observables on the defect. In practice, measuring correlations of local observables on Rényi defects in QMC simulations is computationally much more efficient than measuring the Rényi EE itself. In this way, we compute the equal-time defect spin-spin correlation Cs(L) between two surface spins i and 
+
+j with the longest distance |i − j| = L/ 2: Cs(L) = 
+
+⟨Szi Szi+L/ 2⟩n. Long-range magnetic order is indicated by a finite value of Cs(L) in the thermodynamic limit 
+
+L → ∞. We also evaluate the defect Binder cumu-lant U2(L) = 56
+
+
+
+3 − ⟨M 4   
+
+> z⟩n
+> ⟨M2
+> z⟩2
+> n
+
+
+
+, where the magnetization 
+
+Mz = P 
+
+> i∈cut
+
+ηiSzi , ηi = ±1 depending on which sub-lattice spin i belongs to. Notice that ηi are alternating signs for ordinary and special cuts, hence Mz measures 
+
+antiferromagnetic order. On the other hand, for the ex-traordinary cut ηi are all the same along the line (see Fig. 1). In the ordered phase, U2(L) → 1 in the ther-modynamic limit L → ∞ . In the disordered phase, U2
+
+approaches a value between 0 and 1. For disordered states, the finite-size behavior of the correlation function is well described by a power law 
+
+Cs(L) ∼ L−2 ˆ∆ϕ with subleading corrections. In prac-tice, we include correction-to-scaling terms to account for finite-size corrections and obtain stable estimates of the exponent for accessible system sizes. Thus the fitting formula is 
+
+Cs(L) = aL −2 ˆ∆ϕ (1 + bL −1). (3) In the ordered regime, the correlation function ap-proaches a finite value in the thermodynamic limit. In this case, the leading behavior is a finite constant, so we instead use polynomial fits in 1/L to extrapolate the asymptotic value, which provide a more reliable descrip-tion of the finite-size behavior. 
+
+Rényi defect CFT— We now connect the observables measured in numerical simulations to those in the under-lying field theory. The bulk of the system near the transi-tion is well described by the 3d O(3) Wilson-Fisher CFT, and we will denote the fundamental order-parameter 3field by an O(3) vector ϕ(x), with scaling dimension 
+
+∆ϕ ≈ 0.52 . It is well-understood that in the bulk ϕ
+
+is the continuum limit of the spin operator Si [61]. The Rényi entropy of order n is given by the free energy of the theory with the insertion of the Rényi defect (also known as conical singularity) along the boundary of the entangling region. Around the defect, the field satisfies the following boundary condition: 
+
+ϕ(r, θ, x ⊥) = ϕ(r, θ + 2 πn, x ⊥), (4) where r and θ are the local polar coordinates on the plane transverse of the defect, and x⊥ is the coordinate along the defect. Note that n can be any real number, but numerically we only have access to positive integer n > 1
+
+by the replica QMC [48]. The IR limit of the defect can be described by observ-ables localized on the defect [62, 63]. In particular, when 
+
+ϕ is brought to the defect, it becomes a defect opera-tor ˆϕ with the same O(3) quantum number. When the defect remains conformal, ˆϕ exhibits power-law correla-tions along the defect line, with an exponent ˆ∆ϕ. For-mally, the bulk and defect operators are related by the bulk-to-defect operator-product expansion [64]: 
+
+ϕ(r, θ, x ⊥) ∼ r ˆ∆ϕ−∆ϕ ˆϕ(x⊥). (5) The fitted exponent from (3) provides a numerical esti-mate of ˆ∆ϕ.
+
+Ordinary and special Rényi defects— We first analyze Rényi defects corresponding to ordinary and special cuts. Fig. 2 presents the spin correlation function and Binder cumulant for representative ordinary and special cuts at 
+
+n = 2 .2 × 10 1 4 × 10 1 8 × 10 1
+
+L   
+
+> 10 2
+> 4 × 10 3
+> 6 × 10 3
+> Cs
+
+(a) 2 × 10 1 4 × 10 1 8 × 10 1
+
+L   
+
+> 2 × 10 2
+> 3 × 10 2
+> 4 × 10 2
+
+(b)   
+
+> 0.000 0.025 0.050
+
+1/ L
+
+> 0.0
+> 0.5
+> 1.0
+> U2
+
+(c) 0.000 0.025 0.050 
+
+1/ L
+
+> 0.0
+> 0.5
+> 1.0
+
+(d)             
+
+> FIG. 2. Finite-size scaling of observables for ordinary and spe-cial Rényi defects at n= 2 in the columnar dimerized Heisen-berg model. Left panels: ordinary; right panels: special. Top row shows the spin correlation Cs(L)on the Rényi line defects, and bottom row shows the Binder cumulant U2(L).System sizes range from L= 16 to 80 .Solid lines are fits described in the text.
+
+For both universality classes, the correlation function decreases with increasing system size and extrapolates to zero in the thermodynamic limit. The data are well fitted by Eq. (3). This indicates the absence of long-range magnetic order on the Rényi defect. The Binder cumulant U2 decreases with system size and approaches a value smaller than one. These results confirm that ordinary and special Rényi defects remain disordered for all studied finite Rényi indices within our accessible system sizes. We do not address the behavior in the limit n → ∞ in the main text. Additional data for the large-n limit, obtained from n = 2 L, are presented in the SM. To quantify the scaling behavior in the disordered regime, we extract the scaling dimension ˆ∆ϕ from finite-size scaling for different Rényi indices. The results for 
+
+n = 2 and n = 3 are summarized in Table I. The ta-ble also includes results for the extraordinary cut, which will be discussed below. We have also verified that the fits are stable with respect to different choices of lower size cutoff, see SM for more details. The distinct values of ˆ∆ϕ across different cuts indicate that the correspond-ing Rényi defects belong to different universality classes. We have further verified that ordinary and special Rényi defects exhibit consistent scaling behavior in the bilayer Heisenberg model, as shown in the SM, supporting the universality of these results.                    
+
+> TABLE I. Scaling dimension ˆ∆ϕextracted from finite-size scaling of Cs(L)for ordinary, special, and extraordinary Rényi defects at n= 2 and n= 3 . The extraordinary defect remains in the disordered regime for these values of n.
+> nOrdinary Special Extraordinary
+> 20.358(5) 0.278(2) 0.317(2) 30.324(6) 0.154(1) 0.178(1)
+
+Extraordinary Rényi defects— We now turn to the ex-traordinary Rényi defect, realized in the columnar dimer-ized model by a tilted entanglement cut. Fig. 3 presents the spin correlation functions, squared magnetization and Binder cumulant for representative values n = 2 , 4, 10 ,while Fig. 4 shows the Binder cumulant as a function of 
+
+n for different system sizes. For small Rényi indices, such as n = 2 , the correlation function decreases with increasing system size and ex-trapolates to zero in the thermodynamic limit. The data are well fitted by the form Cs(L) = aL −2 ˆ∆ϕ (1 + bL −1),with ˆ∆ϕ given in Table I. The same disordered behavior is observed at n = 3 , where Cs(L) continues to decay and shows no indication of long-range order (see SM). As the Rényi index increases, the Binder cumulant 
+
+U2(L) grows systematically and exhibits a clear cross-ing near nc ≈ 3–4 for system sizes ranging from L = 16 
+
+to L = 32 , as shown in Fig. 4. Here the Rényi index n
+
+serves as a control parameter tuning the effective state of the defect. This crossing indicates a transition between a disordered and an ordered regime at a finite critical Rényi 42 × 10 1 4 × 10 1 8 × 10 1           
+
+> L
+> 10 2
+> 2 × 10 2
+> Cs, M 2
+> z
+> (a) 0.00 0.05
+> 1/ L
+> 0.000
+> 0.025
+> 0.050
+> (b) 0.00 0.05
+> 1/ L
+> 0.000
+> 0.025
+> 0.050
+> (c)
+> Cs
+> m2
+> z
+> 0.00 0.05
+> 1/ L
+> 0.0
+> 0.5
+> 1.0
+> U2
+> (d) 0.00 0.05
+> 1/ L
+> 0.8
+> 0.9
+> 1.0
+> (e) 0.00 0.05
+> 1/ L
+> 0.8
+> 0.9
+> 1.0
+> (f)
+
+FIG. 3. Finite-size scaling of observables for the extraordinary Rényi defect at different Rényi indices. Columns (left to right) correspond to n = 2 , n = 4 , and n = 10 . Top row shows the spin correlation Cs(L) on the Rényi defect line, and bottom row shows the Binder cumulant U2(L). For n = 4 and n = 10 ,we additionally show the squared magnetization M 2 
+
+> z
+
+. System sizes range from L = 16 to 80 . Solid lines are fits described in the text. 0 5 10        
+
+> n
+> 0.35
+> 0.40
+> 0.45
+> U2
+> (a)
+> 0510
+> n
+> 0.70
+> 0.75
+> 0.80
+> 0.85
+> (b)
+> L= 16
+> L= 24
+> L= 32
+> 0510
+> n
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> (c)
+
+FIG. 4. Binder cumulant U2 as a function of Rényi index 
+
+n for (a) ordinary, (b) special, and (c) extraordinary Rényi defects in the columnar dimerized Heisenberg model. Differ-ent symbols correspond to system sizes L = 16 , 24 , 32 . For the ordinary and special cuts, U2 evolves smoothly with n
+
+and no crossing is observed, consistent with the absence of a finite-n phase transition. In contrast, for the extraordinary cut the Binder cumulant curves cross near nc ≈ 3–4, indicat-ing a transition between a disordered regime at small n and an ordered regime at larger n.
+
+index nc ≈ 3–4 in the thermodynamic limit. The rapid evolution of both Cs(L) and U2(L) across this range of 
+
+n supports the presence of a true transition rather than a smooth crossover. For intermediate Rényi indices, exemplified by n = 4 ,the system lies close to the transition. The decay of 
+
+Cs(L) is suppressed and U2(L) increases with system size, consistent with the behavior observed near the cross-ing point. Polynomial extrapolations of both Cs(L) and 
+
+M 2 
+
+> z
+
+yield finite intercepts, Cs(∞) = 0 .02244(10) and 
+
+M 2 
+
+> z
+
+(∞) = 0 .02506(8) , indicating that the system is very close to, and likely on the ordered side of, the transition. The difference between the two extrapolated values sug-gests that finite-size corrections remain important in this near-critical regime. For larger Rényi indices, exemplified by n = 10 , the behavior changes qualitatively. The correlation function saturates to a finite value in the thermodynamic limit. A polynomial extrapolation yields consistent finite val-ues Cs(∞) = 0 .04165(11) and M 2 
+
+> z
+
+(∞) = 0 .04177(10) 
+
+within uncertainties. The Binder cumulant approaches 
+
+U2(∞) = 0 .9836(7) , consistent with spontaneous sym-metry breaking on the Rényi defect. This provides clear evidence for magnetic order on the extraordinary Rényi defect line. 
+
+Discussions— It is useful to compare the numerical re-sults with analytic studies of Rényi defects in the inter-acting O (N ) CFT, performed in [10] using both large-N
+
+approximation and ϵ expansion. We will briefly review the results, focusing mostly on the large-N solution. In the large-N limit, the bulk is the O (N ) Wilson-Fisher CFT (while we have N = 3 in the numerical sim-ulations). From solving the large-N gap equation, one finds that for all n > 1 there is a unique physical solution with ˆ∆ϕ < ∆ϕ. In addition, ˆ∆ϕ decreases monotonically with n, and approaches 0 as n → ∞ . Some representa-tive values from the large N solution are ˆ∆ϕ ≈ 0.34 for 
+
+n = 2 , and 0.23 for n = 3 [10, 65]. Our lattice numerical results point to multiple distinct universality classes of Rényi-defect criticality. This sug-gests a richer structure of defect criticality at finite N
+
+beyond the large-N analysis. It is worth pointing out that all three types of Rényi defects share certain quali-tative features (e.g. ˆ∆ϕ < 1/2 and decreases with n) as the large-N solution. We notice that a RG calculation using ϵ expansion [10] finds two fixed points, one stable and one unstable, when n is sufficiently close to 1. The finite-n ordering transition of the extraordinary defect is reminiscent of the behavior found near four spacetime dimensions. More precisely, for codimension-two Rényi defects in general spacetime dimension d, the large-N analysis finds that, when d is close to 4, there is a critical index nc: below nc the defect universality class is smoothly connected to the d = 3 solution, while above 
+
+nc the defect develops an ordering tendency, reflected in a parametrically small ˆ∆ϕ [10]. This result can also be seen from the defect RG analysis. Relatedly, the ordered phase on the extraordinary Rényi defect found in our simulations may appear sur-prising, since general arguments in relativistic field the-ories rule out spontaneous breaking of a continuous symmetry on line defects under reasonable assumptions about the defect RG flow [66]. However, in our lattice simulations, due to the sublattice structure of Mz , the or-der on the extraordinary Rényi defect can be interpreted as a ferromagnetic one. It is well-known that such or-dering can occur in the ground states of one-dimensional quantum spin chains (for a recent discussion, see [67]). Hence it is possible that the ordering here is tied to mi-croscopic one-dimensional degrees of freedom localized near the defect. Another possibility, suggested by the large-N analysis, is that the apparent ordered phase is a finite-size manifestation of the defect order parameter with a very small ˆ∆ϕ.5
+
+Conclusion— In this work, we have numerically stud-ied Rényi defects at the (2+1) d O(3) QCP by measur-ing local observables on the replica spacetime manifold. Microscopically different entanglement bipartitions real-ize ordinary, special, and extraordinary Rényi defects, which exhibit distinct critical behavior as exemplified by the scaling dimensions. Most notably, the extraordinary Rényi defect shows a finite-n transition from a disordered phase at small Rényi index n to a ferromagnetically or-dered phase at larger n, while the ordinary and special defects remain disordered within the accessible range of 
+
+n. These results show that the sensitivity of entangle-ment observables to microscopic cut geometry can be un-derstood in terms of distinct defect universality classes in the IR. 
+
+Acknowledgments — We thank Zenan Liu and Yan-Cheng Wang for helpful discussions. MC acknowledges enlightening conversations with Yichul Choi, Max Metlit-ski, Yifan Wang and Xiao-Chuan Wu, and collaboration with Nayan Myerson-Jain and G. Shankar on related top-ics. MC is also grateful for the hospitality from the Insti-tute for Advanced Study. ZW thanks the China Postdoc-toral Science Foundation under Grant No.2024M752898. The work is supported by the Scientific Research Project (No.WU2025B011) and the Start-up Funding of West-lake University. The authors thank the high-performance computing center of Westlake University for providing HPC resources.  
+
+> ∗
+
+m.cheng@yale.edu  
+
+> †
+
+zhengyan@westlake.edu.cn [1] P. Calabrese and J. Cardy, Entanglement entropy and quantum field theory, J. Stat. Mech. 2004 , P06002 (2004). [2] L. Amico, R. Fazio, A. Osterloh, and V. Vedral, Entan-glement in many-body systems, Rev. Mod. Phys. 80 , 517 (2008). [3] J. Eisert, M. Cramer, and M. B. Plenio, Colloquium: Area laws for the entanglement entropy, Rev. Mod. Phys. 
+
+82 , 277 (2010). [4] P. Calabrese and J. Cardy, Entanglement entropy and conformal field theory, J. Phys. A 42 , 504005 (2009). [5] T. Nishioka, Entanglement entropy: holography and renormalization group, Rev. Mod. Phys. 90 , 035007 (2018). [6] C. Holzhey, F. Larsen, and F. Wilczek, Geometric and renormalized entropy in conformal field theory, Nucl. Phys. B 424 , 443 (1994). [7] V. E. Korepin, Universality of entropy scaling in one di-mensional gapless models, Phys. Rev. Lett. 92 , 096402 (2004). [8] N. Laflorencie, Quantum entanglement in condensed matter systems, Phys. Rep. 646 , 1 (2016). [9] A. B. Kallin, M. B. Hastings, R. G. Melko, and R. R. Singh, Anomalies in the entanglement properties of the square-lattice heisenberg model, Phys. Rev. B 84 , 165134 (2011). [10] M. A. Metlitski, C. A. Fuertes, and S. Sachdev, Entan-glement Entropy in the O(N) model, Phys. Rev. B 80 ,115122 (2009). [11] M. A. Metlitski and T. Grover, Entanglement entropy of systems with spontaneously broken continuous symme-try, (2011), arXiv:1112.5166 [cond-mat.str-el]. [12] H. Li and F. D. M. Haldane, Entanglement spectrum as a generalization of entanglement entropy: Identification of topological order in non-abelian fractional quantum hall effect states, Phys. Rev. Lett. 101 , 010504 (2008). [13] A. Kitaev and J. Preskill, Topological entanglement en-tropy, Phys. Rev. Lett. 96 , 110404 (2006). [14] H. Casini and M. Huerta, Universal terms for the entan-glement entropy in 2+1 dimensions, Nucl. Phys. B 764 ,183 (2007). [15] E. Fradkin and J. E. Moore, Entanglement entropy of 2d conformal quantum critical points: Hearing the shape of a quantum drum, Phys. Rev. Lett. 97 , 050404 (2006). [16] Z. Deng, L. Liu, W. Guo, and H.-Q. Lin, Diagnosing quantum phase transition order and deconfined criticality via entanglement entropy, Phys. Rev. Lett. 133 , 100402 (2024). [17] Y.-C. Lin, F. Iglói, and H. Rieger, Entanglement entropy at infinite-randomness fixed points in higher dimensions, Phys. Rev. Lett. 99 , 147202 (2007). [18] A. B. Kallin, E. Stoudenmire, P. Fendley, R. R. Singh, and R. G. Melko, Corner contribution to the entangle-ment entropy of an o (3) quantum critical point in 2+ 1 dimensions, J. Stat. Mech. 2014 , P06009 (2014). [19] J. Helmes and S. Wessel, Entanglement entropy scaling in the bilayer heisenberg spin system, Phys. Rev. B 89 ,245120 (2014). [20] C. Park, Logarithmic corrections to the entanglement en-tropy, Phys. Rev. D 92 , 126013 (2015). [21] S. Whitsitt, W. Witczak-Krempa, and S. Sachdev, En-tanglement entropy of large-n wilson-fisher conformal field theory, Phys. Rev. B 95 , 045148 (2017). [22] P. Bueno, R. C. Myers, and W. Witczak-Krempa, Univer-sality of corner entanglement in conformal field theories, Phys. Rev. Lett. 115 , 021602 (2015). [23] J. Helmes, L. E. Hayward Sierens, A. Chandran, W. Witczak-Krempa, and R. G. Melko, Universal corner entanglement of dirac fermions and gapless bosons from the continuum to the lattice, Phys. Rev. B 94 , 125142 (2016). [24] J. Zhao, Y.-C. Wang, Z. Yan, M. Cheng, and Z. Y. Meng, Scaling of entanglement entropy at deconfined quantum criticality, Phys. Rev. Lett. 128 , 010601 (2022). [25] M. Song, J. Zhao, Z. Y. Meng, C. Xu, and M. Cheng, Extracting subleading corrections in entanglement en-tropy at quantum phase transitions, SciPost Phys. 17 ,010 (2024). [26] M. B. Hastings, I. González, A. B. Kallin, and R. G. Melko, Measuring renyi entanglement entropy in quan-tum monte carlo simulations, Phys. Rev. Lett. 104 ,157201 (2010). [27] J. D’Emidio, Entanglement entropy from nonequilibrium work, Phys. Rev. Lett. 124 , 110602 (2020). [28] T. Grover, Entanglement of interacting fermions in quan-tum monte carlo calculations, Phys. Rev. Lett. 111 ,130402 (2013). [29] S. Humeniuk and T. Roscilde, Quantum monte carlo cal-culation of entanglement rényi entropies for generic quan-6
+
+tum systems, Phys. Rev. B 86 , 235116 (2012). [30] A. B. Kallin, K. Hyatt, R. R. P. Singh, and R. G. Melko, Entanglement at a two-dimensional quantum crit-ical point: A numerical linked-cluster expansion study, Phys. Rev. Lett. 110 , 135702 (2013). [31] J. Zhao, B.-B. Chen, Y.-C. Wang, Z. Yan, M. Cheng, and Z. Y. Meng, Measuring rényi entanglement entropy with high efficiency and precision in quantum monte carlo simulations, npj Quantum Mater. 7, 69 (2022). [32] Y. Da Liao, M. Song, J. Zhao, and Z. Y. Meng, Ex-tracting universal corner entanglement entropy during the quantum monte carlo simulation, Phys. Rev. B 110 ,235111 (2024). [33] Z. Wang, Z. Deng, Z. Liu, Z. Wang, Y.-M. Ding, L. Zhang, W. Guo, and Z. Yan, Universal behavior in entanglement entropy reveals quantum criticality and underlying symmetry breaking, Chin. Phys. Lett. 42 ,110712 (2025). [34] Z. Wang, Z. Wang, Y.-M. Ding, B.-B. Mao, and Z. Yan, Bipartite reweight-annealing algorithm of quan-tum monte carlo to extract large-scale data of entangle-ment entropy and its derivative, Nat. Commun. 16 , 5880 (2025). [35] Z. Wang, C. Guo, B.-B. Mao, and Z. Yan, Universal and non-universal contributions of entanglement under differ-ent bipartitions, (2026), arXiv:2601.12365 [cond-mat.str-el]. [36] J. D’Emidio, R. Orús, N. Laflorencie, and F. de Juan, Universal features of entanglement entropy in the hon-eycomb hubbard model, Phys. Rev. Lett. 132 , 076502 (2024). [37] J. D’Emidio and A. W. Sandvik, Entanglement entropy and deconfined criticality: Emergent so(5) symmetry and proper lattice bipartition, Phys. Rev. Lett. 133 , 166702 (2024). [38] Y. Zhu, Z. Liu, Z. Wang, Y.-C. Wang, and Z. Yan, Bi-partite entanglement and surface criticality: The extra contribution of the nonordinary edge in entanglement, Phys. Rev. Lett. 136 , 046501 (2026). [39] Z. Liu, R.-Z. Huang, Z. Yan, and D.-X. Yao, Demon-strating the wormhole mechanism of the entanglement spectrum via a perturbed boundary, Phys. Rev. B 109 ,094416 (2024). [40] L. Bianchi, M. Meineri, R. C. Myers, and M. Smolkin, Rényi entropy and conformal defects, JHEP 07 , 076, arXiv:1511.06713 [hep-th]. [41] N. Andrei, A. Bissi, M. Buican, J. Cardy, P. Dorey, N. Drukker, J. Erdmenger, D. Friedan, D. Fursaev, A. Konechny, et al. , Boundary and defect cft: open prob-lems and applications, J. Phys. A: Math. Theor. 53 ,453002 (2020). [42] G. Cuomo, Z. Komargodski, and A. Raviv-Moshe, Renor-malization group flows on line defects, Phys. Rev. Lett. 
+
+128 , 021603 (2022). [43] Z. Wang, Z. Wang, Y.-M. Ding, Z. Liu, Z. Yan, and L. Zhang, Boundary renormalization group flow of en-tanglement entropy at a ( 2 + 1 )-dimensional quantum critical point, Phys. Rev. B 113 , L161104 (2026). [44] I. Affleck, Conformal field theory approach to quan-tum impurity problems, in Field Theories for Low-Dimensional Condensed Matter Systems: Spin Systems and Strongly Correlated Electrons (Springer, 2000) pp. 117–141. [45] G. Cuomo, Z. Komargodski, and M. Mezei, Localized magnetic field in the o (n) model, J. High Energy Phys. 
+
+2022 (2), 134. [46] Y.-H. Wu, Y. Zhang, H.-H. Tu, and M. Cheng, Impurity screening by defects in (1 + 1) d quantum critical systems, Phys. Rev. Lett. 136 , 036502 (2026). [47] C. Ding, L. Zhang, and W. Guo, Engineering surface crit-ical behavior of ( 2+1 )-dimensional o(3) quantum critical points, Phys. Rev. Lett. 120 , 235701 (2018). [48] Z. Yan and Z. Y. Meng, Unlocking the general relation-ship between energy and entanglement spectra via the wormhole effect, Nat. Commun. 14 , 2360 (2023). [49] C. Li, R.-Z. Huang, Y.-M. Ding, Z. Y. Meng, Y.-C. Wang, and Z. Yan, Relevant long-range interaction of the entan-glement hamiltonian emerges from a short-range gapped system, Phys. Rev. B 109 , 195169 (2024). [50] M. Song, J. Zhao, Z. Yan, and Z. Y. Meng, Different tem-perature dependence for the edge and bulk of the entan-glement hamiltonian, Phys. Rev. B 108 , 075114 (2023). [51] S. Wu, X. Ran, B. Yin, Q.-F. Li, B.-B. Mao, Y.-C. Wang, and Z. Yan, Classical model emerges in quantum en-tanglement: Quantum monte carlo study for an ising-heisenberg bilayer, Phys. Rev. B 107 , 155121 (2023). [52] Z. Liu, Z. Wang, D.-X. Yao, and Z. Yan, Worldline de-confinement and emergent long-range interaction in the entanglement hamiltonian and in the entanglement spec-trum, Phys. Rev. B 113 , 144425 (2026). [53] J. Cardy, Scaling and renormalization in statistical physics , Cambridge lecture notes in physics, Vol. 5 (Cam-bridge University Press, Cambridge, 1996) p. 238 pages. [54] K. Binder and P. C. Hohenberg, Surface effects on mag-netic phase transitions, Phys. Rev. B 9, 2194 (1974). [55] Y. Deng, H. W. J. Blöte, and M. P. Nightingale, Surface and bulk transitions in three-dimensional O( n) models, Phys. Rev. E 72 , 016128 (2005). [56] L. Zhang and F. Wang, Unconventional surface critical behavior induced by a quantum phase transition from the two-dimensional affleck-kennedy-lieb-tasaki phase to a néel-ordered phase, Phys. Rev. Lett. 118 , 087201 (2017). [57] L. Weber, F. Parisen Toldin, and S. Wessel, Nonordinary edge criticality of two-dimensional quantum critical mag-nets, Phys. Rev. B 98 , 140403 (2018). [58] C. Ding, W. Zhu, W. Guo, and L. Zhang, Special tran-sition and extraordinary phase on the surface of a two-dimensional quantum Heisenberg antiferromagnet, Sci-Post Phys. 15 , 012 (2023). [59] Z. Wang, S.-Q. Ning, Z. Liu, J. Rong, Y.-C. Wang, Z. Yan, and W. Guo, Surface phase transitions in a 
+
+(1 + 1) -dimensional su (2) 1 conformal field theory bound-ary coupled to a (2 + 1) -dimensional ‡2 bulk, Phys. Rev. B 110 , 115122 (2024). [60] Z. Wang, L. Lu, S.-Q. Ning, Z. Liu, Y.-C. Wang, Z. Yan, and W. Guo, Detecting underlying symmetry-protected topological phases via strange correlators and edge engi-neering, Phys. Rev. B 113 , 054405 (2026). [61] S also contains the density component of the O(3) cur-rent. But it is more irrelevant ( ∆J = 2 ) than the order parameter ( ∆ϕ ≈ 0.52 ). These two operators also appear with distinct sublattice sign patterns. [62] M. Billó, M. Caselle, D. Gaiotto, F. Gliozzi, M. Meineri, and R. Pellegrini, Line defects in the 3d Ising model, JHEP 07 , 055, arXiv:1304.4110 [hep-th]. [63] M. Billò, V. Gonçalves, E. Lauria, and M. Meineri, Defects in conformal field theory, JHEP 04 , 091, arXiv:1601.02883 [hep-th]. 7
+
+[64] Here for simplicity, we suppress the θ dependence con-trolled by the transverse spin, as well as other less rele-vant terms in the expansion. [65] M. Cheng, N. Myerson-Jain, and G. Shankar (2026), un-published. [66] G. Cuomo and S. Zhang, Spontaneous symmetry break-ing on surface defects, JHEP 03 , 022, arXiv:2306.00085 [hep-th]. [67] J. Wang, Z. Liu, B.-B. Mao, X. Tian, Z. Xiong, Z. Wang, and Z. Yan, Spontaneous continuous-symmetry break-ing and tower of states in a comb chain, (2025), arXiv:2506.23258 [cond-mat.str-el]. S1 
+
+# Criticality on Rényi defect at (2+1) d O(3) quantum critical points -Supplemental Material-
+
+Yanzhang Zhu, 1,2,3 Zhe Wang, 1,2 Meng Cheng, 4 and Zheng Yan 1,2
+
+> 1
+
+Department of Physics, School of Science and Research Center for Industries of the Future, Westlake University, Hangzhou 310030, China 
+
+> 2
+
+Institute of Natural Sciences, Westlake Institute for Advanced Study, Hangzhou 310024, China 
+
+> 3
+
+State Key Laboratory of Surface Physics and Department of Physics, Fudan University, Shanghai 200433, China 
+
+> 4
+
+Department of Physics, Yale University, New Haven, Connecticut 06511, USA 
+
+UNIVERSALITY OF ORDINARY AND SPECIAL RÉNYI DEFECTS 
+
+We consider the spin-1/2 bilayer Heisenberg model, 
+
+H = J X
+
+> ⟨ij ⟩,ℓ
+
+Si,ℓ · Sj,ℓ + J′ X
+
+> i
+
+Si, 1 · Si, 2, (S1) where ℓ = 1 , 2 labels the two layers, J is the intralayer coupling, and J′ is the interlayer coupling. The system is tuned to its bulk quantum critical point at J′/J = 2 .522 .We construct Rényi defects using the same replica approach as in the main text by performing an entanglement bipartition of a system with periodic boundary conditions. The resulting Rényi defect line is defined along the entanglement cut. Different choices of bipartition in the bilayer geometry realize ordinary and special Rényi defects, as illustrated in Fig. S1. The system is divided into two subsystems by the entanglement cut, and observables are measured along the boundary of subsystem A.
+
+FIG. S1. Schematic illustration of the bilayer Heisenberg model and entanglement bipartitions realizing (a) ordinary and (b) special Rényi defects. The system has periodic boundary conditions and is divided into two subsystems by the entanglement cut, shown here by black and white spins. Thin black bonds denote intralayer couplings J, and thick blue bonds denote interlayer couplings J′. In (a), the bipartition does not break interlayer singlets, and observables are measured along the boundary of subsystem A (black region), corresponding to the ordinary defect. In (b), the bipartition effectively cuts through the interlayer dimers along a tilted direction, leaving a chain of unpaired spins along the defect; the measurement region is indicated by red dashed boxes, corresponding to the special defect. 
+
+For the ordinary cut, the bipartition does not break the interlayer singlets, and no additional low-energy degrees of freedom are generated along the defect. In contrast, for the special cut, the bipartition effectively cuts through the interlayer dimers along a tilted direction, leaving a chain of unpaired spins along the defect. The measurement region in this case is indicated in Fig. S1(b). This construction is directly analogous to the special surface transition in the dimerized Heisenberg model, where cutting strong bonds produces dangling spin chains. We compute the spin correlation Cs(L) and Binder cumulant U2(L) at Rényi index n = 2 for system sizes up to 
+
+L = 80 . Fig. S2 compares the finite-size scaling of these observables between the bilayer and columnar dimerized models for both ordinary and special cuts. Fitting the correlation function using the same scaling form as in the main text yields scaling dimensions ∆ord =0.353(5) and ∆spec = 0 .281(2) for the bilayer model, which are consistent within uncertainties with the corresponding values in the columnar dimerized model. These results support the universality of ordinary and special Rényi defects, indicating that their scaling behavior is insensitive to microscopic details of the model. S2 2 × 10 1 4 × 10 1 8 × 10 1
+
+## L    
+
+> 10 2
+> 3 × 10 3
+> 4 × 10 3
+> 6 × 10 3
+> Cs
+
+## (a) 2 × 10 1 4 × 10 1 8 × 10 1
+
+## L   
+
+> 2 × 10 2
+> 3 × 10 2
+> 4 × 10 2
+
+## (b)   
+
+> 0.000 0.025 0.050
+
+## 1/ L
+
+> 0.0
+> 0.5
+> 1.0
+> U2
+
+## (c) 0.000 0.025 0.050 
+
+## 1/ L
+
+> 0.0
+> 0.5
+> 1.0
+
+## (d) 
+
+> Bilayer
+> Dimerized
+
+FIG. S2. Comparison of finite-size scaling between the bilayer (red) and columnar dimerized (blue) Heisenberg models at Rényi index n = 2 . Panels (a)(b) show the surface correlation Cs(L) for the ordinary and special defects, respectively, while panels (c)(d) show the corresponding Binder cumulant U2(L). In both cases, the bilayer and dimerized data exhibit very similar scaling behavior: Cs(L) decreases with system size and U2(L) approaches a value smaller than one. 
+
+UNIVERSALITY OF EXTRAORDINARY RÉNYI DEFECTS 
+
+We consider the spin-1/2 staggered dimerized Heisenberg model, 
+
+H = J X
+
+> ⟨ij ⟩
+
+Si · Sj + J′ X
+
+> ⟨ij ⟩′
+
+Si · Sj , (S2) where ⟨ij ⟩ and ⟨ij ⟩′ denote weak and strong bonds, respectively. The system is tuned to its bulk quantum critical point at J′/J = 2 .5196 .We construct the Rényi defect using the same entanglement bipartition and replica approach as in the main text. An illustration of the entanglement cut is shown in Fig. S3. 
+
+FIG. S3. Schematic illustration of the staggered dimerized Heisenberg model and the entanglement bipartition realizing the extraordinary Rényi defect. Thin black bonds denote weak couplings J, and thick blue bonds denote strong couplings J′. The system is divided into subsystems A (black) and its environment ¯A (white) by the entanglement cut. 
+
+Along the entanglement cut, the bipartition intersects bonds in an alternating sequence of weak and strong couplings. This structure is distinct from the ordinary case, where dimers remain intact, and the special case, where strong bonds are cut to produce dangling spins. The alternating pattern provides a microscopic realization of the extraordinary Rényi defect. We compute the surface correlation Cs(L) and Binder cumulant U2(L) at Rényi index n = 2 for system sizes up to L = 80 . Fig. S4 shows the corresponding results for the staggered model, together with those obtained from the tilted columnar construction. Fitting the correlation function using the same scaling form as in the main text yields scaling dimensions 
+
+∆stag = 0 .321(3) for the staggered model that agree within uncertainties with those obtained from the tilted colum-nar construction. These results demonstrate that the extraordinary Rényi defect is characterized by the same critical exponent in both realizations, despite differences in microscopic geometry. S3 2 × 10 1 4 × 10 1 8 × 10 1
+
+L
+
+10 2
+
+2 × 10 2
+
+> Cs
+
+(a) 
+
+0.000 0.025 0.050 
+
+1/ L
+
+0.00 
+
+0.25 
+
+0.50 
+
+0.75 
+
+1.00 
+
+> U2
+
+(b) 
+
+Staggered 
+
+Tilted 
+
+FIG. S4. Comparison of finite-size scaling between the staggered (red) and tilted columnar (blue) dimerized Heisenberg models at Rényi index n = 2 for the extraordinary defect. Panel (a) shows the surface correlation Cs(L), and panel (b) shows the Binder cumulant U2(L). The two models exhibit very similar scaling behavior: Cs(L) decreases with system size and U2(L)
+
+approaches a value smaller than one. 
+
+RÉNYI-n = 3 DATA 2 × 10 1 4 × 10 1 8 × 10 1
+
+L    
+
+> 10 2
+> 3 × 10 3
+> 4 × 10 3
+> 6 × 10 3
+> Cs
+
+(a) 2 × 10 1 4 × 10 1 8 × 10 1
+
+L  
+
+> 3 × 10 2
+> 4 × 10 2
+
+(b) 2 × 10 1 4 × 10 1 8 × 10 1
+
+L       
+
+> 2.25 × 10 2
+> 2.5 × 10 2
+> 2.75 × 10 2
+> 3 × 10 2
+> 3.25 × 10 2
+> 3.5 × 10 2
+> 3.75 × 10 2
+
+(c)   
+
+> 0.000 0.025 0.050
+
+1/ L
+
+> 0.0
+> 0.5
+> 1.0
+> U2
+
+(d) 0.000 0.025 0.050 
+
+1/ L
+
+> 0.6
+> 0.8
+> 1.0
+
+(e) 0.000 0.025 0.050 
+
+1/ L
+
+> 0.6
+> 0.8
+> 1.0
+
+(f) 
+
+FIG. S5. Finite-size scaling of the Rényi-n = 3 defect for the three types of cuts discussed in the main text. Panels (a)–(c) show the surface correlation Cs(L) for the ordinary, special, and extraordinary defects, respectively, while panels (d)–(f) show the corresponding Binder cumulant U2(L). The data provide the basis for the extraction of scaling dimensions reported in the main text. 
+
+We present the finite-size scaling of the Rényi-n = 3 defect for the ordinary, special, and extraordinary cases in Fig. S5. The surface correlation Cs(L) and Binder cumulant U2(L) are computed using the same setup as in the main text. The data shown here are used to extract the scaling dimensions reported in the main text. 
+
+STABILITY OF SCALING FITS 
+
+To assess the robustness of the extracted scaling dimensions, we perform fits using different lower size cutoffs Lmin 
+
+while keeping the largest system size fixed at Lmax = 80 . The results for the three types of Rényi defects at n = 2 
+
+are summarized in Table S1. 
+
+TABLE S1. Stability of the scaling dimension ∆ extracted from fits of Cs(L) at Rényi index n = 2 using different lower size cutoffs Lmin , with Lmax = 80 fixed. The last row gives the reduced chi-squared values for the fits with Lmin = 16 .
+
+Lmin Ordinary Special Extraordinary 
+
+16 0.358(5) 0.278(2) 0.317(2) 24 0.360(9) 0.276(3) 0.319(4) 32 0.38(2) 0.280(5) 0.328(7) 40 0.40(3) 0.287(9) 0.34(2) 
+
+χ2red 1.035 1.178 1.606 S4 The fitted values remain stable within uncertainties for all three cases. A mild systematic drift is observed for the ordinary defect as Lmin increases, which we attribute to residual finite-size effects. The χ2red values for the Lmin = 16 
+
+fits are close to unity as well, supporting the quality of the scaling fits. Overall, the results support the reliability of the scaling dimensions reported in the main text. 
+
+BEHAVIOR OF RÉNYI DEFECTS IN THE LARGE-n LIMIT 
+
+To further probe the behavior of Rényi defects beyond the finite-n regime discussed in the main text, we examine the large-n limit by considering n = 2 L, which corresponds to an effective low-temperature limit of the entanglement Hamiltonian. The results are shown in Fig. S6. 2 × 10 1 4 × 10 1
+
+## L
+
+10 2
+
+6 × 10 3
+
+> Cs
+
+## (a) 0.00 0.05 
+
+## 1/ L
+
+0.00 
+
+0.02 
+
+0.04 
+
+0.06 
+
+## (b) 0.00 0.05 
+
+## 1/ L
+
+0.042 
+
+0.043 
+
+0.044 
+
+## (c) 
+
+0.00 0.05 
+
+## 1/ L
+
+0.0 
+
+0.2 
+
+0.4 
+
+0.6 
+
+> U2
+
+## (d) 0.00 0.05 
+
+## 1/ L
+
+0.8 
+
+0.9 
+
+1.0 
+
+## (e) 0.00 0.05 
+
+## 1/ L
+
+0.8 
+
+0.9 
+
+1.0 
+
+## (f) 
+
+FIG. S6. Finite-size scaling of observables for Rényi defects in the large-n limit, realized by n = 2 L. Columns (left to right) correspond to the ordinary, special, and extraordinary defects. Top row shows the spin correlation Cs(L) on the Rényi defect line, and bottom row shows the Binder cumulant U2(L). For the ordinary defect, Cs(L) decreases with increasing system size and extrapolates to zero, while U2(L) remains small, indicating a disordered regime. For the extraordinary defect, Cs(L)
+
+extrapolates to a finite nonzero value and U2(L) approaches unity as L → ∞ , indicating spontaneous symmetry breaking on the Rényi defect. For the special defect, Cs(L) shows a tendency toward a finite value, while U2(L) approaches a value smaller than one, indicating that the behavior in this regime remains subtle within the accessible system sizes. System sizes range from 
+
+L = 16 to 48 . Solid lines are fits described in the text. 
+
+For the ordinary defect, the correlation function Cs(L) decreases with system size and extrapolates to zero, while the Binder cumulant remains small, consistent with a disordered regime. In contrast, for the extraordinary defect, polynomial extrapolation yields a finite value Cs(∞) = 0 .0421(2) and U2(∞) = 0 .990(2) , providing clear evidence of long-range order on the defect. The behavior of the special defect is more subtle. While Cs(L) shows a tendency toward a finite value, with polynomial extrapolation giving Cs(∞) = 0 .0312(1) , the Binder cumulant approaches a non-unit value and shows no clear convergence to an ordered limit within the accessible system sizes. Combined with the finite-n results in the main text, where the special defect remains disordered for n = 2 to 10 , we conclude that there is no clear evidence for a finite-n transition in the special case within the accessible range.

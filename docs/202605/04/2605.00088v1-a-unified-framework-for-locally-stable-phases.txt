@@ -1,0 +1,3079 @@
+Title: A Unified Framework for Locally Stable Phases
+
+URL Source: https://arxiv.org/pdf/2605.00088v1
+
+Published Time: Mon, 04 May 2026 00:03:51 GMT
+
+Number of Pages: 30
+
+Markdown Content:
+## A Unified Framework for Locally Stable Phases 
+
+Zhi Li, 1, ∗ Raz Firanko, 2, 3, † and Timothy H. Hsieh 2, ‡
+
+> 1
+
+IBM Quantum, IBM Research 
+
+> 2
+
+Perimeter Institute for Theoretical Physics, Waterloo, Ontario N2L 2Y5, Canada 
+
+> 3
+
+Institute for Quantum Computing (IQC), University of Waterloo, Ontario, Canada 
+
+We propose a unifying framework for characterizing pure and mixed-state phases of matter across equilibrium, non-equilibrium, and metastable regimes. We introduce the concept of locally stable states, defined by the operational property that any local operation (including post-selection) can be reversed by a local channel. We prove that local stability is equivalent to a state being short-range correlated—defined by the decay of both correlations and conditional mutual information. We demonstrate that these properties are invariant under locally reversible channels, thus defining locally stable phases. Furthermore, we prove that local stability implies both the decay of a family of nonlinear correlators, including the fidelity correlator, and the decay of correlations in the canonical purification, thus bridging the gap between mixed and pure states. Along the way, we establish two results which may be of independent interest: we show that post-selection on locally stable / short-range correlated states can be implemented via local channels and that quantum Markov chains can be characterized by the local computability of nonlinear observables. 
+
+CONTENTS 
+
+I. Introduction 1II. Short-range Correlated (SRC) States 2III. Local Stability 3A. Equivalence between SRC and local stability 3B. Local implementability of postselection 5C. Phase invariance 6D. Local stability via dynamics 7IV. Non-linear Correlators 8A. Definition and basic properties 8B. Quantum Markov chains and local computability 9C. Decay of nonlinear correlation 10 V. Canonical Purification 11 A. Decay of correlation 11 B. On the converse implication 13 VI. Discussion and Outlook 14 Acknowledgments 15 References 15 A. Notations and Useful Facts 17 B. Proofs in Sec. III 20 1. Local stability from SRC 20 2. Recovery from dynamics 20 C. Proofs in Sec. IV 24    
+
+> ∗Co-first author; zli@ibm.com
+> †Co-first author; rfiranko@pitp.ca
+> ‡thsieh@pitp.ca
+
+D. Proofs in Sec. V 26 1. Omitted proofs 26 2. Comments on Theorem 11 27 E. Some Counterexamples 28 1. Zero MI but not locally implementable 28 2. Nonzero CMI but locally implementable 28 3. Zero MI and CMI but not locally recoverable 29 4. Non-Markov but zero MI in canonical purification 29 
+
+I. INTRODUCTION 
+
+The concept of a phase of matter is central to con-densed matter physics and intimately tied to the struc-ture of spatial correlations. In equilibrium, Gibbs states of local Hamiltonians at finite and zero temperature (ground states) constitute phases of matter whose stabil-ity is typically dictated by decay of correlations of local operators. In recent years, advances in the controllability of open quantum systems and error correction have moti-vated the study of non-equilibrium states arising from lo-cal decoherence [1–23]. For such generally mixed states, the behavior of correlation functions alone is insufficient to fully characterize phase transitions, and correlations nonlinear in the state are essential. In particular, the decay of conditional mutual information (CMI) has been identified as an important criterion for the stability of a phase [9], in addition to decay of correlations. Moreover, phenomena such as strong-to-weak symmetry breaking (SWSSB) are characterized exclusively by nonlinear cor-relations such as CMI and Renyi/fidelity correlators [17– 19, 24, 25]. However, a general understanding of how all these correlation measures are related (and furthermore, their relation to pure state linear correlations) has been lacking, despite important progress when there is a global symmetry [18, 24]. 
+
+> arXiv:2605.00088v1 [quant-ph] 30 Apr 2026
+
+2 
+
+> FIG. 1. (left) Summary of main results, which provides a unified framework for the (right) generalized landscape of phases including equilibrium thermal (red) and quantum (blue), and non-equilibrium (green) phase transitions driven by noise, for example. The former can be diagnosed by conventional correlation lengths, for example given by mutual information (MI), and the latter can be diagnosed by conditional mutual information (CMI) and its associated length scale, the Markov length.
+
+To add to the mix, metastability is another important phenomenon beyond equilibrium, with examples rang-ing from false vacua [26] to transient order in driven quantum materials [27–29] and self-correcting classical and quantum memories [30]. Recent works have defined metastable states in terms of both dynamical properties (approximate stationarity [31]) and a notion of local en-ergy gap [32]. These works have highlighted the impor-tance of considering the effect of local operations on the state. How is metastability, defined dynamically or op-erationally, related to the above stable phases of matter, thus far defined from their correlation structure? In this work, we provide a framework that unifies pure and mixed-state phases, both in and out of equilibrium or metastable. We refer to this unified class of states as locally stable, and we define a state to have this property if any local operation (channel or Kraus operator/post-selection) can be reversed by a local channel. We prove that this operational property is equivalent to the state being short-range correlated, which we define as decay of 
+
+both CMI and correlations. We show that local stability is invariant under locally reversible channels, hence defin-ing a locally stable phase . From a dynamical perspective, we show that in certain settings, the Lindbladian giving rise to a steady state can be used to recover against local perturbations to the state, and we identify the Lindbla-dian gap as a key ingredient. We then establish that local stability implies the decay of a family of nonlinear cor-relators including the fidelity correlator, without assum-ing any symmetry. Finally, we show that local stability of a state implies decay of correlations in its canonical purification, thus further bridging mixed and pure state phases. As a byproduct, we obtain two results that may be of independent interest. We show that post-selection of a local measurement on any short-range correlated state can be physically implemented by a local channel. More-over, we show that a state being a quantum Markov chain is equivalent to the local computability of nonlinear ob-servables.  
+
+> II. SHORT-RANGE CORRELATED (SRC) STATES
+
+Throughout this work we study families of states ρ
+
+defined on D-dimensional lattices Λ of sites, each with a d-dimensional Hilbert space. For further settings and notation, we refer the reader to Appendix A. 
+
+Definition 1 (Short-range correlation) . We say that a state ρ is short-range correlated (SRC) if for any con-tiguous region A ⊆ Λ and a buffering annulus B sepa-rating A from the complement C, and for any observ-ables OA ∈ L(HA) and OC ∈ L(HC ) such that ∥OA∥∞ =
+
+∥OC ∥∞ = 1 , we have 
+
+|⟨ OAOC ⟩ρ − ⟨ OA⟩ρ⟨OC ⟩ρ| ≤ f (A)e− dist( A,C )/η , (1) 
+
+I(A:C|B)ρ ≤ g(A) e− dist( A,C )/ζ . (2) 
+
+for some constants η, ζ and functions f and g no larger than exponentials. 
+
+This definition is a generalization of the notion of short-range correlations commonly used for thermal or gapped ground states, for which correlations between distant observables decay exponentially with their sep-aration [33]. Property (1) is the usual notion of decay of operator correlations, where η is known as the cor-relation length . The additional property (2) is the ap-proximate Markov chain property, with ζ dubbed the 
+
+Markov length . While quantum and thermal phase tran-sitions typically involve a diverging correlation length, noise-induced mixed-state transitions involve a diverg-ing Markov length [9, 10] (see Fig. 1). As finite Markov length has been established in Gibbs states of local Hamiltonians [34–36], the diverging Markov length 3is a signature of intrinsically non-equilibrium phenomena in quantum and classical [37] systems. While Eq. (1) is formulated in terms of connected operator correlations, one could equivalently quantify correlations using other conventional measures, such as the mutual information I ( A : C)ρ or the trace distance 
+
+∥ρAC − ρA ⊗ ρC ∥1. Importantly, in our work we focus on the case where the region A is local ( |A|= O(1)), for which all these correlation measures are equivalent up to 
+
+O(1) factors. More quantitatively, defining 
+
+C(A, C ) def 
+
+= sup  
+
+> ∥OA∥∞=∥OC∥∞=1
+
+|⟨ OAOC ⟩ρ − ⟨ OA⟩ρ⟨OC ⟩ρ|,
+
+(3) one has the bounds 
+
+C(A, C ) ≤ ∥ ρAC − ρA ⊗ ρC ∥1 ≲
+
+q
+
+I( A : C)ρ, (4) as well as I( A : C)ρ ≲ log( dA) · ε + ε log(1 /ε ) (5) for ε = ∥ρAC − ρA ⊗ ρC ∥1, and 
+
+∥ρAC − ρA ⊗ ρC ∥1 ≲ dA C(A, C ). (6) Both inequalities in Eq. (4) are straightforward appli-cations of H¨ older inequality with ( ρAC − ρA ⊗ ρC ) and 
+
+OAOC , and Pinsker’s bound, respectively. Inequality (5) is a standard consequence of Alicki-Fannes-Winter con-tinuity argument [38, 39] and inequality (6) is proved in Ref. [40]. To summarize, all correlation measures dis-cussed above are interchangeable up to constants depend-ing only on the size of A. For more discussions, see the end of Section III A.  
+
+> III. LOCAL STABILITY
+
+We identify an operational characterization for SRC states. 
+
+Definition 2 (Local Stability) . A state ρ is locally stable if for any local region A and any quantum channel ΦA
+
+on A with any Kraus decomposition ΦA(·) = P Fk(·)F † 
+
+> k
+
+,there exists a buffering annulus region B of radius r > r 0
+
+and recovery channel RAB on AB such that: 
+
+X
+
+> k
+
+pk RAB 
+
+ 1
+
+pk
+
+FkρF †
+
+> k
+
+
+
+− ρ
+
+> 1
+
+≤ h(A) · e−r/ξ . (7) 
+
+Here h(·) is some function of |A|, ξ is a constant, and 
+
+pk = Tr 
+
+
+
+FkρF †
+
+> k
+
+
+
+.
+
+To understand the condition Eq. (7), we may view Φ as a measurement device: with probability pk it returns the post-measurement state 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+. The condition (7) states that, on average, R acts as a universal (indepen-dent of the measurement device and outcome) recovery channel for all post-measurement states. A straightforward consequence of the triangle inequal-ity is that local stability implies that R recovers the ac-tion of the overall channel Φ A:
+
+∥R ◦ ΦA(ρ) − ρ∥1 ≤ h(A) · e−r/ξ . (8) However, individual trajectories 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+need not be obtainable from ρ via a quantum channel. Therefore, recovering trajectories is a stronger requirement than re-covering only the output of the overall channel. In this sense, R can be viewed as a strengthened analog of a Petz recovery map. We note that a state that admits an ϵ error recov-ery of trajectories is called an “ ϵ-strongly Markov state” in Ref. [31], though the relation between local sup-port of recovery and SRC properties of the state was not considered. We also note that, for systems sub-ject to a global symmetry, the lack of local stability against postselection was dubbed “weak spontaneity” in Ref. [18]; as an example, the authors noted that the coherent and incoherent cat states 1√2 (|0... 0⟩ + |1... 1⟩),  
+
+> 12
+
+(|0... 0⟩⟨ 0... 0|+|1... 1⟩⟨ 1... 1|) are unstable (weakly spon-taneous) against Z measurement.  
+
+> A. Equivalence between SRC and local stability
+
+The main result of this section establishes an equiva-lence between local stability and short-range correlations, modulo some technical details specified in Theorems 1 and 2. 
+
+Theorem 1 (Local stability ⇒ SRC) . Let ρ be a locally stable state (Definition 2) for some h and ξ. Then for a region A, a buffer B and the exterior C, any operators 
+
+OA and OC such that ∥OA∥∞ = ∥OC ∥∞ = 1 , we have 
+
+|⟨ OAOC ⟩ρ − ⟨ OA⟩ρ⟨OC ⟩ρ|≲ h(A)e− dist( A,C )/ξ , (9) I( A : C|B) ≲ (|A|+|B|)h(A)e− dist( A,C )/2ξ . (10) Note that although there is a |B| dependence in the second bound, the overall bound is still exponentially small in r = dist( A, C ), since |B|= poly( r). 
+
+Proof. We first show that Eq. (7) implies Eq. (9). We may assume without loss of generality that OA is posi-tive semi-definite (PSD), since a general OA can be de-composed into Hermitian and anti-Hermitian parts, and both parts can be reduced to the PSD case by shifting a scalar matrix. Consider the recovery channel R given by Eq. (7). Note that R only applies on AB , therefore 
+
+R∗(OC ) = OC , implying Tr[ OAOC ρ] = Tr 
+
+h
+
+R∗(OC )pOAρpOA
+
+i
+
+= Tr 
+
+h
+
+OC R(pOAρpOA)
+
+i
+
+.
+
+(11) 4
+
+## A
+
+## B1
+
+## B2
+
+## C
+
+FIG. 2. The partition of the lattice used in Theorem 2. 
+
+Note that as OA is normalized, the map ρ 7 → √OAρ√OA
+
+is completely positive and trace non-increasing, and thus it can be completed to a quantum channel on A (that is, √OA is one of the Kraus operators). Eq. (7) then implies that 
+
+R(pOAρpOA) − Tr( ρO A)ρ 1
+
+≤ h(A)e−r/ξ . (12) Plugging it into Eq. (11) and using ∥OC ∥ = 1, we find 
+
+|⟨ OAOC ⟩ρ − ⟨ OA⟩ρ⟨OC ⟩ρ|≤ h(A)e−r/ξ . (13) Next, let us show that Eq. (7) implies Eq. (10). Con-sider the special case where Φ is the depolarizing channel, then Eq. (8) implies that: 
+
+∥R ◦ T (ρBC ) − ρABC ∥1 ≤ h(A) · e−r/ξ , (14) where T : B → AB is a “stitching” map T (ρB ) = 
+
+> 1A
+> dA
+
+⊗ ρB . Namely, the channel P def 
+
+= R ◦ T : B → AB 
+
+can approximately recover ρABC from ρBC , up to an er-ror δ ≤ h(A)e−r/ξ . Eq. (10) then follows from the fact that good recovery implies small CMI (see Fact 16 in Appendix A). We now prove the converse direction, that the short-range correlations property implies local stability. The decay profile in the local stability definition (Definition 2) depends on the functional form of g in Definition 1. This dependence is made precise in the theorem below, fol-lowed by a discussion on the implications for different choices of g.
+
+Theorem 2 (SRC ⇒ local stability) . Let ρ be an SRC state, and consider an arbitrary local quantum channel given in a Kraus form ΦA(·) = P Fk(·)F † 
+
+> k
+
+. Then for any annulus B of radius r around A and r1, r 2 ≥ 0 such that 
+
+r = r1 + r2, there is a universal recovery channel R on 
+
+AB that satisfies 
+
+X pk R
+
+ 1
+
+pk
+
+FkρF †
+
+> k
+
+
+
+− ρ
+
+> 1
+
+≤ C1e−r1/η + C2e−r2/2ζ ,
+
+(15) 
+
+where pk = Tr 
+
+
+
+FkρF †
+
+> k
+
+
+
+, C1 = eO(|A|)f (A) and C2 =
+
+g(c|A|rD 
+
+> 1
+
+) 12 for a constant c.
+
+Before we sketch the proof, let us discuss some of its implications. Note that r.h.s. of Eq. (15) contains both 
+
+r1 and r2 explicitly, and we can optimize the bound by choosing suitable r1, r 2 subject to the constraint r = r1 +
+
+r2.First, if g(x) = poly( x), as expected from high-temperature Gibbs states [41], we may choose both r1
+
+and r2 to be linear in r. For example, we may choose r1
+
+and r2 so that the exponential decay rates match: 
+
+r1 = ηη + 2 ζ r, r2 = 2ζη + 2 ζ r. (16) With this choice, we have 
+
+X pk R
+
+ 1
+
+pk
+
+FkρF †
+
+> k
+
+
+
+− ρ
+
+> 1
+
+≤ poly ( d|A|, |A| rD ) · e−r/ (η+2 ζ).
+
+(17) In particular, for a fixed A, the bound decays exponen-tially in r.However, if we only know g(x) = eO(x), which is the state-of-the-art result for Gibbs state [35] 1, we have that 
+
+C2 = exp ( O(Ar D 
+
+> 1
+
+)). In this case, choosing r1 = O(r) as in Eq. (16) would lead to superexponential growth in r.Instead, we choose 
+
+r1 = ( αr )1/D , r2 = r − r1, (18) with α > 0. Choosing α small enough, we would find that the second term in (15) drops exponentially in r
+
+while the first term satisfies 
+
+dAf (A) e−r1/η = dAf (A) e−(αr )1/D /η .
+
+We conclude that for D > 1, Theorem 2 produces a stretched exponential decay bound on local stability. 
+
+Sketch of Proof. Fixing A and C, divide B into two con-secutive annular regions, denoted by B1 and B2, as illus-trated in Fig. 2. Assuming 
+
+∥ρAB 2C − ρA ⊗ ρB2C ∥1 ≤ ϵ1, (19) one can show that 
+
+X
+
+> k
+
+pk∥ρk,B 2C − ρB2C ∥1 ≤ ϵ1, (20)   
+
+> 1The result in Ref. [35] also contains a prefactor |C|, which can be eliminated using fact 16, making the local Markovian property holds even for unbounded C.
+
+5where pk = Tr 
+
+
+
+FkρF †
+
+> k
+
+
+
+and ρk,B 2C = Tr AB 1 ( 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+). Assuming I( AB 1 : C|B2)ρ ≤ ϵ2, (21) there exists a recovery map ˜R : B2 → AB such that [42]: 
+
+˜R(ρB2C ) − ρ 1
+
+≲ √ϵ2. (22) Applying ˜R to Eq. (20), the triangle inequality and Eq. (22) imply that: 
+
+X
+
+> k
+
+pk ˜R(ρk,B 2C ) − ρ 1
+
+≲ ϵ1 + √ϵ2. (23) The optimal upper bound is given by plugging in ϵ1 and 
+
+ϵ2 given by Definition 1 and tuning the division between 
+
+B1 and B2. The full proof is presented in Appendix B. 
+
+> Comments on correlation measures
+
+In the local stability ⇒ SRC direction, we get Eq. (9); on the other hand, for the reverse direction, the C1 in Eq. (15) contains an eO(|A|) factor. This mismatch ul-timately arises from converting the operator-correlation bound in Definition 1 into a trace-norm estimate. If one replaces Eq. (1) by a bound of the form 
+
+∥ρAC − ρA ⊗ ρC ∥1 ≤ f (A)e−dist( A,C )/η , (24) then the prefactor eO(|A|) in C1 in Eq. (15) can be re-moved. However, we would instead need an A-dependent factor in Eq. (9). The mismatch can be eliminated by choosing the one-way LOCC norm [43], characterizing the maximum bias achievable by one-way LOCC measurements, as the cor-relation measure. Namely, by replacing Eq. (1) with 
+
+∥ρAC − ρA ⊗ ρC ∥LOCC → ≤ f (A) e−dist( A,C )/η , (25) no extra factors would appear in either Eq. (9) or Eq. (15). Indeed, the monotonicity of the trace norm applied to Eq. (7) yields an upper bound on P 
+
+> k
+
+pk∥ρk,C − ρC ∥1, the maximization of which is essen-tially the one-way LOCC norm. Conversely, in the proof of Theorem 2, it suffices to assume Eq. (20), which is again given by the one-way LOCC norm. Similarly, there is an extra factor |A|+|B| in Eq. (10), arising from converting between CMI and recovery error. One may eliminate this factor by replacing CMI by the (logarithmic) fidelity of recovery throughout this work. 
+
+> Comment on symmetries
+
+The properties of short-range correlations and local stability, as well as their equivalence, can be refined to accommodate symmetries by restricting the local opera-tors in both properties to be symmetric. As an example, even the low-temperature, ordered phase of the 2d Ising model is SRC, locally stable with respect to Ising sym-metric local operators.  
+
+> B. Local implementability of postselection
+
+In this subsection, we explore another consequence of the short-range correlation property. Namely, we demon-strate that local postselections on an SRC state can be physically realized through local quantum channels. This provides an alternative perspective on the state’s local stability. In principle, since local stability ensures the local recovery of any measurement trajectory, one could adopt a brute-force strategy of successive measurement and recovery until the target outcome is obtained. Below, we develop a more systematic approach based on the following lemma, which establishes that quantum operations applied to Markov chains preserve the Markov property on average. 
+
+Lemma 3. Consider a tripartite state ρABC and a family of Kraus operators {Fk} on subsystem A (P F † 
+
+> k
+
+Fk = 1 ). Denote σk = 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+where pk = Tr 
+
+
+
+FkρF †
+
+> k
+
+
+
+. Then 
+
+X
+
+> k
+
+pk I( A : C|B)σk ≤ I( A : C|B)ρ. (26) 
+
+Proof. We introduce a classical ancilla X that stores the outcome, so that there exists a quantum channel A →
+
+AX that converts 
+
+ρABC 7 → ρ′ 
+
+> XABC
+
+= X
+
+> k
+
+pk |k⟩⟨ k|X ⊗ σk,ABC . (27) Explicit calculation shows that: I( A : C|BX )ρ′ = X
+
+> k
+
+pk I( A : C|B)σk . (28) So we are left to show that I( A : C|BX )ρ′ ≤ I( A : C|B)ρ.This is achieved by combining the data processing in-equality: I( XA : C|B)ρ′ ≤ I( A : C|B)ρ (29) with the chain rule I( XA : C|B)ρ′ = I( X : C|B)ρ′ +I(A :
+
+C|BX )ρ′ , hence, I( A : C|BX )ρ′ ≤ I( XA : C|B)ρ′ . (30) 
+
+Theorem 4 (local implementability of postselection) .
+
+Consider a state ρ and a local quantum channel in the Kraus form ΦA(·) = P Fk(·)F † 
+
+> k
+
+. If ρ is SRC, then for any buffering region B of radius r = r1 + r2, there exists a (non-universal) family of local quantum channels {Φk}
+
+on AB such that 
+
+X pk∥Φk(ρ) − σk∥1 ≤ C1e−r1/η + C2e−r2/2ζ , (31) 
+
+where pk, C 1 and C2 are as defined in Theorem 2, and 
+
+σk = 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+.6The above theorem shows that SRC is sufficient for local implementability of postselection. Together with Theorem 2, this shows that an SRC state ρ is two-way connected to trajectory states σk via local quantum chan-nels. 
+
+Proof. Partition the lattice to AB 1B2C as in Fig. 2. De-fine Φ k : AB → AB as the map obtained by tracing out 
+
+AB 1 followed by the recovery channel Rk : B2 → AB 
+
+associated with σk. Thus, we get 
+
+∥Φk(ρ) − σk∥1 ≤ ∥ ρB2C − σk,B 2C ∥1 + ∥R k(σk,B 2C ) − σk∥1,
+
+(32) where we used the triangle inequality and DPI with 
+
+Rk. To get a bound on Eq. (31) we take the sum over 
+
+k. According to Eq. (20) the first term is bounded by 
+
+∥ρAB 2C − ρA ⊗ ρB2C ∥1. The second term is bounded (up to a constant prefactor) by P 
+
+> k
+
+pk(I( AB 1 : C|B2)σk ) 12 .Using concavity of the square root together with Lemma 3, this is further bounded by (I( AB 1 : C|B2)ρ) 12 .Finally, the r.h.s of Eq. (31) follows from the definition of SRC as seen in the proof of Theorem 2. While SRC is sufficient for local implementability, in Appendix E, we provide a counterexample showing that it is not necessary. On the other hand, while decay of correlations is necessary for local implementability, an-other counterexamples appendix E shows that it is not sufficient. Therefore, local implementability of postselec-tion is a property that sits strictly in between decay of ordinary correlations and our definition of SRC. 
+
+C. Phase invariance 
+
+We now show that local stability is a property of an entire phase of matter. Ref. [10] proposed a refined defini-tion of mixed-state phase based on the notion of locally reversible circuits: a state ρ is said to be in the same phase as ρ′ if they are connected by locally reversible cir-cuits 2– if there exists a shallow circuit channel F : ρ 7 → ρ′
+
+and a circuit channel D : ρ′ 7 → ρ, such that D reverses the action of F on ρ gatewise. Formally, 
+
+F = FT . . . F1, D = D1 . . . DT ,
+
+Ft = Y
+
+> ℓ
+
+Ft,ℓ , Dt = Y
+
+> ℓ
+
+Dt,ℓ , (33) 
+
+ρ′ = F(ρ), ρ = D(ρ′),
+
+(Dk,ℓ ◦ F k,ℓ )Fk−1 · · · F 1(ρ) = Fk−1 · · · F 1(ρ), (∀k ≤ T ).
+
+Here, each Ft (and Dt) is a layer of non-overlapping lo-cal channels, each of which act on a few contiguous sites. 
+
+> 2We note that generalizing the notion of local reversibility from circuits to continuous evolution is an open problem, so here we focus on the circuit definition.
+
+For simplicity of illustration, we assume that Fk,ℓ and 
+
+Dk,ℓ share precisely the same support. In general, the gates in D may have slightly larger supports; our ar-guments remain essentially unchanged under this more general scenario. It is shown [44] that decay of correlations and CMI are invariant under locally reversible circuits. Therefore, our notion of SRC (Definition 1), and hence local stability, are also universal properties of a phase. Here we provide an alternative and direct proof for the latter. 
+
+Theorem 5 (Phase invariance of local stability) . Sup-pose that ρ and ρ′ are connected by a locally reversible shallow circuit. Then ρ is locally stable if and only if ρ′
+
+is. Proof. (The proof idea is illustrated in Fig. 3.) Let F :
+
+ρ 7 → ρ′ and D : ρ′ 7 → ρ be shallow quantum circuit channels as described in Eq. (33). Denote their depth as 
+
+T . Consider a local channel acting on ρ′ and supported on A, with a decomposition Φ ′
+
+> A
+
+(·) = P 
+
+> k
+
+M′
+
+> k
+
+(·) where each M′
+
+> k
+
+(·) = Fk(·)F † 
+
+> k
+
+is a single Kraus operation. To recover such local operations, we first pick a re-covery channel R for ρ support around A with a radius (counting from the boundary of A) r ≫ T , as guaranteed by Definition 2, then define a local quantum channel R′
+
+as: 
+
+R′ def 
+
+=
+
+ Y 
+
+> i∈R ↑
+
+Fi
+
+
+
+◦ R ◦ 
+
+ Y 
+
+> i∈R ↓
+
+Di
+
+
+
+> def
+
+= FR↑ ◦ R ◦ D R↓ .
+
+(34) Here, R↑ and R↓ denotes the forward and backward light cones of R under F and D, respectively (they are space-time regions rather than spacial regions, see Fig. 3b). We then have: 
+
+R′M′
+
+> k
+
+(ρ′) = FR↑ R(DR↓ M′
+
+> k
+
+FR↑ )F(R↑)c (ρ) (35) = FR↑ RM kF(R↑)c (ρ) = FRM k(ρ).
+
+Here, Mk = DA↑ ◦ M ′ 
+
+> k
+
+◦ F A↓ is a local operation sup-ported in the light cone of A under F, and Rc 
+
+> ↑
+
+is the spacetime complement of R↑. The second equality is due to local reversibility and the third equality is due to disjointness of supports (for an illustration, see Fig. 3c). The set {M k} defines a quantum instrument acting on 
+
+ρ, which is recoverable by R by assumption: 
+
+X
+
+> k
+
+pk
+
+1
+
+pk
+
+R ◦ M k(ρ) − ρ 1
+
+≤ ˜f (A) e−(r−T )/ξ , (36) where ˜f (A) = f (A+T ), which admits the same scaling as 
+
+f (here A+T is the T -radius neighbor of A), and 
+
+pk = Tr {M k(ρ)} = Tr DA↑ M′
+
+> k
+
+FA↓ (ρ) = Tr M′
+
+> k
+
+FA↓ (ρ)
+
+= Tr {M ′
+
+> k
+
+F(ρ)} = Tr {M ′
+
+> k
+
+(ρ′)}. (37) Here, the third equality is due to the trace preservation of the DA↓ and the fourth equality is due to the light cone 7                            
+
+> (a) Locally reversible circuit between ρand ρ′(b) Local recovery channel R′
+> (c) Proof of recovery by R′
+> FIG. 3. Schematic proof of Theorem 5: 3a - Locally reversible circuit F:ρ7→ρ′and the reverse circuit D.3b - Recovery channel R′for ρ′based on “dressing” the recovery channel Rfor ρ. 3c -R′recovers ρ′from the effect of local operations.
+
+property. Finally, acting F on Eq. (36), using monotonic-ity of the trace distance, we get: 
+
+X
+
+> k
+
+pk
+
+1
+
+pk
+
+R′(Fkρ′F † 
+
+> k
+
+) − ρ′
+
+> 1
+
+≤ ˜f (A)e−(r−T )/ξ . (38) Noticing that the radius of supp( R′) is at most r + T ,this proves that R′ serves as a local recovery channel for 
+
+ρ′. 
+
+> D. Local stability via dynamics
+
+When an SRC state arises dynamically as the steady state of a Lindbladian, a natural question is whether that Lindbladian can serve as the recovery map against local operations. One motivation for this question is the use of a truncated Gibbs sampler to recover against partially tracing out a Gibbs state [35, 41]. Such recovery, as well as the one required in Definition 2, requires knowledge of the location on which the quantum operations act. More-over, the aforementioned papers address specific cases of Gibbs samplers. This raises the broader question of how general such recovery properties are, and whether they extend beyond specific constructions to generic Lindblad dynamics. Here, we argue that, provided that the Liouvillian is reversible and gapped, the natural global short-time evo-lution can serve as a recovery map for local stability, complementing the Petz map approach in Theorem 2. Formally, let L = P 
+
+> i
+
+Li be a local Lindbladian satisfy-ing a detailed-balance condition with respect to a unique, full-rank steady state ρ. Although the quantum detailed-balance exhibits many definitions [45], our main focus here will be on the KMS condition and the GNS condi-tion as follows: 
+
+L ◦ Γ = Γ ◦ L †, Γ( A) = 
+
+(
+
+Aρ GNS ,ρ 12 Aρ 12 KMS . (39) Then, for a local channel and its decomposition Φ A(·) = 
+
+P 
+
+> k
+
+Fk(·)F † 
+
+> k
+
+, define σk = 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+where pk =Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+. We suggest considering the natural time evolution Rt
+
+> def
+
+= eLt as a potential universal recovery map 
+
+σk 7 → ρ.In the following, we establish a standard convergence guarantee and prove it in Appendix B. 
+
+Proposition 6 (Fast convergence from gap) . Let ρ be a unique, full-rank steady state of a detailed-balance Lind-8
+
+bladian L with a gap γ. Then for any state ˜ρ we get 
+
+eLt(˜ ρ) − ρ 1 ≲ e−γt ×
+
+(exp   12 D2(˜ ρ|| ρ) GNS ,
+
+exp 
+
+ 12 ˜D2(˜ ρ|| ρ)
+
+
+
+KMS ,
+
+(40) 
+
+where D2 is the Petz-R´ enyi relative entropy and ˜D2 is the sandwiched-R´ enyi relative entropy with α = 2 (see Appendix A for definitions). 
+
+This statement applies to any initial state ˜ ρ. It reflects how the relaxation time of a Lindbladian is controlled by the deviation of the initial state from the steady state, captured by the R´ enyi-2 divergences, as well as the spec-tral gap of the Lindbladian γ, in direct analogy to the Hamiltonian scenario. In general, an initial state with exponentially small overlap with ρ might lead to relax-ation times that scale polynomially with system size. In our setting, however, the relevant initial states arise from applying local Kraus outcomes to ρ. If such per-turbed states are not significantly different from the steady state, the Lindblad evolution may thermalize quickly and recover the steady state. Furthermore, if 
+
+L is additionally frustration-free (as in Gibbs samplers), the evolution is highly localized around the correspond-ing patch due to the Lieb-Robinson bound, and hence can be truncated to that region and made into a recov-ery map as in Definition 2. We omit any analysis of such truncation here and refer to Ref. [46] for related results. To formally deduce fast recovery, one would ideally want a mixing bound of the form: 
+
+X
+
+> k
+
+pk∥R t(σk) − ρ∥1 ≤ C(A) e−γt . (41) For such a bound to hold, it is important that D 2(σk∥ρ)or ˜D2(σk∥ρ) scale with the size of the region A rather than the full system. It is reasonable to expect this prop-erty to hold for physically relevant SRC states. Indeed, for such states, Theorems 2 and 4 show that local oper-ations perturb the state only locally around A, suggest-ing that the resulting distance naturally scales with |A|.Adding another perspective, for SRC states one can also show the existence of a single recovery map RB2→B2C
+
+that approximately reconstructs the full states ρ, σ k from their AB marginals ρAB , σ k,AB , respectively (see Fig. 2 for the geometry). The data processing inequality would then imply that the distance is captured by the differ-ence localized around A (however, bounding the error term seems to be challenging). While we do not have a general proof for this scaling, we verify it explicitly in Appendix B for several classes of thermal states. These include commuting Hamiltonians, one-dimensional sys-tems, and high-temperature regimes. In appendix Section B 2, we provide a more explicit global recovery map tailored to commuting Hamilto-nians, based on their local GNS Gibbs sampler and the detectability lemma (see similar constructions in Refs. [47, 48]). It follows from stacking the infinite-time projectors onto the local kernels in a tower. 
+
+p
+
+q
+
+fidelity 
+
+R´ enyi-1 
+
+ρ p 
+
+> 2
+
+Oρ p
+
+> 2
+> 1
+> p
+
+sandwiched R´ enyi 
+
+Petz-R´ enyi 
+
+FIG. 4. Cp,q for p, q ∈ (0 , 1] 2.
+
+IV. NON-LINEAR CORRELATORS A. Definition and basic properties 
+
+Given a state ρ and operator O, we consider a family of observables as follows: 
+
+Cp,q (O, ρ ) def 
+
+= ρ p 
+
+> 2
+
+Oρ q
+
+> 2
+> 2s
+
+=
+
+h
+
+Tr ( ρ p 
+
+> 2
+
+Oρ q O†ρ p 
+
+> 2
+
+)si 12s
+
+,
+
+(42) where s = 1 
+
+> p+q
+
+and 0 < p, q ≤ 13. Unlike the ordinary expectation value ⟨O⟩ρ = Tr( ρO ), these observables are in general nonlinear in O and ρ.The family Eq. (42) includes most non-linear observ-ables appearing in the previous literature, usually for di-agnosing mixed-state phases in the presence of a global symmetry [18, 24, 49, 50]. Let us review some familiar cases. First, we set p = q and denote Cp,p as F p. For p = 1, this is the fidelity correlator proposed in [18]: F1(O, ρ ) = ⟨O⟩F = F( ρ, OρO †), (43) where F( ·, ·) is the (unsquared) Uhlmann fidelity. For 
+
+p = 12 , this is the Renyi-1 correlator [24] (also dubbed Wightman correlator in [50]): F 12 (O, ρ ) = Tr  √ρO √ρO † 12 . (44) For unitary O, it equals the square root of the Holevo fidelity between ρ and OρO †, analogous to Eq. (43). In general, for 0 ≤ p ≤ 1 [50], Fp(O, ρ ) = ρ p 
+
+> 2
+
+Oρ p
+
+> 2
+> 1
+> p
+
+. (45)                
+
+> 3Some of the arguments below using concavity/convexity also apply to ( p, q ) or ( q, p )∈(−1,0] ×[1 ,2]. However, we restrict
+> p, q ≥0 to ensure that Cp,q behaves well (e.g., does not diverge). The line pq = 0 was omitted since Cp,q is not continuous and our results below become irrelevant there.
+
+9Second, if we set p + q = 1, then 
+
+C1−q,q (O, ρ ) = Tr ( Oρ q O†ρ1−q ) 12 . (46) This observable has been considered in [50–52]. In partic-ular, if O is unitary, then it equals exp   q−12 Dq (OρO †|| ρ),where D is the (Petz-type) R´ enyi relative entropy [53]. Third, besides the (Petz-type) R´ enyi relative entropy, we can equally well consider the sandwiched R´ enyi en-tropy ˜D by setting q = 1 and defining p = 1−αα , then 
+
+Cp, 1(O, ρ ) = 
+
+h
+
+Tr ( ρ 1−α 
+
+> 2α
+
+OρO †ρ 1−α 
+
+> 2α
+
+)αi 12α
+
+= exp 
+
+ α − 12α ˜Dα(OρO †|| ρ)
+
+
+
+.
+
+(47) This type of observable is considered in Ref. [18]. Finally, we comment on the general case. Setting p = 
+
+> 1−αz
+
+, q = αz and taking O to be a unitary, Cp,q takes the form of a divergence, 
+
+Cp,q (O, ρ ) = exp 
+
+ α − 12z · Dα,z (OρO †∥ρ)
+
+
+
+, (48) where D α,z is the α-z-R´ enyi divergence [54, 55] (see Ap-pendix A). We record some useful properties of Cp,q as follows. Items 1-6 are basic, and item 7 can be proved succinctly using complex interpolation theory. For full proofs, see Appendix C. 
+
+Proposition 7. The two-parameter family Cp,q (O, ρ )
+
+satisfies the following: (1) Positivity: Cp,q (O, ρ ) ≥ 0. For any (p, q ),
+
+Cp,q (O, ρ ) = 0 if and only if O(supp( ρ)) ⊆ supp( ρ)⊥;(2) Monotonicity: Cp,q (O, ρ ) is monotonically non-increasing in both p and q;(3) Range: |⟨ O⟩ρ |≤ C p,q (O, ρ ) ≤ ∥ O∥∞;(4) Symmetry: Cp,q (O, ρ ) = Cq,p (O†, ρ );(5) Multiplicativity: Cp,q (OA ⊗ OB , ρ A ⊗ ρB ) =
+
+Cp,q (OA, ρ A) · C p,q (OB , ρ B )
+
+(6) Continuity: |C p,q (O, ρ ) − C p,q (O, σ )| ≲
+
+∥O∥∞DB (ρ, σ )min {p,q }, where DB (ρ, σ ) is the Bures metric; (7) Log-convexity in (p, q ): the logarithmic of Eq. (42) is jointly convex in (p, q ), namely, 
+
+C(1 −θ)p0+θp 1,(1 −θ)q0+θq 1 (O, ρ ) ≤ C 1−θp0,q 0 Cθp1,q 1 . (49) Another important property of C is given in Fact 8 below. It is a generalized version of Lieb’s concavity theorem [56], and we refer the reader to Ref. [57] for a proof. Such concavity implies a data-processing inequal-ity (DPI). We include a proof here for completeness. 
+
+Fact 8 (Concavity and DPI) .
+
+(1) For any state ρ, operator O, and (p, q ) ∈ (0 , 1] 2, the function 
+
+f (ρ) = Tr ( ρ p 
+
+> 2
+
+Oρ q O†ρ p 
+
+> 2
+
+) 1 
+
+> p+q
+
+(50) 
+
+is concave in ρ.(2) For a bipartite state ρAB and an operator OA on 
+
+A, the observables Cp,q (OA, ·) satisfy “data-processing inequality”: for any quantum channel Φ : B → B′,we have: 
+
+Cp,q (OA, ρ AB ) ≤ C p,q (OA, Φ( ρAB )) . (51) 
+
+Proof of (1) ⇒ (2) . We introduce an environment E to dilate the channel Φ to a unitary: Φ( ·) = Tr E′ [VBE (· ⊗ | 0E ⟩⟨ 0E |)V † 
+
+> BE
+
+], (52) where B′E′ = BE . Equivalently, Φ( ·) ⊗ 1E′
+
+dim( E′) = E
+
+h
+
+UE′ VBE (· ⊗ | 0E ⟩⟨ 0E |)V † 
+
+> BE
+
+U †
+
+> E′
+
+i
+
+,
+
+(53) where E = R dU E′ is the Haar average over UE′ .Now consider the function f (ρ) for O = OA. It suffices to show f (ρAB ) ≤ f (Φ( ρAB )). By 1, f (ρ) is concave in ρ. In particular, conjugating 
+
+ρAB ⊗ | 0E ⟩⟨ 0E | with UE′ VBE and taking the average over 
+
+UE′ , we find: 
+
+E
+
+h
+
+f (UE′ VBE (ρAB ⊗ | 0E ⟩⟨ 0E |)V † 
+
+> BE
+
+U † 
+
+> E′
+
+)
+
+i
+
+≤f (E
+
+h
+
+UE′ VBE (ρAB ⊗ | 0E ⟩⟨ 0E |)V † 
+
+> BE
+
+U †
+
+> E′
+
+i
+
+).
+
+(54) Since OA acts only on A, f is invariant under conjuga-tion by any unitary on BE . Hence, the left-hand side of Eq. (54) is constant, even before averaging: (l.h.s. of Eq. (54)) = f (ρAB ⊗| 0E ⟩⟨ 0E |) = f (ρAB ). (55) For the right-hand side, Eq. (53) implies: (r.h.s. of (54)) = f
+
+
+
+ΦB (ρAB )⊗ 1E′
+
+dim( E′)
+
+
+
+= f (Φ B (ρAB )) ,
+
+(56) where the last equality uses the fact that f is homo-geneous of degree 1 in ρ, enforced by the choice s = 
+
+> 1
+> p+q
+
+.
+
+B. Quantum Markov chains and local computability 
+
+Here we introduce a notion central to our work which we term local computability . Recall that traditional ex-pectation values satisfy Tr {ρO A} = Tr {ρAOA}, and therefore depend only on the reduced state ρA rather 10 than the global state. In contrast, the family of observ-ables defined in Eq. (42), being nonlinear in ρ and OA,a priori require information about the full state rather than ρA alone. However, we show that, as a consequence of the con-cavity and DPI, for a QMC ρABC , these nonlinear ob-servables can be evaluated using only the marginal on 
+
+AB :
+
+Cp,q (OA, ρ AB ) = Cp,q (OA, ρ ABC ). (57) Interestingly, the converse also holds generically, provid-ing an equivalence characterization of quantum Markov chains. 
+
+Theorem 9 (QMC ⇔ local computability) .
+
+(1) If ρABC is a Markov chain with respect to A-B-C,then for any operator OA, Eq. (57) holds. (2) Conversely, fix a (p, q ) in (0 , 1] × (0 , 1] and pq ̸ = 1 . If 
+
+ρABC is full-rank, and Eq. (57) holds for any operator 
+
+OA, then ρABC is a quantum Markov chain. Proof. (1) We apply the data-processing inequality (51) twice. First, applying it to the state ρABC and Tr C , we find: 
+
+Cp,q (OA, ρ ABC ) ≤ C p,q (OA, ρ AB ). (58) Second, applying it to the state ρAB and the Petz recov-ery channel R : B → BC , we find: 
+
+Cp,q (OA, ρ AB ) ≤ C p,q (OA, ρ ABC ). (59) Combining two inequalities above, we have proved Eq. (57). (2) It suffices to restrict attention to unitary opera-tors, which allows to express Cp,q in terms of D α,z (see Eq. (48)). Therefore, for any unitary UA,Dα,z (UAρABC U †
+
+> A
+
+|| ρABC ) = D α,z (UAρAB U †
+
+> A
+
+|| ρAB ),
+
+(60) where p = 1−αz , q = αz . Under the assumption that ρ
+
+is full-rank, the region of ( p, q ) we consider corresponds to the region of ( α, z ) such that the equality of the data processing of Dα,z implies sufficiency (Ref. [58], Theorem 4.5). Namely, there exists a quantum channel R : AB →
+
+ABC such that: 
+
+R(ρAB ) = ρABC , (61) 
+
+R(UAρAB U †
+
+> A
+
+) = UAρABC U †
+
+> A
+
+. (62) While the channel R may depend on UA apriori, Ref. [59] shows that the following UA-independent Petz map al-ways suffices: 
+
+RρABC ,Tr C (·) = ρ 12 
+
+> ABC
+
+(ρ− 12 
+
+> AB
+
+(·)ρ− 12 
+
+> AB
+
+⊗ 1C )ρ 12 
+
+> ABC
+
+. (63) Now integrating over UA in Eq. (62), we find: 
+
+R(τA ⊗ ρB ) = τA ⊗ ρBC , (64) where τA = 1A 
+
+> dA
+
+. Combined with Eq. (61) and the data processing inequality, we get: D( ρABC ∥τA ⊗ ρBC ) = D( ρAB ∥τA ⊗ ρB ) . (65) Straightforward calculation shows that this is equivalent to I( A : C|B)ρ = 0. For what follows, we need an approximate version of Theorem 9 (1), that approximate Markov chains implies approximate local computability. We defer the proof to Appendix C for conciseness. 
+
+Theorem 9’ (1, approximate version) . For any tripar-tite state ρABC , assuming p ≤ q without loss of generality (WLOG), we have: 
+
+0 ≤ C p,q (OA, ρ AB ) − C p,q (OA, ρ ABC ) ≲ ∥OA∥∞ I( A : C|B) p 
+
+> 2
+
+.
+
+(66) It is natural to ask whether an approximate version of Theorem 9 (2) also holds. Following the proof for the exact case, a positive answer would be expected if a uni-versal approximate recoverability result holds for the α-z
+
+R´ enyi divergence. However, to the best of our knowledge, such results are currently only known for special cases, such as the Petz–R´ enyi line and the sandwiched R´ enyi line; see, e.g., [60, 61]. Moreover, these recoverability re-sults also depend on the minimal eigenvalue of certain mixed states (or norm of modular operators), unlike the counterpart for the Umegaki relative entropy [42]. We leave the question of recoverability for general ( p, q ) (or equivalently, ( α, z )) for future work. We also note that the Uhlmann fidelity point p = q = 1 is excluded from the theorem. Indeed, it is known that the Uhlmann fidelity does not satisfy sufficiency (see Corollary A.9 in Ref. [62] and Remark 5.15 in Ref. [63]) so the present proof does not apply. This alone, however, does not immediately yield a counterexample, because our condition requires local computability for all oper-ators OA, a stronger requirement than equality of the data-processing inequality for a single pair of states. We likewise leave this point for future investigation.  
+
+> C. Decay of nonlinear correlation
+
+Our main result in this section is that for SRC states, the connected correlators defined by the above observ-ables always exhibit clustering. 
+
+Theorem 10 (SRC ⇒ C p,q clustering) . Let 0 < p, q ≤ 1
+
+and assume WLOG p ≤ q. Let ρ be an SRC state on a D-dimensional lattice, and let O1, O 2 be any operators supported in small regions A1, A 2 of O(1) sites. Then 
+
+|C p,q (O1O2, ρ ) − C p,q (O1, ρ )Cp,q (O2, ρ )|≈ 0, (67) 
+
+where the error term is upper bounded by 
+
+C∥O1∥∞∥O2∥∞e−p  
+
+> dist( A1,A 2)
+> ξ
+> 1
+> D
+
+. Here, ξ depends on η, ζ, D , and the constant C depends on |A1|, |A2|.11 The 1 /D exponent in the exponential arises from the gap between the correlation bound in Definition 1 and the trace-norm estimate. If the SRC state ρ enjoys a favorable correlation scaling of the form 
+
+∥ρAC − ρA ⊗ ρC ∥1 ≤ poly( A) e− dist( A,C ) 
+
+> η
+
+, (68) then the error term in Eq. (67) is improved to 
+
+C∥O1∥∞∥O2∥∞e− p dist( A1,A 2) 
+
+> ξ
+
+, (69) where C depends on A1, A 2 and ξ depends on η and ζ.To convey the main idea of the proof, we first consider the simplified setting in which both the mutual infor-mation and the conditional mutual information vanish exactly beyond certain length scale. For this simplified version, the bound in Eq. (67) will be identically zero. The proof for the general case is given in Appendix C. 
+
+Proof (for vanishing MI and CMI). We divide the lat-tice into A = A1A2, B = B1B2 where Bi is a buffer around Ai, and C is the complement (see Fig. 5). We choose Bi to be large enough such that we have exact Markov chain and exact vanishing correlations. In par-ticular, the same state ρABC are QMCs over A1 − B1 −
+
+CB 2A2, A2 −B2 −CB 1A1, and A-B-C (the Markov prop-erty for the last partition follows from that for the first two). Now we use Theorem 9(1) three times: 
+
+Cp,q (O1, ρ A1B1 ) = Cp,q (O1, ρ ABC ),
+
+Cp,q (O2, ρ A2B2 ) = Cp,q (O2, ρ ABC ),
+
+Cp,q (O1O2, ρ AB ) = Cp,q (O1O2, ρ ABC ).
+
+(70) Here, O1 and O2 are supported on A1 and A2 respec-tively. Next, due to the vanishing of correlation, we have 
+
+ρAB = ρA1B1 ⊗ ρA2B2 (see Eq. (4)), implying tensoriza-tion of the correlations by multiplicativity (Item 5 in Proposition 7) 
+
+Cp,q (O1O2, ρ AB ) = Cp,q (O1, ρ A1B1 ) · C p,q (O2, ρ A2B2 ).
+
+(71) Combining Eqs. (70) and (71), we then conclude Eq. (67) with zero on the r.h.s.. In the context of strong-to-weak symmetry breaking (SWSSB) [17–19], the operators Oi are chosen to be charged under a symmetry, forcing the 1-point correlator Fp(Oi, ρ ) to vanish automatically when ρ is strongly sym-metric (that is, Sρ ∝ ρ where S is the symmetry). There-fore, the vanishing of connected correlator is equivalent to F p(O1O2, ρ ) = 0. In standard ground-state physics, however, the concept of short-range correlation is defined independently of any underlying symmetry, where con-nected correlators are the relevant quantities to consider. Our approach here extends such a generalization to non-linear correlators in the context of mixed-state physics. 
+
+## A1
+
+## A2
+
+## B1
+
+## B2C
+
+FIG. 5. Lattice partition in Theorem 10. 
+
+While Cp,q already encloses most previously discussed non-linear observables, one notable exception is the R´ enyi-2 correlator [17, 19], defined as: Tr  OρO †ρ
+
+Tr( ρ2) =
+
+ρ 12 Oρ 12
+
+> 22
+
+∥ρ∥22
+
+. (72) This is outside our range of ( p, q, s ) and in fact the func-tion Tr  OρO †ρ is not concave or convex in ρ. Neverthe-less, note that ρ 12 Oρ 12
+
+> 2
+
+≤ ρ 12 Oρ 12
+
+> 1
+
+= F1, hence it must exhibit clustering if ρ is a strongly symmetric SRC state and O is charged, as in the SWSSB scenario. 
+
+V. CANONICAL PURIFICATION 
+
+In this section we study the correlation properties of the canonical purification, also dubbed the thermofield double (TFD) state, of a state ρ, defined by 
+
+|√ρ⟩ =
+
+> N
+
+X
+
+> i=1
+
+√ρ ⊗ 1 |i, i ⟩ , (73) Here {| i⟩} is the computational basis. We discuss the re-lation between ρ being SRC and the decay of correlations in √ρ . Throughout this section, we denote regions in the auxiliary (purifying) system with a bar, e.g., ¯A is the region in the auxiliary system corresponding to A in the original system. 
+
+A. Decay of correlation 
+
+Our main results in this section, which essentially stem from 4 Theorems 9 and 10 with p = q = 1 /2, are that ρ
+
+> 4Note that, technically, we need to decompose and optimize some of the proofs of Theorems 9 and 10, which renders a tighter bound than using them as black boxes.
+
+12 being QMC implies local marginals of √ρ are locally computable, and that ρ being SRC implies decay of cor-relations in √ρ .
+
+Theorem 11 (Local computability of √ρ ). For any tripartite state ρABC :
+
+∥Tr B ¯BC ¯C |√ρABC ⟩⟨ √ρABC | − Tr B ¯B |√ρAB ⟩⟨ √ρAB |∥ 2
+
+≲ I( A : C|B) 12 
+
+> ρ
+
+. (74) 
+
+Corollary 12 (Clustering in √ρ ). Let ρ be an SRC state on a D-dimensional lattice. Then its canonical pu-rification √ρ exhibits decay of correlations in the sense of connected two-point correlators: 
+
+OA1 ¯A1 OA2 ¯A2 √ρ − OA1 ¯A1 √ρ OA2 ¯A2 √ρ ≈ 0, (75) 
+
+where the error term is upper bounded by 
+
+C OA1 ¯A1 2 OA2 ¯A2 2e− 12  
+
+> dist( A1,A 2)
+> ξ
+> 1
+> D
+
+.
+
+Here, the 2-norm OA1 ¯A1 2 is defined by viewing 
+
+OA1 ¯A1 as an operator on A1 ¯A1 rather than on the en-tire doubled system; the same convention applies to 
+
+OA2 ¯A2 2. Similar to Theorem 10, ξ depends on η, ζ, D ,while the constant C depends on |A1|, |A2|. If, in ad-dition, the SRC state ρ satisfies Eq. (68), then the er-ror term can be improved to decay exponentially in dist( A1, A 2). One difference is that we have 2-norm rather than ∞-norm. As will become evident from the proof, this is because we consider operators in the form of 
+
+OA ¯A, which act on both the physical system and the pu-rification system. In contrast, operators in Theorem 10 act on the physical system only. We now prove Theorem 11 and Corollary 12 in the sim-plified setting in which both MI and CMI vanish exactly beyond a certain length scale. Full proofs for the general case can be found in appendix D 1. 
+
+Proof (for vanishing MI and CMI). First, consider oper-ators of the form OA ⊗ O∗
+
+> ¯A
+
+, acting on the physical and purifying system, respectively. For such operators, we have: 
+
+C 12 , 12 (O, ρ ) = Tr  √ρO √ρO † 12 = ⟨√ρ|O ⊗ O∗|√ρ⟩ 12 .
+
+(76) Recall that the Markov condition implies local com-putability (Theorem 9(1)), which asserts that 
+
+C 12 , 12 (OA, ρ AB ) = C 12 , 12 (OA, ρ ABC ). (77) Therefore, whenever ρABC is a QMC, 
+
+OA ⊗ O∗ 
+
+> ¯A√ρABC
+
+= OA ⊗ O∗ 
+
+> ¯A√ρAB
+
+. (78) Due to linearity, the above equation also applies to any operator that admits a decomposition 5
+
+X
+
+> i
+
+λi OiA ⊗ O∗ 
+
+> i¯A
+
+, λi ≥ 0. (79) Now we claim that: 
+
+Lemma 13. Any operator OA ¯A admits a decomposition as: 
+
+OA ¯A = O(1)   
+
+> A¯A
+
+− O(2)   
+
+> A¯A
+
++ iO (3)   
+
+> A¯A
+
+− iO (4)  
+
+> A¯A
+
+, (80) 
+
+where each O(k)  
+
+> A¯A
+
+admits a decomposition in the form of Eq. (79) and O(k)  
+
+> A¯A2
+
+≤ ∥ OA ¯A∥2 (k = 1 , 2, 3, 4). 
+
+As a result, for any operator OA ¯A and QMC ρABC , we have: 
+
+⟨OA ¯A⟩√ρABC = ⟨OA ¯A⟩√ρAB . (81) The rest of arguments is the same as Theorem 10. In short, decomposing A = A1A2, B = B1B2, OA ¯A =
+
+OA1 ¯A1 ⊗ OA2 ¯A2 the factorization ρAB = ρA1B1 ⊗ ρA2B2
+
+implies 
+
+⟨OA ¯A⟩√ρAB = OA1 ¯A1 √ρAB 
+
+OA2 ¯A2 √ρAB 
+
+. (82) Combining it with Eq. (81) (and that for A1 and A2), we arrive at Eq. (75) with 0 in the r.h.s.. 
+
+Proof of lemma 13. (In this proof only, we use hat for operators.) Fixing an orthonormal basis { ˆPa} for L( HA), Tr 
+
+ ˆP † 
+
+> a
+
+ˆPb
+
+
+
+= δab , we decompose ˆO = ˆOA ¯A as: ˆO = X
+
+> a,b
+
+Mab ˆPa ⊗ ˆP ∗ 
+
+> b
+
+. (83) The matrix M = ( Mab ) is arbitrary, but we may de-compose it into Hermitian and anti-Hermitian parts, and then take the positive and negative parts of each, re-sulting in M = M (1) − M (2) + iM (3) − iM (4) , where 
+
+M (k) 
+
+> 2
+
+≤ ∥ M ∥2. We then define 6
+
+ˆO(k) def 
+
+= X
+
+> a,b
+
+M (k) 
+
+> ab
+
+ˆPa ⊗ ˆP ∗ 
+
+> b
+
+, k = 1 , 2, 3, 4. (84) We claim that each ˆO(k) admits a decomposition in the form of Eq. (79). Consider k = 1 for example. We      
+
+> 5The condition λi≥0 is not required here in the exact setting. We impose this requirement for the convenience when proving the general case.
+> 6Readers preferring a basis-free approach may notice that we are performing a Choi–Jamiolkowski transformation on ˆOand de-composing the transformed operator.
+
+13 perform the spectral decomposition M (1)  
+
+> ab
+
+= P 
+
+> j
+
+λj uaj u∗ 
+
+> bj
+
+,(λj ≥ 0). Hence, Eq. (84) becomes ˆO(1) = X
+
+> j
+
+λj ˆSj ⊗ ˆS∗ 
+
+> j
+
+, (85) where ˆSj = P 
+
+> a
+
+uaj ˆPa, satisfying the form of Eq. (79). Finally, orthonormality of { ˆPa} implies ˆO(k)
+
+> 2
+
+=
+
+M (k) 
+
+> 2
+
+and ∥M ∥2 = ˆO 2
+
+, hence 
+
+ˆO(k)
+
+> 2
+
+≤ ˆO 2
+
+. (86) In particular, since thermal Gibbs states of local Hamiltonians are always approximately Markovian [34– 36], our result implies, in essence, that Gibbs states are short-range correlated if and only if its canonical purifi-cation (the thermofield double) is short-range correlated. Corollary 12 also shows that, if we have a continuous family of SRC mixed states, then the corresponding fam-ily of canonically purified states always exhibit decay of correlations. One physical interpretation is that a phase transition of the canonical purification always implies a phase transition in the mixed state. In other words, the classification of (mixed or pure state) phases based on canonical purification is at least as coarse as the classifi-cation based on MI and CMI. This partially justifies pre-vious studies using canonical purification to understand mixed state phases [64–66]. However, Ref. [67] shows that there exist two mixed states that are in different mixed-state phases, yet their canonical purifications are in the same pure state phase. Therefore, the classification based on canonical purifica-tion is strictly more coarse than the mixed state classifi-cation.  
+
+> B. On the converse implication
+
+It is natural to ask whether the converse of Corollary 12 holds: namely, do short-range correlations in the canoni-cal purification imply an SRC mixed state (Definition 1)? Note that the decay of correlation is obvious, so the non-trivial property to be established is the decay of CMI. We provide a partial answer, affirming that this is in-deed the case under certain conditions. 
+
+Theorem 14 (Clustering in √ρ ⇒ SRC) . (1) For a stabilizer (mixed) state 7 ρ, if its canonical purification obeys decay of MI, then ρ has decay of CMI.        
+
+> 7Here the stabilizer mixed state for a stabilizer group Sis the maximally mixed state in the stabilizer subspace. We do not as-sume Sis locally generated, otherwise ρis already a Markov net-work [34] and there is nothing to prove.
+
+(2) For a 1D classical (mixed) state ρ, if its canon-ical purification has exact zero correlation length, i.e., 
+
+I(AA ′ : CC ′)|√ρ⟩ = 0 for any A and C that are sep-arated by at least one site, then ρ has superpolynomial decay of CMI. Proof. (1) We first claim that for a bipartite stabilizer state ρAB , we have I( A : B)ρ = S(A ¯A)|√ρ⟩. (87) To show it, we note that Ref. [68] implies that ρAB is local-Clifford equivalent to the tensor product of max-imally entangled states, maximally correlated classical states ( 12 (|00 ⟩⟨ 00 | + |11 ⟩⟨ 11 |)), and decoupled states on 
+
+A and B. Each state above contributes equally to both sides of Eq. (87), hence Eq. (87) holds. Applying Eq. (87) three times on A|BC , C|AB and 
+
+B|AC , a straightforward calculation shows that for any tripartite stabilizer state ρABC , we have: I( A : C)ρ + I( A : C|B)ρ = I  A ¯A : C ¯C
+
+|√ρ⟩ . (88) Therefore, for stabilizer states, decay of MI in canonical purification implies decay of CMI in the original mixed state. (2) Consider a classical state ρ = P 
+
+> s
+
+ps |s⟩⟨ s| where s
+
+denotes bit strings. Its canonical purification is √ρ =P
+
+> s
+
+√ps |s¯s⟩. We note that, for this state in the compu-tational basis, all amplitudes are nonnegative. Let us measure B ¯B in the computational basis. Each measurement outcome has the form of sB sB . We have: 
+
+P (sB s ¯B , |√ρ⟩) = X
+
+> sA,s C
+
+psAsB sC = P (sB , ρ ) . (89) Here the l.h.s is the probability of getting sB sB upon measuring B ¯B on √ρ while the r.h.s. is the proba-bility of getting sB upon measuring B on ρ. For each measurement outcome, we denote the after-measurement pure state on A ¯AC ¯C as |ψ(sB s ¯B )⟩. It is exactly the canonical purification of the conditional classical state 
+
+PsB ρP sB /P (sB , ρ ). It follows from monotonicity of MI that [69]: I( A : C|sB ) ≤ S A ¯A   
+
+> |ψ(sBsB)⟩
+
+, (90) where the l.h.s. is the classical mutual information of ρ
+
+conditioned on B being sB . Therefore, I( A : C|B)ρ = X
+
+> sB
+
+P (sB , ρ ) I( A : C|sB )
+
+≤ X
+
+> sB
+
+P (sB sB , |√ρ⟩) S  A ¯A    
+
+> |ψ(sBs¯B)⟩
+
+.
+
+(91) The r.h.s. is the average entanglement entropy be-tween between A ¯A and C ¯C in the post-measurement states after measuring B ¯B in the computational basis. 14 It is dubbed measurement induced entanglement (MIE) [70, 71]. Ref. [70] (proposition 3.1) shows that if a 1D pure state with nonnegative amplitudes has exact zero cor-relation length, then its MIE has super-polynomial de-cay. Therefore, in our scenario, I( A : C|B)ρ must decay super-polynomially. On the opposite direction, we note that for a tripartite state ρABC , the vanishing of A ¯A-C ¯C correlations in the canonical purification does not imply the vanishing of I( A : C|B) in the original state. See Appendix E 4 for an explicit example. This example alone, however, does not preclude the possibility that the decay of correlations in the canoni-cal purification implies the decay of CMI in the original state. Rather, it should be taken as an indication that if such a proof exists, it must be an intrinsically many-body phenomenon, not a tripartite one. We leave this intriguing question for future studies.  
+
+> VI. DISCUSSION AND OUTLOOK
+
+In this work, we have established a unified framework to characterize stable phases of matter, encompassing both pure and mixed states, in or out of equilibrium. We proposed that a phase is “locally stable” if any local op-eration can be reversed by a local quantum channel, and we have shown that this operational property is equiv-alent to the static property of short-range correlations as defined by exponential decay of MI and CMI. These properties serve as robust, invariant characteristics of a phase. Furthermore, we demonstrated that local stabil-ity directly implies the clustering of a broad family of non-linear correlators, independent of symmetry consid-erations. In particular, an important result of our work relates mixed and pure states: we proved that a mixed state is locally stable only if its canonical purification exhibits short-range correlations. As a byproduct, we found that local stability provides a sufficient condition for local post-selection to be implemented locally by a quantum channel, and we also found an equivalent char-acterization of quantum Markov chains in terms of local computability. Aside from the technical open questions already men-tioned in the text, our work motivates the following ques-tions. 
+
+Lindbladians and locally stable steady states. 
+
+There remain many further questions regarding relating dynamics to correlation properties. For example, given a locally stable state, can one construct a parent local Lind-bladian with the target state as a steady state? Does the parent Lindbladian always serve as an efficient recovery against local operations? If so, then a single trajectory of many measurements, with each disturbance dissipated by Lindbladian dynamics, could be used to probe the state [31, 72]. Furthermore, what are necessary and sufficient conditions on a local Lindbladian for its steady state to be locally stable? And does such a Lindbladian always rapidly dissipate local perturbations to the steady state? It is also interesting to understand the role of the spec-tral gap in these questions. In Section III D, we noted that although Proposition 6 holds in general, initial states arising from local perturbations to a steady state may still remain close to the steady state. Along similar lines, for such initial states, a suitable notion of local gap may be more relevant than the global spectral gap. We leave a further exploration of this question and its connection to Refs. [32, 35] for future work. 
+
+Correlation and entanglement in canonical pu-rification. In Corollary 12, we established that the canonical purification of SRC states exhibits clustering as measured by the two-point correlation function. It is natural to ask whether this clustering property can be strengthened. For example, one might hope to establish decay of local-global or even global-global correlations. Note that if we can strengthen Theorem 11 from the 2-norm to the 1-norm, then the same argument used for Corollary 12 would also yield decay of local-global cor-relations — and, under a suitable strengthening of Def-inition 1, even global-global correlations. However, cur-rently, we are only able to prove this improved version of Theorem 11 under stronger conditions. One such con-dition is that ρ is sufficiently close to an exact quantum Markov chain (see Appendix D 2). Another such condi-tion is that √ρ has Schmidt rank r = O(1) across any bipartition, which implies ∥·∥ 1 ≤ √r∥·∥ 2. We leave the general case of approximate quantum Markov chains for future study. In the global-global setting, an even stronger formu-lation of the question is whether √ρ inherits decay of mutual information whenever ρ itself has decaying MI and CMI. More generally, can we bound the entropic quantities of √ρ in terms of those of ρ?
+
+Classification of phases. Another motivation for strengthening Theorem 11 is as follows. If such improve-ment holds, then Uhlmann’s theorem implies that a lo-cal channel on ρ would correspond to a local unitary in the canonical purification: for any quantum channel Φ C ,there exists a unitary UBC such that UBC 
+
+√ρABC ≈
+
+p|ΦC (ρABC )⟩. Consequently, given a finite-depth lo-cally reversible channel circuit, we may apply the above result repeatedly in a gate-by-gate fashion (see, e.g., Ref. [9]) and construct a finite-depth unitary circuit, thus strengthening the correspondence between mixed state phases and pure state phases via canonical purification 8.
+
+> 8We thank Chong Wang for suggesting this correspondence be-tween locally reversible circuits and local unitary circuits on the canonical purification. See upcoming work [73] in this direction.
+
+15 
+
+ACKNOWLEDGMENTS 
+
+We thank Itai Arad, Liang Fu, Leonardo Lessa, Sub-hayan Sahu, Shengqi Sang, David Sutter, and Chong Wang for many helpful discussions. Research at Perime-ter Institute is supported in part by the Government of Canada through the Department of Innovation, Science and Industry Canada and by the Province of Ontario through the Ministry of Colleges and Universities. 
+
+Note added : While this work was completed, we became aware of a concurrent independent work [74], which has overlap with the connection between the lo-cal stability and short-range correlations properties (Sec-tion III A). We would also like to draw attention to an upcoming independent work [73], which has overlap with our Theorem 9 ( p = q = 12 case) and Theorem 11, and pursues the locally reversible channel / local unitary con-nection in the outlook. 
+
+[1] Y. Bao, R. Fan, A. Vishwanath, and E. Altman, Mixed-state topological order and the errorfield double formulation of decoherence-induced transitions (2023), arXiv:2301.05687 [quant-ph]. [2] R. Fan, Y. Bao, E. Altman, and A. Vishwanath, Diag-nostics of mixed-state topological order and breakdown of quantum memory, PRX Quantum 5, 020343 (2024). [3] Z. Wang and L. Li, Anomaly in open quantum systems and its implications on mixed-state quantum phases, arXiv preprint (2024), arXiv:2403.14533 [quant-ph]. [4] A. Coser and D. P´ erez-Garc´ ıa, Classification of phases for mixed states via fast dissipative evolution, Quantum 
+
+3, 174 (2019). [5] S. Sang, Y. Zou, and T. H. Hsieh, Mixed-state quantum phases: Renormalization and quantum error correction, Phys. Rev. X 14 , 031044 (2024). [6] T. Rakovszky, S. Gopalakrishnan, and C. von Keyser-lingk, Defining stable phases of open quantum systems, Phys. Rev. X 14 , 041031 (2024). [7] Y.-H. Chen and T. Grover, Separability Transitions in Topological States Induced by Local Decoherence, Phys. Rev. Lett. 132 , 170602 (2024). [8] Y.-H. Chen and T. Grover, Unconventional topological mixed-state transition and critical phase induced by self-dual coherent errors, Phys. Rev. B 110 , 125152 (2024). [9] S. Sang and T. H. Hsieh, Stability of mixed-state quan-tum phases via finite markov length, Phys. Rev. Lett. 
+
+134 , 070403 (2025). [10] S. Sang, L. A. Lessa, R. S. K. Mong, T. Grover, C. Wang, and T. H. Hsieh, Mixed-state phases from local reversibil-ity (2025), arXiv:2507.02292 [quant-ph]. [11] R. Sohal and A. Prem, Noisy Approach to Intrinsi-cally Mixed-State Topological Order, PRX Quantum 6,010313 (2025). [12] Z. Wang, Z. Wu, and Z. Wang, Intrinsic Mixed-State Topological Order, PRX Quantum 6, 010314 (2025). [13] T. D. Ellison and M. Cheng, Toward a classification of mixed-state topological orders in two dimensions, PRX Quantum 6, 010315 (2025). [14] C. Zhang, Y. Xu, J.-H. Zhang, C. Xu, Z. Bi, and Z.-X. Luo, Strong-to-weak spontaneous breaking of 1-form symmetry and intrinsically mixed topological order, Phys. Rev. B 111 , 115137 (2025). [15] R. Ma and C. Wang, Average Symmetry-Protected Topo-logical Phases, Phys. Rev. X 13 , 031016 (2023). [16] J. Y. Lee, Y.-Z. You, and C. Xu, Symmetry protected topological phases under decoherence, Quantum 9, 1607 (2025). [17] J. Y. Lee, C.-M. Jian, and C. Xu, Quantum criticality under decoherence or weak measurement, PRX Quantum 
+
+4, 030317 (2023). [18] L. A. Lessa, R. Ma, J.-H. Zhang, Z. Bi, M. Cheng, and C. Wang, Strong-to-weak spontaneous symmetry break-ing in mixed quantum states, PRX Quantum 6, 010344 (2025). [19] P. Sala, S. Gopalakrishnan, M. Oshikawa, and Y. You, Spontaneous strong symmetry breaking in open sys-tems: Purification perspective, Phys. Rev. B 110 , 155150 (2024). [20] Q. Wang, R. Vasseur, S. Trebst, A. W. W. Ludwig, and G.-Y. Zhu, Decoherence-induced self-dual criticality in topological states of matter (2025), arXiv:2502.14034 [quant-ph]. [21] H. Liu and X. Chen, Coherent error induced phase tran-sition (2025), arXiv:2506.00650 [quant-ph]. [22] Y. F. Zhang and S. Gopalakrishnan, Stability of mixed-state phases under weak decoherence (2025), arXiv:2511.01976 [quant-ph]. [23] J. Hauser, K. Su, H. Ha, J. Lloyd, T. G. Kiely, R. Vasseur, S. Gopalakrishnan, C. Xu, and M. P. A. Fisher, Strong-to-weak symmetry breaking in open quan-tum systems: From discrete particles to continuum hy-drodynamics (2026), arXiv:2602.16045 [quant-ph]. [24] Z. Weinstein, Efficient detection of strong-to-weak spon-taneous symmetry breaking via the r´ enyi-1 correlator, Phys. Rev. Lett. 134 , 150405 (2025). [25] S. Wang, T. G. Kiely, D. Tell, J. Obermeyer, M. Baren-dregt, P. Bojovi´ c, P. M. Preiss, A. Sarma, T. Franz, M. P. A. Fisher, C. Xu, and I. Bloch, Observation of strong-to-weak spontaneous symmetry breaking in a dephased fermi gas (2026), arXiv:2604.16137 [cond-mat.quant-gas]. [26] F. Devoto, S. Devoto, L. Di Luzio, and G. Ridolfi, False vacuum decay: an introductory review, Journal of Physics G: Nuclear and Particle Physics 49 , 103001 (2022). [27] D. Fausti, R. Tobey, N. Dean, S. Kaiser, A. Dienst, M. C. Hoffmann, S. Pyon, T. Takayama, H. Takagi, and A. Cavalleri, Light-induced superconductivity in a stripe-ordered cuprate, science 331 , 189 (2011). [28] B. Ilyas, T. Luo, A. von Hoegen, E. V. Bostr¨ om, Z. Zhang, J. Park, J. Kim, J.-G. Park, K. A. Nel-son, A. Rubio, and N. Gedik, Terahertz field-induced metastable magnetization near criticality in FePS 3, Na-ture 636 , 609 (2024). [29] X. Li, I. Esin, Y. Han, Y. Liu, H. Zhao, H. Ning, C. Bar-rett, J.-Y. Shan, K. Seyler, G. Cao, G. Refael, and D. Hsieh, Time-hidden magnetic order in a multi-orbital 16 
+
+mott insulator, Nature Physics 21 , 451 (2025). [30] T. Bergamaschi, R. Gheissari, and Y. Liu, Rapid mix-ing for gibbs states within a logical sector: a dynam-ical view of self-correcting quantum memories (2025), arXiv:2507.10976 [quant-ph]. [31] T. Bergamaschi, C.-F. Chen, and U. Vazirani, A struc-tural theory of quantum metastability: Markov proper-ties and area laws (2025), arXiv:2510.08538 [quant-ph]. [32] C. Yin, F. M. Surace, and A. Lucas, Theory of metastable states in many-body quantum systems, Physical Review X 15 , 011064 (2025). [33] M. B. Hastings and T. Koma, Spectral gap and exponen-tial decay of correlations, Communications in mathemat-ical physics 265 , 781 (2006). [34] W. Brown and D. Poulin, Quantum markov networks and commuting hamiltonians (2012), arXiv:1206.0755 [quant-ph]. [35] C.-F. Chen and C. Rouz´ e, Quantum Gibbs states are locally Markovian (2025). [36] T. Kuwahara, Clustering of conditional mutual informa-tion and quantum markov structure at arbitrary temper-atures, Phys. Rev. X 15 , 041010 (2025). [37] Y.-H. Chen and T. Grover, Local reversibility and diver-gent markov length in 1+1-d directed percolation (2026), arXiv:2512.07220 [cond-mat.stat-mech]. [38] R. Alicki and M. Fannes, Continuity of quantum condi-tional information, Journal of Physics A: Mathematical and General 37 , L55–L57 (2004). [39] A. Winter, Tight uniform continuity bounds for quantum entropies: conditional entropy, relative entropy distance and energy constraints, Communications in Mathemati-cal Physics 347 , 291 (2016). [40] W. H. Corrˆ ea, L. Lami, and C. Palazuelos, Maximal gap between local and global distinguishability of bipartite quantum states, IEEE Transactions on Information The-ory 68 , 7306 (2022). [41] A. Bakshi, A. Liu, A. Moitra, and E. Tang, A dobrushin condition for quantum markov chains: Rapid mixing and conditional mutual information at high temperature (2025), arXiv:2510.08542 [quant-ph]. [42] O. Fawzi and R. Renner, Quantum Conditional Mutual Information and Approximate Markov Chains, Commu-nications in Mathematical Physics 340 , 575 (2015). [43] W. Matthews, S. Wehner, and A. Winter, Distinguisha-bility of Quantum States Under Restricted Families of Measurements with an Application to Quantum Data Hiding, Communications in Mathematical Physics 291 ,813 (2009). [44] J. Yi, K. Li, C. Liu, Z. Li, and L. Zou, Universal decay of mutual information and conditional mutual informa-tion in gapped pure-and mixed-state quantum matter, Physical Review Letters 136 , 116604 (2026). [45] K. Temme, M. J. Kastoryano, M. B. Ruskai, M. M. Wolf, and F. Verstraete, The χ2-divergence and mixing times of quantum markov processes, Journal of Mathematical Physics 51 , 10.1063/1.3511335 (2010). [46] F. G. Brandao, T. S. Cubitt, A. Lucia, S. Michalakis, and D. Perez-Garcia, Area law for fixed points of rapidly mixing dissipative quantum systems, Journal of mathe-matical physics 56 (2015). [47] M. J. Kastoryano and F. G. S. L. Brand˜ ao, Quantum gibbs samplers: The commuting case, Communications in Mathematical Physics 344 , 915 (2016). [48] D. Fang, J. Lu, Y. Tong, and C. Zhao, Quantum gibbs sampling through the detectability lemma, arXiv preprint arXiv:2604.07214 (2026). [49] J.-H. Zhang, Y. Qi, and Z. Bi, Fidelity strange correla-tors for average symmetry-protected topological phases, Science Bulletin 71 , 688–691 (2026). [50] Z. Liu, L. Chen, Y. Zhang, S. Zhou, and P. Zhang, Diag-nosing strong-to-weak symmetry breaking via wightman correlators, Communications Physics 8, 274 (2025). [51] X. Huang, M. Qi, J.-H. Zhang, and A. Lucas, Hydro-dynamics as the effective field theory of strong-to-weak spontaneous symmetry breaking, Physical Review B 111 ,10.1103/physrevb.111.125147 (2025). [52] M. Kliesch, C. Gogolin, M. Kastoryano, A. Riera, and J. Eisert, Locality of temperature, Physical Review X 4,10.1103/physrevx.4.031019 (2014). [53] D. Petz, Quasi-entropies for finite quantum systems, Re-ports on mathematical physics 23 , 57 (1986). [54] V. Jaksic, Y. Ogata, Y. Pautrat, and C.-A. Pillet, En-tropic fluctuations in quantum statistical mechanics. an introduction, arXiv preprint arXiv:1106.3786 (2011). [55] K. M. R. Audenaert and N. Datta, α − z-r´ enyi relative entropies, Journal of Mathematical Physics 56 , 022202 (2015). [56] E. H. Lieb, Convex trace functions and the wigner-yanase-dyson conjecture, Les rencontres physiciens-math´ ematiciens de Strasbourg-RCP25 19 , 0 (1973). [57] H. Zhang, From wigner-yanase-dyson conjecture to carlen-frank-lieb conjecture, Advances in Mathematics 
+
+365 , 107053 (2020). [58] F. Hiai and A. Jenˇ cov´ a, α-z-r´ enyi divergences in von neu-mann algebras: Data processing inequality, reversibility, and monotonicity properties in α, z, Communications in Mathematical Physics 405 , 271 (2024). [59] D. Petz, Sufficient subalgebras and the relative entropy of states of a von neumann algebra, Communications in mathematical physics 105 , 123 (1986). [60] E. A. Carlen and A. Vershynina, Recovery and the data processing inequality for quasi-entropies, IEEE Transac-tions on Information Theory 64 , 6929 (2018). [61] L. Gao and M. M. Wilde, Recoverability for optimized quantum f-divergences, Journal of Physics A: Mathemat-ical and Theoretical 54 , 385302 (2021). [62] M. Mosonyi and T. Ogawa, Quantum hypothesis test-ing and the operational interpretation of the quantum r´ enyi relative entropies, Communications in Mathemati-cal Physics 334 , 1617 (2015). [63] F. Hiai and M. Mosonyi, Different quantum f-divergences and the reversibility of quantum operations, Reviews in Mathematical Physics 29 , 1750023 (2017). [64] C.-J. Lin, Z. Li, and T. H. Hsieh, Entanglement renor-malization of thermofield double states, Physical Review Letters 127 , 080602 (2021). [65] B. Swingle and J. McGreevy, Mixed s-sourcery: Building many-body states using bubbles of nothing, Phys. Rev. B 94 , 155125 (2016). [66] S. Lu, P. Zhu, and Y.-M. Lu, Bilayer construction for mixed state phenomena with strong, weak symmetries and symmetry breakings (2024), arXiv:2411.07174 [cond-mat.str-el]. [67] T. Ellison, D. Lee, Z. Li, A. Moharramipour, Y. Panahi, and B. Yoshida, Many-body chirality of topological sta-bilizer states (2026, to appear). [68] S. Bravyi, D. Fattal, and D. Gottesman, Ghz extraction yield for multipartite stabilizer states, Journal of Math-17 
+
+ematical Physics 47 (2006). [69] S. Dutta and T. Faulkner, A canonical purification for the entanglement wedge cross-section, Journal of High Energy Physics 2021 , 178 (2021). [70] M. B. Hastings, How quantum are non-negative wave-functions?, Journal of Mathematical Physics 57 , 015210 (2016). [71] C.-J. Lin, W. Ye, Y. Zou, S. Sang, and T. H. Hsieh, Probing sign structure using measurement-induced en-tanglement, Quantum 7, 910 (2023). [72] J. Jiang, J. Leng, and L. Lin, Predicting properties of quantum thermal states from a single trajectory (2026), arXiv:2602.12539 [quant-ph]. [73] X. Huang, S. Sang, C. Wang, and Y. Zou, (2026, to appear). [74] A. Chen, Note on strong markov properties, (2026, to appear). [75] M. Wilde, Quantum Information Theory , Quantum In-formation Theory (Cambridge University Press, 2013). [76] J. Watrous, The Theory of Quantum Information (Cam-bridge University Press, 2018). [77] R. Bhatia, Matrix analysis , 1st ed., Graduate texts in mathematics ; 169 (Springer Science+Business Media, LLC, New York, 1997). [78] M. Junge, R. Renner, D. Sutter, M. M. Wilde, and A. Winter, Universal Recovery Maps and Approximate Sufficiency of Quantum Relative Entropy, Annales Henri Poincar´ e 19 , 2955 (2018). [79] M. Berta, K. P. Seshadreesan, and M. M. Wilde, R´ enyi generalizations of the conditional quantum mutual infor-mation, Journal of Mathematical Physics 56 (2015). [80] M. E. Shirokov, Tight uniform continuity bounds for the quantum conditional mutual information, for the holevo quantity, and for capacities of quantum channels, Journal of Mathematical Physics 58 (2017). [81] I. Arad, T. Kuwahara, and Z. Landau, Connecting global and local energy distributions in quantum spin models on a lattice, Journal of Statistical Mechanics: Theory and Experiment 2016 , 033301 (2016), publisher: IOP Publishing and SISSA. [82] H. Araki, Gibbs states of a one dimensional quantum lat-tice, Communications in Mathematical Physics 14 , 120 (1969). [83] D. P´ erez-Garc´ ıa and A. P´ erez-Hern´ andez, Locality esti-mates for complex time evolution in 1d, Communications in Mathematical Physics 399 , 929 (2023). [84] D. Aharonov, I. Arad, Z. Landau, and U. Vazirani, Quan-tum hamiltonian complexity and the detectability lemma (2011), arXiv:1011.3445 [quant-ph]. [85] R. Firanko, M. Goldstein, and I. Arad, Area law for steady states of detailed-balance local Lindbladians, Journal of Mathematical Physics 65 , 051901 (2024). [86] A. Anshu, I. Arad, and T. Vidick, Simple proof of the de-tectability lemma and spectral gap amplification, Physi-cal Review B 93 , 205142 (2016). [87] S. Beigi, Sandwiched r´ enyi divergence satisfies data pro-cessing inequality, Journal of Mathematical Physics 54 
+
+(2013). [88] P. Hayden, R. Jozsa, D. Petz, and A. Winter, Structure of states which satisfy strong subadditivity of quantum entropy with equality, Communications in mathematical physics 246 , 359 (2004). 
+
+Appendix A: Notations and Useful Facts 
+
+In this appendix, we set out the conventions, notations, and mathematical facts used in the main text. Further mathematical details can be found in standard textbooks, e.g., Refs. [75, 76]. 
+
+Setup and notations. 
+
+We consider d-dimensional qudits on a lattice Λ ⊂ ZD . Each site i ∈ Λ carries a local Hilbert space Hi ∼= Cd; for a region X ⊆ Λ, HX = N 
+
+> i∈X
+
+Hi with dX = dim( HX ) = d|X|.The space of operators of H → H is denoted by L( H). We only consider finite dimensional spaces, so all operators are bounded. The space of (mixed) states in a Hilbert space H is denoted by S(H). Reduced states (partial traces) will be denoted by subscripts, e.g., ρA.We use the standard big-O notation O( ). We also denote x ≲ y if x = O(y). 
+
+Quantum Operations. 
+
+Throughout this work, we refer to completely positive trace-non-increasing maps as quantum operations, and refer to trace-preserving quantum operations as quantum channels. Any quantum operation can be (non-uniquely) decomposed into the Kraus form: Φ( ·) = X
+
+> k
+
+Fk(·)F † 
+
+> k
+
+, X
+
+> k
+
+F † 
+
+> k
+
+Fk ≤ 1. (A1) It is a quantum channel if and only if P 
+
+> k
+
+F † 
+
+> k
+
+Fk = 1.
+
+Operators and norms. 
+
+We consider the family of norms on L( H) known as Schatten norms, labeled by an index p ≥ 1 (well-defined for any 
+
+p > 0 but we need p ≥ 1 to fullfill the triangle inequality), defined as ∥A∥p = ( Tr {| A|p})1/p , where |A|= √A†A. The 
+
+p = ∞ case (maximal singular value) is usually referred to as operator norm. The p = 1 norm of A (sum of all singular values) is usually referred to as the trace norm, and admits the following duality form ∥A∥1 = sup ∥E∥∞=1 Tr {EA }.18 We often make use of the H¨ older inequality: for 1 
+
+> p
+
++ 1 
+
+> q
+
+= 1 
+
+> r
+
+and p, q, r > 0: 
+
+∥A · B∥r ≤ ∥ A∥p∥B∥q . (A2) The Bures distance between states ρ, σ is defined as: 
+
+DB (ρ, σ ) = min 
+
+> u∈unitary
+
+∥√ρ − u√σ∥2. (A3) It is related to the (unsquared) Uhlmann fidelity F (ρ, σ ) def 
+
+= ∥√ρ√σ∥1 by D2 
+
+> B
+
+= 2 − 2F . It is related to the trace norm by the Fuchs–van de Graaf inequality 1 − F (ρ, σ ) ≤ 12 ∥ρ − σ∥1≤ p1 − F (ρ, σ )2, (A4) which implies 12 ∥ρ − σ∥1≤ DB (ρ, σ ) ≤ ∥ ρ − σ∥ 12 
+
+> 1
+
+. (A5) It is related to the 2-norm by: DB (ρ, σ ) ≤ √ρ − √σ 2 ≤ √2D B (ρ, σ ). (A6) Here, the second inequality follows from Eq.(VII.39) in Ref. [77] (that ∥| A|−| B|∥ 2 ≤ √2∥A − B∥2 for arbitrary A and 
+
+B). For two pure states |ψ⟩ and |ϕ⟩, we use ∥| ψ⟩ − | ϕ⟩∥ to denote their distance in the Hilbert space. 
+
+Entropic quantities. 
+
+We make use of standard information measures. The von Neumann entropy is S( ρ) = −Tr( ρ log ρ) (throughout the work, the base of log is 2). The mutual information (MI) and conditional mutual information (CMI) for a state ρ on 
+
+ABC are defined as: I( A : B)ρ = S( A) + S( B) − S( AB ), (A7) I( A : C|B)ρ = S( AB ) + S( BC ) − S( ABC ) − S( B). (A8) Both are non-negative by the subadditivity and the strong subadditivity [76]. A useful identity is I( A : C|B) = I( AB : C) − I( B : C). We will also deal with a two-parameter family of relative entropy called α-z R´ enyi divergence [54, 55]. For α ∈
+
+(0 , 1) ∪ (1 , ∞) and z > 0, it is defined as: Dα,z (ρ∥σ) def 
+
+= 1
+
+α − 1 log Tr 
+
+h 
+
+σ 1−α 
+
+> 2z
+
+ρ αz σ 1−α
+
+> 2z
+
+z i
+
+. (A9) Setting z = 1 gives the Petz-type R´ enyi divergence D α(ρ∥σ) def 
+
+= 1 
+
+> α−1
+
+log Tr ρασ1−α ; Setting z = α gives the sandwiched R´ enyi divergence ˜Dα(ρ∥σ) def 
+
+= 1 
+
+> α−1
+
+log Tr 
+
+n
+
+(ρ 1−α 
+
+> 2α
+
+σρ 1−α 
+
+> 2α
+
+)αo
+
+; Setting α → 1 recovers the Umegaki relative entropy for all z: D( ρ∥σ) = Tr( ρ log ρ − ρ log σ). 
+
+Quantum Markov chains and sufficiency. 
+
+A state ρABC is an exact A-B-C quantum Markov chain (QMC) if one of the following mutually equivalent conditions holds [59]: 
+
+• I( A : C|B)ρ = 0; 
+
+• there exists a quantum channel R : B → BC such that R(ρAB ) = ρABC ;
+
+• PρBC ,Tr C (ρAB ) = ρABC , where PρBC ,Tr C is the Petz recovery map associated with ρBC and Tr C (here the inverse is taken on supp( ρB )): 
+
+PρBC ,Tr C (·) = ρ 12 
+
+> BC
+
+(ρ− 12 
+
+> B
+
+(·)ρ− 12 
+
+> B
+
+⊗ 1C )ρ 12 
+
+> BC
+
+. (A10) 19 More generally, a channel Φ is called sufficient for a pair of states ( ρ, σ ) if there exists a quantum channel R such that R ◦ Φ( ρ) = ρ and R ◦ Φ( σ) = σ. For example, ρABC being a QMC is equivalent to Tr C being sufficient for (ρABC , ρ BC ). Sufficiency can be characterized by the equality in the data processing inequality (DPI): D(Φ( ρ)∥Φ( σ)) ≤ D( ρ∥σ), equality iff Φ is sufficient . (A11) The α-z R´ enyi divergence D α,z also satisfies DPI for appropriate choice of ( α, z ). The equality also implies suffi-ciency, with the Petz recovery map providing a universal recovery channel. For a proof see Ref. [58]. 
+
+Approximate quantum Markov chains and approximate recovery. 
+
+The above equivalence between QMC and recovery admits an approximate version. We call ρABC an approximate QMC if the CMI I( A : C|B) is small. We define the fidelity of recovery (FoR) as: F( A; C|B) = max 
+
+> RB→AB
+
+F ( ρABC , R(ρBC )) . (A12) The following facts establish an equivalence between small CMI and large FoR: 
+
+Fact 15 (Ref. [42]) . I( A : C|B)ρ ≤ ϵ implies there is a quantum channel R : B → AB such that σABC 
+
+> def
+
+= R(ρBC )
+
+satisfies F ( ρ, σ ) ≥ 2− 12 ϵ, and hence, 12 ∥ρ − σ∥1 ≤ DB (ρ, σ ) ≤ p(ln 2) ϵ.
+
+Moreover, the recovery channel R can always be taken as a rotated Petz map, see Ref. [78]. 
+
+Fact 16. If there exists a quantum channel P : B → AB such that σABC 
+
+> def
+
+= R(ρBC ) satisfies ∥ρ − σ∥1 ≤ δ, then 
+
+I( A : C|B)ρ ≤ δ log min {dAB , d C } + 2 κ(δ/ 2) , (A13) I( A : C|B)σ ≤ δ log min {dB , d C } + 2 κ(δ/ 2) . (A14) 
+
+where κ(x) = (1 + x)h2( x 
+
+> 1+ x
+
+) (here h2 is the binary entropy function). 
+
+We sometimes simplify the r.h.s. using δ log d + 2 κ(δ/ 2) ≤ 5√δ log d for any d ≥ 2, which follows from maximizing 
+
+√δ + 2κ(δ/ 2)  
+
+> √δ
+
+over δ ∈ [0 , 2]. We note that, while bounds of similar flavor have appeared in previous literature (see Proposition 35 in [79] and Eq.(10) in [42]), their r.h.s. only contain dC . In contrast, for our purpose, we require the dAB bound, as C may be unbounded. 
+
+Proof of Fact 16. 
+
+I( A : C|B)ρ = I( AB : C)ρ − I( B : C)ρ = (I( AB : C)ρ − I( AB : C)σ ) + (I( AB : C)σ − I( B : C)ρ). (A15) The second term ≤ 0 due to the data-processing inequality. For the first term, the continuity bound in Ref. [80] states that I( AB : C)ρ − I( AB : C)σ ≤ δ log min {dAB , d C } + 2 κ(δ/ 2) (A16) where κ(x) = (1 + x)h2( x 
+
+> 1+ x
+
+). This proves Eq. (A13). Similarly, I( A : C|B)σ = I( AB : C)σ − I( B : C)σ = (I( AB : C)σ − I( B : C)ρ) + (I( B : C)ρ − I( B : C)σ ). (A17) The first term ≤ 0 due to the data-processing inequality. The second term is bounded as [80]: I( B : C)ρ − I( B : C)σ ≤ δ log min {dB , d C } + 2 κ(δ/ 2) . (A18) This proves Eq. (A14). 20 
+
+Appendix B: Proofs in Sec. III 1. Local stability from SRC 
+
+We start by proving Theorem 2, which states that SRC states are locally stable. 
+
+Proof of Theorem 2. Consider B1 to be an annulus buffer region of radius r1 around A, B2 to be an annulus buffer region of radius r2 around B1, and denote C def 
+
+= ( AB 1B2)c (see Fig. 2). We use decay of correlations in ρ to show that for every unnormalized trajectory FkρF † 
+
+> k
+
+and any observable O ∈ L( B2C), we have: 
+
+Tr 
+
+n
+
+FkρF † 
+
+> k
+
+O
+
+o
+
+− Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+Tr {ρO } = Tr 
+
+n
+
+F † 
+
+> k
+
+FkρO 
+
+o
+
+− Tr 
+
+n
+
+F † 
+
+> k
+
+Fkρ
+
+o
+
+Tr {ρO }
+
+≤ F † 
+
+> k
+
+Fk ∞
+
+∥O∥∞ f (A)e−r1/η ,
+
+(B1) where we used the fact that Fk and O are non-overlapping. Taking the supremum over all observables O with 
+
+∥O∥∞ = 1 we get 
+
+Tr AB 1
+
+h
+
+FkρF † 
+
+> k
+
+− ρ Tr 
+
+n
+
+FkρF †
+
+> k
+
+oi 
+
+> 1
+
+≤ F † 
+
+> k
+
+Fk ∞
+
+f (A) e−r1/η . (B2) Pulling out the probabilities pk = Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+and summing over all k’s we get: 
+
+X
+
+> k
+
+pk Tr AB 1
+
+ 1
+
+pk
+
+FkρF † 
+
+> k
+
+− ρ
+
+
+
+> 1
+
+≤ X
+
+> k
+
+F † 
+
+> k
+
+Fk ∞
+
+f (A)e−r1/η ≤ dAf (A)e−r1/η , (B3) where in the last move we used P F † 
+
+> k
+
+Fk ≤ P Tr 
+
+n
+
+F † 
+
+> k
+
+Fk
+
+o
+
+= Tr {1A} = dA. Here the trace is over HA.We finish by applying the recovery map from Fact 15: P : B2 → AB 1B2 such that ∥P (ρB2C ) − ρ∥1 ≤p(4 ln 2)I( AB 1 : C|B2) ≤ p(4 ln 2) g(AB 1)e−r2/2ζ . This implies 
+
+X
+
+> k
+
+pk P ◦ Tr AB 1
+
+ 1
+
+pk
+
+FkρF †
+
+> k
+
+
+
+− ρ
+
+> 1
+
+≤ X
+
+> k
+
+pk
+
+
+
+P ◦ Tr AB 1
+
+ 1
+
+pk
+
+FkρF † 
+
+> k
+
+− ρ
+
+
+
+> 1
+
++ ∥P (ρB2C ) − ρ∥1
+
+
+
+≤dAf (A)e−r1/η + p(4 ln 2) g(AB 1)e−r2/2ζ ,
+
+(B4) where the first inequality is triangle inequality, and the second is data processing inequality with P.
+
+2. Recovery from dynamics 
+
+Here, we present some of the information omitted from Section III D on Lindbladian-based recovery. For this entire section, we assume that L is a Lindbladian satisfying a detailed balance condition with respect to a unique, full-rank steady state ρ, having a spectral gap γ > 0. Recall the versions of detailed balance condition of focus are: 
+
+L ◦ Γ = Γ ◦ L †, Γ( A) = 
+
+(
+
+Aρ GNS ,ρ 12 Aρ 12 KMS . (B5) Here L† is the (superoperator) adjoint of L, defined as Tr  A†L†(B) = Tr  (L(A)) †B.First, let us prove proposition 6, which states the mixing bound eLt(˜ ρ) − ρ 1 ≤ C(˜ ρ, ρ )e−γt where C is related to the R´ enyi-2 divergence or its sandwiched analogue, depending on the choice of detailed balance. This exploits the operational significance of the Lindbladian gap γ as a (non-commutative) variance decay exponent [45]: Var ρ(Ot) ≤ Var ρ(Ot=0 )e−2γt ,
+
+where Var ρ(O) def 
+
+= Tr O†Γ( O) − | Tr {Oρ }| 2. (B6) 21 
+
+Proof of Proposition 6. Fix t ≥ 0. Let Et be the (Hermitian) observable that satisfies ∥Et∥∞ = 1 and 
+
+∥˜ρt − ρ∥1 = Tr {Et · (˜ ρt − ρ)}. (B7) Writing ˜ ρt − ρ as Γ(Γ −1(˜ ρt) − 1) and noting that Tr ρ · (Γ −1(˜ ρt) − 1) = 0, Eq. (B7) becomes 
+
+∥˜ρt − ρ∥1 = Cov ρ
+
+
+
+Et, Γ−1(˜ ρt) − 1
+
+
+
+, (B8) where we defined the operator covariance to be Cov ρ(OA, O B ) def 
+
+= Tr 
+
+n
+
+O†
+
+> A
+
+Γ( OB )
+
+o
+
+− Tr 
+
+n
+
+O†
+
+> A
+
+ρ
+
+o
+
+Tr {OB ρ}. Using the Cauchy-Schwartz inequality we get Cov ρ(Et, Γ−1(˜ ρt) − 1) ≤ pVar ρ(Et) · pVar ρ(Γ −1(˜ ρt) − 1). We use H¨ older inequality to bound Var ρ(Et) ≤ 1 and the detailed balance equation (Eq. (B5)) for Γ −1(˜ ρt) − 1 = eL†t(Γ −1(˜ ρ) − 1), so that finally, 
+
+∥˜ρt − ρ∥1 ≲
+
+r
+
+Var ρ
+
+
+
+eL†t(Γ −1(˜ ρ) − 1)
+
+
+
+≤
+
+|{z} 
+
+> Eq. (B6)
+
+e−γt 
+
+q
+
+Var ρ(Γ −1(˜ ρ) − 1). (B9) We finish by reinterpreting the right-hand-side of our last inequality with respect to the choice of Γ in Eq. (B5). Short calculation shows that Var ρ(Γ −1(˜ ρ) − 1) = Tr ˜ρ · Γ−1(˜ ρ) − 1 = 
+
+(Tr ˜ρ2ρ−1 − 1 for Γ : O 7 → Oρ (GNS) ,
+
+Tr 
+
+n
+
+˜ρρ − 12 ˜ρρ − 12
+
+o
+
+− 1 for Γ : O 7 → ρ 12 Oρ 12 (KMS) . (B10) The traces are exactly eD2( ˜ ρ∥ρ) in the GNS case, or e˜D2( ˜ ρ∥ρ) in the KMS case (see Eq. (47)). Using the above result, the convergence time from a given initial state is guaranteed if we could control the initial R´ enyi-2 divergence with the steady state. To put in context, we seek an upper bound of this form for the steady state obtained after a post-selected Kraus operation on A. Ideally, such a bound should depend only on the local region 
+
+A, resulting in Eq. (41). While SRC states are natural candidates to satisfy such a local bound, we leave establishing this for future research. Instead, we show this for certain instances of SRC Gibbs states. 
+
+Corollary 17. Let ΦA(·) = P 
+
+> k
+
+Fk(·)F † 
+
+> k
+
+be a Kraus decomposition of a local channel. Define pk = Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+,
+
+σk = 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+, and Rt = eLt. Then 
+
+X
+
+> k
+
+pk∥R t(σk) − ρ∥1 ≤ C(A) e−γt , (B11) 
+
+is achieved for Gibbs samplers of: 1. Commuting Hamiltonians. 2. 1D Hamiltonians. 3. High temperatures. Proof. For now, we work in the KMS regime. Plugging to Eq. (B10) the input state ˜ ρ = σk = 1 
+
+> pk
+
+FkρF † 
+
+> k
+
+for ρ ∝ e−βH 
+
+where H is a local Hamiltonian, we get Tr 
+
+n
+
+˜ρρ − 12 ˜ρρ − 12
+
+o
+
+= ρ− 12 ˜ρρ − 12
+
+> ∞
+
+≤ 1
+
+pk
+
+eβH/ 2Fke−βH/ 2 2
+
+> ∞
+
+, (B12) where in the first move we used H¨ older’s inequality and in the second we used the C∗-identity of ∥·∥ ∞. We seek for a bound of the form 
+
+eβH/ 2Fke−βH/ 2
+
+> ∞
+
+≤ h(|A|)∥Fk∥∞, (B13) where h(x) = eO(x) is some function that encompasses a β dependence. Assuming Eq. (B13), we get that Rt is a desired recovery channel: 
+
+X
+
+> k
+
+pk∥R t(σk) − ρ∥1 ≤
+
+|{z} 
+
+> Prop. 6
+
+X
+
+> k
+
+pk e−γt 
+
+Tr 
+
+n
+
+σkρ− 12 σkρ− 12
+
+o 12
+
+(Eqs. (B12) & (B13)) ≤ e−γt h(A) X
+
+> k
+
+√pk∥Fk∥∞
+
+(Cauchy-Schwarz& ∥Fk∥2 
+
+> ∞
+
+≤ Tr 
+
+n
+
+F † 
+
+> k
+
+Fk
+
+o
+
+) ≤ e−γt h(A)
+
+ X 
+
+> k
+
+pk
+
+ 12  X 
+
+> k′
+
+Tr 
+
+n
+
+F † 
+
+> k′
+
+Fk′
+
+o 12
+
+(X
+
+> k
+
+F † 
+
+> k
+
+Fk = 1) ≤ e−γt h(A)d |A| 
+
+> 2
+
+.
+
+(B14) 22           
+
+> FIG. 6. The light cone structure in (B16). The green gates describe mlayers of the Piprojectors. The faded projectors commute with Fkand absorbed in ρ, leading to an effective recovery channel with small support.
+
+Here in the 3rd line, the trace is over HA.It is left to justify Eq. (B13) for specific Gibbs states. Note that in general, the expression in the l.h.s of Eq. (B13), which involves the imaginary time evolution of a local operator, might scale exponentially with system size. The cases known to be locally bounded are commuting Hamiltonians, 1D Hamiltonians, and high temperature Hamiltonians where β < β c and Tc depends on the local geometry of the lattice [81]. Assume that H = P 
+
+> i
+
+Hi where 0 ≤ Hi ≤ 1,
+
+eβH Fke−βH  
+
+> ∞
+
+≤ ∥ Fk∥∞ ·
+
+
+
+eO(β|A|) Commuting Hamiltonians ,e8βe 8β
+
+e4β|A| 1D Hamiltonians ,
+
+
+
+1 − β/β c
+
+−O (|A|)
+
+High-T . 
+
+(B15) In the above, the commuting case is simply achieved by commuting the terms in H that do not overlap with Fk. The 1D case is due to [82, 83], and the high temperature case is Lemma 3.1 of Ref. [81]. So far in this section, we illustrated how eLt can be seen as a recovery map, but only briefly addressed its locality properties. Rigorous estimates can be obtained using the Lieb-Robinson bounds when the Lindbladian is frustration-free, yielding a strictly local recovery map as defined in 2. We refer the reader to Refs. [35, 46] for related results. We complement this direction by purposing an alternative recovery map, which is strictly local, and tailored for commuting Hamiltonian Gibbs states. To do this, we consider a detectability lemma superoperator derived from the Lindbladian [84]. This approach was also considered in Ref. [47] for deriving a strong clustering condition for such Gibbs states. For now, assume that L = P 
+
+> i
+
+Li, such that every local term is supported on O(1) neighboring sites and satisfies GNS condition locally: 
+
+∀i ⇒ LiΓ = Γ L† 
+
+> i
+
+, where Γ( A) = ρ · A. 
+
+These maps are only known to exist for commuting Hamiltonians, e.g., with a Davies generators (see Ref. [47]), and therefore will be our focus here. Let Pi be its infinite time expectations, Pi
+
+> def
+
+= lim t→∞ eLit, and divide the set {P i}
+
+into layers 9. The detectability lemma superoperator is given by the product of these layers [84]. Let A be a small region, and define the local recovery map to be the tower of Pi’s that are in the light-cone of m
+
+layers of the detectability lemma operator around A,
+
+Rm = Y
+
+> i∈LC( A)
+
+Pi. (B16) The light-cone is defined by taking m layers of the detectability lemma operator, and eliminate all the elements that are not in the light-cone around A (see Fig. 6). We prove that Rm yields local stability. 
+
+Proposition 18. Let ρ ∝ e−βH where β > 0 and H = P 
+
+> i
+
+hi is a commuting k-local Hamiltonian where k = O(1) 
+
+and 0 ⪯ hi ⪯ 1. Let L = P 
+
+> i
+
+Li be a local Gibbs sampler with a spectral gap γ > 0. For a small region A, let Rm he recovery channel from (B16) . Then for any local channel ΦA(·) = P 
+
+> k
+
+Fk(·)F † 
+
+> k
+
+, we have 
+
+X
+
+> k
+
+pk Rm( 1
+
+pk
+
+FkρF † 
+
+> k
+
+) − ρ
+
+> 1
+
+≤ d |A| 
+
+> 2
+
+eO(β|A|)e−m/ξ 
+
+where ξ = − ln −1[1 − O (γ)] .  
+
+> 9For example, a Lindbladian defined on a 1D lattice with Liwhich are 2-local requires two layers – “even” and “odd”.
+
+23 
+
+Proof. Let L = P 
+
+> i
+
+Li be a local Lindbladian such that Li satisfies detailed balance with respect to ρ. As a result, 
+
+ρ is also a fixed point of every Li, and moreover, Pi projects on ρ. Divide the projectors into layers, and stack m
+
+iterations of these layers one by one to get a circuit P(m) consisting of O(m) layers. Let Φ( ·) = Fk(·)F † 
+
+> k
+
+be a quantum channel on A given in a Kraus form. We claim that 
+
+ P(m) − | ρ⟩⟨ 1| (FkρF † 
+
+> k
+
+) 1
+
+≤ C
+
+r
+
+Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+∥Fk∥,
+
+for C = eO(β|A|)(1 − O (γ)) m
+
+(B17) We prove Eq. (B17) below, but for now, assume it holds, denote pk
+
+> def
+
+= Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+and average over (B17): 
+
+X
+
+> k
+
+pk
+
+1
+
+pk
+
+P(m)(FkρF † 
+
+> k
+
+) − ρ
+
+> 1
+
+≤ C X
+
+> k
+
+√pk∥Fk∥ ≤ C
+
+sX
+
+> k
+
+pk
+
+sX
+
+> k
+
+Tr 
+
+n
+
+F † 
+
+> k
+
+Fk
+
+o
+
+= Cd |A| 
+
+> 2
+
+, (B18) i.e., P(m) is a recovery channel satisfying Definition 2. Note that the Pi terms in P(m) supported outside the light cone of A commute with Fk and absorbed in ρ, reducing it to the Pi terms inside the light cone (see Fig. 6), leading to Rm supported in a ball of radius O(m) around A.The rest of the proof will be devoted to showing Ineq. (B17). Note that the detailed balance condition, LiΓ = Γ L† 
+
+> i
+
+,is equivalent to Hi
+
+> def
+
+= Γ− 12 LiΓ 12 being hermitian. In particular, H def 
+
+= −Γ 12 LΓ 12 is an hermitian super-operator, frustration free, with a unique ground state being √σ and gap( H) = gap( L) = γ. Each Hi is in-fact local due to detailed balance (see Theorem 3.2 in Ref. [85]). This allows us to apply the detectability lemma for frustration free Hamiltonian (Corollary 3 in [86]) ∆ def 
+
+= ( Y
+
+> i
+
+Pi)m − √σ √σ ; ∥∆∥2→2 ≤ (1 − O (γ)) m. (B19) where Pi projects onto the groundspace of Hi, i.e., Pi = Γ − 12 PiΓ 12 . Recalling that Γ 12 (√σ) = σ and Γ − 12 (√σ) = 1,Ineq. (B17) becomes 
+
+
+
+Γ 12 ∆Γ − 12
+
+
+
+(FkρF † 
+
+> k
+
+) 1
+
+≤ C Tr 
+
+n
+
+FkρF †
+
+> k
+
+o
+
+(B20) which we now estimate 
+
+Γ 12 ∆Γ − 12 (FkρF † 
+
+> k
+
+) 1
+
+= ρ 12 ∆( ρ− 12 FkρF † 
+
+> k
+
+) 1
+
+(Cauchy-Schwartz) ≤ ρ 12
+
+> 2
+
+∆( ρ− 12 FkρF † 
+
+> k
+
+) 2
+
+(Tr {ρ} = 1) ≤ ∥ ∆∥2→2 ρ− 12 FkρF † 
+
+> k2
+
+≤ ∥ ∆∥2→2
+
+r
+
+Tr 
+
+n
+
+FkρF † 
+
+> k
+
+ρ−1FkρF †
+
+> k
+
+o
+
+(H¨ older Inequality) ≤ ∥ ∆∥2→2
+
+r
+
+Tr 
+
+n
+
+FkρF †
+
+> k
+
+or
+
+∥ρ−1Fkρ∥ F †
+
+> k
+
+First case in Eq. (B15) ≤ ∥ ∆∥2→2eO(β|A|)√pk∥Fk∥.
+
+(B21) One should note the differences between our proof and Thm. 2.6 from Ref. [47]: The authors obtained an esitimate on the norm of a strong notion of clustering which is given in the ρ-weighted norm, at which L† and P† are hermitian. They also use a local Davies generator, and assume it is locally primitive. We, on the other hand, do not assume a locally primitive Lindbladian that is locally a Davies generator. More importantly, our proof navigates between the 2-norm (in the rotated basis) and the 1-norm in the usual basis, rather than performing the analysis in the convenient 
+
+ρ-weighted norm. For this purpose, e.g., it is crucial for us to start from FkρF † 
+
+> k
+
+.24 
+
+Appendix C: Proofs in Sec. IV 
+
+Proof of Prop. 7. (Item 2 - Monotonicity) Let us compare Cp,q and Cp,q ′ where q ≤ q′. We have: 
+
+ρ p 
+
+> 2
+
+Oρ q′ 
+
+> 2
+> 2s′
+
+= ρ p 
+
+> 2
+
+Oρ q 
+
+> 2
+
+ρ q′−q 
+
+> 2
+> 2s′
+
+≤ ρ p 
+
+> 2
+
+Oρ q
+
+> 2
+> 2s
+
+ρ q′−q
+
+> 2
+> 2
+> q′−q
+
+= ρ p 
+
+> 2
+
+Oρ q
+
+> 2
+> 2s
+
+(C1) Here, we use the Holder’s inequality and the following: 12s′ = p + q′
+
+2 = p + q
+
+2 + q′ − q
+
+2 = 12s + 12/(q′ − q) . (C2) (Item 6 - Continuity) Using triangle inequality and H¨ older’s inequality, we have 
+
+|C p,q (O, ρ ) − C p,q (O, σ )|≤ ρ p 
+
+> 2
+
+Oρ q 
+
+> 2
+
+− σ p 
+
+> 2
+
+Oσ q
+
+> 2
+> 2s
+
+≤ (ρ p 
+
+> 2
+
+− σ p 
+
+> 2
+
+)Oρ q
+
+> 2
+> 2s
+
++ σ p 
+
+> 2
+
+O(ρ q 
+
+> 2
+
+− σ q 
+
+> 2
+
+) 2s
+
+≤ ρ p 
+
+> 2
+
+− σ p
+
+> 2
+> 2
+> p
+
+∥O∥∞ ρ q
+
+> 2
+> 2
+> q
+
++ ( p ↔ q)
+
+≤ ρ 12 − σ 12
+
+> p
+> 2
+
+∥O∥∞ + ( p ↔ q)(C3) Here in the last two steps we use Eq.(X.7) in Ref. [77], i.e., for positive semidefinite A and B, we have: 
+
+∥Ar − Br ∥k ≤ ∥| A − B|r ∥k, (0 ≤ r ≤ 1, k ≥ 1) , (C4) (Here, we let A = ρ 12 , B = σ 12 , r = p, k = 2 
+
+> p
+
+). Finally, using Eq. (A6), we get: 
+
+|C p,q (O, ρ ) − C p,q (O, σ )|≤ ∥ O∥∞(2 p 
+
+> 2
+
+DB (ρ, σ )p + 2 q 
+
+> 2
+
+DB (ρ, σ )q ) ≤ ∥ O∥∞23/2DB (ρ, σ )min {p,q }. (C5) (Item 7 - Log-Convexity:) Fixing ( p0, q 0), ( p1, q 1), we consider the following matrix-valued function: 
+
+G(z) = ρ (1 −z)p0+zp 12 Oρ (1 −z)q0+zq 12 . (C6) This is an (element-wise) bounded holomorphic function of z ∈ C. Fixing O and ρ, G(z) is (element-wise) bounded when Re( z) ∈ [0 , 1]. Moreover, for ∀t ∈ R,
+
+∥G(it )∥2s0 = Cp0,q 0 , ∥G(1 + it )∥2s1 = Cp1,q 1 . (C7) Therefore, using the Hadamard three-line theorem for operator-valued functions (see, e.g., Theorem 2 in Ref. [87]), we get, for ∀θ ∈ [0 , 1], that: log ∥G(θ)∥2sθ ≤ (1 − θ) log Cp0,q 0 + θ log Cp1,q 1 , (C8) where sθ is defined by 12sθ
+
+= 1 − θ
+
+2s0
+
++ θ
+
+2s1
+
+, si = 1
+
+pi + qi
+
+(i = 1 , 2) . (C9) Straightforward calculation shows that 
+
+∥G(θ)∥2sθ = ρ pθ 
+
+> 2
+
+Oρ qθ 
+
+> 2
+> 2
+> pθ+qθ
+
+= Cpθ ,q θ , (C10) where pθ = (1 − θ)p0 + θp 1 and qθ = (1 − θ)q0 + θq 1. Therefore, Eq. (C8) is exactly the desired log-convexity. 
+
+Proof of Theorem 9’(1). We apply the data processing inequality Eq. (51) twice, once with Tr C and once with the recovery map P:
+
+Cp,q (OA, ρ ABC ) ≤ C p,q (OA, ρ AB ) ≤ C p,q (OA, P(ρAB )) . (C11) Then, applying continuity bound (Item 6 of Prop. 7) with ρABC and P(ρAB ), we find: 
+
+Cp,q (OA, P(ρAB )) ≤ C p,q (OA, ρ ABC ) + 2 p 
+
+> 2+1
+
+∥OA∥∞DB (P(ρAB ), ρ ABC )p. (C12) The desired result is then given by fact 15. 25 
+
+Proof of Theorem 10. We follow the proof strategy outlined in the main text, relaxing the assumption on ρ to allow for decaying correlations and conditional mutual information. Define B1 (and B2) from Fig. 5 to be an annulus of radius r around A1 (and A2). We separate the desired bound into three components: 
+
+|C p,q (O1O2, ρ ) − C p,q (O1, ρ )Cp,q (O2, ρ )|≤ |C p,q (O1O2, ρ ) − C p,q (O1O2, ρ AB )|
+
+| {z }
+
+> (a)
+
++ |C p,q (O1O2, ρ AB ) − C p,q (O1, ρ A1B1 ) · C p,q (O2, ρ A2B2 )|
+
+| {z }
+
+> (b)
+
++ |C p,q (O1, ρ A1B1 ) · C p,q (O2, ρ A2B2 ) − C p,q (O1, ρ ) · C p,q (O2, ρ )|
+
+| {z }
+
+> (c)
+
+.
+
+(C13) In the following, we upper bound the above three terms. For convenience, we denote I( A : B|C) = δ212 , I( A1 : B1|CB 2A2) = δ21 , I( A2 : B2|CB 1A1) = δ21 , (C14) DB (ρAB , ρ A1B1 ⊗ ρA2B2 ) = ϵ. (C15) We assume ∥O1∥∞ = ∥O2∥∞ = 1 for simplicity and assume WLOG that p ≤ q.
+
+• Term (a). We apply Eq. (66) with A = A1A2, B = B1B2 and C (see Fig. 5) with OA = O1O2 and find: 
+
+|C p,q (OA, ρ ABC ) − C p,q (OA, ρ AB )|≲ δp
+
+> 12
+
+. (C16) 
+
+• Term (b). We apply the continuity bound (Item 6) for ρAB and ρA1B1 ⊗ ρA2B2 , then apply the multiplicativity of C (Item 5): 
+
+|C p,q (OA, ρ AB ) − C p,q (O1, ρ A1B1 ) · C p,q (O2, ρ A2B2 )|≲ ϵp. (C17) 
+
+• Term (c). Applying Eq. (66) on each individual terms gives 
+
+|C p,q (Oi, ρ AiBi ) − C p,q (Oi, ρ )| ≲ δpi , i = 1 , 2. (C18) Using the bound Cp,q (Oi, ρ AiBi ) ≤ 1 (Item 3 of Prop. 7) and triangle inequality we conclude that the term (c) is upper bounded by ≲ δp 
+
+> 1
+
++ δp 
+
+> 2
+
+.Collecting all the terms, we get: 
+
+|C p,q (O1O2, ρ ) − C p,q (O1, ρ )Cp,q (O2, ρ )|≤ 2 32 (δp 
+
+> 1
+
++ δp 
+
+> 2
+
++ δp 
+
+> 12
+
++ ϵp). (C19) Next, let us estimate the δ’s amd the ϵ associated with a SRC state (recall Definition 1). 
+
+• δ1, δ 2. The SRC assumption Eq. (2) on ρ gives: 
+
+δi ≲ (I( Ai : ( AiBi)c|Bi)) 12 ≤ g(Ai) 12 e− r 
+
+> 2ζ
+
+, i = 1 , 2. (C20) 
+
+• δ12 . The chain rule and strong sub-additivity imply: I( A1A2 : C|B1B2) = I( A1 : C|B1B2) + I( A2 : C|A1B1B2) ≤ I( A1 : A2B2C|B1) + I( A2 : A1B1C|B2), (C21) which further implies: 
+
+δ12 ≤
+
+q
+
+δ21 + δ22 ≲ max  
+
+> i
+
+{g(Ai) 12 } e− r 
+
+> 2ζ
+
+. (C22) 
+
+• ϵ. The SRC assumption (Eq. (1)) on ρ gives the correlation decay, which further implies the bound on the trace distance (Eq. (6)): 
+
+∥ρAB − ρA1B1 ρA2B2 ∥1 ≲ dA1B1 f (A1B1)e− dist( B1,B 2)/η = eO(rD )−dist( A1,A 2)/η ,
+
+where we used {f (x), d x} = eO(x) and dist( B1, B 2) = dist( A1, A 2) − 2r (here the constant factor in the big O
+
+notation is A-independent). The Fuchs–van de Graaf inequality then implies: 
+
+ϵ = D B (ρAB , ρ A1B1 ρA2B2 ) ≤ ∥ ρAB − ρA1B1 ⊗ ρA2B2 ∥ 12 
+
+> 1
+
+≤ eO(rD )−dist( A1,A 2)/2η , (C23) 26 A bound on l.h.s. of Eq. (C13) can be obtained by plugging bounds (C20),(C22),(C23) into Eq. (C19) and tuning 
+
+B1 and B2 (equivalently, tuning r) to optimize the overall result. To make (C23) small, we choose: 
+
+r = O(dist( A1, A 2)) 1/D (C24) Under this choice, we get: 
+
+δ1, δ 2, δ 12 ≲ g(A1) 12 e−O (dist( A1,A 2)) 1/D 
+
+, ϵ ≲ e−O (dist( A1,A 2)) . (C25) Plugging it into Eq. (C19), we get 
+
+|C p,q (O1O2, ρ ) − C p,q (O1, ρ )Cp,q (O2, ρ )|≤ C(A)e−pO(dist( A1,A 2)) 1/D 
+
+. (C26) 
+
+Remark: In case where ∥ρAB − ρA1B1 ρA2B2 ∥1 ≤ poly( A1B1) e− dist( B1,B 2)/η , we can choose r = O(dist( A1, A 2)). Then the final bound admits the form 
+
+|C p,q (O1O2, ρ ) − C p,q (O1, ρ )Cp,q (O2, ρ )|≤ C(A)e−p·O (dist( A1,A 2)) . (C27) 
+
+Appendix D: Proofs in Sec. V 1. Omitted proofs 
+
+Proof of Theorem 11. For operators of the form O ⊗ O∗, we have 
+
+C 12 , 12 (O, ρ ) = Tr  √ρO √ρO † 12 = ⟨√ρ|O ⊗ O∗|√ρ⟩ 12 . (D1) Applying data processing inequality (Theorem 8) on Eq. (D1), we find: 
+
+⟨O ⊗ O∗⟩√ρABC ≤ ⟨ O ⊗ O∗⟩√ρAB ≤ ⟨ O ⊗ O∗⟩√σABC . (D2) Here, σABC = RB→BC (ρAB ) is a recovered state using the approximate Markov property (fact 15) so that δ =DB (ρ, σ ) ≤ I( A : C|B) 12 . It also follows from Eq. (A6) that 
+
+|√ρ⟩ − √σ = √ρ − √σ 2 ≲ δ. (D3) Due to linearity, inequality (D2) holds for any operator OA ¯A that admits a decomposition 
+
+OA ¯A = X
+
+> i
+
+λiOiA ⊗ O∗ 
+
+> i¯A
+
+, λi ≥ 0. (D4) Combined with Eq. (D3), this gives, for any operator satisfying Eq. (D4): 0 ≤ ⟨ OA ¯A⟩√ρAB − ⟨ OA ¯A⟩√ρABC ≲ δ∥OA ¯A∥∞. (D5) Now we apply Lemma 13 to any operator OA ¯A and apply Eq. (D5) to each the four terms in the decomposition. Noticing that O(k) 
+
+> ∞
+
+≤ O(k) 
+
+> 2
+
+≤ ∥ O∥2, we find that, for any operator OA ¯A:
+
+|⟨ OA ¯A⟩√ρAB − ⟨ OA ¯A⟩√ρABC |≲ δ∥OA ¯A∥2. (D6) It is equivalent to Theorem 11 by the standard relation ∥A∥2 = sup ∥E∥2=1 Tr {EA }.
+
+Proof of Corollary 12. We use the same strategy as that in Theorem 10. In particular, we use the definition Eqs. (C14) and (C15). Repeating the arguments towards Eq. (D6), we find: 
+
+| OA1 ¯A1 √ρA1B1
+
+− OA1 ¯A1 √ρABC 
+
+|≲ δ1 OA1 ¯A1 2, (D7) 
+
+| OA2 ¯A2 √ρA2B2
+
+− OA2 ¯A2 √ρABC 
+
+|≲ δ2 OA2 ¯A2 2, (D8) 
+
+|⟨ OA ¯A⟩√ρAB − ⟨ OA ¯A⟩√ρABC |≲ δ12 ∥OA ¯A∥2. (D9) 27 Moreover, using Eq. (D3) again, we get: 
+
+|√ρAB ⟩ − √ρA1B1 ⊗ √ρA2B2 ≲ DB (ρAB , ρ A1B1 ⊗ ρA2B2 ) = ϵ, (D10) and accordingly 
+
+|⟨ OA ¯A⟩√ρAB − ⟨ OA ¯A⟩√ρA1B1 ⊗ρA2B2
+
+|≲ ϵ∥OA ¯A∥∞ ≤ ϵ∥OA ¯A∥2. (D11) In our problem, OA ¯A = OA1 ¯A1 OA2 ¯A2 , hence 
+
+⟨OA ¯A⟩√ρA1B1 ⊗ρA2B2
+
+= OA1 ¯A1 √ρA1B1
+
+OA2 ¯A2 √ρA2B2
+
+. (D12) Collecting the above equation, we arrive at 
+
+| OA1 ¯A1 OA2 ¯A2 √ρ − OA1 ¯A1 √ρ OA2 ¯A2 √ρ ≲ OA1 ¯A1 2 OA2 ¯A2 2(δ1 + δ2 + δ12 + ϵ). (D13) The final desired result, Corollary 12, is obtained by setting δ1, δ 2, δ 12 , ϵ as those in the proof of Theorem 10. 
+
+2. Comments on Theorem 11 
+
+In this subsection, we first provide a simplified proof of Theorem 11 for exact QMC. We then discuss how it can be strengthened under a stronger condition. 
+
+Theorem 11’ (Exact case) . If ρABC is an exact QMC over A-B-C, then ρ 12 
+
+> ABC
+
+= ρ 12 
+
+> BC
+
+ρ− 12 
+
+> B
+
+ρ 12 
+
+> AB
+
+and 
+
+Tr B ¯BC ¯C |√ρABC ⟩⟨ √ρABC | = Tr B ¯B |√ρAB ⟩⟨ √ρAB | . (D14) 
+
+Proof. We make use of another characterization of QMC [59], which asserts that: 
+
+ρit ABC ρ−it BC = ρit AB ρ−it B ∀t ∈ R. (D15) By analytic continuation, taking t = i 
+
+> 2
+
+, we find: 
+
+ρ 12 
+
+> ABC
+
+= ρ 12 
+
+> BC
+
+ρ− 12 
+
+> B
+
+ρ 12 
+
+> AB
+
+. (D16) (Another quick way to prove it is to use the structural theorem in Ref. [88], which asserts that 
+
+ρABC = M
+
+> j
+
+pj ρAB Lj ⊗ ρBRj C , (D17) and notice that the square root can be taken independently for each direct summand.) Translating this equation into pure states, we get: 
+
+|√ρABC ⟩ = VB→BC ¯C |√ρAB ⟩ , VB→BC ¯C (·) def 
+
+= ρ 12 
+
+> BC
+
+ρ− 12 
+
+> B
+
+( ( ·) ⊗ X
+
+> i
+
+|iC i ¯C ⟩). (D18) We can confirm that V is an isometry by explicit calculation: 
+
+V †V = Tr C
+
+
+
+(ρ 12 
+
+> BC
+
+ρ− 12 
+
+> B
+
+)†(ρ 12 
+
+> BC
+
+ρ− 12 
+
+> B
+
+)
+
+
+
+= Tr C (ρ− 12 
+
+> B
+
+ρBC ρ− 12 
+
+> B
+
+) = id B . (D19) Namely, the squared root of the Petz map Eq. (A10) (with a partial Choi–Jamiolkowski isomorphism) also serves as a isomorphism that maps √ρAB to √ρABC . Equation (D14) then follows immediately. 
+
+Corollary 19. If ρ is ϵ-close (in trace norm) to an exact QMC, then 
+
+∥Tr B ¯BC ¯C |√ρABC ⟩⟨ √ρABC | − Tr B ¯B |√ρAB ⟩⟨ √ρAB |∥ 1 ≲ √ϵ (D20) 28 
+
+Proof. Let σABC be an exact QMC such that ∥ρ − σ∥1 ≤ ϵ. We have proved that: Tr B ¯BC ¯C |√σABC ⟩⟨ √σABC | = Tr B ¯B |√σAB ⟩⟨ √σAB | . (D21) It remains to estimate the difference of both sides to those from ρ. For any two PSD matrices A and B with trace 1, we have: 
+
+√A
+
+ED √A − √B
+
+ED √B 1
+
+≤ 2 √A
+
+E
+
+− √B
+
+E
+
+= 2 √A − √B 2
+
+≤ 2 √A − √B
+
+> 12
+> 1
+
+. (D22) Here in the last step, we use Eq. (C4) with r = 12 and k = 2. Plugging ( ρABC , σ ABC ) and ( ρAB , σ AB ) into the above inequality respectively, we get: 
+
+∥Tr B ¯BC ¯C |√ρABC ⟩⟨ √ρABC | − Tr B ¯BC ¯C |√σABC ⟩⟨ √σABC |∥ 1 ≲ √ϵ, 
+
+∥Tr B ¯B |√ρAB ⟩⟨ √ρAB | − Tr B ¯B |√σAB ⟩⟨ √σAB |∥ 1 ≲ √ϵ. (D23) The desired result is obtained by combining Eqs. (D20) and (D23). 
+
+Appendix E: Some Counterexamples 1. Zero MI but not locally implementable 
+
+Consider the following n-qubit state: 
+
+ρ = 12 |0⟩⟨ 0| ⊗ id 
+
+2n−1 + 12 |1⟩⟨ 1| ⊗ ρparity , (E1) where ρparity is a ( n − 1)-qubit state: 
+
+ρparity ∝ X
+
+> a2+··· +an=0
+
+|a2a3 · · · an⟩⟨ a2a3 · · · an| . (E2) Tracing out a qubit k ∈ { 2, · · · , n } on ρ gives: Tr k ρ = id 
+
+2n−1 , (E3) hence the state ρ has exactly zero MI: I( A1 · · · Ak−1 : Ak+1 · · · An)ρ = 0. Now let us postselect |1⟩ on the first qubit. We get: 
+
+σ = |1⟩⟨ 1| ⊗ ρparity . (E4) For this state, I( A1 · · · An−1 : An)σ = 1 . (E5) However, the original state has I( A1 · · · An−1 : An)ρ = 12 . (E6) Data processing inequality implies that there is no quantum channel on A1 · · · An−1 that converts ρ to σ.
+
+2. Nonzero CMI but locally implementable 
+
+Consider ρ = ρparity to be the n-qubit parity state as above. We claim that any local operation on qubit 1 can be implemented by a quantum channel on 1 and 2. To show it, we rewrite ρ as: 
+
+ρ ∝ | 00 ⟩⟨ 00 | ⊗ ρ0 + |11 ⟩⟨ 11 | ⊗ ρ0 + |01 ⟩⟨ 01 | ⊗ ρ1 + |10 ⟩⟨ 10 | ⊗ ρ1. (E7) 29 Here ρ0 and ρ1 are ( n − 2)-qubit parity states with even and odd parity, respectively. Applying a Kraus operator F
+
+on qubit 1, we get: 
+
+σ ∝ KρK † = 12( α2 + β2) |α0⟩⟨ α0| ⊗ ρ0 + |β1⟩⟨ β1| ⊗ ρ0 + |α1⟩⟨ α1| ⊗ ρ1 + |10 ⟩⟨ 10 | ⊗ ρ1. (E8) Here |α⟩ = K |0⟩ and |β⟩ = K |1⟩ are unnormalized states, α2 = ⟨α|α⟩, β2 = ⟨β|β⟩.To prepare σ from ρ, it suffices to apply a quantum channel Φ on 1 and 2 such that: Φ( |00 ⟩⟨ 00 |) = Φ( |11 ⟩⟨ 11 |) = 1
+
+α2 + β2 (|α0⟩⟨ α0| + |β1⟩⟨ β1|),
+
+Φ( |01 ⟩⟨ 01 |) = Φ( |10 ⟩⟨ 10 |) = 1
+
+α2 + β2 (|α1⟩⟨ α1| + |β0⟩⟨ β0|).
+
+(E9) Such Φ always exists. For example, we can measure the parity, replace qubits 1 and 2 by the desired states conditioning on the measurement result, then erase the register. The same arguments also establish that any local operation on qubit 1 to k can be implemented by a quantum channel on 1 to k + 1.  
+
+> 3. Zero MI and CMI but not locally recoverable
+
+We present a tripartite state over ABC such that I(A : C) = I(A : C|B) = 0 but a postselction on A is not recoverable by a quantum channel on AB . This shows that a partition like the one in Fig. 2, with four subregions, is necessary. Let dA = dC = 2 , d B = 3. We denote the basis on the qubits ( A and C) as {| 0⟩ , |1⟩} ; for the qutrit C we denote the basis as {| 0⟩ , |1⟩ , |2⟩} . Define ρABC as: 
+
+ρABC = 12 ρ(0)  
+
+> ABC
+
++ 12 ρ(1)  
+
+> ABC
+
+,ρ(0)  
+
+> ABC
+
+= |0A⟩⟨ 0A| ⊗ ( |0B 0C ⟩ + |1B 1C ⟩√2 )( ⟨0B 0C | + ⟨1B 1C |√2 ),ρ(1)  
+
+> ABC
+
+= |1A⟩⟨ 1A| ⊗ | 2B ⟩⟨ 2B | ⊗ |0C ⟩⟨ 0C | + |1C ⟩⟨ 1C |
+
+2 .
+
+(E10) Straightforward calculation shows that I( A : C)ρ = I( A : C|B)ρ = 0. However, suppose we perform a projection |1A⟩⟨ 1A|, which has success probability 1/2, then we get ρ(1)  
+
+> ABC
+
+. This state has no correlation between AB and C, so we can not recover the original state by a quantum channel on AB ,which has nonzero AB |C correlation.  
+
+> 4. Non-Markov but zero MI in canonical purification
+
+Consider the 4–qubit state 
+
+ρ = 116 
+
+
+
+1 + 12 (Z1Z2 + Z3Z4)
+
+
+
+. (E11) We regard it as a tripartite system, where A = {1}, B = {2, 3}, C = {4}.The state is classical so all von-Neumann entropies are Shannon entropies. Explicit calculation shows that: 
+
+S(1 , 2, 3, 4) = 4 × (− 18 log 2( 18 )) + 8 × (− 116 log 2( 116 )) = 72 ,S(2 , 3) = 2 ,S(1 , 2, 3) = S(2 , 3, 4) = 1 + 2 × (− 38 log 2( 38 ) − 18 log 2( 18 )) = 4 − 34 log 2 3.
+
+(E12) Thus the conditional mutual information is 
+
+I(1 : 4 | 2, 3) = H(1 , 2, 3) + H(2 , 3, 4) − H(2 , 3) − H(1 , 2, 3, 4) = 52 − 32 log 2 3̸ = 0 . (E13) 30 To compute its canonical purification, we note that 
+
+√ρ = 116 
+
+h
+
+(2 + √2) 1 + √2( Z1Z2 + Z3Z4) + ( √2 − 2) Z1Z2Z3Z4
+
+i
+
+. (E14) Therefore, in the Bell basis, 
+
+|√ρ⟩ = 14
+
+h
+
+(2 + √2) |ϕ+ϕ+ϕ+ϕ+⟩ + √2( |ϕ−ϕ−ϕ+ϕ+⟩ + |ϕ+ϕ+ϕ−ϕ−⟩) + ( √2 − 2) |ϕ−ϕ−ϕ−ϕ−⟩
+
+i
+
+. (E15) Explicit calculation shows that 
+
+ρAA ′ = ρ11 ′ = 14
+
+h
+
+(2 + √2) |ϕ+⟩⟨ ϕ+| + (2 − √2) |ϕ−⟩⟨ ϕ−|
+
+i
+
+.
+
+By symmetry, ρAA ′ has a similar form. The joint state ρAA ′CC ′ is 
+
+ρAA ′CC ′ = 116 
+
+h
+
+(2 + √2) 2 |ϕ+ϕ+⟩⟨ ϕ+ϕ+| + (2 − √2) 2 |ϕ−ϕ−⟩⟨ ϕ−ϕ−| + 2( |ϕ−ϕ+⟩⟨ ϕ−ϕ+| + |ϕ+ϕ−⟩⟨ ϕ+ϕ−|)
+
+i
+
+It is then obvious that ρAA ′CC ′ = ρAA ′ ⊗ ρCC ′ hence I(AA ′ : CC ′) = 0.

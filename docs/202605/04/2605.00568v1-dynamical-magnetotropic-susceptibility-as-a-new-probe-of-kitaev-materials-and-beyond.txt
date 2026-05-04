@@ -1,0 +1,1651 @@
+Title: Dynamical magnetotropic susceptibility as a new probe of Kitaev materials and beyond
+
+URL Source: https://arxiv.org/pdf/2605.00568v1
+
+Published Time: Mon, 04 May 2026 00:55:05 GMT
+
+Number of Pages: 35
+
+Markdown Content:
+# Dynamical magnetotropic susceptibility as a new probe of Kitaev materials and beyond 
+
+João C. Inácio 1* , J. Schwab 2, G. Rakhmanova 3, S. Safari 3,V. Zambra 3, H. Nasir 3, S. Paschen 4, K. A. Modic 3,Fakher F. Assaad 1,5 , Toshihiro Sato 6* 
+
+> 1*
+
+Institut für Theoretische Physik und Astrophysik, Universität Würzburg, 97074 Würzburg, Germany. 
+
+> 2
+
+TU Dresden, 01062 Dresden, Germany. 
+
+> 3
+
+Institute of Science and Technology Austria, 3400 Klosterneuburg, Austria. 
+
+> 4
+
+Institute of Solid State Physics, TU Wien, Wiedner Hauptstr. 8-10, 1040 Vienna, Austria. 
+
+> 5
+
+Würzburg-Dresden Cluster of Excellence ctd.qmat, Germany. 
+
+> 6
+
+Institute for Theoretical Solid State Physics, IFW Dresden, 01069 Dresden, Germany. *Corresponding author(s). E-mail(s): joao.carvalho-inacio@uni-wuerzburg.de; t.sato@ifw-dresden.de; 
+
+Abstract 
+
+The magnetotropic susceptibility, k(ω), probes ultra-low frequency uniform fluc-tuations. For a crystal placed in a magnetic field and mounted on a cantilever oscillating at a fixed frequency, it is defined as the ratio of the torque to the amplitude of the angular displacement. Its real part determines the shift of the oscillation frequency, while its imaginary part characterises the damping of the oscillations produced by the crystal. It serves as a low energy probe for uniform, 
+
+q = 0 , spin and charge degrees of freedom. We demonstrate this by providing a derivation of k(ω) within linear response theory for a generic Hamiltonian of cor-related electrons, accounting for both charge and spin degrees of freedom. While our Hamiltonian describes a broad range of states, including metallic and insu-lating magnets, correlated paramagnets, various exotic quantum critical points, etc., we focus on limiting cases. For insulating spin systems, while k(ω = 0) is sensitive to magnetic anisotropy, the imaginary part at finite frequencies yields information on the uniform dynamical spin susceptibility even for spin-symmetric 
+
+1
+
+> arXiv:2605.00568v1 [cond-mat.str-el] 1 May 2026
+
+models. For metallic systems, we identify under which conditions eddy currents produce damping in the low-frequency limit. Our numerical results focus on the static and dynamical response of Kitaev materials. Using auxiliary-field quantum Monte Carlo simulations supplemented by a machine-learning-based optimiza-tion of the negative sign problem, we compute k(ω) for a variety of models proposed to capture the physics of α-RuCl 3 . We find that the observed scaling of k(ω = 0) /T with B/T at low temperatures is a consequence of dominant Kitaev couplings: parameter sets in which the Kitaev coupling is not dominant do not exhibit this scaling. We further show that the scaling in Kitaev models remains robust upon the inclusion of optical phonons. Beyond the static response, we compute the imaginary part of k(ω) and find that the α-RuCl 3 parameter set reproducing the experimental k(ω = 0) data displays typical local-moment features at both high and low temperatures, namely a single peak at the Lar-mor frequency. Beyond our results on Kitaev systems, we highlight a promising range of applications for this technique. In particular, the ability to probe ultra low-energy uniform charge fluctuations is pertinent to study Kondo destruction quantum criticality, a phenomenon of broad interest in the context of strange metallicity and unconventional superconductivity. 
+
+# Contents 
+
+1 Introduction 32 The dynamical magnetotropic susceptibility: definition, limiting cases and metallic systems 6
+
+2.1 Spin models and scaling in the local moment regime . . . . . . . . . . 92.2 Two-dimensional metallic systems: PdCoO 2 . . . . . . . . . . . . . . . 10 2.2.1 B = Be2, e = e1 . . . . . . . . . . . . . . . . . . . . . . . . . . 10 2.2.2 B = Be3, e = e1 . . . . . . . . . . . . . . . . . . . . . . . . . . 12 2.2.3 Generic one band model: Rashba spin-orbit coupling versus altermagnetism . . . . . . . . . . . . . . . . . . . . . . . . . . . 13 
+
+3 Numerical results for Kitaev materials 14 
+
+3.1 Machine-learning-assisted sign-problem mitigation . . . . . . . . . . . 15 3.2 Static magnetotropic scaling of α-RuCl 3 . . . . . . . . . . . . . . . . . 15 3.3 Dynamical magnetotropic susceptibility of the model for α-RuCl 3 . . . 17 3.4 Comparison to an unfrustrated XXZ model . . . . . . . . . . . . . . . 17 3.5 Effect of optical phonons . . . . . . . . . . . . . . . . . . . . . . . . . . 19 
+
+4 Outlook and discussion 21 5 Conclusion 23 6 Methods 24 
+
+6.1 Fermion quantum Monte Carlo for frustrated spin-Peierls systems . . . 24 26.2 Sign-problem optimization with machine learning . . . . . . . . . . . . 26 
+
+7 Supplementary information 34 
+
+7.1 Quantum Monte Carlo results for the XXZ model . . . . . . . . . . . . 34 
+
+# 1 Introduction 
+
+Quantum spin liquids in Kitaev materials [1] provide a paradigmatic setting for real-izing fractionalized excitations and unconventional magnetic dynamics. In the exactly solvable Kitaev model [2], the ground state hosts emergent Majorana fermions cou-pled to a static Z2 gauge field, leading to a description in terms of non-interacting quasiparticles. However, this idealized picture is fragile: the application of a magnetic field induces interactions between Majorana fermions and flux excitations, driving the system into a strongly correlated state. As a result, identifying the degrees of free-dom underlying magnetic fluctuations in experimentally relevant settings remains a central challenge. A key hurdle is the relative scarcity of experimental data on low-energy spin dynamics. While inelastic neutron scattering, reserved to very large single crystals, provides momentum-resolved information and nuclear magnetic resonance (NMR) probes local, momentum-integrated fluctuations, even less data are available for the uniform (q = 0) dynamical spin correlations. Magnetotropic susceptibility, k(ω), offers such a probe. In particular, for insulating spin systems, the imaginary part of the dynamical response k′′ (ω) maps solely onto the transverse, uniform dynamical spin susceptibility, defined with respect to the direction of the magnetic field. This corre-spondence holds irrespective of how magnetic anisotropy is realized microscopically, establishing k(ω) as a probe of zero-momentum spin fluctuations closely related to those measured through electron spin resonance (ESR). In contrast to ESR, however, magnetotropic measurements access this response in the low-frequency limit, typically in the kilohertz range, thereby providing a window into extremely low-energy spin dynamics. This frequency range lies several orders of magnitude below that of con-ventional probes such as neutron scattering and ESR, and is well suited to probing the slow fluctuations expected to dominate the dynamics of quantum spin liquids. To be concrete, the experimental setup is depicted in Fig. 1. The crystal is mounted on a cantilever that oscillates at a fixed frequency in a static magnetic field. In the rest frame of the crystal, this corresponds to a time-dependent magnetic field. Experimen-tally, one monitors both the shift in the oscillation frequency caused by the crystal and the damping of oscillations. Assuming small oscillation amplitudes, one can formulate a linear-response theory that relates the torque, τ (ω), to the oscillation amplitude, 
+
+∆Θ( ω),
+
+τ (ω) = k(ω)∆Θ( ω). (1) The proportionality constant k(ω) is the dynamical magnetotropic susceptibility. Its real and imaginary parts encode, respectively, the frequency shift and the damping of the oscillations. This makes the magnetotropic susceptibility a direct measurement of the low-frequency, uniform response that can be compared to microscopic model calculations. 3e
+
+B
+
+c
+
+a/b  
+
+> <latexit sha1_base64="4w/7jrymHOXjyuW/7tFVRsbdQrE=">AAAB7XicbVDLSgNBEOz1GeMr6tHLYhA8hV3xeQt48RghL0iWMDvpTcbMziwzs0JY8g9ePCji1f/x5t84SfagiQUNRVU33V1hwpk2nvftrKyurW9sFraK2zu7e/ulg8Omlqmi2KCSS9UOiUbOBDYMMxzbiUIShxxb4ehu6reeUGkmRd2MEwxiMhAsYpQYKzW79SEa0iuVvYo3g7tM/JyUIUetV/rq9iVNYxSGcqJ1x/cSE2REGUY5TordVGNC6IgMsGOpIDHqIJtdO3FPrdJ3I6lsCePO1N8TGYm1Hseh7YyJGepFbyr+53VSE90EGRNJalDQ+aIo5a6R7vR1t88UUsPHlhCqmL3VpUOiCDU2oKINwV98eZk0zyv+VeXy4aJcvc3jKMAxnMAZ+HANVbiHGjSAwiM8wyu8OdJ5cd6dj3nripPPHMEfOJ8/c4KPCQ==</latexit>
+
+## ⇥ 
+
+> <latexit sha1_base64="6/HrlPmA0yLuCUwPADG2LnWIkZ4=">AAAB+nicbVDJSgNBEO2JW4zbRI9eBoMQL2FGXG8BPXiMkA0yQ+jpVJImPQvdNUoY8ylePCji1S/x5t/YSeagiQ8KHu9VUVXPjwVXaNvfRm5ldW19I79Z2Nre2d0zi/tNFSWSQYNFIpJtnyoQPIQGchTQjiXQwBfQ8kc3U7/1AFLxKKzjOAYvoIOQ9zmjqKWuWXRvQSBN3foQkE7KeNI1S3bFnsFaJk5GSiRDrWt+ub2IJQGEyARVquPYMXoplciZgEnBTRTElI3oADqahjQA5aWz0yfWsVZ6Vj+SukK0ZurviZQGSo0DX3cGFIdq0ZuK/3mdBPtXXsrDOEEI2XxRPxEWRtY0B6vHJTAUY00ok1zfarEhlZShTqugQ3AWX14mzdOKc1E5vz8rVa+zOPLkkByRMnHIJamSO1IjDcLII3kmr+TNeDJejHfjY96aM7KZA/IHxucPxcuTqw==</latexit>
+
+##  ⇥ (t)Fig. 1 Sketch of the cantilever setup for magnetotropic measurements. The cantilever oscillates around the axis e, and the magnetic field B is applied perpendicular to this axis. 
+
+Recent measurements of magnetotropic susceptibility in the Kitaev candidate material α-RuCl 3 have revealed unexpected behavior in precisely this low-energy regime [3]. Experiments and quantum Monte Carlo simulations demonstrate a striking scaling of the form k(ω = 0) /T = f (B/T ), which persists over a broad range of tem-peratures and magnetic fields [4]. This scaling extends below the dominant exchange scale and appears to be a distinctive feature of Kitaev exchange interactions, while it is absent in conventional, non-Kitaev spin models. Despite these advances, the physical origin of this behavior lacks a clear micro-scopic interpretation. In particular, it remains uncertain how the response probed by the magnetotropic susceptibility relates to the spin dynamics in strongly correlated Kitaev systems. While the low-energy sector is expected to host fractionalized excita-tions, it is not clear whether and how these excitations contribute to the anisotropic response measured by k.In this work, we develop a dynamical framework for magnetotropic susceptibil-ity that clarifies the nature of the fluctuations it probes in strongly correlated spin systems. We show that the imaginary part of the response, k′′ (ω), maps onto the uniform transverse spin fluctuations and that the magnetotropic response selectively emphasizes anisotropic and local contributions. Applying this framework to Kitaev and related models, we demonstrate that the frequency and temperature dependence of k′′ (ω) reflects key properties of the underlying exchange interactions, including their sign, anisotropy, and characteristic energy scales. This establishes frequency-resolved magnetotropic measurements as a route to constrain microscopic spin Hamiltonians and distinguish between competing interaction mechanisms in frustrated quantum magnets. Beyond localized spin systems, we also analyze the magnetotropic susceptibility in representative metallic systems and compare to measurements in a clean metal, show-ing that the calculated response captures the measured dependence on field orientation and sample geometry. More broadly, the sensitivity of magnetotropic susceptibility to anisotropic and low-frequency fluctuations makes it a promising probe of correlated materials beyond Kitaev systems, including metals with strong spin–orbit coupling, and heavy fermion compounds. In this context, recent magnetotropic measurements in UTe 2 [5], which reveal transverse ferromagnetic fluctuations in the uniform chan-nel, highlight the ability of this technique to access precisely the type of low-energy 4dynamics discussed here. Taken together, these results point to frequency-resolved magnetotropic measurements as a powerful tool to probe interactions and emergent correlations across a wide range of quantum materials. The main results and organization of the article are as follows. We first provide a general theoretical framework for interpreting magnetotropic measurements, and then focus our numerical analysis on Kitaev materials. In Sec. 2 we provide a general definition of k(ω) for a generic Hamiltonian that encompasses the coupling of magnetic field to both charge and spin degrees of freedom. The Hamiltonian accounts for a rich variety of quantum phases, including metals, insulators, exotic phases such as strange metals, and of quantum phase transitions. We examine a range of limiting cases that establish a theoretical framework for interpreting future experiments. For spin systems, we show that the imaginary part of k(ω) maps onto the transverse uniform dynamical spin susceptibility (transverse with respect to the magnetic field). This result holds independently of the magnetic anisotropy. In the static limit, k(ω =0) vanishes for magnetically isotropic systems. For two-dimensional metallic states, the orientation of the magnetic field relative to the metal plays a dominant role, particularly through the occurrence of eddy currents. We show that distinct metallic states characterized by spin-orbit coupling and spin-nematic (i.e., altermagnetic [6]) Fermi surfaces can exhibit distinct signatures in k(ω).Our numerical results, presented in Sec. 3, focus on Kitaev materials. Based on numerical calculations, we argue that model systems with dominant Kitaev couplings display unique signatures in k(ω = 0) . At very high temperatures, above the exchange energy scale, all quantum magnets obey the scaling law k(ω = 0) /T = f (B/T )—a scaling that is expected in the paramagnetic regime. We found that models with dominant Kitaev couplings exhibit the same scaling behavior—albeit with a different scaling function f —also at low temperatures. We attribute this to very short-ranged magnetic correlations imposed by symmetry in the Kitaev model. For α-RuCl 3 , the Debye temperature lies in the range of 200 K [7, 8], indicating phonon energy scales comparable to the dominant magnetic exchange scale. Therefore, coupling to phonon degrees of freedom is not expected to be negligible. In Sec. 3 we include optical phonons in our quantum Monte Carlo algorithm, and explicitly show that coupling to this degree of freedom does not impair the scaling of the magnetotropic susceptibility. Finally, we compute and discuss signatures in the imaginary part of k(ω) and confirm that when low-energy ferromagnetic spin fluctuations are present, damping becomes significant. All our results are based on finite temperature fermion auxiliary-field quantum Monte Carlo simulations (AF-QMC) [9–12]. The method was introduced in Ref. [13], and its extension to spin-Peierls systems is described in Ref. [14]. It is based on an Abrikosov fermion representation of the spin degree of freedom, providing bias free results for finite lattices for the model under consideration. The central challenge in this stochastic approach to frustrated quantum spin systems is the negative sign prob-lem, which limits access to low temperatures and large system sizes. Remarkably, the fermionic representation path integral formulation allows for many gauge choices. In the Methods section, we introduce a machine-learning-assisted optimization procedure to navigate the large space of gauge configurations and mitigate the sign problem. This 5allows us to reach experimentally-relevant temperature scales. Furthermore, coupling to phonons does not render the sign problem more severe. 
+
+# 2 The dynamical magnetotropic susceptibility: definition, limiting cases and metallic systems 
+
+The dynamical magnetotropic susceptibility k(ω) corresponds to the linear response of the total torque to a temporally-varying magnetic field. Specifically, we consider the setup shown in Fig. 1 where a crystal is placed on a cantilever that oscillates at a given frequency ω. In the presence of a magnetic field, and in the linear-in-angle response regime, τ (ω) = k(ω)∆Θ( ω). Here, τ (ω) is the Fourier transform of the total torque and ∆Θ( ω) is the Fourier transform of the time-dependent variation of the angle between the magnetic field and the cantilever. The real part k′(ω) corresponds to the shift in the cantilever resonance frequency, while the imaginary part k′′ (ω) is related to the energy absorption by the system from the oscillating cantilever, which results in damping of the cantilever oscillations. Classically the cantilever corresponds to a harmonic oscillator in angular coordi-nates: 
+
+H = P 2
+
+2I + k
+
+2 (∆Θ) 2 (2) where P is the momentum conjugate to ∆Θ , I is the moment of inertia of the cantilever and the magnetotropic susceptibility k is given by k = ∂2H∂(∆Θ) 2 .In previous articles [4, 15], k(ω) was discussed for quantum spin systems. Here, we consider models with both spin and charge degrees of freedom to provide a broad theoretical framework for k(ω). For this purpose, we consider a very generic model Hamiltonian that can describe both spin and charge degrees of freedom: 
+
+ˆH = ∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j ˆcj + ˆHInt . (3) Here i runs over the unit cells of a Bravais lattice, and we will allow ˆc† 
+
+> i
+
+to describe an N -component spinor of fermion creation operators. This allows us to account for spin and orbital degrees of freedom. In this notation, hi,j is an N × N hopping matrix. To uniquely define the coupling to the electromagnetic field, we will require that ˆHInt enjoys local U(1) gauge invariance. That is, HInt commutes with ˆTU (1) =
+
+ei ∑    
+
+> i,n φi,n ˆc†
+> i,n ˆci,n
+
+where n runs from 1 · · · N and φi,n is an arbitrary unit cell and orbital-dependent phase. This constraint is satisfied by a large class of interaction terms, including density-density interactions, any spin Hamiltonian, as well as to a class of electron-phonon and spin-phonon couplings. Our derivation is based on standard Kubo linear response theory [16]. Owing to the oscillation of the cantilever, the magnetic field perceived by the system is time dependent and can be expressed as: 
+
+B(t) = eiK·e∆Θ( t)B, (4) 6where K = (K1, K 2, K 3) is a vector of the generators of SO(3) rotations, Knm,m ′ =
+
+−iϵ n,m,m ′ with ϵn,m,m ′ the antisymmetric tensor, e the axis of rotation, and ∆Θ( t)
+
+the time-dependent variation of the angle due to the oscillations of the cantilever. As depicted in the sketch of Fig. 1, we will consider the case where e · B = 0 . This choice is not necessary, but it simplifies the expressions for the magnetotropic susceptibility. To account for the orbital coupling, we have to derive the time-dependent vector potential A(x, t ) that produces the magnetic field B(t). Let B(t) = ∇ × A(x, t ), then the curl of the time-dependent vector potential 
+
+A(x, t ) = R(t)A (RT (t)x) (5) will produce B(t). The coupling to the magnetic field includes the Peierls substitution as well as the Zeeman term 
+
+ˆH(t) = ∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j e 2πi   
+
+> Φ0
+> ∫jiA(x,t )·dx
+
+ˆcj + ˆHInt + μB g ˆStot · B(t). (6) In the above, Φ0 corresponds to the flux quantum, ˆStot is the total spin operator, g
+
+the gyromagnetic tensor, and μB the Bohr magneton. We will consider small oscillations such that ∆Θ( t) ≪ 1 and expand in this quan-tity. To proceed with the calculation, it is convenient to choose a gauge in which 
+
+e × A(x) = 0 . Note that ∇ × A(x) = B. In this gauge, an expansion in ∆Θ( t) up to second order gives 
+
+A(x, t ) = A(x) + ∆Θ( t) ∂A
+
+∂x n
+
+(e × x)n + (7) 
+
+∆Θ 2(t)2
+
+( ∂A
+
+∂x n
+
+(e × (e × x)) n + ∂2A
+
+∂x n∂x m
+
+(e × x)n(e × x)m
+
+)
+
++ O (∆Θ 3) .
+
+In the above, the sum over repeated spatial indices is implied. The perturbation to the Hamiltonian is given by: 
+
+ˆH(t) = ∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j e 2πi   
+
+> Φ0
+> ∫jiA(x)·dx
+
+ˆcj + ˆHInt + μB g ˆStot · B
+
+︸ ︷︷ ︸ 
+
+> ≡ˆH0
+
++ˆτP ∆Θ( t)
+
+︸ ︷︷ ︸ 
+
+> ≡ˆH1
+
++ˆ τD
+
+∆Θ( t)2
+
+2 + O (∆Θ 3) (8) with 
+
+ˆτP = −μB g ˆStot ·(e × B)+ 2πi 
+
+Φ0
+
+∑
+
+> i,j
+
+ˆc†
+
+> i
+
+(
+
+hi,j e 2πi   
+
+> Φ0
+> ∫jiA(x)·dx
+
+∫ ji
+
+∂A(x)
+
+∂x n
+
+(e × x)n · dx
+
+)
+
+ˆcj
+
+(9) 7and 
+
+ˆτD = μB g ˆStot · e × (e × B) + 2πi 
+
+Φ0
+
+∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j
+
+(
+
+e 2πi   
+
+> Φ0
+> ∫jiA(x)·dx
+
+)
+
+×
+
+ 2πi 
+
+Φ0
+
+(∫ ji
+
+∂A(x)
+
+∂x n
+
+(e × x)n · dx
+
+)2
+
++
+
+∫ ji
+
+∂2A(x)
+
+∂x n∂x m
+
+(e × x)n(e × x)m · dx
+
++
+
+∫ ji
+
+∂A
+
+∂x n
+
+(e × (e × x)) n · dx
+
+]
+
+ˆcj .
+
+Here we have adopted the notation of the optical conductivity [17] and introduce the paramagnetic ˆτP and diamagnetic ˆτD torque operators. The total torque operator reads 
+
+ˆτ = ∂ ˆH∂∆Θ( t) = ˆ τP + ∆Θ( t)ˆ τD + O (∆Θ 2) . (10) Consider an oscillation with a single Fourier component ∆Θ( t) = ∆Θ eiωt . The Kubo linear response of the total torque density to the oscillations of the cantilever now reads 1
+
+V ⟨ˆτ ⟩(t) = 1
+
+V ⟨ˆτP ⟩0 + k(ω)eiωt ∆Θ (11) with the magnetotropic dynamical susceptibility 
+
+k(ω) = 1
+
+V
+
+[
+
+⟨ˆτD ⟩0 − i
+
+∫ ∞
+
+> 0
+
+dt ′ e−iωt ′
+
+⟨[ˆ τP , ˆτP (−t′)] ⟩0
+
+]
+
+. (12) If the frequency of the cantilever oscillations is small compared to the characteristic frequencies of the system, we can consider the limit of time-independent magnetic fields. In this case, the uniform magnetotropic susceptibility is given by 
+
+k = 1
+
+V∂2F∂∆Θ 2
+
+∣∣∣∣∆Θ=0 
+
+= 1
+
+V
+
+[
+
+⟨ˆτD ⟩0 −
+
+∫ β
+
+> 0
+
+dτ ⟨∆ˆ τP (τ )∆ˆ τP ⟩0
+
+]
+
+, (13) where F is the free energy of the system and ∆ˆ τP (τ ) = eτ ˆH0 (ˆ τP − ⟨ ˆτP ⟩0) e−τ ˆH0 .Using the Lehmann representation, ˆH0|n⟩ = En|n⟩, one can show that 
+
+lim  
+
+> ω→0
+
+i
+
+∫ ∞
+
+> 0
+
+dt ′ e−iωt ′
+
+⟨[ˆ τP , ˆτP (−t′)] ⟩0 = lim 
+
+> ω→0
+
+1
+
+Z
+
+∑
+
+> n,m
+
+|⟨ n|∆ˆ τP |m⟩| 2 e−βE n − e−βE m
+
+Em − En + ω − i0+
+
+= 1
+
+Z
+
+∑ 
+
+> n̸=m
+
+|⟨ n|∆ˆ τP |m⟩| 2 e−βE n − e−βE m
+
+Em − En
+
+(14) 8and that 
+
+∫ β
+
+> 0
+
+dτ ⟨∆ˆ τP (τ )∆ˆ τP ⟩0 = 1
+
+Z
+
+∑ 
+
+> n̸=m
+
+|⟨ n|∆ˆ τP |m⟩| 2 e−βE n − e−βE m
+
+Em − En
+
++ βZ
+
+∑
+
+> n
+
+e−βE n |⟨ n|∆ˆ τP |n⟩| 2. (15) It is known that response functions can be singular in the zero-frequency uniform limit [17], and the above equation is yet another manifestation of this fact. In this article, we will compute both k and k′′ (ω) = Im [k(ω)] for various models of quantum magnets and metals. To compute k′′ (ω), we will use the Algorithms for Lattice Fermions [12] implementation of the Stochastic Analytical Continuation (SAC) method [18–20], which estimates the imaginary part k′′ (ω) given the imaginary-time fluctuations 
+
+⟨∆ˆ τP (τ )∆ˆ τP ⟩0 =
+
+∫ ∞−∞ 
+
+dω k ′′ (ω) K(ω, τ ) (16) with Kernel K(ω, τ ) = 1
+
+> πe−τ ω
+> 1−e−βω
+
+2.1 Spin models and scaling in the local moment regime 
+
+For generic spin models, the relation of the dynamical magnetotropic susceptibility to the dynamical spin susceptibility is given by 
+
+k(ω) = 1
+
+V
+
+[
+
+μB g⟨ ˆStot ⟩0 · e × (e × B) + μ2 
+
+> B
+
+(e × B)T gχ (ω)gT (e × B)
+
+]
+
+(17) with the dynamical spin susceptibility tensor defined as 
+
+χαβ (ω) = −i
+
+∫ ∞
+
+> 0
+
+dt ′ e−iωt ′
+
+⟨[ ˆSα
+
+> tot
+
+, ˆSβ
+
+> tot
+
+(−t′)] ⟩0. (18) The above reveals that k(ω) probes q = 0 spin fluctuations transverse to the magnetic field direction or, more precisely, in the direction of gT (e × B) for an anisotropic 
+
+g-tensor. The uniform magnetotropic susceptibility is sensitive to magnetic anisotropy. Con-sider an SU(2)-symmetric spin system ˆHSpin . Under this assumption, the partition function Z(gB) of the system in a magnetic field satisfies the relation Z(gB) = 
+
+Z(Rg B) with R an arbitrary rotation matrix. Furthermore, if RgR T = g, then 
+
+Z(gB) = Z(gR B). This implies that the free energy F = −β−1 ln Z only depends on the magnitude of the magnetic field B = |B|. As a consequence, the magnetotropic susceptibility k vanishes identically for SU(2)-symmetric spin systems. Let us now consider a local moment, with 
+
+ˆHSpin (t) = −g ˆS · B(t). (19) 9In the above, we have absorbed g → μB g, for simplicity. For this local moment Hamiltonian and B(t) = eiKe ∆Θ( t)B the dynamical magnetotropic susceptibility reads 
+
+k(ω) = g⟨ ˆS⟩0 · e × (e × B) + ( e × B)T g 1
+
+ω + gT B · K − i0+
+
+(gT (e × B) · K) ⟨ ˆS⟩0.
+
+(20) It is interesting to consider a specific example with g = diag (g1, g 2, g 3), B = Be3, and 
+
+e = e1. In this case, we obtain 
+
+k(ω) = tanh 
+
+( βg 3B
+
+> 2
+
+)
+
+2
+
+[
+
+−g3B + (g2B)2
+
+2
+
+( 1
+
+ω + g3B + i0+ − 1
+
+ω − g3B + i0+
+
+)] 
+
+. (21) From this we can conclude that i) the magnetotropic susceptibility k(ω = 0) takes a finite value only in the anisotropic case g2̸ = g3; ii) the imaginary part k′′ (ω) displays two peaks at frequencies ω = ±g3B corresponding to the Larmor precession of the local moment around the magnetic field; iii) k′′ (ω) is finite even in the isotropic case; and iv) the scaling relation βk = f (βB ) holds for k(ω = 0) . Note that such a scaling relation is a signature of the locality of spin fluctuations, not a signature of scale invariance generically observed at critical points. 
+
+2.2 Two-dimensional metallic systems: PdCoO 2
+
+Let us now consider a two-dimensional metallic system lying in the x-y plane and various orientations of the magnetic field both from the experimental and theoretical point of view. For the experimental part, we consider the metallic delafossite PdCoO 2
+
+known for its exceptionally high in-plane conductivity, extremely long mean free path, and quasi-two-dimensional electronic structure [21, 22]. It thus provides an ideal plat-form for quantitative comparison between theoretical predictions and experimental observations. 
+
+2.2.1 B = Be 2, e = e1
+
+Considering e = e1 and B = Be2, our gauge choice, e × A(x) = 0 , is satisfied for 
+
+A(x) = B(x3, 0, 0) . In this case, we have 
+
+∂A(x)
+
+∂x n
+
+(e × x)n = Be1(e1 × x)3 = Be1x2 (22) and ∂2A(x) 
+
+> ∂x n∂x m
+
+= 0 . Since the vector potential depends only on x3 and the metal lies in the x-y plane, we can omit it from the Hamiltonian, e.g. by choosing x3 = 0 , such that ˆH0 only contains the Zeeman term. Setting x3 = 0 again yields: 
+
+ˆτP = −g ˆStot · (e × B) + Bπi 
+
+Φ0
+
+∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j (j − i)1 (j + i)2 ˆcj and (23) 10 0500 1000 1500 2000 
+
+> ∆ f (Hz ) ∝ k (ω = 0)
+
+a   
+
+> B=Be2
+> small sample big sample
+> 0500 1000 1500 2000
+> ∆Γ ∝  k′′  (ω)
+
+b           
+
+> B=Be2
+> 0246810 12 14
+> B(T)
+> 0246810 12
+> ∆ f (Hz ) ∝ k (ω = 0)
+
+c             
+
+> B=Be3
+> 10 12 1.3 1.4 1.5 1.6 small sample
+> small sample big sample
+> 0246810 12 14
+> B(T)
+> 050 100 150 200 250 300 350 400
+> ∆Γ ∝  k′′  (ω)
+
+d   
+
+> B=Be3
+
+Be2
+
+e1
+
+e2
+
+e3
+
+> ∆θ
+
+∂B/∂t∆θ 
+
+Be3
+
+∂B/∂t
+
+> e1
+> e2
+> e3
+
+Fig. 2 Magnetic-field dependence of the magnetotropic susceptibility of the clean metal for in-plane and out-of-plane field orientations. Panels (a) and (b) show the shift in the cantilever resonance frequency, ∆f ∝ k′(ω = 0) , and the damping of the cantilever oscillations, ∆Γ = k′′ (ω), for the in-plane configuration, B = B e2. Panels (c) and (d) show the corresponding response for the out-of-plane configuration, B = B e3. The inset in panel (c) highlights quantum oscillations in the small-sample signal. The panels (b) and (d) include schematic illustrations of the corresponding field orientation. Data for the big and small samples are compared in each panel. All data are shown at 
+
+T = 1 .5 K . Both samples have thickness, t ≈ 14 μm, but differ strongly in lateral size: the big sample has area S ≈ 5.5 × 10 4 μm2 and volume V ≈ 7.5 × 10 5 μm3, whereas the small sample has area 
+
+S = 3575 μm2 and volume V ≈ 5 × 10 4 μm3, corresponding to a reduction in volume by roughly a factor of 15. For the big and small samples, the resonance frequencies are 42550 Hz and 44046 Hz respectively. 
+
+ˆτD = g ˆStot · e × (e × B) −
+
+( Bπ 
+
+Φ0
+
+)2 ∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j (j − i)21 (j + i)22 ˆcj .
+
+For this geometry, the variation of the magnetic flux piercing the 2D metal is proportional to ∆Θ( t), such that eddy currents appear in the torque operator ˆτP .It is interesting to note that the eddy current operator scales as (i + j)2, and the total torque ˆτD as (i + j)22. This has important consequences for the scaling of the magnetotropic susceptibility. Since we have normalized by the volume in the definition of k(ω) 12, we expect k(ω) to be an intensive quantity. This is certainly the case for spin systems. For metallic systems, however, the eddy current contribution to ˆτP produces a result that scales more quickly than the volume, such that even after normalization 
+
+k(ω) can diverge for big systems. Classically, eddy currents stem from Faraday’s law 11 of induction: the induced voltage is proportional to the time variation of the magnetic flux piercing the system, Φ( t). For our geometry, Φ( t) = L1L2B sin(∆Θ( t)) with L1
+
+and L2 the linear dimensions of the system. Owing to Lenz’s law, the induced current’s magnetic field opposes the variation of the magnetic flux, and thereby generates a Lorentz force that damps the oscillations of the cantilever. Fig. 2 (a),(b) shows experimental results for this geometry. As hinted by the theory, one observes a strong size dependence. For the larger crystal, the frequency shift ∆f ∝ k(ω = 0) as a function of the magnetic field B grows rapidly and then saturates. Before saturation, damping grows considerably, Fig. 2 (b), and is then sup-pressed at higher fields. An interpretation of the above is that the big enhancement of 
+
+k(ω = 0) under magnetic field corresponds to an increasing stiffness of the cantilever as the induced current’s magnetic field continues to oppose the changing magnetic flux—corresponding to a steeper potential landscape around the equilibrium position perpendicular to the magnetic field. This brings the amplitude of the oscillations drop to zero. We also note that the functional form of the experimental curves depends on the geometry of the crystal, and are not related by a multiplicative factor. 
+
+2.2.2 B = Be 3, e = e1
+
+With e = e1 and B = Be3, to satisfy our gauge condition, e × A(x) = 0 , we can choose the Landau gauge A(x) = −B(x2, 0, 0) . In this case, 
+
+∂A(x)
+
+∂x n
+
+(e × x)n = −Be1(e1 × x)2 = Be1x3 (24) Since we are free to choose the origin of the z-axis, we can set x3 = 0 . Furthermore,  
+
+> ∂2A(x)
+> ∂x n∂x m
+
+= 0 . Therefore, the orbital contribution to ˆτ vanishes, and the imaginary part of the magnetotropic susceptibility is formally given by the same expression as for pure spin systems. The rationale for this result is that for this geometry the temporal variation of the magnetic field piercing the 2D metal is proportional to ∆Θ( t)2, such that no linear response is expected. In other words, in linear response, eddy currents are not generated by the oscillations of the cantilever. On the other hand, the total torque ˆτ picks up contributions up to ∆Θ( t)2 such that this operator contains an orbital contribution. To summarize, we have for this geometry: 
+
+ˆτP = −g ˆStot · (e × B) (25) 
+
+ˆτD = g ˆStot · e × (e × B) + Bπi 
+
+Φ0
+
+∑
+
+> i,j
+
+ˆc† 
+
+> i
+
+hi,j (A)( j − i)1(j + i)2ˆcj .
+
+In the above we have used the short-hand notation hi,j (A) = hi,j e 2πi   
+
+> Φ0
+> ∫jiA(x)·dx
+
+. Fur-thermore, the orbital coupling of the magnetic field to the electrons in the Hamiltonian 
+
+ˆH0 will affect the wave functions and spectrum of the system in the form of Landau levels. Fig. 2 (c),(d) shows experimental results for this geometry. The difference between the geometry considered in (a) and (b) is striking. Strictly speaking, damping in a 12 perfect two-dimensional crystal should only stem from spin fluctuations and should be substantial only in the presence of low-lying ferromagnetic fluctuations. In this case we do not expect size effects of the crystal to kick in after normalization by the volume. Corrections to this ideal picture seen in Fig. 2 (d) may stem from the layered nature of the crystal and finite width as well as non-perfect alignment of the crystal perpendicular to the magnetic field. Both effects can generate eddy current contributions to the torque operator ˆτP . It is however apparent that the damping is substantially smaller than for the geometry considered in Fig. 2 (a),(b). The size dependence of the frequency shift (see Fig. 2(c)) may arise from the aforementioned deviation from the two-dimensional limit, as well as from the orbital contribution to 
+
+ˆτD in Eq. 26. It is also interesting to note that in this geometry, quantum oscillations are observed due to the emergence of Landau levels in the spectrum of the system. We note that the quantum oscillation frequency and the beating are consistent with the Fermi surface of PdCoO 2 [21]. Given the above theoretical modelling, a detailed understanding of k(ω) is at reach for Fermi liquids. In particular, for a given band structure obtained, for example, from density functional theory (DFT) [21], an explicit calculation of k(ω) is in reach. 
+
+2.2.3 Generic one band model: Rashba spin-orbit coupling versus altermagnetism 
+
+Let us now focus on a metallic system with Rashba spin-orbit coupling (SOC) or altermagnetic term. We will consider a geometry where the magnetic field is perpen-dicular to the two-dimensional metal and assume that it is weak enough to neglect the orbital coupling to the electrons and associated formation of Landau levels. Aside from this approximation, the calculation is exact. Specifically, we consider the general Hamiltonian: 
+
+ˆH = ∑
+
+> k
+
+ˆc†
+
+> k
+
+(ϵk + vk · σ)ˆ ck − g ˆStot · B = ∑
+
+> k
+
+ˆc†
+
+> k
+
+(ϵk + ( vk − gB/2) · σ)ˆ ck, (26) where ˆck = (ˆ ck,↑, ˆck,↓)T and ϵk and vk are a general dispersion relation and spin-orbit coupling or altermagnetic terms, respectively. If v−k = −vk, time-reversal symmetry is conserved, thereby accounting for SOC, whilst if v−k = vk, time reversal is broken, thereby accounting for a spin-nematic or altermagnetic Fermi surface. The 2 × 2
+
+Hamiltonian is given by Hk = ϵk + dk · σ, with dk = vk − gB/2. The eigenvalues are 
+
+ϵk,± = ϵk ± | dk| and the projectors for each eigenstate are Pk,± = 12 (1 ± dk 
+
+> |dk|
+
+· σ).To calculate the magnetotropic susceptibility, we need to calculate the dynamical spin susceptibility tensor and the total spin. The dynamical spin susceptibility tensor is given by: 
+
+χαβ (ω) = ⟨ ˆSα 
+
+> tot
+
+ˆSβ
+
+> tot
+
+⟩(ω) = 14
+
+∑
+
+> k,μ,ν
+
+Tr (σαPk,μ σβ Pk,ν 
+
+) nF (ϵk,ν ) − nF (ϵk,μ )
+
+ω + i0+ + ϵk,ν − ϵk,μ 
+
+, (27) 13 where μ, ν = ± and nF (x) = 1 /(eβx + 1) is the Fermi function. The total spin is given by: 
+
+⟨ ˆSα
+
+> tot
+
+⟩ = 12
+
+∑
+
+> k,μ
+
+Tr (σαPk,μ ) nF (ϵk,μ ). (28) Considering g = diag (g1, g 2, g 3), B = Be3 and e = e2, the dynamical magnetotropic susceptibility reads 
+
+k(ω) = 1
+
+N
+
+[
+
+−g3B⟨ ˆSz
+
+> tot
+
+⟩ + g21 B2χxx (ω)
+
+]
+
+. (29) After some algebra, we arrive at 
+
+k(ω) = B
+
+2N
+
+∑
+
+> k
+
+hk
+
+|dk|
+
+[
+
+g3dz 
+
+> k
+
++ g21 B
+
+44 |dk|2
+
+(ω + i0+)2 − 4 |dk|2
+
+(
+
+1 − (dx
+
+> k
+
+)2 − (dy
+
+> k
+
+)2 − (dz
+
+> k
+
+)2
+
+|dk|2
+
+)] 
+
+,
+
+(30) where hk = sinh( β |dk|)/(cosh( β |dk|) + cosh( βϵ k)) and dk = vk − ez g3B/ 2.For vk = 0 the Fermi surface is metallic and dk = −ez g3B/ 2. The dynamical magnetotropic susceptibility is given by: 
+
+k(ω) = 
+
+(
+
+12N
+
+∑
+
+> k
+
+hk
+
+) [
+
+−g3B + (g1B)2
+
+2
+
+( 1
+
+ω + i0+ + g3B − 1
+
+ω + i0+ − g3B
+
+)] 
+
+(31) At ω = 0 , k(ω = 0) = B g21 −g23  
+
+> g3
+> ∑
+> khk(βB )2N
+
+. So, k(ω = 0) = 0 for isotropic g and 
+
+vk = 0 ; furthermore, the scaling βk (ω = 0) = f (βB ) is still present as in the free single magnetic moment case. In the same way, the dynamical part has two peaks at 
+
+ω = ±g3B, i.e. the Larmor frequency. As is apparent from Eq. 30, k′′ (ω) will show a continuum of excitations. In par-ticular, the frequency Ω belongs to the support of k′′ (ω) if there exists a k-vector in the Brillouin zone, such that Ω = ±2|dk|. This has important consequences. If 
+
+vk · B = 0 then the spectrum of excitations is gapped, the gap being set by the Zee-man energy: Bg 3. In this case no damping of the cantilever oscillations is expected in the low-frequency regime ω < Bg 3. An example would be the Rashba SOC: 
+
+vk = λ(sin( ky )ex − sin( kx)ey ). On the other hand, for a d-wave altermagnetic Fermi surface, vk = ∆(cos( kx)−cos( ky )) ez , the spectrum of k′′ (ω) can be gapless, if ∆ ∼ B,such that damping of the cantilever oscillations is expected in the low-frequency regime. On the whole, Eq. 30 indicates that the simple local-moment scaling relation βk =
+
+f (βB ) is generally lost once vk̸ = 0 .
+
+# 3 Numerical results for Kitaev materials 
+
+In this section, we present our numerical results for candidate models of Kitaev mate-rials. We use the Algorithms for Lattice Fermions (ALF) [12] implementation of the AF-QMC method for our simulations. Firstly, we optimise the sign problem within 14 our simulations through a machine learning approach. Thereafter, we study the static and dynamic magnetotropic susceptibility for models of α-RuCl 3. Moreover, we com-pare the dynamic magnetotropic susceptibility with non-frustrated XXZ models. To conclude our results, we test the stability of our claims to coupling to optical phonons in the Kitaev model. 
+
+3.1 Machine-learning-assisted sign-problem mitigation 
+
+Quantum Monte Carlo simulations of frustrated magnets are frequently hampered by the negative sign problem, which causes statistical noise to grow exponentially as temperature is lowered and system size increases. Building on our earlier AF-QMC framework for frustrated spin models—based on a fermionic representation of spin degrees of freedom and including generalized Kitaev models relevant to the candidate Kitaev material α-RuCl 3 [4, 13]—we recently extended the approach to frustrated spin-Peierls settings in which quantum spins couple to optical phonon modes [14]. Within this AF-QMC formulation, the severity of the sign problem can be controlled through a discrete gauge freedom in the auxiliary-field representation, and an optimal gauge choice leads to an improved average sign and a wider accessible temperature window. To push this mitigation further, we extend the formulation to bond-dependent gauge choices and employ a machine-learning-assisted optimization to navigate the large space of gauge configurations. A lightweight feed forward neural-network surro-gate, trained on AF-QMC data for a modest set of gauge configurations, guides the search toward high-sign choices. Notably, the optimization reveals that the transla-tionally invariant gauges used in our previous work already constitute a near-optimal choice in this regime. Full details of the optimization procedure as well as the AF-QMC formulation are provided in the Methods section. 
+
+3.2 Static magnetotropic scaling of α-RuCl 3
+
+The static magnetotropic susceptibility of α-RuCl 3 was experimentally shown to exhibit a scaling behavior [3], k/T = f (B/T ), characteristic of a local moment. This scaling behavior was also observed in quantum Monte Carlo simulations of a model for 
+
+α-RuCl 3 [4]. Specifically, the model considered in Ref. [4] is defined on the honeycomb lattice and reads: 
+
+ˆHSpin = ∑
+
+> ⟨i,j⟩γ
+
+[
+
+K1 ˆSγ 
+
+> i
+
+ˆSγ 
+
+> j
+
++ Γ 1
+
+( ˆSα 
+
+> i
+
+ˆSβ 
+
+> j
+
++ ˆSβ 
+
+> i
+
+ˆSα
+
+> j
+
+)
+
++ Γ ′
+
+> 1
+
+( ˆSγ 
+
+> i
+
+ˆSα 
+
+> j
+
++ ˆSγ 
+
+> i
+
+ˆSβ 
+
+> j
+
++ ˆSα 
+
+> i
+
+ˆSγ 
+
+> j
+
++ ˆSβ 
+
+> i
+
+ˆSγ
+
+> j
+
+)] 
+
++ ∑
+
+> ⟨i,j⟩
+
+J1 ˆSi · ˆSj . + ∑
+
+> ⟨⟨⟨ i,j⟩⟩⟩
+
+J3 ˆSi · ˆSj , (32) where ⟨i, j⟩γ refers to nearest-neighbor bonds of type γ = x, y, z with cyclic per-mutations (γ, α, β ) of (x, y, z ), ⟨i, j⟩ to all nearest-neighbor bonds, and ⟨⟨⟨ i, j⟩⟩⟩ to 15 third-neighbor bonds. A magnetic field is included through a Zeeman coupling, 
+
+ˆH = ˆHSpin + μB
+
+∑
+
+> i
+
+g ˆSi · B, (33) with an anisotropic g-tensor consistent with the crystallographic axes of α-RuCl 3.In α-RuCl 3, the orthonormal axes ea, and eb, and ec are defined by the crystallo-graphic directions, with ec ∥ [111] , ea ∥ [11¯ 2] , and eb ∥ [¯ 110] . In this convention, 
+
+[xyz ] denote the cubic spin-space axes, ea and eb lie in the honeycomb plane, and 
+
+ec is perpendicular to it. Within the honeycomb plane, eb is parallel to one bond direction of the honeycomb lattice, while ea is perpendicular to it. The magnetic field is applied in the a-c plane, nearly parallel to the crystallographic a axis, con-sistent with the experimental setup. Unless otherwise stated, we use the parameter set (J1, J 3, K 1, Γ1, Γ′
+
+> 1
+
+) = ( −5.8, 5.8, −58 , 29 , 0) K proposed for α-RuCl 3 [23], and 
+
+(ga, g b, g c) = (2 .3, 2.3, 1.3) [24, 25]. In zero field, α-RuCl 3 exhibits zigzag order below approximately 10 K , while signatures associated with proximity to a Kitaev spin liquid appear at intermediate temperatures up to ∼ 100 K [26, 27]. In Ref. [4] we show that at temperatures exceeding the magnetic exchange scale, the susceptibility obeys the scaling form k = T f (B/T ), consistent with independent local moments with anisotropic g-factors; the corresponding data are shown in Fig. 3 (a). Upon lowering the temperature below the exchange scale, where the uniform spin susceptibility departs from Curie behavior, a distinct scaling-like collapse is observed. This behavior is also observed in the pure Kitaev model, whereas it is absent in unfrus-trated XXZ models on the honeycomb lattice. In the XXZ model, the breakdown of high-temperature scaling coincides with the buildup of magnetic correlations, and no new collapse is observed at lower temperatures. The static magnetotropic suscepti-bility therefore suggests that torque fluctuations in α-RuCl 3 retain a predominantly local character across a broad temperature window, consistent with a renormalized local-moment picture. An important question is whether other parameter sets proposed for α-RuCl 3
+
+also exhibit the same scaling behavior. In Fig. 3 (b) we consider the parame-ter set proposed in Ref. [28], (J1, J 3, K 1, Γ1, Γ′
+
+> 1
+
+) = ( −0.35 , 0.34 , −2.8, 2.4, 0) meV ≈
+
+(−4.1, 3.9, −32 .5, 27 .9, 0) K , and compute the static magnetotropic susceptibility using unbiased AF-QMC simulations (see Methods). Importantly, for this parameter set the ferromagnetic Kitaev interaction K1 is comparable to the Γ1 coupling, and we indeed observe the high-temperature scaling behavior, but not its low-temperature counter-part. This further reinforces the argument that the low-temperature scaling observed in α-RuCl 3 is tied to a local moment picture generated by dominant Kitaev couplings which generate short ranged torque correlations. Therefore, a systematic investigation of k(ω = 0) for parameter sets summarized in, e.g., Ref. [29] is an interesting direction for future work that may help further constrain the parameter space of α-RuCl 3.16 0.0 0.5 1.0 1.5 2.0    
+
+> B[T] / T[K]
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> k [K] /  T [K]
+
+(a)                  
+
+> T= 41.4 K
+> T= 48.3 K
+> T= 58.0 K
+> T= 64.4 K
+> T= 72.5 K
+> T= 110.5 K
+> T= 145.0 K
+> T= 290.0 K
+> T= 414.3 K
+> T= 580.0 K
+> 0.0 0.5 1.0 1.5 2.0
+> B[T] / T[K]
+
+(b)             
+
+> T= 29.5 K
+> T= 40.6 K
+> T= 54.1 K
+> T= 81.2 K
+> T= 101.5 K
+> T= 232.0 K
+> T= 324.8 K
+> T= 507.5 K
+> T= 706.1 K
+> T= 812.0 K
+> T= 902.2 K
+> T= 1015.0 K
+
+Fig. 3 Static magnetotropic susceptibility of the α-RuCl 3 model for two parameter sets. Panel (a) shows the data from Ref. [4] for (J1, J 3, K 1, Γ1, Γ′
+
+> 1
+
+) = (−5.8, 5.8, −58 , 29 , 0) K, and panel (b) shows the results for the parameter set proposed in Ref. [28], (J1, J 3, K 1, Γ1, Γ′
+
+> 1
+
+) =(−0.35 , 0.34 , −2.8, 2.4, 0) meV ≈ (−4.1, 3.9, −32 .5, 27 .9, 0) K . Here (ga, g b, g c) = (2 .3, 2.3, 1.3) .
+
+3.3 Dynamical magnetotropic susceptibility of the model for 
+
+α-RuCl 3
+
+The above results for the static magnetotropic susceptibility suggest that the torque fluctuations in α-RuCl 3 retain a predominantly local character across a broad tem-perature window, consistent with a renormalized local-moment picture. As shown in Sec. 2, such an understanding has important implications for the expected behavior of the dynamical magnetotropic susceptibility k(ω). Within our AF-QMC method and using SAC [12, 19], we can access k′′ (ω).Figure 4 (a) shows the temperature evolution of the dynamical magnetotropic spec-trum k′′ (ω) for the α-RuCl 3 model in a magnetic field of 5 T , within the temperature range accessible to our simulations. At the highest temperatures, k′′ (ω) exhibits a sim-ple single-peak structure at a frequency of order the Zeeman scale μB geff B, consistent with a local-moment-like response (see Eq. 21). Upon lowering the temperature, the overall spectral intensity increases, while the line shape remains largely unchanged and retains a single-peak structure. The peak position displays only a weak and slightly non-monotonic temperature dependence, with no substantial overall shift. This weak temperature dependence of the spectral structure is consistent with the renormalized local-moment picture suggested by the static magnetotropic scaling discussed above. 
+
+3.4 Comparison to an unfrustrated XXZ model 
+
+As a benchmark, we compare these results to those obtained for an unfrustrated XXZ model on the honeycomb lattice, described by ˆHSpin = ∑ 
+
+> ⟨i,j⟩
+
+J( ˆSx 
+
+> i
+
+ˆSx 
+
+> j
+
++ ˆSy 
+
+> i
+
+ˆSy 
+
+> j
+
+) + (J + Jz ) ˆSz 
+
+> i
+
+ˆSz 
+
+> j
+
+. We present quantum Monte Carlo results for Jz /J = −0.5 and 17 (a) α-RuCl 3 model 
+
+00.001 0 1 2 3 4
+
+> T=260 [K]
+> T=145 [K]
+> T=116 [K]
+> T=96.7 [K]
+> T=72.5 [K]
+> T=64.4[K]
+> T=58 [K]
+> T=52.7 [K]
+> T=48.3 [K]
+
+ω/|K 1|k’’ (ω) 
+
+00.005 0 1 2 3 4
+
+00.01 
+
+00.5 10 1 2 3 4ω/|J| 
+
+> 0.5
+> 0.33
+> 0.2<T c/|J|
+> T/|J|=5
+> 2.5
+> 1
+> k’’ (ω)
+
+(b) FM XXZ model (c) AFM XXZ model 
+
+> T/|J|=5
+> 2.5
+> 1
+> k’’ (ω)
+> 0.5
+> 0.33
+> 0.2<T c/|J|
+> k’’ (ω)
+
+ω/|J| k’’ (ω) 
+
+00.005 Fig. 4 Dynamical magnetotropic susceptibility for the α-RuCl 3 and XXZ models. (a) Temper-ature evolution of k′′ (ω) for the α-RuCl 3 model in a magnetic field B = 5 T applied in the a-c
+
+plane, nearly parallel to the crystallographic a axis. We use the parameter set (J1, J 3, K 1, Γ1, Γ′
+
+> 1
+
+) = (−5.8, 5.8, −58 , 29 , 0) K proposed for α-RuCl 3 [23], and (ga, g b, g c) = (2 .3, 2.3, 1.3) [24, 25]. For this parameter set, k(ω = 0) exhibits the k/T = f (B/T ) scaling behavior; see Fig. 3 (a) and Ref. [4]. (b,c) Corresponding results for the non-frustrated XXZ model on the honeycomb lattice with μB B/ |J| = 0 .1: (b) ferromagnetic case, (J, J z ) = ( −1.0, 0.5) , and (c) antiferromagnetic case, 
+
+(J, J z ) = (1 .0, −0.5) . The magnetic field is applied along the ec ([001] direction in the cubic spin basis), with e ∥ eb ([010]). The g tensor is taken diagonal with (ga, g b, g c) = (2 , 2, 1) . Open circles indicate the positions of the spectral maxima. 
+
+μB B/ |J| = 0 .1. Details of the finite-temperature phase diagram for the parameter sets 
+
+(J, J z ) = ( −1.0, 0.5) and (1 .0, −0.5) are provided in the Supplemental Information. Figure 4 shows k′′ (ω) for the unfrustrated XXZ model. At high temperatures, the spectrum exhibits a single peak, similar in overall appearance to the α-RuCl 3 case. Upon lowering the temperature, however, the spectral evolution differs qualitatively from that of the α-RuCl 3 model. In the ferromagnetic (FM) XXZ case (see Fig. 4 (b)), lowering the temperature drives a pronounced transfer of spectral weight towards 
+
+ω → 0. The peak progressively shifts to lower frequencies and its amplitude increases strongly, consistent with the build-up of low-energy magnetic fluctuations near the magnetic transition. In the antiferromagnetic (AFM) XXZ case (see Fig. 4 (c)), the response does not soften toward ω → 0. Instead, the dominant spectral weight remains 18 at finite frequencies of order J, and the very-low-frequency response is comparatively weaker than in the ferromagnetic case. This indicates that the dominant magnetic response remains at finite energies rather than shifting toward ω → 0. In contrast to these two distinct XXZ trends—softening toward ω → 0 in the FM case and a finite-frequency response in the AFM case—the α-RuCl 3 spectra exhibit only a weak temperature dependence of their overall structure (Fig. 4 (a)). Upon lowering the temperature, the overall spectral intensity increases, while the spectrum retains a broad single-peak structure and the peak position changes only weakly. Thus, the 
+
+α-RuCl 3 response does not show a clear tendency toward either of the two XXZ cases. To elucidate these differences, we recall that k(ω) probes spin fluctuations trans-verse to the applied magnetic field. The contrasting spectral evolutions therefore reflect qualitatively different transverse spin dynamics in the XXZ and α-RuCl 3 mod-els. For the XXZ geometry used in Fig. 4, we take B ∥ ec and e ∥ eb in the cubic spin basis. With a diagonal g tensor, one obtains gT (e × B) ∥ ea, such that k′′ (ω) projects the transverse response χxx ′′ (ω) up to an overall prefactor [Eq. 17]. The correspond-ing χxx ′′ (ω), shown in the Supplemental Information, exhibits the same temperature evolution as k′′ (ω), confirming that the spectral redistribution in Fig. 4 reflects the transverse spin dynamics probed in this geometry. In contrast to the XXZ geometry, the field direction used for the α-RuCl 3 model does not align with a principal axis of the cubic spin basis. Consequently, the vector 
+
+gT (e × B) contains several components, such that k(ω) probes a linear combination of spin susceptibilities χαβ (ω). Moreover, the bond-dependent Kitaev and off-diagonal 
+
+Γ interactions give rise to anisotropic and off-diagonal spin correlations. The dynam-ical magnetotropic response therefore cannot be reduced to a single spin component, but instead reflects a mixture of transverse spin fluctuations. Accordingly, within the temperature range accessible to our simulations, the α-RuCl 3 spectra do not show a clear tendency toward either of these two XXZ behaviors. Rather, the overall spec-tral intensity increases upon lowering the temperature, while the spectrum retains a broad single-peak structure and the peak position changes only weakly. 
+
+3.5 Effect of optical phonons 
+
+In real materials, lattice degrees of freedom are inevitably present and can influence magnetic response functions [30, 31]. It has been shown by theory and experiments that phonon coupling in Kitaev spin liquids is strong at fractional excitation energy scales [31–33] That is, near the flux gap and K energy scales, phonons become soft and destabilise the spin liquid. The question now is whether spin-phonon interactions can renormalise the k/T -B/T scaling and dynamical features of the magnetotropic susceptibility, both associated with a local moment picture due to strong Kitaev inter-actions. Then, to assess the role of optical phonons in the magnetotropic susceptibility, we consider a minimal spin-phonon model in which S = 1 /2 spins are coupled to opti-cal phonon modes. We therefore first consider the Kitaev limit of our α-RuCl 3 model with Γ1 = Γ ′ 
+
+> 1
+
+= J1 = J3 = 0 , which serves as a clean reference point for assessing phonon-induced modifications of the magnetotropic response. Within the Kitaev-limit setting introduced above, we incorporate optical phonons by allowing the bond-dependent Kitaev exchange to couple linearly to lattice 19 00.001 0.002 0 1 2 3 4ω/|K 1|
+
+> T/|K 1|=1
+> 0.714
+> 0.625
+> 0.5
+> k/T
+
+00.5 (a) 
+
+λ=0 λ=0.1 
+
+(c) 
+
+00.5 10 0.5 
+
+> n=1
+> 2
+> 3
+> Qn
+
+μBB/|K 1|
+
+λ=0.1 T/|K 1|=0.625 
+
+(b) 
+
+00.001 0.002 
+
+> λ=0
+> λ=0.1
+> k’’ (ω) k’’ (ω)
+
+T/|K 1|=1 T/|K 1|=0.625 
+
+00.5 0 0.5 1k/T B/T 
+
+> T/|K 1|=1
+> 0.714
+> 0.625
+> 0.5
+
+Fig. 5 (a) Static magnetotropic susceptibility normalized by temperature, k/T , as a function of magnetic field normalized by temperature, B/T , for the Kitaev limit ( Γ1 = Γ ′ 
+
+> 1
+
+= J1 = J3 = 0 ) of our 
+
+α-RuCl 3 model. The upper panel shows the pure Kitaev model without spin-phonon coupling ( λ = 0 ), while the lower panel includes coupling to optical phonons with λ = 0 .1 and ω0 = 0 .75 . In both cases, data at different temperatures collapse onto a single curve as a function of B/T , demonstrating the robustness of the k/T -B/T scaling below the magnetic energy scale. (b) Magnetic-field dependence of the bond phonon displacement Qb for λ = 0 .1. Q1, Q2, and Q3 couple to the Kitaev terms SxSx,
+
+Sy Sy , and Sz Sz , respectively, and we find Q1 = Q2̸ = Q3. (c) Dynamical magnetotropic susceptibility 
+
+k′′ (ω) in the Kitaev limit, comparing the pure Kitaev case ( λ = 0 ) and the spin-phonon coupled case (λ = 0 .1, ω0 = 0 .75 ) at two representative temperatures. The coupling to optical phonons suppresses the overall spectral intensity across the frequency range shown. 
+
+displacements. The resulting spin-phonon Hamiltonian takes the form ˆHSpin =
+
+∑
+
+> b=⟨i,j⟩γ
+
+(
+
+1 + g ˆQb
+
+)
+
+K1 ˆSγ 
+
+> i
+
+ˆSγ 
+
+> j
+
++ ∑
+
+> b=⟨i,j⟩
+
+( ˆP 2 
+
+> b
+> 2m
+
++ k 
+
+> 2
+
+ˆQ2
+
+> b
+
+)
+
+, where b = ⟨i, j⟩γ denotes nearest-neighbour bonds of type γ = x, y, z . The phonon displacement ˆQb and con-jugate momentum ˆPb reside on each bond and satisfy [ ˆQb, ˆPb′ ] = iδ bb ′ . We solve this model using the unbiased AF-QMC method established in our previous work (Ref. [14], see Methods), enabling a numerically exact treatment of the coupled spin-phonon degrees of freedom. Unless otherwise specified, we consider electron-phonon coupling λ ≡ g2 
+
+> 2k
+
+= 0 .1 and frequency ω0 ≡
+
+√ km = 0 .75 in the following. To investigate the impact of spin-phonon coupling on the magnetotropic response, we first examine the k/T -B/T scaling. Figure 5 (a) compares the pure Kitaev case (λ = 0 ) with the spin-phonon model ( λ = 0 .1, ω0 = 0 .75 ). As established in our previous work [4], the pure Kitaev model exhibits a robust k/T -B/T scaling below 20 the magnetic energy scale set by |K1|. Remarkably, this scaling collapse persists upon inclusion of optical phonons. The data for λ = 0 .1 continue to collapse onto a single curve as a function of B/T , indicating that the scaling structure of the magnetotropic response is robust against spin-phonon coupling. At the same time, the scaling function itself is modified. While the collapse remains intact, the functional form f (B/T ) is renormalized in the presence of phonons, reflecting the feedback of bond phonon fluctuations on the magnetic response. The magnetic-field dependence of the bond phonon displacement shown in Fig. 5 (b) reveals that the lattice degrees of freedom actively respond to the anisotropic spin correlations induced by the field. The relation Q1 = Q2̸ = Q3 is consistent with the symmetry of the applied field and the bond-selective structure of the Kitaev interactions. This suggests that part of the magnetic anisotropy is transferred to the lattice sector, providing a natural microscopic origin for the renormalization of the scaling function observed in Fig. 5 (a). Figure 5 (c) compares the dynamical magnetotropic spectrum k′′ (ω) in the Kitaev limit with and without spin-phonon coupling. For the parameters shown, coupling to optical phonons suppresses the overall spectral intensity across the measured frequency window. This suppression indicates that the anisotropy-induced torque fluctuations are reduced overall. One possible interpretation is that the coupling to optical phonons renormalizes the effective spin interactions through bond phonon fluc-tuations, thereby reducing anisotropy-driven torque fluctuations and leading to the observed suppression of the dynamical spectral weight probed by k′′ (ω).
+
+# 4 Outlook and discussion 
+
+Our analysis reveals that the dynamical magnetotropic susceptibility probes ultra-low-energy, q = 0 charge and spin fluctuations. As such it provides a new tool to study quantum critical points (QCP) involving q = 0 fluctuations. In particular, at these points, fluctuations are scale free and extend to T = 0 and ω = 0 . In what follows we will illustrate this with two examples: Kondo destruction (KD) quantum criticality in heavy fermion compounds [34, 35], and the field-induced metamagnetic transition in UTe 2 [5]. In the latter case, we provide experimental results. The coupling to the charge degrees of freedom stems from the formation of eddy currents that damp the oscillations of the cantilever. Eddy currents have many simi-larities to the optical conductivity σ(ω). They are generated only if the conductivity is finite. However, the conductivity is a bulk material property while eddy currents are a macroscopic phenomenon that depends on the size of the sample. Mott quantum criticality [36] involves the localization of charge degrees of freedom: the metallic phase has low-lying spin and charge fluctuations, while the insulating phase has only spin excitations. Across this transition, we hence expect to observe a very strong change in the damping of the cantilever oscillations. We conjecture that a complete gapping out of the Fermi surface is not necessary to observe a strong change in the damping of the cantilever. An orbital-selective Mott transition [37] in which one subset of electrons localizes, thereby changing the Fermi surface volume, should also lead to a strong change in the damping of the cantilever 21 15 30 45 60                             
+
+> 0
+> 0.001
+> 0.002
+> 0.003
+> B(T)
+> Amplitude  (mV ) Region of large
+> transverse
+> ferromagnetic
+> fluctuations
+> Field-
+> polarized
+> ferromagnet
+> 60
+> 50
+> 40
+> 30
+> 20
+> 10
+> 030 60 90 315 30 45 60
+> 0
+> 0.001
+> 0.002
+> 0.003
+> 0
+> a) b)
+> B(T) cb
+> B (T)
+> Amplitude (mV)  T= 4 K
+> 90º
+> B|| b-axis
+> 66º
+> UTe 2
+> 36º Fig. 6 Transverse ferromagnetic fluctuations in UTe 2. (a) Amplitude of the pickup voltage of the cantilever during magnetotropic susceptibility measurements of UTe 2at 4 K, with the magnetic field applied at different angles in the bc plane, taking 0 ◦for B∥c. (b) Phase diagram of the transverse susceptibility of UTe 2in the bc plane, obtained using the same technique, data are taken from Ref. [5]. The gray region indicates where transverse ferromagnetic fluctuations dominate, while the cyan line and dots correspond to the metamagnetic transition. Colored dashed lines indicate the sample angles shown in panel (a), with their corresponding colors. As the field is oriented toward the caxis, the amplitude drop is consistent with the region of strong transverse ferromagnetic fluctuations.
+
+oscillations. Kondo destruction (KD) quantum criticality [38] is nothing but a realiza-tion of an orbital-selective Mott transition [39–41]. It separates two distinct ground states: one with static Kondo screening and a large Fermi surface comprising both itinerant and localized electrons (which carry local moments), and one without Kondo screening and a small conduction-electron-only Fermi surface. Critical fluctuations in both the local-moment and charge sectors should emerge from such a KD QCP. As they arise from KD, they are (essentially) local in real space and thus extended in momentum space, i.e., with response also at q = 0 . Furthermore, KD quantum criticality is scale-free, and thus the fluctuations extend to T = 0 and ω = 0 .While the above discussion highlights the coupling to charge degrees of freedom, a concrete realization of these ideas in the spin sector is provided by recent mag-netotropic measurements in UTe 2, where transverse, ultra-low-energy fluctuations emerge in the vicinity of a field-induced transition. As shown in Fig. 6 (a), the ampli-tude of the cantilever oscillations exhibits a pronounced suppression at specific field orientations, while Fig. 6 (b) maps out the corresponding phase diagram of the trans-verse susceptibility in the bc plane. For magnetic field applied along the b-axis, the transition into the field-polarized state is strongly first order [42–45], and the ampli-tude remains essentially unchanged despite the jump in the frequency shift [5]. In contrast, as the field is rotated toward the c-axis, this transition becomes progressively more continuous, approaching a second-order critical end point where fluctuations are strongly enhanced [46]. The dramatic drop observed in the oscillation amplitude coincides with the region of large transverse ferromagnetic fluctuations, previously identified as a large decrease in the resonant frequency. This behavior reflects the onset of strong dissipation arising from low-energy fluctuations in the vicinity of the 22 critical end point, where the metamagnetic transition terminates. The suppression of the amplitude therefore provides direct evidence that transverse ferromagnetic fluc-tuations dominate the low-energy dynamics and couple efficiently to the cantilever motion, highlighting the unique capability of dynamical magnetotropic susceptibility to access critical fluctuations at q = 0 in both spin and charge sectors. 
+
+# 5 Conclusion 
+
+We have provided a theoretical framework for understanding the magnetotropic sus-ceptibility k(ω). Our analysis extends the earlier work of Ref. [15] by accounting for charge degrees of freedom alongside spin fluctuations. We thereby provide a complete linear response theory for the magnetotropic susceptibility. For quantum spin systems, the static magnetotropic susceptibility, k(ω = 0) ,responds solely to magnetic anisotropy, while the imaginary part captures spin fluctu-ations transverse to the magnetic field regardless of the magnetic anisotropy. Hence, damping of the cantilever oscillations signals low-lying ferromagnetic fluctuations, indicating proximity to a ferromagnetic instability as observed in UTe 2, see Sec. 4 and Ref. [5]. Quantum Monte Carlo methods excel at computing susceptibilities, since no ana-lytical continuation is required. Hence, an accurate estimate for the k(ω = 0) can be obtained from bias free model calculations. For frustrated spin systems, however, these approaches are hampered by the negative sign problem, which limits access to low temperatures and large system sizes. However, spin exchange constants are typically on the meV scale, such that by optimizing the severity of the sign problem one can reach relevant temperature windows. More precisely, the spin model used to account for experimental results is defined on the meV scale set by the dominant exchange interaction J; stabilizing simulations at, say, βJ ≃ 3 (where β is the inverse tempera-ture) already suffices to access relevant temperature scales. The sign problem depends on the specific gauge choice in the path-integral formulation, and a parametrization of this gauge freedom defines an optimization problem that we have addressed using machine-learning methods. This optimization allows us to mitigate the sign problem for a number of frustrated spin models, and to reach relevant energy scales to compare with experimental data. We have equally been able to include couplings to phonons in our simulations, without enhancing the severity of the sign problem. Combining measurements on α-RuCl 3 with model calculations, we have shown that reproducing the low-temperature scaling behavior of k(ω = 0) requires dominant Kitaev interactions. This conclusion rests on numerical calculations of k(ω = 0) for the parameter set of Ref. [28], in which the Kitaev and Γ couplings are comparable: this parameter set fails to reproduce the observed low-temperature scaling, whereas the pure Kitaev model does exhibit scaling. We attribute this to the very short-ranged spin-spin correlations imposed by symmetry in the Kitaev model in the absence of a magnetic field. Our simulations also give access to k′′ (ω), and we have confirmed that for the model parameters reproducing the low-temperature scaling of the magne-totropic susceptibility, k′′ (ω) shows the behavior typical of a local-moment system: a single dominant peak at the Larmor frequency. We have furthermore confirmed that 23 coupling to optical phonons does not destroy the low-temperature scaling behavior of 
+
+k(ω = 0) .The article provides the theoretical framework for the magnetotropic susceptibil-ity of metallic systems, where both charge and spin degrees of freedom govern the response. The charge contribution is dominated by eddy currents, which damp the time variation of the magnetic flux through the metal. For quasi-two-dimensional materials, this effect depends on the orientation of the magnetic field relative to the metal and can therefore be tuned. This was explicitly shown by measurements on PdCoO 2. Of particular interest will be to investigate Mott or orbital-selective Mott transitions with this method. The localization of a subset of charge carriers can potentially produce a strong change in the magnetotropic susceptibility, since localization suppresses the orbital coupling to the magnetic field and enhances the relative importance of the Zeeman energy. Continuous orbital-selective Mott transi-tions are equivalent to Kondo-destruction transitions, realized in materials such as YbRh 2Si 2 [47] and in model calculations [40]. It will be interesting to investigate whether the magnetotropic susceptibility can be used to study such transitions. Measurements of the magnetotropic susceptibility are versatile; they can be per-formed on nanogram-sized crystals, they have been demonstrated in magnetic fields up to 65 T, and can be carried out at dilution refrigerator temperatures. While current measurements are performed in the kHz frequency range, this range is only limited by the oscillation frequency of the cantilever. Future developments can push this up to the few GHz range by miniaturisation and use of focused ion beam lithography to extract small, pristine samples. This will allow access to more interesting dynamics, particularly for gapless excitations in quantum spin liquids. To conclude, the magnetotropic susceptibility provides a powerful probe of the low-energy uniform properties of quantum materials, and the interplay between model calculations and measurements holds the potential to shed light on a broad range of phenomena. 
+
+# 6 Methods 
+
+6.1 Fermion quantum Monte Carlo for frustrated spin-Peierls systems 
+
+In this section we introduce our AF-QMC formulation of a generic spin-Peierls Hamil-tonian. We consider S = 1 /2 spins on a lattice interacting with optical phonons. The generic spin-Peierls Hamiltonian reads: 
+
+ˆH = ∑
+
+> b=⟨i,j ⟩
+
+(
+
+1 + g ˆQb
+
+) Jb ˆSi · ˆSj + ∑
+
+> α,β
+
+Γα,β b ˆSαi ˆSβj
+
+ + ∑
+
+> b=⟨i,j ⟩
+
+( ˆP 2
+
+> b
+
+2m + k
+
+2 ˆQ2
+
+> b
+
+)
+
+(34) with α, β = x, y, z and 
+
+[ ˆSαi , ˆSβj ] = iϵ α,β,γ δi,j ˆSγi , [ ˆQb, ˆPb′ ] = iδ b,b ′ . (35) 24 Here the spin-1/2 operators ˆSi reside on a lattice with sites labelled by i, j , and the sum runs over nearest-neighbor bonds b = ⟨i, j ⟩. The phonons with momenta ˆPb and displacements ˆQb reside on each bond. A canonical transformation ˆQb → ˆQb/g and 
+
+ˆPb → g ˆPb allows us to set g to unity by redefining the mass m and spring constant k.With this choice, the spin-phonon coupling λ and phonon frequency ω0 read 
+
+λ = 12k , ω0 =
+
+√ km , (36) The spin-phonon interaction is mediated via the Γα,β b and Jb exchange couplings. While Γα,β b defines the potentially frustrated spin model, Jb accounts for non-frustrating nearest-neighbor Heisenberg couplings. The special case Jb = J and Γα,β b =0 corresponds to the Heisenberg model. The XXZ model is defined by Jb = J and 
+
+Γα,β b = δα,β δα,z Jz . Setting Jb = J = A cos( ϕ) and Γα,β b = 2 Kδ α,β δβ,b = 2 A sin( ϕ)1
+
+defines the Kitaev-Heisenberg model, with A = √J2 + K2. Note that this definition is only valid in lattices with coordination number 3. For the remainder of this work, the Kitaev-Heisenberg model is defined on the honeycomb lattice. The definition of the model for α-RuCl 3 is given in Eq. (32). Our AF-QMC formulation [14, 48] is based on the Abrikosov fermion representa-tion of the spin operator 
+
+ˆSi = 12 ˆf † 
+
+> i
+
+σ ˆf i , (37) where ˆf † 
+
+> i
+
+≡
+
+( ˆf †
+
+> i, ↑
+
+, ˆf †
+
+> i, ↓
+
+)
+
+is a two-component fermion on site i subjected to the local constraint 
+
+ˆni = ˆf † 
+
+> i
+
+ˆf i = 1 . (38) Here σ denotes the vector of Pauli spin-1/2 matrices. The constraint in Eq. (38) is implemented exactly in our fermionic formulation by including a Hubbard-U term on each site and taking the limit U → ∞ . In this representation, the Hamiltonian (34) that we simulate reads, 
+
+ˆHQMC = ∑
+
+> b
+
+(
+
+1 + ˆQb
+
+) [
+
+Jb
+
+( 14 − 14
+
+( ˆKb
+
+)2)
+
++
+
+∑
+
+> α,β
+
+|Γα,β b |sαβ b
+
+2
+
+( ˆKα,β b
+
+)2
+
+− Cb
+
+]
+
++ ∑
+
+> b
+
+( ˆP 2
+
+> b
+
+2m + k
+
+2 ˆQ2
+
+> b
+
+)
+
++ U
+
+2
+
+∑
+
+> i
+
+(ˆ ni − 1) 2 (39) where 
+
+ˆKb = ∑
+
+> σ
+
+ˆfi,σ ˆfj,σ + h.c. , ˆKα,β b = ˆSαi + Γα,β b sαβ b
+
+|Γα,β b |
+
+ˆSβj , Cb = ∑
+
+> α,β
+
+|Γα,β b |sαβ b
+
+4 . (40)                  
+
+> 1The term δβ,b locks the direction of the spin interaction to the bond direction in alattice with coordination number 3, thereby defining the bond-dependent spin interactions of the Kitaev model.
+
+25 Here sαβ b = ±1 [48] is a gauge choice in our formulation. In this framework, the operator (ˆ ni − 1) 2 commutes with the Hamiltonian ˆHQMC , indicating that the ˆf -fermion parity (−1) ˆni is locally conserved. By virtue of this symmetry, introducing a positive Hubbard-U term effectively enforces a projection onto the odd-parity sector where (−1) ˆni = −1, dynamically imposing the constraint in Eq. (38). Within this sector, the restricted Hamiltonian is ˆHQMC 
+
+∣∣∣(−1) ˆni =−1
+
+= ˆH +C, where C is a constant. Our AF-QMC method was first presented in Ref. [48] and later generalized to include phonons in Ref. [14]. In the absence of frustrating interactions—such as in the Heisenberg or XXZ models—our AF-QMC formulation does not suffer from the neg-ative sign problem. For the Kitaev-Heisenberg and α-RuCl 3 models, the sign problem is mild enough to allow simulations of systems with Ns = 32 sites at temperatures 
+
+β ≈ 2A [4, 48]. It was shown in Ref. [14] that including phonons does not worsen the severity of the sign problem, so the same system sizes and temperatures remain accessible. We use the Algorithms for Lattice Fermions (ALF) package [12] for our AF-QMC simulations. 
+
+6.2 Sign-problem optimization with machine learning 
+
+Our AF-QMC formulation of the spin-Peierls Hamiltonian (39) offers an extra gauge degree of freedom sαβ b = ±1 per bond. Although it does not change the physical properties of the model, different choices of {sαβ b } modify the severity of the sign problem. The sign is defined by sgn ({sαβ b }) = 
+
+〈
+
+Re (e−S({sαβ b },C ))
+
+∣∣∣Re (e−S({sαβ b },C ))
+
+∣∣∣〉
+
+> C
+
+, (41) where S({sαβ b }, C ) is the action of configuration C with gauge configuration {sαβ b }.The average is taken over the configurations C. We refer the reader to Ref. [12] for further details on the calculation and definition of the sign. In general, sgn ∈ [0 , 1] ,and sgn = 1 corresponds to a sign-problem-free action. In our previous works [14, 48], we only considered translationally invariant gauge configurations {sαβ }. For the Kitaev-Heisenberg model there are only 8 possible gauge configurations, comprising all permutations of {sα = ±1, α = x, y, z }, and we selected the one with the highest sign. At high temperatures, βA ≤ 1, we find that {− 1, −1, −1} is optimal, while at low temperatures, βA ≥ 1, the configuration {− 1, 1, 1} (and its two other permutations) yields the highest sign [48]. We now ask whether considering a bond-dependent gauge 
+
+{sαi = ±1, α = x, y, z, i = 1 , . . . , N } (where N is the number of unit cells) can further improve the sign. In principle there is no reason why it should not, since the translationally invariant configurations explored previously represent only a small subset of all possible gauge configurations. Our objective is to find the optimal gauge configuration that maximizes the sign for a given set of model parameters (exchange couplings, temperature, and system size). This is an optimization problem over a parameter space of 23N configurations. An exhaustive search is clearly infeasible for the system sizes of interest. Instead, we train a neural network (NN) to learn the 26 function sgn ({sαi }) using signs computed by AF-QMC for a set of gauge configurations 
+
+{sαi }, and then use simulated annealing to find the configuration that maximizes the sign predicted by the NN. We build our model using a feed-forward NN with a variable number of layers and neurons, and use the sigmoid activation function to ensure that the output lies in [0 , 1] .We also use the Huber loss function to weight our model. For the implementation, we use the PyTorch library [49]. As a first test, we apply our model to a lattice with 
+
+N = 4 unit cells for the pure Kitaev model at inverse temperature βA = 4 . The total number of gauge configurations is Nc = 2 3N = 4096 , allowing us to compare our model against an exhaustive search over all configurations. We train our model on a small subset of approximately Nc/2 configurations. The results are summarized in Tables 1 and 2. First, we find that the NN correctly identifies the translationally invariant configurations with maximal sign (Table 1), although in some cases it cannot predict the sign value to within 2σ. Next, we attempt to predict the configuration with the globally maximal sign (Table 2). Again, the NN cannot accurately predict the sign value, but it correctly identifies that the highest-sign configurations are those with a local gauge belonging to {− 1, −1, −1}, {− 1, 1, 1}, and their permutations—that is, for each bond b the local gauge {sαb , α = x, y, z } is drawn from all permutations of 
+
+{− 1, 1, 1} or equals {− 1, −1, −1}. We can therefore conclude that the translationally invariant gauge configurations already lie in the region of configuration space where the sign is maximal, and that the sign does not improve significantly away from these configurations. As a next step, we tested our model for a larger lattice with N = 9 unit cells at 
+
+βA = 2 . The total number of gauge configurations is Nc ≈ 10 8, precluding an exhaus-tive search. We train our model on approximately 10 5 configurations, corresponding to ≈ 0.1% of Nc. Again, the model identifies that the optimal gauge configurations have the same local gauge as found for N = 4 . For the translationally invariant con-figurations, the best sign is sgn ({1, −1, 1}) = 0 .606(7) , while the NN predicts the maximum sign for 
+
+G = {− 1, −1, −1, −1, −1, 1, −1, −1, −1, −1, 1, −1, −1, −1,
+
+− 1, 1, −1, −1, −1, 1, −1, 1, −1, −1, −1, −1, 1}, (42) with sgn (G) = 0 .635(7) . The NN is thus able to correctly identify the region of config-uration space in which the sign is maximal. Within this region, however, distinct gauge configurations yield statistically indistinguishable results to within 2σ. We therefore conclude that translationally invariant configurations are near-optimal. 
+
+# Acknowledgements 
+
+The authors thank Arkady Shekhter, Brad Ramshaw, and Jeroen van den Brink for fruitful discussions. We gratefully acknowledge the Gauss Centre for Supercom-puting e.V. (www.gauss-centre.eu) for funding this project by providing computing time on the GCS Supercomputer SUPERMUC-NG at Leibniz Supercomputing Cen-tre (www.lrz.de), (project number pn73xu) as well as the scientific support and HPC 27 Configuration AF-QMC NN {1,1,1} 0.003(2) 0.00770 {1,1,-1} 0.108(5) 0.11630 {1,-1,1} 0.114(5) 0.12125 {-1,1,1} 0.103(4) 0.10786 {1,-1,-1} 0.305(8) 0.34955 {-1,1,-1} 0.303(6) 0.30275 {-1,-1,1} 0.289(8) 0.35477 {-1,-1,-1} 0.163(5) 0.20623                                  
+
+> Table 1 Sign from AF-QMC and NN for all possible translationally invariant gauge configurations for N= 4 and
+> βA = 4 .Configuration AF-QMC NN {-1,1,-1,-1,-1,1,1,-1,-1,-1,-1,-1} 0.327(8) 0.32252 {1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,1} 0.328(9) 0.28542 {-1,1,-1,1,-1,-1,1,-1,-1,-1,-1,-1} 0.329(9) 0.31312 {-1,-1,-1,-1,1,-1,-1,1,-1,-1,1,-1} 0.329(10) 0.29085 {-1,-1,1,-1,-1,-1,-1,-1,1,-1,1,-1} 0.331(7) 0.30983 {-1,-1,-1,1,-1,-1,1,-1,-1,-1,1,-1} 0.331(8) 0.31240 {1,-1,-1,-1,1,-1,-1,-1,1,-1,-1,-1} 0.332(8) 0.30105 {1,-1,-1,1,-1,-1,1,-1,-1,-1,-1,-1} 0.332(6) 0.33121 {-1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,1} 0.336(6) 0.30416 {1,-1,-1,-1,1,-1,-1,1,-1,-1,-1,-1} 0.339(7) 0.27350
+> Table 2 Gauge configurations with maximal sign from AF-QMC and NN prediction for N= 4 and βA = 4 .
+
+resources provided by the Erlangen National High Performance Computing Cen-ter (NHR@FAU) of the Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) under the NHR project b133ae. NHR funding is provided by federal and Bavarian state authorities. NHR@FAU hardware is partially funded by the German Research Foundation (DFG) – 440719683. T.S. thanks funding from the Deutsche Forschungs-gemeinschaft under the grant number SA 3986/1-1 as well as the Würzburg-Dresden Cluster of Excellence on Complexity, Topology and Dynamics in Quantum Matter ctd.qmat (EXC 2147, project-id 390858490). F.F.A. and J.I. acknowledge financial support from the German Research Foundation (DFG) under the grant AS 120/16-1 and AS 120/16-2 (Project number 493886309) that is part of the collaborative research project SFB Q-M&S funded by the Austrian Science Fund (FWF) F 86. K.A.M. thanks financial support from the Austrian Science Fund, SFB F 86, Q-M&S. S.P. acknowledges financial support from the Austrian Science Fund (SFB F 86, Q-M&S; Cluster of Excellence quantA, 10.55776/COE1). K.A.M., G.R., S.S., V.Z., and H.N. acknowledge support from the European Research Council Starting Grant 101078696-TROPIC. G.R. and K.A.M. acknowledgment support from Seunghyun Khim and Andrew Mackenzie for providing crystals of PdCoO 2 and characterization. 
+
+# References 
+
+[1] Matsuda, Y., Shibauchi, T., Kee, H.-Y.: Kitaev quantum spin liquids. Rev. Mod. Phys. 97 , 045003 (2025) https://doi.org/10.1103/3m4m-3v59 [2] Kitaev, A.: Anyons in an exactly solved model and beyond. Annals of Physics 
+
+321 (1), 2–111 (2006) https://doi.org/10.1016/j.aop.2005.10.005 [3] Modic, K.A., McDonald, R.D., Ruff, J.P.C., Bachmann, M.D., Lai, Y., Palm-strom, J.C., Graf, D., Chan, M.K., Balakirev, F.F., Betts, J.B., Boebinger, G.S., Schmidt, M., Lawler, M.J., Sokolov, D.A., Moll, P.J.W., Ramshaw, B.J., Shekhter, A.: Scale-invariant magnetic anisotropy in RuCl 3 at high magnetic fields. Nature Physics (2020) https://doi.org/10.1038/s41567-020-1028-0 [4] Sato, T., Ramshaw, B.J., Modic, K.A., Assaad, F.F.: Scale-invariant magnetic 28 anisotropy in RuCl 3: A quantum Monte Carlo study. Phys. Rev. B 110 , 201114 (2024) https://doi.org/10.1103/PhysRevB.110.L201114 [5] Zambra, V., Nathwani, A., Nauman, M., Lewin, S.K., Frank, C.E., Butch, N.P., Shekhter, A., Ramshaw, B.J., Modic, K.A.: Giant transverse magnetic fluc-tuations at the edge of re-entrant superconductivity in UTe 2. arXiv: (2025) arXiv:2506.08984 [cond-mat.str-el] [6] Šmejkal, L., Sinova, J., Jungwirth, T.: Emerging Research Landscape of Altermagnetism. Phys. Rev. X 12 (4), 040501 (2022) https://doi.org/10.1103/ physrevx.12.040501 [7] Cao, H.B., Banerjee, A., Yan, J.-Q., Bridges, C.A., Lumsden, M.D., Mandrus, D.G., Tennant, D.A., Chakoumakos, B.C., Nagler, S.E.: Low-temperature crystal and magnetic structure of α-RuCl 3. Phys. Rev. B 93 , 134423 (2016) https://doi. org/10.1103/PhysRevB.93.134423 [8] Banerjee, A., Bridges, C.A., Yan, J.-Q., Aczel, A.A., Li, L., Stone, M.B., Granroth, G.E., Lumsden, M.D., Yiu, Y., Knolle, J., Bhattacharjee, S., Kovrizhin, D.L., Moessner, R., Tennant, D.A., Mandrus, D.G., Nagler, S.E.: Proximate kitaev quantum spin liquid behaviour in a honeycomb magnet. Nature Materials 
+
+15 (7), 733–740 (2016) https://doi.org/10.1038/nmat4604 [9] Blankenbecler, R., Scalapino, D.J., Sugar, R.L.: Monte carlo calculations of cou-pled boson-fermion systems. Phys. Rev. D 24 , 2278–2286 (1981) https://doi.org/ 10.1103/PhysRevD.24.2278 [10] White, S., Scalapino, D., Sugar, R., Loh, E., Gubernatis, J., Scalettar, R.: Numer-ical study of the two-dimensional Hubbard model. Phys. Rev. B 40 , 506–516 (1989) https://doi.org/10.1103/PhysRevB.40.506 [11] Assaad, F.F., Evertz, H.G.: World-line and determinantal quantum monte carlo methods for spins, phonons and electrons, 277–356 (2008) https://doi.org/10. 1007/978-3-540-74686-7_10 [12] Assaad, F.F., Bercx, M., Goth, F., Götz, A., Hofmann, J.S., Huffman, E., Liu, Z., Toldin, F.P., Portela, J.S.E., Schwab, J.: The ALF (Algorithms for Lattice Fermions) project release 2.4. Documentation for the auxiliary-field quantum Monte Carlo code. SciPost Phys. Codebases, 1–24 (2025) https://doi.org/10. 21468/SciPostPhysCodeb.1-v2.4 [13] Sato, T., Assaad, F.F.: Quantum Monte Carlo simulation of generalized Kitaev models. Phys. Rev. B 104 , 081106 (2021) https://doi.org/10.1103/PhysRevB. 104.L081106 [14] Inácio, J.a.C., Brink, J., Assaad, F.F., Sato, T.: Finite-temperature fermion Monte Carlo simulations of frustrated spin-Peierls systems. Phys. Rev. B 112 ,29 014404 (2025) https://doi.org/10.1103/ssdc-9bsk [15] Shekhter, A., McDonald, R.D., Ramshaw, B.J., Modic, K.A.: Magnetotropic sus-ceptibility. Phys. Rev. B 108 , 035111 (2023) https://doi.org/10.1103/PhysRevB. 108.035111 [16] Mahan, G.D.: Many-Particle Physics, 2nd edn. Plenum Press, New York (1990) [17] Scalapino, D.J., White, S.R., Zhang, S.: Insulator, metal, or superconductor: The criteria. Phys. Rev. B 47 , 7995–8007 (1993) https://doi.org/10.1103/PhysRevB. 47.7995 [18] Beach, K.S.D.: Identifying the maximum entropy method as a special limit of stochastic analytic continuation. arXiv e-prints, 0403055 (2004) https://doi.org/ 10.48550/arXiv.cond-mat/0403055 arXiv:cond-mat/0403055 [cond-mat.str-el] [19] Sandvik, A.: Stochastic method for analytic continuation of quantum Monte Carlo data. Phys. Rev. B 57 , 10287–10290 (1998) https://doi.org/10.1103/ PhysRevB.57.10287 [20] Shao, H., Sandvik, A.W.: Progress on stochastic analytic continuation of quantum Monte Carlo data. Physics Reports 1003 , 1–88 (2023) https://doi.org/10.1016/ j.physrep.2022.11.002 . Progress on stochastic analytic continuation of quantum Monte Carlo data [21] Hicks, C.W., Gibbs, A.S., Mackenzie, A.P., Takatsu, H., Maeno, Y., Yel-land, E.A.: Quantum Oscillations and High Carrier Mobility in the Delafos-site PdCoO 2. Phys. Rev. Lett. 109 , 116401 (2012) https://doi.org/10.1103/ PhysRevLett.109.116401 [22] Mackenzie, A.P.: The properties of ultrapure delafossite metals. Reports on Progress in Physics 80 (3), 032501 (2017) https://doi.org/10.1088/1361-6633/ aa50e5 [23] Winter, S.M., Riedl, K., Maksimov, P.A., Chernyshev, A.L., Honecker, A., Valentí, R.: Breakdown of magnons in a strongly spin-orbital coupled magnet. Nature Communications 8(1), 1152 (2017) https://doi.org/10.1038/ s41467-017-01177-0 [24] Chaloupka, J.c.v., Khaliullin, G.: Magnetic anisotropy in the Kitaev model sys-tems Na 2IrO 3 and RuCl 3. Phys. Rev. B 94 , 064435 (2016) https://doi.org/10. 1103/PhysRevB.94.064435 [25] Yadav, R., Bogdanov, N.A., Katukuri, V.M., Nishimoto, S., Brink, J., Hozoi, L.: Kitaev exchange and field-induced quantum spin-liquid states in honey-comb α-RuCl 3. Scientific Reports 6(1), 37925 (2016) https://doi.org/10.1038/ srep37925 30 [26] Do, S.-H., Park, S.-Y., Yoshitake, J., Nasu, J., Motome, Y., Kwon, Y.S., Adroja, D.T., Voneshen, D.J., Kim, K., Jang, T.-H., Park, J.-H., Choi, K.-Y., Ji, S.: Majorana fermions in the Kitaev quantum spin system RuCl 3. Nature Physics 
+
+13 (11), 1079–1084 (2017) https://doi.org/10.1038/nphys4264 [27] Banerjee, A., Yan, J., Knolle, J., Bridges, C.A., Stone, M.B., Lumsden, M.D., Mandrus, D.G., Tennant, D.A., Moessner, R., Nagler, S.E.: Neutron scattering in the proximate quantum spin liquid α-RuCl 3. Science 356 (6342), 1055–1059 (2017) https://doi.org/10.1126/science.aah6015 [28] Wu, L., Little, A., Aldape, E.E., Rees, D., Thewalt, E., Lampen-Kelley, P., Baner-jee, A., Bridges, C.A., Yan, J.-Q., Boone, D., Patankar, S., Goldhaber-Gordon, D., Mandrus, D., Nagler, S.E., Altman, E., Orenstein, J.: Field evolution of magnons in α-RuCl 3 by high-resolution polarized terahertz spectroscopy. Phys. Rev. B 98 , 094425 (2018) https://doi.org/10.1103/PhysRevB.98.094425 [29] Möller, M., Maksimov, P.A., Jiang, S., White, S.R., Valentí, R., Chernyshev, A.L.: Rethinking α-RuCl 3: Parameters, models, and phase diagram. Phys. Rev. B 112 , 104403 (2025) https://doi.org/10.1103/hflp-41lj [30] Sandilands, L.J., Tian, Y., Plumb, K.W., Kim, Y.-J., Burch, K.S.: Scatter-ing Continuum and Possible Fractionalized Excitations in α-RuCl 3. Physical Review Letters 114 (14), 147201 (2015) https://doi.org/10.1103/PhysRevLett. 114.147201 . Accessed 2024-03-12 [31] Li, H., Zhang, T.T., Said, A., Fabbris, G., Mazzone, D.G., Yan, J.Q., Man-drus, D., Halász, G.B., Okamoto, S., Murakami, S., Dean, M.P.M., Lee, H.N., Miao, H.: Giant phonon anomalies in the proximate Kitaev quantum spin liquid 
+
+α-RuCl 3. Nature Communications 12 (1), 3513 (2021) https://doi.org/10.1038/ s41467-021-23826-1 . Accessed 2024-04-24 [32] Feng, K., Swarup, S., Perkins, N.B.: Footprints of Kitaev spin liquid in the Fano lineshape of Raman-active optical phonons. Physical Review B 105 (12), 121108 (2022) https://doi.org/10.1103/PhysRevB.105.L121108 . Accessed 2024-03-13 [33] Shragai, A., Horsley, E., Kim, S., Kim, Y.-J., Ramshaw, B.J.: Phonon Hall vis-cosity and the intrinsic thermal Hall effect of α-RuCl 3. Nature (2026) https: //doi.org/10.1038/s41586-026-10420-y [34] Schröder, A., Aeppli, G., Coldea, R., Adams, M., Stockert, O., Löhneysen, H.v., Bucher, E., Ramazashvili, R., Coleman, P.: Onset of antiferromagnetism in heavy-fermion metals. Nature 407 , 351 (2000) [35] Mazza, F., Biswas, S., Yan, X., Prokofiev, A., Steffens, P., Si, Q., Assaad, F.F., Paschen, S.: Quantum fisher information in a strange metal. arXiv:2403.12779 (2024) arXiv:2403.12779 [cond-mat.str-el] 31 [36] Imada, M., Fujimori, A., Tokura, Y.: Metal-insulator transitions. Rev. Mod. Phys. 
+
+70 , 1039–1263 (1998) https://doi.org/10.1103/RevModPhys.70.1039 [37] Vojta, M.: Orbital-selective mott transitions: Heavy fermions and beyond. J. Low Temp. Phys. 161 , 203 (2010) [38] Paschen, S., Si, Q.: Quantum phases driven by strong correlations. Nature Reviews Physics 3(1), 9–26 (2021) https://doi.org/10.1038/s42254-020-00262-6 [39] Senthil, T., Sachdev, S., Vojta, M.: Fractionalized fermi liquids. Phys. Rev. Lett. 
+
+90 (21), 216403 (2003) https://doi.org/10.1103/PhysRevLett.90.216403 [40] Danu, B., Vojta, M., Assaad, F.F., Grover, T.: Kondo Breakdown in a Spin-1/2
+
+Chain of Adatoms on a Dirac Semimetal. Phys. Rev. Lett. 125 , 206602 (2020) https://doi.org/10.1103/PhysRevLett.125.206602 [41] Pan, G., Assaad, F.F.: Quantum Monte Carlo studies of U(1) lattice gauge models of Kondo breakdown. arXiv:2512.17801 (2025) arXiv:2512.17801 [cond-mat.str-el] [42] Aoki, D., Ishida, K., Flouquet, J.: Review of U-based Ferromagnetic Super-conductors: Comparison between UGe2, URhGe, and UCoGe. Journal of the Physical Society of Japan 88 (2), 022001 (2019) https://doi.org/10.7566/JPSJ. 88.022001 https://doi.org/10.7566/JPSJ.88.022001 [43] Ran, S., Liu, I.-L., Eo, Y.S., Campbell, D.J., Neves, P.M., Fuhrman, W.T., Saha, S.R., Eckberg, C., Kim, H., Graf, D., Balakirev, F., Singleton, J., Paglione, J., Butch, N.P.: Extreme magnetic field-boosted superconductivity. Nature Physics 
+
+15 (12), 1250–1254 (2019) https://doi.org/10.1038/s41567-019-0670-x [44] Tokiwa, Y., Opletal, P., Sakai, H., Kambe, S., Yamamoto, E., Kimata, M., Awaji, S., Sasaki, T., Aoki, D., Haga, Y., Tokunaga, Y.: Reinforcement of superconduc-tivity by quantum critical fluctuations of metamagnetism in UTe 2. Phys. Rev. B 
+
+109 , 140502 (2024) https://doi.org/10.1103/PhysRevB.109.L140502 [45] Tokunaga, Y., Sakai, H., Kambe, S., Opletal, P., Tokiwa, Y., Haga, Y., Kitagawa, S., Ishida, K., Aoki, D., Knebel, G., Lapertot, G., Krämer, S., Horvatić, M.: Lon-gitudinal Spin Fluctuations Driving Field-Reinforced Superconductivity in UTe 2.Phys. Rev. Lett. 131 , 226503 (2023) https://doi.org/10.1103/PhysRevLett.131. 226503 [46] Wu, Z., Weinberger, T.I., Hickey, A.J., Chichinadze, D.V., Shaffer, D., Cabala, A., Chen, H., Long, M., Brumm, T.J., Xie, W., Ling, Y., Zhu, Z., Skourski, Y., Graf, D.E., Sechovský, V., Vališka, M., Lonzarich, G.G., Grosche, F.M., Eaton, A.G.: A Quantum Critical Line Bounds the High Field Metamagnetic Transition Surface in UTe 2. Phys. Rev. X 15 , 021019 (2025) https://doi.org/10.1103/PhysRevX.15. 021019 32 [47] Paschen, S., Lühmann, T., Wirth, S., Gegenwart, P., Trovarelli, O., Geibel, C., Steglich, F., Coleman, P., Si, Q.: Hall-effect evolution across a heavy-fermion quantum critical point. Nature 432 , 881 (2004) [48] Sato, T., Assaad, F.F.: Quantum Monte Carlo simulation of generalized Kitaev models. Phys. Rev. B 104 , 081106 (2021) https://doi.org/10.1103/PhysRevB. 104.L081106 [49] Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga, L., Desmaison, A., Köpf, A., Yang, E., DeVito, Z., Raison, M., Tejani, A., Chilamkurthy, S., Steiner, B., Fang, L., Bai, J., Chin-tala, S.: PyTorch: An Imperative Style, High-Performance Deep Learning Library (2019). https://arxiv.org/abs/1912.01703 [50] Binder, K.: Finite size scaling analysis of Ising model block distribution func-tions. Z. Phys. B Con. Mat. 43 (2), 119–140 (1981) https://doi.org/10.1007/ BF01293604 [51] Pujari, S., Lang, T.C., Murthy, G., Kaul, R.K.: Interaction-Induced Dirac Fermions from Quadratic Band Touching in Bilayer Graphene. Phys. Rev. Lett. 
+
+117 , 086404 (2016) https://doi.org/10.1103/PhysRevLett.117.086404 33 0.8 10.1 0.2 0.3 0.4 
+
+L=6 
+
+L=9 
+
+L=12 
+
+T/|J| 
+
+0.8 10.1 0.2 0.3 0.4 
+
+L=6 
+
+L=9 
+
+L=12 
+
+T/|J| (a) FM XXZ model (b) AFM XXZ model RFM                  
+
+> RAFM Fig. 7 Correlation ratio Rfor the easy-plane ferromagnetic (FM) order [(a), (J, J z) = ( −1,0.5) ]and the easy-plane antiferromagnetic (AFM) order [(b), (J, J z) = (1 ,−0.5) ] for different lattice sizes
+> L. As the temperature Tdecreases, Rincreases with increasing L, indicating the development of long-range order. At higher temperatures, Rdecreases with L, consistent with a paramagnetic phase.
+
+# 7 Supplementary information 
+
+7.1 Quantum Monte Carlo results for the XXZ model 
+
+In the main text, we consider the XXZ model on the honeycomb lattice, defined by 
+
+ˆHSpin = ∑ 
+
+> ⟨i,j⟩
+
+J
+
+[ ˆSx 
+
+> i
+
+· ˆSx 
+
+> j
+
++ ˆSy 
+
+> i
+
+· ˆSy
+
+> j
+
+]
+
++ [ J + Jz ] ˆSz 
+
+> i
+
+ˆSz 
+
+> j
+
+− μB
+
+∑ 
+
+> i
+
+B · ˆg · ˆSi, and present QMC results for Jz /J = −0.5 and μB B/ |J| = 0.1. For this choice of parame-ters, the model favors easy-plane magnetic ordering in the spin-xy direction at low temperatures. To determine magnetic ordering, we compute the equal-time structure factors 
+
+Cα(q) ≡ 1
+
+L2
+
+∑
+
+> r,r′
+
+⟨ ˆOα 
+
+> r
+
+ˆOα 
+
+> r′
+
+⟩eiq·(r−r′), (43) where the antiferromagnetic (AFM) and ferromagnetic (FM) operators are defined as 
+
+ˆOAFM  
+
+> r
+
+= ˆSx 
+
+> r,A
+
+− ˆSx 
+
+> r,B
+
+and ˆOFM  
+
+> r
+
+= ˆSx 
+
+> r,A
+
++ ˆSx 
+
+> r,B
+
+with ˆSα 
+
+> r,γ
+
+= 12 ˆc† 
+
+> r,γ
+
+σα ˆcr,γ . Here, σα are the Pauli spin-1/2 matrices, r labels the unit cell, and γ = A, B the sublattices. From the structure factors we construct the renormalization-group invariant correlation ratios [50, 51], 
+
+Rα = 1 − Cα(q0 + δq)
+
+Cα(q0) , (44) where q0 is the ordering wave vector and δq corresponds to the smallest momentum increment allowed by the finite lattice. In the presence of long-range order, Cα(q0)
+
+diverges with system size, implying Rα → 1 as L → ∞ . In the disordered phase 
+
+Rα → 0. At the critical point, Rα becomes scale-invariant, leading to a crossing of curves for different system sizes L.We observe a finite-temperature magnetic phase transition, as shown in Fig. 7. Figure 7(a) displays the temperature dependence at (J, J z ) = ( −1, 0.5) . The onset of long-range easy-plane FM order is signaled by an increase of RFM with increasing 34 00.1 
+
+> 0.5
+> 0.33
+> 0.2<T c
+
+00.1 0 1 2 3 4ω/|J| χxx ’’ (ω) 
+
+> T/|J|=5
+> 2.5
+> 1
+> χxx ’’ (ω)
+
+(a) FM XXZ model (b) AFM XXZ model 
+
+> 0.5
+> 0.33
+> 0.2<T c
+> χxx ’’ (ω) χxx ’’ (ω)  T/|J|=5
+> 2.5
+> 1
+
+00.1 
+
+050 1 2 3 4ω/|J| Fig. 8 Dynamical spin susceptibility χxx ′′ (ω) for the non-frustrated XXZ model on the honeycomb lattice with μB B/ |J| = 0 .1. (a) Ferromagnetic case (J, J z ) = ( −1, 0.5) and (b) antiferromagnetic case (J, J z ) = (1 , −0.5) . The magnetic field is applied along ec ([001] in the cubic spin basis) with             
+
+> e∥eb([010]). For a diagonal gtensor (ga, g b, g c) = (2 ,2,1) ,k′′ (ω)probes χxx ′′ (ω)up to an overall prefactor [Eq. 17 of the main text], such that the temperature evolution is consistent with that shown in Fig. 4 of the main text.
+
+system size L. Figure 7(b) shows the corresponding results for (J, J z ) = (1 , −0.5) ,indicating the emergence of easy-plane AFM order. We have also verified that no other magnetic ordering tendencies, including easy-axis order along the spin-z direction, develop for these parameter sets. In addition to the dynamical magnetotropic susceptibility k′′ (ω) shown in the main text, we explicitly compute the corresponding dynamical spin susceptibility compo-nent χxx ′′ (ω) for the same parameter sets and field geometry. For B ∥ ec and e ∥ eb
+
+in the cubic spin basis, and with a diagonal g tensor, one obtains gT (e × B) ∥ ea, such that k′′ (ω) probes the transverse response χxx ′′ (ω) up to an overall prefactor [Eq. 17 of the main text]. The resulting χxx ′′ (ω), shown in Fig. 8, exhibits the same tem-perature evolution as k′′ (ω) in both the ferromagnetic and antiferromagnetic cases. This confirms that the spectral features discussed in the main text directly reflect the transverse spin dynamics of the XXZ model. 35

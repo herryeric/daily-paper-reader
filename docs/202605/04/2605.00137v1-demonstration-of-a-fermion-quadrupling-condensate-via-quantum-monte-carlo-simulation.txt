@@ -1,0 +1,526 @@
+Title: Demonstration of a fermion Quadrupling Condensate via Quantum Monte Carlo Simulation
+
+URL Source: https://arxiv.org/pdf/2605.00137v1
+
+Published Time: Mon, 04 May 2026 00:10:24 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Demonstration of a fermion Quadrupling Condensate via Quantum Monte Carlo Simulation 
+
+Alexandru Golic, 1 Egor Babaev, 1, 2 and Johan Carlstr¨ om 1
+
+> 1
+
+Department of Physics, KTH Royal Institute of Technology, Stockholm SE-10691, Sweden 
+
+> 2
+
+Wallenberg Initiative Materials Science for Sustainability, Department of Physics, KTH Royal Institute of Technology, SE-106 91 Stockholm, Sweden 
+
+Fermionic condensation typically occurs via pairing. In recent decades, however, a funda-mental question has emerged: whether alternative forms of order exist, such as condensates of fermion quadruplets. These states–including “charge-4e” superconductors and “charge-0” counter-flow condensates–lie beyond the standard Bardeen-Cooper-Schrieffer framework, and require strong fluctuations and correlation effects that invalidate the BCS mean-field description. This makes the problem notoriously difficult to study numerically at a microscopic level, as it involves both strong interactions and the fermionic sign problem. Here, we present a microscopic fermionic model featur-ing correlated hopping that significantly mitigates the sign problem, enabling rigorous Monte-Carlo-based analysis. Using large-scale simulations, we demonstrate the existence of a fermion-quadrupling condensate with a transition temperature comparable to the hopping energy scale. These results provide direct numerical evidence for quartic fermionic order in a microscopic system and suggest that these exotic states are also experimentally accessible in ultracold atomic gases. 
+
+The electron pairing problem is subtle as electrons nat-urally repel each other in a vacuum. The attractive in-teraction therefore needs to be mediated by a medium, as famously described by the Bardeen-Cooper-Schriefer (BCS) theory [1–3]. That framework, however, does not allow for higher-order bound states; within BCS theory, electron quadruplets cannot win energetically or entrop-ically over pairs, see [4] for further discussion. Recent experiments on multicomponent systems [5– 8] have significantly intensified theoretical investigations into the problem of electron condensation into higher-order composites. These studies suggest four-electron order, characterized by symmetry breaking driven by correlated electron quadruplets in the absence of con-ventional pair condensation. Such phases lie beyond the BCS paradigm, but have been predicted when fluc-tuations are included in multicomponent London and Ginzburg–Landau theories [9–16]. More recently, a mi-croscopic approach was developed to address fermion quadrupling directly at the fermionic level within gen-eralized mean-field treatments in the moderately weak-coupling regime [17]. In order to have a superconducting order one needs to have an attractive mechanism by which the fermions are bound into pairs. However, with the proper bind-ing mechanism there is nothing preventing condensates with an arbitrary (even) number of fermions; an obvi-ous example of this is superfluid He 4, where each atom is a direct bound state of two electrons and four nucle-ons, themselves consisting of 12 quarks. Recently related types of directly bound multi-fermion objects have also attracted interest as an avenue to charge-4 e superconduc-tors [18, 19]. For condensates composed of four or more fermions, however, a distinct microscopic mechanism ex-ists that can give rise to a four-fermion ordered state. If the system hosts a large population of preformed yet uncondensed pairs in different bands, four-fermion order may emerge purely from correlations in the motion of these pairs. This mechanism enables the condensation of higher-order flows, while single-component flows remain dissipative. Correlated motion is ubiquitous in multicom-ponent systems and can arise from gauge-field-mediated coupling as well as from strong-correlation effects such as the Andreev–Bashkin drag. This type of four-fermion order can arise in several distinct forms in multicomponent systems. One class corresponds to counterflow phases, where pairs in dif-ferent components flow in opposite directions, result-ing in a neutral superfluid mode without global phase coherence. A second class involves coflow of pairs, in particular giving rise to charge-4 e superconductivity [10, 13, 15, 16]. An interesting realization occurs in systems with discrete symmetry breaking, such as time-reversal symmetry, where an intermediate phase retains composite order after superconductivity is lost, as re-ported in Ba 1-x KxFe 2As 2[5]. These scenarios represent closely related manifestations of fermion quadrupling, distinguished by the symmetry of the underlying collec-tive mode. A key distinction between the mechanism considered here and direct particle binding or explicit quadrupling is most transparent in three-component counterflow. In this case, only pairs of different fermionic species can counterpropagate, yielding a four-fermion order parame-ter without a uniquely defined counterpropagating part-ner [20–22]. Accordingly, the appropriate description must incorporate quasiparticles, short-range incoherent pairing, and long-range four-fermion order. Ultracold atoms in optical lattices provide a natural platform for realizing novel forms of composite order. In particular, significant progress has been made for coun-terflow phases in multicomponent bosonic systems, char-
+
+> arXiv:2605.00137v1 [cond-mat.supr-con] 30 Apr 2026
+
+2acterized by order parameters bilinear in the bosonic fields. Such bosonic phases were first predicted based on general arguments and Monte Carlo studies of classical field theories [23–26], and subsequently demonstrated in quantum lattice models [20, 27, 28]. Most recently, coun-terflow order has been realized experimentally in optical lattice systems [29]. This progress establishes ultracold atoms as a promising platform for exploring composite fermionic orders. Theoretically, however, composite order phases are considerably more challenging to demonstrate for elec-tronic system than their bosonic counterparts due to the fermionic sign problem. Consequently, theoretical de-scriptions have largely relied on a two-step approach: first, constructing phenomenological Ginzburg-Landau or London models, and second, incorporating fluctua-tions that stabilize composite order beyond the mean-field level. These studies indicate that robust electron-quadrupling phases require strong or long-range corre-lations, making direct numerical treatment of fermionic Hamiltonians particularly challenging. This motivates the need for controlled numerical demonstrations of qua-drupling order in microscopic fermionic systems, as well as the identification of minimal Hamiltonians that can re-alize such phases. At the same time ultracold fermionic atoms provide a promising quantum emulator platform to realize such phases, offering tunable interactions, fill-ing, and correlated hopping, and enabling multicompo-nent systems with independently conserved condensates and U (1) × U (1) symmetry [30–33]. In this work we construct a lattice Hamiltonian of a 
+
+U (1) × U (1) fermionic system, and present a numerical demonstration of quadrupling states in a fermionic sys-tem, in a direct Monte-Carlo simulation. In contrast to previous analytical work, which aims at the moderately weak-coupling scenario [17], we focus on the strongly cor-related regime. These results not only demonstrate the existence of higher-order condensates but also suggest their realizability in ultracold atomic gases in optical lat-tices. 
+
+Model— As discussed in the Introduction, classical field-theoretical studies indicate that fermion quadru-pling can emerge in systems with strong current–current correlations, arising either from electronic interactions or from long-range intercomponent gauge-field coupling. Here we focus on the interaction-driven case and intro-duce a minimal two-component lattice model that pro-vides a microscopic realization of such intercomponent current correlations: 
+
+H = −t X
+
+> ⟨ij ⟩ασ
+
+c† 
+
+> iασ
+
+cjασ + U X
+
+> iα
+
+ˆniα ↑ ˆniα ↓ (1) 
+
+−d X
+
+> ⟨ij ⟩α
+
+p†
+
+> iα
+
+pjα − q X
+
+> ⟨ij ⟩
+
+p†
+
+> i1
+
+p†
+
+> j2
+
+pi2pj1 − μ X
+
+> iασ
+
+ˆniασ .
+
+Here i, j label lattice sites, α = 1 , 2 denotes the compo-nent index, and σ =↑, ↓ the spin. The operators ciασ are fermionic annihilation operators, and p† 
+
+> iα
+
+= c†
+
+> iα ↑
+
+c† 
+
+> iα ↓
+
+cre-ates an on-site pair. The Hamiltonian is parametrized by the single-particle hopping amplitude t, the pair-hopping amplitude d, the correlated hopping amplitude q, the chemical potential μ, and the intraband contact inter-action U .The physics we aim to capture is not strongly tied to the microscopic details of this Hamiltonian. Rather, the model serves as a minimal setting that realizes strong intercomponent correlations, representative of multicom-ponent systems far beyond the regime of validity of the BCS mean-field approximation. The Hamiltonian (1) may be viewed as a generaliza-tion of the Penson–Kolb–Hubbard model [34, 35], which was proposed as an effective description of supercon-ductivity in strongly correlated systems. In contrast to that model, our description involves two fermionic components and includes intercomponent correlated pair hopping. On mesoscopic scales, this term induces in-tercomponent drag—a phenomenon also present in two-component Fermi liquids [36], where it is particularly strong in dense nuclear matter and is believed to play an important role in pulsar dynamics [37–39]. While the model (1) exhibits drag that favors counter-flow, applying particle-hole transformation to one of its bands results in a dual description that promotes coflow of pairs. In the absence of a gauge field, we can thus treat both these scenarios on an equal footing. We focus on the strong-coupling regime, and hence choose the following model parameters: 
+
+μ = −3.1, U = −6, t = 1 , d = 1 , q = 3 . (2) In contrast to bosonic pairing, fermionic quadrupling has long eluded numerical treatment due to the fermionic sign problem, which generically leads to an exponentially decaying signal-to-noise ratio with increasing system size [40]. This severely limits accessible system sizes, render-ing them insufficient to resolve continuous phase transi-tions in two dimensions—the central goal of this work. However, in this model, it is possible to overcome this limitation because here the fermionic exchange is sup-pressed: we work in a regime where fermions form mod-erately bound pairs, and employ a hexagonal lattice that geometrically suppresses exchange of hard-core particles. Even in this regime, the sign problem is sufficiently se-vere to preclude brute-force fermionic simulations of all aspects of the phase transitions. However, a large sign problem does not necessarily imply that Fermi statistics strongly affect all observables. For certain observables and parameter ranges, expectation values can depend only weakly on the fermionic sign if exchange processes-the origin of the sign-do not contribute significantly. For such observables, we can, as explained below, with a controlled accuracy, effectively “turn off” the fermionic sign in the simulations (equivalent to replacing the four 3fermionic species with hard-core bosons), thereby access-ing much larger system sizes. To validate the approach, we simulate both the sign-free model, to access the sys-tem sizes required to probe the transitions, and the full fermionic model, to validate this procedure. Further dis-cussion of the sign problem is provided in the Appendix. 
+
+Superfluid stiffness —We characterize the phases of model (1) via the phase-stiffness matrix. In the ground state, the U(1) ×U(1) symmetry is expected to be fully broken, yielding two independently conserved conden-sates that flow without dissipation. In this regime, the hydrodynamic/hydrostatic description is, by symmetry given by a classical field theory involving two phases, ϕi,corresponding to the two types of pairs, with the free energy given by 
+
+F [ϕ] = 12T
+
+Z
+
+d2r ρ 1(T ) X
+
+> i
+
+|∇ ϕi|2 + 2 ρd(T )∇ϕ1 · ∇ ϕ2.
+
+(3) Here ρ1(T ) is the (bare) superfluid stiffness of the individ-ual phases, and ρd(T ) the (bare) Andreev-Bashkin drag [41], which–being permitted by symmetry–is necessarily present when the components interact. To elucidate the quadrupling transition, we recast the free energy (3) as 
+
+F [ϕ] = 12T
+
+Z
+
+d2r ρ(1 ,1) 
+
+4 | X
+
+> i
+
+∇ϕi|2 + ρ(1 ,−1) 
+
+4 |∇ [ϕ1 −ϕ2]|2,
+
+(4) where ρ(1 ,±1) = 2( ρ1 ± ρd) are the (bare) co- and coun-terflow stiffnesses, respectively. In the context of the classical field theory (4), the aforementioned particle-hole transformation of the second band corresponds to a phase inversion ϕ2 → − ϕ2. This is equivalent to interchanging 
+
+ρ(1 ,1) ↔ ρ(1 ,−1) .For the free energy to be bounded from below, both composite stiffnesses must be positive, implying |ρd| ≤ |ρ1|. It is therefore useful to consider the relative drag 
+
+ρr ≡ ρd
+
+ρs
+
+= ρ(1 ,1) − ρ(1 ,−1) 
+
+ρ(1 ,1) + ρ(1 ,−1) 
+
+, (5) whose magnitude remains bounded |ρr | ≤ 1. At finite temperatures the long-range interactions get screened by vortex-antivortex pairs leading to an ef-fective scale dependence of the superfluid stiffnesses and Andreev-Bashkin drag, such that ρt = ρt(L) for 
+
+t = s, d, (1 , ±1) (although the relationship ρ(1 ,±1) (L) = 2( ρ1(L) ± ρd(L)) still holds for all scales). In this for-mulation order (disorder) in a sector corresponds to a finite (vanishing) stiffness ρ(∞) for infinite system size. The flow of the stiffnesses as a function of system size is described by a generalization of Kosterlitz-Thouless RG, which we derive in detail in the Appendix. At zero drag, the condensates decouple, and the restoration of U (1) ×U (1) symmetry is driven by the pro-liferation of single-component vortices that exhibit wind-ing only in one of the phases. With increasing drag, one of the composite stiffnesses ρ(1 ,±1) (L) is reduced while the other is increased. When the drag becomes suffi-ciently large such that ρ(1 ,±1) < ρ 1 (i.e. for relative drag |ρr | > 0.5) the critical behavior changes qualita-tively, and the transition from the superfluid phase is instead driven by the proliferation of composite vortices with phase winding in ϕ1 ± ϕ2. For a detailed derivation of the critical behavior see the Appendix. When the relative drag is close to ρr = 0 .5, this tran-sition may still destroy the order in the complementary sector ϕ1 ∓ ϕ2, thereby restoring the full U (1) × U (1) symmetry in a single phase transition. For sufficiently large microscopic drag, however, the complementary sec-tor can remain ordered, i.e. one of ρ(1 ,±1) (∞) vanishes in the infinite system while the other remains finite (with 
+
+|ρr (∞)| = 1). In this case, the remaining order vanishes only at a higher temperature; the resulting intermediate phase represents a quadrupling state, that is described by a four-fermion order parameter. The nature of this phase depends on the sign of the drag term: For ρd < 0, the system can transition to a counterflow superfluid (i.e., or-der only in the phase difference composed field ϕ1 − ϕ2). For ρd > 0, the system can transition to a state with order only in the phase sum composed field ϕ1 + ϕ2), In a gauged system, that state has doubled coupling to the vector potential and hence represents a charge-4 e super-conductor. 
+
+Numerical Computations —We compute the superfluid response of the microscopic model (1) by sampling imaginary-time path integrals at thermal equilibrium us-ing the Worm algorithm. The scale dependent superfluid stiffnesses and Andreev-Bashkin drag are extracted from winding-number fluctuations via a generalization of the Pollock–Ceperley formula [42] to the multicomponent ac-tion (4). In two dimensions, this estimator is sensitive to the system aspect ratio [43], and we therefore employ ap-proximately square geometries. For square lattices, the linear system size is typically defined as the number of sites along one direction. For the honeycomb lattice, we instead define L = √N , where N is the total number of sites. In two dimensions, superfluid transitions are of the Berezinskii–Kosterlitz–Thouless (BKT) type. The crit-ical temperatures are determined from finite-size scaling of the superfluid stiffness [42]. For a finite system of linear size L, the scale-dependent critical temperature 
+
+Tc(L) is defined by the condition that the relevant scale-dependent superfluid stiffness ρ(L, T ) reaches the uni-versal value ρc. For BKT transitions, ρc = 2 T /π for the superfluid–quadrupling transition and ρc = 8 T /π for the quadrupling–normal transition (see Appendix). For large enough system sizes, the value of Tc(L) follows the universal scaling law 
+
+Tc(L) = TBKT + A
+
+(ln L/L 0)2 , (6) 4where TBKT is the critical temperature of the infinite system, and A, L 0 are non-universal constants. For each system size and temperature we run multi-ple independent simulations over several autocorrelation times and from this calculate the mean and variance of the various superfluid stiffnesses ρ(L, T ). To estimate 
+
+Tc(L) we fit a temperature sweep of these curves using the Pool Adjacent Violators Algorithm(PAVA) to find where the curves of ρ(L, T ) intersect ρc, with the error being estimated by resampling the various ρ(L, T ) using the bootstrap method to get several samples of Tc(L). Finally the fit of Tc(L) to the universal scaling form is made using the SCIPY function curve fit which also es-timates the error of the parameters. 
+
+Results —To test the existence of a quadrupling phase, we monitor the phase stiffness as a function of temper-ature and system size for both fermions and bosons, us-ing the model parameters (2). For the benchmark case of bosonic statistics, we identify two phase transitions: At a lower Tc1 ≈ 0.32, co-flow superfluidity is destroyed, leaving behind a counter-flow superfluid, see Fig. 1. At a higher critical temperature of Tc2 ≈ 0.81, this second su-perfluid mode is destroyed, restoring the full U (1) × U (1) symmetry. The intermediate phase is described by a four particle order parameter of the form O ∼ ⟨ c†
+
+> α
+
+c†
+
+> α
+
+cβ cβ ⟩.0.00 0.05 0.10 0.15 0.20 0.25 1/(ln L/L 0)2
+
+0.32 
+
+0.33 
+
+0.34 
+
+0.35 
+
+> Tc1(L)
+
+Linear fit Data 
+
+Tc1(∞)                              
+
+> FIG. 1. Critical temperature of the superfluid-quadrupling transition for the sign-free simulations as afunction of 1/(ln L/L 0)2where Lis the linear system size and L0is a fit parameter from the finite-size scaling. Points show simulation data with error bars and the solid lines represent the linear fit to the universal scaling form. This fit corresponds to the pa-rameters Tc1≈0.3192 ±0.0013 (equivalent to βBKT ≈3.133),
+> A≈0.1525 ±0.0376 and L0≈4.25 ±0.98.
+
+The fermionic case is computationally more challeng-ing due to the sign problem, and the phase diagram must be inferred from multiple observables and smaller sys-tem sizes. Figure 5 shows the relative difference in stiff-ness between bosons and fermions for system sizes up to L = 34. Below Tc1, the fermionic-model stiffness is 3 − 4% lower than in the bosonic case, suggesting cor-respondingly a lower critical temperature in the thermo-dynamic limit. In contrast, near Tc2 the discrepancy is much smaller, 0 .1 − 0.4% indicating that Fermi statis-tics plays a reduced role at higher temperatures, where space-time paths are shorter and particle exchanges are suppressed. This implies that the intermediate quadru-pling regime is broader for fermions than for bosons. Notably, in the limit U → −∞ , the fermionic and bosonic models coincide. In this case, the upper criti-cal temperature is pushed to Tc2 ≈ 0.97 due to the sup-pression of single-particle fluctuations (see Appendix III). Thus, while particle statistics has only a minor effect on 
+
+Tc2, single-particle fluctuations play a significant role. Finally, we investigate the temperature dependence of the relative drag—defined in Eq. (5)—at a fixed system size of L ≈ 68, while varying the correlated hopping am-plitude q of the model (1), in an interval 1 ≤ q ≤ 3 (see Fig. 3). For parameters where the transition from the ordered states is driven by the proliferation of single vor-tices ( |ρr | < 0.5) the relative drag ρr flows towards zero with increasing temperature, while for parameters where the transition is driven by the proliferation of composite vortices ( |ρr | > 0.5) it flows to unity. 0.00 0.05 0.10 0.15 1/(ln L/L 0)2
+
+0.81 
+
+0.82 
+
+0.83 
+
+0.84 
+
+0.85 
+
+> Tc2(L)
+
+Linear fit Data 
+
+Tc2(∞)                                  
+
+> FIG. 2. Critical temperature of the quadrupling-normal transition for the sign-free simulations as afunction of 1/(ln L/L 0)2, where Lis the linear system size and L0is a fit parameter from the finite-size scaling. Points show simulation data with error bars and the solid lines represent the linear fit to the universal scaling form. This fit corresponds to the parameters Tc2≈0.805 ±0.001 (equivalent to βBKT ≈1.242),
+> A≈0.275 ±0.032 and L0≈1.52 ±0.20.
+
+Discussion —We have presented a microscopic demon-stration of a fermion-quadrupling condensate in afermionic lattice model. This establishes that higher-order fermionic order can emerge directly from interact-ing fermions in a controlled setting, without relying on phenomenological assumptions. In contrast to recent analytical work focused on the 51.5 2.0
+
+β
+
+0.00.20.40.60.81.0
+
+> |ρd/ρ s|
+
+1.00 1.25 1.50 1.75 2.00 2.25 2.50 2.75 3.00 
+
+> q
+
+FIG. 3. Relative intercomponent drag |ρd/ρ s| as a function of inverse temperature β and microscopic counter-hopping strength q at the system size L ≈ 68 for the sign-free model. The dashed line denotes ρd/ρ s = 0 .5. The high temperature behavior of the drag for each q signals the critical nature of the transition away from superfluidity. For q ≲ 2.25 the transi-tion is driven by the disordering of single phases ϕ1, ϕ 2, while for q ≳ 2.25 it is driven by disordering of one of the two linear combinations ϕ1 ± ϕ2. The line |ρd/ρ s| = 0 .5 is the marginal point where the single component superfluid stiffness is equal to one of the composite superfluid stiffnesses. 10 20 
+
+L
+
+−0.040 
+
+−0.035 
+
+> Relative difference
+
+Co-flow 
+
+10 20 
+
+L
+
+0.001 0.002 0.003 0.004 
+
+Counterflow 
+
+FIG. 4. Relative difference in phase stiffness ρFermi /ρ Bose − 1between bosons and fermions in a system with negative drag. The left picture shows the relative difference in the co-flow stiffness at T = 0.25, significantly below the superfluid-supercounterfluid transition for the bosonic system. The right picture shows the relative difference in the counter-flow stiff-ness at T ≈ 0.77, slightly below the supercounterfluid-normal transition for the bosonic system. 
+
+moderately weak-coupling regime [17], our approach ad-dresses the strongly correlated limit. Unlike the BCS paradigm—where condensation is governed by coherent pair formation—we find that quadrupling order arises from correlated hopping. In this regime, quasiparticles and short-range pairs persist, but the pairs themselves do not exhibit long-range coherence. Instead, algebraic order appears only in four-fermion correlators, signaling a genuine fermion-quadrupling phase. Although in the present model the effective drag origi-nates from correlated pair hopping, the underlying mech-anism is more general and can arise from a broad class of interaction-induced correlation effects in multicompo-nent systems. Our results demonstrate both counterflow quadrupling order, O ∼ ⟨ c†
+
+> α
+
+c†
+
+> α
+
+cβ cβ ⟩ and charge-4 e super-conductivity, O ∼ ⟨ cαcαcβ cβ ⟩, which are related by a duality transformation. These findings provide a concrete route toward re-alizing fermion-quadrupling condensates in experimen-tally accessible platforms such as ultracold fermionic mix-tures in optical lattices. More broadly, they show that strong correlations can fundamentally alter the structure of fermionic condensation, enabling composite orders be-yond the conventional pairing paradigm. 
+
+ACKNOWLEDGMENTS 
+
+We thank Albert Samoilenka for discussions. We acknowledge support from the project grant KAW 2024.0131 from Knut och Alice Wallenbergs Stiftelse, AG and EB were supported by the Swedish Research Council Grants 2022-04763, EB was partially supported by the Wallenberg Initiative Materials Science for Sus-tainability (WISE) funded by the Knut and Alice Wal-lenberg Foundation. JC was supported by Olle En-gkvists stiftelse through Grant No. 240-0803. The simu-lations were enabled by resources provided by the Na-tional Academic Infrastructure for Supercomputing in Sweden (NAISS), partially funded by the Swedish Re-search Council through grant agreement no. 2022-06725. 
+
+[1] J. Bardeen, L. N. Cooper, and J. R. Schrieffer, Phys. Rev. 
+
+106 , 162 (1957). [2] J. Bardeen, L. N. Cooper, and J. R. Schrieffer, Phys. Rev. 
+
+108 , 1175 (1957). [3] L. N. Cooper, Phys. Rev. 104 , 1189 (1956). [4] T. Wang, X. Cai, K. Chen, B. V. Svistunov, and N. V. Prokof’ev, Physical Review B 107 , L140507 (2023). [5] V. Grinenko, D. Weston, F. Caglieris, C. Wuttke, C. Hess, T. Gottschall, I. Maccari, D. Gorbunov, S. Zherlitsyn, J. Wosnitza, A. Rydh, K. Kihou, C.-H. Lee, R. Sarkar, S. Dengre, J. Garaud, A. Charnukha, R. H¨ uhne, K. Nielsch, B. B¨ uchner, H.-H. Klauss, and E. Babaev, Nat. Phys. , 1254–1259 (2021). [6] I. Shipulin, N. Stegani, I. Maccari, K. Kihou, C.-H. Lee, Y. Li, R. H¨ uhne, H.-H. Klauss, M. Putti, F. Caglieris, et al., Nature Communications 14 , 6734 (2023). [7] C. Halcrow, I. Shipulin, F. Caglieris, Y. Li, J. Wosnitza, H.-H. Klauss, S. Zherlitsyn, V. Grinenko, and E. Babaev, arXiv preprint arXiv:2404.03020 (2024). 6
+
+[8] F. Bartl, N. Stegani, F. Caglieris, I. Shipulin, Y. Li, Q. Hu, Y. Zheng, C.-M. Yim, S. Luther, J. Wos-nitza, R. Sarkar, H.-H. Klauss, J. Garaud, E. Babaev, H. K¨ uhne, and V. Grinenko, arXiv:2501.11936 (2024). [9] E. Babaev, arXiv preprint cond-mat/0201547 (2002). [10] E. Babaev, A. Sudbø, and N. Ashcroft, Nature 431 , 666 (2004). [11] T. A. Bojesen, E. Babaev, and A. Sudbø, Phys. Rev. B 
+
+89 , 104509 (2014). [12] I. Maccari and E. Babaev, Phys. Rev. B 105 , 214520 (2022). [13] E. V. Herland, E. Babaev, and A. Sudbø, Phys. Rev. B 
+
+82 , 134511 (2010). [14] D. Agterberg and H. Tsunetsugu, Nature Physics 4, 639 (2008). [15] L. Radzihovsky and A. Vishwanath, Phys. Rev. Lett. 
+
+103 , 010404 (2009). [16] E. Berg, E. Fradkin, and S. A. Kivelson, Nature Physics 
+
+5, 830 (2009). [17] A. Samoilenka and E. Babaev, Physical Review Research 
+
+8, 013139 (2026). [18] M. O. Soldini, M. H. Fischer, and T. Neupert, Physical Review B 109 , 214509 (2024). [19] Z.-Q. Wan, H. Jiang, X. Zou, S. Zhang, and S.-K. Jian, Quantum charge-4e superconductivity and deconfined pseudocriticality in the attractive su(4) hubbard model (2026), arXiv:2604.14289 [cond-mat.str-el]. [20] E. Blomquist, A. Syrwid, and E. Babaev, Physical review letters 127 , 255303 (2021). [21] E. Babaev and B. Svistunov, Physical Review Letters 
+
+133 , 026001 (2024). [22] A. Golic, I. Timoshuk, E. Babaev, and B. Svistunov, Physical Review Research 7, 013053 (2025). [23] A. Kuklov and B. Svistunov, Phys. Rev. Lett. 90 , 100401 (2003). [24] E. Altman, W. Hofstetter, E. Demler, and M. D. Lukin, New Journal of Physics 5, 113 (2003). [25] A. Kuklov, N. Prokof’ev, and B. Svistunov, Physical re-view letters 92 , 050402 (2004). [26] A. Kuklov, N. Prokof’ev, and B. Svistunov, Physical re-view letters 92 , 030403 (2004). [27] S ¸. G. S¨ oyler, B. Capogrosso-Sansone, N. Prokof’ev, and B. Svistunov, New Journal of Physics 11 , 073036 (2009). [28] K. Sellin and E. Babaev, Phys. Rev. B 97 , 094517 (2018). [29] Y.-G. Zheng, A. Luo, Y.-C. Shen, M.-G. He, Z.-H. Zhu, Y. Liu, W.-Y. Zhang, H. Sun, Y. Deng, Z.-S. Yuan, and J.-W. Pan, Nat. Phys. 21 , 208–213 (2025). [30] I. Bloch, J. Dalibard, and W. Zwerger, Reviews of mod-ern physics 80 , 885 (2008). [31] I. Bloch, J. Dalibard, and S. Nascimbene, Nature Physics 
+
+8, 267 (2012). [32] M. Lewenstein, A. Sanpera, and V. Ahufinger, Ultracold Atoms in Optical Lattices: Simulating quantum many-body systems (Oxford University Press (UK), 2012). [33] E. Altman, K. R. Brown, G. Carleo, L. D. Carr, E. Dem-ler, C. Chin, B. DeMarco, S. E. Economou, M. A. Eriks-son, K.-M. C. Fu, et al., PRX quantum 2, 017003 (2021). [34] K. A. Penson and M. Kolb, Phys. Rev. B 33 , 1663 (1986). [35] S. Robaszkiewicz and B. R. Bulka, Phys. Rev. B 59 , 6430 (1999). [36] O. Sj¨ oberg, Nuclear Physics A 265 , 511 (1976). [37] N. Chamel, Phys. Rev. Lett. 110 , 011101 (2013). [38] M. Borumand, R. Joynt, and W. Klu´ zniak, Phys. Rev. C 
+
+54 , 2745 (1996). [39] N. Chamel, Monthly Notices of the Royal Astronomical Society 388 , 737 (2008), https://academic.oup.com/mnras/article-pdf/388/2/737/3006118/mnras0388-0737.pdf. [40] M. Troyer and U.-J. Wiese, Phys. Rev. Lett. 94 , 170201 (2005). [41] E. B. A.F. Andreev, Sov. Phys. JETP 42 , 164 (1975). [42] E. L. Pollock and D. M. Ceperley, Phys. Rev. B 36 , 8343 (1987). [43] N. V. Prokof’ev and B. V. Svistunov, Phys. Rev. B 61 ,11282 (2000). [44] J. M. Kosterlitz and D. J. Thouless, Journal of Physics C: Solid State Physics 6, 1181 (1973). [45] B. Svistunov, E. Babaev, and N. Prokofev, Superfluid States of Matter (CRC Press, 2015). 
+
+Appendix I: RG equations 
+
+While the microscopic model that we simulate is fermionic, by symmetry its macroscopic response is gov-erned by two coupled phase fields and the phase transi-tions are governed by proliferation of topological defects in these fields. Here we will present the derivation of RG equations in brief, for a more detailed review of the standard Kosterlitz-Thouless RG consult e.g [44, 45]. At long distances our model of two superfluids can be described by an effective model of two condensates with phases ϕ1, ϕ 2 that interact through Andreev-Bashkin drag. Since the model is component-symmetric, the re-sulting free energy can be written as 
+
+F [ϕi] = 12
+
+Z
+
+d2r Λs(|∇ ϕ1|2 + |∇ ϕ2|2) + 2Λ d∇ϕ1 · ∇ ϕ2,
+
+(7) where Λ s = ρs/T is the unitless single component su-perfluid stiffness and Λ d = ρd/T is the unitless drag. Single vortices (i.e (1, 0) or (0, 1)) interact with each other with the strength Λ s, while composite vortices with charges (1 , ±1) interact with each other with the strength Λ(1 ,±1) ≡ 2Λ s ±2Λ d. In our system the drag is significant with a magnitude comparable to Λ s. For definiteness let us assume that Λ d is negative and favors counterflows (the analysis for a co-flow state will follow the exact same procedure, so this assumption is w.l.g). Therefore the three lowest energy pairs are (1,0), (0,1) and (1,1) vortex pairs. In the presence of phase twists φ1,2 along the x-axis in both components, these vortex pairs have the energies 
+
+E(1 ,0) (R) = 2 πΛs ln |R| − πLx
+
+(2Λ sφ1 − 2Λ dφ2)ˆ x · (ˆ z × R) ,
+
+(8) 
+
+E(0 ,1) (R) = 2 πΛs ln |R| − πLx
+
+(2Λ sφ2 − 2Λ dφ1)ˆ x · (ˆ z × R) ,
+
+(9) 
+
+E(1 ,1) (R) = 2 πΛ(1 ,1) ln |R| − πLx
+
+Λ(1 ,1) (φ1 + φ2)ˆ x · (ˆ z × R) .
+
+(10) 7Assuming that the vortex pairs are well separated from each other (i.e that the vortex pairs effectively form a dilute gas) the free energy for a system of size L can be written as 
+
+F (L) = ( L/l 0)2F (l0)−V
+
+Z
+
+> l0≤R≤L
+
+ eE(1 ,0) + eE(0 ,1) + eE(1 ,1) 
+
+ d2R, 
+
+(11) where l0 is a small size cut-off and V is the system size. Letting 8 πg s = e(1 ,0) = e(0 ,1) and 8 πg (1 ,1) = eE(1 ,1) we can rewrite this as 
+
+F (L) = ( L/l 0)2F (l0) − V
+
+8π
+
+Z
+
+> l0≤R≤L
+
+2gs + gD d2R. (12) Taking the derivative w.r.t the phase twist in the first component at zero supercurrents we get Λ′
+
+> s
+
+(l) = − π2
+
+4 (4Λ 2 
+
+> s
+
++ 4Λ 2
+
+> d
+
+)gs − π2
+
+4 Λ′
+
+> (1 ,1)
+
+(l)2gD , (13) Λ′
+
+> (1 ,1)
+
+(l) = −2 π2
+
+4 Λ2(1 ,1) (l)2gs − 4 π2
+
+4 Λ2(1 ,1) (l)2gD . (14) Noting how gs, (1 ,1) scale with L we get Λ′
+
+> s
+
+(l) = − π2
+
+4 (8Λ 2 
+
+> s
+
+− 4Λ sΛ(1 ,1) + Λ 2(1 ,1) )gs − π2
+
+4 Λ2(1 ,1) g(1 ,1) ,
+
+(15) Λ′
+
+> (1 ,1)
+
+(l) = −2 π2
+
+4 Λ2(1 ,1) gs − 4 π2
+
+4 Λ2(1 ,1) g(1 ,1) , (16) 
+
+g′ 
+
+> s
+
+= −2( πΛs − 2) gs, (17) 
+
+g′ 
+
+> (1 ,1)
+
+= −2( πΛ(1 ,1) − 2) g(1 ,1) . (18) Note now the following: Because (1, 0), (0, 1) and (1, 1) vortex pairs have the lowest energy, as increase tem-perature the two-superfluid phase will be destroyed either through the proliferation of (1, 0) and (0, 1) vortex pairs or by proliferation of (1, 1) vortex pairs. Since all Λ’s are coupled to the density of single vortex pairs, if the single vortices proliferate first then all other vortices automati-cally also proliferate, and the whole system undergoes a single transition directly to the normal state. If instead the (1, 1) vortices proliferate first, it is conceptually useful to rewrite the RG equations using in terms of the counter-flow stiffness (or equivalently the energy cost of a (1, -1) vortex) through 4Λ s =Λ(1 ,1) + Λ (1 ,−1) giving Λ′
+
+> (1 ,1)
+
+(l) = −π2Λ2(1 ,1) 
+
+ g(1 ,1) + gs/2 , (19) Λ′
+
+> (1 ,−1)
+
+(l) = − π2
+
+2 Λ2(1 ,−1) gs, (20) 
+
+g′ 
+
+> s
+
+= −2( πΛ(1 ,1) 
+
+4 + πΛ(1 ,−1) 
+
+4 − 2) gs, (21) 
+
+g′ 
+
+> (1 ,1)
+
+= −2( πΛ(1 ,1) − 2) g(1 ,1) . (22) After the (1, 1) vortices proliferate the co-flow stiffness Λ(1 ,1) will be renormalized to zero, and the RG equations simplify to Λ′
+
+> (1 ,−1)
+
+(l) = − π2
+
+2 Λ2(1 ,−1) gs, (23) 
+
+g′ 
+
+> s
+
+= −2( πΛ(1 ,−1) 
+
+4 − 2) gs, (24) (25) which are almost identical to the standard Kosterlitz-Thouless RG equations except for the factor 1 /4 in equa-tion 24. This means that the critical value of Λ (1 ,−1) is shifted to 
+
+πΛc
+
+4 − 2 = 0 = ⇒ Λc = 8 /π, (26) but otherwise it acts exactly like a standard single-component model. From these equations we can see that the RG flow of the vortex densities g is fully determined by the relevant superfluid stiffness Λ. If Λ s > Λ(1 ,1) , then the number of single vortices will be exponentially suppressed with 
+
+l compared to the (1 , 1)-vortices and vice versa. This means that the critical nature of the system will be highly sensitive to which type of vortex is energetically cheapest. For Λ s < Λ(1 ,1) the system is driven by the prolifera-tion of single vortices. Note however that the RG flow of Λ (1 ,1) is coupled to the single vortex concentration 
+
+gs in such a way that a proliferation of single vortices (gs → ∞ ) also leads to an infinite suppression of Λ (1 ,1) 
+
+and thus a proliferation of these as well (which is to be expected, since a proliferation of all single vortices should lead directly to the normal state). For Λ (1 ,1) > Λs the system is instead driven by the proliferation of (1, 1) vortices. In this case we also see that the RG flow of single vortices is coupled to double vortices but in such a way that a proliferation of (1 , 1) vortices does not necessarily lead to a proliferation of the single vortices. This means that when (1, 1) vortices pro-liferate first there are two possible outcomes: Either the resulting jump in the (1, -1) stiffness is large enough to proliferate them as well giving us a single transition from superfluid to normal, or the jump is not large enough to proliferate them in which case the resulting state is a counter-flow state where single and (1, -1) vortices re-main unproliferated. At the marginal point Λ s = Λ (1 ,1) between these two cases corresponds precisely to the point where the relative drag 
+
+|ρd/ρ s| = Λ(1 ,1) − Λ(1 ,−1) 
+
+Λ(1 ,1) + Λ (1 ,−1) 
+
+= 0 .5. (27) If the counter-fluid state exists and the transitions between superfluid-counterfluid and counterfluid-normal are well separated it is easy to distinguish them. In this case, the superfluid-counterfluid transition can be deter-mined using the standard BKT scaling for the co-flow 8stiffness while ignoring the counter-flow stiffness, while the counterfluid-normal transition can be determined us-ing the BKT scaling form for the counter-flow stiffness (with the modified critical value Λ c = 8 /π ) under the condition that Λ (1 ,1) ≈ 0, to ensure that the two scales do not mix. 
+
+> Appendix II: Sign-problem
+
+When studying fermions with Monte Carlo we generi-cally encounter the infamous ”sign-problem”. This prob-lem generically appears in Monte Carlo for all systems which have negative weights for the partition function. For a system that does not suffer from the sign problem, the partition function is simply given by a sum of positive weights Z = P 
+
+> n
+
+wn, wn > 0 ∀n, with the expectation value for an observable O being given by 
+
+⟨O⟩ = 1
+
+Z
+
+X
+
+> n
+
+wnOn, (28) where On is the value of the observable for the state 
+
+n. This can straightforwardly be simulated using normal Monte Carlo methods by interpreting the weights wn/Z
+
+as probability amplitudes. If the weights in the partition function are allowed to be negative, then the standard way of handling this is by treating the magnitude of the weights |wn| as probability amplitudes together with the ”sign-free” partition func-tion Z+ ≡ P 
+
+> n
+
+|wn| such that the probability of being in state n is given by |wn|/Z+. Writing wn = σn|wn|,where σn = ±1, this allows us to write the true partition function using the expectation value of the sign and the sign-free partition function 
+
+Z = X
+
+> n
+
+wn = X
+
+> n
+
+|wn|σn = ⟨σ⟩+ Z+, (29) where the subscript + for the bracket indicates the aver-age for sign-free weights. Similarly, the expectation value for any observable O can be written in terms of the sign-free partition function as 
+
+⟨O⟩ =
+
+P 
+
+> n
+
+wnOn
+
+Z =
+
+P 
+
+> n
+
+|wn|σnOn
+
+⟨σ⟩ Z +
+
+= ⟨σO⟩ +
+
+⟨σ⟩+
+
+(30) While all Monte Carlo simulations suffer from numer-ical noise that increases with system size the scaling for a model with negative weights is much worse than for positive-definite weights since effectively the calculation of ⟨σO+⟩ / ⟨σ⟩+ requires very precise cancellation be-tween the positive and negative sign states. This leads to an exponential scaling of the noise with system size, as opposed to typically polynomial scaling for positive-definite weights [40]. This effectively sets an upper limit on the system sizes and temperatures which can directly be studied using Monte Carlo in systems that suffer from the sign problem. The severity of the sign problem can vary significantly depending on the particular system we are simulating. In the case of bosons, sign problems arise only in the case of certain repulsive interactions but in the case of fermions the sign of the state equals ( −1) Nexchange , where Nexchange 
+
+is the number of pair-wise exchanges of fermions within the imaginary-time periodic pat, and is thus generically present in fermionic systems. Since the sign-problem arises due to exchanges of single fermions the sign-problem is however greatly diminished in systems where they are suppressed. In this work we intentionally designed the model to minimize the sign-problem, both through the choice of a hexagonal lattice (which requires at least 6 jumps in order to exchange the position of two fermions) and by working in the strong coupling limit where the physics is dominated by pairs of fermions, which have bosonic statistics. Despite this the maximum tractable system sizes was around N =448 , L ≈ 21 at β = 4 while for β ≤ 3 N = 680 , L ≈ 26, both of which are far to small to resolve BKT transitions. A subtle aspect however is that a large ”sign-induced” noise does not always imply a large physical effect. For particular observables in certain parameter ranges it is possible for the effect of the sign to be negligible, even as the numerical simulations suffers from sign-induced noise. Within the framework of Path Integral Monte Carlo there is a very simple way of quantifying the physical effect of the sign separately from the numeri-cal noise that it generates. Since sign-full expectation values ⟨O⟩ = ⟨σO⟩ + / ⟨σ⟩+ using the sign-free partition function, it is trivial to compute the sign free expecta-tion value ⟨O⟩ + = Z−1+
+
+P 
+
+> n
+
+|wn|O n which is equivalent to replacing the fermions in our model with hard-core bosons. For system sizes and temperatures where the sign-full problem is tractable we can then easily extract the relative difference δsign = ⟨O⟩ / ⟨O⟩ + −1 between hav-ing the sign turned on and off for the observable O. If the relative difference δsign is small it indicates that fermionic exchange processes contribute very little to the expecta-tion value ⟨O⟩ and conversely a large δsign indicates that fermionic exchange processes are important for ⟨O⟩ .The crucial aspect that we point out is: while we can only straightforwardly calculate the true fermionic ex-pectation value ⟨O⟩ for systems small enough to have a manageable sign problem, the quantity ⟨O⟩ + (which by construction does not suffer from the sign problem) can be accurately calculated for much larger systems (in our case, roughly two orders of magnitude more lattice sites for the superfluid stiffnesses). Thus the sign-free sim-ulations can essentially be seen as an approximation for the true sign-full problem which greatly reduces the com-putational complexity of the problem. Furthermore this approximation is fully controlled for small system sizes since as mentioned previously it is trivial to extract the 9relative difference δsign between the sign-full and sign-free simulations. If δsign is negligible for a given observable 
+
+O at small system sizes then this strongly suggests that the expectation value is insensitive to the fermionic sign and thus justifies using this approximation for even larger system sizes. It is worth emphasizing that this is not a general ap-proximation valid for the whole system, but something that is particular for each observable. In this paper we are interested in quantifying the fermionic quadrupling phase, which depends on the values of the two compos-ite superfluid stiffnesses around the temperature range of the quadrupling phase. Since fermions by themselves cannot condense these quantities necessarily depend on the motion of fermionic pairs, which makes them natural candidates for the aforementioned procedure of turning the sign off. On the right side of figure 4 we can see the relative difference in the values of the larger composite stiffnesses (i.e. the counter-flow stiffness for negative drag and co-flow stiffness for positive drag) at β = 1 .3 (slightly below the estimated sign-free quadrupling-normal tran-sition) in turning the sign on or off. Here we see that the fermionic sign has a very small effect ( <1% for the simulated range, and seemingly decreasing with system size) on the value of the stiffness, meaning that the sign-free simulations are an accurate approximation of the fermionic system for this observables. The effect of the sign on the stiffness is in fact smaller than the error-bars of our simulations, so within the accuracy of our sim-ulations the quadrupling transition of the sign-full and sign-free models coincide. On the left side of figure 4 we can see the equivalent plot of the relative difference of the smaller composite stiffness at β = 4 which for the sign-free model is below the superfluid-quadrupling transition and thus within the superfluid state. For this observable the difference be-tween the sign-free simulations and the true fermionic system is around 4%, which shows that this observable (and by extension the whole superfluid-quadrupling tran-sition) in fact is sensitive to the fermionic sign. This difference is large enough to significantly alter the size-dependent critical temperature and as a consequence we cannot use this model to determine the exact location of the superfluid-quadrupling transition. However in both the sign-full and sign-free models all superfluid densities are above their critical value, showing that the state is superfluid even in the fermionic model for β = 4 and inferring that this transition occurs somewhere between 
+
+β = 4 and the sign-free superfluid transition tempera-ture.   
+
+> Appendix III: Tc2for infinitely bound system
+
+The critical temperature for the infinitely bound sys-tem is shown in Figure 5, and is estimated at Tc2 ≈ 0.97. This is significantly larger than the transition tempera-ture for the moderately bound system, indicating that the motion of single particles has a large effect on the transition. 0.00 0.02 0.04 0.06 0.08 1/(ln L/L 0)2
+
+0.98 
+
+1.00 
+
+1.02 
+
+> Tc2(L)
+
+Linear fit Data 
+
+Tc2(∞)
