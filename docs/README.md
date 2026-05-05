@@ -6,65 +6,73 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-04
-- 运行时间：2026-05-04 20:46:30 UTC
+- 最新运行日期：2026-05-05
+- 运行时间：2026-05-05 20:55:12 UTC
 - 运行状态：成功
-- 本次总论文数：15
+- 本次总论文数：17
 - 精读区：9
-- 速读区：6
+- 速读区：8
 
 ### 今日简报（AI）
-今日深度解析 15 篇物理前沿，重点聚焦费米子四倍凝聚与超流体对称性等两项满
-- 详情：[/202605/04/README](/202605/04/README)
+深度解析 17 篇前沿文献，重点攻克高温超导配对机制与电子掺杂效应等核心难题。
+满分研究揭示了界面电荷诱导的电子配对新模式，并精准厘清了电子掺杂与氧还原在铜氧化物中的本质区别。
+建议关注强相互作用费米子冷却算法及原子电子学在惯性传感中的跨界应用。
+- 详情：[/202605/05/README](/202605/05/README)
 
 ### 精读区论文标签
-1. [Demonstration of a fermion Quadrupling Condensate via Quantum Monte Carlo Simulation](/202605/04/2605.00137v1-demonstration-of-a-fermion-quadrupling-condensate-via-quantum-monte-carlo-simulation)  
+1. [Interfacial charge-induced adsorption mode for electron pairing in high-temperature superconductors](/202605/05/2605.02619v1-interfacial-charge-induced-adsorption-mode-for-electron-pairing-in-high-temperature-superconductors)  
    标签：评分：10.0/10、query:cmp
-   evidence：超越BCS框架的费米子四倍体凝聚证明
-2. [Low-temperature Depletion of Superfluid Density in the Absence of Galilean Symmetry](/202605/04/2605.00274v1-low-temperature-depletion-of-superfluid-density-in-the-absence-of-galilean-symmetry)  
-   标签：评分：10.0/10、query:cmp
-   evidence：超流刚度低温依赖性的理论
-3. [Superconducting diode effect in correlated electron systems by nonreciprocal magnetism](/202605/04/2605.00601v1-superconducting-diode-effect-in-correlated-electron-systems-by-nonreciprocal-magnetism)  
-   标签：评分：10.0/10、query:cmp
-   evidence：量子临界点附近关联系统中的超导二极管效应
-4. [Monte Carlo study of the superfluid phase of $^4$He](/202605/04/2605.00629v1-monte-carlo-study-of-the-superfluid-phase-of-4he)  
-   标签：评分：10.0/10、query:cmp
-   evidence：液氦-4超流相的量子蒙特卡罗研究
-5. [Experimental Evidence of Fractional Entropy in Critical Kondo Systems](/202605/04/2605.00669v1-experimental-evidence-of-fractional-entropy-in-critical-kondo-systems)  
-   标签：评分：10.0/10、query:cmp
-   evidence：临界近藤系统中非费米液体状态的实验证据
-6. [Signatures of time-reversal-symmetry breaking in multiband 2H-TaS2 revealed by zero-field Josephson nonreciprocity](/202605/04/2605.00477v1-signatures-of-time-reversal-symmetry-breaking-in-multiband-2h-tas2-revealed-by-zero-field-josephson-nonreciprocity)  
+   evidence：提出了针对YBCO等高温超导体的电子配对新机制
+2. [Differentiation of electron doping and oxygen reduction in electron-doped cuprates](/202605/05/2604.25450v1-differentiation-of-electron-doping-and-oxygen-reduction-in-electron-doped-cuprates)  
    标签：评分：9.0/10、query:cmp
-   evidence：非常规超导与时间反演对称性破缺
-7. [Exact Analytical Vortex Solution for a Two-Dimensional Quantum Gas with LHY Correction](/202605/04/2605.00546v1-exact-analytical-vortex-solution-for-a-two-dimensional-quantum-gas-with-lhy-correction)  
+   evidence：研究电子掺杂铜氧化物中的电子结构与超导机制
+3. [Shift of the maxima of the critical currents of different polarity relative to the zero magnetic flux along the flux axis in a superconducting asymmetric aluminum ring](/202605/05/2604.27848v1-shift-of-the-maxima-of-the-critical-currents-of-different-polarity-relative-to-the-zero-magnetic-flux-along-the-flux-axis-in-a-superconducting-asymmetric-aluminum-ring)  
    标签：评分：9.0/10、query:cmp
-   evidence：二维量子气体的涡旋解
-8. [Long range proximity effects in planar structures involving the halfmetal ferromagnet La0.7Sr0.3MnO3 and Pt interlayers](/202605/04/2605.00577v1-long-range-proximity-effects-in-planar-structures-involving-the-halfmetal-ferromagnet-la07sr03mno3-and-pt-interlayers)  
+   evidence：超导非对称环中临界电流和整流效应的实验研究
+4. [Topological flat bands emerging at the inversion of stacking order in rhombohedral graphite](/202605/05/2605.01115v1-topological-flat-bands-emerging-at-the-inversion-of-stacking-order-in-rhombohedral-graphite)  
    标签：评分：9.0/10、query:cmp
-   evidence：超导结与三重态超电流输运
-9. [Entropy transport through a superfluid quantum point contact: A Keldysh field-theory approach](/202605/04/2605.00679v1-entropy-transport-through-a-superfluid-quantum-point-contact-a-keldysh-field-theory-approach)  
+   evidence：研究菱面体石墨中的平带结构，探讨其作为高温超导机制的可能性
+5. [Topological Ising superconductivity in two-dimensional p-wave magnet](/202605/05/2605.01686v1-topological-ising-superconductivity-in-two-dimensional-p-wave-magnet)  
    标签：评分：9.0/10、query:cmp
-   evidence：超流费米气体库中的熵和物质输运
+   evidence：p波磁体中拓扑伊辛超导性的理论研究
+6. [Two distinct superconducting regimes in Ti4Co2O under pressures](/202605/05/2605.01893v1-two-distinct-superconducting-regimes-in-ti4co2o-under-pressures)  
+   标签：评分：9.0/10、query:cmp
+   evidence：Ti4Co2O超导体在压力下的超导转变温度和临界磁场的实验研究
+7. [Spin-polarized Josephson current induced by inhomogeneous altermagnetic interlayers](/202605/05/2605.02140v1-spin-polarized-josephson-current-induced-by-inhomogeneous-altermagnetic-interlayers)  
+   标签：评分：9.0/10、query:cmp
+   evidence：约瑟夫森结中超导性的理论与应用
+8. [Dynamical universality in a driven quantum fluid of light](/202605/05/2605.02397v1-dynamical-universality-in-a-driven-quantum-fluid-of-light)  
+   标签：评分：9.0/10、query:cmp
+   evidence：驱动光量子流体中动力学普适性的实验研究
+9. [Vortex Transport in Ni/Bi Bilayer Superconductor with Strong Spin-Orbit and Exchange Interaction](/202605/05/2605.02677v1-vortex-transport-in-nibi-bilayer-superconductor-with-strong-spin-orbit-and-exchange-interaction)  
+   标签：评分：9.0/10、query:cmp
+   evidence：Ni/Bi双层膜中涡旋动力学与非常规超导性的实验研究
 
 ### 速读区论文标签
-1. [Quantized Collective Fluctuations in Correlated Fermion Systems](/202605/04/2605.00211v1-quantized-collective-fluctuations-in-correlated-fermion-systems)  
+1. [Model-agnostic cooling algorithms for strongly interacting fermions](/202605/05/2605.01029v1-model-agnostic-cooling-algorithms-for-strongly-interacting-fermions)  
    标签：评分：8.0/10、query:cmp
-   evidence：强关联费米子系统中集体涨落的理论方法
-2. [Gate-dependent offset charge shifts and anharmonicity in gatemon qubits in the weak tunneling regime](/202605/04/2604.24716v2-gate-dependent-offset-charge-shifts-and-anharmonicity-in-gatemon-qubits-in-the-weak-tunneling-regime)  
+   evidence：针对与高温超导相关的强相互作用费米子的量子模拟冷却算法
+2. [Enhancing supercurrent-based inertial sensing via interactions in atomtronic angular accelerometers](/202605/05/2605.02048v1-enhancing-supercurrent-based-inertial-sensing-via-interactions-in-atomtronic-angular-accelerometers)  
+   标签：评分：8.0/10、query:cmp
+   evidence：研究超冷原子系统中的超流及其在量子流体中的应用
+3. [Modeling large glitches with core superfluidity in a Hybrid star](/202605/05/2605.02467v1-modeling-large-glitches-with-core-superfluidity-in-a-hybrid-star)  
+   标签：评分：8.0/10、query:cmp
+   evidence：探讨混合星中的核心超流体和涡旋钉扎机制
+4. [Benchmarking the Dual Fermion approach on the Falicov-Kimball model](/202605/05/2605.02717v1-benchmarking-the-dual-fermion-approach-on-the-falicov-kimball-model)  
+   标签：评分：8.0/10、query:cmp
+   evidence：强电子关联的非微扰处理以及晶格模型中的非局域效应研究
+5. [Topological phase transitions in twisted bilayer graphene/hBN from interlayer coupling and substrate potentials](/202605/05/2604.27304v1-topological-phase-transitions-in-twisted-bilayer-graphenehbn-from-interlayer-coupling-and-substrate-potentials)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导体-量子点-超导体结中的量子相位动力学
-3. [Criticality on Rényi defects at (2+1)$d$ O(3) quantum critical points](/202605/04/2605.00104v1-criticality-on-rnyi-defects-at-21d-o3-quantum-critical-points)  
+   evidence：莫尔体系中的关联量子相
+6. [Tracking doublon-holon dynamics in high-harmonic generation from Mott insulators](/202605/05/2605.01388v1-tracking-doublon-holon-dynamics-in-high-harmonic-generation-from-mott-insulators)  
    标签：评分：7.0/10、query:cmp
-   evidence：自旋模型中的量子临界点和标度行为
-4. [Observation of single antiferromagnetic magnon modes in the tunnelling transistors of spin-1/2 Kitaev system a-RuCl3](/202605/04/2605.00202v1-observation-of-single-antiferromagnetic-magnon-modes-in-the-tunnelling-transistors-of-spin-12-kitaev-system-a-rucl3)  
+   evidence：利用哈伯德模型研究强关联莫特绝缘体中的动力学行为
+7. [Long-range correlation and the spin conductivity in the XXZ chain from ballistic macroscopic fluctuation theory](/202605/05/2605.01645v1-long-range-correlation-and-the-spin-conductivity-in-the-xxz-chain-from-ballistic-macroscopic-fluctuation-theory)  
    标签：评分：7.0/10、query:cmp
-   evidence：Kitaev系统中的量子自旋液体态
-5. [Dynamical magnetotropic susceptibility as a new probe of Kitaev materials and beyond](/202605/04/2605.00568v1-dynamical-magnetotropic-susceptibility-as-a-new-probe-of-kitaev-materials-and-beyond)  
+   evidence：研究量子自旋链在临界区的自旋输运与关联函数
+8. [First-Principles Effective Mass in the Three-Dimensional Uniform Electron Gas](/202605/05/2605.02294v1-first-principles-effective-mass-in-the-three-dimensional-uniform-electron-gas)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究奇异量子临界点和关联电子哈密顿量的探测手段
-6. [A Unified Framework for Locally Stable Phases](/202605/04/2605.00088v1-a-unified-framework-for-locally-stable-phases)  
-   标签：评分：6.0/10、query:cmp
-   evidence：表征物质相和相关性的通用框架
+   evidence：利用第一性原理微扰理论计算电子气中的基本费米液体参数
 
 
 <div class="dpr-home-promo-card">

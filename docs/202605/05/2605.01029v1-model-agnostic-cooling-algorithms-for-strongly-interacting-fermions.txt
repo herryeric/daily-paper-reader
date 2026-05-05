@@ -1,0 +1,633 @@
+Title: Model-agnostic cooling algorithms for strongly interacting fermions
+
+URL Source: https://arxiv.org/pdf/2605.01029v1
+
+Published Time: Tue, 05 May 2026 00:09:54 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Model-agnostic cooling algorithms for strongly interacting fermions 
+
+Henning Schl¨ omer, 1, 2, ∗ Liyuan Chen, 2 Susanne F. Yelin, 2 and Hong-Ye Hu 2, †
+
+> 1
+
+ITAMP, Center for Astrophysics | Harvard & Smithsonian, Cambridge, MA 02138, USA 
+
+> 2
+
+Department of Physics, Harvard University, Cambridge, MA 02138, USA 
+
+Strongly interacting fermions underpin some of the most challenging problems in condensed matter physics, such as high-temperature superconductivity. The low-energy states of these systems encode their essential microscopic properties, yet remain largely inaccessible to classical methods. Quantum simulation offers a promising path forward, and among state-preparation strategies, engineered dissipation has emerged as a particularly compelling approach. Existing cooling protocols, however, typically rely on knowledge of the quasiparticle spectrum or mappings to free-fermion limits. In this letter, we introduce a randomized, symmetry-preserving cooling algorithm that requires no spectral information, using only local coupling operators to ancilla degrees of freedom with randomly sampled energy splittings to drive generic fermionic systems toward their low-energy manifold. We benchmark the protocol on canonical correlated fermionic models relevant to high-temperature superconductors, spanning metallic, density-wave, paired, superconducting, and phase-separated phases. Across all models, we observe universal cooling behavior: monotonic energy relaxation, concentration of spectral weight at low energies, and stabilization of correlated ground-state order. Our results establish randomized dissipative cooling as a general strategy for preparing strongly correlated fermionic states on programmable quantum devices. 
+
+Introduction.— Understanding strongly interacting fermionic systems remains one of the central challenges in modern physics. From high temperature supercon-ductors to correlated molecular systems, the interplay of charge, spin, and orbital degrees of freedom gives rise to rich phase diagrams featuring magnetism, charge order, and unconventional superconductivity [1, 2]. However, reaching low-energy states of these systems is difficult: classical methods face fundamental obstacles such as the fermion sign problem in quantum Monte Carlo and rapid entanglement growth, which limit tensor network approaches beyond one dimension [3–6]. Quantum simulation offers a promising route to over-come these limitations, and significant progress has been made on both analog and digital platforms. Unitary state-preparation strategies, including adiabatic [7] and counter-diabatic [8–12] protocols, steering methods [13– 15], and variational [6, 16, 17] or learning-based [18, 19] schemes, have been explored extensively. In parallel, engineered dissipation has emerged as a compelling al-ternative, in which energy and entropy are removed by coupling the system to auxiliary degrees of freedom, so that the target state emerges as the steady state of open-system dynamics [20–26]. Utilizing such open quantum dynamics potentially can overcome certain challenges of unitary state preparations [27]. From a related perspec-tive, algorithmic cooling protocols based on repeated system-ancilla interactions extract entropy to the envi-ronment cycle-by-cycle [28–32]. If the target models ad-mit a well-defined quasiparticle description, kinetic the-ories can analytically characterize cooling efficiency [33], and conditions for rapid convergence have been estab-lished in quasi-free settings [34]. On the experimental side, analog quantum gas mi-croscopes have achieved impressive control over Fermi-ωmax
+
+ωmin̂ A ⊗ σ+
+
++̂ A† ⊗ σ−
+
+g
+
+| ψ0⟩
+
+> Symm. conserving coupling toolbox
+
+e−i(̂HS+̂ HB(ωn)+ĝHSB)τ    
+
+> ρ(n)
+> S
+> |0⟩B
+> ρ(n+1)
+> S
+> |0⟩B
+> Single ancilla
+> Bulk ancilla
+> hopping spin exc. singlet-triplet
+
+̂
+
+c†
+
+> i
+
+̂ cĵ
+
+σ+̂
+
+Sz 
+
+> i
+
+−̂ Sz
+
+> j
+
+̂
+
+σ+̂
+
+S+
+
+> i
+
+̂ S−
+
+> j
+
+̂
+
+σ+
+
+FIG. 1. Cooling algorithm for strongly interacting fermions. Schematic illustration of the algorithm using ei-ther a single ancilla or a bulk ancilla architecture to me-diate energy-selective interactions with the system. A cou-pling toolbox enables cooling within a chosen symmetry sec-tor. Energy-selective interactions between system and ancillas with randomly chosen energy splittings transfer population from higher to lower many-body energy levels. 
+
+Hubbard-type models through carefully engineered adi-abatic ramps [35–41], while digital approaches have so far been largely restricted to shallow variational cir-cuits [42, 43] or pseudo-adiabatic preparations [44, 45]. Despite this progress, systematically reaching the low-energy states of strongly correlated fermionic models with competing orders remains an open challenge [6]. For weakly interacting fermions, cooling protocols based on system-ancilla couplings have been developed using randomized interactions [31] or explicit coupling to highly non-local eigenstate operators derived from the free-fermion limit [32]. However, it is unclear whether such approaches remain effective in strongly interact-
+
+> arXiv:2605.01029v1 [cond-mat.str-el] 1 May 2026
+
+2ing regimes, such as doped Mott insulators, where the low-energy physics is no longer captured by quasi-free fermions. In this work, we address this question by developing randomized, symmetry-preserving cooling protocols for strongly interacting fermionic systems using only local 
+
+coupling operators. Across a wide range of correlated phases in representative lattice models, we demonstrate that randomized cooling provides a universal and robust strategy for preparing low-energy states of interacting fermionic Hamiltonians. 
+
+Symmetry-preserving cooling algorithm.— We consider interacting fermionic lattice systems described by Hamil-tonians ˆHS that conserve global U (1) charges, such as total particle number or total spin. In a broad range of applications, one is interested in preparing states within a fixed symmetry sector. This is also standard in state-of-the-art numerical approaches to ground-state problems, where calculations are typically restricted to fixed sym-metry sectors, for instance in Hubbard-type models [4]. The physical fermionic degrees of freedom reside on the lattice sites shown in blue in Fig. 1. We introduce 
+
+Nanc ancillary qubits (red in Fig. 1) that serve as auxil-iary degrees of freedom mediating the cooling dynamics. In each cooling cycle, the ancillas are initialized in their ground state, ˆ ρ(0) anc = |0⟩⟨ 0|⊗Nanc . System and ancillas are then evolved jointly for a time τ under the unitary ˆU ({ω}) = e−i ˆH({ω})τ generated by ˆH({ω}) = ˆHS +
+
+> Nanc
+
+X
+
+> ℓ=1
+
+ˆH(ℓ)anc (ωj ) + g
+
+> Nanc
+
+X
+
+> j=ℓ
+
+ ˆAℓ ⊗ ˆσ+ 
+
+> ℓ
+
++ h.c. 
+
+
+
+,
+
+(1) where ˆH(ℓ)anc (ωℓ) = −ωℓ/2 ˆσzℓ sets the level splitting of the ancilla ℓ, and g controls the system-ancilla coupling. Af-ter the joint evolution, the ancilla degrees of freedom are traced out and reset, yielding a completely positive trace-preserving map from cooling step n → n + 1, ˆρ(n+1) = Tr anc 
+
+h ˆU ({ω})
+
+
+
+ˆρ(n) ⊗ ˆρ(0) anc 
+
+ ˆU †({ω})
+
+i
+
+. (2) The operators ˆAℓ act solely on the system and determine which transitions the cooling cycle can address. Near solvable limits, such as weakly interacting regimes, a nat-ural choice is to take ˆAℓ to be a quasiparticle annihilation operator [33]. In strongly interacting systems, however, no well-defined quasiparticle description exists, and the design of ˆAℓ becomes a central question. In this work, we show that effective cooling can be achieved by selecting ˆAℓ from a generic toolbox of local operators. Remarkably, the precise form of ˆAℓ is not critical: we conjecture that whenever the system Hamiltonian satisfies the eigenstate thermalization hypothesis (ETH), the matrix elements 
+
+⟨k| ˆA|k′⟩ between many-body eigenstates |k⟩ and |k′⟩ of ˆHS provide sufficient spectral connectivity to ensure en-ergy relaxation within the rotating wave approximation. Concretely, we select ˆAℓ from a minimal symmetry-preserving coupling toolbox: directed hopping ˆAcij =ˆc† 
+
+> i
+
+ˆcj , spin-exchange ˆAexc  
+
+> ij
+
+= ˆS+ 
+
+> i
+
+ˆS− 
+
+> j
+
+, and singlet-triplet switching ˆAst ij = ˆSzi − ˆSzj , each defined on bonds ℓ = ⟨ij ⟩
+
+of the underlying lattice (additional operators are dis-cussed in the End Matter). Within this framework, var-ious system-ancilla architectures are possible. We con-sider two: (i) a single-ancilla protocol, in which an ancilla qubit is coupled to all bonds via P 
+
+> ij
+
+ˆAij , and (ii) a bulk architecture, in which an individual ancilla is coupled lo-cally to each bond ⟨ij ⟩ (see Fig. 1). The single-ancilla setup is more convenient for numerical simulation, while the bulk architecture is better suited to near-term hard-ware implementations [46], for instance, neutral atoms in reconfigurable tweezer arrays [47, 48] combined with local fermion-to-qubit encoding schemes [49–52]. For weak coupling g and sufficiently long interac-tion times, transitions between many-body eigenstates 
+
+|k⟩ and |k′⟩ of ˆHS occur at rates proportional to 
+
+g2 ⟨k| ˆA|k′⟩ 2, subject to an approximate resonance con-dition Ek − Ek′ ≃ ω. In this limit, the rotating wave approximation enforces energy conservation of each tran-sition. Crucially, because the ancillas are reset to their ground state after every cycle, only processes that trans-fer energy from the system to the ancilla can accumulate, while the reverse heating processes are suppressed [29– 31, 33] (see End Matter). The net effect is a biased ran-dom walk in energy space that preferentially drives pop-ulation toward lower-energy states. To avoid relying on spectral knowledge, the ancilla splittings ωℓ are drawn randomly from a tunable interval ωℓ ∈ [ωmin , ω max ] in each cycle [31]. Over many repetitions, this covers a broad range of many-body energy differences, enabling cooling without fine-tuning to specific transitions. The full protocol reduces to a simple recipe: (i) fix the interacting fermionic Hamiltonian ˆHS and the relevant 
+
+U (1) sector, (ii) choose a coupling operator ˆA from the local toolbox, and (iii) iterate the cooling cycle with ran-domly sampled ancilla frequencies. Provided the chosen coupling induces sufficient connectivity in the many-body eigenbasis, this procedure generically drives the system toward its low-energy states. In the following, we bench-mark this approach on three canonical strongly interact-ing fermion models, all of which are motivated by the physics of cuprate and nickelate high-Tc superconductors. 
+
+Spinless fermions.— We begin by considering interact-ing spinless fermions on a one-dimensional (1D) lattice of length L at fixed particle number Np. We include NN hopping t, NNN hopping t′, and a NN interaction V ,ˆHtt ′V = −t X
+
+> ⟨ij ⟩
+
+(ˆ c† 
+
+> i
+
+ˆcj + h.c.) − t′ X
+
+> ⟨⟨ ij ⟩⟩
+
+(ˆ c† 
+
+> i
+
+ˆcj + h.c.) + V X
+
+> i
+
+ˆni ˆni+1 ,
+
+(3) with ˆ ni = ˆ c† 
+
+> i
+
+ˆci. For t′ = 0 this reduces to the standard t-3⟨̂ni⟩
+
+k
+
+> 0
+
+i         
+
+> V/t=0V/t=1V/t=4
+> cycle
+> ϵ
+> wk
+> 1
+> 0
+> 1
+> 0
+> 1
+> (a)
+> (b)
+> (c)
+> (d) ϵ
+> eigenstate
+
+k            
+
+> eigenstate  k′
+> 0.1 0V/t=4
+> 00.4 V/t=0
+> |⟨k|̂A|k′⟩|2
+> ΔE /t ∼ 5.5
+
+ΔE /t ∼ 11              
+
+> cycle
+> gs
+> ωmax/t∼1
+> ωmax /t ∼ 5
+> κ
+> 10 −3
+> L=6
+> L=8
+> L=10
+> L=12
+> L=14
+
+1/L                                               
+
+> FIG. 2. Cooling dynamics in the spinless t-t ′-V chain.
+> (a) Normalized energy density ε(n), Eq. (4), vs. cooling cycle
+> nfor t/t ′= 2, g/t = 0 .025, τ t = 40, V /t = 0 ,1,4, L= 10 sites and Np= 5. The initial state has all fermions local-ized on the left side of the chain. Inset: steady state weights
+> wkof the lowest eigenstates k.(b) Local densities ⟨ni⟩in the cooled steady state (solid lines) compared with the ex-act ground state (crosses). (c) Matrix elements |Akk ′|2in the energy eigenbasis for V /t = 0 (upper part) and V /t = 4 (lower part), restricted to the lowest 100 eigenstates. Arrows indicate the many-body bandwidth ∆ E=E99 −E0and the cutoff ωmax corresponding to optimal cooling. (d) Early-time exponential fits ε(n)∝exp( −κn ) as a function of system size for V /t = 1, ωmax = 2 t, and other parameters as in (a); fits are shown by dashed lines. The finite-size scaling of κ(inset) indicates a finite relaxation rate in the large system limit.
+
+V chain, which has a transition from a metallic Luttinger liquid phase at weak V /t to a charge-density-wave phase at strong repulsion [53]. The inclusion of t′ breaks sim-ple mappings to local spin systems and enhances genuine fermionic correlations. We benchmark the cooling protocol using density-matrix calculations in a fixed particle-number sector and monitor the normalized energy density 
+
+ε(n) = E(n) − Egs 
+
+E(0) − Egs 
+
+, (4) where E(n) = Tr[ ˆH ˆρ(n)] is the energy after n cooling cycles. By construction, ε = 0 corresponds to the exact ground-state energy. Fig. 2 (a) shows ε(n) for interac-tion strengths V /t = 0 , 2, 4 for the single-ancilla protocol (Nanc = 1) at system size L = 10, Np = 5, and a hop-ping coupler P 
+
+> ⟨ij ⟩
+
+ˆAcij . For all interactions the energy decreases monotonically over the course of the cooling cy-cles, indicating systematic removal of high-energy weight and reaching high ground-state fidelities after around 1000 cycles (inset). Local density profiles ⟨ˆni⟩ in the final steady state are compared to exact ground-state densities in Fig. 2 (b). In all cases the cooled state reproduces the ground-state density pattern with high accuracy, show-ing that the algorithm captures the qualitative change in order across the interaction-driven transition. Although we here choose a specific ordering of site pairs in the hopping coupler, we have verified that the performance remains essentially unchanged when using a coupler defined along a randomly chosen path (see End Matter). This indicates that the precise microscopic real-ization of the coupling operator does not significantly af-fect the performance, and that the protocol yields generic cooling behavior. To understand the mechanism at the spectral level, Fig. 2 (c) shows the matrix elements |Akk ′ |2 = |⟨ k| ˆA|k′⟩| 2
+
+of the first 100 eigenstates of ˆHtt ′V for V /t = 0 and 
+
+V /t = 4. For the non-interacting case, most of the weight is concentrated along narrow bands corresponding to low-energy particle-hole excitations. In this regime, bath fre-quencies of order ω ∈ [0 , t ] are most effective, as indicated by the arrows. In contrast, at V /t = 4 the matrix ele-ments of ˆA are distributed more broadly across the eigen-basis, however with smaller overall amplitude |Akk ′ |2. In this case, most effective cooling can be achieved by choos-ing larger bath frequencies ω ∈ [0 , 5t]. Fig. 2 (d) analyzes the scalability of the protocol with increasing system size. We extract the early-time relax-ation rate by fitting the normalized energy to an expo-nential form, ϵ(n) ∝ exp[ −κn ]. At half-filling with fixed 
+
+t/t ′ = 2, V /t = 1 and ω ∈ [0 , 2t], a scaling analysis suggests that κ approaches a finite value as L increases. This indicates that the rapid early-time energy relaxation remains effective in large systems. We emphasize, how-ever, that this does not imply a system-size-independent thermalization or convergence time: the approach to the steady state may still slow down with increasing system size, for instance due to a closing Lindbladian gap. 
+
+Doped Mott insulators.— We now turn to strongly cor-related fermionic systems where charge and spin degrees of freedom are intrinsically intertwined. In particular, we consider state preparation of the 1D t-J Hamiltonian ˆHtJ = −t X
+
+> ⟨ij ⟩,σ
+
+ˆ˜c† 
+
+> iσ
+
+ˆ˜cjσ + h.c. 
+
+
+
++J X
+
+> ⟨ij ⟩
+
+
+
+ˆSi · ˆSj − 14 ˆni ˆnj
+
+
+
+,
+
+(5) where ˆ ˜ciσ are fermionic operators acting in the projected Hilbert space without double occupancy, ˆSi denotes the local spin operator, and ˆ ni the density operator. The ratio J/t controls the competition between kinetic de-localization and magnetic exchange. Upon tuning J/t ,the ground state exhibits qualitatively distinct regimes: a metallic phase at small J/t , a paired regime with dom-inant superconducting correlations at intermediate J/t ,and phase separation at large J/t [54, 55], see Fig. 3 (a). To allow relaxation in both charge and spin sectors, we 40 
+
+> 1500 cycles
+> ⟨̂Δ†
+> 0̂Δr⟩ ⟨̂Sz
+> 0̂ Sz
+> i ⟩
+> ϵ
+> cycle
+
+r
+
+i     
+
+> 0
+> gs
+> k
+> wk
+> init
+> init
+> gs (a) (b) mixD --ladder
+
+t∥ J∥ J⊥
+
+> ϵ
+> metal
+> paired
+> Phase sep.
+
+n
+
+J/t  
+
+> 1D -model
+
+t J   
+
+> 0.5 23
+> site
+
+icycle       
+
+> ⟨̂ ni⟩
+> gs
+> J/t=0.5
+> J/t=2
+> J/t=3
+
+FIG. 3. Cooling doped Mott insulators. (a) 1D t-J chain across metallic, paired, and phase-separated regimes as J/t is tuned. Charge and spin coupling channels are combined (see main text); L = 10, Np = 4, g = 0 .05, τ t = 10, ω/t ∈ [0 , 3], and total spin sector ˆSz 
+
+> tot
+
+= 0. Shown are normalized energy relaxation for J/t = 0 .5, 2, 3 and corresponding on-site densities of the steady state (solid lines) and the ground state (black crosses). The initial state is a N´ eel product state with particles sitting at the boundary. (b) Mixed-dimensional t∥-J∥-J⊥ ladder for a 4 × 2 system with Np = 4, J⊥/t ∥ = 2, J∥/t ∥ = 1. Cooling is implemented via charge hopping ˆAc 
+
+> ∥
+
+with fixed ω/t ∥ = 0 .8, starting in an initial product state of rung-singlets and hole pairs. Energy relaxation, steady-state decomposition, spin-spin correlations ⟨ ˆSz 
+
+> 0
+
+ˆSzi ⟩, and pair-pair correlations ⟨ ˆ∆† 
+
+> 0
+
+ˆ∆r ⟩ are shown as a function of the protocol cycle; black dashed lines denote ground-state values. 
+
+couple NN and NNN hopping and spin-exchange chan-nels, ˆA = α ˆAc + β ˆAexc [56]. This way, cooling dynamics can connect states that differ in charge configuration as well as in spin alignment; by doing a scan over α and β,we find best cooling results for α = 0 .4 and β = 0 .6 (see End Matter). During cooling, the normalized energy ε
+
+decreases in a nearly identical fashion for J/t = 0 .5, 2, 3, shown in Fig. 3 (a). The on-site densities ⟨ˆni⟩ provide a direct physical signature of successful cooling. In the metallic regime, the final state exhibits Np maxima distributed along the chain. In the paired regime, the density profile reorga-nizes into Np/2 peaks, consistent with the formation of bound pairs. In the phase-separated regime, particles cluster into a single domain, leading to a broad density peak in the center of the open chain [55]. In all three cases, the cooled steady state reproduces the qualitative ground-state density structure, indicating that the cool-ing mechanism does not rely on a particular phase struc-ture or gap property, but instead exploits generic spectral connectivity in the many-body eigenbasis. We next consider a mixed-dimensional ladder de-scribed by 
+
+Ht∥J∥J⊥ = −t∥
+
+X
+
+> ⟨ij ⟩∥,σ
+
+ˆ˜c† 
+
+> iσ
+
+ˆ˜cjσ + h.c. 
+
+
+
++ X
+
+> δ=∥,⊥
+
+X
+
+> ⟨ij ⟩δ
+
+Jδ
+
+
+
+ˆSi · ˆSj − 14 ˆni ˆnj
+
+
+
+,
+
+(6) where ⟨ij ⟩∥ and ⟨ij ⟩⊥ denote bonds along the legs and rungs of the ladder, respectively, see Fig. 3 (b). This model provides a minimal framework for the description of bilayer nickelate superconductors under pressure [57– 61], and has attracted significant interest in the context of quantum simulation of high-temperature superconduc-tivity [45, 62, 63]. In the model, rung exchange J⊥ favors singlet formation; parallel hopping leads to these pairs becoming coherent, resulting in an s-wave superconduct-ing state in the doped system [61]. We start the cooling protocol from a product state composed of alternating singlets and hole-hole pairs, cor-responding to the particle density expected in bilayer nickelates [57]. Cooling is implemented via directed hop-ping along the ladder legs, ˆAc
+
+> ∥
+
+, without additional spin channels, and we here fix the ancilla frequency to a value around the hopping scale, ω/t ∥ = 0 .8 (see End Matter for a more detailed discussion). As shown in Fig. 3, the sys-tem’s state ˆ ρS relaxes to a steady state with nearly unit weight in the target ground state. Since the initial state already contains local singlets, cooling primarily requires lowering their kinetic energy and establishing phase co-herence along the ladder, suggesting why a purely charge-based channel suffices to achieve efficient cooling. The build-up of correlations is illustrated by the evolu-tion of spin-spin correlations ⟨ ˆSz 
+
+> 0
+
+ˆSzi ⟩ and coherent pair-pair correlations ⟨ ˆ∆† 
+
+> 0
+
+ˆ∆r ⟩, where the rung singlet creation operator is defined as ˆ∆† 
+
+> r
+
+= 1/√2(ˆ ˜c† 
+
+> i, ↑
+
+ˆ˜c† 
+
+> j, ↓
+
+− ˆ˜c† 
+
+> i, ↓
+
+ˆ˜c†
+
+> j, ↑
+
+), creat-ing a spin singlet across a rung bond r = ⟨i, j ⟩⊥. As cool-ing proceeds, spin correlations relax toward their ground-state profile, while superconducting pair correlations are dynamically built up and converge to the exact values. 
+
+Towards two dimensions.— To demonstrate that our protocol extends beyond one dimension, we consider in-teracting spinless fermions on a 3 × 3 lattice with Np = 5 particles with NN hopping t and interactions V . A single ancilla is coupled to the system via a directed hopping operator ˆAc that traverses the lattice along a Z-shaped path, see Fig. 4 (a). 5eigenstate  k        
+
+> V/t=0.1
+> V/t=1
+> V/t=4
+> quasi-degenerate
+> (b) wk
+> 2D -model
+
+t V
+
+> ϵ
+> (a)
+> cycle
+
+FIG. 4. Spinless fermions in 2D. Cooling dynamics (a) and steady state decomposition (b) of interacting spinless fermions on a 3 × 3 lattice with Np = 5, g/t = 0 .05, τ t = 10, and 
+
+ωmax /t = 2 , 6, 8 for V /t = 0 .1, 1, 4, respectively. The coupling operator is chosen as a directed Z-shaped path in the 2D lattice, shown in the inset of panel (a). 
+
+In the weakly interacting regime the three lowest eigen-states are quasi-degenerate, becoming exactly degenerate for V /t = 0 [64]. As seen by the decomposition of the steady state in Fig. 4 (a), the protocol results in similar weight within this low energy manifold. For stronger in-teractions the low-energy spectrum separates, and a siz-able many-body gap opens above the ground state, lead-ing to high fidelities after approaching a steady state. We note that in this case, ϵ does not approach zero, which can be attributed to the large many-body gap: even small populations of excited states in the final state lead to sig-nificant shifts of the expectation value of the energy. Beyond the settings discussed above, we assess two ex-perimentally relevant aspects in the End Matter. First, we demonstrate that the cooling dynamics is robust against moderate global dephasing noise. Second, we show that the system-ancilla coupling architecture does not critically affect cooling performance: global and bond-resolved bulk couplings yield comparable results, while boundary-only cooling proves less efficient. To-gether, these findings suggest realistic pathways toward implementing the proposed cooling algorithm on near-term hardware, which we will explore in detail in an up-coming work. 
+
+Discussion.— Going beyond our scheme, it would be in-teresting to develop cooling protocols that explicitly sat-isfy detailed balance and to test whether accurate Gibbs states can be stabilized in strongly interacting fermionic systems [32, 65]. It would also be interesting to explore whether quantum Mpemba-type effects [26, 66, 67] can accelerate state preparation. For quasi-free Lindbladian dynamics, rapid mixing and the scaling of the Lindbladian gap are known ex-plicitly [34]. Extending this understanding to generic strongly interacting fermionic systems requires clarify-ing how the Lindbladian gap and mixing time scale with system size. Matrix product state methods may help address this question in one dimension, but higher-dimensional dynamics quickly become classically in-tractable. In this sense, dissipative state preparation can be viewed not only as a target application, but also as a benchmark setting in which early fault-tolerant quan-tum devices may provide genuine advantages by directly simulating system bath dynamics beyond classical reach. 
+
+Acknowledgements.— We thank Mattia Moroder, Christian Kokail, Shayan Majidy, Yujie Liu, Daniel K. Mark, Tal Schwartzman, Reuben R. W. Wang, Jong Yeon Lee, Bryan K. Clark, Yizhi You and Hossein Sadeghpour for fruitful discussions. We would like to acknowledge funding from the NSF through the CUA PFC (PHY-2317134), and the DOE through the QUACQ center. H.S. acknowledges support from the NSF through a grant for ITAMP at Harvard University. L.C. acknowledges the Wellcome Leap Foundation and Harvard University for funding.  
+
+> ∗
+
+Corresp. author: henning.schloemer@cfa.harvard.edu  
+
+> †
+
+Corresp. author: hongyehu.physics@gmail.com [1] E. Altman, K. R. Brown, G. Carleo, L. D. Carr, E. Dem-ler, C. Chin, B. DeMarco, S. E. Economou, M. A. Eriks-son, K.-M. C. Fu, M. Greiner, K. R. Hazzard, R. G. Hulet, A. J. Koll´ ar, B. L. Lev, M. D. Lukin, R. Ma, X. Mi, S. Misra, C. Monroe, K. Murch, Z. Nazario, K.-K. Ni, A. C. Potter, P. Roushan, M. Saffman, M. Schleier-Smith, I. Siddiqi, R. Simmonds, M. Singh, I. Spielman, K. Temme, D. S. Weiss, J. Vuˇ ckovi´ c, V. Vuleti´ c, J. Ye, and M. Zwierlein, PRX Quantum 2, 017003 (2021). [2] J. Preskill, Quantum 2, 79 (2018). [3] U. Schollw¨ ock, Annals of Physics 326 , 96 (2011), january 2011 Special Issue. [4] U. Schollw¨ ock, Rev. Mod. Phys. 77 , 259 (2005). [5] S. R. White, Phys. Rev. Lett. 69 , 2863 (1992). [6] D. Wecker, M. B. Hastings, N. Wiebe, B. K. Clark, C. Nayak, and M. Troyer, Phys. Rev. A 92 , 062318 (2015). [7] M. Born and V. Fock, Zeitschrift f¨ ur Physik 51 , 165 (1928). [8] D. Sels and A. Polkovnikov, Proceedings of the National Academy of Sciences 114 , E3909 (2017). [9] P. W. Claeys, M. Pandey, D. Sels, and A. Polkovnikov, Phys. Rev. Lett. 123 , 090602 (2019). [10] D. Gu´ ery-Odelin, A. Ruschhaupt, A. Kiely, E. Tor-rontegui, S. Mart´ ınez-Garaot, and J. G. Muga, Rev. Mod. Phys. 91 , 045001 (2019). [11] N. O. Gjonbalaj, R. Sahay, and S. F. Yelin, “Shortcuts to analog preparation of non-equilibrium quantum lakes,” (2025), arXiv:2502.03518 [quant-ph]. [12] J. R. Finˇ zgar, S. Notarnicola, M. Cain, M. D. Lukin, and D. Sels, Phys. Rev. Lett. 135 , 180602 (2025). [13] S. Roy, J. T. Chalker, I. V. Gornyi, and Y. Gefen, Phys. Rev. Res. 2, 033347 (2020). [14] Y. Herasymenko, I. Gornyi, and Y. Gefen, PRX Quan-tum 4, 020347 (2023). [15] D. Volya and P. Mishra, IEEE Transactions on Quantum Engineering 5, 1 (2024). [16] D. Wecker, M. B. Hastings, and M. Troyer, Phys. Rev. A 92 , 042303 (2015). [17] M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin, 6
+
+S. Endo, K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L. Cincio, and P. J. Coles, Nature Reviews Physics 3,625 (2021). [18] J. Yao, L. Lin, and M. Bukov, Phys. Rev. X 11 , 031070 (2021). [19] H. Schl¨ omer and A. Bohrdt, “Machine learning appli-cations in cold atom quantum simulators,” (2025), arXiv:2509.08011 [cond-mat.quant-gas]. [20] B. Kraus, H. P. B¨ uchler, S. Diehl, A. Kantian, A. Micheli, and P. Zoller, Phys. Rev. A 78 , 042307 (2008). [21] S. Diehl, A. Micheli, A. Kantian, B. Kraus, H. P. B¨ uchler, and P. Zoller, Nature Physics 4, 878 (2008). [22] F. Verstraete, M. M. Wolf, and J. Ignacio Cirac, Nature Physics 5, 633 (2009). [23] J. Tindall, B. Buˇ ca, J. R. Coulthard, and D. Jaksch, Phys. Rev. Lett. 123 , 030603 (2019). [24] S. Neri, F. Damanet, A. J. Daley, M. L. Chiofalo, and J. Y. Malo, “Dissipation engineering of fermionic long-range order beyond lindblad,” (2025), arXiv:2507.00553 [cond-mat.supr-con]. [25] L. Lin, APL Computational Physics 1, 010901 (2025). [26] P. Westhoff, S. Paeckel, and M. Moroder, Phys. Rev. A 
+
+112 , L061304 (2025). [27] R. Sahay and R. Verresen, PRX Quantum 6, 010329 (2025). [28] S. Polla, Y. Herasymenko, and T. E. O’Brien, Phys. Rev. A 104 , 012414 (2021). [29] X. Mi, A. A. Michailidis, S. Shabani, K. Miao, P. Klimov, J. Lloyd, E. Rosenberg, R. Acharya, I. Aleiner, T. An-dersen, et al. , Science 383 , 1332 (2024). [30] D. Molpeceres, S. Lu, J. I. Cirac, and B. Kraus, Phys. Rev. Res. 7, 033162 (2025). [31] J. Langbehn, G. Mouloudakis, E. King, R. Menu, I. Gornyi, G. Morigi, Y. Gefen, and C. P. Koch, “Uni-versal cooling of quantum systems via randomized mea-surements,” (2025), arXiv:2506.11964 [quant-ph]. [32] L. Marti, R. Mansuroglu, and M. J. Hartmann, Quan-tum 9, 1635 (2025). [33] J. Lloyd, A. A. Michailidis, X. Mi, V. Smelyanskiy, and D. A. Abanin, PRX Quantum 6, 010361 (2025). [34] Y. Zhan, Z. Ding, J. Huhn, J. Gray, J. Preskill, G. K.-L. Chan, and L. Lin, Phys. Rev. X 16 , 011004 (2026). [35] I. Bloch, J. Dalibard, and W. Zwerger, Rev. Mod. Phys. 
+
+80 , 885 (2008). [36] T. Esslinger, Annual Review of Condensed Matter Physics 1, 129 (2010). [37] H. Bernien, S. Schwartz, A. Keesling, H. Levine, A. Om-ran, H. Pichler, S. Choi, A. S. Zibrov, M. Endres, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Nature 551 ,579 (2017). [38] A. Bohrdt, L. Homeier, C. Reinmoser, E. Demler, and F. Grusdt, Annals of Physics 435 , 168651 (2021), special issue on Philip W. Anderson. [39] M. Xu, L. H. Kendrick, A. Kale, Y. Gang, C. Feng, S. Zhang, A. W. Young, M. Lebrat, and M. Greiner, Nature 642 , 909 (2025). [40] D. K. Mark, H.-Y. Hu, J. Kwan, C. Kokail, S. Choi, and S. F. Yelin, Phys. Rev. Lett. 135 , 123402 (2025). [41] H. Schl¨ omer, H. Lange, T. Franz, T. Chalopin, P. Bo-jovi´ c, S. Wang, I. Bloch, T. A. Hilker, F. Grusdt, and A. Bohrdt, PRX Quantum 5, 040341 (2024). [42] C. Cade, L. Mineh, A. Montanaro, and S. Stanisic, Phys. Rev. B 102 , 235122 (2020). [43] S. Stanisic, J. L. Bosse, F. M. Gambetta, R. A. Santos, W. Mruczkiewicz, T. E. O’Brien, E. Ostby, and A. Mon-tanaro, Nature Communications 13 , 5743 (2022). [44] R. Nigmatullin, K. H´ emery, K. Ghanem, S. Moses, D. Gresh, P. Siegfried, M. Mills, T. Gatterman, N. He-witt, E. Granet, and H. Dreyer, Nature Physics 21 , 1319 (2025). [45] E. Granet, S.-H. Lin, K. H´ emery, R. Haghshenas, P. Andres-Martinez, D. T. Stephen, A. Ransford, J. Arkinstall, M. S. Allman, P. Campora, S. F. Cooper, R. D. Delaney, J. M. Dreiling, B. Estey, C. Figgatt, C. Foltz, J. P. Gaebler, A. Hall, A. Husain, A. Isanaka, C. J. Kennedy, N. Kotibhaskar, I. S. Madjarov, M. Mills, A. R. Milne, A. J. Park, A. P. Reed, B. Neyenhuis, J. G. Bohnet, M. Foss-Feig, A. C. Potter, R. Nigmatullin, M. Iqbal, and H. Dreyer, “Superconducting pairing cor-relations on a trapped-ion quantum computer,” (2026), arXiv:2511.02125 [quant-ph]. [46] S. Majidy, C. Wilson, and R. Laflamme, Building quan-tum computers: a practical introduction (Cambridge Uni-versity Press, 2024). [47] H. Zhou, C. Zhao, M. Cain, D. Bluvstein, N. Maskara, C. Duckering, H.-Y. Hu, S.-T. Wang, A. Kubica, and M. D. Lukin, Nature 646 , 303 (2025). [48] D. Bluvstein, A. A. Geim, S. H. Li, S. J. Evered, J. P. Bonilla Ataides, G. Baranes, A. Gu, T. Manovitz, M. Xu, M. Kalinowski, S. Majidy, C. Kokail, N. Maskara, E. C. Trapp, L. M. Stewart, S. Hollerith, H. Zhou, M. J. Gul-lans, S. F. Yelin, M. Greiner, V. Vuleti´ c, M. Cain, and M. D. Lukin, Nature 649 , 39 (2026). [49] F. Verstraete and J. I. Cirac, Journal of Statistical Me-chanics: Theory and Experiment 2005 , P09012–P09012 (2005). [50] C. Derby, J. Klassen, J. Bausch, and T. Cubitt, Physical Review B 104 (2021), 10.1103/physrevb.104.035118. [51] A. Jafarizadeh, F. Pollmann, and A. Gammon-Smith, Phys. Rev. Res. 7, 043018 (2025). [52] S. J. Evered, M. Kalinowski, A. A. Geim, T. Manovitz, D. Bluvstein, S. H. Li, N. Maskara, H. Zhou, S. Ebadi, M. Xu, J. Campo, M. Cain, S. Ostermann, S. F. Yelin, S. Sachdev, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Nature 645 , 341 (2025). [53] T. Giamarchi, Quantum Physics in One Dimension , In-ternational Series of Monographs on Physics (Clarendon Press, 2003). [54] M. Ogata, M. U. Luchini, S. Sorella, and F. F. Assaad, Phys. Rev. Lett. 66 , 2388 (1991). [55] A. Moreno, A. Muramatsu, and S. R. Manmana, Phys. Rev. B 83 , 205113 (2011). [56] Here ˆAc = P 
+
+> ⟨ij ⟩,σ
+
+ˆc† 
+
+> i,σ
+
+ˆcj,σ + P 
+
+> ⟨⟨ij ⟩⟩,σ
+
+ˆc† 
+
+> i,σ
+
+ˆcj,σ denotes directed hopping including both nearest-neighbor ⟨ij ⟩
+
+and next-nearest-neighbor ⟨⟨ ij ⟩⟩ bonds on the 1D lat-tice. Similarly, the spin-exchange operator is ˆAexc =P 
+
+> ⟨ij ⟩
+
+ˆS+ 
+
+> i
+
+ˆS− 
+
+> j
+
++ P 
+
+> ⟨⟨ij ⟩⟩
+
+ˆS+ 
+
+> i
+
+ˆS− 
+
+> j
+
+.[57] H. Sun, M. Huo, X. Hu, J. Li, Z. Liu, Y. Han, L. Tang, Z. Mao, P. Yang, B. Wang, J. Cheng, D.-X. Yao, G.-M. Zhang, and M. Wang, Nature 621 , 493 (2023). [58] Y. Zhang, D. Su, Y. Huang, Z. Shan, H. Sun, M. Huo, K. Ye, J. Zhang, Z. Yang, Y. Xu, Y. Su, R. Li, M. Smid-man, M. Wang, L. Jiao, and H. Yuan, Nature Physics 
+
+20 , 1269 (2024). [59] H. Oh and Y.-H. Zhang, Phys. Rev. B 108 , 174511 (2023). [60] X.-Z. Qu, D.-W. Qu, J. Chen, C. Wu, F. Yang, W. Li, 7
+
+and G. Su, Phys. Rev. Lett. 132 , 036502 (2024). [61] H. Schl¨ omer, U. Schollw¨ ock, F. Grusdt, and A. Bohrdt, Communications Physics 7, 366 (2024). [62] S. Hirthe, T. Chalopin, D. Bourgund, P. Bojovi´ c, A. Bohrdt, E. Demler, F. Grusdt, I. Bloch, and T. A. Hilker, Nature 613 , 463 (2023). [63] H. Schl¨ omer, H. Lange, T. Franz, T. Chalopin, P. Bo-jovi´ c, S. Wang, I. Bloch, T. A. Hilker, F. Grusdt, and A. Bohrdt, PRX Quantum 5, 040341 (2024). [64] For the non-interacting spinless fermion problem on a 3 × 3 square lattice with open boundary conditions, the nearest-neighbor hopping Hamiltonian has single-particle energies ϵnx,n y = −2t[cos( πn x/4) + cos( πn y /4)], with 
+
+nx, n y = 1 , 2, 3. The corresponding spectrum has degen-eracies 1 , 2, 3, 2, 1 at energies −2√2t, −√2t, 0, + √2t,and +2 √2t, respectively. For N = 5 spinless fermions, the lowest three orbitals are fully occupied and the re-maining two fermions occupy the threefold-degenerate zero-energy shell. Hence the many-body ground-state de-generacy is  32
+
+ = 3. [65] C.-F. Chen, M. Kastoryano, F. G. S. L. Brand˜ ao, and A. Gily´ en, Nature 646 , 561 (2025). [66] M. Moroder, O. Culhane, K. Zawadzki, and J. Goold, Phys. Rev. Lett. 133 , 140404 (2024). [67] A. Summer, M. Moroder, L. P. Bettmann, X. Turkeshi, I. Marvian, and J. Goold, “A resource theoretical unifica-tion of mpemba effects: classical and quantum,” (2025), arXiv:2507.16976 [quant-ph]. 
+
+END MATTER 
+
+Rotating wave approximation.— In our protocol, the system and ancilla are coupled with g( ˆA ⊗ ˆσ+ +h.c.). Assume the system Hamiltonian has the fol-lowing spectrum decomposition ˆHs = P 
+
+> k
+
+|k⟩ ⟨ k|;then we can rewrite any traceless coupling opera-tor as ˆA = P
+
+> ω> 0
+
+h ˆA(ω) + A†(ω)
+
+i
+
+, where ˆA(ω) =
+
+P 
+
+> k′−k=ω
+
+|k⟩ ⟨ k| ˆA |k′⟩ ⟨ k′| is the lower energy operator. In the interaction picture, we rewrite the interaction Hamiltonian as ˆHI =gX
+
+> ω> 0
+
+( ˆA(ω) ⊗ ˆσ+e−i∆t + ˆA†(ω) ⊗ ˆσ+ei(ω+ωA)t
+
++ ˆA(ω) ⊗ ˆσ−e−i(ω+ωA)t + ˆA† ⊗ ˆσ−ei∆t).
+
+(7) In the rotating wave approximation, the second and third terms will be averaged to zero due to the fast oscil-lation of ω + ωA. This will enforce energy conservation during the energy transfer process. When the interaction 
+
+g is weak, after the interaction time T , the final state is 
+
+|ψ(T )⟩ = |k′⟩ ⊗ | 0⟩ − igT 
+
+X
+
+> ω=k′−k
+
+⟨k| ˆA|k′⟩sinc(∆ T / 2) e−iωT / 2 |k⟩ ⊗ | 1⟩
+
++ O(g2).
+
+(8) dephasing noise  p 
+
+> ϵ, F Fgs
+> F10
+> ϵ
+> cycle
+> ϵ
+> (a) (b)
+
+FIG. 5. Noise robustness and different architectures. 
+
+(a) Robustness against global dephasing in the 1D t-t′-V
+
+model. Shown are the normalized energy ϵ and the fideli-ties with respect to the ground state and to the low energy subspace spanned by the ten lowest eigenstates, evaluated af-ter 1000 cooling cycles. Parameters are identical to Fig. 2 with V /t = 1. (b) Comparison of different system-ancilla ar-chitectures for a 1D chain with V /t = 4, L = 6, and Np = 3: single global ancilla, one ancilla per bond, and boundary-only cooling. 
+
+Therefore, the probability of cooling is 
+
+P (k′ → k) = g2T 2|⟨ k| ˆA|k′⟩| 2sinc 2(∆ T / 2) + O(g4). (9) We see that the operator ˆA determines the cooling chan-nel between |k′⟩ and |k⟩. When |⟨ k| ˆA|k′⟩| 2̸ = 0, the reso-nance gap ∆ = k′ −k−ωA determines the relative cooling efficiency. 
+
+Noise robustness— Noise resilience is a key feature of quantum algorithms for near-term devices [46]. In the 1D 
+
+t-t′-V model, we apply a simple phenomenological noise model through a single site averaged global dephasing channel after tracing out the ancilla in each cooling cycle, ˆρ → (1 − p)ˆ ρ + pL
+
+X
+
+> j
+
+(1 − 2ˆ nj )ˆ ρ(1 − 2ˆ nj ). (10) Figure 5 (a) shows the normalized energy ϵ, the ground state fidelity Fgs as well as summed weights over the first 10 eigenstates ( F10 ), evaluated after 1000 cooling cycles. Notably, for dephasing probabilities p ≲ 10 −3 the pro-tocol remains stable, still reaching a steady state that has close to unit fidelity. As p increases further, cooling efficiency gradually degrades and a crossover occurs once the dephasing rate becomes comparable to the coherent coupling scale. The observed stability over several or-ders of magnitude in p demonstrates that the protocol tolerates moderate dephasing and does not rely on fine tuned coherence conditions, suggesting long stabilization of interacting fermionic low-energy states of interest [29]. 
+
+Architecture dependence.— In Fig. 5 (b) we compare various system-ancilla architectures of our protocol for the 1D t-V model with V /t = 4. We consider (i) a single ancilla coupled globally to all bonds, (ii) one an-cilla per bond (see also Fig. 1), and (iii) boundary-only coupling. The first two protocols yield nearly identical cooling performance, indicating that global connectivity 8(d)                       
+
+> J/t=0.5
+> J/t=2
+> J/t=3
+> ϵ
+> F4
+> (e) ϵ
+> F4
+> F4
+> 0.4 ̂Ac+0.6 ̂Aexc;J/t=2
+> 0.4 ̂Ac+0.6 ̂Ast;J/t=2
+> (f)
+> (a) (b) (c)
+> Fgs
+> Fgs
+> ϵ
+> ϵ
+
+FIG. 6. Additional numerical data. (a)-(c) Comparison between directed NN and random hopping sequence in ˆA [see inset of panel (a)] for the t-t′-V model for L = 8, t′/t = 0 .5 and V /t = 1. Panel (a) shows the dependence on the frequency window; the optimal choices are indicated by dashed lines. The corresponding (optimal) ground-state fidelities and normalized energies are shown in panels (b) and (c). (d) t-J model: normalized energy density ϵ and fidelity within the four lowest energy states F4
+
+after 4000 cooling cycles for varying J/t and cooling channel weights α, β (while keeping α + β = 1). A broad minimum appears around α = 0 .4, β = 0 .6. (e) Comparison between exchange spin cooling ˆAexc and singlet-triplet channel ˆAst . Both channels cool comparatively, signaling that the exact choice of local cooling channel is not of fundamental importance. (f) Ground state fidelity as a function of ωmin and ωmax in the 1D t-t′-V spinless fermion and mixD t∥-J∥-J⊥ ladder. Black crosses show the pair ωmin , ω max that maximizes the fidelity. Parameters are chosen as in the main text, with V /t = 1 in the spinless chain and 
+
+J⊥/t ∥ = 2 , J ∥/t ∥ = 1 in the mixD ladder. 
+
+rather than the overall number of ancillas controls effi-ciency. In contrast, boundary cooling performs signifi-cantly worse, where access to bulk excitations in the in-teracting regime is limited. 
+
+Comparison of cooling operators.— We compare two cooling operators for the t-t′-V chain. In case (i), ˆA is defined as a sum of directed nearest-neighbor hopping op-erators (as in the main text), while in case (ii) it follows a random path ( i1 → i2), (i2 → i3), . . . , see Fig. 6 (a)-(c). We find that both choices yield comparable performance. For the random construction, however, larger values of 
+
+ωmax are required to reach fidelities close to unity. This comparison further indicates that the precise mi-croscopic structure of the coupling operator ˆA is not cru-cial. As long as the operator provides sufficient overlap with downhill transitions in energy and avoids trapping the dynamics in symmetry-protected dark subspaces, the system can be cooled into a high-fidelity low-energy state. In the main text, we have shown cooling dynamics of the t-J model for a single ratio of spin and charge cou-pling channels in the unitary evolution. In particular, the coupling operator ˆA was chosen as a linear combination of directed charge hopping and spin-exchange processes on nearest-neighbor and NNN bonds, ˆA = X
+
+> ⟨ij ⟩,⟨⟨ ij ⟩⟩
+
+α X
+
+> σ
+
+ˆ˜c† 
+
+> iσ
+
+ˆ˜cjσ + β ˆS+ 
+
+> i
+
+ˆS−
+
+> j
+
+. (11) Fig. 6 (d) shows how a sweep over varying weights of 
+
+α and β (while fixing the overall strength through the constraint α + β = 1) leads to a broad minimum of the energy (maximum of the fidelity respectively) for values around α = 0 .4, β = 0 .6. This underlines that both spin-and charge channels are essential in cooling the t-J chain, though their exact decomposition only has a minor effect on the cooling efficiency. We further compare results when using spin-exchange and singlet-triplet cooling in Fig. 6 (e), showing almost identical performance. This further suggests that the mi-croscopic choice of the local spin cooling operators do not have a large effect on the outcome of the algorithm. 
+
+Dependence on ancilla frequency windows.— Lastly, we analyze the performance of the cooling algorithm as a function of ωmin , ω max in the 1D t-t′-V model as well as the mixD t∥-J∥-J⊥ ladder, Fig. 6 (f). We find that in the former, optimal cooling (black cross) is found when sampling ω uniformly from a range [0 , t ], cf. Fig. 2 in the main text. For the mixD ladder, indeed optimal cooling is found for a fixed ω/t ∥ = 0 .8, though the whole region below ωmin /t ∥ ≲ 1 yields comparable fidelities ≈ 95%. Finally we note that, though optimal frequency win-dows likely depend on systems size, we expect generic early-time cooling behavior for fixed frequency win-dows in the thermodynamic limit, as discussed around Fig. 2 (d).
