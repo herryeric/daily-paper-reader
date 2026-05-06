@@ -6,73 +6,64 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-05
-- 运行时间：2026-05-05 20:55:12 UTC
+- 最新运行日期：2026-05-06
+- 运行时间：2026-05-06 20:41:52 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：9
-- 速读区：8
+- 本次总论文数：14
+- 精读区：8
+- 速读区：6
 
 ### 今日简报（AI）
-深度解析 17 篇前沿文献，重点攻克高温超导配对机制与电子掺杂效应等核心难题。
-满分研究揭示了界面电荷诱导的电子配对新模式，并精准厘清了电子掺杂与氧还原在铜氧化物中的本质区别。
-建议关注强相互作用费米子冷却算法及原子电子学在惯性传感中的跨界应用。
-- 详情：[/202605/05/README](/202605/05/README)
+今日深度复盘 14 篇凝聚态前沿，重点攻克双层镍基超导机制与非相干金属的普适理论。
+满分论文揭示了镍氧化物中独特的“五自旋极化子”及金属输运的新范式，是理解强关联体系的关键。
+建议优先精读两篇满分佳作，把握非常规超导与量子临界现象的最新突破。
+- 详情：[/202605/06/README](/202605/06/README)
 
 ### 精读区论文标签
-1. [Interfacial charge-induced adsorption mode for electron pairing in high-temperature superconductors](/202605/05/2605.02619v1-interfacial-charge-induced-adsorption-mode-for-electron-pairing-in-high-temperature-superconductors)  
+1. [Interlayer Five-Spin Polaron in Superconducting Bilayer Nickelates](/202605/06/2605.02891v1-interlayer-five-spin-polaron-in-superconducting-bilayer-nickelates)  
    标签：评分：10.0/10、query:cmp
-   evidence：提出了针对YBCO等高温超导体的电子配对新机制
-2. [Differentiation of electron doping and oxygen reduction in electron-doped cuprates](/202605/05/2604.25450v1-differentiation-of-electron-doping-and-oxygen-reduction-in-electron-doped-cuprates)  
+   evidence：双层镍氧化物中的高温超导与自旋密度波序
+2. [Universal Theory of Incoherent Metals](/202605/06/2605.03013v1-universal-theory-of-incoherent-metals)  
+   标签：评分：10.0/10、query:cmp
+   evidence：非相干金属理论与非费米液体输运
+3. [Revisiting the surface density of states of midgap Andreev edge states](/202605/06/2605.02423v1-revisiting-the-surface-density-of-states-of-midgap-andreev-edge-states)  
    标签：评分：9.0/10、query:cmp
-   evidence：研究电子掺杂铜氧化物中的电子结构与超导机制
-3. [Shift of the maxima of the critical currents of different polarity relative to the zero magnetic flux along the flux axis in a superconducting asymmetric aluminum ring](/202605/05/2604.27848v1-shift-of-the-maxima-of-the-critical-currents-of-different-polarity-relative-to-the-zero-magnetic-flux-along-the-flux-axis-in-a-superconducting-asymmetric-aluminum-ring)  
+   evidence：p波和d波超导体中的安德烈耶夫边缘态
+4. [The flow of local quantum fluids: Conservation laws and vertex corrections from many-body linear-response theory with local self-energy](/202605/06/2605.02625v1-the-flow-of-local-quantum-fluids-conservation-laws-and-vertex-corrections-from-many-body-linear-response-theory-with-local-self-energy)  
    标签：评分：9.0/10、query:cmp
-   evidence：超导非对称环中临界电流和整流效应的实验研究
-4. [Topological flat bands emerging at the inversion of stacking order in rhombohedral graphite](/202605/05/2605.01115v1-topological-flat-bands-emerging-at-the-inversion-of-stacking-order-in-rhombohedral-graphite)  
+   evidence：强关联系统中动力学量子液体的非局域响应
+5. [Quantum Geometric Quadrupole of Cooper Pairs](/202605/06/2605.03133v1-quantum-geometric-quadrupole-of-cooper-pairs)  
    标签：评分：9.0/10、query:cmp
-   evidence：研究菱面体石墨中的平带结构，探讨其作为高温超导机制的可能性
-5. [Topological Ising superconductivity in two-dimensional p-wave magnet](/202605/05/2605.01686v1-topological-ising-superconductivity-in-two-dimensional-p-wave-magnet)  
+   evidence：超导中库珀对尺寸与量子几何的理论框架
+6. [Nature of magnetism in bilayer nickelate La3Ni2O7 single crystals](/202605/06/2605.03448v1-nature-of-magnetism-in-bilayer-nickelate-la3ni2o7-single-crystals)  
    标签：评分：9.0/10、query:cmp
-   evidence：p波磁体中拓扑伊辛超导性的理论研究
-6. [Two distinct superconducting regimes in Ti4Co2O under pressures](/202605/05/2605.01893v1-two-distinct-superconducting-regimes-in-ti4co2o-under-pressures)  
+   evidence：高温镍氧化物超导体的磁性与配对机制
+7. [Gossamer Superconductivity in Moiré WSe$_2$ Bilayer](/202605/06/2605.03766v1-gossamer-superconductivity-in-moir-wse2-bilayer)  
    标签：评分：9.0/10、query:cmp
-   evidence：Ti4Co2O超导体在压力下的超导转变温度和临界磁场的实验研究
-7. [Spin-polarized Josephson current induced by inhomogeneous altermagnetic interlayers](/202605/05/2605.02140v1-spin-polarized-josephson-current-induced-by-inhomogeneous-altermagnetic-interlayers)  
+   evidence：利用哈伯德模型研究莫尔双层WSe2中的超导性
+8. [Plasmons in Holographic Ersatz Fermi Liquids](/202605/06/2605.03865v1-plasmons-in-holographic-ersatz-fermi-liquids)  
    标签：评分：9.0/10、query:cmp
-   evidence：约瑟夫森结中超导性的理论与应用
-8. [Dynamical universality in a driven quantum fluid of light](/202605/05/2605.02397v1-dynamical-universality-in-a-driven-quantum-fluid-of-light)  
-   标签：评分：9.0/10、query:cmp
-   evidence：驱动光量子流体中动力学普适性的实验研究
-9. [Vortex Transport in Ni/Bi Bilayer Superconductor with Strong Spin-Orbit and Exchange Interaction](/202605/05/2605.02677v1-vortex-transport-in-nibi-bilayer-superconductor-with-strong-spin-orbit-and-exchange-interaction)  
-   标签：评分：9.0/10、query:cmp
-   evidence：Ni/Bi双层膜中涡旋动力学与非常规超导性的实验研究
+   evidence：非费米液体行为与等离激元的引力全息模型
 
 ### 速读区论文标签
-1. [Model-agnostic cooling algorithms for strongly interacting fermions](/202605/05/2605.01029v1-model-agnostic-cooling-algorithms-for-strongly-interacting-fermions)  
+1. [First-Order Transitions in Weak Ising Spin-Orbit-Coupled Superconductors](/202605/06/2605.03774v1-first-order-transitions-in-weak-ising-spin-orbit-coupled-superconductors)  
    标签：评分：8.0/10、query:cmp
-   evidence：针对与高温超导相关的强相互作用费米子的量子模拟冷却算法
-2. [Enhancing supercurrent-based inertial sensing via interactions in atomtronic angular accelerometers](/202605/05/2605.02048v1-enhancing-supercurrent-based-inertial-sensing-via-interactions-in-atomtronic-angular-accelerometers)  
+   evidence：自旋轨道耦合超导体中的一阶转变
+2. [Nonuniform superconducting states from Majorana flat bands](/202605/06/2605.03859v1-nonuniform-superconducting-states-from-majorana-flat-bands)  
    标签：评分：8.0/10、query:cmp
-   evidence：研究超冷原子系统中的超流及其在量子流体中的应用
-3. [Modeling large glitches with core superfluidity in a Hybrid star](/202605/05/2605.02467v1-modeling-large-glitches-with-core-superfluidity-in-a-hybrid-star)  
-   标签：评分：8.0/10、query:cmp
-   evidence：探讨混合星中的核心超流体和涡旋钉扎机制
-4. [Benchmarking the Dual Fermion approach on the Falicov-Kimball model](/202605/05/2605.02717v1-benchmarking-the-dual-fermion-approach-on-the-falicov-kimball-model)  
-   标签：评分：8.0/10、query:cmp
-   evidence：强电子关联的非微扰处理以及晶格模型中的非局域效应研究
-5. [Topological phase transitions in twisted bilayer graphene/hBN from interlayer coupling and substrate potentials](/202605/05/2604.27304v1-topological-phase-transitions-in-twisted-bilayer-graphenehbn-from-interlayer-coupling-and-substrate-potentials)  
+   evidence：马约拉纳平带产生的非均匀超导态
+3. [Surface nanostructuring of NbTi superconducting thin-film resonators for enhanced cryogenic thermometry](/202605/06/2605.01915v1-surface-nanostructuring-of-nbti-superconducting-thin-film-resonators-for-enhanced-cryogenic-thermometry)  
    标签：评分：7.0/10、query:cmp
-   evidence：莫尔体系中的关联量子相
-6. [Tracking doublon-holon dynamics in high-harmonic generation from Mott insulators](/202605/05/2605.01388v1-tracking-doublon-holon-dynamics-in-high-harmonic-generation-from-mott-insulators)  
+   evidence：超导薄膜谐振器在低温测温中的应用
+4. [Numerical evidence of a critical point in the (2+1)D SO(5) nonlinear sigma model with Wess-Zumino-Witten term](/202605/06/2605.03700v1-numerical-evidence-of-a-critical-point-in-the-21d-so5-nonlinear-sigma-model-with-wess-zumino-witten-term)  
    标签：评分：7.0/10、query:cmp
-   evidence：利用哈伯德模型研究强关联莫特绝缘体中的动力学行为
-7. [Long-range correlation and the spin conductivity in the XXZ chain from ballistic macroscopic fluctuation theory](/202605/05/2605.01645v1-long-range-correlation-and-the-spin-conductivity-in-the-xxz-chain-from-ballistic-macroscopic-fluctuation-theory)  
-   标签：评分：7.0/10、query:cmp
-   evidence：研究量子自旋链在临界区的自旋输运与关联函数
-8. [First-Principles Effective Mass in the Three-Dimensional Uniform Electron Gas](/202605/05/2605.02294v1-first-principles-effective-mass-in-the-three-dimensional-uniform-electron-gas)  
-   标签：评分：7.0/10、query:cmp
-   evidence：利用第一性原理微扰理论计算电子气中的基本费米液体参数
+   evidence：描述狄拉克费米子和质量项的SO(5)模型中的临界点
+5. [Kohn-Sham Hamiltonian from Effective Field Theory: Quasiparticle Band Narrowing from Frozen Core Dynamics](/202605/06/2604.25199v1-kohn-sham-hamiltonian-from-effective-field-theory-quasiparticle-band-narrowing-from-frozen-core-dynamics)  
+   标签：评分：6.0/10、query:cmp
+   evidence：金属中的准粒子能带收缩
+6. [Characterizing electronic scattering rates with transport in multiterminal devices](/202605/06/2605.03030v1-characterizing-electronic-scattering-rates-with-transport-in-multiterminal-devices)  
+   标签：评分：6.0/10、query:cmp
+   evidence：强相互作用电子系统中的输运机制
 
 
 <div class="dpr-home-promo-card">

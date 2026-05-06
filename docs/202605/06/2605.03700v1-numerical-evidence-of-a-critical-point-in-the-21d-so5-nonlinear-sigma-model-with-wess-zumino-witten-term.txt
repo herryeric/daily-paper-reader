@@ -1,0 +1,1579 @@
+Title: Numerical evidence of a critical point in the (2+1)D SO(5) nonlinear sigma model with Wess-Zumino-Witten term
+
+URL Source: https://arxiv.org/pdf/2605.03700v1
+
+Published Time: Wed, 06 May 2026 01:12:10 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+## Numerical evidence of a critical point in the (2+1)D SO(5) nonlinear sigma model with Wess-Zumino-Witten term 
+
+Yuan Da Liao ,1, 2 Bin-Bin Chen, 3 Fakher F. Assaad ,4, 5 Lukas Janssen ,6 and Zi Yang Meng 1, 2 1Department of Physics and HK Institute of Quantum Science & Technology, The University of Hong Kong, Pokfulam Road, Hong Kong SAR, China 
+
+> 2
+
+State Key Laboratory of Optical Quantum Materials, The University of Hong Kong, Pokfulam Road, Hong Kong SAR, China 
+
+> 3
+
+Peng Huanwu Collaborative Center for Research and Education, Beihang University, Beijing 100191, China 
+
+> 4
+
+Institut f¨ ur Theoretische Physik und Astrophysik, Universit¨ at W¨ urzburg, 97074 W¨ urzburg, Germany 
+
+> 5
+
+W¨ urzburg-Dresden Cluster of Excellence ctd.qmat, Am Hubland, 97074 W¨ urzburg, Germany 
+
+> 6
+
+Institut f¨ ur Theoretische Physik and W¨ urzburg-Dresden Cluster of Excellence ctd.qmat, TU Dresden, 01062 Dresden, Germany 
+
+(Dated: May 6, 2026) We develop an optimized continuous-field quantum Monte Carlo (QMC) algorithm to investigate the SO(5) nonlinear sigma model with a Wess-Zumino-Witten term, which describes half-filled Dirac fermions in 2+1 space-time dimensions akin to graphene and Yukawa coupled to a quintuplet of compatible mass terms. To regularize the theory, we project onto the lowest Landau level for both spherical and torus geometries. Our algorithm reduces the computational complexity to 𝑂 (𝛽𝑁 q 𝑁 2 
+
+> 𝜙
+
+), yielding a speedup of a factor of 𝑁 𝜙 (the number of magnetic fluxes, i.e., system size) relative to prior works [1–3]. This advance enables us to simulate system sizes up to 𝑁 𝜙 = 140 on torus and 𝑁 𝜙 = 49 on sphere, far exceeding the maximum sizes accessed, and to map out the universal phase diagram of the model on both geometries. Most notably, we identify and characterize a critical point that separates an SO(5)-broken ordered phase at small coupling from an SO(5)-symmetric disordered phase at large coupling. The critical point becomes multicritical upon the inclusion of terms that break the SO(5) symmetry down to U (1) × SU (2), relevant for the deconfined phase transition between N´ eel antiferromagnetic and valence-bond-solid orders in quantum magnets. While the precise nature of the disordered phase in the thermodynamic limit remains to be determined, we argue that it is neither conformal nor trivially gapped, akin to a chiral quantum spin liquid with a small gap. Our finding of a multicritical point in the phase diagram of the SO(5) nonlinear sigma model with Wess-Zumino-Witten term resolves the long-standing open question of its global structure, and our QMC framework opens a new avenue for systematic studies of projected Hamiltonians, ranging from correlated flat bands to fractional quantum (anomalous) Hall systems. 
+
+I. INTRODUCTION 
+
+When Dirac fermions are subjected to a perpendicular mag-netic field, they form discrete, highly degenerate Landau lev-els [4–7]. For half-filled Dirac fermions, projecting a Yukawa coupling to a quintuplet of compatible mass terms onto the lowest Landau level (LLL) and integrating out high-energy fermionic degrees of freedom, generates a Wess-Zumino-Witten topological term in the bosonic action of fermion bi-linears [8]. The resulting effective low-energy theory is a (2+1)D SO(5) nonlinear sigma model with a level-1 Wess-Zumino-Witten term, which hosts both N´ eel antiferromag-netic (AFM) and Kekul´ e valence-bond solid (VBS) phases as symmetry-broken ground states, as well as possibly continu-ous phase transitions between them [1–3, 8–13]. This model is intrinsically linked to the paradigm of deconfined quantum criticality, which describes continuous phase transitions be-tween phases with incompatible broken symmetries beyond the Landau-Ginzburg-Wilson framework [14–22]. Recent numerical studies of deconfined quantum critical-ity in lattice spin models (e.g., the 𝐽 -𝑄 model [16]) have raised critical questions about the nature of the transition, with accumulating evidence suggesting a weakly-first-order transition rather than a generic continuous quantum critical point [23–29]. In particular, entanglement entropy mea-surements have revealed anomalous logarithmic corrections at the AFM-to-VBS transition points, which have been at-tributed to residual Goldstone modes associated with weak-first-order behavior [30–39]. The weakly-first-order nature of the transition may be due to a fixed-point annihilation mecha-nism [18, 26, 40, 41] or the presence of a nearby multicritical point [29, 42]. Both of these two seemingly competing scenarios can be understood within the framework provided by the SO(5) non-linear sigma model with Wess-Zumino-Witten term, which represents a minimal continuum description for the decon-fined phase transition. The model belongs to a family of SO( 𝑁 ) nonlinear sigma models, which are amenable to a 1 /𝑁 
+
+expansion [43]. For sufficiently large 𝑁 , these models sup-port three fixed points, see Fig. 1(a) (“Scenario 1”). The noninteracting fixed point, marked as ‘O’, describes a stable SO( 𝑁 ) ordered phase, while the interacting stable fixed point ‘D’ realizes a gapless disordered phase, described by a unitary conformal field theory. The two phases are separated by the critical fixed point marked as ‘M’ in Fig. 1(a), which is de-scribed by another unitary conformal field theory. The critical fixed point ‘M’ becomes multicritical upon the inclusion of explicit SO( 𝑁 )-symmetry-breaking terms. The fate of the interacting fixed points in the physically relevant case of 𝑁 = 5 is less obvious. Previous theoretical 
+
+> arXiv:2605.03700v1 [cond-mat.str-el] 5 May 2026
+
+2works [40, 41, 43] have entertained the possibility that the in-teracting stable fixed point ‘D’ moves towards and eventually annihilates with the critical fixed point ‘M’ upon decreasing 𝑁 
+
+beyond a critical 𝑁 c > 5, resulting in an instability of the inter-acting disordered state towards the long-range ordered state, see Fig. 1(b) (“Scenario 2”). In this scenario, the ground state of the SO(5) nonlinear sigma model with Wess-Zumino-Witten term spontaneously breaks SO(5) symmetry throughout the phase diagram. However, the fixed-point annihilation results in a slow flow near the complexified fixed points [44] and an exponential suppression of the order parameter ∼ e−𝑎 /√𝑁 c − 𝑁 ,with 𝑎 > 0 a nonuniversal constant, in the strong-coupling regime. An alternative scenario is that the fixed point ‘D’ moves away from ‘M’ upon decreasing 𝑁 , eventually either annihi-lating with another fixed point at finite coupling (not shown) or approaching the strong-coupling fixed point, see Fig. 1(c) (“Scenario 3”). Independent of the fate of the fixed point ‘D’, the critical point ‘M’ in this scenario is not involved in any fixed-point collision all the way down to 𝑁 = 5 and remains described by a unitary conformal field theory. It separates the SO(5)-ordered phase at small coupling from an SO(5)-disordered phase at large coupling. For odd Wess-Zumino-Witten level, the disordered phase has to be either gapless or spontaneously break some other symmetry, due to the nontriv-ial ’t Hooft anomaly [43]. The SO(5) nonlinear sigma model with a Wess-Zumino-Witten term has been studied numerically with two distinct regularization schemes: toric geometry with periodic bound-ary conditions [1, 2], and spherical geometry with a magnetic monopole, which preserves full rotational symmetry and elim-inates edge effects [3, 45, 46]. Notably, only Ref. [3] has ex-plored the parameter space away from the SO(5)-symmetric line, reporting critical points separating an SO(5)-symmetric phase with finite width from the VBS and AFM phases. This raises the transformative possibility of a stable, extended dis-ordered SO(5)-symmetric phase in the spirit of a quantum spin liquid in the phase diagram, consistent with the struc-ture of the phase diagram proposed in the generalized 𝐽 -𝑄 
+
+model [29]. However, the integer-spaced conformal tower structure expected for the sphere geometry is not yet fully re-spected in the measured energy levels [45–47], possibly due to “pseudo-critical” behavior. Furthermore, the exact posi-tion of the multicritical point suffers from sizable finite-size effects and one therefore needs to find alternative tools to ac-cess the converged phase boundaries in the thermodynamic limit. Prior studies have been severely limited by the com-putational bottlenecks of conventional discrete auxiliary-field determinantal quantum Monte Carlo (QMC) method [1–3], not to mention the even smaller system sizes in exact diago-nalization and density-matrix renormalization group (DMRG) methods [45–47]. Thus, advancing numerical algorithms, is imperative. We design a QMC method with significantly reduced com-putational complexity to study the phase diagram of the SO(5) 𝑢 d𝑢 
+
+> dℓ𝑢 Od𝑢
+> dℓ𝑢 d𝑢
+> dℓslow
+
+Order Disorder Order Order Disorder Scenario 1 Scenario 3 (a) (b) (c) (d) fast fast OMMDOslow fast Scenario 2 10 -2 10 -1 10 0-1 -0.1 -0.01 -0.001 00.001 0.01 0.1 1 AFM Disorder AFM - Dis. Trans. VBS - Dis. Trans. VBS SO5 Breaking                 
+
+> FIG. 1. Possible renormalization group flows of the nonlinear sigma model with Wess-Zumino-Witten term and universal phase diagram. (a) Scenario 1: For sufficiently large 𝑁 , the SO( 𝑁 ) non-linear sigma model has an infrared stable noninteracting fixed point ‘O’, describing an SO( 𝑁 ) ordered phase, a stable interacting fixed point ‘D’, describing a gapless disordered phase, and a critical fixed point ‘M’ in between. Arrows denote flow towards the infrared. (b) Scenario 2: For decreasing values of 𝑁 , fixed point ‘D’ may move towards and eventually annihilate with the critical fixed point ‘M’, resulting in an instability of the disordered state towards the long-range ordered state. (c) Scenario 3: Alternatively, fixed point ‘D’ may move away from ‘M’ upon decreasing 𝑁 , eventually either annihilating with another fixed point at finite coupling (not shown) or approaching the strong-coupling fixed point. (d) Numerical result: Phase diagram of the model in Eq. (1) as a function of the SO(5) coupling 𝑢 and the anisotropy parameter 𝛼 . The phase diagram hosts four distinct phases: a SO(5)-symmetry-broken phase (red segment, small 𝑢 ), a SO(5)-symmetric disordered phase akin to a chiral quan-tum spin liquid (grey area), a N´ eel AFM phase (green area, 𝛼 > 0), and a Kekul´ e VBS phase (cyan area, 𝛼 < 0). The multicritical point (orange dot) separates the SO(5)-symmetry-broken phases (AFM and VBS) from the disordered phase. Continuous phase transitions be-tween the disordered phase and the AFM and VBS phases are marked by blue lines, with the blue shaded area depicting the uncertainty in the transition points. The red diamonds and blue crosses mark the transition points determined in this work and in the previous DMRG study on spherical geometry [3], respectively.
+
+nonlinear sigma model with Wess-Zumino-Witten term, on both torus and sphere geometries. Our advance is based on the observation that, different from the discrete-auxiliary-field QMC commonly used [1–3], one can follow the recent de-velopment in the momentum-space QMC for twisted bilayer graphene [48] (also a projection problem with long-range in-3teraction and regularization) to use a continuous auxiliary field in the QMC simulations. With the continuous auxiliary field, we can perform a global update for an entire imagi-nary time slice, i.e., 𝑁 𝜙 sites get updated all together, and use Langevin dynamics [49–51] supplemented with a Metropo-lis acceptance/condition [52, 53] Our improved continuous field determinant QMC (CF-DQMC) algorithm is shown to be 
+
+𝑂 (𝑁 𝜙 ) faster than the previous simulations on torus and sphere geometries [1–3]. With such improvement and the new under-standing of the phase diagram of the problem [3], in this work we (1) successfully simulated system sizes with 𝑁 𝜙 = 140 on the torus and 𝑁 𝜙 = 49 on the sphere, significantly larger than the previous maximum of 𝑁 𝜙 = 100 on the torus and 
+
+𝑁 𝜙 = 16 on the sphere, and (2) explored a much larger param-eter space than previous works, with ease and significantly less computational cost. The obtained phase diagram is shown in Fig. 1(d). These simulations reveal that the triple point that separates the AFM and VBS ordered phases from the SO(5)-disordered phase ( orange dot in Fig. 1(d) ) is a multicritical point that is fully compatible with a unitary conformal-field-theory de-scription, including the most recent bounds from conformal bootstrap calculations [42, 54–56]. The presence of the critical point along the SO(5) line refutes the fixed-point annihilation Scenario 2 outlined in Fig. 1(b). Furthermore, we argue that the SO(5)-disordered phase is incompatible with a description in terms of a unitary conformal field theory, refuting the large-
+
+𝑁 Scenario 1 outlined in Fig. 1(a). On both spherical and toric geometries, our numerical results are fully compatible with Scenario 3 outlined in Fig. 1(c), with a single interacting fixed point ‘M’ at finite coupling and a slow renormalization group flow in the strong-coupling regime. The universal structure of the phase diagram bears a striking similarity to that of the gen-eralized 𝐽 -𝑄 model [29]. In particular, a first-order transition across the SO(5)-breaking phase, together with a multicritical point and a disordered (spin-liquid) phase, separates the N´ eel and VBS phases. While the precise nature of the disordered phase at strong coupling in the thermodynamic limit remains to be determined, a possible interpretation consistent with the nontrivial ’t Hooft anomaly [43] would be a chiral quantum spin liquid ground state with a small gap arising from a slow renormalization group flow.   
+
+> II. RESULTS A. Theoretical model, Fierz identity transformation, and computational bottleneck
+
+Our starting point for numerical simulation is the regular-ized momentum-space Hamiltonian for the projected SO(5) model [1–3]. By projecting the continuum field operator onto the LLL basis, we obtain 
+
+H = 𝑈 0H0 −
+
+> 5
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑈 𝑖 H𝑖 , (1) where 
+
+H𝑖 =
+
+> 𝑁 q
+
+∑︁ 
+
+> q
+
+𝑛 Γ𝑖  
+
+> q
+
+𝑛 Γ𝑖 
+
+> −q
+
+. (2) Here, 𝑛 Γ𝑖  
+
+> q
+
+= ∫ 𝑑 𝒓 𝑒 𝑖 q·𝒓 ˆ𝝍 † 
+
+> 𝒓
+
+Γ𝑖 ˆ𝝍 𝒓 is the Fourier-transformed den-sity operator for the 𝑖 -th SO(5) component, with ˆ 𝝍 † 
+
+> 𝒓
+
+( ˆ 𝝍 𝒓 ) writ-ten in different basis functions on torus and sphere geometries (see Sec. IV A in Methods) and Γ𝑖 being the 4 ×4 Gamma ma-trices encoding the valley and spin degrees of freedom. The 4 × 4 Gamma matrices 
+
+Γ𝑖 = {𝜏 𝑥 ⊗ I2, 𝜏 𝑦 ⊗ I2, 𝜏 𝑧 ⊗ 𝜎 𝑥 , 𝜏 𝑧 ⊗ 𝜎 𝑦 , 𝜏 𝑧 ⊗ 𝜎 𝑧 } (3) are mutually anticommuting, and their commutators 𝐿 𝑖 𝑗 = 
+
+> −𝑖
+> 2
+
+[Γ𝑖 , Γ 𝑗 ] form the 10 generators of the SO(5) Lie group.We also define the 0-th component Γ0 as the identity operator. More details of the model can be found in Sec. IV B of Meth-ods. We set 𝑈 0 = 1 as the energy unit, and parameterize the interaction strengths as 𝑈 1 = 𝑈 2 = 𝑈 𝐾 (coupling to val-ley/Kekul´ e VBS order) and 𝑈 3 = 𝑈 4 = 𝑈 5 = 𝑈 𝑁 (coupling to spin/N´ eel order). When 𝑈 𝐾 = 𝑈 𝑁 = 𝑢 > 0, the Hamiltonian has exact SO(5) symmetry. A key first step in our algorithm is to perform a Fierz identity transformation on the Hamiltonian in Eq. (1). This transfor-mation reorganizes the quartic fermionic interaction terms by exchanging spin indices, resulting in the transformed Hamil-tonian 
+
+𝐻 =
+
+> 3
+
+∑︁ 
+
+> 𝑖 =0
+
+𝑔 𝑖 𝐻 𝑖 , (4) where 
+
+𝐻 𝑖 =
+
+> 𝑁 q
+
+∑︁ 
+
+> q
+
+𝑛 𝑂 𝑖  
+
+> q
+
+𝑛 𝑂 𝑖 
+
+> −q
+
+. (5) The transformed operators are 
+
+𝑂 𝑖 = {I2 ⊗ I2, 𝜏 𝑥 ⊗ I2, 𝜏 𝑦 ⊗ I2, 𝜏 𝑧 ⊗ I2 }, (6) and the renormalized coupling constants are 𝑔 0 = 𝑈 0 + 𝑈 𝑁 ,
+
+𝑔 1 = −( 𝑈 𝐾 + 𝑈 𝑁 ), 𝑔 2 = −( 𝑈 𝐾 + 𝑈 𝑁 ), and 𝑔 3 = 2𝑈 𝑁 .This Fierz identity transformation provides two critical ad-vantages: (1) Complete elimination of the fermionic sign prob-lem in the presence of only contact interactions, since the transformed Hamiltonian has fully decoupled spin degrees of freedom, allowing us to exploit the particle-hole symmetry of the half-filled system to ensure the fermion determinant is pos-itive definite for all parameter values studied. (2) The number 4of independent interaction channels is reduced from 6 to 4, from {Γ0, Γ1, · · · , Γ5 } to {𝑂 0, 𝑂 1, · · · , 𝑂 3 }, simplifying the subsequent Hubbard-Stratonovich (HS) decomposition and re-ducing the number of auxiliary fields required in the Monte Carlo sampling. Full details of the model regularization and Fierz identity transformation are provided in Sec. IV B in the Methods. In Eqs. (1) and (4), the system size 𝑁 𝜙 enters from the num-ber of orbits in the basis ˆ 𝝍 † 
+
+> 𝒓
+
+( ˆ 𝝍 𝒓 ) and denotes the degeneracy of the LLL, which is equal to the number of magnetic flux quanta piercing the system and serves as our measure of the volume. 
+
+𝑁 q denotes the number of momentum points included in the simulation. For torus geometry, a natural momentum cutoff arises from the Gaussian form factor of the LLL wave func-tions, giving 𝑁 q ∝ 𝑁 𝜙 . For sphere geometry, we include all angular momentum channels, giving 𝑁 q = (𝑁 𝜙 + 1)2 ∝ 𝑁 2 
+
+> 𝜙
+
+,which renders a higher computational complexity than that of the torus. Conventional discrete auxiliary-field determinant QMC simulations of this model face a severe computational bot-tleneck. The projected interactions are long-ranged, a local update of a single auxiliary field leads to a non-local change in the fermion determinant, requiring 𝑂 (𝑁 3 
+
+> 𝜙
+
+) operations per update (dominated by matrix inversion and multiplication). Since 𝑂 (𝑁 q) auxiliary fields need to be updated per imag-inary time slice, and there are 𝑂 (𝛽 /Δ𝜏 ) time slices (where 
+
+𝛽 is the inverse temperature and Δ𝜏 is the Trotter step size), the overall computational complexity is 𝑂 (𝛽𝑁 q 𝑁 3 
+
+> 𝜙
+
+). For the spherical geometry, where 𝑁 q ∝ 𝑁 2 
+
+> 𝜙
+
+, this complexity rises to 
+
+𝑂 (𝛽𝑁 5 
+
+> 𝜙
+
+) and it is 𝑂 (𝛽𝑁 4 
+
+> 𝜙
+
+) on torus, which has limited prior simulations to 𝑁 𝜙 ≤ 16 on sphere [3] and 𝑁 𝜙 ≤ 100 on the torus [1, 2].  
+
+> B. Continuous field QMC with MALA global updates
+
+To overcome the computational bottleneck of conven-tional determinant QMC, we develop an optimized contin-uous field determinant QMC algorithm with a Metropolis-adjusted Langevin algorithm (MALA) for global updates of continuous auxiliary fields. This approach is enabled by our Fierz-transformed Hamiltonian and a continuous Hubbard-Stratonovich (HF) decomposition, as detailed in Sec. IV C in Methods. The key insight is that, unlike discrete auxiliary fields which require point-by-point local updates, continuous aux-iliary fields allow us to propose updates for all 𝑁 q auxiliary fields in an entire imaginary time slice simultaneously. To im-plement these global updates efficiently with a high acceptance rate, we use the MALA [52, 53] technique, which combines Langevin dynamics with a Metropolis accept/reject step to ensure detailed balance. The global update proceeds as follows. For a given imag-inary time slice 𝜏 , we propose a new set of auxiliary field configurations {𝜙 ′𝑖 𝜏,𝑞 } from the current configurations {𝜙 𝑖 𝜏,𝑞 }
+
+for the entire time slice, via the Langevin dynamics equation: 
+
+𝜙 𝑖 ′ 
+
+> 𝜏,𝑞
+
+= 𝜙 𝑖 𝜏,𝑞 + 𝜖 2
+
+2 ∇𝜙 𝑖 𝜏,𝑞 𝑆 [𝜙 ] + 𝜖 N ( 0, 1), (7) where 𝜖 is the Langevin step size, N ( 0, 1) is the standard normal distribution, and 𝑆 [𝜙 ] is the total effective action of the auxiliary fields based on the equal time single-particle Green’s function and the imaginary time propagator constructed from the auxiliary field configuration. The critical ingredient is the gradient of the action, ∇𝜙 𝑖 𝜏,𝑞 𝑆 [𝜙 ], which can be computed directly from the trace operation of the multiplication of equal-time Green’s functions with a computational complexity of 
+
+𝑂 (𝑁 2 
+
+> 𝜙
+
+) per update. The deviation of the gradient is given in Sec. IV D in Methods. The proposed configuration {𝜙 ′ } is then accepted or rejected according to the Metropolis-Hastings criterion. To optimize the update efficiency, we implement an adaptive step size ad-justment mechanism that automatically tunes 𝜖 during the sim-ulation to maintain an average acceptance rate of 𝑟 0 = 0.574, the theoretically optimal value for MALA [52, 53]. The overall computational complexity is thus reduced to 
+
+𝑂 (𝛽𝑁 q 𝑁 2 
+
+> 𝜙
+
+), which represents a speedup of a factor of 𝑁 𝜙 
+
+relative to prior methods with 𝑂 (𝛽𝑁 q 𝑁 3 
+
+> 𝜙
+
+). This acceleration enables us to readily simulate unprecedented system sizes up to 
+
+𝑁 𝜙 = 140 on torus and 𝑁 𝜙 = 49 on sphere, far beyond previous limits. We have benchmarked our algorithm against DMRG results for small system sizes, finding perfect agreement for all physical observables (see Sec. IV E in the Methods), confirm-ing that our method is unbiased and accurate.  
+
+> C. Universal phase diagram on two geometries
+
+We first present the universal phase diagram of the pro-jected SO(5) model on sphere and torus geometries as our central finding, visualized in Fig. 1 (d). This phase dia-gram is parameterized by two tuning parameters: the horizon-tal axis is 𝑢 , which defines the SO(5)-symmetric line where the interaction strengths satisfy 𝑈 𝐾 = 𝑈 𝑁 = 𝑢 ; the vertical axis is the anisotropy parameter 𝛼 , defined via the relations 
+
+𝑈 𝑁 = 𝑢 + 𝛼 /√2 and 𝑈 𝐾 = 𝑢 − 𝛼 /√2, which breaks the full SO(5) symmetry down to SO(3) × SO(2) for non-zero 𝛼 .The phase diagram exhibits a universal structure consisting of four distinct thermodynamic phases and associated phase transitions. At small values of 𝑢 ≲ 0.2 along the SO(5)-symmetric line, the system resides in a phase with sponta-neously broken SO(5) symmetry (red segment, small 𝑢 in Fig. 1 (d)). This symmetry-broken phase is separated from a SO(5)-symmetric disordered phase by a multicritical point located near 𝑢 ∼ 0.2 (orange dot in Fig. 1 (d)). For all val-ues of 𝑢 > 0.2, the system remains in this SO(5)-symmetric disordered state, which is a stable phase akin to a chiral quantum spin liquid, that extends over a finite range of the anisotropy parameter 𝛼 (grey area in Fig. 1 (d)), and sepa-rates the two symmetry-broken phases away from the SO(5)-5ln( )-4 -3.5 -2                    
+
+> NΦ
+> -4.5 -3 -2.5 ln( m )0.8 11.2 22.2 2.6 2SO5 1.4 1.6 1.8 2.4 u=0.05 u=0.1 u=0.15 u=0.2 u=0.3 u=0.4 u=0.6 u=0.8 u=1 u=5 u=10 u=20 00.05 0.1 0.15 1/ NΦ
+> min
+> Δ
+> ln( )-3.5 -3 -2.5 -2
+> NΦ
+> ln( m )-1.2 -1.0 -0.8 -0.6 -0.4 -0.2 02SO5 u=0.05 u=0.075 u=0.1 u=0.125 u=0.15 u=0.175 u=0.2 u=0.4 u=0.6 u=1 u=2 u=5 00.05 0.1 0.15 1/ NΦ
+> min 0.3 0.4 0.5 0.6
+> Δ
+> (a) (b) (c) (d)
+> -5 0.7 0.3 0.4 0.5 0.6 0.7
+> Δbootstrap = 0.79 Δ,min bootstrap = 0.79 ,min u=10
+
+FIG. 2. SO(5) order parameter scaling on sphere and torus geometries. (a,b) Results for the sphere geometry with 𝑁 𝜙 up to 49; (c,d) results for the torus geometry with 𝑁 𝜙 up to 140. (a,c) Log-log plot of the SO(5) order parameter 𝑚 2SO(5) versus system size 𝑁 𝜙 for different values of 
+
+𝑢 along the SO(5)-symmetric line. (b,d) Scaling dimension Δ𝑣 of the SO(5) order parameter versus inverse system size 1 /𝑁 min  
+
+> 𝜙
+
+, where 𝑁 min  
+
+> 𝜙
+
+is the minimum system size included in the scaling fit. Three distinct regimes are observed: a SO(5) symmetry-broken phase (red shaded area, 
+
+𝑢 < 0.2), a multicritical point (orange shaded area, 𝑢 ∼ 0.2), and a stable SO(5) symmetric disordered phase (grey shaded area, 𝑢 > 0.2). The phase structure is consistent across both geometries, as in the universal phase diagram in Fig. 1 (d). Δbootstrap  
+
+> 𝑣 ,min
+
+denotes the conformal bootstrap lower bound on the scaling dimension of the SO(5) vector in an infrared-stable conformal phase [56]. 
+
+symmetric line. For positive values of 𝛼 , where the N´ eel cou-pling 𝑈 𝑁 dominates over the valence-bond solid (VBS) cou-pling 𝑈 𝐾 , the system forms a N´ eel antiferromagnetic (AFM) phase with spontaneous breaking of the SO(3) spin symmetry (green area in Fig. 1 (d)). Conversely, for negative values of 
+
+𝛼 , where the VBS coupling 𝑈 𝐾 is dominant, the system enters a Kekul´ e VBS phase with spontaneous breaking of the SO(2) valley symmetry (cyan area in Fig. 1 (d)). Continuous phase transitions between the symmetric disor-dered phase and the AFM/VBS phases are indicated by blue lines and crosses in Fig. 1 (d), with the blue shaded region denoting the uncertainty in the determined critical points. The red diamonds and blue crosses mark the transition points de-termined in this work and in previous density matrix renor-malization group study on sphere geometry [3], respectively. Interestingly, the overall topological structure of the phase di-agram is consistent across both spherical and toric geometries, and even the position of the multicritical point arising from the different regularization schemes is similar, as discussed below. This consistency confirms that the observed phase structure is a universal feature of the model in the thermodynamic limit, rather than a finite-size or geometry-specific artifact. 
+
+D. Phase structure along the SO(5)-symmetric line 
+
+We now detail the phase behaviour along the SO(5)-symmetric line for two geometries, which constitutes the hor-izontal axis of the phase diagram presented in Fig. 1 (d). To characterize the phase structure, we use the SO(5) order pa-rameter defined as 
+
+𝑚 2SO(5) = 15𝑁 2
+
+> 𝜙
+> 5
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑆 𝑖 
+
+> q=0
+
+, (8) where 𝑆 𝑖  
+
+> q
+
+= ⟨𝑛 Γ𝑖  
+
+> q
+
+𝑛 Γ𝑖 
+
+> −q
+
+⟩ denotes the static correlation function for the 𝑖 -th SO(5) component. We further extract the effective scaling dimensions Δ𝑣 of the SO(5) order parameter via finite-size scaling analysis, using the power-law relation 𝑚 2SO(5) ∼
+
+𝑁 −Δ𝑣  
+
+> 𝜙
+
+. Since our continuous field QMC performs at its best along the SO(5) line, we performed the simulation with 𝑁 𝜙 =
+
+140 on torus geometry and 𝑁 𝜙 = 49 on sphere geometry, much larger than previous QMC simulations [2, 3]. The measured SO(5) order parameter and its corresponding scaling dimension for both spherical and toric geometries are presented in Fig. 2. Across both regularization schemes, we identify three distinct regimes as a function of the interaction strength 𝑢 , each mapping to the corresponding regions along the horizontal axis of the phase diagram. At small values of 𝑢 < 0.2, corresponding to the red shaded area in Fig. 2, the system resides in the SO(5) symmetry-broken phase. In this regime, the SO(5) order parameter increases with system size, as evidenced by the upward bending of the curves in the log-log plots of panels (a) and (c), which signals spon-taneous breaking of SO(5) symmetry in the thermodynamic limit. This behavior is further supported by the scaling dimen-sion, which decreases monotonically with increasing system size in panels (b) and (d), consistent with the expected behavior of a symmetry-broken phase with a finite order parameter in the thermodynamic limit. At intermediate values of 𝑢 ∼ 0.2, marked by the orange shaded region in Fig. 2, we observe the critical point separating the symmetry-broken and disor-6dered phases. Here, the SO(5) order parameter exhibits clean power-law scaling with system size, accompanied by a scal-ing dimension that remains constant as a function of inverse system size, the hallmark of a scale-invariant critical state. In-terestingly, the two geometries share a similar position of the multicritical point, ∼ 0.2, as denoted by the orange dot in the universal phase diagram in Fig. 1 (d). For large values of 𝑢 > 0.2, corresponding to the grey shaded area in Fig. 2, the system enters the SO(5)-symmetric disordered phase. In this regime, the SO(5) order parameter retains power-law scaling within accessible system sizes, but with a scaling dimension distinct from that of the multicrit-ical point. This behavior persists across the full range of 𝑢 
+
+explored, up to 𝑢 = 10 on the sphere and 𝑢 = 20 on the torus, confirming that the SO(5) symmetric disordered phase is a sta-ble, extended thermodynamic phase, rather than a finite-size effect or a narrow critical window. Most importantly, for the system sizes 𝑁 𝜙 > 50 currently available only on the torus geometry, the scaling dimension Δ𝑣 increases with increasing system size 𝑁 𝜙 for 𝑢 > 0.2 (black region), while it decreases with increasing 𝑁 𝜙 for 𝑢 < 0.2 (red region), see Fig. 2(d). The sign of the slope of the measured value of Δ𝑣 as a function of 1/𝑁 𝜙 , however, indicates the direction of the renormalization group flow, with a positive (negative) slope corresponding to a decreasing (increasing) coupling 𝑢 towards the infrared. Our observation of a positive slope for 𝑢 < 0.2 (red region) together with the negative slope for 𝑢 > 0.2 (black region) for system sizes 𝑁 𝜙 > 50 in Fig. 2(d) is therefore inconsistent with the fixed-point annihilation Scenario 2 outlined in Fig. 1(b). The observed behavior demonstrates the existence of a crit-ical fixed point ‘M’ that separates the ordered and disordered phases. To extract the scaling dimension Δ𝑣 of the SO(5) vector order parameter characterizing the continuous quantum phase transition along the SO(5) symmetric line, we perform linear fits of ln (𝑚 2SO (5) ) versus ln (𝑁 𝜙 ) for different 𝑢 values, where the slope of each fit directly yields the corresponding 
+
+Δ𝑣 as dictated by finite-size scaling theory. By progressively excluding small system sizes from the fits, we find that Δ𝑣 
+
+decreases rapidly for 𝑢 ≪ 0.2, a clear signature that the sys-tem resides in the SO(5) symmetry-broken phase. In contrast, for 𝑢 ∼ 0.2, Δ𝑣 converges to a finite non-zero value, demon-strating that 𝑚 2SO (5) exhibits clean power-law scaling with 𝑁 𝜙 ,consistent with the system being in the critical regime. We focus on the parameter points 𝑢 = 0.15 (spherical geometry) and 𝑢 = 0.2 (toric geometry), where the extracted Δ𝑣 shows a flat dependence on 1 /𝑁 𝜙 , indicating negligible finite-size cor-rections to the thermodynamic scaling limit. For the largest 
+
+𝑁 min  
+
+> 𝜙
+
+(the minimum system size retained in the scaling fits), we obtain Δ𝑣 = 0.51 (1) and 0 .50 (3) for the spherical and toric geometries, respectively. Similar analysis can be carried out for the SO(5)-symmetric disordered phase ( 𝑢 > 0.2). To this end, we focus on 𝑢 = 10 for both geometries, which lies deep within the symmetric phase and is well separated from the multicritical point near 𝑢 ∼ 0.2and the symmetry-broken phase at 𝑢 < 0.2. For this parameter point, we extract Δ𝑣 = 0.63 (2) in the spherical geometry and 
+
+Δ𝑣 = 0.65 (5) in the toric geometry. We emphasize, however, that these values in the disordered are nonuniversal effective scaling dimensions that depend on system size and the value of 𝑢 , in contrast to the situation at the multicritical point. Nevertheless, within numerical uncertainty, the estimates are consistent across both spherical and toric geometries. The ob-tained values for Δ𝑣 in the disordered phase maps to anomalous dimensions 𝜂 N´ eel = 𝜂 VBS = 2Δ𝑣 − 1 = 0.26 (4) for the sphere geometry and 0 .3(1) for the toric geometry. These values match surprisingly well the values reported in quantum spin models exhibiting a deconfined phase transition between N´ eel and VBS orders [16, 26, 57]. However, the measured values Δ𝑣 = 0.63 (2) for the spher-ical geometry and Δ𝑣 = 0.65 (5) for the toric geometry are in tension with constraints from the conformal bootstrap. In particular, Ref. [56] establishes an upper bound on the scal-ing dimension of the SO(5) singlet Δ𝑠 as a function of the vector scaling dimension Δ𝑣 . Our observation of Δ𝑣 < 0.79 in the disordered phase implies that the scalar operator must be relevant, Δ𝑠 < 3, if the phase is described by a unitary conformal field theory. While the presence of a relevant scalar is compatible with a critical point at finite coupling along the SO(5)-symmetric line ( potentially becoming multicritical upon explicit symmetry breaking to SU (2) × U(1) ), it rules out an infrared-stable unitary conformal field theory with SO(5) symmetry governing the disordered phase along this line. This refutes the large-𝑁 Scenario 1 outlined in Fig. 1(a). Two possible interpretations may reconcile our numerical results ( Δ𝑣 < 0.79) with the conformal bootstrap constraints: (a) The phase is weakly gapped, with a parametrically small gap that remains unresolved in our simulations, for instance due to walking behavior [26, 44]. (b) The phase is scale invariant but not fully conformal. To probe the latter possibility, we an-alyze the finite-size scaling of the excitation gap. Beyond scale invariance, conformal invariance requires emergent relativis-tic symmetry, implying that spatial and temporal correlation lengths diverge with the same exponent, i.e., a dynamical crit-ical exponent 𝑧 = 1. As shown in Supplementary Note 2 [58], our data are roughly consistent with 𝑧 = 1 within numerical uncertainty, which may indicate emergent Lorentz invariance. This leads us to conjecture that the phase is weakly gapped, an interpretation that is consistent with the drift observed in Δ𝑣 
+
+for the largest available system sizes 𝑁 𝜙 > 50. The nontrivial ’t Hooft anomaly of the continuum model with level-1 Wess-Zumino-Witten term [43] forbids a trivially gapped phase. A possible ground state could be a chiral quantum spin liquid ground state with a small gap arising from a slow renormaliza-tion group flow in the strong-coupling regime. Determining the precise nature of the SO(5)-disordered phase is left for fu-ture work, but we note that the universal structure of the phase diagram bears a striking similarity with that of the generalized 
+
+𝐽 -𝑄 model [29]. In particular, a first-order transition across the SO(5)-breaking phase, together with a multicritical point and a disordered (spin-liquid) phase, separates the N´ eel and 7-2 -1 0 1 2 3 4 5      
+
+> NΦ= 9
+> NΦ= 11
+> NΦ= 13
+> NΦ= 15
+> NΦ= 17
+> NΦ= 21 0.3 0.5 0.7 0.9
+
+α   
+
+> R VBS
+> N
+> 04812 ×10 -3
+> Φ
+> -1/2 ν-ω/2 0-0.5 -1 -1.5
+> αVBS *
+
+FIG. 3. VBS-Disorder phase transition away from the SO(5)-symmetric line. Correlation ratio 𝑅 VBS for the VBS order parameter versus anisotropy 𝛼 for different system sizes 𝑁 𝜙 on the spherical geometry, at 𝑢 = 3. Crossing points between consecutive system sizes mark the critical point for the transition from the VBS phase (𝛼 < 𝛼 𝑐 ) to the SO(5) symmetric disordered phase ( 𝛼 > 𝛼 𝑐 ). The vertical dashed line denotes the crossing point between 𝑁 𝜙 = 17 and 21 at 𝛼 = −0.22. The error bars are smaller than the marker size and are therefore not resolved in the plot. Inset: Thermodynamic-limit extrapolation of the finite size crossing point 𝛼 ∗ 
+
+> VBS
+
+(𝑁 𝜙 ) = 𝛼 𝑐, VBS +
+
+𝑐 𝑁 −1/2𝜈 − 𝜔 /2 
+
+> 𝜙
+
+, with critical exponents 𝜈 = 0.47 and 𝜔 = 2.31 from Ref. [3]. The extrapolated critical point is 𝛼 𝑐, VBS = −0.09 (5). The cyan, grey and green areas in the main panel schematically present the VBS, disorder and AFM phases in the universal phase diagram in Fig. 1 (d). 
+
+VBS phases. 
+
+E. Phase boundaries away from the SO(5)-symmetric line 
+
+Finally, we detail the precise determination of the phase boundaries away from the SO(5)-symmetric line, which define the vertical extent of the disordered phase in Fig. 1. We focus on 𝑢 = 3 on the sphere geometry, deep inside the SO(5) symmetric disordered phase along the symmetric line, and vary 𝛼 to explore the transitions to the AFM and VBS phases. We present the results on torus geometry in the Supplementary Note 1 [58]. To identify the critical points, we use the correlation ratio 
+
+𝑅 = 1 − 𝑆 (Q + Δq)
+
+𝑆 (Q) , (9) where Q is the ordering wave vector ( Q = 0 for both AFM and VBS order in our regularized geometries), and Δq is the smallest non-zero (angular) momentum. The correlation ratio is a renormalization-group invariant observable: it approaches unity in the ordered phase and vanishes in the disordered phase, with crossing points between different system sizes marking the critical point. Our results for the VBS-disorder transition are presented in Fig. 3. The cyan, grey, and green areas in the figure correspond NΦ = 9                 
+
+> NΦ= 11
+> NΦ= 13
+> NΦ= 15
+> NΦ= 17
+> NΦ= 21
+> N
+> 00.5 1.5 2.5 ×10 -3
+> Φ
+> -1/2 ν-ω/2 120
+> αAFM *246-2 -1 012345
+
+α
+
+> 0.3 0.5 0.7 0.9
+> R AFM
+
+FIG. 4. AFM-Disorder phase transition away from the SO(5)-symmetric line. Correlation ratio 𝑅 AFM for the AFM order parame-ter versus anisotropy 𝛼 for different system sizes 𝑁 𝜙 on the spherical geometry, at 𝑢 = 3. Crossing points between consecutive system sizes mark the critical point for the transition from the AFM phase (𝛼 > 𝛼 𝑐 ) to the SO(5) symmetric disordered phase ( 𝛼 < 𝛼 𝑐 ). The vertical dashed line denotes the crossing point between 𝑁 𝜙 = 17 and 21 at 𝛼 = 1.08. The error bars are smaller than the marker size and are therefore not resolved in the plot. Inset: Thermodynamic limit extrap-olation of the crossing points 𝛼 ∗ 
+
+> AFM
+
+(𝑁 𝜙 ) = 𝛼 𝑐, AFM + 𝑐 𝑁 −1/2𝜈 − 𝜔 /2 
+
+> 𝜙
+
+,with critical exponents 𝜈 = 0.73 and 𝜔 = 4.39 extracted from im-proved DMRG data in Supplementary Note 3 [58]. The extrapolated critical point is 𝛼 𝑐, AFM = 0.8(7). The cyan, grey and green areas in the main panel schematically present the VBS, disorder and AFM phases in the universal phase diagram in Fig. 1 (d). 
+
+to the VBS, disorder, and AFM phases in the universal phase diagram in Fig. 1. The correlation ratio 𝑅 VBS exhibits clear crossings between consecutive system sizes at a finite value of 𝛼 < 0, demonstrating that the transition from the VBS phase to the disordered phase occurs at a finite distance away from the SO(5)-symmetric line. Using the estimates for the critical exponents obtained in prior DMRG studies [3] for the same transition, we extrapolate the crossing points to the thermodynamic limit, obtaining a critical point of 𝛼 𝑐, VBS ∼−0.09 as shown in the inset of Fig. 3. This defines the boundary (the red diamond) between the blue VBS phase and the grey disordered phase in Fig. 1. Similarly, our results for the AFM-disorder transition are presented in Fig. 4. The cyan, grey, and green areas in the figure also correspond to the VBS, disorder, and AFM phases in the universal phase diagram in Fig. 1. The correlation ratio 𝑅 AFM exhibits crossings at a finite value of 𝛼 > 0. Using the estimated exponents obtained from DMRG data (see Supplementary Note 3) [58], we extrapolate the crossing points to the thermodynamic limit, obtaining a critical point of 𝛼 𝑐, AFM ∼ 0.8 as shown in the inset of Fig. 4. This defines the boundary (the red diamond) between the green AFM phase and the grey disordered phase in Fig. 1. We emphasize that the insets of Fig. 3 and Fig. 4 carry important information: The finite-size crossing points 𝛼 ∗
+
+> VBS
+
+and 𝛼 ∗ 
+
+> AFM
+
+are both consistent with a linear dependence on 𝑁 −1/( 2𝜈 ) − 𝜔 /2 
+
+> 𝜙
+
+when using the estimates for the critical 8exponents obtained from DMRG data [c.f. Supplementary Note 3 [58] and Ref. [3]]. In particular, we employ 𝜈 = 0.47 and 𝜔 = 2.31 for the VBS-to-disorder transition, and 𝜈 = 0.73 and 𝜔 = 4.39 for the AFM-to-disorder transition. This sug-gests the presence of an extended disordered phase above the critical point along the SO(5)-symmetric line, which re-mains stable under small perturbations parametrized by the anisotropy 𝛼 . Analogous results are obtained on the torus ge-ometry (see Supplementary Note 1 [58]). We also note, how-ever, that the resulting transition points 𝛼 𝑐, VBS and 𝛼 𝑐, AFM are quite small in magnitude, and feature error bars that include zero within a 2 𝜎 range. Apparently, the disordered state is only weakly stable, a behavior that is consistent with the in-terpretation that the phase features a small spectral gap that remains unresolved at accessible system sizes.  
+
+> III. DISCUSSION
+
+In this work, we developed a continuous field QMC with Langevin global update, to explore the phase diagram of the projected Landau level of half-filled Dirac fermions with SO(5) symmetry on spherical and toric geometries. This model provides a faithful lattice regularization of the non-linear sigma model with a Wess-Zumino-Witten term in 2+1 dimensions [40, 41], and captures the physics of the decon-fined quantum phase transition [15, 22]. By reducing the computational complexity by at least an order of 𝑂 (𝑁 𝜙 ) on torus and sphere geometries and by purposely exploring the phase space away from the SO(5) symmetric line, we found the universal structure of the phase diagram (as shown in Fig. 1 (d)) on both geometries, in that, besides the SO(5) symmetry-breaking phase and the multi-critical point from which the N´ eel and VBS phases are originated, there exists a stable and SO(5) symmetric disorder phase, in the spirit of quantum spin liquid, that separates the N´ eel and VBS phases. In contrast to previous QMC studies of quantum spin sys-tems [27, 59–62] and classical loop models [26, 63], our regu-larization provides direct access to the SO(5)-symmetric sub-space without fine tuning. This enables a complete charac-terization of the phase structure, comprising an ordered phase at small coupling 𝑢 , a disordered phase at large 𝑢 , and an intervening critical point. Upon explicitly breaking SO(5) symmetry down to SU (2) × U(1), this critical point becomes multicritical. Within the disordered phase, we observe drifting critical exponents similar to those reported in earlier studies of spin and loop models [26, 27, 59–63]. In particular, our esti-mates for the effective scaling dimension of the SO(5) vector, 
+
+Δ𝑣 = 0.63 (2) and Δ𝑣 = 0.65 (5) for spherical and toric ge-ometries, respectively, reproduce previously reported anoma-lous dimensions for the N´ eel and VBS order parameters via 
+
+𝜂 N´ eel = 𝜂 VBS = 2Δ𝑣 − 1. The fact that Δ𝑣 lies below the lower bound implied by conformal bootstrap results [56] indicates that the disordered phase is not described by a unitary con-formal field theory. This refutes the large-𝑁 scenario outlined in Fig. 1(a). The disordered phase may be weakly gapped, with a parametrically small gap that remains unresolved at accessible system sizes. By contrast, we do not observe com-parable drift at the multicritical point, indicating that it is not affected by a putative fixed-point annihilation mechanism, in contrast to earlier expectations [40, 41, 43, 45]. At this point, we find Δ𝑣 = 0.51 (1) and 0 .50 (3) for the spherical and toric geometries, respectively. Most importantly, the multicritical point separates a small-coupling regime in which the mea-sured scaling dimension Δ𝑣 decreases with system size from a strong-coupling regime in which Δ𝑣 increases with system size for sufficiently large 𝑁 𝜙 . This refutes the fixed-point annihilation Scenario 2 outlined in Fig. 1(b). Our numerical results are fully compatible with Scenario 3 outlined in Fig. 1(c), with a single interacting fixed point ‘M’ at finite coupling and a slow renormalization group flow in the strong-coupling regime. In particular, we emphasize that the measured values for Δ𝑣 are consistent with conformal bootstrap bounds [55, 56], as the SO(5) singlet remains a relevant opera-tor ( Δ𝑠 < 3). To our knowledge, this constitutes the first direct large-scale numerical determination of Δ𝑣 at the multicritical point. Recent conformal bootstrap studies [42] further show that a precise value of Δ𝑣 can be used to constrain the scal-ing dimensions of additional operators, including the SO(5) singlet 𝑠 , the rank-2 tensor 𝑡 , and the rank-3 tensor 𝑡 3. While existing analyses rely on the large-𝑁 estimate Δ𝑣 ≈ 0.630 [64], our results suggest that the true value at the multicritical point is smaller. It would therefore be particularly interesting to re-visit these bootstrap predictions for Δ𝑠 , Δ𝑡 , and Δ𝑡 3 using the updated estimate. The Scenario 3 we propose also bears a striking similarity with that of the generalized 𝐽 -𝑄 model [29]. In particular, a first-order transition across the SO(5) breaking phase, together with a multicritical point and a disordered (spin-liquid) phase, separates the N´ eel and VBS phases. The universal phase diagram that we observe is not only of theoretical importance but also resonates with the recently findings in the Shastry-Sutherland Mott insulator SrCu 2(BO 3)2, where the existence of a symmetric intermediate phase (as our disorder phase) at low temperature, occupying a large parameter space between the plaquette-singlet (VBS) and antiferromagnetic (N´ eel) phases, has been found both by the thermal tensor-network simulations on Shastry-Sutherland model at finite magnetic field [65] and by tensor-network and neural quantum state at zero field (with narrower range) [66– 69], as well as the high-pressure calorimetry measurements under magnetic field [70–75]. It also resonates with the deconfined phase in the setting of emergent U(1) gauge field coupled with spinons, such that a stable U(1) Dirac spin liquid phase could exist both from lattice model simulations [76–78] (upto the space-time scale of 60 × 60 × 600 with state-of-the-art hybrid Monte Carlo implementation on GPU) and from triangular lattice antiferromagnets YbZn 2GaO 5 [79, 80] and the 𝐴 -YbSe 2 de-lafossites [81, 82] as well as the kagom´ e antiferromagnet 9YCu 3(OD) 6Br 2[Br 𝑥 (OD) 1−𝑥 ] [83, 84], where specific heat measurements revealed the possible symmetric (as our dis-order) phase of the Mott insulating material [85], and inelastic neutron scattering experiments have found spectra that are con-sistent with a Dirac cone filled with a continuum of excitations. The transition from the (proximate) Dirac spin liquid (possibly with a very small gap beyond experiment resolution) to AFM and VBS phases could further motivate the theoretical under-standing of the Scenario 3 and the universal phase diagram in Fig. 1 (d), as well as its experimental realization in quantum materials. The methodology we have developed here, i.e., the global update in the continuous auxiliary field QMC simulation to reduce the computational complexity, will also be useful for the investigations of the interaction effect in fractional quantum Hall systems [86, 87] and the ideal Chern band systems [88– 90] which are good approximations to experimentally realized quantum moir´ e materials such as twisted bilayer graphene [91] and MoTe 2 [92] and other fractional quantum (anomalous) Hall systems [93, 94]. In these systems, the projected interactions onto different basis functions (ideal Chern bands or Landau levels) naturally introduce long-range interactions that render the conventional local update in QMC inefficient. We note that the first attempts with global update in the continuous auxiliary field in this direction have been taken [48, 87], and more promising results are expected. 
+
+IV. METHODS A. Continuum SO(5) model and regularization schemes 
+
+1. Continuum Hamiltonian 
+
+Let’s consider a continuum Hamiltonian for interacting Dirac fermions in a magnetic field, projected onto the LLL. After integrating out high-energy fermionic degrees of free-dom, the system is described by a (2+1)D SO(5) nonlinear sigma model with a level-1 Wess-Zumino-Witten term[1, 8], with the microscopic Hamiltonian ˆH =
+
+∫
+
+𝑑 𝒓 
+
+"
+
+𝑈 0
+
+ ˆ𝝍 † 
+
+> 𝒓
+
+ˆ𝝍 𝒓 − 𝐶 𝒓 
+
+2
+
+−
+
+> 5
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑈 𝑖 
+
+ ˆ𝝍 † 
+
+> 𝒓
+
+Γ𝑖 ˆ𝝍 𝒓 
+
+2
+
+#
+
+, (10) where ˆ 𝝍 𝒓 is a four-component Dirac spinor encoding the valley (𝝉 ) and spin ( 𝝈 ) degrees of freedom of the Dirac fermions. The term proportional to 𝑈 0 enforces half-filling via a charge density constraint, with 𝐶 𝒓 a background charge density. To facilitate numerical simulation, we project the continuum field operator onto the LLL, which discretizes the model in momentum space. The field operator is expanded as ˆ𝜓 𝒓 =
+
+> 𝑁 𝜙
+
+∑︁ 
+
+> 𝑘 =1
+
+𝜙 𝑘 (𝒓 )c𝑘 , (11) where 𝜙 𝑘 (𝒓 ) are the normalized LLL single-particle wave functions, 𝑁 𝜙 is the degeneracy of the LLL (equal to the number of magnetic flux quanta piercing the system, i.e., the system size), and c𝑘 are the four-component fermionic annihi-lation operators in the LLL basis. Substituting this expansion into Eq. (10), we obtain the regularized Hamiltonian in mo-mentum space: 
+
+H = 𝑈 0H0 −
+
+> 5
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑈 𝑖 H𝑖 , (12) where 
+
+H𝑖 =
+
+> 𝑁 q
+
+∑︁ 
+
+> q
+
+𝑛 Γ𝑖  
+
+> q
+
+𝑛 Γ𝑖  
+
+> −q
+
+(13) for 𝑖 = 0, 1, . . . , 5. Here, 𝑛 Γ𝑖  
+
+> q
+
+= ∫ 𝑑 𝒓 𝑒 𝑖 q·𝒓 ˆ𝝍 † 
+
+> 𝒓
+
+Γ𝑖 ˆ𝝍 𝒓 is the Fourier-transformed density operator for the 𝑖 -th SO(5) com-ponent, and 𝑁 q is the number of momentum points included in the simulation. The explicit form of 𝑛 Γ𝑖  
+
+> q
+
+depends on the geometry of the system, as detailed below. 
+
+2. Toric regularization 
+
+For the toric geometry, we consider a 2D system of size 
+
+𝐿 𝑥 × 𝐿 𝑦 with periodic boundary conditions, subject to a uni-form perpendicular magnetic field in the Landau gauge. The LLL wave functions are plane-wave-like states with a Gaussian envelope, given by 
+
+𝜙 𝑘 (𝒓 ) = 1√︃ 
+
+𝐿 𝑦 𝑙 𝐵 
+
+√𝜋 𝑒 − (𝑟 𝑥 /𝑙 𝐵 −𝑙 𝐵 2 𝜋 𝑘 /𝐿 𝑦 )2/2𝑒 𝑖 2 𝜋 𝑘𝑟 𝑦 /𝐿 𝑦 , (14) where 𝑙 𝐵 =√︁ 𝜙 0/( 2𝜋 |𝐵 |) is the magnetic length (set to 1 in our simulations), 𝜙 0 = ℎ/𝑒 is the magnetic flux quantum, and 𝑘 = 1, 2, . . . , 𝑁 𝜙 labels the degenerate LLL states, with 
+
+𝑁 𝜙 = |𝐵 |𝐿 𝑥 𝐿 𝑦 /𝜙 0.The momentum points are parameterized by integer indices 
+
+(𝑞 𝑥 , 𝑞 𝑦 ), with q = (𝑞 𝑥 √︁ 2𝜋 /𝑁 𝜙 , 𝑞 𝑦 √︁ 2𝜋 /𝑁 𝜙 ). The density operator in this basis takes the form 
+
+𝑛 Γ𝑖  
+
+> q
+
+= 𝑒 − 2 𝜋  
+
+> 4𝑁 𝜙
+
+(𝑞 2  
+
+> 𝑥 +𝑞 2
+> 𝑦
+
+)
+
+4𝜋 √︁ 𝑁 𝜙 𝑁 𝜙 ∑︁ 
+
+> 𝑘 =14
+
+∑︁ 
+
+> 𝑎,𝑏 =1
+
+𝑒 𝑖  
+
+> 2
+
+(2𝑘 −𝑞 𝑦 )𝑞 𝑥 (2 𝜋 /𝑁 𝜙 ) 
+
+𝑐 † 
+
+> 𝑘,𝑎
+
+Γ𝑖 𝑎,𝑏 𝑐 𝑘 −𝑞 𝑦 ,𝑏 − 2𝛿 𝑞 𝑦 ,0𝛿 𝑖, 0
+
+
+
+, (15) 10 where 𝛿 𝑞 𝑦 ,0𝛿 𝑖, 0 is a background term that enforces particle-hole symmetry at half filling. We only include momenta sat-isfying 𝑒 − 2 𝜋     
+
+> 4𝑁 𝜙 (𝑞 2
+> 𝑥 +𝑞 2
+> 𝑦 )
+
+> 0.01, such that 𝑁 q ∝ 𝑁 𝜙 .
+
+3. Spherical regularization 
+
+For the spherical geometry, we consider Dirac fermions on the surface of a sphere pierced by a magnetic monopole of charge 4 𝜋𝑠 (where 𝑠 is an integer or half-integer). The degeneracy of the LLL is 𝑁 𝜙 = 2𝑠 + 1, with wave functions given by monopole harmonics: 
+
+𝜙 𝑘 (𝒓 ) = 𝑁 𝑚 𝑘 𝑒 𝑖𝑚 𝑘 𝜙 cos 𝑠 +𝑚 𝑘 
+
+ 𝜃 
+
+2
+
+
+
+sin 𝑠 −𝑚 𝑘 
+
+ 𝜃 
+
+2
+
+
+
+, (16) where (𝜃, 𝜙 ) are the spherical coordinates, 𝑚 𝑘 = 𝑘 − 1 − 𝑠 , and 
+
+𝑁 𝑚 𝑘 =√︃ (2𝑠 +1)!4 𝜋 (𝑠 +𝑚 𝑘 )!(𝑠 −𝑚 𝑘 )! is the normalization constant. On the sphere, momentum is naturally parameterized by angular momentum indices (𝑙, 𝑚 ), with 𝑙 ∈ { 0, 1, . . . , 2𝑠 } and 
+
+𝑚 ∈ {− 𝑙, −𝑙 + 1, . . . , 𝑙 }. The density operator in this basis is expressed in terms of Wigner 3-j symbols as 
+
+𝑛 Γ𝑖  
+
+> 𝑙,𝑚
+
+=
+
+> 𝑁 𝜙
+
+∑︁ 
+
+> 𝑘 =14
+
+∑︁ 
+
+> 𝑎,𝑏 =1
+
+(− 1)𝑠 +𝑘 +𝑚 (2𝑠 + 1)√2𝑙 + 12
+
+ 𝑠 𝑙 𝑠 
+
+−𝑘 −𝑚 𝑘 + 𝑚 
+
+  𝑠 𝑙 𝑠 
+
+−𝑠 0 𝑠 
+
+ 
+
+𝑐 † 
+
+> 𝑘,𝑎
+
+Γ𝑖 𝑎,𝑏 𝑐 𝑘 +𝑚,𝑏 − 2𝛿 𝑚, 0𝛿 𝑖, 0
+
+
+
+, (17) where 𝛿 𝑚, 0𝛿 𝑖, 0 again enforces particle-hole symmetry. We include all angular momentum channels, giving 𝑁 q = (𝑁 𝜙 +
+
+1)2.
+
+B. Interaction decoupling via Fierz identity 
+
+The first key step in our algorithm is to transform the orig-inal Hamiltonian in Eq. (12) into an equivalent form with decoupled spin degrees of freedom, eliminating the fermionic sign problem and simplifying the interaction structure. This is achieved via the Fierz identity for SU(4) generators, which form a complete basis for 4 × 4 matrices (describing the 2 valley × 2 spin degrees of freedom of our Dirac fermions). The basic concept of Fierz identiy is that any 4 × 4 matrix can be expanded by 16 matrices. These 16 matrices is the SU(4) generators defined as 
+
+𝑇 𝑖 ∈ { 𝐼 2
+
+Ì
+
+𝐼 2, 𝐼 2
+
+Ì
+
+𝜎 𝑥 , 𝐼 2
+
+Ì
+
+𝜎 𝑦 , 𝐼 2
+
+Ì
+
+𝜎 𝑧 ,𝜏 𝑥 
+
+Ì
+
+𝐼 2, 𝜏 𝑥 
+
+Ì
+
+𝜎 𝑥 , 𝜏 𝑥 
+
+Ì
+
+𝜎 𝑦 , 𝜏 𝑥 
+
+Ì
+
+𝜎 𝑧 ,𝜏 𝑦 
+
+Ì
+
+𝐼 2, 𝜏 𝑦 
+
+Ì
+
+𝜎 𝑥 , 𝜏 𝑦 
+
+Ì
+
+𝜎 𝑦 , 𝜏 𝑦 
+
+Ì
+
+𝜎 𝑧 ,𝜏 𝑧 
+
+Ì
+
+𝐼 2, 𝜏 𝑧 
+
+Ì
+
+𝜎 𝑥 , 𝜏 𝑧 
+
+Ì
+
+𝜎 𝑦 , 𝜏 𝑧 
+
+Ì
+
+𝜎 𝑧 },
+
+(18) where 𝑖 runs from 1 to 16. The SU(4) generators 𝑇 𝑖 =
+
+𝜎 𝑎 ⊗ 𝜏 𝑏 (with 𝑎, 𝑏 ∈ { 0, 1, 2, 3}) form a complete basis for 4 × 4 matrices. Any arbitrary 4 × 4 matrix 𝐴 can thus be expanded as 
+
+𝐴 𝛼𝛽 =∑︁ 
+
+> 𝑖
+
+𝑐 𝑖 𝑇 𝑖 𝛼𝛽 (19) where 𝑐 𝑖 = 14 Tr  𝑇 𝑖 𝐴  follows from the orthogonality condi-tion Tr  𝑇 𝑖 𝑇 𝑗  = 4𝛿 𝑖 𝑗 . Consider the tensor product 𝑇 𝑖 ⊗ 𝑇 𝑖 as a 16 × 16 matrix. Expanding it in the basis 𝑇 𝑗 ⊗ 𝑇 𝑘 , we write 
+
+𝑇 𝑖 𝛼𝛽 𝑇 𝑖 𝛾 𝜂 =∑︁ 
+
+> 𝑗,𝑘
+
+𝑏 𝑖 𝑗 𝑘 𝑇 𝑗 𝛼𝜂 𝑇 𝑘 𝛾𝛽 , (20) where the indices 𝛽 and 𝜂 are exchanged to reorganize the matrix structure. To know 𝑏 𝑖 𝑗 𝑘 , we could multiply 𝑇 𝑚 𝜂, 𝛼 and 
+
+𝑇 𝑛 𝛽,𝛾 on both side of Eq. (20) then take the trace over all indices, obtaining ∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑚 𝜂 𝛼 𝑇 𝑖 𝛼𝛽 𝑇 𝑛 𝛽𝛾 𝑇 𝑖 𝛾 𝜂 =∑︁ 
+
+> 𝑗,𝑘
+
+𝑏 𝑖 𝑗 𝑘  ∑︁ 𝛼𝜂 
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑚 𝜂 𝛼 
+
+! ∑︁ 
+
+> 𝛽𝛾
+
+𝑇 𝑘 𝛾𝛽 𝑇 𝑛 𝛽𝛾 
+
+!
+
+.
+
+(21) The LHS of Eq. (21) simplifies to Tr  𝑇 𝑚 𝑇 𝑖 𝑇 𝑛 𝑇 𝑖 , while the orthogonality condition Tr  𝑇 𝑗 𝑇 𝑚  = 4𝛿 𝑗𝑚 and Tr  𝑇 𝑘 𝑇 𝑛  =
+
+4𝛿 𝑘𝑛 reduces the RHS to 16 𝑏 𝑖𝑚𝑛 . For SU(4) generators, 𝑇 𝑖 
+
+either commutes or anticommutes with 𝑇 𝑛 
+
+𝑇 𝑖 𝑇 𝑛 = ±𝑇 𝑛 𝑇 𝑖 =⇒ 𝑇 𝑖 𝑇 𝑛 𝑇 𝑖 = ±𝑇 𝑛 . (22) Substituting this into the trace, we find Tr  𝑇 𝑚 𝑇 𝑖 𝑇 𝑛 𝑇 𝑖  = ± Tr (𝑇 𝑚 𝑇 𝑛 ) = ±4𝛿 𝑚𝑛 . (23) Thus, the coefficients become 𝑏 𝑖𝑚𝑛 = ± 14 𝛿 𝑚𝑛 . Substituting 
+
+𝑏 𝑖𝑚𝑛 back into Eq. (20), we obtain 
+
+𝑇 𝑖 𝛼𝛽 𝑇 𝑖 𝛾 𝜂 =∑︁ 
+
+> 𝑗
+
+± 14𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 , (24) where the ± sign depends on the commutation properties of 
+
+𝑇 𝑖 and 𝑇 𝑗 .Next, we could insert two 4 components fermionic vector 
+
+c = {𝑐 1, 𝑐 2, 𝑐 3, 𝑐 4 } and two c† in Eq. (24) at proper position 11 
+
+TABLE I. The commutation relations between the SU(4) generator matrices. 
+
+𝑇 1 𝑇 2 𝑇 3 𝑇 4 𝑇 5 𝑇 6 𝑇 7 𝑇 8 𝑇 9 𝑇 10 𝑇 11 𝑇 12 𝑇 13 𝑇 14 𝑇 15 𝑇 16 
+
+𝑇 13 +1 +1 +1 +1 -1 -1 -1 -1 -1 -1 -1 -1 +1 +1 +1 +1 
+
+𝑇 14 +1 +1 -1 -1 -1 -1 +1 +1 -1 -1 +1 +1 +1 +1 -1 -1 
+
+𝑇 15 +1 -1 +1 -1 -1 +1 -1 +1 -1 +1 -1 +1 +1 -1 +1 -1 
+
+𝑇 16 +1 -1 -1 +1 -1 +1 +1 -1 -1 +1 +1 -1 +1 -1 -1 +1 and, after taking the trace over all indices, obtain 
+
+
+
+c†𝑇 𝑖 c
+
+2
+
+=∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑐 †
+
+> 𝛼
+
+𝑇 𝑖 𝛼𝛽 𝑐 𝛽 𝑐 †
+
+> 𝛾
+
+𝑇 𝑖 𝛾 𝜂 𝑐 𝜂 
+
+=∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+∑︁ 𝑗 
+
+± 14𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝑐 † 
+
+> 𝛾
+
+𝑐 𝜂 .
+
+(25) By the fermionic anticommutation relations, we have 
+
+𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝑐 † 
+
+> 𝛾
+
+𝑐 𝜂 = 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝛿 𝛾 𝜂 + 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 𝛿 𝛽𝛾 − 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 𝑐 † 
+
+> 𝛾
+
+𝑐 𝛽 , (26) then ∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝑐 † 
+
+> 𝛾
+
+𝑐 𝜂 =∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝛿 𝛾 𝜂 
+
++∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 𝛿 𝛽𝛾 −∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 𝑐 † 
+
+> 𝛾
+
+𝑐 𝛽 
+
+=∑︁ 
+
+> 𝛼𝛽𝛾
+
+𝑇 𝑗 𝛼𝛾 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 +∑︁ 
+
+> 𝛼𝛽 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛽𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 −
+
+
+
+c†𝑇 𝑗 c
+
+2
+
+.
+
+(27) Based on these derivation and Í𝛼𝛽𝛾 𝑇 𝑗 𝛼𝛾 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 =
+
+Í𝛼𝛽 𝑐 † 
+
+> 𝛼
+
+𝐼 𝛼𝛽 𝑐 𝛽 =  c† 𝐼 4c because of 𝑇 𝑗 𝑇 𝑗 = 𝐼 4 for every 
+
+𝑗 ; we know Í𝛼𝛽 𝜂 𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛽𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝜂 =  c†𝑇 𝑗 c 𝛿 𝑗 1 because of Tr (𝑇 𝑗 ) = 4𝛿 𝑗 1.Then we have ∑︁ 
+
+> 𝛼𝛽𝛾 𝜂
+
+𝑇 𝑗 𝛼𝜂 𝑇 𝑗 𝛾𝛽 𝑐 †
+
+> 𝛼
+
+𝑐 𝛽 𝑐 † 
+
+> 𝛾
+
+𝑐 𝜂 =
+
+
+
+c† 𝐼 4c
+
+
+
++
+
+
+
+c†𝑇 𝑗 c
+
+
+
+𝛿 𝑗 1 −
+
+
+
+c†𝑇 𝑗 c
+
+2
+
+.
+
+(28) Substituting Eq. (28) back into Eq. (25), we obtain 
+
+
+
+c†𝑇 𝑖 c
+
+2
+
+=∑︁ 
+
+> 𝑗
+
+± 14
+
+
+
+c† 𝐼 4c
+
+
+
++ 4
+
+
+
+c†𝑇 𝑗 c
+
+
+
+𝛿 𝑗 1 −
+
+
+
+c†𝑇 𝑗 c
+
+2
+
+.
+
+(29) Our Hamiltonian H , i.e., Eq. (12), includes the four fermionic operators  c†Γ𝑖 c2 with 𝑖 running from 0 to 5. We have Γ0 = 𝑇 1, Γ1 = 𝑇 5, Γ2 = 𝑇 9, Γ3 = 𝑇 14 , Γ4 = 𝑇 15 and 
+
+Γ5 = 𝑇 16 . As discussed above, we would like to use the combination of  c†𝑇 1c2,  c†𝑇 5c2,  c†𝑇 9c2 and  c†𝑇 13 c2 to substitute  c†𝑇 14 c2 +  c†𝑇 15 c2 +  c†𝑇 16 c2. To understand this substitution, it’s useful to list the commutation relation between 𝑇 𝑖 as given in Tab. I. In Tab. I, +1 or −1 in the i-th row and j-th column represents 𝑇 𝑖 commutes or anticommutes with 𝑇 𝑗 , and there is a correspondence with the ±1 in Eq. (29). Then we could obtain that 
+
+
+
+c†𝑇 13 c
+
+2
+
++
+
+
+
+c†𝑇 14 c
+
+2
+
++
+
+
+
+c†𝑇 15 c
+
+2
+
++
+
+
+
+c†𝑇 16 c
+
+2
+
+= 4
+
+
+
+c†𝑇 1c
+
+
+
+−
+
+
+
+c†𝑇 1c
+
+2
+
+−
+
+
+
+c†𝑇 5c
+
+2
+
+−
+
+
+
+c†𝑇 9c
+
+2
+
++
+
+
+
+c†𝑇 13 c
+
+2
+
+. (30) Or equivalently 
+
+−
+
+
+
+c†𝑇 14 c
+
+2
+
+−
+
+
+
+c†𝑇 15 c
+
+2
+
+−
+
+
+
+c†𝑇 16 c
+
+2
+
+=
+
+
+
+c†𝑇 1c − 2
+
+2
+
+−
+
+
+
+c†𝑇 5c
+
+2
+
+−
+
+
+
+c†𝑇 9c
+
+2
+
++ 2
+
+
+
+c†𝑇 13 c
+
+2
+
+− 4. (31) The Hamiltonian H in Eq. (12) can be represented as 𝑈 0
+
+ c†𝑇 1c − 22 −𝑈 𝐾 [  c†𝑇 5c2 +  c†𝑇 9c2] − 𝑈 𝑁 [  c†𝑇 14 c2 +  c†𝑇 15 c2 +
+
+ c†𝑇 16 c2]. Using Eq. (31) and dropping an overall constant, this becomes 
+
+𝑈 0
+
+
+
+c†𝑇 1c − 2
+
+2
+
+− 𝑈 𝐾 [
+
+
+
+c†𝑇 5c
+
+2
+
++
+
+
+
+c†𝑇 9c
+
+2
+
+] − 𝑈 𝑁 [
+
+
+
+c†𝑇 14 c
+
+2
+
++
+
+
+
+c†𝑇 15 c
+
+2
+
++
+
+
+
+c†𝑇 16 c
+
+2
+
+]
+
+= (𝑈 0 + 𝑈 𝑁 )
+
+
+
+c†𝑇 1c − 2
+
+2
+
+− ( 𝑈 𝐾 + 𝑈 𝑁 )
+
+
+
+c†𝑇 5c
+
+2
+
+− ( 𝑈 𝐾 + 𝑈 𝑁 )
+
+
+
+c†𝑇 9c
+
+2
+
++ 2𝑈 𝑁 
+
+
+
+c†𝑇 13 c
+
+2
+
+.
+
+(32) For notational clarity, we relabel 𝑇 1, 𝑇 5, 𝑇 9 and 𝑇 13 as 𝑂 0,
+
+𝑂 1, 𝑂 2 and 𝑂 3, respectively. The transformed Hamiltonian, which is identical to H , then takes the compact form 
+
+𝐻 =
+
+> 3
+
+∑︁ 
+
+> 𝑖 =0
+
+𝑔 𝑖 𝐻 𝑖 , (33) 12 where the coupling terms are 𝑔 0 = 𝑈 0 +𝑈 𝑁 , 𝑔 1 = −( 𝑈 𝐾 + 𝑁 𝑁 ),
+
+𝑔 2 = −( 𝑈 𝐾 + 𝑁 𝑁 ) and 𝑔 3 = 2𝑈 𝑁 and operators are 𝐻 𝑖 =
+
+Í𝑁 q 
+
+> q
+
+𝑛 𝑂 𝑖  
+
+> q
+
+𝑛 𝑂 𝑖 
+
+> −q
+
+.
+
+C. Continuous Hubbard-Stratonovich transformation 
+
+To simulate the quartic fermionic Hamiltonian with DQMC, we use a continuous HS transformation to decouple the quartic interactions into quadratic fermionic terms coupled to auxil-iary fields. We first perform a symmetric Trotter decomposi-tion of the partition function 𝑍 = Tr [𝑒 −𝛽𝐻 ], discretizing the inverse temperature 𝛽 into 𝑁 𝜏 imaginary time slices of width 
+
+Δ𝜏 = 𝛽 /𝑁 𝜏 :
+
+𝑍 = Tr 
+
+
+
+𝑒 −Δ𝜏𝑔 0 𝐻 0/2𝑒 −Δ𝜏𝑔 1 𝐻 1/2𝑒 −Δ𝜏𝑔 2 𝐻 2/2𝑒 −Δ𝜏𝑔 3 𝐻 3 𝑒 −Δ𝜏𝑔 2 𝐻 2/2𝑒 −Δ𝜏𝑔 1 𝐻 1/2𝑒 −Δ𝜏𝑔 0 𝐻 0/2 𝑁 𝜏 
+
+
+
++ O 
+
+
+
+Δ𝜏 2
+
+, (34) which has a systematic Trotter error of 𝑂 (Δ𝜏 2).Next, we rewrite each interaction term 𝐻 𝑖 as a sum of squares of Hermitian operators: 
+
+𝐻 𝑖 =∑︁ 
+
+> q
+
+12
+
+h
+
+(𝑛 𝑂 𝑖  
+
+> q
+
++ 𝑛 𝑂 𝑖 
+
+> −q
+
+)2 − ( 𝑛 𝑂 𝑖  
+
+> q
+
+− 𝑛 𝑂 𝑖 
+
+> −q
+
+)2i
+
+=
+
+> 2𝑁 𝑞
+
+∑︁ 
+
+> 𝑞 =1
+
+(𝑄 𝑖 𝑞 )2
+
+2 ,
+
+(35) where 𝑄 𝑖 𝑞 are Hermitian fermionic bilinear operators. We then apply the continuous HS transformation, based on the Gaussian integral identity: 
+
+𝑒 − Δ𝜏𝑔 𝑖   
+
+> 2(𝑄 𝑖 𝑞 )2
+
+= 1
+
+√2𝜋 
+
+∫ ∞−∞ 
+
+𝑑𝜙 𝑖 𝑞 𝑒 − 𝜙 𝑖 2 
+
+> 𝑞 /2
+
+𝑒 𝛼 𝜙 𝑖 𝑞 𝑄 𝑖 𝑞 , (36) where 𝛼 =√︁ −Δ𝜏𝑔 𝑖 , and 𝜙 𝑖 𝑞 is a continuous real-valued auxil-iary field. Substituting Eq. (36) into the Trotter-decomposed partition function, we obtain 
+
+𝑍 =
+
+∫
+
+D𝜙 𝑒 −𝑆 0 [ 𝜙 ] det [1 + 𝐵 (𝛽, 0; 𝜙 )] , (37) where 𝑆 0 [𝜙 ] = 12
+
+Í𝜏,𝑖,𝑞 (𝜙 𝑖 𝜏,𝑞 )2 is the Gaussian action for the auxiliary fields, and 𝐵 (𝛽, 0; 𝜙 ) is the single-particle imaginary-time propagator constructed from the auxiliary field configu-ration 𝜙 . The equal-time single-particle Green’s function is given by 
+
+𝐺 (𝜏, 𝜏 ; 𝜙 ) = (1 + 𝐵 (𝜏, 0; 𝜙 )𝐵 (𝛽, 𝜏 ; 𝜙 )) −1 , (38) from which all physical observables can be computed via Wick’s theorem. 
+
+D. Langevin-based global update scheme 
+
+For a given imaginary time slice 𝜏 , we propose a new aux-iliary field configuration 𝜙 ′𝑖 𝜏,𝑞 from the current configuration 
+
+𝜙 𝑖 𝜏,𝑞 via the Langevin dynamics equation: 
+
+𝜙 𝑖 ′ 
+
+> 𝜏,𝑞
+
+= 𝜙 𝑖 𝜏,𝑞 + 𝜖 2
+
+2 ∇𝜙 𝑖 𝜏,𝑞 𝑆 [𝜙 ] + 𝜖 N ( 0, 1), (39) where 𝜖 is the Langevin step size, N ( 0, 1) is the standard normal distribution, and 𝑆 [𝜙 ] = 𝑆 0 [𝜙 ] − ln det [1 + 𝐵 (𝛽, 0; 𝜙 )] 
+
+is the total effective action of the auxiliary fields. The critical ingredient of this update is the analytical gradi-ent of the action, which we derive using Jacobi’s formula for the derivative of a determinant: 
+
+∇𝜙 𝑖 𝜏,𝑞 𝑆 [𝜙 ] = 𝜙 𝑖 𝜏,𝑞 − Tr 
+
+"
+
+𝐺 (𝜏, 𝜏 ; 𝜙 ) 𝜕𝐵 (𝜏, 0; 𝜙 )
+
+𝜕𝜙 𝑖 𝜏,𝑞 
+
+#
+
+. (40) This gradient can be computed directly from the equal-time Green’s function in Eq. (38) with a computational complexity of 𝑂 (𝑁 2 
+
+> 𝜙
+
+) per auxiliary field. The proposed configuration 𝜙 ′ is then accepted or rejected according to the Metropolis-Hastings criterion: 
+
+𝑃 acc = min 
+
+
+
+1, 𝑒 −𝑆 [ 𝜙 ′ ] 𝑓 (𝜙 | 𝜙 ′)
+
+𝑒 −𝑆 [ 𝜙 ] 𝑓 (𝜙 ′ | 𝜙 )
+
+
+
+, (41) where 𝑓 (𝜙 ′ | 𝜙 ) is the proposal density from Eq. (39), given by 
+
+𝑓 (x | y) ∝ exp 
+
+"
+
+− 12𝜖 2 y − x − 𝜖 2
+
+2 ∇𝑆 (x)
+
+> 22
+
+#
+
+, (42) with ∥ · ∥ 2 denoting the standard 𝐿 2-norm. To optimize the update efficiency, we implement an adaptive step size adjustment mechanism. The Langevin step size 𝜖 
+
+is automatically tuned during the simulation to maintain an average acceptance rate of 𝑟 0 = 0.574[52, 53], via the update rule: 
+
+𝜖 → 𝜖 + ( 𝑟 𝑎 − 𝑟 0)Δ𝜖, (43) where 𝑟 𝑎 is the average acceptance rate over the previous 13 sweep, and Δ𝜖 = 0.1 is a small tuning parameter.  
+
+> E. Benchmark against density matrix renormalization group calculations
+
+To validate our CF-DQMC algorithm, we have performed benchmark simulations on the spherical geometry for small system sizes, and compared our results to DMRG calculations from Ref.[3]. Fig. 5 shows the VBS order parameter 𝑚 2VBS as a function of 𝑈 𝑁 for fixed 𝑈 𝐾 = 2 and 𝑁 𝜙 = 7, computed with our CF-DQMC algorithm and with DMRG. The results are in excellent agreement across the entire parameter range, confirming that our algorithm is unbiased and accurate. UN
+
+0 0.5 1 1.5 2 2.5 3
+
+> m 2
+
+0.5 11.5 2VBS , DMRG AFM, DMRG AFM, VBS , CF-DQMC CF-DQMC                   
+
+> FIG. 5. Benchmark of the CF-DQMC algorithm against DMRG.
+> VBS order parameter 𝑚 2VBS as a function of 𝑈 𝑁 for fixed 𝑈 𝐾 =2,
+> 𝑁 𝜙 =7, 𝛽 =8𝑁 𝜙 , and Δ𝜏 =0.01 on the spherical geometry. Our CF-DQMC results (blue squares) are in excellent agreement with DMRG results (red circles) from Ref.[3], confirming the accuracy and unbiased nature of our algorithm.
+> V. ACKNOWLEDGEMENTS
+
+We thank Zhenjiu Wang, Maksim Ulybyshev, David Poland, Cenke Xu, Meng Cheng, Yi-Zhuang You, Junchen Rong and Matthias Vojta for helpful discussions. YDL acknowl-edges support from National Natural Science Foundation of China (Grant No. 12404282). YDL and ZYM acknowl-edge support from General Program of the Guangdong Nat-ural Science Foundation (Grant No. 2025A1515010337), the Research Grants Council (RGC) of Hong Kong (Project Nos. AoE/P-701/20, C7037-22GF, 17302223, 17301924, 17301725), the ANR/RGC Joint Research Scheme sponsored by RGC of Hong Kong and French National Research Agency (Project No. A HKU703/22) and the State Key Laboratory of Optical Quantum Materials at HKU. LJ acknowledges sup-port by the Deutsche Forschungsgemeinschaft (DFG) through SFB 1143 (A07, Project No. 247310070), the W¨ urzburg-Dresden Cluster of Excellence ctd.qmat (EXC 2147, Project No. 390858490), and the Emmy Noether program (JA2306/4-1, Project No. 411750675). FFA acknowledges support by the Deutsche Forschungsgemeinschaft through AS 120/19-1 (Project No. 530989922) and the W¨ urzburg-Dresden Cluster of Excellence ctd.qmat (EXC 2147, Project No. 390858490) We thank HPC2021 system under the Information Technol-ogy Services at the University of Hong Kong [95], as well as the Beijing Paratera Tech Corp., Ltd [96] for providing HPC resources that have contributed to the research results reported within this paper. We further gratefully acknowledge the computing time made available on the high-performance computer Barnard at the NHR Center of TU Dresden. This center is jointly supported by the Federal Ministry of Educa-tion and Research and the state governments participating in the National High-Performance Computing (NHR) joint fund-ing program [97].                   
+
+> [1] M. Ippoliti, R. S. K. Mong, F. F. Assaad, and M. P. Zaletel, Physical Review B 98 , 235108 (2018). [2] Z. Wang, M. P. Zaletel, R. S. K. Mong, and F. F. Assaad, Phys. Rev. Lett. 126 , 045701 (2021). [3] B.-B. Chen, X. Zhang, Y. Wang, K. Sun, and Z. Y. Meng, Phys. Rev. Lett. 132 , 246503 (2024). [4] Y. Zheng and T. Ando, Phys. Rev. B 65 , 245420 (2002). [5] K. S. Novoselov, A. K. Geim, S. V. Morozov, D. Jiang, M. I. Katsnelson, I. V. Grigorieva, S. V. Dubonos, and A. A. Firsov, Nature 438 , 197 (2005). [6] Y. Zhang, Y.-W. Tan, H. L. Stormer, and P. Kim, Nature 438 ,201 (2005). [7] G. Li and E. Y. Andrei, Nature Physics 3, 623 (2007). [8] J. Lee and S. Sachdev, Phys. Rev. Lett. 114 , 226801 (2015). [9] F. D. M. Haldane, Phys. Rev. Lett. 51 , 605 (1983). [10] I. Affleck and F. D. M. Haldane, Phys. Rev. B 36 , 5291 (1987). [11] A. Abanov and P. Wiegmann, Nuclear Physics B 570 , 685 (2000). [12] A. Tanaka and X. Hu, Phys. Rev. Lett. 95 , 036402 (2005). [13] T. Senthil and M. P. A. Fisher, Phys. Rev. B 74 , 064405 (2006). [14] K. Harada, N. Kawashima, and M. Troyer, Phys. Rev. Lett. 90 ,117203 (2003). [15] T. Senthil, L. Balents, S. Sachdev, A. Vishwanath, and M. P. A. Fisher, Phys. Rev. B 70 , 144407 (2004). [16] A. W. Sandvik, Phys. Rev. Lett. 98 , 227202 (2007). [17] Y. Q. Qin, Y.-Y. He, Y.-Z. You, Z.-Y. Lu, A. Sen, A. W. Sandvik, C. Xu, and Z. Y. Meng, Phys. Rev. X 7, 031052 (2017). [18] C. Wang, A. Nahum, M. A. Metlitski, C. Xu, and T. Senthil, Phys. Rev. X 7, 031051 (2017).
+
+14 
+
+[19] N. Ma, G.-Y. Sun, Y.-Z. You, C. Xu, A. Vishwanath, A. W. Sandvik, and Z. Y. Meng, Phys. Rev. B 98 , 174421 (2018). [20] Y. Liu, Z. Wang, T. Sato, M. Hohenadler, C. Wang, W. Guo, and F. F. Assaad, Nature communications 10 , 1 (2019). [21] N. Ma, Y.-Z. You, and Z. Y. Meng, Phys. Rev. Lett. 122 , 175701 (2019). [22] T. Senthil, Deconfined quantum critical points: a review (2023), arXiv:2306.12638 [cond-mat.str-el]. [23] A. B. Kuklov, M. Matsumoto, N. V. Prokof’ev, B. V. Svistunov, and M. Troyer, Phys. Rev. Lett. 101 , 050405 (2008). [24] F.-J. Jiang, M. Nyfeler, S. Chandrasekharan, and U.-J. Wiese, J. Stat. Mech. 2008 , P02009 (2008). [25] K. Chen, Y. Huang, Y. Deng, A. B. Kuklov, N. V. Prokof’ev, and B. V. Svistunov, Phys. Rev. Lett. 110 , 185701 (2013). [26] A. Nahum, J. T. Chalker, P. Serna, M. Ortu˜ no, and A. M. So-moza, Phys. Rev. X 5, 041048 (2015). [27] M. S. Block, R. G. Melko, and R. K. Kaul, Phys. Rev. Lett. 111 ,137202 (2013). [28] K. Harada, T. Suzuki, T. Okubo, H. Matsuo, J. Lou, H. Watan-abe, S. Todo, and N. Kawashima, Phys. Rev. B 88 , 220408 (2013). [29] J. Takahashi, H. Shao, B. Zhao, W. Guo, and A. W. Sand-vik, SO(5) multicriticality in two-dimensional quantum magnets (2024), arXiv:2405.06607 [cond-mat.str-el]. [30] J. Zhao, Y.-C. Wang, Z. Yan, M. Cheng, and Z. Y. Meng, Phys. Rev. Lett. 128 , 010601 (2022). [31] Y.-C. Wang, N. Ma, M. Cheng, and Z. Y. Meng, SciPost Phys. 
+
+13 , 123 (2022). [32] Z. H. Liu, W. Jiang, B.-B. Chen, J. Rong, M. Cheng, K. Sun, Z. Y. Meng, and F. F. Assaad, Phys. Rev. Lett. 130 , 266501 (2023). [33] Y. Da Liao, G. Pan, W. Jiang, Y. Qi, and Z. Y. Meng, The teach-ing from entanglement: 2D SU(2) antiferromagnet to valence bond solid deconfined quantum critical points are not conformal (2023), arXiv:2302.11742 [cond-mat.str-el]. [34] J. Zhao, Z. Y. Meng, Y.-C. Wang, and N. Ma, Phys. Rev. B 112 ,094416 (2025). [35] M. Song, J. Zhao, Z. Y. Meng, C. Xu, and M. Cheng, SciPost Phys. 17 , 010 (2024). [36] M. Song, J. Zhao, M. Cheng, C. Xu, M. Scherer, L. Janssen, and Z. Y. Meng, Science Advances 11 , eadr0634 (2025). [37] J. D’Emidio and A. W. Sandvik, Phys. Rev. Lett. 133 , 166702 (2024). [38] J. Zhao, Z. Y. Meng, Y.-C. Wang, and N. Ma, Phys. Rev. B 112 ,094416 (2025). [39] Y. Zhu, Z. Liu, Z. Wang, Y.-C. Wang, and Z. Yan, Phys. Rev. Lett. 136 , 046501 (2026). [40] A. Nahum, Phys. Rev. B 102 , 201116 (2020). [41] R. Ma and C. Wang, Phys. Rev. B 102 , 020407 (2020). [42] S. M. Chester and N. Su, Phys. Rev. Lett. 132 , 111601 (2024). [43] L. Zou, Y.-C. He, and C. Wang, Phys. Rev. X 11 , 031043 (2021). [44] S. Rychkov, EPFL Lectures on Conformal Field Theory in D ≥3Dimensions (Springer International Publishing, 2017). [45] Z. Zhou, L. Hu, W. Zhu, and Y.-C. He, Phys. Rev. X 14 , 021044 (2024). [46] B.-B. Chen, X. Zhang, and Z. Y. Meng, Phys. Rev. B 110 ,125153 (2024). [47] W. Zhu, C. Han, E. Huffman, J. S. Hofmann, and Y.-C. He, Phys. Rev. X 13 , 021009 (2023). [48] C. Huang, N. Parthenios, M. Ulybyshev, X. Zhang, F. F. Assaad, L. Classen, and Z. Y. Meng, Nature Communications 16 , 7176 (2025). [49] G. G. Batrouni, G. R. Katz, A. S. Kronfeld, G. P. Lepage, B. Svetitsky, and K. G. Wilson, Phys. Rev. D 32 , 2736 (1985). [50] G. G. Batrouni and R. T. Scalettar, Phys. Rev. B 99 , 035114 (2019). [51] A. G¨ otz, S. Beyl, M. Hohenadler, and F. F. Assaad, Phys. Rev. B 105 , 085151 (2022). [52] G. O. Roberts and J. S. Rosenthal, Journal of the Royal Statistical Society Series B: Statistical Methodology 60 , 255 (1998). [53] G. O. Roberts and J. S. Rosenthal, Statistical Science 16 , 351 (2001). [54] Y. Nakayama and T. Ohtsuki, Phys. Rev. Lett. 117 , 131601 (2016). [55] D. Poland, S. Rychkov, and A. Vichi, Rev. Mod. Phys. 91 , 015002 (2019). [56] Z. Li, J. High Energy Phys. 2022 (11), 5. [57] R. G. Melko and R. K. Kaul, Phys. Rev. Lett. 100 , 017203 (2008). [58] See the Supplementary Information for additional results on phase boundaries away from the SO(5)-symmetric line on torus geometry, the measurements of the dynamical critical exponent, as well as improved DMRG data in AFM-Disorder transition. [59] J. Lou, A. W. Sandvik, and N. Kawashima, Phys. Rev. B 80 ,180414 (2009). [60] R. K. Kaul and A. W. Sandvik, Phys. Rev. Lett. 108 , 137201 (2012). [61] S. Pujari, K. Damle, and F. Alet, Phys. Rev. Lett. 111 , 087203 (2013). [62] S. Pujari, F. Alet, and K. Damle, Phys. Rev. B 91 , 104411 (2015). [63] A. Nahum, P. Serna, J. T. Chalker, M. Ortu˜ no, and A. M. So-moza, Phys. Rev. Lett. 115 , 267203 (2015). [64] E. Dyer, M. Mezei, S. S. Pufu, and S. Sachdev, J. High Energy Phys. 2015 (6), 37. [65] M. Song, C. Zhou, C. Huang, and Z. Y. Meng, Thermodynam-ics of Shastry-Sutherland Model under Magnetic Field (2026), arXiv:2602.11589 [cond-mat.str-el]. [66] J. Yang, A. W. Sandvik, and L. Wang, Phys. Rev. B 105 , L060409 (2022). [67] L. L. Viteritti, R. Rende, A. Parola, S. Goldt, and F. Becca, Phys. Rev. B 111 , 134411 (2025). [68] A. Maity, F. Ferrari, S. Capponi, K. Penc, J. Potten, T. M¨ uller, A. Feuerpfeil, R. Thomale, J. Y. Lee, R. Samajdar, and Y. Iqbal, arXiv preprint arXiv:2501.00096 10.48550/arXiv.2501.00096 (2024). [69] P. Corboz, Y. Zhang, B. Ponsioen, and F. Mila, arXiv e-prints , arXiv:2502.14091 (2025), arXiv:2502.14091 [cond-mat.str-el]. [70] J. Guo, G. Sun, B. Zhao, L. Wang, W. Hong, V. A. Sidorov, N. Ma, Q. Wu, S. Li, Z. Y. Meng, A. W. Sandvik, and L. Sun, Phys. Rev. Lett. 124 , 206602 (2020). [71] Y. Cui, L. Liu, H. Lin, K.-H. Wu, W. Hong, X. Liu, C. Li, Z. Hu, N. Xi, S. Li, R. Yu, A. W. Sandvik, and W. Yu, Science 380 ,1179 (2023). [72] J. Guo, P. Wang, C. Huang, B.-B. Chen, W. Hong, S. Cai, J. Zhao, J. Han, X. Chen, Y. Zhou, S. Li, Q. Wu, Z. Y. Meng, and L. Sun, Communications Physics 8, 75 (2025). [73] M. E. Zayed, C. R¨ uegg, J. Larrea J., A. M. L¨ auchli, C. Panagopoulos, S. S. Saxena, M. Ellerby, D. F. McMorrow, T. Str¨ assle, S. Klotz, G. Hamel, R. A. Sadykov, V. Pomjakushin, M. Boehm, M. Jim´ enez–Ruiz, A. Schneidewind, E. Pom-jakushina, M. Stingaciu, K. Conder, and H. M. Rønnow, Nature Physics 13 , 962 (2017). 15 
+
+[74] J. L. Jim´ enez, S. P. G. Crone, E. Fogh, M. E. Zayed, R. Lortz, E. Pomjakushina, K. Conder, A. M. L¨ auchli, L. Weber, S. Wes-sel, A. Honecker, B. Normand, C. R¨ uegg, P. Corboz, H. M. Rønnow, and F. Mila, Nature 592 , 370 (2021). [75] J. Guo, P. Wang, C. Huang, C. Zhou, M. Song, X. Chen, T.-T. Wang, W. Hong, S. Cai, J. Zhao, J. Han, Y. Zhou, Q. Wu, S. Li, Z. Y. Meng, and L. Sun, T-linear specific heat in pressurized and magnetized Shastry-Sutherland Mott insulator SrCu2(BO3)2 (2026), arXiv:2602.18229 [cond-mat.str-el]. [76] X. Y. Xu, Y. Qi, L. Zhang, F. F. Assaad, C. Xu, and Z. Y. Meng, Phys. Rev. X 9, 021022 (2019). [77] C. Chen, U. F. P. Seifert, K. Feng, O. A. Starykh, L. Balents, and Z. Y. Meng, Emergent gauge flux in QED 3 with flavor chemical potential: application to magnetized U(1) Dirac spin liquids (2025), arXiv:2508.08528 [cond-mat.str-el]. [78] K. Feng, C. Chen, and Z. Y. Meng, SciPost Phys. 20 , 060 (2026). [79] R. Bag, S. Xu, N. E. Sherman, L. Yadav, A. I. Kolesnikov, A. A. Podlesnyak, E. S. Choi, I. da Silva, J. E. Moore, and S. Haravifard, Phys. Rev. Lett. 133 , 266703 (2024). [80] H. C. H. Wu, F. L. Pratt, B. M. Huddart, D. Chatterjee, P. A. Goddard, J. Singleton, D. Prabhakaran, and S. J. Blundell, Spin dynamics in the Dirac 𝑈 (1) spin liquid YbZn 2GaO 5 (2025), arXiv:2502.00130 [cond-mat.str-el]. [81] A. O. Scheie, E. A. Ghioldi, J. Xing, J. A. M. Paddison, N. E. Sherman, M. Dupont, L. D. Sanjeewa, S. Lee, A. J. Woods, D. Abernathy, D. M. Pajerowski, T. J. Williams, S.-S. Zhang, L. O. Manuel, A. E. Trumper, C. D. Pemmaraju, A. S. Sefat, D. S. Parker, T. P. Devereaux, R. Movshovich, J. E. Moore, C. D. Batista, and D. A. Tennant, Nature Physics 20 , 74 (2024). [82] A. O. Scheie, M. Lee, K. Wang, P. Laurell, E. S. Choi, D. Pa-jerowski, Q. Zhang, J. Ma, H. D. Zhou, S. Lee, C. Huan, S. M. Thomas, M. O. Ajeesh, P. F. S. Rosa, A. Chen, V. S. Zapf, M. Heyl, C. D. Batista, E. Dagotto, J. E. Moore, and D. A. Tennant, Spectrum and low-temperature bulk properties of triangular quantum spin liquid candidate NaYbSe 2 (2026), arXiv:2406.17773 [cond-mat.str-el]. [83] Z. Zeng, C. Zhou, H. Zhou, L. Han, R. Chi, K. Li, M. Kofu, K. Nakajima, Y. Wei, W. Zhang, D. G. Mazzone, Z. Y. Meng, and S. Li, Nature Physics 20 , 1097 (2024). [84] L. Han, Z. Zeng, M. Long, M. Song, C. Zhou, B. Liu, M. Kofu, K. Nakajima, P. Steffens, A. Hiess, Z. Y. Meng, Y. Su, and S. Li, Phys. Rev. B 112 , 045114 (2025). [85] Z. Zeng, X. Ma, S. Wu, H.-F. Li, Z. Tao, X. Lu, X.-h. Chen, J.-X. Mi, S.-J. Song, G.-H. Cao, G. Che, K. Li, G. Li, H. Luo, Z. Y. Meng, and S. Li, Phys. Rev. B 105 , L121109 (2022). [86] F. F. Assaad and S. Biskamp, Phys. Rev. B 51 , 1605 (1995). [87] T.-T. Wang, H. Quang Trung, Q. Xu, M. Long, B. Yang, and Z. Y. Meng, Hybrid Monte Carlo for Fractional Quantum Hall States (2026), arXiv:2602.17564 [cond-mat.str-el]. [88] R. Roy, Phys. Rev. B 90 , 165139 (2014). [89] J. Wang, J. Cano, A. J. Millis, Z. Liu, and B. Yang, Phys. Rev. Lett. 127 , 246403 (2021). [90] V. Cr´ epel, P. Ding, N. Verma, N. Regnault, and R. Queiroz, Phys. Rev. X 15 , 021056 (2025). [91] Y. Cao, V. Fatemi, A. Demir, S. Fang, S. L. Tomarken, J. Y. Luo, J. D. Sanchez-Yamagishi, K. Watanabe, T. Taniguchi, E. Kaxi-ras, R. C. Ashoori, and P. Jarillo-Herrero, Nature 556 , 80–84 (2018). [92] J. Cai, E. Anderson, C. Wang, X. Zhang, X. Liu, W. Holtzmann, Y. Zhang, F. Fan, T. Taniguchi, K. Watanabe, Y. Ran, T. Cao, L. Fu, D. Xiao, W. Yao, and X. Xu, Nature 622 , 63 (2023). [93] T. Han, Z. Lu, G. Scuri, J. Sung, J. Wang, T. Han, K. Watanabe, T. Taniguchi, H. Park, and L. Ju, Nature Nanotechnology 19 ,181 (2024). [94] Z. Lu, T. Han, Y. Yao, A. P. Reddy, J. Yang, J. Seo, K. Watanabe, T. Taniguchi, L. Fu, and L. Ju, Nature 626 , 759 (2024). [95] https://hpc.hku.hk/hpc/hpc2021/. [96] https://cloud.paratera.com. [97] http://www.nhr-verein.de/en/our-partners. 1
+
+# Supplementary Information for “Numerical evidence of a critical point in the (2+1)D SO(5) nonlinear sigma model with Wess-Zumino-Witten term” 
+
+SUPPLEMENTARY NOTE 1: PHASE BOUNDARIES ON THE TORIC GEOMETRY AWAY FROM THE SO(5)-SYMMETRIC LINE 
+
+Here we present the phase boundaries away from the SO(5)-symmetric line on the toric geometry, which complements the results on the spherical geometry presented in the main text. We focus on 𝑢 = 6, deep within the SO(5) symmetric disordered phase along the symmetric line, and vary 𝛼 to explore the transitions to the AFM and VBS phases. To identify the critical points, we use the same correlation ratio observable as in the main text: 
+
+𝑅 = 1 − 𝑆 (Q + Δq)
+
+𝑆 (Q) , (S1) where Q = 0 is the ordering wave vector for both AFM and VBS order in our toric regularization, and Δq is the smallest non-zero momentum. The correlation ratio is a renormalization-group invariant observable: it approaches unity in the ordered phase and vanishes in the disordered phase, with crossing points between different system sizes marking the critical point. Our results for the VBS-disorder transition on the toric geometry are presented in Fig. S1 (a). The correlation ratio 𝑅 VBS 
+
+exhibits clear crossings between consecutive system sizes at a finite value of 𝛼 < 0, demonstrating that the transition from the VBS phase to the disordered phase occurs at a finite distance away from the SO(5)-symmetric line. This is consistent with the behavior observed on the spherical geometry in the main text. Similarly, our results for the AFM-disorder transition on the toric geometry are presented in Fig. S1 (b). The correlation ratio 
+
+𝑅 AFM exhibits crossings at a finite value of 𝛼 > 0, again consistent with the spherical case. The fact that we observe a finite extent of the SO(5) symmetric disordered phase separating the N´ eel and VBS phases on both spherical and toric geometries—two distinct regularization schemes with different boundary conditions and symmetry properties—confirms that this phase structure is a universal feature of the model in the thermodynamic limit, rather than a finite-size or geometry-specific artifact. This consistency strongly supports the universal phase diagram presented in Fig. 1 of the main text. R VBS -2 -1 0 1 2 3 4 5
+
+## α
+
+0.3 0.5 0.7 0.9      
+
+> NΦ= 8
+> NΦ= 16
+> NΦ= 24
+> NΦ= 32
+> NΦ= 40
+
+0.3 0.5 0.7 0.9 
+
+> R AFM
+
+-2 -1 0 1 2 3 4 5
+
+## α     
+
+> NΦ= 8
+> NΦ= 16
+> NΦ= 24
+> NΦ= 32
+> NΦ= 40
+
+(a) (b) 
+
+FIG. S1. Phase transition on the toric geometry away from the SO(5)-symmetric line. (a) Correlation ratio 𝑅 VBS for the VBS order parameter versus anisotropy 𝛼 for different system sizes 𝑁 𝜙 on the toric geometry, at 𝑢 = 6. The vertical dashed line denotes the crossing point between 𝑁 𝜙 = 32 and 40 at 𝛼 = −0.15. (b) Correlation ratio 𝑅 AFM for the AFM order parameter versus anisotropy 𝛼 for different system sizes 
+
+𝑁 𝜙 on the toric geometry, at 𝑢 = 6. The vertical dashed line denotes the crossing point between 𝑁 𝜙 = 32 and 40 at 𝛼 = 0.47. The error bars are smaller than the marker size and are therefore not resolved in the plot. 2
+
+SUPPLEMENTARY NOTE 2: DYNAMICAL CRITICAL EXPONENT MEASUREMENT IN THE DISORDERED PHASE 
+
+To characterize the low-energy dynamics of the extended SO(5) symmetric disordered phase, we compute the dynamical critical exponent 𝑧 via finite-size scaling of the imaginary-time SO(5) correlation function. The measurement is performed deep in the disordered phase at 𝑢 = 15, far from the multicritical point at 𝑢 ≈ 0.2, for both spherical and toric geometries. For each system size 𝑁 𝜙 , we first compute the imaginary-time correlation function of the SO(5) order parameter at Γ point: 
+
+𝑚 2SO(5) (𝜏, q = 0) = 15
+
+> 5
+
+∑︁ 
+
+> 𝑖 =1
+
+⟨𝑛 Γ𝑖  
+
+> q=0
+
+(𝜏 )𝑛 Γ𝑖  
+
+> q=0
+
+(0)⟩ , (S2) where 𝑛 Γ𝑖  
+
+> q
+
+(𝜏 ) is the Fourier-transformed density operator for the 𝑖 -th SO(5) component at imaginary time 𝜏 . At long imaginary times, this correlation function decays exponentially as 𝑚 2SO(5) (𝜏, 0) ∼ 𝑒 −ΔSO5 𝜏 , where ΔSO5 is the finite-size gap of the SO(5) vector excitation. We extract ΔSO5 for each system size by fitting the long-time tail of the correlation function to this exponential form. For a quantum critical system with linear size 𝐿 =√︁ 𝑁 𝜙 , the finite-size gap scales with system size as ΔSO5 ∼ 𝐿 −𝑧 = (√︁ 𝑁 𝜙 )−𝑧 ,where 𝑧 is the dynamical critical exponent. Taking the natural logarithm of both sides gives the linear relation: ln ΔSO5 = 𝑧 · ln 1√︁ 
+
+𝑁 𝜙 
+
+!
+
++ 𝐶, (S3) where 𝐶 is a non-universal constant. The slope of the linear fit between ln ΔSO5 and ln (1/√︁ 𝑁 𝜙 ) thus directly yields the dynamical exponent 𝑧 .Our results for this scaling analysis are presented in Fig. S2. For both geometries, the measured data points follow a clear linear trend, with slopes roughly consistent with 𝑧 = 1 within statistical error bars. -1.8 -1.6 -1.4 -1.2 -1 2.8 33.2 3.4 3.6 ln( ∆ )SO5 ln(1/ )√NΦ
+
+# -1.8 -1.6 -1.4 -1.2 -4.3 -4.2 -4.1 -4 -3.9 -3.8 -3.7 ln( ∆ )SO5 ln(1/ )√NΦ
+
+# (a) (b) 
+
+FIG. S2. Finite-size scaling of the SO(5) gap for dynamical critical exponent measurement. Log-log plot of the extracted SO(5) gap ΔSO5 
+
+versus inverse linear system size 1 /√︁ 𝑁 𝜙 for the disordered phase at 𝑢 = 15. (a) Results for the spherical geometry, with system sizes up to 
+
+𝑁 𝜙 = 35. (b) Results for the toric geometry, with system sizes up to 𝑁 𝜙 = 32. In both panels, red diamonds represent the measured gap values from exponential fits to the imaginary-time SO(5) correlation function, and the blue dashed line shows the relation ln ΔSO5 = 𝑧 · ln 
+
+
+
+1/√︁ 𝑁 𝜙 
+
+
+
++𝐶 
+
+with slope 𝑧 = 1, corresponding to a Lorentz-invariant theory. 3
+
+SUPPLEMENTARY NOTE 3: MORE DMRG DATA FOR THE CRITICAL EXPONENTS IN AFM-DISORDER TRANSITION 
+
+In this part, we include the density matrix renormalization group (DMRG) data for the AFM-to-Disorder transition and the extraction of the corresponding critical exponent, specifically the correlation length exponent 𝜈 and the one for the leading correction 𝜔 . As shown in Fig. S3(a), the N´ eel Binder ratio 𝑈 N´ eel = ⟨𝑂 2 
+
+> 𝑁
+
+⟩2/⟨ 𝑂 4 
+
+> 𝑁
+
+⟩ with the N´ eel order parameter 𝑂 𝑁 =∫ 𝑑𝑟𝜓 † (𝑟 )( Γ3 + Γ4 + Γ5)𝜓 (𝑟 ), is obtained from fixed-𝑢 𝑁 = 2 DMRG simulations with sizes up to 𝑁 = 16 orbitals. In the panels (b) and (c), the subleading operator exponent 𝜔 = 4.39 (25 ) and the correaltion length exponent 𝜈 = 0.73 (8) is then extracted from the crossing point analysis, specifically from the finite-size Binder ratios at crossing points 𝑈 (𝑢 ∗ 
+
+> 𝐾
+
+, 𝑁 ) = 𝑎 + 𝑏𝑁 − 𝜔 /2 and from the first-order derivatives of Binder ratios 1 /𝜈 ∗ (𝑢 ∗ 
+
+> 𝐾
+
+, 𝑁 ) = 1/𝜈 + 𝑏𝑁 − 𝜔 /2. The critical point 𝑢 𝑐 = 1.7(2) in the thermodynamic limit in then extrapolated from 𝑢 ∗ 
+
+> 𝐾
+
+(𝑁 ) = 𝑢 𝑐 + 𝑐𝑁 −1/( 2𝜈 ) − 𝜔 /2.
+
+FIG. S3. DMRG results for crossing point analysis. Along the fixed 𝑢 𝑁 = 2 cut, (a) The N´ eel Binder ratio 𝑈 N´ eel ≡ ⟨ 𝑂 2 
+
+> 𝑁
+
+⟩2/⟨ 𝑂 4 
+
+> 𝑁
+
+⟩ crosses between successive size pair (𝑁, 𝑁 + 1), whose crossing points 𝑢 ∗ 
+
+> 𝐾
+
+drift towards larger 𝑢 𝐾 with larger 𝑁 . (b) The subleading operator exponent 
+
+𝜔 is obtained from the scaling form of Binder ratios value at crossing point, i.e. 𝑈 (𝑢 ∗ 
+
+> 𝐾
+
+, 𝑁 ) = 𝑎 + 𝑏𝑁 − 𝜔  
+
+> 2
+
+, from which 𝜔 = 4.39 (25 ) is extracted. (c) The correlation length exponent 𝜈 is obtained from the scaling form of the first-order derivatives of Binder ratios at crossing point, to be specific, 1 /𝜈 ∗ (𝑢 ∗ 
+
+> 𝐾
+
+, 𝑁 ) = 1/𝜈 + 𝑏𝑁 − 𝜔  
+
+> 2
+
+, from which 𝜈 = 0.73 (8) is extracted. (d) The crossing point 𝑢 ∗ 
+
+> 𝐾
+
+’s are extrapolated to 𝑢 𝑐 = 1.7(2) in the thermodynamic limit with the scaling form 𝑢 ∗ 
+
+> 𝐾
+
+(𝑁 ) = 𝑢 𝑐 + 𝑁 − 12𝜈 − 𝜔  
+
+> 2
+
+, with 𝜈 = 0.73 (8) and 𝜔 = 4.39 (25 ).
