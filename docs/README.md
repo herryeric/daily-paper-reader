@@ -6,64 +6,64 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-06
-- 运行时间：2026-05-06 20:41:52 UTC
+- 最新运行日期：2026-05-07
+- 运行时间：2026-05-07 20:27:53 UTC
 - 运行状态：成功
 - 本次总论文数：14
-- 精读区：8
-- 速读区：6
+- 精读区：6
+- 速读区：8
 
 ### 今日简报（AI）
-今日深度复盘 14 篇凝聚态前沿，重点攻克双层镍基超导机制与非相干金属的普适理论。
-满分论文揭示了镍氧化物中独特的“五自旋极化子”及金属输运的新范式，是理解强关联体系的关键。
-建议优先精读两篇满分佳作，把握非常规超导与量子临界现象的最新突破。
-- 详情：[/202605/06/README](/202605/06/README)
+今日精选 14 篇前沿论文，深度聚焦镍基超导与莫尔转角材料的机制突破。
+重点关注 La$_3$Ni$_2$O$_{7+δ}$ 氧含量调控及莫尔 TMD 双层超导理论对比，两项满分研究揭示了超导态的核心奥秘。
+建议优先研读这两篇满分论文，快速掌握当前凝聚态物理最前沿的实验
+- 详情：[/202605/07/README](/202605/07/README)
 
 ### 精读区论文标签
-1. [Interlayer Five-Spin Polaron in Superconducting Bilayer Nickelates](/202605/06/2605.02891v1-interlayer-five-spin-polaron-in-superconducting-bilayer-nickelates)  
+1. [Regulating oxygen content and superconductivity in La$_3$Ni$_2$O$_{7+δ}$](/202605/07/2605.04562v1-regulating-oxygen-content-and-superconductivity-in-la3ni2o7)  
    标签：评分：10.0/10、query:cmp
-   evidence：双层镍氧化物中的高温超导与自旋密度波序
-2. [Universal Theory of Incoherent Metals](/202605/06/2605.03013v1-universal-theory-of-incoherent-metals)  
+   evidence：镍氧化物中的高临界温度超导性
+2. [Superconductivity in moiré transition metal dichalcogenide bilayers: comparison of two distinct theoretical approaches](/202605/07/2605.04693v1-superconductivity-in-moir-transition-metal-dichalcogenide-bilayers-comparison-of-two-distinct-theoretical-approaches)  
    标签：评分：10.0/10、query:cmp
-   evidence：非相干金属理论与非费米液体输运
-3. [Revisiting the surface density of states of midgap Andreev edge states](/202605/06/2605.02423v1-revisiting-the-surface-density-of-states-of-midgap-andreev-edge-states)  
+   evidence：莫尔过渡金属硫族化合物超导性的理论方法
+3. [Metallic crossover through the tilt-free transition in La$_3$Ni$_2$O$_7$ at high pressure and temperature](/202605/07/2605.01651v1-metallic-crossover-through-the-tilt-free-transition-in-la3ni2o7-at-high-pressure-and-temperature)  
    标签：评分：9.0/10、query:cmp
-   evidence：p波和d波超导体中的安德烈耶夫边缘态
-4. [The flow of local quantum fluids: Conservation laws and vertex corrections from many-body linear-response theory with local self-energy](/202605/06/2605.02625v1-the-flow-of-local-quantum-fluids-conservation-laws-and-vertex-corrections-from-many-body-linear-response-theory-with-local-self-energy)  
+   evidence：双层镍氧化物中高温超导的出现
+4. [Response tensor for the superconducting (Josephson) diode effect](/202605/07/2605.04928v1-response-tensor-for-the-superconducting-josephson-diode-effect)  
    标签：评分：9.0/10、query:cmp
-   evidence：强关联系统中动力学量子液体的非局域响应
-5. [Quantum Geometric Quadrupole of Cooper Pairs](/202605/06/2605.03133v1-quantum-geometric-quadrupole-of-cooper-pairs)  
-   标签：评分：9.0/10、query:cmp
-   evidence：超导中库珀对尺寸与量子几何的理论框架
-6. [Nature of magnetism in bilayer nickelate La3Ni2O7 single crystals](/202605/06/2605.03448v1-nature-of-magnetism-in-bilayer-nickelate-la3ni2o7-single-crystals)  
-   标签：评分：9.0/10、query:cmp
-   evidence：高温镍氧化物超导体的磁性与配对机制
-7. [Gossamer Superconductivity in Moiré WSe$_2$ Bilayer](/202605/06/2605.03766v1-gossamer-superconductivity-in-moir-wse2-bilayer)  
-   标签：评分：9.0/10、query:cmp
-   evidence：利用哈伯德模型研究莫尔双层WSe2中的超导性
-8. [Plasmons in Holographic Ersatz Fermi Liquids](/202605/06/2605.03865v1-plasmons-in-holographic-ersatz-fermi-liquids)  
-   标签：评分：9.0/10、query:cmp
-   evidence：非费米液体行为与等离激元的引力全息模型
+   evidence：超导约瑟夫森二极管效应的响应张量
+5. [Theoretical Constraints on Neutron Star Superfluidity from Her X-1 Precession](/202605/07/2605.04686v1-theoretical-constraints-on-neutron-star-superfluidity-from-her-x-1-precession)  
+   标签：评分：8.0/10、query:cmp
+   evidence：中子星壳层超流体的动力学
+6. [Nonlocal transport phenomena in coupled quasiperiodic Kitaev chains](/202605/07/2605.04710v1-nonlocal-transport-phenomena-in-coupled-quasiperiodic-kitaev-chains)  
+   标签：评分：8.0/10、query:cmp
+   evidence：p波超导斐波那契准晶体与马约拉纳边缘态
 
 ### 速读区论文标签
-1. [First-Order Transitions in Weak Ising Spin-Orbit-Coupled Superconductors](/202605/06/2605.03774v1-first-order-transitions-in-weak-ising-spin-orbit-coupled-superconductors)  
-   标签：评分：8.0/10、query:cmp
-   evidence：自旋轨道耦合超导体中的一阶转变
-2. [Nonuniform superconducting states from Majorana flat bands](/202605/06/2605.03859v1-nonuniform-superconducting-states-from-majorana-flat-bands)  
-   标签：评分：8.0/10、query:cmp
-   evidence：马约拉纳平带产生的非均匀超导态
-3. [Surface nanostructuring of NbTi superconducting thin-film resonators for enhanced cryogenic thermometry](/202605/06/2605.01915v1-surface-nanostructuring-of-nbti-superconducting-thin-film-resonators-for-enhanced-cryogenic-thermometry)  
+1. [Thermal bottleneck in a freely suspended superconducting island on InAs nanowire](/202605/07/2605.03139v1-thermal-bottleneck-in-a-freely-suspended-superconducting-island-on-inas-nanowire)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导薄膜谐振器在低温测温中的应用
-4. [Numerical evidence of a critical point in the (2+1)D SO(5) nonlinear sigma model with Wess-Zumino-Witten term](/202605/06/2605.03700v1-numerical-evidence-of-a-critical-point-in-the-21d-so5-nonlinear-sigma-model-with-wess-zumino-witten-term)  
+   evidence：超导岛与超导-正态转变
+2. [Kitaev chain in synthetic dimension with cavity-controlled Majorana modes](/202605/07/2605.04384v1-kitaev-chain-in-synthetic-dimension-with-cavity-controlled-majorana-modes)  
    标签：评分：7.0/10、query:cmp
-   evidence：描述狄拉克费米子和质量项的SO(5)模型中的临界点
-5. [Kohn-Sham Hamiltonian from Effective Field Theory: Quasiparticle Band Narrowing from Frozen Core Dynamics](/202605/06/2604.25199v1-kohn-sham-hamiltonian-from-effective-field-theory-quasiparticle-band-narrowing-from-frozen-core-dynamics)  
+   evidence：利用超导LC电路在合成维度中实现并控制马约拉纳模式
+3. [Melting upon cooling in a quantum magnet](/202605/07/2605.04611v1-melting-upon-cooling-in-a-quantum-magnet)  
+   标签：评分：7.0/10、query:cmp
+   evidence：量子磁体熔化中的量子流体与固体类比
+4. [Microscopic evidence for imaginary charge density wave in a kagome metal](/202605/07/2605.05101v1-microscopic-evidence-for-imaginary-charge-density-wave-in-a-kagome-metal)  
+   标签：评分：7.0/10、query:cmp
+   evidence：kagome金属中的无耗散传输与虚电荷密度波
+5. [Field-induced asymmetric band flattening and ideal quantum geometry in rhombohedral graphene](/202605/07/2605.05199v1-field-induced-asymmetric-band-flattening-and-ideal-quantum-geometry-in-rhombohedral-graphene)  
+   标签：评分：7.0/10、query:cmp
+   evidence：菱面体石墨烯中的关联相与能带平坦化
+6. [Nonlocal nonstabilizerness in free fermion models](/202605/07/2604.27055v1-nonlocal-nonstabilizerness-in-free-fermion-models)  
    标签：评分：6.0/10、query:cmp
-   evidence：金属中的准粒子能带收缩
-6. [Characterizing electronic scattering rates with transport in multiterminal devices](/202605/06/2605.03030v1-characterizing-electronic-scattering-rates-with-transport-in-multiterminal-devices)  
+   evidence：自由费米子模型与Kitaev链中的非定域魔力
+7. [Multi-probe detection of domain nucleation across the metal-insulator transition in VO$_2$](/202605/07/2605.01314v1-multi-probe-detection-of-domain-nucleation-across-the-metal-insulator-transition-in-vo2)  
    标签：评分：6.0/10、query:cmp
-   evidence：强相互作用电子系统中的输运机制
+   evidence：强关联系统与金属-绝缘体转变
+8. [Cavity-mediated localization and collective electron correlation phases](/202605/07/2605.01551v1-cavity-mediated-localization-and-collective-electron-correlation-phases)  
+   标签：评分：6.0/10、query:cmp
+   evidence：集体电子关联相
 
 
 <div class="dpr-home-promo-card">

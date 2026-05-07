@@ -1,0 +1,1334 @@
+Title: Nonlocal nonstabilizerness in free fermion models
+
+URL Source: https://arxiv.org/pdf/2604.27055v1
+
+Published Time: Fri, 01 May 2026 00:04:31 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# Nonlocal nonstabilizerness in free fermion models 
+
+Mario Collura ,1, 2, a Benjamin Béri ,3, 4, b and Emanuele Tirrito 5, 6, c 
+
+> 1
+
+International School for Advanced Studies (SISSA), via Bonomea 265, 34136 Trieste, Italy 
+
+> 2
+
+INFN Sezione di Trieste, 34136 Trieste, Italy 
+
+> 3
+
+T.C.M. Group, Cavendish Laboratory, University of Cambridge, J.J. Thomson Avenue, Cambridge, CB3 0HE, UK 
+
+> 4
+
+DAMTP, University of Cambridge, Wilberforce Road, Cambridge, CB3 0WA, UK 
+
+> 5
+
+Institute of Physics, Ecole Polytechnique Fédérale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland 
+
+> 6
+
+Center for Quantum Science and Engineering, Ecole Polytechnique Fédérale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland 
+
+Nonlocal magic quantifies the irreducible nonstabilizerness of a bipartite quantum state after optimizing over local basis changes. We study nonlocal magic for pure fermionic Gaussian states, and derive a simple closed-form entanglement spectrum bound in terms of the singular values of the subsystem-restricted covariance matrix. We benchmark our result against simulated annealing over local Gaussian unitary transformations, which supports optimality along the full local Gaussian orbit. For states drawn from the Gaussian Haar ensemble, we show that the average nonlocal magic is extensive and determine its thermodynamic limit using random matrix theory for the appropriate circular unitary ensemble. We also study Gaussian ground states, focusing on the Kitaev chain, and find that nonlocal magic is suppressed deep in both trivial and topological phases and peaks near the critical points. Finally, we investigate Gaussian evolution via random circuits and in quenches with the XY chain. For random circuits, we find that nonlocal magic grows diffusively, while in the XY chain the XX limit reveals a striking separation between nonlocal magic and entanglement. 
+
+Introduction.— It is increasingly recognized that entanglement—one of the essential resources for quan-tum processing and quantum technology [1–4]—by it-self is insufficient for quantum advantage [5–13]. For instance, one can obtain highly entangled so-called sta-bilizer states by Clifford circuits [14] that can be effi-ciently simulated classically [15–17]. Stabilizer states also provide important building blocks in the construction of quantum-error-correcting codes [18–27]. Building on this understanding, a new metric, referred to as “magic,” or nonstabilizerness, was introduced to quantify the amount of non-Clifford resources necessary to prepare a given quantum state, providing a more nu-anced measure of a state’s quantumness [28–36]. Magic has since been connected to a number of fundamentally quantum phenomena [32, 37–40]. The theory of nonstabilizerness in many-body set-tings has seen rapid development recently [41–45], and much effort has been put into finding corresponding com-putable measures of magic [45–48]. An emerging theme is that nonstabilizerness could be a useful tool to char-acterize many-body states and phases of matter [49–54], as well as quantum dynamics [40, 55–68]. Several works have also investigated the interplay between nonstabiliz-erness and other physical properties, most notably en-tanglement [61, 67, 69–73]. The relation to entanglement raises the fundamental question: how much of magic is nonlocal ? For a bipartite pure state |ψ⟩AB , nonlocal magic is the residual nonsta-bilizerness that remains after minimizing magic through local basis changes [74–76]. This quantity isolates the irreducible component of magic that cannot be removed within the two subsystems separately, and therefore cap-tures genuinely nonlocality in magic. However, the op-timization is generically formidable: magic measures are nonlinear, the local-unitary orbit is exponentially large, and even evaluating magic itself is typically hard beyond small systems. As a result, explicit results for nonlocal magic are scarce, especially in many-body settings. In this work, we study nonlocal magic for pure fermionic Gaussian states |ψ⟩AB [77, 78] in terms of the 
+
+α-stabilizer Rényi entropy ( α-SRE) [39, 79, 80]. We show that nonlocal magic admits closed-form upper bound 
+
+M NL 
+
+> α,>
+
+(ψ)—which we believe to be tight —in terms of covariance-matrix invariants related to the entanglement spectrum. This is analogous to entanglement-spectrum bounds on nonlocal 2-SRE for general pure states [75], but while these are intricate, our focus on Gaussian states allows us to obtain simple and efficiently computable ex-pressions, for all α. Concretely, M NL 
+
+> α,>
+
+(ψ) reduces to a sum of independent mode contributions labeled by the singular values of the subsystem covariance matrix iΓAA .We benchmark our analytical result against simulated annealing over local Gaussian unitary transformations, and find numerical evidence suggesting that it captures the optimum along the local Gaussian orbit. We then study the Gaussian Haar ensemble and show that the average M NL 
+
+> α,>
+
+(ψ) is extensive, and provide a closed-form expression in the thermodynamic limit. Finally, we study ground states and dynamics of local free-fermion sys-tems: for the ground state of the Kitaev chain, we find that M NL 
+
+> α,>
+
+(ψ) is strongly suppressed deep in both triv-ial and topological phases, while it is enhanced near the critical points; for brick-wall matchgate circuits we ob-serve diffusive growth of M NL 
+
+> α,>
+
+(ψ); for quenches in the XY chain we show that the while the dynamics of entangle-ment and M NL 
+
+> α,>
+
+(ψ) are generically similar, they become qualitatively distinct at the U( 1)-symmetric XX limit. 
+
+> arXiv:2604.27055v1 [quant-ph] 29 Apr 2026
+
+2
+
+Nonstabilizernees for free fermions.– We consider a quantum system of L qubits, with total Hilbert space dimension D = 2L. Onsite Pauli opera-tors are Pi ∈ {I, X, Y, Z } for i = 1, 2, · · · L, while 
+
+P ∈ {I, X, Y, Z }⊗L represents their generic ten-sor product (i.e. a Pauli string). Majorana op-erators are defined using the Jordan-Wigner map-ping: γ2i−1 = Z1 · · · Zi−1XiIi+1 · · · IL and γ2i =
+
+Z1 · · · Zi−1YiIi+1 · · · IL. The 2L Majorana operators are Hermitian and satisfy the canonical anti-commutation relations {γμ, γ ν } = 2 δμν . Majorana monomials are in one-to-one correspondence with Pauli strings, forming a complete orthogonal basis as well, since Tr [( γx′
+
+)†γx] = 
+
+Dδ x′,x, where x ∈ { 0, L }2L. A unitary operator U is Gaussian if and only if it acts on the Majorana operators by rotationg the vector of γμ as U †γμU = P 
+
+> ν
+
+Oμν γν with 
+
+O ∈ SO (2 L). Gaussian states ρΓ are fully characterized by the real skew-symmetric covariance matrix [81, 82] 
+
+Γμν = − i
+
+2 Tr([ γμ, γ ν ]ρΓ) (1) which contains all two-point Majorana correlation func-tions. When applying a Gaussian unitary to a state ρΓ,the covariance matrix rotates accordingly as Γ → OΓOT .Wick’s theorem enables the calculation of any correla-tion function in terms of two-point correlators and can be formulated as follows Tr ( ργ x) = i |x| 
+
+> 2
+
+Pf [Γ |x], where 
+
+Γ|x denotes the square sub-matrix of Γ that includes all rows and columns associated with indices equal to 1 in 
+
+x, and |x| represents the total count of such indices. Now we can write the SRE [39] in terms of minors of the covariance matrix. For a generic state ρ, let us introduce the probability density of Pauli strings, 
+
+πρ(P ) = |Tr( ρP )|2/2L, using which α-SRE is 
+
+Mα(ρ) = 11 − α log X
+
+> P
+
+πρ(P )α − log D. (2) Thus, up to the additive constant − log D, the SRE coin-cides with the α-Rényi entropy of πρ(P ). For fermionic Gaussian states, πρ(P ) can be evaluated using the co-variance matrix: Majorana monomials γx are in one-to-one correspondence with Pauli strings, so that πρ(P ) can equivalently be represented as a distribution πΓ(x) over Majorana strings. Using Wick’s theorem and the identity 
+
+Pf( A)2 = det A, one obtains πΓ(x) = det[Γ |x]det[ I+Γ] . Here Γ|x
+
+denotes the principal submatrix of Γ selected by the sup-port of x, with the convention that odd-dimensional mi-nors vanish. The denominator follows from the principal-minor expansion det( I + Γ) = P 
+
+> x
+
+det[Γ |x] and normal-izes the distribution; equivalently, it is D Tr( ρ2Γ), and re-duces to D for pure Gaussian states. Therefore, for a Gaussian state the SRE [83] is 
+
+Mα(Γ) = 11 − α log X
+
+> x
+
+ det[Γ |x]det[ I + Γ] 
+
+α
+
+− log D. (3) 
+
+Nonlocal nonstabilizerness for free fermions.– We now turn to the bipartite setting. For a pure state |ψ⟩,the nonlocal magic, in terms of the SRE shared between subsystems A and B, is [74–76] 
+
+M NL  
+
+> α
+
+(ψ) = min 
+
+> UA⊗UB
+
+Mα[( UA ⊗ UB )|ψ⟩] , (4) where the unitary UX acts on subsystem X. For generic many-body states, finding M NL  
+
+> α
+
+(ψ) is highly nontrivial. For pure fermionic Gaussian states |ψΓ⟩, however, it be-comes more tractable. We take A to have m and B to have n qubits (i.e., 2n and 2m Majorana fermions and 
+
+m + n = L) and consider the block decomposition 
+
+Γ = 
+
+ ΓAA ΓAB 
+
+−ΓTAB ΓBB 
+
+
+
+, ΓT = −Γ, Γ2 = −I. (5) Local Gaussian unitaries act as Γ 7 → (OA ⊕ OB )Γ( OA ⊕
+
+OB )T with OA ∈ SO (2 m) and OB ∈ SO (2 n), and there exist O∗ 
+
+> A/B
+
+that rotate Γ to the bipartite canonical form (assuming m ≤ n) [84–86] 
+
+Γcan := ( O⋆A ⊕ O⋆B )Γ( O⋆A ⊕ O⋆B )T =
+
+> m
+
+M
+
+> k=1
+
+Γk ⊕
+
+> n−m
+
+M
+
+> ℓ=1
+
+Jℓ, (6) where 
+
+Γk =
+
+ νkJℓ μkZ
+
+−μkZ νkJℓ
+
+
+
+, μ2 
+
+> k
+
+= 1 − ν2 
+
+> k
+
+, (7) with Jℓ = iY . The numbers {νk} = spec +(iΓAA ) set the entanglement spectrum [87]. The state |ψΓcan ⟩ consists of independent elementary A-B entangled pairs plus trivial local modes. As we argue below, a useful upper bound 
+
+M NL 
+
+> α,>
+
+(ψΓ) on M NL  
+
+> α
+
+(ψΓ) is Mα(Γ can ), hence, by Eq. (3), 
+
+M NL 
+
+> α,>
+
+(ψΓ) = 11 − α
+
+X
+
+> k
+
+log  (1 + ν2αk + μ2αk )/2 . (8) This is one of our key results. While entanglement-spectrum bounds for M NL  
+
+> 2
+
+are generally involved [75], focusing on Gaussian states allows us to obtain simple ex-pressions for M NL 
+
+> α,>
+
+(ψΓ) for all α. In this case, the bound reduces to an additive mode-resolved expression fixed solely by the single-particle entanglement spectrum {νk},which vanishes both for locally pure modes (νk = 1) and for maximally entangled stabilizer-like Gaussian pairs 
+
+(νk = 0) . Thus M NL  
+
+> α,>
+
+probes only intermediate modes, 
+
+0 < ν k < 1, isolating the nonstabilizer component of Gaussian correlations across the cut. To interpret Eq. (8), consider the following prepa-ration of |ψΓcan ⟩: start with ⊗j |0⟩j , corresponding to 
+
+Γvac = ⊕Lk=1 iY , i.e., νk = 1 for all k. To entangle the kth 
+
+pair, initially in |0kA ⟩ | 0kB ⟩, we apply exp( iϕ kXkA XkB )
+
+which sets νk = cos(2 ϕk). After entangling the m
+
+pairs, we have (up to the decoupled ⊗n−mj=1 |0⟩j ) a ten-sor product of ψk = cos( ϕk) 0k + i sin( ϕk) 1k where 3L = 4, m = 10 200 400 600 800 1000 0.001 0.010 0.100 1L = 4, m = 20 500 1000 1500 10 -4
+
+> 0.001 0.010 0.100 1
+
+Figure 1. Simulated-annealing benchmark of the ana-lytical nonlocal-magic bound. For random pure Gaussian states with 2L = 8 Majorana modes, we minimize M2(Γ) over the local Gaussian orbit and plot M2(Γ) −M NL 2,> (ψΓ) along the annealing trajectory. The two panels correspond to biparti-tions with |A| = 2 m = 2 (left) and |A| = 2 m = 4 (right). The trajectories approach the analytical value without cross-ing it, providing numerical evidence that M NL 2,> (ψΓ) attains the Gaussian local minimum. The annealing schedule uses 
+
+dβ = 0 .5.
+
+jk = |jkA ⟩ | jkB ⟩ (j ∈ { 0, 1}). For ϕ̸ = nπ/ 4 (with 
+
+n ∈ Z) the gates introduce magic and in Eq. (8) we rec-ognize the α-SRE from the product of the ψk , i.e., the sum of the corresponding single-qubit α-SRE [39]. Since |0kA ⟩ | 0kB ⟩ is a stabilizer state, the magic in 
+
+|ψΓcan ⟩ is purely nonlocal: it came to be solely via en-tanglement. Furthermore, being a two-qubit repetition code logical state, each ψk has πρ(P )̸ = 0 for the small-est number (i.e., six) of P compatible with entanglement and nonstablizerness. This suggests that local unitaries cannot localize πρ(P ), hence reduce α-SRE, further, thus 
+
+M NL 
+
+> α,>
+
+(ψΓ) = M NL  
+
+> α
+
+(ψΓ) for all α > 1. While we can guar-antee only M NL 
+
+> α,>
+
+(ψΓ) ≥ M NL 
+
+> α, G
+
+(ψΓ) ≥ M NL  
+
+> α
+
+(ψΓ), where 
+
+M NL 
+
+> α, G
+
+(ψΓ) results from minimizing only via Gaussian uni-taries, the upper bound M NL 
+
+> α,>
+
+(ψΓ) may thus be tight. In the Supplemental Material [88], we show that 
+
+M NL 
+
+> α,>
+
+(ψΓ) is a local minimum of M NL 
+
+> α, G
+
+(ψΓ).
+
+Numerical benchmark via simulated annealing.– We now compare M NL 
+
+> α,>
+
+(ψΓ) and M NL 
+
+> 2,G
+
+(ψΓ) numerically: we sample random pure Gaussian states and explore their local orthogonal orbit through simulated annealing. We generate states through their covariance matrix 
+
+ΓO = OΓvac OT using Haar-random O ∈ SO (2 L). For every state, we first evaluate M NL 
+
+> 2,>
+
+(ψΓ) from Eq. (8) and then compare it against M2(Γ) from Eq. (3). Since this exact computation grows exponentially with system size, the benchmark could only be performed for relatively small systems. To test whether M NL 
+
+> 2,>
+
+(ψΓ) indeed gives the mini-mum over all local Gaussian basis, we perform simu-lated annealing: at each Monte Carlo step, we pro-pose an update of the form Γ 7 −→ (OA ⊕ OB ) Γ ( OA ⊕
+
+OB )T where, to produce small updates, we generate 
+
+OA/B as exponentials of random antisymmetric matri-L = 10 L = 20 L = 40 L = 80 0.0 0.2 0.4 0.6 0.8 1.0 0.00 0.02 0.04 0.06 0.08 0.10 
+
+Figure 2. Random Gaussian ensemble average of the nonlocal magic density. The quantity EΓ[M NL 2,> (ψΓ)] /L is shown as a function of the bipartition fraction ℓ = m/L . The dashed black line denotes the thermodynamic prediction J(ℓ)
+
+in Eq. (11), while symbols are numerical averages of Eq. (8) over 100 Haar-random Gaussian states for different L. The finite-size data converge to the Jacobi-ensemble result, with a maximum at the symmetric bipartition. 
+
+ces, OA/B = eϵK A/B , with each K = ( Q − QT )/2 ob-tained from a Gaussian random matrix Q. The pro-posed move is accepted with the standard Metropo-lis rule, p = min {1, exp [ −β (M2(Γ ′) − M2(Γ))] }, where 
+
+Γ′ = ( OA ⊕ OB )Γ( OA ⊕ OB )T and β is the inverse tem-perature. As the annealing proceeds, β is gradually in-creased while the typical step size is reduced according to ϵ ∼ β−1/2 so that the dynamics initially explores the landscape broadly and later focuses on a small neighbor-hood of the lowest values encountered. For a random initial condition, we record the full annealing trajectory and compare the minimum M2(Γ) 
+
+reached numerically with M NL 
+
+> 2,>
+
+(ψΓ). Repeating this anal-ysis over many independently generated Gaussian states, we consistently found that M NL 
+
+> 2,>
+
+(ψΓ) provides a lower 
+
+bound to M2(Γ) along the entire trajectory, suggestive of M NL 
+
+> α,>
+
+(ψΓ) achieving minimization over local Gaussian unitaries, i.e., M NL 
+
+> α,>
+
+(ψΓ) = M NL 
+
+> α, G
+
+(ψΓ) (see Fig. 1 for two trajectories corresponding to two different partitions). 
+
+Random Gaussian Ensemble Average.– As an appli-cation, we compute the average non-local 2-SRE density over the Gaussian Haar ensemble for a generic biparti-tion A:B with |A| = 2 m, |B| = 2 n and m + n = L. Since Eq.(8) is additive (i.e., a linear statistic [89]), 
+
+EΓ[M NL 
+
+> 2,>
+
+(ψΓ)] 
+
+L = − mL
+
+Z 10
+
+dx log  1 − x + x2ρm,n (x)
+
+(9) where ρm,n (x) is the one-point density of x = ν2. For the Gaussian Haar ensemble, the joint probability den-sity Pm,n (x1, . . . , x m) of xk = ν2 
+
+> k
+
+∈ [0 , 1] for k = 1 , . . . , m 
+
+is of Jacobi-type [65, 88, 90] and corresponds to the class DIII [91] circular ensemble in terms of covariance matri-ces [86]. While ρm,n (x) have exact expressions in terms 4L = 50                          
+
+> L=100 L=150 L=200 012340.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 L=50
+> L=100 L=200 L=400
+> L=800 0.0 0.2 0.4 0.6 0.8 1.0 0.3 0.4 0.5 0.6 0.7
+
+Figure 3. Ground-state nonlocal magic in the Kitaev chain. (Left panel) Nonlocal Gaussian magic M NL 2,> (ψΓ) for the ground state of the Kitaev chain with t = ∆ = 1 , shown as a function of μ for different system sizes and a symmetric bipartition. The peak sharpens near the critical point μ = 2 .(Right panel) M NL 2,> (ψΓ) at criticality, μ = 2 , as a function of the bipartition fraction ℓ = m/L . The growth with system size is consistent with logarithmic critical scaling. 
+
+of Jacobi polynomials [90, 92], here we are interested only in the thermodynamic regime L → ∞ with fixed ℓ = mL ,where ρm,n (x) → ρ(x) with [88, 89, 93] 
+
+ρ(x) = 12πℓ 
+
+p(˜ x − x)/x 
+
+1 − x 1(0 , ˜x)(x), ˜x = 4 ℓ(1 − ℓ). (10) Using this in Eq. (9), J (ℓ) ≡ lim L→∞ 1 
+
+> L
+
+EΓ[M NL 
+
+> 2,>
+
+(ψΓ)] 
+
+evaluates to [88] 
+
+J (ℓ) = Re 
+
+(
+
+2√1 − ˜x log 
+
+" √1 − ˜x + √1 − ˜xe iπ/ 3
+
+√1 − ˜x + 1 
+
+#
+
+− 2 log 
+
+"
+
+1 + √1 − ˜xe iπ/ 3
+
+2
+
+# ) 
+
+. (11) We find that J (ℓ) is maximal at the symmetric bi-partition, i.e. J (1 /2) = log  8 − 4√3 ≃ 0.0693365 ; the non-local magic of the Gaussian ensemble, although be-ing extensive, contributes only a small fraction of the total non-stabiliserness (for a Gaussian random state 
+
+EΓ[M2(ψΓ)] ≃ cL with c ≃ 1 [65]). In Fig. 2, we show the convergence of the averaged non-local Gaussian magic to-wards J (ℓ) as L increases. 
+
+Hamiltonian ground states.– As a next ap-plication, we consider ground states of the one-dimensional Kitaev Hamiltonian HK =
+
+P
+
+> j
+
+n 
+
+−tc † 
+
+> j
+
+cj+1 + ∆ cj cj+1 + h .c.
+
+
+
+− μ
+
+
+
+c† 
+
+> j
+
+cj − 12
+
+o 
+
+.For ∆ = t, the model undergoes a topological transition at |μ| = 2 t. In right panel of Fig. 3, we show M NL 2,> (ψΓ)
+
+for t = ∆ = 1, as a function of μ, for increasing system sizes and a symmetric bipartition. M NL 2,> (ψΓ) is suppressed deep in both gapped phases (the asymmetry around μ = 2 reflects that of the stabilizer limits, μ = 0 
+
+and μ → ∞ in the topological and trivial phases, respec-tively). M NL 2,> (ψΓ), however, develops a pronounced peak α = 2                        
+
+> α=3
+> α=4
+> α=5
+> α=60100 200 300 400 01234γ=0
+> γ=0.25
+> γ=0.5
+> γ=1.0 0.1 0.5 1510 012345
+
+Figure 4. Gaussian dynamics of nonlocal magic. (Left panel) In random Gaussian brick-wall circuits, M NL 
+
+> α,>
+
+(ψΓ( t))
+
+shows a diffusive behavior for all Rényi indices, with the black-dashed lines highlighting the t1/2 scaling. (Right panel) After a Néel-state quench in the XY chain, M NL 2,> (ψΓ( t)) grows log-arithmically at the U (1) -symmetric XX point γ = 0 , while it grows linearly for γ̸ = 0 , except in the limit γ = 1 .
+
+near the critical point μ = 2 . Upon increasing L, the peak sharpens, indicating that M NL 2,> (ψΓ) is sensitive to the critical reorganization of the Gaussian correlations across the bipartition. Away from criticality, only a finite number of such modes contributes appreciably, leading to a small value of the nonlocal magic. At criticality, instead, the scale-invariant correlations generate a broad crossover in the spectrum of iΓAA , producing an increasing number of intermediate modes. This critical enhancement is further resolved in the left panel of Fig. 3, where we fix μ = 2 and plot M NL 2,> as a function of the bipartition fraction ℓ = m/L . The curves are maximal close to the symmetric cut and increase with system size. At fixed ℓ, the growth is consistent with a logarithmic dependence on the subsystem size, reflecting the logarithmic broadening of the Gaussian entanglement spectrum at the critical point. 
+
+Gaussian dynamics: random circuits and Hamiltonian quenches.— We finally study the real-time generation of nonlocal magic in Gaussian dynamics. We first con-sider a brick-wall circuit of random two-site Gaussian gates initialized from a product state with L = 200 . As shown in left panel of Fig. 4, M NL 2,> grows sub-ballistically for all Rényi indices considered, with M NL 
+
+> α,>
+
+(ψΓ( t)) ∼ t1/2.We then study Hamiltonian dynamics, focusing on the XY chain HXY = PLj=1 
+
+
+
+c† 
+
+> j
+
+cj+1 + γc † 
+
+> j
+
+c† 
+
+> j+1
+
++ h.c 
+
+
+
+, fol-lowing a quench from the Néel state. We evolve up to time tmax = L/ 4 to avoid boundary effects and compute 
+
+M NL 2,> across the central bipartition. Fig. 4 (right panel) shows that the growth of M NL 2,> depends sharply on γ.At the U( 1)-symmetric XX point ( γ = 0 ), M NL 2,> grows only logarithmically in time, while for γ̸ = 0 (but away from the γ = 1 limit, i.e., the t = ∆ = −1 limit of the Kitaev chain) the growth becomes linear. This reveals a dynamical separation between entanglement (growing 5linearly for all γ̸ = 1 ) and nonlocal magic, and suggests that charge conservation strongly suppresses the buildup of irreducible Gaussian nonstabilizerness. The physical origin of this effect is in the emergence, after the quench, of a linearly expanding plateau in the bipartite spectrum at ν ≃ 0. This plateau drives the usual ballistic growth of entanglement, but, being near-stabilizer, it contributes negligibly to M NL 
+
+> α,>
+
+. Nonlo-cal magic, instead, is sensitive only to the subleading crossover between the ν ≃ 0 and ν ≃ 1 parts of the spec-trum. The resulting logarithmic growth therefore lies beyond the conventional leading-order quasiparticle pic-ture [94, 95], which accounts only for the ballistic contri-bution of entangled pairs crossing the bipartition. While this does not exclude a more refined quasiparticle descrip-tion, it shows that the standard pair-counting mechanism is not sufficient to capture the observed behavior. 
+
+Conclusions.— We a obtained a simple and effi-ciently computable bound M NL  
+
+> α,>
+
+on bipartite nonlocal nonstabilizerness for pure fermionic Gaussian states. We provided an argument for the bound being tight, proved 
+
+M NL 2,> to be a local minimum of nonstabilizerness along the local Gaussian orbit [88], and also provided numerical evidence of it being a global minimum in this setting. In the Gaussian Haar ensemble, we obtained a closed expression for the average of M NL 2,> which, unlike nonlo-cal magic in Haar-random states [75], is extensive, albeit it contributes only a small fraction of the total 2-SRE. Our results on the Kitaev chain suggests that M NL 2,> is suppressed in gapped ground states but exhibits a singu-larity at quantum phase transitions. In the Kitaev chain, our results are consistent with M NL 2,> ∼ log( L) at critical-ity. For the dynamics of M NL 2,> , we found a t1/2 growth in quantum circuits and linear growth for the XY Hamilto-nian. However, in the XX chain, starting from the Neel state, M NL 2,> grows only logarithmically, in a striking dis-tinction from the linear growth of entanglement. Our results identify free-fermion systems as a rare many-body setting with an easily accessible notion of nonlocal magic. Natural directions this opens for study include the interplay between symmetries and nonlocal magic, e.g., through analogs of symmetry-resolved entan-glement [96, 97] and entanglement asymmetry [98], non-local magic in free-fermion topological phases in various dimensions and symmetry classes [99–102], or in moni-tored and driven free-fermionic dynamics. 
+
+Acknowledgments.— M.C. acknowledges support from the Friuli Venezia Giulia Region through the QUASAR-FVG project, funded within the Piano Sviluppo e Coesione FVG. B.B. was supported by EPSRC grant EP/V062654/1. E.T. was funded by the Swiss National Science Foundation (SNSF) under Grant No. TMPFP2_234754. E.T. acknowledges CINECA (Consorzio Interuniversitario per il Calcolo Automatico) award, under the ISCRA initiative and Leonardo early access program, for the availability of high-performance computing resources and support. 
+
+Note Added.— While preparing this manuscript, we discovered a closely related independent work by D. Ian-notti, B Magni, R. Cioli, A. Hamma, X. Turkeshi, ap-pearing in the same arXiv posting [103]. When overlap-ping, our results are consistent.                               
+
+> amcolura@sissa.it
+> bbfb26@cam.ac.uk
+> cemanuele.tirrito@epfl.ch [1] P. W. Shor, Polynomial-time algorithms for prime fac-torization and discrete logarithms on a quantum com-puter, SIAM Journal on Computing 26 , 1484 (1997), https://doi.org/10.1137/S0097539795293172. [2] J. Eisert, M. Cramer, and M. B. Plenio, Colloquium: Area laws for the entanglement entropy, Rev. Mod. Phys. 82 , 277 (2010). [3] J. I. Cirac and P. Zoller, Goals and opportunities in quantum simulation, Nature physics 8, 264 (2012). [4] L. M. K. Vandersypen and I. L. Chuang, Nmr techniques for quantum control and computation, Rev. Mod. Phys.
+> 76 , 1037 (2005). [5] G. Vidal, Efficient classical simulation of slightly en-tangled quantum computations, Phys. Rev. Lett. 91 ,147902 (2003). [6] M. Van den Nest, W. Dür, G. Vidal, and H. J. Briegel, Classical simulation versus universality in measurement-based quantum computation, Phys. Rev. A 75 , 012337 (2007). [7] A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pear-son, M. Troyer, and P. Zoller, Practical quantum advan-tage in quantum simulation, Nature 607 , 667 (2022). [8] S. Bravyi, D. Gosset, and R. König, Quantum advantage with shallow circuits, Science 362 , 308 (2018). [9] A. W. Harrow and A. Montanaro, Quantum computa-tional supremacy, Nature 549 , 203 (2017). [10] J. Preskill, Quantum computing in the nisq era and be-yond, Quantum 2, 79 (2018). [11] J. Preskill, Quantum computing and the entan-glement frontier, arXiv preprint arXiv:1203.5813 https://doi.org/10.48550/arXiv.1203.5813 (2012). [12] D. Hangleiter and J. Eisert, Computational advantage of quantum random sampling, Rev. Mod. Phys. 95 ,035001 (2023). [13] E. Chitambar and G. Gour, Quantum resource theories, Rev. Mod. Phys. 91 , 025001 (2019). [14] M. A. Nielsen and I. L. Chuang, Quantum computation and quantum information (Cambridge university press, 2010). [15] D. Gottesman, Theory of fault-tolerant quantum com-putation, Phys. Rev. A 57 , 127 (1998). [16] S. Aaronson and D. Gottesman, Improved simulation of stabilizer circuits, Phys. Rev. A 70 , 052328 (2004). [17] C. Chamon, A. Hamma, and E. R. Mucciolo, Emer-gent irreversibility and entanglement spectrum statis-tics, Phys. Rev. Lett. 112 , 240501 (2014). [18] B. Eastin and E. Knill, Restrictions on transversal en-coded quantum gate sets, Phys. Rev. Lett. 102 , 110502 (2009).
+
+6
+
+[19] E. Knill and R. Laflamme, Theory of quantum error-correcting codes, Phys. Rev. A 55 , 900 (1997). [20] A. M. Steane, Simple quantum error-correcting codes, Phys. Rev. A 54 , 4741 (1996). [21] E. Knill, R. Laflamme, and L. Viola, Theory of quantum error correction for general noise, Phys. Rev. Lett. 84 ,2525 (2000). [22] M. H. Michael, M. Silveri, R. T. Brierley, V. V. Albert, J. Salmilehto, L. Jiang, and S. M. Girvin, New class of quantum error-correcting codes for a bosonic mode, Phys. Rev. X 6, 031006 (2016). [23] Y. Li and M. P. A. Fisher, Statistical mechanics of quan-tum error correcting codes, Phys. Rev. B 103 , 104306 (2021). [24] D. Schlingemann and R. F. Werner, Quantum error-correcting codes associated with graphs, Phys. Rev. A 
+
+65 , 012308 (2001). [25] R. Laflamme, C. Miquel, J. P. Paz, and W. H. Zurek, Perfect quantum error correcting code, Phys. Rev. Lett. 
+
+77 , 198 (1996). [26] D. Gottesman, Class of quantum error-correcting codes saturating the quantum hamming bound, Phys. Rev. A 
+
+54 , 1862 (1996). [27] J. Yi, W. Ye, D. Gottesman, and Z.-W. Liu, Complex-ity and order in approximate quantum error-correcting codes, Nature Physics 20 , 1798 (2024). [28] S. Bravyi and A. Kitaev, Universal quantum computa-tion with ideal clifford gates and noisy ancillas, Phys. Rev. A 71 , 022316 (2005). [29] S. Bravyi and J. Haah, Magic-state distillation with low overhead, Phys. Rev. A 86 , 052329 (2012). [30] E. T. Campbell, B. M. Terhal, and C. Vuillot, Roads towards fault-tolerant universal quantum computation, Nature 549 , 172 (2017). [31] S. Bravyi and D. Gosset, Improved classical simulation of quantum circuits dominated by clifford gates, Phys. Rev. Lett. 116 , 250501 (2016). [32] S. Bravyi, G. Smith, and J. A. Smolin, Trading classical and quantum computational resources, Phys. Rev. X 6,021043 (2016). [33] H. J. García, I. L. Markov, and A. W. Cross, On the geometry of stabilizer states, arXiv preprint arXiv:1711.07848 (2017). [34] V. Veitch, S. Hamed Mousavian, D. Gottesman, and J. Emerson, The resource theory of stabilizer quantum computation, New Journal of Physics 16 , 013009 (2014). [35] D. Gottesman, The heisenberg representation of quantum computers, arXiv preprint quant-ph/9807006 https://doi.org/10.48550/arXiv.quant-ph/9807006 (1998). [36] D. Gottesman, Fault-tolerant quantum computation with higher-dimensional systems, in NASA Interna-tional Conference on Quantum Computing and Quan-tum Communications (Springer, 1998) pp. 302–313. [37] E. T. Campbell, Catalysis and activation of magic states in fault-tolerant architectures, Phys. Rev. A 83 , 032317 (2011). [38] M. Beverland, E. Campbell, M. Howard, and V. Kli-uchnikov, Lower bounds on the non-clifford resources for quantum computations, Quantum Science & Tech-nology 5, 035009 (2020). [39] L. Leone, S. F. E. Oliviero, and A. Hamma, Stabilizer rényi entropy, Phys. Rev. Lett. 128 , 050402 (2022). [40] L. Leone, S. F. E. Oliviero, and A. Hamma, Nonsta-bilizerness determining the hardness of direct fidelity estimation, Phys. Rev. A 107 , 022429 (2023). [41] C. D. White, C. Cao, and B. Swingle, Conformal field theories are magical, Phys. Rev. B 103 , 075145 (2021). [42] T. D. Ellison, K. Kato, Z.-W. Liu, and T. H. Hsieh, Symmetry-protected sign problem and magic in quan-tum phases of matter, Quantum 5, 612 (2021). [43] T. J. Sewell and C. D. White, Mana and thermalization: Probing the feasibility of near-clifford hamiltonian sim-ulation, Phys. Rev. B 106 , 125130 (2022). [44] S. Sarkar, C. Mukhopadhyay, and A. Bayat, Character-ization of an operational quantum resource in a critical many-body system, New Journal of Physics 22 , 083077 (2020). [45] Z.-W. Liu and A. Winter, Many-body quantum magic, PRX Quantum 3, 020333 (2022). [46] S. F. E. Oliviero, L. Leone, and A. Hamma, Magic-state resource theory for the ground state of the transverse-field ising model, Phys. Rev. A 106 , 042426 (2022). [47] T. Haug and L. Piroli, Quantifying nonstabilizerness of matrix product states, Phys. Rev. B 107 , 035148 (2023). [48] P. Sonya Tarabunga, M. Frau, T. Haug, E. Tirrito, and L. Piroli, A nonstabilizerness monotone from stabilizer-ness asymmetry, Quantum Science and Technology 10 ,045026 (2025). [49] P. S. Tarabunga, E. Tirrito, T. Chanda, and M. Dal-monte, Many-body magic via pauli-markov chains— from criticality to gauge theories, PRX Quantum 4,040317 (2023). [50] P. R. N. Falcão, P. S. Tarabunga, M. Frau, E. Tirrito, J. Zakrzewski, and M. Dalmonte, Nonstabilizerness in u(1) lattice gauge theory, Phys. Rev. B 111 , L081102 (2025). [51] M. Hoshino and Y. Ashida, Stabilizer rényi entropy en-codes fusion rules of topological defects and boundaries, Phys. Rev. Lett. 136 , 080402 (2026). [52] M. Hoshino, M. Oshikawa, and Y. Ashida, Stabilizer rényi entropy and conformal field theory, Phys. Rev. X 
+
+16 , 011037 (2026). [53] H. Timsina, Y.-M. Ding, E. Tirrito, P. S. Tarabunga, B.-B. Mao, M. Collura, Z. Yan, and M. Dalmonte, Robust-ness of nonstabilizerness in the quantum ising chain via quantum monte carlo tomography, Phys. Rev. B 112 ,165135 (2025). [54] G. Lami and M. Collura, Nonstabilizerness via perfect pauli sampling of matrix product states, Phys. Rev. Lett. 131 , 180401 (2023). [55] X. Turkeshi, E. Tirrito, and P. Sierant, Magic spreading in random quantum circuits, Nature Communications 
+
+16 , 2575 (2025). [56] N. Dowling, P. Kos, and X. Turkeshi, Magic resources of the heisenberg picture, Phys. Rev. Lett. 135 , 050401 (2025). [57] E. Tirrito, X. Turkeshi, and P. Sierant, Anticoncen-tration and nonstabilizerness spreading under ergodic quantum dynamics, Phys. Rev. Lett. 135 , 220401 (2025). [58] P. R. N. Falcão, P. Sierant, J. Zakrzewski, and E. Tir-rito, Nonstabilizerness dynamics in many-body localized systems, Phys. Rev. Lett. 135 , 240404 (2025). [59] E. Tirrito, P. S. Tarabunga, D. S. Bhakuni, M. Dalmonte, P. Sierant, and X. Turkeshi, Uni-versal spreading of nonstabilizerness and quan-7
+
+tum transport, arXiv preprint arXiv:2506.12133 https://doi.org/10.48550/arXiv.2506.12133 (2025). [60] G. Lami, T. Haug, and J. De Nardis, Quantum state designs with clifford-enhanced matrix product states, PRX Quantum 6, 010345 (2025). [61] X. Turkeshi, M. Schirò, and P. Sierant, Measuring non-stabilizerness via multifractal flatness, Phys. Rev. A 
+
+108 , 042408 (2023). [62] L. Leone, S. F. E. Oliviero, G. Esposito, and A. Hamma, Phase transition in stabilizer entropy and efficient purity estimation, Phys. Rev. A 109 , 032403 (2024). [63] X. Turkeshi, A. Dymarsky, and P. Sierant, Pauli spec-trum and nonstabilizerness of typical quantum many-body states, Phys. Rev. B 111 , 054301 (2025). [64] S. Bera and M. Schirò, Non-stabilizerness of Sachdev-Ye-Kitaev model, SciPost Phys. 19 , 159 (2025). [65] P. Sierant, X. Turkeshi, and P. S. Tarabunga, Theory of the matchgate commutant (2026), arXiv:2603.12392 [quant-ph]. [66] P. Braccia, N. L. Diaz, M. Larocca, M. Cerezo, and D. García-Martín, The commutant of fermionic gaussian unitaries (2026), arXiv:2603.19210 [quant-ph]. [67] M. Bejan, C. McLauchlan, and B. Béri, Dynamical magic transitions in monitored clifford+ t circuits, PRX Quantum 5, 030332 (2024). [68] D. Rattacaso, L. Leone, S. F. E. Oliviero, and A. Hamma, Stabilizer entropy dynamics after a quan-tum quench, Phys. Rev. A 108 , 042407 (2023). [69] E. Tirrito, P. S. Tarabunga, G. Lami, T. Chanda, L. Leone, S. F. E. Oliviero, M. Dalmonte, M. Collura, and A. Hamma, Quantifying nonstabilizerness through entanglement spectrum flatness, Phys. Rev. A 109 ,L040401 (2024). [70] A. Gu, S. F. Oliviero, and L. Leone, Magic-induced computational separation in entanglement theory, PRX Quantum 6, 020324 (2025). [71] G. E. Fux, E. Tirrito, M. Dalmonte, and R. Fazio, Entanglement – nonstabilizerness separation in hybrid quantum circuits, Phys. Rev. Res. 6, L042030 (2024). [72] M. Frau, P. S. Tarabunga, M. Collura, M. Dalmonte, and E. Tirrito, Nonstabilizerness versus entanglement in matrix product states, Phys. Rev. B 110 , 045101 (2024). [73] P. S. Tarabunga and E. Tirrito, Magic transition in measurement-only circuits, npj Quantum Information 
+
+11 , 166 (2025). [74] C. Cao, Non-trivial area operators require non-local magic, Journal of High Energy Physics 2024 , 105 (2024). [75] C. Cao, G. Cheng, A. Hamma, L. Leone, W. Munizzi, and S. F. Oliviero, Gravitational backreaction is magi-cal, PRX Quantum 6, 040375 (2025). [76] D. Qian and J. Wang, Quantum non-local nonstabiliz-erness (2025), arXiv:2502.06393 [quant-ph]. [77] E. Fradkin, Field theories of condensed matter physics 
+
+(Cambridge University Press, 2013). [78] G. Giuliani and G. Vignale, Quantum theory of the elec-tron liquid (Cambridge university press, 2008). [79] T. Haug and L. Piroli, Stabilizer entropies and nonsta-bilizerness monotones, Quantum 7, 1092 (2023). [80] L. Leone and L. Bittel, Stabilizer entropies are mono-tones for magic-state resource theory, Phys. Rev. A 110 ,L040403 (2024). [81] J. Surace and L. Tagliacozzo, Fermionic gaussian states: an introduction to numerical approaches, Sci-Post Physics Lecture Notes , 054 (2022). [82] L. Hackl and E. Bianchi, Bosonic and fermionic Gaus-sian states from Kähler structures, SciPost Phys. Core 
+
+4, 025 (2021). [83] M. Collura, J. De Nardis, V. Alba, and G. Lami, The non-stabilizerness of fermionic gaussian states, Quan-tum 10 , 2036 (2026). [84] A. Botero and B. Reznik, Bcs-like modewise entangle-ment of fermion gaussian states, Physics Letters A 331 ,39 (2004). [85] N. Schuch and B. Bauer, Matrix product state algo-rithms for gaussian fermionic states, Phys. Rev. B 100 ,245121 (2019). [86] M. Bejan, B. Béri, and M. McGinley, Matchgate circuits deeply thermalize, Phys. Rev. Lett. 135 , 020401 (2025). [87] L. Fidkowski, Entanglement spectrum of topological in-sulators and superconductors, Phys. Rev. Lett. 104 ,130502 (2010). [88] the authors, Supplemental material. [89] C. W. J. Beenakker, Random-matrix theory of quantum transport, Rev. Mod. Phys. 69 , 731 (1997). [90] E. Bianchi, L. Hackl, and M. Kieburg, Page curve for fermionic gaussian states, Phys. Rev. B 103 , L241118 (2021). [91] A. Altland and M. R. Zirnbauer, Nonstandard symme-try classes in mesoscopic normal-superconducting hy-brid structures, Phys. Rev. B 55 , 1142 (1997). [92] T. Jiang, Limit theorems for beta-jacobi ensembles (2009), arXiv:0911.2262 [math.PR]. [93] J. P. Dahlhaus, B. Béri, and C. W. J. Beenakker, Random-matrix theory of thermal conduction in su-perconducting quantum dots, Phys. Rev. B 82 , 014536 (2010). [94] V. Alba and P. Calabrese, Entanglement and thermodynamics after a quantum quench in integrable systems, Proceedings of the Na-tional Academy of Sciences 114 , 7947 (2017), https://www.pnas.org/doi/pdf/10.1073/pnas.1703516114. [95] V. Alba and P. Calabrese, Entanglement dynamics after quantum quenches in generic integrable systems, Sci-Post Phys. 4, 017 (2018). [96] M. Goldstein and E. Sela, Symmetry-resolved entan-glement in many-body systems, Physical review letters 
+
+120 , 200602 (2018). [97] R. Bonsignori, P. Ruggiero, and P. Calabrese, Symmetry resolved entanglement in free fermionic systems, Journal of Physics A: Mathematical and Theoretical 52 , 475302 (2019). [98] F. Ares, S. Murciano, and P. Calabrese, Entanglement asymmetry as a probe of symmetry breaking, Nature Communications 14 , 2036 (2023). [99] A. P. Schnyder, S. Ryu, A. Furusaki, and A. W. W. Ludwig, Classification of topological insulators and su-perconductors in three spatial dimensions, Phys. Rev. B 78 , 195125 (2008). [100] A. Kitaev, Periodic table for topological insulators and superconductors, in AIP conference proceedings , Vol. 1134 (American Institute of Physics, 2009) pp. 22–30. [101] M. Z. Hasan and C. L. Kane, Colloquium: Topological insulators, Rev. Mod. Phys. 82 , 3045 (2010). [102] X.-L. Qi and S.-C. Zhang, Topological insulators and superconductors, Rev. Mod. Phys. 83 , 1057 (2011). [103] D. Iannotti, B. Magni, R. Cioli, A. Hamma, and X. Turkeshi, Non-local magic resources of fermionic 8
+
+gaussian states, to appear. 
+
+SUPPLEMENTAL MATERIAL A matrix inequality 
+
+The following elementary bound is purely algebraic and independent of the fermionic setting. 
+
+Lemma 1. For any matrix A ∈ Mr×s(R), and integer α > 1,
+
+∥A∥2αℓ2α ≤ X
+
+> k
+
+σk(A)2α,
+
+where σk(A) are the singular values of A. Equality holds whenever A is rectangular diagonal. Proof. One has 
+
+∥A∥2αℓ2α =
+
+> s
+
+X
+
+> j=1
+> r
+
+X
+
+> i=1
+
+|Aij |2α ≤
+
+> s
+
+X
+
+> j=1
+> r
+
+X
+
+> i=1
+
+|Aij |2
+
+!α
+
+.
+
+Since Pri=1 |Aij |2 = ( AT A)jj , it follows that 
+
+∥A∥2αℓ2α ≤
+
+> s
+
+X
+
+> j=1
+
+(AT A)αjj ≤ Tr (AT A)α.
+
+Since Tr (AT A)α = P 
+
+> k
+
+σk(A)2α, the claim follows. If A is rectangular diagonal, each column has at most one nonzero entry and AT A is diagonal, so both inequalities are saturated. 
+
+Gaussian optimization and the local canonical form 
+
+Let γ1, . . . , γ 2L be Majorana operators, satisfying {γi, γ j } = 2 δij , and adapted to a bipartition A : B with |A| = 2 m,
+
+|B| = 2 n, and m + n = L. For an ordered subset I = {i1 < · · · < i p} ⊆ A, define the Majorana string γI := γi1 · · · γip ;similarly, for J = {j1 < · · · < j q } ⊆ B, define γJ := γj1 · · · γjq . Any state ρ can be expanded in this operator basis as 
+
+ρ = 12L
+
+X
+
+> I⊆A
+
+X
+
+> J⊆B
+
+MI,J (ρ) γI γJ , MI,J (ρ) := Tr( ρ γ I γJ ),
+
+where the factor 2−L follows from the orthogonality of Majorana strings under the Hilbert-Schmidt inner product. For fixed integers p ∈ { 0, . . . , 2m} and q ∈ { 0, . . . , 2n}, let Mp,q (ρ) denote the matrix whose rows are labelled by subsets I ⊆ A with |I| = p, whose columns are labelled by subsets J ⊆ B with |J| = q, and whose entries are  Mp,q (ρ) 
+
+> I,J
+
+:= MI,J (ρ).For a matrix X = ( Xab ), define its entrywise ℓr norm by ∥X∥rℓr := P 
+
+> a,b
+
+|Xab |r . The quantity relevant for the Rényi-α problem is then 
+
+Fα(ρ) := X
+
+> I,J
+
+|MI,J (ρ)|2α =
+
+> 2m
+
+X
+
+> p=0 2n
+
+X
+
+> q=0
+
+∥Mp,q (ρ)∥2αℓ2α .
+
+Thus, minimizing the corresponding stabiliser Rényi entropy under local unitary transformation is equivalent to maximizing Fα. In particular, for α = 2 one has F2(ρ) = P 
+
+> p,q
+
+∥Mp,q (ρ)∥4 
+
+> ℓ4
+
+. Lemma 1 implies the bound 
+
+∥Mp,q (ρ)∥αℓα ≤ P 
+
+> a
+
+σa(Mp,q (ρ)) 2α, where σa(X) denotes the singular values of the matrix X. Therefore, if one finds a local unitary UA ⊗ UB such that all matrices Mp,q are diagonalized in their singular-value bases, then the bound is saturated sector by sector and Fα is maximized. In general, however, this should be regarded as an exceptional rather than generic situation. The reason is that the singular-value decomposition of Mp,q involves arbitrary orthogonal transformations on the corresponding coefficient spaces, whereas the transformations induced by UA ⊗ UB are 9restricted to the adjoint action of the local unitary groups, Mp,q 7 → RAMp,q RTB , with RA and RB belonging only to proper subgroups of the relevant orthogonal groups. Hence, although the SVD always exists at the level of abstract orthogonal rotations of the coefficients, there is in general no reason to expect its singular-vector bases to coincide with those that can be reached by physical local unitary rotations of the state. This obstruction becomes even more se-vere if one further requires the transformation to stay within a restricted class of states, such as the Gaussian manifold. We now specialize to a pure fermionic Gaussian state ρΓ, with real antisymmetric covariance matrix Γ ∈ M2L(R)
+
+satisfying ΓT = −Γ and Γ2 = −12L. For an even ordered set X = {x1 < · · · < x 2r }, Wick’s theorem gives 
+
+Tr( ρΓ γx1 · · · γx2r ) = ir pf(Γ X ), up to the convention-dependent overall phase. Since only absolute values enter Fα,this phase is immaterial, and one may equivalently work with the Pfaffian matrices 
+
+ Mp,q (Γ)  
+
+> I,J
+
+:= pf(Γ I∪J ),
+
+where ΓI∪J is the principal submatrix of Γ obtained by restricting rows and columns to the ordered set I ∪ J.Accordingly, Fα(ρΓ) may be evaluated directly from the matrices Mp,q (Γ) .A standard theorem for pure fermionic Gaussian states states that [84], under local orthogonal transformations, 
+
+Γ can be brought to a canonical form. Writing r := min( m, n ) and assuming for definiteness m ≤ n, there exist 
+
+OA ∈ O(2 m) and OB ∈ O(2 n) such that 
+
+Γcan = ( OA ⊕ OB )Γ( OA ⊕ OB )T =
+
+> r
+
+M
+
+> k=1
+
+Γk ⊕
+
+> n−r
+
+M
+
+> ℓ=1
+
+Jℓ,
+
+up to irrelevant row/column permutations (and in a slightly different convention from the main text), where each entangled block is 
+
+Γk =
+
+
+
+0 νk μk 0
+
+−νk 0 0 μk
+
+−μk 0 0 −νk
+
+0 −μk νk 0
+
+ , μ2 
+
+> k
+
+= 1 − ν2 
+
+> k
+
+, 0 ≤ νk ≤ 1,
+
+and each purely local block on B is Jℓ =
+
+ 0 1
+
+−1 0 
+
+
+
+. Here ⊕ denotes the direct sum of matrices. Each block Γk
+
+couples one fermionic mode in A to one fermionic mode in B, while each Jℓ is a local pure block supported entirely on subsystem B.For each entangled block Γk, let Ak and Bk denote the corresponding two-Majorana index sets on the two sides. For 
+
+p, q ∈ { 0, 1, 2}, define M (k) 
+
+> p,q
+
+:= Mp,q (Γ k). Since |Ak| = |Bk| = 2 , a direct computation gives M (k)0,0 = [1] , M (k)2,0 = [ νk],
+
+M (k)0,2 = [ −νk], M (k)1,1 = μk 12, and M (k)2,2 = [ −1] , while all other M (k) 
+
+> p,q
+
+vanish. Thus every nonzero elementary matrix is either a scalar or a scalar multiple of the identity. For a local block Jℓ on B, the only nonzero coefficient matrices are M0(Jℓ) = [1] and M2(Jℓ) = [ −1] .Because Γcan is a direct sum of independent blocks, the corresponding Gaussian state factorizes into a tensor product of block states 
+
+ρΓcan =
+
+> r
+
+O
+
+> k=1
+
+ρΓk ⊗
+
+> n−r
+
+O
+
+> ℓ=1
+
+ρJℓ .
+
+At fixed total bidegree (p, q ), one must sum over all compatible splittings of p and q among the entangled blocks and the local Jℓ blocks. For m ≤ n, this means choosing (pk, q k) ∈ { 0, 1, 2}2 for each Γk and qloc  
+
+> ℓ
+
+∈ { 0, 2} for each Jℓ,subject to P 
+
+> k
+
+pk = p and P 
+
+> k
+
+qk + P 
+
+> ℓ
+
+qloc  
+
+> ℓ
+
+= q. For each such choice, the corresponding coefficient matrix is the Kronecker product 
+
+> r
+
+O
+
+> k=1
+
+M (k)  
+
+> pk,q k
+
+⊗
+
+> n−r
+
+O
+
+> ℓ=1
+
+Mqloc  
+
+> ℓ
+
+(Jℓ).
+
+Each nonzero elementary factor is square, hence every such Kronecker product is square as well. This does not contradict the fact that the full matrix Mp,q (Γ can ) is generally rectangular, since the latter is indexed by all subsets 10 
+
+I ⊆ A with |I| = p and all subsets J ⊆ B with |J| = q, and therefore may also contain rows or columns corresponding to blockwise occupations incompatible with the nonzero elementary sectors. Those rows or columns vanish identically. Up to a permutation of rows and columns, Mp,q (Γ can ) is obtained by embedding the direct sum 
+
+M
+
+> compatible splittings
+> r
+
+O
+
+> k=1
+
+M (k)  
+
+> pk,q k
+
+⊗
+
+> n−r
+
+O
+
+> ℓ=1
+
+Mqloc  
+
+> ℓ
+
+(Jℓ)
+
+!
+
+into the full rectangular matrix of size  2mp
+
+ ×  2nq
+
+, with all remaining entries equal to zero. Equivalently, the nonzero support of Mp,q (Γ can ) is the direct sum over compatible splittings, while all rows and columns corresponding to incompatible block-wise occupations vanish identically. Since every nonzero elementary factor is diagonal, or a scalar multiple of the identity, each Kronecker product in the nonzero block is diagonal. Although the elementary block matrices are scalar or proportional to the identity, the full matrices Mp,q (Γ can ) are not, in general, diagonal in singular-value bases after summing over all compatible splittings. Therefore, Lemma 1 is not saturated sector by sector in general. The following computation should thus be understood as an explicit evaluation of Fα on the canonical representative, rather than by itself as a proof of optimality. 
+
+Explicit evaluation of Fα on the canonical form 
+
+The previous section identifies Γcan as the optimal candidate to be the optimizer for a Gaussian state. Since the coefficient matrices of Γcan factorize block by block, Fα factorizes as well and can be evaluated explicitly. For a single entangled block Γk, the only nonvanishing elementary matrices are M (k)0,0 = [1] , M (k)2,0 = [ νk], M (k)0,2 = [ −νk],
+
+M (k)1,1 = μk 12, and M (k)2,2 = [ −1] , with μ2 
+
+> k
+
+= 1 − ν2 
+
+> k
+
+. Therefore the total contribution of block k to Fα is 
+
+|1|2α + |νk|2α + |νk|2α + 2 |μk|2α + |1|2α = 2  1 + ν2αk + μ2αk
+
+.
+
+Each local block Jℓ contributes instead |M0(Jℓ)|2α + |M2(Jℓ)|2α = 2 . Hence, defining r = min( m, n ) and s =max( m, n ), one obtains 
+
+Fα(Γ can ) = 2 srY
+
+> k=1
+
+ 1 + ν2αk + μ2αk
+
+.
+
+In particular, for α = 2 ,
+
+F2(Γ can ) = 2 LrY
+
+> k=1
+
+ 1 − ν2 
+
+> k
+
++ ν4
+
+> k
+
+,
+
+since 1 + ν4 
+
+> k
+
++ μ4 
+
+> k
+
+= 2(1 − ν2 
+
+> k
+
++ ν4 
+
+> k
+
+) and L = r + s.
+
+Local maximality of Fα at Γcan 
+
+We explain here why the proof of local maximality of Fα at the canonical covariance matrix Γcan reduces to a two-block computation. Throughout, Γcan is the block-diagonal canonical form already introduced, while the factorized expression of Fα(Γ can ) is the one discussed in the previous section. The statement is local, namely it concerns infinitesimal local Gaussian transformations Γ 7 → (OA ⊕ OB )Γ( OA ⊕ OB )T around Γcan .The argument has three ingredients. 
+
+(1) Intra-block directions.— Since Γcan is a direct sum of independent canonical blocks, and Fα(Γ can ) factorizes block by block, any local orthogonal transformation acting only inside one canonical block affects only the correspond-ing single-block factor. Concretely, they act as OA ⊕ OB with OA,B ∈ SO (2) thus changing the off-diagonal by an SO( 2) factor. Thus the intra-block problem decouples completely. Moreover, for each elementary entangled block Γa,the canonical 4 × 4 structure is already the maximizer under arbitrary local orthogonal transformations acting inside that block. Therefore Fα is already locally maximal along all intra-block directions. 11 
+
+(2) Two-block channels.— Fix two entangled blocks, say Γa and Γb. On the A side, the infinitesimal local mixings between the two corresponding two-dimensional Majorana subspaces are parametrized by 2 × 2 = 4 independent generators from the SO( 4)/SO( 2)×SO( 2) action, where we factor out local changes; the same holds on the B side. Hence the most general local infinitesimal mixing of the pair (a, b ) depends on 4 + 4 = 8 real parameters. Since all other blocks are spectators, this channel is completely described by the minimal 8 × 8 model made of the two blocks 
+
+Γa ⊕ Γb. Denoting these eight parameters collectively by θ, one computes the Hessian H(ab ) 
+
+> α
+
+:= ∂2 
+
+> θ
+
+Fα|θ=0 . For α = 2 ,this Hessian can be evaluated symbolically in Mathematica, and one finds that all its eigenvalues are negative. Thus 
+
+Γcan is a strict local maximum in every two-block mixing channel. 
+
+(3) Decoupling of the full Hessian into intra-block and pairwise inter-block channels.— It remains to show that, for an arbitrary number r of entangled blocks, the full second variation of Fα around Γcan reduces to the sum of the intra-block contributions and of the individual two-block mixing channels. This is the key structural point. Let A = A1 ⊕ · · · ⊕ Ar and B = B1 ⊕ · · · ⊕ Br , where each Aa and Ba is the two-dimensional Majo-rana subspace associated with the canonical block Γa. Consider a smooth local Gaussian deformation Γ( ε) = (OA(ε) ⊕ OB (ε)) Γ can (OA(ε) ⊕ OB (ε)) T , with OA(0) = 1, OB (0) = 1, and write OA(ε) = eεK A , OB (ε) = eεK B ,where KTA = −KA and KTB = −KB . The corresponding first-order variation is δΓ = ddε Γ( ε)|ε=0 = [ K, Γcan ], with 
+
+K = KA ⊕ KB . Thus the tangent space at Γcan is the vector space of all matrices of the form δΓ = [ K, Γcan ] generated by infinitesimal local Gaussian transformations. Because Γcan is organized into canonical blocks, each antisymmetric generator decomposes uniquely into block components, namely KA = P 
+
+> a
+
+K(a) 
+
+> A
+
++ P 
+
+> a<b
+
+K(ab ) 
+
+> A
+
+and similarly for KB , where K(a) 
+
+> A
+
+acts only inside the single block 
+
+Aa, while K(ab ) 
+
+> A
+
+mixes only the two blocks Aa and Ab; the same meaning applies to K(a) 
+
+> B
+
+and K(ab ) 
+
+> B
+
+on the B side. We stress that the intra-block pieces need not commute with Γcan ; they simply generate deformations acting inside one canonical block , and these have already been controlled in paragraph (1). Accordingly, we split the tangent space into intra-block sectors Wa, generated by (K(a) 
+
+> A
+
+, K (a) 
+
+> B
+
+), and inter-block sectors Vab , generated by (K(ab ) 
+
+> A
+
+, K (ab ) 
+
+> B
+
+).Since the decomposition of KA and KB into block components is unique, the corresponding decomposition of tangent vectors is unique as well. Therefore the inter-block tangent space splits as the direct sum Lra=1 Wa ⊕ L 
+
+> a<b
+
+Vab .We now show that the Hessian Hα of Fα at Γcan is block diagonal with respect to this decomposition. For each a,let Sa be the local sign flip acting as −1 on the four Majoranas of block a and as 1 on all other blocks. Since Γcan is block diagonal, one has SaΓcan STa = Γ can . On the other hand, Fα is invariant under Γ 7 → SaΓSTa for every Γ, because for every principal minor X one has pf(( SaΓSTa )X ) = det(( Sa)X ) pf(Γ X ), and hence pf(( SaΓSTa )X ) 2α = pf(Γ X ) 2α.Therefore, for every infinitesimal perturbation X, the identity Fα(Γ can +ϵX ) = Fα(Γ can +ϵ S aXS Ta ) holds. Expanding both sides in ϵ, one concludes that the Hessian is invariant under conjugation by Sa, namely 
+
+Hα(X, Y ) = Hα(SaXS Ta , S aY S Ta )
+
+for all tangent vectors X and Y .The action of Sa on the tangent sectors is by parity. If u ∈ Wa, then SauS Ta = u, because an intra-block generator inside block a picks up two minus signs; if u ∈ Wb with b̸ = a, then again SauS Ta = u, since block a is not involved. By contrast, if u ∈ Vab , then SauS Ta = −u, because a generator mixing blocks a and b picks up only one minus sign from block a; if instead u ∈ Vbc with a / ∈ { b, c }, then SauS Ta = u.These parity rules imply the vanishing of all mixed Hessian terms between different sectors. First, if u ∈ Wa and 
+
+v ∈ Vbc with a ∈ { b, c }, then SauS Ta = u while SavS Ta = −v, so by invariance of the Hessian one gets Hα(u, v ) = 
+
+Hα(u, −v) = −Hα(u, v ), hence Hα(u, v ) = 0 . Thus no intra-block/inter-block mixed term survives. Second, if u ∈ Vab 
+
+and v ∈ Vcd with {a, b }̸ = {c, d }, there exists an index ℓ belonging to one pair but not to the other; then SℓuS Tℓ = −u
+
+and SℓvS Tℓ = v, so again Hα(u, v ) = 0 . Finally, if u ∈ Wa and v ∈ Wb with a̸ = b, the mixed Hessian term vanishes because, along purely intra-block deformations, Fα(Γ can ) factorizes into independent single-block contributions, so the mixed derivative between two different block coordinates is zero at the stationary point. We conclude that the Hessian is block diagonal with respect to the decomposition above, and therefore the second variation splits as 
+
+δ2Fα =
+
+> r
+
+X
+
+> a=1
+
+δ2F(a) 
+
+> α
+
++ X
+
+> a<b
+
+δ2F(ab ) 
+
+> α
+
+.
+
+The first sum contains the intra-block contributions already controlled in paragraph (1), while the second contains the pairwise inter-block channels controlled in paragraph (2). Since each of these terms is non-positive, the full Hessian is negative semidefinite. Moreover, the first variation vanishes because every infinitesimal direction is a sum of intra-block and pairwise inter-block directions, and each of these restricted problems is already extremized at Γcan . Hence 
+
+Γcan is a local maximum of Fα in the Gaussian manifold. 12 
+
+> Thermodynamic limit from the Jacobi ensemble
+
+We start from the finite-size joint probability density of the variables x1, . . . , x m ∈ [0 , 1] , where xk = ν2 
+
+> k
+
+, and νk are the singular values associated with the subsystem block. In the Haar-random pure Gaussian ensemble, these variables are governed by a Jacobi-type joint law of the form 
+
+Pm,n (x1, . . . , x m) = 1
+
+Zm,n 
+
+Y
+
+> 1≤i<j ≤m
+
+(xi − xj )2
+
+> m
+
+Y
+
+> k=1
+
+x−1/2 
+
+> k
+
+(1 − xk) n−m, xk ∈ [0 , 1] , (12) where Zm,n is the normalization constant. The one-point density ρm,n (x) = R 
+
+> [0 ,1] m−1
+
+dx 2 · · · dx mP (x, x 2, . . . , x m) is known to be [90, 92] 
+
+ρm,n (x) = wm,n (x)
+
+m
+
+> m−1
+
+X
+
+> r=0
+
+pr (x)2
+
+hr
+
+, (13) where pr (x) are the degree-r Jacobi orthogonal polynomials with weight wm,n (x) = x−1/2(1 − x)n−m−1/2 and hr are their norms. However, here we are interested in the thermodynamic regime L = m + n → ∞ in the scaling limit ℓ = mL ∈ [0 , 1] 
+
+fixed. The goal is to determine the limiting density of the particles xk. To do so, one rewrites the probability density in exponential form Pm,n ≡ exp  −m2Em,n 
+
+. Taking the logarithm of Pm,n gives 
+
+log Pm,n (x1, . . . , x m) = − log Zm,n + 2 X
+
+> 1≤i<j ≤m
+
+log |xi − xj | − 12
+
+> m
+
+X
+
+> k=1
+
+log xk + ( n − m)
+
+> m
+
+X
+
+> k=1
+
+log(1 − xk), (14) where the different contributions can be interpreted separately. The term 2 P 
+
+> i<j
+
+log |xi − xj | describes the mutual logarithmic repulsion between the particles, while (n−m) P 
+
+> k
+
+log(1 − xk) acts as an external confining potential which pushes the particles away from x = 1 . The term − 12
+
+P 
+
+> k
+
+log xk only affects the behavior near x = 0 .To extract the leading thermodynamic behavior, one must identify the correct scale of the exponent. The repulsion term contains m(m − 1) /2 pairs, hence it is of order m2. Moreover, n − m = L − 2m = L(1 − 2ℓ), and since m = ℓL ,the confinement term is also of order m2. By contrast, the term involving P 
+
+> k
+
+log xk contains only m summands and is therefore of order m, hence subleading with respect to the m2 contributions. This is why one divides by m2: after this rescaling, the leading terms admit a finite nontrivial limit. At this point one introduces the empirical measure 
+
+ρm(x) = 1
+
+m
+
+> m
+
+X
+
+> k=1
+
+δ(x − xk) → ρ(x) (15) which represents the random density of particle positions, while ρ denotes the deterministic limiting density as m → ∞ .In terms of ρ, sums over particles may be rewritten as integrals (discarding sub-leading correlations in the two-point measure): 
+
+1
+
+m
+
+> m
+
+X
+
+> k=1
+
+g(xk) →
+
+Z
+
+g(x)ρ(x) dx, 1
+
+m2
+
+X
+
+> i̸=j
+
+h(xi, x j ) −→ 
+
+Z Z 
+
+h(x, y )ρ(x)ρ(y) dx dy, (16) At finite m, the one-point marginal density (introduced in the main text) is defined by 
+
+ρm,n (x) = 1
+
+m E
+
+" mX
+
+> k=1
+
+δ(x − xk)
+
+#
+
+= E [ρm(x)] . (17) This is the averaged particle density, such that the average that we want to compute is indeed E[M NL 2 ]/L =
+
+−ℓ E P mk=1 log  1 − xk + x2
+
+> k
+
+/m  = −ℓ R dx log  1 − x + x2ρm,n (x). On the other hand, ρm is the empirical density of a single configuration. In the thermodynamic limit, the empirical density concentrates and becomes deterministic, so that ρm,n (x) → ρ(x) as well. Thus, in the large-L limit, the equilibrium density ρ entering the energy functional also coincides with the limiting one-point marginal density. Replacing the leading sums by their continuum counterparts, one obtains the Coulomb-gas energy functional 
+
+Em,n 
+
+m2 → E [ρ] = −
+
+Z Z 
+
+log |x − y| ρ(x)ρ(y) dx dy − α
+
+Z
+
+log(1 − x) ρ(x) dx, (18) 13 with α = ( n−m)/m = (1 −2ℓ)/ℓ . The first term represents the logarithmic repulsion between particles, and the second term is the contribution of the external potential V (x) = −α log(1 − x). The probability of observing a macroscopic density ρ behaves, at leading exponential order, like 
+
+P[ ρ] ≍ e−m2E[ρ]. (19) Therefore the thermodynamic density is obtained by minimizing E[ρ] under the constraints ρ(x) ≥ 0 and R ρ(x) dx = 1 .The minimizer satisfies the Euler–Lagrange equation 
+
+−2
+
+Z
+
+log |x − y| ρ(y) dy − α log(1 − x) = C, (20) for x in the support of ρ, where C is a constant Lagrange multiplier enforcing normalization. Differentiating with respect to x yields the singular-integral equation 
+
+2 PV 
+
+Z ρ(y)
+
+x − y dy = α
+
+1 − x , (21) valid on the support of ρ. At leading order the support is sought in the form supp( ρ) = [0 , ˜x], with ˜x < 1. This is natural because the potential is logarithmically diverging at x = 1 . To solve the singular integral equation, one introduces the resolvent 
+
+G(z) = 
+
+Z ˜x
+
+> 0
+
+ρ(y)
+
+z − y dy, z ∈ C \ [0 , ˜x]. (22) This function is analytic outside the support, and its discontinuity across the cut determines the density: 
+
+ρ(x) = 12πi 
+
+ G−(x) − G+(x), G+(x) + G−(x) = 2 PV 
+
+Z ρ(y)
+
+x − y dy, G±(x) = lim  
+
+> ϵ→0
+
+G(x ± iϵ ). (23) Moreover, the normalization of ρ implies G(z) ∼ z−1 for z → ∞ . A one-cut ansatz consistent with the support [0 , ˜x],and satisfying the condition G+(x) + G−(x) = α/ (1 − x) is 
+
+G(z) = α
+
+2(1 − z) − A
+
+1 − z
+
+r z − ˜xz , (24) where the square root is chosen so that p(z − ˜x)/z → 1, for z → ∞ . The constants A and ˜x are fixed by two conditions. First, G(z) must be regular at z = 1 . Hence the apparent pole must cancel, i.e. lim z→1(1 − z)G(z) = 0 
+
+implying 
+
+α
+
+2 − A√1 − ˜x = 0 . (25) Second, the large-z behavior must satisfy G(z) ∼ z−1. Expanding one finds G(z) =  A − α
+
+> 2
+
+ 1 
+
+> z
+
++ O(z−2), hence 
+
+A − α
+
+2 = 1 . (26) Solving Eq.s (25,26) together with the definition α = (1 − 2ℓ)/ℓ one gets 
+
+A = 12ℓ , ˜x = 4 ℓ(1 − ℓ). (27) The density is then obtained from the discontinuity of the resolvent. For x ∈ (0 , ˜x),
+
+G−(x) − G+(x) = 2iA 
+
+1 − x
+
+r ˜x − xx , (28) therefore 
+
+ρ(x) = 12πℓ 
+
+p(˜ x − x)/x 
+
+1 − x 1(0 , ˜x)(x), (29) 14 which is the thermodynamic density of the variables xk = ν2 
+
+> k
+
+. Equivalently, it is the large-L limit of the one-point marginal density of the Jacobi ensemble. Plugging this result into the definition of the nonlocal magic, for α = 2 one obtains 
+
+J (ℓ) ≡ lim 
+
+> L→∞
+
+1
+
+L EΓ[M NL 
+
+> 2,>
+
+(ψΓ)] = − 12π
+
+Z ˜x
+
+> 0
+
+dx log  1 − x + x2 p(˜ x − x)/x 
+
+1 − x (30) 
+
+= Re 
+
+(
+
+2√1 − ˜x log 
+
+" √1 − ˜x + √1 − ˜xe iπ/ 3
+
+√1 − ˜x + 1 
+
+#
+
+− 2 log 
+
+"
+
+1 + √1 − ˜xe iπ/ 3
+
+2
+
+#) 
+
+. (31)
