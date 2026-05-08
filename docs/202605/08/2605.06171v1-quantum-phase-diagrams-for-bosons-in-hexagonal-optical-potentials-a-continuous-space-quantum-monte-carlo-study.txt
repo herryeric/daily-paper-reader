@@ -1,0 +1,1198 @@
+Title: Quantum phase diagrams for bosons in hexagonal optical potentials: A continuous-space quantum Monte Carlo study
+
+URL Source: https://arxiv.org/pdf/2605.06171v1
+
+Published Time: Fri, 08 May 2026 01:44:47 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# Quantum phase diagrams for bosons in hexagonal optical potentials: A continuous-space quantum Monte Carlo study 
+
+Danilo Nascimento Guimaraes 1 and Laurent Sanchez-Palencia 1
+
+> 1
+
+CPHT, CNRS, ´Ecole Polytechnique, Institut Polytechnique de Paris, Palaiseau, France 
+
+(Dated: May 8, 2026) Hexagonal optical lattices, emulating graphene and hexagonal boron nitride (h-BN) structures, provide a versatile platform for exploring strongly correlated quantum matter. Using continuous-space exact diagonalization and quantum Monte Carlo simulations, we investigate the phase dia-grams of ultracold bosons in honeycomb and h-BN lattices. For the honeycomb lattice, we find significant deviations from the standard Bose-Hubbard model even for strong lattice amplitudes. We observe suppressed Mott insulator lobes and the absence of higher-order insulating phases, at-tributed to strong density-assisted tunneling effects. In the h-BN case, a rich phase diagram emerges, featuring multiple Mott lobes with various sublattice occupations, driven by the interplay of lattice asymmetry, interactions, and particle filling. Our results highlight the necessity of continuous-space treatments for capturing the full complexity of bosonic quantum phases in hexagonal geometries, paving the way for experimental realizations with ultracold atoms and further theoretical work. 
+
+I. INTRODUCTION 
+
+Solid-state materials exhibit a remarkable diversity of geometric structures, arising from the interplay of atomic electronic configurations and complex interactions. Be-yond conventional cubic lattices, these include triangular, checkerboard, and honeycomb lattices, as well as qua-sicrystals, and multilayer systems [1–5]. Such structures give rise to a wealth of nontrivial phenomena ranging from exotic superconductivity and anomalous quantum Hall effects to fractal behavior, localization, and topolog-ical phases, which are currently attracting considerable attention [6–12]. The challenge lies in unraveling the in-tricate interplay of matter-wave interference, electronic interactions, and geometric effects that underpin these phenomena. In parallel, ultracold atomic systems have emerged as a versatile platform for quantum simulation, offering unprecedented control over interaction strengths, sign, and range, as well as, lattice geometries and dy-namical parameters [13–20]. By engineering laser con-figurations, exotic lattice structure, such as triangular, honeycomb, Lieb, and Kagome lattices, as well as super-lattices and quasiperiodic lattices, can be emulated [21– 35]. These systems allows us to not only revisit the physics of strongly correlated electronic systems but also explore new physics of bosonic quantum matter in such structures. Moreover, recent advances, including multi-frequency lattices and dynamical phase control, further expand the range of accessible geometries [36–39]. Hexagonal lattices, exemplified by graphene and cer-tain carbon nanotubes [3, 40], are of particular inter-est due to their unique band structures, which feature Dirac cones, flat bands, and exaggerated correlation ef-fects, as well as their rich topological properties [3, 41– 43]. Up to date only a few experiments have real-ized hexagonal lattices but they have already facilitated studies of exotic effects, including multi-orbital super-conductivity [44], antiferromagnetic N´ eel ordering [45], and Dirac point physics [26]. It is also worth men-tioning cavity polariton systems with nanopillars arrays arranged in honeycomb geometry [46, 47]. Theoreti-cally, tight-binding models have been extensively em-ployed to describe the single-particle band structure of honeycomb and gapped-honeycomb systems [3, 48–50], while Bose–Hubbard models have been used to study superfluid–Mott transitions and superlattice-induced in-sulating phases [51–53]. Beyond, dynamical control of optical lattices has enabled the realization of hexago-nal boron nitride (h-BN, aka gapped graphene) mod-els [36], with recent theoretical work revealing transi-tions between Mott insulating, checkerboard and super-fluid phases at unit filling, tunable by the lattice gap [53]. In this work, we investigate the dynamics of ultracold bosons in hexagonal optical potentials, including honey-comb and h-BN lattices. Using continuous-space calcu-lations, we determine the band structure of these mod-els, establishing the validity limits of tight-binding ap-proximations and extracting their parameters. Moreover, quantum Monte Carlo (QMC) simulations yield exact phase diagrams at vanishingly small temperatures and arbitrary fillings. For the honeycomb lattice, we find standard superfluid and Mott insulator phases. However, we observe significant deviations from Bose-Hubbard models, even at strong lattice amplitudes where band structures are very well reproduced. For instance, for a lattice depth V0 = 15 Er, the lowest band is reproduced by the simplest tight-binding model with an accuracy of about 1% but the Bose–Hubbard approximation fails to describe but the first Mott lobe. These deviations are attributed to strong density-assisted tunneling effects be-yond the Bose-Hubbard framework. For the h-BN lattice, our results unveil a rich phase diagram characterized by multiple Mott lobes with various fillings, hence extend-ing the findings of Ref. [53] and highlighting the interplay of interactions, filling, and lattice geometry. Our work paves the way for experiments with ultracold atoms in hexagonal optical lattices and motivates further explo-ration of multilayer systems. 
+
+> arXiv:2605.06171v1 [cond-mat.quant-gas] 7 May 2026
+
+2
+
+II. MODEL 
+
+The dynamics of a 2D gas of identical spinless bosons with mass m and repulsive two-body interactions is gov-erned by the Hamiltonian ˆH =
+
+Z
+
+dr ˆΨ†
+
+
+
+ˆH0 + 12
+
+Z
+
+dr′ ˆΨ′ † U (r − r′) ˆΨ′
+
+
+
+ˆΨ, (1) where ˆΨ and ˆΨ′ are, respectively, the field operators at positions r and r′, ˆH0 = −ℏ2∇2/2m + V (r) is the one-body Hamiltonian with potential V (r), and U (r − r′)is the two-body interaction potential. We consider the honeycomb-like lattice potential 
+
+V (r) = 2 V03X
+
+> j=1
+
+cos( Gj · r + ϕj ) , (2) where V0 is the potential amplitude, the ϕj ’s are phases, and the Gj ’s are vectors with size π/a and arranged to form angles of 2 π/ 3 with each other. A possible imple-mentation of such a potential with controlled parameters involves using multifrequency settings with three pairs of lasers [36], see Fig. 1(a). We then have Gj = kj − k′ 
+
+> j
+
+,where kj and k′ 
+
+> j
+
+are the laser wavevectors with |kj | =
+
+|k′ 
+
+> j
+
+| = k, and ϕj is the phase difference for beams in pair 
+
+j. Since |Gj | = √3 k, the choice |Gj | = π/a implies 
+
+k = π/ (√3a). In what follows, we use the a = π/ √3k as the length unit and recoil energy 
+
+Er = ℏ2k2
+
+2m = π2ℏ2
+
+6ma 2 , (3) as the energy unit. Unless stated otherwise, the zero of energy is taken to be the ground-state energy of the corresponding single-particle Hamiltonian ˆH0 for the pa-rameters ( V0, ϕ g) under consideration. Note that we can restrict ourselves to V0 ≥ 0 since changing the sign of V0
+
+is equivalent to shifting each ϕj into ϕj + π. The choice of the spatial origin provides two independent degrees of freedom, allowing two of the three phases to be absorbed by a coordinate shift. As a result, the geometry of the potential is determined by a single phase. Without loss of generality, we may choose the so-called geometric phase 
+
+ϕg = P 
+
+> j
+
+ϕj [36] and take ϕ1 = ϕ2 = ϕ3 = ϕg/3. Irrespective of the value of ϕg, the potential V (r) is periodic with Bravais vectors a1 = (4 a/ √3) ex and a2 =(2 a/ √3)( ex + √3ey ), with ex, ey the canonical basis of 
+
+R2, see Fig. 1(b). For ϕg = 0, the potential minima form a honeycomb lattice with identical A and B sites, see Fig. 1(b). An increasing value of ϕg progressively lifts the degeneracy between A and B sites, hence forming an hBN-like potential. For |ϕg| > π/ 2, the B points are no longer local minima while the A sites are still minima, hence forming a triangular lattice, see Appendix A. In the low-energy s-wave scattering regime, the in-teraction potential is characterized by the sole scat-tering length asc and, for weak enough interactions, (b) (a) 
+
+# G1G3G2k 2k' 2k 1k' 1k' 3k 3
+
+# a2
+
+# a1
+
+# 𝛿 1
+
+# 𝛿 '1
+
+# 𝛿 '2
+
+# 𝛿 2
+
+# 𝛿 3
+
+# 𝛿 ' 3
+
+# 𝛿 ' 4
+
+# 𝛿 ' 5 𝛿 ' 6
+
+Figure 1. Hexagonal lattice. (a) Lattice vectors Gj entering the potential of Eq. (2). Faint arrows indicate the laser wave vectors in the implementation of Ref. [36]. (b) Lattice formed by the minima of the potential in Eq. (2). It is composed of two interpenetrating triangular sublattices A (red) and B (green). Also shown are the Bravais vectors a1,2, the nearest-neighbor vectors δj , and the next-nearest-neighbor vectors δ′ 
+
+> j
+
+.
+
+U (r) may be replaced by a contact interaction, U (r) = (ℏ2 ˜g/m )δ(r), with dimensionless coupling parameter ˜g ≃ 1˜g−10 + (4 π)−1 ln(Λ Er/μ ) , (4) where ˜g0 = 2π
+
+ln( a/a sc ) , (5) 
+
+μ the chemical potential, and Λ ≃ 0.423 is a numerical constant 1 [14, 54–57]. This relation holds for homoge-neous two-dimensional systems in the weakly-interacting regime ˜ g ≪ 1 and is used here heuristically. For sufficiently deep lattice potential, V0 ≫ Er, and low-energy, the system may be described, up to an ir-relevant constant, by the extended Bose–Hubbard model          
+
+> 1With our convention Er=ℏ2k2/2m=π2ℏ2/(6 ma 2) the recoil-energy unit differs by a factor of 3 from the more common conven-tion Er=π2ℏ2/(2 ma 2). Accordingly, the constant Λ in Eq. (4) is three times the value given in Refs. [14, 54–57].
+
+3(a) (b1) (c1) (b2) (c2) (b3) (c3) 68
+
+## 0
+
+> E/E ᵣ
+
+## 68
+
+## 0
+
+## 68
+
+## 0
+
+## 910 11 
+
+## Γ K 1 M K 20
+
+> E/E ᵣ
+
+## 910 11 
+
+## Γ K 1 M K 20
+
+## 10 12 14 
+
+## Γ K 1 M K 2024kx ky 
+
+## 0.0 2.5 5.0 7.5 10.0 E/E ᵣ
+
+Figure 2. Single-particle band structure for a honeycomb potential with various amplitudes and geometric phases. Results obtained using exact diagonalization of Hamiltonian ˆH0. (a) Full dispersion relations in the first Brillouin zone for the first bands, V0 = 15 Er, and ϕg = 0. (b1) Band dispersion relations along the high-symmetry path Γ– K1–M –K2 for V0 = 5 Er, and (b1) ϕg = 0, (b2) ϕg = 0 .008, and (b3) ϕg = 0 .1. (c) Same as (b) but for V0 = 15 Er.
+
+(BHm) Hamiltonian ˆHBH = −J X
+
+> ⟨j,ℓ ⟩
+
+ˆa† 
+
+> j
+
+ˆaℓ − ∆AB 
+
+2
+
+X
+
+> j∈A
+
+ˆa† 
+
+> j
+
+ˆaj + ∆AB 
+
+2
+
+X
+
+> j∈B
+
+ˆa† 
+
+> j
+
+ˆaj
+
+−J′
+
+> A
+
+X
+
+> ⟨⟨ j,ℓ ⟩⟩∈ A
+
+ˆa† 
+
+> j
+
+ˆaℓ − J′
+
+> B
+
+X
+
+> ⟨⟨ j,ℓ ⟩⟩∈ B
+
+ˆa† 
+
+> j
+
+ˆaℓ (6) + UA
+
+2
+
+X
+
+> j∈A
+
+ˆnj (ˆ nj − 1) + UB
+
+2
+
+X
+
+> j∈B
+
+ˆnj (ˆ nj − 1) ,
+
+where ˆ aj , ˆ a† 
+
+> j
+
+, and ˆ nj = ˆ a† 
+
+> j
+
+ˆaj are, respectively, the annihi-lation, creation, and number operators for bosons in site 
+
+j, J is the tunneling energy between nearest-neighbor (nn) A-B sites, J′ 
+
+> A
+
+and J′ 
+
+> B
+
+are the tunneling energies between next-nearest-neighbor (nnn) A-A or B-B sites, ∆AB ≥ 0 is the energy difference between A and B sites (by convention we define A sites as those with lowest en-ergy), and UA and UB are, respectively, the interaction energy in A and B sites. The notations ⟨j, ℓ ⟩ and ⟨⟨ j, ℓ ⟩⟩ 
+
+refer to sums over pairs of nn A-B sites and pairs of nnn A-A or B-B sites, respectively. 
+
+III. BAND STRUCTURE AND TIGHT-BINDING PARAMETERS 
+
+We first study the single-particle part of Eq. (1), as-sociated with the Hamiltonian ˆH0. Using Bloch’s theo-rem, ˆH0 may be diagonalized writing the wavefunctions 
+
+ψb, k(r) = ub, k(r)eik·r, where ub, k(r) has the lattice pe-riodicity, k spans the first Brillouin zone, and b is the band index. The eigenproblem ˆH0ψb, k = εb(k)ψb, k is then solved, for given sets of V0 and ϕg, using exact nu-merical diagonalization in continuous space within the first Brillouin zone. It yields the numerically exact band dispersion relations εb(k) and the corresponding eigen-states ψb, k(r). Typical energy spectra are shown in Fig. 2 for for var-ious values of V0 and ϕg. For deep enough potential, the lowest band ( b = 1) can be understood from the tight-binding model (TBm) corresponding to the first two lines in Eq. (6), i.e. for UA = UB = 0. The latter has been extensively studied previously, see for instance Refs. [3, 48, 58, 59]. The lowest band splits into two subbands ( ±) with dispersion relations 
+
+ε1,± (k) = ±J
+
+s
+
+|f (k) |2 +
+
+ (J′ 
+
+> A
+
+− J′
+
+> B
+
+)f ′(k) + ∆ AB 
+
+2J
+
+2
+
+− J′ 
+
+> A
+
++ J′
+
+> B
+
+2 f ′(k), (7) where f (k) = P3 
+
+> j=1
+
+eiδj ·k with δj the lattice vectors con-necting A-B pairs of nn sites and f ′(k) = P3 
+
+> j=1
+
+eiδ′ 
+
+> j·k
+
+with δ′ 
+
+> j
+
+the lattice vectors connecting A-A or B-B pairs of nnn sites, see Fig. 1(b). Explicit formulas are given in Appendix B. The lowest band spectra we obtain for the continuous-space model are in good agreement with TBm predictions, Eq. (7), for typically V0 ≳ 5 Er4More precisely, the BHm parameters J, J′
+
+> A
+
+, J′
+
+> B
+
+, and ∆AB are extracted by fitting Eq. (7) to the lowest-band dispersion relation obtained numerically from the con-tinuous model. Moreover, Wannier functions in A and B sites, wA(r − Rj ) and wB(r − Rj ) with Rj the position of site j, are obtained through a variational procedure that minimizes their real-space spread starting from the Bloch eigenstates [60]. The on-site interaction energies, useful for the many-body problem, are then computed as 
+
+UA/B = ˜ g
+
+Z
+
+dr |wA/B (r)|4. (8) Finally, the quality of the fits is assessed through the error parameter, defined as the average of the absolute value of the difference between the TB dispersion and the exact dispersion, normalized by the corresponding subband width: 
+
+ϵ± = 1
+
+A S±
+
+Z
+
+dk ε1,± (k) − εTB  
+
+> 1,±
+
+(k) , (9) where ε1,± (k) and εTB 
+
+> 1,±
+
+(k) are the dispersion relation, respectively, obtained by diagonalizing the continuous Hamiltonian and predicted by the TB model [Eq. (7) with fitted parameters], A = π2√32a2 is the area of the first Brillouin zone, and S± is the bandwidth of the sub-band. This procedure allows us to extract the effective tunneling parameters and, at the same time, to assess the validity range of each model. Results for the lowest subbands are shown in Fig. 3 for the full TBm as well as for some approximate models (see below). For ϕg = 0, we have ∆ AB = 0 and, for sufficiently deep lattices, the nnn terms can be neglected. We then recover the standard dispersion relations of graphene, 
+
+ε1,± (k) ≃ ± J|f (k)|, which exhibit characteristic Dirac cones at K1 and K2 with locally linear dispersion rela-tions, see Fig. 2(a), (b1), and (c1). The latter are known to exist for almost any potential invariant under 2 π/ 3 ro-tation and possessing inversion symmetry ( r ↔ − r); they are thus robust against the inclusion of nnn terms that re-spect such symmetry, as well as in continuous space [61]. They are also found in the second band ( b = 2). There, owing to the symmetries of the potential, each site hosts two degenerate first local excitations associated with two Wannier states. For this reason, the second band splits into four subbands, corresponding to the two degenerate excited orbitals on each of the two sublattices. In con-trast, while the extreme subbands are strictly flat in the tight-binding model restricted to nearest neighbors [62], we find weak k dependence in the continuous model for finite lattice amplitude V0, see Fig. 2(b1) and (c1). For finite ϕg, the equivalence of the sublattices A and B is broken and a relative energy offset ∆ AB be-tween A and B sites appears. A band gap opens at the Dirac points, with local quadratic dispersion rela-tions, while the bands and subbands progressively sepa-rate as ϕg (hence ∆ AB ) grows, see Fig. 2(b2), (b3), (c2), and (c3). Expanding the energy difference between the 0.0 0.2 
+
+ɸg
+
+10 -3 
+
+10 -2 
+
+10 -1 
+
+10 0
+
+10 1
+
+10 2
+
+> ε −
+
+0.0 0.2 
+
+ɸg
+
+10 -2 
+
+10 -1 
+
+> ε +
+
+0.0 0.2 
+
+ɸg
+
+0
+
+2
+
+4
+
+6
+
+8
+
+10 
+
+> Δ AB /Er
+
+Δ AB =44.40 ɸg
+
+0.0 0.2 
+
+ɸg
+
+10 -5 
+
+10 -4 
+
+10 -3 
+
+10 -2 
+
+10 -1 JJ, J' /Er J J' BJ'A J'B J'A (a) (b) (c) (d)                      
+
+> Figure 3. Tight-binding parameters as functions of the geometric phase ϕgfor V0=15 Er.Results obtained by fitting the lowest-band dispersion relation of the continuous single-particle Hamiltonian ˆH0to the nn (blue), nnn (red), and triangular (black) models. The vertical gray line marks
+> ϕ∗
+> g≃0.25, where the lowest B-site state crosses the first ex-cited A-site state. (a) Sublattice offset ∆ AB obtained from the nn (blue) and nnn (red) model (note that they overlap each other), together with a linear fit (dashed black line). (b) Tun-neling amplitudes: J(solid), J′
+> A(dashed), and J′
+> B(dotted) for each model. (c) and (d) Normalized fitting errors for, respec-tively, the lower and upper subbands.
+
+ground states of the harmonic approximations of the po-tential around A and B sites, we find that ∆ AB grows linearly with ϕg, ∆ AB ≃ (2 √3V0 − √3V0 Er)ϕg, see Ap-pendix A. This is in good agreement with fits to our nu-merical results, ∆ AB /E r ≃ 44 .40 ϕg, see Fig. 3(a). The small discrepancy (less than 2%) may be attributed to the slight anharmonic effects. Owing to the smaller sep-aration between pairs of sites, the nn overlaps of Wan-nier functions always dominate their nnn counterparts. For ∆ AB ≪ 3J, where 3 J sets the half-bandwidth of the nn honeycomb dispersion [ ε1,±(k) = ±J|f (k)| and 
+
+|f (k)| ≤ 3], we can rely on the nn model corresponding to neglecting the second line of Eq. (6), and the primed terms in Eq. (7). The dispersion relations then reduce to ε1,±(k) ≃ ± √∆2AB +4 J2|f (k)|2 
+
+> 2
+
+. This is consistent with Fig. 3, where we find that the nn model remains accurate for small ϕg. A crossover occurs when ∆ AB ∼ 3J, which for V0 = 15 Er happens around ϕg ≃ 0.002. The tran-sition between effective descriptions is, however, grad-ual: in the vicinity of this crossover, the fitting errors of both the nn and triangular models remain reasonably small ( ≲ 2%), so that either model provides a useful de-5scription of the low-energy physics. For larger ϕg, nn tunneling becomes progressively off-resonant, while nnn tunneling remains resonant within each sublattice. The A and B sublattices then progressively decouple and the triangular-lattice description becomes more appropriate. The terms in J may be neglected and the dispersion rela-tions, Eq. (7), reduce to ε1,± (k) ≃ ± ∆AB /2 ± J′
+
+> A/B
+
+f ′ (k)where A corresponds to − and B corresponds to +. This is consistent with Fig. 3, where we find that the tun-nelings and errors obtained from the full (dotted and dashed red lines) and triangular (dotted and dashed black lines) models are similar for ϕg ≳ 0.025, corresponding to ∆ AB /3J ≳ 20 for V0 = 15 Er. Finally, beyond a cer-tain threshold, ϕg ≳ ϕ∗ 
+
+> g
+
+(with ϕ∗ 
+
+> g
+
+≃ 0.25 for V0 = 15 Er,vertical lines in Fig. 3), the energy offset ∆ AB exceeds the excitation energy on A sites, so that the ground-band Wannier state energy on B sites exceeds that of first excited states on A sites. Hence the only reason-able single-band TBm for the lowest subband considered here becomes the triangular one for A sites. Description of higher bands would involve including p-orbitals in A sites, s-orbitals in B sites, as well possibly there hybrida-tion, which is beyond the scope of the present work.  
+
+> IV. QUANTUM PHASE DIAGRAMS FOR INTERACTING BOSONS
+
+We now turn to the many-body problem. Low-temperature equilibrium properties of the full model of Eq. (1) for the potential of Eq. (2) are found using worm-algorithm quantum path-integral Monte Carlo (PIMC) calculations [63]. We work within the grand-canonical ensemble with temperature T and chemical potential μ.The interaction term is treated using the generalized propagator parametrized by the scattering length asc ,as introduced in Ref. [57]. Unless stated otherwise, all simulations are performed at lattice depth V0 = 15 Er
+
+and temperature T = 0.01 Er/k B, within in a 6 × 6unit-cell box with periodic boundary conditions, con-taining 72 local lattice sites. The observables extracted from our PIMC calculations are the local particle den-sity ρ(r) = ⟨ ˆΨ†(r) ˆΨ( r)⟩, the average particle number per site (i.e. per half-unit cell) n = R dr ρ(r)/N c, with Nc the number of half-unit cells in the simulation box, the aver-age particle number in A and B sites, nA and nB [with 
+
+n = ( nA + nB )/2], the compressibility κ = ∂n/∂μ , and the superfluid fraction fs. The first five are computed using the particle position statistics while the latter is computed using the winding number estimator [64]. Our PIMC computations are performed in continuous space and interpreted in terms of the extended hBN-like BHm Hamiltonian of Eq. (6).  
+
+> A. Honeycomb lattice
+
+We start with the balanced honeycomb lattice, ϕg = 0. In this case, the two sublattices A and B are equivalent, ∆AB = 0, UA = UB ≡ U , and J′ 
+
+> A
+
+= J′ 
+
+> B
+
+≡ J′. For V0 =15 Er, the single-particle results yield J ≃ 2.7 × 10 −2 Er
+
+and J′ ≃ 2.2 × 10 −4 Er, and the nnn tunneling can be ne-glected. The low-energy dynamics is thus essentially gov-erned by the competition between onsite interactions U
+
+and nn tunneling J in Bose-Hubbard-like models. Typ-ical PIMC results for the density per half unit cell n,the compressibility κ, and the superfluid fraction fs are shown in Fig. 4(a) for various temperatures ranging from 
+
+T ≃ 0.3 Er/k B (lighter blue) to T ≃ 0.01 Er/k B (darker blue). For sufficiently low temperatures, we clearly ob-serve two Mott plateaus at integer fillings n = 1 and 
+
+n = 2, corresponding to 1 and 2 particles per (A or B) site, with vanishing compressibility, and separated by compressible phases. This corresponds to SF-MI phase transitions. Consistently, we find that the SF fraction is finite in the compressible regions and vanishes in the Mott plateaus. Thermal fluctuations marginally affect the density and compressibility for kBT ≲ 0.1 Er, which is about one order of magnitude smaller than the interac-tion energy U ≃ 1.83 Er for ˜ g0 ≃ 0.67 as used for Fig. 4. The first MI gap at n = 1 is approximately equal to U
+
+as expected in the atomic limit U ≫ J, while the second one is significantly reduced due to enhanced tunneling at 
+
+n ≃ 2 (see below). In contrast, zero-temperature con-vergence of the SF fraction requires lower temperatures. For kB T ≳ 0.2 Er, all superfluid phases are destroyed, while for 0 .05 Er ≲ kB T ≲ 0.2 Er (with 0 .05 Er ≃ 2J)only the first, low-density superfluid phase is suppressed. For low density, the relevant energy scale is the tunnel-ing energy J and we consistently find a significant SF for kBT ≲ J ≃ 2.7 × 10 −2 Er. The second and third SF phases are more stable, and we find that the SF fraction is converged for roughly kBT ≲ J ≃ 0.1 Er in spite of fluctuations of the PIMC results for fs. At higher tem-peratures, the SF phases found at zero temperature are replaced by normal-fluid (NF) phases, characterized by finite compressibility and vanishing SF fraction. More precisely, in 2D, the NF to SF transition is expected to be of the Berezinskii-Kosterlitz-Thouless (BKT) type [65–67]. To check this, we study the su-perfluid phase-space density nsλ2 
+
+> T
+
+as a function of tem-perature T , where ns = fs × n is the superfluid density and λT = p2πℏ2/mk BT is the thermal de Broglie wave-length. A typical result for a fixed chemical potential μ
+
+is shown in Fig. 4(b) for various system sizes. The be-havior shows a sharper and sharper transition as the size increases and a critical point consistent with the universal jump of the superfluid phase-space density at nsλ2 
+
+> T
+
+= 4, characteristics of the BKT transition. Here we find a critical temperature of Tc ≃ 0.03 Er/k B. Hence, the tem-perature used for the phase diagrams discussed below, 
+
+T = 0 .01 Er/k B, is low enough to be representative of zero-temperature behavior. Moreover, we find that, al-6(a) (b) ×10 -2 02n
+
+024
+
+> κ×Er
+
+0 2 4
+
+𝜇 /Er 0.0 0.2 fs
+
+1.0 1.3 1.7 2.5 3.3 5.0 20.0 33.3 k BT/Er 0.1 0.2 0.3 0.4 k BT/Er 0246810 12 ns 𝜆  T 2
+
+4610 16 20 L                   
+
+> Figure 4. Quantum Monte Carlo simulation results for 2D bosons in a honeycomb optical lattice ( V0= 15 Er,ϕg= 0, ˜ g0= 0 .67) for several temperatures and system sizes. (a) Density n, compressibility κ, and superfluid fraction fsversus chemical potential for several temperatures (the ticks on the colorbar indicate the used temperatures). (b) Superfluid phase-space density nsλ2
+> T
+> versus temperature for various system sizes L×L(indicated on te colorbar), for μ≃2.17 Er. The black horizontal line indicates the expacted BKT superfluid transition.
+
+though the superfluid density is not fully converged, a system of L × L unit cells with L = 6 is sufficient to locate the critical temperature clearly via the criterion 
+
+nsλ2 
+
+> Tc
+
+= 4. The phase diagram of the balanced honeycomb model shown in Fig. 5(a) is obtained by analyzing results as in Fig. 4(a) while varying the interaction strength ˜ g0.At the used temperature, T = 0 .01 Er/k B, only very small regions exhibit finite compressibility and vanish-ing SF fraction, corresponding to a normal fluid (NF, dark green). The remainder of the diagram consists of two MI lobes with zero compressibility and zero SF frac-tion at integer fillings nA = nB = 1 (MI 1,1, purple) and 
+
+nA = nB = 2 (MI 2,2, pink), surrounded by a broad SF phase (light green). The critical interaction strength for the appearance of the MI lobes is ˜ g0 = 0 .25 ± 0.05, corresponding to 
+
+Uc/J = 15 .2 ± 3.0 for V0 = 15 Er as used in Fig. 5(a). This is comparable to BHm estimates for the honeycomb lattice, which yield Uc/J ≃ 11 .6, obtained from high-order process-chain expansions [51] and Uc/J ≃ 12 .7from strong-coupling perturbation theory with series ex-trapolation [52]. While our continuous-space phase di-agram is qualitatively similar to BHm predictions (MI lobes corresponding to the estimate of Ref. [51] are shown as thin dashed lines), it exhibits clear quantitative de-viations. The MI lobe at nA = nB = 1 agrees well up to an approximate shift of the chemical potential of order ∆ μ = 0 .15 Er. In contrast, the MI lobe at 
+
+nA = nB = 2 exhibits a gap that is approximately half the size predicted by the BHm. Furthermore, the MI lobe at nA = nB = 3 predicted by the BHm is completely ab-sent from the full continuous-space PIMC calculations. In fact, the PIMC results show a weak inflection point of the n(μ) curve at n = 3, but the compressibility and the SF fraction remain finite, see Fig. 4(a). This indicates enhanced correlations, but not strong enough to stabilize a MI phase. These deviations, in particular the suppres-sion of the n = 2 lobe and the absence of the n = 3 lobe, indicate that the BHm fails to completely capture the low-energy physics in this regime, highlighting the need for continuous-space calculations. To explain these discrepancies, we may consider correc-tions to the standard BHm. We first note that the higher single-particle bands, which appear at energies around 8.75 Er for V0 = 15 Er, see Fig. 2(c1), lie well above the chemical-potential range considered in the phase di-agram of Fig. 5(a) and can therefore be ignored. We may then consider nnn tunneling terms, corresponding to the second line of Eq. (6), as well as nn interactions, which generate a term of the form U ′
+
+> 2
+
+P 
+
+> ⟨j,ℓ ⟩
+
+ˆnj ˆnℓ, where 
+
+U ′ = ˜ g R dr |wA|2|wB|2. Such terms are expected to play a role for shallow lattices owing to enhanced spatial ex-tension of the Wannier functions. For V0 = 15 Er as used here, however, our single-particle calculations yield 
+
+J′ ≃ 2.18 × 10 −4 Er and U ′/˜g ≃ 1.9 × 10 −4 Er. These terms are, respectively, about two and four orders of mag-nitude smaller than the nn tunneling ( J ≃ 2.7 × 10 −2 Er)and on-site interaction strength ( U/ ˜g ≃ 2.73 Er), and can safely be neglected. In contrast, density-assisted tunneling (DAT), which arises from nn coupling terms, 
+
+− ˜J P 
+
+> ⟨j,ℓ ⟩
+
+ˆa† 
+
+> j
+
+(ˆ nj + ˆ nℓ)ˆ aℓ with ˜J = −˜g R dr |wA|2w∗
+
+> A
+
+wB,becomes significant. Such terms are beyond BHm. Nev-ertheless, we may estimate their significance within a mean-field approach by replacing the density operator ˆnj + ˆ nℓ by its average value 2 n. We then recover the 7(a) (b) 
+
+0 1 2 3 4 5 6 7
+
+𝜇 /E r0.2 0.0 0.4 0.6 0.8 1.0 1.2 1.4 1.6 g̃0MI 1,1 MI 2,2 SF 
+
+0 2 4 6 8 10 12 14 
+
+𝜇 /E r1023456g̃0MI 1,1 SF                    
+
+> Figure 5. Quantum phase diagram for bosons in the honey-comb lattice ( ϕg= 0) versus chemical potential and interac-tion strength for (a) V0= 15 Erand (b) V0= 9 .75 ErResults obtained using continuous-space QMC for kBT= 0 .01 Er,Colored regions denote superfluid (light green), normal-fluid (dark green), and Mott insulator (purple-mauve) phases. The crosses indicate selected boundary points obtained numeri-cally with error bars corresponding to ˜ g0–μspace discretiza-tion; only a subset is shown for visual clarity. Phase bound-aries (solid black lines) are obtained by interpolation and ex-trapolation consistent with these error bars. Colored lines show Mott lobes predicted by the Bose–Hubbard model, from Ref. [51] using the nn tunneling extracted as in Fig. 3(b) (solid lines) and including DAT corrections ( J→J+ 2 n˜J, dashed lines).
+
+BHm where the hopping energy J must be replaced by the effective hopping energy J + 2 n ˜J. Here, ˜J is eval-uated using the bare coupling ˜ g0; since in most of the relevant parameter range ˜ g > ˜g0, this provides a conser-vative estimate of DAT effects. Examination of this term shows that the mean-field DAT correction is on the order of 30% near the center of the Mott lobe at n = 1, on the order of 70% in the lobe at n = 2, and on the order of 100% in the lobe at n = 3, see Appendix D. The Mott lobes estimated from BHm predictions and including the mean-field DAT corrections are shown as dashed lines in the phase diagrams of Fig. 5. These results show that, while the MI lobe at n = 1 is marginally affected, the lobes at n = 2 and n = 3 are strongly reduced. This suggests that DAT terms are important, even for a large lattice depth such as V0 = 15 Er. The simple mean-field treatment used here is qualitatively consistent with our PIMC results. Quantitative agreement, particularly the complete disappearance of the lobe at n = 3, would, how-ever, require a full quantum treatment of the DAT terms, which is beyond the BHm. As expected, the breakdown of the BHm becomes more pronounced for shallower lattices. Fig. 5(b) shows the phase diagram for the same system at V0 = 9 .75 Er.Qualitatively, the situation remains similar to the case at V0 = 15 Er, but with significantly stronger deviations from the BHm description. First, density-assisted tun-neling (DAT) effects are enhanced in shallower lattices due to the increased spatial extent of the Wannier func-tions, leading to a larger relative correction to the bare tunneling amplitude. Second, the relevant chemical po-tentials now extend beyond the gap separating the low-est band from the first excited band. In particular, the first Mott lobe is stabilized at chemical potentials ex-ceeding this gap, signaling that higher-band processes already play a role at unit filling. Third, the effective interaction description based on Eq. (4) is no longer a good heuristic in this regime. That expression relies on the assumption of sufficiently small ˜ g0 and μ, whereas the parameters considered here lie outside this pertur-bative regime. Taken together, these three effects lead to substantial deviations from the single-band BHm at 
+
+V0 = 9 .75 Er. 
+
+> B. Hexagonal boron nitride lattice
+
+We finally consider the asymmetric case, where ϕg̸ = 0. This case was studied for unit filling, nA + nB = 2, in Ref. [53], where it was shown that competition between the energy offset ∆ AB and on-site interaction energy in-duces transitions from SF to MI 1,1 and MI 2,0 phases. Beyond unit filling, we find a very rich phase diagram, shown in Fig. 6 for V0 = 15 Er and ϕg = π/ 30, corre-sponding to ∆ AB ≃ 4.7 Er, and kBT ≃ 0.01 Er. Each colored region represents a SF (light green), a NF (dark green), and distinct Mott phases, labeled by the integer occupations ( nA, n B ) of the two sublattices. The overall structure of the phase diagram in Fig. 6 can be qualitatively understood from the atomic limit (J, J ′
+
+> A
+
+, J ′ 
+
+> B
+
+→ 0) of the extended BHm of Eq. (6). For 
+
+UA ≪ ∆AB and μ < ∆AB , only the A sites are occu-pied and a series of ( nA, 0) Mott plateaus appear as μ
+
+increases until nAUA ≃ ∆AB or nA is too large to sta-bilize a Mott insulator against Bose-enhanced tunneling. In both cases, the B sites are completely irrelevant for the MI phases. Because the relevant tunneling in this regime is the small next-nearest-neighbor term J′
+
+> A
+
+, the SF win-dows between MI plateaus are extremely narrow. More-80 2 4 Δ AB 6 8
+
+𝜇 /Er 0.4 0.8 1.2 1.6 2.0 g̃0
+
+NF SF MI 
+
+> 1 2 3 4 5 6 7 01
+
+n An BMI 1,0 MI 2,0 MI 2,1                   
+
+> Figure 6. Quantum phase diagram for bosons in the asym-metric h-BN lattice with ϕg=π/ 30 and V0= 15 Er(cor-responding to ∆ AB ≃4.7Er) versus chemical potential and interaction strength. Results obtained using continuous-space QMC for kBT= 0 .01 Er.Colored regions denote superfluid (light green), normal fluid (dark green), and Mott insulator (red, brown, purple; labeled by the sublattice occupations
+> M I nA,n B) phases. The crosses indicate selected boundary points obtained numerically with error bars corresponding to ˜g0–μspace discretization; only a subset is shown for visual clarity. Phase boundaries (solid black lines) are obtained by interpolation and extrapolation consistent with these error bars.
+
+over, superfluidity would require a temperature typically smaller than J′
+
+> A
+
+, which is about two orders of magni-tude smaller than our working temperature and we con-sistently find a NF phase. This behavior is observed in the phase diagram for ˜ g0 ∈ [0 .24 , 0.43], where the system effectively behaves as a weakly coupled triangular lattice on the A sublattice. As ˜ g0 increases, the onsite interaction UA grows and the condition ∆ AB ≃ nAUA is reached. At this point, the B sites start to populate, giving rise to the sequence of Mott lobes ( nA, 0) → (nA+1 , 1), accompanied by broad SF regions between the Mott lobes. This regime is clearly visible in the ranges ˜ g0 ∈ [0 .49 , 0.55], ˜ g0 ∈ [0 .67 , 0.73], and ˜g0 ∈ [1 .09 , 1.16]. When ( nA−1) UA < ∆AB < n AUA, the sequence changes to ( nA, 0) → (nA, 1), as observed for ˜g0 ≃ 0.61 and ˜ g0 ∈ [0 .73 , 1.03]. The behavior discussed in Ref. [53] for unit filling, corresponds to two transitions from MI 2,0 to SF and from SF to MI 1,1 observed in our diagram for μ ≃ ∆AB and ˜ g0 ∈ [1 .06 , 1.18]. Note that for 
+
+μ ≳ ∆AB , the relevant tunnelings is J corresponding to hopping between nn A and B sites. It is larger than our working temperature and we consistently find SF regions instead of NF regions.  
+
+> V. CONCLUSIONS
+
+In this work, we have investigated the dynamics of ul-tracold bosons in honeycomb and h-BN-like optical po-tentials, combining continuous-space band structure cal-culations with exact QMC simulations. Our results re-veal complex phase diagram, which may significantly de-viate from the predictions of the standard BH model, even in regimes where single-particle properties are ac-curately described by tight-binding approximations. For the honeycomb lattice, we find that density-assisted tunneling, beyond the Bose-Hubbard frameworks, plays a crucial role, suppressing higher-order Mott insulator lobes and reshaping the phase boundaries. In the asym-metric h-BN lattice, the interplay between sublattice en-ergy offset, tunneling, and interactions gives rise to a cascade of Mott insulator lobes with a variety of sub-lattice occupations, as well as broad superfluid domains. These findings underscore the importance of continuous-space approaches for accurately capturing the many-body physics of bosons in hexagonal lattices, particu-larly in regimes where beyond-nearest-neighbor tunneling and interaction-induced corrections become significant. These conclusions are in line with previous work in other nonstandard geometries, such as quasicrystal [57, 68, 69] and twisted potentials [70]. The rich phenomenology un-covered here invites further theoretical and experimental investigations, with potential implications for quantum simulation and the design of novel synthetic materials in hexagonal geometries. Our work not only provides a guide for future experiments with ultracold atoms or cav-ity polaritons in hexagonal potentials but also opens new avenues for exploring exotic quantum matter in other configurations, including superlattices, frustrated mod-els, and multilayer systems. 
+
+> ACKNOWLEDGMENTS
+
+We thank Yifei Wang for early-stage contributions to the formulation of the single-particle problem. This work was supported by the Agence Nationale de la Recherche under projects QuanTEdu-France (ANR-CMAQ-002 France 2030) and QUTISYM (ANR-23-PETQ-0002), and by computing HPC and storage resources by GENCI at TGCC under the grants AD010510300R2 and AP010510288. 
+
+> Appendix A: Geometry of the minima as a function of the geometric phase
+
+In this Appendix, we analyze the extrema of the lattice potential as a function of the geometric phase ϕg. This determines the positions of the lattice sites used in the main text, the range of ϕg for which the potential con-tains two minima per unit cell, and the point at which only one minimum per lattice site is left and the lattice geometry reduces to a triangular one. We also derive the small-ϕg expression for the sublattice offset ∆ AB .We consider the potential of Eq. (2) with ϕ1 = ϕ2 =
+
+ϕ3 = ϕg/3. As in Fig. 1(a) of the main text, we orient 9the reciprocal vectors as 
+
+
+
+G1 = − πa ey ,
+
+G2 = πa
+
+√32 ex + 12 ey
+
+!
+
+,
+
+G3 = πa −√32 ex + 12 ey
+
+!
+
+.
+
+(A1) Introducing the variables 
+
+θj = Gj ·r, (A2) and using G1 + G2 + G3 = 0, the potential depends on two independent variables only, 
+
+V (θ1, θ 2) = 2 V0
+
+h
+
+cos( θ1 + ϕg/3) + cos( θ2 + ϕg/3) + cos( θ1 + θ2 − ϕg/3) 
+
+i
+
+. (A3) It is sufficient to restrict the analysis to one unit cell, 
+
+θ1,2 ∈ [0 , 2π) and take ϕg ∈ (−π, π ].  
+
+> 1. Stationary points and classification
+
+The potential extrema satisfy 
+
+(
+
+∂θ1 V ∝ sin( θ1 + ϕg/3) + sin( θ1 + θ2 − ϕg/3) = 0 ,∂θ2 V ∝ sin( θ2 + ϕg/3) + sin( θ1 + θ2 − ϕg/3) = 0 .
+
+(A4) Subtracting the two equations gives sin( θ1 + ϕg/3) = sin( θ2 + ϕg/3) , (A5) which yields two branches of stationary points: 
+
+(
+
+Branch A: θ1 = θ2
+
+Branch B: θ2 = π − θ1. (A6) For Branch A, setting θ1 = θ2 ≡ θ, the stationarity condition A4 becomes sin( θ + ϕg/3) + sin(2 θ − ϕg/3) = 0 . (A7) Using trigonometric identities, this yields two families of solutions: 
+
+θ = 2πn 
+
+3 with n = 0 , 1, 2, (A8) and 
+
+θ = π + 2ϕg
+
+3 . (A9) For Branch B, the solutions are (θ1, θ 2) = ( π, 0) ,
+
+
+
+2π − 2ϕg
+
+3 , 2ϕg
+
+3 − π
+
+
+
+. (A10) We now determine the nature of the stationary points from the Hessian matrix 
+
+Hjℓ = ∂2V∂θ j ∂θ ℓ
+
+. (A11) For all Branch B solutions, as well as for the Branch A solution of Eq. (A9) one finds det H ≤ 0, so that these points are saddle points. For the three Branch A solutions of Eq. (A8) the Hes-sian matrix reads 
+
+H = −2V0
+
+2cn cn
+
+cn 2cn
+
+
+
+, cn = cos 
+
+ ϕg
+
+3 + 2πn 
+
+3
+
+
+
+.
+
+(A12) Hence, we find det H = 12 V 20 c2 
+
+> n
+
+≥ 0 and Tr H = −12 V0cn, (A13) so that these points are minima when cn < 0 and maxima when cn > 0. This implies that the stationary point with n = 0 is always a maxima for any value of ϕg in our considered range and only n = 1 and n = 2 rest as candidate minima. In summary, among all stationary points, only those of the Branch A given by Eq. (A8) with n = 1 or n = 2 can be minima.  
+
+> 2. Number and position of the minima
+
+The sign of 
+
+cn = cos 
+
+ ϕg
+
+3 + 2πn 
+
+3
+
+
+
+(A14) determines how many minima are present. 
+
+• For |ϕg| < π/ 2, both n = 1 and n = 2 are min-ima. The lattice therefore contains two potential minima (lattice sites) per unit cell. For ϕg = 0, the two sites are degenerate in energy and form the balanced honeycomb lattice. For ϕg̸ = 0, the degeneracy is lifted, yielding the imbalanced geom-etry discussed in the main text. 
+
+• For |ϕg| > π/ 2, only one minimum remains corre-sponding to n = 1 for ϕg > 0 and to n = 2 for 
+
+ϕg < 0. The lattice then reduces to a triangular lattice. To find the positions of the minima, we solve Eq. (A2) 
+
+θ1 = θ2 = 2πn 
+
+3 with 
+
+(
+
+n = 1 
+
+n = 2 . (A15) With the orientation of Fig. 1(a) of the main text, we find the real-space positions 
+
+r1 = 2a
+
+√3 ex − 2a
+
+3 ey , r2 = 4a
+
+√3 ex − 4a
+
+3 ey . (A16) 10 −50 
+
+0
+
+50 V/Er 
+
+(0,0) r2 r 1 a1 +a2
+
+−50 
+
+0
+
+50 V/Er 
+
+(0,0) r2 r1 a1 +a2
+
+(a) (b) (c) (d)                            
+
+> Figure 7. Line cut of the lattice potential at V0= 15 Er
+> along the path (0 ,0) →r2→r1→a1+a2, for (a) ϕg= 0, (b) ϕg=π/ 30, (c) ϕg=π/ 10, and (d) ϕg=π/ 2. The dashed vertical lines mark the positions of r2and r1.
+
+Remarkably, these positions are independent of the geo-metric phase for the choice ϕ1 = ϕ2 = ϕ3 = ϕg/3. For ϕg > 0, the n = 1 site is lower in energy and is identified with the A sublattice, while the n = 2 site corresponds to the B sublattice. For ϕg < 0, the roles are exchanged. To visualize the evolution of these extrema, Fig. 7 shows a one-dimensional cut of the potential taken along the line connecting (0 , 0), r2, r1, and a1 + a2. For 
+
+ϕg = 0, the two minima are degenerate, see Fig. 7(a). Increasing to ϕg = π/ 30 and to ϕg = π/ 10 lifts this degeneracy, see Figs. 7(b) and (c). Finally, for |ϕg| =
+
+π/ 2 one of the minima disappears, consistently with the transition to a triangular lattice, see Fig. 7(d).  
+
+> 3. Energy splitting and sublattice offset
+
+We now focus on the regime |ϕg| < π/ 2, where the both extrema n = 1 , 2 are local minima. The offset ∆ AB 
+
+between the two sublattices has two contributions. The first one comes from the different values of the poten-tial at the two minima. The second one comes from the different local curvatures of the wells, which yield dif-ferent ground-state energies for the corresponding local harmonic oscillators. The potential energy at each of the two minima is given by Eq. (A3) with 
+
+θ1 = θ2 = 2πn 
+
+3 and n = 1 , 2, (A17) which yields 
+
+Vn = 6 V0 cos 
+
+ ϕg
+
+3 + 2πn 
+
+3
+
+
+
+. (A18) The classical contribution to the energy splitting is thus ∆V = V2 − V1
+
+= 6 V0
+
+
+
+cos 
+
+ ϕg
+
+3 + 4π
+
+3
+
+
+
+− cos 
+
+ ϕg
+
+3 + 2π
+
+3
+
+ 
+
+. (A19) Using trigonometric identities, we then find ∆V = 6 √3 V0 sin 
+
+ ϕg
+
+3
+
+
+
+. (A20) For |ϕg| ≪ 1, it yields ∆V ≃ 2√3 V0 ϕg. (A21) This is the splitting between the local potential minima. To find the energy offset, we now include the har-monic zero-point contribution. Expanding the potential to quadratic order around a minimum rn gives 
+
+V (r) ≃ Vn + 12
+
+X
+
+> α,β =x,y
+
+H(n) 
+
+> αβ
+
+δr αδr β , (A22) where 
+
+H(n) 
+
+> αβ
+
+= ∂2V∂α∂β r=rn
+
+(A23) is the Cartesian Hessian matrix. For the minima consid-ered here, the Cartesian Hessian is diagonal, 
+
+H(n) 
+
+> αβ
+
+= − 3π2
+
+a2 V0cn δαβ . (A24) The local harmonic frequency such that V (rn + δr) ≈
+
+Vn + mω 2
+
+> n
+
+(δr)2/2 is therefore 
+
+ω2 
+
+> n
+
+= − 3π2
+
+ma 2 V0cn. (A25) Using the recoil-energy convention of the main text, Er =
+
+π2ℏ2/6ma 2, this may be written as 
+
+ωn = 1
+
+ℏ
+
+p18 V0Er(−cn) . (A26) Since the local harmonic oscillator is two-dimensional and isotropic, the local zero point (zp) energy above the potential minimum Vn is E(n)zp = ℏωn, that is, 
+
+E(n)zp = p18 V0Er
+
+√−cn. (A27) Expanding for ϕg ≪ 1, we find 
+
+c1,2 = − 12 ∓√36 ϕg + O(ϕ2g), (A28) where the upper sign corresponds to n = 1 and the lower sign to n = 2, and we obtain 
+
+√−c2 − √−c1 = −√33√2 ϕg + O(ϕ2g). (A29) 11 The zero-point contribution to the splitting is therefore 
+
+E(2) zp − E(1) zp = −p3V0Er ϕg + O(ϕ2g). (A30) Combining Eqs. (A21) and (A30), the energy difference between the two lowest local states in A and B sites is thus ∆AB =
+
+
+
+2√3 V0 − p3V0Er
+
+
+
+ϕg , (A31) to lowest order in ϕg.
+
+Appendix B: Tight-binding models 
+
+In this Appendix, we give the explicit tight-binding conventions used in the main text. We first specify the lattice vectors and hopping geometry, then write the cor-responding single-particle tight-binding Hamiltonian and dispersion relation. We finally give the nearest-neighbor and triangular limits used to analyze and fit band struc-tures. 
+
+1. Lattice vectors and hopping geometry 
+
+We recall the Bravais vectors used in the main text, 
+
+a1 = 4a
+
+√3 ex, a2 = 2a
+
+√3 ex + 2 a ey . (B1) The nearest-neighbor vectors connecting an A site to the three neighboring B sites, see Fig. 1(b), are 
+
+
+
+δ1 = −a1+2 a2 
+
+> 3
+
+= 4a 
+
+> 3
+
+ey ,
+
+δ2 = 2a1−a2 
+
+> 3
+
+= 2a√33 ex − 2a 
+
+> 3
+
+ey ,
+
+δ3 = − a1+a2 
+
+> 3
+
+= − 2a√33 ex − 2a 
+
+> 3
+
+ey .
+
+(B2) The next-nearest-neighbor vectors connect sites within the same triangular sublattice. We use the independent set 
+
+
+
+δ′ 
+
+> 1
+
+= a1 = 4a√3 ex,
+
+δ′ 
+
+> 2
+
+= a2 = 2a√3 ex + 2 a ey ,
+
+δ′ 
+
+> 3
+
+= a2 − a1 = − 2a√3 ex + 2 a ey ,
+
+(B3) with the opposite vectors included implicitly in the next-nearest-neighbor sums. 
+
+2. Single-particle tight-binding Hamiltonian 
+
+Neglecting interactions, the tight-binding Hamiltonian associated with Eq. (6) reads as ˆHsp = −J X
+
+> ⟨j,ℓ ⟩
+
+ˆa† 
+
+> j
+
+ˆaℓ − ∆AB 
+
+2
+
+X
+
+> j∈A
+
+ˆa† 
+
+> j
+
+ˆaj + ∆AB 
+
+2
+
+X
+
+> j∈B
+
+ˆa† 
+
+> j
+
+ˆaj
+
+−J′
+
+> A
+
+X
+
+> ⟨⟨ j,ℓ ⟩⟩∈ A
+
+ˆa† 
+
+> j
+
+ˆaℓ − J′
+
+> B
+
+X
+
+> ⟨⟨ j,ℓ ⟩⟩∈ B
+
+ˆa† 
+
+> j
+
+ˆaℓ , (B4) corresponding to the frist two lines of of Eq. (6) in the main text. After Fourier transformation, the nearest-neighbor and next-nearest-neighbor contributions are ex-pressed in terms of the form factors 
+
+(f (k) = P3 
+
+> j=1
+
+eik·δj ,f ′(k) = P3
+
+> j=1
+
+
+
+eik·δ′ 
+
+> j
+
++ e−ik·δ′
+
+> j
+
+
+
+= 2 P3 
+
+> j=1
+
+cos  k · δ′
+
+> j
+
+ .
+
+(B5) Diagonalizing the resulting two-sublattice Hamiltonian gives 
+
+ε1,±(k) = ±J
+
+s
+
+|f (k)|2 +
+
+ (J′ 
+
+> A
+
+− J′
+
+> B
+
+)f ′(k) + ∆ AB 
+
+2J
+
+2
+
+− J′ 
+
+> A
+
++ J′
+
+> B
+
+2 f ′(k) , (B6) i.e., Eq. (7). This is the expression used in the fits of the lowest two subbands for the next nearest neighbor (nnn) model. 
+
+3. Limiting models: nearest neighbor and triangular 
+
+a. Nearest neighbor model. The nearest-neighbor (nn) model is obtained by setting J′ 
+
+> A
+
+= J′ 
+
+> B
+
+= 0. Eq. (B6) then reduces to 
+
+εnn  
+
+> ±
+
+(k) = ± 12
+
+q
+
+∆2AB + 4 J2|f (k)|2. (B7) In this regime, for ∆ AB = 0, one recovers the balanced honeycomb dispersion relation 
+
+ε1,±(k) = ±J|f (k)|. (B8) 
+
+b. Triangular model. For a large energy offset, the two sublattices effectively decouple. This is exact for 
+
+J = 0, and it is also obtained perturbatively for ∆ AB ≫
+
+J|f (k)|. Expanding Eq. (B6) in this regime gives 
+
+εA(k) = − ∆AB 
+
+2 − J′
+
+> A
+
+f ′(k) + O
+
+ J2
+
+∆AB 
+
+
+
+,εB(k) = + ∆AB 
+
+2 − J′
+
+> B
+
+f ′(k) + O
+
+ J2
+
+∆AB 
+
+
+
+. (B9) At leading order, these are the dispersion relations of two independent triangular lattices associated with the A and B sublattices, respectively. 
+
+Appendix C: Obtaining the Bose–Hubbard parameters 
+
+In this Appendix, we summarize the numerical pro-cedure used to extract the parameters of the tight-binding models. The tunneling parameters and sublat-tice offset are obtained by fitting tight binding models to the continuous-space single-particle band dispersion relation. The onsite interaction energies are then com-puted as contact-interaction matrix elements using the corresponding Wannier functions. 12  
+
+> 1. Fitting the tunneling parameters
+
+For each value of V0 and ϕg , we diagonalize the continuous-space single-particle Hamiltonian ˆH0 on a uniform grid of quasimomenta in the first Brillouin zone. The tight-binding dispersions introduced in Appendix B are then fitted to the resulting two lowest subbands. For the nearest-neighbor and triangular models, the number of fitting parameters is small and the fit is per-formed directly by standard least-squares minimization. For the full next-nearest-neighbor model, the four pa-rameters J, J′
+
+> A
+
+, J′
+
+> B
+
+, ∆ AB , can differ by several orders of magnitude, especially in the regime where the two sublattices progressively decouple. In this case, we first use a differential-evolution algorithm to generate robust initial guesses. These values are then used as starting points for a standard least-squares fit. At the level of the differential-evolution procedure, we include a smoothness penalty to avoid spurious jumps of the fitted parameters between neighboring values of ϕg . 
+
+> 2. Obtaining interaction energies
+
+The onsite interaction energies, UA and UB of the BHm of Eq. (6), are computed from maximally localized Wan-nier functions associated with the lowest band manifold, which contains two subbands corresponding to the two sites of the unit cell. Starting from the Bloch eigenstates obtained by exact diagonalization of ˆH0, we construct the input matrices required by Wannier90 [60]: the Bloch eigenvalues, the overlap matrices between neigh-boring quasimomenta, and the projections onto localized trial orbitals centered on the A and B sites. The Wannierization procedure yields localized orbitals 
+
+wA(r−Rj ) and wB(r−Rj ). For contact interactions, the corresponding onsite interaction energies are then com-puted as 
+
+UA/B = ˜ g
+
+Z
+
+dr |wA/B (r)|4 , (C1) with ˜ g given by Eq. (4). The integrals are evaluated nu-merically on the real-space grid used for the continuous-space calculations. 
+
+> Appendix D: Density-assisted tunneling
+
+In the main text, we argued that density-assisted tun-neling provides a significant correction to the nearest-neighbor hopping in the honeycomb lattice, even for 
+
+V0 = 15 Er . Here we quantify this effect using the Wan-nier functions obtained as described in Appendix C. The density-assisted tunneling amplitude is evaluated as ˜J (˜ g) = −˜g
+
+Z
+
+dr |wA(r)|2w∗
+
+> A
+
+(r)wB(r). (D1)           
+
+> Figure 8. Mean-field estimate of the relative density-assisted tunneling correction, 2 n˜J/J , as a function of density nand bare coupling ˜ g0for V0= 15 Er.Contours indicate correc-tions of 10%, 30%, 50%, and 70% relative to the bare nearest-neighbor hopping.
+
+To simplify the discussion and avoid computing the den-sity versus chemical potential over a wide range, we use below ˜J0 = ˜J (˜ g0). Since the renormalized coupling ˜ g
+
+is generally larger than ˜ g0 in the parameter range con-sidered, this gives a conservative estimate of the DAT contribution. Within the mean-field estimate used in the main text, the DAT term renormalizes the hopping according to 
+
+Jeff = J + 2 n ˜J. (D2) The relevant dimensionless quantity for the importance of DAT corrections is the relative contribution 2 n ˜J0/J ,plotted in Fig. 8 as a function of the density n and inter-action strength ˜ g0, with contour lines in white. In Fig. 8 we show that the relative contribution is small only at low density and weak interaction. In the region corresponding to the first Mott lobe, M I 1,1 in Fig. 5(a), it remains modest: at the tip of the lobe it is ∼ 8.5%, in-creasing to 34 .1% at ˜ g0 = 1. For the second lobe M I 2,2,it becomes significantly larger, reaching ∼ 30 .7% at the tip and 68 .2% at ˜ g0 = 1. For the third lobe (as predicted by the BHm), the relative contribution is already sub-stantial, with values of ∼ 44 .0% at the predicted tip and 102 .3% at ˜ g0 = 1. For reference, the corrections at the tips of the first and second lobes predicted by the BHm are ∼ 6.8% and 21 .1%, respectively. This behavior explains why the standard nearest-neighbor Bose–Hubbard model remains approximately valid for the first Mott lobe but fails progressively at higher filling. 13 
+
+[1] C. Kittel, Introduction to Solid State Physics , 8th ed. (Wiley, 2004). [2] C. Janot, Quasicrystals: A Primer , 2nd ed. (Oxford Uni-versity Press, 1994). [3] A. H. Castro Neto, F. Guinea, N. M. R. Peres, K. S. Novoselov, and A. K. Geim, The electronic properties of graphene, Rev. Mod. Phys. 81 , 109 (2009). [4] R. Bistritzer and A. H. MacDonald, Moir´ e bands in twisted double-layer graphene, Proc. Nat. Acad. Sci. 108 ,12233 (2011). [5] E. Y. Andrei, D. K. Efetov, P. Jarillo-Herrero, A. H. MacDonald, K. F. Mak, T. Senthil, E. Tutuc, A. Yazdani, and A. F. Young, The marvels of moir´ e materials, Nat. Rev. Mater. 6, 201 (2021). [6] F. D. M. Haldane, Model for a Quantum Hall effect with-out Landau levels: Condensed-matter realization of the “parity anomaly”, Phys. Rev. Lett. 61 , 2015 (1988). [7] M. Z. Hasan and C. L. Kane, Colloquium: Topological insulators, Rev. Mod. Phys. 82 , 3045 (2010). [8] K. Kamiya, T. Takeuchi, N. Kabeya, N. Wada, T. Ishi-masa, A. Ochiai, K. Deguchi, K. Imura, and N. Sato, Dis-covery of superconductivity in quasicrystal, Nat. Comm. 
+
+9, 1 (2018). [9] A. Uri, S. C. de la Barrera, M. T. Randeria, D. Rodan-Legrain, T. Devakul, P. J. D. Crowley, N. Paul, K. Watanabe, T. Taniguchi, R. Lifshitz, L. Fu, R. C. Ashoori, and P. Jarillo-Herrero, Superconductivity and strong interactions in a tunable moir´ e quasicrystal, Na-ture (London) 620 , 762 (2023). [10] S. Rolof, S. Thiem, and M. Schreiber, Electronic wave functions of quasiperiodic systems in momentum space, Eur. Phys. J. B 86 , 372 (2013). [11] F. Evers and A. D. Mirlin, Anderson transitions, Rev. Mod. Phys. 80 , 1355 (2008). [12] H. Huang and F. Liu, Quantum spin Hall effect and spin Bott index in a quasicrystal lattice, Phys. Rev. Lett. 121 ,126401 (2018). [13] M. Lewenstein, A. Sanpera, V. Ahufinger, B. Damski, A. Sen, and U. Sen, Ultracold atomic gases in optical lat-tices: Mimicking condensed matter physics and beyond, Adv. Phys. 56 , 243 (2007). [14] I. Bloch, J. Dalibard, and W. Zwerger, Many-body physics with ultracold gases, Rev. Mod. Phys. 80 , 885 (2008). [15] I. Bloch, J. Dalibard, and S. Nascimb` ene, Quantum sim-ulations with ultracold quantum gases, Nat. Phys. 8, 267 (2012). [16] C. Gross and I. Bloch, Quantum simulations with ultra-cold atoms in optical lattices, Science 357 , 995 (2017). [17] T. Esslinger, Fermi-Hubbard physics with atoms in an optical lattice, Annual Rev. Cond. Mat. Phys. 1, 129 (2010). [18] L. Tarruell and L. Sanchez-Palencia, Quantum simula-tion of the Hubbard model with ultracold fermions in optical lattices, C. R. Phys. 19 , 365 (2018); L. Sanchez-Palencia, Quantum simulation: From basic principles to applications, ibid . 19 , 357 (2018). [19] G. Modugno, Anderson localization in Bose-Einstein con-densates, Rep. Prog. Phys. 73 , 102401 (2010). [20] L. Sanchez-Palencia and M. Lewenstein, Disordered quantum gases under control, Nat. Phys. 6, 87 (2010). [21] D. Jaksch, C. Bruder, J. I. Cirac, C. W. Gardiner, and P. Zoller, Cold bosonic atoms in optical lattices, Phys. Rev. Lett. 81 , 3108 (1998). [22] P. Windpassinger and K. Sengstock, Engineering novel optical lattices, Rep. Prog. Phys. 76 , 086401 (2013). [23] G. Wirth, M. ¨Olschl¨ ager, and A. Hemmerich, Evidence for orbital superfluidity in the p-band of a bipartite op-tical square lattice, Nat. Phys. 7, 147 (2011). [24] C. Becker, P. Soltan-Panahi, J. Kronj¨ ager, S. D¨ orscher, K. Bongs, and K. Sengstock, Ultracold quantum gases in triangular optical lattices, New J. Phys. 12 , 065025 (2010). [25] J. Struck, C. ¨Olschl¨ ager, R. Le Targat, P. Soltan-Panahi, A. Eckardt, M. Lewenstein, P. Windpassinger, and K. Sengstock, Quantum simulation of frustrated clas-sical magnetism in triangular optical lattices, Science 
+
+333 , 996 (2011). [26] L. Tarruell, D. Greif, T. Uehlinger, G. Jotzu, and T. Esslinger, Creating, moving and merging Dirac points with a Fermi gas in a tunable honeycomb lattice, Nature (London) 483 , 302 (2012). [27] N. Fl¨ aschner, B. Rem, M. Tarnowski, D. Vogel, D.-S. L¨ uhmann, K. Sengstock, and C. Weitenberg, Experimen-tal reconstruction of the Berry curvature in a Floquet Bloch band, Science 352 , 1091 (2016). [28] S. Taie, H. Ozawa, T. Ichinose, T. Nishio, S. Naka-jima, and Y. Takahashi, Coherent driving and freezing of bosonic matter wave in an optical Lieb lattice, Science Advances 1, e1500854 (2015). [29] L. Santos, M. A. Baranov, J. I. Cirac, H.-U. Everts, H. Fehrmann, and M. Lewenstein, Atomic quantum gases in Kagom´ e lattices, Phys. Rev. Lett. 93 , 030601 (2004). [30] G.-B. Jo, J. Guzman, C. K. Thomas, P. Hosur, A. Vish-wanath, and D. M. Stamper-Kurn, Ultracold atoms in a tunable optical kagome lattice, Phys. Rev. Lett. 108 ,045305 (2012). [31] M. Anderlini, P. J. Lee, B. L. Brown, J. Sebby-Strabley, W. D. Phillips, and J. V. Porto, Controlled exchange in-teraction between pairs of neutral atoms in an optical lattice, Nature (London) 448 , 452 (2007). [32] S. Trotzky, P. Cheinet, S. F¨ olling, M. Feld, U. Schnor-rberger, A. M. Rey, A. Polkovnikov, E. A. Demler, M. D. Lukin, and I. Bloch, Time-resolved observation and con-trol of superexchange interactions with ultracold atoms in optical lattices, Science 319 , 295 (2008). [33] L. Sanchez-Palencia and L. Santos, Bose-Einstein con-densates in optical quasicrystal lattices, Phys. Rev. A 
+
+72 , 053607 (2005). [34] A. Jagannathan and M. Duneau, An eightfold optical quasicrystal with cold atoms, Europhys. Lett. 104 , 66003 (2013). [35] K. Viebahn, M. Sbroscia, E. Carter, J.-C. Yu, and U. Schneider, Matter-wave diffraction from a quasicrys-talline optical lattice, Phys. Rev. Lett. 122 , 110404 (2019). [36] M. N. Kosch, L. Asteria, H. P. Zahn, K. Sengstock, and C. Weitenberg, Multifrequency optical lattice for dy-namic lattice-geometry control, Phys. Rev. Research 4,043083 (2022). [37] C. D. Brown, S.-W. Chang, M. N. Schwarz, T.-H. Le-ung, V. Kozii, A. Avdoshkin, J. E. Moore, and D. M. 14 
+
+Stamper-Kurn, Direct geometric probe of singularities in band structure, Science 377 , 1319 (2022). [38] T. Shimasaki, Y. Bai, H. E. Kondakci, P. Dotti, J. E. Pagett, A. R. Dardia, M. Prichard, A. Eckardt, and D. M. Weld, Reversible phasonic control of a quantum phase transition in a quasicrystal, Phys. Rev. Lett. 133 , 083405 (2024). [39] A. O. Neely, C. C. Wilson, R. Everly, Y. Yao, R. F. Zanetti, and C. D. Brown, Programmable dy-namic phase control of a quasiperiodic optical lattice, arXiv:2604.07631 (2026). [40] K. S. Novoselov, A. K. Geim, S. V. Morozov, D.-e. Jiang, Y. Zhang, S. V. Dubonos, I. V. Grigorieva, and A. A. Firsov, Electric field effect in atomically thin carbon films, Science 306 , 666 (2004). [41] A. K. Geim and K. S. Novoselov, The rise of graphene, Nat. Mater. 6, 183 (2007). [42] S. Miao, Z. Zhang, Y. Zhao, Z. Zhao, H. Wang, and J. Hu, Bosonic fractional quantum Hall conductance in shaken honeycomb optical lattices without flat bands, Phys. Rev. B 106 , 054310 (2022). [43] M. Hirata, A. Kobayashi, C. Berthier, and K. Kanoda, Interacting chiral electrons at the 2D Dirac points: Areview, Rep. Prog. Phys. 84 , 036502 (2021). [44] P. Soltan-Panahi, D.-S. L¨ uhmann, J. Struck, P. Wind-passinger, and K. Sengstock, Quantum phase transition to unconventional multi-orbital superfluidity in optical lattices, Nat. Phys. 8, 71 (2012). [45] P. Soltan-Panahi, J. Struck, P. Hauke, A. Bick, W. Plenkers, G. Meineke, C. Becker, P. Windpassinger, M. Lewenstein, and K. Sengstock, Multi-component quantum gases in spin-dependent hexagonal lattices, Nat. Phys. 7, 434 (2011). [46] P. St-Jean, A. Dauphin, P. Massignan, B. Real, O. Jamadi, M. Mili´ cevi´ c, A. Lemaˆ ıtre, A. Harouri, L. Le Gratiet, I. Sagnes, S. Ravets, J. Bloch, and A. Amo, Measuring topological invariants in a polaritonic analog of graphene, Phys. Rev. Lett. 126 , 127403 (2021). [47] B. Real, O. Jamadi, M. Mili´ cevi´ c, A. Lemaˆ ıtre, L. Le Gratiet, A. Harouri, I. Sagnes, J. Bloch, and A. Amo, Semi-Dirac transport and anisotropic localiza-tion in polariton honeycomb lattices, Phys. Rev. Lett. 
+
+125 , 186601 (2020). [48] P. R. Wallace, The band theory of graphite, Phys. Rev. 
+
+71 , 622 (1947). [49] E. Anisimovas, F. Gerbier, T. Andrijauskas, and N. Gold-man, Design of laser-coupled honeycomb optical lattices supporting Chern insulators, Phys. Rev. A 89 , 013632 (2014). [50] J. Kusk Block and N. Nygaard, Honeycomb optical lattices with harmonic confinement, Phys. Rev. A 81 ,053421 (2010). [51] N. Teichmann, D. Hinrichs, and M. Holthaus, Refer-ence data for phase diagrams of triangular and hexagonal bosonic lattices, Europhys. Lett. 91 , 10004 (2010). [52] Z. Lin, J. Zhang, and Y. Jiang, Quantum phase transi-tions of ultracold Bose systems in nonrectangular optical lattices, Phys. Rev. A 85 , 023619 (2012). [53] W.-W. Wang, J. Yang, J.-P. Lv, and C. Zhang, Bose– Hubbard model on a honeycomb superlattice: Quantum phase transitions and lattice effects, Phys. Rev. A 112 ,043320 (2025). [54] D. S. Petrov, M. Holzmann, and G. V. Shlyapnikov, Bose–Einstein condensation in quasi-2D trapped gases, Phys. Rev. Lett. 84 , 2551 (2000). [55] D. Petrov and G. Shlyapnikov, Interatomic collisions in a tightly confined Bose gas, Phys. Rev. A 64 , 012706 (2001). [56] L. Pricoupenko and M. Olshanii, Stability of two-dimensional Bose gases in the resonant regime, J. Phys. B: At. Mol. Opt. Phys. 40 , 2065 (2007). [57] R. Gautier, H. Yao, and L. Sanchez-Palencia, Strongly interacting bosons in a two-dimensional quasicrystal lat-tice, Phys. Rev. Lett. 126 , 110401 (2021). [58] S. Javvaji, F. Li, and J. Jung, Ab initio tight-binding models for mono- and bilayer hexagonal boron nitride (h-BN), Phys. Rev. Mater. 9, 024004 (2025). [59] K. Kishigi, R. Takeda, and Y. Hasegawa, Energy gap of tight-binding electrons on generalized honeycomb lattice, J. Phys. Conf. Ser. 132 , 012005 (2008). [60] G. Pizzi, V. Vitale, R. Arita, S. Bl¨ ugel, F. Freimuth, G. G´ eranton, M. Gibertini, D. Gresch, C. Johnson, T. Koretsune, J. Iba˜ nez-Azpiroz, H. Lee, J.-M. Lihm, D. Marchand, A. Marrazzo, Y. Mokrousov, J. I. Mustafa, Y. Nohara, Y. Nomura, L. Paulatto, S. Ponc´ e, T. Pon-weiser, J. Qiao, F. Th¨ ole, S. S. Tsirkin, M. Wierzbowska, N. Marzari, D. Vanderbilt, I. Souza, A. A. Mostofi, and J. R. Yates, Wannier90 as a community code: New fea-tures and applications, J. Phys.: Cond. Matt. 32 , 165902 (2020). [61] C. L. Fefferman and M. I. Weinstein, Honeycomb lattice potentials and Dirac points, J. Am. Math. Soc. 25 , 1169 (2012). [62] C. Wu and S. Das Sarma, px,y -orbital counterpart of graphene: Cold atoms in the honeycomb optical lattice, Phys. Rev. B 77 , 235107 (2008). [63] M. Boninsegni, N. Prokof’ev, and B. Svistunov, Worm algorithm for continuous-space path integral Monte Carlo simulations, Phys. Rev. Lett. 96 , 070601 (2006). [64] D. M. Ceperley, Path integrals in the theory of condensed helium, Rev. Mod. Phys. 67 , 279 (1995). [65] V. L. Berezinskii, Destruction of long range order in one-dimensional and two-dimensional systems having a con-tinuous symmetry group. 1. classical systems, Sov. Phys. JETP 32 , 493 (1971). [66] J. M. Kosterlitz and D. J. Thouless, Ordering, metasta-bility and phase transitions in two-dimensional systems, J. Phys. C: Solid State Phys. 6, 1181 (1973). [67] D. R. Nelson and J. M. Kosterlitz, Universal jump in the superfluid density of two-dimensional superfluids, Phys. Rev. Lett. 39 , 1201 (1977). [68] M. Ciardi, T. Macr` ı, and F. Cinti, Finite-temperature phases of trapped bosons in a two-dimensional quasiperi-odic potential, Phys. Rev. A 105 , L011301 (2022). [69] Z. Zhu, H. Yao, and L. Sanchez-Palencia, Thermody-namic phase diagram of two-dimensional bosons in a qua-sicrystal potential, Phys. Rev. Lett. 130 , 220402 (2023). [70] D. Johnstone, S. Mishra, Z. Zhu, H. Yao, and L. Sanchez-Palencia, Weak superfluidity in twisted optical poten-tials, Phys. Rev. Research 6, L042066 (2024).
