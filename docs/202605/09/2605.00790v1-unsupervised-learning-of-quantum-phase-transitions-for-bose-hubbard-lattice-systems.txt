@@ -1,0 +1,319 @@
+Title: Unsupervised Learning of Quantum Phase Transitions for Bose-Hubbard lattice systems
+
+URL Source: https://arxiv.org/pdf/2605.00790v1
+
+Published Time: Mon, 04 May 2026 01:07:24 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Unsupervised Learning of Quantum Phase Transitions for Bose-Hubbard lattice systems 
+
+Bihui Zhu 
+
+Homer L. Dodge Department of Physics and Astronomy, The University of Oklahoma, Norman, Oklahoma 73019, USA Center for Quantum Research and Technology, The University of Oklahoma, Norman, Oklahoma 73019, USA ∗
+
+Abstract : Characterizing quantum many-body phase structure is a major goal for quantum sim-ulation. Here, we employ an unsupervised learning approach based on diffusion maps to learn phase transitions in bosonic lattice systems described by Bose–Hubbard type models, which can be realized in ultracold atoms and related quantum simulation platforms. We demonstrate that this approach identifies phase structure across distinct settings without prior knowledge of order parameters or handcrafted observables, including ground-state transitions involving symmetry-protected topolog-ical phases and nonequilibrium regimes distinguishing ergodic and many-body localized behavior. Our results indicate that the approach has the potential for direct application to experimentally accessible measurement data for learning quantum phases in current quantum simulators. 
+
+I. INTRODUCTION 
+
+Understanding quantum many-body phase transitions is a central objective of condensed matter physics and a primary application of programmable quantum simulators. Toward this goal, recent advances in ultracold atoms, superconducting circuits, and related platforms now enable the preparation and measurement of strongly correlated lattice systems with unprecedented control, opening new opportunities to probe symmetry breaking, topology, and ergodicity in interacting quantum matter [1–16]. A paradigmatic setting for exploring such many-body phenomena is provided by the Bose–Hubbard model (BHM), which describes interacting bosons hopping on a lattice and can be realized with high tunability in ultracold atomic gases in optical lattices [1, 17–20]. Modern quantum-gas microscope experiments provide single-site-resolved mea-surement snapshots and enable direct access to microscopic configurations in bosonic lattice systems, including recent studies of dynamical regimes and topological states beyond the textbook superfluid–Mott setting [21–26]. Closely related Hamiltonians can also be implemented in superconducting circuit platforms, where photonic excitations in coupled resonators with Josephson nonlinearities naturally realize Bose–Hubbard–type dynamics [27–31]. The BHM and its extensions host a range of interaction-driven phases in equilibrium and dynamical regimes whose character-ization remains nontrivial. In addition, in comparison to qubit systems with fixed two-level local structure, bosonic lattice sites possess multi-level occupation degrees of freedom, leading to a more rapidly growing state space. The exploration of Bose Hubbard physics has been of significant experimental interest across platforms [1, 27, 29, 32–34]. At the same time, characterizing quantum phases from experimental output requires suitable diagnostic approaches. In traditional analyses, phase classification typically proceeds by constructing appropriate phase-indicator observables from the measurement data. For example, for a simple symmetry-breaking phase whose order parameter is a known local observable, evaluating this quantity while sweeping across system parameters provides a standard approach to demonstrating a phase transition in quantum simulation. However, for more complex quantum phases, the relevant diagnostics may involve quantities that are experimentally challenging or computationally costly to assemble, such as nonlocal string order parameters or entanglement-based measures [35–41]. In addition, when exploring new models or studying new parameter regimes, there may be insufficient prior insight to guide the choice of the proper diagnostic observable or feature to extract from the measurements. These motivate the development of data-driven approaches capable of inferring phase structure efficiently from accessible measurement output. Machine learning methods have become widely integrated into the study of quantum many-body systems. In the context of phase identification, a significant body of work built on supervised approaches has been developed, such as neural-network classifiers [42–44]. In such supervised approaches, the ML model is trained with labeled data and learns to identify phases with new parameters. To discover new phases and reveal unknown phase transitions, unsupervised learning approaches are very helpful as they do not require prior knowledge of the phases or preassigned labels. These encompass principal component analysis (PCA), autoencoder-based representations, and nonlinear manifold-learning approaches [45–51]. Among these, diffusion-map–based manifold learning has been shown to be effective for extracting  
+
+> ∗bihui.zhu@ou.edu
+> arXiv:2605.00790v1 [physics.comp-ph] 1 May 2026
+
+2   
+
+> FIG. 1. Schematic illustration of the application of diffusion map approach for learning quantum phase transitions. Measure-ment of onsite boson occupations is read out from quantum simulator experiment or numerical simulation. The measurement snapshots are collected for each set of model parameters U,J, etc. and the diffusion map identifies similar configurations in the measurement snapshots through a diffusion process, which reveals the underlying structure in different phases and enables unsupervised phase classification.
+
+phase structure; nevertheless, many existing implementations rely on engineered features derived from prior physical insight, or require carefully tailored preprocessing pipelines, or have primarily focused on spin or fermionic lattice systems [50–55] In this work, we provide an unsupervised learning framework based on diffusion maps (DM) tailored to Bose-Hubbard type models relevant to recent quantum simulator experiments, operating directly on measurement snap-shots. We show that our approach can capture a variety of quantum many-body phases hosted in these systems both in equilibrium and nonequilibrium settings, without predefined order parameters or engineered preprocessing of the experimental output. The DM algorithm employed here is computationally efficient for systematically exploring the phase diagram as it does not require joint processing of datasets across all model parameters. Our results establish this approach as a practical method for characterizing phase structure in bosonic lattice quantum simulators.   
+
+> II. MODEL AND METHOD A. Bosonic particles in a lattice
+
+The Bose Hubbard model realized in many quantum simulation experiments is described by ˆH = −J X
+
+> i
+
+(ˆ a† 
+
+> i
+
+ˆai+1 + h.c. ) + U
+
+2
+
+X
+
+> i
+
+ˆni(ˆ ni − 1) + X
+
+> i,r
+
+Vr ˆni ˆni+r + X
+
+> i
+
+μi ˆni, (1) where J denotes the tunneling rate between neighboring site, U is the on-site interaction strength, μi is the local chemical potential, and Vr accounts for interactions between atoms occupying different sites, which naturally arise in bosonic quantum simulators with dipolar particles, such as ultracold Er and Cr atoms [56–58]. Across this work, we use J as the energy unit and set J = 1. The BHM provides a prototypical description of interacting bosons on a lattice, capturing the competition between the tunneling, which delocalize partiles across the lattice, and the on-site interactions, which disfavors having more than one particle per site.  
+
+> B. Diffusion maps
+
+Diffusion maps is a kernel-based manifold learning method that constructs a diffusion process on the dataset. By specifying transition probabilities from one configuration to another based on a similarity kernel, the method induces a random walk in the sample space. Repeated random walks across the sample space allow exploring the global structure of the dataset that is not apparent from direct pairwise distances alone. Compared to conventional linear dimensional reduction methods such as PCA, diffusion maps can reveal nonlinear structures that are important for identifying complex phases. 3For a dataset with M samples, 
+
+X = {xi}Mi=1 , xi =
+
+
+
+x(1)  
+
+> i
+
+, x (2)  
+
+> i
+
+, . . . , x (L)
+
+> i
+
+
+
+,
+
+where each xi ∈ RL is an L-dimensional vector, we construct a Gaussian kernel 
+
+Kij = exp − d2
+
+> ij
+
+2ϵ
+
+!
+
+. (2) Here, dij is the distance between samples and in this work we use the Euclidean distance metric d2 
+
+> ij
+
+= P
+
+> k
+
+(x(k) 
+
+> i
+
+−
+
+x(k) 
+
+> j
+
+)2/N , normalized such that dij ∈ [0 , 1]. The hyperparameter ϵ sets how rapidly the kernel weights decay with distance and determines the local connectivity among samples, and thus controls how strongly the diffusion process mixes configurations in one step. From this, the row-normalized matrix P is constructed with 
+
+Pij = Kij 
+
+P 
+
+> j
+
+Kij 
+
+. (3) The transition matrix P defines the diffusion on the sample space, with its element Pij denoting the one-step transition probability from sample i to j. The eigenvalues and eigenvectors of the transition matrix, denoted by λk and Ψ k,determine the diffusion distance between samples at diffusion time t, with each eigenmode contributing with weight 
+
+λtk. Eigenmodes with eigenvalues close to 1 are long-lived and encode the global structure of the dataset under diffusion. The number of eigenvalues larger than 1 − δ then provides an estimate of the number of dominant long-lived components (clusters) that persist beyond a timescale of order ∼ 1/δ . By fixing the threshold δ and choosing the scale 
+
+ϵ appropriately, the resulting cluster count can reveal changes in the underlying phase structure as the Hamiltonian parameters are varied. The hyperparameter ϵ is associated with the scale at which differences between configurations of distinct clusters are resolved, which depends on the actual distance distribution of the dataset. In practice, ϵ is scanned over a range to obtain the value where the cluster count shows a conspicuous change across datasets [51, 55]. In this work, we apply the above DM approach to study the phases in three variants of the BHM, motivated by their close relevance to cold-atom quantum simulator experiments. In each case, we generate synthetic data from numerical simulations of the corresponding model using standard numerical methods, such as exact diagonalization or density matrix renormalization group (DMRG). More concretely, for each set of Hamiltonian parameters θ, we obtain the quantum state wavefunction ψ(θ) from the solving the ground state or dynamical evolution under the Hamiltonian. From the wavefunction, measurement snapshots are generated by sampling in the onsite occupation number basis. That is, for each shot, we perform a projective measurement of the local number operator ˆ ni on all L
+
+lattice sites, drawing configurations n = ( n1, n 2, ..., n L) according to the Born probabilities 
+
+P (n) = |⟨ n|ψ(θ)⟩| 2. (4) For a maximum number of nmax bosons per site, each nl can take integer values in [0 , n nmax ], and each sampled configurations automatically satisfies P 
+
+> l
+
+nl = N , with the total boson number N = nL fixed at a given average filling fraction n. The configuration n is used to represent each sample x, and for each θ, M snapshots are generated independently. We use M = 500 and fixed δ = 10 −2.5 across all the applications presented. In these studies, we aim to demonstrate the capacity of the DM approach and the calculations are carried out for one-dimensional geometry and modest system sizes, for which the snapshot datasets can be generated efficiently using numerical simulations. Meanwhile, as described above, the DM approach operates directly on measurement samples and is thus expected to remain applicable to systems in higher spatial dimensions and of larger sizes when the corresponding measurement data are available. We note that the DM approach studied here aims to learn phase structure from measurement data without requiring prior knowledge of phase labels or phase-specific diagnostic quantities, rather than to provide a high-precision determination of critical points.   
+
+> III. RESULTS A. Phases in an extended Bose Hubbard model
+
+We first study the phase diagram of the extended BHM with nearest neighbor interactions, setting V1 = V with 
+
+Vr> 1 = 0 and μi = 0 in Eq. (1). Namely, ˆH = −J X
+
+> i
+
+(ˆ a† 
+
+> i
+
+ˆai+1 + h.c. ) + U
+
+2
+
+X
+
+> i
+
+ˆni(ˆ ni − 1) + V X
+
+> i
+
+ˆni ˆni+1 , (5) 4The presence of inter-site interactions V can enrich the phases beyond the BHM with only on-site interactions, giving rise to a topologically nontrivial phase with hidden order in the fluctuations, which carries analogies with the Haldane phase in integer spin chains [59, 60]. This Haldane insulator (HI) phase is characterized by the nonlocal string correlation Os = lim |i−j|→∞ ⟨δˆniexp( iπ P 
+
+> i≤k<j
+
+δˆnk)δˆnj ⟩ → const ̸ = 0, and is distinguished from the Mott insulator (MI) phase and the density-wave (DW) phase [61]. Measuring such long string correlators is usually challenging for experiments, and therefore alternative experimentally feasible probes are useful. We focus on the insulating phase regimes where interaction strengths are not small, and vary the interaction strengths U and V while keeping the tunneling rate J = 1 fixed and the average filling n = 1, as in early studies on such an extended Hubbard model [59, 60, 62]. The emergence of the HI phase can be understood via the interplay of the delocalization from tunneling J and the density ordering from the interaction V . As such, the HI phase is realized at intermediate V /J , with MI phase realized when the on-site interactions U become dominant and the DW phase when V dominates [59, 62].   
+
+> FIG. 2. Ground state phase diagram for the 1D extended Bose Hubbard model at unit filling. The color bar represents the number of clusters obtained from the DM approach.
+
+To apply the DM approach, we use DMRG to obtain the ground state of the extended Hubbard model Eq. (5) in 1D with a maximum of 3 bosons per site over a parameter grid ( U, V ). From the ground state wavefunction, we then sample the measurement shots of the on-site population in the lattice. The DM is implemented on the measurement shots captured for each set of parameter ( U, V ). The numbers of clusters obtained from the DM across the parameter grid are plotted in Fig. 2, where L = 16 sites and 500 samples of shots are used for each parameter point with fixed ϵ = 0 .0018. The DM result clearly separates the parameter space into three phase regimes, leading to a phase diagram akin to the results in Ref. [62]. For Hamiltonian parameters with comparable U and V , there is a conspicuous indication of a distinct phase, corresponding to the HI phase in the extended BHM.  
+
+> B. Learning the phase transition between crystalline SPT phases
+
+As a second application, we study the case with a large on-site interaction U and an additional staggered chemical potential, motivated by its direct relevance to recent quantum gas microscope experiments using ultracold Er atoms [26]. Concretely, the system is described by ˆH = −J X
+
+> i
+
+(ˆ a† 
+
+> i
+
+ˆai+1 + h.c. ) + U
+
+2
+
+X
+
+> i
+
+ˆni(ˆ ni − 1) + X
+
+> i,r
+
+Vdip (r)ˆ ni ˆni+r + μs
+
+X
+
+> i
+
+(−1) i ˆni, (6) where the inter-site interaction Vdip (r) arises from the dipolar interactions between magnetic Er atoms. This model hosts a quantum phase transition between two crystalline symmetry protected topological phases (CSPTs) in 1D at unit filling n = 1, protected by the symmetries from a global parity and a site-centered inversion symmetry [26, 63–65]. The SPT phases, CSPT-1 and CSPT-2, are realized at weak and strong staggered chemical potentials, respectively, and cannot be adiabatically connected while preserving the protecting symmetries [26]. In particular, they cannot be distinguished by local order parameters but a nonlocal string operator needs to measured to identify these phases, which has the form of ˆPj (r) = Q 
+
+> j≤k<j +r
+
+exp( iπ ˆnk). The corresponding string order parameters p1 and 5
+
+p2 for identifying the two phases are obtained from averaging ( −1) r Pj (r) and Pj (r) over long strings, which are finite in one phase and vanish in the other phase.     
+
+> FIG. 3. Quantum phase transition between two crystalline SPTs in model Eq. (6). The blue (red) line is the string order parameter p1(p2) obtained directly from DMRG calculations, which indicates the system changes between two topologically distinct phases. The green dashed line shows the result from the DM approach.
+
+We use DMRG to find the ground state of this system at unit filling, for a chain with L = 16 sites, held at U/J = 20 and Vnn /J = 2 .5, as relevant to experimental settings in Ref. [26]. In our calculations, the maximum occupation per site used is 3, and for simplicity, we have truncated the dipolar interactions to nearest neighbors with strength 
+
+Vnn . With the measurement shots obtained from sampling the DMRG ground state, we apply the DM approach for a range of values or the staggered chemical potential magnitude μs, with 500 samples for each parameter point and 
+
+ϵ = 0 .001 fixed. The results as shown in Fig. 3 demonstrate a pronounced change around intermediate μs, indicating a transition between two separated phases. As a comparison, we also compute the string order parameters p1 and p2 from the DMRG calculations, which are plotted together in Fig. 3. The string order parameter p1 is significant for small μs, where the system is in the CSPT-1 phase, and it vanishes above a threshold value of μs. Meanwhile, p2 vanishes in CSPT-1 phase, and becomes significant as the magnitude of the staggered chemical potential μs is varied cross the quantum critical point and the system enters the CSPT-2 phase. The DM result shows a remarkably good agreement with the transition indicated by p1 and p2, demonstrating the DM’s capability to capture the quantum phase transition between two SPTs in this model. Moreover, while the sharp peak in the DM result can provide an indication of the phase transition, it is worth noting that a visible asymmetry is observed between the small μs regime and the large μs regime. In particular, for large μs, the DM result remains smaller than that for small μs. Such an asymmetry suggests the DM identifies different structures in the underlying CSPT-1 and CSPT-2 phases, which are topologically distinct, aside from responding to the critical point in this system.  
+
+> C. Application for many-body localization
+
+The DM approach can be applied beyond classifying ground state phases. Here, we use DM to study the out-of-equilibrium phenomena in a disordered lattice boson system, where the system dynamics may change from thermal to a Many-body localization (MBL) phase in the presence of strong disorder [66]. The MBL phase transition exhibits properties fundamentally different from the ground state phase transitions and has been the subject of significant research interest both experimentally and theoretically [66–78]. In particular, such a phase transition is not identified via simple order parameters but manifests through quantities such as level statistics or entanglement features, which are difficult to measure experimentally. Meanwhile, fully resolving the level statistics and entanglement properties is challenging for numerical calculations to extend to large system sizes, and many studies have focused on spin-1/2 or fermionic systems where the local Hilbert space size is smaller [68–71, 79, 80]. Here, we probe the MBL by using measurement shots obtained from the quench dynamics, a procedure relevant to many cold atom experiments [54, 66, 75, 76]. In such experiments, the system is prepared in some simple, typically structured initial state, and undergoes time evolution governed by the disordered Hamiltonian for a long time, and then the atom numbers in the final state are read out. Concretely, we consider the model Hamiltonian ˆH = −J X
+
+> i
+
+(ˆ a† 
+
+> i
+
+ˆai+1 + h.c. ) + U
+
+2
+
+X
+
+> i
+
+ˆni(ˆ ni − 1) + X
+
+> i
+
+μi ˆni, (7) 60 10 20 30 40                     
+
+> W
+> 100
+> 200
+> 300
+> 400
+> number of clusters
+> DW, U=1
+> Uniform, U=1
+> Uniform, U=3
+> 010 20 30 40
+> W
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1-I
+> FIG. 4. Dynamical phases in a disordered Bose Hubbard chain. Left: DM results for quench dynamics from the density-wave initial state (blue), and uniform initial states at different on-site interaction strengths U= 1 (red) and U= 3 (green). Right: The imbalance Iis measured at the end of the dynamics, and 1 −Iis plotted. For these results, L= 8 with n= 1 and a maximum number of 4 bosons per site. The system is evolved until the time t= 200 /J .
+
+where μi is the random on-site potential, uniformly distributed within [ −W/ 2, W/ 2] and W denotes the disorder strength. To obtain the quantum state evolved under Eq. (7) after a long time, we use exact diagonalization for a 1D chain at unit filling and a maximum of 4 bosons per site. We first consider the dynamics starting from an initial state with the DW pattern |2020 ... 20 ⟩ with on-site interaction U = 1 and L = 8 sites, a setting adopted in the exact diagonalization studies in Ref. [74]. For each realization of randomly sampled chemical potential μi, we evolve the system until 
+
+Jt = 200–a typical time accessible in cold-atom experiments [66]. From the final quantum state obtained, we sample 500 measurement shots of the on-site atom population and apply the DM approach at fixed ϵ = 0 .001 (more details provided in Appendix A). The DM results calculated across a range of disorder magnitude W are shown in Fig. 4 (blue), where for each W the result is averaged over 500 disorder realizations. The DM results demonstrate a clear difference between the weak-disorder and strong-disorder regimes, suggesting the presence of a thermal phase and an MBL phase. In the latter, the sample configurations remain similar to the initial state due to localization, resulting in a small cluster count. For this initial DW state, the imbalance 
+
+I = Ne − No
+
+Ne + No
+
+(8) if often used as an indicator for the relaxation dynamics [75, 76]. In the thermal phase, the imbalance vanishes in the long time, and a finite stationary value of the imbalance indicates localized dynamics. To further confirm the onset of MBL, we also compute the imbalance from the same exact diagonalization data, and averaged the result over 500 disorder realizations for each W . In the right panel of Fig. 4, we plot 1 − I obtained at the end of the long time dynamics. Due to the finite system size and evolution time, the transition in the imbalance is not sharp, while a clear variation in the magnitude of the final imbalance is evident, indicating thermalizing dynamics for small W and localizing behavior for large W . A comparison of the two panels shows that the trend observed in the DM results is similar to that revealed by the imbalance, supporting the DM’s ability to probe MBL phase in this system. As MBL is an eigenstate property, it can occur for different initial states. Prior studies have shown the existence of a many-body mobility edge, such that the critical disorder strength for MBL can depend on the initial state’s energy density [73, 81, 82]. This dependence has been reported to be more pronounced at stronger interactions, while for weaker interactions the dependence is weaker in the Bose Hubbard system [73, 74]. Accordingly, we also study dynamics from the initial state with uniform density |111 ... 1⟩, which can be easily prepared in many cold-atom experiments. From the level statistics analysis, the behavior for such uniform initial state has been found to be similar to the DW initial state at U = 1 [74]. Meanwhile, the imbalance is identically zero for the uniform initial state and cannot serve as a diagnostic as in the DW initial state case, making the detection of MBL more challenging experimentally. Nevertheless, the measurement shots obtained after time-evolution can be used to run the DM method with the same procedure as for the DW initial state case (with ϵ = 0 .001 fixed). The DM result is shown in Fig. 4 (red), which indicates a change in behavior between the weak and disorder parameter regimes similar to the DW initial state. As another test for the method, we also apply DM to the dynamics evolved from the uniform initial state at a 7stronger interaction strength U = 3 and the result is plotted together in Fig. 4 (green). In this case, there is a visible difference from the results obtained at U = 1, with the indicated transition occurring at a higher critical disorder strength W , consistent with previous theoretical predictions [74, 83]. In the Appendix, we also compare the DM results between different initial states for the strong interaction case, where clearly distinguishable behavior is observed for different initial states, aligning with findings from many-body mobility edge studies [73, 74]. These results further suggest that the DM approach presented here could serve as a useful tool for detecting phase transitions in experimental regimes where conventional diagnostics are limited.  
+
+> IV. CONCLUSION
+
+In this work, we have used an unsupervised learning algorithm based on diffusion maps to learn quantum many-body phase transitions in Bose-Hubbard type models directly from raw measurement configurations. Our results demonstrate that this approach captures multiple equilibrium and dynamical phases in bosonic lattice systems. In particular, the DM method distinguishes phase structure associated with interacting SPT phases hosted in the BHM, as well as ergodic and many-body localized regimes under various settings. Diagnosing these phases conventionally requires accessing quantities that are challenging for experiments, such as nonlocal string correlations and entangle-ment spectra, or designing probing protocols that require careful control and initial state preparation. In comparison, the unsupervised learning approach presented here can directly operate on experimental measurement snapshots, such as those accessible in current quantum gas microscope platforms [21, 23, 26], without requiring the construction of specific diagnostic quantities or tailored data processing. In addition, while the explicit demonstrations shown here are for relatively small system sizes and one-dimensional geometry due to the use of numerical simulations for generating the synthetic measurement data, the diffusion-map workflow itself does not rely on solving the underlying quantum problem and can be applied to experimental datasets at larger system sizes and higher spatial dimensions beyond the reach of these numerical simulations. The algorithm remains computationally efficient for scanning across model parameters in the phase diagram, as it processes data independently at each parameter point rather than requiring a global embedding over aggregated datasets. The models and parameter regimes studied here are directly relevant to ongoing quantum simulator experiments in which the study of quantum phase transitions is an active research direction [26, 54]. Our results therefore provide a practical data-driven framework for exploring quantum many-body phases on such platforms. 
+
+> ACKNOWLEDGMENTS
+
+We thank the Kavli Institute for Theoretical Physics (KITP) for hospitality while part of this work was completed. We acknowledge support from the Air Force Office of Scientific Research (AFOSR) under Award No. FA9550-24-1-0256. We also acknowledge the OU Supercomputing Center for Education & Research (OSCER) at the University of Oklahoma (OU), on which part of the computing for this work was performed. 
+
+> Appendix A: Learning many-body localization
+
+In the case of learning MBL and thermal phases, the dataset can contain large density variations in the samples space, because the sample configurations tend to localize around the initial state in the MBL phase be broadly distributed in the thermal phase. For such datasets, a common technique implemented in manifold learning is to use density normalization in the kernel [84, 85]. Adopting this standard practice, in the application for MBL, we use the kernel K′ 
+
+> ij
+
+= Kij /q iqj , with qi = P 
+
+> k
+
+Kik in place of Kij , which adds an extra normalization to the Gaussian kernel. To complement the analysis on the DM’s capability for learning MBL in Bose Hubbard systems, here we compare the results obtained from different initial states (uniform and DW) at a strong interaction strength in Fig. 5. In both cases, the results are averaged over 500 disordered realizations. Unlike the case with a weak interaction strength U = 1 (Fig. 4), where the results for these two initial states are similar, here, a more pronounced difference is observed. For the uniform initial state, which lies lower in the energy spectrum compared to the DW state, the localization also appears to occcur at a higher value of W . This kind of behavior was also reported from analysis on level spacings and transport properties using exact diagonalization for similar parameter regimes [74]. 80 10 20 30 40 
+
+> W
+> 100
+> 200
+> 300
+> 400
+> number of clusters
+> U=3, DW
+> U=3, Uniform
+
+FIG. 5. Dynamical phases in a disordered chain: comparison between different initial states. Results colored in orange (green) show the DM prediction for an initial state with density-wave (uniform density) pattern, with identical model parameters. 
+
+Appendix B: Comparison with PCA analysis 
+
+PCA is a standard dimensionality-reduction method commonly used in unsupervised learning. Here we present the result obtained using PCA for the same measurement data used in Fig. 2, providing a baseline comparison with the DM approach. We project the data samples onto the first two principal components and then apply a k-means clustering algorithm with k = 3 to group the samples. We note that, in contrast to this PCA+ k-means procedure, the DM approach used in the main text does not require the number of phase regions to be specified in advance. As shown in Fig. 6, this PCA-based analysis fails to capture the expected phase diagram for this model. This highlights the usefulness of the DM approach for detecting complex phase structure from measurement data. 
+
+FIG. 6. Phase diagram obtained from the PCA analysis for the model in Sec. III A of the main text. The colorbar indicates the cluster label. [1] C. Gross and I. Bloch, Quantum simulations with ultracold atoms in optical lattices, Science 357 , 995 (2017). [2] E. Altman, K. R. Brown, G. Carleo, L. D. Carr, E. Demler, C. Chin, B. DeMarco, S. E. Economou, M. A. Eriksson, K.-M. C. Fu, M. Greiner, K. R. Hazzard, R. G. Hulet, A. J. Koll´ ar, B. L. Lev, M. D. Lukin, R. Ma, X. Mi, S. Misra, C. Monroe, K. Murch, Z. Nazario, K.-K. Ni, A. C. Potter, P. Roushan, M. Saffman, M. Schleier-Smith, I. Siddiqi, R. Simmonds, M. Singh, I. Spielman, K. Temme, D. S. Weiss, J. Vuˇ ckovi´ c, V. Vuleti´ c, J. Ye, and M. Zwierlein, Quantum simulators: Architectures and opportunities, PRX Quantum 2, 017003 (2021). [3] H. Bernien, S. Schwartz, A. Keesling, H. Levine, A. Omran, H. Pichler, S. Choi, A. S. Zibrov, M. Endres, M. Greiner, 
+
+et al. , Probing many-body dynamics on a 51-atom quantum simulator, Nature 551 , 579 (2017). 9
+
+[4] D. Bluvstein, A. Omran, H. Levine, A. Keesling, G. Semeghini, S. Ebadi, T. T. Wang, A. A. Michailidis, N. Maskara, W. W. Ho, et al. , Controlling quantum many-body dynamics in driven rydberg atom arrays, Science 371 , 1355 (2021). [5] S. Ebadi, T. T. Wang, H. Levine, A. Keesling, G. Semeghini, A. Omran, D. Bluvstein, R. Samajdar, H. Pichler, W. W. Ho, et al. , Quantum phases of matter on a 256-atom programmable quantum simulator, Nature 595 , 227 (2021). [6] G. Semeghini, H. Levine, A. Keesling, S. Ebadi, T. T. Wang, D. Bluvstein, R. Verresen, H. Pichler, M. Kalinowski, R. Samajdar, A. Omran, S. Sachdev, A. Vishwanath, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Probing topological spin liquids on a programmable quantum simulator, Science 374 , 1242 (2021). [7] T. Manovitz, S. H. Li, S. Ebadi, R. Samajdar, A. A. Geim, S. J. Evered, D. Bluvstein, H. Zhou, N. U. Koyluoglu, J. Feldmeier, et al. , Quantum coarsening and collective dynamics on a programmable simulator, Nature 638 , 86 (2025). [8] E. A. Martinez, C. A. Muschik, P. Schindler, D. Nigg, A. Erhard, M. Heyl, P. Hauke, M. Dalmonte, T. Monz, P. Zoller, 
+
+et al. , Real-time dynamics of lattice gauge theories with a few-qubit quantum computer, Nature 534 , 516 (2016). [9] J. Smith, A. Lee, P. Richerme, B. Neyenhuis, P. W. Hess, P. Hauke, M. Heyl, D. A. Huse, and C. Monroe, Many-body localization in a quantum simulator with programmable random disorder, Nature Physics 12 , 907 (2016). [10] J. Zhang, G. Pagano, P. W. Hess, A. Kyprianidis, P. Becker, H. Kaplan, A. V. Gorshkov, Z.-X. Gong, and C. Monroe, Observation of a many-body dynamical phase transition with a 53-qubit quantum simulator, Nature 551 , 601 (2017). [11] K. J. Satzinger, Y.-J. Liu, A. Smith, C. Knapp, M. Newman, C. Jones, Z. Chen, C. Quintana, X. Mi, A. Dunsworth, et al. ,Realizing topologically ordered states on a quantum processor, Science 374 , 1237 (2021). [12] T. I. Andersen, N. Astrakhantsev, A. H. Karamlou, J. Berndtsson, J. Motruk, A. Szasz, J. A. Gross, A. Schuckert, T. Westerhout, Y. Zhang, et al. , Thermalization and criticality on an analogue–digital quantum simulator, Nature 638 ,79 (2025). [13] X. Mi, M. Ippoliti, C. Quintana, A. Greene, Z. Chen, J. Gross, F. Arute, K. Arya, J. Atalaya, R. Babbush, et al. ,Time-crystalline eigenstate order on a quantum processor, Nature 601 , 531 (2022). [14] M. Lebrat, M. Xu, L. H. Kendrick, A. Kale, Y. Gang, P. Seetharaman, I. Morera, E. Khatami, E. Demler, and M. Greiner, Observation of nagaoka polarons in a fermi–hubbard quantum simulator, Nature 629 , 317 (2024). [15] J. L´ eonard, S. Kim, J. Kwan, P. Segura, F. Grusdt, C. Repellin, N. Goldman, and M. Greiner, Realization of a fractional quantum hall state with ultracold atoms, Nature 619 , 495 (2023). [16] M. Xu, L. H. Kendrick, A. Kale, Y. Gang, G. Ji, R. T. Scalettar, M. Lebrat, and M. Greiner, Frustration-and doping-induced magnetism in a fermi–hubbard simulator, Nature 620 , 971 (2023). [17] M. P. A. Fisher, P. B. Weichman, G. Grinstein, and D. S. Fisher, Boson localization and the superfluid-insulator transition, Phys. Rev. B 40 , 546 (1989). [18] D. Jaksch, C. Bruder, J. I. Cirac, C. W. Gardiner, and P. Zoller, Cold bosonic atoms in optical lattices, Phys. Rev. Lett. 
+
+81 , 3108 (1998). [19] M. Greiner, O. Mandel, T. Esslinger, T. W. H¨ ansch, and I. Bloch, Quantum phase transition from a superfluid to a mott insulator in a gas of ultracold atoms, Nature 415 , 39 (2002). [20] I. Bloch, J. Dalibard, and W. Zwerger, Many-body physics with ultracold gases, Rev. Mod. Phys. 80 , 885 (2008). [21] W. S. Bakr, J. I. Gillen, A. Peng, S. F¨ olling, and M. Greiner, A quantum gas microscope for detecting single atoms in a hubbard-regime optical lattice, Nature 462 , 74 (2009). [22] J. F. Sherson, C. Weitenberg, M. Endres, M. Cheneau, I. Bloch, and S. Kuhr, Single-atom-resolved fluorescence imaging of an atomic mott insulator, Nature 467 , 68 (2010). [23] C. Gross and W. S. Bakr, Quantum gas microscopy for single atom and spin detection, Nature Physics 17 , 1316 (2021). [24] D. Wei, A. Rubio-Abadal, B. Ye, F. Machado, J. Kemp, K. Srakaew, S. Hollerith, J. Rui, S. Gopalakrishnan, N. Y. Yao, 
+
+et al. , Quantum gas microscopy of kardar-parisi-zhang superdiffusion, Science 376 , 716 (2022). [25] L. Koehn, C. Parsonage, C. W. Duncan, P. Kirton, A. J. Daley, T. Hilker, E. Haller, A. La Rooij, and S. Kuhr, Quantum-gas microscopy of the bose-glass phase, arXiv preprint arXiv:2504.13040 (2025). [26] L. Su, R. Sahay, M. Szurek, A. Douglas, O. Markovic, C. B. Dag, R. Verresen, and M. Greiner, Topological Phase Transitions and Mixed State Order in a Hubbard Quantum Simulator (2025), arXiv:2505.17009 [cond-mat]. [27] R. Ma, B. Saxberg, C. Owens, N. Leung, Y. Lu, J. Simon, and D. I. Schuster, A dissipatively stabilized mott insulator of photons, Nature 566 , 51 (2019). [28] M. Fitzpatrick, N. M. Sundaresan, A. C. Y. Li, J. Koch, and A. A. Houck, Observation of a dissipative phase transition in a one-dimensional circuit qed lattice, Phys. Rev. X 7, 011016 (2017). [29] X. Zhang, E. Kim, D. K. Mark, S. Choi, and O. Painter, A superconducting quantum simulator based on a photonic-bandgap metamaterial, Science 379 , 278 (2023). [30] B. Du, R. Suresh, S. L´ opez, J. Cadiente, and R. Ma, Probing site-resolved current in strongly interacting superconducting circuit lattices, Phys. Rev. Lett. 133 , 060601 (2024). [31] B. Du, Q. Guo, S. L´ opez, and R. Ma, Tunneling spectroscopy in superconducting circuit lattices, Phys. Rev. Res. 7,L022038 (2025). [32] S. Kim, B. Kang, P. Segura, Y. Li, E. Lake, B. Bakkali-Hassani, and M. Greiner, Multi-particle quantum walks in a dipole-conserving bose-hubbard model, arXiv preprint arXiv:2511.02343 (2025). [33] D. Wei, D. Adler, K. Srakaew, S. Agrawal, P. Weckesser, I. Bloch, and J. Zeiher, Observation of brane parity order in programmable optical lattices, Phys. Rev. X 13 , 021042 (2023). [34] A. Rubio-Abadal, M. Ippoliti, S. Hollerith, D. Wei, J. Rui, S. L. Sondhi, V. Khemani, C. Gross, and I. Bloch, Floquet prethermalization in a bose-hubbard system, Phys. Rev. X 10 , 021044 (2020). [35] M. Z. Hasan and C. L. Kane, Colloquium: Topological insulators, Rev. Mod. Phys. 82 , 3045 (2010). [36] X.-L. Qi and S.-C. Zhang, Topological insulators and superconductors, Rev. Mod. Phys. 83 , 1057 (2011). 10 
+
+[37] A. Lukin et al. , Probing entanglement in a many-body–localized system, Science 364 , 256 (2019). [38] A. M. Kaufman, M. E. Tai, A. Lukin, M. Rispoli, R. Schittko, P. M. Preiss, and M. Greiner, Quantum thermalization through entanglement in an isolated many-body system, Science 353 , 794 (2016). [39] D. A. Abanin, E. Altman, I. Bloch, and M. Serbyn, Colloquium: Many-body localization, thermalization, and entanglement, Reviews of Modern Physics 91 , 021001 (2019). [40] Z.-P. Cian, H. Dehghani, A. Elben, B. Vermersch, G. Zhu, M. Barkeshli, P. Zoller, and M. Hafezi, Many-body chern number from statistical correlations of randomized measurements, Phys. Rev. Lett. 126 , 050501 (2021). [41] A. Elben, J. Yu, G. Zhu, M. Hafezi, F. Pollmann, P. Zoller, and B. Vermersch, Many-body topological invariants from randomized measurements in synthetic quantum matter, Science advances 6, eaaz3666 (2020). [42] J. Carrasquilla and R. G. Melko, Machine learning phases of matter, Nature Physics 13 , 431 (2017). [43] E. P. Van Nieuwenburg, Y.-H. Liu, and S. D. Huber, Learning phase transitions by confusion, Nature Physics 13 , 435 (2017). [44] B. S. Rem, N. K¨ aming, M. Tarnowski, L. Asteria, N. Fl¨ aschner, C. Becker, K. Sengstock, and C. Weitenberg, Identifying quantum phase transitions using artificial neural networks on experimental data, Nature Physics 15 , 917 (2019). [45] L. Wang, Discovering phase transitions with unsupervised learning, Phys. Rev. B 94 , 195105 (2016). [46] W. Hu, R. R. P. Singh, and R. T. Scalettar, Discovering phases, phase transitions, and crossovers through unsupervised machine learning: A critical examination, Phys. Rev. E 95 , 062122 (2017). [47] S. J. Wetzel, Unsupervised learning of phase transitions: From principal component analysis to variational autoencoders, Phys. Rev. E 96 , 022140 (2017). [48] N. K¨ aming, A. Dawid, K. Kottmann, M. Lewenstein, K. Sengstock, A. Dauphin, and C. Weitenberg, Unsupervised machine learning of topological phase transitions from experimental data, Machine Learning: Science and Technology 2, 035037 (2021). [49] K. Ch’ng, N. Vazquez, and E. Khatami, Unsupervised machine learning account of magnetic transitions in the Hubbard model, Physical Review E 97 , 013306 (2018). [50] J. F. Rodriguez-Nieva and M. S. Scheurer, Identifying topological order through unsupervised machine learning, Nature Physics 15 , 790 (2019). [51] A. Lidiak and Z. Gong, Unsupervised Machine Learning of Quantum Phase Transitions Using Diffusion Maps, Physical Review Letters 125 , 225701 (2020). [52] Y. Che, C. Gneiting, T. Liu, and F. Nori, Topological quantum phase transitions retrieved through unsupervised machine learning, Physical Review B 102 , 134213 (2020). [53] L.-W. Yu, S.-Y. Zhang, P.-X. Shen, and D.-L. Deng, Unsupervised learning of interacting topological phases from experi-mental observables, Fundamental Research 4, 1086 (2024). [54] R. Ziv, D. Wei, A. Rubio-Abadal, D. Adler, A. Keselman, E. Lustig, R. Talmon, J. Zeiher, I. Bloch, and M. Segev, Unsuper-vised Machine Learning for Experimental Detection of Quantum-Many-Body Phase Transitions (2025), arXiv:2512.01091 [quant-ph]. [55] E.-J. Kuo and H. Dehghani, Unsupervised learning of interacting topological and symmetry-breaking phase transitions, Physical Review B 105 , 235136 (2022). [56] S. Baier, M. J. Mark, D. Petter, K. Aikawa, L. Chomaz, Z. Cai, M. Baranov, P. Zoller, and F. Ferlaino, Extended Bose-Hubbard models with ultracold magnetic atoms, Science 352 , 201 (2016). [57] P. Fersterer, A. Safavi-Naini, B. Zhu, L. Gabardos, S. Lepoutre, L. Vernac, B. Laburthe-Tolra, P. B. Blakie, and A. M. Rey, Dynamics of an itinerant spin-3 atomic dipolar gas in an optical lattice, Physical Review A 100 , 033609 (2019). [58] L. Su, A. Douglas, M. Szurek, R. Groth, S. F. Ozturk, A. Krahn, A. H. H´ ebert, G. A. Phelps, S. Ebadi, S. Dickerson, F. Ferlaino, O. Markovi´ c, and M. Greiner, Dipolar quantum solids emerging in a Hubbard quantum simulator, Nature 
+
+622 , 724 (2023). [59] E. G. Dalla Torre, E. Berg, and E. Altman, Hidden Order in 1D Bose Insulators, Physical Review Letters 97 , 260401 (2006). [60] S. Ejima, F. Lange, and H. Fehske, Spectral and Entanglement Properties of the Bosonic Haldane Insulator, Physical Review Letters 113 , 020401 (2014). [61] E. Berg, E. G. Dalla Torre, T. Giamarchi, and E. Altman, Rise and fall of hidden string order of lattice bosons, Physical Review B 77 , 245119 (2008). [62] D. Rossini and R. Fazio, Phase diagram of the extended Bose–Hubbard model, New Journal of Physics 14 , 065012 (2012). [63] L. Fu, Topological Crystalline Insulators, Physical Review Letters 106 , 106802 (2011). [64] T. L. Hughes, E. Prodan, and B. A. Bernevig, Inversion-symmetric topological insulators, Physical Review B 83 , 245132 (2011). [65] A. M. Turner, Y. Zhang, and A. Vishwanath, Entanglement and inversion symmetry in topological insulators, Physical Review B 82 , 241102 (2010). [66] M. Rispoli, A. Lukin, R. Schittko, S. Kim, M. E. Tai, J. L´ eonard, and M. Greiner, Quantum critical behaviour at the many-body localization transition, Nature 573 , 385 (2019). [67] D. M. Basko, I. L. Aleiner, and B. L. Altshuler, Metal–insulator transition in a weakly interacting many-electron system with localized single-particle states, Annals of Physics 321 , 1126 (2006). [68] D. A. Abanin and Z. Papi´ c, Recent progress in many-body localization, Annalen der Physik 529 , 1700169 (2017). [69] R. Nandkishore and D. A. Huse, Many-Body Localization and Thermalization in Quantum Statistical Mechanics, Annual Review of Condensed Matter Physics 6, 15 (2015). 11 
+
+[70] D. A. Huse, R. Nandkishore, and V. Oganesyan, Phenomenology of fully many-body-localized systems, Physical Review B 90 , 174202 (2014). [71] T. B. Wahl, A. Pal, and S. H. Simon, Signatures of the many-body localized regime in two dimensions, Nature Physics 
+
+15 , 164 (2019). [72] F. Alet and N. Laflorencie, Many-body localization: An introduction and selected topics, Comptes Rendus. Physique 19 ,498 (2018). [73] P. Sierant and J. Zakrzewski, Many-body localization of bosons in optical lattices, New Journal of Physics 20 , 043032 (2018). [74] R. Yao and J. Zakrzewski, Many-body localization in the Bose-Hubbard model: Evidence for mobility edge, Physical Review B 102 , 014310 (2020). [75] H. P. L¨ uschen, P. Bordia, S. Scherg, F. Alet, E. Altman, U. Schneider, and I. Bloch, Observation of Slow Dynamics near the Many-Body Localization Transition in One-Dimensional Quasiperiodic Systems, Physical Review Letters 119 , 260401 (2017). [76] M. Schreiber, S. S. Hodgman, P. Bordia, H. P. L¨ uschen, M. H. Fischer, R. Vosk, E. Altman, U. Schneider, and I. Bloch, Observation of many-body localization of interacting fermions in a quasirandom optical lattice, Science 349 , 842 (2015). [77] J.-y. Choi, S. Hild, J. Zeiher, P. Schauß, A. Rubio-Abadal, T. Yefsah, V. Khemani, D. A. Huse, I. Bloch, and C. Gross, Exploring the many-body localization transition in two dimensions, Science 352 , 1547 (2016), arXiv:1604.04178 [cond-mat]. [78] S. S. Kondov, W. R. McGehee, W. Xu, and B. DeMarco, Disorder-Induced Localization in a Strongly Correlated Atomic Hubbard Gas, Physical Review Letters 114 , 083002 (2015). [79] A. Pal and D. A. Huse, Many-body localization phase transition, Physical Review B 82 , 174411 (2010). [80] V. Khemani, S. P. Lim, D. N. Sheng, and D. A. Huse, Critical Properties of the Many-Body Localization Transition, Physical Review X 7, 021013 (2017). [81] D. J. Luitz, N. Laflorencie, and F. Alet, Many-body localization edge in the random-field Heisenberg chain, Physical Review B 91 , 081103 (2015). [82] Q. Guo, C. Cheng, Z.-H. Sun, Z. Song, H. Li, Z. Wang, W. Ren, H. Dong, D. Zheng, Y.-R. Zhang, R. Mondaini, H. Fan, and H. Wang, Observation of energy-resolved many-body localization, Nature Physics 17 , 234 (2021). [83] T. Orell, A. A. Michailidis, M. Serbyn, and M. Silveri, Probing the many-body localization phase transition with super-conducting circuits, Physical Review B 100 , 134504 (2019). [84] R. R. Coifman and S. Lafon, Diffusion maps, Applied and Computational Harmonic Analysis 21 , 5 (2006). [85] B. Nadler, S. Lafon, R. R. Coifman, and I. G. Kevrekidis, Diffusion maps, spectral clustering and reaction coordinates of dynamical systems, Applied and Computational Harmonic Analysis Special Issue: Diffusion Maps and Wavelets, 21 , 113 (2006).

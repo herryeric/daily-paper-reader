@@ -1,0 +1,2452 @@
+Title: Quantum Simulation of the Real-time Dynamics in the multi-flavor Gross-Neveu Model at the utility scale using Superconducting Quantum Computers
+
+URL Source: https://arxiv.org/pdf/2605.05479v1
+
+Published Time: Fri, 08 May 2026 00:17:02 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+## Quantum Simulation of the Real-time Dynamics in the multi-flavor Gross-Neveu Model at the utility scale using Superconducting Quantum Computers 
+
+Talal Ahmed Chowdhury, 1, ∗ Seokwon Choi, 2, † Kyoungchul Kong, 1, ‡ and Kwangmin Yu 3, §
+
+> 1
+
+Department of Physics and Astronomy, University of Kansas, Lawrence, Kansas 66045, USA. 
+
+> 2
+
+Department of Physics, Yonsei University, 50 Yonsei-ro, Seodaemun-gu, Seoul 03722, South Korea. 
+
+> 3
+
+Computational Science Department, Brookhaven National Laboratory, Upton, New York 11973, USA. 
+
+We present a scalable quantum simulation framework for real-time dynamics of the multi-flavor Gross–Neveu model in 1+1 dimensions. Using superconducting quantum processors at utility scale, we develop a hardware-efficient Trotterization whose per-step circuit depth scales with fermion flavor number rather than total system size, enabling simulations beyond 100 qubits. A central contribution of this work is the Localized Diagonal Operator Approximation (LDOA), which systematically reduces the overhead associated with quartic interactions. We formulate diagonal unitary synthesis as a structured least-squares problem in phase space and obtain analytic solutions via the Moore–Penrose pseudoinverse. This formulation provides a principled and quantitatively controlled approximation: in the small Trotter-step regime, the unitary error is directly linked to the phase reconstruction error and vanishes asymptotically as the Trotter step size decreases. This establishes a clear mathematical foundation for the LDOA while significantly reducing two-qubit gate counts and circuit depth, and is broadly applicable to diagonal quantum operators with long-range structure, making it particularly well suited for quantum hardware with limited qubit connectivity. Using these techniques, we run large-scale simulations on IBM superconducting processors and study real-time observables, including density-density correlators. We benchmark against exact diagonalization and tensor network-based methods, finding strong agreement across system sizes. These results show that combining hardware-aware circuit design with rigorous approximations enables practical near-term simulation of interacting fermionic field theories and provides a scalable pathway toward more complex quantum field theory simulations. 
+
+I. INTRODUCTION 
+
+Quantum computers are expected to play a pivotal role in investigating the intricate dynamics of quantum field theories. As such, it is vital to validate existing findings on current quantum computers to better understand their potential for future applications. The emergence of real quantum devices as effective, programmable platforms presents an exciting opportunity to precisely prepare complex quantum systems. These platforms serve as invaluable testing grounds, enabling researchers to explore novel phenomena that would be difficult, if not impossible, to observe using traditional experimental techniques [ 1–3 ]. Therefore, conducting quantum simulations of quantum field theories [ 4 –8 ]on a quantum computer can be a worthwhile objective. The Gross-Neveu model is a 1 + 1-dimensional field theory of Dirac fermions with N flavors, interacting via quartic interactions. It shares several fundamental characteristics with Quantum Chromodynamics (QCD), including renormalizability, asymptotic freedom, dynamical symmetry breaking of a Z2 chiral symmetry, and dynamical mass generation [ 9]. Notably, the Gross-Neveu model also exhibits a rich spectrum of particles that can be interpreted as bound states of fermions and antifermions, as well as multifermion bound states [ 10 ]. Additionally, the scattering matrix (S-matrix) in the Gross-Neveu model, which relates the initial and final multiparticle states involved in scattering processes, can be completely factorized into two-particle S-matrices, which arise from the existence of an infinite number of conservation laws [ 11 – 13 ]. Furthermore, in the limit of large N , the Gross-Neveu model reveals three distinct phases at finite temperature T and chemical potential μ: a massive phase, where a homogeneous chiral condensate breaks the chiral symmetry (characterized by low T and low μ); a massless symmetric phase with a vanishing condensate (found at high T or high μ); and an inhomogeneous phase, also known as the kink-antikink crystal phase, where the condensate oscillates in the spatial direction (observed at low T and high μ) [ 14 – 17 ]. Moreover, the Gross-Neveu model effectively represents cold dense nuclear matter [ 18 ]. Given the model’s significant importance and its connection to certain regimes of QCD, we aim to focus on the quantum simulation of real-time dynamics within this model, capturing its essential features during time evolution, using IBM’s superconducting quantum computers.     
+
+> ∗Corresponding author: talal@ku.edu
+> †seokwon0106@yonsei.ac.kr
+> ‡kckong@ku.edu
+> §Corresponding author: kyu@bnl.gov
+> arXiv:2605.05479v1 [quant-ph] 6 May 2026
+
+2Simulating the real-time dynamics of strongly interacting fermionic theories, such as the Gross-Neveu model, using Monte Carlo methods encounters significant limitations in time evolution computations due to the onset of the dynamical sign problem, as highlighted in Ref. [ 19 ]. In contrast, quantum simulations using quantum computers are free from these issues. Some studies have explored the quantum simulation of the Gross-Neveu model on real quantum computers with small system sizes [ 20 ]. In contrast, we have developed a robust quantum simulation framework that implements time evolution in Minkowski spacetime and features scalable, optimized Trotterization circuits for quantum computers, particularly those with limited qubit connectivity. A central component of this framework is the Localized Diagonal Operator Approximation (LDOA), which provides a systematic and hardware-efficient method for approximating quartic interaction terms in fermionic Hamiltonians. By reformulating diagonal unitary synthesis as a structured optimization problem in phase space, LDOA enables controlled circuit compression while preserving asymptotic consistency in the small Trotter-step limit. This formulation is not limited to the Gross–Neveu model but applies broadly to diagonal quantum operators with long-range interactions, independent of the underlying physical model, and is particularly well suited to implementations on quantum hardware with limited connectivity. Importantly, the circuit depth remains constant even as the total number of qubits increases. As a result, our quantum simulation enables us to accurately compute the real-time dynamics of physically relevant observables, such as the density-density correlation functions in the Gross-Neveu model for systems involving over a hundred qubits, hence mitigating the finite-size effects that are prevalent in smaller systems. Additionally, we probe the dynamics of entanglement entropy in the Gross-Neveu model by measuring the second R´ enyi entropy over time on IBM quantum computers, thereby unveiling the nature of quantum information scrambling within this framework. The manuscript is organized as follows. In section II, we present a concise introduction to the Gross-Neveu model, its lattice discretization, and mapping onto qubits. Section III presents the Trotterization circuits for the time evolution in the lattice Gross-Neveu model. In section IV, we present the LDOA framework, providing the hardware-efficient method for approximating the quartic interaction term of the Gross-Neveu model. Section V provides the details of the implementation of the Trotter circuits in IBM quantum computers. In section VI, we present the variation of the density-density correlations in the lattice Gross-Neveu model for system size up to more than a hundred qubits under the time evolution using our LDOA-implemented Trotterization circuits and their validation using classical exact and Tensor network-based methods. Section VII B presents measuring the entanglement entropy dynamics in the Gross-Neveu model using IBM quantum computers. Finally, we conclude in section VIII. In appendix A, we provide a detailed discussion of the quantum error mitigation methods used in our study.  
+
+> II. THE GROSS-NEVEU MODEL
+
+The Gross-Neveu model [9] is described by the Lagrangian, 
+
+L = 
+
+> N−1
+
+X
+
+> b=0
+
+iψ bγμ∂μψb + g2
+
+2 
+
+> N−1
+
+X
+
+> b=0
+
+ψbψb
+
+!2
+
+, (1) where N is the number of fermion flavors, ψb is the massless Dirac fermion of flavor b, and the quartic interaction is controlled by the coupling g. The two-component Dirac field of flavor b is 
+
+ψb(x) = 
+
+ψ1,b (x)
+
+ψ2,b (x)
+
+
+
+(2) where ψ1,b (x) and ψ2,b (x) are Grassmann fields. The γ matrices follow {γμ, γ ν } = 2 ημν I2, where ημν = diag (1 , −1) is the Minkowski metric in 1+1D, and in the Dirac representation they are given as γ0 = Z, γ1 = iY , γ5 = γ0γ1 = X
+
+with X, Y, Z being the Pauli matrices. Moreover, the Lagrangian is invariant under the discrete γ5 transformation, 
+
+ψb → γ5ψb , (3) which ensures the masslessness of the fermion field to any order of perturbation theory. The Hamiltonian of the Gross-Neveu model is given by 
+
+H =
+
+Z
+
+dx 
+
+−i 
+
+> N−1
+
+X
+
+> b=0
+
+¯ψbγ1∂xψb − g2
+
+2 
+
+> N−1
+
+X
+
+> b=0
+
+¯ψbψb
+
+!2 . (4) Quantum field theories, such as the Gross-Neveu model, have an infinite number of degrees of freedom, and handling them computationally requires spatial lattice discretization. Therefore, in this work, we use the Kogut-Susskind lattice 3fermion prescription [ 21 –23 ] to express the fermion on the lattice points. At first, we discretize the spatial line with 
+
+LD points and lattice spacing a. Now the Dirac fermion at lattice point x = na , where a is the lattice spacing with dimensions of length, is ψ(x) ≡ ψ(x = na ) whose components are 
+
+ψb(x = na ) = 
+
+ψ1,b (na )
+
+ψ2,b (na )
+
+
+
+(5) Now following the Kogut-Susskind lattice fermion prescription, we map the upper and lower fermion components of the Dirac fermion at x = na onto the staggered sites (2 n, 2n + 1) (for a similar treatment, see Ref. [ 24 ]), respectively, as follows 
+
+ψ1,b (na ) 7 → 1
+
+√a ϕ2n,b , (6) 
+
+ψ2,b (na ) 7 → 1
+
+√a ϕ2n+1 ,b , (7) where, we place the upper component ψ1,b (na ) to the site with index (2 n, b ) and the lower component ψ2,b (na ) to the site with index (2 n + 1 , b ). Here, ϕj,b and ϕ† 
+
+> j,b
+
+are the fermionic annihilation and creation operators (dimensionless) at a site j and flavor b. Therefore, the upper and lower components of Dirac fermions on LD points are mapped into 
+
+L = 2 LD lattice sites. Furthermore, the spatial derivatives are expressed as 
+
+∂xψ1,b (na ) 7 → 12a3/2 (ϕ2n+2 ,b − ϕ2n,b ) (forward derivative) , (8) 
+
+∂xψ2,b (na ) 7 → 12a3/2 (ϕ2n+1 ,b − ϕ2n−1,b ) (backward derivative) . (9) Furthermore, the fermionic creation and annihilation operators follow the anticommutation relations, 
+
+{ϕj,b , ϕ j′,b ′ } = {ϕ†
+
+> j,b
+
+, ϕ † 
+
+> j′,b ′
+
+} = 0 , {ϕj,b , ϕ † 
+
+> j′,b ′
+
+} = δjj ′ δbb ′ . (10) Now the quadratic Hamiltonian containing the spatial derivative is, 
+
+Hquadratic = −i X
+
+> b
+
+a 
+
+> LD−1
+
+X
+
+> n=0
+
+
+
+ψ†
+
+> 1,b
+
+(na )∂xψ2,b (na ) + ψ†
+
+> 2,b
+
+(na )∂xψ1,b (na )
+
+
+
+. (11) Using Eq. (8) and Eq (9), in conjunction with boundary conditions, ψ1,b (na ) = ψ2,b (na ) = 0 for n < 0 and n > L D − 1, we have 
+
+Hquadratic = − i
+
+2a 
+
+> 2LD−2
+
+X 
+
+> j=0
+> N−1
+
+X
+
+> b=0
+
+
+
+ϕ†
+
+> j,b
+
+ϕj+1 ,b − ϕ†
+
+> j+1 ,b
+
+ϕj,b 
+
+
+
+. (12) Now the bilinear term ψbψb in terms of upper and lower component fields is 
+
+ψbψb = ψ†
+
+> 1,b
+
+ψ1,b − ψ†
+
+> 2,b
+
+ψ2,b . (13) Using Eq. (6) and Eq. (7) and defining the fermionic number density operator at the lattice site j for a specific flavor b
+
+as ρj,b = ϕ†
+
+> j,a
+
+ϕj,a , the quartic interaction term of the Hamiltonian becomes, 
+
+Hquartic = − g2
+
+2a 
+
+> LD−1
+
+X 
+
+> n=0
+> N−1
+
+X
+
+> b=0
+
+(ρ2n,b + ρ2n+1 ,b − 2ρ2n,b ρ2n+1 ,b )
+
+− g2
+
+a 
+
+> LD−1
+
+X 
+
+> n=0
+> N−1
+
+X
+
+> b,c =0 ,b<c
+
+(ρ2n,b ρ2n,c + ρ2n+1 ,b ρ2n+1 ,c − ρ2n,b ρ2n+1 ,c − ρ2n+1 ,b ρ2n,c ) (14) For a single lattice site j where j = 0 , 1, ..., L with L = 2 LD , and N flavors we can have the following states, 
+
+|0⟩, ϕ†
+
+> j,b
+
+|0⟩, ϕ†
+
+> j,b
+
+ϕ†
+
+> j,c
+
+|0⟩ (b < c ), ϕ†
+
+> j,b
+
+ϕ†
+
+> j,c
+
+ϕ†
+
+> j,d
+
+|0⟩ (b < c < d ), ..... ϕ †
+
+> j, 0
+
+ϕ†
+
+> j, 1
+
+...ϕ † 
+
+> j,N −1
+
+|0⟩ . (15) 4Then the dimension of the space of states H associated with the single site j (which is same for all j) is dim H =
+
+> N
+
+X 
+
+> k=0
+> N
+
+Ck , (16) Therefore, the total dimension of the Hilbert space associated with L fermionic lattice sites is (dim H)L.We use the Jordan-Wigner transformation [ 25 ] to map the fermionic creation and annihilation operators onto qubit operators as follows, 
+
+ϕj,b 7 → 12 Z0,b ⊗ Z1,b ⊗ ... ⊗ Zj−1,b ⊗ (Xj,b + iY j,b ) ,ϕ† 
+
+> j,b
+
+7 → 12 Z0,b ⊗ Z1,b ⊗ ... ⊗ Zj−1,b ⊗ (Xj,b − iY j,b ) . (17) Moreover, the fermionic site with index ( j, b ) is mapped to qubit qj,b as 
+
+qj,b → qjN +b (18) where N is the total flavors. Hence, we require total Nqubits = N L number of qubits to describe the lattice Gross-Neveu model with L spatial lattice sites and N flavors. Specifically, in our qubit mapping the staggered fermionic sites (2 n, 2n + 1) associated with the Dirac fermion at site n are concatenated by the flavor degrees of freedom as [(2 n, 0) , (2 n, 1) , ..., (2 n, N − 1) , (2 n + 1 , 0) , (2 n + 1 , 1) , ..., (2 n + 1 , N − 1)] where each ( j, b ) represents the fermionic site at j with flavor b. As an example, for N = 3 case, the qubit assignment for a single site j is given as, 
+
+|0⟩ 7 → | 000 ⟩, c †
+
+> j, 0
+
+|0⟩ 7 → | 100 ⟩, c †
+
+> j, 1
+
+|0⟩ 7 → | 010 ⟩, c †
+
+> j, 2
+
+|0⟩ 7 → | 001 ⟩
+
+c†
+
+> j, 0
+
+c†
+
+> j, 1
+
+|0⟩ 7 → | 110 ⟩, c †
+
+> j, 0
+
+c†
+
+> j, 2
+
+|0⟩ 7 → | 101 ⟩, c †
+
+> j, 1
+
+c†
+
+> j, 2
+
+|0⟩ 7 → | 011 ⟩, c †
+
+> j, 0
+
+c†
+
+> j, 1
+
+c†
+
+> j, 2
+
+|0⟩ 7 → | 111 ⟩ . (19) The JW-transformed quadratic term of the lattice Gross-Neveu Hamiltonian is, ˜Hquadratic =
+
+> L−2
+
+X 
+
+> j=0
+> N−1
+
+X
+
+> b=0
+
+14a (Xj,b Yj+1 ,b − Yj,b Xj+1 ,b ) . (20) Now using ρj,b 7 → 12 (I − Z)j,b ≡ P −
+
+> j,b
+
+, we have JW-transformed quartic term of the lattice Gross-Neveu Hamiltonian from Eq. (14) as ˜Hquartic = − g2
+
+2a 
+
+> LD−1
+
+X 
+
+> n=0
+> N−1
+
+X
+
+> b=0
+
+(P − 
+
+> 2n,b
+
++ P − 
+
+> 2n+1 ,b
+
+− 2P −
+
+> 2n,b
+
+P −
+
+> 2n+1 ,b
+
+)
+
+− g2
+
+a 
+
+> LD−1
+
+X
+
+> n=0
+
+X
+
+> b,c =0 ,b<c
+
+(P −
+
+> 2n,b
+
+P − 
+
+> 2n,c
+
++ P −
+
+> 2n+1 ,b
+
+P − 
+
+> 2n+1 ,c
+
+− P −
+
+> 2n,b
+
+P − 
+
+> 2n+1 ,c
+
+− P −
+
+> 2n+1 ,b
+
+P −
+
+> 2n,c
+
+) , (21) which can be further simplified into ˜Hquartic = g2
+
+4a 
+
+> LD−1
+
+X
+
+> n=0
+
+ 
+
+> N−1
+
+X
+
+> b=0
+
+Z2n,b Z2n+1 ,b − 
+
+> N−1
+
+X
+
+> b,c =0 ,b<c
+
+(Z2n,b Z2n,c + Z2n+1 ,b Z2n+1 ,c − Z2n,b Z2n+1 ,c − Z2n+1 ,b Z2n,c )
+
+− g2
+
+4a LD N , 
+
+(22) Consequently, we have the JW-transformed lattice Gross-Neveu Hamiltonian acting on Nqubits = L N qubits, ˜H = ˜Hquadratic + ˜Hquartic . (23) Moreover, by using the following unitary transformation (see, for example Refs. [26, 27]), ˆXj,b = Xj,b cos ϕj + Yj,b sin ϕj , ˆYj,b = −Xj,b sin ϕj + Yj,b cos ϕj , ˆZj,b = Zj,b , (24) with ϕj = jπ/ 2, we have ˜H′ 
+
+> quadratic
+
+=
+
+> L−1
+
+X 
+
+> j=0
+> N−1
+
+X
+
+> b=0
+
+14a ( ˆXj,b ˆXj+1 ,b + ˆYj,b ˆYj+1 ,b ) , (25) 5whereas ˜Hquartic in Eq. (21) or Eq. (22) remains the same. So, we can see that the JW-transformed lattice Gross-Neveu Hamiltonian resembles XXZ spin chain interactions. In this work, we study the time evolution of density-density correlator, ˆCdensity (j, j ′) = 1
+
+a2 
+
+> N−1
+
+X
+
+> b=0
+
+(−1) j+j′
+
+ρj,b ρj′,b . (26) Using the qubit mapping, we have ˜Cdensity (j, j ′) = 14a2 
+
+> N−1
+
+X
+
+> b=0
+
+(−1) j+j′
+
+(I − Z)j,b (I − Z)j′,b . (27) We start with an initial quantum state |ψ0⟩ that is not an eigenstate of the lattice Gross-Neveu Hamiltonian H.Under time evolution, this state transforms to ψ(t)⟩ = e−iHt/ ℏ|ψ0⟩. We then compute the expectation value of the density-density correlator, given by Cdensity (j, j ′, t ) = ⟨ψ(t)| ˆCdensity (j, j ′)|ψ(t)⟩, which is referred to in the remainder of the paper as the density-density correlation, respectively, in order to explore the real-time dynamics of the Gross-Neveu model. 
+
+III. REAL-TIME DYNAMICS OF GROSS-NEVEU MODEL VIA TROTTERIZATION 
+
+The time evolution operator generated by the lattice Gross-Neveu Hamiltonian is implemented on a quantum computer using the Trotter-Suzuki decomposition [ 28 – 30 ], commonly known as the Trotterization. The first-order Trotterization of the time evolution operator, U (t) = e−i ˜Ht/ ℏ, where ˜H is the Jordan-Wigner-transformed lattice Gross-Neveu Hamiltonian in Eq. (23), acting on LN qubits is given by, 
+
+U (1) (t) = 
+
+> r
+
+Y
+
+> k=1
+
+ˆU (1) Trotter k (δt ), (28) where δt = t/r is the Trotter time-step, r is the number of Trotter steps associated with the simulation time t,and ˆU (1) Trotter represents a single Trotter step. Now, for the lattice Gross-Neveu Hamiltonian in Eq. (23), denoted as ˜H = PMs=1 ˜Hs, where M is the total number of terms in the Hamiltonian, the ˆU (1) Trotter (δt ) is given as, ˆU (1) Trotter (δt ) = 
+
+> M
+
+Y
+
+> s=1
+
+e−iH sδt/ ℏ . (29) By using the following operators, ˆJp,q = XpYq − YpXq , ˆKp,q = P − 
+
+> p
+
+P − 
+
+> q
+
+, (30) where, ˆJp,q and ˆKp,q operators act on p and q-th qubits of the qubit register, the unitary operator associated with the quadratic part of the lattice Gross-Neveu Hamiltonian in Eq. (23) can be written as, 
+
+e−i δt      
+
+> 4aℏ
+> PL−2
+> j=0
+> PN−1
+> b=0 ˆJjN +b, (j+1) N+b
+
+7 →
+
+O
+
+> j=0
+> j(mod 2)=0
+
+"N −1O
+
+> b=0
+
+e−i θh   
+
+> 2ˆJjN +b, (j+1) N+b
+
+# .
+
+O
+
+> j=0
+> j(mod 2)=1
+
+"N −1O
+
+> b=0
+
+e−i θh   
+
+> 2ˆJjN +b, (j+1) N+b
+
+# ,
+
+(31) where, we denote, θh = δt  
+
+> 2aℏ
+
+. Besides, L = 2 LD is the number of staggered fermionic lattice sites associated with Dirac fermions on LD lattice sites on the line, and b = 0 , 1, .., N − 1 denotes the N flavors of the fermion. On the other hand, the unitary operator associated with the quartic interaction terms in Eq. (21) (or equivalently with those in 6
+
+q2n, 0 :
+
+Uhop (θh) Uint (θg )
+
+q2n, 1 :
+
+q2n+1 ,0 :
+
+Uhop (θh)
+
+q2n+1 ,1 :
+
+q2n+2 ,0 :
+
+Uhop (θh) Uint (θg )
+
+q2n+2 ,1 :
+
+q2n+3 ,0 :
+
+q2n+3 ,1 :
+
+q2n, 0 :
+
+Uhop (θh) Uint (θg )
+
+q2n, 1 :
+
+q2n, 2 :
+
+q2n+1 ,0 :
+
+Uhop (θh)
+
+q2n+1 ,1 :
+
+q2n+1 ,2 :
+
+q2n+2 ,0 :
+
+Uhop (θh) Uint (θg )
+
+q2n+2 ,1 :
+
+q2n+2 ,2 :
+
+q2n+3 ,0 :
+
+q2n+3 ,1 :
+
+q2n+3 ,2 :
+
+FIG. 1: The single Trotter-step of the first-order Trotterization circuit highlighting the consecutive fermionic lattice sites, (2 n, 2n + 1 , 2n + 2 , 2n + 3) for N = 2 flavors (left figure), and N = 3 flavors (right figure), respectively. Eq. (22)) is written as, 
+
+e−i ˜Hquartic δt/ ℏ 7 →
+
+
+
+> Nqubits −1
+
+O
+
+> k=0
+
+Pk(θg /2) 
+
+ .
+
+
+
+> L−1
+
+O 
+
+> j=0 ,j(mod 2)=0
+> N−1
+
+O
+
+> b=0
+
+CP jN +b, (j+1) N +b(−θg )
+
+!
+
+.
+
+ 
+
+> N−1
+
+O
+
+> b,c =0 ,b<c
+
+(CP jN +b,jN +c(θg ) ⊗ CP (j+1) N +b, (j+1) N +c(θg ) ⊗ CP jN +b, (j+1) N +c(−θg ) ⊗ CP (j+1) N +b,jN +c(−θg )) 
+
+ , (32) where we denote, θg = g2δt aℏ , and Pk(θ) and CP p,q (θ) are the single-qubit phase gate acting on k-th qubit and controlled-phase (CP) gate acting on p and q-th qubits of the register, respectively. The single Trotter step associated with the first-order Trotterization is given as, ˆU (1) Trotter (δt ) = ˆUeven (θh). ˆUodd (θh). ˆUint (θg ) , (33) where ˆUeven , ˆUodd and ˆUint are given by, ˆUeven (θh) = 
+
+> Nqubits −1
+
+O 
+
+> k=0 ,k(mod2 N)=0
+
+Uhop (θh) , (34) ˆUodd (θh) = 
+
+> Nqubits −1
+
+O 
+
+> k=0 ,k(mod2 N)= N
+
+Uhop (θh) , (35) ˆUint (θg ) = 
+
+> Nqubits −1
+
+O 
+
+> k=0 ,k(mod2 N)=0
+
+Uint (θg ) , (36) respectively. Here, both the unitary operators Uhop (θh) and Uint (θg ) act on 2 N qubits of the qubit register. The quantum circuit associated with the first-order Trotterization acting on consecutive fermionic lattice sites, (2 n, 2n +1, 2n + 2 , 2n + 3) is given in Fig. 1. Now, our qubit mapping introduced in Eq. (18) translates the quadratic term (hopping) of the lattice Gross-Neveu model between fermionic sites (2 n, b ) and (2 n + 1 , b ) with b-th flavor where 
+
+b = 0 , 1, ..., N − 1, into ( next )N −1-nearest-neighbor qubit interactions. As the efficient and scalable Trotter circuits were already developed for one-dimensional Hamiltonians with next-nearest-neighbor interactions in Ref. [ 31 , 32 ], specifically in scenarios where qubit connectivity of a real quantum device is limited to nearest-neighbor connections, 7we adopt a similar strategy for the multi-flavor lattice Gross-Neveu Hamiltonian with long-range qubit interactions. In this respect, we incorporate SWAP gates in the circuit blocks to design a scalable Trotterization circuit as described below. The quantum circuit associated with Uhop (θh) acting on fermionic sites (2 n, 2n + 1) for N = 2 flavors, is given as, 
+
+Uhop (θh) =
+
+q2n, 0 :
+
+UXY −YX (θh)
+
+q2n, 1 : × ×
+
+q2n+1 ,0 : ×
+
+UXY −YX (θh)
+
+×
+
+q2n+1 ,1 :and for the same fermionic sites, in case of N = 3 flavors, it is given as, 
+
+Uhop (θh) =
+
+q2n, 0 :
+
+UXY −YX (θh)
+
+q2n, 1 : × ×
+
+q2n, 2 : × × 
+
+UXY −YX (θh)
+
+× × 
+
+q2n+1 ,0 : × × × × 
+
+q2n+1 ,1 : ×
+
+UXY −YX (θh)
+
+×
+
+q2n+1 ,2 :where the SWAP-network facilitates the two-qubit unitary operator UXY −Y X (θh) between the neighboring qubits. In fact, for N flavors, the SWAP-network will have 2 N SWAP gates and overall circuit-depth of 2( N − 1) within a single circuit block Uhop (θh). In addition, the quantum circuit for the unitary operator UXY −Y X (θh) = e−i θh  
+
+> 2(XY −Y X )
+
+acting on two neighboring qubits can be expressed (for example, Ref. [33]) as, 
+
+UXY −YX (θh) =
+
+qk : RX (− π 
+
+> 2
+
+) • RX (θh) • RX ( π 
+
+> 2
+
+)
+
+qk+1 : RZ (− π 
+
+> 2
+
+) RX (− π 
+
+> 2
+
+) RZ (θh) RX ( π 
+
+> 2
+
+) RZ ( π 
+
+> 2
+
+)Similarly, the quartic interaction terms of the lattice Gross-Neveu Hamiltonian presented in Eq. (21) (or in Eq. 22) acting on (2 n, 2n + 1) lattice sites across the same and distinct flavors lead to long-range qubit interactions. The circuit block representing the unitary operator Uint (θg ) acts on 2 N qubits as shown in Fig. 1, and requires N (2 N − 1) two-qubit controlled-phase (CP) gates, resulting in a two-qubit circuit-depth of 2 N within the block. Moreover, to facilitate these CP gates only acting on the neighboring qubits, we would require an overall 2(2 N − 1)( N − 1) number of SWAP gates with a two-qubit circuit-depth of 4( N − 1) within the circuit block of Uint (θg ). Hence, the total two-qubit circuit-depth associated with a single block Uint (θg ) turns out to be 2(3 N − 2). For example, the corresponding quantum circuit for Uint (θg ) acting on the fermionic sites (2 n, 2n + 1) with N = 2 flavors, is given in Fig. 2, whereas, the quantum circuit of Uint (θg ) with N = 3 flavors acting on the same fermionic sites is presented 
+
+q2n, 0 : P (θg /2) •
+
+P (θg )
+
+•
+
+P (−θg )
+
+× ×
+
+q2n, 1 : P (θg /2) • •
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × 
+
+q2n+1 ,0 : P (θg /2) •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × × 
+
+q2n+1 ,1 : P (θg /2) • • × ×
+
+FIG. 2: The quantum circuit of the corresponding unitary operator associated with the quartic interaction term acting on (2 n, 2n + 1) fermionic lattice sites for N = 2 flavors. in Fig. 3. On the other hand, for N = 4 flavors the quantum circuit representing Uint (θg ) is shown in Fig. 4. Note that, the quantum circuits for Uint (θg ) for N flavors only act on the block of 2 N qubits of the qubit register with total 8
+
+q2n, 0 : P (θg /2) •
+
+P (θg )
+
+•
+
+P (θg )
+
+× •
+
+P (−θg )
+
+× × ×
+
+q2n, 1 : P (θg /2) • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × 
+
+q2n, 2 : P (θg /2) •
+
+P (−θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × 
+
+q2n+1 ,0 : P (θg /2) • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × 
+
+q2n+1 ,1 : P (θg /2) •
+
+P (θg )
+
+• × • 
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × 
+
+q2n+2 : P (θg /2) • • × • × × ×
+
+FIG. 3: The quantum circuit of the corresponding unitary operator associated with the quartic interaction term acting on (2 n, 2n + 1) fermionic lattice sites for N = 3 flavors. 
+
+q2n, 0 : P (θg /2) •
+
+P (θg )
+
+•
+
+P (θg )
+
+× •
+
+P (−θg )
+
+× •
+
+P (θg )
+
+× × × ×
+
+q2n, 1 : P (θg /2) • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× × × × × × 
+
+q2n, 2 : P (θg /2) •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × × × 
+
+q2n, 3 : P (θg /2) • •
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × × × 
+
+q2n+1 ,0 : P (θg /2) •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × × × 
+
+q2n+1 ,1 : P (θg /2) • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× × × × × × 
+
+q2n+1 ,2 : P (θg /2) •
+
+P (θg )
+
+• × • 
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× • × × × × × × 
+
+q2n+1 ,3 : P (θg /2) • • × • × • × × × ×
+
+FIG. 4: The quantum circuit of the corresponding unitary operator associated with the quartic interaction term acting on (2 n, 2n + 1) fermionic lattice sites for N = 4 flavors. number of qubits Nqubits = LN , and do not depend on the total fermionic lattice sites L. Finally, the main advantage of the quantum circuit implementing the first-order Trotterization presented in this work is that the total circuit-depth remains constant with increasing fermion sites L, and only depends on the number of flavors N , and Trotter steps r
+
+which can be limited by the coherence time of quantum hardware. The Trotter error associated with the first-order Trotterization for a fixed total simulation time t scales as O(t2/r )with the number of r Trotter steps, whereas for the second-order Trotterization, it scales as O(t3/r 2) with r [34 ]. The time evolution operator approximated by the second-order Trotterization is 
+
+U (2) (t) = 
+
+> r
+
+Y
+
+> k=1
+
+ˆU (2) Trotter k (δt ) , (37) where the single Trotter-step ˆU (2) Trotter (δt ) is given by ˆU (2) Trotter (δt ) = 
+
+> M
+
+Y
+
+> s=1
+
+e−iH sδt/ 2ℏ
+
+!
+
+.
+
+> M
+
+Y
+
+> l=1
+
+e−iH M −l+1 δt/ 2ℏ
+
+!
+
+. (38) By rearranging the Hamiltonian terms, we can rewrite Eq. (38) as, ˆU (2) Trotter (δt ) = ˆUeven 
+
+ θh
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint 
+
+ θg
+
+2
+
+
+
+. ˆUint 
+
+ θg
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven 
+
+ θh
+
+2
+
+
+
+= ˆUeven 
+
+ θh
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven 
+
+ θh
+
+2
+
+
+
+, (39) where we combine two unitary operators Uint (θg /2) into Uint (θg ) in the single Trotter-step in second-order Trotterization. Furthermore, we can have 
+
+U (2) (t) = 
+
+
+
+ˆUeven 
+
+ θh
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven 
+
+ θh
+
+2
+
+ 
+
+.
+
+
+
+ˆUeven 
+
+ θh
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven 
+
+ θh
+
+2
+
+ 
+
+.... ˆUeven 
+
+ θh
+
+2
+
+
+
+, (40) 9where again combining Ueven (θh/2) from two consecutive Trotter steps we have optimized second-order Trotterization, ˜U (2) (t) = ˆUeven 
+
+ θh
+
+2
+
+
+
+. ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven (θh). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven (θh) .... .... ˆUeven (θh) . ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUint (θg ). ˆUodd 
+
+ θh
+
+2
+
+
+
+. ˆUeven 
+
+ θh
+
+2
+
+
+
+. (41) Now for the first-order Trotterization, the total circuit depth d(1) with respect to the total number of Trotter steps r
+
+scales as follows. For N = 2 flavors, we have d(1) 2 ∼ 27 r and for N = 3 flavors, it is d(1) 3 ∼ 37 r. Now if we consider the second-order Trotterization given by Eq. (38), we have, for N = 2 and N = 3 flavors, the circuit depth as d(2) 2 ∼ 54 r
+
+and d(2) ∼ 74 r, respectively, which indicates that the circuit depth has doubled for a fixed number of Trotter steps as expected. On the other hand, for optimized second-order Trotterization presented in Eq. (41), the total circuit depths scale as ˜d(2) 2 ∼ 37 .73 r0.98 and ˜d(2) 3 ∼ 50 .11 r0.98 for N = 2 and N = 3 flavors, respectively, showcasing significant reduction in the total circuit depth compared to the second-order Trotterization.  
+
+> IV. LOCALIZED DIAGONAL OPERATOR APPROXIMATION
+
+In quantum computing, diagonal unitary operators are essential in variational quantum algorithms and quantum simulation. They define basis - dependent phase rotations, which are central to Hamiltonian evolution and quantum arithmetic [ 35 ]. Hence, mapping long-range diagonal operators to a hardware topology with limited connectivity, like Nearest Neighbor (NN), is a critical task for implementing algorithms such as QAOA or Hamiltonian simulations (e.g., the Fermi-Hubbard model [ 32 ]). Since diagonal operators commute with one another, we can rearrange them without affecting the final unitary, which allows for several elegant mapping and approximation strategies. The most common method for implementing long-distance (beyond NN) diagonal interactions on a Linear Nearest Neighbor (LNN) architecture is the SWAP network. This work also implements the SWAP network as described in Fig. 2, 3, and 4. In this work, we show that diagonal synthesis can be reformulated as a structured least - squares projection in phase space. This connects to classical linear algebra via the Moore–Penrose pseudoinverse [ 36 ], and to hardware optimization through constrained Ansatz spaces [ 37 ]. The key observation underlying this framework is that diagonal unitary synthesis reduces to a phase-matching problem in R2n
+
+. Because diagonal two-qubit gates contribute phases additively and linearly in their parameters, the synthesis problem can be reformulated as a structured linear least-squares problem. This transforms unitary compilation into a linear algebraic projection problem in phase space.  
+
+> A. Motivation
+
+The quartic terms of the 2 , 3, and 4 flavors need long-distance (more than the next-nearest neighbor) interactions, and our initial circuit design for the long-distance interaction is inserting SWAP gates as shown in Fig. 2, 3, and 4. This design requires 4( N − 1) SWAP-gate layers for the N - flavor system. The quartic terms are composed of single-qubit phase gates, two-qubit phase gates (CP gates), and SWAP gates. Since the main challenge in implementing the quartic term is the two-qubit phase gate, we focus on its implementation. Figure 5 shows the two-qubit phase gate and the SWAP gates in Fig. 2. Since the two-qubit phase gates are diagonal operators and the SWAP gates change the pairs of interaction qubit, the operator described in Fig. 5 is diagonal too. Our motivation is to approximate the target circuit (Fig. 5) by the quantum circuit described in Fig. 6 when one can not find a mathematical identity. In other words, our method is finding the parameters, x0, x 1, and x2, minimizing the difference of the diagonal operators between the target circuit (Fig. 5) and the Ansatz circuits (Fig. 6). Since the CP gate and the RZZ gate are typical two-qubit diagonal gates, we study both cases. Even though we suggest the Ansatz circuits described in Fig. 6, many variations are possible. For example, one can repeat the Ansatz circuits several times. Also, one can add single-qubit diagonal gates, such as Phase gates and Rz (z-axis rotation) gates. When we tested these variations of the Ansatz, the approximation results were not better than the Ansatz in Fig. 6.  
+
+> B. Method
+
+We consider an n-qubit diagonal unitary ( n = 2 N , N flavors) of the target, 
+
+Utarget (⃗ϕ(θg )) = diag( eiϕ 0 , . . . , e iϕ 2n−1 ), (42) 10 
+
+q2n, 0 : •
+
+P (θg )
+
+•
+
+P (−θg )
+
+× ×
+
+q2n, 1 : • •
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × 
+
+q2n+1 ,0 : •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × × 
+
+q2n+1 ,1 : • • × ×
+
+FIG. 5: Target circuit for the diagonal operator approximation for the 2-flavor model. The circuit is constructed from CP gates for the two-flavor Gross–Neveu model. The CP and SWAP layer parts of the quartic term of the 2 flavors. The one-qubit phase gates are removed from Fig. 2. 
+
+q0 •
+
+P (x0)
+
+q1 • •
+
+P (x2)
+
+q2 •
+
+P (x1)
+
+•
+
+q3 •
+
+(a) Ansatz circuit (CP gates). 
+
+q0 •
+
+RZZ (x0)
+
+q1 • •
+
+RZZ (x2)
+
+q2 •
+
+RZZ (x1)
+
+•
+
+q3 •
+
+(b) Ansatz circuit (RZZ gates). FIG. 6: Comparison of three 4-qubit circuits. (a) CP-based approximation Ansatz circuit obtained by applying the Diagonal Operator Approximation. (b) RZZ-based approximation ansatz circuit with equivalent interaction structure. where ⃗ ϕ(θg ) = ( ϕ0, · · · , ϕ 2n−1) ∈ R2n
+
+. Since we have 1 = ei0, the target operator can be described by the rotation angles. Likewise, for the target operator, we construct the Ansatz diagonal operator from the Ansatz circuit using m
+
+parameters of the Ansatz(e.g., CP or RZZ [ 38 , 39 ]. Note that we have m = 2 N − 1 for N flavors in the Ansatz design. Let ⃗x = ( x 0, . . . , x m−1) ∈ Rm (43) denote the parameter vector corresponding to the Ansatz. Now we define a vector function of the Ansatz as follows: ⃗θ : Rm → R2n⃗x 7 →⃗ θ(⃗x) (44) where θk is k-th function value of ⃗ θ in R, and we have k = 0 , · · · , 2n − 1. Once one has the Ansatz circuit, defining the function ⃗ θ is straightforward because one can easily compute the phase of the Ansatz operator that is diagonal. Hence, we have a diagonal operator of the Ansatz as follows: 
+
+UAnsatz (⃗x) = diag( e iθ 0(⃗x) , . . . , e iθ 2n−1(⃗x) ), (45) where each θk(⃗x) ∈ R and ⃗ θ(⃗x) = ( θ 0(⃗x), · · · , θ 2n−1(⃗x)). Now, our goal is finding ⃗x satisfying min ⃗x∈R m Utarget (⃗ϕ(θg )) − UAnsatz (⃗θ(⃗x)) (46) for the given θg and the L2 norm ∥·∥ . Instead of estimating Utarget (⃗ ϕ(θg )) − UAnsatz (⃗θ(⃗x)) , we estimate ⃗ϕ(θg ) −⃗ θ(⃗x) . This means that we minimize the phase difference of two unitary operators, Utarget (⃗ ϕ(θg )) and 
+
+UAnsatz (⃗ θ(⃗x )). This is justified when ⃗ ϕ(θg ) sufficiently small. When we have sufficiently small ⃗ ϕ(θg ) , we consider Taylor expansion around 0. Since we have ex ≈ 1 + x around 0 by the Taylor expansion, we have 11 
+
+Utarget (⃗ϕ) − UAnsatz (⃗θ(⃗x)) ≈⃗ ϕ(θg ) −⃗ θ(⃗x) when we have ⃗ ϕ and ⃗ θ(⃗x ) which are close to ⃗ 0. Since ϕ is a linear vector function of θg presented in Fig. 2, 3, and 4, and we have θg = ∆ tg 2/a where ∆ t is a Trotter step size. Hence, we adopt sufficiently small ∆ t, and this induces small ⃗ ϕ.Note that ⃗r ∈ R 2n
+
+and ⃗ θ(⃗x ) is a linear combination of entries of ⃗x because the entries of ⃗ θ(⃗x ) are the phase of diagonal matrix, UAnsatz (⃗x ). Therefore, finding ⃗x minimizing ⃗ ϕ(θg ) −⃗ θ(⃗x) for given θg is a least squares problem. Finally, we can rearrange the linear equations as follows: 
+
+A⃗ x =⃗ b, (47) where A ∈ R2n×m and ⃗ b includes entries of ⃗ ϕ and constants. If we have ⃗ ϕ(θg ) −⃗ θ(⃗x) > 0, the linear system, A⃗ x =⃗ b,does not have a solution. In other words, when we have ⃗ ϕ(θg ) −⃗ θ(⃗x) > 0, we have ⃗ b / ∈ Col (A), and we have to solve a least squares problem of A⃗ x =⃗ b.
+
+FIG. 7: Geometric interpretation of a least squares problem. The target vector ⃗ b is projected onto the column space Col (A) spanned by a1 and a2 vectors, yielding the closest realizable vector ⃗p = A⃗ x for some ⃗x , such that ⃗e =⃗ b −⃗p is orthogonal to the subspace and represents the approximation error due to limited Ansatz expressibility. Figure 7 illustrates a geometric interpretation of a least squares problem. The target phase vector ⃗ b ∈ R2n
+
+generally lies outside the column space Col (A). As a result, the linear system A⃗ x =⃗ b is typically inconsistent, and no exact solution exists within the restricted parameterization. The pseudoinverse resolves this by projecting ⃗ b orthogonally onto Col (A), yielding the closest realizable vector ⃗p = A⃗ x . The residual vector ⃗e =⃗ b −⃗p is orthogonal to the subspace, as indicated in Fig. 7, and quantifies the irreducible approximation error. The solution ⃗x is given by A+⃗ b where the pseudoinverse A+ is ( AT A)−1AT . Therefore, it corresponds to the minimum L2 norm parameter vector that best approximates the target phase within the Ansatz operator.   
+
+> C. Examples
+> 1. 2-flavor Model
+
+We apply the diagonal operator approximation to the two-flavor Gross–Neveu evolution operator restricted to a fixed fermion-number sector. In the form, the target unitary is diagonal in the computational basis as shown Fig. 5 and can be written as 
+
+Utarget (⃗ ϕ(θg )) = diag  1, 1, 1, e iθ g , 1, e −iθ g , e −iθ g , e −iθ g , 1, e −iθ g , e −iθ g , e −iθ g , e iθ g , e −iθ g , e −iθ g , e −2iθ g  .12 We construct a diagonal Ansatz operator with three variational parameters ⃗x = ( x0, x 1, x 2) of the CP Ansatz as shown in Fig. 6a as follows: 
+
+UAnsatz (⃗θ(x0, x 1, x 2)) = diag 
+
+
+
+1, 1, 1, e ix 0 , 1, 1, e ix 2 , e i(x0+x2), 1, 1, 1, e ix 0 , e ix 1 , e ix 1 , e i(x1+x2), e i(x0+x1+x2)
+
+.
+
+Matching the diagonal phases reduces to a least squares problem, ⃗ θ(⃗x ) = ⃗ ϕ(θg ). This form can be rearranged to the following linear system form after excluding the trivial identities 0 = 0 and 1 = 1: 
+
+
+
+x0 = θg
+
+0 = −θg
+
+x2 = −θg
+
+x0 + x2 = −θg
+
+0 = −θg
+
+0 = −θg
+
+x0 = −θg
+
+x1 = θg
+
+x1 = −θg
+
+x1 + x2 = −θg
+
+x0 + x1 + x2 = −2θ
+
+These equations arise from the phase consistency conditions of the circuit for the 2-flavor case. Collecting the above equations in matrix form yields A⃗ x =⃗ b where A ∈ R11 ×3,⃗ x = ( x0, x 1, x 2)⊤,⃗ b = ( ϕ0, ϕ 1, . . . , ϕ 2n−1)⊤. Explicitly, the matrix, parameter vector, and target phase vector are 
+
+A =
+
+
+
+1 0 00 0 00 0 11 0 10 0 00 0 01 0 00 1 00 1 00 1 11 1 1
+
+
+
+, x =
+
+x0
+
+x1
+
+x2
+
+ , b =
+
+
+
+θ
+
+−θ
+
+−θ
+
+−θ
+
+−θ
+
+−θ
+
+−θθ
+
+−θ
+
+−θ
+
+−2θ
+
+
+
+.
+
+Since the system is overdetermined and not exactly solvable, we determine the optimal parameters in the least-squares sense. The Moore–Penrose pseudoinverse provides the minimum-norm solution ⃗x CP = A+b, 
+
+where the pseudoinverse is defined by A+ = ( AT A)−1AT , provided that AT A is invertible. For the present circuit, the matrix A has dimension 11 × 3, corresponding to the number of computational basis states contributing independent phase constraints. The Moore–Penrose pseudoinverse can be evaluated analytically, yielding 
+
+A+ =
+
+ 
+
+> 13
+
+0 − 1616 0 0 13 0 0 − 1616
+
+0 0 − 16 − 16 0 0 0 13131616
+
+− 16 0 512 14 0 0 − 16 − 16 − 1614112 
+
+ .
+
+Evaluating the expression ⃗x CP = A+b yields ⃗x CP =
+
+
+
+− θg 
+
+> 6
+
+− θg 
+
+> 6
+
+− 13 θg
+
+> 12
+
+T
+
+. (48) Thus, within the diagonal operator approximation, the optimal variational parameters are linear in θg , with a nontrivial redistribution of phase weight among the three generators. When we adopt the RZZ Ansatz of Fig. 6b, we have the following optimized parameters ⃗x Rzz =
+
+
+
+− θg 
+
+> 2
+
+− θg
+
+> 2
+> θg
+> 2
+
+T
+
+. (49) 13 0.0 0.2 0.4 0.6 0.8 1.0 1.2 1.4
+
+## θg
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+> ∥∥∥Utarget (~φ(θg))  − UAnsatz (~θ(~x))
+> ∥∥∥
+> CP RZZ
+
+FIG. 8: Comparison of the theoretical landscapes of the CP and RZZ Ansatze as a function of θg . The black solid curve represents the CP Ansatz (Eq. (50)), while the purple dashed curve corresponds to the RZZ Ansatz (Eq. (51)). Each curve shows the L2 norm between the target unitary Utarget (⃗ ϕ(θg )) and the Ansatz unitary UAnsatz (⃗θ(⃗x)). Finally, the L2 norms between the target and for each Ansatz ( ⃗x CP and ⃗x Rzz ) operator have the following formulas: 
+
+Utarget (⃗ϕ(θg )) − UAnsatz (⃗θ(⃗x CP )) 2
+
+= 22 − 2 cos 
+
+ θg
+
+12 
+
+
+
+− 4 cos 
+
+ θg
+
+4
+
+
+
+(50) 
+
+− 2 cos 
+
+ 7θg
+
+12 
+
+
+
+− 4 cos 
+
+ 5θg
+
+6
+
+
+
+− 6 cos( θg ) − 4 cos 
+
+ 7θg
+
+6
+
+
+
+Utarget (⃗ϕ(θg )) − UAnsatz (⃗θ(⃗x Rzz )) 2
+
+= 32 −4 cos( θg
+
+4 )−2 cos( 3θg
+
+8 )−4 cos( 5θg
+
+8 )−4 cos θg −4 cos( 5θg
+
+4 ) (51) 
+
+−4 cos( 11 θg
+
+8 )−4 cos( 15 θg
+
+8 )−4 cos( 9θg
+
+4 )−2 cos( 29 θg
+
+8 ).
+
+Note that both Utarget (⃗ ϕ(θg )) − UAnsatz (⃗θ(⃗x Rzz )) and Utarget (⃗ϕ(θg )) − UAnsatz (⃗ θ(⃗x Rzz )) converge to zero when 
+
+θg approaches zero. The Utarget (⃗ ϕ(θg )) − UAnsatz (⃗θ(⃗x)) with respect to θg ([0 , π/ 2]) is plotted in Fig. 8 which plots Eq. (50) and (50) with respect to θg . Figure 8 also shows that the norms ( Utarget (⃗ϕ(θg )) − UAnsatz (⃗ θ(⃗x CP )) and 
+
+Utarget (⃗ϕ(θg )) − UAnsatz (⃗ θ(⃗x Rzz )) ) converge to zero as θg approaches zero. Based on Eq. (48) and (49), we have the quantum circuit for the diagonal parts in the quartic term as described in Fig. 9. The Ansatz parameters in Fig. 6 are replaced by the values of Eq. (48) and (49), respectively. 
+
+2. 3-flavor Model 
+
+We apply the diagonal operator approximation to the three-flavor Gross–Neveu evolution operator restricted to a fixed fermion-number sector. In the form, the target unitary operator and the Ansatz unitary operators are visualized in Fig. 10 and 11, respectively. 14 
+
+q0 •
+
+P (− θg 
+
+> 6
+
+)
+
+q1 • •
+
+P (− 13 θg 
+
+> 12
+
+)
+
+q2 •
+
+P (− θg 
+
+> 6
+
+)
+
+•
+
+q3 •
+
+(a) CP-based approximation 
+
+q0 •
+
+RZZ (− θg 
+
+> 2
+
+)
+
+q1 • •
+
+RZZ ( θg 
+
+> 2
+
+)
+
+q2 •
+
+RZZ (− θg 
+
+> 2
+
+)
+
+•
+
+q3 •
+
+(b) RZZ-based approximation FIG. 9: The diagonal part approximation of the quartic part of the 2-flavor implementation. 
+
+q2n, 0 : •
+
+P (θg )
+
+•
+
+P (θg )
+
+× •
+
+P (−θg )
+
+× × ×
+
+q2n, 1 : • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × 
+
+q2n, 2 : •
+
+P (−θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × 
+
+q2n+1 ,0 : • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × 
+
+q2n+1 ,1 : •
+
+P (θg )
+
+• × • 
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × 
+
+q2n+2 : • • × • × × ×
+
+FIG. 10: Target circuit for the diagonal operator approximation of the 3-flavor model. The circuit is constructed from CP gates for the two-flavor Gross–Neveu model. The CP and SWAP layer parts of the quartic term of the 3 flavors. The one-qubit phase gates are removed from Fig. 3. 
+
+q0 •
+
+P (x0)
+
+q1 • •
+
+P (x3)
+
+q2 •
+
+P (x1)
+
+•
+
+q3 • •
+
+P (x4)
+
+q4 •
+
+P (x2)
+
+•
+
+q5 •
+
+(a) Ansatz circuit (CP gates) 
+
+q0 •
+
+RZZ (x0)
+
+q1 • •
+
+RZZ (x3)
+
+q2 •
+
+RZZ (x1)
+
+•
+
+q3 • •
+
+RZZ (x4)
+
+q4 •
+
+RZZ (x2)
+
+•
+
+q5 •
+
+(b) Ansatz circuit (RZZ gates) FIG. 11: Comparison of the two 6-qubit circuits. (a) CP-based Ansatz circuit obtained by applying the Diagonal Operator Approximation to approximate the target circuit. (b) RZZ-based Ansatz circuit obtained by applying the Diagonal Operator Approximation to approximate the target circuit. In the same manner as in the two-flavor case, the formulae for the parameters of ⃗x CP and ⃗x Rzz are obtained as follows: ⃗x CP =
+
+
+
+− 11 θg 
+
+> 19
+
+− 24 θg 
+
+> 19
+
+− 11 θg
+
+> 19
+> θg
+> 19
+> θg
+> 19
+
+T
+
+. (52) ⃗x Rzz =
+
+
+
+− θg 
+
+> 2
+> θg
+> 2
+
+− θg 
+
+> 2
+
+− θg 
+
+> 2
+
+− θg
+
+> 2
+
+T
+
+. (53) 15 
+
+3. 4-flavor Model 
+
+In this example, we apply the diagonal operator approximation to the four-flavor Gross–Neveu evolution operator restricted to a fixed fermion-number sector. In the form, the target unitary operator and the Ansatz unitary operators are visualized in Fig. 12 and 13, respectively. 
+
+q2n, 0 : •
+
+P (θg )
+
+•
+
+P (θg )
+
+× •
+
+P (−θg )
+
+× •
+
+P (θg )
+
+× × × ×
+
+q2n, 1 : • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× × × × × × 
+
+q2n, 2 : •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × × × 
+
+q2n, 3 : • •
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× × × × × × 
+
+q2n+1 ,0 : •
+
+P (θg )
+
+• × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × × × × × × 
+
+q2n+1 ,1 : • •
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× × × × × × 
+
+q2n+1 ,2 : •
+
+P (θg )
+
+• × • 
+
+P (θg )
+
+× • × • 
+
+P (−θg )
+
+× • × • 
+
+P (θg )
+
+× • × × × × × × 
+
+q2n+1 ,3 : • • × • × • × × × ×
+
+FIG. 12: Target circuit for the diagonal operator approximation of the 4-flavor model. The circuit is constructed from CP gates for the two-flavor Gross–Neveu model. The CP and SWAP layer parts of the quartic term of the 4 flavors. The one-qubit phase gates are removed from Fig. 4. 
+
+q0 •
+
+P (x0)
+
+q1 • •
+
+P (x4)
+
+q2 •
+
+P (x1)
+
+•
+
+q3 • •
+
+P (x5)
+
+q4 •
+
+P (x2)
+
+•
+
+q5 • •
+
+P (x6)
+
+q6 •
+
+P (x3)
+
+•
+
+q7 •
+
+(a) Ansatz circuit (CP gates) 
+
+q0 •
+
+RZZ (x0)
+
+q1 • •
+
+RZZ (x4)
+
+q2 •
+
+RZZ (x1)
+
+•
+
+q3 • •
+
+RZZ (x5)
+
+q4 •
+
+RZZ (x2)
+
+•
+
+q5 • •
+
+RZZ (x6)
+
+q6 •
+
+RZZ (x3)
+
+•
+
+q7 •
+
+(b) Ansatz circuit (RZZ gates) FIG. 13: Comparison of the two 8-qubit circuits. (a) CP-based Ansatz circuit obtained by applying the Diagonal Operator Approximation to approximate the target circuit. (b) RZZ-based Ansatz circuit obtained by applying the Diagonal Operator Approximation to approximate the target circuit. In the same manner as in the two-flavor and three-flavor cases, the formulae for the parameters of ⃗x CP and ⃗x Rzz are obtained as follows: ⃗x CP =
+
+
+
+− 55 θg 
+
+> 118
+
+− 3θg 
+
+> 59
+
+− 3θg 
+
+> 59
+
+− 55 θg 
+
+> 118
+
+− 26 θg 
+
+> 59
+
+− 147 θg 
+
+> 118
+
+− 26 θg
+
+> 59
+
+T
+
+. (54) ⃗x Rzz =
+
+
+
+− θg 
+
+> 2
+
+− θg 
+
+> 2
+
+− θg 
+
+> 2
+
+− θg 
+
+> 2
+
+− θg 
+
+> 2
+> θg
+> 2
+
+− θg
+
+> 2
+
+T
+
+. (55) 16  
+
+> D. Summary
+
+In summary, we have developed the Localized Diagonal Operator Approximation (LDOA) to circumvent the substantial gate overhead—specifically the 4( N − 1) SWAP layers—required for multi-flavor quartic term interactions. By exploiting the diagonal nature of the target unitary, we demonstrated that complex long-distance interactions can be effectively compressed into a hardware-efficient Ansatz. This formulation is not restricted to the specific model considered here, but extends more broadly to diagonal quantum operators with long-range structure, independent of the underlying physical model, and is particularly well suited for implementation on quantum hardware with limited connectivity, such as superconducting architectures. We proved the convergence of our LDOA method. Also, our numerical results of two-, three-, and four-flavor confirm that optimizing the parameters of the Ansatz circuits yields a high-fidelity approximation. This approach significantly reduces the circuit depth while maintaining the essential diagonal dynamics, providing a scalable pathway for simulating large N -flavor systems on near-term quantum hardware.  
+
+> V. TROTTERIZATION CIRCUITS ON IBM QUANTUM COMPUTERS
+
+To rigorously validate the accuracy and scalability of our diagonal operator approximation on physical superconducting quantum processors, it is imperative to benchmark the measurements from quantum devices against robust classical numerical methods. Because the dimensionality of the Hilbert space grows exponentially with the number of qubits, relying solely on exact classical diagonalization becomes unfeasible for larger systems. Therefore, our analysis is divided into two regimes: a moderately sized 20-qubit system where exact classical solutions are accessible, and a large-scale 108-qubit system that necessitates Tensor Network-based techniques for classical benchmarking. Throughout these experiments, we focus on the time evolution of the expectation value of the density-density correlator as defined in Eq. (26) within the two-flavor Gross–Neveu model, comparing our proposed CP and RZZ approximation with classical benchmarks. We implement the first-order Trotterization for the time evolution and the quantum error mitigation (QEM) methods detailed in Appendix A to mitigate the influence of inherent quantum hardware imperfections, as well as hardware-efficient quantum circuit implementation methods [31, 40]. Within our quantum circuit implementation and subsequent experimental validation, the Localized Diagonal Operator Approximation (LDOA) plays a pivotal role in ensuring robust agreement with classical benchmarks. The primary challenge arises from the quartic terms associated with the 2, 3, and 4-flavor systems, which necessitate long-distance interactions extending beyond the next-nearest neighbor. In our baseline circuit design, these long-range dependencies were addressed through the systematic insertion of SWAP gates. However, this approach scales linearly with the system size, requiring 4( N − 1) SWAP-gate layers for an N -flavor system, which significantly increases circuit depth and susceptibility to decoherence. Since these quartic terms are fundamentally composed of a complex interplay between single-qubit phase gates, two-qubit controlled phase gates, and SWAP operations, the LDOA is introduced as a strategic approximation. By streamlining these interactions, the LDOA effectively mitigates the computational overhead of the quartic terms, enabling more precise execution on near-term quantum hardware. The diagonal operation parts in the quartic term (refer to Fig. 2) are approximated by the circuits in Fig. 9 by the LDOA.                                                        
+
+> L= 10 sites ( N= 20 qubits) L= 54 sites ( N= 108 qubits) Trotter Steps Circuit depth CZ depth No. of CZ Circuit depth CZ depth No. of CZ 1109 34 240 109 34 1340 2205 61 450 205 61 2518 3301 88 660 301 88 3696 4397 115 870 397 115 4874 5493 142 1080 493 142 6052 6589 169 1290 589 169 7230 7685 196 1500 685 196 8408 8781 223 1710 781 223 9586
+
+TABLE I: Circuit Statistics WITHOUT the LDOA (circuit in Fig. 5). The circuit depth, CZ depth, and number of CZ gates with number of Trotter steps for the two flavor L = 10 sites ( N = 20 qubits) and L = 54 sites ( N = 108 qubits) on ibm boston after transpilation in Qiskit. The comparative resource requirements for our quantum circuit implementations are detailed in Table I, which covers the initial SWAP-based design, and Table II, which outlines the Localized Diagonal Operator Approximation 17 
+
+L = 10 sites ( N = 20 qubits) L = 54 sites ( N = 108 qubits) Trotter Steps Circuit depth CZ depth No. of CZ Circuit depth CZ depth No. of CZ 1 62 18 120 62 18 692 2 115 33 230 116 33 1330 3 169 48 340 170 48 1968 4 223 63 450 224 63 2606 5 277 78 560 278 78 3244 6 331 93 670 332 93 3882 7 385 108 780 368 108 4520 8 439 123 890 440 123 5158 
+
+TABLE II: Circuit Statistics WITH the LDOA (RZZ Ansztz, circuit in Fig. 6b). The circuit depth, CZ depth, and number of CZ gates with number of Trotter steps for the two flavor L = 10 sites ( N = 20 qubits) and L = 54 sites (N = 108 qubits) on ibm boston after transpilation in Qiskit. 0 50 100 150 200       
+
+> CZ Depth
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> Trotter Steps
+> Original
+> LDOA
+> (a) CZ Depth of 108-qubit system 02000 4000 6000 8000 10000
+> Number of CZ gates
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> 8
+> Trotter Steps
+> Original
+> LDOA (b) Number of CZ gates of 108-qubit system
+
+FIG. 14: Comparison of CZ gate depth and CZ gate count between the original circuit and the LDOA-optimized circuit. Fig. 14a shows the CZ gate depth as a function of Trotter steps, while Fig. 14b shows the corresponding total number of CZ gates. (LDOA) approach. These tables provide a comprehensive breakdown of total circuit depth, CZ depth, and the absolute CZ gate count. To further illustrate these metrics, Fig. 14 provides a visual comparison of the CZ depth and gate count for the 108-qubit system (corresponding to a 2-flavor configuration with 54 sites). A cross-examination of the data in Table I and Table II reveals a strong alignment with the trends visualized in Fig. 14. In both instances, the LDOA implementation demonstrates a consistent and substantial reduction in both CZ depth and total gate count relative to the original SWAP-based construction. This trend remains robust across varying system sizes; for example, the 20-qubit system exhibits qualitatively identical behavior to the 108-qubit case. For the sake of conciseness and clarity in our presentation, we have focused our visual analysis in Fig. 14 on the 108-qubit results. Furthermore, Fig. 14a highlights that the LDOA-enhanced circuit maintains a consistently lower CZ depth throughout all Trotter steps. This suggests that the advantages of LDOA are twofold: it not only diminishes the raw number of gates but also enables a more optimized spatial arrangement of two-qubit operations. This is corroborated by Fig. 14b, which shows a dramatic reduction in the total CZ gate count—specifically, the LDOA circuit requires approximately half the number of CZ gates compared to the original design across the entire simulation range. Collectively, these findings underscore the efficacy of the LDOA approach in compressing quantum resources and facilitating a hardware-efficient implementation that remains faithful to the underlying physical simulation. 18 0.0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0                         
+
+> time, t(¯ h/E )
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> 1.0
+> 〈ψ(t)| ˆCdensity (L/ 2 − 2, L/ 2) |ψ(t)〉
+> L= 10 sites, N= 2 flavors, Nqubits = 20
+> Exact Qiskit (CP)
+> ibm_boston (CP, 2 σ)
+> (a) CP Approxiamtion 0.00.51.01.52.02.53.03.54.0
+> time, t(¯ h/E )
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> 1.0
+> 〈ψ(t)| ˆCdensity (L/ 2 − 2, L/ 2) |ψ(t)〉
+> L= 10 sites, N= 2 flavors, Nqubits = 20
+> Exact Qiskit (RZZ)
+> ibm_boston (RZZ, 2 σ)(b) RZZ Approximation
+
+FIG. 15: The time evolution of the density-density correlation in the two-flavor Gross-Neveu model with L = 10 sites with lattice spacing a = 1 and quartic coupling g = 0 .5. The left figure shows the results for the LDOA-implemented Trotterization circuit using the CP approximation with the QuSpin exact results (black solid lines), the noiseless Qiskit simulation (blue markers), and the experimental values from ibm boston (red markers) with 2 σ uncertainty. The right figure shows the same using the RZZ approximation with the exact results (black solid line), noiseless Qiskit simulation (green markers), and experimental values (purple markers) from ibm boston .
+
+VI. EXPERIMENTAL RESULTS 
+
+Here, we present the experimental results of the real-time dynamics in the lattice Gross-Neveu model from IBM quantum computers in the case of N = 2. We benchmark the accuracy of our experimental results using a classical exact method for the small system size ( Nqubits = 20) and a classical approximation method based on Matrix product state (MPS) and time-dependent variational principle (TDVP) for the large-scale system ( Nqubits = 108). As our main goal is to validate the Trotterization circuit and its Localized Diagonal Operator Approximation (LDOA) presented in sections III and IV, we only consider single values of the lattice spacing as a = 1 and the quartic coupling as g = 0 .5for simplicity. 
+
+A. Two flavors with L = 10 sites (20 qubits) 
+
+We consider the expectation value of the density-density correlator, in other words the density-density correlation as outlined in Eq. (26) for the time-evolved state |ψ(t)⟩ for a system with two flavors and a lattice of size L = 10, which corresponds to Nqubits = 20. At this scale, the exact classical simulations remain feasible, enabling us to validate our Trotterization circuit design and its Localized Diagonal Operator Approximation (LDOA). Moreover, we can separate the Trotter error and the LDOA approximation errors from the hardware noise while working with a small system size. We choose the initial state to be the product state |ψ0⟩ = |10011001100110011100 ⟩, which is not an eigenstate of the lattice Gross-Neveu Hamiltonian, so that it will have non-trivial time evolution. As depicted in Fig. 15, the results show an excellent agreement between the exact calculations of the density-density correlation for representative sites L/ 2 and L/ 2 − 2, ⟨ψ(t)| ˆCdensity (L/ 2 − 2, L/ 2) |ψ(t)⟩, performed using QuSpin [ 41 ], and the noiseless simulation of LDOA-implemented Trotterized circuits in Qiskit [ 42 ], for a simulation time up to t = 4, measured in units of 
+
+ℏ/E , where E denotes the intrinsic energy scale of the lattice Gross-Neveu Hamiltonian. Additionally, the averaged density-density correlation obtained from five experimental runs at the ibm boston aligns well with both the exact results and the noiseless Qiskit simulations within 2 σ of the statistical uncertainty. 
+
+B. Two flavors with L = 54 sites (108 qubits) 
+
+Now that we have established the reliability of our LDOA-implemented Trotterization circuits on a 20-qubit system, we extend our demonstration to a system of larger lattice sites L = 54 with two flavors, involving Nqubits = 108. 19 0.0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0                         
+
+> time, t(¯ h/E )
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> 1.0
+> 〈ψ(t)| ˆCdensity (L/ 2 − 2, L/ 2) |ψ(t)〉
+> L= 54 sites, N= 2 flavors, Nqubits = 108
+> MPS-TDVP (108 qubits)
+> ibm_boston (CP, 2 σ)
+> (a) CP Approxiamtion 0.00.51.01.52.02.53.03.54.0
+> time, t(¯ h/E )
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> 1.0
+> 〈ψ(t)| ˆCdensity (L/ 2 − 2, L/ 2) |ψ(t)〉
+> L= 54 sites, N= 2 flavors, Nqubits = 108
+> MPS-TDVP (108 qubits)
+> ibm_boston (RZZ, 2 σ)(b) RZZ Approximation
+
+FIG. 16: The time evolution of the density-density correlation in the two-flavor Gross-Neveu model with L = 54 sites (Nqubits = 108 qubits) for a = 1 and g = 0 .5 with the MPS-TDVP results (black solid lines), and the experimental values (with 2 σ uncertainties) from ibm boston for the LDOA-implemented Trotterization circuit using the CP approximation (red points in the left figure), and RZZ approximation (purple points in the right figure), respectively. Simulating such system with more than hundred qubits using the exact method becomes intractable due to the exponential increase of the dimensionality of the corresponding Hilbert space of the system. Therefore, we have chosen the MPS-based time evolution method as our classical verifier for experimental results from IBM quantum computers involving 108 qubits. The Matrix Product State (MPS) is a mathematical structure consisting of a one-dimensional array of tensors, where each tensor represents a site or particle in a many-body system. The tensors are interconnected by bond indices, which can hold up to χ values as the bond dimension. The open indices of the tensors are linked to the physical degrees of freedom of the local Hilbert space associated with a particular fermionic site, taking up to d values, which for the lattice Gross-Neveu model is d = dim H defined in Eq. 16. Although the MPS can encapsulate any quantum state of the many-body system, the bond dimension χ must increase exponentially with the system size to adequately represent all states in the Hilbert space. The time evolution of the MPS is determined using the time-dependent variational principle (TDVP) [ 43 , 44 ], which is referred here as the MPS-TDVP approach, and is implemented using ITensor [ 45 , 46 ]. In the MPS-TDVP, we restrict the time evolution of the MPS to a particular tangent space, specified by bond dimensions, to the manifold of matrix product states. In other words, it projects the Hamiltonian’s action on the MPS onto the MPS’s tangent space, and then solves the time-dependent Schr¨ odinger equation exclusively within that space. We simulate up to t = 4 with TDVP step-size δTDVP = 0 .25 and Nsteps = 16 steps. Besides, we set the cutoff ϵ = 10 −8 and the maximum bond dimension χmax = 1200 throughout the MPS-TDVP computation. In Figure 16, we present the results of LDOA-implemented Trotterization circuits involving CP approximation (Fig. 16(a)) and RZZ approximation (Fig. 16(b)) for the system size of 108 qubits. The initial state is again taken as 
+
+|ψ0⟩ = |10011001 ... 1001 ... 10011100 ⟩, where ‘1001’ is repeated 26 times from the left and has ‘1100’ at the rightmost positions. We can see that the temporal variation of the averaged density-density correlation, ⟨ψ(t)| ˆCdensity (L/ 2 −
+
+2, L/ 2) |ψ(t)⟩ determined by ibm boston in both cases, agrees well with the corresponding values obtained by the MPS-TDVP computation. Finally, we would like to highlight that the LDOA implementation in our scalable Trotterization circuits enabled us to perform a large-scale quantum simulation of the lattice Gross-Neveu model, with a time limit set solely by the total coherence time of the IBM device. 
+
+VII. ENTANGLEMENT DYNAMICS IN THE GROSS-NEVEU MODEL 
+
+Now that we have validated the Trotterization circuits for the quantum simulation of the Gross-Neveu model on IBM quantum computers across different system sizes, as presented in section VI. Therefore, by utilizing our Trotterization circuits, we can also probe the dynamics of entanglement entropy in the Gross-Neveu model under time evolution using IBM quantum computers. Entanglement entropy is a vital diagnostic tool in quantum systems, providing important insights into the system’s fundamental quantum structure and its nonlocal correlations [ 47 ]. If the 20 
+
+q0 :Trotter Steps 
+
+SU (2) 
+
+q1 : SU (2) ... ... ...
+
+qLqubits −1 : SU (2) 
+
+qLqubits :... ... ...
+
+qNqubits −2 :
+
+qNqubits −1 :
+
+FIG. 17: The quantum circuit associated with the randomized measurement (RM) protocol. Here, the local Haar-random unitaries are applied on the subsystem A whose R´ enyi entropy is being measured. Jordan-Wigner-transformed lattice Gross-Neveu model with total number of qubits given by Nqubits , is in a pure state 
+
+|ψ⟩ with density matrix ρ = |ψ⟩⟨ ψ|, we partition the system into two subsystems: A (with number of qubits given by 
+
+Lqubits ) and B (with Mqubits = Nqubits − Lqubits ). Now, the R´ enyi entropy of order n associated with subsystem A is defined as: 
+
+S(n) 
+
+> A
+
+= 11 − n log [Tr( ρnA)] , (56) where ρA = Tr B (ρ) is the reduced density matrix obtained by tracing out subsystem B. In this study, we only focus on measuring the second-order R´ enyi entropy ( S(2)  
+
+> A
+
+). Besides, when n → 1, the R´ enyi entropy converges to the von Neumann entropy: 
+
+SvN A = −Tr ( ρA log ρA) . (57) Despite its theoretical significance, measuring entanglement entropy on current quantum hardware remains challenging. Although Quantum State Tomography (QST) provides a method for reconstructing the density matrix ρ of a quantum system and thus the entanglement entropy, its applicability is limited to very small systems due to the exponential increase in the number of required measurements as the system size grows. To overcome this limitation, we adopt a more pragmatic method for the near-term quantum hardware, namely the randomized measurement protocol. 
+
+A. Randomized Measurement Protocol 
+
+The Randomized Measurement (RM) protocol [ 48 –54 ] estimates R´ enyi entropy through statistical correlations of measurement outcomes in randomly sampled bases. As illustrated in the schematic circuit in Fig. 17, the process involves several key stages. First, the highly entangled state ρ is prepared via Trotterized time evolution of the initial product state |ψ0⟩. Then we apply a product of single-qubit random unitaries on subsystem A: ˆUa = U (2) 1 ⊗ U (2) 2 ⊗ · · · ⊗ U (2)  
+
+> Lqubits
+
+, (58) where each U (2)  
+
+> i
+
+is independently sampled from the Circular Unitary Ensemble (CUE) of SU (2). Following the application of ˆUa, we measure the qubits in the computational basis ( Z-basis). For each ˆUa, one conducts repeated measurements to obtain the statistics for estimating the occupation probabilities, P ˆUa (sA) = Tr [ ˆUaρ ˆU † 
+
+> a
+
+|sA⟩⟨ sA|] of computational basis states |sA⟩ = |s1, s 2, ..., s Lqubits ⟩ with si = 0 , 1. Afterward, the entire process is repeated for 
+
+NU different randomly drawn instances of ˆUa. After determining the set of outcome probabilities P ˆUa (sA) of the computational basis states |sA⟩ for one instance of random unitaries, ˆUa, one computes the following quantity, 
+
+Xa = 2 Lqubits 
+
+X
+
+> sA,s′
+> A
+
+(−2) −D[sA,s′
+
+> A]
+
+P ˆUa (sA)P ˆUa (s′
+
+> A
+
+) , (59) 21 where D[sA, s′
+
+> A
+
+] is the Hamming distance between Lqubits -long bitstrings sA and s′
+
+> A
+
+, i. e., D[sA, s′
+
+> A
+
+] ≡ #{i ∈ A|si̸ = s′
+
+> i
+
+}.Consequently the ensemble average of Xa, denoted by X,
+
+X = 1
+
+NUNUX
+
+> a=1
+
+Xa , (60) is the second-order cross-correlations across the ensemble of discrete NU random unitaries ˆUa, and provides the estimation of the purity Tr( ρ2
+
+> A
+
+) associated with the subsystem A. Finally, the R´ enyi entropy is 
+
+S(2)  
+
+> A
+
+= −log X (61)  
+
+> B. Experimental Results
+
+We focus on the two-flavor lattice Gross-Neveu model with system size Nqubits = 20 and the left half-length subsystem of it as the subsystem A with Lqubits = 10. Now, a primary challenge of the RM protocol is its reliance on an ensemble of local random unitaries to reduce the variance of entropy estimation. This requirement significantly increases the total circuit count when combined with error mitigation techniques such as Pauli Twirling (PT) and Zero-Noise Extrapolation (ZNE). In our implementation on IBM devices, we utilize 60 distinct RM circuit instances. Incorporating ZNE (using three scale factors: 1 , 3, and 5) and PT (with 10 pair-sampling instances) multiplies the workload accordingly. Consequently, the experiment requires a total of 1 , 800 circuits (60 ×3×10) for each entanglement measurement. Therefore, to maximize throughput on the IBMQ system, we utilize Quantum Multi-Programming (QMP) for parallel circuit execution, which allows for the concurrent processing of multiple quantum circuits, regardless of their specific architecture or depth. This technique has proven effective across diverse quantum applications, such as Grover’s search, quantum amplitude estimation, the quantum support vector machine, and R´ enyi entropy measurements [ 55 – 60 ]. While QMP enhances the execution efficiency, it introduces challenges such as inter-circuit crosstalk. To mitigate these effects, we follow the strategy proposed in Ref. [ 55 , 61 ], where we parallelize two circuits per QMP package, separated by a single idle physical qubit to suppress crosstalk on IBM quantum hardware. Consequently, the complete set of 1,800 circuits is executed via 900 parallelized pairs. Upon completion of the QMP execution, both circuits in each pair are measured simultaneously. We then post-process the resulting measurement outcomes according to the methodology detailed in Section C in the Supplemental Material of Ref. [57]. The entanglement entropy measurement results are presented in Fig. 18, where we can see that the dynamics of the second R´ enyi entropy S(2)  
+
+> A
+
+of the subsystem A computed using Qiskit Statevector simulation with the optimized second-order Trotterization circuits given in Eq. (41) agrees well with the exact values. As the large ensemble of circuit executions, even with the QMP, requires substantial QPU resources, we focus only on time t = 4. At t = 4 .0, the 
+
+S(2)  
+
+> A
+
+values from the exact computation, Qiskit Statevector simulation, noiseless Qiskit RM Protocol simulation, and 
+
+ibm boston are 3 .3359, 3 .3659, 3 .1989, and 3 .2533, respectively. We use the same circuit ensemble from the noiseless Qiskit simulation of the RM protocol in ibm boston . Here, we see that the Qiskit Statevector simulation exhibits a 0 .90% relative error compared to the exact baseline. In contrast, the Qiskit RM Protocol shows a 4 .96% relative error compared to the Statevector result. Notably, the ibm boston hardware data deviates by only 1 .70% from the Qiskit RM Protocol simulation after mitigating hardware-induced noise using the techniques described in Appendix A. These findings indicate that the entanglement entropy measured on the quantum hardware is in close agreement with noiseless classical benchmarks. 22 0 1 2 3 4 5
+
+time, t (¯ h/E )
+
+> 0
+> 1
+> 2
+> 3
+> 4
+> Second R´ enyi entropy,  S(2)
+> A
+> Exact Qiskit (statevector) Qiskit (RP)
+> ibm_boston
+
+FIG. 18: The second R´ enyi entropy, S(2)  
+
+> A
+
+of the subsystem A (left half-chain) with Lqubits = 10 in two-flavor lattice Gross-Neveu system with total Nqubits = 20. Here, the exact computation (black solid line) and Qiskit statevector simulation using optimized second-order Trotterization circuits (blue markers) agree well. At t = 4, we see further agreement with the noiseless Qiskit simulation (green marker) and the real ibm boston (red marker) for the RM protocol, with the exact and statevector simulation results.  
+
+> VIII. CONCLUSION AND OUTLOOK
+
+In this work, we have presented a comprehensive framework for simulating the real-time dynamics of the multi-flavor Gross–Neveu model on superconducting quantum computers at the utility scale. By combining scalable Trotterization strategies with hardware-aware circuit design, we demonstrated that it is possible to efficiently implement time evolution of an interacting quantum field theory on systems exceeding one hundred qubits. Our construction ensures that the circuit depth per Trotter step scales primarily with the number of fermion flavors rather than the total system size, making it well-suited for near-term quantum devices with limited qubit connectivity. A central contribution of this work is the development of the Localized Diagonal Operator Approximation (LDOA), which significantly reduces the overhead associated with long-range quartic interactions. By reformulating diagonal unitary synthesis as a structured least-squares problem, we derived compact diagonal circuits that approximate the target quartic circuit with high fidelity while substantially lowering circuit depth and two-qubit gate counts. This improvement is critical for mitigating decoherence and enhancing the feasibility of large-scale simulations on current quantum hardware having limited qubit connectivity. Importantly, the LDOA framework is not restricted to the specific Gross-Neveu model considered here, but is generally applicable to diagonal quantum operators with long-distance interactions. Its practical relevance is particularly significant for quantum hardware with limited connectivity, such as superconducting architectures, where nonlocal interactions must be compiled into local gate sets. In contrast, for all-to-all connected architectures, such approximations are not necessary. We validated our approach through implementations on IBM superconducting quantum processors, benchmarking the results against classical methods including exact diagonalization and tensor network simulations. The observed agreement in key physical observables, such as the density-density correlation, confirms the reliability of our method in capturing nontrivial real-time dynamics. Furthermore, our simulations provide insight into quantum information spreading and entanglement growth in the Gross–Neveu model, highlighting the potential of quantum computers to explore regimes inaccessible to classical techniques. Overall, this work establishes a scalable and experimentally validated pathway toward quantum simulation of interacting fermionic quantum field theories. Our results underscore the growing capability of near-term quantum devices to address classically intractable problems and pave the way for future studies of dynamical symmetry breaking, nonequilibrium phenomena, and strongly correlated systems in high-energy and condensed matter physics. Additionally, extending this framework to more complex quantum field theories, higher dimensions, and gauge theories represents an important direction for future research. 23 
+
+> ACKNOWLEDGMENT
+
+K.Y. is supported by the Brookhaven National Laboratory LDRD 24-061, 25-033, and the U.S. Department of Energy, Office of Science, Grants No. DE-SC0012704. K.K. is supported in part by US DOE DE-SC0024673. This research used quantum computing resources of the Oak Ridge Leadership Computing Facility, which is a DOE Office of Science User Facility supported under Contract DE-AC05-00OR22725. This research used resources of the National Energy Research Scientific Computing Center (NERSC), a Department of Energy Office of Science User Facility under Contract No. DE-AC02-05CH11231 using NERSC award DDR-ERCAP0037352 and DDR-ERCAP0037323. 
+
+> Appendix A: Quantum Error Mitigation
+
+A significant bottleneck in executing quantum algorithms on contemporary hardware, such as IBM Quantum processors, is the ubiquity of noise and operational errors. While quantum error correction (QEC) has been developed to address these limitations, it remains impractical for large-scale problems on current noisy quantum devices. Implementing QEC requires a substantial qubit overhead that exceeds the capacity of modern systems, even when considering recent optimizations [62, 63]. Conversely, quantum error mitigation (QEM) operates within the constraints of noisy, near-term devices by utilizing pre- and post-processing or circuit-level modifications to minimize noise-induced bias. Unlike the heavy overhead associated with QEC, QEM is highly compatible with current hardware due to its minimal qubit requirements. A wide array of QEM strategies—from zero-noise extrapolation to symmetry-based verification—has been successfully validated in recent experimental benchmarks [ 31 , 32 , 60 , 64 –66 ]. To mitigate the influence of inherent hardware imperfections in our experiments, we employ an integrated suite of four complementary techniques: Twirled Readout Error Extinction (TREX) for measurement error mitigation, Dynamical Decoupling (DD) to suppress decoherence during idle times, Pauli Twirling (PT) to stochasticize coherent errors, and Zero-Noise Extrapolation (ZNE) to approximate noiseless expectation values. Each methodology is detailed in the subsequent sections. Twirled Readout Error Extinction (TREX) provides a robust framework for mitigating measurement errors without requiring a detailed noise model [ 67 ]. The protocol involves applying random Pauli-X gates to selected qubits immediately prior to measurement, with a corresponding bit-flip applied to the classical output. While redundant in an ideal noise-free environment, this process ”twirls” complex, state-dependent readout noise into a uniform, stochastic scaling factor. This simplification effectively decouples individual qubit errors, making them significantly easier to correct. Although TREX is less effective at mitigating strongly correlated multi-qubit errors, its model-independent nature makes it a highly resilient solution for modern hardware. For our experiments, we utilize 10 samples for the TREX process. Dynamical Decoupling (DD) is a well-established technique for suppressing decoherence and crosstalk, particularly noise arising from interactions with spectator qubits. By applying periodic sequences of high-frequency control pulses, DD averages out system-environment couplings, effectively neutralizing their impact on the system’s error dynamics [68 ]. In practice, this involves applying single-qubit rotations to idle qubits to toggle their basis, thereby extending the effective coherence time of the circuit. The utility of DD has been extensively validated across various experimental platforms [ 64 – 66 , 69 , 70 ]. In our implementation, we insert a ( t/ 4, X, t/ 2, X, t/ 4) sequence into every idling period, where X denotes an XGate and t represents the total idling duration excluding the execution time of the two XGate 
+
+pulses. Pauli Twirling (PT) is a technique designed to transform structured, coherent errors into stochastic Pauli noise. By scrambling coherent interactions through an ensemble of operations, PT eliminates the off-diagonal elements of the error channel in the Pauli basis {I, σ x, σ y , σ z }, resulting in a simplified noise model that is more amenable to mitigation [ 71 – 73 ]. In practice, PT involves conjugating a Clifford gate with Pauli operators such that the overall operation remains algebraically equivalent to the original gate. This approach has been successfully validated in several recent studies [ 31 , 58 , 59 , 64 , 65 ]. We specifically apply PT to the CZ gates in our circuits. To do so, we consider the 256 possible combinations (4 4) of Pauli gates surrounding the two-qubit gate. For each implementation, we generate ten distinct circuit instances, each utilizing a randomly sampled Pauli-twirling sequence from the set of mathematically equivalent configurations. Zero-Noise Extrapolation (ZNE) is an error mitigation strategy that approximates noise-free expectation values by extrapolating data from measurements taken at systematically scaled noise levels [ 74 –76 ]. In our implementation, we utilize local unitary gate folding [ 76 ] specifically for two-qubit CZ gates, as their error rates are empirically an order of magnitude higher than those of single-qubit gates. We achieve noise amplification by folding the CZ operations with scaling factors of 1 (noiseless baseline), 3 (single fold), and 5 (double fold), thereby increasing the effective noise while preserving the circuit’s logical identity. While ZNE assumes that noise can be controlled and amplified linearly or polynomially, real-world quantum noise is often non-Markovian or time-dependent. Such instabilities can lead to 24 unpredictable circuit outputs, potentially rendering the extrapolation unreliable. Furthermore, while fitting curves derived from small-scale systems can theoretically be extended to larger systems, this assumption of noise-model consistency often breaks down as the qubit count increases. 
+
+[1] R. J. Lewis-Swan, A. Safavi-Naini, A. M. Kaufman, and A. M. Rey, Dynamics of quantum information, Nature Reviews Physics 1, 627 (2019), arXiv:1908.11747 [quant-ph]. [2] I. M. Georgescu, S. Ashhab, and F. Nori, Quantum Simulation, Rev. Mod. Phys. 86 , 153 (2014), arXiv:1308.6253 [quant-ph]. [3] A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pearson, M. Troyer, and P. Zoller, Practical quantum advantage in quantum simulation, Nature 607 , 667 (2022). [4] T. Byrnes and Y. Yamamoto, Simulating lattice gauge theories on a quantum computer, Phys. Rev. A 73 , 022328 (2006), arXiv:quant-ph/0510027 [quant-ph]. [5] S. P. Jordan, K. S. M. Lee, and J. Preskill, Quantum Algorithms for Quantum Field Theories, Science 336 , 1130 (2012), arXiv:1111.3633 [quant-ph]. [6] S. P. Jordan, K. S. M. Lee, and J. Preskill, Quantum Computation of Scattering in Scalar Quantum Field Theories, arXiv e-prints , arXiv:1112.4833 (2011), arXiv:1112.4833 [hep-th]. [7] S. P. Jordan, K. S. M. Lee, and J. Preskill, Quantum Algorithms for Fermionic Quantum Field Theories, arXiv e-prints , arXiv:1404.7115 (2014), arXiv:1404.7115 [hep-th]. [8] S. P. Jordan, H. Krovi, K. S. M. Lee, and J. Preskill, BQP-completeness of scattering in scalar quantum field theory, Quantum 2, 44 (2018), arXiv:1703.00454 [quant-ph]. [9] D. J. Gross and A. Neveu, Dynamical symmetry breaking in asymptotically free field theories, Phys. Rev. D 10 , 3235 (1974). [10] R. F. Dashen, B. Hasslacher, and A. Neveu, Semiclassical bound states in an asymptotically free theory, Phys. Rev. D 12 ,2443 (1975). [11] A. B. Zamolodchikov and A. B. Zamolodchikov, Exact S matrix of Gross-Neveu “elementary” fermions, Physics Letters B 
+
+72 , 481 (1978). [12] A. B. Zamolodchikov and A. B. Zamolodchikov, Factorized s Matrices in Two-Dimensions as the Exact Solutions of Certain Relativistic Quantum Field Models, Annals Phys. 120 , 253 (1979). [13] E. Witten, Some Properties of the (psi-Bar psi)**2 Model in Two-Dimensions, Nucl. Phys. B 142 , 285 (1978). [14] M. Thies and K. Urlichs, Revised phase diagram of the Gross-Neveu model, Phys. Rev. D 67 , 125015 (2003), arXiv:hep-th/0302092 [hep-th]. [15] O. Schnetz, M. Thies, and K. Urlichs, Phase diagram of the Gross Neveu model: exact results and condensed matter precursors, Annals of Physics 314 , 425 (2004), arXiv:hep-th/0402014 [hep-th]. [16] J. Lenz, L. Pannullo, M. Wagner, B. Wellegehausen, and A. Wipf, Inhomogeneous phases in the Gross-Neveu model in 1 +1 dimensions at finite number of flavors, Phys. Rev. D 101 , 094512 (2020), arXiv:2004.00295 [hep-lat]. [17] J. J. Lenz, L. Pannullo, M. Wagner, B. H. Wellegehausen, and A. Wipf, Baryons in the Gross-Neveu model in 1 +1 dimensions at finite number of flavors, Phys. Rev. D 102 , 114501 (2020), arXiv:2007.08382 [hep-lat]. [18] M. Lajer, R. M. Konik, R. D. Pisarski, and A. M. Tsvelik, When cold, dense quarks in 1 +1 and 3 +1 dimensions are not a Fermi liquid, Phys. Rev. D 105 , 054035 (2022), arXiv:2112.10238 [hep-th]. [19] G. Ortiz, J. E. Gubernatis, E. Knill, and R. Laflamme, Quantum algorithms for fermionic simulations, Phys. Rev. A 64 ,022319 (2001), arXiv:cond-mat/0012334 [cond-mat]. [20] M. Asaduzzaman, G. C. Toga, S. Catterall, Y. Meurice, and R. Sakai, Quantum simulation of the N -flavor Gross-Neveu model, Phys. Rev. D 106 , 114515 (2022), arXiv:2208.05906 [hep-lat]. [21] J. Kogut and L. Susskind, Hamiltonian formulation of Wilson’s lattice gauge theories, Phys. Rev. D 11 , 395 (1975). [22] T. Banks, L. Susskind, and J. Kogut, Strong-coupling calculations of lattice gauge theories: (1 + 1)-dimensional exercises, Phys. Rev. D 13 , 1043 (1976). [23] L. Susskind, Lattice fermions, Phys. Rev. D 16 , 3031 (1977). [24] G. Roose, N. Bultinck, L. Vanderstraeten, F. Verstraete, K. Van Acoleyen, and J. Haegeman, Lattice regularisation and entanglement structure of the Gross-Neveu model, Journal of High Energy Physics 2021 , 207 (2021), arXiv:2010.03441 [hep-lat]. [25] P. Jordan and E. Wigner, ¨Uber das Paulische ¨Aquivalenzverbot, Zeitschrift f¨ ur Physik 47 , 631 (1928). [26] M. Oshikawa and I. Affleck, Field-Induced Gap in S = 1/2 Antiferromagnetic Chains, Phys. Rev. Lett. 79 , 2883 (1997), arXiv:cond-mat/9706085 [cond-mat.str-el]. [27] O. Derzhko and T. Verkholyak, Effects of dzyaloshinskii-moriya interaction in the dynamics of s= 1/2 xx chain, Czechoslovak Journal of Physics 54 , 531 (2004). [28] H. F. Trotter, On the product of semi-groups of operators, Proceedings of the American Mathematical Society 10 , 545 (1959). [29] M. Suzuki, Generalized trotter’s formula and systematic approximants of exponential operators and inner derivations with applications to many-body problems, Communications in Mathematical Physics 51 , 183 (1976). [30] M. Suzuki, On the convergence of exponential operators-the zassenhaus formula, bch formula and systematic approximants, Communications in Mathematical Physics 57 , 193 (1977). 25 
+
+[31] T. A. Chowdhury, K. Yu, M. A. Shamim, M. L. Kabir, and R. S. Sufian, Enhancing quantum utility: Simulating large-scale quantum spin chains on superconducting quantum computers, Physical Review Research 6, 033107 (2024), arXiv:2312.12427 [quant-ph]. [32] T. A. Chowdhury, V. Korepin, V. R. Pascuzzi, and K. Yu, Quantum utility in simulating the real-time dynamics of the Fermi-Hubbard model using superconducting quantum computers, Applied Physics Reviews 13 , 011434 (2026), arXiv:2509.14196 [quant-ph]. [33] Y. Chai, A. Crippa, K. Jansen, S. K¨ uhn, V. R. Pascuzzi, F. Tacchino, and I. Tavernelli, Fermionic wave packet scattering: a quantum computing approach, Quantum 9, 1638 (2025), arXiv:2312.02272 [quant-ph]. [34] D. Layden, First-Order Trotter Error from a Second-Order Perspective, Phys. Rev. Lett. 128 , 210501 (2022), arXiv:2107.08032 [quant-ph]. [35] M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information, 10th ed. (Cambridge University Press, 2010). [36] A. Ben-Israel and T. N. E. Greville, Generalized Inverses: Theory and Applications, 2nd ed. (Springer New York, 2003). [37] M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin, S. Endo, K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L. Cincio, and P. J. Coles, Variational quantum algorithms, Nature Reviews Physics 3, 625 (2021), arXiv:2012.09265 [quant-ph]. [38] A. Barenco, C. H. Bennett, R. Cleve, D. P. Divincenzo, N. Margolus, P. Shor, T. Sleator, J. A. Smolin, and H. Weinfurter, Elementary gates for quantum computation, Phys. Rev. A 52 , 3457 (1995), arXiv:quant-ph/9503016 [quant-ph]. [39] A. Muthukrishnan and C. R. Stroud, Jr., Multivalued logic gates for quantum computation, Phys. Rev. A 62 , 052309 (2000), arXiv:quant-ph/0002033 [quant-ph]. [40] K. Zhang, K. Yu, K. Hao, and V. Korepin, Optimal realization of yang–baxter gate on quantum computers, Advanced Quantum Technologies 7, 2300345 (2024). [41] P. Weinberg and M. Bukov, QuSpin: a Python package for dynamics and exact diagonalisation of quantum many body systems part I: spin chains, SciPost Phys. 2, 003 (2017). [42] M. S. Anis et al., Qiskit: An open-source framework for quantum computing (2021). [43] J. Haegeman, J. I. Cirac, T. J. Osborne, I. Piˇ zorn, H. Verschelde, and F. Verstraete, Time-Dependent Variational Principle for Quantum Lattices, Phys. Rev. Lett. 107 , 070601 (2011), arXiv:1103.0936 [cond-mat.str-el]. [44] J. Haegeman, C. Lubich, I. Oseledets, B. Vandereycken, and F. Verstraete, Unifying time evolution and optimization with matrix product states, Physical Review B 94 , 10.1103/physrevb.94.165116 (2016). [45] M. Fishman, S. R. White, and E. M. Stoudenmire, The ITensor Software Library for Tensor Network Calculations, SciPost Phys. Codebases , 4 (2022). [46] M. Fishman, S. R. White, and E. M. Stoudenmire, Codebase release 0.3 for ITensor, SciPost Phys. Codebases , 4 (2022). [47] R. Horodecki, P. Horodecki, M. Horodecki, and K. Horodecki, Quantum entanglement, Reviews of Modern Physics 81 , 865 (2009), arXiv:quant-ph/0702225 [quant-ph]. [48] T. Brydges, A. Elben, P. Jurcevic, B. Vermersch, C. Maier, B. P. Lanyon, P. Zoller, R. Blatt, and C. F. Roos, Probing R´ enyi entanglement entropy via randomized measurements, Science 364 , 260 (2019), arXiv:1806.05747 [quant-ph]. [49] S. J. van Enk and C. W. J. Beenakker, Measuring Tr ρn on single copies of ρ using random measurements, Phys. Rev. Lett. 
+
+108 , 110503 (2012), arXiv:1112.1027 [quant-ph]. [50] A. Elben, B. Vermersch, M. Dalmonte, J. I. Cirac, and P. Zoller, R´ enyi Entropies from Random Quenches in Atomic Hubbard and Spin Models, Phys. Rev. Lett. 120 , 050406 (2018), arXiv:1709.05060 [quant-ph]. [51] B. Vermersch, A. Elben, M. Dalmonte, J. I. Cirac, and P. Zoller, Unitary n -designs via random quenches in atomic Hubbard and spin models: Application to the measurement of R´ enyi entropies, Phys. Rev. A 97 , 023604 (2018), arXiv:1801.00999 [quant-ph]. [52] A. Elben, B. Vermersch, C. F. Roos, and P. Zoller, Statistical correlations between locally randomized measurements: A toolbox for probing entanglement in many-body quantum states, Phys. Rev. A 99 , 052323 (2019), arXiv:1812.02624 [quant-ph]. [53] A. Rath, R. van Bijnen, A. Elben, P. Zoller, and B. Vermersch, Importance Sampling of Randomized Measurements for Probing Entanglement, Phys. Rev. Lett. 127 , 200503 (2021), arXiv:2102.13524 [quant-ph]. [54] A. Elben, S. T. Flammia, H.-Y. Huang, R. Kueng, J. Preskill, B. Vermersch, and P. Zoller, The randomized measurement toolbox, Nature Reviews Physics 5, 9 (2023), arXiv:2203.11374 [quant-ph]. [55] G. Park, K. Zhang, K. Yu, and V. Korepin, Quantum multi-programming for Grover’s search, Quantum Information Processing 22 , 54 (2023), arXiv:2207.14464 [quant-ph]. [56] P. Rao, S. Choi, and K. Yu, Quantum multi-programming for maximum likelihood amplitude estimation, Proc. SPIE Int. Soc. Opt. Eng. 12911 , 129110E (2024). [57] J. S. Baker, G. Park, K. Yu, A. Ghukasyan, O. Goktas, and S. K. Radha, Parallel hybrid quantum-classical machine learning for kernelized time-series classification, Quantum Machine Intelligence 6, 18 (2024), arXiv:2305.05881 [quant-ph]. [58] T. A. Chowdhury, K. Yu, M. Asaduzzaman, and R. S. Sufian, Capturing the Page curve and entanglement dynamics of black holes in quantum computers, Nuclear Physics B 1019 , 117112 (2025), arXiv:2412.15180 [quant-ph]. [59] T. A. Chowdhury, K. Yu, and R. S. Sufian, Probing entanglement dynamics in the SYK model using quantum computers, Results in Physics 79 , 108526 (2025), arXiv:2503.18580 [quant-ph]. [60] S. Choi, T. A. Chowdhury, and K. Yu, Quantum utility-scale error mitigation for quantum quench dynamics in Heisenberg spin chains, Physica Scripta 101 , 035103 (2026), arXiv:2506.20125 [quant-ph]. [61] Y. Ohkura, T. Satoh, and R. Van Meter, Simultaneous Execution of Quantum Circuits on Current and Near-Future NISQ Systems, IEEE Transactions on Quantum Engineering 3, TQE.2022 (2022), arXiv:2112.07091 [quant-ph]. [62] I. D. Kivlichan, C. Gidney, D. W. Berry, N. Wiebe, J. McClean, W. Sun, Z. Jiang, N. Rubin, A. Fowler, A. Aspuru-Guzik, 26 
+
+H. Neven, and R. Babbush, Improved Fault-Tolerant Quantum Simulation of Condensed-Phase Correlated Electrons via Trotterization, Quantum 4, 296 (2020), arXiv:1902.10673 [quant-ph]. [63] J. Lee, D. W. Berry, C. Gidney, W. J. Huggins, J. R. McClean, N. Wiebe, and R. Babbush, Even More Efficient Quantum Computations of Chemistry Through Tensor Hypercontraction, PRX Quantum 2, 030305 (2021), arXiv:2011.03494 [quant-ph]. [64] Y. Kim, C. J. Wood, T. J. Yoder, S. T. Merkel, J. M. Gambetta, K. Temme, and A. Kandala, Scalable error mitigation for noisy quantum circuits produces competitive expectation values, Nature Phys. 19 , 752 (2023), arXiv:2108.09197 [quant-ph]. [65] Y. Kim, A. Eddins, S. Anand, K. X. Wei, E. van den Berg, S. Rosenblatt, H. Nayfeh, Y. Wu, M. Zaletel, K. Temme, and A. Kandala, Evidence for the utility of quantum computing before fault tolerance, Nature 618 , 500 (2023). [66] C. Charles, E. J. Gustafson, E. Hardt, F. Herren, N. Hogan, H. Lamm, S. Starecheski, R. S. Van de Water, and M. L. Wagman, Simulating Z2 lattice gauge theory on a quantum computer, arXiv:2305.02361 [hep-lat]. [67] E. van den Berg, Z. K. Minev, and K. Temme, Model-free readout-error mitigation for quantum expectation values, Phys. Rev. A 105 , 032620 (2022). [68] L. Viola, E. Knill, and S. Lloyd, Dynamical decoupling of open quantum systems, Phys. Rev. Lett. 82 , 2417 (1999), arXiv:quant-ph/9809071. [69] N. Ezzell, B. Pokharel, L. Tewala, G. Quiroz, and D. A. Lidar, Dynamical decoupling for superconducting qubits: A performance survey, Phys. Rev. Applied 20 , 064027 (2023), arXiv:2207.03670 [quant-ph]. [70] S. Niu and A. Todri-Sanial, Effects of Dynamical Decoupling and Pulse-Level Optimizations on IBM Quantum Computers, IEEE Trans. Quantum Eng. 3, 1 (2022), arXiv:2204.01471 [quant-ph]. [71] C. H. Bennett, G. Brassard, S. Popescu, B. Schumacher, J. A. Smolin, and W. K. Wootters, Purification of Noisy Entanglement and Faithful Teleportation via Noisy Channels, Phys. Rev. Lett. 76 , 722 (1996), arXiv:quant-ph/9511027 [quant-ph]. [72] J. J. Wallman and J. Emerson, Noise tailoring for scalable quantum computation via randomized compiling, Phys. Rev. A 
+
+94 , 052325 (2016), arXiv:1512.01098 [quant-ph]. [73] Z. Cai and S. C. Benjamin, Constructing smaller pauli twirling sets for arbitrary error channels, Scientific Reports 9,10.1038/s41598-019-46722-7 (2019), arXiv:1807.04973 [quant-ph]. [74] K. Temme, S. Bravyi, and J. M. Gambetta, Error Mitigation for Short-Depth Quantum Circuits, Phys. Rev. Lett. 119 ,180509 (2017), arXiv:1612.02058 [quant-ph]. [75] Y. Li and S. C. Benjamin, Efficient variational quantum simulator incorporating active error minimisation, arXiv e-prints , arXiv:1611.09301 (2016), arXiv:1611.09301 [quant-ph]. [76] T. Giurgica-Tiron, Y. Hindy, R. LaRose, A. Mari, and W. J. Zeng, Digital zero noise extrapolation for quantum error miti-gation, 2020 IEEE International Conference on Quantum Computing and Engineering (QCE) , 306 (2020), arXiv:2005.10921 [quant-ph].

@@ -1,0 +1,3411 @@
+Title: Measurement-induced phase transitions in disordered fermions
+
+URL Source: https://arxiv.org/pdf/2605.05306v1
+
+Published Time: Fri, 08 May 2026 00:03:49 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+## Measurement-induced phase transitions in disordered fermions 
+
+Yunxiang Liao, 1, ∗ Max Matheussen, 1, 2 and Xinghai Zhang 1
+
+> 1
+
+Department of Physics, KTH Royal Institute of Technology, SE-106 91 Stockholm, Sweden 
+
+> 2
+
+Department of Physics, Technical University of Denmark, 2800 Kgs. Lyngby, Denmark 
+
+Measurement-induced phase transitions are nonequilibrium transitions between phases character-ized by distinct entanglement scaling behaviors, driven by the competition between unitary dynamics and measurements. Despite recent numerical efforts, how quenched disorder affects these transitions remains unclear. In this work, we study a d-dimensional noninteracting fermionic system subject to both quenched disorder and continuous monitoring of the local particle density, and derive an effective field theory describing its long-time universal behaviors. We find that the system is gov-erned by the same nonlinear sigma model as in the case of clean monitored fermions, with disorder entering only through a modification of model parameters. This result suggests that the presence or absence of a measurement-induced phase transition is unaffected by the introduction of disorder: in spatial dimensions d > 1, a transition occurs between an area ×log law phase and an area law phase, whereas in d = 1, the system exhibits only an area law phase and no transition. Numerical results further demonstrate that both clean and disordered one-dimensional free fermions exhibit area-law behavior when the system size is large enough. 
+
+I. INTRODUCTION 
+
+Measurement-induced phases and phase transitions (MIPTs) have attracted significant attention from both the condensed matter and quantum information commu-nities in recent years. These phenomena not only deepen our fundamental understanding of information and en-tanglement dynamics driven by the competition between unitary scrambling and local measurements, but they are also highly relevant to quantum computation, as quan-tum error correction and coupling to the environment in-evitably introduce effective measurement-like nonunitary dynamics. MIPTs were first extensively investigated in random quantum circuits [1–37], where a transition between volume-law and area-law entanglement phases occurs at a critical measurement rate. More recently, this research has been extended to various other platforms, including complex fermions with U (1) charge conservation [38–59], Majorana fermions [51, 60–62], free bosons [63], and dis-ordered systems [64–67]. For complex fermions in one dimension, the field was initially divided, with a group of investigations concluding that there existed a phase tran-sition from a logarithmic phase, scaling with log ℓ, where 
+
+ℓ denotes the size of a subsystem, to the area law phase [41, 42, 47], and another stating that no genuine phase transition existed [38, 49, 58]. It was later discovered that monitored free fermions can be mapped to a Keldysh nonlinear sigma model (NL σM) [50, 51]. This NL σM has the same structure as the one governing the Anderson lo-calization transition [68], but is evaluated at a different replica limit ( R → 1 instead of R → 0). A renormal-ization group (RG) analysis of this NL σM reveals that no genuine phase transition for 1D free fermions survives in the asymptotic limit ℓ → ∞ [50]. Instead, the inter-mediate scale logarithmic entanglement entropy actually  
+
+> ∗liao2@kth.se
+
+saturates at the correlation length, where it gives way to strictly area-law entanglement. This analytical predic-tion was further corroborated by careful numerical cal-culations reaching much larger system sizes [59]. Further analytical and numerical studies confirm that the MIPT of free complex fermions only occurs in higher dimen-sions ( d ≥ 2), where a phase transition exists between a area ×log law ℓd−1 log ℓ, and the area law phase [59, 69– 71]. Realistic physical systems are rarely completely clean; rather, ubiquitous quenched disorder significantly alters the wave functions of fermionic systems, driving Ander-son localization in low dimensions or at strong disorder strengths [68, 72]. In static free fermion systems with quenched disorder, it is well established that the entan-glement entropy obeys an area law, even in the weak dis-order delocalized phase [73]. However, previous studies have shown that local measurements can introduce de-localization corrections for dirty fermions [64], and even stabilize the critical phase and the associated MIPT in 1D free fermions [65]. Therefore, it is very interesting to further investigate the interplay between measurement and disorder to determine the ultimate fate of MIPTs in fermionic systems. Additionally, the quantum correc-tions responsible for the absence (presence) of a MIPT for monitored fermions in d = 1 ( d > 1) are similar to the weak localization corrections in static disordered sys-tems, with both described by analogous NL σM. Disor-dered and monitored systems thus provides a rich arena to explore these closely related but phenomenologically different effects. In this work, we study the interplay between static disorder and continuous monitoring of the local parti-cle density in a d-dimensional system of noninteracting fermions. We show that the long-time and long-distance asymptotic entanglement properties of monitored disor-dered fermions are governed by the same NL σM that de-scribes the measurement-only case (i.e., monitored clean fermions), with disorder modifying only the values of the 
+
+> arXiv:2605.05306v1 [cond-mat.stat-mech] 6 May 2026
+
+2model parameters. This finding suggests that disorder does not affect the presence or absence of a MIPT in ar-bitrary spatial dimensions. In particular, in one dimen-sion, our result implies that disorder does not stabilize the critical phase or induce a MIPT, in contrast to ear-lier numerical studies. To support this result, we perform numerical simulations of a 1D lattice model using the pro-jection protocol, which provides supporting evidence for the absence of a MIPT, reflected in the scaling behav-ior of particle number covariance - an approximation to mutual information - for various disorder strengths and measurement rates. The rest of the paper is organized as follows. In Sec. II, we introduce the theoretical background and formulate the replica Keldysh framework for the investigation of monitored disordered fermions. In Sec. III, we derive a two-matrix field theory and perform a saddle-point anal-ysis. In Sec. IV, we investigate Gaussian fluctuations around the saddle point configuration in both the replica-symmetric and replica-asymmetric sectors and evaluate the averaged density response function as well as the sec-ond cumulant of the number of particles in a subsystem, from which the entanglement entropy can be extracted within the Gaussian approximation. In Sec. V, we derive the NL σM that describes the Goldstone modes govern-ing the long-time behavior of entanglement entropy and charge fluctuations in the weak measurement and weak disorder regime. We show that this effective theory co-incides with that of the measurement-only case after a replacement of parameters. In Sec. VI, we present nu-merical evidence supporting our analytical findings and demonstrate the absence of MIPT in a 1D system of non-interacting monitored fermions in the presence of disor-der. Finally, in Sec. VII, we summarize the main results and discuss possible future directions. Additional techni-cal details are provided in the Appendices. Appendix A presents the explicit expressions for the dressed propa-gators of local-in-time Gaussian fluctuations, while Ap-pendix B extends the analysis to include massive bilocal-in-time fluctuations.  
+
+> II. REPLICA KELDYSH FORMALISM
+
+We consider a d-dimensional noninteracting fermionic system subject to both static disorder and continuous monitoring of the local particle density nr. The dynamics over a time interval δt consists of (1) the unitary evolu-tion e−i ˆHδt generated by the Hamiltonian ˆH = ˆH0 + ˆHdis ,where ˆH0 represents the hopping between different sites (kinetic energy) and ˆHdis denotes a static on-site disor-der potential, and (2) the weak measurement of the local particle density described by a set of Kraus operators: ˆKmr = Nmr exp 
+
+
+
+− κδt 
+
+2 (ˆ nr − mr)2
+
+
+
+. (1) Here κ denotes the measurement strength, mr denotes the random measurement outcome at site r. The proba-bility of observing a given outcome is determined by the Born rule [74] 
+
+Pmr = Tr 
+
+ ˆKmr ˆρ ˆK†
+
+> mr
+
+
+
+, (2) with ˆρ denoting the system density matrix right be-fore the measurement. The normalization constant Nmr
+
+is chosen to meet the positive-operator valued measure (POVM) condition, 
+
+X
+
+> mr
+
+ˆK†
+
+> mr
+
+ˆKmr = 1. (3) Combining the unitary time evolution and monitoring, the density matrix ˆ ρ evolves according to ˆρ(t + δt ) = ˆ˜ρ(t + δt )Tr 
+
+hˆ˜ρ(t + δt )
+
+i ,
+
+ˆ˜ρ(t + δt ) = Y
+
+> r
+
+ˆKmr,t 
+
+!
+
+e−i ˆHδt ˆρ(t)e+i ˆHδt Y
+
+> r
+
+ˆK†
+
+> mr,t
+
+!
+
+,
+
+(4) where we have introduced ˆ ˜ρ to denote the unnormalized post-measurement density matrix, and mr,t represents the measurement outcome at site r and time t.In the continuum limit, the long-time behavior of the system, after averaging over quantum trajectories and disorder realizations, is described by the following replica Keldysh path integral 
+
+Z[J] = 
+
+Z
+
+D( ¯ψ, ψ )eiS 0+iS V +iS J ,S0 =
+
+Z
+
+> t,t ′,r,r′
+> R
+
+X
+
+> j=1
+
+¯ψj 
+
+> r,t
+
+ˆG−10 (r, r′; t, t ′)ψj 
+
+> r′,t ′
+
+,SV =
+
+Z
+
+> t, r
+> R
+
+X
+
+> j=1
+
+(−Vdis (r)nq,j  
+
+> r,t
+
++ iV meas (r, t )ncl ,j  
+
+> r,t
+
+),SJ = −
+
+Z
+
+> t, r
+> R
+
+X
+
+> j=1
+
+
+
+Jq,j  
+
+> r,t
+
+ncl ,j  
+
+> r,t
+
++ Jcl ,j  
+
+> r,t
+
+nq,j 
+
+> r,t
+
+
+
+.
+
+(5) Here ψa,j  
+
+> r,t
+
+carries both a replica index j = 1 , 2, ...R , to-gether with a Keldysh index a = +( −) corresponding to the forward (backward) Keldysh branch. ncl /q is the classical/quantum component of the particle density, and is defined as 
+
+ncl /q  
+
+> r,t
+
+= n+ 
+
+> r,t
+
+± n−
+
+> r,t
+
+, na 
+
+> r,t
+
+= ¯ψa
+
+> r,t
+
+ψa
+
+> r,t
+
+, a = ±. (6) We have used the short-hand notation R 
+
+> r
+
+= R ddr and 
+
+R 
+
+> t
+
+= R tf 
+
+> −∞
+
+dt . We set the final time to tf = 0, by which the system has reached the dynamical steady state whose properties are studied. The action S0 describes the unitary time evolution of noninteracting fermions in the absence of disorder and 3measurement. The corresponding bare Green’s function 
+
+G0 is given by: 
+
+G−10 = i∂ t − ξ(−i∇), (7) where ξ(k) denotes the single-particle kinetic energy. The action SV accounts for the effects of the static disorder potential Vdis (r) and the continuous monitoring encoded by the effective measurement noise Vmeas (r, t ), which can be viewed as the continuum limit of measure-ment outcomes. Both Vdis (r) and Vmeas (r, t ) are taken to be Gaussian with zero mean and variances 
+
+Vdis (r)Vdis (r′) = δ(r − r′)/(2 πντ el ),Vmeas (r, t )Vmeas (r′, t ′) = g2δ(r − r′)δ(t − t′), (8) where g2 ∝ κ characterizes the measurement strength, 
+
+τel represents the elastic scattering time due to static impurities, and ν is the density of states at the Fermi surface of the underlying (unmonitored) system. The overline here, and in the first line of Eq. 5, represents averaging over Vdis (r) and Vmeas (r, t ). We also introduce a source term SJ in the action to study the full counting statistics of particle number and the entanglement properties. By taking the functional derivatives of Z[J] in Eq. 5 with respect to the source field J, whose quantum (classical) component Jq/cl cou-ples to the classical (quantum) component of local par-ticle density ncl /q, we obtain correlation functions of the particle density and, consequently, the particle number cumulants. For our system prepared in a Gaussian ini-tial state, the particle number cumulants determine the von Neumann entanglement entropy SA between a sub-system A and the rest of the system via the Klich and Levitov formalism [75]: 
+
+SA = − Tr(ˆ ρA ln ˆ ρA) = 
+
+> ∞
+
+X
+
+> q=1
+
+2ζ(2 q)C(2 q) 
+
+> A
+
+. (9) Here ˆ ρA is the reduced density matrix for subsystem A, and C(m) 
+
+> A
+
+is the m-th cumulant of the total particle num-ber in this subsystem, ˆNA = P 
+
+> r∈A
+
+ˆnr. The expansion in Eq. 9 is dominated by the leading term SA ≈ π2 
+
+> 3
+
+C(2)  
+
+> A
+
+,in monitored free fermionic systems with weak measure-ment strength [50, 70] and also in disordered system in the weak disorder regime [73]. For noninteracting fermionic systems in Gaussian states, this relation between the entanglement entropy 
+
+SA and the particle-number cumulants C(m) 
+
+> A
+
+holds at the level of individual quantum measurement trajectories and for fixed impurity potential configurations. There-fore, the same relation carries over to SA and C(m)
+
+> A
+
+averaged over both quantum trajectories and disorder realizations—the primary focus of this work. Particu-larly, the quantum trajectory averaging can be performed with the help of the replica trick. In particular, the eval-uation of the averaged n-th particle-number cumulant requires the averaged n-replica of the normalized density matrix, which can be obtained from ˆρ⊗n = Tr −n(ˆ ˜ρ)ˆ ˜ρ⊗n = X
+
+> γ
+
+Tr 1−n(ˆ ˜ργ )ˆ ˜ρ⊗nγ ,
+
+= lim  
+
+> R→1
+
+Tr r=n+1 ,...,R 
+
+X
+
+> γ
+
+⊗Rr=1 ˆ˜ρ(r) 
+
+> γ
+
+.
+
+(10) Here the overline represents averaging over measurement trajectories weighted by the Born rule probabilities. The subscript γ labels an individual quantum trajectory, asso-ciated with a specific sequence of measurement outcomes 
+
+{mr,t }. In the second equality, an additional factor of Tr(ˆ ˜ργ ) appears, originating from the Born-rule probabil-ity associated with the trajectory γ. In the last line, we employ the replica trick: the first n replicas generate the factor ˆ ˜ρ⊗n, while the remaining R − n replicas are traced over, resulting in the factor Tr R−n(ˆ ˜ρ). Analytic contin-uation to the R → 1 limit then reproduces the quantum trajectory averaged n-replica normalized density matrix. Although the replica trick is also widely used for disorder averaging, involving R → 0 as opposed to R → 1 limit, in our framework the disorder averaging is performed by the Keldysh formalism and no additional replica structure is required. Starting from the replica Keldysh theory in Eq. 5, we then apply the Larkin-Ovchinnikov rotation following the standard procedure, 
+
+ψ → ˆτ 3ULO ψ, ¯ψ → ¯ψU †
+
+> LO
+
+, ULO = (1 + iˆτ 2)/√2,
+
+(11) with ˆ τ being the Pauli matrix in the Keldysh space. Af-ter the transformation, the bare Green’s function in the Keldysh space becomes 
+
+G−10 (ω, k) = 
+
+ω − ξk + iη iηF 0(ω)0 ω − ξk − iη 
+
+
+
+. (12) Here F0(ω) is the initial fermionic Keldysh distribution function and η → 0+ is a positive infinitesimal. The rotation also brings ncl /q = n+ ± n− to the forms 
+
+ncl ,j  
+
+> r,t
+
+= ¯ψj 
+
+> r,t
+
+ˆτ 1ψj
+
+> r,t
+
+, nq,j  
+
+> r,t
+
+= ¯ψj
+
+> r,t
+
+ψj
+
+> r,t
+
+. (13)   
+
+> III. EFFECTIVE TWO-MATRIX FIELD THEORY A. Hubbard-Stratonovich transformation
+
+The averaging over quantum trajectories and disorder realizations is carried out by averaging over Vmeas (r, t )and Vdis (r), respectively, as described by Eq. 8. This 4leads to an effective action 
+
+iS ave = ln 
+
+
+
+eiS V
+
+
+
+,
+
+= − 14πντ el 
+
+Z
+
+> t,t ′,r
+> R
+
+X
+
+> i,j =1
+
+nq,i  
+
+> r,t
+
+nq,j  
+
+> r,t ′
+
++ g2
+
+2
+
+Z
+
+> t, r
+> R
+
+X
+
+> i,j =1
+
+ncl ,i  
+
+> r,t
+
+ncl ,j  
+
+> r,t
+
+.
+
+(14) Here the first term, denoted as iS ave1 below, arises from disorder averaging and is nonlocal in time due to the static nature of the disorder potential. In contrast, the second term, iS ave2 , originating from measurement noise averaging is local in time because Vmeas is δ-correlated in time. Hubbard-Stratonovich decouplings are then applied separately to these two interaction terms. For the disorder-averaging generated interaction, we have 
+
+eiS ave1 =
+
+Z
+
+DQ exp 
+
+
+
+− πν 
+
+4τel 
+
+Z
+
+> t,t ′,r
+
+Tr( ˆQtt ′,r ˆQt′t, r)
+
+− 12τel 
+
+Z
+
+> t,t ′,r
+
+¯ψt, r ˆQtt ′,rψt′,r
+
+
+
+.
+
+(15) Note that we ignore the decoupling in the Cooperon chan-nel, as we expect that the measurement destroys the phase coherence between time-reversed paths and sup-presses the Cooperon modes. The measurement noise averaging generated interac-tions can be rewritten as 
+
+iS ave2 = − g2
+
+4
+
+Z
+
+> t, r
+
+X
+
+> i,j
+
+Tr 
+
+h 
+
+ˆτ 1ψit, r ¯ψjt, r
+
+  
+
+ˆτ 1ψjt, r ¯ψit, r
+
+i 
+
+,
+
+= g2
+
+4
+
+Z
+
+> t, r
+
+X
+
+> i,j
+
+Tr  ˆτ 1ψit, r ¯ψit, r
+
+ Tr 
+
+
+
+ˆτ 1ψjt, r ¯ψjt, r
+
+
+
+,
+
+(16) and therefore can be decoupled through two different channels. Both channels contribute, and their relative weight f can be fixed by the causal structure of the sad-dle point (see Sec. III B) and the U (1) Ward identity [76]. This leads to 
+
+eiS ave2 =
+
+Z
+
+Dq exp 
+
+
+
++i
+
+Z
+
+> t, r
+
+¯ψt, r
+
+ˆqt, r − f ˆτ 1 Tr (ˆ qt, r ˆτ 1) ψt, r
+
+− 12g2αf
+
+Z
+
+> t, r
+
+Tr (ˆ qt, r ˆτ 1)2 − f Tr 2 (ˆ qt, r ˆτ 1)
+
+,
+
+(17) where αf = 1 /(f + 1). Combining all terms and integrating out the fermions, we arrive at an effective theory in matrix fields ˆQ and ˆ q:
+
+Z[J] = 
+
+Z
+
+DQDq exp( iS ),iS = Tr ln 
+
+
+
+ˆG−10 + ˆ q − f ˆτ 1 Tr(ˆ qˆτ 1) + i
+
+2τel 
+
+ˆQ − ˆJ
+
+
+
+− 12g2αf
+
+Z
+
+> t, r
+
+Tr (ˆ qt, r ˆτ 1)2 − f Tr 2 (ˆ qt, r ˆτ 1)
+
+− πν 
+
+4τel 
+
+Z
+
+> t,t ′,r
+
+Tr 
+
+ ˆQt′t, r ˆQtt ′,r
+
+
+
+.
+
+(18) We emphasize that Qab,ij tt ′,r is a matrix in the Keldysh (a, b ), replica ( i, j ) and time space ( t, t ′), while qab,ij t, r is a matrix in the replica and Keldysh spaces but is local in time. The source matrix ˆJ = ˆJ cl + ˆJ q ˆτ 1 is diago-nal in the replica and time space, with matrix elements (J q/cl )ij tt ′ (r) = Jq/cl ,i (r, t )δij δtt ′ .
+
+B. Saddle Point 
+
+Taking the variation of the action in Eq. 18 with re-spect to ˆ q and ˆQ, separately, while setting the source field 
+
+J to zero, we obtain the saddle point equations: 1
+
+g2αf
+
+ˆτ 1 ˆqsp ˆτ 1 − f ˆτ 1tr  ˆqsp ˆτ 1 |r,t 
+
+=
+
+h ˆGsp − f ˆτ 1tr 
+
+ ˆGsp ˆτ 1i 
+
+> (r,r;t,t )
+
+,
+
+(19a) ˆQsp (t, t ′; r) = iπν ˆGsp (r, r; t, t ′), (19b) where ˆGsp ≡
+
+
+
+G−10 + ˆ qsp − f ˆτ 1tr  ˆqsp ˆτ 1 + i
+
+2τel 
+
+ˆQsp 
+
+−1
+
+. (20) We use a saddle point ansatz in which both ˆQsp and ˆ qsp 
+
+are diagonal in the replica space, spatially uniform, and time translationally invariant. For simplicity, we focus on the half filling case ( R 
+
+> ε
+
+F0(ε) = 0), since the filling factor has been shown not to qualitatively affect the monitored dynamics [50, 76]. At half-filling, the saddle points ˆQsp 
+
+and ˆ qsp are diagonal in the Keldysh space and assume the forms ˆqsp (ω, k) = iγ m ˆτ 3δω, 0δk,0, ˆQsp (ε, ε ′; k) = ˆ τ 3δε,ε ′ δk,0.
+
+(21) Here γm = g2R
+
+> 2(1+ R)
+
+  Λk
+
+> 2π
+
+d is the decay rate induced by measurement, with Λk being the ultraviolet momen-tum cutoff. It is the measurement counterpart of the impurity-induced decay rate γD = 1 /2τel . This saddle point structure reflects the measurement-induced heat-ing to an infinite temperature steady state [50, 70, 76]. To preserve the causal structure of the fermionic Green’s function, here we have set the relative decou-pling weight to f = 1 /R , which reduces to a symmetric decoupling [69] in the limit R → 1. More specifically, the measurement-induced fermionic self energy can be iden-tified as Σ m = −ˆqsp + f ˆτ 1tr  ˆqsp ˆτ 1, with Eq. 19a being the corresponding self-consistent Born equation 
+
+ΣAm 0ΣKm ΣRm
+
+
+
+= −g2αf
+
+ GRsp GKsp 
+
+0 GAsp 
+
+
+
+− Rf 
+
+ 0 GKsp 
+
+GKsp 0
+
+ 
+
+.
+
+(22) The two terms on the right-hand-side can be viewed as the Fock and Hartree contributions, respectively. The causal structure of ˆΣm and ˆGsp , in particular the van-ishing of the “anti-Keldysh” ( qq ) components, fixes f =51/R . This choice is also required to satisfy the U (1) Ward identity [76]. On the other hand, for the disorder-induced self-energy ˆΣD , the causal structure of ˆGsp leads to a vanishing Hartree term so that only the Fock term survives, ˆΣD = − i
+
+> 2τel
+
+ˆQsp .Once we have determined the decoupling weight f , the retarded and advanced components of the saddle points can be found from a simple self-consistent equation, sim-ilar to conventional calculations of the disorder saddle point [77]. However, for the Keldysh components, the saddle point equation only reveals the relationship be-tween the measurement and disorder self energies, and their explicit expressions require the computation of the particle density [76] at the saddle point level 1
+
+⟨2ˆ nt, r − 1⟩ = iRδZ sp 
+
+δJ q 
+
+> t, rJ=0
+
+= i 1
+
+R tr 
+
+ ˆGsp ˆτ 1
+
+. (23) The half-filling condition then results in vanishing Keldysh components. 
+
+IV. GAUSSIAN APPROXIMATION 
+
+To analyze the effective theory of monitored disordered fermions in Eq. 18, we begin by examining the Gaussian fluctuations around the saddle points. In the limit of weak measurement and disorder strengths γm/D → 0, the dominant contributions arise from the Gaussian fluctua-tions δ ˆq = (ˆ q − ˆqsp )/(iγ m) and δ ˆQ = ˆQ − ˆQsp , governed by the action 
+
+iS (2) = 12 πνγ m
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+tr R
+
+ δ ¯q12 
+
+> ω, k
+
+δ ¯q12  
+
+> −ω, −k
+
++ δ ¯q21 
+
+> ω, k
+
+δ ¯q21 
+
+> −ω, −k
+
+
+
+− πν 
+
+2R γm
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+tr R
+
+ δ ¯q12  
+
+> ω, k
+
++ δ ¯q21 
+
+> ω, k
+
+ tr R
+
+ δ ¯q12  
+
+> −ω, −k
+
++ δ ¯q21 
+
+> −ω, −k
+
+
+
+− πνγ D
+
+Z
+
+> ε,ω, k
+
+tr R
+
+ δQ 12 
+
+> ε,ε −ω;k
+
+δQ 21 
+
+> ε−ω,ε ;−k
+
+
+
+− πν 
+
+˜γ
+
+Z
+
+> ε,ω, k
+
+[−1 + θ(ω, k ) − ϕ(ω)] 
+
+× tr R
+
+nh 
+
+γmδ ¯q12  
+
+> ω, k
+
++ γDδQ 12  
+
+> ε,ε −ω;k
+
++ iJ q
+
+> ω, k
+
+i
+
+×
+
+h
+
+γmδ ¯q21  
+
+> −ω, −k
+
++ γDδQ 21  
+
+> ε−ω,ε ;−k
+
++ iJ q
+
+> −ω, −k
+
+io 
+
+.
+
+(24) Here, for convenience, we have applied the transforma-tion: ˆ¯q = ˆ q − f ˆτ 1 Tr(ˆ qˆτ 1), δ ˆ¯q = (ˆ ¯q − ˆ¯qsp )/(iγ m). (25) 
+
+θ and ϕ are defined as 
+
+θ(ω, k ) = v2k2
+
+4d˜γ2 + ω2
+
+4˜ γ2 , ϕ(ω) = iω 
+
+2˜ γ , (26)  
+
+> 1Here we have employed the standard antisymmetric prescription for the equal time correlator [89]
+
+where ˜ γ = γm + γD denotes the total decay rate from both measurement and disorder, and v stands for Fermi velocity of the underlying unmonitored system. We focus on the fluctuation δ ˆQ12 /21 and δ ˆ¯q12 /21 that are massless in the disorder-only (disordered unmoni-tored) and measurement-only (clean monitored) theories. In the presence of both disorder and measurement, these modes acquire masses at the bare Gaussian level. How-ever, once the coupling between the δ ˆ¯q and δ ˆQ is taken into account, a massless mode emerges corresponding to a particular linear combination of these two fields, as we show below. By contrast, the Gaussian fluctuations 
+
+δ ¯q11 /22 and δ ˆQ11 /22 are massive in the measurement-only and disorder-only cases, and they remain massive when both are present. These massive modes do not contribute to the long-time physics and are therefore not included in our analysis. We first introduce a Fourier transform of δ ˆQε,ε −ω with respect to ε:
+
+δ ˆQω, k(∆ t) = 1Λε
+
+Z
+
+> ε
+
+δ ˆQε,ε −ω;ke−iε ∆t, (27) with Λ ε = R 
+
+> ε
+
+= 12πν 
+
+  Λk
+
+> 2π
+
+d. At the Gaussian order, 
+
+δ ˆQ(∆ t̸ = 0) decouples from δ ˆQ(∆ t = 0), δ ˆ¯q, and ˆJ.This decoupling allows us to omit all δ ˆQ(∆ t̸ = 0) modes for the calculation of density correlation function, re-sulting in an effective action equivalent to the quadratic action S(2) in Eq. 24 but with δ ˆQε,ε −ω;k replaced by 
+
+δ ˆQω, k(∆ t = 0). Note that ∆ t measures the relative time in δ ˆQt+∆ t,t , and therefore ∆ t = 0 mode corresponds to the time-diagonal component of δ ˆQ. Because δ ˆq and ˆJ
+
+are both local in time, the trace over the time indices in Eq. 18 results in the decoupling of δ ˆQ(∆ t̸ = 0) modes from the rest at the quadratic order, and only the time diagonal component enters the effective Gaussian theory. For completeness, in Appendix B we also provide an al-ternative analysis of the Gaussian theory retaining all these modes, including the nonlocal-in-time components of δ ˆQ.We then decompose the fields δ ˆ¯q, δ ˆQ and ˆJ q into replica-symmetric ( s) and replica-asymmetric ( a) com-ponents: ˆA(s) = 1R
+
+R tr R ˆA, ˆA(a) = ˆA − ˆA(s), ˆA = δ ˆ¯q, δ ˆQ, ˆJ .
+
+(28) Here tr R and 1R denote the trace and identity matrix in the replica space, respectively. At the Gaussian level, fluctuations and source fields in the two sectors decouple, allowing each sector to be analyzed independently. Note that the source fields in the replica-symmetric and replica-asymmetric sectors J(s) and J(a) couple sep-arately to the particle density components in the corre-sponding sectors 
+
+n(s) =
+
+> R
+
+X
+
+> i
+
+ni/R, n(a)i = ni − n(s). (29) 6
+
+J(s/a ) is defined analogously and corresponds to the di-agonal matrix element of the matrix ˆJ (s/a ). This can be shown from SJ in Eq. 5, which under this decomposition can be rewritten as 
+
+SJ = −
+
+Z
+
+> t, r
+
+R
+
+
+
+Jq( s) 
+
+> r,t
+
+ncl( s) 
+
+> r,t
+
++ Jcl( s) 
+
+> r,t
+
+nq( s)
+
+> r,t
+
+
+
+−
+
+Z
+
+> t, r
+> R
+
+X
+
+> i=1
+
+
+
+Jq( a),i  
+
+> r,t
+
+ncl( a),i  
+
+> r,t
+
++ Jcl( a),i  
+
+> r,t
+
+nq( a),i 
+
+> r,t
+
+
+
+.
+
+(30) This action also shows that the average-density re-sponses function, which describes the response of the av-erage density to an external field, Π(s)ab (k, ω ) = δn a(s)
+
+> ω, k
+
+δJ ¯b(s) 
+
+> ω, kJ=0
+
+= −iR ⟨na(s) 
+
+> ω, k
+
+nb(s)
+
+> −ω, −k
+
+⟩ , (31) can be obtained from Π(s)ab (k, ω ) = iRδ2Z[J]
+
+δJ ¯a(s)
+
+> −ω, −k
+
+δJ ¯b(s) 
+
+> ω, kJ=0
+
+, a, b = cl , q.
+
+(32) Here ¯ a denotes the complementary Keldysh index defined by ¯cl = q, ¯ q = cl . Therefore, the average density response function Π( k, ω ) is determined entirely by the replica-symmetric sector at Gaussian level. In contrast, the connected two-point density correla-tion function 
+
+C(r, r′; t, t ′) = ⟨ˆnr,t ˆnr′,t ′ ⟩ − ⟨ ˆnr,t ⟩ ⟨ ˆnr′,t ′ ⟩, (33) is determined by the replica-asymmetric sector. Specif-ically, the first and second terms in the equation above correspond, respectively, to the replica diagonal ( i = j)and off diagonal ( i̸ = j) components of the density cor-relation function ⟨ncl ,i  
+
+> r,t
+
+ncl ,j  
+
+> r′,t ′
+
+⟩. This yields 
+
+C(r, r′; t, t ′) = 1
+
+R − 1
+
+X
+
+> i
+
+⟨ncl ,i  
+
+> r,t
+
+ncl ,i  
+
+> r′,t ′
+
+⟩ − 1
+
+R
+
+X
+
+> ij
+
+⟨ncl ,i  
+
+> r,t
+
+ncl ,j  
+
+> r′,t ′
+
+⟩
+
+
+
+= 1
+
+R − 1
+
+X
+
+> i
+
+D
+
+ncl (a),i  
+
+> r,t
+
+ncl (a),i 
+
+> r′,t ′
+
+E
+
+.
+
+(34) This result immediately shows that C(r, r′; t, t ′) can be obtained by focusing on the replica-asymmetric sector using 
+
+C(r, r′; t, t ′) = − 1
+
+R − 1
+
+X
+
+> i
+
+δ2Z[J]
+
+δJ q(a),i  
+
+> r,t
+
+δJ q(a),i  
+
+> r′,t ′J=0
+
+. (35) Once C(r, r′; t, t ′) is known, the second cumulant of the particle number in the subsystem A is determined by 
+
+C(2)  
+
+> A
+
+(tf ) = R 
+
+> r,r′∈A
+
+C(r, r′; tf , t f ) and the associated en-tanglement entropy is given by SA = π2 
+
+> 3
+
+C(2)  
+
+> A
+
+within Gaussian approximation. 
+
+A. Replica-symmetric sector: physical density response 
+
+The Gaussian action governing the fluctuations in the replica-symmetric sector δ ˆ¯q(s) and δ ˆQ(s)(0) takes the form 
+
+iS (2 s) = −R πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+Jq(s)
+
+> −ω, −k
+
+Jq(s)
+
+> ω, k
+
+− R πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+h
+
+δ ¯q(s)12  
+
+> ω, k
+
+δQ(s)12  
+
+> ω, k
+
+(0) 
+
+i ˆK(s)(k, ω )
+
+"
+
+δ ¯q(s)21 
+
+> −ω, −k
+
+δQ(s)21 
+
+> −ω, −k
+
+(0) 
+
+#
+
++ iR πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+Jq(s)
+
+> −ω, −k
+
+
+
+γmδ ¯q(s)12  
+
+> ω, k
+
++ γDδQ(s)12  
+
+> ω, k
+
+(0) +γmδ ¯q(s)21  
+
+> ω, k
+
++ γDδQ(s)21  
+
+> ω, k
+
+(0) 
+
+
+
+,
+
+(36) where ˆK(s) =
+
+Kmm KmD 
+
+KDm KDD 
+
+
+
+,Kmm (ω, k) = γ2
+
+> m
+
+ γD
+
+γm
+
++ θ(ω, k) − ϕ(ω)
+
+
+
+,KDD (ω, k) = γ2
+
+> D
+
+ γm
+
+γD
+
++ θ(ω, k) − ϕ(ω)
+
+
+
+,KDm (ω, k) = KmD (ω, k) = γmγD (−1 + θ(ω, k) − ϕ(ω)) .
+
+(37) We can see from the action that the source field J(s)
+
+couples to δ ˆ¯q(s) and δ ˆQ(s)(0) only through their linear combination 
+
+δ ˆQ+( s) 
+
+> ω, k
+
+= γmδ ˆ¯q(s) 
+
+> ω, k
+
++ γDδ ˆQ(s)
+
+> ω, k
+
+(0) . (38) Therefore, we can focus on the mode δ ˆQ+( s) whose prop-agator takes the form 
+
+⟨δQ+( s)21 
+
+> −ω, −k
+
+δQ+( s)12  
+
+> ω, k
+
+⟩ = ˜γRπν Λε
+
+1
+
+θ(ω, k ) − ϕ(ω) . (39) Note that while δ ˆ¯q(s) and δ ˆQ(s)(0) are separately mas-sive (see Appendix A for the explicit expressions of their dressed propagators), their linear combination δ ˆQ+( s)
+
+is massless, with a propagator identical to that of 
+
+γmδ ˆ¯q(s) in the measurement-only theory, except that the measurement-induced decay rate γm now replaced by the total decay rate ˜ γ.Substituting Eq. 36 into Eq. 32, it is easy to see that the average-density response function Π (s)ab possesses only a single non-vanishing component—the Keldysh component Π (s)K ≡ Π(s)cl ,cl determined by the propa-gator of δ ˆQ+( s). In the low energy limit ( ω, vk ≪ ˜γ), we find that Π (s)K (ω, k) takes the usual diffusive form 
+
+iΠ(s)K (ω, k) = πν Λε
+
+˜γ
+
+2θ(ω, k )
+
+θ2(ω, k ) − ϕ2(ω)
+
+≃
+
+ Λk
+
+2π
+
+d 2Dk 2
+
+(Dk 2)2 + ω2 ,
+
+(40) 7with the diffusion constant D determined by the total de-cay rate ˜ γ instead of γm in the measurement-only theory, 
+
+D ≡ v2/(2 d˜γ). This result confirms the Ward identity for charge conservation Π (s)K (ω, k → 0) = 0. 
+
+B. Replica-asymmetric sector: entanglement entropy 
+
+In the replica-asymmetric sector, we further decom-pose the fluctuations δ ˆ¯q(a) (δ ˆQ(a)(0)) into its ˆ τ 1 and ˆ τ 2
+
+components, denoted by ˆX(m) ( ˆX (D)) and ˆY (m) ( ˆY(D)), respectively. More specifically, we have ˆX(m) = ( δ ˆ¯q(a)12 + δ ˆ¯q(a)21 )/2,
+
+ˆY (m) = i(δ ˆ¯q(a)12 − δ ˆ¯q(a)21 )/2, (41) and ˆX (D) and ˆY(D) are defined analogously in terms of 
+
+δ ˆQ(a)(0). The action governing these fluctuations is 
+
+S(2 a) =SX + SY + SXY + SXY J + SJ0,iS X = − πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+tr R
+
+h ˆX(m) 
+
+> ω, k
+
+ˆX (D)
+
+> ω, k
+
+i K(X)
+
+> mm
+
+(ω, k) K′ 
+
+> mD
+
+(ω, k)
+
+K′
+
+> Dm
+
+(ω, k) K′
+
+> DD
+
+(ω, k)
+
+ h ˆX(m) 
+
+> −ω, −k
+
+ˆX (D)
+
+> −ω, −k
+
+i
+
+,iS XY = + 2 i πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+ϕ(ω) tr R
+
+h 
+
+γm ˆX(m) 
+
+> ω, k
+
++ γD ˆX (D)
+
+> ω, k
+
+  
+
+γm ˆY (m) 
+
+> −ω, −k
+
++ γD ˆY(D)
+
+> −ω, −k
+
+i 
+
+,iS XY J = − 2i πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+tr R
+
+n ˆJ q(a)
+
+> −ω, −k
+
+h
+
+iϕ (ω)
+
+
+
+γm ˆY (m) 
+
+> ω, k
+
++ γD ˆY(D)
+
+> ω, k
+
+
+
+− [1 − θ(ω, k )] 
+
+
+
+γm ˆX(m) 
+
+> ω, k
+
++ γD ˆX (D)
+
+> ω, k
+
+io 
+
+,iS J0 = − πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+[1 − θ(ω, k )] tr R
+
+ ˆJ q(a) 
+
+> −ω, −k
+
+ˆJ q(a)
+
+> ω, k
+
+
+
+,
+
+(42) where 
+
+K(X/Y ) 
+
+> mm
+
+(ω, k) = γ2
+
+> m
+
+
+
+−1 ∓ ˜γγm
+
++ θ(ω, k)
+
+
+
+,K′
+
+> DD
+
+(ω, k) = γ2
+
+> D
+
+ γm
+
+γD
+
++ θ(ω, k)
+
+
+
+,K′
+
+> Dm
+
+(ω, k) = K′ 
+
+> mD
+
+(ω, k) = γmγD (−1 + θ(ω, k)) .
+
+(43) The action SY has the same quadratic form as SX , upon replacing ˆX(m) → ˆY (m), ˆX (D) → ˆY(D), and K(X) 
+
+> mm
+
+→
+
+K(Y )
+
+> mm
+
+.In the absence of disorder, ˆY (m) is massless while ˆX(m)
+
+is massive, and integrating out the massive ˆX(m) mode only leads to a renormalization of the parameters. By contrast, in the disorder-only case, both ˆX (D) and ˆY(D)
+
+are massless. In the current case, when both disorder and measurement are present, all four modes appear massive in their free actions. However, the coupling between them results in a massless mode corresponding to a linear com-bination of ˆY (m) and ˆY(D), while the sector spanned by ˆX(m) and ˆX (D) remains massive, as in the measurement-only case. As in the replica-symmetric sector, we now introduce ˆY (+)  
+
+> ω, k
+
+= γm ˆY (m) 
+
+> ω, k
+
++ γD ˆY(D)
+
+> ω, k
+
+, (44) and similarly for ˆX(+) . These modes couple directly to the source field J(a). We find that the propagator for ˆY (+) is massless while that for ˆX(+) is massive: 
+
+⟨Y (+) ij 
+
+> −ω, −k
+
+Y (+) uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+˜γθ(ω, k ) ,
+
+⟨X(+) ij 
+
+> −ω, −k
+
+X(+) uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+γ2 
+
+> D
+
+− γ2
+
+> m
+
+2γm
+
+,
+
+(45) where Pij,uv ≡  δiv δju − 1 
+
+> R
+
+δij δuv 
+
+.Integrating out the massive mode ˆX(+) , we arrive at an effective Gaussian action for massless mode ˆY (+) and source field J(a):
+
+S(2 a)eff =Seff  
+
+> Y
+
++ Seff  
+
+> Y J
+
++ Seff 
+
+> J
+
+iS eff  
+
+> Y
+
+= − πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+˜θ(ω, k ) tr R
+
+ ˆY (+)  
+
+> −ω, −k
+
+ˆY (+) 
+
+> ω, k
+
+
+
+,iS eff  
+
+> Y J
+
+=z 2πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+ϕ(ω) tr R
+
+ ˆJ q(a) 
+
+> −ω, −k
+
+ˆY (+) 
+
+> ω, k
+
+
+
+,iS eff  
+
+> J
+
+= − z πν 
+
+˜γ Λε
+
+Z
+
+> ω, k
+
+tr R
+
+ ˆJ q(a) 
+
+> −ω, −k
+
+ˆJ q(a)
+
+> ω, k
+
+
+
+,
+
+(46) where z = ˜ γ/ 2γm accounts for the massive mode renor-malization effect and ˜θ(ω, k ) is defined as ˜θ(ω, k ) = v2k2
+
+4d˜γ2 + z ω2
+
+4˜ γ2 . (47) The renormalized propagator of ˆY (+) retains the same form as in Eq. 45, with θ(ω, k ) replaced by ˜θ(ω, k ). 8Using Eq. 46 and Eq. 35, we find that the connected two-point density correlation function C(r, r′; t, t ′) is de-termined by the ˆY (+) propagator: 
+
+C(r, r′; t, t ′) = z 2πν Λε
+
+˜γ δ(r − r′)δ(t − t′)+ z2( 2πν Λε
+
+˜γ )2
+
+Z ∞
+
+> 0
+
+dω π cos ( ω(t − tf )) cos ( ω(t′ − tf )) 
+
+×
+
+Z
+
+> k
+
+eik(r−r′) ϕ2(ω)
+
+R − 1
+
+X
+
+> i
+
+⟨Y (+) ii  
+
+> −k,−ω
+
+Y (+) ii  
+
+> −k,−ω
+
+⟩
+
+!
+
+,
+
+(48) Here the factor cos ( ω(t − tf )) originates from the half-space Fourier transform of ∂t ˆY (+)  
+
+> t
+
+with the boundary condition ˆY (+)  
+
+> tf
+
+= 0 at the final time tf = 0 [79]. Sub-stituting the explicit expression of the renormalized Y
+
+propagator and setting t = t′ = tf , we obtain 
+
+C(r, r′; tf , t f ) = 
+
+Z
+
+> k
+
+eik(r−r′) ˜C(k),
+
+˜C(k) = 2νΛε
+
+˜γ
+
+Z ∞
+
+> 0
+
+dω 
+
+
+
+z + z2 ϕ2(ω)˜θ(ω, k )
+
+
+
+=
+
+ Λk
+
+2π
+
+d v
+
+˜γ
+
+r zd k. 
+
+(49) For a subsystem of linear size ℓ, this leads to the entan-glement entropy 
+
+SA ∝
+
+ Λk
+
+2π
+
+d v
+
+˜γ
+
+r zd ℓd−1 ln( ℓ/ℓ 0), (50) up to a geometry-dependent overall coefficient. Here the effective mean free path ℓ0 ≃ v/ ˜γ serves as the ultraviolet cutoff. 
+
+V. NONLINEAR SIGMA MODEL 
+
+Although the matrix fields ˆ qt, r and ˆQtt ′,r are intro-duced as Hubbard-Stratonovich fields that separately de-couple interactions generated by disorder and measure-ment averaging, and possess different structures in time space, the symmetry of the action in Eq. 18 implies that the Goldstone manifold of the theory is generated by si-multaneous unitary rotations of the matrix fields ˆQ and ˆ¯q around their respective saddle points by the same local-in-time unitary matrix ˆRt, r
+
+ˆQtt ′,r = ˆRt, r ˆτ 3 ˆR−1 
+
+> t, r
+
+δtt ′ , ˆ¯qt, r = iγ m ˆRt, r ˆτ 3 ˆR−1 
+
+> t, r
+
+. (51) Here the rotation matrix ˆRt, r can be parameterized as ˆR = ˆRΘ ˆR0, ˆR0 = ˆRθ ˆRϕ
+
+ˆRΘ = ei ˆΘ⊗ˆτ 1/2, ˆRθ = eiθ ˆτ 1/2, ˆRϕ = eiϕ ˆτ 2/2, (52) where ˆΘ is a traceless matrix field in replica space sat-isfying tr R( ˆΘ) = 0. The matrix field ˆΘ generates ro-tations ˆRΘ in the replica-asymmetric sector, while the scalar fields θ and ϕ generate rotations ˆR0 in the replica-symmetric sector. As in the measurement-only case, the rotation ˆRϕ produces massless fluctuations due to the specific choice of the decoupling weight f = 1 /R . By contrast, in the replica-asymmetric sector, an analogous rotation ˆRΦ = ei ˆΦ⊗ˆτ 2/2, with tr R( ˆΦ) = 0, generates mas-sive modes when applied to both ˆQ and ˆ ¯q matrix fields We emphasize that the Goldstone modes arise from si-multaneous rotations of both ˆQ and ˆ ¯q matrix fields by the same local-in-time unitary matrix ˆRt, r. By contrast, any relative local-in-time rotation between ˆQ and ˆ ¯q generate massive fluctuations. Specifically, consider acting on ˆQ
+
+with an additional local-in-time unitary rotation ˜Rt,ˆQtt ′;r = ˆRt, r ˆ˜Rt, r ˆτ 3 ˆ˜R−1 
+
+> t, r
+
+ˆR−1 
+
+> t, r
+
+δtt ′ , (53) while keeping ˆ ¯q unchanged (as in Eq. 51). Such rela-tive rotation ˆ˜R breaks the symmetry of the action and therefore produces massive modes. In the absence of measurement, the disorder-averaged theory possesses a Goldstone manifold that also in-cludes nonlocal-in-time rotations ˆRQt′′ t′,r around the sad-dle point ˆQsp . These rotations mix different time indices and produce off-diagonal components in time space, ˆQtt ′,r =
+
+Z
+
+> t′′
+
+ˆRQtt ′′ ,r ˆτ 3 ˆRQ−1
+
+> t′′ t′,r
+
+. (54) However, the presence of the measurement-induced ma-trix field ˆ¯q also generates a finite mass for the off-diagonal-in-time components δ ˆQtt ′ , with t̸ = t′, which are not included in either Eq. 53 or Eq. 51. Moreover, these off-diagonal-in-time components decouple from the Goldstone sector at quadratic order, and therefore can be ignored in the regime of weak measurement and disorder strengths. 
+
+A. Effective action for the Goldstone modes 
+
+We first focus on the Goldstone modes, and address the renormalization effect of the massive modes and the coupling to the source field in later sections. The action for the Goldstone modes can be obtained by substituting Eq. 51 into Eq. 18, which yields 
+
+iS gm = Tr ln 
+
+h ˆG−10 + i˜γ ˆRˆτ 3 ˆR−1i
+
+. (55) We can easily see from this expression that the effec-tive theory for the Goldstone fluctuations in the present of both continuous monitoring and impurity disorder is identical to that of the measurement-only theory, but with the replacement γm → ˜γ.In the following, we briefly outline the derivation of the NL σM for the Goldstone modes, which proceed iden-tically to the measurement-only theory after the replace-9ment γm → ˜γ. We first rewrite Eq. 55 as 
+
+iS gm = Tr ln 
+
+h
+
+1 + i ˆGsp ˆR−1∂t ˆR + i ˆGsp ˆR−1v · ∇ ˆR
+
+i
+
+,
+
+(56) where ˆG−1 
+
+> sp
+
+= ( ˆG−10 + i˜γ ˆτ 3). Performing the expansion of the action above, the lead-ing order term is i Tr 
+
+h ˆGsp ˆR−1∂t ˆR
+
+i
+
+, which after applying the saddle point equation P 
+
+> k,ε
+
+ˆGsp (k, ε ) = − i
+
+> 2
+
+  Λk
+
+> 2π
+
+d ˆτ 3
+
+reduces to 
+
+i Tr 
+
+h ˆGsp ˆR−1∂t ˆR
+
+i
+
+= 12
+
+ Λk
+
+2π
+
+d
+
+Tr 
+
+h
+
+ˆτ 3 ˆR−1∂t ˆR
+
+i
+
+= 12
+
+ Λk
+
+2π
+
+d h
+
+R tr K
+
+
+
+ˆτ 3 ˆR−10 ∂t ˆR0
+
+
+
++ Tr 
+
+ ˆQ0 ˆR−1Θ ∂t ˆRΘ
+
+i 
+
+.
+
+(57) Here ˆQ0 = ˆR0 ˆτ 3 ˆR−10 ∈ U(2) /U(1) × U(1), and tr K de-notes the trace over the Keldysh space only. The second term in the last equality vanishes because tr R( ˆΘ) = 0. We are therefore left with the first term, which is associ-ated with the soft modes in the replica-symmetric space. For the term quadratic in v · ∇ in the Tr ln expansion, one can use P 
+
+> k,ε
+
+GR
+
+> sp
+
+(k, ε )GA
+
+> sp
+
+(k, ε ) = 12˜ γ
+
+  Λk
+
+> 2π
+
+d, which leads to 12 Tr 
+
+h ˆGsp 
+
+ ˆR−1v · ∇ ˆR
+
+ ˆGsp 
+
+ ˆR−1v · ∇ ˆR
+
+i 
+
+=
+
+ Λk
+
+2π
+
+dD
+
+4 Tr ln 
+
+h
+
+(1 + ˆ τ 3)
+
+ ˆR−1∇ ˆR
+
+
+
+(1 − ˆτ 3)
+
+ ˆR−1∇ ˆR
+
+i 
+
+=−
+
+ Λk
+
+2π
+
+dD
+
+8
+
+h
+
+R tr K
+
+h
+
+(∇ ˆQ0)2i
+
++ 2¯ g[ ˆQ0] tr R
+
+
+
+∇ ˆU −1∇ ˆU
+
+i 
+
+.
+
+(58) Here ˆU = exp( i ˆΘ) ∈ SU(R) and ¯ g[ ˆQ0] is defined as ¯g[ ˆQ0] ≡ 14 tr K
+
+h
+
+(1 + ˆQ0)ˆ τ 1(1 − ˆQ0)ˆ τ 1i
+
+. (59) We note that the cross term involving both ∇ ˆRΘ and 
+
+∇ ˆR0 vanishes because tr R( ˆΘ) = 0. Similarly, the term quadratic in ∂t in the Tr ln expan-sion gives 12 Tr ln 
+
+h ˆGsp 
+
+ ˆR−1∂t ˆR
+
+ ˆGsp 
+
+ ˆR−1∂t ˆR
+
+i 
+
+= −
+
+ Λk
+
+2π
+
+d ¯g[ ˆQ0]8˜ γ tr R
+
+
+
+∂t ˆU −1∂t ˆU
+
+
+
+.
+
+(60) Here we have neglected a term quadratic in ∂t ˆR0, as it is of higher order in the gradient expansion than the term in Eq. 57. Combining all these terms, we arrive at the effective action for the Goldstone modes ˆU ∈ SU( R) in the replica-asymmetric sector and ˆQ0 ∈ U(2) /U(1) × U(1) in the replica-symmetric sector: 
+
+iS gm =
+
+ Λk
+
+2π
+
+d R
+
+2
+
+
+
+tr K
+
+
+
+ˆτ 3 ˆR−10 ∂t ˆR0
+
+
+
+− D
+
+4 tr K
+
+h
+
+(∇ ˆQ0)2i
+
+−
+
+ Λk
+
+2π
+
+d¯g[ ˆQ0]8˜ γ
+
+
+
+tr R
+
+
+
+∂t ˆU −1∂t ˆU
+
+
+
++ v2
+
+d tr R
+
+
+
+∇ ˆU −1∇ ˆU
+
+
+
+.
+
+(61) Here the overall factor ¯ g[ ˆQ0] in the second line leads to the coupling between the soft modes in the replica-asymmetric and replica-symmetric sectors. This inter-action generates corrections that are infrared finite and can be therefore neglected [50, 70]. As a result, one can replace ¯ g[Q0] in the equation above by ¯ g[ ˆQsp ] = 1. 
+
+B. Renormalization from massive modes 
+
+Let us now examine the renormalization effects arising from the massive modes generated by the rotation ˆRΦ =
+
+eiΦ⊗ˆτ 2/2, which acts on both ˆ ¯q and ˆQ, as well as the relative rotation ˆ˜R between them. Specifically, we now include the massive modes generated by ˆRΦ and ˆ˜R, and consider fluctuations described by ˆQtt ′,r = ˆRt, r ˆ˜Rt, r ˆτ 3 ˆ˜R−1 
+
+> t, r
+
+ˆR−1 
+
+> t, r
+
+δtt ′ , ˆ¯qt, r = iγ m ˆRt, r ˆτ 3 ˆR−1 
+
+> t, r
+
+,
+
+(62) with the unitary rotation ˆR now given by ˆR =ˆRΘ ˆRΦ ˆRθ ˆRϕ. Relative rotation ˆ˜R takes the same form as ˆR but with ˆΘ, ˆΦ, θ, and ϕ replaced by ˆ˜Θ, ˆ˜Φ, ˜θ, and ˜ϕ, respectively. Substituting this parameterization into Eq. 18, we find the quadratic in ˆ q terms becomes 
+
+− 12g2αf
+
+Z
+
+> t, r
+
+Tr (ˆ qt, r ˆτ 1)2 − f Tr 2 (ˆ qt, r ˆτ 1)
+
+=
+
+ Λk
+
+2π
+
+d γm
+
+4
+
+Z
+
+> t,t ′,r
+
+
+
+Tr 
+
+ ˆQ0
+
+
+
+cos ˆΦˆ τ 1 − sin ˆΦˆ τ 3 2
+
+−f Tr 2 h ˆQ0
+
+
+
+cos ˆΦˆ τ 1 − sin ˆΦˆ τ 3io 
+
+.
+
+(63) Retaining terms up to the quadratic order, this yields the bare action for the massive mode ˆΦ, 
+
+iS Φ =
+
+ Λk
+
+2π
+
+d
+
+γm tr R( ˆΦ2). (64) The Tr ln term in Eq. 18, after substituting Eq. 62, becomes Tr ln 
+
+h ˆG−10 + iγ m ˆRˆτ 3 ˆR−1 + iγ D ˆR ˆ˜Rˆτ 3 ˆ˜R−1 ˆR−1i
+
+= Tr ln 
+
+h
+
+1 + ˆGsp ˆR−1 h ˆG−10 , ˆR
+
+i
+
++ iγ D ˆGsp ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1ii 
+
+.
+
+(65) Expanding the equation above, the leading order contri-bution contains i Tr 
+
+h ˆGsp ˆR−1∂t ˆR
+
+i
+
+as before. Apart from 10 the usual terms in Eq. 57, the inclusion of ˆRΦ in ˆR fur-ther generates an interaction between the massive mode ˆΦ and the soft modes ˆQ0 and ˆU :
+
+iS c1 = 12
+
+ Λk
+
+2π
+
+d
+
+Tr 
+
+h
+
+( ˆRΦ ˆQ0 ˆR−1Φ − ˆQ0) ˆR−1Θ ∂t ˆRΘ
+
+i
+
+= − 14
+
+ Λk
+
+2π
+
+d
+
+tr K
+
+h ˆQ0 ˆτ 3i
+
+tr R
+
+h ˆΦ ˆU − 12 ∂t ˆU ˆU − 12
+
+i
+
+.
+
+(66) As before, we set ˆQ0 to its saddle point in the prefactor, neglecting the higher order corrections from its coupling to ˆU and ˆΦ. The Tr ln expansion also gives rise to the bare action for the massive modes associated with ˆ˜R,
+
+iS ˜Φ =iγ D Tr 
+
+h ˆGsp ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1ii 
+
++ γ2
+
+> D
+
+2 Tr 
+
+ ˆGsp ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1i 2
+
+≈ − 
+
+ Λk
+
+2π
+
+d γDγm
+
+2˜ γ
+
+
+
+tr R[ ˆ˜Φ2] + tr R[ ˆ˜Θ2] + R ˜ϕ2 + R˜θ2
+
+,
+
+(67) and their leading order interaction with the massless mode ˆU ,
+
+iS c2 =γD Tr 
+
+n ˆGsp 
+
+ ˆR−1∂t ˆR
+
+ ˆGsp ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1io 
+
+= −
+
+ Λk
+
+2π
+
+d γD
+
+2˜ γ tr R
+
+h ˆ˜Φ ˆU − 12 ∂t ˆU ˆU − 12
+
+i
+
+.
+
+(68) The action Smm = SΦ + S˜Φ + Sc1 + Sc2, describing the massive modes and their coupling to the massless modes, can be used to integrate out the massive modes, yielding an effective action for the Goldstone mode ˆU .The resulting action has the same form as Eq. 61, second line, except that the time derivative term 
+
+
+
+∂t ˆU −1∂t ˆU
+
+
+
+is renormalized by a prefactor z = ˜ γ/ 2γm, consistent with the Gaussian result in Sec. IV. 
+
+C. Coupling to the source field 
+
+The final step in the derivation of the NL σM is to incor-porate the coupling to the source field ˆJ, required for the computation of the averaged-density correlation function and particle-number cumulants. The source field enters through the Tr ln term in Eq. 65: Tr ln 
+
+h ˆG−10 + iγ m ˆRˆτ 3 ˆR−1 + iγ D ˆR ˆ˜Rˆτ 3 ˆ˜R−1 ˆR−1 − ˆJ
+
+i
+
+= Trln 
+
+h
+
+1 + ˆGsp 
+
+ ˆR−1
+
+h ˆG−10 , ˆR
+
+i
+
++ iγ D ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1i
+
+− ˆR−1 ˆJ ˆR
+
+i 
+
+.
+
+(69) Expanding the Tr ln to first order yields one source-field-dependent term, in addition to the those discussed above, and it can be expressed as 
+
+− Tr 
+
+h ˆGsp ˆR−1 ˆJ ˆR
+
+i
+
+= iS JQ 0 + iS JΦ,iS JQ 0 = i
+
+2
+
+ Λk
+
+2π
+
+d
+
+R tr K
+
+h ˆJ q(s) ˆτ 1 ˆQ0
+
+i
+
+,iS JΦ = − i
+
+4
+
+ Λk
+
+2π
+
+d
+
+tr K
+
+h ˆQ0 ˆτ 3i
+
+tr R
+
+h ˆΦ ˆJ U i
+
+,
+
+(70) where ˆJ U ≡
+
+ ˆU − 12 ˆJ q(a) ˆU 12 + ˆU 12 ˆJ q(a) ˆU − 12
+
+
+
+. (71) At second order, we have 
+
+iS J ˜Φ = iγ D Tr 
+
+h ˆGsp ˆR−1 ˆJ ˆR ˆGsp ˆ˜R
+
+h
+
+ˆτ 3, ˆ˜R−1ii 
+
+≈ − 
+
+ Λk
+
+2π
+
+d iγ D
+
+2˜ γ tr R
+
+h ˆ˜Φ ˆJ U i
+
+,
+
+(72) and 
+
+iS JU = i Tr 
+
+h ˆGsp ˆR−1 ˆJ ˆR ˆGsp ˆR−1∂t ˆR
+
+i
+
+≈
+
+ Λk
+
+2π
+
+d i
+
+4˜ γ tr R
+
+h ˆU − 12 ∂t ˆU ˆU − 12 ˆJ U i
+
+.
+
+(73) An additional quadratic-in-J term also arises from the second order expansion: 
+
+iS J0 = − 12 Tr 
+
+ ˆGsp ˆR ˆJ ˆR−12
+
+= −
+
+ Λk
+
+2π
+
+d 12˜ γ
+
+
+
+R
+
+h ˆJ q(s) ˆJ q(s)i
+
++ 14 tr R
+
+ ˆJ U 2 
+
+.
+
+(74) As shown above, in addition to the direct coupling to the Goldstone modes ˆQ0 and ˆU (SJU and SJQ 0 ), the source field ˆJ also couples to the massive modes ˆΦ and ˆ˜Φ(SJΦ and SJ ˜Φ), which in turn interact with the massless modes at the quadratic order ( Sc1 and Sc2). Integrat-ing out these massive modes therefore renormalizes the coupling between the source field and massless modes, as well as the quadratic source field action in SJ0. More specifically, combining SJΦ + SJ ˜Φ with the massive mode action Smm and integrating out the massive modes, we obtain the effective action 
+
+iS r = − (1 − z)8˜ γ tr R
+
+ ˆU − 12 ∂t ˆU ˆU − 12 + i ˆJ U 2
+
+. (75) Here the J-independent term renormalizes the Goldstone action Sgm in the replica-asymmetric sector by an over-all factor z in the ∂t-dependent term, as explained in the previous section. The remaining terms provides the same renormalization factor z in both the source-massless cou-pling ( SJU ) and the J U dependent term in the source field action SJ0.11 Taking into account these renormalization effects, we arrive at the NL σM: 
+
+iS ′ 
+
+> gm
+
+= R
+
+2
+
+
+
+tr K
+
+
+
+ˆτ 3 ˆR−10 ∂t ˆR0
+
+
+
+− D
+
+4 tr K
+
+h
+
+(∇ ˆQ0)2i
+
++ iR 
+
+2 tr K
+
+h ˆJ q(s) ˆτ 1 ˆQ0
+
+i
+
+− R
+
+2˜ γ
+
+h ˆJ q(s) ˆJ q(s)i
+
+− 18˜ γ
+
+
+
+z tr R
+
+
+
+∂Jt ˆU
+
+  
+
+∂Jt ˆU
+
+†
+
++ v2
+
+d tr R
+
+
+
+∇ ˆU ∇ ˆU †
+
+,
+
+(76) where 
+
+∂Jt ˆU = ∂t ˆU + i
+
+ ˆJ q(a) ˆU + ˆU ˆJ q(a)
+
+,
+
+ ∂Jt U † = ∂t ˆU † − i
+
+ ˆJ q(a) ˆU † + ˆU † ˆJ q(a)
+
+.
+
+(77) Here we have omitted an overall prefactor of   Λk
+
+> 2π
+
+d in the renormalized action S′ 
+
+> gm
+
+for simplicity. At the quadratic order, this action agrees with the effective Gaussian ac-tions S(2 a)eff (Eq. 46) and S(2 s) (Eq. 36) for the mixed modes ˆY + and δ ˆQ(+) .We note that the derivation of the NL σM for disor-dered monitored fermions presented here is controlled in the regime of sufficiently weak disorder and measure-ment strengths γm/D/mv 2 ≪ 1. However, even when both γm and γD are small, in the limit γm/γ D ≪ 1, the neglected nonlocal-in-time massive modes δ ˆQ (see Ap-pendix B for their Gaussian propagators) might become relevant. These modes are generated by nonlocal in time rotations around ˆQsp . They are massless in disorder-only limit and acquire a mass in the presence of measurement. For γm/γ D ≪ 1, this mass can become small so that these modes cannot be safely ignored despite decoupling from the local-in-time Goldstone fluctuations at the quadratic order. A more detailed analysis of the contribution of these massive modes in this regime is left for a future study. The factor z = ˜ γ/ 2γm in the action above arises from integrating out massive modes and reduces to z = 1 if these modes are neglected. Apart from this z factor, which takes the value of z = 1 /2 in the measurement-only theory, the resulting NL σM for monitored disor-dered fermions is identical to that of the measurement-only theory, upon the replacement γm → ˜γ (with the diffusion constant D modified accordingly). The same sigma model also appears in the conventional equilib-rium disordered systems in chiral unitary class AIII in spatial dimension d + 1 [68]. This result implies that the same renormalization group analysis performed for the measurement-only theory applies here as well (after an appropriate rescaling of time), leading to the same one-loop RG equation [69, 70]. More specifically, the stiffness coupling constant in the present NL σM is g = v√d˜γ
+
+  Λk
+
+> 2π
+
+d,and is determined by the inverse of the total decay rate ˜γ rather than the measurement-induced decay rate γm in the measurement-only theory. The corresponding dimen-sionless coupling constant G(l) = g(l)ld−1 then obeys the RG equation for the AIII NL σM [68–70] 
+
+dG d ln l = ( d − 1) G − R
+
+4π . (78) Taking the replica limit R → 1, this suggests the presence (absence) of a MIPT in dimension d > 1 ( d = 1). For dimension d > 1, the RG equation suggests that the transition occurs at Gc = 1 /4π(d − 1). The critical measurement strength is then given by, 
+
+γcm = 4π(d − 1) v
+
+√d
+
+ Λk
+
+2π
+
+d
+
+− γD . (79) Consequently, we expect the disorder potential to enlarge the area-law regime, causing entanglement transition to occur at weaker measurement rates in the presence of disorder. In one-dimension, the dimensionless coupling constant flows to the strong-coupling regime when the system size exceeds the correlation length, 
+
+lcorr = l0 exp ( g0/4π) . (80) At length scales beyond this correlation length, the en-tanglement entropy given in Eq. 50 saturates, indicating that the system is in the area-law phase. The saturation value of the entanglement entropy is given by, 
+
+SA(l > l corr ) ∼
+
+ Λk
+
+2π
+
+2d v2√z
+
+4π˜γ2 . (81)  
+
+> VI. NUMERICAL ANALYSIS
+
+To verify the analytical prediction, we perform numer-ical analysis on monitored dirty fermions. We consider one-dimensional disordered fermion, 
+
+H = X
+
+> i
+
+h
+
+−t(c† 
+
+> i
+
+ci+1 + H.c. ) + Vini
+
+i
+
+. (82) Here Vi is the onsite scalar potential, uniformly dis-tributed in [ −W, W ]. We consider the quantum pro-jection dynamics starting from an initial half-filled N´ eel state |Ψ0⟩ = |1010 · · · 10 ⟩. The fermions are subject to unitary evolution governed by the Hamiltonian in Eq. (82). At every time step δt , a randomly chosen site 
+
+i is projected into the occupied state |1⟩ with probabil-ity ⟨ni⟩, or into the empty state |0⟩ otherwise. Since the quantum state remains Gaussian throughout the dynam-ics, we are able to perform large-scale numerical simula-tions. The quantum projection dynamics is simulated un-til steady state is reached, at which the physical observ-ables are measured and averaged over the steady states of many quantum trajectories. In this work, we employ a uniform measurement interval with δt = 1 /(Lγ ) with L
+
+being the system size. Here γ denotes the measurement rate that is proportional to the measurement-induced de-cay rate γm.12 a
+
+> 0.05 0.10 0.15 0.20 0.25 0.30 0.1 0.2 0.5 12
+> ★★★★★★
+> b
+> 0.05 0.10 0.15 0.20 0.25 0.30 0.1 0.2 0.5 12
+> ★
+> ★★★★
+> ★
+> c
+> 0.05 0.10 0.15 0.20 0.25 0.30 0.2 0.5 12
+> ★★★★
+> d
+> 0.05 0.10 0.15 0.20 0.25 0.30 0.2 0.5 12
+> ★★★
+> e
+> 0.05 0.10 0.15 0.20 0.25 0.30 0.1 0.2 0.5 1
+> ★★★
+> f
+
+FIG. 1. The covariance GAB of the steady state as a function of measurement rate for various disorder strength and system size. The geometry of A and B region in the 1D chain is illus-trated in (a) and we have LA = LB = d = L/ 4. The stars in (b)–(f) represent the crossing point of adjacent system sizes and the color is the same as that of the larger one. The stars for larger system sizes with strong disorder are not shown as 
+
+GAB already show area-law decreasing with L and no cross-ings are observed. The data is averaged over 1000 quantum trajectories for L = 32 , · · · , 256; 400 quantum trajectories for 
+
+L = 512; 100 quantum trajectories for L = 1024; and 50 quantum trajectories for L = 2048. 
+
+Although the quantum projection protocol differs from the continuous monitoring discussed in previous sections, both belong to the same symmetry class and are gov-erned by the identical NL σM, as demonstrated in Sec. V. Therefore, the underlying physics of continuous and dis-crete monitoring is equivalent, allowing us to use either protocol to investigate measurement-induced dynamics and potential phase transitions. We employ the quan-tum projection protocol in this work as it is computa-tional more efficient and exhibits weaker finite-size effect than quantum state diffusion [38, 40]. The computational advantage is achieved by utilizing a rank-1 polar update algorithm for the QR decomposition. The rank-1 po-lar decomposition is mathematically equivalent to singu-lar value decomposition (SVD), which best preserves the structure of |Ψ⟩ during the re-orthogonalization. This rank-1 method is significantly faster than SVD or stan-dard QR decomposition, and the Newton-Schulz QR is applied every 100 projections to mitigate the accumula-tion of rounding errors. The steady-state particle-number covariance GAB ,which is proportional to the mutual information IAB ≈ 
+
+> 3π2
+> 3
+
+GAB [70], is used to characterize possible MIPT in the quantum projection dynamics. The covariance GAB 
+
+is defined as 
+
+GAB = −
+
+Z
+
+> x∈A
+
+Z
+
+> y∈B
+
+C(x − y) . (83) Here the equal-time two-point correlation function [Eq. (33)] is given by, 
+
+C(x, y ) = ⟨n(x)n(y)⟩ − ⟨ n(x)⟩ ⟨ n(y)⟩ . (84) The covariance is then averaged over quantum trajecto-ries, position, and a time interval after steady condition is reached. We obtain the numerical results for a 1D fermion chain of length L with periodic boundary conditions. The co-variance GAB is evaluated for two equal-size patches, A
+
+and B, of length LA = LB = L/ 4 with a separation of d = L/ 4 [Fig. 1(a)]. In the area-law phase, both the mutual information and covariance GAB decay expo-nentially with the system size L. Conversely, when the system is in the logarithmically entangled critical phase, these quantities saturate to a constant value [80, 81]. The steady-state covariance GAB is plotted in Figs. 1(b) – (f) for various disorder strengths. For large measurement rate γ, GAB decreases with system size, confirming that the system is area-law entangled. For weak measurement rates, GAB initially increases with L
+
+for small to moderate system sizes. A genuine MIPT would manifest as a single, size-independent crossing point in the GAB curves. However, Fig. 1(b) reveals that the finite-size crossing between curves of adjacent system sizes is not constant; instead, the critical mea-surement rate decreases with L, approaching zero for the largest system size evaluated. Interestingly, this drift of the intersection point to-wards γ = 0 also occurs in disordered fermions. Fig. 2 tracks the finite-size crossing point, γLc , as a function of system size. For weak disorder potentials ( W = 0 .25 and 0 .5), the behavior closely mirrors that of the clean limit, while the crossing point drifts toward zero more rapidly for stronger disorder ( W = 0 .75 and W = 1). These results clearly indicate the absence of an MIPT in either clean [50] or dirty 1D fermions, corroborating our analytical prediction from previous sections. Fig. 3 illustrates the system-size scaling of the covari-ance GAB for different measurement rate and disorder strength. For small systems, GAB initially increases with 
+
+L; however, it rapidly begins to decay with L once the system is sufficiently large. The overall trend demon-strates 1D free fermions strictly remain in the area-law phase, confirming the absence of a true MIPT in either clean or disordered fermions. 
+
+VII. CONCLUSION AND OUTLOOK 
+
+In this work, we develop a two-matrix field theory within the replica Keldysh formalism to describe a moni-13 0.000 0.005 0.010 0.015 0.020 0.00 0.05 0.10 0.15 0.20 0.25 0.30                        
+
+> FIG. 2. Finite size crossing point of GAB curves of adjacent system size in Fig. 1. The decreasing of the crossing point with increasing system size Lindicates the absence of genuine MIPT in thermodynamic limit. 50 100 500 1000 0.5 12550 100 500 1000 0.5 1250 100 500 1000 0.4 0.6 0.8 1.0 1.2 1.4 50 100 500 1000 0.2 0.3 0.4 0.5 0.6 50 100 200 500 0.18 0.20 0.22 0.24 0.26 0.28 50 100 200 500 0.08 0.10 0.12 0.14 0.16
+> FIG. 3. The system size scaling of GAB for various mea-surement rate and disorder strength. The covariance initially increases with system size, but it rapidly reverse the trend to decrease with L.
+
+tored disordered system of noninteracting fermions, with a local-in-time matrix field ˆ qt capturing the effect of con-tinuous monitoring, and a bilocal-in-time ˆQtt ′ that en-codes the effect of disorder. We find that the Gold-stone modes, governing the universal long-time behavior of entanglement entropy and charge fluctuations, arise from simultaneous local-in-time rotations of the respec-tive saddle points of the matrix fields ˆ q and ˆQ in replica and Keldysh spaces. As in the measurement-only case, only a subset of these rotations correspond to Gold-stone modes, while the others remain massive. These fluctuation modes are described by the same NL σM as in the measurement-only theory, with modified param-eters. Specifically, the stiffness coupling g, which is in-versely proportional to the measurement-induced decay rate γm in the measurement-only theory, is now replaced by the inverse of total decay rate ˜ γ from both measure-ment and disorder. The target manifold is the same as in the measurement-only case: U (2) /U (1) × U (1) for the replica-symmetric sector and SU( R) for the replica-asymmetric sector. By contrast, fluctuations generated by relative local-in-time rotations between ˆ q and ˆQ, as well as certain simultaneous rotations in the replica-asymmetric sector are massive. Integrating out these massive modes leads to a renormalization of sigma model parameters, in particular generating an overall factor z
+
+that depends on the ratio of total decay rate ˜ γ to the measure-induced decay rate γm and multiplies the time-derivative and source terms in the replica-asymmetric sector of the sigma model. Furthermore, while the disor-der sector possesses soft modes associated with nonlocal-in-time rotations of ˆQ in the absence of measurement, these modes acquire a finite mass in the presence of measurement and decouple from the local-in-time fluc-tuations at the quadratic order. As a result, the low-energy dynamics is effectively restricted to local-in-time soft modes described by a NL σM of the same form as in the measurement-only theory, with parameters modified by disorder and renormalized by local-in-time massive modes. The fact that the monitored disordered fermionic sys-tem is described by the same NL σM with modified pa-rameters as the measurement-only theory implies that static disorder does not affect the presence or absence of a measurement-induced phase transition. To support this result, we provide numerical evidence for the absence of a measurement-induced phase transition in one dimension, consistent with the analytical prediction of equivalence between monitored fermions with and without disorder. Recently, it has also been claimed that an MIPT occurs in 1D free fermions with a quasiperiodic potential [82– 84]. The quasiperiodic potential acts as a kind of struc-tured disorder in modifying the wave function statistics, which does not change the symmetry class. Therefore, we expect that it shares similar physics with the case of disordered fermions and that the observed MIPT is also an artifact of finite-size effects. Another natural next step is to ask how interactions modify the behaviors of disordered monitored fermions considered here. In the clean case [62, 76, 79, 85], it has been shown that the interactions gap out some Goldstone modes present in the noninteracting theory, which are responsible for localization-like corrections that stabilize the area law behavior of monitored fermions in 1D. The interaction-induced mass terms for these modes cut off this “localization” correction and allow a MIPT to emer-gence even in 1D [76, 79, 86]. This effect is analogous to dephasing of weak localization in conventional dis-14 ordered systems [77, 87, 88], where interactions destroy single-particle phase coherence and cut off weak localiza-tion corrections, often represented by the appearance of a mass term in the Cooperon propagators. Given that both clean and disordered noninteracting monitored fermions are described by the same NL σM, we expect that inter-actions would play a similar role in the two cases: they generate a mass term for the Goldstone modes of the cur-rent theory and enables a MIPT in 1D. Detailed investi-gation of interacting monitored fermions in the presence of disorder is an important direction for future studies. 
+
+VIII. ACKNOWLEDGMENTS 
+
+We thank Jens H. Bardardson for helpful discussions that motivated this work. 
+
+Appendix A: Dressed propagators for the Gaussian fluctuations 
+
+In this appendix, we present the explicit expressions for the dressed propagators of the Gaussian fluctuations 
+
+δ ˆq and δ ˆQ(0) in both the replica-symmetric and replica-asymmetric sectors. Specifically, in the replica-symmetric sector, the dressed propagators for the fluctuations δ ˆ¯q(s) and 
+
+δ ˆQ(s)(0), governed by the action in Eq. 36, are given by 
+
+⟨δ ¯q(s)21 
+
+> −ω, −k
+
+δ ¯q(s)12  
+
+> ω, k
+
+⟩ = 1
+
+Rπν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − ϕ(ω) + γD
+
+γm
+
+
+
+,
+
+⟨δQ(s)21 
+
+> −ω, −k
+
+(0) δQ(s)12  
+
+> ω, k
+
+(0) ⟩ = 1
+
+Rπν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − ϕ(ω) + γm
+
+γD
+
+
+
+,
+
+⟨δq (s)21 
+
+> −ω, −k
+
+δQ(s)12  
+
+> ω, k
+
+(0) ⟩ = ⟨δQ(s)21  
+
+> ω, k
+
+(0) δq (s)12  
+
+> ω, k
+
+⟩
+
+= 1
+
+Rπν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − ϕ(ω) − 1
+
+
+
+.
+
+(A1) In the replica-asymmetric sector, the Gaussian fluctu-ations are further decomposed into Y (m) and Y(D), corre-sponding to the τ 2 components of the fluctuations δ ˆ¯q(a)
+
+and δ ˆQ(a)(0), respectively, as well as X(m) and X (D),which are the corresponding τ 1 components. The prop-agators for Y (m) and Y(D) arising from SY in Eq. 42 are given by 
+
+⟨Y (m)ij 
+
+> −ω, −k
+
+Y (m)uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) + γD
+
+γm
+
+
+
+,
+
+⟨Y (D)ij 
+
+> −ω, −k
+
+Y(D)uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) + γm
+
+γD
+
+
+
+,
+
+⟨Y (m)ij 
+
+> −ω, −k
+
+Y(D)uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − 1
+
+
+
+.
+
+(A2) Similarly, the propagators for X(m) and X (D) arising from 
+
+SX are 
+
+⟨X(m)ij 
+
+> −ω, −k
+
+X(m)uv ω, k ⟩ = − Pij,uv 
+
+2πν Λε
+
+12γm
+
+1 + γD 
+
+> γm
+
+θ(ω, k )1 − γm−γD 
+
+> 2γm
+
+θ(ω, k ) ,
+
+⟨X (D)ij 
+
+> −ω, −k
+
+X (D)uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+(γD + 2 γm)2γDγm
+
+1 − γm 
+
+> γD+2 γm
+
+θ(ω, k )1 − γm−γD 
+
+> 2γm
+
+θ(ω, k ) ,
+
+⟨X(m)ij 
+
+> −ω, −k
+
+X (D)uv ω, k ⟩ = − Pij,uv 
+
+2πν Λε
+
+12γm
+
+1 − θ(ω, k )1 − γm−γD 
+
+> 2γm
+
+θ(ω, k ) .
+
+(A3) 
+
+Appendix B: Alternative treatment of the Gaussian fluctuations 
+
+In this appendix, we provide an alternative Gaussian approximation analysis, retaining all fluctuation modes that are massless in the measurement-only or disorder-only theory. In particular, we include all components of δ ˆQt1,t 2 , including the off-diagonal in time modes with 
+
+t1̸ = t2, which are massive in the presence of measure-ment and decouple from all massless modes and source fields at the quadratic order. This analysis provides fur-ther insight into the full structure of Gaussian fluctua-tions, especially the role of the massive and nonlocal in time components of the ˆQ matrix field. 
+
+1. replica-symmetric sector 
+
+The action for Gaussian fluctuations in the replica-symmetric sector δ ˆ¯q(s) and δ ˆQ(s) takes the form 
+
+iS (s) = − Rπνγ m
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+δ ¯q(s)12  
+
+> ω, k
+
+δ ¯q(s)21 
+
+> −ω, −k
+
+− Rπνγ D
+
+Z
+
+> ε,ω, k
+
+δQ (s)12 
+
+> ε,ε −ω, k
+
+δQ (s)21 
+
+> ε−ω,ε, −k
+
+− R πν 
+
+˜γ
+
+Z
+
+> ε,ω, k
+
+[−1 + θ(ω, k ) − ϕ(ω)] 
+
+×
+
+h
+
+γmδ ¯q(s)12  
+
+> ω, k
+
++ γDδQ (s)12  
+
+> ε,ε −ω, k
+
++ iJ q(s)
+
+> ω, k
+
+i
+
+×
+
+h
+
+γmδ ¯q(s)21  
+
+> −ω, −k
+
++ γDδQ (s)21  
+
+> ε−ω,ε, −k
+
++ iJ q(s)
+
+> −ω, −k
+
+i
+
+,
+
+(B1) 15 As in the main text, we keep only those fluctuations that are massless in the measurement-only or disorder-only limits. In the presence of both disorder and measurement, these fluctuations appear massive in their respective bare actions: 
+
+⟨δ ¯q(s)21 
+
+> −ω, −k
+
+δ ¯q(s)12  
+
+> ω′,k′
+
+⟩0 = 1
+
+Rπν Λε
+
+˜γγ2
+
+> m
+
+1 
+
+> γD
+> γm
+
++ θ(ω, k ) − ϕ(ω) ,
+
+⟨δQ (s)21 
+
+> ε−ω,ε, −k
+
+δQ (s)12 
+
+> ε′,ε ′−ω, k
+
+⟩0 = 1
+
+Rπν 
+
+˜γγ2
+
+> D
+
+1 
+
+> γm
+> γD
+
++ θ(ω, k ) − ϕ(ω) δε,ε ′ .
+
+(B2) The interaction between matrix fields δ ˆQ(s) and δ ˆ¯q(s) leads to the following dressed propagators 
+
+⟨δ ¯q(s)21 
+
+> −ω, −k
+
+δ ¯q(s)12  
+
+> ω, k
+
+⟩ = 1
+
+Rπν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − ϕ(ω) + γD
+
+γm
+
+
+
+,
+
+⟨δQ (s)21 
+
+> ε−ω,ε, −k
+
+δQ (s)12 
+
+> ε′,ε ′−ω, k
+
+⟩ = 1
+
+Rπν 
+
+˜γγ2
+
+> D
+
+1 
+
+> γm
+> γD
+
++ θ(ω, k ) − ϕ(ω) δε,ε ′ + 1Λε
+
+γmγD
+
+˜γ2
+
+(−1 + θ(ω, k ) − ϕ(ω)) 2
+
+θ(ω, k ) − ϕ(ω)
+
+!
+
+,
+
+⟨δq (s)21 
+
+> −ω, −k
+
+δQ (s)12 
+
+> ε,ε −ω, k
+
+⟩ = ⟨δQ (s)21 
+
+> ε−ω,ε, k
+
+δq (s)12  
+
+> ω, k
+
+⟩ = 1
+
+Rπν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − ϕ(ω) − 1
+
+
+
+.
+
+(B3) From these results, we can reproduce the propagator for the mixed modes δ ˆQ(+) in Eq. 39, which in turn determines the average-density response function Π (s)(k, ω ). 
+
+2. Replica-asymmetric sector 
+
+The action governing the Gaussian fluctuations in the replica-asymmetric sector assumes the form 
+
+S(a) =SX + SY + SXY + SXY J + SJ ,iS X = − πν 
+
+˜γ
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+tr R
+
+
+
+γ2 
+
+> m
+
+ˆX(m)
+
+> ω, k
+
+
+
+−1 − ˜γγm
+
++ θ(ω, k )
+
+
+
+ˆX(m) 
+
+> −ω, −k
+
++ γ2 
+
+> D
+
+ˆX(D)
+
+> ε,ε −ω, k
+
+
+
+−1 + ˜γγD
+
++ θ(ω, k )
+
+
+
+ˆX(D)
+
+> ε−ω,ε, −k
+
++2 γmγD ˆX(m) 
+
+> ω, k
+
+[−1 + θ(ω, k )] ˆX(D)
+
+> ε−ω,ε, −k
+
+o
+
+,iS Y = − πν 
+
+˜γ
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+tr R
+
+
+
+γ2 
+
+> m
+
+ˆY (m)
+
+> ω, k
+
+
+
+−1 + ˜γγm
+
++ θ(ω, k )
+
+
+
+ˆY (m) 
+
+> −ω, −k
+
++ γ2 
+
+> D
+
+ˆY (D)
+
+> ε,ε −ω, k
+
+
+
+−1 + ˜γγD
+
++ θ(ω, k )
+
+
+
+ˆY (D)
+
+> ε−ω,ε, −k
+
++2 γmγD ˆY (m) 
+
+> ω, k
+
+[−1 + θ(ω, k )] ˆY (D)
+
+> ε−ω,ε, −k
+
+o
+
+,iS XY = + 2 i πν 
+
+˜γ
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+ϕ(ω) tr R
+
+n 
+
+γm ˆX(m) 
+
+> ω, k
+
++ γD ˆX(D)
+
+> ε,ε −ω, k
+
+  
+
+γm ˆY (m) 
+
+> −ω, −k
+
++ γD ˆY (D)
+
+> ε−ω,ε, −k
+
+o 
+
+,iS XY J = − i2 πν 
+
+˜γ
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+tr R
+
+n ˆJ q(a)
+
+> −ω, −k
+
+n
+
+iϕ (ω)
+
+
+
+γm ˆY (m) 
+
+> ω, k
+
++ γD ˆY (D)
+
+> ε,ε −ω, k
+
+
+
++ [ −1 + θ(ω, k )] 
+
+
+
+γm ˆX(m) 
+
+> ω, k
+
++ γD ˆX(D)
+
+> ε,ε −ω, k
+
+oo 
+
+iS J = − πν 
+
+˜γ
+
+Z
+
+> ε
+
+Z
+
+> ω, k
+
+[1 − θ(ω, k )] tr R
+
+ ˆJ q(a) 
+
+> −ω, −k
+
+ˆJ q(a)
+
+> ω, k
+
+
+
+.
+
+(B4) Here we have defined, as before, X(D) and Y (D) as the ˆ τ 1 and τ 2 components of δ ˆQ(a):ˆX(D) = ( δ ˆQ(a)12 + δ ˆQ(a)21 )/2, ˆY (D) = i(δ ˆQ(a)12 − δ ˆQ(a)21 )/2. (B5) The Y propagators arising solely from the action SY are given by 
+
+⟨Y (m)ij 
+
+> −ω, −k
+
+Y (m)uv ω, k ⟩ = Pij,uv 
+
+2πν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) + γD
+
+γm
+
+
+
+,
+
+⟨Y (D)ij ε−ω,ε, −kY (D)uv ε′,ε ′−ω, k⟩ = Pij,uv 
+
+2πν 
+
+˜γ/γ 2 
+
+> D
+> γm
+> γD
+
++ θ(ω, k ) δε,ε ′ + 1Λε
+
+γmγD
+
+˜γ2
+
+(θ(ω, k ) − 1) 2
+
+θ(ω, k )
+
+!
+
+,
+
+⟨Y (m)ij 
+
+> −ω, −k
+
+Y (D)uv ε,ε −ω, k⟩ = Pij,uv 
+
+2πν Λε
+
+1˜γ
+
+ 1
+
+θ(ω, k ) − 1
+
+
+
+.
+
+(B6) 16 Similarly, the X propagators arising from the action SX take the form 
+
+⟨X(m)ij 
+
+> −ω, −k
+
+X(m)uv ω, k ⟩ = − Pij,uv 
+
+2πν Λε
+
+12γm
+
+1 + γD 
+
+> γm
+
+θ(ω, k )1 − γm−γD 
+
+> 2γm
+
+θ(ω, k ) ,
+
+⟨X(D)ij ε−ω,ε, −kX(D)uv ε′,ε ′−ω, k⟩ = Pij,uv 
+
+2πν 
+
+˜γ/γ 2 
+
+> D
+> γm
+> γD
+
++ θ(ω, k ) δε,ε ′ − 1Λε
+
+γD
+
+2˜ γ
+
+(1 − θ(ω, k )) 2
+
+1 − γm−γD 
+
+> 2γm
+
+θ(ω, k )
+
+!
+
+,
+
+⟨X(m)ij 
+
+> −ω, −k
+
+X(D)uv ε,ε −ω, k⟩ = − Pij,uv 
+
+2πν Λε
+
+12γm
+
+(1 − θ(ω, k )) 1 − γm−γD 
+
+> 2γm
+
+θ(ω, k ) .
+
+(B7) Using these expressions for the dressed propagators, we can rederive the propagators for ˆY (+) and ˆX(+) in Eq. 45. The dressed propagators can then be used to obtain the connected particle density correlation function C(r, r′; t, t ′). 
+
+[1] B. Skinner, J. Ruhman, and A. Nahum, Measurement-induced phase transitions in the dynamics of entangle-ment, Phys. Rev. X 9, 031009 (2019). [2] Y. Li, X. Chen, and M. P. A. Fisher, Quantum zeno effect and the many-body entanglement transition, Phys. Rev. B 98 , 205136 (2018). [3] A. Chan, R. M. Nandkishore, M. Pretko, and G. Smith, Unitary-projective entanglement dynamics, Phys. Rev. B 
+
+99 , 224307 (2019). [4] M. Szyniszewski, A. Romito, and H. Schomerus, Entan-glement transition from variable-strength weak measure-ments, Phys. Rev. B 100 , 064204 (2019). [5] Y. Li, X. Chen, and M. P. A. Fisher, Measurement-driven entanglement transition in hybrid quantum cir-cuits, Phys. Rev. B 100 , 134306 (2019). [6] Y. Bao, S. Choi, and E. Altman, Theory of the phase transition in random unitary circuits with measurements, Phys. Rev. B 101 , 104301 (2020). [7] C.-M. Jian, Y.-Z. You, R. Vasseur, and A. W. W. Ludwig, Measurement-induced criticality in random quantum cir-cuits, Phys. Rev. B 101 , 104302 (2020). [8] L. Zhang, J. A. Reyes, S. Kourtis, C. Chamon, E. R. Mucciolo, and A. E. Ruckenstein, Nonuniversal entan-glement level statistics in projection-driven quantum cir-cuits, Phys. Rev. B 101 , 235104 (2020). [9] A. Zabalo, M. J. Gullans, J. H. Wilson, S. Gopalakrish-nan, D. A. Huse, and J. H. Pixley, Critical properties of the measurement-induced transition in random quantum circuits, Phys. Rev. B 101 , 060301 (2020). [10] M. J. Gullans and D. A. Huse, Scalable probes of measurement-induced criticality, Phys. Rev. Lett. 125 ,070606 (2020). [11] M. J. Gullans and D. A. Huse, Dynamical purifica-tion phase transition induced by quantum measurements, Phys. Rev. X 10 , 041020 (2020). [12] J. Iaconis, A. Lucas, and X. Chen, Measurement-induced phase transitions in quantum automaton circuits, Phys. Rev. B 102 , 224311 (2020). [13] X. Turkeshi, R. Fazio, and M. Dalmonte, Measurement-induced criticality in (2+1)-dimensional hybrid quantum circuits, Phys. Rev. B 102 , 014315 (2020). [14] M. Szyniszewski, A. Romito, and H. Schomerus, Univer-sality of entanglement transitions from stroboscopic to continuous measurements, Phys. Rev. Lett. 125 , 210602 (2020). [15] S. Choi, Y. Bao, X.-L. Qi, and E. Altman, Quantum er-ror correction in scrambling dynamics and measurement-induced phase transition, Phys. Rev. Lett. 125 , 030505 (2020). [16] Y. Li, X. Chen, A. W. W. Ludwig, and M. P. A. Fisher, Conformal invariance and quantum nonlocality in critical hybrid circuits, Phys. Rev. B 104 , 104305 (2021). [17] S. Sang and T. H. Hsieh, Measurement-protected quan-tum phases, Phys. Rev. Res. 3, 023200 (2021). [18] A. Nahum, S. Roy, B. Skinner, and J. Ruhman, Mea-surement and entanglement phase transitions in all-to-all quantum circuits, on quantum trees, and in landau-ginsburg theory, PRX Quantum 2, 010352 (2021). [19] M. Ippoliti, M. J. Gullans, S. Gopalakrishnan, D. A. Huse, and V. Khemani, Entanglement phase transitions in measurement-only dynamics, Phys. Rev. X 11 , 011030 (2021). [20] A. Lavasani, Y. Alavirad, and M. Barkeshli, Measurement-induced topological entanglement transi-tions in symmetric random quantum circuits, Nature Physics 17 , 342–347 (2021). [21] A. Lavasani, Y. Alavirad, and M. Barkeshli, Topologi-cal order and criticality in (2 + 1)D monitored random quantum circuits, Phys. Rev. Lett. 127 , 235701 (2021). [22] M. Block, Y. Bao, S. Choi, E. Altman, and N. Y. Yao, Measurement-induced transition in long-range in-teracting quantum circuits, Phys. Rev. Lett. 128 , 010604 (2022). [23] U. Agrawal, A. Zabalo, K. Chen, J. H. Wilson, A. C. Pot-ter, J. H. Pixley, S. Gopalakrishnan, and R. Vasseur, En-tanglement and Charge-Sharpening Transitions in U(1) Symmetric Monitored Quantum Circuits, Phys. Rev. X 
+
+12 , 041002 (2022). [24] F. Barratt, U. Agrawal, S. Gopalakrishnan, D. A. Huse, R. Vasseur, and A. C. Potter, Field theory of charge sharpening in symmetric monitored quantum circuits, Phys. Rev. Lett. 129 , 120604 (2022). [25] S. Sharma, X. Turkeshi, R. Fazio, and M. Dalmonte, Measurement-induced criticality in extended and long-range unitary circuits, SciPost Phys. Core 5, 023 (2022). [26] S. P. Kelly, U. Poschinger, F. Schmidt-Kaler, M. P. A. 17 
+
+Fisher, and J. Marino, Coherence requirements for quan-tum communication from hybrid circuit dynamics, Sci-Post Phys. 15 , 250 (2023). [27] R. Morral-Yepes, F. Pollmann, and I. Lovas, Detect-ing and stabilizing measurement-induced symmetry-protected topological phases in generalized cluster mod-els, Phys. Rev. B 108 , 224304 (2023). [28] A. Zabalo, J. H. Wilson, M. J. Gullans, R. Vasseur, S. Gopalakrishnan, D. A. Huse, and J. H. Pixley, Infinite-randomness criticality in monitored quantum dynamics with static disorder, Phys. Rev. B 107 , L220204 (2023). [29] M. P. Fisher, V. Khemani, A. Nahum, and S. Vijay, Random quantum circuits, Annual Review of Condensed Matter Physics 14 , 335–379 (2023). [30] H. Ha, A. Pandey, S. Gopalakrishnan, and D. A. Huse, Measurement-induced phase transitions in systems with diffusive dynamics, Phys. Rev. B 110 , L140301 (2024). [31] S. Liu, M.-R. Li, S.-X. Zhang, and S.-K. Jian, Entan-glement structure and information protection in noisy hybrid quantum circuits, Phys. Rev. Lett. 132 , 240402 (2024). [32] S. Manna, V. Madhok, and A. Lakshminarayan, Entan-gling power, gate typicality, and measurement-induced phase transitions, Phys. Rev. A 110 , 062422 (2024). [33] S. Majidy, U. Agrawal, S. Gopalakrishnan, A. C. Pot-ter, R. Vasseur, and N. Y. Halpern, Critical phase and spin sharpening in SU(2)-symmetric monitored quantum circuits, Phys. Rev. B 108 , 054307 (2023). [34] U. Agrawal, J. Lopez-Piqueres, R. Vasseur, S. Gopalakr-ishnan, and A. C. Potter, Observing quantum measure-ment collapse as a learnability phase transition, Phys. Rev. X 14 , 041012 (2024). [35] A. Chakraborty, K. Chen, A. Zabalo, J. H. Wilson, and J. H. Pixley, Charge and entanglement criticality in a U(1)-symmetric hybrid circuit of qubits, Phys. Rev. B 
+
+110 , 045135 (2024). [36] F. Yang, X.-B. Wang, and T. Chen, Bridging measurement-induced phase transition and quantum er-ror correction in monitored quantum circuits with many-body measurements, Phys. Rev. B 111 , 064308 (2025). [37] K. Khanna, A. Kumar, R. Vasseur, and A. W. W. Lud-wig, Random quantum circuits with time-reversal sym-metry, Phys. Rev. Res. 8, 013165 (2026). [38] X. Cao, A. Tilloy, and A. D. Luca, Entanglement in a fermion chain under continuous monitoring, SciPost Phys. 7, 024 (2019). [39] X. Chen, Y. Li, M. P. A. Fisher, and A. Lucas, Emergent conformal symmetry in nonunitary random dynamics of free fermions, Phys. Rev. Res. 2, 033017 (2020). [40] O. Alberton, M. Buchhold, and S. Diehl, Entanglement transition in a monitored free-fermion chain: From ex-tended criticality to area law, Phys. Rev. Lett. 126 ,170602 (2021). [41] M. Buchhold, Y. Minoguchi, A. Altland, and S. Diehl, Ef-fective Theory for the Measurement-Induced Phase Tran-sition of Dirac Fermions, Phys. Rev. X 11 , 041004 (2021). [42] X. Turkeshi, A. Biella, R. Fazio, M. Dalmonte, and M. Schir´ o, Measurement-induced entanglement transi-tions in the quantum ising chain: From infinite to zero clicks, Phys. Rev. B 103 , 224210 (2021). [43] Q. Tang, X. Chen, and W. Zhu, Quantum criticality in the nonunitary dynamics of (2 + 1)-dimensional free fermions, Phys. Rev. B 103 , 174303 (2021). [44] X. Turkeshi, L. Piroli, and M. Schir´ o, Enhanced entangle-ment negativity in boundary-driven monitored fermionic chains, Phys. Rev. B 106 , 024304 (2022). [45] P. Zhang, C. Liu, S.-K. Jian, and X. Chen, Universal Entanglement Transitions of Free Fermions with Long-range Non-unitary Dynamics, Quantum 6, 723 (2022). [46] F. Carollo and V. Alba, Entangled multiplets and spread-ing of quantum correlations in a continuously monitored tight-binding chain, Phys. Rev. B 106 , L220304 (2022). [47] T. Minato, K. Sugimoto, T. Kuwahara, and K. Saito, Fate of measurement-induced phase transition in long-range interactions, Phys. Rev. Lett. 128 , 010603 (2022). [48] B. Ladewig, S. Diehl, and M. Buchhold, Monitored open fermion dynamics: Exploring the interplay of measure-ment, decoherence, and free hamiltonian evolution, Phys. Rev. Res. 4, 033001 (2022). [49] M. Coppola, E. Tirrito, D. Karevski, and M. Collura, Growth of entanglement entropy under local projective measurements, Phys. Rev. B 105 , 094303 (2022). [50] I. Poboiko, P. P¨ opperl, I. V. Gornyi, and A. D. Mirlin, Theory of free fermions under random projective mea-surements, Phys. Rev. X 13 , 041046 (2023). [51] M. Fava, L. Piroli, T. Swann, D. Bernard, and A. Nahum, Nonlinear sigma models for monitored dynamics of free fermions, Phys. Rev. X 13 , 041045 (2023). [52] Y. L. Gal, X. Turkeshi, and M. Schir` o, Volume-to-area law entanglement transition in a non-Hermitian free fermionic chain, SciPost Phys. 14 , 138 (2023). [53] T. M¨ uller, S. Diehl, and M. Buchhold, Measurement-induced dark state phase transitions in long-ranged fermion systems, Phys. Rev. Lett. 128 , 010605 (2022). [54] G. Kells, D. Meidan, and A. Romito, Topological tran-sitions in weakly monitored free fermions, SciPost Phys. 
+
+14 , 031 (2023). [55] M. Fava, L. Piroli, D. Bernard, and A. Nahum, Monitored fermions with conserved U (1) charge, Phys. Rev. Res. 6,043246 (2024). [56] G. Piccitto, D. Rossini, and A. Russomanno, The im-pact of different unravelings in a monitored system of free fermions, The European Physical Journal B 97 , 90 (2024). [57] K. Chahine and M. Buchhold, Spectral transitions of the entanglement hamiltonian in monitored free fermions, Phys. Rev. B 112 , 214309 (2025). [58] E. Starchl, M. H. Fischer, and L. M. Sieberer, General-ized zeno effect and entanglement dynamics induced by fermion counting, PRX Quantum 6, 030302 (2025). [59] B. Fan, C. Yin, and A. M. Garc´ ıa-Garc´ ıa, Entanglement dynamics of monitored noninteracting fermions on graph-ics processing units, Phys. Rev. B 113 , 094317 (2026). [60] C.-M. Jian, H. Shapourian, B. Bauer, and A. W. W. Ludwig, Measurement-induced entanglement transitions in quantum circuits of non-interacting fermions: Born-rule versus forced measurements, arXiv:2302.09094 . [61] H. L´ oio, A. De Luca, J. De Nardis, and X. Turkeshi, Purification timescales in monitored fermions, Phys. Rev. B 108 , L020306 (2023). [62] M. S. Foster, H. Guo, C.-M. Jian, and A. W. Ludwig, Free-fermion measurement-induced volume-to area-law entanglement transition in the presence of fermion in-teractions, arXiv:2510.23706 . [63] K. Yokomizo and Y. Ashida, Measurement-induced phase transition in free bosons, Phys. Rev. B 111 , 235419 (2025). [64] P. P¨ opperl, I. V. Gornyi, and Y. Gefen, Measurements 18 
+
+on an Anderson chain, Phys. Rev. B 107 , 174203 (2023). [65] M. Szyniszewski, O. Lunt, and A. Pal, Disordered moni-tored free fermions, Phys. Rev. B 108 , 165126 (2023). [66] K. Yamamoto and R. Hamazaki, Localization properties in disordered quantum many-body dynamics under con-tinuous measurement, Phys. Rev. B 107 , L220201 (2023). [67] G. De Tomasi and I. M. Khaymovich, Stable many-body localization under random continuous measurements in the no-click limit, Phys. Rev. B 109 , 174205 (2024). [68] F. Evers and A. D. Mirlin, Anderson transitions, Rev. Mod. Phys. 80 , 1355 (2008). [69] K. Chahine and M. Buchhold, Entanglement phases, lo-calization, and multifractality of monitored free fermions in two dimensions, Phys. Rev. B 110 , 054313 (2024). [70] I. Poboiko, I. V. Gornyi, and A. D. Mirlin, Measurement-induced phase transition for free fermions above one di-mension, Phys. Rev. Lett. 132 , 110403 (2024). [71] T. Jin and D. G. Martin, Measurement-induced phase transition in a single-body tight-binding model, Phys. Rev. B 110 , L060202 (2024). [72] P. W. Anderson, Absence of diffusion in certain random lattices, Phys. Rev. 109 , 1492 (1958). [73] I. Burmistrov, K. Tikhonov, I. Gornyi, and A. Mirlin, Entanglement entropy and particle number cumulants of disordered fermions, Annals of Physics 383 , 140 (2017). [74] M. A. Nielsen and I. L. Chuang, Quantum computation and quantum information (Cambridge university press, 2010). [75] I. Klich and L. Levitov, Quantum noise as an entangle-ment meter, Phys. Rev. Lett. 102 , 100502 (2009). [76] H. Guo, M. S. Foster, C.-M. Jian, and A. W. W. Ludwig, Field theory of monitored interacting fermion dynam-ics with charge conservation, Phys. Rev. B 112 , 064304 (2025). [77] Y. Liao, A. Levchenko, and M. S. Foster, Response the-ory of the ergodic many-body delocalized phase: Keldysh Finkel’stein sigma models and the 10-fold way, Annals of Physics 386 , 97 (2017). [78] Here we have employed the standard antisymmetric pre-scription for the equal time correlator [89]. [79] I. Poboiko, P. P¨ opperl, I. V. Gornyi, and A. D. Mirlin, Measurement-induced transitions for interacting fermions, Phys. Rev. B 111 , 024204 (2025). [80] S. Furukawa, V. Pasquier, and J. Shiraishi, Mutual in-formation and boson radius in a c = 1 critical system in one dimension, Phys. Rev. Lett. 102 , 170602 (2009). [81] P. Calabrese, J. Cardy, and E. Tonni, Entanglement en-tropy of two disjoint intervals in conformal field theory, J. Stat. Mech.: Theory Exp 2009 , P11001 (2009). [82] T. Matsubara, K. Yamamoto, and A. Koga, Measurement-induced phase transitions for free fermions in a quasiperiodic potential, Phys. Rev. B 112 , 054309 (2025). [83] Y.-J. Zhao, X. Huang, Y.-R. Zhang, H.-Z. Li, and J.-X. Zhong, Entanglement phases and phase transitions in monitored free fermion systems of localization, Phys. Rev. B 113 , 064301 (2026). [84] P. Singha, N. Roy, M. Szyniszewski, and A. Sharma, Controlled zeno-induced localization of free fermions in a quasiperiodic chain, arXiv:2602.12340 . [85] T. M¨ uller, M. Buchhold, and S. Diehl, Monitored inter-acting Dirac fermions, Phys. Rev. B 111 , 174201 (2025). [86] A. Tiutiakina, H. L´ oio, G. Giachetti, J. De Nardis, and A. De Luca, Field theory for monitored Brownian SYK clusters, Quantum 9, 1794 (2025). [87] B. L. Altshuler, A. Aronov, and D. Khmelnitsky, Effects of electron-electron collisions with small energy trans-fers on quantum localisation, Journal of Physics C: Solid State Physics 15 , 7367 (1982). [88] I. Aleiner, B. Altshuler, and M. Gershenson, Interaction effects and phase relaxation in disordered systems, Waves in Random Media 9, 201 (1999). [89] A. Kamenev, Field Theory of Non-Equilibrium Systems 
+
+(Cambridge University Press, 2011).

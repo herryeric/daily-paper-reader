@@ -6,71 +6,70 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-08
-- 运行时间：2026-05-08 20:56:17 UTC
+- 最新运行日期：2026-05-09
+- 运行时间：2026-05-09 20:34:28 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：16
+- 精读区：5
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 17 篇论文聚焦超流体前沿，重点攻克超流氦挤压态与中子星内部结构的
-- 详情：[/202605/08/README](/202605/08/README)
+今日聚焦超导前沿，深度解析了铜氧化物输运机制与超导电缆损耗优化等 16 篇核心进展。
+重点推荐杂质辅助 Umklapp 散射对电阻率起源的新解释，以及 CORC-TSTC 混合电缆大幅降低交流损耗的突破性方案。
+建议优先研读两篇 9.0 分的高质量论文，从微观理论与工程应用两个维度掌握超导领域的最新风向。
+- 详情：[/202605/09/README](/202605/09/README)
 
 ### 精读区论文标签
-1. [Squeezed Vibrational States in Superfluid Helium](/202605/08/2605.05345v1-squeezed-vibrational-states-in-superfluid-helium)  
-   标签：评分：10.0/10、query:cmp
-   evidence：超流氦中准粒子对的量子压缩
-2. [Theoretical Constraints on Neutron Star Superfluidity from Her X-1 Precession](/202605/08/2605.04686v2-theoretical-constraints-on-neutron-star-superfluidity-from-her-x-1-precession)  
+1. [Impurity-Scattering Assisted Umklapp Scattering as the Origin of Low-Temperature Resistivity in the Normal-State of Cuprate Superconductors](/202605/09/2605.01316v1-impurity-scattering-assisted-umklapp-scattering-as-the-origin-of-low-temperature-resistivity-in-the-normal-state-of-cuprate-superconductors)  
    标签：评分：9.0/10、query:cmp
-   evidence：中子星壳层超流体的动力学
-3. [Superconductivity mediated by nematic fluctuations -- the dispersion of collective modes](/202605/08/2605.05433v1-superconductivity-mediated-by-nematic-fluctuations----the-dispersion-of-collective-modes)  
+   evidence：铜氧化物中的低温电阻率与奇异金属相
+2. [Massive Mitigation of Transport AC Losses in Superconducting Hybrid CORC-TSTC Cables](/202605/09/2605.05981v1-massive-mitigation-of-transport-ac-losses-in-superconducting-hybrid-corc-tstc-cables)  
    标签：评分：9.0/10、query:cmp
-   evidence：向列相涨落介导的超导机制
-4. [Josephson spectroscopy study of kagome superconductors toward the deep point-contact regime](/202605/08/2605.06150v1-josephson-spectroscopy-study-of-kagome-superconductors-toward-the-deep-point-contact-regime)  
-   标签：评分：9.0/10、query:cmp
-   evidence：笼目超导体的约瑟夫森光谱研究
-5. [Superconducting and correlated phases of an effective Hubbard model on the BCC lattice](/202605/08/2605.06422v1-superconducting-and-correlated-phases-of-an-effective-hubbard-model-on-the-bcc-lattice)  
-   标签：评分：9.0/10、query:cmp
-   evidence：有效Hubbard模型中的超导不稳定性及相分析
-6. [Pair-Breaking and Dimensionality in Spin-Orbit Coupled Superconductors](/202605/08/2605.06514v1-pair-breaking-and-dimensionality-in-spin-orbit-coupled-superconductors)  
-   标签：评分：9.0/10、query:cmp
-   evidence：厚度相关的超导特性与破对机制分析
+   evidence：超导混合电缆及其传输交流损耗
+3. [Unsupervised Learning of Quantum Phase Transitions for Bose-Hubbard lattice systems](/202605/09/2605.00790v1-unsupervised-learning-of-quantum-phase-transitions-for-bose-hubbard-lattice-systems)  
+   标签：评分：8.0/10、query:cmp
+   evidence：Bose-Hubbard晶格系统中的量子相变
+4. [3D Quantum Hall Effect with Two Distinct Plateaus](/202605/09/2605.02188v1-3d-quantum-hall-effect-with-two-distinct-plateaus)  
+   标签：评分：8.0/10、query:cmp
+   evidence：关联材料中的三维量子霍尔效应与自旋密度波序
+5. [Criticality around the Spinodal Point of First-Order Quantum Phase Transitions](/202605/09/2605.06436v1-criticality-around-the-spinodal-point-of-first-order-quantum-phase-transitions)  
+   标签：评分：8.0/10、query:cmp
+   evidence：一阶相变周围的量子临界性
 
 ### 速读区论文标签
-1. [Synthetic Flat Bands, Hierarchical Topology, and Phase-Fluctuation-Insensitive Quantized Transconductance in Josephson Junctions](/202605/08/2605.02095v1-synthetic-flat-bands-hierarchical-topology-and-phase-fluctuation-insensitive-quantized-transconductance-in-josephson-junctions)  
-   标签：评分：8.0/10、query:cmp
-   evidence：约瑟夫森结中的拓扑相
-2. [Floquet-Multiple Andreev Reflections](/202605/08/2605.02642v1-floquet-multiple-andreev-reflections)  
-   标签：评分：8.0/10、query:cmp
-   evidence：约瑟夫森结中的Floquet多重安德烈夫反射
-3. [Collective quantum state at the atomic limit](/202605/08/2605.05587v1-collective-quantum-state-at-the-atomic-limit)  
-   标签：评分：8.0/10、query:cmp
-   evidence：一维系统中的朝永-卢廷格液体与集体量子态
-4. [Emergent spin quantum Hall edge states at the boundary of two-dimensional electron gas proximitized by an $s$-wave superconductor](/202605/08/2605.05847v1-emergent-spin-quantum-hall-edge-states-at-the-boundary-of-two-dimensional-electron-gas-proximitized-by-an-s-wave-superconductor)  
-   标签：评分：8.0/10、query:cmp
-   evidence：s波超导体邻近效应下的二维电子气
-5. [Readout failures in superconducting qubits due to TLS-defects in tunnel junctions](/202605/08/2605.02755v1-readout-failures-in-superconducting-qubits-due-to-tls-defects-in-tunnel-junctions)  
+1. [Imaging GHz surface acoustic wave modes in electrostricted LaAlO$_3$/SrTiO$_3$ heterostructures](/202605/09/2605.04402v1-imaging-ghz-surface-acoustic-wave-modes-in-electrostricted-laalo3srtio3-heterostructures)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导量子比特及其退相干机制
-6. [Frustrated magnetic order in hybrid Kitaev spin-orbital models](/202605/08/2605.05196v1-frustrated-magnetic-order-in-hybrid-kitaev-spin-orbital-models)  
+   evidence：利用LAO/STO界面的栅极可调超导二维电子气
+2. [Effective long-range attraction of moiré excitons under the influence of atomic reconstructions and anisotropic screening](/202605/09/2605.04667v1-effective-long-range-attraction-of-moir-excitons-under-the-influence-of-atomic-reconstructions-and-anisotropic-screening)  
    标签：评分：7.0/10、query:cmp
-   evidence：强关联自旋轨道模型与自旋液体
-7. [Microsopic Theory of Spin Polarons in Chern Ferromagnets](/202605/08/2605.05292v1-microsopic-theory-of-spin-polarons-in-chern-ferromagnets)  
+   evidence：莫尔条纹中的关联多体现象
+3. [Interaction-controlled localization in one-dimensional chain: From edges to domain walls](/202605/09/2605.05064v1-interaction-controlled-localization-in-one-dimensional-chain-from-edges-to-domain-walls)  
    标签：评分：7.0/10、query:cmp
-   evidence：关联陈铁磁体中的带电激发
-8. [Quantum phase diagrams for bosons in hexagonal optical potentials: A continuous-space quantum Monte Carlo study](/202605/08/2605.06171v1-quantum-phase-diagrams-for-bosons-in-hexagonal-optical-potentials-a-continuous-space-quantum-monte-carlo-study)  
+   evidence：哈伯德相互作用与关联驱动态
+4. [Charge Scrambling in Strong-to-Weak Spontaneous Symmetry Breaking](/202605/09/2605.05288v1-charge-scrambling-in-strong-to-weak-spontaneous-symmetry-breaking)  
    标签：评分：7.0/10、query:cmp
-   evidence：六角光晶格中的强关联量子物质
-9. [Decoherence due to the sudden coupling of an impurity to a metal](/202605/08/2605.01612v1-decoherence-due-to-the-sudden-coupling-of-an-impurity-to-a-metal)  
+   evidence：电荷置乱与去相干超流体
+5. [Measurement-induced phase transitions in disordered fermions](/202605/09/2605.05306v1-measurement-induced-phase-transitions-in-disordered-fermions)  
+   标签：评分：7.0/10、query:cmp
+   evidence：无序费米子系统相变的有效场论
+6. [A transition in the hole probability at finite temperature for free fermions in $d$ dimensions](/202605/09/2605.05431v1-a-transition-in-the-hole-probability-at-finite-temperature-for-free-fermions-in-d-dimensions)  
+   标签：评分：7.0/10、query:cmp
+   evidence：自由费米气体统计与空穴概率
+7. [Quantum Simulation of the Real-time Dynamics in the multi-flavor Gross-Neveu Model at the utility scale using Superconducting Quantum Computers](/202605/09/2605.05479v1-quantum-simulation-of-the-real-time-dynamics-in-the-multi-flavor-gross-neveu-model-at-the-utility-scale-using-superconducting-quantum-computers)  
+   标签：评分：7.0/10、query:cmp
+   evidence：利用超导处理器对费米子模型进行量子模拟
+8. [Tunable Interlayer Charge-transfer States in MoSe$_2$/WS$_2$ Moiré Superlattices](/202605/09/2605.05571v1-tunable-interlayer-charge-transfer-states-in-mose2ws2-moir-superlattices)  
+   标签：评分：7.0/10、query:cmp
+   evidence：莫尔超晶格中的强关联电子现象
+9. [Structures of Identical Particle Systems : Efficient Computation of Many-Body Density of States](/202605/09/2605.02864v1-structures-of-identical-particle-systems--efficient-computation-of-many-body-density-of-states)  
    标签：评分：6.0/10、query:cmp
-   evidence：量子杂质与金属耦合及退相干
-10. [Thermodynamic incompleteness in non-Markovian Majorana transport I: Island dynamics and missing transport statistics](/202605/08/2605.05754v1-thermodynamic-incompleteness-in-non-markovian-majorana-transport-i-island-dynamics-and-missing-transport-statistics)  
+   evidence：全同粒子系统的多体态密度
+10. [Parafermionic and decoupled multicritical points in a frustrated $\mathbb{Z}_6$ clock chain](/202605/09/2605.03001v1-parafermionic-and-decoupled-multicritical-points-in-a-frustrated-mathbbz6-clock-chain)  
    标签：评分：6.0/10、query:cmp
-   evidence：马约拉纳零能模与非马尔可夫输运统计
-11. [Intrinsic Floquet Generation and $1/I$ Quantum Oscillations in a Sliding Charge-Density Wave](/202605/08/2605.05894v1-intrinsic-floquet-generation-and-1i-quantum-oscillations-in-a-sliding-charge-density-wave)  
+   evidence：在卢廷格液体相中识别出准费米子多临界点
+11. [The Kubo-Thermalization Correspondence](/202605/09/2605.06666v1-the-kubo-thermalization-correspondence)  
    标签：评分：6.0/10、query:cmp
-   evidence：凝聚态物理中的量子振荡与电荷密度波
+   evidence：量子系统中热化与线性响应的对应关系
 
 
 <div class="dpr-home-promo-card">
