@@ -1,0 +1,853 @@
+Title: Checkerboard Bose Hubbard Ladders using Transmon Arrays
+
+URL Source: https://arxiv.org/pdf/2605.07906v1
+
+Published Time: Mon, 11 May 2026 01:27:29 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Checkerboard Bose Hubbard Ladders using Transmon Arrays 
+
+Pranjal Praneel, 1, 2, ∗ Thomas G. Kiely, 3, † Andre G Petukhov, 2, ‡ and Erich J Mueller 1, §
+
+> 1
+
+Laboratory of Atomic and Solid State Physics, Cornell University, Ithaca, New York 
+
+> 2
+
+Google Quantum AI, Santa Barbara, California 93111 
+
+> 3
+
+Kavli Institute for Theoretical Physics, University of California, Santa Barbara, California, USA 
+
+(Dated: May 11, 2026) Adding a sublattice bias to the two dimensional Bose Hubbard model greatly enriches the available physics, and introduces knobs which can be used to control and interrogate the quantum state. We describe the physics of this checkerboard Bose Hubbard model and how it can be explored using transmon arrays. We show that the sublattice bias brings the commensurate superfluid phase into an experimentally accessible regime, and gives new probes. We characterize the superfluid and insulating phases, with careful attention to finite size effects. 
+
+I. INTRODUCTION 
+
+The defining problem of solid state physics is under-standing the collective quantum mechanical behavior of particles in a periodic potential. The phenomena be-come rich when the interparticle interactions become strong, and the motions are strongly correlated with one-another. The checkerboard Bose-Hubbard model is the ideal setting for exploring this physics. We describe the behavior of this model and give a roadmap for implement-ing it using current transmon based quantum processors [1]. It has long been recognized that the networks of super-conducting elements (transmons) used to build many of today’s quantum computers can be viewed as controlable implementations of the Bose-Hubbard model [2–23]. The quantum levels of each transmon are interpreted as the number of particles on each site. Capacitive couplings let these “particles” hop, while nonlinearities are equivalent to on-site interactions. These circuits, however, operate in a regime where the coupling between the transmons is weak compared to the nonlinearities. This limits our access to important parts of the phase diagram. Here we propose introducing a sublattice bias to overcome this difficulty. This checkerboard model show additional physics beyond the vanilla Bose-Hubbard model, includ-ing topological charge pumping [24–28]. We discuss state preparation, probes, and interesting feature of the phase diagram in ladders. The insulating states in this model are particularly rich. As was established in the 1990’s, insulators are gen-erally characterized by three quantities [29–31]. First, there is the energy gap ∆, reflecting the minimum en-ergy needed to create an excitation. Second, the parti-cles in an insulator are localized, allowing us to define a localization length ξ. Third, one can characterize the positions of the localized particles with the polarization     
+
+> ∗pp475@cornell.edu
+> †thomaskiely@ucsb.edu
+> ‡apetukhov@google.com
+> §em256@cornell.edu
+
+⃗p, which in a charged system would encode the dipole moment density. In a band insulator of non-interacting fermions, these quantities characterize the bands. There, the gap is just the difference between the highest energy occupied state and the lowest energy empty state, the localization length is the size of the maximally localized Wannier state, and the polarization vector corresponds to the displacement of the center of mass of this Wannier state from the center of a unit cell. The latter is typically defined in terms of a Berry phase. Here we are working with an interacting system of bosons, so each of these quantities are true many-body observables. In this context we are concerned about two separate classes of questions: (1) What are the properties of the system in the thermodynamic limit, and (2) for an actual finite size experiment, how do you measure them? We explore the phase diagram of the checkerboard system and characterize the quantum ground state. We calculate the observables which could be used to probe this physics. We envision an experiment where one first produces the ground state of the system deep in the insulating state. This is product state, and easy to engineer. We then imagine slowly turning on the coupling between neighboring sites, adiabatically evolving the state. One then measures relevant quantities, such as the localiza-tion length. One can thereby explore the superfluid-insulator transition, and study the quantum properties of the states. We model this state preparation, calculating the time required, and how it scales with system size. Re-lated considerations were discussed in [32–36], in slightly different contexts. A number of other state preparation protocols could also be considered [8, 11, 37–39]. We focus on ladder geometries, as these are most ap-proachable both in experiments and numerics. They al-low one to interpolate between one dimensional (1D) and two dimensional (2D) systems by changing the number of legs. Systems with fewer legs are easier to implement, but observing the superfluid-insulator transition in those settings requires large couplings between the transmons. Additionally, ladders possess some unique physical prop-erties: There is a distinction between ladders with even and odd numbers of legs and, as we will discuss, the insu-lating phase of the two-leg ladder displays a remarkable 
+
+> arXiv:2605.07906v1 [cond-mat.other] 8 May 2026
+
+2robustness [40].  
+
+> II. MODEL
+
+Transmon based quantum computers very naturally re-alize the Bose-Hubbard model [2–22]. A transmon can be viewed as an anharmonic quantum oscillator, whose Hilbert space basis states |n⟩ are labeled by an inte-ger n. Unlike a harmonic oscillator, where the energy is linear in n, the energy here is a non-linear function, 
+
+En = ( ℏω) × (n + 1 /2) + ( ℏη/ 2) × n(n − 1) + · · · , where the neglected terms are higher order in n. If one in-terprets n as the number of particles on a lattice site, then this non-linearity becomes a short-range interac-tion: There is an energetic difference between the state with two “particles” on the same site as compared to when they are on different sites. Operators ˆ a and ˆ a† con-nect the states in this Hilbert space: ˆ a|n⟩ = √n|n − 1⟩,ˆa†|n⟩ = p(n + 1) |n⟩. Capacitively coupling the trans-mons allows these excitations to move around. Number non-conserving processes are off-resonant, and hence can be ignored [23]. After transforming into a rotating frame and neglect-ing off-resonant terms, the Hamiltonian for a transmon array is 
+
+H
+
+ℏ = X
+
+> ⟨i,j ⟩∈ Λ
+
+gij (ˆ a† 
+
+> i
+
+ˆaj +H .c.)+ X
+
+> i
+
+η
+
+2 ˆni(ˆ ni −1)+ δi
+
+2 ˆni. (1) Here i indexes the transmons, Λ is a set of unordered pairs ⟨i, j ⟩ which designate the connectivity of the net-work, and ℏ = h/ (2 π) is Planck’s constant. We report all quantities on the right hand side in units of Hz, though only the ratios matter for determining the physical state. We envision a lattice where ⟨i, j ⟩ ∈ Λ denotes nearest neighbors. The operators ˆ ai, ˆa† 
+
+> i
+
+, and ˆ ni are raising, low-ering and number operators for the i’th transmon. The term gij encodes coupling between connected transmons. Flux tuned couplers can allow gij to be changed dynam-ically [41, 42]. The detuning δi = ωi − ¯ω represents the oscillation frequency of the i’th transmon, measured rela-tive to some reference frequency ¯ ω, which was introduced when we tranformed to the rotating frame [23]. We take 
+
+δi = δ on one sublattice, and δi = −δ on the other. Given that N = P 
+
+> i
+
+ni is conserved by this Hamiltonian, the system’s properties are independent of ¯f . The non-linearity, η < 0 is fixed. We take an average of one parti-cle per site, and consider gij /2π ≲ 30 MHz, η/ 2π ∼ 250 MHz and δ/ 2π ∼ 250 MHz. Equation 1 is the checkerboard Bose-Hubbard model if we identify t = −ℏgij , U = ℏη. Note that under this mapping, the Hubbard interaction U is strictly negative. Nonetheless we can explore the physics of the positive U
+
+Bose Hubbard model. For a bipartite lattice, the spec-trum of the repulsive and attractive models are simply related. Each repulsive many-body state |ν⟩ with energy 
+
+Eν is gauge-equivalent to an attractive state with energy 
+
+−Eν .We envision an experiment where one begins in the ground state of the repulsive model for vanishing g. This is a product state which is easily created. It corresponds to the highest energy state of the attractive model. We then imagine slowly changing Hamiltonian parameters. By the adiabatic theorem we will remain in the ground state of the repulsive model (highest energy state of the attractive model) as the parameters are varied. Sec. VI explores the timescales for this process. We will consider ladder geometries, consisting of N
+
+legs, and L rungs (see Fig. 1). These are readily imple-mented in experiments, and let one interpolate between one and two dimensions. We will largely focus on the case where there is one particle per site.  
+
+> A. Mapping to spin models
+
+Transmons are often used as qubits in the regime where occupations are restricted to n = 0 , 1. As reviewed be-low, in this qubit regime they are 2-level systems which map on to the hardcore Bose-Hubbard model or the XX spin model [2]. We can introduce a similar mapping in the checkerboard case, where, at appropriate fillings, the occupations in one sublattice are restricted to nA = 1 , 2, and the other to nB = 0 , 1. Note, our analysis is not restricted to this limit – we just introduce it to give an easily understood baseline. As a first step we derive the spin model for the more familiar case where the coupling between qubits gij , and the sublattice bias, δ are small compared to the non-linearity g, δ ≪ η. In the standard Bose-Hubbard vari-ables, this corresponds to t ≪ U . Under these circum-stances is energetically unfavorable to ever have more than one particle per site, ni = 0 , 1. We assign spins as 
+
+|0⟩ → | ↓⟩ , |1⟩ → | ↑⟩ . Truncated to these states, and neglecting an unimportant constant, Eq. (1) reduces to the XY model, 
+
+Heff 
+
+ℏ = X
+
+> ⟨i,j ⟩∈ Λ
+
+gij 
+
+2 (σxi σxj + σyi σyj ) + X
+
+> i
+
+δi
+
+4 σzi (2) where σν are Pauli matrices for ν = x, y, z . The numer-ical factors come from the fact that ( σxi σxj + σyi σyj ) →
+
+2( a† 
+
+> i
+
+aj + a† 
+
+> j
+
+ai) and σzi → 2ni − 1. Note that η itself does not appear in this effective model. It has been replaced by a constraint. An important feature of this hard-core model is that in one dimension it can be mapped onto a free fermion problem through a Jordan Wigner transfor-mation. Thus this is an exactly solvable limit. We now generalize this construction, and consider the case where δ ∼ η ≫ g. In that case a doubly-occupied site on the low-energy A-sublattice is nearly degenerate with a singly-occupied site on the B-sublattice. One can then restrict the occupations to nA = 1 , 2 and nB = 0 , 1. We again denote these two possibilities as | ↓⟩ , | ↑⟩ , and 3                
+
+> FIG. 1. Length 4 segments of a checkerboard ladders of width N= 1 (top), N= 2 (middle), and N= 3 (bottom). From left to right the sublattice bias δis tuned from a negative to positive value, visualized by the relative heights of the red and blue sites. When the sites are uncoupled, g≪η, the particles are all localized on individual sites. The unit filled (¯ n= 1) configurations are shown in this atomic limit. A dashed line breaks the segment into two unit cells. An arrow represents the polarization vector. There is no arrow displayed when the polarization p= 0.
+
+can write Hamiltonian as a XY model. Neglecting the constant offset, 
+
+Heff 
+
+ℏ = X
+
+> ⟨i,j ⟩∈ Λ
+
+Jij (σxi σxj + σyi σyj ) + X
+
+> i
+
+(−1) i s
+
+4 σzi
+
+Jij = gij ξiξj
+
+2 s = ( δ − η)/2 (3) Here ξi = 1 if i ∈ A and ξi = √2 if i ∈ B. For the checkerboard case this implies that Jij = gij /√2. Again in 1D this can be mapped onto noninteracting fermions. As already explained, at times we will use this mapping to gain extra insight into the physics of Eq. (1). Most of our calculations, however, work with the full model.  
+
+> III. INSULATING STATES
+
+At commensurate densities and small inter-site cou-pling, g ≪ η (t ≪ U in standard Hubbard model lan-guage), the ground state of Eq. (1) is an insulator . This means that it does not support bulk particle currents. Consider, for example, the case where there is on av-erage one particle per site, ¯ n = 1 and vanishing sublat-tice bias, δ = 0. As depicted in the center column of Fig. 1, as g → 0, one has a product state with exactly one particle per site. Turning on a small coupling, g,leads to local number fluctuations, where a particle hops to a neighboring site, creating an empty site and a dou-bly occupied site. The insulating state does not admit bulk mass currents, and these holes and doublons remain close to one-another. We will define a localization length, 
+
+ξ, which quantifies the average separation. As illustrated by the first and third column of Fig. 1, if one makes the sublattice bias large enough, the nature of the g = 0 state changes. The lowest energy configuration becomes a checkerboard of doubly occupied sites. At fi-nite g, one would imagine that one can continuously tune between the uniform and checkerboard configurations by delocalizing the atoms between sites. Remarkably, such a continuous deformation is only possible if there are an even number of legs, or one breaks reflection symmetry across a lattice site. This feature is related to a symmetry protected Z2
+
+topological invariant that can be extracted from the x-component of the polarization vector πx [29, 30]. The polarization is the vector sum ⃗π = Pνα=1 (⃗Rα −⃗ R(0)  
+
+> α
+
+), where ⃗ Rα are the locations of the ν particles that are within one unit cell, and ⃗ R(0)  
+
+> α
+
+is the center of the unit cell. If one assigns a charge e to the particle, and places an appropriate opposite charge at the center of the unit cell, ⃗π is proportional to the electric dipole moment per unit cell. Depending on context, one might divide ⃗π by the number of particles in a unit cell, or by the volume of the unit cell, giving either the polarization per particle or 4the polarization density. In our case the relevant quantity will be the polarization per unit length along the long axis of the ladder, and hence we define p = πx/ℓ x = πx/2, where ℓx = 2 is the length of the unit cell of the imposed checkerboard potential. As emphasized in [30], the polarization is not uniquely defined by the positions of the particles, as one needs to decide which particles are associated with which unit cells. In practice one makes this assignation by consid-ering adiabatically connecting the state to a reference. Regardless, it is natural to only define ⃗π up to a lattice vector that connects the center of two unit cells. Conse-quently we only define p modulo 1. For an N leg checkerboard ladder at unit filling, each unit cell contains 2 N sites and ν = 2 N particles. In Fig. 1 we illustrate the g → 0 configurations and their polarization vectors. For an even number of legs, the polarization vector is zero in all cases. For odd numbers of legs, the situation is different. The three configurations shown all have different polarization vectors. Though it is worth noting that the checkerboard configurations in the first and third columns have polarizations that are equivalent up to a multiple of the unit cell size. Our model is symmetric under reflection across a lat-tice site, which takes p → − p. The configuration is only invariant under this operation if p = 0 , 1/2 (modulo 1), defining two distinct topological classes. Thus, unless we break the symmetry, p cannot be continuously changed – and there must be a phase transition separating states with different p. This feature is discussed in more detail in Sec. III A. For a finite length ladder with open boundary condi-tions, edge effects make the unit cells at different loca-tions inequivalent. Under those circumstances, it is nat-ural to average over all unit cells, similarly to Ref. [43] defining ˆP = 1
+
+LxNp
+
+X
+
+> α=1
+
+(ˆ xα − x(0)  
+
+> α
+
+)= 1
+
+Lx
+
+X
+
+> j
+
+xj (ˆ nj − ¯n). (4) Here Np is the total number of particles, Lx is the number of rungs in the ladder, and ¯ n = 1 is the average density. The quantities ˆP , ˆxα, and ˆ nj are all operators. In Ref. [31], the polarization was formalized by consid-ering a length Lx system with periodic boundary condi-tions. It is then natural to introduce the twist operator ˆW = exp 
+
+ 2πi LxLX
+
+> j=1
+
+xj (ˆ nj − ¯n)
+
+ , (5) which, as the complex exponential of ˆP , is its periodic generalization. Within this formalism, the polarization in a state |ψ⟩ is defined as 2 πp = Arg ⟨ψ| ˆW |ψ⟩. Con-sistent with our previous discussion, this expression only defines p modulo 1. This construction of p reduces to our original definition p = πx/2 in the atomic limit where ev-ery particle is in a well defined location, and πx is well defined. Note that ˆW can be interpreted as a momentum-space translation operator, and p is related to the Berry phase under moving through a non-contractable path in momentum space, θB = 2 πp [29]. For some of our calculations we work in the thermody-namic limit, Lx → ∞ . There it is convenient to define a generalized twist operator, ˆWk = exp 
+
+ik X
+
+> j
+
+xj (ˆ nj − ¯n)
+
+ . (6) In Sec. IV we make an infinite matrix product state (iMPS) ansatz, and show that ⟨ ˆWk⟩ = wLx 
+
+> k
+
+, where 
+
+Lx = ∞ is the length of the ladder. The parameter wk
+
+can be numerically calculated from the iMPS wavefunc-tion. The polarization is then p = lim k→0 Arg( wk/k ). We now define the localization length in terms of the average fluctuation in the position of each particle 
+
+ξ2 =
+
+*
+
+1
+
+Np
+
+X
+
+> α
+
+(ˆ x2 
+
+> α
+
+− ¯x2
+
+> α
+
+)
+
++
+
+(7) = Lx
+
+
+
+⟨ ˆP 2⟩ − ⟨ ˆP ⟩2
+
+. (8) Here ¯ xα = ⟨ˆxα⟩. This localization length can be in-terpreted as a measure of the fluctuations of the cen-ter of mass of the particles, scaled by the particle num-ber. One can formally relate the localization length to the twist operator through a cumulant expansion, 
+
+⟨eA⟩ = exp( ⟨A⟩ + ( ⟨A2⟩ − ⟨ A⟩2)/2 + · · · ). This yields 
+
+wk =
+
+D 
+
+eikL x ˆP E 1/L x
+
+= exp 
+
+
+
+ik ⟨ ˆP ⟩ − 12 k2ξ2
+
+
+
+. (9) In particular, the polarization can be extracted from the phase θB ≡ arg( wk)/k . As already explained, the ther-modynamic limit of wk can be extracted from our infinite matrix product state calculations.  
+
+> A. Connecting the topological sectors: Charge Pumping
+
+As detailed by Hayward et al. [24] in the context of cold atoms, the physics from the previous section can be most dramatically studied via a charge pumping experi-ment [25, 26]. Similar ideas were also proposed by Pad-han et al. [27], with a focus on two-leg ladders. Some considerations about charge pumping in Josephson Junc-tion arrays was given in [28]. To investigate this physics, one generalizes Eq. (1) to the Rice-Mele-Bose Hubbard model by alternating the strength of the the hopping between sites. In one dimen-sion, where the site locations are indexed by integers j
+
+one takes 
+
+gij = δj,i +1 (−t + ( −1) iλ). (10) 5The non-uniform hopping breaks the reflection symme-try, and p will be a continuous function of the sublattice bias δ and the hopping asymmetry λ.An important feature is that any closed path in the 
+
+δ − λ parameter space must bring p back to its original value, up to an integer. If that integer is nonzero, one has transported a quantized amount of charge [26]. In an annular geometry, an experiment could directly measure this topological charge pumping by reading out the state of each transmon and directly measuring the expectation value of the twist operator, ⟨W ⟩. One should be able to follow the motion of charge, and demonstrate the quan-tization of the charge pumping. For the Rice-Mele Bose Hubbard model the amount of charge pumped is sim-ply proportional to the number of times that one winds around the origin in parameter space [24]. In multi-leg ladders there are more choices in how to break the symmetry. Some of these will lead to charge pumping, while others simply bring the charges back to their original location. For even number of legs, the con-figurations in Fig. 1 are all in the same topological sec-tor. This feature does not preclude charge pumping . Even in multi-leg ladders, symmetry breaking terms, such as Eq. (10) allow p to continuously vary, and there are closed paths in parameter space which increase p by an integer. The special feature of the even leg ladders is that one can connect the states in Fig. 1 without breaking reflection symmetry. The polarization p is fixed on paths which do not break reflection symmetry, and therefore they re-arrange the atomic positions without leading to any net charge transport. 
+
+IV. PHASE DIAGRAM A. Methods 
+
+Our iMPS ansatz is equivalent to writing 
+
+|ψ⟩ = X 
+
+> {sj}
+
+· · · | ϕs1s2 ⟩1|ϕs2s3 ⟩2 · · · (11) where |ϕst ⟩i is a wavefunction for the i’th unit cell, which consists of two rungs of the N -leg ladder, and hence con-tains 2 N sites. These states in each unit cell are indexed by two integers, s, t = 1 , 2, · · · χ. Thus |ϕst ⟩i can be in-terpreted as a matrix of quantum states. Our ansatz is translationally invariant and we take |ϕst ⟩i to be iden-tical to |ϕst ⟩j . In our numerics each |ϕst ⟩ is written as a finite matrix product state over the sites in one unit cell, though for the purposes of this presentation we will treat it as a singular entity. Figure 2 (a) shows a graph-ical representation of the Eq. (11). Each box represents a term, |ϕsj sj+1 ⟩i. The lines connecting the boxes cor-respond to the indices sj which are summed over. The lines extending from the bottom of each box represents the physical Hilbert space within each unit cell [44]. To identify the various phases we calculate the twist operator from Eq. (6), which can be expressed as a sum 
+
+(a) |ψ⟩ = · · · · · · 
+
+(b) ˆW |ψ⟩ = · · · · · · 
+
+(c) ⟨ψ| ˆW |ψ⟩ = · · · · · · 
+
+(d) T =FIG. 2. Graphical representations of the infinite matrix prod-uct states used to calculate the phase diagram. (a) Each blue box represents the wavefunction on one rung of the ladder – the vertical line represents the physical degrees of freedom, while the horizontal lines represent internal variables {si},summed over in Eq. (11). (b) The twist operator ˆW acting on |ψ⟩ can be expressed as a matrix where a unitary transfor-mation is placed on the internal bonds. (c) The expectation of the twist operator is expressed as the contraction of a matrix product state, and can be calculated from the largest eigen-value of the mixed transfer matrix. (d) Mixed transfer matrix used to calculate the polarization and localization length. 
+
+over the rungs ˆWk = exp ik X
+
+> i
+
+xi(ˆ n(r) 
+
+> i
+
+− ¯n(r))
+
+!
+
+. (12) Here ˆ n(r) 
+
+> i
+
+is the number of particles on the rung labeled 
+
+i. It is the sum, ˆ n(r) 
+
+> i
+
+= P 
+
+> j
+
+ˆnj of number operators on each site j, on that rung. To calculate the twist operator, we use an approach that is related to one given by Zaletel et al. [45]. We first define ˆN Ri = P∞
+
+> j=i
+
+(ˆ n(r) 
+
+> j
+
+− ¯n(r)) as the ex-cess number of particles to the right of the i’th rung. We then note that ˆP = L−1
+
+> x
+
+P 
+
+> j
+
+xj (ˆ n(r) 
+
+> j
+
+− ¯n(r)) =
+
+L−1
+
+> x
+
+P
+
+> j
+
+ xj N Rj − xj N Rj+1 
+
+ . We then shift the index on the second term and use xj − xj−1 = 1 to get ˆP =
+
+L−1
+
+> x
+
+P 
+
+> j
+
+ˆN Rj . This allows us to write the twist operator in a translationally invariant form: ˆW = Y
+
+> i
+
+exp 
+
+
+
+ik ˆN Ri
+
+
+
+. (13) Since the total number of particles are conserved in this system, we can choose the |ϕsisi+1 ⟩i so that there are a definite number of particles in that unit cell. The states to the right of cell i are indexed by si+1 ,
+
+|ψ(R) 
+
+> si+1
+
+⟩ = X
+
+> si+2 ,s i+3 ,···
+
+|ϕsi+1 si+2 ⟩i+1 |ϕsi+2 si+3 ⟩i+2 · · · (14) The state |ψ(R) 
+
+> si+1
+
+⟩ with fixed si+1 must have a well defined number of particles, ˆN R|ψ(R) 
+
+> s
+
+⟩ = ( N R)s|ψ(R) 
+
+> s
+
+⟩. That is, 6each value of the bond index s is associated with a num-ber ( N R)s, which physically corresponds to the number of particles to the right of that bond. Thus applying ˆW
+
+to |ψ⟩ is equivalent to multiplying each term in Eq. (11) by the product 
+
+W{s} = Y
+
+> i
+
+eikN Rsi . (15) Graphically, this corresponds to the diagram in Fig. 2 (b), where we include a diagonal matrix on each bond. The expectation value ⟨W ⟩ then involves contracting the tensor network in Fig. 2 (c). This contraction is found by constructing the mixed transfer matrix 
+
+Tst ;s′t′ = ⟨ϕst |ϕs′t′ ⟩eikN Rs′ , (16) which is shown graphically in Fig. 2 (d). The largest eigenvalue of this matrix is wk. For an insulating state, the iMPS wavefunction can be used to construct the ground state on a ring of size Lx [45]; in this case, one would find ⟨W ⟩ = wLx 
+
+> k
+
+. The polarization and correlation length are extracted from Eq. (9). In addition to calculating the twist operator, we also estimate the many-body excitation gap ∆, which cor-responds to the minimum energy needed to excite the system. The insulating state has a finite ∆, while for the superfluid ∆ = 0. To calculate this gap, we look at the spectrum ϵ(χ) 
+
+> n
+
+of the ‘local Hamiltonian’, which is con-structed during the VUMPS procedure. One can inter-pret ϵ(χ)1 as the smallest energy of an excitation that is or-thogonal to |ψ⟩ and formed by changing only a single one of the |ϕst ⟩ in Eq. (11). One expects that lim χ→∞ ∆χ is a good approximation to ∆ as long as the matrix product state is sufficiently expressive [46–48]. In Appendix A we describe our extrapolation procedure and provide some additional physical reasoning about the excitation spec-trum. We find the superfluid-insulator boundaries by search-ing for where ∆ = 0, We verify that these locations also correspond to ξ = ∞, or equivalently wk = 0. The superfluid-insulator transition is in the XY-universality class, and can also be found by looking at the behavior of the Luttinger parameter.  
+
+> B. Results
+
+Figure 3 shows the phase diagram of infinitely long N -leg ladders, with one particle per site. In these figures we take η/ 2π = 0 .25 GHz – changing this frequency simply rescales each axis. For odd N there are 3 phases: the superfluid and two toplogically distinct insulating states, written as MI 0 and MI π , corresponding to p = 0 , 1/2, or ΘB = Arg( wk)/k = 0 , π . Cartoons of these insulating states, depicting g → 0 atomic configurations, are shown in Fig. 1. As anticipated in Sec. III, there is only one type of insulator for even-N ladders, though for 4 or more legs                                
+
+> FIG. 3. Phase diagrams of the Bose-Hubbard model on an N-leg ladder with a checkerboard potential (Eq. (1) at total fill-ing ¯ n= 1, as calculated from an infinite matrix product state ansatz. Stars correspond to the locations of the phase bound-aries found in our iMPS calculations, while solid lines rep-resent interpolations or extrapolations. For the plots shown, the anisotropy η/ 2π= 0 .25 GHz. All ladder geometries host superfluid (SF) and insulating (MI) phases. Odd-leg ladders show two topologically-distinct insulating phases, MI θB, with Berry phases θB= 0 , π . This leads to a critical line (orange) in the N= 1 phase diagram below g/ 2π≈57 MHz, where the extended superfluid phase is unstable. Even-leg ladders differ in that the insulators are topologically indistinguishable. For
+> N= 2, the SF phase terminates at g/ 2π∼9 MHz, below which a gap opens up. For N≥3, the extended superfluid phase is stable as g→0 for |δ−η| ≤ cg where c∼ O (1) is a constant. This behavior is shown by the gray dashed lines.
+
+the insulating phase is broken into two disjoint regions by a superfluid intrusion. Practically speaking, the most significant aspect of these diagrams is that adjusting δ enables a significant reduction in the critical coupling gc needed to generate a superfluid, particularly when N > 1. Given experimental constraints of g/ 2π ≲ 30MHz, it is extremely difficult to produce a superfluid in an N = 1 system. This challenge is overcome by increasing N and operating at finite δ.There are a number of other interesting features in Fig. 3. First, the N = 1 and N = 2 cases are qualita-tively different from the higher N ladders. When N = 1 the smallest coupling that hosts a superfluid phase is 
+
+g/η ≈ 0.23 and occurs when δ = η. For smaller g, there is a direct, continuous transition between the two topolog-ically distinct insulating phases. Exactly on the critical line, δ = η, the low energy properties are described by a gapless Luttinger liquid with K < 2, for which the sub-lattice bias is a relevant perturbation, driving an insta-bility towards either the MI 0 or MI π phase [49]. For the 2-leg ladder, the smallest coupling that hosts a superfluid phase is g/η ≈ 0.04. At smaller g one can continuously 7                      
+
+> FIG. 4. Ground state gap ∆ of Eq. (3) at zero magnetization, corresponding to the small glimit of Eq. (1) at unit filling with sublattice bias δ∼η.Colored dots show the extrapolated iMPS numerical results (error bars are smaller than marker size) while solid lines are fits, where appropriate (see main text). When N= 1, the model maps onto non-interacting fermions and may be solved exactly, with ∆ = |δ−η|. When
+> N= 2, system remains gapped even at δ= 0. For N≥3, the gap closes for some finite region around δ= 0, which is qualitatively consistent with two-dimensional ( N→ ∞ ) limit of Eq. (3).
+
+tune between the insulators in Fig. 1 simply by chang-ing δ. There is no phase transition, and the sublattice population simply increases with δ.For all N > 2, the phase diagrams look similar. The only qualitative distinction is the difference in the topo-logical invariants of the two Mott lobes on odd-leg lad-ders. At δ = η the superfluid phase extends to arbitrar-ily small g. As shown by dashed lines in the figures, the phase boundaries come in with a finite slope: |δc −η| ∝ g. 
+
+> C. Excitation gap in the hard core limit
+
+The most distinctive feature in Fig. 3 is the behavior of the system for small g̸ = 0 near δ ≈ η. For N = 1 there is a direct transition between insulating phases. For N = 2 there is no phase transition. For N ≥ 3 one sees two transitions as one varies δ.As anticipated by the discussion in Sec. II A, we can model this limit by mapping onto a spin model. When 
+
+g is small, and δ ≈ η, the lower energy sublattice will contain either 1 or 2 particles, while the higher energy sublattice contains 0 or 1 particles. We denote the states as |↓⟩ and |↑⟩ , and the Hamiltonian reduces to the XX-model in Eq. (3). The condition that there is one boson per site in our original model corresponds to a vanish-ing net magnetization. This XX model can also be in-terpreted as a hard-core Bose Hubbard model, but with only one particle for every 2 sites. In 1D ( N = 1) this spin model is exactly solvable, as it can be mapped onto non-interacting fermions via a Jordan-Wigner transformation [50, 51]. It generically corresponds to a band insulator, with a gap to neutral excitations of ∆ = |δ −η|. At δ = η one has a 1D metal of non-interacting fermions – i.e. a gapless Luttinger liquid with Luttinger parameter K = 1. For larger N the model is no longer exactly solvable, but we can numerically calculate its properties using iMPS techniques. The resulting energy gaps are shown in Fig. 4. For N = 1 one sees a “V” shaped gap which vanishes at a single point. For N = 2 the gap is always finite, and forms a “U”. For N ≥ 3 there is a finite range of δ/g over which the gap vanishes. The gapped behavior of the two-leg ladder is very coun-terintuitive. It implies that the hard core Bose Hubbard model on a 2-leg ladder is an insulator at density 1/2. This unexpected result was studied in [40]. It can be un-derstood by separately considering individual rungs of the ladder. There are two single particle states: one which is reflection-symmetric, and the other which is an-tisymmetric. The ground state can be understood as a Mott insulator of the symmetric modes. This picture can be verified by making the hopping between the legs of the ladder, g⊥, stronger than the hopping between rungs of the ladder, g∥. If g⊥ ≫ g∥, the splitting between the sym-metric and antisymmetric modes is enhanced, stabilizing the insulator. Conversely, if g⊥ ≪ g∥ the gap closes. In [52], Ying et al. considered N leg ladders, arguing that by making g⊥ sufficiently small one could find insulators with densities ¯ n = m/N with m ∈ Z. When g∥ = g⊥,however, none of these insulators are found in the hard core limit, except the case m = 1 and N = 2. For 3 and 4-leg ladders, the gaps in Fig. 4 appear to approach zero with vanishing slope. Such a behavior is consistent with the (1 + 1)-dimensional XY (BKT) uni-versality class, where [53–55] ∆ = ∆ 0 exp a
+
+p|δc − δ| . (17) Here δc is the critical value of δ, at which the gap van-ishes, while ∆ 0 and a are constants. All of these quan-tities depend on the number of legs, N . In Fig. 4 we fit the gaps to Eq. (17), finding excellent agreement. For 
+
+N = 3 we find δc = η ± 1.27(5) g, and for N = 4, 
+
+δc = η ± 2.47(9) g.This functional form of the gaps suggests that the low energy behavior of these ladders is the same as an effec-tive one dimensional model. This would suggest that the low energy physics is described by a conformal quantum field theory, which can be characterized by a conformal central charge, C, which counts the number of low en-ergy modes [56]. In particular, a Luttinger liquid would display C = 1, corresponding to having two low energy modes that can be identified as “right-movers” and “left-movers” [49]. The conformal central charge can be extracted from a Matrix Product State wavefunction by the scaling of the bipartite entanglement entropy, S, with bond dimension, 8                  
+
+> FIG. 5. Expectation value of the polarization ⟨ˆP⟩in a 1D Bose-Hubbard chain of Length L, with η/ 2π= 250 MHz and
+> g/ 2π= 40 MHz. As one changes the sublattice bias, δ, the particles in each unit cell move from one lattice site to the other. In the limit L→ ∞ the polarization discontinuously jumps from 0 to 1 /2 as δcrosses η.
+
+χ [56–58]. We repeat our iMPS calculations with a series of bond dimensions ranging from 80 to 280. We com-pute the entanglement entropy and the iMPS correlation length, ξχ = −1/ ln λχ, where λχ is the subdominant eigenvalue of the transfer matrix [57, 58], and fit them to 
+
+S(χ) = C
+
+6 ln( ξχ). (18) Indeed, we find that C = 1 in the gapless phase of these ladders, implying that there are only two low-energy modes. We understand this behavior as phase-locking between the different legs, leaving just the gapless modes associated with the total phase and total density [40].  
+
+> V. FINITE SIZE SYSTEMS
+
+Any practical experiment would be performed on lat-tices with 10’s or at best 100’s of sites [8, 10–22]. Thus, it is essential to understand how the features from Sec. III and IV appear in such small systems. A useful approach is to treat these experiments as analog simulations and perform ‘finite size scaling’. One could repeat an exper-iment with multiple system sizes, and extrapolate the results to the thermodynamic limit. In this finite size setting, the x component of the polar-ization vector is related to the the center of mass. The two topologically distinct insulators in odd leg ladders can be distinguished by ⟨ ˆP ⟩ where, as already introduced, ˆP = 1
+
+Lx
+
+X
+
+> i
+
+xi(ˆ ni − ¯n). (19) Here i labels the individual sites of the lattice, xi is the x-coordinate of the lattice site, ˆ ni is the number of particles and ¯ n = 1 is the average particle density. One expects that ⟨ ˆP ⟩ ≈ 0, ±1/2 in the finite analog of the MI 0 and MI π phases. In the finite size system, it is not quantized, as ⟨ ˆP ⟩ is sensitive to the structure of the edge. To calculate the properties of these finite size systems we again make a variational matrix-product state ansatz. We use the finite DMRG algorithm to optimize the wave-function [44], and increase the bond dimension χ until the results do not change. In Fig. 5 we show how the polarization varies with the sublattice bias δ in an N = 1 leg system for fixed g/ 2π =40 MHz and η/ 2π = 250 MHz. As L becomes larger the finite size effects become smaller, and ⟨ ˆP ⟩ approaches 0 for δ < η . Conversely ⟨ ˆP ⟩ → 1/2 as L → ∞ for δ > η .To distinguish the superfluid and insulating phases we look at the fluctuations of the polarization ⟨∆ ˆP 2⟩ =
+
+⟨ ˆP 2⟩ − ⟨ ˆP ⟩2, which serves as a measure of particle de-localization. As described in Sec. III, in the Mott insu-lating phase we define the localization length ξ in terms of the fluctuations of the polarization as ⟨∆ ˆP 2⟩ = ξ2/L .In Appendix B we argue that in the superfluid phase we should expect that for large L, ⟨∆ ˆP 2⟩ will approach an L
+
+independent constant, which is related to the Luttinger parameter K,lim 
+
+> Lx→∞
+
+D
+
+∆ ˆP 2E
+
+= 7ζ(3) 2π4 K. (20) Here ζ(3) = 1 .20206 is Ap´ ery’s constant. Physically K is related to the compressibility and the speed of sound, u,by K = uπ (∂n/∂μ ). Smaller K corresponds to a stiffer fluid. Importantly, at the superfluid-insulator transition 
+
+K = 2. This value is a universal feature of the Kosterlitz-Thouless transition. Thus we expect that the superfluid and insulating phases can be distinguished by the L dependence of 
+
+⟨∆ ˆP 2⟩. In Fig. 6 we show ⟨∆ ˆP 2⟩ for both N = 1 (top-left) and N = 3 legs (top-right) for a range of system sizes. In both cases we have taken η/ 2π = 0 .25GHz and 
+
+δ = η/ 2. We also show the slope ∂⟨∆ ˆP 2⟩/∂g . In each case there is a critical gc, and for g < g c the polarization fluctuations fall towards zero with increasing system size, consistent with ⟨∆ ˆP 2⟩ = ξ2/L . Conversely, for g > g c
+
+one instead finds the fluctuations grow with system size, approaching an asymptotic value, consistent with the ex-pectation in Eq. (20). The right hand scale of the figure shows the corresponding value of the Luttinger parame-ter K from Eq. (20). The maximum of the slope ∂⟨∆ ˆP 2⟩/∂g should occur at a value of g which approaches gc in the thermodynamic limit, where the polarization fluctuations should display a discontinuous jump. In Fig. 6 we mark the positions of the maximum slope. In Sec. V A we extrapolate to the 
+
+L = ∞ limit, finding that gc/η = 0 .24 , 0.076 for the 1-leg and 3-leg ladders at δ = η/ 2, respectively. Experiments can follow this same procedure to find the critical point. The maximum value of ∂⟨∆ ˆP 2⟩/∂g grows with L, con-sistent with the expectation that in the thermodynamic limit, the ⟨∆ ˆP 2⟩ will show a discontinuity at g = gc,jumping from 0 to 7 ζ(3) Kc/(2 π4), where Kc = 2. For a 9a) c) b) d)                   
+
+> FIG. 6. Left: (a) Fluctuations in the polarization and (b) its derivative as a function of gfor a 1D chain with η/ 2π= 0.25 GHz and δ=η/ 2. The right hand axis uses Eq. (20) to convert the fluctuations into a luttinger constant. Symbols correspond to the inflection points where d⟨∆ ˆP2⟩/dg = 0. Right: Fluctuations in the polarization and its derivative as a function of gfor a N=3-leg ladder with η/ 2π= 0.25GHz and δ=η/ 2.
+
+finite size system the steepest part of the curve will oc-cur half-way between these values. Thus as L is increased we see the y-coordinates of the symbols in Fig. 6 (a,b) approach a value which corresponds to K = 1.  
+
+> A. Finite size scaling of Polarization Fluctuations
+
+Here we analyze the data from Fig. 6 where we find the maximum of d⟨∆ ˆP 2⟩/dg as a function of system size 
+
+L. We fit the system size dependence to the expected behavior of the Kosterlitz-Thouless transition [59, 60]. The peak in the susceptability χ = d⟨∆ ˆP 2⟩/dg of the finite system occurs when the correlation length is of or-der the system size, ξ ∼ L. We define gc(L) as the cou-pling constant at this peak. Near the critical point the correlation length scales as ξ ∝ exp( a/ √g − gc), where a
+
+is a constant and gc = g∞ 
+
+> c
+
+is the critical point [61]. It then follows that, 
+
+gc(L)
+
+η = g∞
+
+> c
+
+η + A
+
+ln 2  LL0
+
+ , (21) where L0, A , and g∞ 
+
+> c
+
+are constants, independent of sys-tem size. Figures 7 and 8 use this scaling relationship to determine the critical point from the behavior of the polarization. For each system size in Fig. (6), we extract gc(L) as the location of the inflection point of the polarization fluctu-ation curve. We then perform a non-linear least square fit to determine the parameters g∞ 
+
+> c
+
+, A, L 0 in Eq. (21). Figures 7 and 8 show that the system size dependence ap-pears to be well described the scaling relationship. The respective L0 and A for the 1-leg and 3-leg ladders are 
+
+L1D 
+
+> 0
+
+≈ 0.0225 and A1D ≈ − 2.9511, and L3leg  
+
+> 0
+
+≈ 0.7795 and A3leg ≈ 0.0246. Considering the experimentally rel-evant nonlinearity of η/ 2π = 250 MHz, we find that the transition occurs at g1Dc /2π ≈ 70 .21 MHz and g3leg c /2π ≈
+
+18 .70 MHz when δ = η/ 2 and η/ 2π = 250 MHz, consis-tent with our analysis in Sec. IV B. The latter is within the capabilities of current experiments. One could envision alternative approaches, for example directly studying the scaling of ⟨∆ ˆP 2⟩ with system size. In practice the best way to extract the phase bound-ary will depend on experimental details. The one pre-sented here is concrete, and appears to give good re-sults. The procedure in Sec. VI is constructed to produce the ground state, but one might envision alternative ap-proaches which produce a finite temperature ensemble of states [62, 63]. In that case the scaling relationships would take slightly different forms [64].  
+
+> VI. STATE PREPARATION
+
+The Mott insulating state at g = 0 is a product state, and hence easy to prepare. We propose creating that state, then adiabatically ramping up g to explore the entire phase diagram. The challenge here is that the timescale for adiabaticity is set by the inverse of the ex-10                    
+
+> FIG. 7. Finite size scaling for the critical coupling in a 1D chain. Here gc(L) correspond to the marked points in Fig. (6) (a,c), where d2⟨∆ ˆP2⟩/dg 2= 0, for a chain with N= 1, and sublattice bias δ=η/ 2. The scaling length L0= 0 .0225 is chosen by fitting to Eq. (21), and the dashed line shows the predicted scaling relationship. The extrapolation to L=
+> ∞should correspond to the critical point for the superfluid-insulator transition.
+> FIG. 8. Finite size scaling for the critical coupling in a 3-leg ladder. Here the data is taken from Fig. (6) (b,d) and
+> L0= 0 .7795.
+
+citation gap τ ∼ 1/∆ [33, 65]. Both in the superfluid phase, and at the phase boundary, ∆ ∼ L−1, suggesting that the state preparation time should be proportional to the system size. We model these dynamics, linearly sweeping the cou-pling from g = 0 to g = gf in time τ , taking g(t) = gf t/τ .We use a finite matrix product state description, us-ing the “Time Evolving Block Decimation” algorithm to evolve the state [66, 67]. We choose our time step δt 
+
+sufficiently small, and our bond dimension χ sufficiently large that our results are independent of δt and χ. We have confirmed that we get the same results when we instead use the “Time Dependent Variational Principle” algorithm [68, 69]. As an experimentally accessible mea-sure of the fidelity of state preparation, we calculate the polarization fluctuations ⟨∆ ˆP 2⟩ during the sweep, com-paring it to the expectation value in the ground state. We first consider the one-dimensional case, and see how the polarization fluctuations vary with the ramp time τ .Results are shown in Fig. 9 for η/ 2π = 250MHz and 
+
+δ = η/ 2. The calculations from Sec. IV and V suggest that in the thermodynamic limit ( L → ∞ ) the phase boundary occurs at gc/2π ≈ 70 MHz for those parame-ters. The black dashed line corresponds to the adiabatic result, while the three colored lines correspond to differ-ent sweep rates. One can see that when τ = 40ns the po-larization shows substantial deviations from the adiabatic results. For τ = 80 , 160ns, however, the deviations are quite small. The inset shows the fidelity, corresponding to the overlap between the instantaneous ground state and the time-evolved wavefunction. It appears that the polarization fluctuations are a good surrogate for this fi-delity. In an experiment one could follow this exact proce-dure, measuring ⟨∆ ˆP 2⟩ for sweeps with several different rates. If the observed polarization fluctuations are inde-pendent of sweep rates, then the results are indicative of the adiabatic limit. Finite size scaling, as discussed in Sec. V could then be used to identify the critical point. One would measure ⟨∆ ˆP 2⟩ for a range of system sizes and values of g. One would then fit the peak of d⟨∆ ˆP 2⟩/dg 
+
+to the expected Kosterlitz-Thouless form. As already discussed, current experiments are limited to coupling constants g/ 2π ≲ 30 MHz, and it would be challenging to observe the phase transition in Fig. 9. Thus in Fig. 10 we consider the 3-leg ladder, where 
+
+gc/2π ≈ 19 MHz when η/ 2π = 250MHz and δ = η/ 2. Here we explore the system size dependence of state preparation, taking three system sizes, (Lx, L y ) with 
+
+Ly = 3 and Lx = 3 , 6, 9. In the top panel we take 
+
+τ = 30 , 60 , 90ns, so that τ ∝ 1/L x. All three cases show small deviations from the adiabatic expectation. Although we do not plot it here, the overlap with the adi-abatic state is roughly 99 .5%. In the bottom panel, we double the sweep rate. All three system sizes now yield large deviations. The overlap with the adiabatic state falls to 95%. These timescales are accessible to current experiments, where T1 times are of order O(10 μs) [1, 70].  
+
+> VII. SUMMARY
+
+Our understanding of the physical world is earned through a well established cycle of experiment and model building [71]. Quantum computers can be an impor-tant part of this endeavor, allowing us to test hypothe-ses about how the world works. Depending on the con-text they can play a number of different roles: They are sophisticated quantum experiments which can display novel surprises. They are also computational tools, which can play a role in solving our models of the world. Fur-thermore, these devices act as ‘quantum wind tunnels,’ and are suitable for engineering tasks including prototyp-ing and designing. 11                        
+
+> FIG. 9. Dynamics of state preparation for a Lx×Ly= (16 ×1) system with η/ 2π= 0.25GHz and δ=η/ 2. The coupling constant gis swept linearly from gi/2π= 0 MHz to gf/2π=120 MHz in time τ= 40 ,80 ,160ns. The main figure shows the polarization fluctuations, ⟨∆ ˆP2⟩, while the inset shows the square overlap with the instantaneous ground state.
+
+The checkerboard Bose Hubbard model provides the ideal setting for this task of producing artificial quan-tum matter. This system displays superfluid and insulat-ing phases, which in an experiment can be distinguished by the size dependence of the polarization, defined in Eq. (4). In the insulating state the statistics of the polar-ization gives one access to the localization length, while in the one dimensional limit of the superfluid state one can extract a Luttinger parameter. The couplings required to observe these phases, and the transitions between them, are accessible to current experiments. This can be contrasted with the vanilla Bose Hubbard model where, at commensurate filling, it is challenging to achieve the strong inter-qubit coupling required to observe the superfluid-phase. For ladders with an odd number of legs, there are two topologically distinct insulating states that cannot be mapped onto one another without either breaking re-flection symmetry or entering the superfluid phase. This topological restriction does not apply for ladders with an even number of legs. In addition to exploring this rich phase diagram, one can use these insulating states as a platform to study charge pumping. We show how a series of experiments on different sys-tem sizes can be used to find the phase transition point using finite-size scaling. Additionally, we analyzed adia-batic state preparation, finding that the superfluid state can be produced from the insulator by ramping the qubit coupling over a timescale τ ∼ 100ns for a 9 × 3 ladder with typical parameters. The timescale for adiabaticity scales linearly with the system size. Throughout we made use of the ITensor library [72, 73].                                    
+
+> FIG. 10. Dynamics of state preparation for a Lx×Ly=(3 ,3) ,(6 ,3) ,and (9 ×3) ladder with η/ 2π= 0.25GHz and δ=
+> η/ 2. The coupling constant gis swept linearly from gi/2π= 0 MHz to gf/2π= 30 MHz in time τ.Top: τ=Lx×10ns; Bottom: τ=Lx×5ns.
+> ACKNOWLEDGEMENTS
+
+TGK acknowledges support from the Gordon and Betty Moore Foundation under GBMF7392 and from the National Science Foundation under grant PHY-2309135 to the Kavli Institute for Theoretical Physics (KITP). PP acknowledges support from Google Quantum AI. EJM and PP acknowledge support from the National Science Foundation under grant PHY-2409403. 
+
+> Appendix A: Extracting Excitation gap from the Local Hamiltonian gap
+
+In this Appendix we detail how we use the local pro-jected Hamiltonian to approximate the spectral gap, in-cluding our implementation of finite entanglement scal-ing. We build on arguments from [46–48], where vari-ous researchers studied how information about the many-body excitation spectrum is encoded in the eigenvalues of the Hamiltonian projected onto the set of local vari-ations of a given iMPS tensor. In particular, references [46, 47] found that the local Hamiltonian spectrum ap-peared to agree with the exact many-body spectrum in critical, gapless phases. Reference [48] applied this idea to compute the characteristic velocity of excitations in a 12     
+
+> Hlocal =· · · · · ·
+> FIG. 11. Diagramatic representation of the local Hamilto-nian. The blue boxes correspond to the matrix product state representation of the wavefunctions, and the red boxes form a matrix product operator representation of the Hamiltonian. The uncontracted bonds represent external indices.
+
+gapless phase. For our calculations, we consider the Hamiltonian pro-jected onto variations of a single bond-tensor of the iMPS, i.e. a tensor with only virtual indices. This lo-cal Hamiltonian is shown schematically in Fig. 11. It can be viewed as a χ2 × χ2 matrix, where χ is the bond di-mension of the matrix product state. Eigenvectors of this local Hamiltonian eigenvalue problem will constitute an orthogonal set of excited states, which are constructed simply by making a local change to the MPS. These states explicitly break translation invariance. A valid worry is that excited states of the local Hamil-tonian correspond to a very restrictive ansatz for excita-tions of the system: they are identical to the ground-state wavefunction except for a single bond tensor. Conversely, the excitations of our model are typically delocalized over the entire system. In the limit of large bond dimensions, however, a local insertion of this form can have long-range effects that are only cut off by the iMPS correlation length, ξχ. If the excitations are dispersive, then the lo-cal excitations found by this method can be understood as superpositions of the true excited states confined to some region – in effect, a particle-in-a-box. This intuitive picture allows for a natural means for extrapolating the local excitation energy as the bond di-mension is increased. Let us construct an analogy be-tween local Hamiltonian excitations and those of a par-ticle trapped in a finite well. At finite bond dimension, 
+
+χ, the iMPS will display some finite correlation length, 
+
+ξχ, as well as some finite local Hamiltonian gap, ∆ χ.We’ll also consider higher-energy eigenstates of the lo-cal Hamiltonian, ∆ (n=2 ,3,... ) 
+
+> χ
+
+, where ∆ χ = ∆ (1)  
+
+> χ
+
+. In the limit χ → ∞ , one will recover the asymptotic correlation length, ξ, and energy gap, ∆: lim  
+
+> χ→∞
+
+ξχ = ξ (A1) lim  
+
+> χ→∞
+
+∆χ = ∆. (A2) In order to extrapolate ∆ χ, however, we must know how it approaches ∆ for large χ. Let us now posit that the true excitations are dispersive, and hence are eigenstates of the momentum operator. Their energies can hence be written as Ek = ∆ + ϵk where min kϵk = 0. The local Hamiltonian eigenstates are simply superpositions of these momentum states confined to a particular region in space. Hence, we may model their energies as those of a particle-in-a-box: E(n=1 ,2,... ) = ∆ + h2n2 
+
+> 2mL
+
+for a box of length L and a particle of mass m. The effective mass is determined by the curvature of the dispersion, ϵk, in the vicinity of its minimum. The length of the “box”, in this analogy, is the parameter that controls how ∆ χ
+
+approaches ∆ as χ → ∞ . Rather than attempting to determine these bond-dimension-dependent parameters 
+
+L and m, however, we note that the form of E(n) implies a convenient relationship between the iMPS local gap, ∆χ, and the spacing between higher-energy eigenvalues: ∆(1)  
+
+> χ
+
+− ∆ ∝ ∆(n) 
+
+> χ
+
+− ∆(n−1)  
+
+> χ
+
+. (A3) Note of course that the proportionality constant will be 
+
+n-dependent, but the χ-dependent factors cancel. Hence, one may extrapolate the local Hamiltonian eigenvalues without reference to this undetermined length scale, L.This particle-in-a-box form can only apply for the first few low-energy excitations of the local Hamiltonian, so it is advantageous to choose n to be small. In Fig. 4, we determine the asymptotic spectral gaps using a linear least-squares fit of the form ∆ (1)  
+
+> χ
+
+= ∆ + a(∆ (2)  
+
+> χ
+
+− ∆(1)  
+
+> χ
+
+)where ∆ and a are fitting parameters. We find that the linear fit applies well to our data for χ ≳ 50. This procedure for extrapolating the local Hamiltonian eigenvalues bears resemblance to the procedure used in Ref. [74] (and subsequently in Ref. [75]) to extrapolate finite-χ correlation lengths as χ → ∞ . The relationship between the matrix of correlation lengths and the local Hamiltonian eigenvalues was explored for gapless systems in Ref. [48]. Our work suggests that a more robust low-energy correspondence may apply even for gapped sys-tems, particularly when the bond dimension is large [76].  
+
+> Appendix B: Center of Mass fluctuations in the Superfluid Phase 1. Luttinger Liquid with Boundaries
+
+Here we calculate the polarizaton fluctuations of a fi-nite Luttinger liquid, which is the continuum limit of our model of the superfluid phase. The low energy excita-tions are described by a Hamiltonian [49] ˆH = u
+
+2π
+
+Z L
+
+> 0
+
+dx [K(π ˆΠ) 2 + 1
+
+K (∂x ˆφ)2] (B1) Here ˆφ(x) is related to the particle density ˆρ(x) =P 
+
+> j
+
+ˆnj δ(x − xj ) by ˆρ(x) = ¯ ρ + 1
+
+π ∂x ˆφ(x), (B2) where ¯ ρ = ¯n/a is the average density, ¯ n is the aver-age site occupation, and a is the lattice spacing. The conjugate variable, ˆΠ( x) is related to the momentum density, and these operators obey commutation relations h ˆΠ( x), ˆφ(y)
+
+i
+
+= iδ (x − y). The speed of sound, u, and the 13 Luttinger parameter, K, encode the mechanical proper-ties the fluid. Larger K corresponds to a more compli-ant system with larger density fluctuations. The ground state of Eq. (B1) has algebraically decaying correlation functions whose power laws are controlled by K.The connection between K and microscopic parame-ters are non-trivial. The hard core Bose gas at incom-mensurate filling maps onto a non-interacting Fermi gas with K = 1. Weaker interactions lead to larger K, and 
+
+K → ∞ for the weakly interacting Bose gas. At the superfluid-insulator phase transition K takes on a uni-versal value, K = 2. The polarization fluctuations are then 
+
+⟨∆ ˆP 2⟩ = 1
+
+L2
+
+> x
+
+Z Lx
+
+> 0
+
+dxdx ′xx ′⟨(ˆ ρ(x) − ¯ρ)(ˆ ρ(x′) − ¯ρ)⟩
+
+= 1
+
+π2L2
+
+> x
+
+Z Lx
+
+> 0
+
+dxdx ′ ⟨ ˆφ′(x) ˆ φ′(x′)⟩. (B3) We perform a normal-mode expansion of the Hamilto-nian, ˆφ(x) = 
+
+> N
+
+X
+
+> n=1
+
+ˆφnun(x) ˆΠ( x) = 
+
+> N
+
+X
+
+> i=n
+
+ˆΠnun(x) (B4) where the mode wavefunctions un(x) = 
+
+q 2 
+
+> L
+
+sin( πnx L ) are chosen by requiring that currents vanish at the bound-aries x = 0 , L . Here [ ˆΠn, ˆφm] = iδ nm correspond to the canonical variables of a set of decoupled harmonic oscil-lators that represent the low energy excitations. In terms of these variables, ˆH = uπ L
+
+KL 
+
+2
+
+X
+
+> n
+
+ˆΠ2 
+
+> n
+
++ 12KL 
+
+X
+
+> n
+
+n2 ˆφ2
+
+> n
+
+!
+
+(B5) In the ground state ⟨ ˆφn ˆφm⟩ = δnm (KL )/(2 n) Inserting Eq. (B4) into Eq. (B3) and evaluating the ground-state expectation values accordingly, we arrive at 
+
+⟨∆ ˆP 2⟩ = 4Kπ4
+
+> Lx
+
+X
+
+> n∈odd
+
+1
+
+n3 −−−−−→
+
+> Lx→∞
+
+7ζ(3) 2π4 K (B6) where we have used the identity P  
+
+> n∈odd 1
+> ns
+
+= 1 − 12s
+
+ ζ(s), where ζ(s) is the Riemann zeta function.  
+
+> 2. Free Fermion Calculation
+
+The Luttinger liquid description in Appendix B 1 in-volves a long-wavelength approximation and expands about a uniform density. Here we calculate the polar-ization fluctuations in the case of hard-core bosons or non-interacting fermions, without making those assump-tions. The result agrees with the expression from Ap-pendix B 1 with K = 1. This calculation lends further confidence to the validity of those results. Equation (B6) is independent of density, and we consider the case where there are N nonininteracting fermions on L − 1 sites, forming a Slater determinant filling orbitals ψαj =
+
+q 2 
+
+> L
+
+sin παj L with α = 1 , 2, · · · N ,while the position j takes on values j = 1 , 2, · · · L − 1. We take N, L → ∞ with n = N/ (L − 1) ≈ N/L fixed. Our goal is to compute the sum: 
+
+⟨∆ ˆP 2⟩ = 1
+
+L2
+
+X
+
+> i,j
+
+ij ⟨(ˆ ni − n)(ˆ nj − n)⟩. (B7) A straightforward application of Wick’s theorem allows us to write the polarization fluctuations as a sum over particle and hole expectation values 
+
+⟨∆ ˆP 2⟩ = 1
+
+L2
+
+X
+
+> ij
+
+ij ⟨ ˆψ† 
+
+> i
+
+ˆψj ⟩⟨ ˆψi ˆψ† 
+
+> j
+
+⟩. (B8) We introduce the dipole matrix elements 
+
+Fαβ = 1
+
+L
+
+X
+
+> j
+
+jψ αj ψβj . (B9) which can be used to express ⟨∆ ˆP 2⟩ as a sum over occu-pied and unoccupied modes, 
+
+⟨∆ ˆP 2⟩ = X
+
+> α≤Nβ>N
+
+F 2 
+
+> αβ
+
+. (B10) By symmetry the spatial sums in Eq. (B9) vanish unless 
+
+α and β have opposite parity, where one finds 
+
+Fαβ = 12L2
+
+1sin 2 π 
+
+> 2L
+
+(β − α) − 1sin 2 π 
+
+> 2L
+
+(β + α)
+
+!
+
+(B11) Given this structure, the sum in Eq. (B8) will be domi-nated by contributions from the Fermi surface, where α
+
+and β are near N . For these we can approximate 
+
+Fαβ ≈ 2
+
+π2
+
+1(β − α)2 . (B12) There are nγ = γ ways of choosing α and β so that 
+
+γ = β − α. We can therefore write 
+
+⟨∆ ˆP 2⟩ = X 
+
+> γ∈odd
+
+ 2
+
+π2
+
+1
+
+γ2
+
+2
+
+nγ . (B13) This is the same sum that appears in Eq. (B6), with K =1, and hence we find the expected result that ⟨∆ ˆP 2⟩ =7ζ(3) /(2 π4). 14 
+
+[1] G. Q. AI and collaborators, Nature 10.1038/s41586-025-09526-6 (2025). [2] Y. Yanay, J. Braum¨ uller, S. Gustavsson, W. D. Oliver, and C. Tahan, npj Quantum Information 6,10.1038/s41534-020-0269-1 (2020). [3] O. Mansikkam¨ aki, S. Laine, A. Piltonen, and M. Silveri, PRX Quantum 3, 040314 (2022). [4] U. L. Heras, L. Garc´ ıa- ´Alvarez, A. Mezzacapo, E. Solano, and L. Lamata, Quantum simulation of spin chains cou-pled to bosonic modes with superconducting circuits, in Applications + Practical Conceptualization + Math-ematics = fruitful Innovation (Springer Japan, 2015) p. 93–103. [5] P. Kairys and T. S. Humble, Phys. Rev. A 104 , 042602 (2021). [6] T. Orell, A. A. Michailidis, M. Serbyn, and M. Silveri, Phys. Rev. B 100 , 134504 (2019). [7] Y.-H. Shi, Z.-H. Sun, Y.-Y. Wang, Z.-A. Wang, Y.-R. Zhang, W.-G. Ma, H.-T. Liu, K. Zhao, J.-C. Song, G.-H. Liang, Z.-Y. Mei, J.-C. Zhang, H. Li, C.-T. Chen, X. Song, J. Wang, G. Xue, H. Yu, K. Huang, Z. Xiang, K. Xu, D. Zheng, and H. Fan, Probing spin hydrody-namics on a superconducting quantum simulator (2023), arXiv:2310.06565 [quant-ph]. [8] B. Saxberg, A. Vrajitoarea, G. Roberts, M. G. Panetta, J. Simon, and D. I. Schuster, Nature 612 , 435–441 (2022). [9] A. H. Karamlou, I. T. Rosen, S. E. Muschinske, C. N. Barrett, A. Di Paolo, L. Ding, P. M. Harrington, M. Hays, R. Das, D. K. Kim, B. M. Niedzielski, M. Schuldt, K. Serniak, M. E. Schwartz, J. L. Yoder, S. Gustavsson, Y. Yanay, J. A. Grover, and W. D. Oliver, Nature 10.1038/s41586-024-07325-z (2024). [10] P. Roushan, C. Neill, J. Tangpanitanon, V. M. Bastidas, A. Megrant, R. Barends, Y. Chen, Z. Chen, B. Chiaro, A. Dunsworth, A. Fowler, B. Foxen, M. Giustina, E. Jef-frey, J. Kelly, E. Lucero, J. Mutus, M. Neeley, C. Quin-tana, D. Sank, A. Vainsencher, J. Wenner, T. White, H. Neven, D. G. Angelakis, and J. Martinis, Science 358 ,1175–1179 (2017). [11] R. Ma, B. Saxberg, C. Owens, N. Leung, Y. Lu, J. Simon, and D. I. Schuster, Nature 566 , 51–57 (2019). [12] B. Chiaro, C. Neill, A. Bohrdt, M. Filippone, F. Arute, K. Arya, R. Babbush, D. Bacon, J. Bardin, R. Barends, S. Boixo, D. Buell, B. Burkett, Y. Chen, Z. Chen, R. Collins, A. Dunsworth, E. Farhi, A. Fowler, B. Foxen, C. Gidney, M. Giustina, M. Harrigan, T. Huang, S. Isakov, E. Jeffrey, Z. Jiang, D. Kafri, K. Kechedzhi, J. Kelly, P. Klimov, A. Korotkov, F. Kostritsa, D. Land-huis, E. Lucero, J. McClean, X. Mi, A. Megrant, M. Mohseni, J. Mutus, M. McEwen, O. Naaman, M. Nee-ley, M. Niu, A. Petukhov, C. Quintana, N. Rubin, D. Sank, K. Satzinger, T. White, Z. Yao, P. Yeh, A. Zal-cman, V. Smelyanskiy, H. Neven, S. Gopalakrishnan, D. Abanin, M. Knap, J. Martinis, and P. Roushan, Phys. Rev. Res. 4, 013148 (2022). [13] C. Zha, V. M. Bastidas, M. Gong, Y. Wu, H. Rong, R. Yang, Y. Ye, S. Li, Q. Zhu, S. Wang, Y. Zhao, F. Liang, J. Lin, Y. Xu, C.-Z. Peng, J. Schmiedmayer, K. Nemoto, H. Deng, W. J. Munro, X. Zhu, and J.-W. Pan, Phys. Rev. Lett. 125 , 170503 (2020). [14] M. Gong, G. D. de Moraes Neto, C. Zha, Y. Wu, H. Rong, Y. Ye, S. Li, Q. Zhu, S. Wang, Y. Zhao, F. Liang, J. Lin, Y. Xu, C.-Z. Peng, H. Deng, A. Bayat, X. Zhu, and J.-W. Pan, Phys. Rev. Res. 3, 033043 (2021). [15] G. P. Fedorov, S. V. Remizov, D. S. Shapiro, W. V. Pogosov, E. Egorova, I. Tsitsilin, M. Andronik, A. A. Dobronosova, I. A. Rodionov, O. V. Astafiev, and A. V. Ustinov, Phys. Rev. Lett. 126 , 180503 (2021). [16] Z. Yan, Y.-R. Zhang, M. Gong, Y. Wu, Y. Zheng, S. Li, C. Wang, F. Liang, J. Lin, Y. Xu, C. Guo, L. Sun, C.-Z. Peng, K. Xia, H. Deng, H. Rong, J. Q. You, F. Nori, H. Fan, X. Zhu, and J.-W. Pan, Science 364 , 753–756 (2019). [17] B. Du, R. Suresh, S. L´ opez, J. Cadiente, and R. Ma, Probing site-resolved current in strongly interacting su-perconducting circuit lattices (2024), arXiv:2403.11967 [quant-ph]. [18] S. Hacohen-Gourgy, V. V. Ramasesh, C. De Grandi, I. Siddiqi, and S. M. Girvin, Phys. Rev. Lett. 115 , 240501 (2015). [19] X. Li, H. Xu, J. Wang, L.-Z. Tang, D.-W. Zhang, C. Yang, T. Su, C. Wang, Z. Mi, W. Sun, X. Liang, M. Chen, C. Li, Y. Zhang, K. Linghu, J. Han, W. Liu, Y. Feng, P. Liu, G. Xue, J. Zhang, S. P. Zhao, Y. Jin, S.-L. Zhu, H. Yu, and Q.-K. Xue, Mapping topology-disorder phase diagram with a quantum simulator (2024), arXiv:2301.12138 [quant-ph]. [20] M. Gong, S. Wang, C. Zha, M.-C. Chen, H.-L. Huang, Y. Wu, Q. Zhu, Y. Zhao, S. Li, S. Guo, H. Qian, Y. Ye, F. Chen, C. Ying, J. Yu, D. Fan, D. Wu, H. Su, H. Deng, H. Rong, K. Zhang, S. Cao, J. Lin, Y. Xu, L. Sun, C. Guo, N. Li, F. Liang, V. M. Bastidas, K. Nemoto, W. J. Munro, Y.-H. Huo, C.-Y. Lu, C.-Z. Peng, X. Zhu, and J.-W. Pan, Science 372 , 948–952 (2021). [21] M. Kounalakis, C. Dickel, A. Bruno, N. K. Lang-ford, and G. A. Steele, npj Quantum Information 4,10.1038/s41534-018-0088-9 (2018). [22] G. Roberts, A. Vrajitoarea, B. Saxberg, M. G. Panetta, J. Simon, and D. I. Schuster, Manybody interferometry of quantum fluids (2023), arXiv:2309.05727 [quant-ph]. [23] N. Ticea, E. Portoles, E. Rosenberg, A. Schuckert, A. Szasz, B. Kobrin, N. Pomata, P. Praneel, C. Miao, S. Kumar, E. Crane, I. Drozdov, Y. Lensky, S. Gonzalez-Garcia, T. Kiely, D. Abanin, A. Abbas, R. Acharya, L. A. Beni, G. Aigeldinger, R. Alcaraz, S. Alcaraz, M. Ans-mann, F. Arute, K. Arya, W. Askew, N. Astrakhant-sev, J. Atalaya, R. Babbush, B. Ballard, H. Bates, A. Bengtsson, M. B. Karimi, A. Bilmes, S. Bilodeau, F. Borjans, A. Bourassa, J. Bovaird, D. Bowers, L. Brill, P. Brooks, M. Broughton, D. A. Browne, B. Buchea, B. B. Buckley, T. Burger, B. Burkett, J. Busnaina, N. Bushnell, A. Cabrera, J. Campero, H.-S. Chang, S. Chen, Z. Chen, B. Chiaro, L.-Y. Chih, A. Y. Cle-land, B. Cochrane, M. Cockrell, J. Cogan, P. Conner, H. Cook, R. G. Corti˜ nas, W. Courtney, A. L. Crook, B. Curtin, S. Das, M. Damyanov, D. M. Debroy, S. J. de Graaf, L. D. Lorenzo, S. Demura, L. B. D. Rose, A. D. Paolo, P. Donohoe, A. Dunsworth, V. Ehimhen, A. Eickbusch, A. M. Elbag, L. Ella, M. Elzouka, D. En-riquez, C. Erickson, L. Faoro, V. S. Ferreira, M. Flores, L. F. Burgos, S. Fontes, E. Forati, J. Ford, B. Foxen, 15 
+
+M. Fukami, A. W. L. Fung, L. Fuste, S. Ganjam, G. Gar-cia, C. Garrick, R. Gasca, H. Gehring, R. Geiger, ´Elie Genois, W. Giang, D. Gilboa, J. E. Goeders, E. C. Gon-zales, R. Gosula, A. G. Dau, D. Graumann, J. Grebel, A. Greene, J. A. Gross, J. Guerrero, T. Ha, S. Habeg-ger, T. Hadick, A. Hadjikhani, M. Hansen, M. P. Harri-gan, S. D. Harrington, J. Hartshorn, S. Heslin, P. Heu, O. Higgott, R. Hiltermann, J. Hilton, H.-Y. Huang, M. Hucka, C. Hudspeth, A. Huff, W. J. Huggins, E. Jef-frey, S. Jevons, Z. Jiang, X. Jin, C. Jones, C. Joshi, P. Juhas, A. Kabel, D. Kafri, H. Kang, K. Kang, A. H. Karamlou, R. Kaufman, K. Kechedzhi, J. Kelly, T. Khat-tar, M. Khezri, S. Kim, P. V. Klimov, C. M. Knaut, A. N. Korotkov, F. Kostritsa, J. M. Kreikebaum, R. Kudo, A. Kumar, B. Kueffler, V. D. Kurilovich, V. Kutsko, N. Lacroix, T. Lange-Dei, B. W. Langley, P. Laptev, K.-M. Lau, E. Leavell, L. L. Guevel, J. Ledford, J. Lee, K. Lee, B. J. Lester, W. Leung, M. T. Lloyd, L. L. Li, W. Y. Li, M. Li, A. T. Lill, W. P. Livingston, A. Locharla, E. Lucero, D. Lundahl, A. Lunt, S. Mad-huk, A. Maiti, A. Maloney, S. Mandr` a, L. S. Martin, O. Martin, E. Mascot, P. M. Das, D. Maslov, M. Math-ews, C. Maxfield, J. R. McClean, M. McEwen, S. Meeks, A. Megrant, K. C. Miao, R. Molavi, S. Molina, S. Mon-tazeri, C. Neill, M. Newman, A. Nguyen, M. Nguyen, C.-H. Ni, M. Y. Niu, N. Noll, L. Oas, W. D. Oliver, R. Orosco, K. Ottosson, A. Pagano, S. Peek, D. Pe-terson, A. Pizzuto, R. Potter, O. Pritchard, M. Qian, C. Quintana, A. Ranadive, G. Ramachandran, M. J. Reagor, R. Resnick, D. M. Rhodes, D. Riley, G. Roberts, R. Rodriguez, E. Ropes, E. Rosenberg, E. Rosenfeld, D. Rosenstock, E. Rossi, D. A. Rower, R. Salazar, K. Sankaragomathi, M. C. Sarihan, K. J. Satzinger, S. Schroeder, H. F. Schurkus, A. Shahingohar, M. J. Shearn, A. Shorter, V. Shvarts, V. Sivak, S. Small, W. C. Smith, D. A. Sobel, B. Spells, S. Springer, G. Sterling, J. Suchard, A. Sztein, M. Taylor, J. P. Thiruraman, D. Thor, D. Timucin, E. Tomita, A. Torres, M. M. Torun-balci, H. Tran, A. Vaishnav, J. Vargas, S. Vdovichev, B. Villalonga, C. V. Heidweiller, M. Voorhees, S. Walt-man, J. Waltz, S. X. Wang, D. Wang, B. Ware, J. D. Watson, Y. Wei, T. Weidel, T. White, K. Wong, B. W. K. Woo, C. J. Wood, M. Woodson, C. Xing, Z. J. Yao, P. Yeh, B. Ying, J. Yoo, N. Yosri, E. Young, G. Young, A. Zalcman, R. Zhang, Y. Zhang, N. Zhu, N. Zobrist, Z. Zou, S. Boixo, H. Neven, V. Smelyanskiy, G. Vi-dal, E. Mueller, T. Andersen, L. Ioffe, A. Petukhov, M. Hafezi, and P. Roushan, Observation of disorder-induced superfluidity (2026), arXiv:2512.21416 [quant-ph]. [24] A. Hayward, C. Schweizer, M. Lohse, M. Aidelsburger, and F. Heidrich-Meisner, Phys. Rev. B 98 , 245148 (2018). [25] R. Citro and M. Aidelsburger, Nature Reviews Physics 
+
+5, 87–101 (2023). [26] D. J. Thouless, Phys. Rev. B 27 , 6083 (1983). [27] A. Padhan, S. Mondal, S. Vishveshwara, and T. Mishra, Phys. Rev. B 109 , 085120 (2024). [28] S. Athanasiou, I. E. Nielsen, M. M. Wauters, and M. Bur-rello, SciPost Phys. 16 , 083 (2024). [29] G. Ortiz and R. M. Martin, Phys. Rev. B 49 , 14202 (1994). [30] R. Resta and D. Vanderbilt, in Topics in Applied Physics 
+
+(Springer Berlin Heidelberg, 2007) pp. 31–68. [31] R. Resta, Phys. Rev. Lett. 80 , 1800 (1998). [32] C. Carcy, G. Herc´ e, A. Tenart, T. Roscilde, and D. Cl´ ement, Phys. Rev. Lett. 126 , 045301 (2021). [33] B. Gardas, J. Dziarmaga, and W. H. Zurek, Physical Re-view B 95 , 10.1103/physrevb.95.104306 (2017). [34] T. Gericke, F. Gerbier, A. Widera, S. F¨ olling, O. Man-del, and I. Bloch, Journal of Modern Optics 54 , 735–743 (2007). [35] B. Bakkali-Hassani, J. Kwan, P. Segura, Y. Li, I. Tes-faye, G. Valent´ ı-Rojas, A. Eckardt, and M. Greiner, Revealing pseudo-fermionization and chiral binding of one-dimensional anyons using adiabatic state preparation (2026), arXiv:2602.20421 [cond-mat.quant-gas]. [36] S. Ebadi, T. T. Wang, H. Levine, A. Keesling, G. Se-meghini, A. Omran, D. Bluvstein, R. Samajdar, H. Pich-ler, W. W. Ho, S. Choi, S. Sachdev, M. Greiner, V. Vuleti´ c, and M. D. Lukin, Nature 595 , 227–232 (2021). [37] P. Praneel, T. G. Kiely, E. J. Mueller, and A. G. Petukhov, Phys. Rev. A 110 , 062615 (2024). [38] P. M. Harrington, E. J. Mueller, and K. W. Murch, Na-ture Reviews Physics 4, 660–671 (2022). [39] D. Malz, G. Styliaris, Z.-Y. Wei, and J. I. Cirac, Phys. Rev. Lett. 132 , 040404 (2024). [40] F. m. c. Cr´ epin, N. Laflorencie, G. Roux, and P. Simon, Phys. Rev. B 84 , 054517 (2011). [41] F. Yan, P. Krantz, Y. Sung, M. Kjaergaard, D. L. Camp-bell, T. P. Orlando, S. Gustavsson, and W. D. Oliver, Phys. Rev. Applied 10 , 054062 (2018). [42] J. Stehlik, D. M. Zajac, D. L. Underwood, T. Phung, J. Blair, S. Carnevale, D. Klaus, G. A. Keefe, A. Carniol, M. Kumph, M. Steffen, and O. E. Dial, Phys. Rev. Lett. 
+
+127 , 080505 (2021). [43] J. Carrasquilla, S. R. Manmana, and M. Rigol, Physical Review A 87 , 10.1103/physreva.87.043606 (2013). [44] U. Schollw¨ ock, Annals of Physics 326 , 96 (2011), january 2011 Special Issue. [45] M. P. Zaletel, R. S. K. Mong, and F. Pollmann, Journal of Statistical Mechanics: Theory and Experiment 2014 ,P10007 (2014). [46] N. Chepiga and F. Mila, Phys. Rev. B 96 , 054425 (2017). [47] N. Chepiga, I. Affleck, and F. Mila, Phys. Rev. B 101 ,174407 (2020). [48] A. A. Eberharter, L. Vanderstraeten, F. Verstraete, and A. M. L¨ auchli, Phys. Rev. Lett. 131 , 226502 (2023). [49] T. Giamarchi, Quantum Physics in One Dimension (Ox-ford University Press, Oxford, 2003). [50] P. Jordan and E. Wigner, Z. Phys. 47 , 631 (1928). [51] P. Coleman, Introduction to Many-Body Physics (Cam-bridge University Press, Cambridge, 2015). [52] T. Ying, G. G. Batrouni, G. X. Tang, X. D. Sun, and R. T. Scalettar, Phys. Rev. B 89 , 195128 (2014). [53] J. M. Kosterlitz and D. J. Thouless, Journal of Physics C: Solid State Physics 6, 1181 (1973). [54] D. R. Nelson and J. M. Kosterlitz, Phys. Rev. Lett. 39 ,1201 (1977). [55] V. . L. Berezinskii, JETP 34 , 610 (1972). [56] A. Szasz, J. Motruk, M. P. Zaletel, and J. E. Moore, Phys. Rev. X 10 , 021042 (2020). [57] T. G. Kiely and E. J. Mueller, Phys. Rev. B 105 , 134502 (2022). [58] F. Pollmann, S. Mukerjee, A. M. Turner, and J. E. Moore, Phys. Rev. Lett. 102 , 255701 (2009). [59] K. Harada and N. Kawashima, Physical Review B 55 ,16 
+
+R11949–R11952 (1997). [60] Z. Zuo, S. Yin, X. Cao, and F. Zhong, Physical Review B 104 , 10.1103/physrevb.104.214108 (2021). [61] M. P. A. Fisher, P. B. Weichman, G. Grinstein, and D. S. Fisher, Phys. Rev. B 40 , 546 (1989). [62] C.-F. Chen, M. Kastoryano, F. G. S. L. Brand˜ ao, and A. Gily´ en, Nature 646 , 561–566 (2025). [63] J. Lloyd and D. A. Abanin, Quantum thermal state preparation for near-term quantum processors (2026), arXiv:2506.21318 [quant-ph]. [64] H. F. Song, S. Rachel, and K. Le Hur, Phys. Rev. B 82 ,012405 (2010). [65] A. Chandran, A. Erez, S. S. Gubser, and S. L. Sondhi, Physical Review B 86 , 10.1103/physrevb.86.064304 (2012). [66] G. Vidal, Physical Review Letters 91 , 10.1103/phys-revlett.91.147902 (2003). [67] A. J. Daley, C. Kollath, U. Schollw¨ ock, and G. Vidal, Journal of Statistical Mechanics: Theory and Experi-ment 2004 , P04005 (2004). [68] J. Haegeman, J. I. Cirac, T. J. Osborne, I. Piˇ zorn, H. Ver-schelde, and F. Verstraete, Physical Review Letters 107 ,10.1103/physrevlett.107.070601 (2011). [69] J. Haegeman, C. Lubich, I. Oseledets, B. Vandereycken, and F. Verstraete, Physical Review B 94 , 10.1103/phys-revb.94.165116 (2016). [70] G. Q. AI and collaborators, Nature 638 , 920 (2025). [71] T. S. Kuhn, The structure of scientific revolutions: Vol.2, no.2 , 2nd ed., Foundations of Unity of Science (University of Chicago Press, Chicago, IL, 1970). [72] M. Fishman, S. R. White, and E. M. Stoudenmire, Sci-Post Phys. Codebases , 4 (2022). [73] M. Fishman, S. R. White, and E. M. Stoudenmire, Sci-Post Phys. Codebases , 4 (2022). [74] M. M. Rams, P. Czarnik, and L. Cincio, Phys. Rev. X 8,041033 (2018). [75] B. Vanhecke, J. Haegeman, K. Van Acoleyen, L. Vander-straeten, and F. Verstraete, Phys. Rev. Lett. 123 , 250604 (2019). [76] S. R. White, Site basis excitation ansatz for matrix prod-uct states (2026), arXiv:2509.06241 [cond-mat.str-el].

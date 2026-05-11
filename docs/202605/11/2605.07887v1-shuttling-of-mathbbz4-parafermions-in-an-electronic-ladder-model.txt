@@ -1,0 +1,548 @@
+Title: Shuttling of ℤ_4 parafermions in an electronic ladder model
+
+URL Source: https://arxiv.org/pdf/2605.07887v1
+
+Published Time: Mon, 11 May 2026 01:26:08 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Shuttling of Z4 parafermions in an electronic ladder model 
+
+Botond Osváth, 1 Gergely Barcza, 2, ∗ and László Oroszlány 1, 2, †
+
+> 1
+
+Department of Physics of Complex Systems, ELTE Eötvös Loránd University, H-1117, Budapest, Hungary 
+
+> 2
+
+Wigner Research Centre for Physics, H-1525, Budapest, Hungary 
+
+(Dated: May 11, 2026) Parafermions with non-Abelian statistics have been proposed as a promising platform for quan-tum computation, potentially enabling a broader set of topologically protected gates than Majo-rana fermions. The experimental and theoretical exploration of these exotic quasiparticles remains challenging, as their stability is linked to strong electron-electron interactions. A key step toward practical applications is the controlled shuttling of parafermionic modes, which is required for imple-menting geometric braiding operations. In the present work, we investigate the real-time dynamics of the elementary shuttling process by applying a combination of the density matrix renormaliza-tion group and the time-dependent variational principle approaches. We analyze the transport of 
+
+Z4 parafermion edge states and assess the corresponding adiabatic speed limit under experimentally relevant conditions. 
+
+I. INTRODUCTION 
+
+The pursuit of fault-tolerant quantum computing hinges on the development of qubits that are inherently robust against decoherence and local noise. Topolog-ical quantum computing offers a hardware-level solu-tion to this challenge by encoding quantum information in non-local degrees of freedom of exotic anyons, mak-ing it intrinsically resilient to local perturbations. Al-though significant attention has been directed toward Majorana zero modes (MZMs) – which correspond to a Z2 topological index – their non-Abelian statistics alone are insufficient for universal quantum computa-tion 1,2 . Consequently, there is growing interest in re-alizing parafermions 3, which generalize these excitations to a Zn index (with n > 2) and provide a richer set of topologically protected operations necessary for universal quantum computation 4. A related important aspect of parafermionic modes is that they might implement vari-ous logical units of information. Specifically, the Z4 man-ifold can encode a 4-level qudit whose braiding operation generates the entire Clifford group 5. In case of a two-qubit representation, the qubits might also be manipu-lated by non-Clifford gates implemented through map-ping between Majorana fermions and Z4 parafermions 6.Furthermore, by applying a parity constraint, a single logical qubit can be realized which is highly resilient against quasiparticle poisoning compared to MZM-based realization as a single-electron tunneling event kicks out of the computational space rather than flipping the qubit state 5.MZMs can be implemented in systems where interac-tions are not important, such as a one-dimensional spin-less p-wave superconductor 7. In contrast, parafermions require, in general, strong electron-electron interactions 8.To realize them, various proposals have been put for-ward relying on, e.g., superconductor-fractional Chern insulator hybrids 9,10 and flat bands of moire heterostruc-tures 11 . Furthermore, interactions can also induce parafermion modes in quantum spin Hall insulators 12–14 
+
+or in a bundle of spinless nanowires 15 . Recently, a map-ping between Z4 parafermions and non-interacting spin-ful fermions was studied, where the Gentile statistics of parafermionic systems can be elucidated, although these systems lack isolated parafermionic zero modes 16 .Inspired by these developments, an interacting elec-tronic ladder model capable of hosting Z4 parafermions was also proposed 17 , which can potentially be imple-mented with highly tunable quantum dot arrays 18–20 .Alternatively, ultracold atomic ladders 21 combined with spin-orbit coupling mimicking mechanisms 22–24 could also efficiently realize our model. With an established platform for topological exci-tations implementing information units, the next cru-cial step towards efficient quantum computations is un-derstanding the dynamics required to implement fault-tolerant braiding protocols which realize various topo-logically protected quantum gates 5,8 . Practical exchange operations can work only in a specific frequency window constrained by characteristic time scales 1,25,26 . In partic-ular, the braiding must be slow enough to preserve adia-baticity of the ground state, which is primarily character-ized by the energy gap of the system. However, braiding must be fast enough to minimize the decoherence induced by finite energy splitting of the computational subspace and quasi-particle poisoning 5. When parafermions are implemented in nanowire-based systems, the edge states can be efficiently braided using T-junction setups to avoid bringing them close together and thus splitting the criti-cal energy degeneracy of the parafermions while exchang-ing their position 27 . The elementary cornerstone of the physical braiding procedure is the controlled transport, or "shuttling" of the modes along the wires 8. Therefore, as an initial step towards optimizing swapping protocols, it is critical to explore the actual diabatic error profile in topological systems of interest. For MZMs, a slow shut-tling approach has been extensively studied 28–31 , where local electric gates are used to sequentially tune sections of the wire throughout the topological phase transition. As a result, shuttling of MZMs is found to follow expo-nential decay estimated by Landau-Zener theory only for shorter time scales 28 , and power-law corrections might 
+
+> arXiv:2605.07887v1 [cond-mat.str-el] 8 May 2026
+
+2become dominant for sufficiently large relaxation times due to the nonanalytic behavior of the tuning function 29 .Regarding the twofold odd and even (quasi)-degeneracy of the Z4 parafermion bound states, their actual diabatic error model might be even more subtle. In this work, we investigate the finite-time shuttling of 
+
+Z4 parafermions within a previously established strongly interacting electronic model 17 . In the considered lad-der setup, parafermionic bound states are localized at the two interfaces between an interacting central seg-ment and superconducting terminals. We adapt a slow transport protocol 29 by implementing a simultaneous lo-cal modulation of the interaction strength and supercon-ducting pairing to shift one of the interfaces, and thus the localized edge states. We employ the density matrix renormalization group 32 (DMRG) approach to character-ize the static properties of the correlated system and the time-dependent variational principle 33 (TDVP) to sim-ulate its quantum many-body dynamics. We perform a rigorous study to accurately quantify the diabatic error sources of the parafermionic subspace by marginalizing the numerical errors intrinsic to the applied computa-tional approximations. Our predictions give a realistic upper bound estimate of the stable shuttling frequency of the Z4 parafermion model tailored for quantum dot arrays. The remainder of the paper is structured as follows. In Sect. II, the applied numerical methods are overviewed, focusing specifically on their control parameters that de-termine the precision of the simulations. In Sect. III, we discuss the investigated model Hamiltonian, the applied shuttling protocol, and the concept to measure leakage of the computational subspace of Z4 parafermions. Our results are presented in Sect. IV, while their discussion is given in Sect. V.  
+
+> II. METHODS
+
+We carried out DMRG and TDVP calculations us-ing the two-site implementations of the ITensor program package 34,35 . Simulating a model with superconductivity and spin-nonconserving interaction, the only conserved quantum number to be considered is particle parity. Due to the sizable gap tuned by the parameters ∆ and V , the DMRG calculations of instantaneous states are manage-able for systems with hundreds of sites, as we demon-strated in Ref. 17. Note that to reduce correlations in the system with-out altering the essential physics, we set open boundary conditions, which are favored by the DMRG approach. To minimize the distance between correlated sites in the DMRG chain mapping, the sites of the two legs follow each other in alternating order. In our DMRG calcula-tions, the bond dimension of the initial random matrices and the minimum bond dimension were set to 100 while sweeping is allowed until a strict convergence in energy (10 −8 t) is reached. The excited states were obtained in an iterative fashion, where a projector of the lower-lying roots is added to the Hamiltonian with a penalty factor of magnitude 10 t. In TDVP simulations, time discretization is kept fixed at a value of dτ = 0 .1, thus the number of iteration steps increases linearly with the shuttling time T .In Sect. III, we also tested the effect of the trunca-tion error ε, which is the main source of numerical error of the applied computational methods, in great detail. Note that apart from the numerical parameters men-tioned above, all other parameters of the ITensor codes were kept at their default value. In the following, we briefly summarize the background of the applied meth-ods, focusing on the discussion of the most critical nu-merical errors.  
+
+> A. DMRG
+
+We study the instantaneous ground state manifold of the interacting ladder model using the DMRG ap-proach 32,36 , which provides an approximate solution with controllable accuracy as described below. For more de-tails, we recommend reading Ref. 37, a seminal paper in the field. The method iteratively optimizes the wave function represented in the so-called matrix product state (MPS) form. In the MPS, a given matrix is assigned to each occupation state of a site, and the weight of a given con-figuration of the wave function can be obtained by mul-tiplying these matrices. In each DMRG step, only ma-trices of two adjacent sites are updated simultaneously to minimize the energy while keeping the matrices of all other sites fixed. Most importantly, by factorizing the updated tensors using the singular value decomposition (SVD) approach, the dimension of the MPS matrices can be controlled. Recall that the singular values of the resulting Schmidt decomposed state, λ, satisfy the relation P 
+
+> i
+
+λ2 
+
+> i
+
+= 1 . In practice, by keeping only the m most dominant singular vectors (with the largest singular values) to act as the basis of the MPS matrices, their dimension can be effi-ciently truncated to a computationally manageable level with minimal loss of accuracy. The discarded weights in-troduce the truncation error, ε = 1 − P 
+
+> i≤m
+
+λ2 
+
+> i
+
+≪ 1. In our calculations, in each DMRG step, the dimension of the truncated matrix (so-called bond or link dimension) is adjusted to keep the ε truncation error fixed 38 . 
+
+> B. TDVP
+
+Time-evolving a strongly correlated quantum system can be a challenging task due to the drastic growth of entanglement over time. To tackle this, we employ the TDVP approach 33,39,40 , which allows us to efficiently simulate the time-evolution of an initial state expanded in MPS form. In particular, the TDVP method projects 3                        
+
+> FIG. 1. Visualization of the model and the shuttling protocol. (a) Sketch of the kinetic term and the investigated model configuration setup. In the figure, the black circles denote the ladder sites. Light blue and red shades denote the region with superconductivity with a quasiparticle gap ∆and with interaction of strength V, respectively. The dark blue, red and green lines connecting the black circles represent the distinct hopping processes, which are detailed in the zoomed picture. (b) Depiction of the smooth evolution between two configuration in a single piano-key stroke (over time T) is tuned as defined in Eq. 5. (c) Sketch of the transport carried out by the piano-key protocol. In the schematic figures, the ladder sites are not explicitly visualized, but the length of the various ladder segments is denoted. Starting from a model setup (N1, N 2, N 3), where
+> N2is the length of the interacting segment while N1and N3are the superconducting terminal lengths, in each shuttling step, we move one of the domain walls Nsites further into the superconducting region over time T.The yellow star denotes the position fof the interface-localized parafermion state. Note that the parafermionic state is not localized in the Nblock during shuttling hence we omit that star.
+
+the time-evolution operator onto the tangent space of the MPS manifold, ensuring that the evolved state remains within the bounds of the specified MPS ansatz. The evolution from τ = 0 to τ = T is performed in dis-crete time steps of size dτ , where each step is evaluated using a DMRG-like sweep. Therefore, the TDVP calcula-tion is performed in total Nsw = Tdτ sweeps. The TDVP sweep essentially implements the second-order Trotter-Suzuki decomposition 41 of the time-evolution operator. In each step of the sweep, for a given pair of neighbor-ing sites in the MPS chain, we solve the projected local Schrödinger equation for the dτ / 2 increment, applying the Krylov exponentiation 42 . In the two-site variant of the TDVP approach, the evolved state given in MPS ten-sor format is truncated by SVD as in standard two-site DMRG, which is followed by backward propagation on the center site to prevent overcounting evolution. Implementing the second-order Suzuki-Trotter decom-position in TDVP, the total integration error scales as 
+
+dτ 2 while the error induced by the projection can be con-trolled by the MPS bond dimension. Note that the two-site variant of TDVP allows for dynamic adjustment of the bond dimension, making it more suitable to capture entanglement growth during time evolution, albeit at an increased computational cost compared to the cheaper one-site alternative. As in the DMRG method, discussed above, the accuracy of the TDVP approach is essentially controlled by the cutoff parameter ε.In practice, the step-halving convergence analysis im-plied that the standard setting dτ = 0 .1 provides suf-ficient precision in the studied diabatic processes. To assess the actual effect of the truncation in our simula-tions, we performed DMRG and TDVP calculations for various truncation errors in the range of 10 −8 − 10 −5 as discussed in Sect. . 4 
+
+> III. MEASURING LEAKAGE DURING SHUTTLING
+
+In this section, we present the investigated model Hamiltonian and the applied shuttling protocol. We also discuss a potential generalization of the diabatic error in-duced by finite-time development for degenerate states, called diabatic leakage 43 . 
+
+> A. Model Hamiltonian and transport protocol
+
+The considered effective model of a two-leg ladder of spinful electrons aims to capture the physics of Z4
+
+parafermion modes emerging at the interface of interact-ing and superconducting regions. The kinetic term describes nearest-neighbor hopping of electrons given by 
+
+Hkin = X
+
+> m
+
+c† 
+
+> m
+
+(−μms0 ⊗ ζ0 + ts 0 ⊗ ζx) cm
+
+− t
+
+2
+
+X
+
+> m
+
+c† 
+
+> m+1
+
+(is z ⊗ ζz + s0 ⊗ ζx) cm + h.c. .
+
+(1) Here, s, s ′ are spin indices, ζ ∈ { L, R} leg indices, and 
+
+cm,ζ,s creates an electron of spin s on site m of leg ζ. The parameter t sets the energy scale and μm,ζ denotes the chemical potential. As noted earlier, in the low-energy limit, propagation along the two legs is decoupled by con-struction; thus, the model mimics the propagation of low-energy helical particles of spatially separated edges in a two-dimensional topological insulator. 17 . An on-site s-wave pairing, 
+
+Hsc = X
+
+> mζ
+
+∆m,ζ 
+
+
+
+c†
+
+> m,ζ, ↑
+
+c† 
+
+> m,ζ, ↓
+
++ h.c. 
+
+
+
+, (2) with amplitude ∆m,ζ ̸ = 0 is allowed only in the super-conducting region where explicit electron-electron inter-actions are not considered. In the interacting region, in contrast, ∆m,ζ = 0 is set and we apply a simple short-range two-electron interaction, 
+
+Hint = X
+
+> m,ζ
+
+Vm,ζ 
+
+
+
+c†
+
+> m,ζ, ↑
+
+cm,ζ, ↓c†
+
+> m+1 ,ζ, ↑
+
+cm+1 ,ζ, ↓ + h.c. 
+
+
+
+,
+
+(3) which describes an anisotropic symmetric exchange of strength Vm,ζ between neighboring sites on the same leg. Combining these terms, the total Hamiltonian is given by 
+
+H = Hkin + Hsc + Hint , (4) where the actual system configuration of the interact-ing and superconducting regions parametrized by site-independent V, μ and ∆ values is indicated by blue and red, respectively, in Fig. 1 (a). In particular, the right leg of the ladder features superconductivity throughout its length, and the central interacting segment of N2 sites in the left leg is bounded by superconducting leads of N1
+
+and N3 sites. Recall that this configuration, denoted as 
+
+H(N1,N 2,N 3) in the following, is found to accommodate 
+
+Z4 parafermion modes for a wide range of model param-eters 17 . Note that μm = 0 is set in our calculations.  
+
+> B. Finite-time parafermion transport protocol
+
+To shuttle diabatically parafermion edge states by N tot 
+
+sites using the piano-key approach 29 , the process can be broken into multiple shuttling steps as illustrated in Fig. 1 (c). In each shuttling operation, we smoothly shift the upper interface on the left leg towards the su-perconducting terminal by tuning the model parameters continuously over time. Specifically, complete transport over the N tot sites is performed in n equidistant shuttling steps of N sites (N tot = nN ). The n shuttling steps, each performed in T time, are executed consecutively. There-fore, the overall shuttle procedure, which is initiated from 
+
+(N1, N 2, N 3) setup to (N1, N 2 + nN, N 3 − nN ) configu-ration, takes T tot = nT time. Formally, the shuttling Hamiltonian of step m ∈ { 0, . . . , n − 1}, performed in the time frame of τ ∈ (mT, (m + 1) T ), reads 
+
+HmT,N (τ ) = (1 − f mT (τ )) H(N1,N 2+mN,N 3−mN )
+
++ f mT (τ )H(N1,N 2+( m+1) N,N 3−(m+1) N ) , (5) where f mT is an increasing function that meets the bound-ary conditions f mT (mT ) = 0 and f mT (( m + 1) T ) = 1 . In our simulations, we choose the smooth tuning function 
+
+f mT (τ ) = sin 2  π(τ −mT )2T
+
+
+
+, illustrated in Fig. 1 (b), which is expected to yield a favorable small diabatic error, as demonstrated for transporting Majorana fermions 29 .Note that single-site shuttling ( N tot = 1 ), discussed in the following, can be executed only in n = 1 shuttling step ( T tot = T ). For compactness, in the following, the instantaneous ground state of HT (τ ) evaluated at τ = 0 
+
+and T is indicated as Ψ0 and ΨT , respectively.  
+
+> C. Quantification of diabatic leakage
+
+The diabatic error of a time-evolved quantum system with a non-degenerate ground state quantifies the fidelity loss between its instantaneous final state |ψT ⟩ and the state propagated from the initial state |ψ0⟩ over time T
+
+by the operator U (T ) as 
+
+r(T ) = 1 − |⟨ ψT |U (T )|ψ0⟩| 2 . (6) It benchmarks the overall accuracy of the diabatic pro-cess, which is governed by the rate of the transition and the energy gap of the system. This measure is typically applied for MZMs 28 , where there is no topological degen-eracy within the parity sectors. 5In contrast, in the considered model, 2-2 odd and even degenerate Z4 egde states define the computational man-ifold. Consequently, an extension of the formula Eq. 6 given for pure states is needed to describe the leakage of the computational subspace into the bulk states during a diabatic process. Assume a n-degenerate manifold characterized by in-stantaneous states ψT = {ψiT }ni=1 and ψ0 = {ψi
+
+> 0
+
+}ni=1 at time T and 0, respectively. The leakage projector, 
+
+PT = 1 − X
+
+> i
+
+|ψiT ⟩⟨ ψiT | , (7) which is orthogonal to the computational subspace spanned by the final states obtained at time T , forms the pillar of the analysis 43 . The time-evolution of the maxi-mally mixed initial states  ρ0 = 1 /n P 
+
+> i
+
+|ψi
+
+> 0
+
+⟩⟨ ψi
+
+> 0
+
+|, propa-gated over time T by the operator U (T ), might induce a leakage that is measured using the projector of Eq. 7 as 
+
+L(T ) = Tr( PT U (T )ρ0U (T )†) = 1 − 1
+
+n
+
+X
+
+> ij
+
+|⟨ ψiT |U (T )|ψj
+
+> 0
+
+⟩| 2.
+
+(8) Here, L ranges from 0 (no error) to 1 (maximal error) and returns the formula Eq. 6 when n = 1 . Note that leakage error is critical to be controlled by the speed of the shut-tling processes in order to avoid a fatal loss of quantum information that cannot be retrieved by standard error correction.  
+
+> IV. RESULTS
+
+In this section, we examine the impact of numerical er-rors of the applied computational approaches on diabatic leakage for a single-site shuttling. We also discuss infor-mation loss in the case of different strategies for shuttling over multiple sites, and we also demonstrate the robust-ness of the edge states against leakage error across a range of model parameters.  
+
+> A. Differentiation of simulation and diabatic errors
+
+To ensure the reliability of our theoretical results, the numerical control parameters must be carefully tuned, minimizing their influence on the predicted leakage L.Correspondingly, in the following, we investigate the impact of the numerical errors of simulating single-site shuttling that are discussed in Sect. II. We focus on a suitably small, yet physically representative system that can be studied with varying simulation precision, prac-tically allowing one to approach the limit free of com-putational error. Consequently, we study the configura-tion (N1, N 2, N 3) = (3 , 8, 3) for a set of model param-eters that is representative of the paramagnetic phase (μ = 0 , ∆ = 1 , V = 2 .2 measured in t). First, we demonstrate that the chosen model setup is large enough to describe the four topological edge states by analyzing the structure of the simulated ground state manifold and the system-size dependence of the energy spectrum. Specifically, we study the transition strength of the local annihilation operator on the left leg between the odd and even parafermionic manifolds. For the max-imally mixed density matrices of edge states with even  {| ei⟩} 2
+
+> i=1
+
+ and odd parity  {| oi⟩} 2
+
+> i=1
+
+, the transition strength at site m,
+
+Cm = 14
+
+X
+
+> ijs
+
+⟨oi|cm,L,s |ej ⟩ 2 , (9) is expected to be sharply localized at the two interfaces 17 .In Fig. 2, we present Cm for instantaneous eigenstates computed before and after shuttling ( τ = 0 and τ = T ), denoted compactly by |Ψ0⟩ and |ΨT ⟩, respectively. As an illustration of the diabatic procedure performed in 
+
+T = 50 1 
+
+> t
+
+time, we also depict the propagated states at 
+
+τ = T / 2 and τ = T , i.e., U (T / 2) |Ψ0⟩ and U (T )|Ψ0⟩,respectively. It is conspicuous that all simulated instan-taneous states are localized at the interfaces of the cor-responding configuration. In fact, the matrix element is maximal at the interfaces, reaching a value of around 0.25, while it decays rapidly with distance, and in the center of the interacting region it is orders of magnitude smaller ( C6 ≈ 10 −4). Turning the focus to the time-evolved states, we find that the states evolved until half of the entire transport step ( τ = T / 2) shows a smeared overlap distribution Cm that is a combination of the ini-tial and final instantaneous states. Most importantly, at the end of the shuttling process ( τ = T ), the profile of the transition strength of the evolved states U (T )|Ψ0⟩
+
+completely overlaps with the result for the instantaneous states of the final shuttled Hamiltonian (|ΨT ⟩).In order to give a more qualitative description of the identified edge states, we study their energetics as a func-tion of system size in more detail. In Fig. 2 (b), we show the lowest-lying energies relative to the ground state with even parity (dubbed e1) for varying the length of the in-teraction segment, N2 = 4 − 14 , but keeping the terminal lengths fixed. Most importantly, we find that the bulk gap (energy of e3 and o3 states in the figure) is as large as 0.4 t irrespective of the distance between the two inter-faces. The invariance of the gap implies that the bulk ex-citations are the result of local disturbances of the ground state 44 . The energy of the two parafermion edge states with odd parity ( o1 and o2), which form a Kramers pair, equal up to the precision of the modeling ( 10 −7 t). Their energy relative to the even ground state decays exponen-tially with increasing system size in line with theory 45 . In contrast, the energy split between the bound states with even parity ( e1 vs e2) induced by hybridization 45 , is no-ticeable for small system sizes ( N2 = 4 − 8); nevertheless, it is significantly smaller than the odd-even splitting. Altogether, the maximum energy split of the four bound states, which can potentially determine the dy-6                                               
+
+> FIG. 2. Analysis of the parafermion bound states. a) Transition strength Cmfor site mof the left leg is defined in Eq. 9. Results, computed for initial system setup (N1, N 2, N 3) = (3 ,8,3) at V /t = 2 .2, are presented for instantaneous states at initial (τ= 0 1
+> t) and final moment ( τ=T= 50 1
+> t) of the single-site shuttling and for time-evolved states U(T / 2) |Ψ0⟩,U(T)|Ψ0⟩. b) Excitation spectrum as a function of interaction subsystem length N2. States denoted as e1,e2,o1and o2form Ψ0the bound states with even and odd parity, while the e3and o3states are the lowest-lying bulk excitations. The DMRG data, presented for ε= 10 −9cutoff and 10 −8tenergy convergence condition, was obtained keeping the superconducting terminals of fixed length ( N1=N3= 3 ).
+
+namic phase induced in the shuttling processes, decays rapidly with system size, reaching 10 −3 t and 10 −4 t for 
+
+N2 = 8 and 12, respectively. Based on these trends, we conclude that a detailed analysis of the setup of 
+
+N1 = N3 = 3 and N2 = 8 might provide a reasonable compromise between the computational demands of the TDVP time evolution and the tangible representation of the Z4 edge states. As part of the convergence analysis of the TDVP trans-port simulations, we investigated the impact of the preset truncation error ε on diabatic leakage while keeping the moderate dτ = 0 .1 setting fixed (see Fig. 3 (a)). Physi-cal intuition dictates that L(T ) decreases monotonically and rather rapidly as a function of the drive time T ap-proaching the adiabatic limit. However, in practice, we find that the TDVP results obtained at finite truncations, e.g., ε = 10 −5, do not fully meet anticipation, which can be understood as follows. For sufficiently small values of 
+
+T , the corresponding L(T ) is so large ( ∼ 10 −1) that it essentially hides the errors of the simulation and seems to be insensitive to the choice of truncation. In contrast, for higher values of T , where leakage decreases by orders of magnitude, the precision of the simulations becomes more critical, as the L(T ) calculated for a given ε might be dominated by the truncation error and the curve starts to saturate. In order to eliminate the truncation error, we fit the numerical infidelity data for a given T as a function of ε (see Fig. 3 (b)). As the defined infidelity quantities practically measure the discarded weight of the simulated wave functions along the leakage, linear fitting of the data obtained for finite cutoffs is reasonable, just as in the case of typical DMRG energy extrapolation 46 .In Fig. 3 (a), the actual diabatic leakage is also shown, i.e., the result extrapolated to the truncation-free limit (ε → 0). We find that the extrapolated leakage decreases monotonically with T and starting from around T = 30 1
+
+> t
+
+shows exponential decay predicted by the Landau-Zener theory.  
+
+> B. Diabatic leakage induced by shuttling
+
+Following the numerical analysis of the TDVP-based simulation of single-site shuttling, we turn the focus to the transport of the parafermion mode over multiple sites. Specifically, we investigate the leakage of a four-site shuttling executed on the right terminal of the ini-tial setup (N1, N 2, N 3) = (3 , 8, 6) at model parameters 
+
+V /t = 2 .2 and ∆/t = 1 . The diabatic leakage accumu-lated during transport over N tot = 4 sites was tested for N = 1 , 2, and 4-site piano-key shuttling protocols discussed in III C. The corresponding numerical results obtained for various total shuttling times are visualized in Fig. 4. In particular, we find that the leakage be-comes sensitive to the choice of the truncation error 7                                
+
+> FIG. 3. Leakage induced by a diabatic single-site shuttling. (a) Numerical results of leakage L, obtained at various values of cutoff parameter ε, as a function of shuttling time Tfor configuration (N1, N 2, N 3) = (3 ,8,3) at V /t = 2 .2and ∆ = 1 .Colored curves are guide to the eye. The data for ε→0limit is obtained from a linear extrapolation as discussed in the main text and visualized in panel b). Solid gray line is the exponential curve, fitted to the cutoff-free gray data, corresponding to the Landau-Zener theory. (b) Diabatic leakage Lw.r.t. cutoff εfor selected Tvalues. Raw data and fitted curves are shown up to ε= 10 −5, while that particular data point of largest truncation error is omitted from the linear fitting. The infidelity extrapolated in the ε→0limit ( L0) is written in the color of the corresponding evolution time T.
+
+(ε = 10 −6−10 −7) around L ≈ 10 −3 in line with the obser-vations on single-site shuttling studied above. More im-portantly, we find that, in this demonstrative analysis of four-site transport, single-key diabatic shuttling ( n = 1 )results in the lowest leakage with rather smooth decay in the investigated range of drive-time. In addition to cutoff analysis, the simulations were also tested for sensitivity to the choice of time-discretization as shown in Fig. 4. All these numerical convergence tests result practically in the same decaying pattern until around L ≈ 10 −3. Conse-quently, the fluctuation observed in the case of n = 2 
+
+and especially n = 4 is not an artifact of the simulations but an actual physical effect attributed to the Landau-Zener-Stückelberg interference. According to theory 47 ,in a non-adiabatically evolving system the different com-ponents of the diabatic wavefunction accumulate relative dynamical phases. Therefore, in the case of transport protocols consisting of a consecutive series of shuttling steps (increasing n), the buildup of interference could cause more pronounced oscillations in the leakage curves compared to the n = 1 case. Note that similar patterns can also be observed on larger scales; see, for example, Ref. 29. Based on the above findings at V /t = 2 .2 and ∆/t = 1 ,which reveal an exponential decrease in the leakage gov-erned by the bulk gap, we also explored the potential scope of this rapid process by analyzing the energetics in an extensive range of model parameters. In Fig. 5 (a), we present the lowest-lying relative energies tuning V /t be-tween 1.3 and 3.3 while keeping ∆/t = 1 fixed. The four-fold (quasi)degeneracy of the parafermion ground state is demonstrated for interaction strength in the range of around 2.0-2.7. Furthermore, we also find that these edge states are separated from the bulk states by a substan-tial gap of 0.3-0.5 t for the investigated parameters. We also extended the analysis for various values of ∆/t in the range of 0.0-1.0. For the sake of clarity, in Fig. 5 (b), we analyze the large amount of data by the stan-dard deviation σ of the four lowest-lying energies, as a measure of their degeneracy, and by the excitation en-ergy of the fifth state, which defines the bulk gap in the parafermionic phase. The fourfold (quasi)degenerate parafermionic phase, characterized by a spread well be-low 0.1 t, can be detected in the range of 0.2-1.0 super-conducting coupling strength and is also stabilized for higher values of V compared to the case of ∆/t = 1 . In the whole parafermionic phase of the investigated model, the bulk gap is sizeable and varies in the range of 0.2-0.6 t.These energetic results imply the potential feasibility of transporting parafermionic modes with reasonable speed over a wide range of model parameters. Finally, establishing a characteristic time scale that preserves the parafermionic subspace during the shut-tling is critical to assess an upper bound of operational frequency in practice. As a point of reference, an adi-abatic noise below 10 −4 might be considered as a con-8                    
+
+> FIG. 4. Leakage in case of diabatic four-site transport. Leak-age Las a function of total evolution time Ttotal was obtained using n= 1 ,2,4equally-sized piano-key shuttling protocol for initial configuration (N1, N 2, N 3) = (3 ,8,6) at V /t = 2 .2and
+> ∆/t = 1 . Numerical control parameters ( ε,dτ ) were varied to test the reliability of the simulations. The labeling is given in split-legend, where the distinct colors represent the different piano-key setups while the hue of the color and the symbol en-code the applied parametrization of the TDVP calculations.
+
+servative upper bound estimate for fault-tolerant opera-tion 48,49 . Based on our extrapolated results in Fig. 3 (a), we estimate that T ∗ = 51 1 
+
+> t
+
+is already large enough for reasonably accurate single-site shuttling ( L∗ ≈ 1 × 10 −4)for the given model setup. Based on results for multi-site shuttling in Fig. 4, we might anticipate even lower but comparable estimate for critical shuttling time per site (T ∗). Note that a very similar T ∗ is expected for larger system sizes as well considering that the diabatic leakage follows the Landau-Zener theory governed by the bulk-gap, which is found to be practically size independent (see Fig. 2 (b)). In order to convert the critical T ∗ to an actual phys-ical time scale, the value of the parameter t in physical realizations must be first estimated. In recent decades, among other concepts, gate-based and atomic approaches have been intensively developed to implement tunable quantum dots on Si and GaAs wafers 50 . Depending on the actual realization, the covered range of the hopping amplitude varies greatly; nevertheless, a wide bound of 0.01-10 meV can currently be given in overall. It is no-table that that technically more challenging higher end 51 
+
+corresponds already to the sub-picosecond timescale. Therefore, setting a reasonable value of t = 0 .5 meV, a negligible diabatic leakage ( L∗ ≈ 10 −4) might be reached for a single-site shuttle around a critical time of T ∗ = 67 ps (see Fig. 3). Comparable critical shuttling time per site can be estimated in the case of multiple-site transport (see Fig. 4). Note that in the case of MZMs the critical 10 −4 diabatic error of shuttling was also found to be reached within rather similar time-scale (around 10 ps per site on average) assuming a hopping ampli-tude as large as 1.5 meV and using optimized transport protocols 29 . More importantly, from the point of view of quantum dot arrays, shuttling of a particle with rea-sonable fidelity can typically be executed in the order of magnitude of nanoseconds per site 52–54 . The exper-iments are essentially limited by the frequency of the controlling electronics, the scaling limitations of synchro-nization, and by the fabrication imperfections. Since the estimated leakage time-scale of the considered model is shorter than typical control times in present quantum-dot shuttling experiments, the adiabatic requirement for the idealized model does not pose a bottleneck for current setups. Finally, note that leakage during diabatic transport measures the irreversible loss of quantum information from the computational subspace, which determines the potential lower limit for the shuttling time while main-taining the critical adiabatic condition. However, the po-tential duration of a fault-tolerant shuttling also has an upper limit constrained by quasi-particle poisoning and dephasing effects within the nearly degenerate manifold, which can cause decoherence. The optimal frequency of shuttling operations is constrained by these simultaneous limits.  
+
+> V. CONCLUSION
+
+In this exploratory numerical study, we investigated the resilience of finite-time shuttling Z4 parafermion modes in a quantum dot array to leakage from the com-putational manifold into bulk states. For studying these strongly correlated quantum sys-tems, we applied the DMRG method, which also allowed us to simulate dynamic processes efficiently by employing the TDVP approach. The precision of the approximate simulations was scrutinized to provide an accurate pre-diction of the energies and the fidelity loss of the finite-time shuttling. Specifically, we investigated the single- and multi-site shuttling of the edge modes applying the diabatic piano-key protocol. We found that the sub-nanosecond single-site shuttling time of the Z4 parafermion edge states compares favorably with the findings for Majorana zero modes which can be attributed to the observed large bulk gaps. Furthermore, our theoretical prediction might also indicate that the shuttling speed of parafermions in quan-tum dot arrays might be limited by the timescale of the actual physical realization of the shuttling protocol rather than by the model system itself. Our theoretical findings, combined with practical engi-neering considerations, could advance parafermion-based 9
+
+FIG. 5. Stability of the parafermion phase. (a) Excitation spectrum as a function of interaction strength V for the system setup (3,8,3), at fixed ∆/t = 1 . (b) 4-dimensional plot of standard deviation of the 4 lowest lying states’ energies and 5th state’s excitation energy as a function of ∆ and V for the system setup (3,8,3). The z coordinate represents the magnitude of the excitation energy that is the bulk-gap in the parafermionic region. The color encodes σ(e1, e 2, o 1, o 2), the closer it is to zero, the stronger the quasi-degeneracy is. 
+
+braiding architectures in quantum dot arrays. 
+
+ACKNOWLEDGMENTS 
+
+O. L. was supported by the Ministry of Culture and Innovation and the National Research, Development and Innovation Office within the Quantum Information Na-tional Laboratory of Hungary (Grant No. 2022-2.1.1-NL-2022-00004), National Research, Development and Inno-vation Office (NKFIH) through Grant Nos. K134437 as well as projects KKP133827 and K142179. This project is supported by the TRILMAX Horizon Europe consor-tium (Grant No. 101159646). We acknowledge Digital Government Development and Project Management Ltd. for awarding us access to the Komondor HPC facility based in Hungary.  
+
+> ∗
+
+barcza.gergely@wigner.hu  
+
+> †
+
+laszlo.oroszlany@ttk.elte.hu  
+
+> 1
+
+C. Nayak, S. H. Simon, A. Stern, M. Freedman, and S. Das Sarma, Rev. Mod. Phys. 80 , 1083 (2008).  
+
+> 2
+
+S. D. Sarma, M. Freedman, and C. Nayak, npj Quantum Information 1 (2015), 10.1038/npjqi.2015.1.  
+
+> 3
+
+P. Fendley, Journal of Physics A: Mathematical and The-oretical 47 , 075001 (2014).  
+
+> 4
+
+M. B. Hastings, C. Nayak, and Z. Wang, Phys. Rev. B 
+
+87 , 165421 (2013).  
+
+> 5
+
+A. Hutter and D. Loss, Physical Review B 93 , 125105 (2016).  
+
+> 6
+
+A. H. Safwan and R. W. Bomantara, Journal of Physics A: Mathematical and Theoretical 58 , 335302 (2025).  
+
+> 7
+
+A. Y. Kitaev, Physics-Uspekhi 44 , 131 (2001).  
+
+> 8
+
+J. Alicea and P. Fendley, Annual Review of Condensed Matter Physics 7, 119 (2016).  
+
+> 9
+
+D. J. Clarke, J. Alicea, and K. Shtengel, Nature commu-nications 4, 1348 (2013).  
+
+> 10
+
+N. H. Lindner, E. Berg, G. Refael, and A. Stern, Phys. Rev. X 2, 041002 (2012).  
+
+> 11
+
+H. Liu, R. Perea-Causin, and E. J. Bergholtz, Nature Communications 16 , 1770 (2025).  
+
+> 12
+
+F. Zhang and C. L. Kane, Phys. Rev. Lett. 113 , 036401 (2014).  
+
+> 13
+
+C. P. Orth, R. P. Tiwari, T. Meng, and T. L. Schmidt, Physical Review B 91 , 081406 (2015).  
+
+> 14
+
+C. Fleckenstein, N. T. Ziani, and B. Trauzettel, Phys. Rev. Lett. 122 , 066801 (2019).  
+
+> 15
+
+J. Klinovaja and D. Loss, Phys. Rev. Lett. 112 , 246403 (2014).  
+
+> 16
+
+E. McCann, “Noninteracting tight-binding models for fock parafermions,” (2026), arXiv:2510.07029 [cond-mat.mes-hall].  
+
+> 17
+
+B. Osváth, G. Barcza, O. Legeza, B. Dóra, and L. Oros-zlány, Phys. Rev. B 110 , 085304 (2024).  
+
+> 18
+
+T.-K. Hsiao, P. Cova Fariña, S. D. Oosterhout, D. Jirovec, X. Zhang, C. J. van Diepen, W. I. L. Lawrie, C.-A. Wang, A. Sammak, G. Scappucci, M. Veldhorst, E. Demler, and 10 
+
+L. M. K. Vandersypen, Phys. Rev. X 14 , 011048 (2024).  
+
+> 19
+
+T. Dvir, G. Wang, N. van Loo, C.-X. Liu, G. P. Mazur, A. Bordin, S. L. Ten Haaf, J.-Y. Wang, D. van Driel, F. Za-telli, et al. , Nature 614 , 445 (2023).  
+
+> 20
+
+A. Bordin, X. Li, D. van Driel, J. C. Wolff, Q. Wang, S. L. D. ten Haaf, G. Wang, N. van Loo, L. P. Kouwen-hoven, and T. Dvir, Phys. Rev. Lett. 132 , 056602 (2024).  
+
+> 21
+
+X. Li, E. Zhao, and W. Vincent Liu, Nature communica-tions 4, 1523 (2013).  
+
+> 22
+
+Y.-J. Lin, K. Jiménez-García, and I. B. Spielman, Nature 
+
+471 , 83 (2011).  
+
+> 23
+
+V. Galitski and I. B. Spielman, Nature 494 , 49 (2013).  
+
+> 24
+
+A. Valdés-Curiel, D. Trypogeorgos, Q.-Y. Liang, R. An-derson, and I. Spielman, Nature communications 12 , 593 (2021).  
+
+> 25
+
+C. Knapp, M. Zaletel, D. E. Liu, M. Cheng, P. Bonderson, and C. Nayak, Phys. Rev. X 6, 041003 (2016).  
+
+> 26
+
+S. Groenendijk, A. Calzona, H. Tschirhart, E. G. Idrisov, and T. L. Schmidt, Phys. Rev. B 100 , 205424 (2019).  
+
+> 27
+
+J. Alicea, Y. Oreg, G. Refael, F. von Oppen, and M. P. A. Fisher, Nature Physics 7, 412 (2011).  
+
+> 28
+
+B. Bauer, T. Karzig, R. V. Mishmash, A. E. Antipov, and J. Alicea, SciPost Phys. 5, 004 (2018).  
+
+> 29
+
+B. P. Truong, K. Agarwal, and T. Pereg-Barnea, Phys. Rev. B 107 , 104516 (2023).  
+
+> 30
+
+D. Sahu and S. Gangadharaiah, Phys. Rev. B 111 , 235306 (2025).  
+
+> 31
+
+B. P. Truong, K. Agarwal, and T. Pereg-Barnea, Phys. Rev. B 113 , 064506 (2026).  
+
+> 32
+
+S. R. White, Phys. Rev. Lett. 69 , 2863 (1992).  
+
+> 33
+
+J. Haegeman, J. I. Cirac, T. J. Osborne, I. Pižorn, H. Ver-schelde, and F. Verstraete, Phys. Rev. Lett. 107 , 070601 (2011).  
+
+> 34
+
+M. Fishman, S. R. White, and E. M. Stoudenmire, “The ITensor software library for tensor network calculations,” (2020), arXiv:2007.14822.  
+
+> 35
+
+M. Yang and S. R. White, Phys. Rev. B 102 , 094315 (2020).  
+
+> 36
+
+S. R. White, Phys. Rev. B 48 , 10345 (1993).  
+
+> 37
+
+U. Schollwöck, Ann. Phys. 326 , 96 (2011), january 2011 Special Issue.  
+
+> 38
+
+Ö. Legeza, J. Röder, and B. A. Hess, Phys. Rev. B 67 ,125114 (2003).  
+
+> 39
+
+J. Haegeman, T. J. Osborne, and F. Verstraete, Phys. Rev. B 88 , 075133 (2013).  
+
+> 40
+
+J. Haegeman, C. Lubich, I. Oseledets, B. Vandereycken, and F. Verstraete, Phys. Rev. B 94 , 165116 (2016).  
+
+> 41
+
+N. Hatano and M. Suzuki, “Finding exponential prod-uct formulas of higher orders,” in Quantum Annealing and Other Optimization Methods , edited by A. Das and B. K. Chakrabarti (Springer Berlin Heidelberg, Berlin, Heidelberg, 2005) pp. 37–68.  
+
+> 42
+
+Y. Saad, SIAM Journal on Numerical Analysis 29 , 209 (1992), https://doi.org/10.1137/0729014.  
+
+> 43
+
+C. J. Wood and J. M. Gambetta, Phys. Rev. A 97 , 032306 (2018).  
+
+> 44
+
+P. Fendley, Journal of Statistical Mechanics: Theory and Experiment 2012 , P11020 (2012).  
+
+> 45
+
+R. L. R. C. Teixeira, A. Haller, R. Singh, A. Mathew, E. G. Idrisov, L. G. G. V. Dias da Silva, and T. L. Schmidt, Phys. Rev. Res. 4, 043094 (2022).  
+
+> 46
+
+O. Legeza and G. Fáth, Phys. Rev. B 53 , 14349 (1996).  
+
+> 47
+
+S. Shevchenko, S. Ashhab, and F. Nori, Physics Reports 
+
+492 , 1 (2010).  
+
+> 48
+
+A. M. Steane, “Space, time, parallelism and noise requirements for reliable quantum com-puting,” in Quantum Computing (John Wi-ley & Sons, Ltd, 1999) Chap. 8, pp. 137–151, https://onlinelibrary.wiley.com/doi/pdf/10.1002/3527603093.ch8.  
+
+> 49
+
+E. Knill, Nature 434 , 39 (2005).  
+
+> 50
+
+G. Burkard, T. D. Ladd, A. Pan, J. M. Nichol, and J. R. Petta, Rev. Mod. Phys. 95 , 025003 (2023).  
+
+> 51
+
+M. Kiczynski, S. K. Gorman, H. Geng, M. B. Donnelly, Y. Chung, Y. He, J. G. Keizer, and M. Y. Simmons, Na-ture 606 , 694 (2022).  
+
+> 52
+
+T. A. Baart, N. Jovanovic, C. Reichl, W. Wegscheider, and L. M. K. Vandersypen, Applied Physics Letters 109 ,043101 (2016).  
+
+> 53
+
+A. R. Mills, D. M. Zajac, M. J. Gullans, F. J. Schupp, T. M. Hazard, and J. R. Petta, Nature Communications 
+
+10 , 1063 (2019).  
+
+> 54
+
+M. De Smet, Y. Matsumoto, A.-M. J. Zwerver, L. Try-puten, S. L. de Snoo, S. V. Amitonov, S. R. Katiraee-Far, A. Sammak, N. Samkharadze, Ö. Gül, R. N. M. Wasser-man, E. Greplová, M. Rimbach-Russ, G. Scappucci, and L. M. K. Vandersypen, Nature Nanotechnology 20 , 866 (2025).
