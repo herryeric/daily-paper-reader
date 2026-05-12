@@ -6,70 +6,76 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-11
-- 运行时间：2026-05-11 20:28:01 UTC
+- 最新运行日期：2026-05-12
+- 运行时间：2026-05-12 21:18:30 UTC
 - 运行状态：成功
-- 本次总论文数：16
-- 精读区：6
-- 速读区：10
+- 本次总论文数：18
+- 精读区：7
+- 速读区：11
 
 ### 今日简报（AI）
-今日精选 16 篇前沿成果，深度解析铜氧化物超导新机制与光量子流体的动力学演化。
-重点关注长程跳跃对常规 Emery 模型的关键修正，以及驱动量子流体中展现出的动力学普适性规律。
-建议追踪非常规超导理论的演进，并关注拓扑超导异质结在量子态调控中的最新突破。
-- 详情：[/202605/11/README](/202605/11/README)
+今日精选18篇前沿成果，深度解析了狄拉克材料在光腔作用下的物态演变及低维关联系统的输运特性。
+重点推荐腔诱导激子绝缘体与t-J梯子中的自旋电荷分离研究，前者为理解非费米液体行为提供了全新视角。
+建议读者关注光与物质强耦合下的量子相变，这是通往下一代超导与量子调控技术的关键路径。
+- 详情：[/202605/12/README](/202605/12/README)
 
 ### 精读区论文标签
-1. [Beyond the conventional Emery model: crucial role of long-range hopping for cuprate superconductivity](/202605/11/2605.07739v1-beyond-the-conventional-emery-model-crucial-role-of-long-range-hopping-for-cuprate-superconductivity)  
+1. [Cavity-Induced Excitonic Insulation and Non-Fermi-Liquid Behavior in Dirac Materials](/202605/12/2605.10652v1-cavity-induced-excitonic-insulation-and-non-fermi-liquid-behavior-in-dirac-materials)  
    标签：评分：10.0/10、query:cmp
-   evidence：铜氧化物高温超导的理论模型
-2. [Dynamical universality in a driven quantum fluid of light](/202605/11/2605.02397v2-dynamical-universality-in-a-driven-quantum-fluid-of-light)  
+   evidence：通过腔工程在狄拉克材料中实现非费米液体行为
+2. [Spin-charge separation in two-leg t-J ladders](/202605/12/2605.09705v1-spin-charge-separation-in-two-leg-t-j-ladders)  
    标签：评分：9.0/10、query:cmp
-   evidence：驱动光量子流体中的动力学普适性
-3. [Topological superconductivity in a Hubbard model for twisted bilayer cuprates](/202605/11/2605.06923v1-topological-superconductivity-in-a-hubbard-model-for-twisted-bilayer-cuprates)  
+   evidence：强关联t-J梯子中的自旋-电荷分离
+3. [Correlation-Driven Orbital-Selective Fermiology and Superconductivity in the Bilayer Nickelate La$_3$Ni$_2$O$_7$](/202605/12/2605.10101v1-correlation-driven-orbital-selective-fermiology-and-superconductivity-in-the-bilayer-nickelate-la3ni2o7)  
    标签：评分：9.0/10、query:cmp
-   evidence：利用Hubbard模型研究扭转双层铜氧化物中的拓扑超导
-4. [Breaking the Trade-off: Bulk 2D Ising Superconductivity with High Tc and Giant Interlayer Spacing via a Unique Chain Intercalation in (BaS)1/3TaS2](/202605/11/2605.07336v1-breaking-the-trade-off-bulk-2d-ising-superconductivity-with-high-tc-and-giant-interlayer-spacing-via-a-unique-chain-intercalation-in-bas13tas2)  
+   evidence：镍氧化物中关联驱动的费米面与超导性
+4. [Local supersolid in moiré modulated Bose-Hubbard model using density-matrix renormalization group method](/202605/12/2605.10238v1-local-supersolid-in-moir-modulated-bose-hubbard-model-using-density-matrix-renormalization-group-method)  
    标签：评分：9.0/10、query:cmp
-   evidence：插层TMD中的高临界温度二维Ising超导
-5. [Finite temperature pair density wave superconductivity in $d$-wave altermagnets](/202605/11/2605.07656v1-finite-temperature-pair-density-wave-superconductivity-in-d-wave-altermagnets)  
+   evidence：莫尔调制Bose-Hubbard模型中的局域超固态相
+5. [Floquet-tuned superfluid-checkerboard competition in dipolar bosons](/202605/12/2605.10254v1-floquet-tuned-superfluid-checkerboard-competition-in-dipolar-bosons)  
    标签：评分：9.0/10、query:cmp
-   evidence：代磁体中的对密度波超导性
-6. [Checkerboard Bose Hubbard Ladders using Transmon Arrays](/202605/11/2605.07906v1-checkerboard-bose-hubbard-ladders-using-transmon-arrays)  
+   evidence：偶极玻色子中的超流-棋盘格竞争
+6. [Layer-antisymmetric pair-phase resonance at the bonding-antibonding splitting in the AA-stacked bilayer attractive Hubbard model](/202605/12/2605.10387v1-layer-antisymmetric-pair-phase-resonance-at-the-bonding-antibonding-splitting-in-the-aa-stacked-bilayer-attractive-hubbard-model)  
    标签：评分：9.0/10、query:cmp
-   evidence：玻色-哈伯德模型中的超流相
+   evidence：双层超导体中的配对相位共振
+7. [Ginzburg--Landau Theory for Confined Thin-Film Superconductors](/202605/12/2605.10686v1-ginzburg--landau-theory-for-confined-thin-film-superconductors)  
+   标签：评分：9.0/10、query:cmp
+   evidence：受限超导薄膜的Ginzburg-Landau理论
 
 ### 速读区论文标签
-1. [Spin-polarized Josephson current induced by inhomogeneous altermagnetic interlayers](/202605/11/2605.02140v2-spin-polarized-josephson-current-induced-by-inhomogeneous-altermagnetic-interlayers)  
+1. [Quasiparticle Quality Factors in Superconducting Resonators: Effects of Bath Temperature and Readout Power](/202605/12/2605.08591v1-quasiparticle-quality-factors-in-superconducting-resonators-effects-of-bath-temperature-and-readout-power)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导结中的约瑟夫森电流
-2. [Emergent spin quantum Hall edge states at the boundary of two-dimensional electron gas proximitized by an $s$-wave superconductor](/202605/11/2605.05847v2-emergent-spin-quantum-hall-edge-states-at-the-boundary-of-two-dimensional-electron-gas-proximitized-by-an-s-wave-superconductor)  
+   evidence：超导谐振器中的准粒子效应
+2. [Coherence, long-range transport and nuclear polarization in a driven-dissipative dark exciton condensate](/202605/12/2605.09488v1-coherence-long-range-transport-and-nuclear-polarization-in-a-driven-dissipative-dark-exciton-condensate)  
    标签：评分：8.0/10、query:cmp
-   evidence：s波超导体邻近效应下的二维电子气
-3. [Majorana bound states in chiral ferromagnet-superconductor heterostructures revisited](/202605/11/2605.06828v1-majorana-bound-states-in-chiral-ferromagnet-superconductor-heterostructures-revisited)  
+   evidence：激子凝聚体中的宏观相干性与流体动力学输运
+3. [Superconductivity Mediated Long Range Magnetic Coupling](/202605/12/2605.10139v1-superconductivity-mediated-long-range-magnetic-coupling)  
    标签：评分：8.0/10、query:cmp
-   evidence：铁磁体-超导体异质结构中的马约拉纳态
-4. [Anomalous Phase-Coherence Scaling in a Quantum-Critical Dirac Semimetal](/202605/11/2605.07085v1-anomalous-phase-coherence-scaling-in-a-quantum-critical-dirac-semimetal)  
+   evidence：超导介导的磁耦合
+4. [Apparent double-$T_c$ from a single BKT transition in anisotropic phase-only models](/202605/12/2605.10226v1-apparent-double-tc-from-a-single-bkt-transition-in-anisotropic-phase-only-models)  
    标签：评分：8.0/10、query:cmp
-   evidence：关联驱动量子相变中的异常标度
-5. [Rabi-coupling-induced three-component quantum droplet in ultracold Bose gases](/202605/11/2605.07372v1-rabi-coupling-induced-three-component-quantum-droplet-in-ultracold-bose-gases)  
+   evidence：二维超导体中的BKT相变与输运性质
+5. [Bose-Fermi Mapping in Hubbard Models at Imaginary Chemical Potential and Phase-Induced Fermionization](/202605/12/2605.10418v1-bose-fermi-mapping-in-hubbard-models-at-imaginary-chemical-potential-and-phase-induced-fermionization)  
    标签：评分：8.0/10、query:cmp
-   evidence：超冷玻色气体中的量子液滴
-6. [Universal Symmetry-Breaking Dynamics at Continuous Phase Transitions: Evidence for a New Dynamical Critical Exponent](/202605/11/2605.07753v1-universal-symmetry-breaking-dynamics-at-continuous-phase-transitions-evidence-for-a-new-dynamical-critical-exponent)  
+   evidence：哈伯德模型中的BCS-BEC交叉与玻色-费米映射
+6. [Transverse Magnetic Response from Orbitally Polarized Cooper Pairs in Elemental Superconductors](/202605/12/2605.10700v1-transverse-magnetic-response-from-orbitally-polarized-cooper-pairs-in-elemental-superconductors)  
    标签：评分：8.0/10、query:cmp
-   evidence：连续相变中的普适动力学与指数
-7. [Probing critical phases in quasiperiodic systems via subsystem information capacity](/202605/11/2605.06075v1-probing-critical-phases-in-quasiperiodic-systems-via-subsystem-information-capacity)  
+   evidence：元素超导体中的轨道极化库珀对
+7. [Benchmarking a restricted Boltzmann machine on the $\mathbb{Z}_2$ Bose-Hubbard chain in the adiabatic hard-core regime](/202605/12/2605.09247v1-benchmarking-a-restricted-boltzmann-machine-on-the-mathbbz2-bose-hubbard-chain-in-the-adiabatic-hard-core-regime)  
    标签：评分：7.0/10、query:cmp
-   evidence：准周期系统临界相中的纠缠动力学
-8. [Emergent Dynamic Magnetic Ground State in a Mixed 3d/5d Heavy Fermion System CaCu3Ir4O12](/202605/11/2605.07602v1-emergent-dynamic-magnetic-ground-state-in-a-mixed-3d5d-heavy-fermion-system-cacu3ir4o12)  
+   evidence：Bose-Hubbard模型的相图与量子态研究
+8. [Non-magnetic insulating phase induced by Jahn-Teller effect in RNiO$_3$](/202605/12/2605.09713v1-non-magnetic-insulating-phase-induced-by-jahn-teller-effect-in-rnio3)  
    标签：评分：7.0/10、query:cmp
-   evidence：重费米子系统中的量子无序磁性
-9. [Anomalous magnetotransport in a non-collinear correlated kagome ferromagnet MgMn6Sn6](/202605/11/2605.07904v1-anomalous-magnetotransport-in-a-non-collinear-correlated-kagome-ferromagnet-mgmn6sn6)  
-   标签：评分：7.0/10、query:cmp
-   evidence：关联笼目铁磁体中的磁输运
-10. [Shuttling of $\mathbb{Z}_4$ parafermions in an electronic ladder model](/202605/11/2605.07887v1-shuttling-of-mathbbz4-parafermions-in-an-electronic-ladder-model)  
+   evidence：强关联镍氧化物与绝缘相
+9. [Exotic magnetism and persistent short-range spin correlations in a frustrated honeycomb lattice antiferromagnet](/202605/12/2605.02683v1-exotic-magnetism-and-persistent-short-range-spin-correlations-in-a-frustrated-honeycomb-lattice-antiferromagnet)  
    标签：评分：6.0/10、query:cmp
-   evidence：准费米子稳定性与强电子相互作用相关
+   evidence：蜂窝晶格中的量子磁性与自旋关联
+10. [Quantum spin liquid on a 3D bipartite lattice of spin trimers stabilized by enhanced effective anisotropy](/202605/12/2605.06752v1-quantum-spin-liquid-on-a-3d-bipartite-lattice-of-spin-trimers-stabilized-by-enhanced-effective-anisotropy)  
+   标签：评分：6.0/10、query:cmp
+   evidence：三维二分晶格中的量子自旋液体
+11. [Energy-Resolved Quantum Geometry from Středa Response: Driven-Dissipative Bosonic Lattices and Disordered Systems](/202605/12/2605.07948v1-energy-resolved-quantum-geometry-from-steda-response-driven-dissipative-bosonic-lattices-and-disordered-systems)  
+   标签：评分：6.0/10、query:cmp
+   evidence：驱动耗散玻色晶格中的量子几何
 
 
 <div class="dpr-home-promo-card">
