@@ -6,85 +6,76 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-13
-- 运行时间：2026-05-13 21:15:15 UTC
+- 最新运行日期：2026-05-14
+- 运行时间：2026-05-14 21:32:32 UTC
 - 运行状态：成功
-- 本次总论文数：21
-- 精读区：10
+- 本次总论文数：18
+- 精读区：7
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 21 篇前沿论文，深度聚焦超导机制与量子材料的突破性进展。
-重点关注铜氧化物中超导增强 CDW 相干性的新发现，以及常压下双层镍氧化物薄膜的实验里程碑。
-建议优先研读两篇满分论文，掌握高温超导薄膜制备与物性调控的核心趋势。
-- 详情：[/202605/13/README](/202605/13/README)
+今日深度复盘 18 篇前沿论文，聚焦手性超导与奇异金属相的满分突破。
+重点关注可重构手性超导的实现路径，以及铜氧化物中奇异自旋涨落对电子态的关键影响。
+建议优先研读两篇满分文献，深入理解强关联
+- 详情：[/202605/14/README](/202605/14/README)
 
 ### 精读区论文标签
-1. [Superconductivity Reinforces Charge-Density-Wave Phase Coherence across Cuprates](/202605/13/2605.11401v1-superconductivity-reinforces-charge-density-wave-phase-coherence-across-cuprates)  
+1. [Reconfigurable chiral superconductivity](/202605/14/2605.13303v1-reconfigurable-chiral-superconductivity)  
    标签：评分：10.0/10、query:cmp
-   evidence：铜氧化物中超导与电荷密度波的实验研究
-2. [Experimental Progress in Ambient-Pressure Superconducting Bilayer Nickelate Films](/202605/13/2605.11584v1-experimental-progress-in-ambient-pressure-superconducting-bilayer-nickelate-films)  
+   evidence：多层石墨烯中的手性超导和时间反演对称性破缺
+2. [Singular spin fluctuations in the strange-metal phase of La2-xSrxCuO4](/202605/14/2605.13573v1-singular-spin-fluctuations-in-the-strange-metal-phase-of-la2-xsrxcuo4)  
    标签：评分：10.0/10、query:cmp
-   evidence：双层镍氧化物中的非常规高温超导性
-3. [Ginzburg-Landau Theory for Confined Thin-Film Superconductors](/202605/13/2605.10686v2-ginzburg-landau-theory-for-confined-thin-film-superconductors)  
+   evidence：铜氧化物奇异金属相中的量子临界涨落
+3. [Nagaoka supermetal in the particle-doped triangular Hubbard model](/202605/14/2605.13837v1-nagaoka-supermetal-in-the-particle-doped-triangular-hubbard-model)  
+   标签：评分：10.0/10、query:cmp
+   evidence：粒子掺杂哈伯德模型中的非费米液体行为
+4. [BCS-BEC crossover in trapped one-dimensional Fermi-Hubbard chains: entanglement and correlation signatures from DMRG and effective-pairing theory](/202605/14/2605.11146v1-bcs-bec-crossover-in-trapped-one-dimensional-fermi-hubbard-chains-entanglement-and-correlation-signatures-from-dmrg-and-effective-pairing-theory)  
    标签：评分：9.0/10、query:cmp
-   evidence：开发了受限薄膜超导体的金兹堡-朗道理论
-4. [First-principles real-space embedding theory of the superconducting proximity effect](/202605/13/2605.11211v1-first-principles-real-space-embedding-theory-of-the-superconducting-proximity-effect)  
+   evidence：费米-哈伯德链中的BCS-BEC交叉和超流相
+5. [Staggered spin susceptibility at a two-dimensional antiferromagnetic quantum critical point](/202605/14/2605.11965v1-staggered-spin-susceptibility-at-a-two-dimensional-antiferromagnetic-quantum-critical-point)  
    标签：评分：9.0/10、query:cmp
-   evidence：超导邻近效应的第一性原理理论
-5. [The mean-field theory of superfluid-superconducting vortex states in the outer core of neutron stars](/202605/13/2605.11216v1-the-mean-field-theory-of-superfluid-superconducting-vortex-states-in-the-outer-core-of-neutron-stars)  
+   evidence：反铁磁量子临界点处的自旋磁化率
+6. [Yu-Shiba-Rusinov States in Ising Superconductors](/202605/14/2605.12758v1-yu-shiba-rusinov-states-in-ising-superconductors)  
    标签：评分：9.0/10、query:cmp
-   evidence：超流-超导涡旋态的平均场理论
-6. [Discovery of a nonsymmorphic superconductor with spontaneous rotational symmetry breaking and nontrivial zero modes](/202605/13/2605.11395v1-discovery-of-a-nonsymmorphic-superconductor-with-spontaneous-rotational-symmetry-breaking-and-nontrivial-zero-modes)  
+   evidence：Ising超导体中的Yu-Shiba-Rusinov态
+7. [Multiband Superconductivity in the Exactly Solvable Hatsugai-Kohmoto Model](/202605/14/2605.13259v1-multiband-superconductivity-in-the-exactly-solvable-hatsugai-kohmoto-model)  
    标签：评分：9.0/10、query:cmp
-   evidence：发现具有自发旋转对称性破缺的非共形超导体
-7. [Euler Topology in Superconducting Honeycomb Lattices](/202605/13/2605.11587v1-euler-topology-in-superconducting-honeycomb-lattices)  
-   标签：评分：9.0/10、query:cmp
-   evidence：研究了超导蜂窝晶格中的能带拓扑
-8. [Phase-slip residual-order spin state in FeSe](/202605/13/2605.12293v1-phase-slip-residual-order-spin-state-in-fese)  
-   标签：评分：9.0/10、query:cmp
-   evidence：FeSe超导中的磁基态与自旋涨落
-9. [The wave nature of a Mott insulator](/202605/13/2605.12322v1-the-wave-nature-of-a-mott-insulator)  
-   标签：评分：9.0/10、query:cmp
-   evidence：超流到莫特绝缘体转变
-10. [Anomalous spin-pumping behavior of half-metallic ferromagnet/d-wave superconductor heterostructures](/202605/13/2605.12381v1-anomalous-spin-pumping-behavior-of-half-metallic-ferromagnetd-wave-superconductor-heterostructures)  
-   标签：评分：9.0/10、query:cmp
-   evidence：d波超导体异质结构中的自旋泵浦
+   evidence：关联电子模型中多带超导理论
 
 ### 速读区论文标签
-1. [Cooling of Isolated Neutron Stars with Hyperon-mixed Kaon-Condensation Matter](/202605/13/2605.09723v1-cooling-of-isolated-neutron-stars-with-hyperon-mixed-kaon-condensation-matter)  
+1. [Valley-Controlled Viscosity of Two-Dimensional Dirac Fluids](/202605/14/2605.11069v1-valley-controlled-viscosity-of-two-dimensional-dirac-fluids)  
    标签：评分：8.0/10、query:cmp
-   evidence：质子超导与超流在中子星冷却中的作用
-2. [Layer-antisymmetric pair-phase resonance at the bonding-antibonding splitting in the AA-stacked bilayer attractive Hubbard model](/202605/13/2605.10387v2-layer-antisymmetric-pair-phase-resonance-at-the-bonding-antibonding-splitting-in-the-aa-stacked-bilayer-attractive-hubbard-model)  
+   evidence：二维狄拉克流体的粘性
+2. [Unbiased large-$N$ approach to competing vestigial orders of density-wave and superconducting instabilities](/202605/14/2605.11281v1-unbiased-large-n-approach-to-competing-vestigial-orders-of-density-wave-and-superconducting-instabilities)  
    标签：评分：8.0/10、query:cmp
-   evidence：双层s波超导体中的集体模式
-3. [Freestanding GdBa2Cu3O7 Thin Films via Optimized Buffer Layer Design: Preserving Superconducting Properties](/202605/13/2605.10703v1-freestanding-gdba2cu3o7-thin-films-via-optimized-buffer-layer-design-preserving-superconducting-properties)  
+   evidence：密度波与超导不稳定性中的竞争残余序
+3. [Flow bistability in non-Newtonian electron fluid](/202605/14/2605.12150v1-flow-bistability-in-non-newtonian-electron-fluid)  
    标签：评分：8.0/10、query:cmp
-   evidence：保持高临界温度GdBa2Cu3O7薄膜的超导特性
-4. [Strain-controlled crossover between Majorana and Andreev bound states in disordered superconductor-semiconductor heterostructures](/202605/13/2605.11066v1-strain-controlled-crossover-between-majorana-and-andreev-bound-states-in-disordered-superconductor-semiconductor-heterostructures)  
+   evidence：二维导体中传导电子的粘性流体
+4. [In-situ tunable superconducting diode: towards field-free operation with infinite nonreciprocity](/202605/14/2605.13254v1-in-situ-tunable-superconducting-diode-towards-field-free-operation-with-infinite-nonreciprocity)  
    标签：评分：8.0/10、query:cmp
-   evidence：超导体异质结构中的马约拉纳和安德烈夫束缚态
-5. [A Superconducting Levitating Oscillator with < 1 $μ$Hz Resonance Linewidth](/202605/13/2605.09632v1-a-superconducting-levitating-oscillator-with--1-hz-resonance-linewidth)  
+   evidence：超导性在约瑟夫森结二极管中的应用
+5. [Nodal Topological Superconductivity Driven by Crystalline Antiunitary Symmetry in Altermagnets](/202605/14/2605.13656v1-nodal-topological-superconductivity-driven-by-crystalline-antiunitary-symmetry-in-altermagnets)  
+   标签：评分：8.0/10、query:cmp
+   evidence：交错磁体中的节点拓扑超导
+6. [Light-driven octupolar inverse Faraday effect and multipolar order in Mott insulators](/202605/14/2605.08049v1-light-driven-octupolar-inverse-faraday-effect-and-multipolar-order-in-mott-insulators)  
    标签：评分：7.0/10、query:cmp
-   evidence：用于量子实验的超导悬浮振子
-6. [Cascade of fractional quantum Hall states in 2D system](/202605/13/2605.10147v1-cascade-of-fractional-quantum-hall-states-in-2d-system)  
+   evidence：莫特绝缘体中的多极矩序
+7. [Giant critical response in a driven-dissipative quantum gas](/202605/14/2605.11230v1-giant-critical-response-in-a-driven-dissipative-quantum-gas)  
    标签：评分：7.0/10、query:cmp
-   evidence：研究了二维系统中强电子关联驱动的拓扑相
-7. [Geometry-enabled magnetic resilience in superconducting nanowire single-photon detectors](/202605/13/2605.10968v1-geometry-enabled-magnetic-resilience-in-superconducting-nanowire-single-photon-detectors)  
+   evidence：光子玻色-爱因斯坦凝聚中的临界响应和减慢
+8. [Optical signatures of antiferromagnetic correlations in a strongly interacting quantum Hall MoSe2 monolayer](/202605/14/2605.11249v1-optical-signatures-of-antiferromagnetic-correlations-in-a-strongly-interacting-quantum-hall-mose2-monolayer)  
    标签：评分：7.0/10、query:cmp
-   evidence：超导纳米线探测器性能
-8. [Altermagnons at the metal-insulator transition](/202605/13/2605.11669v1-altermagnons-at-the-metal-insulator-transition)  
+   evidence：强相互作用量子霍尔液体与非常规关联
+9. [Relationship between doping-induced in-gap states and spin excitations in Kitaev-Hubbard models](/202605/14/2605.11830v1-relationship-between-doping-induced-in-gap-states-and-spin-excitations-in-kitaev-hubbard-models)  
    标签：评分：7.0/10、query:cmp
-   evidence：金属-绝缘体转变处关联交错磁体中的集体自旋动力学
-9. [Nonadiabatic Theory of Phonon Magnetic Moments in Insulators and Metals](/202605/13/2605.06983v1-nonadiabatic-theory-of-phonon-magnetic-moments-in-insulators-and-metals)  
+   evidence：强关联莫特绝缘体与自旋激发
+10. [Disentangling bulk and surface electronic structure using targeted cleave planes in RuO$_2$](/202605/14/2605.06798v1-disentangling-bulk-and-surface-electronic-structure-using-targeted-cleave-planes-in-ruo2)  
    标签：评分：6.0/10、query:cmp
-   evidence：金属中声子磁矩的费米面贡献
-10. [Electronic excitations in the Shastry-Sutherland compound SrCu$_2$(BO$_3$)$_2$](/202605/13/2605.07862v1-electronic-excitations-in-the-shastry-sutherland-compound-srcu2bo32)  
+   evidence：RuO2在超导性附近的电子结构研究
+11. [Emergent Vortex Ordering in a Multiflavor Pyrochlore-Lattice Compound GeCo$_2$O$_4$](/202605/14/2605.12042v1-emergent-vortex-ordering-in-a-multiflavor-pyrochlore-lattice-compound-geco2o4)  
    标签：评分：6.0/10、query:cmp
-   evidence：受挫量子磁性系统中的电子激发
-11. [Programmable Superradiance in an Interacting Qubit Array](/202605/13/2605.12442v1-programmable-superradiance-in-an-interacting-qubit-array)  
-   标签：评分：6.0/10、query:cmp
-   evidence：利用超导比特阵列研究多体动力学
+   evidence：烧绿石晶格化合物中的涌现涡旋序
 
 
 <div class="dpr-home-promo-card">
