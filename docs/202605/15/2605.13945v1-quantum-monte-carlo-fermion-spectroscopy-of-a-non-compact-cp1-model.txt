@@ -1,0 +1,731 @@
+Title: Quantum Monte Carlo fermion spectroscopy of a non-compact CP^1 model
+
+URL Source: https://arxiv.org/pdf/2605.13945v1
+
+Published Time: Fri, 15 May 2026 00:03:51 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# Quantum Monte Carlo fermion spectroscopy of a non-compact CP 1 model 
+
+Xu Zhang 1 and Nick Bultinck 1
+
+> 1
+
+Department of Physics and Astronomy, Ghent University, Krijgslaan 299, 9000 Gent, Belgium 
+
+(Dated: May 15, 2026) We study a model describing electrons coupled to anti-ferromagnetic spin fluctuations, and con-sider the situation where hedgehog defects in the order parameter field are suppressed. Without hedgehogs, the bosonic sector of the theory can be taken to realize the physics of the non-compact CP 1 theory with a deconfined U(1) gauge field. After strongly coupling the boson to fermion spins, we simulate the single-particle spectral properties of a hedgehog-suppressed electron-boson model defined on a bilayer square lattice with Quantum Monte Carlo, and interpret the results in terms of an effective theory with fractionalized spinon and chargon excitations. As one of our main results we show that the electron gap on top of the half-filled insulator with gapless photon fluctuations closely resembles the mean-field dispersion of an electron in an anti-ferromagnetic spin background, even though the system fully preserves both the translation and spin rotation symmetry. Finally, we discuss potential implications of our results for the high-temperature superconductors. 
+
+I. INTRODUCTION 
+
+Metallic phases with non-trivial topological order are of central interest in the study of strongly correlated elec-tron systems. One way to realize such phases is by dop-ing a quantum spin liquid insulator, as first envisioned by Anderson in the context of the resonating valence-bond theory for the cuprate superconductors [1–3]. A partic-ularly attractive feature of two-dimensional topological metals is that they can violate the Luttinger constraint on the Fermi surface area [4–7], thus allowing for the possibility of small Fermi pockets in the absence of sym-metry breaking. This provides a potential mechanism to explain the pseudogap phenomenon in the cuprate phase diagram. Most metals with topological order evade controlled analytical calculations, as they are described by strongly-coupled lattice gauge theories (one notable exception, however, are models with a Z2 gauge field which has no quantum fluctuations [8, 9]). In recent years, a series of impressive numerical works has helped to confirm and further develop the theoretical understanding of topolog-ical metals [10–23]. However, the models studied in these works either (1) use Dirac matter, (2) start from a model with a microscopic gauge field, or (3) do not have full spin rotation symmetry. In this work we set out to use Quantum Monte Carlo (QMC) to simulate a metal with an emergent gauge field and SU(2) spin rotation symmetry. Our starting point is a model of electrons with a Fermi surface coupled to an anti-ferromagnetic order parameter field, a model which goes under the name of the spin-fermion model in the high-T c context [24, 25]. To introduce topological order and the associated gauge field into this model we follow Refs. [26–28], and sample the O(3) order parameter field over configurations which contain no isolated hedgehog defects. Ref. [28] showed that the hedgehog-free bosonic model defined on a decorated cubic lattice can realize the symmetric phase of the non-compact CP 1 model with a deconfined U(1) gauge field and gapped spinon excita-tions. In this work, we show that the deconfined phase can also be realized on a simple cubic lattice by adding a new term to the lattice Hamiltonian. By strongly coupling the bosonic field to the spin of fermions hopping on a bilayer square lattice, we obtain an insulating state at half filling in which the fermion spins realize a U(1) spin liquid. Generically, one expects that doping this state will lead to a metal with topo-logical order and small Fermi pockets. However, for our QMC simulations we have to use a bilayer fermion sys-tem in order to remove the sign problem, and we find that this setup leads to very strong inter-layer supercon-ductivity upon doping away from half filling – thus pre-venting us to directly realize a metallic state. But despite this shortcoming of the model, we are still able to check some predictions made by a rotating reference frame the-ory, which is an effective description in terms of spinon, chargon and U(1) gauge fields [29–44]. In particular, this theory predicts that the dispersion relation for a single hole or electron doped into the U(1) spin liquid insulator is similar to the corresponding mean-field dispersion in an anti-ferromagnet. This means that upon doping one expects small electron or hole pockets at the exact same locations as in a doped anti-ferromagnet, even though there is no symmetry breaking. For the bilayer model used here we find that this theoretical expectation is in-deed borne out for the electron dispersion, but not for the hole dispersion (we use a positive next-nearest neighbour hopping to break the particle-hole symmetry). The main text of this paper is organized as follows. We start in Sec. II by introducing the bosonic sector of the theory, and explain how we realize the symmetric phase of the non-compact CP 1 model on a simple cubic lat-tice. In Sec. III we introduce the complete electron-boson model, and review the rotating frame theory [29–44]. We also provide a theoretical explanation of the strong inter-layer pairing tendency of the model. In Sec. IV we briefly explain how the feedback effect of the fermions on the bosons leads to magnetic order, and how evade this effect in our simulations. Our main numerical results are then presented in Sec. V, where we first consider the half-filled 
+
+> arXiv:2605.13945v1 [cond-mat.str-el] 13 May 2026
+
+2case, and then study the situation with small doping. Fi-nally, we summarize our findings in the discussion section VI, and comment on potential implications of our results for the cuprate superconductors.  
+
+> II. PURELY BOSONIC MODEL
+
+We first introduce the bosonic sector, whose low-energy physics should be described by the non-compact CP 1 model. We start from the well-known (see e.g. [45]) equivalence between the Non-Linear Sigma Model (NL σM) with Euclidean action 
+
+S = 14g
+
+∫
+
+dτ d2r (∂μn)2 (1) and the CP 1 model with action 
+
+S = 1
+
+g
+
+∫
+
+dτ d2r |(∂μ − iaμ)z|2. (2) Here we have introduced a three-component unit vector field n, and a corresponding spinon field z = ( z↑, z ↓)T
+
+which satisfies |z|2 ≡ | z↑|2 + |z↓|2 = 1. The connection between z and n is n = z†σz, where σ are the three Pauli matrices. The CP 1 theory has a U(1) gauge symmetry and corresponding gauge field aμ. At the saddle-point level we can identify 
+
+aμ = −iz†∂μz. (3) With this formula, the Pontryagin density of the NL σMmaps to the flux density of the CP 1 model: 14π n · (∂μn × ∂ν n) = 12π (∂μaν − ∂ν aμ) , (4) which implies that hedgehog defects of n correspond to monopoles of the U(1) gauge field. Our main goal in this section is to realize the physics of the non-compact, i.e. monopole-free, CP 1 theory in terms of a three-component unit vector field S on a 2+1D Euclidean space-time lat-tice. In particular, we want to realize a symmetric phase (where spinful excitations are gapped), whose low-energy excitations correspond to the photon of a deconfined U(1) gauge field. The lattice version of the NL σM is a Heisenberg model with partition function 
+
+ZH =
+
+∫
+
+[DS] ∏
+
+> k
+
+δ(S2 
+
+> k
+
+− 1) e∆τ J ∑ 
+
+> ⟨i,j ⟩Si·Sj
+
+, (5) where we fix the imaginary time-step to be ∆ τ = 0 .1, and always scale the imaginary time direction together with spatial direction Lτ = L. To realize the physics of the non-compact CP 1 (NCCP 1) model we have to suppress hedgehog defects. To this end we follow Refs. [26–28, 46] and introduce a lattice gauge field aij with orientation 
+
+i → j on the edges of the cubic lattice, which is de-fined via the parallel transport of a tangent vector on S2
+
+starting from an arbitrarily fixed reference spin S0, i.e. 
+
+S0 → Si → Sj → S0. Denoting the corresponding rota-tion angle as Ω 0ij , we define aij = Ω 0ij /2 mod 2 π. Note that |Ω0ij | is the spherical triangle area spanned by the three spins S0, Si, Sj . The gauge field can be calculated from the formula 
+
+eiaij = 1 + S0 · Si + S0 · Sj + Si · Sj + i S0 · Si × Sj
+
+√2(1 + S0 · Si)(1 + S0 · Sj )(1 + Si · Sj ) ,
+
+(6) Rotating the reference spin from S0 to S′
+
+> 0
+
+, induces a gauge transformation aij → aij − φi + φj with eiφi =
+
+e i2 Ω0′0i .To a plaquette with sites (1 , 2, 3, 4) we can associate a gauge invariant flux f2
+
+eif2 = ei( a12 +a23 +a34 +a41 ) , (7) where the circulation is defined counter clockwise with respect to the normal vector of the plaquette, which we take to point in the direction of increasing τ , x and y.To eliminate the mod 2 π uncertainty, from now on we define f2 ∈ (−π, π ] as a first step towards realizing a non-compact theory. From Eq. (4), we see that our definition of aij indeed produces a lattice version of the flux in the CP 1 model. The hedgehog number Q in each elementary cube is given by 2πQ = ∑
+
+> 2,+
+
+f2 − ∑
+
+> 2,−
+
+f2 , (8) where the first sum is over the three outward oriented boundary plaquettes, and the second sum is over the three inward oriented boundary plaquettes. The hedge-hog number is an integer because it counts how many times the sphere is covered by adding up the solid an-gles ±2f2. With periodic boundary conditions in all three directions, the total hedgehog number is zero: ∑ 
+
+> cubes
+
+Q = 0. To realize the NCCP 1 model, isolated hedgehogs should be fully suppressed. We do this in practice by using the same phase space constraint as in Ref. [28]: if 
+
+Q̸ = 0 for a cube, there is one and only one nonzero 
+
+Q′ = −Q in the six nearest neighbor cubes. One impor-tant difference to Ref. [28], however, is that we work on a simple cubic lattice, with spins only on the sites of the lattice. At J = 0, we find that the model is magnetically ordered. To enter the disordered phase we introduce a new term in the Hamiltonian that is designed to frustrate the magnetic order, without changing the general form of the fractionalized description in terms of the CP 1 model. Specifically, the partition function we use is 
+
+ZS =
+
+∫
+
+> C
+
+[DS] ∏
+
+> k
+
+δ(S2 
+
+> k
+
+− 1) e−∆τ K ∑   
+
+> 2⊥τf2
+> 2
+
+, (9) where the integral is over the constrained phase space, and we have put J = 0 as this is the value that we will 3
+
+FIG. 1. Phase diagram of the purely boson model in Eq. (9) with hedgehog suppression. The ferromagnetic order present around K = 0 can be seen in (a) and the absence of q =(0 , π, 0) magnetic order in (b) from the respective correlation ratios RM (0 ,0,0) and RM (0 ,π, 0) . These figures also indicate a paramagnetic region around K = −1. We fix K = −1 for identifying this phase in (c),(d). The spin-gap is confirmed by the exponential decay of the spin correlation function ⟨S(τ ) ·
+
+S(0) ⟩ along the imaginary time direction as shown in (c). The flux correlations ⟨f μ(τ )f μ(0) ⟩ in (d) with a 1 /τ 3 decay confirm the Coulomb phase with a gapless photon excitation. 
+
+use throughout this work. In Eq. (9) the sum is over all spatial plaquettes, i.e. the plaquettes orthogonal to the τ direction, and K > 0 corresponds to a lattice ver-sion of ( ∂μaν − ∂ν aμ)2 in Maxwell’s Hamiltonian where 
+
+μ, ν take spatial values. As |f2| is half the solid angle spanned by the four spins around a plaquette, positive 
+
+K should strengthen the ferromagnetic order, while neg-ative K should weaken it. We thus proceed with K < 0in our simulations. In Fig. 1 we show our numerical results, obtained via local-update Monte Carlo simulations, with additional phase space constraint check for each configuration. To study the magnetic order we have measured the spin structure factor 
+
+CM (q) = 1
+
+Lτ L2
+
+∑
+
+> i,j
+
+eiq·(ri−rj )⟨Si · Sj ⟩ , (10) with Lτ the size in the imaginary-time direction, and L
+
+the size of the system in the spatial directions. Using coordinate labels ( τ, x, y ), we obtain the magnetic corre-lation ratios from the structure factor as 
+
+RM (0 ,0,0) = CM (q = (0 , 0, ∆q)) 
+
+CM (q = (0 , 0, 0)) (11) 
+
+RM (0 ,π, 0) = CM (q = (0 , π, ∆q)) 
+
+CM (q = (0 , π, 0)) , (12) where ∆ q = 2 π/L . In a ferromagnetic phase, RM (0 ,0,0) 
+
+decreases with increasing L = Lτ , whereas in a paramag-netic phase it increases with system size. At a continuous phase transition between a ferromagnetic and paramag-netic phase RM (0 ,0,0) is to leading order independent of the system size. In Fig. 1 (a) we show the ferromagnetic correlation ratio as a function of −1 < K < 0 for dif-ferent values of L = Lτ . We see that the ferromagnetic order indeed disappears at a value of K ≈ − 0.4. A negative K prefers a solid angle of 2 π between the four spins on every spatial plaquette, and hence could po-tentially give rise to a coplanar but non-collinear spin or-der, corresponding to a vortex-anti-vortex checkerboard pattern. However, this pattern cannot be really solidify due to the phase space constraint. To verify this we have calculated the magnetic correlation ratio RM (0 ,π, 0) at one of the wavevectors of the checkerboard order, and from Fig. 1 (b) we indeed observe no spin order at q = (0 , π, 0) even for moderately large |K|.In Fig. 1 (c) we show the spin-spin correlation func-tion along the imaginary-time direction obtained with 
+
+K = −1. We see a clear exponential decay, consistent with a paramagnetic phase. To confirm that this para-magnetic phase is described by the NCCP 1 theory we have measured following correlation function along the imaginary-time direction 
+
+Cμν (τ ) = ⟨sin f μ(0 , 0, 0) sin f ν (τ, 0, 0) ⟩ , (13) with f μ(ri) the flux through the plaquette associated with site i and orthogonal to μ:
+
+eif μ(ri) = eiϵμνσ (ai,i +ν −ai+σ,i +σ+ν ) (14) Identifying this lattice flux as the electric and magnetic fields of a deconfined U(1) gauge theory implies that the correlation function in Eq. (13) should decay as 
+
+Cμν (r) ∼ 3rμrν − δμν r2
+
+r5 , (15) and in particular Cτ τ (τ ) ∼ 2/τ 3 and Cyy (τ ) ∼ − 1/τ 3.The numerical results in Fig. 1 (d) agree with these ex-pressions, both in terms of the cubic decay and the sign structure. This provides strong evidence that our model in Eq. (9) on the simple cubic lattice indeed realizes the physics of the NCCP 1 theory. 
+
+III. DOUBLE LAYER CONSTRUCTION AND EFFECTIVE FIELD THEORY ANALYSIS 
+
+In order to obtain a model that is amenable to sign problem-free QMC simulations we introduce fermions on a bilayer square lattice geometry. We write the creation operator for a fermion with spin σ ∈ {↑ , ↓} on site i in layer l ∈ { t, b } as c† 
+
+> i,l,σ
+
+, and consider the fermion Hamil-tonian 
+
+Hf [S] = ∑
+
+> i,j
+
+c† 
+
+> i
+
+tij cj + g ∑
+
+> i
+
+(−1) xi+yi Si · c† 
+
+> i
+
+lz σci. (16) 4Here xi and yi are the integer lattice coordinates of site i.The nearest and next-nearest neighbor hopping terms are diagonal in the layer and spin indices, and the coupling to the bosonic field is chosen such that 
+
+ci → ilxσy ci , i → − i (17) is an anti-unitary Kramers symmetry of Hf [S] for ev-ery configuration of the S field. It is this symmetry which ensures that the system is free of the sign prob-lem in QMC simulations. The staggered nature of the coupling ensures that ferromagnetic order of S induces anti-ferromagnetic order for the fermions. 
+
+A. Rotating frame chargon theory 
+
+In this section, we discuss an effective field theory which is expected to capture the low-energy physics. We first define the matrix field 
+
+Ri =
+
+(zi, ↑ z∗
+
+> i, ↓
+
+zi, ↓ −z∗
+
+> i, ↑
+
+)
+
+, (18) which satisfies RiR† 
+
+> i
+
+= R† 
+
+> i
+
+Ri = 1, and has the property 
+
+Riκz R† 
+
+> i
+
+= Si · σ, (19) where κ are Pauli matrices acting in the column space of 
+
+Ri. Note that spin rotations act with left action 
+
+Ri → U R i , (20) whereas U(1) gauge transformations zi → eiθi zi are im-plemented with a right action 
+
+Ri → Rieiθiκz
+
+. (21) Using Eq. (19) the fermionic part of the action is 
+
+Sf =
+
+∫
+
+dτ
+
+[ ∑
+
+> i,j
+
+¯ci(δij ∂τ + tij )cj (22) +g ∑
+
+> i
+
+(−1) xi+yi ¯ciRilz κz R† 
+
+> i
+
+ci
+
+]
+
+We can now introduce new gauge-dependent fermion fields [29–44] ¯ψi = ¯ciRi (23) 
+
+ψi = R† 
+
+> i
+
+ci , (24) whose components ¯ψi, + = ¯ cizi and ¯ψi, − = ¯ ciiσy z∗ 
+
+> i
+
+are spin-singlet and have U(1) gauge charge ±1. In terms of these new chargon fields we can rewrite the action as 
+
+Sf =
+
+∫
+
+dτ
+
+[ ∑
+
+> i,j
+
+¯ψi(δij ∂τ + tij R† 
+
+> i
+
+Rj )ψj (25) + ∑
+
+> i
+
+¯ψi(R† 
+
+> i
+
+∂τ Ri)ψi + g ∑
+
+> i
+
+(−1) xi+yi ¯ψilz σz ψi
+
+]
+
+.
+
+The physical interpretation of this action can be made more transparent by noting that 
+
+R† 
+
+> i
+
+∂τ Ri = κz z† 
+
+> i
+
+∂τ zi +
+
+( 0 z† 
+
+> i
+
+iσy ∂τ z∗
+
+> i
+
+∂τ zTi iσy zi 0
+
+)
+
+(26) 
+
+R† 
+
+> i
+
+Rj = |z† 
+
+> i
+
+zj |eiaij κz
+
++
+
+( 0 z† 
+
+> i
+
+iσy z∗
+
+> j
+
+−zTi iσy zj 0
+
+)
+
+(27) In Eq. (26) we recognize the temporal component of the gauge field z† 
+
+> i
+
+∂τ zi = i a0 according to Eq. (3), and in Eq. (27) we have introduced the notation arg( z† 
+
+> i
+
+zj ) = aij 
+
+as suggested by the gradient expansion z† 
+
+> i
+
+zi+μ ≈ 1 + 
+
+z† 
+
+> i
+
+∂μzi = 1 + i aμ ≈ eiaμ . We can thus write the fermionic part of the action as 
+
+Sf =
+
+∫
+
+dτ
+
+[ ∑
+
+> i,j
+
+¯ψi(δij [∂τ + i a0κz ] + ˜ tij eiaij κz
+
+)ψj
+
++g ∑
+
+> i
+
+(−1) xi+yi ¯ψilz κz ψi
+
+]
+
++ . . . , (28) where ˜ tij are effective renormalized hopping amplitudes, and the dots represent additional terms coming from the off-diagonal elements in Eqs. (26) and (27). These cor-respond to spinon-chargon coupling terms which for our high-level analysis here are not important. We see that the ψ fermions, which live in a rotating spin reference frame that locally follows the fluctuations of the S field [29–44], experience a static staggered poten-tial of strength g. As a result, the free chargon energies are 
+
+E1,2 
+
+> k
+
+= 12 (εk + εk+Q) ± 12
+
+√
+
+(εk − εk+Q)2 + 4 g2 , (29) with εk the dispersion generated by ˜ tij and Q = ( π, π ). The free-chargon energies are the same for the chargons with positive and negative gauge charge. Importantly, at half filling the free-chargon spectrum is gapped. In the symmetric phase of the NCCP 1 model the spinons are also gapped, and hence at half filling we expect the low-energy fluctuations correspond to the photon of the deconfined U(1) gauge field. We emphasize that this in-sulating state preserves both the spin rotation symme-try and the single-site translation symmetry. This is be-cause translation acts on the chargons as ¯ψi → κy ¯ψi+x/y ,and this action leaves the staggered chargon potential in-variant. Nevertheless, the dispersion of chargons doped into the insulating state is identical to the mean-field dispersion of an electron or hole doped into an anti-ferromagnetic insulator on the square lattice. Here we have of course assumed that the gauge interaction does not significantly modify the chargon dispersion. This as-sumption cannot be justified, however, as the gauge field is strongly coupled to the chargons and spinons. 5 
+
+> B. Inter-layer pairing
+
+Doping a single electron into the insulating state intro-duces both a spinon and a chargon. Again ignoring the gauge interaction, the electron gap is thus |g| + m, where 
+
+m is the spinon mass. On the other hand, the energy of an electron pair 
+
+c† 
+
+> i
+
+lxσy c† 
+
+> i
+
+= −ψ† 
+
+> i
+
+lxκy ψ† 
+
+> i
+
+(30) on top of the half filling state is only ∼ 2|g|, as in this case no spinons are created. The binding energy of the inter-layer spin singlet pair is thus ∼ 2m. The energy of a spinon-chargon pair can potentially be lowered by forming a bound state due to the gauge interaction, but when the spinon mass is sufficiently large the energy of a spin-singlet pair should be lower than the energy of two isolated spinon-chargon pairs. As a result, upon dop-ing the symmetric insulator we expect a finite density of tightly-bound inter-layer Cooper pairs, which condense and give rise to superconductivity. For the sign problem-free model studied in this work one can even use the Kramers symmetry in Eq. (17) to prove that supercon-ductivity is one of the leading ordering instabilities, and that it must occur in the inter-layer spin-singlet channel of Eq. (30) [47]. The local pairing mechanism does not depend on the long-wavelength photon fluctuations. In fact, it can be seen to survive deep in the confined phase when we add back the monopoles. In terms of the vector field S the confined phase corresponds to the standard disordered phase. In the extreme case where the vector field has a zero space-time correlation length, we can trivially inte-grate it out and find 14π
+
+∫
+
+dSi(τ ) e±∆τ g Si(τ )·c†     
+
+> i(τ)lzσci(τ)
+
+(31) = 1 + 14π
+
+∫
+
+dSi(τ ) (∆ τ g )2
+
+2 (Si(τ ) · c† 
+
+> i
+
+(τ )lz σci(τ )) 2 + . . . 
+
+= 1 + 13(∆ τ g )2
+
+2 (c† 
+
+> i
+
+(τ )lz σci(τ )) 2 + . . . 
+
+≈ e (∆ τ g )26 (c†    
+
+> i(τ)lzσci(τ)) 2
+
+(32) The boson fluctuations thus induce an attractive fermion interaction of the form 
+
+− ∆τ g 2
+
+6 (c† 
+
+> i
+
+lz σci)2 (33) = ∆τ g 2
+
+3
+
+[
+
+4si,t · si,b + 32
+
+∑
+
+> l
+
+ni,l (ni,l − 2) 
+
+]
+
+,
+
+where ni,l , si,l = 12 c†
+
+> i,l
+
+σci,l are electron density and spin operators on site i in layer l. The induced anti-ferromagnetic interaction favors the formation of inter-layer spin singlets of the form in Eq. (30). At half filling, these singlet pairs form a Bose insulator if the hopping is sufficiently small. Upon doping the preformed Cooper pairs become mobile and superconductivity results. In the above analysis we have assumed a finite imaginary time discretization, which is the situation that applies to our QMC simulations presented below. The fact that monopole proliferation can lead to a fea-tureless Bose insulator of singlet pairs is possible because the monopole Berry phases cancel between the top and bottom fermion layers. This property is intimately re-lated to the sign problem-free nature of the model – both can be traced back to the lz matrix in the fermion-boson coupling, which causes the fermion spins to be oriented oppositely in both layers.  
+
+> IV. BOSON COUNTERTERM
+
+In the previous section we have assumed that the bo-son field S realizes the symmetric phase of the NCCP 1
+
+model, even after coupling to the fermions. This is not guaranteed to be true, because of the feedback of the fermions on the bosonic degrees of freedom. Concretely, the effective action for the boson field is Sb[S] − ln Zf [S], with Sb the bare boson action and Zf [S] the free fermion partition function which depends on the space-time con-figuration of S.To understand the effect of the free fermion partition function, let us examine the half-filling case with tij = 0, such that the fermions are localized and behave as spin-1/2 degrees of freedom in a time-dependent magnetic field ±S (depending on the layer). Further details are provided in the appendix, but let us note here that on a discretized imaginary-time grid every spin is described by the well-known action (see e.g. [48]) 
+
+− ∑
+
+> τ
+
+12 ln 
+
+( 1 + n(τ + ∆ τ ) · n(τ )2
+
+)
+
+(34) 
+
+± ∑
+
+> τ
+
+(∆ τ g )S(τ ) · n(τ ) − iSB [n] ,
+
+where n describes the direction of the fermion spin-1 /2in the spin coherent state basis, i SB [n] is the Berry phase term, and the ±-sign depends on the sublattice and layer. At strong coupling, the direction of the fermion spin-1 /2will be aligned (or anti-aligned depending on the layer and sublattice) with the boson field S. This in turn gen-erates a temporal stiffness term for the boson field S,which is inherited from the logarithmic term in Eq. (34). We thus find that even in the absence of hopping terms the fermions have a non-trivial feedback effect on the boson field which enhances magnetic order. In our nu-merical simulations we indeed find that coupling the S
+
+degrees of freedom to dispersionless fermions at half fill-ing destroys the symmetric phase of the NCCP 1 model, which gives way to ferromagnetic order (and hence anti-ferromagnetic order for the fermion spins). To remedy this, we add a counterterm to Sb[S] which is designed to cancel the fermion contribution to the effec-tive boson action. It is important to note that physically 6Constrained Unconstrained                
+
+> FIG. 2. Fermion phases at strong boson-fermion coupling g=20 with K=−1 for constrained/unconstrained (left/right columns) cases. The charge gap is confirmed from the plateau in the doping density δas a function of chemical potential, both for constrained (a) and unconstrained (b) cases. The local alignment between the fermion spin and the boson field is confirmed from |⟨ Si·c†
+> iσc i⟩| ≈ 1− | δ|as shown in (c)(d).
+
+allowed counterterms should be local and real. The local-ity condition is satisfied when the fermions are gapped, which is clearly true for the dispersionless case discussed above. For our model it will also remain true with non-zero hopping and upon doping away from half filling, where the fermion spectrum has a superconducting gap. The ability to cancel the fermion contribution to the effective action with a real counterterm is exactly what makes the model sign problem-free. So even though we will sample the boson field S according to exactly the same probability distribution as in Sec. II, i.e. without the fermion partition function, the fact that the fermion partition function is real is still a crucial property of the theory – it ensures that we are simulating a physically sensible theory, i.e. a theory for which we can cancel the fermion partition function with a physically allowed bosonic counterterm.  
+
+> V. NUMERICAL RESULTS FOR THE ELECTRON-BOSON MODEL
+
+In this section we present our numerical QMC results for the electron-boson model introduced in the previous section. We first focus on half filling, and then consider the situation with small doping.  
+
+> A. Half filling and dispersion of single electron or hole
+
+To obtain an insulator at half filling we work at strong electron-boson coupling g ≫ t. Specifically, we will use values of t = −2, −3 for the nearest-neighbor hopping, fix the next-nearest neighbor hopping as t′ = −0.35 t,and use coupling constants g = 20 and g = 10 (with results for the smaller coupling constant presented in the appendix). First we confirm that the half-filling state is incom-pressible by calculating the doping density δ = 1 − n,with n the electron density per site per layer, as a func-tion of the chemical potential μ (note δ is defined to be positive for hole doping). In Fig. 2 (a) we see a clear plateau in the δ − μ curve located at δ = 0, showing that the compressibility is indeed zero at half filling. The results in Fig. 2 (a) were obtained with the constrained phase space sampling for the boson field S, i.e. by exclud-ing the hedgehogs in order to realize the physics of the NCCP 1 model. We used K = −1, which as we confirmed in Sec. II realizes the symmetric phase of the NCCP 1
+
+model with gapless photon fluctuations. In Fig. 2 (b) we show δ as a function of μ for the unconstrained case, i.e. with unrestricted phase space sampling for S (again using K = −1). Also in the presence of hedgehogs the half-filled state is incompressible. The difference between the insulating states obtained without and with hedgehogs should be in their spin prop-erties. In Figs. 2 (c)(d), we plot |⟨ Si · c†
+
+> i,t
+
+σc i,t ⟩| to con-firm that the fermion spins in the top layer are aligned or anti-aligned with the boson field S. To very good accuracy we find that |⟨ Si · c†
+
+> i,t
+
+σc i,t ⟩| ≈ 1 − | δ|, show-ing that there are almost no doubly occupied (empty) sites for hole (electron) doping, and that every occupied fermion site produces a spin-1 /2 that is almost perfectly aligned or anti-aligned with S. This implies that in the constrained case, the algebraic flux correlations are im-printed on the fermion spins, and in the constrained case the fermion spins are short-range correlated. So inte-grating out the constrained boson field produces two per-fectly correlated U(1) spin liquids on the fermion layers. Without constraint we obtain a featureless state that is adiabatically connected to a Bose insulator of inter-layer spin-singlet pairs. To obtain information on the momentum-dependence of the gap to electron and hole excitations we have mea-sured the imaginary-time Green’s function 
+
+G(k, τ ) = ⟨ck,t (τ )c†
+
+> k,t
+
+(0) ⟩β , (35) where c†
+
+> k,t
+
+, c k,t creates or annihilates an electron with crystal momentum k in the top layer, and ⟨·⟩ β is the thermal expectation value at inverse temperature β. By fitting τ ≳ 0 part of the Green’s function to an expo-nential decaying function we can obtain an estimate of the electron-excitation gap at different momenta, and by 7Constrained Unconstrained 
+
+FIG. 3. Electron and negative hole gaps obtained from the imaginary time Green’s function at strong boson-fermion coupling 
+
+g = 20 and hopping parameters t = −3, t ′ = −0.35 t for system size L = Lτ = 16. (a) Results obtained with constrained (i.e. hedgehog-free) sampling. (b) Results obtained with unconstrained sampling. In (a), K = 0 realizes the AFM phase, while 
+
+K = −1 realizes the spin-gapped topological phase. In (b), both K = 0 and K = −1 correspond to a spin-gapped featureless state. 
+
+FIG. 4. Electron and negative hole gaps obtained from the imaginary time Green’s function at strong boson-fermion cou-pling g = 20 and hopping parameters t = −3, t ′ = −0.35 t.Constrained (i.e. hedgehog-free) sampling is used. (a)(c) show conduction and valence bands (respectively electron and negative hole gaps) at K = 0; (b)(d) are conduction and va-lence bands obtained at K = −1. The color bar indicates the fitting gap value. System size is L = Lτ = 16. 
+
+fitting τ ≲ β part we obtain an estimate for the hole-excitation gap. The results of this procedure, obtained at t = −3 and 
+
+g = 20 for a system of size L = Lτ = 16, are shown in Figs. 3 and 4. In Fig. 3 (a) we show the electron gap (top) and negative hole gap (bottom) along a cut through the Brillouin zone connecting high-symmetry points, for the constrained cases both with K = 0 and K = −1. Constrained Unconstrained 
+
+FIG. 5. Superconducting correlation ratio RS as a function of chemical potential μ, obtained with g = 20, t = −2, and K =
+
+−1. (a) Results with unconstrained sampling. (b) Results with constrained sampling. 
+
+At K = 0 (blue curves), the system is magnetically or-dered, and the momentum-dependent gaps reproduce the general features of the mean-field electron and hole dis-persion on top of an anti-ferromagnetic insulator on the square lattice: the electron band has minima at ( π, 0) and (0 , π ) (the X points), and the hole band has max-ima at ( ±π/ 2, ±π/ 2), i.e. right in the middle of the lines connecting (0 , 0) and ( π, π ) (respectively Γ and M). With 
+
+K = −1, the system is in the topological phase with al-gebraic flux correlations. From the simple considerations in Sec. III we would expect an electron and hole gap fol-lowing the chargon dispersion, which in turn is expected to resemble the mean-field dispersion in the presence of anti-ferromagnetic order. From the top panel in Fig. 3 (a) we see that this expectation is indeed borne out for the electron excitations: the electron gap has minima at the X points and (local) maxima at Γ and M . The most important difference between the electron dispersions on top of the magnetic and topological states is in the height 8AFM Constrained Unconstrained                         
+
+> FIG. 6. Single-particle spectral function along a high-symmetry line in the Brillouin zone from stochastic analytical continuation (SAC) [49–51] of the imaginary-time Green’s function obtained for the doped magnetic (a,d), topological (b,e) and featureless (c,f) insulators. Top row shows electron doping δ < 0, and bottom row shows hole doping δ > 0. The magnetic insulator is obtained with constrained sampling at K= 0, the topological insulator with constrained sampling at K=−1, and the featureless insulator with unconstrained sampling at K=−1. The parameters used are t=−2 and g= 20. System size is
+> L=Lτ= 16.
+
+of the local maximum at Γ: in the topological case the gap at Γ is significantly smaller. On the other hand, the hole gap in the topological state deviates significantly from that in the anti-ferromagnetic case. In particular, we observe an additional global band maximum along the X-M line which is not present in the magnetically ordered case. For reference we also show the electron and (negative) hole gaps on top of the featureless insulator obtained with unconstrained boson sampling in Fig. 3 (b). Both gaps with K = 0 and K = −1 are very different from anti-ferromagnetic case. The electron band has become much flatter and shows no minima at X, and the hole band has no global maxima on the Γ-M line. In Fig. 4 we show colorplots of the electron and neg-ative hole gaps in the entire Brillouin zone, obtained with constrained sampling. On these colorplots we added equal-energy contours as a guide to the eye. Figs. 4 (a,b) show the electron gaps for the anti-ferromagnetic (a) and topological state (b). Again we see good agreement be-tween both in the broad features: (local) maxima at Γ and M, and global minima at X. Figs. 4 (c) and (d) show the negative hole gaps. In Fig. 4 (c) we recog-nize the band maxima at ( ±π/ 2, ±π/ 2) characteristic of the hole dispersion in an anti-ferromagnet. For the neg-ative hole gap on top of the topological state in Fig. 4 (d) we see that the band maxima have moved away from (±π/ 2, ±π/ 2).  
+
+> B. Finite doping
+
+We now turn to the case with small doping density δ.To identify the superconductors which result from doping away from half filling we measured the static supercon-ducting structure factor 
+
+CS (q) = 1
+
+L2
+
+∑
+
+> i,j
+
+eiq·(ri−rj )⟨∆† 
+
+> i
+
+∆j ⟩ , (36) where i, j are summed over all sites of the square lattice, ∆i = cilxσy ci, and ri = ( xi, y i) are the spatial coordi-nates of site i. From this structure factor we obtain the superconducting correlation ratio 
+
+RS = CS (q = (0 , ∆q)) 
+
+CS (q = (0 , 0)) (37) which decreases with system size in a superconducting state, and increases when superconductivity is absent. In Fig. 5 we show RS as a function of μ for different values of L = Lτ , both for the case with constrained and unconstrained boson sampling. We see that for any non-zero doping δ, the system becomes superconducting. This holds for both electron ( δ < 0) and hole ( δ > 0) 9Constrained Unconstrained AFM                        
+
+> FIG. 7. Temperature-broadened zero-frequency spectral weight W(k) (as defined in Eq. (39)) over the entire Brillouin zone for the doped magnetic (a,d), topological (b,e) and featureless (c,f) insulators. Top row shows electron doping δ < 0, and bottom row shows hole doping δ > 0. The magnetic insulator is obtained with constrained sampling at K= 0, the topological insulator with constrained sampling at K=−1, and the featureless insulator with unconstrained sampling at K=−1. The parameters used are t=−2 and g= 20. System size is L=Lτ= 16.
+
+doping of the topological as well as the featureless insu-lator. As explained in Sec. III, we can understand supercon-ductivity in the doped featureless insulator from the lib-eration of pre-formed inter-layer Cooper pairs. In the topological state, the analysis of Sec. III suggests an on-site inter-layer pairing with a binding energy determined by the spinon mass. In both cases we thus expect the su-perconductors to be in the Bose-Einstein-Condensation (BEC) regime. To confirm this we have calculated the single-particle spectral function 
+
+A(k, ω ) = − 1
+
+π Im G(k, ω − iϵ) (38) via stochastic analytical continuation (SAC) [49–51] of the imaginary-time Green’s function. In Fig. 7 we show the single-particle spectral weight for different doping values in the range 0 .05 ≤ | δ| ≤ 0.12. We see that even at non-zero doping the Fermi energy does not cut through the electron or hole bands, which means that the doped charges have entered as pairs, as expected for a BEC superconductor. This is true not only for doping the topological and featureless insulators, but also for the magnetic insulator. We further computed the zero-frequency single-particle spectral with finite-temperature broadening: 
+
+W (k) := β
+
+2
+
+∫
+
+dω A(k, ω )cosh( βω ) + 1 (39) The result using β = 0 .5 is shown in Fig. 7 for the elec-tron and hole doped magnetic, topological and featureless insulators. From these plots we again see the character-istic features of the electron and hole bands on top of the different insulators. In particular, for electron (hole) dop-ing, the broadened zero-frequency spectral weight will be primarily determined by the electron (hole) dispersion re-lation. The zero-frequency spectral weights confirm that the electron bands on top of the magnetic and topological insulators share important features such as positions of dispersion minima and maxima, whereas the hole band on top of the topological insulator looks more similar to the hole band of the featureless insulator, as it lacks the characteristic maxima at ( ±π/ 2, ±π/ 2).  
+
+> VI. DISCUSSION
+
+In this work we have shown how to realize the sym-metric phase of the NCCP 1 model, characterized by a deconfined U(1) gauge field, on a simple cubic lattice by sampling over hedgehog-free configurations in an O(3) Heisenberg model. By strongly coupling these Heisen-berg spins to a bilayer square lattice of fermions we re-alized an incompressible state at half-filling where the fermion spins form a U(1) spin liquid. From the decay of the imaginary-time Greens’ function, and from the single-particle spectral weight produced by stochastic analytic continuation, we obtained the dispersion relation of a sin-10 gle electron or hole doped in this U(1) spin liquid. The electron dispersion relation is found to be of the same form as the mean-field electron dispersion in the pres-ence of anti-ferromagnetic order, as expected from an effective rotating-frame chargon theory. The hole disper-sion in the spin liquid, on the other hand, is found to differ substantially from the mean-field hole dispersion in an anti-ferromagnet. We note that doping an electron or hole into the in-compressible spin liquid corresponds to simultaneously injecting both a chargon and a spinon, which interact strongly via the emergent U(1) gauge field. It is there-fore perfectly possible for the hole dispersion to devi-ate from the naive free chargon expression, and the fact that the electron dispersion actually agrees with it is a highly non-trivial result which could potentially be rel-evant for the electron-doped cuprate superconductors. In particular, there is experimental evidence that in the electron-doped cuprates the reconstructed Fermi surface with electron pockets near ( π, 0) and (0 , π ) survives to doping values where the long-range anti-ferromagnetic order has already disappeared [52]. The doped U(1) spin liquid as described by the rotating-frame theory is thus a promising candidate to explain the physics at these doping values, as we have shown that it indeed leads to pockets at the same locations in the Brillouin zone as a doped anti-ferromagnet. For the bilayer model studied in this work we find that the fermions are always gapped, which means that the U(1) gauge field will be confining for any non-zero monopole fugacity. In a single fermion-layer system – which has a sign problem but is the case relevant for the cuprate superconductors– the strong inter-layer pair-ing cannot occur, and there is the possibility of stabiliz-ing a metallic state away from half filling (possibly af-ter adding a repulsive interaction between the fermions). This metallic state could then potentially host a decon-fined phase which is stable in the presence of monopoles. But even if the metallic deconfined phase were not sta-ble, the confinement length scale could still be very large such that the physics would be hard to distinguish from that of the doped U(1) spin liquid, especially at finite temperatures. An interesting question for future work is then if and how d-wave superconductivity would emerge from this fractionalized metal. 
+
+> ACKNOWLEDGMENTS
+
+We thank Zi-Yang Meng and Pietro Bonetti for helpful and stimulating discussions. This research was supported by the European Research Council under the European Union Horizon 2020 Research and Innovation Programme via Grant Agreement No. 101076597-SIESS (X.Z. and N.B.). The computational resources and services used in this work were partially provided by the VSC (Flemish Supercomputer Center), funded by the Research Foun-dation - Flanders (FWO) and the Flemish Government. We acknowledge EuroHPC Joint Undertaking for award-ing us access to MareNostrum5 hosted by Barcelona Su-percomputing Center, Spain.                                      
+
+> [1] P. W. Anderson, Science 235 , 1196 (1987). [2] P. W. Anderson, G. Baskaran, Z. Zou, and T. Hsu, Phys. Rev. Lett. 58 , 2790 (1987). [3] G. Baskaran and P. W. Anderson, Phys. Rev. B 37 , 580 (1988). [4] M. Oshikawa, Phys. Rev. Lett. 84 , 3370 (2000). [5] M. Oshikawa, Phys. Rev. Lett. 84 , 1535 (2000). [6] M. B. Hastings, Phys. Rev. B 69 , 104431 (2004). [7] T. Senthil, S. Sachdev, and M. Vojta, Phys. Rev. Lett.
+> 90 , 216403 (2003). [8] U. F. P. Seifert, T. Meng, and M. Vojta, Phys. Rev. B
+> 97 , 085118 (2018). [9] P. Coleman, A. Panigrahi, and A. Tsvelik, Phys. Rev. Lett. 129 , 177601 (2022). [10] S. Gazit, M. Randeria, and A. Vishwanath, Nature Physics 13 , 484 (2017). [11] S. Gazit, F. F. Assaad, S. Sachdev, A. Vishwanath, and C. Wang, Proceedings of the National Academy of Sci-ences 115 , E6987 (2018). [12] M. Hohenadler and F. F. Assaad, Phys. Rev. Lett. 121 ,086601 (2018). [13] X. Y. Xu, Y. Qi, L. Zhang, F. F. Assaad, C. Xu, and Z. Y. Meng, Phys. Rev. X 9, 021022 (2019). [14] W. Wang, D.-C. Lu, X. Y. Xu, Y.-Z. You, and Z. Y. Meng, Phys. Rev. B 100 , 085123 (2019). [15] L. Janssen, W. Wang, M. M. Scherer, Z. Y. Meng, and X. Y. Xu, Phys. Rev. B 101 , 235118 (2020). [16] S. Gazit, F. F. Assaad, and S. Sachdev, Phys. Rev. X 10 ,041057 (2020). [17] C. Chen, T. Yuan, Y. Qi, and Z. Y. Meng, Phys. Rev. B
+> 103 , 165131 (2021). [18] U. Borla, B. Jeevanesan, F. Pollmann, and S. Moroz, Phys. Rev. B 105 , 075132 (2022). [19] M. Raczkowski, B. Danu, and F. F. Assaad, Phys. Rev. B106 , L161115 (2022). [20] W. Brenig, Phys. Rev. B 105 , 245105 (2022). [21] U. Borla, S. Gazit, and S. Moroz, Phys. Rev. B 110 ,L201110 (2024). [22] G. Pan and F. F. Assaad, arXiv preprint arXiv:2512.17801 (2025). [23] C. Chen, U. F. Seifert, K. Feng, O. A. Starykh, L. Ba-lents, and Z. Y. Meng, arXiv preprint arXiv:2508.08528 (2025). [24] P. Monthoux, A. V. Balatsky, and D. Pines, Phys. Rev. Lett. 67 , 3448 (1991). [25] A. Abanov, A. V. Chubukov, and J. Schmalian, Advances in Physics 52 , 119 (2003). [26] M.-h. Lau and C. Dasgupta, Physical Review B 39 , 7212 (1989). [27] M. Kamal and G. Murthy, Physical review letters 71 ,1911 (1993). [28] O. I. Motrunich and A. Vishwanath, Physical Review
+
+11 
+
+B—Condensed Matter and Materials Physics 70 , 075104 (2004). [29] B. I. Shraiman and E. D. Siggia, Phys. Rev. Lett. 61 ,467 (1988). [30] H. J. Schulz, arXiv e-prints , cond-mat/9402103 (1994). [31] N. Dupuis, Phys. Rev. B 65 , 245118 (2002). [32] K. Borejsza and N. Dupuis, Phys. Rev. B 69 , 085119 (2004). [33] R. K. Kaul, A. Kolezhuk, M. Levin, S. Sachdev, and T. Senthil, Phys. Rev. B 75 , 235122 (2007). [34] R. K. Kaul, Y. B. Kim, S. Sachdev, and T. Senthil, Na-ture Physics 4, 28 (2008). [35] S. Sachdev, M. A. Metlitski, Y. Qi, and C. Xu, Phys. Rev. B 80 , 155129 (2009). [36] D. Chowdhury and S. Sachdev, Phys. Rev. B 91 , 115123 (2015). [37] S. Chatterjee, S. Sachdev, and M. S. Scheurer, Phys. Rev. Lett. 119 , 227002 (2017). [38] S. Sachdev, Reports on Progress in Physics 82 , 014001 (2018). [39] S. Sachdev, H. D. Scammell, M. S. Scheurer, and G. Tarnopolsky, Phys. Rev. B 99 , 054516 (2019). [40] P. M. Bonetti and W. Metzner, Phys. Rev. B 106 , 205152 (2022). [41] A. Nikolaenko, P. M. Bonetti, A. Kale, M. Lebrat, M. Greiner, and S. Sachdev, Phys. Rev. B 112 , 045129 (2025). [42] D. Vilardi and P. M. Bonetti, arXiv e-prints ,arXiv:2511.03436 (2025). [43] P. Forni, P. M. Bonetti, H. M¨ uller-Groeling, D. Vilardi, and W. Metzner, Phys. Rev. B 113 , 045144 (2026). [44] S. Sachdev, arXiv e-prints , arXiv:2512.23962 (2025), arXiv:2512.23962. [45] A. Polyakov, Gauge Fields and Strings , Contemporary concepts in physics No. v. 3 (Taylor & Francis, 1987). [46] B. Berg and M. L¨ uscher, Nuclear Physics B 190 , 412 (1981). [47] X. Zhang and N. Bultinck, Physical Review B 112 ,125110 (2025). [48] E. Fradkin, Field Theories of Condensed Matter Physics ,2nd ed. (Cambridge University Press, 2013). [49] A. W. Sandvik, Physical Review B 57 , 10287 (1998). [50] K. Beach, arXiv preprint cond-mat/0403055 (2004). [51] H. Shao and A. W. Sandvik, Physics Reports 1003 , 1 (2023). [52] J. He, C. R. Rotundu, M. S. Scheurer, Y. He, M. Hashimoto, K.-J. Xu, Y. Wang, E. W. Huang, T. Jia, S. Chen, B. Moritz, D. Lu, Y. S. Lee, T. P. Devereaux, and Z. xun Shen, Proceedings of the National Academy of Sciences 116 , 3449 (2019). 
+
+Appendix A: Further details on the QMC simulations 
+
+The Euclidean space-time lattice partition function for the electron-boson model is given by 
+
+Z =
+
+∫
+
+> C
+
+[DS] e−∆τ K ∑   
+
+> 2⊥τf2
+> 2
+
+Z−1 
+
+> f
+
+[S] Tr( 
+
+> Nτ
+
+∏ 
+
+> τ=1
+
+e∆τ (∑   
+
+> i,j,l,s c†
+> i,l,s hi,j cj,l,s +g
+
+∑    
+
+> i(−1) xi+yic†
+> ilzσc i·Si(τ))
+
+), (A1) where as explained in the main text, the integral over the unit vectors S is in a constrained, i.e. hedgehog-free, phase space. The inverse temperature is β = Nτ ∆τ , and Z−1 
+
+> f
+
+[S] is the boson counterterm which cancels the fermion determinant. We have used l, s to label layer and spin, and the free fermion Hamiltonian is 
+
+hi,j = −t[( δj,i +∆ x + δj,i +∆ y ) + h.c. ] − t′[( δj,i +∆ x+∆ y + δj,i +∆ x−∆y ) + h.c. ] + μδ i,j . (A2) This bilayer model has a Kramers anti-unitary symmetry T = lxσy K, with K representing complex conjugation, which ensures that the fermion determinant is positive (and hence the model is sign problem-free). As a result, the bosonic theory including the counter term is hermitian (and local because the fermions are always gapped in the bilayer model). The results of Ref. [47] imply that next to anti-ferromagnetism the leading symmetry-breaking channel of the model corresponds to superconductivity with inter-layer spin-singlet electron pairing, i.e. with an order parameter of the form c†lxσy c†. In our simulations we fix ∆ τ = 0 .1 and use a local spin-flip update for the bosonic field. 
+
+Appendix B: Polarization along τ direction from coupling fermion 
+
+Here we calculate the fermion determinant for the half-filled case with zero hopping. For convenience, we only compute one layer – the determinant from the other layer is obtained via hermitian conjugation. Since the hopping is zero, the determinant factorizes over different lattice sites. The contribution from a single site 12 K=-1 K=0       
+
+> FIG. 8. Doping density δas a function of chemical potential, obtained with constrained (i.e. hedgehog-free) sampling at both
+> K=−1 (a) and K= 0 (b).
+
+is given by Tr( 
+
+> Nτ
+
+∏ 
+
+> τ=1
+
+e∆τ g S(τ )·c†(τ )σc(τ )) (B1) = 2 + ∑ 
+
+> {nτ=±1}
+> Nτ
+
+∏ 
+
+> τ=1
+
+[⟨nτ S(τ )|nτ +1 S(τ + 1) ⟩e∆τ gn τ ]= 2 + ∑ 
+
+> {nτ=±1}
+
+eiFnS
+
+> Nτ
+
+∏ 
+
+> τ=1
+
+|nτ S(τ ) + nτ +1 S(τ + 1) |
+
+2 e∆τ gn τ . (B2) Here, the first term comes from the empty and doubly occupied states, and in the second line we have chosen the quantization axis of the fermion spin to be ±S(τ ). We have defined the Wess-Zumino action capturing the Berry phase as eiFnS = e i2
+
+∑Nτ τ =1 Ω0,τ,τ +1 , where Ω 0,τ,τ +1 is the rotation angle of a tangent vector on spin S2 via the parallel transport starting from a fixed spin S0, i.e. S0 → nτ S(τ ) → nτ +1 S(τ + 1) → S0. eiFnS is determined by the rotation angle along imaginary time path of nτ S(τ ) and independent with the gauge choice S0 according to the periodic boundary condition S(Nτ + 1) = S(1). From the above expression one can see that it is the spin Berry phase which introduces a sign-problem for a single-layer system. The largest term in the sum (obtained by taking all nτ = +1) is maximized when the S are constant along imaginary-time. The fermion determinant thus introduces a ferromagnetic interaction for the S along the imaginary time direction. We want to cancel out this effect, and a straightforward way to do this is by adding an additional term to the boson action which exactly cancels this fermion feedback effect. This means that in practice we sample S(τ ) without considering the contribution from the fermions. 
+
+> Appendix C: Intermediate-coupling results
+
+In this final appendix we present some numerical results obtained with t = −3 and a smaller coupling strength 
+
+g = 10. As shown in Fig. 8, for this value of the coupling constant there is no plateau in the doping density δ as a function of chemical potential (both for K = −1 and K = 0), which shows that the half-filled state is compressible. In Fig. 9 we show the single-particle spectral weight obtained from stochastic analytic continuation of the imaginary-time Green’s function [49–51] along a high-symmetry line in the Brillouin zone. We see that the fermion spectrum is gapped in a finite doping range around half-filling, indicating superconducting order. In Fig. 10 we show G(k, τ = β/ 2) = ∫ +∞−∞ dω A (k, ω )/(2 cosh( βω )) as a proxy for the zero-frequency spectral weight 
+
+A(k, 0). With K = −1 (shown in Figs. 10 (a-d)), for which S realizes the symmetric phase of the NCCP 1 model, we see that the zero-frequency electronic spectral weight is peaked at the location of the large Fermi surface (i.e. the Fermi surface of the non-interacting theory), as expected when the half-filled state is compressible. For K = 0 (shown in Figs. 10 (e-h)), where anti-ferromagnetic order develops as the system is cooled to zero temperature, we see that the zero-frequency spectral weight varies significantly along the Fermi surface. On electron-doped side one can see the electron pockets near ( π, 0) and (0 , π ) start to develop, and on the hole-doped side one recognizes the characteristic Fermi arcs near ( ±π/ 2, ±π/ 2). Interestingly, we find that these features develop at temperatures for which the anti-ferromagnetic correlation length for the fermion spins is very small (order 2 lattice sites). 13 K=-1 K=0 
+
+FIG. 9. Single-particle spectral weight along a high-symmetry line in the Brillouin zone obtained from stochastic analytical continuation (SAC) [49–51] of the imaginary-time Greens’ function. Results are obtained with constrained sampling at K = −1(a-d) and K = 0 (e-h). The single-particle spectrum is gapped in a finite doping range around half filling, indicating a superconducting phase (as the half-filled state is compressible). The system size is L = Lτ = 16, and we have used both periodic and anti-periodic boundary conditions to double the momentum resolution. K=-1 K=0 
+
+FIG. 10. The approximated zero-frequency spectral function from the Green’s function as G(k, τ = β/ 2) ∼ A(k, 0) over the Brillouin zone for constrained K = −1 (a-d) and K = 0 (e-h) cases. Though in both cases the system enters the superconduct phase, K = 0 with a larger AFM fluctuation has shown a fermi-arc shape in (g,h). System size is L = Lτ = 16 and we have used periodic/antiperiodic boundary conditions to enlarge the momentum resolution.
